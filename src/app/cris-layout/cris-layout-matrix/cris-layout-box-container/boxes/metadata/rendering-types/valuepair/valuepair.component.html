@@ -1,5 +1,5 @@
 <div [class]="field.styleValue">
     <span class="text-value">
-      {{ normalizeValue(value$ | async) | dsDate }}
+      {{ value$ | async | dsDate }}
     </span>
 </div>

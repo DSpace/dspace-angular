@@ -5,7 +5,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
 import { Item } from '../../../core/shared/item.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { SearchOptions } from '../../search/search-options.model';
+import { SearchOptions } from '../../search/models/search-options.model';
 import { ItemExportFormConfiguration, ItemExportService } from '../item-export.service';
 import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
 import { NotificationsService } from '../../notifications/notifications.service';

@@ -66,9 +66,8 @@ export class ValidationSuggestionsComponent extends InputSuggestionsComponent im
   }
 
   onClickSuggestion(data) {
-     this.value = data;
+    this.value = data;
     this.clickSuggestion.emit(data);
-    this.selectSuggestionMetadata.emit(data);
     this.close();
     this.blockReopen = true;
     this.queryInput.nativeElement.focus();

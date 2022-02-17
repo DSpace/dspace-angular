@@ -8,12 +8,14 @@ import { MetadataLinkValue } from '../../../../../../models/cris-layout-metadata
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 
 /**
  * Defines the list of subtypes for this rendering
  */
 enum TYPES {
-  LABEL = 'LABEL'
+  LABEL = 'LABEL',
+  EMAIL = 'EMAIL'
 }
 
 /**
@@ -34,10 +36,12 @@ export class LinkComponent extends RenderingTypeValueModelComponent implements O
    */
   link: MetadataLinkValue;
 
+  isEmail = false;
+
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
-    @Inject('metadataValueProvider') public metadataValueProvider: any,
+    @Inject('metadataValueProvider') public metadataValueProvider: MetadataValue,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     protected translateService: TranslateService
   ) {
@@ -53,11 +57,23 @@ export class LinkComponent extends RenderingTypeValueModelComponent implements O
    */
   getLinkFromValue(): MetadataLinkValue {
     // If the component has label subtype get the text from translate service
-    const linkText = (hasValue(this.renderingSubType) &&
-      this.renderingSubType.toUpperCase() === TYPES.LABEL) ? this.translateService.instant(this.field.label) : this.metadataValue.value;
+    let linkText: string;
+    let metadataValue: string;
+
+    if (hasValue(this.renderingSubType) && this.renderingSubType.toUpperCase() === TYPES.EMAIL) {
+        this.isEmail = true;
+        metadataValue = 'mailto:' + this.metadataValue.value;
+        linkText = (hasValue(this.renderingSubType) &&
+        this.renderingSubType.toUpperCase() === TYPES.EMAIL) ? this.metadataValue.value : this.translateService.instant(this.field.label);
+    } else {
+        const startsWithProtocol = [/^https?:\/\//, /^ftp:\/\//];
+        metadataValue = startsWithProtocol.some(rx => rx.test(this.metadataValue.value)) ? this.metadataValue.value : 'http://' + this.metadataValue.value;
+        linkText = (hasValue(this.renderingSubType) &&
+        this.renderingSubType.toUpperCase() === TYPES.LABEL) ? this.translateService.instant(this.field.label) : this.metadataValue.value;
+    }
 
     return {
-      href: this.metadataValue.value,
+      href: metadataValue,
       text: linkText
     };
   }

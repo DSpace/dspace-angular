@@ -1,23 +1,18 @@
 <div [class]="field.styleValue">
     <span class="d-flex align-items-center txt-value">
-      <ng-container *ngIf="hasOrcidBadge(); else noOrcidBadge">
 
-        <a *ngIf="orcidUrl; else noOrcidUrl" href="{{orcidUrl}}/{{metadataValue.value}}" target="_blank">
-          {{ normalizeValue(metadataValue.value) | dsDate }}
-        </a>
+      <a *ngIf="(orcidUrl$ | async); else noOrcidUrl" href="{{(orcidUrl$ | async)}}/{{metadataValue.value}}" target="_blank">
+        {{ metadataValue.value }}
+      </a>
 
-        <ng-template #noOrcidUrl>{{ normalizeValue(metadataValue.value) | dsDate }}</ng-template>
+      <ng-template #noOrcidUrl>{{ metadataValue.value }}</ng-template>
 
-        <img placement="top"
-             ngbTooltip="{{ 'orcid.badge.tooltip' | translate }}"
-             class="orcid-icon"
-             alt="orcid-logo"
-             src="assets/images/orcid.logo.icon.svg"/>
-      </ng-container>
-
-      <ng-template #noOrcidBadge>
-        {{ normalizeValue(metadataValue.value) | dsDate }}
-      </ng-template>
+      <img *ngIf="hasOrcidBadge()"
+           placement="top"
+           ngbTooltip="{{ 'orcid.badge.tooltip' | translate }}"
+           class="orcid-icon"
+           alt="orcid-logo"
+           src="assets/images/orcid.logo.icon.svg"/>
 
     </span>
 </div>

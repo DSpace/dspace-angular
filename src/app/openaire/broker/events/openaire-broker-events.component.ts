@@ -25,11 +25,10 @@ import {
   OpenaireBrokerEventData,
   ProjectEntryImportModalComponent
 } from '../project-entry-import-modal/project-entry-import-modal.component';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload
-} from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { combineLatest } from 'rxjs/internal/observable/combineLatest';
+import { Item } from '../../../core/shared/item.model';
 
 /**
  * Component to display the OpenAIRE Broker event list.
@@ -380,9 +379,14 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     this.subs.push(
       from(events).pipe(
         mergeMap((event: OpenaireBrokerEventObject) => {
-          return event.related.pipe(
-            getFirstSucceededRemoteDataPayload(),
-            map((subRelated) => {
+          const related$ = event.related.pipe(
+            getFirstCompletedRemoteData(),
+          );
+          const target$ = event.target.pipe(
+            getFirstCompletedRemoteData()
+          );
+          return combineLatest([related$, target$]).pipe(
+            map(([relatedItemRD, targetItemRD]: [RemoteData<Item>, RemoteData<Item>]) => {
               const data: OpenaireBrokerEventData = {
                 event: event,
                 id: event.id,
@@ -392,13 +396,14 @@ export class OpenaireBrokerEventsComponent implements OnInit {
                 projectId: null,
                 handle: null,
                 reason: null,
-                isRunning: false
+                isRunning: false,
+                target: (targetItemRD?.hasSucceeded) ? targetItemRD.payload : null,
               };
-              if (subRelated && subRelated.id) {
+              if (relatedItemRD?.hasSucceeded && relatedItemRD?.payload?.id) {
                 data.hasProject = true;
                 data.projectTitle = event.message.title;
-                data.projectId = subRelated.id;
-                data.handle = subRelated.handle;
+                data.projectId = relatedItemRD?.payload?.id;
+                data.handle = relatedItemRD?.payload?.handle;
               }
               return data;
             })

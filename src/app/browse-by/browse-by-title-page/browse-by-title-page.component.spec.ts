@@ -11,6 +11,7 @@ import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { toRemoteData } from '../browse-by-metadata-page/browse-by-metadata-page.component.spec';
 import { BrowseByTitlePageComponent } from './browse-by-title-page.component';
+import { ItemDataService } from '../../core/data/item-data.service';
 import { Community } from '../../core/shared/community.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { BrowseService } from '../../core/browse/browse.service';
@@ -24,6 +25,7 @@ import { SearchManager } from '../../core/browse/search-manager';
 describe('BrowseByTitlePageComponent', () => {
   let comp: BrowseByTitlePageComponent;
   let fixture: ComponentFixture<BrowseByTitlePageComponent>;
+  let itemDataService: ItemDataService;
   let route: ActivatedRoute;
 
   const mockCommunity = Object.assign(new Community(), {
@@ -88,6 +90,7 @@ describe('BrowseByTitlePageComponent', () => {
     fixture = TestBed.createComponent(BrowseByTitlePageComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
+    itemDataService = (comp as any).itemDataService;
     route = (comp as any).route;
   });
 

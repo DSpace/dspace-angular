@@ -51,6 +51,10 @@ export class CrisStatisticsPageComponent implements OnInit {
    */
   selectedCategory: StatisticsCategory;
 
+  /**
+   * The category type
+   */
+  categoryType: string;
 
   /**
    * The date from to filter
@@ -118,6 +122,7 @@ export class CrisStatisticsPageComponent implements OnInit {
       tap( (categories: StatisticsCategory[]) => {
         this.categorieList = categories;
         this.selectedCategory = categories[0];
+        this.categoryType = this.selectedCategory.categoryType;
         this.getUserReports(this.selectedCategory);
       })
     );
@@ -135,11 +140,12 @@ export class CrisStatisticsPageComponent implements OnInit {
 
   /**
    * When tab changed ,need to refresh information.
-   * @param category the that is being selected
+   * @param event the that is being selected
    */
   changeCategoryType(event) {
     const category = this.categorieList.find((cat) => { return cat.id === event.nextId; });
     this.selectedCategory = category;
+    this.categoryType = this.selectedCategory.categoryType;
     this.getUserReports(category);
   }
 

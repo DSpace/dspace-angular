@@ -5,7 +5,6 @@ import { SharedModule } from '../shared/shared.module';
 
 import { MyDspacePageRoutingModule } from './my-dspace-page-routing.module';
 import { MyDSpacePageComponent } from './my-dspace-page.component';
-import { MyDSpaceResultsComponent } from './my-dspace-results/my-dspace-results.component';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
 import { MyDSpaceGuard } from './my-dspace.guard';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
@@ -18,11 +17,11 @@ import { OpenaireSuggestionsDataService } from '../core/openaire/reciter-suggest
 import { OpenaireModule } from '../openaire/openaire.module';
 import { MyDSpaceNewBulkImportComponent } from './my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
 import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
+import { SearchModule } from '../shared/search/search.module';
 
 const DECLARATIONS = [
   MyDSpacePageComponent,
   ThemedMyDSpacePageComponent,
-  MyDSpaceResultsComponent,
   MyDSpaceNewSubmissionComponent,
   CollectionSelectorComponent,
   MyDSpaceNewSubmissionDropdownComponent,
@@ -34,6 +33,7 @@ const DECLARATIONS = [
   imports: [
     CommonModule,
     SharedModule,
+    SearchModule,
     MyDspacePageRoutingModule,
     MyDspaceSearchModule.withEntryComponents(),
     OpenaireModule

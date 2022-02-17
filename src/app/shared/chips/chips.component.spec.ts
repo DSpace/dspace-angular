@@ -13,7 +13,7 @@ import { AuthorityConfidenceStateDirective } from '../authority-confidence/autho
 import { TranslateModule } from '@ngx-translate/core';
 import { ConfidenceType } from '../../core/shared/confidence-type';
 import { SortablejsModule } from 'ngx-sortablejs';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.test';
 
 describe('ChipsComponent test suite', () => {
 
@@ -72,6 +72,7 @@ describe('ChipsComponent test suite', () => {
       chips = new Chips(['a', 'b', 'c']);
       chipsFixture = TestBed.createComponent(ChipsComponent);
       chipsComp = chipsFixture.componentInstance; // TruncatableComponent test instance
+      chipsComp.editable = true;
       chipsComp.chips = chips;
       chipsFixture.detectChanges();
     });
@@ -81,7 +82,7 @@ describe('ChipsComponent test suite', () => {
       chipsComp = null;
     });
 
-    it('should emit when a chip item is removed', fakeAsync(() => {
+    it('should emit when a chip item is removed and editable is true', fakeAsync(() => {
 
       spyOn(chipsComp.chips, 'remove');
 
@@ -116,7 +117,7 @@ describe('ChipsComponent test suite', () => {
   describe('when has items as object', () => {
     beforeEach(() => {
       const item = {
-        mainField: new FormFieldMetadataValueObject('main test', null, null,'test001', 'main test', 0, ConfidenceType.CF_ACCEPTED),
+        mainField: new FormFieldMetadataValueObject('main test', null, null,'test001', 'main test with long text and tooltip', 0, ConfidenceType.CF_ACCEPTED),
         relatedField: new FormFieldMetadataValueObject('related test', null, null,'test002', 'related test', 0, ConfidenceType.CF_ACCEPTED),
         otherRelatedField: new FormFieldMetadataValueObject('other related test')
       };
@@ -124,6 +125,7 @@ describe('ChipsComponent test suite', () => {
       chips = new Chips([item], 'display', 'mainField', environment.submission.icons.metadata);
       chipsFixture = TestBed.createComponent(ChipsComponent);
       chipsComp = chipsFixture.componentInstance; // TruncatableComponent test instance
+      chipsComp.editable = true;
       chipsComp.showIcons = true;
       chipsComp.chips = chips;
       chipsFixture.detectChanges();
@@ -143,7 +145,33 @@ describe('ChipsComponent test suite', () => {
 
       icons[0].triggerEventHandler('mouseover', null);
 
-      expect(chipsComp.tipText).toEqual(['main test']);
+      expect(chipsComp.tipText).toEqual(['main test with long text and tooltip']);
+    });
+  });
+
+  describe('when has items as object and short text to display', () => {
+    beforeEach(() => {
+      const item = {
+        mainField: new FormFieldMetadataValueObject('main test', null, null,'test001', 'main test', 0, ConfidenceType.CF_ACCEPTED),
+        relatedField: new FormFieldMetadataValueObject('related test', null, null,'test002', 'related test', 0, ConfidenceType.CF_ACCEPTED),
+        otherRelatedField: new FormFieldMetadataValueObject('other related test')
+      };
+
+      chips = new Chips([item], 'display', 'mainField', environment.submission.icons.metadata);
+      chipsFixture = TestBed.createComponent(ChipsComponent);
+      chipsComp = chipsFixture.componentInstance; // TruncatableComponent test instance
+      chipsComp.showIcons = true;
+      chipsComp.chips = chips;
+      chipsFixture.detectChanges();
+    });
+
+    it('should not show tooltip on mouse over an icon', () => {
+      const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+      const icons = de.queryAll(By.css('i.fas'));
+
+      icons[0].triggerEventHandler('mouseover', null);
+
+      expect(chipsComp.tipText).toBeUndefined();
     });
   });
 

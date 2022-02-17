@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-import { hasValue, isNotEmpty } from '../../../../../../shared/empty.util';
+import { hasValue } from '../../../../../../shared/empty.util';
 import { Item } from '../../../../../../core/shared/item.model';
-import { PLACEHOLDER_PARENT_METADATA } from '../../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { TranslateService } from '@ngx-translate/core';
 import { LayoutField } from '../../../../../../core/layout/models/box.model';
 import { MetadataValue } from '../../../../../../core/shared/metadata.models';
@@ -97,17 +96,5 @@ export abstract class RenderingTypeModelComponent {
    */
   get valueStyle(): string {
     return this.field.styleValue || '';
-  }
-
-  /**
-   * Normalize value to display
-   * @param value
-   */
-  normalizeValue(value: string): string {
-    if (isNotEmpty(value) && value.includes(PLACEHOLDER_PARENT_METADATA)) {
-      return '';
-    } else {
-      return value;
-    }
   }
 }

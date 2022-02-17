@@ -8,11 +8,11 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { OpenaireStateService } from '../../openaire/openaire-state.service';
 import { Item } from '../../core/shared/item.model';
 import {
-  createNoContentRemoteDataObject, createNoContentRemoteDataObject$,
+  createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../remote-data.utils';
-import { SearchResult } from '../search/search-result.model';
+import { SearchResult } from '../search/models/search-result.model';
 import { SuggestionsService } from '../../openaire/reciter-suggestions/suggestions.service';
 
 // REST Mock ---------------------------------------------------------------------
@@ -854,7 +854,7 @@ const ItemMockPid7: Item = Object.assign(
   }
 );
 
-const ItemMockPid8: Item = Object.assign(
+export const ItemMockPid8: Item = Object.assign(
   new Item(),
   {
     handle: '10077/21486',
@@ -973,7 +973,7 @@ const ItemMockPid8: Item = Object.assign(
   }
 );
 
-const ItemMockPid9: Item = Object.assign(
+export const ItemMockPid9: Item = Object.assign(
   new Item(),
   {
     handle: '10077/21486',

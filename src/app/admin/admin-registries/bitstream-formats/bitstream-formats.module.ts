@@ -7,13 +7,15 @@ import { FormatFormComponent } from './format-form/format-form.component';
 import { EditBitstreamFormatComponent } from './edit-bitstream-format/edit-bitstream-format.component';
 import { BitstreamFormatsRoutingModule } from './bitstream-formats-routing.module';
 import { AddBitstreamFormatComponent } from './add-bitstream-format/add-bitstream-format.component';
+import { FormModule } from '../../../shared/form/form.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     RouterModule,
-    BitstreamFormatsRoutingModule
+    BitstreamFormatsRoutingModule,
+    FormModule
   ],
   declarations: [
     BitstreamFormatsComponent,

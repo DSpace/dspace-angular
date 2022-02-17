@@ -24,6 +24,7 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 
 describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
@@ -34,6 +35,7 @@ describe('ItemVersionsComponent', () => {
   let workspaceItemDataService: WorkspaceitemDataService;
   let workflowItemDataService: WorkflowItemDataService;
   let versionService: VersionDataService;
+  let configurationService: ConfigurationDataService;
 
   const versionHistory = Object.assign(new VersionHistory(), {
     id: '1',
@@ -109,6 +111,10 @@ describe('ItemVersionsComponent', () => {
     findById: EMPTY,
   });
 
+  const configurationServiceSpy = jasmine.createSpyObj('configurationService', {
+    findByPropertyName: of(true),
+  });
+
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
@@ -125,6 +131,7 @@ describe('ItemVersionsComponent', () => {
         {provide: VersionDataService, useValue: versionServiceSpy},
         {provide: WorkspaceitemDataService, useValue: workspaceItemDataServiceSpy},
         {provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy},
+        {provide: ConfigurationDataService, useValue: configurationServiceSpy},
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -135,6 +142,7 @@ describe('ItemVersionsComponent', () => {
     workspaceItemDataService = TestBed.inject(WorkspaceitemDataService);
     workflowItemDataService = TestBed.inject(WorkflowItemDataService);
     versionService = TestBed.inject(VersionDataService);
+    configurationService = TestBed.inject(ConfigurationDataService);
 
   }));
 

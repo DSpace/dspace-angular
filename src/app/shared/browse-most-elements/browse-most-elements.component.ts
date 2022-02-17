@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { SearchService } from '../../core/shared/search/search.service';
-import { PaginatedSearchOptions } from '../search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { SearchResult } from '../search/search-result.model';
+import { SearchResult } from '../search/models/search-result.model';
 import { Context } from '../../core/shared/context.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -29,9 +29,9 @@ export class BrowseMostElementsComponent implements OnInit {
     this.searchService.search(this.paginatedSearchOptions).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((response: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
-          this.searchResults = response as any;
-          this.cdr.detectChanges();
-      });
+      this.searchResults = response as any;
+      this.cdr.detectChanges();
+    });
   }
 
 }

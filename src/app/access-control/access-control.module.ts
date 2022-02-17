@@ -9,13 +9,15 @@ import { GroupFormComponent } from './group-registry/group-form/group-form.compo
 import { MembersListComponent } from './group-registry/group-form/members-list/members-list.component';
 import { SubgroupsListComponent } from './group-registry/group-form/subgroup-list/subgroups-list.component';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
+import { FormModule } from '../shared/form/form.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     RouterModule,
-    AccessControlRoutingModule
+    AccessControlRoutingModule,
+    FormModule
   ],
   declarations: [
     EPeopleRegistryComponent,

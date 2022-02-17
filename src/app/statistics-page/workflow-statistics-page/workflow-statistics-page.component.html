@@ -1,0 +1,164 @@
+<div class="container">
+
+  <h2>{{'statistics.workflow.page.header' | translate}}</h2>
+
+  <div class="datepicker-container">
+    <div class="form-group">
+      <div class="input-group">
+        <input class="form-control filter-input" placeholder="{{ 'statistics.workflow.page.startDate' | translate }}"
+                name="dp" [(ngModel)]="dateFrom" (ngModelChange)="onSearchFilterChange()" ngbDatepicker
+                #df="ngbDatepicker" />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="df.toggle()" type="button">
+            <i class="far fa-calendar-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group ml-2">
+        <input class="form-control filter-input" placeholder="{{ 'statistics.workflow.page.endDate' | translate }}"
+                name="dp" [(ngModel)]="dateTo" (ngModelChange)="onSearchFilterChange()" ngbDatepicker
+                #dt="ngbDatepicker" />
+
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dt.toggle()" type="button">
+            <i class="far fa-calendar-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="form-group ">
+      <div class="btn-group ml-2 mr-2" role="group">
+        <button class="btn btn-outline-secondary" (click)="onCollectionFilterButtonClick()" type="button">
+          {{ collectionName }}
+        </button>
+        <button class="btn btn-outline-secondary" (click)="resetCollectionFilter()" type="button" [disabled]="!collectionId">
+          <i class="fas fa-eraser"></i>
+        </button>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group mr-2">
+        <input type="number" min="1" class="form-control filter-input" placeholder="{{ 'statistics.workflow.page.max' | translate }}"
+          name="max" [(ngModel)]="max" (ngModelChange)="onSearchFilterChange()" />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group ml-2">
+        <button class="btn btn-secondary" (click)="resetFilters()" type="button">
+          <i class="fas fa-eraser"></i> {{ 'statistics.workflow.page.reset' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="mt-4">{{'statistics.workflow.page.step-table.header' | translate}}</h3>
+
+  <div class="table-responsive">
+    <table id="workflowSteps" class="table table-striped table-hover table-bordered table-sm">
+      <thead>
+        <tr>
+          <th scope="col" class="align-middle text-center"></th>
+          <th scope="col" class="align-middle text-center">{{'statistics.workflow.page.step-table.step' | translate}}</th>
+          <th scope="col" class="align-middle text-center">{{'statistics.workflow.page.step-table.count' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let workflowStep of (workflowSteps$ | async); let i = index">
+          <td class="align-middle text-center font-weight-bold">{{ i + 1 }}</td>
+          <td class="align-middle text-center">{{ 'statistics.workflow.page.step-table.' + workflowStep.name | translate}}</td>
+          <td class="align-middle text-center">{{workflowStep.count}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ds-alert *ngIf="(workflowSteps$ | async).length === 0"
+    [type]="AlertTypeEnum.Info"
+    [content]="'statistics.workflow.page.no-data-found'">
+  </ds-alert>
+
+  <h3 class="mt-4">{{'statistics.workflow.page.owner-table.header' | translate}}</h3>
+
+  <div class="table-responsive" >
+    <table id="workflowOwners" class="table table-striped table-hover table-bordered table-sm">
+      <thead>
+        <tr>
+          <th scope="col" class="align-middle text-center"></th>
+          <th scope="col" class="align-middle text-center">{{'statistics.workflow.page.owner-table.email' | translate}}</th>
+          <th scope="col" class="align-middle text-center">{{'statistics.workflow.page.owner-table.count' | translate}}</th>
+          <th scope="col" class="align-middle text-center"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let workflowOwner of (workflowOwners$ | async); let i = index">
+          <td class="align-middle text-center font-weight-bold">{{ i + 1 }}</td>
+          <td class="align-middle text-center">{{ workflowOwner.email }}</td>
+          <td class="align-middle text-center">{{workflowOwner.count}}</td>
+          <td class="align-middle text-center" style="width: 5%">
+            <button class="btn btn-link p-0" (click)="showActionCounts(workflowOwner,actions)" type="button">
+              <i class="fas fa-info-circle"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ds-alert *ngIf="(workflowOwners$ | async).length === 0"
+    [type]="AlertTypeEnum.Info"
+    [content]="'statistics.workflow.page.no-data-found'">
+  </ds-alert>
+
+  <h3 class="mt-4">{{'statistics.workflow.page.current-table.header' | translate}}</h3>
+
+  <div class="table-responsive">
+    <table id="currentWorkflowSteps" class="table table-striped table-hover table-bordered table-sm">
+      <thead>
+        <tr>
+          <th scope="col" class="align-middle text-center"></th>
+          <th scope="col" class="align-middle text-center">{{'statistics.workflow.page.step-table.step' | translate}}</th>
+          <th scope="col" class="align-middle text-center">{{'statistics.workflow.page.step-table.count' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let currentWorkflowStep of (currentWorkflowSteps$ | async); let i = index">
+          <td class="align-middle text-center font-weight-bold">{{ i + 1 }}</td>
+          <td class="align-middle text-center">{{ 'statistics.workflow.page.current-table.' + currentWorkflowStep.name | translate}}</td>
+          <td class="align-middle text-center">{{currentWorkflowStep.count}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ds-alert *ngIf="(currentWorkflowSteps$ | async).length === 0"
+    [type]="AlertTypeEnum.Info"
+    [content]="'statistics.workflow.page.no-data-found'">
+  </ds-alert>
+
+</div>
+
+<ng-template #actions let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title text-info">{{'statistics.workflow.page.actions.title' | translate}}</h4>
+    <button type="button" class="close" (click)="closeActionsModal()" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table id="workflowActions" class="table table-striped table-hover table-bordered table-sm">
+      <thead>
+        <tr>
+          <th scope="col" class="align-middle text-center"></th>
+          <th scope="col" class="align-middle text-center">{{'statistics.workflow.page.action-table.action' | translate}}</th>
+          <th scope="col" class="align-middle text-center">{{'statistics.workflow.page.action-table.count' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let actionCount of selectedActionCounts | keyvalue; let i = index">
+          <td class="align-middle text-center font-weight-bold">{{ i + 1 }}</td>
+          <td class="align-middle text-center">{{ 'statistics.workflow.page.action-table.' + actionCount.key | translate}}</td>
+          <td class="align-middle text-center">{{actionCount.value}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-template>

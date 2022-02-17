@@ -1,13 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { getFirstSucceededRemoteData, metadataFieldsToString } from '../../../../core/shared/operators';
 import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { RegistryService } from '../../../../core/registry/registry.service';
@@ -21,6 +12,7 @@ import { NgModel } from '@angular/forms';
 import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
+import { MetadataSecurityConfiguration } from '../../../../core/submission/models/metadata-security-configuration';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -47,10 +39,11 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * The metadatum of this field
    */
   @Input() metadata: MetadatumViewModel;
+
   /**
-   * Emits a new selection
+   * The metadata security configuration for the entity.
    */
-  @Output() selectNewMetadata = new EventEmitter();
+  @Input() metadataSecurityConfiguration: MetadataSecurityConfiguration = null;
 
   /**
    * Emits whether or not this field is currently editable
@@ -63,7 +56,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   valid: Observable<boolean>;
 
   /**
-   * The current suggestions for the metadatafield when editing
+   * The current suggestions for the metadata field when editing
    */
   metadataFieldSuggestions: BehaviorSubject<InputSuggestion[]> = new BehaviorSubject([]);
 
@@ -81,20 +74,21 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
     this.editable = this.objectUpdatesService.isEditable(this.url, this.metadata.uuid);
     this.valid = this.objectUpdatesService.isValid(this.url, this.metadata.uuid);
     this.ref.detectChanges();
-
-
   }
 
 
   /**
    * Sends a new change update for this field to the object updates service
    */
-  update(ngModel?: NgModel) {
+  update(ngModel?: NgModel, checkSecurity = false) {
+    if (checkSecurity) {
+      this.addMetadataSecurity(ngModel);
+      this.ref.detectChanges();
+    }
+
     this.objectUpdatesService.saveChangeFieldUpdate(this.url, cloneDeep(this.metadata));
     if (hasValue(ngModel)) {
-
       this.checkValidity(ngModel);
-
     }
   }
 
@@ -103,7 +97,6 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * @param ngModel
    */
   public checkValidity(ngModel: NgModel) {
-
     ngModel.control.setValue(ngModel.viewModel);
     ngModel.control.updateValueAndValidity();
     this.objectUpdatesService.setValidFieldUpdate(this.url, this.metadata.uuid, ngModel.control.valid);
@@ -221,14 +214,27 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   changeSelectedSecurity(securityLevel) {
     this.metadata.securityLevel = securityLevel;
     this.update();
-
   }
 
   ngAfterViewInit() {
     this.ref.markForCheck();
   }
 
-  selectSuggestionMetadata(suggestionControl) {
-     this.selectNewMetadata.next(suggestionControl);
+  /**
+   * Checks in metadata security configuration object for new metadata security configuration value
+   */
+  private addMetadataSecurity(suggestionControl) {
+    if (this.metadataSecurityConfiguration) {
+      let security = null;
+      if (this.metadataSecurityConfiguration.metadataCustomSecurity[suggestionControl.viewModel]) {
+        security = this.metadataSecurityConfiguration.metadataCustomSecurity[suggestionControl.viewModel];
+      } else {
+        security = this.metadataSecurityConfiguration.metadataSecurityDefault;
+      }
+      if (security && security.length > 0) {
+        this.metadata.securityConfigurationLevelLimit = security;
+        this.metadata.securityLevel = security[security.length - 1];
+      }
+    }
   }
 }

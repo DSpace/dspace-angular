@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AttachmentComponent } from './attachment.component';
 import { SharedModule } from '../../../../../../../shared/shared.module';
@@ -33,7 +33,11 @@ describe('AttachmentComponent', () => {
           value: 'doi:10.1392/dironix'
         }
       ]
-    }
+    },
+    _links: {
+      self: {href: 'obj-selflink'}
+    },
+    uuid: 'item-uuid',
   });
 
   const mockField: LayoutField = {
@@ -55,7 +59,10 @@ describe('AttachmentComponent', () => {
 
   const bitstream1 = Object.assign(new Bitstream(), {
     id: 'bitstream4',
-    uuid: 'bitstream4'
+    uuid: 'bitstream4',
+    _links: {
+      self: {href: 'obj-selflink'}
+    }
   });
 
   const mockBitstreamDataService = {
@@ -71,7 +78,7 @@ describe('AttachmentComponent', () => {
     isAuthorized: jasmine.createSpy('isAuthorized')
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -98,6 +105,8 @@ describe('AttachmentComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AttachmentComponent);
     component = fixture.componentInstance;
+    mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
+    component.item = testItem;
     fixture.detectChanges();
   });
 

@@ -16,29 +16,28 @@
           (mouseover)="showTooltip(t, i)"
           (mouseout)="t.close()">
         <a class="flex-sm-fill text-sm-center nav-link active bg-info"
-           href="#"
-           [class.disabled]="(c.editMode) || dragged == i || !clickable"
-           [class.chip-selected]="(c.editMode) || dragged == i"
+           href="javascript:void(0);"
+           [class.disabled]="(editable && c.editMode) || dragged == i || !clickable"
+           [class.chip-selected]="(editable && c.editMode) || dragged == i"
            (click)="chipsSelected($event, i);">
           <span>
             <i *ngIf="showIcons && !c.isNestedItem()" dsAuthorityConfidenceState [authorityValue]="c.item" class="far fa-circle" aria-hidden="true"></i>
             <ng-container *ngIf="showIcons && c.hasVisibleIcons()">
               <span *ngFor="let icon of c.icons; let l = last" class="chip-stacked-icons">
-                              <i
-                                 [ngbTooltip]="tipContent"
-                                 placement="right"
-                                 triggers="manual"
-                                 #t="ngbTooltip"
-                                 class="{{icon.style}}"
-                                 [class.mr-1]="!l"
-                                 [class.mr-2]="l"
-                                 dsAuthorityConfidenceState
-                                 [authorityValue]="c.item[icon.metadata] || c.item"
-                                 [visibleWhenAuthorityEmpty]="icon.visibleWhenAuthorityEmpty"
-                                 aria-hidden="true"
-                                 (dragstart)="t.close();"
-                                 (mouseover)="showTooltip(t, i, icon.metadata)"
-                                 (mouseout)="t.close()"></i>
+                <i [ngbTooltip]="tipContent"
+                   placement="right"
+                   triggers="manual"
+                   #t="ngbTooltip"
+                   class="{{icon.style}}"
+                   [class.mr-1]="!l"
+                   [class.mr-2]="l"
+                   dsAuthorityConfidenceState
+                   [authorityValue]="c.item[icon.metadata] || c.item"
+                   [visibleWhenAuthorityEmpty]="icon.visibleWhenAuthorityEmpty"
+                   aria-hidden="true"
+                   (dragstart)="t.close();"
+                   (mouseover)="showTooltip(t, i, icon.metadata)"
+                   (mouseout)="t.close()"></i>
                 <i *ngIf="hasWillBeGenerated(c, icon.metadata)"
                    dsAuthorityConfidenceState
                    [authorityValue]="c.item[icon.metadata] || c.item"
@@ -52,8 +51,8 @@
               </span>
 
             </ng-container>
-            <p class="chip-label text-truncate d-table-cell">{{c.display}}</p>
-            <i *ngIf="!readOnly" class="fas fa-times ml-2"
+           <p class="d-table-cell">{{textTruncate(c.display)}}</p>
+            <i *ngIf="editable" class="fas fa-times ml-2"
                (click)="removeChips($event, i)"
                [title]="'chips.remove' | translate"></i>
           </span>
