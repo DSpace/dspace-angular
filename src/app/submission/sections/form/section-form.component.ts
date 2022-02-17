@@ -169,18 +169,20 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
     this.formConfigService.findByHref(this.sectionData.config).pipe(
       map((configData: RemoteData<ConfigObject>) => configData.payload),
       tap((config: SubmissionFormsModel) => this.formConfig = config),
-      mergeMap(() =>
-        observableCombineLatest([
+      mergeMap(() => {
+        const findById$ = this.submissionObjectService.findById(this.submissionId, false, true, followLink('item'));
+        const findByIdCached$ = interval(100).pipe(
+          mapTo(this.submissionObjectService.findById(this.submissionId, true, true, followLink('item')))
+        );
+        return observableCombineLatest([
           this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
-          race([this.submissionObjectService.findById(this.submissionId, false, true, followLink('item')).pipe(
+          race([findById$, findByIdCached$]).pipe(
             getFirstSucceededRemoteData(),
-            getRemoteDataPayload()),
-            interval(1000).pipe(mapTo(this.submissionObjectService.findById(this.submissionId, true, true, followLink('item')).pipe(
-              getFirstSucceededRemoteData(),
-              getRemoteDataPayload())))]
-              ),
+            getRemoteDataPayload()
+          ),
           this.submissionService.getSubmissionSecurityConfiguration(this.submissionId).pipe(take(1))
-        ])),
+        ]);
+      }),
       take(1))
       .subscribe(([sectionData, workspaceItem, metadataSecurity]: [WorkspaceitemSectionFormObject, WorkspaceItem, MetadataSecurityConfiguration]) => {
           if (isUndefined(this.formModel)) {
