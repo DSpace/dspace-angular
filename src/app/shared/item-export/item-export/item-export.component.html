@@ -6,6 +6,8 @@
 
       <div class="col">
 
+        <ng-container *ngIf="!selectCollection; else selectCollectionForm">
+
           <ds-item-export-alert [item]="item"></ds-item-export-alert>
 
           <form *ngIf="exportForm" [formGroup]="exportForm">
@@ -31,6 +33,14 @@
                   </select>
               </div>
           </form>
+
+        </ng-container>
+
+        <ng-template #selectCollectionForm>
+          <ds-administered-collection-selector
+            [entityType]="selectedEntityType" [types]="bulkImportXlsCollectionSelector" (onSelect)="onCollectionSelect($event)">
+          </ds-administered-collection-selector>
+        </ng-template>
 
       </div>
   </div>
