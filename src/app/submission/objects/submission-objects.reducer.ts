@@ -12,6 +12,7 @@ import {
   DepositSubmissionSuccessAction,
   DisableSectionAction,
   DisableSectionErrorAction,
+  DiscardSubmissionSuccessAction,
   EditFileDataAction,
   EnableSectionAction,
   InertSectionErrorsAction,
@@ -214,6 +215,11 @@ export interface SubmissionObjectEntry {
    * Configurations of security levels for metadatas of an entity type
    */
   metadataSecurityConfiguration?: MetadataSecurityConfiguration;
+
+  /**
+   * A boolean representing if a submission is discarded or not
+   */
+   isDiscarding?: boolean;
 }
 
 /**
@@ -284,7 +290,7 @@ export function submissionObjectReducer(state = initialState, action: Submission
     }
 
     case SubmissionObjectActionTypes.DISCARD_SUBMISSION_SUCCESS: {
-      return initialState;
+      return discardSuccess(state, action as DiscardSubmissionSuccessAction);
     }
 
     case SubmissionObjectActionTypes.DISCARD_SUBMISSION_ERROR: {
@@ -483,7 +489,8 @@ function initSubmission(state: SubmissionObjectState, action: InitSubmissionForm
     savePending: false,
     saveDecisionPending: false,
     depositPending: false,
-    metadataSecurityConfiguration: action.payload.metadataSecurityConfiguration
+    metadataSecurityConfiguration: action.payload.metadataSecurityConfiguration,
+    isDiscarding: false
   };
   return newState;
 }
@@ -526,6 +533,28 @@ function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissi
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         isLoading: false
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Set submission discard to true.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a DiscardSubmissionSuccessAction
+ * @return SubmissionObjectState
+ *    the new state, with the discard success.
+ */
+ function discardSuccess(state: SubmissionObjectState, action: DiscardSubmissionSuccessAction): SubmissionObjectState {
+  if (hasValue(state[ action.payload.submissionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        isDiscarding: true
       })
     });
   } else {

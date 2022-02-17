@@ -141,7 +141,9 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    */
   ngOnInit() {
     this.subs.push(
-      this.canDeactivateService.canDeactivate().subscribe((res) => {
+      this.route.paramMap.pipe(
+        switchMap((params: ParamMap) => this.canDeactivateService.canDeactivate(params.get('id')))
+      ).subscribe((res) => {
         this.canDeactivate = res;
       }),
       this.route.paramMap.pipe(
