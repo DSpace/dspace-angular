@@ -239,7 +239,7 @@ describe('submissionReducer test suite', () => {
   it('should reset state once the discard action is completed successfully', () => {
     const action: any = new DiscardSubmissionSuccessAction(submissionId);
     const newState = submissionObjectReducer(initState, action);
-    expect(newState).toEqual(Object.assign({ isDiscarded: true } as SubmissionObjectState));
+    expect(newState).toEqual(Object.assign({}, initState, { 826: Object.assign({}, initState[826], { isDiscarded: true })}));
   });
 
   it('should return same state once the discard action is completed unsuccessfully', () => {
