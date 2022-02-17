@@ -2951,6 +2951,7 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
       } as any
     },
     isLoading: false,
+    isDiscarding: false,
     savePending: false,
     depositPending: false
   }
@@ -3071,6 +3072,7 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
       } as any
     },
     isLoading: false,
+    isDiscarding: false,
     savePending: false,
     depositPending: false
   }
@@ -3156,6 +3158,7 @@ export const mockSubmissionStateWithoutUpload: SubmissionObjectState = Object.as
       } as any
     },
     isLoading: false,
+    isDiscarding: false,
     savePending: false,
     depositPending: false
   }
@@ -3514,7 +3517,97 @@ export const mockFileFormData = {
       },
     },
     {
-      accessConditionGroup:{
+      accessConditionGroup: {
+        name: [
+          {
+            value: 'lease',
+            language: null,
+            authority: null,
+            display: 'lease',
+            confidence: -1,
+            place: 0,
+            otherInformation: null
+          }
+        ],
+        endDate: [
+          {
+            value: {
+              year: 2019,
+              month: 1,
+              day: 16
+            },
+            language: null,
+            authority: null,
+            display: {
+              year: 2019,
+              month: 1,
+              day: 16
+            },
+            confidence: -1,
+            place: 0,
+            otherInformation: null
+          }
+        ],
+      }
+    },
+    {
+      accessConditionGroup: {
+        name: [
+          {
+            value: 'embargo',
+            language: null,
+            authority: null,
+            display: 'lease',
+            confidence: -1,
+            place: 0,
+            otherInformation: null
+          }
+        ],
+        startDate: [
+          {
+            value: {
+              year: 2019,
+              month: 1,
+              day: 16
+            },
+            language: null,
+            authority: null,
+            display: {
+              year: 2019,
+              month: 1,
+              day: 16
+            },
+            confidence: -1,
+            place: 0,
+            otherInformation: null
+          }
+        ],
+      }
+    }
+  ]
+};
+
+
+export const mockAccessesFormData = {
+  discoverable: true,
+  accessCondition: [
+    {
+      accessConditionGroup: {
+        name: [
+          {
+            value: 'openaccess',
+            language: null,
+            authority: null,
+            display: 'openaccess',
+            confidence: -1,
+            place: 0,
+            otherInformation: null
+          }
+        ],
+      },
+    },
+    {
+      accessConditionGroup: {
         name: [
           {
             value: 'lease',
@@ -3588,4 +3681,3 @@ export const mockFileFormData = {
 export const mockDeduplicationWorkflowId = '78ca1d06-cce7-4ee9-abda-46440d9b0bb7';
 // mockDeduplicationMatches id for Submitter decision
 export const mockDeduplicationSubmitterId = 'ebae3c99-f438-4b65-879b-1eea7a9e0324';
-

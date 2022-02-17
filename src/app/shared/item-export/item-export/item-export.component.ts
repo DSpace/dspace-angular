@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
 import { Item } from '../../../core/shared/item.model';
-import { SearchOptions } from '../../search/search-options.model';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { SearchOptions } from '../../search/models/search-options.model';
 import { ItemExportFormConfiguration, ItemExportService } from '../item-export.service';
 import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
 import { NotificationsService } from '../../notifications/notifications.service';
@@ -19,27 +20,32 @@ export class ItemExportComponent implements OnInit {
   @Input() molteplicity: ItemExportFormatMolteplicity;
   @Input() item: Item;
   @Input() searchOptions: SearchOptions;
+  @Input() itemType: ItemType;
 
   public configuration: ItemExportFormConfiguration;
   public exportForm: FormGroup;
 
   constructor(protected itemExportService: ItemExportService,
-              protected router: Router,
-              protected notificationsService: NotificationsService,
-              protected translate: TranslateService,
-              public activeModal: NgbActiveModal) {
+    protected router: Router,
+    protected notificationsService: NotificationsService,
+    protected translate: TranslateService,
+    public activeModal: NgbActiveModal) {
   }
 
   ngOnInit() {
     this.itemExportService.initialItemExportFormConfiguration(this.item).pipe(take(1))
       .subscribe((configuration: ItemExportFormConfiguration) => {
         this.configuration = configuration;
-        this.exportForm = this.initForm(configuration);
-
-        // listen for entityType selections in order to update the available formats
-        this.exportForm.controls.entityType.valueChanges.subscribe((entityType) => {
-          this.onEntityTypeChange(entityType);
-        });
+        if (!!this.itemType) {
+          this.exportForm = this.initFormItemType(configuration);
+          this.onEntityTypeChange(this.itemType.label);
+        } else {
+          this.exportForm = this.initForm(configuration);
+          // listen for entityType selections in order to update the available formats
+          this.exportForm.controls.entityType.valueChanges.subscribe((entityType) => {
+            this.onEntityTypeChange(entityType);
+          });
+        }
       });
   }
 
@@ -57,20 +63,29 @@ export class ItemExportComponent implements OnInit {
     });
   }
 
+  initFormItemType(configuration: ItemExportFormConfiguration): FormGroup {
+    return new FormGroup({
+      format: new FormControl(configuration.format, [Validators.required]),
+      entityType: new FormControl({ value: this.itemType.label, disabled: true }, [Validators.required]),
+    });
+  }
+
   onSubmit() {
     if (this.exportForm.valid) {
+
+
       this.itemExportService.submitForm(
         this.molteplicity,
         this.item,
         this.searchOptions,
-        this.exportForm.value.entityType,
+        this.itemType ? this.exportForm.controls.entityType.value : this.exportForm.value.entityType,
         this.exportForm.value.format).pipe(take(1)).subscribe((processId) => {
 
-        const title = this.translate.get('item-export.process.title');
-        this.notificationsService.process(processId.toString(),5000, title);
+          const title = this.translate.get('item-export.process.title');
+          this.notificationsService.process(processId.toString(), 5000, title);
 
-        this.activeModal.close();
-      });
+          this.activeModal.close();
+        });
     }
   }
 

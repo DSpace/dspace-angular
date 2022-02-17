@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Item } from '../../../core/shared/item.model';
-import { SearchOptions } from '../../search/search-options.model';
+import { SearchOptions } from '../../search/models/search-options.model';
 import { ItemExportComponent } from '../item-export/item-export.component';
 import { AuthService } from '../../../core/auth/auth.service';
 import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
@@ -31,14 +31,14 @@ export class ItemExportModalLauncherComponent implements OnInit {
     return this.item ? 'Export' : 'Bulk Export';
   }
 
-  open() {
-
+  open(event) {
     if (this.item) {
 
       // open a single item-export modal
       const modalRef = this.modalService.open(ItemExportComponent);
       modalRef.componentInstance.molteplicity = ItemExportFormatMolteplicity.SINGLE;
       modalRef.componentInstance.item = this.item;
+      modalRef.componentInstance.itemType = event;
 
     } else if (this.searchOptions$) {
 
@@ -47,6 +47,7 @@ export class ItemExportModalLauncherComponent implements OnInit {
         const modalRef = this.modalService.open(ItemExportComponent);
         modalRef.componentInstance.molteplicity = ItemExportFormatMolteplicity.MULTIPLE;
         modalRef.componentInstance.searchOptions = searchOptions;
+        modalRef.componentInstance.itemType = event;
       });
     }
 

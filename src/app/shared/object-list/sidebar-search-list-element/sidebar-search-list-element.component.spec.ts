@@ -3,7 +3,7 @@ import { VarDirective } from '../../utils/var.directive';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { SearchResult } from '../../search/search-result.model';
+import { SearchResult } from '../../search/models/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { LinkService } from '../../../core/cache/builders/link.service';

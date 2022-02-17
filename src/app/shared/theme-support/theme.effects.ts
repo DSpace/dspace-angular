@@ -2,15 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, ROOT_EFFECTS_INIT } from '@ngrx/effects';
 import { map } from 'rxjs/operators';
 import { SetThemeAction } from './theme.actions';
-import { environment } from '../../../environments/environment';
-import { hasNoValue, hasValue } from '../empty.util';
+import { hasValue } from '../empty.util';
 import { BASE_THEME_NAME } from './theme.constants';
-
-export const DEFAULT_THEME_CONFIG = environment.themes.find((themeConfig: any) =>
-  hasNoValue(themeConfig.regex) &&
-  hasNoValue(themeConfig.handle) &&
-  hasNoValue(themeConfig.uuid)
-);
+import { getDefaultThemeConfig } from '../../../config/config.util';
 
 @Injectable()
 export class ThemeEffects {
@@ -21,8 +15,9 @@ export class ThemeEffects {
     this.actions$.pipe(
       ofType(ROOT_EFFECTS_INIT),
       map(() => {
-        if (hasValue(DEFAULT_THEME_CONFIG)) {
-          return new SetThemeAction(DEFAULT_THEME_CONFIG.name);
+        const defaultThemeConfig = getDefaultThemeConfig();
+        if (hasValue(defaultThemeConfig)) {
+          return new SetThemeAction(defaultThemeConfig.name);
         } else {
           return new SetThemeAction(BASE_THEME_NAME);
         }

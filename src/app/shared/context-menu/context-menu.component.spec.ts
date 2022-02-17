@@ -1,5 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Injector } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { Component, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { By } from '@angular/platform-browser';
 
@@ -19,6 +19,14 @@ import { ContextMenuComponent } from './context-menu.component';
 import { rendersContextMenuEntriesForType } from './context-menu.decorator';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { ExportItemMenuComponent } from './export-item/export-item-menu.component';
+import { StatisticsMenuComponent } from './statistics/statistics-menu.component';
+import { SubscriptionMenuComponent } from './subscription/subscription-menu.component';
+import { NotificationsService } from '../notifications/notifications.service';
+import { NotificationsServiceStub } from '../testing/notifications-service.stub';
+import { AuthService } from '../../core/auth/auth.service';
+import { EPersonMock } from '../testing/eperson.mock';
 
 describe('ContextMenuComponent', () => {
   let component: ContextMenuComponent;
@@ -51,6 +59,13 @@ describe('ContextMenuComponent', () => {
   const configurationDataService = jasmine.createSpyObj('configurationDataService', {
     findByPropertyName: jasmine.createSpy('findByPropertyName')
   });
+  const authorizationDataService = jasmine.createSpyObj('AuthorizationDataService', {
+    isAuthorized: of(true),
+  });
+  const authService = jasmine.createSpyObj('authService', {
+    isAuthenticated: of(true),
+    getAuthenticatedUserFromStore: of(EPersonMock),
+  });
 
   const confResponse$ = createSuccessfulRemoteDataObject$({ values: ['true'] });
   const confResponseDisabled$ = createSuccessfulRemoteDataObject$({ values: ['false'] });
@@ -66,10 +81,9 @@ describe('ContextMenuComponent', () => {
     });
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ContextMenuComponent, TestComponent],
       imports: [
         TranslateModule.forRoot({
           loader: {
@@ -79,14 +93,18 @@ describe('ContextMenuComponent', () => {
         }),
         NgbDropdownModule
       ],
+      declarations: [ContextMenuComponent, TestComponent, ExportItemMenuComponent, StatisticsMenuComponent, SubscriptionMenuComponent],
       providers: [
         provideMockStore({ initialState }),
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
         { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: AuthService, useValue: authService },
+        { provide: AuthorizationDataService, useValue: authorizationDataService },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         Injector
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA]
     }).overrideModule(BrowserDynamicTestingModule, {
       set: {
         entryComponents: [TestComponent]
@@ -124,6 +142,12 @@ describe('ContextMenuComponent', () => {
 
     it('should display context menu', (done) => {
       const menu = fixture.debugElement.query(By.css('button#context-menu'));
+      expect(menu).not.toBeNull();
+      done();
+    });
+
+    it('should display stand alone buttons', (done) => {
+      const menu = fixture.debugElement.query(By.css('button.btn-primary'));
       expect(menu).not.toBeNull();
       done();
     });
@@ -175,6 +199,12 @@ describe('ContextMenuComponent', () => {
 
       it('should not display context menu', (done) => {
         const menu = fixture.debugElement.query(By.css('button#context-menu'));
+        expect(menu).not.toBeNull();
+        done();
+      });
+
+      it('should not display stand alone buttons', (done) => {
+        const menu = fixture.debugElement.query(By.css('button.btn-primary'));
         expect(menu).not.toBeNull();
         done();
       });

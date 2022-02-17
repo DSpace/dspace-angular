@@ -8,7 +8,7 @@ import { Site } from '../../core/shared/site.model';
 import { SiteDataService } from '../../core/data/site-data.service';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
-import { environment } from '../../../environments/mock-environment';
+import { environment } from '../../../environments/environment.test';
 import { FormsModule } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 

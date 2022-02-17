@@ -8,7 +8,7 @@ import { PaginatedList } from '../../../../../../core/data/paginated-list.model'
 import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
 import { ExternalSource } from '../../../../../../core/shared/external-source.model';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { Context } from '../../../../../../core/shared/context.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { fadeIn, fadeInOut } from '../../../../../animations/fade';

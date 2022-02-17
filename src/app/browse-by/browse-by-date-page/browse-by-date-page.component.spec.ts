@@ -58,7 +58,7 @@ describe('BrowseByDatePageComponent', () => {
   };
 
   const mockBrowseManager = {
-    getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData([firstItem]),
+    getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData([firstItem])
   };
 
   const mockDsoService = {

@@ -21,7 +21,7 @@ export enum IdentifierType {
 }
 
 export abstract class RestRequest {
-  public responseMsToLive =  environment.cache.msToLive.default;
+  public responseMsToLive;
   public isMultipart = false;
 
   constructor(
@@ -31,6 +31,7 @@ export abstract class RestRequest {
     public body?: any,
     public options?: HttpOptions,
   ) {
+    this.responseMsToLive = environment.cache.msToLive.default;
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
