@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
 import { StatisticsCategory } from '../../../core/statistics/models/statistics-category.model';
+
 
 @Component({
   selector: 'ds-statistics-chart',
@@ -31,9 +32,19 @@ export class StatisticsChartComponent implements OnInit {
   @Input() reports: UsageReport[];
 
   /**
+   * Represents selected report id
+   */
+  @Input() selectedReportId: string;
+
+  /**
    * Emits all currently selected values for this chart
    */
   selectedReport: UsageReport;
+
+  /**
+   * emit the event when report is changed
+   */
+  @Output() changeReportEvent = new EventEmitter<string>();
 
   /**
    * Requests the current set values for this chart
@@ -42,9 +53,14 @@ export class StatisticsChartComponent implements OnInit {
    */
   ngOnInit() {
     if (!!this.reports && this.reports.length > 0) {
-      this.selectedReport = this.reports[0];
+      const report = this.reports.find((reportData) => { return reportData.id === this.selectedReportId;});
+      if (report) {
+        this.selectedReport = report;
+      } else {
+        this.selectedReport = this.reports[0];
+        this.changeReportEvent.emit(this.reports[0].id);
+      }
     }
-    // this.dataReportService.setReport(this.selectedReport);
   }
 
   /**
@@ -53,8 +69,7 @@ export class StatisticsChartComponent implements OnInit {
    */
   changeReport(report) {
     this.selectedReport = report;
-    // this.dataReportService.setReport(report);
+    this.changeReportEvent.emit(report.id);
   }
-
 
 }
