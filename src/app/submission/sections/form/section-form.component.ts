@@ -170,16 +170,19 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
       map((configData: RemoteData<ConfigObject>) => configData.payload),
       tap((config: SubmissionFormsModel) => this.formConfig = config),
       mergeMap(() => {
-        const findById$ = this.submissionObjectService.findById(this.submissionId, false, true, followLink('item'));
-        const findByIdCached$ = interval(100).pipe(
-          mapTo(this.submissionObjectService.findById(this.submissionId, true, true, followLink('item')))
+        const findById$ = this.submissionObjectService.findById(this.submissionId, false, true, followLink('item')).pipe(
+          getFirstSucceededRemoteData(),
+          getRemoteDataPayload()
+        );
+        const findByIdCached$ = interval(200).pipe(
+          mapTo(this.submissionObjectService.findById(this.submissionId, true, true, followLink('item')).pipe(
+            getFirstSucceededRemoteData(),
+            getRemoteDataPayload()
+          )),
         );
         return observableCombineLatest([
           this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
-          race([findById$, findByIdCached$]).pipe(
-            getFirstSucceededRemoteData(),
-            getRemoteDataPayload()
-          ),
+          race([findById$, findByIdCached$]),
           this.submissionService.getSubmissionSecurityConfiguration(this.submissionId).pipe(take(1))
         ]);
       }),
