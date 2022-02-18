@@ -584,9 +584,10 @@ export class SubmissionService {
    *    observable with submission discard status
    */
   isSubmissionDiscarding(submissionId: string): Observable<boolean> {
-    return this.getSubmissionObject(submissionId).pipe(
-      map((submission: SubmissionObjectEntry) => submission?.isDiscarding),
-      distinctUntilChanged());
+    return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
+      map((submission: SubmissionObjectEntry) => isEmpty(submission) || submission?.isDiscarding),
+      distinctUntilChanged()
+    );
   }
 
   /**
