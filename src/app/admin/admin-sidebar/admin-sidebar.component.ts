@@ -483,8 +483,8 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           visible: authorized,
           model: {
             type: MenuItemType.LINK,
-            text: 'menu.section.notifications_openaire_broker',
-            link: '/admin/notifications/openaire-broker'
+            text: 'menu.section.notifications_broker',
+            link: '/admin/notifications/notifications-broker'
           } as LinkMenuItemModel,
         },
         /*  Admin Search */

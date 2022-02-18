@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { CoreModule } from '../../core/core.module';
 import { SharedModule } from '../../shared/shared.module';
 import { AdminNotificationsRoutingModule } from './admin-notifications-routing.module';
-import { AdminNotificationsOpenaireTopicsPageComponent } from './admin-notifications-openaire-topics-page/admin-notifications-openaire-topics-page.component';
-import { AdminNotificationsOpenaireEventsPageComponent } from './admin-notifications-openaire-events-page/admin-notifications-openaire-events-page.component';
-import { OpenaireModule } from '../../openaire/openaire.module';
+import { AdminNotificationsBrokerTopicsPageComponent } from './admin-notifications-broker-topics-page/admin-notifications-broker-topics-page.component';
+import { AdminNotificationsBrokerEventsPageComponent } from './admin-notifications-broker-events-page/admin-notifications-broker-events-page.component';
+import { NotificationsModule } from '../../notifications/notifications.module';
 
 @NgModule({
   imports: [
@@ -13,11 +13,11 @@ import { OpenaireModule } from '../../openaire/openaire.module';
     SharedModule,
     CoreModule.forRoot(),
     AdminNotificationsRoutingModule,
-    OpenaireModule
+    NotificationsModule
   ],
   declarations: [
-    AdminNotificationsOpenaireTopicsPageComponent,
-    AdminNotificationsOpenaireEventsPageComponent
+    AdminNotificationsBrokerTopicsPageComponent,
+    AdminNotificationsBrokerEventsPageComponent
   ],
   entryComponents: []
 })

@@ -162,8 +162,8 @@ import { SearchConfig } from './shared/search/search-filters/search-config.model
 import { SequenceService } from './shared/sequence.service';
 import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
-import { OpenaireBrokerTopicObject } from './openaire/broker/models/openaire-broker-topic.model';
-import { OpenaireBrokerEventObject } from './openaire/broker/models/openaire-broker-event.model';
+import { NotificationsBrokerTopicObject } from './notifications/broker/models/notifications-broker-topic.model';
+import { NotificationsBrokerEventObject } from './notifications/broker/models/notifications-broker-event.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -345,8 +345,8 @@ export const models =
     ShortLivedToken,
     Registration,
     UsageReport,
-    OpenaireBrokerTopicObject,
-    OpenaireBrokerEventObject,
+    NotificationsBrokerTopicObject,
+    NotificationsBrokerEventObject,
     Root,
     SearchConfig,
     SubmissionAccessesModel
