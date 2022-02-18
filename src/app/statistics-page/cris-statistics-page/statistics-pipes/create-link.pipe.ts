@@ -53,7 +53,7 @@ export class CreateLinkPipe implements PipeTransform {
       }
       return link$.pipe(
         map((link: string) => {
-          return link? `${environment.ui.baseUrl}${link}` : '';
+          return link ? `${environment.ui.baseUrl}${link}` : '';
         })
       );
     }
