@@ -85,8 +85,8 @@ export class CrisLayoutSidebarItemComponent {
 
     return this.getTranslation(tabHeaderI18nKey) ??
       this.getTranslation(tabHeaderGenericI18nKey) ??
-        this.getTranslation(this.tab.header) ??
-          this.tab.header ??
+        this.getTranslation(tab.header) ??
+          tab.header ??
             '';
   }
 
