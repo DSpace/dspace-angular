@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="d-flex justify-content-between">
-    <h3>{{'bitstream.download.page' | translate:{bitstream: (bitstream$ | async)?.name} }}</h3>
+  <h3>{{'bitstream.download.page' | translate:{bitstream: (bitstream$ | async)?.name} }}</h3>
+  <div class="pt-3">
     <button (click)="back()" class="btn btn-outline-secondary">
       <i class="fas fa-arrow-left"></i> {{'bitstream.download.page.back' | translate}}
     </button>
