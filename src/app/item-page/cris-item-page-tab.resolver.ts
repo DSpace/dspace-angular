@@ -10,6 +10,7 @@ import { getFirstCompletedRemoteData, getRemoteDataPayload, getPaginatedListPayl
 import { switchMap, map } from 'rxjs/operators';
 import { Item } from '../core/shared/item.model';
 import { getItemPageRoute } from './item-page-routing-paths';
+import { hasValue, isNotEmpty } from '../shared/empty.util';
 
 /**
  * This class represents a resolver that requests the tabs of specific
@@ -34,6 +35,10 @@ export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList
       map((item: Item) => {
         if (!item || (!!item && !item.uuid)) {
           this.router.navigate(['/404']);
+        } else if (hasValue(item.metadata) && isNotEmpty(item.metadata['cris.customurl'])) {
+          if (route.params.id !== item.metadata['cris.customurl'][0].value) {
+            this.router.navigateByUrl(getItemPageRoute(item));
+          }
         }
         return item;
       }),

@@ -2,10 +2,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
-import { hasValue } from '../../../../shared/empty.util';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
+import { BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 /**
  * This component render the sidebar of the tabs layout
@@ -32,12 +33,20 @@ export abstract class CrisLayoutTabsComponent {
    * tabs list
    */
   tabs: CrisLayoutTab[] = [];
+
+
+  /**
+   * A boolean representing if a request operation is pending
+   * @type {BehaviorSubject<boolean>}
+   */
+  public activeTab$ = new BehaviorSubject<CrisLayoutTab>(undefined);
+
+
   /**
    * used for notify tab selection
    */
   @Output() selectedTab = new EventEmitter<CrisLayoutTab>();
 
-  activeTab: CrisLayoutTab;
 
   constructor(public location: Location, public router: Router, public route: ActivatedRoute) {
   }
@@ -45,7 +54,6 @@ export abstract class CrisLayoutTabsComponent {
   init(): void {
     if (this.tabs && this.tabs.length > 0) {
       this.parseTabs(this.route.snapshot.paramMap.get('tab'));
-      this.emitSelected(this.activeTab);
     }
   }
 
@@ -70,10 +78,10 @@ export abstract class CrisLayoutTabsComponent {
           parentTab.children.push(childTab);
           tabs.push(parentTab);
           if (shortname === parentTab.shortname) {
-            this.activeTab = parentTab;
+            this.setActiveTab(parentTab);
           }
           if (shortname === childTab.shortname) {
-            this.activeTab = childTab;
+            this.setActiveTab(childTab);
           }
         } else {
           tab.header = splitedHeaderTabs[1];
@@ -81,12 +89,12 @@ export abstract class CrisLayoutTabsComponent {
           previousTab.children.push(tab);
         }
         if (shortname === tab.shortname) {
-          this.activeTab = tab;
+          this.setActiveTab(tab);
         }
       } else {
         tabs.push(tab);
         if (shortname === tab.shortname) {
-          this.activeTab = tab;
+          this.setActiveTab(tab);
         }
       }
     });
@@ -96,8 +104,10 @@ export abstract class CrisLayoutTabsComponent {
   abstract emitSelected(selectedTab): void;
 
   setActiveTab(tab) {
-    this.activeTab = tab;
-    this.router.navigateByUrl(getItemPageRoute(this.item) + '/' + tab.shortname);
+    this.activeTab$.next(tab);
+    this.emitSelected(tab);
+    this.location.replaceState(getItemPageRoute(this.item) + '/' + tab.shortname);
+    // this.router.navigateByUrl(getItemPageRoute(this.item) + '/' + tab.shortname);
   }
 
 }

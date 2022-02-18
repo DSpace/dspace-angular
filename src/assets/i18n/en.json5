@@ -5702,6 +5702,8 @@
   "submission.sections.upload.upload-successful": "Upload successful",
 
   "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+
+  "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
   
   "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
 

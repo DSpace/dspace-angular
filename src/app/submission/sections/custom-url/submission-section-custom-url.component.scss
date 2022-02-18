@@ -11,6 +11,12 @@
 }
 
 .list-group-item{
+  width: 80%;
   display: flex;
   justify-content: space-between;
+}
+
+.list-item{
+  align-items: center;
+  display: flex;
 }

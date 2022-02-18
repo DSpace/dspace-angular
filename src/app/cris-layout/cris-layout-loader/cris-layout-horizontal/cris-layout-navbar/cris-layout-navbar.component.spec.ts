@@ -14,6 +14,7 @@ import { RouterStub } from '../../../../shared/testing/router.stub';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { Item } from '../../../../core/shared/item.model';
 import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
+import { BehaviorSubject } from 'rxjs';
 
 
 describe('CrisLayoutNavbarComponent', () => {
@@ -86,7 +87,7 @@ describe('CrisLayoutNavbarComponent', () => {
     beforeEach(() => {
       component.tabs = loaderMultilevelTabs;
       component.item = mockItem;
-      component.activeTab = loaderMultilevelTabs[0];
+      component.activeTab$ = new BehaviorSubject<CrisLayoutTab>(loaderMultilevelTabs[0]);
       component.ngOnInit();
       fixture.detectChanges();
     });

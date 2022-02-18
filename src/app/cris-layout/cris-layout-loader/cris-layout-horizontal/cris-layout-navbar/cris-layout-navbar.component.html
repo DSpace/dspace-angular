@@ -10,8 +10,9 @@
         <div class="reset-padding-md w-100">
             <div id="collapsingNav">
                 <ul class="navbar-nav mr-auto shadow-none">
-                    <ng-container *ngIf="!!activeTab">
-                        <ds-cris-layout-sidebar-item *ngFor="let tab of tabs;" [tab]="tab" [layout]="'horizontal'" [activeTab]="activeTab" (tabSelectedChange)="setActiveTab($event)"></ds-cris-layout-sidebar-item>
+                    <ng-container *ngIf="!!(activeTab$ |async)">
+                        <ds-cris-layout-sidebar-item *ngFor="let tab of tabs;" [tab]="tab" [layout]="'horizontal'" [activeTab]="(activeTab$ |async)"
+                            (tabSelectedChange)="setActiveTab($event)"></ds-cris-layout-sidebar-item>
                     </ng-container>
                 </ul>
             </div>
