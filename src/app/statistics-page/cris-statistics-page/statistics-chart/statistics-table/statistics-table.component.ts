@@ -1,6 +1,5 @@
 import { EntityTypeEnum } from './../../../../cris-layout/enums/entity-type.enum';
 import { Component, OnInit } from '@angular/core';
-
 import { StatisticsType } from '../../statistics-type.model';
 import { renderChartFor } from '../../cris-statistics-element-decorator';
 import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';

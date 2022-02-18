@@ -21,7 +21,7 @@
       <tr *ngFor="let point of report.points" class="{{point.id}}-data">
         <th scope="row">
           <ng-container *ngIf="point && point.type && entityTypesToConvertToLink.includes(point.type); else showLabel">
-            <a [href]="point | dsCreateLink">{{ point.label }} </a>
+            <a [href]="(point | dsCreateLink) | async">{{ point.label }} </a>
           </ng-container>
           <ng-template #showLabel>
               <span>
