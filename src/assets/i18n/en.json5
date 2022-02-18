@@ -479,7 +479,13 @@
 
   "admin.access-control.groups.form.return": "Back",
 
+  "admin.notifications.openairebroker.breadcrumbs": "OpenAIRE Broker",
 
+  "admin.notifications.openairebroker.page.title": "OpenAIRE Broker",
+
+  "admin.notifications.openaireevent.breadcrumbs": "OpenAIRE Broker Suggestions",
+
+  "admin.notifications.openaireevent.page.title": "OpenAIRE Broker Suggestions",
 
   "admin.search.breadcrumbs": "Administrative Search",
 
@@ -2408,6 +2414,7 @@
 
 
 
+
   "menu.header.admin": "Management",
 
   "menu.header.image.logo": "Repository logo",
@@ -2510,6 +2517,8 @@
 
   "menu.section.icon.unpin": "Unpin sidebar",
 
+  "menu.section.icon.notifications": "Notifications menu section",
+
 
 
   "menu.section.import": "Import",
@@ -2532,6 +2541,12 @@
 
   "menu.section.new_process": "Process",
 
+
+  "menu.section.notifications": "Notifications",
+
+  "menu.section.notifications_openaire_broker": "OpenAIRE Broker",
+
+  "menu.section.notifications_reciter": "Publication Claim",
 
 
   "menu.section.pin": "Pin sidebar",
@@ -2697,6 +2712,126 @@
   "nav.user.description" : "User profile bar",
 
   "none.listelement.badge": "Item",
+
+  "openaire.broker.title": "OpenAIRE Broker",
+
+  "openaire.broker.topics.description": "Below you can see all the topics received from the subscriptions to OpenAIRE.",
+
+  "openaire.broker.topics": "Current Topics",
+
+  "openaire.broker.table.topic": "Topic",
+
+  "openaire.broker.table.last-event": "Last Event",
+
+  "openaire.broker.table.actions": "Actions",
+
+  "openaire.broker.button.detail": "Show details",
+
+  "openaire.broker.noTopics": "No topics found.",
+
+  "openaire.broker.topic.error.service.retrieve": "An error occurred while loading the OpenAIRE Broker topics",
+
+  "openaire.broker.loading": "Loading ...",
+
+  "openaire.events.title": "OpenAIRE Broker Suggestions",
+
+  "openaire.broker.events.description": "Below the list of all the suggestions, received from OpenAIRE, for the selected topic.",
+
+  "openaire.broker.events.topic": "Topic:",
+
+  "openaire.broker.noEvents": "No suggestions found.",
+
+  "openaire.broker.event.table.trust": "Trust",
+
+  "openaire.broker.event.table.publication": "Publication",
+
+  "openaire.broker.event.table.details": "Details",
+
+  "openaire.broker.event.table.project-details": "Project details",
+
+  "openaire.broker.event.table.actions": "Actions",
+
+  "openaire.broker.event.action.accept": "Accept suggestion",
+
+  "openaire.broker.event.action.ignore": "Ignore suggestion",
+
+  "openaire.broker.event.action.reject": "Reject suggestion",
+
+  "openaire.broker.event.action.import": "Import project and accept suggestion",
+
+  "openaire.broker.event.table.pidtype": "PID Type:",
+
+  "openaire.broker.event.table.pidvalue": "PID Value:",
+
+  "openaire.broker.event.table.subjectValue": "Subject Value:",
+
+  "openaire.broker.event.table.abstract": "Abstract:",
+
+  "openaire.broker.event.table.suggestedProject": "OpenAIRE Suggested Project data",
+
+  "openaire.broker.event.table.project": "Project title:",
+
+  "openaire.broker.event.table.acronym": "Acronym:",
+
+  "openaire.broker.event.table.code": "Code:",
+
+  "openaire.broker.event.table.funder": "Funder:",
+
+  "openaire.broker.event.table.fundingProgram": "Funding program:",
+
+  "openaire.broker.event.table.jurisdiction": "Jurisdiction:",
+
+  "openaire.broker.events.back": "Back to topics",
+
+  "openaire.broker.event.table.less": "Show less",
+
+  "openaire.broker.event.table.more": "Show more",
+
+  "openaire.broker.event.project.found": "Bound to the local record:",
+
+  "openaire.broker.event.project.notFound": "No local record found",
+
+  "openaire.broker.event.sure": "Are you sure?",
+
+  "openaire.broker.event.ignore.description": "This operation can't be undone. Ignore this suggestion?",
+
+  "openaire.broker.event.reject.description": "This operation can't be undone. Reject this suggestion?",
+
+  "openaire.broker.event.accept.description": "No DSpace project selected. A new project will be created based on the suggestion data.",
+
+  "openaire.broker.event.action.cancel": "Cancel",
+
+  "openaire.broker.event.action.saved": "Your decision has been saved successfully.",
+
+  "openaire.broker.event.action.error": "An error has occurred. Your decision has not been saved.",
+
+  "openaire.broker.event.modal.project.title": "Choose a project to bound",
+
+  "openaire.broker.event.modal.project.publication": "Publication:",
+
+  "openaire.broker.event.modal.project.bountToLocal": "Bound to the local record:",
+
+  "openaire.broker.event.modal.project.select": "Project search",
+
+  "openaire.broker.event.modal.project.search": "Search",
+
+  "openaire.broker.event.modal.project.clear": "Clear",
+
+  "openaire.broker.event.modal.project.cancel": "Cancel",
+
+  "openaire.broker.event.modal.project.bound": "Bound project",
+
+  "openaire.broker.event.modal.project.placeholder": "Enter a project name",
+
+  "openaire.broker.event.modal.project.notFound": "No project found.",
+
+  "openaire.broker.event.project.bounded": "The project has been linked successfully.",
+
+  "openaire.broker.event.project.removed": "The project has been successfully unlinked.",
+
+  "openaire.broker.event.project.error": "An error has occurred. No operation performed.",
+
+  "openaire.broker.event.reason": "Reason",
 
 
   "orgunit.listelement.badge": "Organizational Unit",
@@ -3362,7 +3497,9 @@
 
   "search.filters.filter.submitter.label": "Search submitter",
 
+  "search.filters.filter.funding.head": "Funding",
 
+  "search.filters.filter.funding.placeholder": "Funding",
 
   "search.filters.entityType.JournalIssue": "Journal Issue",
 

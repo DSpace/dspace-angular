@@ -38,7 +38,7 @@ import {
   FindListOptions,
   PatchRequest,
   PutRequest,
-  DeleteRequest
+  DeleteRequest, DeleteByIDRequest, PostRequest
 } from './request.models';
 import { RequestService } from './request.service';
 import { RestRequestMethod } from './rest-request-method';
@@ -577,6 +577,53 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     });
 
     return result$;
+  }
+
+  /**
+   * Perform a post on an endpoint related item with ID. Ex.: endpoint/<itemId>/related?item=<relatedItemId>
+   * @param itemId The item id
+   * @param relatedItemId The related item Id
+   * @param body The optional POST body
+   * @return the RestResponse as an Observable
+   */
+  public postOnRelated(itemId: string, relatedItemId: string, body?: any) {
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getIDHrefObs(itemId);
+
+    hrefObs.pipe(
+      take(1)
+    ).subscribe((href: string) => {
+      const request = new PostRequest(requestId, href + '/related?item=' + relatedItemId, body);
+      if (hasValue(this.responseMsToLive)) {
+        request.responseMsToLive = this.responseMsToLive;
+      }
+      this.requestService.send(request);
+    });
+
+    return this.rdbService.buildFromRequestUUID<T>(requestId);
+  }
+
+  /**
+   * Perform a delete on an endpoint related item. Ex.: endpoint/<itemId>/related
+   * @param itemId The item id
+   * @return the RestResponse as an Observable
+   */
+  public deleteOnRelated(itemId: string): Observable<RemoteData<NoContent>> {
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getIDHrefObs(itemId);
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new DeleteByIDRequest(requestId, href + '/related', itemId);
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
+        }
+        this.requestService.send(request);
+      })
+    ).subscribe();
+
+    return this.rdbService.buildFromRequestUUID(requestId);
   }
 
   /**
