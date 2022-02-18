@@ -42,7 +42,7 @@ let router: Router;
 let comp: EditBitstreamPageComponent;
 let fixture: ComponentFixture<EditBitstreamPageComponent>;
 
-fdescribe('EditBitstreamPageComponent', () => {
+describe('EditBitstreamPageComponent', () => {
 
   beforeEach(() => {
     allFormats = [
