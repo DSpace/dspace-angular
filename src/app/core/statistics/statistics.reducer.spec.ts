@@ -1,5 +1,5 @@
-import { SetCategoryReportAction } from "./statistics.action";
-import { StatisticsReducer, StatisticsState } from "./statistics.reducer";
+import { SetCategoryReportAction } from './statistics.action';
+import { StatisticsReducer, StatisticsState } from './statistics.reducer';
 
 
 describe('statistic reducer', () => {
@@ -8,15 +8,15 @@ describe('statistic reducer', () => {
         initialState = {
            reportId: null,
            categoryId: null
-       }
+       };
        const action = new SetCategoryReportAction({
-           categoryId: "test1",
-           reportId: "test2"
-       })
-       const newState = StatisticsReducer(initialState,action);  
+           categoryId: 'test1',
+           reportId: 'test2'
+       });
+       const newState = StatisticsReducer(initialState,action);
        expect(newState).toEqual({
-        categoryId: "test1",
-        reportId: "test2"
-       })
-    })
-})
+        categoryId: 'test1',
+        reportId: 'test2'
+       });
+    });
+});
