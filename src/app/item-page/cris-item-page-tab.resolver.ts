@@ -48,7 +48,13 @@ export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList
           if (!!tabs.payload && !!tabs.payload.page && tabs.payload.page.length > 0 && !urlSplited[1]) {
             const selectedTab = tabs.payload.page.filter((tab) => !tab.leading)[0];
             if (!!selectedTab) {
-              this.router.navigateByUrl(getItemPageRoute(item) + '/' + selectedTab.shortname);
+              let tabName = selectedTab.shortname;
+
+              if (tabName.includes('::')) {
+                tabName = tabName.split('::')[1];
+              }
+
+              this.router.navigateByUrl(getItemPageRoute(item) + '/' + tabName);
             }
           }
           return tabs;

@@ -1,4 +1,4 @@
-<li class="sidebar-section h-100" [ngClass]="{ 'active' : !!tab && !!activeTab && tab.id == activeTab.id, 'expanded': expanded, 'vertical': layout == 'vertical', 'horizontal': layout == 'horizontal' }">
+<li class="sidebar-section h-100" [ngClass]="{ 'active' : !!tab && !!activeTab && (tab.isActive || tab.id == activeTab.id), 'expanded': expanded, 'vertical': layout == 'vertical', 'horizontal': layout == 'horizontal' }">
     <div class="icon-wrapper" *ngIf="!tab.children || tab.children.length == 0 ">
         <a class="nav-item shortcut-icon" href="javascript:;" [ngClass]="{ 'px-4 justify-content-between' : layout == 'vertical' }"
             [title]="getTabHeader(tab)" (click)="$event.preventDefault();selectTab(tab)" [innerHTML]="getTabHeader(tab)">

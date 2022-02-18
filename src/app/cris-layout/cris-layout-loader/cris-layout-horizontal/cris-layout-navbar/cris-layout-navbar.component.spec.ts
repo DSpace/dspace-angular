@@ -86,6 +86,7 @@ describe('CrisLayoutNavbarComponent', () => {
     beforeEach(() => {
       component.tabs = loaderMultilevelTabs;
       component.item = mockItem;
+      component.activeTab = loaderMultilevelTabs[0];
       component.ngOnInit();
       fixture.detectChanges();
     });

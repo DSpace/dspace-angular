@@ -60,6 +60,7 @@ describe('CrisLayoutSidebarComponent', () => {
     beforeEach(() => {
       component.tabs = tabs;
       component.showNav = true;
+      component.activeTab = tabs[0];
       fixture.detectChanges();
     });
 
