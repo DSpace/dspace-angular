@@ -1,13 +1,13 @@
 import { Component, Inject } from '@angular/core';
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { Observable, of as observableOf, Subscription, combineLatest as observableCombineLatest } from 'rxjs';
+import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isEmpty } from '../../../shared/empty.util';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { DynamicFormControlEvent, DynamicFormControlModel, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { WorkspaceitemSectionCustomUrlObject } from '../../../core/submission/models/workspaceitem-section-custom-url.model';
@@ -15,6 +15,7 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { FormService } from '../../../shared/form/form.service';
 
 /**
  * This component represents the submission section to select the Creative Commons license.
@@ -82,6 +83,7 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
     protected operationsBuilder: JsonPatchOperationsBuilder,
     protected formOperationsService: SectionFormOperationsService,
     protected submissionService: SubmissionService,
+    protected formService: FormService,
     @Inject('entityType') public entityType: string,
     @Inject('collectionIdProvider') public injectedCollectionId: string,
     @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
@@ -115,6 +117,8 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
     this.frontendUrl = new URLCombiner(window.location.origin, '/entities', encodeURIComponent(this.entityType.toLowerCase())).toString();
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
 
+    this.formId = this.formService.getUniqueId(this.sectionData.id);
+
     this.subscriptions.push(
       this.sectionService.getSectionState(this.submissionId, this.sectionData.id, SectionsType.CustomUrl).pipe(
         filter((sectionState) => {
@@ -128,6 +132,7 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
           name: 'url',
           validators: {
             required: null,
+            'error.validation.custom-url.conflict': null
           },
           required: false,
           value: data.url
@@ -150,14 +155,31 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
     }
   }
 
+
   /**
    * Get section status
    *
    * @return Observable<boolean>
    *     the section status
    */
-  getSectionStatus(): Observable<boolean> {
-    return observableOf(true);
+  protected getSectionStatus(): Observable<boolean> {
+    const formStatus$ = this.formService.isValid(this.formId);
+    const serverValidationStatus$ = this.sectionService.getSectionServerErrors(this.submissionId, this.sectionData.id).pipe(
+      tap((validationErrors) => {
+        // let errors: DynamicValidatorsConfig[] = [];
+        // validationErrors.forEach((validationError) => {
+        //   errors.push(validationError)
+        // });
+        console.log(validationErrors);
+        // this.formModel[0].errorMessages = { 'error.validation.custom-url.conflict': 'errormsg' };
+        // this.formModel[0].get('url').setErrors({ error: 'A server side error' });
+      }),
+      map((validationErrors) => isEmpty(validationErrors)),
+    );
+
+    return observableCombineLatest([formStatus$, serverValidationStatus$]).pipe(
+      map(([formValidation, serverSideValidation]: [boolean, boolean]) => formValidation && serverSideValidation)
+    );
   }
 
 
