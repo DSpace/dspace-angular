@@ -1,3 +1,4 @@
+import { ActivatedRouteStub } from './../testing/active-router.stub';
 import { Component, Injector, Input, OnInit } from '@angular/core';
 
 import { select, Store } from '@ngrx/store';
@@ -17,6 +18,8 @@ import { ContextMenuEntryType } from './context-menu-entry-type';
 import { isNotEmpty } from '../empty.util';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { RouterStub } from '../testing/router.stub';
+import { Router, ActivatedRoute } from '@angular/router';
 
 /**
  * This component renders a context menu for a given DSO.
@@ -67,8 +70,10 @@ export class ContextMenuComponent implements OnInit {
   ngOnInit(): void {
     this.objectInjector = Injector.create({
       providers: [
-        {provide: 'contextMenuObjectProvider', useFactory: () => (this.contextMenuObject), deps: []},
-        {provide: 'contextMenuObjectTypeProvider', useFactory: () => (this.contextMenuObjectType), deps: []},
+        { provide: 'contextMenuObjectProvider', useFactory: () => (this.contextMenuObject), deps: [] },
+        { provide: 'contextMenuObjectTypeProvider', useFactory: () => (this.contextMenuObjectType), deps: [] },
+        { provide: Router, useValue: new RouterStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
       ],
       parent: this.injector
     });
@@ -93,7 +98,7 @@ export class ContextMenuComponent implements OnInit {
   private retrieveSelectedContextMenuEntries(isStandAlone: boolean): Observable<any[]> {
     const list = this.contextMenuObjectType ? getContextMenuEntriesForDSOType(this.contextMenuObjectType) : [];
     return from(list).pipe(
-      filter((renderOptions: ContextMenuEntryRenderOptions) => isNotEmpty(renderOptions?.componentRef) && renderOptions?.isStandAlone === isStandAlone),
+      filter((renderOptions: ContextMenuEntryRenderOptions) => isNotEmpty(renderOptions ?.componentRef) && renderOptions ?.isStandAlone === isStandAlone),
       map((renderOptions: ContextMenuEntryRenderOptions) => renderOptions.componentRef),
       concatMap((constructor: GenericConstructor<ContextMenuEntryComponent>) => {
         const entryComp: ContextMenuEntryComponent = new constructor();

@@ -4448,7 +4448,7 @@
 
   "researcher.profile.create.new": "Create new",
 
-  "researcher.profile.create.success": "Researcher profile created succcessfully",
+  "researcher.profile.create.success": "Researcher profile created successfully",
 
   "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
 
@@ -5035,6 +5035,16 @@
   "statistics.table.downloadReports.title.TopCities": "Top city downloads",
 
   "statistics.table.header.views": "Views",
+
+  "statistics.table.publicationsReports.title.TotalVisits": "Total Visits",
+
+  "statistics.table.publicationsReports.title.TopCities": "Top Cities",
+
+  "statistics.table.publicationsReports.title.TopCountries": "Top Countries",
+
+  "statistics.table.publicationsReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
+
+  "statistics.table.projectsReports.title.TotalVisits": "Tota Visits",
 
   "statistics.categories.title": "Statistics by Category",
 
