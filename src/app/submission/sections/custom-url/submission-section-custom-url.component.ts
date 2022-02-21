@@ -1,15 +1,15 @@
 import { Component, Inject } from '@angular/core';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { isNotEmpty, hasValue } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { DynamicInputModel, DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import { DynamicFormControlEvent, DynamicFormControlModel, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { WorkspaceitemSectionCustomUrlObject } from '../../../core/submission/models/workspaceitem-section-custom-url.model';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
@@ -167,11 +167,13 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
    */
   onChange(event: DynamicFormControlEvent): void {
     const path = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
-    const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
-    this.operationsBuilder.replace(this.pathCombiner.getPath(path), value.value, true);
-    if (this.isEditItemScope && hasValue(this.submissionCustomUrl.url)) {
-      // Utilizing submissionCustomUrl.url as the last value saved we can add to the redirected-urls
-      this.operationsBuilder.add(this.pathCombiner.getPath(['redirected-urls']), this.submissionCustomUrl.url, false, true);
+    const metadataValue = this.formOperationsService.getFieldValueFromChangeEvent(event);
+    if (isNotEmpty(metadataValue.value)) {
+      this.operationsBuilder.replace(this.pathCombiner.getPath(path), metadataValue.value, true);
+      if (this.isEditItemScope && hasValue(this.submissionCustomUrl.url)) {
+        // Utilizing submissionCustomUrl.url as the last value saved we can add to the redirected-urls
+        this.operationsBuilder.add(this.pathCombiner.getPath(['redirected-urls']), this.submissionCustomUrl.url, false, true);
+      }
     }
   }
 
