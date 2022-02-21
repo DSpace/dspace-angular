@@ -19,6 +19,7 @@ import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { SearchManager } from '../../core/browse/search-manager';
+import { isValidDate } from '../../shared/date.util';
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -87,7 +88,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         let lowerLimit = environment.browseBy.defaultLowerLimit;
         if (hasValue(firstItemRD.payload)) {
           const date = firstItemRD.payload.firstMetadataValue(metadataKeys);
-          if (isNotEmpty(new Date(date))) {
+          if (isNotEmpty(date) && isValidDate(date)) {
             const dateObj = new Date(date);
             // TODO: it appears that getFullYear (based on local time) is sometimes unreliable. Switching to UTC.
             lowerLimit = isNaN(dateObj.getUTCFullYear()) ? lowerLimit : dateObj.getUTCFullYear();
