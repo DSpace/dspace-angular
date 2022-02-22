@@ -26,5 +26,4 @@ export class MetricDimensionsComponent extends BaseEmbeddedMetricComponent imple
   applyScript(): void {
     __dimensions_embed.addBadges();
   }
-  // <script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
 }
