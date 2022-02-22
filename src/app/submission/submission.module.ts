@@ -54,8 +54,8 @@ const ENTRY_COMPONENTS = [
   SubmissionSectionLicenseComponent,
   SubmissionSectionCcLicensesComponent,
   SubmissionSectionAccessesComponent,
-  SubmissionSectionUploadFileEditComponent,
-  SubmissionSectionDetectDuplicateComponent
+  SubmissionSectionDetectDuplicateComponent,
+  SubmissionSectionCustomUrlComponent
 ];
 
 const DECLARATIONS = [
@@ -80,9 +80,7 @@ const DECLARATIONS = [
   SubmissionImportExternalSearchbarComponent,
   SubmissionImportExternalPreviewComponent,
   SubmissionImportExternalCollectionComponent,
-  SubmissionSectionDetectDuplicateComponent,
-  DuplicateMatchComponent,
-  SubmissionSectionCustomUrlComponent
+  DuplicateMatchComponent
 ];
 
 @NgModule({

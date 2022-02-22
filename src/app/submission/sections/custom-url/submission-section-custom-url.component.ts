@@ -1,13 +1,13 @@
 import { Component, Inject } from '@angular/core';
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { DynamicFormControlEvent, DynamicFormControlModel, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { WorkspaceitemSectionCustomUrlObject } from '../../../core/submission/models/workspaceitem-section-custom-url.model';
@@ -15,6 +15,8 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
+import { FormService } from '../../../shared/form/form.service';
 
 /**
  * This component represents the submission section to select the Creative Commons license.
@@ -48,13 +50,12 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
   /**
    * The list of Subscriptions this component subscribes to.
    */
-  private subscriptions: Subscription[] = [];
+  private subs: Subscription[] = [];
 
   /**
-   * Cache of the available Creative Commons licenses.
+   * The current custom section data
    */
-  submissionCustomUrl: WorkspaceitemSectionCustomUrlObject;
-
+  customSectionData: WorkspaceitemSectionCustomUrlObject;
 
   /**
    * A list of all dynamic input models
@@ -67,7 +68,7 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
   frontendUrl: string;
 
   /**
-   * Represends if the section is used in the editItem Scope of submission
+   * Represents if the section is used in the editItem Scope of submission
    */
   isEditItemScope = false;
 
@@ -76,11 +77,11 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
    */
   redirectedUrls: string[] = [];
 
-
   constructor(
     protected sectionService: SectionsService,
     protected operationsBuilder: JsonPatchOperationsBuilder,
     protected formOperationsService: SectionFormOperationsService,
+    protected formService: FormService,
     protected submissionService: SubmissionService,
     @Inject('entityType') public entityType: string,
     @Inject('collectionIdProvider') public injectedCollectionId: string,
@@ -98,50 +99,28 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
    * Unsubscribe from all subscriptions
    */
   onSectionDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.subs.forEach((subscription) => subscription.unsubscribe());
   }
-
-
 
   /**
    * Initialize the section.
    * Define if submission is in EditItem scope to allow user to manage redirect urls
    * Setup the full path of the url that will be seen by the users
-   * Get current informations and build the form
+   * Get current information and build the form
    */
   onSectionInit(): void {
+    this.formId = this.formService.getUniqueId(this.sectionData.id);
     this.setSubmissionScope();
 
     this.frontendUrl = new URLCombiner(window.location.origin, '/entities', encodeURIComponent(this.entityType.toLowerCase())).toString();
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
 
-    this.subscriptions.push(
-      this.sectionService.getSectionState(this.submissionId, this.sectionData.id, SectionsType.CustomUrl).pipe(
-        filter((sectionState) => {
-          return isNotEmpty(sectionState) && (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errorsToShow));
-        }),
-        distinctUntilChanged(),
-        map((sectionState) => sectionState.data as WorkspaceitemSectionCustomUrlObject),
-      ).subscribe((data) => {
-        this.formModel = [new DynamicInputModel({
-          id: 'url',
-          name: 'url',
-          validators: {
-            required: null,
-          },
-          required: false,
-          value: data.url
-        })];
-
-        this.submissionCustomUrl = data;
-        // Remove sealed object so we can remove urls from array
-        if (hasValue(data['redirected-urls']) && isNotEmpty(data['redirected-urls'])) {
-          this.redirectedUrls = [...data['redirected-urls']];
-        } else {
-          this.redirectedUrls = [];
-        }
-      })
-    );
+    this.sectionService.getSectionState(this.submissionId, this.sectionData.id, SectionsType.CustomUrl).pipe(
+      take(1)
+    ).subscribe((state: SubmissionSectionObject) => {
+      this.initForm(state.data as WorkspaceitemSectionCustomUrlObject);
+      this.subscriptionOnSectionChange();
+    });
   }
 
   setSubmissionScope() {
@@ -156,10 +135,35 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
    * @return Observable<boolean>
    *     the section status
    */
-  getSectionStatus(): Observable<boolean> {
-    return observableOf(true);
+  protected getSectionStatus(): Observable<boolean> {
+    const formStatus$ = this.formService.isValid(this.formId);
+    const serverValidationStatus$ = this.sectionService.getSectionServerErrors(this.submissionId, this.sectionData.id).pipe(
+      map((validationErrors) => isEmpty(validationErrors))
+    );
+
+    return observableCombineLatest([formStatus$, serverValidationStatus$]).pipe(
+      map(([formValidation, serverSideValidation]: [boolean, boolean]) => {
+        return isEmpty(this.customSectionData.url) || formValidation && serverSideValidation;
+      })
+    );
   }
 
+  /**
+   * Initialize form model
+   *
+   * @param sectionData
+   *    the section data retrieved from the server
+   */
+  initForm(sectionData: WorkspaceitemSectionCustomUrlObject): void {
+    this.formModel = [
+      new DynamicInputModel({
+        id: 'url',
+        name: 'url',
+        value: sectionData.url
+      })
+    ];
+    this.updateSectionData(sectionData);
+  }
 
   /**
    * When an information is changed build the formOperations
@@ -168,21 +172,53 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
   onChange(event: DynamicFormControlEvent): void {
     const path = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const metadataValue = this.formOperationsService.getFieldValueFromChangeEvent(event);
-    if (isNotEmpty(metadataValue.value)) {
-      this.operationsBuilder.replace(this.pathCombiner.getPath(path), metadataValue.value, true);
-      if (this.isEditItemScope && hasValue(this.submissionCustomUrl.url)) {
-        // Utilizing submissionCustomUrl.url as the last value saved we can add to the redirected-urls
-        this.operationsBuilder.add(this.pathCombiner.getPath(['redirected-urls']), this.submissionCustomUrl.url, false, true);
-      }
+    this.operationsBuilder.replace(this.pathCombiner.getPath(path), metadataValue.value, true);
+    console.log(metadataValue);
+    if (isNotEmpty(metadataValue.value) && this.isEditItemScope && hasValue(this.customSectionData.url)) {
+      // Utilizing submissionCustomUrl.url as the last value saved we can add to the redirected-urls
+      this.operationsBuilder.add(this.pathCombiner.getPath(['redirected-urls']), this.customSectionData.url, false, true);
     }
   }
 
   /**
    * When removing a redirected url build the formOperations
    */
-  remove(i): void {
-    this.operationsBuilder.remove(this.pathCombiner.getPath(['redirected-urls', i]));
-    this.redirectedUrls.splice(i, 1);
+  remove(index: number): void {
+    this.operationsBuilder.remove(this.pathCombiner.getPath(['redirected-urls', index.toString()]));
+    this.redirectedUrls.splice(index, 1);
   }
 
+  /**
+   * Update section data
+   *
+   * @param sectionData
+   */
+  private updateSectionData(sectionData: WorkspaceitemSectionCustomUrlObject): void {
+    this.customSectionData = sectionData;
+    // Remove sealed object so we can remove urls from array
+    if (hasValue(sectionData['redirected-urls']) && isNotEmpty(sectionData['redirected-urls'])) {
+      this.redirectedUrls = [...sectionData['redirected-urls']];
+    } else {
+      this.redirectedUrls = [];
+    }
+  }
+
+  private subscriptionOnSectionChange(): void {
+    this.subs.push(
+      this.sectionService.getSectionState(this.submissionId, this.sectionData.id, SectionsType.CustomUrl).pipe(
+        filter((sectionState) => {
+          return isNotEmpty(sectionState) && (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errorsToShow));
+        }),
+        distinctUntilChanged(),
+      ).subscribe((state: SubmissionSectionObject) => {
+        this.updateSectionData(state.data as WorkspaceitemSectionCustomUrlObject);
+        const errors: SubmissionSectionError[] = state.errorsToShow;
+        console.log(errors, state.data);
+        if (isNotEmpty(errors) || isNotEmpty(this.sectionData.errorsToShow)) {
+          this.sectionService.checkSectionErrors(this.submissionId, this.sectionData.id, this.formId, errors, this.sectionData.errorsToShow);
+          this.sectionData.errorsToShow = errors;
+        }
+      })
+    );
+  }
 }
