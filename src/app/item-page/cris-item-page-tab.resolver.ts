@@ -67,15 +67,5 @@ export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList
       )
       ));
   }
-  /**
-   *  Get activated route of the deepest activated route
-   */
-  getActivatedRoute(route) {
-    if (route.children.length > 0) {
-      return this.getActivatedRoute(route.firstChild);
-    } else {
-      return route;
-    }
-  }
 
 }
