@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { Item } from '../../../../core/shared/item.model';
 import { provideMockStore } from '@ngrx/store/testing';
+import { ThemeService } from '../../../theme-support/theme.service';
 
 const testType = 'TestType';
 const testContext = Context.Search;
@@ -26,12 +27,20 @@ describe('ListableObjectComponentLoaderComponent', () => {
   let comp: ListableObjectComponentLoaderComponent;
   let fixture: ComponentFixture<ListableObjectComponentLoaderComponent>;
 
+  let themeService: ThemeService;
+
   beforeEach(waitForAsync(() => {
+    themeService = jasmine.createSpyObj('themeService', {
+      getThemeName: 'dspace',
+    });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [ListableObjectComponentLoaderComponent, ItemListElementComponent, ListableObjectDirective],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [provideMockStore({})]
+      providers: [
+        provideMockStore({}),
+        { provide: ThemeService, useValue: themeService },
+      ]
     }).overrideComponent(ListableObjectComponentLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
@@ -48,6 +57,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
     comp.viewMode = testViewMode;
     comp.context = testContext;
     spyOn(comp, 'getComponent').and.returnValue(ItemListElementComponent as any);
+    spyOn(comp as any, 'connectInputsAndOutputs').and.callThrough();
     fixture.detectChanges();
 
   }));
@@ -55,6 +65,10 @@ describe('ListableObjectComponentLoaderComponent', () => {
   describe('When the component is rendered', () => {
     it('should call the getListableObjectComponent function with the right types, view mode and context', () => {
       expect(comp.getComponent).toHaveBeenCalledWith([testType], testViewMode, testContext);
+    });
+
+    it('should connectInputsAndOutputs of loaded component', () => {
+      expect((comp as any).connectInputsAndOutputs).toHaveBeenCalled();
     });
   });
 
@@ -121,20 +135,20 @@ describe('ListableObjectComponentLoaderComponent', () => {
     let reloadedObject: any;
 
     beforeEach(() => {
-      spyOn((comp as any), 'connectInputsAndOutputs').and.returnValue(null);
+      spyOn((comp as any), 'instantiateComponent').and.returnValue(null);
       spyOn((comp as any).contentChange, 'emit').and.returnValue(null);
 
       listableComponent = fixture.debugElement.query(By.css('ds-item-list-element')).componentInstance;
       reloadedObject = 'object';
     });
 
-    it('should pass it on connectInputsAndOutputs', fakeAsync(() => {
-      expect((comp as any).connectInputsAndOutputs).not.toHaveBeenCalled();
+    it('should re-instantiate the listable component', fakeAsync(() => {
+      expect((comp as any).instantiateComponent).not.toHaveBeenCalled();
 
       (listableComponent as any).reloadedObject.emit(reloadedObject);
       tick();
 
-      expect((comp as any).connectInputsAndOutputs).toHaveBeenCalled();
+      expect((comp as any).instantiateComponent).toHaveBeenCalledWith(reloadedObject);
     }));
 
     it('should re-emit it as a contentChange', fakeAsync(() => {

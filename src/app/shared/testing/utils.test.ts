@@ -1,9 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of as observableOf } from 'rxjs';
 import { RequestEntry, RequestEntryState } from '../../core/data/request.reducer';
-import { of as observableOf } from 'rxjs/internal/observable/of';
 import { UnCacheableObject } from '../../core/shared/uncacheable-object.model';
 
 /**
