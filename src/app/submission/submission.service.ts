@@ -648,6 +648,7 @@ export class SubmissionService {
       // Now, do redirect.
       tap(() => {
         const itemUuid = submissionId.indexOf(':') > -1 ? submissionId.split(':')[0] : submissionId;
+        this.requestService.setStaleByHrefSubstring(itemUuid);
         this.router.navigateByUrl('/items/' + itemUuid, {replaceUrl: true});
       })
     ).subscribe();
