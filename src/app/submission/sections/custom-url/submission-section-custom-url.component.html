@@ -10,7 +10,7 @@
             (dfChange)="onChange($event)"></ds-form>
     </div>
 
-    <div class="previous-urls" *ngIf="isEditItemScope && !!submissionCustomUrl && !!redirectedUrls">
+    <div class="previous-urls" *ngIf="isEditItemScope && !!customSectionData && !!redirectedUrls">
         <h4 *ngIf="redirectedUrls.length > 0">{{'submission.sections.custom-url.label.previous-urls' | translate}}</h4>
         <ul class="list-group">
             <li *ngFor="let redirectedUrl of redirectedUrls;let i = index" class="list-item mb-2">
