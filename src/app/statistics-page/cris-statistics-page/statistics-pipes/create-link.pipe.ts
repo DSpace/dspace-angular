@@ -5,14 +5,14 @@ import { ItemDataService } from './../../../core/data/item-data.service';
 import { EntityTypeEnum } from './../../../cris-layout/enums/entity-type.enum';
 import { Point } from './../../../core/statistics/models/usage-report.model';
 import { Pipe, PipeTransform } from '@angular/core';
-import { getItemPageRoute } from 'src/app/item-page/item-page-routing-paths';
-import { Item } from 'src/app/core/shared/item.model';
-import { getBitstreamDownloadRoute } from 'src/app/app-routing-paths';
-import { getCommunityPageRoute } from 'src/app/community-page/community-page-routing-paths';
-import { getCollectionPageRoute } from 'src/app/collection-page/collection-page-routing-paths';
+import { getItemPageRoute } from './../../../item-page/item-page-routing-paths';
+import { Item } from './../../../core/shared/item.model';
+import { getBitstreamDownloadRoute } from './../../../app-routing-paths';
+import { getCommunityPageRoute } from './../../../community-page/community-page-routing-paths';
+import { getCollectionPageRoute } from './../../../collection-page/collection-page-routing-paths';
 import { map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from './../../../../environments/environment';
 
 @Pipe({
   name: 'dsCreateLink',
