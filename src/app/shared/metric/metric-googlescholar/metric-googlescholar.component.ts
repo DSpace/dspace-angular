@@ -2,7 +2,7 @@ import { MetricVisualizationConfig } from './../../../../config/metric-visualiza
 import { Component, OnInit } from '@angular/core';
 import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 import { DomSanitizer } from '@angular/platform-browser';
-import { environment } from 'src/environments/environment';
+import { environment } from './../../../../environments/environment';
 
 @Component({
   selector: 'ds-metric-googlescholar',

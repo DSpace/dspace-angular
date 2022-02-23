@@ -1,5 +1,5 @@
 import { isEqual } from 'lodash';
-import { environment } from 'src/environments/environment';
+import { environment } from './../../../../environments/environment';
 import { MetricVisualizationConfig } from './../../../../config/metric-visualization-config.interfaces';
 import { Metric } from './../../../core/shared/metric.model';
 import { Pipe, PipeTransform } from '@angular/core';
