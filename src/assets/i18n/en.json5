@@ -551,6 +551,7 @@
 
   "bitstream.download.page": "Now downloading {{bitstream}}..." ,
 
+  "bitstream.download.page.back": "Back" ,
 
 
   "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
