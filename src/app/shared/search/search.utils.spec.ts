@@ -1,5 +1,5 @@
-import { FacetValue } from './facet-value.model';
-import { SearchFilterConfig } from './search-filter-config.model';
+import { FacetValue } from './models/facet-value.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
 import {
   addOperatorToFilterValue,
   escapeRegExp,
@@ -12,6 +12,7 @@ describe('Search Utils', () => {
     let facetValueWithSearchHref: FacetValue;
     let facetValueWithoutSearchHref: FacetValue;
     let searchFilterConfig: SearchFilterConfig;
+    let facetValueWithSearchHrefAuthority: FacetValue;
 
     beforeEach(() => {
       facetValueWithSearchHref = Object.assign(new FacetValue(), {
@@ -22,6 +23,11 @@ describe('Search Utils', () => {
           }
         }
       });
+      facetValueWithSearchHrefAuthority = Object.assign(new FacetValue(), {
+        value: 'Value with search href',
+        authorityKey: 'uuid',
+        }
+      );
       facetValueWithoutSearchHref = Object.assign(new FacetValue(), {
         value: 'Value without search href'
       });
@@ -32,6 +38,10 @@ describe('Search Utils', () => {
 
     it('should retrieve the correct value from the search href', () => {
       expect(getFacetValueForType(facetValueWithSearchHref, searchFilterConfig)).toEqual('Value with search href,operator');
+    });
+
+    it('should retrieve the correct value from the Facet', () => {
+      expect(getFacetValueForType(facetValueWithSearchHrefAuthority, searchFilterConfig)).toEqual('uuid,authority');
     });
 
     it('should return the facet value with an equals operator by default', () => {

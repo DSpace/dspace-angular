@@ -1,15 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
 import { map, switchMap } from 'rxjs/operators';
-import { SearchComponent } from './search.component';
+import { SearchComponent } from '../shared/search/search.component';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-page.component';
 import { RouteService } from '../core/services/route.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { SearchService } from '../core/shared/search/search.service';
-import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
-import { SearchObjects } from '../shared/search/search-objects.model';
+import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
+import { SearchObjects } from '../shared/search/models/search-objects.model';
 import { Router } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';

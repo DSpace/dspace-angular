@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { getStartsWithComponent, StartsWithType } from '../starts-with/starts-with-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-browse-by',
@@ -22,6 +23,12 @@ import { PaginationService } from '../../core/pagination/pagination.service';
  * Component to display a browse-by page for any ListableObject
  */
 export class BrowseByComponent implements OnInit {
+
+  /**
+   * ViewMode that should be passed to {@link ListableObjectComponentLoaderComponent}.
+   */
+  viewMode: ViewMode = ViewMode.ListElement;
+
   /**
    * The i18n message to display as title
    */

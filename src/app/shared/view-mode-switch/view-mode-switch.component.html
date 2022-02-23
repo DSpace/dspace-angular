@@ -21,7 +21,7 @@
     </a>
     <a *ngIf="isToShow(viewModeEnum.DetailedListElement)"
        routerLink="."
-       [queryParams]="{view: 'detail'}"
+       [queryParams]="{view: 'detailed'}"
        queryParamsHandling="merge"
        (click)="switchViewTo(viewModeEnum.DetailedListElement)"
        routerLinkActive="active"

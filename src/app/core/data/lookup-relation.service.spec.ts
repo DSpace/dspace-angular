@@ -5,9 +5,9 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.util
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { buildPaginatedList } from './paginated-list.model';
 import { PageInfo } from '../shared/page-info.model';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';
-import { SearchResult } from '../../shared/search/search-result.model';
+import { SearchResult } from '../../shared/search/models/search-result.model';
 import { Item } from '../shared/item.model';
 import { skip, take } from 'rxjs/operators';
 import { ExternalSource } from '../shared/external-source.model';

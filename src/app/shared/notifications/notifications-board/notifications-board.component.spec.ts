@@ -1,5 +1,5 @@
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { ChangeDetectorRef } from '@angular/core';
 
 import { NotificationsService } from '../notifications.service';
@@ -14,6 +14,9 @@ import { NotificationType } from '../models/notification-type';
 import { uniqueId } from 'lodash';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { cold } from 'jasmine-marbles';
+
+export const bools = { f: false, t: true };
 
 describe('NotificationsBoardComponent', () => {
   let comp: NotificationsBoardComponent;
@@ -67,6 +70,40 @@ describe('NotificationsBoardComponent', () => {
 
   it('should have two notifications', () => {
     expect(comp.notifications.length).toBe(2);
+    expect(fixture.debugElement.queryAll(By.css('ds-notification')).length).toBe(2);
+  });
+
+  describe('notification countdown', () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = fixture.debugElement.query(By.css('div.notifications-wrapper'));
+    });
+
+    it('should not be paused by default', () => {
+      expect(comp.isPaused$).toBeObservable(cold('f', bools));
+    });
+
+    it('should pause on mouseenter', () => {
+      wrapper.triggerEventHandler('mouseenter');
+
+      expect(comp.isPaused$).toBeObservable(cold('t', bools));
+    });
+
+    it('should resume on mouseleave', () => {
+      wrapper.triggerEventHandler('mouseenter');
+      wrapper.triggerEventHandler('mouseleave');
+
+      expect(comp.isPaused$).toBeObservable(cold('f', bools));
+    });
+
+    it('should be passed to all notifications', () => {
+      fixture.debugElement.queryAll(By.css('ds-notification'))
+                          .map(node => node.componentInstance)
+                          .forEach(notification => {
+                            expect(notification.isPaused$).toEqual(comp.isPaused$);
+                          });
+    });
   });
 
 })

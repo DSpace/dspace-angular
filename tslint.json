@@ -170,9 +170,5 @@
     "use-life-cycle-interface": false,
     "no-outputs-metadata-property": true,
     "use-pipe-transform-interface": true
-    //    "rxjs-collapse-imports": true,
-    //    "rxjs-pipeable-operators-only": true,
-    //    "rxjs-no-static-observable-methods": true,
-    //    "rxjs-proper-imports": true
   }
 }

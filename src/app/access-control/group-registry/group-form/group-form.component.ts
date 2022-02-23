@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnDestroy, OnInit, Output, ChangeDetectorRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,9 +14,9 @@ import {
   combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
-  Subscription
+  Subscription,
 } from 'rxjs';
-import { catchError, map, switchMap, take } from 'rxjs/operators';
+import { catchError, map, switchMap, take, filter, debounceTime } from 'rxjs/operators';
 import { getCollectionEditRolesRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityEditRolesRoute } from '../../../community-page/community-page-routing-paths';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
@@ -34,7 +34,8 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   getRemoteDataPayload,
   getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload
 } from '../../../core/shared/operators';
 import { AlertType } from '../../../shared/alert/aletr-type';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
@@ -44,6 +45,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { Operation } from 'fast-json-patch';
+import { ValidateGroupExists } from './validators/group-exists.validator';
 
 @Component({
   selector: 'ds-group-form',
@@ -65,6 +67,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    * Dynamic models for the inputs of form
    */
   groupName: DynamicInputModel;
+  groupCommunity: DynamicInputModel;
   groupDescription: DynamicTextAreaModel;
 
   /**
@@ -124,17 +127,24 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    */
   public AlertTypeEnum = AlertType;
 
+  /**
+   * Subscription to email field value change
+   */
+  groupNameValueChangeSubscribe: Subscription;
+
+
   constructor(public groupDataService: GroupDataService,
-              private ePersonDataService: EPersonDataService,
-              private dSpaceObjectDataService: DSpaceObjectDataService,
-              private formBuilderService: FormBuilderService,
-              private translateService: TranslateService,
-              private notificationsService: NotificationsService,
-              private route: ActivatedRoute,
-              protected router: Router,
-              private authorizationService: AuthorizationDataService,
-              private modalService: NgbModal,
-              public requestService: RequestService) {
+    private ePersonDataService: EPersonDataService,
+    private dSpaceObjectDataService: DSpaceObjectDataService,
+    private formBuilderService: FormBuilderService,
+    private translateService: TranslateService,
+    private notificationsService: NotificationsService,
+    private route: ActivatedRoute,
+    protected router: Router,
+    private authorizationService: AuthorizationDataService,
+    private modalService: NgbModal,
+    public requestService: RequestService,
+    protected changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -160,8 +170,9 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     );
     observableCombineLatest(
       this.translateService.get(`${this.messagePrefix}.groupName`),
+      this.translateService.get(`${this.messagePrefix}.groupCommunity`),
       this.translateService.get(`${this.messagePrefix}.groupDescription`)
-    ).subscribe(([groupName, groupDescription]) => {
+    ).subscribe(([groupName, groupCommunity, groupDescription]) => {
       this.groupName = new DynamicInputModel({
         id: 'groupName',
         label: groupName,
@@ -170,6 +181,13 @@ export class GroupFormComponent implements OnInit, OnDestroy {
           required: null,
         },
         required: true,
+      });
+      this.groupCommunity = new DynamicInputModel({
+        id: 'groupCommunity',
+        label: groupCommunity,
+        name: 'groupCommunity',
+        required: false,
+        readOnly: true,
       });
       this.groupDescription = new DynamicTextAreaModel({
         id: 'groupDescription',
@@ -182,20 +200,51 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         this.groupDescription,
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
+
+      if (!!this.formGroup.controls.groupName) {
+        this.formGroup.controls.groupName.setAsyncValidators(ValidateGroupExists.createValidator(this.groupDataService));
+        this.groupNameValueChangeSubscribe = this.groupName.valueChanges.pipe(debounceTime(300)).subscribe(() => {
+          this.changeDetectorRef.detectChanges();
+        });
+      }
+
       this.subs.push(
         observableCombineLatest(
           this.groupDataService.getActiveGroup(),
-          this.canEdit$
-        ).subscribe(([activeGroup, canEdit]) => {
+          this.canEdit$,
+          this.groupDataService.getActiveGroup()
+            .pipe(filter((activeGroup) => hasValue(activeGroup)),switchMap((activeGroup) => this.getLinkedDSO(activeGroup).pipe(getFirstSucceededRemoteDataPayload())))
+        ).subscribe(([activeGroup, canEdit, linkedObject]) => {
+
           if (activeGroup != null) {
+
+            // Disable group name exists validator
+            this.formGroup.controls.groupName.clearAsyncValidators();
+
             this.groupBeingEdited = activeGroup;
-            this.formGroup.patchValue({
-              groupName: activeGroup != null ? activeGroup.name : '',
-              groupDescription: activeGroup != null ? activeGroup.firstMetadataValue('dc.description') : '',
-            });
-            if (!canEdit || activeGroup.permanent) {
-              this.formGroup.disable();
+
+            if (linkedObject?.name) {
+              this.formBuilderService.insertFormGroupControl(1, this.formGroup, this.formModel, this.groupCommunity);
+              this.formGroup.patchValue({
+                groupName: activeGroup.name,
+                groupCommunity: linkedObject?.name ?? '',
+                groupDescription: activeGroup.firstMetadataValue('dc.description'),
+              });
+            } else {
+              this.formModel = [
+                this.groupName,
+                this.groupDescription,
+              ];
+              this.formGroup.patchValue({
+                groupName: activeGroup.name,
+                groupDescription: activeGroup.firstMetadataValue('dc.description'),
+              });
             }
+            setTimeout(() => {
+              if (!canEdit || activeGroup.permanent) {
+                this.formGroup.disable();
+              }
+            }, 200);
           }
         })
       );
@@ -407,6 +456,11 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.groupDataService.cancelEditGroup();
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+
+    if ( hasValue(this.groupNameValueChangeSubscribe) ) {
+      this.groupNameValueChangeSubscribe.unsubscribe();
+    }
+
   }
 
   /**
@@ -417,11 +471,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     if (hasValue(group) && hasValue(group._links.object.href)) {
       return this.getLinkedDSO(group).pipe(
         map((rd: RemoteData<DSpaceObject>) => {
-          if (hasValue(rd) && hasValue(rd.payload)) {
-            return true;
-          } else {
-            return false;
-          }
+          return hasValue(rd) && hasValue(rd.payload);
         }),
         catchError(() => observableOf(false)),
       );

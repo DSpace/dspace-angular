@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
@@ -55,7 +55,7 @@ describe('MediaViewerImageComponent', () => {
     ]
   );
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports:[],
       declarations: [MediaViewerImageComponent],

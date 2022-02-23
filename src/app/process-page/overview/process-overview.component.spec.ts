@@ -12,12 +12,9 @@ import { By } from '@angular/platform-browser';
 import { ProcessStatus } from '../processes/process-status.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { of as observableOf } from 'rxjs';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../core/data/request.models';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { DatePipe } from '@angular/common';
 
 describe('ProcessOverviewComponent', () => {
   let component: ProcessOverviewComponent;
@@ -30,27 +27,29 @@ describe('ProcessOverviewComponent', () => {
   let processes: Process[];
   let ePerson: EPerson;
 
+  const pipe = new DatePipe('en-US');
+
   function init() {
     processes = [
       Object.assign(new Process(), {
         processId: 1,
         scriptName: 'script-name',
-        startTime: '2020-03-19',
-        endTime: '2020-03-19',
+        startTime: '2020-03-19 00:30:00',
+        endTime: '2020-03-19 23:30:00',
         processStatus: ProcessStatus.COMPLETED
       }),
       Object.assign(new Process(), {
         processId: 2,
         scriptName: 'script-name',
-        startTime: '2020-03-20',
-        endTime: '2020-03-20',
+        startTime: '2020-03-20 00:30:00',
+        endTime: '2020-03-20 23:30:00',
         processStatus: ProcessStatus.FAILED
       }),
       Object.assign(new Process(), {
         processId: 3,
         scriptName: 'another-script-name',
-        startTime: '2020-03-21',
-        endTime: '2020-03-21',
+        startTime: '2020-03-21 00:30:00',
+        endTime: '2020-03-21 23:30:00',
         processStatus: ProcessStatus.RUNNING
       })
     ];
@@ -135,14 +134,14 @@ describe('ProcessOverviewComponent', () => {
     it('should display the start time in the fourth column', () => {
       rowElements.forEach((rowElement, index) => {
         const el = rowElement.query(By.css('td:nth-child(4)')).nativeElement;
-        expect(el.textContent).toContain(processes[index].startTime);
+        expect(el.textContent).toContain(pipe.transform(processes[index].startTime, component.dateFormat, 'UTC'));
       });
     });
 
     it('should display the end time in the fifth column', () => {
       rowElements.forEach((rowElement, index) => {
         const el = rowElement.query(By.css('td:nth-child(5)')).nativeElement;
-        expect(el.textContent).toContain(processes[index].endTime);
+        expect(el.textContent).toContain(pipe.transform(processes[index].endTime, component.dateFormat, 'UTC'));
       });
     });
 
