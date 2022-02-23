@@ -49,12 +49,10 @@ describe('MetricDimensionsComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should render badge div', () => {
-    const div = fixture.debugElement.queryAll(By.css('div'))[1];
-    expect(div.nativeElement.className).toEqual('dimensions_badge_embed');
-    // TODO: when endpoint will be ready to check props names
-    // expect(div.nativeElement.dataset['data-pmid']).toEqual('1234567890');
-    // expect(div.nativeElement.dataset['data-doi']).toEqual('10.1056/Test');
-    // expect(div.nativeElement.dataset['data-style']).toEqual('small_rectangle');
-    // expect(div.nativeElement.dataset['data-legend']).toEqual('hover-right');
+    const div = fixture.debugElement.queryAll(By.css('div'))[2];
+    expect(div.nativeElement.className).toEqual('__dimensions_badge_embed__');
+    expect(div.nativeElement.dataset.doi).toEqual('10.1056/Test');
+    expect(div.nativeElement.dataset.style).toEqual('small_rectangle');
+    expect(div.nativeElement.dataset.legend).toEqual('hover-right');
   });
 });
