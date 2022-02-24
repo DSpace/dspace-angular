@@ -1,17 +1,23 @@
-<div class="font-weight-bold text-capitalize" *ngIf="!isListElement">
-  {{ metric.metricType | translate }}
-</div>
-<div class="d-flex justify-content-center">
-  <div
-    #metricChild
-    class="__dimensions_badge_embed__"
-    [attr.data-pmid]="
-      remark['data-doi']
-        ? null
-        : (remark | dsListMetricProps: 'data-pmid':isListElement)
-    "
-    [attr.data-doi]="remark | dsListMetricProps: 'data-doi':isListElement"
-    [attr.data-style]="remark | dsListMetricProps: 'data-style':isListElement"
-    [attr.data-legend]="remark | dsListMetricProps: 'data-legend':isListElement"
-  ></div>
+<div class="row d-flex align-items-center mb-2" *ngIf="remark">
+  <div class="col-1">
+    <div
+      #metricChild
+      class="__dimensions_badge_embed__"
+      [attr.data-pmid]="
+        remark['data-doi']
+          ? null
+          : (remark | dsListMetricProps: 'data-pmid':isListElement)
+      "
+      [attr.data-doi]="remark | dsListMetricProps: 'data-doi':isListElement"
+      [attr.data-style]="remark | dsListMetricProps: 'data-style':isListElement"
+      [attr.data-legend]="
+        remark | dsListMetricProps: 'data-legend':isListElement
+      "
+    ></div>
+  </div>
+  <div class="col" *ngIf="!isListElement">
+    <div class="font-weight-bold text-capitalize">
+      {{ metric.metricType | translate }}
+    </div>
+  </div>
 </div>

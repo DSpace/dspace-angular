@@ -5,8 +5,10 @@
     min-width: fit-content;
   }
 
-  .container.plumX.alert.metric-container, .container.altmetric.alert.metric-container {
-     // .plumX & .altmetric -> metricType
+  .container.plumX.alert.metric-container,
+  .container.altmetric.alert.metric-container,
+  .container.dimensions.alert.metric-container {
+     // .plumX & .altmetric & dimensions-> metricType dimensions
     display: contents;
   }
 }

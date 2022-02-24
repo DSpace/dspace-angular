@@ -481,12 +481,12 @@ export class DefaultAppConfig implements AppConfig {
     {
       type: 'plumX',
       icon: null,
-      class: null,
+      class: '',
     },
     {
       type: 'dimensions',
       icon: 'fa fa-cubes',
-      class: 'alert-secondary',
+      class: 'alert-light',
     },
     {
       type: 'google-scholar',
