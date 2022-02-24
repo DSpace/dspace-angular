@@ -1765,7 +1765,7 @@
 
   "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
 
-  "error.validation.custom-url.empty": "The custom url cannot be empty after being set.",
+  "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
 
   "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
 
