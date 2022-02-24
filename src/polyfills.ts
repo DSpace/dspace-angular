@@ -59,7 +59,7 @@
 import 'core-js/es';
 import 'core-js/features/reflect';
 
-import 'zone.js/dist/zone';  // Included with Angular CLI.
+import 'zone.js';  // Included with Angular CLI.
 
 import 'reflect-metadata';
 

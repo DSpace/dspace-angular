@@ -17,7 +17,6 @@
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "extractCss": true,
             "preserveSymlinks": true,
             "customWebpackConfig": {
               "path": "./webpack/webpack.browser.ts",
@@ -76,7 +75,6 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,

@@ -1,4 +1,4 @@
-import 'zone.js/dist/zone';
+import 'zone.js';
 import 'reflect-metadata';
 import 'core-js/es/reflect';
 
@@ -35,11 +35,9 @@ const main = () => {
   if (hasValue(environment.universal) && environment.universal.preboot) {
     return bootstrap();
   } else {
-
     return fetch('assets/config.json')
       .then((response) => response.json())
       .then((appConfig: AppConfig) => {
-
         // extend environment with app config for browser when not prerendered
         extendEnvironmentWithAppConfig(environment, appConfig);
 
