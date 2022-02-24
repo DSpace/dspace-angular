@@ -67,7 +67,7 @@ export class BrowseByComponent implements OnInit {
   /**
    * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
    */
-  @Input() showPaginator = true;
+  @Input() showPaginator = false;
 
   /**
    * It is used to hide or show gear
