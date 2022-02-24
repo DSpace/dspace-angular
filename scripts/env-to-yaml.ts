@@ -24,7 +24,7 @@ if (!fs.existsSync(envFullPath)) {
 }
 
 try {
-  const env = require(envFullPath);
+  const env = require(envFullPath).environment;
 
   const config = yaml.dump(env);
   if (args[1]) {

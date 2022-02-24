@@ -2016,6 +2016,9 @@
   // TODO New key - Add a translation
   "home.breadcrumbs": "Home",
   
+  // "search.search-form.placeholder": "Search the repository ...",
+  "home.search-form.placeholder": "Durchsuche Repositorium",
+  
   // "home.title": "DSpace Angular :: Home",
   "home.title": "DSpace Angular :: Startseite",
   
@@ -4170,6 +4173,8 @@
   // "search.breadcrumbs": "Search",
   "search.breadcrumbs": "Suche",
   
+  // "search.search-form.placeholder": "Search the repository ...",
+  "search.search-form.placeholder": "Durchsuche Repositorium",
   
   // "search.filters.applied.f.author": "Author",
   "search.filters.applied.f.author": "AutorIn",
@@ -5325,5 +5330,4 @@
   // TODO New key - Add a translation
   "workflow-item.send-back.button.confirm": "Send back"
   
-
 }
