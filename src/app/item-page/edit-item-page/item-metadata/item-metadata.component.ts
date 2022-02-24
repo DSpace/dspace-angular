@@ -108,6 +108,9 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
         }
         this.initialized.next(true);
       });
+    } else {
+      this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadataAsList);
+      this.initialized.next(true);
     }
 
   }

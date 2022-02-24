@@ -576,6 +576,21 @@ export class SubmissionService {
   }
 
   /**
+   * Return the discard status of the submission
+   *
+   * @param submissionId
+   *    The submission id
+   * @return Observable<boolean>
+   *    observable with submission discard status
+   */
+  isSubmissionDiscarding(submissionId: string): Observable<boolean> {
+    return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
+      map((submission: SubmissionObjectEntry) => isEmpty(submission) || submission?.isDiscarding),
+      distinctUntilChanged()
+    );
+  }
+
+  /**
    * Show a notification when a new section is added to submission form
    *
    * @param submissionId

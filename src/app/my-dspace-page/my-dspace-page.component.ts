@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component, Inject, InjectionToken, Input, OnIn
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
 import { SearchService } from '../core/shared/search/search.service';
 import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
@@ -60,11 +59,6 @@ export class MyDSpacePageComponent implements OnInit {
   projection = 'preventMetadataSecurity';
 
   /**
-   * The current paginated search options
-   */
-  searchOptions$: Observable<PaginatedSearchOptions>;
-
-  /**
    * List of available view mode
    */
   viewModeList = [ViewMode.ListElement, ViewMode.DetailedListElement];
@@ -88,7 +82,6 @@ export class MyDSpacePageComponent implements OnInit {
    */
   ngOnInit(): void {
     this.configurationList$ = this.searchConfigService.getAvailableConfigurationOptions();
-    this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
 
     this.configurationList$.pipe(take(1)).subscribe((configurationList: SearchConfigurationOption[]) => {
       this.configuration = configurationList[0].value;

@@ -1,53 +1,49 @@
 <div class="modal-header">
-  <h4 class="modal-title">Item Export Process Launcher</h4>
+    <h4 class="modal-title">Item Export Process Launcher</h4>
 </div>
 <div class="modal-body">
-  <div class="row">
+    <div class="row">
 
-      <div class="col">
+        <div class="col">
 
-          <ds-item-export-alert [item]="item"></ds-item-export-alert>
+            <ds-item-export-alert [item]="item"></ds-item-export-alert>
 
-          <form *ngIf="exportForm" [formGroup]="exportForm">
+            <form *ngIf="exportForm" [formGroup]="exportForm">
 
-              <div class="form-group" *ngIf="molteplicity === 'MULTIPLE'">
-                  <label for="entityType">{{ 'item-export.form.entityType' | translate }}</label>
-                  <select id="entityType" class="custom-select" formControlName="entityType">
-                      <option [ngValue]="null" disabled>{{ 'item-export.form.entityType.tip' | translate }}</option>
-                      <option *ngFor="let entityType of configuration.entityTypes" [ngValue]="entityType">
-                          {{ entityType }}
-                      </option>
-                  </select>
-              </div>
+                <div class="form-group" *ngIf="molteplicity === 'MULTIPLE'">
+                    <label for="entityType">{{ 'item-export.form.entityType' | translate }}</label>
+                    <select *ngIf="!!itemType" id="entityType" class="custom-select" formControlName="entityType">
+                        <option [ngValue]="null" disabled>{{ 'item-export.form.entityType.tip' | translate }}</option>
+                        <option *ngFor="let entityType of configuration.entityTypes" [ngValue]="entityType">
+                            {{ entityType }}
+                        </option>
+                    </select>
+                    <input *ngIf="!itemType" id="entityType" class="form-control" type="text" name="entityType" formControlName="entityType">
+                </div>
 
 
-              <div class="form-group">
-                  <label for="format">{{ 'item-export.form.format' | translate }}</label>
-                  <select id="format" class="custom-select" formControlName="format">
-                      <option [ngValue]="null" disabled>{{ 'item-export.form.format.tip' | translate }}</option>
-                      <option *ngFor="let format of configuration.formats" [ngValue]="format">
-                          {{ format.id }}
-                      </option>
-                  </select>
-              </div>
-          </form>
+                <div class="form-group">
+                    <label for="format">{{ 'item-export.form.format' | translate }}</label>
+                    <select id="format" class="custom-select" formControlName="format">
+                        <option [ngValue]="null" disabled>{{ 'item-export.form.format.tip' | translate }}</option>
+                        <option *ngFor="let format of configuration.formats" [ngValue]="format">
+                            {{ format.id }}
+                        </option>
+                    </select>
+                </div>
+            </form>
 
-      </div>
-  </div>
+        </div>
+    </div>
 </div>
 <div class="modal-footer">
-  <div *ngIf="exportForm" class="text-right">
-    <button type="button"
-            class="btn btn-outline-secondary mr-2"
-            (click)="activeModal.close('Close click')">
-      <span><i class="fa fa-times"></i> {{ 'item-export.form.btn.cancel' | translate }}</span>
-    </button>
-    <button type="submit" class="btn btn-primary"
-            [disabled]='!exportForm.valid'
-            (click)="onSubmit()">
-      <i class="fas fa-file-export"></i>{{ 'item-export.form.btn.submit' | translate }}
-    </button>
-  </div>
+    <div *ngIf="exportForm" class="text-right">
+        <button type="button" class="btn btn-outline-secondary mr-2" (click)="activeModal.close('Close click')">
+            <span>
+                <i class="fa fa-times"></i> {{ 'item-export.form.btn.cancel' | translate }}</span>
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]='!exportForm.valid' (click)="onSubmit()">
+            <i class="fas fa-file-export"></i>{{ 'item-export.form.btn.submit' | translate }}
+        </button>
+    </div>
 </div>
-
-

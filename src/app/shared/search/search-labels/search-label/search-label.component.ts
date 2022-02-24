@@ -7,6 +7,7 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { currentPath } from '../../../utils/route.utils';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { stripOperatorFromFilterValue } from '../../search.utils';
 
 @Component({
   selector: 'ds-search-label',
@@ -88,5 +89,9 @@ export class SearchLabelComponent implements OnInit {
 
   private getFilterName(): string {
     return this.key.startsWith('f.') ? this.key.substring(2) : this.key;
+  }
+
+  getStrippedValue(val) {
+    return stripOperatorFromFilterValue(val);
   }
 }

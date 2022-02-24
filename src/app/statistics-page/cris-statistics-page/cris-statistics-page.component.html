@@ -47,9 +47,9 @@
 
 
           <ng-container *ngIf="!!categories && categories.length > 1">
-            <ul ngbNav class="nav-tabs" id="categories-tabs" (navChange)="changeCategoryType($event)" [destroyOnHide]="true">
+            <ul ngbNav [(activeId)]="selectedCategory.id" class="nav-tabs" id="categories-tabs" (navChange)="changeCategoryType($event)" [destroyOnHide]="true">
               <li [ngbNavItem]="category.id" *ngFor="let category of categories" [id]="category.id">
-                <a ngbNavLink>{{'statistics.categories.' + category.categoryType + '.tab' | translate}}</a>
+                <a ngbNavLink >{{'statistics.categories.' + category.categoryType + '.tab' | translate}}</a>
                 <ng-template ngbNavContent>
                 </ng-template>
               </li>
@@ -69,7 +69,12 @@
               </ng-container>
 
               <div>
-                <ds-statistics-chart *ngIf="!!selectedCategory" [category]="selectedCategory" [categoryType]="categoryType" [reports]="reports"></ds-statistics-chart>
+                <ds-statistics-chart *ngIf="!!selectedCategory"
+                (changeReportEvent)="changeReport($event)"
+                [categoryType]="categoryType"
+                [category]="selectedCategory"
+                [reports]="reports"
+                [selectedReportId]="selectedReportId"></ds-statistics-chart>
               </div>
 
             </ng-container>
