@@ -4,6 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtPlugin = require('script-ext-html-webpack-plugin');
+const sass = require('sass');
 
 export const copyWebpackOptions = {
   patterns: [
@@ -40,16 +41,21 @@ export const copyWebpackOptions = {
   ]
 };
 
-const SCSS_LOADERS = [{
-  loader: 'postcss-loader',
-  options: {
-    sourceMap: true
-  }
-},
+const SCSS_LOADERS = [
+  {
+    loader: 'postcss-loader',
+    options: {
+      sourceMap: true
+    }
+  },
   {
     loader: 'sass-loader',
     options: {
       sourceMap: true,
+      // sass >1.33 complains about deprecation warnings in Bootstrap 4
+      // After upgrading to Angular 12 we need to explicitly use an older version here
+      // todo: remove after upgrading to Bootstrap 5
+      implementation: sass,
       sassOptions: {
         includePaths: [projectRoot('./')]
       }
@@ -99,5 +105,5 @@ export const commonExports = {
         ]
       },
     ],
-  }
+  },
 };
