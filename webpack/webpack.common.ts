@@ -2,8 +2,6 @@ import { globalCSSImports, projectRoot } from './helpers';
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ScriptExtPlugin = require('script-ext-html-webpack-plugin');
 const sass = require('sass');
 
 export const copyWebpackOptions = {
@@ -66,14 +64,6 @@ const SCSS_LOADERS = [
 export const commonExports = {
   plugins: [
     new CopyWebpackPlugin(copyWebpackOptions),
-    new HtmlWebpackPlugin({
-      template: projectRoot('./src/index.html', ),
-      output: projectRoot('dist'),
-      inject: 'head'
-    }),
-    new ScriptExtPlugin({
-      defaultAttribute: 'defer'
-    })
   ],
   module: {
     rules: [
