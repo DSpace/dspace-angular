@@ -12,7 +12,13 @@ export class LinkHeadService {
   ) {
 
   }
-  addTag(tag: LinkDefinition, forceCreation?: boolean) {
+
+  /**
+   * Method to create a Link tag in the HEAD of the html.
+   * @param tag LinkDefition is the paramaters to define a link tag.
+   * @returns Link tag that was created
+   */
+  addTag(tag: LinkDefinition) {
 
     try {
       const renderer = this.rendererFactory.createRenderer(this.document, {
@@ -23,7 +29,8 @@ export class LinkHeadService {
       });
 
       const link = renderer.createElement('link');
-
+      console.log(tag);
+      console.log(link);
       const head = this.document.head;
 
       if (head === null) {
@@ -35,12 +42,16 @@ export class LinkHeadService {
       });
 
       renderer.appendChild(head, link);
-
+      return renderer;
     } catch (e) {
       console.error('Error within linkService : ', e);
     }
   }
 
+  /**
+   * Removes a link tag in header based on the given attrSelector.
+   * @param attrSelector The attr assigned to a link tag which will be used to determine what link to remove.
+   */
   removeTag(attrSelector: string) {
     if (attrSelector) {
       try {
