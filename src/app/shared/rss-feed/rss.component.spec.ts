@@ -10,12 +10,14 @@ import { ConfigurationProperty } from '../../core/shared/configuration-property.
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { PaginatedSearchOptions } from '../search/paginated-search-options.model';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { createPaginatedList } from '../testing/utils.test';
 import { RSSComponent } from './rss.component';
 import { of as observableOf } from 'rxjs';
 import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
+import { Router } from '@angular/router';
+import { RouterMock } from '../mocks/router.mock';
 
 
 
@@ -78,7 +80,8 @@ describe('RssComponent', () => {
             { provide: LinkHeadService, useValue: linkHeadService },
             { provide: ConfigurationDataService, useValue: configurationDataService },
             { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
-            { provide: PaginationService, useValue: paginationService }
+            { provide: PaginationService, useValue: paginationService },
+            { provide: Router, useValue: new RouterMock() }
           ],
           declarations: [RSSComponent]
         }).compileComponents();

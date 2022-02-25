@@ -29,6 +29,8 @@ import { LinkHeadService } from '../../../../core/services/link-head.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
+import { Router } from '@angular/router';
+import { RouterMock } from '../../../../shared/mocks/router.mock';
 
 let comp: EditRelationshipListComponent;
 let fixture: ComponentFixture<EditRelationshipListComponent>;
@@ -211,6 +213,7 @@ describe('EditRelationshipListComponent', () => {
         { provide: HostWindowService, useValue: hostWindowService },
         { provide: RelationshipTypeService, useValue: relationshipTypeService },
         { provide: GroupDataService, useValue: groupDataService },
+        { provide: Router, useValue: new RouterMock() },
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
