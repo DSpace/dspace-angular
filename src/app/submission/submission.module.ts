@@ -40,6 +40,7 @@ import { DetectDuplicateService } from './sections/detect-duplicate/detect-dupli
 import { ThemedSubmissionEditComponent } from './edit/themed-submission-edit.component';
 import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
 import { ThemedSubmissionImportExternalComponent } from './import-external/themed-submission-import-external.component';
+import { SubmissionSectionCustomUrlComponent } from './sections/custom-url/submission-section-custom-url.component';
 import { FormModule } from '../shared/form/form.module';
 import { NgbAccordionModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionSectionAccessesComponent } from './sections/accesses/section-accesses.component';
@@ -53,8 +54,8 @@ const ENTRY_COMPONENTS = [
   SubmissionSectionLicenseComponent,
   SubmissionSectionCcLicensesComponent,
   SubmissionSectionAccessesComponent,
-  SubmissionSectionUploadFileEditComponent,
-  SubmissionSectionDetectDuplicateComponent
+  SubmissionSectionDetectDuplicateComponent,
+  SubmissionSectionCustomUrlComponent
 ];
 
 const DECLARATIONS = [
