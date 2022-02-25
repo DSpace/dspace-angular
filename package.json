@@ -47,7 +47,8 @@
   "private": true,
   "resolutions": {
     "minimist": "^1.2.5",
-    "webdriver-manager": "^12.1.8"
+    "webdriver-manager": "^12.1.8",
+    "ts-node": "10.2.1"
   },
   "dependencies": {
     "@angular/animations": "~12.2.16",
