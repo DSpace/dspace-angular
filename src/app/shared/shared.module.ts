@@ -174,6 +174,10 @@ import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { RSSComponent } from './rss-feed/rss.component';
+import { SearchObjects } from './search/models/search-objects.model';
+import { FacetConfigResponse } from './search/models/facet-config-response.model';
+import { SearchResult } from './search/models/search-result.model';
+import { FacetValues } from './search/models/facet-values.model';
 
 const MODULES = [
   CommonModule,

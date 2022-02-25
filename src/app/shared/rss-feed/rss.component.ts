@@ -14,10 +14,11 @@ import { environment } from '../../../../src/environments/environment';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { Router } from '@angular/router';
 
 
 /**
- * The default pagination controls component.
+ * The Rss feed button componenet.
  */
 @Component({
   exportAs: 'rssComponent',
@@ -41,6 +42,7 @@ export class RSSComponent implements OnInit, OnDestroy  {
               private linkHeadService: LinkHeadService,
               private configurationService: ConfigurationDataService,
               private searchConfigurationService: SearchConfigurationService,
+              private router: Router,
               protected paginationService: PaginationService) {
   }
   ngOnDestroy(): void {
@@ -53,22 +55,22 @@ export class RSSComponent implements OnInit, OnDestroy  {
     this.configurationService.findByPropertyName('websvc.opensearch.enable').pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((result) => {
-      const enabled = Boolean(result.payload.values[0]);
+      const enabled = (result.payload.values[0] === 'true');
       this.isEnabled$.next(enabled);
     });
 
     this.searchConfigurationService.getCurrentQuery('').subscribe((query) => {
       this.sortOption$ = this.paginationService.getCurrentSort(this.searchConfigurationService.paginationID, null, true);
       this.sortOption$.subscribe((sort) => {
-        this.uuid = this.groupDataService.getUUIDFromString(window.location.href);
+        this.uuid = this.groupDataService.getUUIDFromString(this.router.url);
 
         const route = environment.rest.baseUrl + this.formulateRoute(this.uuid, sort, query);
-
+        this.addLinks(route);
         this.linkHeadService.addTag({
-          href: route,
+          href: environment.rest.baseUrl + '/opensearch/service',
           type: 'application/atom+xml',
-          rel: 'alternate',
-          title: 'Sitewide Atom feed'
+          rel: 'search',
+          title: 'Dspace'
         });
         this.route$ = new BehaviorSubject<string>(route);
       });
@@ -90,5 +92,21 @@ export class RSSComponent implements OnInit, OnDestroy  {
     }
     route = '/opensearch/' + route;
     return route;
+  }
+
+  addLinks(route: string): void {
+    this.linkHeadService.addTag({
+      href: route,
+      type: 'application/atom+xml',
+      rel: 'alternate',
+      title: 'Sitewide Atom feed'
+    });
+    route = route.replace('format=atom', 'format=rss');
+    this.linkHeadService.addTag({
+      href: route,
+      type: 'application/rss+xml',
+      rel: 'alternate',
+      title: 'Sitewide RSS feed'
+    });
   }
 }
