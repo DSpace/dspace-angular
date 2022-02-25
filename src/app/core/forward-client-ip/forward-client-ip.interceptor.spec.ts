@@ -25,7 +25,7 @@ describe('ForwardClientIpInterceptor', () => {
           useClass: ForwardClientIpInterceptor,
           multi: true,
         },
-        { provide: REQUEST, useValue: { get: () => undefined, connection: { remoteAddress: clientIp } } }
+        { provide: REQUEST, useValue: { get: () => undefined, connection: { remoteAddress: clientIp } }, headers: {} }
       ],
     });
 

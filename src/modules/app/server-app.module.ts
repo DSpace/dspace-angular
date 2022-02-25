@@ -36,6 +36,7 @@ import { CorrelationIdService } from '../../app/correlation-id/correlation-id.se
 import { AppConfig, APP_CONFIG_STATE } from '../../config/app-config.interface';
 
 import { environment } from '../../environments/environment';
+import { SsrRestUrlInterceptor } from 'src/app/core/ssr-rest-url/ssr-rest-url.interceptor';
 
 export function createTranslateLoader() {
   return new TranslateJson5UniversalLoader('dist/server/assets/i18n/', '.json5');
@@ -115,6 +116,11 @@ export function createTranslateLoader() {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ForwardClientIpInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SsrRestUrlInterceptor,
       multi: true
     },
     {
