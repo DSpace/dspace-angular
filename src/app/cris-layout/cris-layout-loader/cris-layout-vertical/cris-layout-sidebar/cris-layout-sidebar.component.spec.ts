@@ -9,6 +9,8 @@ import {
   tabPersonBiography,
   tabPersonProfile
 } from '../../../../shared/testing/layout-tab.mocks';
+import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
+import { BehaviorSubject } from 'rxjs';
 
 describe('CrisLayoutSidebarComponent', () => {
   let component: CrisLayoutSidebarComponent;
@@ -60,6 +62,7 @@ describe('CrisLayoutSidebarComponent', () => {
     beforeEach(() => {
       component.tabs = tabs;
       component.showNav = true;
+      component.activeTab$ = new BehaviorSubject<CrisLayoutTab>(tabs[0]);
       fixture.detectChanges();
     });
 
