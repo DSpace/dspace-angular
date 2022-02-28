@@ -1,10 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
 import { AuthService } from '../../../core/auth/auth.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
@@ -12,7 +9,6 @@ import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { isNotEmpty } from '../../empty.util';
 
 
 @Component({
@@ -55,7 +51,7 @@ export class ItemVersionMenuComponent extends ContextMenuEntryComponent implemen
     protected authorizationService: AuthorizationDataService,
     private authService: AuthService
   ) {
-    super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.Subscriptions);
+    super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.ItemVersion);
   }
 
   ngOnInit() {
