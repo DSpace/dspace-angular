@@ -24,9 +24,6 @@ describe('ItemVersionContainerComponent', () => {
   let fixture: ComponentFixture<ItemVersionContainerComponent>;
   let dso: DSpaceObject;
 
-  let versionService: VersionDataService;
-  let versionHistoryService: VersionHistoryDataService;
-
   const versionServiceSpy = jasmine.createSpyObj('versionService', {
     findByHref: createSuccessfulRemoteDataObject$<Version>(new Version()),
   });

@@ -22,7 +22,6 @@ describe('ItemVersionMenuComponent', () => {
   let de: DebugElement;
   let dso: DSpaceObject;
 
-  let modalService;
   let authServiceStub: any;
   let authorizationServiceStub: any;
 

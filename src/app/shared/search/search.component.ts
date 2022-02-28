@@ -131,6 +131,11 @@ export class SearchComponent implements OnInit {
   @Input() selectionConfig: SelectionConfig;
 
   /**
+   * A boolean representing if show search charts
+   */
+  @Input() showCharts = false;
+
+  /**
    * A boolean representing if show export button
    */
   @Input() showExport = true;

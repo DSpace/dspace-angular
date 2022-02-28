@@ -1,4 +1,4 @@
-import { isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import {
   MetadataMapInterface,
   MetadataValue,
@@ -6,6 +6,7 @@ import {
   MetadatumViewModel
 } from './metadata.models';
 import { differenceWith, groupBy, orderBy, sortBy } from 'lodash';
+import { validate as uuidValidate } from 'uuid';
 
 /**
  * Utility class for working with DSpace object metadata.
@@ -113,6 +114,13 @@ export class Metadata {
   public static has(mdMapOrMaps: MetadataMapInterface | MetadataMapInterface[], keyOrKeys: string | string[],
                     filter?: MetadataValueFilter): boolean {
     return isNotUndefined(Metadata.first(mdMapOrMaps, keyOrKeys, filter));
+  }
+
+  /**
+   * Returns true if this Metadatum's authority key is a valid UUID
+   */
+  public static hasValidAuthority(authority: string): boolean {
+    return hasValue(authority) && uuidValidate(authority);
   }
 
   /**

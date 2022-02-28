@@ -6,6 +6,8 @@
     </div>
 </div>
 
+<ds-search-charts *ngIf="showCharts" [configuration]="currentConfiguration$" [inPlaceSearch]="inPlaceSearch"></ds-search-charts>
+
 <div *ngIf="!showSidebar && (initialized$ | async)">
   <ng-template *ngTemplateOutlet="searchContent"></ng-template>
 </div>
