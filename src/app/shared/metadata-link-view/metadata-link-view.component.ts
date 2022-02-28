@@ -7,12 +7,13 @@ import { PLACEHOLDER_PARENT_METADATA } from '../form/builder/ds-dynamic-form-ui/
 import { RemoteData } from '../../core/data/remote-data';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { concatMap, map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { ItemDataService } from '../../core/data/item-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { Metadata } from '../../core/shared/metadata.utils';
 
-interface MetadataOrcid {
+interface MetadataView {
   authority: string;
   icon: string;
   value: string;
@@ -29,22 +30,20 @@ export class MetadataLinkViewComponent implements OnInit {
   /**
    * Metadata value that we need to show in the template
    */
-  @Input() metadata;
+  @Input() metadata: MetadataValue;
 
   /**
    * Item of the metadata value
    */
   @Input() item: Item;
-
+  /**
+   * Processed metadata to create MetadataOrcid with the informations needed to show
+   */
+  metadata$: Observable<MetadataView>;
   /**
    * Map icons of the respective entity types
    */
   private entity2icon: Map<string, string>;
-
-  /**
-   * Processed metadata to create MetadataOrcid with the informations needed to show
-   */
-  metadata$: Observable<MetadataOrcid>;
 
   /**
    * Map all entities with the icons specified in the envoirment configuration file
@@ -52,7 +51,7 @@ export class MetadataLinkViewComponent implements OnInit {
   constructor(private itemService: ItemDataService) {
     this.entity2icon = new Map();
     const confValue = environment.crisLayout.crisRef;
-    confValue.forEach( (config) => {
+    confValue.forEach((config) => {
       this.entity2icon.set(config.entityType.toUpperCase(), config.icon);
     });
   }
@@ -62,38 +61,38 @@ export class MetadataLinkViewComponent implements OnInit {
    */
   ngOnInit(): void {
     this.metadata$ = observableOf(this.metadata).pipe(
-        concatMap((metadataValue: MetadataValue) => {
-          if (hasValue(metadataValue.authority)) {
-            return this.itemService.findById(metadataValue.authority).pipe(
-              getFirstCompletedRemoteData(),
-              map((itemRD: RemoteData<Item>) => {
-                if (itemRD.hasSucceeded) {
-                  return {
-                    authority: metadataValue.authority,
-                    icon: this.getIcon( itemRD.payload.firstMetadataValue('dspace.entity.type')),
-                    value: metadataValue.value,
-                    orcidAuthenticated: this.getOrcid(itemRD.payload)
-                  };
-                } else {
-                  return {
-                    authority: null,
-                    icon: null,
-                    value: metadataValue.value,
-                    orcidAuthenticated: null
-                  };
-                }
-              })
-            );
-          } else {
-            return observableOf({
-              authority: null,
-              icon: null,
-              value: metadataValue.value,
-              orcidAuthenticated: null
-            });
-          }
-        }),
-      );
+      switchMap((metadataValue: MetadataValue) => {
+        if (Metadata.hasValidAuthority(metadataValue.authority)) {
+          return this.itemService.findById(metadataValue.authority).pipe(
+            getFirstCompletedRemoteData(),
+            map((itemRD: RemoteData<Item>) => {
+              if (itemRD.hasSucceeded) {
+                return {
+                  authority: metadataValue.authority,
+                  icon: this.getIcon(itemRD.payload.firstMetadataValue('dspace.entity.type')),
+                  value: metadataValue.value,
+                  orcidAuthenticated: this.getOrcid(itemRD.payload)
+                };
+              } else {
+                return {
+                  authority: null,
+                  icon: null,
+                  value: metadataValue.value,
+                  orcidAuthenticated: null
+                };
+              }
+            })
+          );
+        } else {
+          return observableOf({
+            authority: null,
+            icon: null,
+            value: metadataValue.value,
+            orcidAuthenticated: null
+          });
+        }
+      })
+    );
   }
 
   /**

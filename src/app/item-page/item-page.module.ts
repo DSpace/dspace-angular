@@ -33,7 +33,7 @@ import { MediaViewerComponent } from './media-viewer/media-viewer.component';
 import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/media-viewer-video.component';
 import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/media-viewer-image.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
-import { MiradorViewerComponent } from './mirador-viewer/mirador-viewer.component';
+import { MiradorViewerModule } from './mirador-viewer/mirador-viewer.module';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 import { VersionedItemComponent } from './simple/item-types/versioned-item/versioned-item.component';
 import { ThemedFileSectionComponent } from './simple/field-components/file-section/themed-file-section.component';
@@ -68,7 +68,6 @@ const DECLARATIONS = [
   MediaViewerComponent,
   MediaViewerVideoComponent,
   MediaViewerImageComponent,
-  MiradorViewerComponent,
   VersionPageComponent,
 ];
 
@@ -85,6 +84,7 @@ const DECLARATIONS = [
     CrisItemPageModule,
     SubmissionModule,
     ContextMenuModule.withEntryComponents(),
+    MiradorViewerModule,
   ],
   declarations: [
     ...DECLARATIONS,
@@ -97,12 +97,12 @@ const DECLARATIONS = [
 export class ItemPageModule {
   /**
    * NOTE: this method allows to resolve issue with components that using a custom decorator
-   * which are not loaded during CSR otherwise
+   * which are not loaded during SSR otherwise
    */
   static withEntryComponents() {
     return {
       ngModule: ItemPageModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component }))
     };
   }
 

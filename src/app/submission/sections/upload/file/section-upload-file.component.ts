@@ -1,25 +1,23 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { filter, mergeMap, take } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { DynamicFormControlModel, } from '@ng-dynamic-forms/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { SectionUploadService } from '../section-upload.service';
-import { isNotEmpty, isNotNull, isNotUndefined } from '../../../../shared/empty.util';
+import { hasValue, isNotUndefined } from '../../../../shared/empty.util';
 import { FormService } from '../../../../shared/form/form.service';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
-import { dateToISOFormat } from '../../../../shared/date.util';
 import { SubmissionService } from '../../../submission.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
-import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
-import { WorkspaceitemSectionUploadObject } from '../../../../core/submission/models/workspaceitem-section-upload.model';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
 
 /**
  * This component represents a single bitstream contained in the submission
@@ -94,6 +92,13 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
   @Input() submissionId: string;
 
   /**
+   * The [[SubmissionSectionUploadFileEditComponent]] reference
+   * @type {SubmissionSectionUploadFileEditComponent}
+   */
+  @ViewChild(SubmissionSectionUploadFileEditComponent) fileEditComp: SubmissionSectionUploadFileEditComponent;
+
+
+  /**
    * The bitstream's metadata data
    * @type {WorkspaceitemSectionUploadFileObject}
    */
@@ -136,10 +141,10 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
   protected subscriptions: Subscription[] = [];
 
   /**
-   * The [[SubmissionSectionUploadFileEditComponent]] reference
-   * @type {SubmissionSectionUploadFileEditComponent}
+   * Array containing all the form metadata defined in configMetadataForm
+   * @type {Array}
    */
-  @ViewChild(SubmissionSectionUploadFileEditComponent) fileEditComp: SubmissionSectionUploadFileEditComponent;
+  protected formMetadata: string[] = [];
 
   /**
    * Initialize instance variables
@@ -153,14 +158,16 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
    * @param {SubmissionService} submissionService
    * @param {SectionUploadService} uploadService
    */
-  constructor(private cdr: ChangeDetectorRef,
-              private formService: FormService,
-              private halService: HALEndpointService,
-              private modalService: NgbModal,
-              private operationsBuilder: JsonPatchOperationsBuilder,
-              private operationsService: SubmissionJsonPatchOperationsService,
-              private submissionService: SubmissionService,
-              private uploadService: SectionUploadService) {
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private formService: FormService,
+    private halService: HALEndpointService,
+    private modalService: NgbModal,
+    private operationsBuilder: JsonPatchOperationsBuilder,
+    private operationsService: SubmissionJsonPatchOperationsService,
+    private submissionService: SubmissionService,
+    private uploadService: SectionUploadService,
+  ) {
     this.readMode = true;
   }
 
@@ -173,7 +180,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
       this.subscriptions.push(
         this.uploadService
           .getFileData(this.submissionId, this.sectionId, this.fileId).pipe(
-          filter((bitstream) => isNotUndefined(bitstream)))
+            filter((bitstream) => isNotUndefined(bitstream)))
           .subscribe((bitstream) => {
               this.fileData = bitstream;
             }
@@ -188,22 +195,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
   ngOnInit() {
     this.formId = this.formService.getUniqueId(this.fileId);
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, 'files', this.fileIndex);
-  }
-
-  /**
-   * Delete bitstream from submission
-   */
-  protected deleteFile() {
-    this.operationsBuilder.remove(this.pathCombiner.getPath());
-    this.subscriptions.push(this.operationsService.jsonPatchByResourceID(
-      this.submissionService.getSubmissionObjectLinkName(),
-      this.submissionId,
-      this.pathCombiner.rootElement,
-      this.pathCombiner.subRootElement)
-      .subscribe(() => {
-        this.uploadService.removeUploadedFile(this.submissionId, this.sectionId, this.fileId);
-        this.processingDelete$.next(false);
-      }));
+    this.loadFormMetadata();
   }
 
   /**
@@ -231,98 +223,63 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
     });
   }
 
-  /**
-   * Save bitstream metadata
-   *
-   * @param event
-   *    the click event emitted
-   */
-  public saveBitstreamData(event) {
-    event.preventDefault();
+  editBitstreamData() {
 
-    // validate form
-    this.formService.validateAllFormFields(this.fileEditComp.formRef.formGroup);
-    this.subscriptions.push(this.formService.isValid(this.formId).pipe(
-      take(1),
-      filter((isValid) => isValid),
-      mergeMap(() => this.formService.getFormData(this.formId)),
-      take(1),
-      mergeMap((formData: any) => {
-        // collect bitstream metadata
-        Object.keys((formData.metadata))
-          .filter((key) => isNotEmpty(formData.metadata[key]))
-          .forEach((key) => {
-            const metadataKey = key.replace(/_/g, '.');
-            const path = `metadata/${metadataKey}`;
-            this.operationsBuilder.add(this.pathCombiner.getPath(path), formData.metadata[key], true);
-          });
-        const accessConditionsToSave = [];
-        formData.accessConditions
-          .map((accessConditions) => accessConditions.accessConditionGroup)
-          .filter((accessCondition) => isNotEmpty(accessCondition))
-          .forEach((accessCondition) => {
-            let accessConditionOpt;
+    const options: NgbModalOptions = {
+      size: 'xl',
+      backdrop: 'static',
+    };
 
-            this.availableAccessConditionOptions
-              .filter((element) => isNotNull(accessCondition.name) && element.name === accessCondition.name[0].value)
-              .forEach((element) => accessConditionOpt = element);
+    const activeModal = this.modalService.open(SubmissionSectionUploadFileEditComponent, options);
 
-            if (accessConditionOpt) {
-                accessConditionOpt = Object.assign({}, accessCondition);
-                accessConditionOpt.name = this.retrieveValueFromField(accessCondition.name);
-                if (accessCondition.startDate) {
-                  const startDate = this.retrieveValueFromField(accessCondition.startDate);
-                  accessConditionOpt.startDate = dateToISOFormat(startDate);
-                }
-                if (accessCondition.endDate) {
-                  const endDate = this.retrieveValueFromField(accessCondition.endDate);
-                  accessConditionOpt.endDate = dateToISOFormat(endDate);
-                }
-                accessConditionsToSave.push(accessConditionOpt);
-            }
-          });
+    activeModal.componentInstance.availableAccessConditionOptions = this.availableAccessConditionOptions;
+    activeModal.componentInstance.collectionId = this.collectionId;
+    activeModal.componentInstance.collectionPolicyType = this.collectionPolicyType;
+    activeModal.componentInstance.configMetadataForm = this.configMetadataForm;
+    activeModal.componentInstance.fileData = this.fileData;
+    activeModal.componentInstance.fileId = this.fileId;
+    activeModal.componentInstance.fileIndex = this.fileIndex;
+    activeModal.componentInstance.formId = this.formId;
+    activeModal.componentInstance.sectionId = this.sectionId;
+    activeModal.componentInstance.formMetadata = this.formMetadata;
+    activeModal.componentInstance.pathCombiner = this.pathCombiner;
+    activeModal.componentInstance.submissionId = this.submissionId;
 
-        if (isNotEmpty(accessConditionsToSave)) {
-          this.operationsBuilder.add(this.pathCombiner.getPath('accessConditions'), accessConditionsToSave, true);
-        }
+  }
 
-        // dispatch a PATCH request to save metadata
-        return this.operationsService.jsonPatchByResourceID(
-          this.submissionService.getSubmissionObjectLinkName(),
-          this.submissionId,
-          this.pathCombiner.rootElement,
-          this.pathCombiner.subRootElement);
-      })
-    ).subscribe((result: SubmissionObject[]) => {
-      if (result[0].sections[this.sectionId]) {
-        const uploadSection = (result[0].sections[this.sectionId] as WorkspaceitemSectionUploadObject);
-        Object.keys(uploadSection.files)
-          .filter((key) => uploadSection.files[key].uuid === this.fileId)
-          .forEach((key) => this.uploadService.updateFileData(
-            this.submissionId, this.sectionId, this.fileId, uploadSection.files[key])
-          );
-      }
-      this.switchMode();
-    }));
+  ngOnDestroy(): void {
+    this.unsubscribeAll();
+  }
+
+  unsubscribeAll() {
+    this.subscriptions.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+  }
+
+  protected loadFormMetadata() {
+    this.configMetadataForm.rows.forEach((row) => {
+      row.fields.forEach((field) => {
+        field.selectableMetadata.forEach((metadatum) => {
+          this.formMetadata.push(metadatum.metadata);
+        });
+      });
+    }
+    );
   }
 
   /**
-   * Retrieve field value
-   *
-   * @param field
-   *    the specified field object
+   * Delete bitstream from submission
    */
-  private retrieveValueFromField(field: any) {
-    const temp = Array.isArray(field) ? field[0] : field;
-    return (temp) ? temp.value : undefined;
-  }
-
-  /**
-   * Switch from edit form to metadata view
-   */
-  public switchMode() {
-    this.readMode = !this.readMode;
-    this.cdr.detectChanges();
+  protected deleteFile() {
+    this.operationsBuilder.remove(this.pathCombiner.getPath());
+    this.subscriptions.push(this.operationsService.jsonPatchByResourceID(
+      this.submissionService.getSubmissionObjectLinkName(),
+      this.submissionId,
+      this.pathCombiner.rootElement,
+      this.pathCombiner.subRootElement)
+      .subscribe(() => {
+        this.uploadService.removeUploadedFile(this.submissionId, this.sectionId, this.fileId);
+        this.processingDelete$.next(false);
+      }));
   }
 
 }

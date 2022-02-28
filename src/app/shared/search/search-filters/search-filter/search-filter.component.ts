@@ -3,7 +3,7 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 
-import { SearchFilterConfig } from '../../search-filter-config.model';
+import { SearchFilterConfig } from '../../models/search-filter-config.model';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { slide } from '../../../animations/slide';
 import { isNotEmpty } from '../../../empty.util';
@@ -169,7 +169,7 @@ export class SearchFilterComponent implements OnInit {
                 return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
                   filter((RD) => !RD.isLoading),
                   map((valuesRD) => {
-                    return valuesRD.payload.totalElements > 0;
+                    return valuesRD.payload?.totalElements > 0;
                   }),);
               }
             ));

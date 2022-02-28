@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { TopSection } from '../../../../core/layout/models/section.model';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../../search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
 import { Context } from '../../../../core/shared/context.model';
 
 /**

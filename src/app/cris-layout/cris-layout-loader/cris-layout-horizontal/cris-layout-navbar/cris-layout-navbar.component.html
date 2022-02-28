@@ -1,26 +1,21 @@
-<button *ngIf="(windowService.isXsOrSm() | async)" class="navbar-toggler pl-2 float-right" type="button" (click)="toggleNavbar()"
-      aria-controls="collapsingNav"
-      aria-expanded="false" [attr.aria-label]="'nav.toggle' | translate">
+<button *ngIf="(windowService.isXsOrSm() | async) && showNav" class="navbar-toggler pl-2 float-right" type="button" (click)="toggleNavbar()"
+    aria-controls="collapsingNav" aria-expanded="false" [attr.aria-label]="'nav.toggle' | translate">
     <span class="navbar-toggler-icon fas fa-bars fa-fw" aria-hidden="true"></span>
 </button>
 
 <!-- [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : (menuCollapsed ? 'collapsed' : 'expanded')" -->
-<nav [ngClass]="{'open': !menuCollapsed}"
- class="navbar navbar-light navbar-expand-md p-md-0 navbar-container cris-layout-navbar {{menuCollapsed ? 'collapsed' : 'expanded'}}"
- role="navigation" [attr.aria-label]="'nav.main.description' | translate">
+<nav [ngClass]="{'open': !menuCollapsed}" *ngIf="showNav" class="navbar navbar-light navbar-expand-md p-md-0 navbar-container cris-layout-navbar {{menuCollapsed ? 'collapsed' : 'expanded'}}"
+    role="navigation" [attr.aria-label]="'nav.main.description' | translate">
     <div class="container">
         <div class="reset-padding-md w-100">
             <div id="collapsingNav">
                 <ul class="navbar-nav mr-auto shadow-none">
-                    <ds-cris-layout-sidebar-item *ngFor="let tab of tabs;"
-                             [tab]="tab"
-                             [layout]="'horizontal'"
-                             (tabSelectedChange)="getTabSelected($event)"
-                             ></ds-cris-layout-sidebar-item>
+                    <ng-container *ngIf="!!(activeTab$ |async)">
+                        <ds-cris-layout-sidebar-item *ngFor="let tab of tabs;" [tab]="tab" [layout]="'horizontal'" [activeTab]="(activeTab$ |async)"
+                            (tabSelectedChange)="setActiveTab($event)"></ds-cris-layout-sidebar-item>
+                    </ng-container>
                 </ul>
             </div>
         </div>
     </div>
 </nav>
-
-

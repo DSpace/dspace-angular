@@ -5,8 +5,8 @@ import { RemoteData } from '../core/data/remote-data';
 import { ItemDataService } from '../core/data/item-data.service';
 import { Item } from '../core/shared/item.model';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-import { hasValue } from '../shared/empty.util';
+import { map, isEmpty } from 'rxjs/operators';
+import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { getItemPageRoute } from './item-page-routing-paths';
 import { ItemResolver } from './item.resolver';
 
@@ -36,11 +36,18 @@ export class ItemPageResolver extends ItemResolver {
       map((rd: RemoteData<Item>) => {
         if (rd.hasSucceeded && hasValue(rd.payload)) {
           const itemRoute = getItemPageRoute(rd.payload);
-          const thisRoute = state.url;
-          if (!thisRoute.startsWith(itemRoute)) {
-            const itemId = rd.payload.uuid;
-            const subRoute = thisRoute.substring(thisRoute.indexOf(itemId) + itemId.length, thisRoute.length);
-            this.router.navigateByUrl(itemRoute + subRoute);
+          // Check if custom url not empty and if the current id parameter is different from the custom url redirect to custom url
+          if (hasValue(rd.payload.metadata) && isNotEmpty(rd.payload.metadata['cris.customurl'])) {
+            if (route.params.id !== rd.payload.metadata['cris.customurl'][0].value) {
+              this.router.navigateByUrl(getItemPageRoute(rd.payload));
+            }
+          } else {
+            const thisRoute = state.url;
+            if (!thisRoute.startsWith(itemRoute)) {
+              const itemId = rd.payload.uuid;
+              const subRoute = thisRoute.substring(thisRoute.indexOf(itemId) + itemId.length, thisRoute.length);
+              this.router.navigateByUrl(itemRoute + subRoute);
+            }
           }
         }
         return rd;

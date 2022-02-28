@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
-import { SearchResult } from '../../../search/search-result.model';
+import { SearchResult } from '../../../search/models/search-result.model';
 import { DSOSelectorModalWrapperComponent } from '../dso-selector-modal-wrapper.component';
 import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';

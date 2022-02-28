@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { FilterType } from '../../../filter-type.model';
+import { FilterType } from '../../../models/filter-type.model';
 import { facetLoad } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { renderChartFor } from '../../chart-search-result-element-decorator';
 import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-filter.component';
@@ -9,9 +9,9 @@ import { ChartData } from '../../../../../charts/models/chart-data';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
-import { FacetValue } from '../../../facet-value.model';
+import { FacetValue } from '../../../models/facet-value.model';
 import { isNotEmpty } from '../../../../empty.util';
-import { FacetValues } from '../../../facet-values.model';
+import { FacetValues } from '../../../models/facet-values.model';
 
 @Component({
   selector: 'ds-search-chart-line',

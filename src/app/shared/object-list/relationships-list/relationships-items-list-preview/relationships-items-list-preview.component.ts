@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { fadeInOut } from '../../../animations/fade';
 import { Item } from '../../../../core/shared/item.model';
-import { SearchResult } from '../../../search/search-result.model';
+import { SearchResult } from '../../../search/models/search-result.model';
 
 @Component({
   selector: 'ds-relationships-items-list-preview',

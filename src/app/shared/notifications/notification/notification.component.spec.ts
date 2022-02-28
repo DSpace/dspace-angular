@@ -10,8 +10,6 @@ import { NotificationsService } from '../notifications.service';
 import { NotificationType } from '../models/notification-type';
 import { notificationsReducer } from '../notifications.reducers';
 import { NotificationOptions } from '../models/notification-options.model';
-import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
-import { GlobalConfig } from '../../../../config/global-config.interface';
 import { Notification } from '../models/notification.model';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
@@ -33,16 +31,6 @@ describe('NotificationComponent', () => {
       /* tslint:disable:no-empty */
       notifications: []
     });
-    const envConfig: GlobalConfig = {
-      notifications: {
-        rtl: false,
-        position: ['top', 'right'],
-        maxStack: 8,
-        timeOut: 5000,
-        clickToClose: true,
-        animate: 'scale'
-      } as INotificationBoardOptions,
-    } as any;
 
     TestBed.configureTestingModule({
       imports: [

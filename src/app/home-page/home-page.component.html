@@ -1,11 +1,11 @@
-<ds-themed-text-section *ngIf="hasHomeHeaderMetadata; else dsHomeNews" [sectionId]="'site'" [textRowSection]="homeHeaderSection"
-  [site]="(site$ | async)"></ds-themed-text-section>
+<ds-themed-text-section *ngIf="(site$.value && hasHomeHeaderMetadata); else dsHomeNews" [sectionId]="'site'" [textRowSection]="homeHeaderSection"
+  [site]="site$.value"></ds-themed-text-section>
 <ng-template #dsHomeNews>
   <ds-themed-home-news></ds-themed-home-news>
 </ng-template>
-<div class="container" *ngIf="(site$ | async) as site">
+<div class="container" *ngIf="site$.value">
   <ng-container>
-    <ds-view-tracker [object]="site"></ds-view-tracker>
+    <ds-view-tracker [object]="site$.value"></ds-view-tracker>
   </ng-container>
 
   <button class="btn btn-primary" (click)="$event.preventDefault();openModal(itemPageModal);">
@@ -25,10 +25,8 @@
       <ds-themed-facet-section *ngSwitchCase="'facet'" [sectionId]="sectionId" [facetSection]="sectionComponent"></ds-themed-facet-section>
       <ds-themed-text-section *ngSwitchCase="'text-row'" [sectionId]="sectionId" [textRowSection]="sectionComponent"></ds-themed-text-section>
       <ds-themed-counters-section *ngSwitchCase="'counters'" [sectionId]="sectionId" [countersSection]="sectionComponent"></ds-themed-counters-section>
-      <ds-themed-text-section *ngSwitchCase="'text-row'" [sectionId]="sectionId" [textRowSection]="sectionComponent" [site]="$any(sectionComponent).contentType === 'text-metadata' ?  (site$ | async): null"></ds-themed-text-section>
+      <ds-themed-text-section *ngSwitchCase="'text-row'" [sectionId]="sectionId" [textRowSection]="sectionComponent" [site]="$any(sectionComponent).contentType === 'text-metadata' ? site$.value : null"></ds-themed-text-section>
     </div>
   </div>
-
-
 </div>
 <ds-suggestions-popup></ds-suggestions-popup>

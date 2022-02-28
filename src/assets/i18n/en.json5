@@ -16,6 +16,11 @@
 
   "403.forbidden": "forbidden",
 
+  "500.page-internal-server-error": "Service Unavailable",
+
+  "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
+
+  "500.link.home-page": "Take me to the home page",
 
 
   "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
@@ -726,6 +731,23 @@
   "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
 
   "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
+
+  "bitstream.edit.form.iiifLabel.label": "IIIF Label",
+
+  "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image. If not provided default label will be used.",
+
+  "bitstream.edit.form.iiifToc.label": "IIIF Table of Contents",
+
+  "bitstream.edit.form.iiifToc.hint": "Adding text here makes this the start of a new table of contents range.",
+
+  "bitstream.edit.form.iiifWidth.label": "IIIF Canvas Width",
+
+  "bitstream.edit.form.iiifWidth.hint": "The canvas width should usually match the image width.",
+
+  "bitstream.edit.form.iiifHeight.label": "IIIF Canvas Height",
+
+  "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
+
 
   "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
 
@@ -1731,6 +1753,8 @@
 
   "error.search-results": "Error fetching search results",
 
+  "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
+
   "error.sub-collections": "Error fetching sub-collections",
 
   "error.sub-communities": "Error fetching sub-communities",
@@ -1738,6 +1762,12 @@
   "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
 
   "error.top-level-communities": "Error fetching top-level communities",
+
+  "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+
+  "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+
+  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
 
   "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
 
@@ -1943,6 +1973,8 @@
   "footer.link.privacy-policy": "Privacy policy",
 
   "footer.link.end-user-agreement":"End User Agreement",
+
+  "footer.link.feedback":"Send Feedback",
 
 
 
@@ -2165,6 +2197,32 @@
   "info.privacy.head": "Privacy Statement",
 
   "info.privacy.title": "Privacy Statement",
+
+  "info.feedback.breadcrumbs": "Feedback",
+
+  "info.feedback.head": "Feedback",
+
+  "info.feedback.title": "Feedback",
+
+  "info.feedback.info": "Thanks for sharing your feedback about the DSpace system. Your comments are appreciated!",
+
+  "info.feedback.email_help": "This address will be used to follow up on your feedback.",
+
+  "info.feedback.send": "Send Feedback",
+
+  "info.feedback.comments": "Comments",
+
+  "info.feedback.email-label": "Your Email",
+
+  "info.feedback.create.success" : "Feedback Sent Successfully!",
+
+  "info.feedback.error.email.required" : "A valid email address is required",
+
+  "info.feedback.error.message.required" : "A comment is required",
+
+  "info.feedback.page-label" : "Page",
+
+  "info.feedback.page_help" : "Tha page related to your feedback",
 
 
 
@@ -3100,9 +3158,9 @@
 
   "login.form.or-divider": "or",
 
-  "login.form.orcid": "Log in with ORCID",
-
   "login.form.oidc": "Log in with OIDC",
+
+  "login.form.orcid": "Log in with ORCID",
 
   "login.form.password": "Password",
 
@@ -3523,7 +3581,7 @@
 
   "mydspace.search-form.placeholder": "Search in mydspace...",
 
-  "mydspace.show.workflow": "All tasks",
+  "mydspace.show.workflow": "Workflow tasks",
 
   "mydspace.show.workspace": "Your Submissions",
 
@@ -4401,7 +4459,7 @@
 
   "researcher.profile.create.new": "Create new",
 
-  "researcher.profile.create.success": "Researcher profile created succcessfully",
+  "researcher.profile.create.success": "Researcher profile created successfully",
 
   "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
 
@@ -4920,6 +4978,22 @@
 
   "sorting.ownerselection.DESC": "Owner Relevance Descending",
 
+  "sorting.organization.legalName.ASC" : "Legal Name Ascending",
+
+  "sorting.organization.legalName.DESC" : "Legal Name Descending",
+
+  "sorting.organisation.address.addressCountry.ASC" : "Country Ascending",
+
+  "sorting.organisation.address.addressCountry.DESC" : "Country Descending",
+
+  "sorting.organisation.address.addressLocality.ASC" : "Locality Ascending",
+
+  "sorting.organisation.address.addressLocality.DESC" : "Locality Descending",
+
+  "sorting.organisation.address.foundingDate.ASC" : "Founding Date Ascending",
+
+  "sorting.organisation.address.foundingDate.DESC" : "Founding Date Descending",
+
 
   "statistics.export.csv": "Export CSV",
 
@@ -4972,6 +5046,16 @@
   "statistics.table.downloadReports.title.TopCities": "Top city downloads",
 
   "statistics.table.header.views": "Views",
+
+  "statistics.table.publicationsReports.title.TotalVisits": "Total Visits",
+
+  "statistics.table.publicationsReports.title.TopCities": "Top Cities",
+
+  "statistics.table.publicationsReports.title.TopCountries": "Top Countries",
+
+  "statistics.table.publicationsReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
+
+  "statistics.table.projectsReports.title.TotalVisits": "Tota Visits",
 
   "statistics.categories.title": "Statistics by Category",
 
@@ -5498,7 +5582,11 @@
 
 
 
+  "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
+
   "submission.sections.submit.progressbar.CClicense": "Creative commons license",
+
+  "submission.sections.submit.progressbar.CustomUrlStep": "Custom url",
 
   "submission.sections.submit.progressbar.describe.equipment": "Equipment basic information",
 
@@ -5592,6 +5680,8 @@
 
   "submission.sections.upload.form.access-condition-label": "Access condition type",
 
+  "submission.sections.upload.form.access-condition-hint": "Select an access condition to apply on the bitstream once the item is deposited",
+
   "submission.sections.upload.form.date-required": "Date is required.",
 
   "submission.sections.upload.form.date-required-from": "Grant access from date is required.",
@@ -5600,6 +5690,8 @@
 
   "submission.sections.upload.form.from-label": "Grant access from",
 
+  "submission.sections.upload.form.from-hint": "Select the date from which the related access condition is applied",
+
   "submission.sections.upload.form.from-placeholder": "From",
 
   "submission.sections.upload.form.group-label": "Group",
@@ -5607,6 +5699,8 @@
   "submission.sections.upload.form.group-required": "Group is required.",
 
   "submission.sections.upload.form.until-label": "Grant access until",
+
+  "submission.sections.upload.form.until-hint": "Select the date until which the related access condition is applied",
 
   "submission.sections.upload.form.until-placeholder": "Until",
 
@@ -5628,6 +5722,39 @@
 
   "submission.sections.upload.upload-successful": "Upload successful",
 
+  "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+
+  "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+
+  "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
+
+  "submission.sections.accesses.form.discoverable-label": "Discoverable",
+
+  "submission.sections.accesses.form.access-condition-label": "Access condition type",
+
+  "submission.sections.accesses.form.access-condition-hint": "Select an access condition to apply on the item once it is deposited",
+
+  "submission.sections.accesses.form.date-required": "Date is required.",
+
+  "submission.sections.accesses.form.date-required-from": "Grant access from date is required.",
+
+  "submission.sections.accesses.form.date-required-until": "Grant access until date is required.",
+
+  "submission.sections.accesses.form.from-label": "Grant access from",
+
+  "submission.sections.accesses.form.from-hint": "Select the date from which the related access condition is applied",
+
+  "submission.sections.accesses.form.from-placeholder": "From",
+
+  "submission.sections.accesses.form.group-label": "Group",
+
+  "submission.sections.accesses.form.group-required": "Group is required.",
+
+  "submission.sections.accesses.form.until-label": "Grant access until",
+
+  "submission.sections.accesses.form.until-hint": "Select the date until which the related access condition is applied",
+
+  "submission.sections.accesses.form.until-placeholder": "Until",
 
 
   "submission.submit.breadcrumbs": "New submission",
@@ -5835,7 +5962,11 @@
 
 
 
+  "workspace.search.results.head": "Your submissions",
+
   "workflowAdmin.search.results.head": "Administer Workflow",
+
+  "workflow.search.results.head": "Workflow tasks",
 
 
 
@@ -5907,4 +6038,5 @@
 
   "invitation.ignore-btn": "Ignore",
 
+  "authority-confidence.search-label":"Search"
 }

@@ -59,8 +59,8 @@ export abstract class SectionModelComponent implements OnDestroy, OnInit, Sectio
    * @param {string} injectedSubmissionId
    */
   public constructor(@Inject('collectionIdProvider') public injectedCollectionId: string,
-                     @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
-                     @Inject('submissionIdProvider') public injectedSubmissionId: string) {
+    @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
+    @Inject('submissionIdProvider') public injectedSubmissionId: string) {
     this.collectionId = injectedCollectionId;
     this.sectionData = injectedSectionData;
     this.submissionId = injectedSubmissionId;

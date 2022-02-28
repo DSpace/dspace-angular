@@ -7,7 +7,7 @@ import { SearchFilterService } from '../../../../core/shared/search/search-filte
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { slide } from '../../../animations/slide';
 import { isNotEmpty } from '../../../empty.util';
-import { SearchFilterConfig } from '../../search-filter-config.model';
+import { SearchFilterConfig } from '../../models/search-filter-config.model';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

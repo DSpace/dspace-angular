@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, map, mergeMap, take, tap } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, interval, Observable, race, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, find, map, mapTo, mergeMap, take, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { findIndex, isEqual } from 'lodash';
 
@@ -46,7 +46,7 @@ import { MetadataSecurityConfiguration } from '../../../core/submission/models/m
   templateUrl: './section-form.component.html',
 })
 @renderSectionFor(SectionsType.SubmissionForm)
-export class SubmissionSectionformComponent extends SectionModelComponent implements OnDestroy {
+export class SubmissionSectionFormComponent extends SectionModelComponent implements OnDestroy {
 
   /**
    * The form id
@@ -169,14 +169,23 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
     this.formConfigService.findByHref(this.sectionData.config).pipe(
       map((configData: RemoteData<ConfigObject>) => configData.payload),
       tap((config: SubmissionFormsModel) => this.formConfig = config),
-      mergeMap(() =>
-        observableCombineLatest([
-          this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
-          this.submissionObjectService.findById(this.submissionId, false, true, followLink('item')).pipe(
+      mergeMap(() => {
+        const findById$ = this.submissionObjectService.findById(this.submissionId, false, true, followLink('item')).pipe(
+          getFirstSucceededRemoteData(),
+          getRemoteDataPayload()
+        );
+        const findByIdCached$ = interval(200).pipe(
+          mapTo(this.submissionObjectService.findById(this.submissionId, true, true, followLink('item')).pipe(
             getFirstSucceededRemoteData(),
-            getRemoteDataPayload()),
+            getRemoteDataPayload()
+          )),
+        );
+        return observableCombineLatest([
+          this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
+          race([findById$, findByIdCached$]),
           this.submissionService.getSubmissionSecurityConfiguration(this.submissionId).pipe(take(1))
-        ])),
+        ]);
+      }),
       take(1))
       .subscribe(([sectionData, workspaceItem, metadataSecurity]: [WorkspaceitemSectionFormObject, WorkspaceItem, MetadataSecurityConfiguration]) => {
           if (isUndefined(this.formModel)) {

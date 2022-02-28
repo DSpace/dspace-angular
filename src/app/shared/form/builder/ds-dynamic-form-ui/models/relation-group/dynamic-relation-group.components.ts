@@ -27,6 +27,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { DsDynamicRelationGroupModalComponent } from './modal/dynamic-relation-group-modal.components';
 import { MetadataSecurityConfiguration } from '../../../../../../core/submission/models/metadata-security-configuration';
+import { Metadata } from '../../../../../../core/shared/metadata.utils';
 
 /**
  * Component representing a group input field
@@ -230,7 +231,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
       ));
   }
 
-  private hasValidAuthority(value: FormFieldMetadataValueObject) {
-    return value.hasAuthority() && isNotEmpty(value.authority) && !value.authority.startsWith('will be');
+  private hasValidAuthority(formMetadataValue: FormFieldMetadataValueObject) {
+    return Metadata.hasValidAuthority(formMetadataValue?.authority);
   }
 }

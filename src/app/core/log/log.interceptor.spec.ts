@@ -9,12 +9,17 @@ import { RestRequestMethod } from '../data/rest-request-method';
 import { CookieService } from '../services/cookie.service';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { RouterStub } from '../../shared/testing/router.stub';
+import { CorrelationIdService } from '../../correlation-id/correlation-id.service';
+import { UUIDService } from '../shared/uuid.service';
+import { StoreModule } from '@ngrx/store';
+import { appReducers, storeModuleConfig } from '../../app.reducer';
 
 
 describe('LogInterceptor', () => {
   let service: DspaceRestService;
   let httpMock: HttpTestingController;
   let cookieService: CookieService;
+  let correlationIdService: CorrelationIdService;
   const router = Object.assign(new RouterStub(),{url : '/statistics'});
 
   // Mock payload/statuses are dummy content as we are not testing the results
@@ -28,7 +33,10 @@ describe('LogInterceptor', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        StoreModule.forRoot(appReducers, storeModuleConfig),
+      ],
       providers: [
         DspaceRestService,
         // LogInterceptor,
@@ -39,14 +47,18 @@ describe('LogInterceptor', () => {
         },
         { provide: CookieService, useValue: new CookieServiceMock() },
         { provide: Router, useValue: router },
+        { provide: CorrelationIdService, useClass: CorrelationIdService },
+        { provide: UUIDService, useClass: UUIDService },
       ],
     });
 
-    service = TestBed.get(DspaceRestService);
-    httpMock = TestBed.get(HttpTestingController);
-    cookieService = TestBed.get(CookieService);
+    service = TestBed.inject(DspaceRestService);
+    httpMock = TestBed.inject(HttpTestingController);
+    cookieService = TestBed.inject(CookieService);
+    correlationIdService = TestBed.inject(CorrelationIdService);
 
     cookieService.set('CORRELATION-ID','123455');
+    correlationIdService.initCorrelationId();
   });
 
 

@@ -5,7 +5,7 @@ import { CrisLayoutBoxRenderOptions, getCrisLayoutBox } from '../../decorators/c
 import { TranslateService } from '@ngx-translate/core';
 import { Item } from '../../../core/shared/item.model';
 import { LayoutBox } from '../../enums/layout-box.enum';
-import { hasNoValue, isEmpty } from '../../../shared/empty.util';
+import { hasNoValue } from '../../../shared/empty.util';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 
 @Component({
@@ -35,7 +35,12 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
   /**
    * The i18n key used for box's header
    */
-  boxHeaderI18nKey = '';
+  boxHeaderI18nKey: string;
+
+  /**
+   * A generic i18n key used as fallback
+   */
+  boxHeaderGenericI18nKey: string;
 
   /**
    * Active tab utilized by accordion
@@ -64,7 +69,9 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
     });
 
     this.componentLoader = this.getComponent();
-    this.boxHeaderI18nKey = this.boxI18nPrefix + this.box.shortname;
+
+    this.boxHeaderI18nKey = this.boxI18nPrefix + this.box.entityType + '.' + this.box.shortname;
+    this.boxHeaderGenericI18nKey = this.boxI18nPrefix + this.box.shortname;
 
     if (hasNoValue(this.box.collapsed) || !this.box.collapsed) {
       this.activeIds.push(this.box.shortname);
@@ -85,16 +92,23 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
   }
 
   /**
+   * get the translation for the i18n key
+   * @param key the i18n key
+   */
+  getTranslation(key: string): string {
+    const value = this.translateService.instant(key);
+    return value === key ? null : value;
+  }
+
+  /**
    * Get box header to be inserted inside the accordion
    */
   getBoxHeader(): string {
-    const header: string = isEmpty(this.boxHeaderI18nKey) ? null : this.translateService.instant(this.boxHeaderI18nKey);
-    if (isEmpty(header) || header === this.boxHeaderI18nKey) {
-      // if translation does not exist return the value present in the header property
-      return this.translateService.instant(this.box.header);
-    } else {
-      return header;
-    }
+    return this.getTranslation(this.boxHeaderI18nKey) ??
+      this.getTranslation(this.boxHeaderGenericI18nKey) ??
+      this.getTranslation(this.box.header) ??
+      this.box.header ??
+      '';
   }
 
 

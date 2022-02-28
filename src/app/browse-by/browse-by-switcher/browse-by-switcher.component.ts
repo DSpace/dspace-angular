@@ -1,11 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interface';
 import { map } from 'rxjs/operators';
 import { BROWSE_BY_COMPONENT_FACTORY } from './browse-by-decorator';
-import { environment } from '../../../environments/environment';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 
 @Component({
   selector: 'ds-browse-by-switcher',
@@ -26,15 +25,11 @@ export class BrowseBySwitcherComponent implements OnInit {
   }
 
   /**
-   * Fetch the correct browse-by component by using the relevant config from environment.js
+   * Fetch the correct browse-by component by using the relevant config from the route data
    */
   ngOnInit(): void {
-    this.browseByComponent = this.route.params.pipe(
-      map((params) => {
-        const id = params.id;
-        return environment.browseBy.types.find((config: BrowseByTypeConfig) => config.id === id);
-      }),
-      map((config: BrowseByTypeConfig) => this.getComponentByBrowseByType(config.type))
+    this.browseByComponent = this.route.data.pipe(
+      map((data: { browseDefinition: BrowseDefinition }) => this.getComponentByBrowseByType(data.browseDefinition.dataType))
     );
   }
 

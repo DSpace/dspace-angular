@@ -2,11 +2,11 @@ import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { RemoteData } from '../../../core/data/remote-data';
-import { SearchFilterConfig } from '../search-filter-config.model';
+import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
@@ -37,6 +37,16 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   clearParams;
 
   /**
+   * The configuration to use for the search options
+   */
+  @Input() currentConfiguration;
+
+  /**
+   * The current search scope
+   */
+  @Input() currentScope: string;
+
+  /**
    * True when the search component should show results on the current page
    */
   @Input() inPlaceSearch;
@@ -61,9 +71,9 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   /**
    * Initialize instance variables
    * @param {SearchService} searchService
-   * @param {SearchConfigurationService} searchConfigService
-   * @param {Router} router
    * @param {SearchFilterService} filterService
+   * @param {Router} router
+   * @param {SearchConfigurationService} searchConfigService
    */
   constructor(
     private searchService: SearchService,
@@ -88,19 +98,14 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   }
 
   initFilters() {
-    this.filters = this.searchConfigService.searchOptions
-      .pipe(
-        switchMap((options) =>
-          this.searchService
-            .getConfig(options.scope, options.configuration)
-            .pipe(getFirstSucceededRemoteData())
-        ),
-        map((rd: RemoteData<SearchFilterConfig[]>) => Object.assign(rd, {
-          payload: rd.payload.filter((filter: SearchFilterConfig) =>
-            !this.chartReg.test(filter.filterType)
-          )})
-        ),
-      );
+    this.filters = this.searchService.getConfig(this.currentScope, this.currentConfiguration).pipe(
+      getFirstSucceededRemoteData(),
+      map((rd: RemoteData<SearchFilterConfig[]>) => Object.assign(rd, {
+        payload: rd.payload.filter((filter: SearchFilterConfig) =>
+          !this.chartReg.test(filter.filterType)
+        )})
+      )
+    );
   }
 
   /**

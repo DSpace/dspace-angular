@@ -43,6 +43,10 @@ import { MyDSpacePageModule } from '../../app/my-dspace-page/my-dspace-page.modu
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { HeaderComponent } from './app/header/header.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
+import { SearchModule } from '../../app/shared/search/search.module';
+import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
+import { ComcolModule } from '../../app/shared/comcol/comcol.module';
+import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
 
 const DECLARATIONS = [
   HomeNewsComponent,
@@ -94,6 +98,11 @@ const DECLARATIONS = [
     SubmissionModule,
     MyDSpacePageModule,
     MyDspaceSearchModule,
+    SearchModule,
+    FormsModule,
+    ResourcePoliciesModule,
+    ComcolModule,
+    MiradorViewerModule,
   ],
   declarations: DECLARATIONS
 })
