@@ -3,6 +3,7 @@
     <div
       #metricChild
       class="__dimensions_badge_embed__"
+      [attr.data-hide-zero-citations]="isListElement"
       [attr.data-pmid]="
         remark['data-doi']
           ? null

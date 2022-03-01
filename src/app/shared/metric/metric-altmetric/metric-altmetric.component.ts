@@ -15,11 +15,13 @@ export class MetricAltmetricComponent extends BaseEmbeddedMetricComponent implem
   constructor(protected sr: DomSanitizer) {
     super(sr);
   }
+
   ngOnInit() {
     if (hasValue(this.metric.remark)) {
         this.remark = JSON.parse(this.metric.remark);
     }
   }
+
   applyScript(): void {
     _altmetric_embed_init(this.metricChild.nativeElement);
   }

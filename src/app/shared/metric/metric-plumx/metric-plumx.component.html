@@ -19,8 +19,11 @@
 
   <ng-template #publication>
     <a
+      [attr.data-hide-when-empty]="isListElement"
       [href]="remark | dsListMetricProps: 'href':isListElement"
       class="plumx-plum-print-popup"
-    ></a>
+    >
+    {{ remark | dsListMetricProps: "placeholder":isListElement }}
+    </a>
   </ng-template>
 </div>

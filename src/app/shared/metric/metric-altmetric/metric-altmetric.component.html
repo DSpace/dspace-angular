@@ -3,7 +3,8 @@
     <div #metricChild>
       <div
         class="altmetric-embed"
-        data-badge-type="donut"
+        [attr.data-hide-no-mentions]="isListElement"
+        [attr.data-badge-type]="remark | dsListMetricProps : 'badgeType' : isListElement"
         [attr.data-badge-popover]="remark | dsListMetricProps : 'popover' : isListElement"
         [attr.data-doi]="remark | dsListMetricProps : 'doiAttr' : isListElement"
         [attr.data-pmid]="remark | dsListMetricProps : 'pmidAttr' : isListElement"
