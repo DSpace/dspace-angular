@@ -10,10 +10,14 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { FindListOptions } from './request.models';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { dataService } from '../cache/builders/build-decorators';
 import { VERSION } from '../shared/version.resource-type';
+import { VersionHistory } from '../shared/version-history.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { isNotEmpty } from '../../shared/empty.util';
 
 /**
  * Service responsible for handling requests related to the Version object
@@ -36,9 +40,29 @@ export class VersionDataService extends DataService<Version> {
   }
 
   /**
-   * Get the endpoint for browsing versions
+   * Get the version history for the given version
+   * @param version
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
    */
-  getBrowseEndpoint(options: FindListOptions = {}, linkPath?: string): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath);
+  getHistoryFromVersion(version: Version, useCachedVersionIfAvailable = false, reRequestOnStale = true): Observable<VersionHistory> {
+    return isNotEmpty(version) ? this.findById(version.id, useCachedVersionIfAvailable, reRequestOnStale, followLink('versionhistory')).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      switchMap((res: Version) => res.versionhistory),
+      getFirstSucceededRemoteDataPayload(),
+    ) : EMPTY;
   }
+
+  /**
+   * Get the ID of the version history for the given version
+   * @param version
+   */
+  getHistoryIdFromVersion(version: Version): Observable<string> {
+    return this.getHistoryFromVersion(version).pipe(
+      map((versionHistory: VersionHistory) => versionHistory.id),
+    );
+  }
+
 }

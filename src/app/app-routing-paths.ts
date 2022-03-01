@@ -4,7 +4,7 @@ import { Collection } from './core/shared/collection.model';
 import { Item } from './core/shared/item.model';
 import { getCommunityPageRoute } from './community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from './collection-page/collection-page-routing-paths';
-import { getItemPageRoute } from './item-page/item-page-routing-paths';
+import { getItemModuleRoute, getItemPageRoute } from './item-page/item-page-routing-paths';
 import { hasValue } from './shared/empty.util';
 import { URLCombiner } from './core/url-combiner/url-combiner';
 
@@ -21,6 +21,15 @@ export function getBitstreamModuleRoute() {
 
 export function getBitstreamDownloadRoute(bitstream): string {
   return new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString();
+}
+export function getBitstreamRequestACopyRoute(item, bitstream): { routerLink: string, queryParams: any } {
+  const url = new URLCombiner(getItemModuleRoute(), item.uuid, 'request-a-copy').toString();
+  return {
+    routerLink: url,
+    queryParams: {
+      bitstream: bitstream.uuid
+    }
+  };
 }
 
 export const ADMIN_MODULE_PATH = 'admin';
@@ -80,6 +89,12 @@ export function getPageNotFoundRoute() {
   return `/${PAGE_NOT_FOUND_PATH}`;
 }
 
+export const INTERNAL_SERVER_ERROR = '500';
+
+export function getPageInternalServerErrorRoute() {
+  return `/${INTERNAL_SERVER_ERROR}`;
+}
+
 export const INFO_MODULE_PATH = 'info';
 export function getInfoModulePath() {
   return `/${INFO_MODULE_PATH}`;
@@ -89,4 +104,9 @@ export const ACCESS_CONTROL_MODULE_PATH = 'access-control';
 
 export function getAccessControlModuleRoute() {
   return `/${ACCESS_CONTROL_MODULE_PATH}`;
+}
+
+export const REQUEST_COPY_MODULE_PATH = 'request-a-copy';
+export function getRequestCopyModulePath() {
+  return `/${REQUEST_COPY_MODULE_PATH}`;
 }

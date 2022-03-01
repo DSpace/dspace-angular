@@ -60,4 +60,30 @@ describe('ValidationSuggestionsComponent', () => {
       expect(comp.onClickSuggestion).toHaveBeenCalledWith(suggestions[clickedIndex].value);
     });
   });
+  describe('can edit input', () => {
+    describe('test input field readonly property when input disable is true', () => {
+      beforeEach(() => {
+        comp.disable = true;
+        fixture.detectChanges();
+      });
+      it('it should be true', () => {
+        fixture.detectChanges();
+        const input = fixture.debugElement.query(By.css('input'));
+        const element = input.nativeElement;
+        expect(element.readOnly).toBe(true);
+      });
+    });
+    describe('test input field readonly property when input disable is false', () => {
+      beforeEach(() => {
+        comp.disable = false;
+        fixture.detectChanges();
+      });
+      it('it should be true', () => {
+        fixture.detectChanges();
+        const input = fixture.debugElement.query(By.css('input'));
+        const element = input.nativeElement;
+        expect(element.readOnly).toBe(false);
+      });
+    });
+  });
 });

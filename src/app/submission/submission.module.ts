@@ -37,6 +37,8 @@ import { ResearchEntitiesModule } from '../entity-groups/research-entities/resea
 import { ThemedSubmissionEditComponent } from './edit/themed-submission-edit.component';
 import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
 import { ThemedSubmissionImportExternalComponent } from './import-external/themed-submission-import-external.component';
+import { FormModule } from '../shared/form/form.module';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 const DECLARATIONS = [
   SubmissionSectionUploadAccessConditionsComponent,
@@ -65,16 +67,25 @@ const DECLARATIONS = [
   SubmissionImportExternalCollectionComponent
 ];
 
+const ENTRY_COMPONENTS = [
+  SubmissionSectionUploadComponent,
+  SubmissionSectionformComponent,
+  SubmissionSectionLicenseComponent,
+  SubmissionSectionCcLicensesComponent
+];
+
 @NgModule({
-  imports: [
-    CommonModule,
-    CoreModule.forRoot(),
-    SharedModule,
-    StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
-    EffectsModule.forFeature(submissionEffects),
-    JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents(),
-  ],
+    imports: [
+        CommonModule,
+        CoreModule.forRoot(),
+        SharedModule,
+        StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
+        EffectsModule.forFeature(submissionEffects),
+        JournalEntitiesModule.withEntryComponents(),
+        ResearchEntitiesModule.withEntryComponents(),
+        FormModule,
+        NgbAccordionModule
+    ],
   declarations: DECLARATIONS,
   exports: DECLARATIONS,
   providers: [
@@ -88,4 +99,14 @@ const DECLARATIONS = [
  * This module handles all components that are necessary for the submission process
  */
 export class SubmissionModule {
+  /**
+   * NOTE: this method allows to resolve issue with components that using a custom decorator
+   * which are not loaded during SSR otherwise
+   */
+  static withEntryComponents() {
+    return {
+      ngModule: SubmissionModule,
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    };
+  }
 }

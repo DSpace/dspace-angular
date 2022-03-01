@@ -35,6 +35,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-groups-registry',
@@ -132,8 +133,8 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
         }
         return this.groupService.searchGroups(this.currentSearchQuery.trim(), {
           currentPage: paginationOptions.currentPage,
-          elementsPerPage: paginationOptions.pageSize
-        });
+          elementsPerPage: paginationOptions.pageSize,
+        }, true, true, followLink('object'));
       }),
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),

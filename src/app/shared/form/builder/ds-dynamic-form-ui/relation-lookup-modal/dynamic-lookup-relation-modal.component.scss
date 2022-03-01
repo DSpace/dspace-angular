@@ -8,4 +8,15 @@
     width: 90%;
     margin: 5%;
   }
+
+  .spinner-border{
+    vertical-align: middle;
+  }
+}
+
+.buttons-container{
+  display: flex;
+  .close-button{
+    margin-right: 5px;
+  }
 }
