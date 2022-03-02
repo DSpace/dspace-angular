@@ -20,10 +20,10 @@ export class MetricPlumxComponent extends BaseMetricComponent implements OnInit 
   async ngOnInit() {
     if (hasValue(this.metric.remark)) {
       this.remark = JSON.parse(this.metric.remark);
-      const script = (this.remark as any).src;
+      const script = this.isListElement? this.remark['list-src'] : (this.remark as any).src;
       // script is dynamic base on entityTyp and is coming from backend
       this.metricLoaderService = this.injector.get(MetricLoaderService);
       await this.metricLoaderService.setScript('plumX', script);
-      }
+    }
   }
 }
