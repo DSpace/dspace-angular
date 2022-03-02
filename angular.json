@@ -66,6 +66,14 @@
             "scripts": []
           },
           "configurations": {
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -102,6 +110,9 @@
             "port": 4000
           },
           "configurations": {
+            "development": {
+              "browserTarget": "dspace-angular:build:development"
+            },
             "production": {
               "browserTarget": "dspace-angular:build:production"
             }
@@ -195,6 +206,10 @@
             "tsConfig": "tsconfig.server.json"
           },
           "configurations": {
+            "development": {
+              "sourceMap": true,
+              "optimization": false
+            },
             "production": {
               "sourceMap": false,
               "optimization": true,
