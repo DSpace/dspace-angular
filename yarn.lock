@@ -1510,24 +1510,24 @@
     prop-types "^15.7.2"
     react-is "^16.8.0 || ^17.0.0"
 
-"@ng-bootstrap/ng-bootstrap@9.1.3":
-  version "9.1.3"
-  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-9.1.3.tgz#f48f42ad96ba75b50f1b87caa0dabcf5299a078c"
-  integrity sha512-Sl4lis1F5uSPrd4WsLEMX8b3fqzeHr4rgTFhocpx/IedZPaPdGec4a91TjdqcM/fNwzoXj1AdGrcMLpFFOxmvw==
+"@ng-bootstrap/ng-bootstrap@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-10.0.0.tgz#6022927bac7029bdd12d7f1e10b5b20074db06dc"
+  integrity sha512-Sz+QaxjuyJYJ+zyUbf0TevgcgVesCPQiiFiggEzxKjzY5R+Hvq3YgryLdXf2r/ryePL+C3FXCcmmKpTM5bfczQ==
+  dependencies:
+    tslib "^2.1.0"
+
+"@ng-dynamic-forms/core@^14.0.1":
+  version "14.0.1"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/core/-/core-14.0.1.tgz#e5815a7f67b4e23a5c726afd137b3e27afe09ab9"
+  integrity sha512-Pys4H0lSk2Ae8y80mRD4yZMTu+80DIOmf4B2L9fK2q/zYyxVSexu0DynDR8XApArXYU78EPsWnEwgNSWwX6RKw==
   dependencies:
     tslib "^2.0.0"
 
-"@ng-dynamic-forms/core@^13.0.0":
-  version "13.0.0"
-  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/core/-/core-13.0.0.tgz#aee226839ffa1f648429cbdee56e4d8d9c56b76c"
-  integrity sha512-RBP7i+q9EUDlHcmqcd1e27zuJhk+8NOU9mC7xlHPcmhFzxV58Gzr/n0nb5IzF+FIQlcJqP/BspyksaCCbRStZw==
-  dependencies:
-    tslib "^2.0.0"
-
-"@ng-dynamic-forms/ui-ng-bootstrap@^13.0.0":
-  version "13.0.0"
-  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/ui-ng-bootstrap/-/ui-ng-bootstrap-13.0.0.tgz#cef62c1dfbf6d7aa700eab04f8c337dd0e15250f"
-  integrity sha512-0l/hfuFXadp6/PKeGdrN0bFBM/xwBSvZX6HeT9Q/Sp19s99jdKphu6ZfG2SHWxY4tXC0nzB+Xcmqc38vi0iZAg==
+"@ng-dynamic-forms/ui-ng-bootstrap@^14.0.1":
+  version "14.0.1"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/ui-ng-bootstrap/-/ui-ng-bootstrap-14.0.1.tgz#10f271b85eceadad02f616f752cf9806eb085106"
+  integrity sha512-Xf56kZBwM0vsRgEKcZvh8SsypCWcVTKeyq9id68+jQzH9/bQ+qriLBF35zDHrS9vJWmSufa5xqqRx/ycxhfpLw==
   dependencies:
     tslib "^2.0.0"
 
