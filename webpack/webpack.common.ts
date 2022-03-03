@@ -19,11 +19,10 @@ export const copyWebpackOptions = {
       // replace(/\\/g, '/') because glob patterns need forward slashes, even on windows:
       // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
       from: path.join(__dirname, '..', 'src', 'themes', '*', 'assets', '**', '*').replace(/\\/g, '/'),
-      to: 'assets',
       noErrorOnMissing: true,
-      transformPath(targetPath, absolutePath) {
+      to({ absoluteFilename }) {
         // use [\/|\\] to match both POSIX and Windows separators
-        const matches = absolutePath.match(/.*[\/|\\]themes[\/|\\]([^\/|^\\]+)[\/|\\]assets[\/|\\](.+)$/);
+        const matches = absoluteFilename.match(/.*[\/|\\]themes[\/|\\]([^\/|^\\]+)[\/|\\]assets[\/|\\](.+)$/);
         if (matches) {
           // matches[1] is the theme name
           // matches[2] is the rest of the path relative to the assets folder
