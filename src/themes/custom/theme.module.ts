@@ -83,6 +83,8 @@ import { FileSectionComponent } from './app/item-page/simple/field-components/fi
 import { SearchModule } from '../../app/shared/search/search.module';
 import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
+import { FeedbackComponent } from './app/info/feedback/feedback.component';
+import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -124,7 +126,9 @@ const DECLARATIONS = [
   HeaderComponent,
   NavbarComponent,
   HeaderNavbarWrapperComponent,
-  BreadcrumbsComponent
+  BreadcrumbsComponent,
+  FeedbackComponent,
+  CommunityListComponent
 ];
 
 @NgModule({

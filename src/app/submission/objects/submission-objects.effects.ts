@@ -205,7 +205,7 @@ export class SubmissionObjectEffects {
           action.payload.submissionId,
           'sections') as Observable<SubmissionObject[]>;
       } else {
-        response$ = this.submissionObjectService.findById(action.payload.submissionId).pipe(
+        response$ = this.submissionObjectService.findById(action.payload.submissionId, false, true).pipe(
           getFirstSucceededRemoteDataPayload(),
           map((submissionObject: SubmissionObject) => [submissionObject])
         );
@@ -356,6 +356,8 @@ export class SubmissionObjectEffects {
    *    The submission object retrieved from REST
    * @param submissionId
    *    The submission id
+   * @param forms
+   *    The forms state
    * @param notify
    *    A boolean that indicate if show notification or not
    * @return SubmissionObjectAction[]
@@ -365,7 +367,7 @@ export class SubmissionObjectEffects {
     currentState: SubmissionObjectEntry,
     response: SubmissionObject[],
     submissionId: string,
-    forms,
+    forms: FormState,
     notify: boolean = true): SubmissionObjectAction[] {
 
     const mappedActions = [];
