@@ -32,14 +32,15 @@ const searchService = getMockSearchService();
 
 const requestService = getMockRequestService();
 
+const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
+
+const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
+  submitTask: of(new ProcessTaskResponse(true))
+});
+
 let mockPoolTaskDataService: PoolTaskDataService;
 
 describe('ClaimedTaskActionsRejectComponent', () => {
-  const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
-  const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
-    submitTask: of(new ProcessTaskResponse(true))
-  });
-
   beforeEach(waitForAsync(() => {
     mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
     TestBed.configureTestingModule({
@@ -69,9 +70,6 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     }).overrideComponent(ClaimedTaskActionsRejectComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(ClaimedTaskActionsRejectComponent);
     component = fixture.componentInstance;
     formBuilder = TestBed.inject(FormBuilder);
@@ -80,7 +78,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     component.modalRef = modalService.open('ok');
     spyOn(component, 'initReloadAnchor').and.returnValue(undefined);
     fixture.detectChanges();
-  });
+  }));
 
   it('should init reject form properly', () => {
     expect(component.rejectForm).toBeDefined();

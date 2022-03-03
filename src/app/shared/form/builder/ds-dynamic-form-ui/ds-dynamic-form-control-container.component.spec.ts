@@ -77,6 +77,7 @@ import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { FormService } from '../../form.service';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { FormBuilderService } from '../form-builder.service';
+import { NgxMaskModule } from 'ngx-mask';
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
 
@@ -194,6 +195,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         DynamicFormsCoreModule.forRoot(),
         SharedModule,
         TranslateModule.forRoot(),
+        NgxMaskModule.forRoot(),
       ],
       providers: [
         DsDynamicFormControlContainerComponent,
