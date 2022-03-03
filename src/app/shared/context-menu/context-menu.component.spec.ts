@@ -132,6 +132,7 @@ describe('ContextMenuComponent', () => {
 
     beforeEach(() => {
       spyOn(component, 'getContextMenuEntries').and.returnValue(of([]));
+      component.contextMenuObjectType = DSpaceObjectType.ITEM;
       fixture.detectChanges();
     });
 
@@ -144,6 +145,19 @@ describe('ContextMenuComponent', () => {
       const menu = fixture.debugElement.query(By.css('button#context-menu'));
       expect(menu).not.toBeNull();
       done();
+    });
+
+    it('should display show all metadata option', (done) => {
+      const deMenu = fixture.debugElement.query(By.css('#showAllMetadata'));
+      expect(deMenu).not.toBeNull();
+      done();
+    });
+
+    it('should not display show all metadata option', () => {
+      component.contextMenuObjectType = DSpaceObjectType.COLLECTION;
+      fixture.detectChanges();
+      const deMenu = fixture.debugElement.query(By.css('#showAllMetadata'));
+      expect(deMenu).toBeNull();
     });
 
     it('should display stand alone buttons', (done) => {
@@ -183,6 +197,7 @@ describe('ContextMenuComponent', () => {
 
     beforeEach(() => {
       store.setState(notAuthState);
+      component.contextMenuObjectType = DSpaceObjectType.ITEM;
       spyOn(component, 'getContextMenuEntries').and.returnValue(of([]));
     });
 
@@ -196,6 +211,20 @@ describe('ContextMenuComponent', () => {
         expect(component).toBeTruthy();
         done();
       });
+
+      it('should display show all metadata option', (done) => {
+        const deMenu = fixture.debugElement.query(By.css('#showAllMetadata'));
+        expect(deMenu).not.toBeNull();
+        done();
+      });
+
+      it('should not display show all metadata option', () => {
+        component.contextMenuObjectType = DSpaceObjectType.COLLECTION;
+        fixture.detectChanges();
+        const deMenu = fixture.debugElement.query(By.css('#showAllMetadata'));
+        expect(deMenu).toBeNull();
+      });
+
 
       it('should not display context menu', (done) => {
         const menu = fixture.debugElement.query(By.css('button#context-menu'));

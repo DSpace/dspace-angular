@@ -11,6 +11,10 @@
       <ng-container *ngFor="let entry of (getContextMenuEntries() | async)">
         <ng-container *ngComponentOutlet="entry; injector: objectInjector;"></ng-container>
       </ng-container>
+      <a class="dropdown-item" routerLink="../full" id="showAllMetadata"
+         *ngIf="contextMenuObjectType === objectType.ITEM">
+         {{'context-menu.actions.show-all-metadata' | translate}}
+      </a>
     </div>
   </div>
 
