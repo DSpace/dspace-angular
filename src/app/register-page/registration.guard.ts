@@ -18,8 +18,7 @@ import { Location } from '@angular/common';
 export class RegistrationGuard implements CanActivate {
   constructor(private epersonRegistrationService: EpersonRegistrationService,
               private router: Router,
-              private authService: AuthService,
-              private location: Location) {
+              private authService: AuthService) {
   }
 
   /**
@@ -33,10 +32,7 @@ export class RegistrationGuard implements CanActivate {
     const token = route.params.token;
     return this.epersonRegistrationService.searchByToken(token).pipe(
       getFirstCompletedRemoteData(),
-      // The replaceState call is an action taken by the Promise returned by navigateByUrl within redirectOn4xx
-      // It ensures the user stays on the correct URL when redirected to a 4xx page
-      // See this related issue's comment: https://github.com/angular/angular/issues/16981#issuecomment-549330207
-      redirectOn4xx(this.router, this.authService, () => this.location.replaceState(state.url)),
+      redirectOn4xx(this.router, this.authService),
       map((rd) => {
         route.data = { ...route.data, registration: rd };
         return rd.hasSucceeded;

@@ -197,27 +197,19 @@ export const getAllSucceededRemoteListPayload = <T>() =>
  *
  * @param router The router used to navigate to a new page
  * @param authService Service to check if the user is authenticated
- * @param navigateAction Optional action to take with the Promise returned by navigateByUrl
  */
-// tslint:disable-next-line:no-empty
-export const redirectOn4xx = <T>(router: Router, authService: AuthService, navigateAction?: (nav: boolean) => void) =>
+export const redirectOn4xx = <T>(router: Router, authService: AuthService) =>
   (source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(
       withLatestFrom(authService.isAuthenticated()),
       filter(([rd, isAuthenticated]: [RemoteData<T>, boolean]) => {
         if (rd.hasFailed) {
           if (rd.statusCode === 404 || rd.statusCode === 422) {
-            const promise = router.navigateByUrl(getPageNotFoundRoute(), { skipLocationChange: true });
-            if (hasValue(navigateAction)) {
-              promise.then(navigateAction);
-            }
+            router.navigateByUrl(getPageNotFoundRoute(), { skipLocationChange: true });
             return false;
           } else if (rd.statusCode === 403 || rd.statusCode === 401) {
             if (isAuthenticated) {
-              const promise = router.navigateByUrl(getForbiddenRoute(), { skipLocationChange: true });
-              if (hasValue(navigateAction)) {
-                promise.then(navigateAction);
-              }
+              router.navigateByUrl(getForbiddenRoute(), { skipLocationChange: true });
               return false;
             } else {
               authService.setRedirectUrl(router.url);

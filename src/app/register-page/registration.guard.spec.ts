@@ -17,7 +17,6 @@ describe('RegistrationGuard', () => {
   let epersonRegistrationService: EpersonRegistrationService;
   let router: Router;
   let authService: AuthService;
-  let location: Location;
 
   let registration: Registration;
   let registrationRD: RemoteData<Registration>;
@@ -61,9 +60,8 @@ describe('RegistrationGuard', () => {
       isAuthenticated: observableOf(false),
       setRedirectUrl: {},
     });
-    location = jasmine.createSpyObj('location', ['replaceState']);
 
-    guard = new RegistrationGuard(epersonRegistrationService, router, authService, location);
+    guard = new RegistrationGuard(epersonRegistrationService, router, authService);
   });
 
   describe('canActivate', () => {
