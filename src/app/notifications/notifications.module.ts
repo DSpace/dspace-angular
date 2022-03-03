@@ -17,6 +17,9 @@ import { NotificationsBrokerEventRestService } from '../core/notifications/broke
 import { ProjectEntryImportModalComponent } from './broker/project-entry-import-modal/project-entry-import-modal.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchModule } from '../shared/search/search.module';
+import { NotificationsBrokerSourceComponent } from './broker/source/notifications-broker-source.component';
+import { NotificationsBrokerSourceService } from './broker/source/notifications-broker-source.service';
+import { NotificationsBrokerSourceRestService } from '../core/notifications/broker/source/notifications-broker-source-rest.service';
 
 const MODULES = [
   CommonModule,
@@ -29,7 +32,8 @@ const MODULES = [
 
 const COMPONENTS = [
   NotificationsBrokerTopicsComponent,
-  NotificationsBrokerEventsComponent
+  NotificationsBrokerEventsComponent,
+  NotificationsBrokerSourceComponent
 ];
 
 const DIRECTIVES = [ ];
@@ -41,7 +45,9 @@ const ENTRY_COMPONENTS = [
 const PROVIDERS = [
   NotificationsStateService,
   NotificationsBrokerTopicsService,
+  NotificationsBrokerSourceService,
   NotificationsBrokerTopicRestService,
+  NotificationsBrokerSourceRestService,
   NotificationsBrokerEventRestService
 ];
 

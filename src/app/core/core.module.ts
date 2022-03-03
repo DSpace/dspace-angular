@@ -164,6 +164,7 @@ import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
 import { NotificationsBrokerTopicObject } from './notifications/broker/models/notifications-broker-topic.model';
 import { NotificationsBrokerEventObject } from './notifications/broker/models/notifications-broker-event.model';
+import { NotificationsBrokerSourceObject } from './notifications/broker/models/notifications-broker-source.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -349,7 +350,8 @@ export const models =
     NotificationsBrokerEventObject,
     Root,
     SearchConfig,
-    SubmissionAccessesModel
+    SubmissionAccessesModel,
+    NotificationsBrokerSourceObject
   ];
 
 @NgModule({

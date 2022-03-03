@@ -9,13 +9,16 @@ import { AdminNotificationsBrokerTopicsPageComponent } from './admin-notificatio
 import { AdminNotificationsBrokerEventsPageComponent } from './admin-notifications-broker-events-page/admin-notifications-broker-events-page.component';
 import { AdminNotificationsBrokerTopicsPageResolver } from './admin-notifications-broker-topics-page/admin-notifications-broker-topics-page-resolver.service';
 import { AdminNotificationsBrokerEventsPageResolver } from './admin-notifications-broker-events-page/admin-notifications-broker-events-page.resolver';
+import { AdminNotificationsBrokerSourcePageComponent } from './admin-notifications-broker-source-page-component/admin-notifications-broker-source-page.component';
+import { AdminNotificationsBrokerSourcePageResolver } from './admin-notifications-broker-source-page-component/admin-notifications-broker-source-page-resolver.service';
+import { SourceDataResolver } from './admin-notifications-broker-source-page-component/admin-notifications-broker-source-data.reslover';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         canActivate: [ AuthenticatedGuard ],
-        path: `${NOTIFICATIONS_EDIT_PATH}`,
+        path: `${NOTIFICATIONS_EDIT_PATH}/:sourceId`,
         component: AdminNotificationsBrokerTopicsPageComponent,
         pathMatch: 'full',
         resolve: {
@@ -30,7 +33,23 @@ import { AdminNotificationsBrokerEventsPageResolver } from './admin-notification
       },
       {
         canActivate: [ AuthenticatedGuard ],
-        path: `${NOTIFICATIONS_EDIT_PATH}/:id`,
+        path: `${NOTIFICATIONS_EDIT_PATH}`,
+        component: AdminNotificationsBrokerSourcePageComponent,
+        pathMatch: 'full',
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver,
+          openaireBrokerSourceParams: AdminNotificationsBrokerSourcePageResolver,
+          sourceData: SourceDataResolver
+        },
+        data: {
+          title: 'admin.notifications.source.breadcrumbs',
+          breadcrumbKey: 'admin.notifications.source',
+          showBreadcrumbsFluid: false
+        }
+      },
+      {
+        canActivate: [ AuthenticatedGuard ],
+        path: `${NOTIFICATIONS_EDIT_PATH}/:sourceId/:topicId`,
         component: AdminNotificationsBrokerEventsPageComponent,
         pathMatch: 'full',
         resolve: {
@@ -48,8 +67,10 @@ import { AdminNotificationsBrokerEventsPageResolver } from './admin-notification
   providers: [
     I18nBreadcrumbResolver,
     I18nBreadcrumbsService,
+    SourceDataResolver,
     AdminNotificationsBrokerTopicsPageResolver,
-    AdminNotificationsBrokerEventsPageResolver
+    AdminNotificationsBrokerEventsPageResolver,
+    AdminNotificationsBrokerSourcePageResolver
   ]
 })
 /**

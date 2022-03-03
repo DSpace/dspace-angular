@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="border-bottom pb-2">{{'notifications.broker.title'| translate}}</h2>
+        <p>{{'notifications.broker.source.description'| translate}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h3 class="border-bottom pb-2">{{'notifications.broker.source'| translate}}</h3>
+  
+        <ds-loading class="container" *ngIf="(isSourceLoading() | async)" message="{{'notifications.broker.loading' | translate}}"></ds-loading>
+        <ds-pagination *ngIf="!(isSourceLoading() | async)"
+                       [paginationOptions]="paginationConfig"
+                       [collectionSize]="(totalElements$ | async)"
+                       [hideGear]="false"
+                       [hideSortOptions]="true"
+                       (paginationChange)="getNotificationsBrokerSource()">
+  
+          <ds-loading class="container" *ngIf="(isSourceProcessing() | async)" message="'notifications.broker.loading' | translate"></ds-loading>
+          <ng-container *ngIf="!(isSourceProcessing() | async)">
+            <div *ngIf="(sources$|async)?.length == 0" class="alert alert-info w-100 mb-2 mt-2" role="alert">
+              {{'notifications.broker.noSource' | translate}}
+            </div>
+            <div *ngIf="(sources$|async)?.length != 0" class="table-responsive mt-2">
+              <table id="epeople" class="table table-striped table-hover table-bordered">
+                <thead>
+                <tr>
+                  <th scope="col">{{'notifications.broker.table.source' | translate}}</th>
+                  <th scope="col">{{'notifications.broker.table.last-event' | translate}}</th>
+                  <th scope="col">{{'notifications.broker.table.actions' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let sourceElement of (sources$ | async); let i = index">
+                    <td>{{sourceElement.id}}</td>
+                    <td>{{sourceElement.lastEvent}}</td>
+                    <td>
+                      <div class="btn-group edit-field">
+                        <button
+                                class="btn btn-outline-primary btn-sm"
+                                title="{{'notifications.broker.button.detail' | translate }}"
+                                [routerLink]="[sourceElement.id]">
+                          <span class="badge badge-info">{{sourceElement.totalEvents}}</span>
+                          <i class="fas fa-info fa-fw"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ng-container>
+        </ds-pagination>
+      </div>
+    </div>
+  </div>
+  

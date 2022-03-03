@@ -20,7 +20,7 @@ export interface NotificationsBrokerEventMessageObject {
 /**
  * The interface representing the Notifications  Broker event message
  */
-export interface OpenaireBrokerEventMessageObject{
+export interface OpenaireBrokerEventMessageObject {
   /**
    * The type of 'value'
    */

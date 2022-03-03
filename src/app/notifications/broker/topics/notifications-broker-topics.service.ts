@@ -7,6 +7,7 @@ import { FindListOptions } from '../../../core/data/request.models';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { NotificationsBrokerTopicObject } from '../../../core/notifications/broker/models/notifications-broker-topic.model';
+import { RequestParam } from '../../../core/cache/models/request-param.model';
 
 /**
  * The service handling all Notifications Broker topic requests to the REST service.
@@ -21,6 +22,11 @@ export class NotificationsBrokerTopicsService {
   constructor(
     private notificationsBrokerTopicRestService: NotificationsBrokerTopicRestService
   ) { }
+
+  /**
+   * sourceId used to get topics
+   */
+  sourceId: string;
 
   /**
    * Return the list of Notifications Broker topics managing pagination and errors.
@@ -38,7 +44,8 @@ export class NotificationsBrokerTopicsService {
     const findListOptions: FindListOptions = {
       elementsPerPage: elementsPerPage,
       currentPage: currentPage,
-      sort: sortOptions
+      sort: sortOptions,
+      searchParams: [new RequestParam('source', this.sourceId)]
     };
 
     return this.notificationsBrokerTopicRestService.getTopics(findListOptions).pipe(
@@ -51,5 +58,13 @@ export class NotificationsBrokerTopicsService {
         }
       })
     );
+  }
+
+  /**
+   * set sourceId which is used to get topics
+   * @param sourceId string
+   */
+  setSourceId(sourceId: string) {
+    this.sourceId = sourceId;
   }
 }

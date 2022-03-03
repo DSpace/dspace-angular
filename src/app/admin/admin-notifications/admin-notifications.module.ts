@@ -6,6 +6,7 @@ import { AdminNotificationsRoutingModule } from './admin-notifications-routing.m
 import { AdminNotificationsBrokerTopicsPageComponent } from './admin-notifications-broker-topics-page/admin-notifications-broker-topics-page.component';
 import { AdminNotificationsBrokerEventsPageComponent } from './admin-notifications-broker-events-page/admin-notifications-broker-events-page.component';
 import { NotificationsModule } from '../../notifications/notifications.module';
+import { AdminNotificationsBrokerSourcePageComponent } from './admin-notifications-broker-source-page-component/admin-notifications-broker-source-page.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { NotificationsModule } from '../../notifications/notifications.module';
   ],
   declarations: [
     AdminNotificationsBrokerTopicsPageComponent,
-    AdminNotificationsBrokerEventsPageComponent
+    AdminNotificationsBrokerEventsPageComponent,
+    AdminNotificationsBrokerSourcePageComponent
   ],
   entryComponents: []
 })

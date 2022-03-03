@@ -135,7 +135,7 @@ export class NotificationsBrokerEventsComponent implements OnInit {
     this.isEventPageLoading.next(true);
 
     this.activatedRoute.paramMap.pipe(
-      map((params) => params.get('id')),
+      map((params) => params.get('topicId')),
       take(1)
     ).subscribe((id: string) => {
       const regEx = /!/g;

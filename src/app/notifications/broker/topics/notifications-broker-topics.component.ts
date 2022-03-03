@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, take } from 'rxjs/operators';
+import { distinctUntilChanged, map, take } from 'rxjs/operators';
 
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { NotificationsBrokerTopicObject } from '../../../core/notifications/broker/models/notifications-broker-topic.model';
@@ -10,6 +10,8 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { NotificationsStateService } from '../../notifications-state.service';
 import { AdminNotificationsBrokerTopicsPageParams } from '../../../admin/admin-notifications/admin-notifications-broker-topics-page/admin-notifications-broker-topics-page-resolver.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { ActivatedRoute } from '@angular/router';
+import { NotificationsBrokerTopicsService } from './notifications-broker-topics.service';
 
 /**
  * Component to display the Notifications Broker topic list.
@@ -49,14 +51,30 @@ export class NotificationsBrokerTopicsComponent implements OnInit {
   protected subs: Subscription[] = [];
 
   /**
+   * This property represents a sourceId which is used to retrive a topic
+   * @type {string}
+   */
+  public sourceId: string;
+
+  /**
    * Initialize the component variables.
    * @param {PaginationService} paginationService
    * @param {NotificationsStateService} notificationsStateService
    */
   constructor(
     private paginationService: PaginationService,
+    private activatedRoute: ActivatedRoute,
     private notificationsStateService: NotificationsStateService,
-  ) { }
+    private notificationsBrokerTopicsService: NotificationsBrokerTopicsService
+  ) {
+    this.activatedRoute.paramMap.pipe(
+      map((params) => params.get('sourceId')),
+      take(1)
+    ).subscribe((id: string) => {
+      this.sourceId = id;
+      this.notificationsBrokerTopicsService.setSourceId(this.sourceId);
+    });
+  }
 
   /**
    * Component initialization.

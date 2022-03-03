@@ -8,11 +8,19 @@ import {
   getNotificationsBrokerTopicsTotalsSelector,
   isNotificationsBrokerTopicsLoadedSelector,
   notificationsBrokerTopicsObjectSelector,
-  isNotificationsBrokerTopicsProcessingSelector
+  isNotificationsBrokerTopicsProcessingSelector,
+  notificationsBrokerSourceObjectSelector,
+  isNotificationsBrokerSourceLoadedSelector,
+  isNotificationsBrokerSourceProcessingSelector,
+  getNotificationsBrokerSourceTotalPagesSelector,
+  getNotificationsBrokerSourceCurrentPageSelector,
+  getNotificationsBrokerSourceTotalsSelector
 } from './selectors';
 import { NotificationsBrokerTopicObject } from '../core/notifications/broker/models/notifications-broker-topic.model';
 import { NotificationsState } from './notifications.reducer';
 import { RetrieveAllTopicsAction } from './broker/topics/notifications-broker-topics.actions';
+import { NotificationsBrokerSourceObject } from '../core/notifications/broker/models/notifications-broker-source.model';
+import { RetrieveAllSourceAction } from './broker/source/notifications-broker-source.actions';
 
 /**
  * The service handling the Notifications State.
@@ -112,5 +120,93 @@ export class NotificationsStateService {
    */
   public dispatchRetrieveNotificationsBrokerTopics(elementsPerPage: number, currentPage: number): void {
     this.store.dispatch(new RetrieveAllTopicsAction(elementsPerPage, currentPage));
+  }
+
+  // Notifications Broker source
+  // --------------------------------------------------------------------------
+
+  /**
+   * Returns the list of Notifications Broker source from the state.
+   *
+   * @return Observable<NotificationsBrokerSourceObject>
+   *    The list of Notifications Broker source.
+   */
+   public getNotificationsBrokerSource(): Observable<NotificationsBrokerSourceObject[]> {
+    return this.store.pipe(select(notificationsBrokerSourceObjectSelector()));
+  }
+
+  /**
+   * Returns the information about the loading status of the Notifications Broker source (if it's running or not).
+   *
+   * @return Observable<boolean>
+   *    'true' if the source are loading, 'false' otherwise.
+   */
+  public isNotificationsBrokerSourceLoading(): Observable<boolean> {
+    return this.store.pipe(
+      select(isNotificationsBrokerSourceLoadedSelector),
+      map((loaded: boolean) => !loaded)
+    );
+  }
+
+  /**
+   * Returns the information about the loading status of the Notifications Broker source (whether or not they were loaded).
+   *
+   * @return Observable<boolean>
+   *    'true' if the source are loaded, 'false' otherwise.
+   */
+  public isNotificationsBrokerSourceLoaded(): Observable<boolean> {
+    return this.store.pipe(select(isNotificationsBrokerSourceLoadedSelector));
+  }
+
+  /**
+   * Returns the information about the processing status of the Notifications Broker source (if it's running or not).
+   *
+   * @return Observable<boolean>
+   *    'true' if there are operations running on the source (ex.: a REST call), 'false' otherwise.
+   */
+  public isNotificationsBrokerSourceProcessing(): Observable<boolean> {
+    return this.store.pipe(select(isNotificationsBrokerSourceProcessingSelector));
+  }
+
+  /**
+   * Returns, from the state, the total available pages of the Notifications Broker source.
+   *
+   * @return Observable<number>
+   *    The number of the Notifications Broker source pages.
+   */
+  public getNotificationsBrokerSourceTotalPages(): Observable<number> {
+    return this.store.pipe(select(getNotificationsBrokerSourceTotalPagesSelector));
+  }
+
+  /**
+   * Returns the current page of the Notifications Broker source, from the state.
+   *
+   * @return Observable<number>
+   *    The number of the current Notifications Broker source page.
+   */
+  public getNotificationsBrokerSourceCurrentPage(): Observable<number> {
+    return this.store.pipe(select(getNotificationsBrokerSourceCurrentPageSelector));
+  }
+
+  /**
+   * Returns the total number of the Notifications Broker source.
+   *
+   * @return Observable<number>
+   *    The number of the Notifications Broker source.
+   */
+  public getNotificationsBrokerSourceTotals(): Observable<number> {
+    return this.store.pipe(select(getNotificationsBrokerSourceTotalsSelector));
+  }
+
+  /**
+   * Dispatch a request to change the Notifications Broker source state, retrieving the source from the server.
+   *
+   * @param elementsPerPage
+   *    The number of the source per page.
+   * @param currentPage
+   *    The number of the current page.
+   */
+  public dispatchRetrieveNotificationsBrokerSource(elementsPerPage: number, currentPage: number): void {
+    this.store.dispatch(new RetrieveAllSourceAction(elementsPerPage, currentPage));
   }
 }
