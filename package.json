@@ -116,7 +116,7 @@
     "rxjs": "^6.6.3",
     "sortablejs": "1.13.0",
     "tslib": "^2.0.0",
-    "url-parse": "^1.5.6",
+    "url-parse": "^1.5.9",
     "uuid": "^8.3.2",
     "webfontloader": "1.6.28",
     "zone.js": "^0.10.3"
