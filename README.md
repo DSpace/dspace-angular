@@ -193,7 +193,7 @@ After you have installed all dependencies you can now run the app. Run `yarn run
 
 When building for production we're using Ahead of Time (AoT) compilation. With AoT, the browser downloads a pre-compiled version of the application, so it can render the application immediately, without waiting to compile the app first. The compiler is roughly half the size of Angular itself, so omitting it dramatically reduces the application payload.
 
-To build the app for production and start the server run:
+To build the app for production and start the server (in one command) run:
 
 ```bash
 yarn start
@@ -207,6 +207,10 @@ yarn run build:prod
 ```
 This will build the application and put the result in the `dist` folder.  You can copy this folder to wherever you need it for your application server.  If you will be using the built-in Express server, you'll also need a copy of the `node_modules` folder tucked inside your copy of `dist`.
 
+After building the app for production, it can be started by running:
+```bash
+yarn run serve:ssr
+```
 
 ### Running the application with Docker
 NOTE: At this time, we do not have production-ready Docker images for DSpace.
@@ -268,11 +272,29 @@ E2E tests (aka integration tests) use [Cypress.io](https://www.cypress.io/). Con
 
 The test files can be found in the `./cypress/integration/` folder.
 
-Before you can run e2e tests, two things are required:
-1. You MUST have a running backend (i.e. REST API). By default, the e2e tests look for this at http://localhost:8080/server/ or whatever `rest` backend is defined in your `config.prod.yml` or `config.yml`. You may override this using env variables, see [Configuring](#configuring).
-2. Your backend MUST include our Entities Test Data set. Some tests run against a (currently hardcoded) Community/Collection/Item UUID. These UUIDs are all valid for our Entities Test Data set. The Entities Test Data set may be installed easily via Docker, see https://github.com/DSpace/DSpace/tree/main/dspace/src/main/docker-compose#ingest-option-2-ingest-entities-test-data
+Before you can run e2e tests, two things are REQUIRED:
+1. You MUST be running the DSpace backend (i.e. REST API) locally. The e2e tests will *NOT* succeed if run against our demo REST API (https://api7.dspace.org/server/), as that server is uncontrolled and may have content added/removed at any time.
+    * After starting up your backend on localhost, make sure either your `config.prod.yml` or `config.dev.yml` has its `rest` settings defined to use that localhost backend.
+	* If you'd prefer, you may instead use environment variables as described at [Configuring](#configuring). For example:
+       ```
+       DSPACE_REST_SSL = false
+       DSPACE_REST_HOST = localhost
+       DSPACE_REST_PORT = 8080
+       ```
+2. Your backend MUST include our [Entities Test Data set](https://github.com/DSpace-Labs/AIP-Files/releases/tag/demo-entities-data). Some tests run against a specific Community/Collection/Item UUID. These UUIDs are all valid for our Entities Test Data set.
+	 * (Recommended) The Entities Test Data set may be installed easily via Docker, see https://github.com/DSpace/DSpace/tree/main/dspace/src/main/docker-compose#ingest-option-2-ingest-entities-test-data
+	 * Alternatively, the Entities Test Data set may be installed via a simple SQL import (e. g. `psql -U dspace < dspace7-entities-data.sql`). See instructions in link above.
 
-Run `ng e2e` to kick off the tests. This will start Cypress and allow you to select the browser you wish to use, as well as whether you wish to run all tests or an individual test file.  Once you click run on test(s), this opens the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner) to run your test(s) and show you the results.
+After performing the above setup, you can run the e2e tests using
+```
+ng e2e
+````
+NOTE: By default these tests will run against the REST API backend configured via environment variables or in `config.prod.yml`. If you'd rather it use `config.dev.yml`, just set the NODE_ENV environment variable like this:
+```
+NODE_ENV=development ng e2e
+```
+
+The `ng e2e` command will start Cypress and allow you to select the browser you wish to use, as well as whether you wish to run all tests or an individual test file.  Once you click run on test(s), this opens the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner) to run your test(s) and show you the results.
 
 #### Writing E2E Tests
 
