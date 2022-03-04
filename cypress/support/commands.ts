@@ -34,9 +34,9 @@ function login(email: string, password: string): void {
     // So, it's not possible to inject or load the AppConfig or environment of the Angular UI.
     // Instead, we'll read our running application's config.json, which contains the configs &
     // is regenerated at runtime each time the Angular UI application starts up.
-    cy.readFile('./src/assets/config.json').then((str) => {
-        // Parse JSON file into a JSON object
-        const config = JSON.parse(JSON.stringify(str));
+    cy.task('readUIConfig').then((str: string) => {
+        // Parse config into a JSON object
+        const config = JSON.parse(str);
 
         // Find the URL of our REST API. Have a fallback ready, just in case 'rest.baseUrl' cannot be found.
         let baseRestUrl = FALLBACK_TEST_REST_BASE_URL;
