@@ -1415,8 +1415,6 @@
 
   "context-menu.actions.label": "Options",
 
-  "context-menu.actions.no-options-available": "No Options Available",
-
   "context-menu.actions.edit-item.btn.FULL": "Edit all the details",
 
   "context-menu.actions.edit-item.btn.OWNER": "Edit",
