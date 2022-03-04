@@ -364,11 +364,11 @@ describe('SubmissionSectionFormComponent test suite', () => {
           expect((comp as any).inCurrentSubmissionScope('dc.title')).toBe(true);
         });
 
-        it('should return true for fields scoped to workflow', () => {
+        it('should return true for fields scoped to workspace', () => {
           expect((comp as any).inCurrentSubmissionScope('scoped.workspace')).toBe(true);
         });
 
-        it('should return false for fields scoped to workspace', () => {
+        it('should return false for fields scoped to workflow', () => {
           expect((comp as any).inCurrentSubmissionScope('scoped.workflow')).toBe(false);
         });
       });
