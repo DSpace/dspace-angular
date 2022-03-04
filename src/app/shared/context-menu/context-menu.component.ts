@@ -51,6 +51,12 @@ export class ContextMenuComponent implements OnInit {
   public objectInjector: Injector;
 
   /**
+   * context menu options count.
+   * @type {number}
+   */
+  public optionCount = 0;
+
+  /**
    * Initialize instance variables
    *
    * @param {ConfigurationDataService} configurationService
@@ -123,5 +129,14 @@ export class ContextMenuComponent implements OnInit {
 
   isItem(): boolean {
     return this.contextMenuObjectType === DSpaceObjectType.ITEM;
+  }
+
+  ngAfterViewChecked() {
+    // To check that Context-menu contains options or not
+    const el = Array.from(document.getElementById('itemOptionsDropdownMenu').getElementsByClassName('ng-star-inserted'));
+    this.optionCount = 0;
+    el.forEach(element => {
+      this.optionCount += element.childElementCount;
+    });
   }
 }

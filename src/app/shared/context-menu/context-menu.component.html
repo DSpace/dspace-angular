@@ -11,6 +11,9 @@
       <ng-container *ngFor="let entry of (getContextMenuEntries() | async)">
         <ng-container *ngComponentOutlet="entry; injector: objectInjector;"></ng-container>
       </ng-container>
+      <label class="dropdown-item" *ngIf="optionCount === 0">
+        {{'context-menu.actions.no-options-available' | translate}}
+      </label>
     </div>
   </div>
 
