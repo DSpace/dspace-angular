@@ -2466,13 +2466,6 @@ angular-idle-preload@3.0.0:
   resolved "https://registry.yarnpkg.com/angular-idle-preload/-/angular-idle-preload-3.0.0.tgz#decace34d9fac1cb00000727a6dc5caafdb84e4d"
   integrity sha512-W3P2m2B6MHdt1DVunH6H3VWkAZrG3ZwxGcPjedVvIyRhg/LmMtILoizHSxTXw3fsKIEdAPwGObXGpML9WD1jJA==
 
-angular2-text-mask@9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/angular2-text-mask/-/angular2-text-mask-9.0.0.tgz#70490170a8096241fc3ce9482ed6a758ddbce8ea"
-  integrity sha512-iALcnhJPS1zvX48d86rgUgDe/crX6XfhZrXC4Gdlo2/YwZW7u7KJZY6/b3ieSCIWVq/E6p+wDCzeo3E6leRjDA==
-  dependencies:
-    text-mask-core "^5.0.0"
-
 angulartics2@^10.0.0:
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-10.1.0.tgz#2988f95f25cf6a8dd630d63ea604eb6643e076c3"
@@ -11717,11 +11710,6 @@ terser@^5.7.0, terser@^5.7.2:
     commander "^2.20.0"
     source-map "~0.7.2"
     source-map-support "~0.5.20"
-
-text-mask-core@^5.0.0:
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/text-mask-core/-/text-mask-core-5.1.2.tgz#80dd5ebe04825757e46619e691407a9f8b3c1b6f"
-  integrity sha1-gN1evgSCV1fkZhnmkUB6n4s8G28=
 
 text-table@0.2.0:
   version "0.2.0"
