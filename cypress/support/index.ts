@@ -42,7 +42,12 @@ afterEach(() => {
 // Default values listed here are all valid for the Demo Entities Data set available at
 // https://github.com/DSpace-Labs/AIP-Files/releases/tag/demo-entities-data
 // (This is the data set used in our CI environment)
-export const TEST_REST_BASE_URL = Cypress.env('DSPACE_TEST_REST_BASE_URL') || 'http://localhost:8080';
+
+// NOTE: FALLBACK_TEST_REST_BASE_URL is only used if Cypress cannot read the REST API BaseURL
+// from the Angular UI's config.json. See 'getBaseRESTUrl()' in commands.ts
+export const FALLBACK_TEST_REST_BASE_URL = 'http://localhost:8080/server';
+
+// Admin account used for administrative tests
 export const TEST_ADMIN_USER = Cypress.env('DSPACE_TEST_ADMIN_USER') || 'dspacedemo+admin@gmail.com';
 export const TEST_ADMIN_PASSWORD = Cypress.env('DSPACE_TEST_ADMIN_PASSWORD') || 'dspace';
 // Community/collection/publication used for view/edit tests
