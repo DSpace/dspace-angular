@@ -5,7 +5,7 @@
       class="__dimensions_badge_embed__"
       [attr.data-hide-zero-citations]="isListElement"
       [attr.data-pmid]="
-        remark['data-doi']
+      (remark | dsListMetricProps: 'data-doi':isListElement)
           ? null
           : (remark | dsListMetricProps: 'data-pmid':isListElement)
       "

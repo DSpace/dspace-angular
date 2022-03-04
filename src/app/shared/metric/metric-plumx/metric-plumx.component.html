@@ -1,5 +1,6 @@
 <div class="justify-content-center" *ngIf="remark">
-  <div *ngIf="(remark | dsListMetricProps: 'type':isListElement) == 'Person'; else publication">
+  <div *ngIf="remark['type'] == 'Person'; else publication" [ngClass]="{'person-type-plumX': isListElement}">
+  <!-- <div *ngIf="(remark | dsListMetricProps: 'type':isListElement) == 'Person'; else publication" [ngClass]="{'person-type-plumX': isListElement}"> -->
     <a
       [href]="remark | dsListMetricProps: 'href':isListElement"
       class="plumx-person"
@@ -10,13 +11,12 @@
       [attr.data-width]="remark | dsListMetricProps: 'data-width':isListElement"
       [attr.data-no-description]="remark | dsListMetricProps: 'data-no-description':isListElement"
       [attr.data-no-stats]="remark | dsListMetricProps: 'data-no-stats':isListElement"
-      [attr.data-no-thumbnail]=" remark | dsListMetricProps: 'data-no-thumbnail':isListElement"
+      [attr.data-no-thumbnail]="remark | dsListMetricProps: 'data-no-thumbnail':isListElement"
       [attr.data-no-artifacts]="remark | dsListMetricProps: 'data-no-artifacts':isListElement"
     >
       {{ remark | dsListMetricProps: "placeholder":isListElement }}
     </a>
   </div>
-
   <ng-template #publication>
     <a
       [attr.data-hide-when-empty]="isListElement"

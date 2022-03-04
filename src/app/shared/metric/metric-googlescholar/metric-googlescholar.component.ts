@@ -1,8 +1,6 @@
-import { MetricVisualizationConfig } from './../../../../config/metric-visualization-config.interfaces';
 import { Component, OnInit } from '@angular/core';
 import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 import { DomSanitizer } from '@angular/platform-browser';
-import { environment } from './../../../../environments/environment';
 
 @Component({
   selector: 'ds-metric-googlescholar',
@@ -12,7 +10,6 @@ import { environment } from './../../../../environments/environment';
 export class MetricGooglescholarComponent extends BaseMetricComponent implements OnInit {
   remark: JSON;
   sanitizedInnerHtml;
-  public style: MetricVisualizationConfig[] = environment.metricVisualizationConfig;
 
   constructor(protected sr: DomSanitizer) {
     super();
