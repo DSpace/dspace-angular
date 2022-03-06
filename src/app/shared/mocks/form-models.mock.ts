@@ -89,7 +89,8 @@ const rowArrayQualdropConfig = {
   submissionId: '1234',
   metadataKey: 'dc.some.key',
   metadataFields: ['dc.some.key'],
-  hasSelectableMetadata: false
+  hasSelectableMetadata: false,
+  showButtons: true
 } as DynamicRowArrayModelConfig;
 
 export const MockRowArrayQualdropModel: DynamicRowArrayModel = new DynamicRowArrayModel(rowArrayQualdropConfig);
