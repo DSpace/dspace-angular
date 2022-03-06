@@ -15,9 +15,6 @@ export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
 export interface DynamicDsDateControlModelConfig extends DynamicDatePickerModelConfig {
   legend?: string;
   typeBindRelations?: DynamicFormControlRelation[];
-  securityLevel?: number;
-  securityConfigLevel?: number[];
-  toggleSecurityVisibility?: boolean;
 }
 
 /**
@@ -28,9 +25,6 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
   @serializable() typeBindRelations: DynamicFormControlRelation[];
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER;
   @serializable() metadataValue: MetadataValue;
-  @serializable() securityLevel?: number;
-  @serializable() securityConfigLevel?: number[];
-  @serializable() toggleSecurityVisibility = true;
   malformedDate: boolean;
   legend: string;
   hasLanguages = false;
@@ -58,10 +52,6 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
     } else {
       return this.getRootParent(model.parent);
     }
-  }
-
-  get hasSecurityLevel(): boolean {
-    return isNotEmpty(this.securityLevel);
   }
 
 }
