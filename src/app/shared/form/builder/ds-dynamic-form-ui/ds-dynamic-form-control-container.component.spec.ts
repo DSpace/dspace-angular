@@ -195,7 +195,6 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
   ];
   const testModel = formModel[8];
   let formGroup: FormGroup;
-  let formBuilderService: FormBuilderService;
   let fixture: ComponentFixture<DsDynamicFormControlContainerComponent>;
   let component: DsDynamicFormControlContainerComponent;
   let debugElement: DebugElement;

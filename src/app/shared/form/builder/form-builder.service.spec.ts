@@ -49,10 +49,6 @@ import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynam
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
-import {of as observableOf} from "rxjs";
-import {MenuSection} from "../../menu/menu.reducer";
-import {MenuID} from "../../menu/initial-menus-state";
-import {cold} from "jasmine-marbles";
 
 describe('FormBuilderService test suite', () => {
 
