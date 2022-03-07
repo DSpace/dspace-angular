@@ -127,6 +127,9 @@ languages:
   - code: fr
     label: Français
     active: true
+  - code: gd
+    label: Gàidhlig
+    active: true
   - code: lv
     label: Latviešu
     active: true

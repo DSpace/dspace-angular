@@ -56,8 +56,9 @@ import { ThemedHeaderNavbarWrapperComponent } from './header-nav-wrapper/themed-
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { PageInternalServerErrorComponent } from './page-internal-server-error/page-internal-server-error.component';
+import { ThemedAdminSidebarComponent } from './admin/admin-sidebar/themed-admin-sidebar.component';
 
-import { AppConfig, APP_CONFIG } from '../config/app-config.interface';
+import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 
 export function getConfig() {
   return environment;
@@ -171,6 +172,7 @@ const DECLARATIONS = [
   HeaderNavbarWrapperComponent,
   ThemedHeaderNavbarWrapperComponent,
   AdminSidebarComponent,
+  ThemedAdminSidebarComponent,
   AdminSidebarSectionComponent,
   ExpandableAdminSidebarSectionComponent,
   FooterComponent,

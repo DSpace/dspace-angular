@@ -17,6 +17,10 @@ import { RemoteData } from './remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { FindListOptions } from './request.models';
 import { PaginatedList } from './paginated-list.model';
+import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { catchError, map } from 'rxjs/operators';
+import { of } from 'rxjs/internal/observable/of';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -59,8 +63,22 @@ export class RootDataService {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<Root>) {
+    protected comparator: DefaultChangeAnalyzer<Root>,
+    protected restService: DspaceRestService) {
     this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
+  }
+
+  /**
+   * Check if root endpoint is available
+   */
+  checkServerAvailability(): Observable<boolean> {
+    return this.restService.get(this.halService.getRootHref()).pipe(
+      catchError((err ) => {
+        console.error(err);
+        return of(false);
+      }),
+      map((res: RawRestResponse) => res.statusCode === 200)
+    );
   }
 
   /**
@@ -111,7 +129,7 @@ export class RootDataService {
    * Set to sale the root endpoint cache hit
    */
   invalidateRootCache() {
-    this.requestService.setStaleByHrefSubstring('server/api');
+    this.requestService.setStaleByHrefSubstring(this.halService.getRootHref());
   }
 }
 /* tslint:enable:max-classes-per-file */

@@ -551,6 +551,7 @@
 
   "bitstream.download.page": "Now downloading {{bitstream}}..." ,
 
+  "bitstream.download.page.back": "Back" ,
 
 
   "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
@@ -586,6 +587,23 @@
   "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
 
   "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
+
+  "bitstream.edit.form.iiifLabel.label": "IIIF Label",
+
+  "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image. If not provided default label will be used.",
+
+  "bitstream.edit.form.iiifToc.label": "IIIF Table of Contents",
+
+  "bitstream.edit.form.iiifToc.hint": "Adding text here makes this the start of a new table of contents range.",
+
+  "bitstream.edit.form.iiifWidth.label": "IIIF Canvas Width",
+
+  "bitstream.edit.form.iiifWidth.hint": "The canvas width should usually match the image width.",
+
+  "bitstream.edit.form.iiifHeight.label": "IIIF Canvas Height",
+
+  "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
+
 
   "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
 
@@ -1377,6 +1395,8 @@
 
   "footer.link.end-user-agreement":"End User Agreement",
 
+  "footer.link.feedback":"Send Feedback",
+
 
 
   "forgot-email.form.header": "Forgot Password",
@@ -1574,6 +1594,32 @@
   "info.privacy.head": "Privacy Statement",
 
   "info.privacy.title": "Privacy Statement",
+
+  "info.feedback.breadcrumbs": "Feedback",
+
+  "info.feedback.head": "Feedback",
+
+  "info.feedback.title": "Feedback",
+
+  "info.feedback.info": "Thanks for sharing your feedback about the DSpace system. Your comments are appreciated!",
+
+  "info.feedback.email_help": "This address will be used to follow up on your feedback.",
+
+  "info.feedback.send": "Send Feedback",
+
+  "info.feedback.comments": "Comments",
+
+  "info.feedback.email-label": "Your Email",
+
+  "info.feedback.create.success" : "Feedback Sent Successfully!",
+
+  "info.feedback.error.email.required" : "A valid email address is required",
+
+  "info.feedback.error.message.required" : "A comment is required",
+
+  "info.feedback.page-label" : "Page",
+
+  "info.feedback.page_help" : "Tha page related to your feedback",
 
 
 
@@ -2340,6 +2386,8 @@
   "login.form.new-user": "New user? Click here to register.",
 
   "login.form.or-divider": "or",
+
+  "login.form.oidc": "Log in with OIDC",
 
   "login.form.password": "Password",
 
@@ -3811,6 +3859,8 @@
 
 
 
+  "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
+
   "submission.sections.submit.progressbar.CClicense": "Creative commons license",
 
   "submission.sections.submit.progressbar.describe.recycle": "Recycle",
@@ -3867,6 +3917,8 @@
 
   "submission.sections.upload.form.access-condition-label": "Access condition type",
 
+  "submission.sections.upload.form.access-condition-hint": "Select an access condition to apply on the bitstream once the item is deposited",
+
   "submission.sections.upload.form.date-required": "Date is required.",
 
   "submission.sections.upload.form.date-required-from": "Grant access from date is required.",
@@ -3875,6 +3927,8 @@
 
   "submission.sections.upload.form.from-label": "Grant access from",
 
+  "submission.sections.upload.form.from-hint": "Select the date from which the related access condition is applied",
+
   "submission.sections.upload.form.from-placeholder": "From",
 
   "submission.sections.upload.form.group-label": "Group",
@@ -3882,6 +3936,8 @@
   "submission.sections.upload.form.group-required": "Group is required.",
 
   "submission.sections.upload.form.until-label": "Grant access until",
+
+  "submission.sections.upload.form.until-hint": "Select the date until which the related access condition is applied",
 
   "submission.sections.upload.form.until-placeholder": "Until",
 
@@ -3903,6 +3959,35 @@
 
   "submission.sections.upload.upload-successful": "Upload successful",
 
+  "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
+
+  "submission.sections.accesses.form.discoverable-label": "Discoverable",
+
+  "submission.sections.accesses.form.access-condition-label": "Access condition type",
+
+  "submission.sections.accesses.form.access-condition-hint": "Select an access condition to apply on the item once it is deposited",
+
+  "submission.sections.accesses.form.date-required": "Date is required.",
+
+  "submission.sections.accesses.form.date-required-from": "Grant access from date is required.",
+
+  "submission.sections.accesses.form.date-required-until": "Grant access until date is required.",
+
+  "submission.sections.accesses.form.from-label": "Grant access from",
+
+  "submission.sections.accesses.form.from-hint": "Select the date from which the related access condition is applied",
+
+  "submission.sections.accesses.form.from-placeholder": "From",
+
+  "submission.sections.accesses.form.group-label": "Group",
+
+  "submission.sections.accesses.form.group-required": "Group is required.",
+
+  "submission.sections.accesses.form.until-label": "Grant access until",
+
+  "submission.sections.accesses.form.until-hint": "Select the date until which the related access condition is applied",
+
+  "submission.sections.accesses.form.until-placeholder": "Until",
 
 
   "submission.submit.breadcrumbs": "New submission",

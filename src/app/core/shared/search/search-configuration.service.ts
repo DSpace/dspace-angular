@@ -23,6 +23,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import { SearchConfig, SortConfig } from './search-filters/search-config.model';
 import { SearchService } from './search.service';
 import { PaginationService } from '../../pagination/pagination.service';
+import { ViewMode } from '../view-mode.model';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -197,6 +198,15 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
+   * @returns {Observable<string>} Emits the current view mode
+   */
+  getCurrentViewMode(defaultViewMode: ViewMode) {
+    return this.routeService.getQueryParameterValue('view').pipe(map((viewMode) => {
+      return viewMode || defaultViewMode;
+    }));
+  }
+
+  /**
    * Creates an observable of SearchConfig every time the configuration stream emits.
    * @param configuration The search configuration
    * @param service The search service to use
@@ -285,7 +295,8 @@ export class SearchConfigurationService implements OnDestroy {
       this.getQueryPart(defaults.query),
       this.getDSOTypePart(),
       this.getFiltersPart(),
-      this.getFixedFilterPart()
+      this.getFixedFilterPart(),
+      this.getViewModePart(defaults.view)
     ).subscribe((update) => {
       const currentValue: SearchOptions = this.searchOptions.getValue();
       const updatedValue: SearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
@@ -308,7 +319,8 @@ export class SearchConfigurationService implements OnDestroy {
       this.getQueryPart(defaults.query),
       this.getDSOTypePart(),
       this.getFiltersPart(),
-      this.getFixedFilterPart()
+      this.getFixedFilterPart(),
+      this.getViewModePart(defaults.view)
     ).subscribe((update) => {
       const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
       const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
@@ -402,5 +414,14 @@ export class SearchConfigurationService implements OnDestroy {
         return { fixedFilter };
       }),
     );
+  }
+
+  /**
+   * @returns {Observable<Params>} Emits the current view mode as a partial SearchOptions object
+   */
+  private getViewModePart(defaultViewMode: ViewMode): Observable<any> {
+    return this.getCurrentViewMode(defaultViewMode).pipe(map((view) => {
+      return { view };
+    }));
   }
 }

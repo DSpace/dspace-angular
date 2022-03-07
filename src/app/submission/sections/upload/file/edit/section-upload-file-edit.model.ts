@@ -28,7 +28,7 @@ export const BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG: DynamicFormGroupModelConfi
 
 export const BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT: DynamicFormControlLayout = {
   element: {
-    host: 'form-group flex-fill access-condition-group',
+    host: 'form-group access-condition-group col',
     container: 'pl-1 pr-1',
     control: 'form-row '
   }
@@ -47,6 +47,7 @@ export const BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT: DynamicFormControlLa
 export const BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG: DynamicSelectModelConfig<any> = {
   id: 'name',
   label: 'submission.sections.upload.form.access-condition-label',
+  hint: 'submission.sections.upload.form.access-condition-hint',
   options: []
 };
 export const BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT: DynamicFormControlLayout = {
@@ -59,6 +60,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT: DynamicFormControlLayo
 export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePickerModelConfig = {
   id: 'startDate',
   label: 'submission.sections.upload.form.from-label',
+  hint: 'submission.sections.upload.form.from-hint',
   placeholder: 'submission.sections.upload.form.from-placeholder',
   inline: false,
   toggleIcon: 'far fa-calendar-alt',
@@ -89,6 +91,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT: DynamicFormContr
 export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerModelConfig = {
   id: 'endDate',
   label: 'submission.sections.upload.form.until-label',
+  hint: 'submission.sections.upload.form.until-hint',
   placeholder: 'submission.sections.upload.form.until-placeholder',
   inline: false,
   toggleIcon: 'far fa-calendar-alt',
