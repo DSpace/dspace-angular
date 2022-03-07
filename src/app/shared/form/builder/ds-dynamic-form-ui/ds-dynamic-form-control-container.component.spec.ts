@@ -14,7 +14,7 @@ import {
   DynamicEditorModel,
   DynamicFileUploadModel,
   DynamicFormArrayModel,
-  DynamicFormControlModel,
+  DynamicFormControlModel, DynamicFormControlRelation,
   DynamicFormGroupModel,
   DynamicFormsCoreModule,
   DynamicFormService,
@@ -25,7 +25,7 @@ import {
   DynamicSliderModel,
   DynamicSwitchModel,
   DynamicTextAreaModel,
-  DynamicTimePickerModel
+  DynamicTimePickerModel, MATCH_VISIBLE, OR_OPERATOR
 } from '@ng-dynamic-forms/core';
 import {
   DynamicNGBootstrapCalendarComponent,
@@ -83,8 +83,24 @@ import { NgxMaskModule } from 'ngx-mask';
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
     getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
-    isFormControlToBeHidden: jasmine.createSpy('isFormControlToBeHidden')
+    matchesCondition: jasmine.createSpy('matchesCondition'),
+    subscribeRelations: jasmine.createSpy('subscribeRelations')
   });
+}
+
+function getTypeBindRelations(configuredTypeBindValues: string[]): DynamicFormControlRelation[] {
+  const bindValues = [];
+  configuredTypeBindValues.forEach((value) => {
+    bindValues.push({
+      id: 'dc.type',
+      value: value
+    });
+  });
+  return [{
+    match: MATCH_VISIBLE,
+    operator: OR_OPERATOR,
+    when: bindValues
+  }];
 }
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
@@ -119,7 +135,8 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       metadataFields: [],
       repeatable: false,
       submissionId: '1234',
-      hasSelectableMetadata: false
+      hasSelectableMetadata: false,
+      typeBindRelations: getTypeBindRelations(['Book'])
     }),
     new DynamicScrollableDropdownModel({
       id: 'scrollableDropdown',
@@ -178,6 +195,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
   ];
   const testModel = formModel[8];
   let formGroup: FormGroup;
+  let formBuilderService: FormBuilderService;
   let fixture: ComponentFixture<DsDynamicFormControlContainerComponent>;
   let component: DsDynamicFormControlContainerComponent;
   let debugElement: DebugElement;
@@ -240,7 +258,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     });
   }));
 
-  beforeEach(inject([DynamicFormService], (service: DynamicFormService) => {
+  beforeEach(inject([DynamicFormService, FormBuilderService], (service: DynamicFormService, formBuilderService: FormBuilderService) => {
 
     formGroup = service.createFormGroup(formModel);
 
@@ -364,6 +382,17 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     expect(testFn(formModel[23])).toEqual(DsDynamicLookupComponent);
     expect(testFn(formModel[24])).toEqual(DsDynamicLookupComponent);
     expect(testFn(formModel[25])).toEqual(DsDynamicFormGroupComponent);
+  });
+
+  it('should display a type-bound field when dc.type matcher set to Book', () => {
+    const rels: any = getMockDsDynamicTypeBindRelationService().getRelatedFormModel(formModel[16]);
+    const isVisible = getMockDsDynamicTypeBindRelationService().matchesCondition(rels.typeBindRelations, rels.matcher);
+    expect(isVisible).toBeTruthy();
+  });
+
+  it('Should successfully subscribe type bind relations for component', () => {
+   const subscriptions = getMockDsDynamicTypeBindRelationService().subscribeRelations(component.model, component.control);
+   expect(subscriptions).toBeDefined();
   });
 
 });
