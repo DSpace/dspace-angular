@@ -1,6 +1,5 @@
 <div class="justify-content-center" *ngIf="remark">
-  <div *ngIf="remark['type'] == 'Person'; else publication" [ngClass]="{'person-type-plumX': isListElement}">
-  <!-- <div *ngIf="(remark | dsListMetricProps: 'type':isListElement) == 'Person'; else publication" [ngClass]="{'person-type-plumX': isListElement}"> -->
+  <div *ngIf="(remark | dsListMetricProps: 'type':isListElement) == 'Person'; else publication" [ngClass]="{'person-type-plumX': isListElement}">
     <a
       [href]="remark | dsListMetricProps: 'href':isListElement"
       class="plumx-person"

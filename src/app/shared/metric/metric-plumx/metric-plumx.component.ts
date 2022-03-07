@@ -1,19 +1,16 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BaseMetricComponent } from '../metric-loader/base-metric.component';
-import { MetricLoaderService } from '../metric-loader/metric-loader.service';
 import { hasValue } from '../../empty.util';
+import { MetricLoadScriptService } from '../metric-loader/metric-load-script.service';
 @Component({
   selector: 'ds-metric-plumx',
   templateUrl: './metric-plumx.component.html',
   styleUrls: ['./metric-plumx.component.scss'],
 })
-export class MetricPlumxComponent
-  extends BaseMetricComponent
-  implements OnInit
-{
+export class MetricPlumxComponent extends BaseMetricComponent implements OnInit {
   remark: JSON;
-  private metricLoaderService: MetricLoaderService;
+  private metricLoaderService: MetricLoadScriptService;
 
   constructor(protected sr: DomSanitizer, protected injector: Injector) {
     super();
@@ -25,11 +22,11 @@ export class MetricPlumxComponent
       const script = this.isListElement
         ? this.remark['list-src']
         : (this.remark as any).src;
-      // script is dynamic base on entityTyp and is coming from backend
-      this.metricLoaderService = this.injector.get(MetricLoaderService);
-      await this.metricLoaderService.setScript('plumX', script);
+      // script is dynamic base on entityType and is coming from backend
+      this.metricLoaderService = this.injector.get(MetricLoadScriptService);
+      await this.metricLoaderService.loadScript('plumX', script);
       // use the method to find and render all placeholders that haven't already been initialized
-      window['__plumX'].widgets.init();
+      window[`__plumX`].widgets.init();
     }
   }
 }
