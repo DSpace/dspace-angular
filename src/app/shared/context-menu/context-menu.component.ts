@@ -133,12 +133,14 @@ export class ContextMenuComponent implements OnInit {
 
   ngAfterViewChecked() {
     // To check that Context-menu contains options or not
-    const el = Array.from(document.getElementById('itemOptionsDropdownMenu')?.getElementsByClassName('ng-star-inserted'));
-    this.optionCount = 0;
-    if (el) {
-      el.forEach(element => {
-        this.optionCount += element.childElementCount;
-      });
+    if (document.getElementById('itemOptionsDropdownMenu')) {
+      const el = Array.from(document.getElementById('itemOptionsDropdownMenu')?.getElementsByClassName('ng-star-inserted'));
+      this.optionCount = 0;
+      if (el) {
+        el.forEach(element => {
+          this.optionCount += element.childElementCount;
+        });
+      }
     }
   }
 }
