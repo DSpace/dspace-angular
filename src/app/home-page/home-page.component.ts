@@ -9,9 +9,6 @@ import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { isEmpty } from '../shared/empty.util';
 import { SiteDataService } from '../core/data/site-data.service';
 import { LocaleService } from '../core/locale/locale.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ItemDetailPageModalComponent } from '../item-detail-page-modal/item-detail-page-modal.component';
-
 
 @Component({
   selector: 'ds-home-page',
@@ -43,7 +40,6 @@ export class HomePageComponent implements OnInit {
     private sectionDataService: SectionDataService,
     private siteService: SiteDataService,
     private locale: LocaleService,
-    public modalService: NgbModal
   ) {
   }
 
@@ -57,7 +53,7 @@ export class HomePageComponent implements OnInit {
 
     this.sectionComponentRows = this.sectionDataService.findById('site').pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((section) => section.componentRows)
+      map ( (section) => section.componentRows)
     );
     this.siteService.find().pipe(take(1)).subscribe(
       (site: Site) => {
@@ -67,8 +63,4 @@ export class HomePageComponent implements OnInit {
     );
   }
 
-  public openModal(content: any) {
-    const modalRef = this.modalService.open(ItemDetailPageModalComponent, { size: 'xl' });
-    (modalRef.componentInstance as any).uuid = '092b59e8-8159-4e70-98b5-93ec60bd3431';
-  }
 }
