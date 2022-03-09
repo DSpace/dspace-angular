@@ -5,7 +5,7 @@
   </button>
 </div>
 <div class="modal-body p-2">
-  <ds-cris-layout [item]="itemRD$ | async"></ds-cris-layout>
+  <ds-cris-layout [item]="itemRD$ | async" [dataTabs$]="dataTabs$"></ds-cris-layout>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-secondary" (click)="c('cancel')">{{'modal.item-detail-page.confirm.cancel' | translate}}</button>
