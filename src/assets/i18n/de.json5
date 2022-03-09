@@ -107,7 +107,7 @@
   "admin.registries.bitstream-formats.edit.head": "Dateiformat: {{ format }}",
   
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
-  "admin.registries.bitstream-formats.edit.internal.hint": "Dateiformate, die als intern gekennzeichnet sind, dienen administrativen Zwecken und bleiben dem/der Endnutzer:in verborgen.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "Dateiformate, die als intern gekennzeichnet sind, dienen administrativen Zwecken und bleiben dem:der Endnutzer:in verborgen.",
   
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
   "admin.registries.bitstream-formats.edit.internal.label": "Intern",
@@ -765,7 +765,7 @@
   "bitstream.edit.form.description.label": "Beschreibung",
   
   // "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
-  "bitstream.edit.form.embargo.hint": "Der erste Tag, ab dem der Zugang erlaubt ist. <b>This date cannot be modified on this form.</b> Um eine Embargo-Frist für eine Datei festzulegen, zu <i>Item Status</i> gehen, auf <i>Authorizations...</i> klicken, die Richtlinie <i>READ</i> für die Datei erstellen oder verändern und das <i>Start Date</i> wie gewünscht einstellen.",
+  "bitstream.edit.form.embargo.hint": "Der erste Tag, ab dem der Zugang erlaubt ist. <b>Dieses Datum kann in diesem Formular nicht verändert werden.</b> Um eine Embargo-Frist für eine Datei festzulegen, zu <i>Item Status</i> gehen, auf <i>Authorizations...</i> klicken, die Richtlinie <i>READ</i> für die Datei erstellen oder verändern und das <i>Start Date</i> wie gewünscht einstellen.",
 
   
   // "bitstream.edit.form.embargo.label": "Embargo until specific date",
@@ -1499,7 +1499,7 @@
   "cookies.consent.decline": "Ablehnen",
   
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
-  "cookies.consent.content-notice.description": "Wir sammeln und verarbeiten Ihre personenbezogenen Daten für die folgenden Zwecke: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> Um mehr zu erfahren, lesen Sie bitte unsere {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Wir sammeln und verarbeiten Ihre personenbezogenen Daten für die folgenden Zwecke: <strong>Authentifikation, Einstellungen, Zustimmungen und Statistiken</strong>. <br/> Um mehr zu erfahren, lesen Sie bitte unsere {privacyPolicy}.",
   
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Anpassen",
@@ -1598,7 +1598,7 @@
   "curation.form.handle.label": "Handle:",
   
   // "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
-  "curation.form.handle.hint": "Hinweis: Geben Sie [your-handle-prefix]/0 ein, um eine Aufgabe für die gesamte Seite durchzuführen (nicht alle Aufgaben unterstützen diese Funktion)",
+  "curation.form.handle.hint": "Hinweis: Geben Sie [handle-prefix]/0 ein, um eine Aufgabe für die gesamte Seite durchzuführen (nicht alle Aufgaben unterstützen diese Funktion)",
   
   
   
@@ -2636,7 +2636,7 @@
   "item.page.link.simple": "Kurzanzeige",
   
   // "item.page.person.search.title": "Articles by this author",
-  "item.page.person.search.title": "Veröffentlichungen dieses/dieser Autor:in",
+  "item.page.person.search.title": "Veröffentlichungen dieses:dieser Autor:in",
   
   // "item.page.related-items.view-more": "Show {{ amount }} more",
   "item.page.related-items.view-more": "{{ amount }} mehr anzeigen",
@@ -3182,7 +3182,7 @@
   "mydspace.general.text-here": "hier",
   
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
-  "mydspace.messages.controller-help": "Wählen Sie diese Option, um dem/derjenigen, die das Item eingereicht hat, eine Nachricht zu schicken.",
+  "mydspace.messages.controller-help": "Wählen Sie diese Option, um dem:derjenigen, die das Item eingereicht hat, eine Nachricht zu schicken.",
   
   // "mydspace.messages.description-placeholder": "Insert your message here...",
   "mydspace.messages.description-placeholder": "Geben Sie Ihre Nachricht hier ein...",
@@ -3290,10 +3290,10 @@
   "mydspace.upload.upload-failed-moreonefile": "Unverarbeitbare Anfrage. Nur eine Datei ist erlaubt.",
   
   // "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
-  "mydspace.upload.upload-multiple-successful": "{{qty}} neue(s) Arbeitsbereichitem(s) angelegt.",
+  "mydspace.upload.upload-multiple-successful": "{{qty}} neue(s) Arbeitsbereichsitem(s) angelegt.",
   
   // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
-  "mydspace.upload.upload-successful": "Neues Arbeitsbereichitem angelegt. Klicken Sie {{here}}, um sie zu bearbeiten.",
+  "mydspace.upload.upload-successful": "Neues Arbeitsbereichsitem angelegt. Klicken Sie {{here}}, um sie zu bearbeiten.",
   
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Anzeige",
@@ -3763,7 +3763,7 @@
   "register-page.create-profile.submit.error.head": "Registrierung fehlgeschlagen.",
   
   // "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
-  "register-page.create-profile.submit.success.content": "Die Registrierung war erfolgreich. Sie wurden als der/die angelegte Benutzer:in angemeldet.",
+  "register-page.create-profile.submit.success.content": "Die Registrierung war erfolgreich. Sie wurden als der:die angelegte Benutzer:in angemeldet.",
   
   // "register-page.create-profile.submit.success.head": "Registration completed",
   "register-page.create-profile.submit.success.head": "Registrierung abgeschlossen",
@@ -4078,7 +4078,7 @@
   "search.filters.filter.author.head": "Autor:in",
   
   // "search.filters.filter.author.placeholder": "Author name",
-  "search.filters.filter.author.placeholder": "Name des/der Autor:in",
+  "search.filters.filter.author.placeholder": "Name des:der Autor:in",
   
   // "search.filters.filter.birthDate.head": "Birth Date",
   "search.filters.filter.birthDate.head": "Geburtsdatum",
@@ -4474,10 +4474,10 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Importiere Autor:innen-Metadaten",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Successfully added local author to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Erfolgreicher Import und Hinzufügen eines/einer lokalen Autor:in zur Auswahl",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Erfolgreicher Import und Hinzufügen eines:einer lokalen Autor:in zur Auswahl",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Erfolgreicher Import und Hinzufügen eines/einer externen Autor:in zur Auswahl",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Erfolgreicher Import und Hinzufügen eines:einer externen Autor:in zur Auswahl",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Referenz",
@@ -4573,7 +4573,7 @@
   "submission.sections.describe.relationship-lookup.selected": "{{ size }} Items ausgewählt",
   
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Local Authors ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Lokale Autoren ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Lokale Autor:innen ({{ count }})",
   
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Lokale Zeitschriften ({{ count }})",
@@ -4585,7 +4585,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Lokale Publicationen ({{ count }})",
   
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Local Authors ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Lokale Autoren ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Lokale Autor:innen ({{ count }})",
   
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Local Organizational Units ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Lokale Organisationseinheiten ({{ count }})",
@@ -4973,7 +4973,7 @@
   "submission.workflow.tasks.claimed.edit_help": "Wählen Sie diese Option, um die Metadaten des Items zu bearbeiten.",
   
   // "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
-  "submission.workflow.tasks.claimed.reject.reason.info": "Bitte geben Sie den Grund für die Ablehnung der eingereichten Ressource in das Feld unten ein. Bitte geben Sie an ob und wie der/die Einreichende:n das Problem beheben und die Ressource erneut einreichen kann.",
+  "submission.workflow.tasks.claimed.reject.reason.info": "Bitte geben Sie den Grund für die Ablehnung der eingereichten Ressource in das Feld unten ein. Bitte geben Sie an ob und wie der:die Einreichende:n das Problem beheben und die Ressource erneut einreichen kann.",
   
   // "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describe the reason of reject",
   "submission.workflow.tasks.claimed.reject.reason.placeholder": "Beschreiben Sie den Grund für die Ablehnung",
@@ -4988,7 +4988,7 @@
   "submission.workflow.tasks.claimed.reject.submit": "Ablehnen",
   
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  "submission.workflow.tasks.claimed.reject_help": "Wenn Sie das Item begutachtet und als <strong>ungeeignet</strong> für die Aufnahme in die Sammlung befunden haben, wählen Sie \"Ablehnen\".  Sie haben dann die Möglichkeit dem/der Einreichenden, den Grund für die Ablehnung zu erklären und ob es eine Möglichkeit gibt, durch entsprechenden Änderungen das Item erneut einzureichen.",
+  "submission.workflow.tasks.claimed.reject_help": "Wenn Sie das Item begutachtet und als <strong>ungeeignet</strong> für die Aufnahme in die Sammlung befunden haben, wählen Sie \"Ablehnen\".  Sie haben dann die Möglichkeit dem:der Einreichenden, den Grund für die Ablehnung zu erklären und ob es eine Möglichkeit gibt, durch entsprechenden Änderungen das Item erneut einzureichen.",
   
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Zurück in den gemeinsamen Aufgabenbereich",
@@ -5111,22 +5111,22 @@
   
   
   // "workflow-item.send-back.notification.success.title": "Sent back to submitter",
-  "workflow-item.send-back.notification.success.title": "An die/den Einreichende:n zurückgeschickt",
+  "workflow-item.send-back.notification.success.title": "An die:den Einreichende:n zurückgeschickt",
   
   // "workflow-item.send-back.notification.success.content": "This workflow item was successfully sent back to the submitter",
-  "workflow-item.send-back.notification.success.content": "Dieses Workflow-Item wurde erfolgreich an die/den Einreichende:n zurückgeschickt",
+  "workflow-item.send-back.notification.success.content": "Dieses Workflow-Item wurde erfolgreich an die:den Einreichende:n zurückgeschickt",
   
   // "workflow-item.send-back.notification.error.title": "Something went wrong",
   "workflow-item.send-back.notification.error.title": "Etwas ist schief gelaufen",
   
   // "workflow-item.send-back.notification.error.content": "The workflow item could not be sent back to the submitter",
-  "workflow-item.send-back.notification.error.content": "Das Workflow-Item konnte nicht an die/den Einreichende:n zurückgeschickt werden",
+  "workflow-item.send-back.notification.error.content": "Das Workflow-Item konnte nicht an die:den Einreichende:n zurückgeschickt werden",
   
   // "workflow-item.send-back.title": "Send workflow item back to submitter",
-  "workflow-item.send-back.title": "Workflow-Item an die/den Einreichende:n zurücksenden",
+  "workflow-item.send-back.title": "Workflow-Item an die:den Einreichende:n zurücksenden",
   
   // "workflow-item.send-back.header": "Send workflow item back to submitter",
-  "workflow-item.send-back.header": "Workflow-Item an die/den Einreichende:n zurücksenden",
+  "workflow-item.send-back.header": "Workflow-Item an die:den Einreichende:n zurücksenden",
   
   // "workflow-item.send-back.button.cancel": "Cancel",
   "workflow-item.send-back.button.cancel": "Abbrechen",
