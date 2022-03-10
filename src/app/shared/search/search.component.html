@@ -81,7 +81,7 @@
                         [query]="(searchOptions$ | async)?.query"
                         [scope]="(searchOptions$ | async)?.scope"
                         [currentUrl]="searchLink"
-                        [showScopeSelector]="true"
+                    [showScopeSelector]="showScopeSelector"
                         [inPlaceSearch]="inPlaceSearch"
                         [searchPlaceholder]="searchFormPlaceholder | translate">
         </ds-search-form>

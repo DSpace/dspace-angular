@@ -228,6 +228,7 @@ import { ThemedMultiColumnTopSectionComponent } from './explore/section-componen
 import { ThemedSearchSectionComponent } from './explore/section-component/search-section/themed-search-section.component';
 import { ThemedTextSectionComponent } from './explore/section-component/text-section/themed-text-section.component';
 import { ThemedBrowseMostElementsComponent } from './browse-most-elements/themed-browse-most-elements.component';
+import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -304,6 +305,7 @@ const COMPONENTS = [
   UploaderComponent,
   FileDropzoneNoUploaderComponent,
   ItemListPreviewComponent,
+  ThemedItemListPreviewComponent,
   MyDSpaceItemStatusComponent,
   ItemSubmitterComponent,
   ItemDetailPreviewComponent,
