@@ -1,6 +1,10 @@
 <div class="container">
   <h2 id="header">{{'admin.metadata-import.page.header' | translate}}</h2>
   <p>{{'admin.metadata-import.page.help' | translate}}</p>
+  <p>
+    <input type="checkbox" [(ngModel)]="validateOnly" />
+    <span class="ml-2">{{'admin.metadata-import.page.validateOnly' | translate}}</span>
+  </p>
 
   <ds-file-dropzone-no-uploader
     (onFileAdded)="setFile($event)"
