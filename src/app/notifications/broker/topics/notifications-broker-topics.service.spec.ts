@@ -13,6 +13,7 @@ import {
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { cold } from 'jasmine-marbles';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { RequestParam } from '../../../core/cache/models/request-param.model';
 
 describe('NotificationsBrokerTopicsService', () => {
   let service: NotificationsBrokerTopicsService;
@@ -50,8 +51,10 @@ describe('NotificationsBrokerTopicsService', () => {
       const findListOptions: FindListOptions = {
         elementsPerPage: elementsPerPage,
         currentPage: currentPage,
-        sort: sortOptions
+        sort: sortOptions,
+        searchParams: [new RequestParam('source', 'ENRICH!MORE!ABSTRACT')]
       };
+      service.setSourceId('ENRICH!MORE!ABSTRACT');
       const result = service.getTopics(elementsPerPage, currentPage);
       expect((service as any).notificationsBrokerTopicRestService.getTopics).toHaveBeenCalledWith(findListOptions);
     });

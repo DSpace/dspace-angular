@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, of } from 'rxjs';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import {
@@ -15,6 +15,7 @@ import { NotificationsStateService } from '../../notifications-state.service';
 import { cold } from 'jasmine-marbles';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { NotificationsBrokerTopicsService } from './notifications-broker-topics.service';
 
 describe('NotificationsBrokerTopicsComponent test suite', () => {
   let fixture: ComponentFixture<NotificationsBrokerTopicsComponent>;
@@ -41,9 +42,15 @@ describe('NotificationsBrokerTopicsComponent test suite', () => {
       ],
       providers: [
         { provide: NotificationsStateService, useValue: mockNotificationsStateService },
-        { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), params: observableOf({}) } },
+        { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), snapshot: {
+          paramMap: {
+            get: () => 'openaire',
+          },
+        }}},
         { provide: PaginationService, useValue: paginationService },
-        NotificationsBrokerTopicsComponent
+        NotificationsBrokerTopicsComponent,
+        // tslint:disable-next-line: no-empty
+        { provide: NotificationsBrokerTopicsService, useValue: { setSourceId: (sourceId: string) => { } }}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then(() => {

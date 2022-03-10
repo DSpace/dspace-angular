@@ -67,19 +67,14 @@ export class NotificationsBrokerTopicsComponent implements OnInit {
     private notificationsStateService: NotificationsStateService,
     private notificationsBrokerTopicsService: NotificationsBrokerTopicsService
   ) {
-    this.activatedRoute.paramMap.pipe(
-      map((params) => params.get('sourceId')),
-      take(1)
-    ).subscribe((id: string) => {
-      this.sourceId = id;
-      this.notificationsBrokerTopicsService.setSourceId(this.sourceId);
-    });
   }
 
   /**
    * Component initialization.
    */
   ngOnInit(): void {
+    this.sourceId = this.activatedRoute.snapshot.paramMap.get('sourceId');
+    this.notificationsBrokerTopicsService.setSourceId(this.sourceId);
     this.topics$ = this.notificationsStateService.getNotificationsBrokerTopics();
     this.totalElements$ = this.notificationsStateService.getNotificationsBrokerTopicsTotals();
   }

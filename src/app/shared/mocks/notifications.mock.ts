@@ -13,6 +13,7 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../remote-data.utils';
 import { SearchResult } from '../search/models/search-result.model';
+import { NotificationsBrokerSourceObject } from '../../core/notifications/broker/models/notifications-broker-source.model';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
@@ -1329,6 +1330,45 @@ export const NotificationsMockDspaceObject: SearchResult<DSpaceObject> = Object.
   }
 );
 
+// Sources
+// -------------------------------------------------------------------------------
+
+export const notificationsBrokerSourceObjectMorePid: NotificationsBrokerSourceObject = {
+  type: new ResourceType('nbsource'),
+  id: 'ENRICH!MORE!PID',
+  lastEvent: '2020/10/09 10:11 UTC',
+  totalEvents: 33,
+  _links: {
+    self: {
+      href: 'https://rest.api/rest/api/integration/nbsources/ENRICH!MORE!PID'
+    }
+  }
+};
+
+export const notificationsBrokerSourceObjectMoreAbstract: NotificationsBrokerSourceObject = {
+  type: new ResourceType('nbsource'),
+  id: 'ENRICH!MORE!ABSTRACT',
+  lastEvent: '2020/09/08 21:14 UTC',
+  totalEvents: 5,
+  _links: {
+    self: {
+      href: 'https://rest.api/rest/api/integration/nbsources/ENRICH!MORE!ABSTRACT'
+    }
+  }
+};
+
+export const notificationsBrokerSourceObjectMissingPid: NotificationsBrokerSourceObject = {
+  type: new ResourceType('nbsource'),
+  id: 'ENRICH!MISSING!PID',
+  lastEvent: '2020/10/01 07:36 UTC',
+  totalEvents: 4,
+  _links: {
+    self: {
+      href: 'https://rest.api/rest/api/integration/nbsources/ENRICH!MISSING!PID'
+    }
+  }
+};
+
 // Topics
 // -------------------------------------------------------------------------------
 
@@ -1753,7 +1793,25 @@ export function getMockNotificationsStateService(): any {
     getNotificationsBrokerTopicsCurrentPage: jasmine.createSpy('getNotificationsBrokerTopicsCurrentPage'),
     getNotificationsBrokerTopicsTotals: jasmine.createSpy('getNotificationsBrokerTopicsTotals'),
     dispatchRetrieveNotificationsBrokerTopics: jasmine.createSpy('dispatchRetrieveNotificationsBrokerTopics'),
+    getNotificationsBrokerSource: jasmine.createSpy('getNotificationsBrokerSource'),
+    isNotificationsBrokerSourceLoading: jasmine.createSpy('isNotificationsBrokerSourceLoading'),
+    isNotificationsBrokerSourceLoaded: jasmine.createSpy('isNotificationsBrokerSourceLoaded'),
+    isNotificationsBrokerSourceProcessing: jasmine.createSpy('isNotificationsBrokerSourceProcessing'),
+    getNotificationsBrokerSourceTotalPages: jasmine.createSpy('getNotificationsBrokerSourceTotalPages'),
+    getNotificationsBrokerSourceCurrentPage: jasmine.createSpy('getNotificationsBrokerSourceCurrentPage'),
+    getNotificationsBrokerSourceTotals: jasmine.createSpy('getNotificationsBrokerSourceTotals'),
+    dispatchRetrieveNotificationsBrokerSource: jasmine.createSpy('dispatchRetrieveNotificationsBrokerSource'),
     dispatchMarkUserSuggestionsAsVisitedAction: jasmine.createSpy('dispatchMarkUserSuggestionsAsVisitedAction')
+  });
+}
+
+/**
+ * Mock for [[NotificationsBrokerSourceRestService]]
+ */
+ export function getMockNotificationsBrokerSourceRestService(): NotificationsBrokerTopicRestService {
+  return jasmine.createSpyObj('NotificationsBrokerSourceRestService', {
+    getSources: jasmine.createSpy('getSources'),
+    getSource: jasmine.createSpy('getSource'),
   });
 }
 
