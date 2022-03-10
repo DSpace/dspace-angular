@@ -30,7 +30,9 @@ const main = () => {
 
   if (environment.production) {
     enableProdMode();
+  }
 
+  if (hasValue(environment.universal) && environment.universal.preboot) {
     return bootstrap();
   } else {
 
@@ -47,7 +49,7 @@ const main = () => {
 };
 
 // support async tag or hmr
-if (hasValue(environment.universal) && environment.universal.preboot === false) {
+if (hasValue(environment.universal) && !environment.universal.preboot) {
   main();
 } else {
   document.addEventListener('DOMContentLoaded', main);
