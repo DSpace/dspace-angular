@@ -116,7 +116,7 @@
     "rxjs": "^6.6.3",
     "sortablejs": "1.13.0",
     "tslib": "^2.0.0",
-    "url-parse": "^1.5.3",
+    "url-parse": "^1.5.6",
     "uuid": "^8.3.2",
     "webfontloader": "1.6.28",
     "zone.js": "^0.10.3"
@@ -158,7 +158,7 @@
     "jasmine-core": "~3.6.0",
     "jasmine-marbles": "0.6.0",
     "jasmine-spec-reporter": "~5.0.0",
-    "karma": "^5.2.3",
+    "karma": "^6.3.14",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",

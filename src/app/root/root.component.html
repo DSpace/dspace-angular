@@ -1,5 +1,5 @@
 <div class="outer-wrapper" *ngIf="!shouldShowFullscreenLoader; else fullScreenLoader">
-  <ds-admin-sidebar></ds-admin-sidebar>
+  <ds-themed-admin-sidebar></ds-themed-admin-sidebar>
   <div class="inner-wrapper" [@slideSidebarPadding]="{
      value: (!(sidebarVisible | async) ? 'hidden' : (slideSidebarOver | async) ? 'shown' : 'expanded'),
      params: {collapsedSidebarWidth: (collapsedSidebarWidth | async), totalSidebarWidth: (totalSidebarWidth | async)}

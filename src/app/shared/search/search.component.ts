@@ -135,6 +135,11 @@ export class SearchComponent implements OnInit {
   @Input() viewModeList: ViewMode[];
 
   /**
+   * Defines whether or not to show the scope selector
+   */
+  @Input() showScopeSelector = false;
+
+  /**
    * The current configuration used during the search
    */
   currentConfiguration$: BehaviorSubject<string> = new BehaviorSubject<string>('');
