@@ -29,7 +29,7 @@ export class CrisLayoutComponent implements OnInit {
   /**
    * DSpace dataTabs coming as Input for specific item
    */
-  @Input() dataTabs$!: Observable<RemoteData<PaginatedList<CrisLayoutTab>>>;
+  @Input() dataTabs$: Observable<RemoteData<PaginatedList<CrisLayoutTab>>>;
 
   /**
    * Get tabs for the specific item

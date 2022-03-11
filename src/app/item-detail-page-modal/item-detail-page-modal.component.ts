@@ -84,5 +84,6 @@ export class ItemDetailPageModalComponent implements OnInit {
      */
     c(text): void {
         this.close.emit(text);
+        this.modalService.dismissAll();
     }
 }
