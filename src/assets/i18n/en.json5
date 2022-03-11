@@ -724,6 +724,10 @@
 
   "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
 
+  "bitstream.edit.form.fileType.label": "File type",
+
+  "bitstream.edit.form.fileType.hint": "Personal picture, logo, main article, etc.",
+
   "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
 
   "bitstream.edit.form.selectedFormat.label": "Selected Format",
