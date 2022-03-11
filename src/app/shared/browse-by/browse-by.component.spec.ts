@@ -4,20 +4,17 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs';
-import { SharedModule } from '../shared.module';
 import { CommonModule } from '@angular/common';
 import { Item } from '../../core/shared/item.model';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { StoreModule } from '@ngrx/store';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { storeModuleConfig } from '../../app.reducer';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
@@ -30,17 +27,18 @@ import {
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { ITEM } from '../../core/shared/item.resource-type';
 import { ThemeService } from '../theme-support/theme.service';
-import SpyObj = jasmine.SpyObj;
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
+import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { HostWindowService } from '../host-window.service';
-import { CSSVariableService } from '../sass-helper/sass-helper.service';
+import SpyObj = jasmine.SpyObj;
 
 @listableObjectComponent(BrowseEntry, ViewMode.ListElement, DEFAULT_CONTEXT, 'custom')
 @Component({
   selector: 'ds-browse-entry-list-element',
   template: ''
 })
-class MockThemedBrowseEntryListElementComponent {}
+class MockThemedBrowseEntryListElementComponent {
+}
 
 describe('BrowseByComponent', () => {
   let comp: BrowseByComponent;
@@ -86,10 +84,7 @@ describe('BrowseByComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        TranslateModule.forRoot(),
-        SharedModule,
         NgbModule,
-        StoreModule.forRoot({}, storeModuleConfig),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -97,16 +92,15 @@ describe('BrowseByComponent', () => {
           }
         }),
         RouterTestingModule,
-        BrowserAnimationsModule
+        NoopAnimationsModule
       ],
       declarations: [],
       providers: [
-        {provide: PaginationService, useValue: paginationService},
-        {provide: MockThemedBrowseEntryListElementComponent},
+        { provide: PaginationService, useValue: paginationService },
+        { provide: MockThemedBrowseEntryListElementComponent },
         { provide: ThemeService, useValue: themeService },
-        SelectableListService,
-        HostWindowService,
-        CSSVariableService
+        { provide: SelectableListService, useValue: {} },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

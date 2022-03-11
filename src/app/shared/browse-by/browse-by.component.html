@@ -1,15 +1,15 @@
 <ng-container *ngVar="(objects$ | async) as objects">
-  <h3 [ngClass]="{'sr-only': parentname }" >{{title | translate}}</h3>
+  <h3 [ngClass]="{'sr-only': parentname }">{{title | translate}}</h3>
   <ng-container *ngComponentOutlet="getStartsWithComponent(); injector: objectInjector;"></ng-container>
   <div *ngIf="objects?.hasSucceeded && !objects?.isLoading && objects?.payload?.page.length > 0" @fadeIn>
-      <ds-viewable-collection
+    <ds-viewable-collection
       [config]="paginationConfig"
       [sortConfig]="sortConfig"
       [showPaginator]="showPaginator"
       [objects]="objects"
       (prev)="goPrev()"
       (next)="goNext()">
-      </ds-viewable-collection>
+    </ds-viewable-collection>
   </div>
   <ds-loading *ngIf="!objects || objects?.isLoading" message="{{'loading.browse-by' | translate}}"></ds-loading>
   <ds-error *ngIf="objects?.hasFailed" message="{{'error.browse-by' | translate}}"></ds-error>
