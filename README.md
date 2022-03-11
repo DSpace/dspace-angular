@@ -101,7 +101,7 @@ Installing
 
 ### Configuring
 
-Default configuration file is located in `config/` folder.
+Default runtime configuration file is located in `config/` folder. These configurations can be changed without rebuilding the distribution.
 
 To override the default configuration values, create local files that override the parameters you need to change. You can use `config.example.yml` as a starting point.
 
@@ -167,6 +167,22 @@ These configuration sources are collected **at run time**, and written to `dist/
 
 The configuration file can be externalized by using environment variable `DSPACE_APP_CONFIG_PATH`.
 
+#### Buildtime Configuring
+
+Buildtime configuration must defined before build in order to include in transpiled JavaScript. This is primarily for the server. These settings can be found under `src/environment/` folder.
+
+To override the default configuration values for development, create local file that override the build time parameters you need to change.
+
+-	Create a new `environment.(dev or development).ts` file in `src/environment/` for a `development` environment;
+
+If needing to update default configurations values for production, update local file that override the build time parameters you need to change.
+
+-	Update `environment.production.ts` file in `src/environment/` for a `production` environment;
+
+The environment object is provided for use as import in code and is extended with he runtime configuration on bootstrap of the application.
+
+> Take caution moving runtime configs into the buildtime configuration. They will be overwritten by what is defined in the runtime config on bootstrap.
+
 #### Using environment variables in code
 To use environment variables in a UI component, use:
 
@@ -182,7 +198,6 @@ or
 ```typescript
 import { environment } from '../environment.ts';
 ```
-
 
 Running the app
 ---------------
