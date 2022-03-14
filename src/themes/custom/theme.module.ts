@@ -86,6 +86,7 @@ import { SearchModule } from '../../app/shared/search/search.module';
 import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
+import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 import { CrisItemPageModule } from '../../app/cris-item-page/cris-item-page.module';
 import { CrisStatisticsPageModule } from '../../app/statistics-page/cris-statistics-page/cris-statistics-page.module';
 import { BrowseMostElementsComponent } from './app/browse-most-elements/browse-most-elements.component';
@@ -133,6 +134,7 @@ const DECLARATIONS = [
   HeaderNavbarWrapperComponent,
   BreadcrumbsComponent,
   FeedbackComponent,
+  CommunityListComponent,
   BrowseMostElementsComponent
 ];
 

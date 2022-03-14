@@ -238,6 +238,9 @@ describe('AuthEffects', () => {
         const expected = cold('--b-', { b: new RetrieveTokenAction() });
 
         expect(authEffects.checkTokenCookie$).toBeObservable(expected);
+        authEffects.checkTokenCookie$.subscribe(() => {
+          expect((authEffects as any).authorizationsService.invalidateAuthorizationsRequestCache).toHaveBeenCalled();
+        });
         done();
       });
 
