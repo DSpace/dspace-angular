@@ -10,7 +10,7 @@ export const environment: Partial<BuildConfig> = {
 
   // Angular Universal settings
   universal: {
-    preboot: true,
+    preboot: false,
     async: true,
     time: false
   }
