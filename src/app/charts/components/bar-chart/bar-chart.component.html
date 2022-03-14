@@ -1,16 +1,32 @@
 <div class="chart-container"
      [class.pr-3]="enableScrollToRight && hasScrollbar">
   <div class="scroll-class" #chartArea>
-    <ngx-charts-bar-vertical [view]="view"
-                             [results]="getResults()"
-                             [animations]="animations"
-                             [legend]="legend"
-                             [legendTitle]="legendTitle"
-                             [legendPosition]="legendPosition"
-                             [xAxis]="xAxis"
-                             [yAxis]="yAxis"
-                             (select)="onSelect($event)">
-    </ngx-charts-bar-vertical>
+    <ng-container *ngIf="type === defaultChartType; else horizontalChartType" >
+      <ngx-charts-bar-vertical [view]="view"
+        [results]="getResults()"
+        [animations]="animations"
+        [legend]="legend"
+        [legendTitle]="legendTitle"
+        [legendPosition]="legendPosition"
+        [xAxis]="xAxis"
+        [yAxis]="yAxis"
+        (select)="onSelect($event)">
+      </ngx-charts-bar-vertical>
+    </ng-container>
+    <ng-template #horizontalChartType>
+      <ngx-charts-bar-horizontal
+        [view]="view"
+        [animations]="animations"
+        [results]="getResults()"
+        [xAxis]="xAxis"
+        [yAxis]="yAxis"
+        [legend]="legend"
+        [legendTitle]="legendTitle"
+        [legendPosition]="legendPosition"
+        (select)="onSelect($event)"
+       >
+      </ngx-charts-bar-horizontal>
+    </ng-template>
   </div>
   <button *ngIf="enableScrollToLeft"
           type="button"

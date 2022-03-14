@@ -14,6 +14,7 @@ import { ChartSeries } from '../../models/chart-series';
   animations: [fadeIn],
 })
 @renderChartFor(ChartType.BAR)
+@renderChartFor(ChartType.HORIZONTAL)
 export class BarChartComponent extends AbstractChartComponent implements OnInit {
 
   /**
@@ -38,6 +39,8 @@ export class BarChartComponent extends AbstractChartComponent implements OnInit 
    * @private
    */
   private chartContainerWidth: number;
+
+  defaultChartType : ChartType = ChartType.BAR
 
   /**
    * Initialize the component, setting up the bundle and bitstream within the item

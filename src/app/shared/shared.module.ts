@@ -229,6 +229,7 @@ import { ThemedSearchSectionComponent } from './explore/section-component/search
 import { ThemedTextSectionComponent } from './explore/section-component/text-section/themed-text-section.component';
 import { ThemedBrowseMostElementsComponent } from './browse-most-elements/themed-browse-most-elements.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
+import { SearchChartHorizontalComponent } from './search/search-charts/search-chart/search-chart-horizontal/search-chart-horizontal.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -449,6 +450,7 @@ const COMPONENTS = [
   ThemedSearchSectionComponent,
   ThemedTextSectionComponent,
   ThemedBrowseMostElementsComponent,
+  SearchChartHorizontalComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -528,6 +530,7 @@ const ENTRY_COMPONENTS = [
   ThemedSearchSectionComponent,
   ThemedTextSectionComponent,
   ThemedBrowseMostElementsComponent,
+  SearchChartHorizontalComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
