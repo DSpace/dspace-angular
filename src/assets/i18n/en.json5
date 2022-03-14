@@ -3374,6 +3374,11 @@
 
   "menu.section.statistics_task": "Statistics Task",
 
+  "modal.item-detail-page.title" : "Item Page Detail",
+
+  "modal.item-detail-page.confirm.cancel" : "Close",
+
+
   "statistics": "Statistics",
 
   "statistics.workflow.breadcrumbs": "Workflow Statistics",
