@@ -10,7 +10,7 @@ import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/ite
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 import { ItemExportFormConfiguration, ItemExportService } from '../../item-export/item-export.service';
 import { take } from 'rxjs/operators';
-import { Item } from 'src/app/core/shared/item.model';
+import { Item } from '../../../core/shared/item.model';
 
 /**
  * This component renders a context menu option that provides to export an item.
@@ -42,6 +42,9 @@ export class ExportItemMenuComponent extends ContextMenuEntryComponent {
     protected itemExportService: ItemExportService
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.ExportItem);
+  }
+
+  ngOnInit() {
     if (this.contextMenuObject) {
       this.itemExportService.initialItemExportFormConfiguration(this.contextMenuObject as Item).pipe(take(1))
       .subscribe( configuration => {
