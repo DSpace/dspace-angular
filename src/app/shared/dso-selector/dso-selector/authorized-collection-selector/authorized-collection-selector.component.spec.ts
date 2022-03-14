@@ -26,7 +26,8 @@ describe('AuthorizedCollectionSelectorComponent', () => {
       id: 'authorized-collection'
     });
     collectionService = jasmine.createSpyObj('collectionService', {
-      getAuthorizedCollection: createSuccessfulRemoteDataObject$(createPaginatedList([collection]))
+      getAuthorizedCollection: createSuccessfulRemoteDataObject$(createPaginatedList([collection])),
+      getAuthorizedCollectionByEntityType: createSuccessfulRemoteDataObject$(createPaginatedList([collection]))
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
     TestBed.configureTestingModule({
@@ -49,12 +50,27 @@ describe('AuthorizedCollectionSelectorComponent', () => {
   });
 
   describe('search', () => {
-    it('should call getAuthorizedCollection and return the authorized collection in a SearchResult', (done) => {
+    describe('when has no entity type', () => {
+      it('should call getAuthorizedCollection and return the authorized collection in a SearchResult', (done) => {
       component.search('', 1).subscribe((resultRD) => {
-        expect(collectionService.getAuthorizedCollection).toHaveBeenCalled();
+          expect(collectionService.getAuthorizedCollection).toHaveBeenCalled();
         expect(resultRD.payload.page.length).toEqual(1);
         expect(resultRD.payload.page[0].indexableObject).toEqual(collection);
-        done();
+          done();
+        });
+      });
+    });
+
+    describe('when has entity type', () => {
+      it('should call getAuthorizedCollectionByEntityType and return the authorized collection in a SearchResult', (done) => {
+        component.entityType = 'test';
+        fixture.detectChanges();
+        component.search('', 1).subscribe((resultRD) => {
+          expect(collectionService.getAuthorizedCollectionByEntityType).toHaveBeenCalled();
+          expect(resultRD.payload.page.length).toEqual(1);
+          expect(resultRD.payload.page[0].indexableObject).toEqual(collection);
+          done();
+        });
       });
     });
   });

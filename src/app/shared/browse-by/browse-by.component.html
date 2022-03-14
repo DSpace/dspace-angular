@@ -25,7 +25,7 @@
       </div>
       <ul class="list-unstyled">
         <li *ngFor="let object of objects?.payload?.page" class="mt-4 mb-4">
-          <ds-listable-object-component-loader [object]="object"></ds-listable-object-component-loader>
+          <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode"></ds-listable-object-component-loader>
         </li>
       </ul>
       <div>

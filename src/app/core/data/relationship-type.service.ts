@@ -15,13 +15,14 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { RELATIONSHIP_TYPE } from '../shared/item-relationships/relationship-type.resource-type';
-import { getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../shared/operators';
+import { getFirstSucceededRemoteData, getFirstCompletedRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { ItemDataService } from './item-data.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 /**
  * Check if one side of a RelationshipType is the ItemType with the given label
@@ -120,4 +121,33 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
       })
     );
   }
+
+  /**
+   * Search of the given RelationshipType if has the given itemTypes on its left and right sides.
+   * Returns an observable of the given RelationshipType if it matches, null if it doesn't
+   *
+   * @param type            The RelationshipType to check
+   */
+  searchByEntityType(type: string,useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<RelationshipType>[]): Observable<PaginatedList<RelationshipType>> {
+
+    return this.searchBy(
+      'byEntityType',
+      {
+        searchParams: [
+          {
+            fieldName: 'type',
+            fieldValue: type
+          },
+          {
+            fieldName: 'size',
+            fieldValue: 100
+          },
+        ]
+      }, useCachedVersionIfAvailable,reRequestOnStale,...linksToFollow).pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+    ) as Observable<PaginatedList<RelationshipType>>;
+  }
+
+
 }

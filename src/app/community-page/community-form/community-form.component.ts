@@ -6,7 +6,7 @@ import {
   DynamicTextAreaModel
 } from '@ng-dynamic-forms/core';
 import { Community } from '../../core/shared/community.model';
-import { ComColFormComponent } from '../../shared/comcol-forms/comcol-form/comcol-form.component';
+import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
@@ -19,8 +19,8 @@ import { ObjectCacheService } from '../../core/cache/object-cache.service';
  */
 @Component({
   selector: 'ds-community-form',
-  styleUrls: ['../../shared/comcol-forms/comcol-form/comcol-form.component.scss'],
-  templateUrl: '../../shared/comcol-forms/comcol-form/comcol-form.component.html'
+  styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
+  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
 })
 export class CommunityFormComponent extends ComColFormComponent<Community> {
   /**
