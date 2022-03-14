@@ -32,6 +32,11 @@ export class CrisLayoutComponent implements OnInit {
   @Input() dataTabs$: Observable<RemoteData<PaginatedList<CrisLayoutTab>>>;
 
   /**
+   * A boolean representing if to show context menu or not
+   */
+  @Input() showContextMenu = true;
+
+  /**
    * Get tabs for the specific item
    */
   tabs$: Observable<CrisLayoutTab[]>;
