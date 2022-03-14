@@ -28,7 +28,6 @@ import { SearchManager } from '../core/browse/search-manager';
 })
 
 export class ConfigurationSearchPageComponent extends SearchComponent {
-
   constructor(protected service: SearchService,
               protected searchManager: SearchManager,
               protected sidebarService: SidebarService,
@@ -38,5 +37,4 @@ export class ConfigurationSearchPageComponent extends SearchComponent {
               protected router: Router) {
     super(service, searchManager, sidebarService, windowService, searchConfigService, routeService, router);
   }
-
 }

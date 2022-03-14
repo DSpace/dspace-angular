@@ -19,6 +19,7 @@ import { WorkflowItem } from '../submission/models/workflowitem.model';
 import { hasValue } from '../../shared/empty.util';
 import { FollowAuthorityMetadata } from '../../../config/search-follow-metadata.interface';
 import { MetadataValue } from '../shared/metadata.models';
+import { Metadata } from '../shared/metadata.utils';
 
 /**
  * The service aims to manage browse requests and subsequent extra fetch requests.
@@ -117,8 +118,8 @@ export class SearchManager {
         if (item.entityType === followMetadata.type) {
           followMetadata.metadata.forEach((metadata) => {
             item.allMetadata(metadata)
-              .filter((value: MetadataValue) => value.hasValidAuthority)
-              .forEach((value: MetadataValue) => uuidMap[value.authority] = value);
+              .filter((metadataValue: MetadataValue) => Metadata.hasValidAuthority(metadataValue.authority))
+              .forEach((metadataValue: MetadataValue) => uuidMap[metadataValue.authority] = metadataValue);
           });
         }
       });

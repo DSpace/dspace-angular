@@ -10,7 +10,7 @@ describe('SubmissionEditCanDeactivateService', () => {
   let service: SubmissionEditCanDeactivateService;
   let submissionService: SubmissionService;
 
-  const submissionServiceSpy = jasmine.createSpyObj('submissionService', ['hasUnsavedModification']);
+  const submissionServiceSpy = jasmine.createSpyObj('submissionService', ['hasUnsavedModification', 'isSubmissionDiscarding']);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -30,30 +30,67 @@ describe('SubmissionEditCanDeactivateService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('when there are unsaved changes', () => {
+  describe('when submission is discarding', () => {
     beforeEach(() => {
-      submissionServiceSpy.hasUnsavedModification.and.returnValue(of(true));
+      submissionServiceSpy.isSubmissionDiscarding.and.returnValue(of(true));
     });
-    it('canDeactivate() should return false', () => {
-      const result = service.canDeactivate();
-      const expected = cold('(a|)', {
-        a: false,
+
+    describe('and there are unsaved changes', () => {
+      beforeEach(() => {
+        submissionServiceSpy.hasUnsavedModification.and.returnValue(of(true));
       });
-      expect(result).toBeObservable(expected);
+      it('canDeactivate() should return true', () => {
+        const result = service.canDeactivate('id');
+        const expected = cold('(a|)', {
+          a: true,
+        });
+        expect(result).toBeObservable(expected);
+      });
+    });
+
+    describe('and there are not unsaved changes', () => {
+      beforeEach(() => {
+        submissionServiceSpy.hasUnsavedModification.and.returnValue(of(false));
+      });
+      it('canDeactivate() should return true', () => {
+        const result = service.canDeactivate('id');
+        const expected = cold('(a|)', {
+          a: true,
+        });
+        expect(result).toBeObservable(expected);
+      });
     });
   });
 
-  describe('when there are not unsaved changes', () => {
+  describe('when submission is not discarding', () => {
     beforeEach(() => {
-      submissionServiceSpy.hasUnsavedModification.and.returnValue(of(false));
+      submissionServiceSpy.isSubmissionDiscarding.and.returnValue(of(false));
     });
-    it('canDeactivate() should return true', () => {
-      const result = service.canDeactivate();
-      const expected = cold('(a|)', {
-        a: true,
+
+    describe('and there are unsaved changes', () => {
+      beforeEach(() => {
+        submissionServiceSpy.hasUnsavedModification.and.returnValue(of(true));
       });
-      expect(result).toBeObservable(expected);
+      it('canDeactivate() should return false', () => {
+        const result = service.canDeactivate('id');
+        const expected = cold('(a|)', {
+          a: false,
+        });
+        expect(result).toBeObservable(expected);
+      });
+    });
+
+    describe('and there are not unsaved changes', () => {
+      beforeEach(() => {
+        submissionServiceSpy.hasUnsavedModification.and.returnValue(of(false));
+      });
+      it('canDeactivate() should return true', () => {
+        const result = service.canDeactivate('id');
+        const expected = cold('(a|)', {
+          a: true,
+        });
+        expect(result).toBeObservable(expected);
+      });
     });
   });
-
 });

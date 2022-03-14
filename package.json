@@ -1,6 +1,6 @@
 {
   "name": "dspace-angular",
-  "version": "2021.03.01-SNAPSHOT",
+  "version": "2022.01.01-SNAPSHOT",
   "scripts": {
     "ng": "ng",
     "config:watch": "nodemon",
@@ -18,7 +18,7 @@
     "build:ssr": "npm run ng-high-memory -- build --configuration production && ng run dspace-angular:server:production",
     "ng-high-memory": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng",
     "test": "npm run ng-high-memory -- test --sourceMap=true --watch=false --configuration test",
-    "test:watch": "nodemon --exec \"ng test --sourceMap=true --watch=true --configuration test\"",
+    "test:watch": "nodemon --exec \"npm run ng-high-memory -- test --sourceMap=true --watch=true --configuration test\"",
     "test:headless": "npm run ng-high-memory -- test --sourceMap=true --watch=false --configuration test --browsers=ChromeHeadless --code-coverage",
     "lint": "npm run ng-high-memory -- lint",
     "lint-fix": "npm run ng-high-memory -- lint --fix=true",
@@ -126,7 +126,7 @@
     "rxjs": "^6.6.3",
     "sortablejs": "1.13.0",
     "tslib": "^2.0.0",
-    "url-parse": "^1.5.3",
+    "url-parse": "^1.5.6",
     "uuid": "^8.3.2",
     "webfontloader": "1.6.28",
     "zone.js": "^0.10.3"
@@ -168,7 +168,7 @@
     "jasmine-core": "~3.6.0",
     "jasmine-marbles": "0.6.0",
     "jasmine-spec-reporter": "~5.0.0",
-    "karma": "^5.2.3",
+    "karma": "^6.3.14",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",

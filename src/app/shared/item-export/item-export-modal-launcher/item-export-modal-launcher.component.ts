@@ -31,14 +31,14 @@ export class ItemExportModalLauncherComponent implements OnInit {
     return this.item ? 'Export' : 'Bulk Export';
   }
 
-  open() {
-
+  open(event) {
     if (this.item) {
 
       // open a single item-export modal
       const modalRef = this.modalService.open(ItemExportComponent);
       modalRef.componentInstance.molteplicity = ItemExportFormatMolteplicity.SINGLE;
       modalRef.componentInstance.item = this.item;
+      modalRef.componentInstance.itemType = event;
 
     } else if (this.searchOptions$) {
 
@@ -47,6 +47,7 @@ export class ItemExportModalLauncherComponent implements OnInit {
         const modalRef = this.modalService.open(ItemExportComponent);
         modalRef.componentInstance.molteplicity = ItemExportFormatMolteplicity.MULTIPLE;
         modalRef.componentInstance.searchOptions = searchOptions;
+        modalRef.componentInstance.itemType = event;
       });
     }
 

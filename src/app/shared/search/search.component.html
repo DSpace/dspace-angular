@@ -6,6 +6,8 @@
     </div>
 </div>
 
+<ds-search-charts *ngIf="showCharts" [configuration]="currentConfiguration$" [inPlaceSearch]="inPlaceSearch"></ds-search-charts>
+
 <div *ngIf="!showSidebar && (initialized$ | async)">
   <ng-template *ngTemplateOutlet="searchContent"></ng-template>
 </div>
@@ -74,16 +76,17 @@
 </ng-template>
 
 <ng-template #searchForm>
-    <div class="d-flex">
+    <div class="d-flex justify-content-end">
         <ds-search-form *ngIf="searchEnabled" id="search-form" class="flex-grow-1"
                         [query]="(searchOptions$ | async)?.query"
                         [scope]="(searchOptions$ | async)?.scope"
                         [currentUrl]="searchLink"
-                        [showScopeSelector]="true"
+                    [showScopeSelector]="showScopeSelector"
                         [inPlaceSearch]="inPlaceSearch"
                         [searchPlaceholder]="searchFormPlaceholder | translate">
         </ds-search-form>
         <ng-content select="[additionalSearchFormOptions]"></ng-content>
+        <ds-item-export-modal-launcher *ngIf="showExport" [searchOptions$]="searchOptions$"></ds-item-export-modal-launcher>
     </div>
     <div class="row mb-3 mb-md-1">
         <div class="labels col-sm-9">

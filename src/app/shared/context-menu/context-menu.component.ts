@@ -67,8 +67,8 @@ export class ContextMenuComponent implements OnInit {
   ngOnInit(): void {
     this.objectInjector = Injector.create({
       providers: [
-        {provide: 'contextMenuObjectProvider', useFactory: () => (this.contextMenuObject), deps: []},
-        {provide: 'contextMenuObjectTypeProvider', useFactory: () => (this.contextMenuObjectType), deps: []},
+        { provide: 'contextMenuObjectProvider', useFactory: () => (this.contextMenuObject), deps: [] },
+        { provide: 'contextMenuObjectTypeProvider', useFactory: () => (this.contextMenuObjectType), deps: [] },
       ],
       parent: this.injector
     });
@@ -93,7 +93,7 @@ export class ContextMenuComponent implements OnInit {
   private retrieveSelectedContextMenuEntries(isStandAlone: boolean): Observable<any[]> {
     const list = this.contextMenuObjectType ? getContextMenuEntriesForDSOType(this.contextMenuObjectType) : [];
     return from(list).pipe(
-      filter((renderOptions: ContextMenuEntryRenderOptions) => isNotEmpty(renderOptions?.componentRef) && renderOptions?.isStandAlone === isStandAlone),
+      filter((renderOptions: ContextMenuEntryRenderOptions) => isNotEmpty(renderOptions ?.componentRef) && renderOptions ?.isStandAlone === isStandAlone),
       map((renderOptions: ContextMenuEntryRenderOptions) => renderOptions.componentRef),
       concatMap((constructor: GenericConstructor<ContextMenuEntryComponent>) => {
         const entryComp: ContextMenuEntryComponent = new constructor();

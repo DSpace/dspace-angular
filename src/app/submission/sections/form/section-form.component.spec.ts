@@ -23,9 +23,7 @@ import { SubmissionFormsConfigService } from '../../../core/config/submission-fo
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsType } from '../sections-type';
 import {
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-  mockUploadResponse1ParsedErrors
+  mockSubmissionCollectionId, mockSubmissionId, mockUploadResponse1ParsedErrors,
 } from '../../../shared/mocks/submission.mock';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -45,6 +43,12 @@ import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { cold } from 'jasmine-marbles';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import {
+  SubmissionVisibilityType,
+  SubmissionVisibilityValue
+} from '../../../core/config/models/config-submission-section.model';
+import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -300,8 +304,10 @@ describe('SubmissionSectionFormComponent test suite', () => {
       };
       compAsAny.formData = {};
       compAsAny.sectionMetadata = ['dc.title'];
+      spyOn(compAsAny, 'inCurrentSubmissionScope').and.callThrough();
 
       expect(comp.hasMetadataEnrichment(newSectionData)).toBeTruthy();
+      expect(compAsAny.inCurrentSubmissionScope).toHaveBeenCalledWith('dc.title');
     });
 
     it('should return false when has not Metadata Enrichment', () => {
@@ -310,7 +316,10 @@ describe('SubmissionSectionFormComponent test suite', () => {
       };
       compAsAny.formData = newSectionData;
       compAsAny.sectionMetadata = ['dc.title'];
+      spyOn(compAsAny, 'inCurrentSubmissionScope').and.callThrough();
+
       expect(comp.hasMetadataEnrichment(newSectionData)).toBeFalsy();
+      expect(compAsAny.inCurrentSubmissionScope).toHaveBeenCalledWith('dc.title');
     });
 
     it('should return false when metadata has Metadata Enrichment but not belonging to sectionMetadata', () => {
@@ -320,6 +329,83 @@ describe('SubmissionSectionFormComponent test suite', () => {
       compAsAny.formData = newSectionData;
       compAsAny.sectionMetadata = [];
       expect(comp.hasMetadataEnrichment(newSectionData)).toBeFalsy();
+    });
+
+    describe('inCurrentSubmissionScope', () => {
+      beforeEach(() => {
+        // @ts-ignore
+        comp.formConfig = {
+          rows: [
+            {
+              fields: [
+                {
+                  selectableMetadata: [{ metadata: 'scoped.workflow' }],
+                  visibility: {
+                    [SubmissionScopeType.WorkspaceItem]: SubmissionVisibilityValue.Hidden
+                  } as SubmissionVisibilityType,
+                } as FormFieldModel
+              ]
+            },
+            {
+              fields: [
+                {
+                  selectableMetadata: [{ metadata: 'scoped.workspace' }],
+                  visibility: {
+                    [SubmissionScopeType.WorkflowItem]: SubmissionVisibilityValue.Hidden
+                  } as SubmissionVisibilityType,
+                } as FormFieldModel
+              ]
+            },
+            {
+              fields: [
+                {
+                  selectableMetadata: [{ metadata: 'dc.title' }],
+                } as FormFieldModel
+              ]
+            }
+          ]
+        };
+      });
+
+      describe('in workspace scope', () => {
+        beforeEach(() => {
+          // @ts-ignore
+          comp.submissionObject = { type: WorkspaceItem.type };
+          submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
+        });
+
+        it('should return true for unscoped fields', () => {
+          expect((comp as any).inCurrentSubmissionScope('dc.title')).toBe(true);
+        });
+
+        it('should return true for fields scoped to workspace', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workspace')).toBe(true);
+        });
+
+        it('should return false for fields scoped to workflow', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workflow')).toBe(false);
+        });
+      });
+
+      describe('in workflow scope', () => {
+        beforeEach(() => {
+          // @ts-ignore
+          comp.submissionObject = { type: WorkflowItem.type };
+          submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
+        });
+
+        it('should return true when field is unscoped', () => {
+          expect((comp as any).inCurrentSubmissionScope('dc.title')).toBe(true);
+        });
+
+        it('should return true for fields scoped to workflow', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workflow')).toBe(true);
+        });
+
+        it('should return false for fields scoped to workspace', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workspace')).toBe(false);
+        });
+      });
     });
 
     it('should update form properly', () => {

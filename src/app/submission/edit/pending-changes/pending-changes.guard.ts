@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
-import { CanDeactivate } from '@angular/router';
+import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { switchMap } from 'rxjs/operators';
 import { SubmissionEditCanDeactivateService } from '../submission-edit-can-deactivate.service';
+import { ThemedSubmissionEditComponent } from '../themed-submission-edit.component';
 
 export interface PendingChangesGuardComponentInterface {
-  canDeactivate: () => boolean | Observable<boolean>;
+  canDeactivate: (id: string) => boolean | Observable<boolean>;
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class PendingChangesGuard implements CanDeactivate<PendingChangesGuardComponentInterface> {
+export class PendingChangesGuard implements CanDeactivate<ThemedSubmissionEditComponent> {
 
   constructor(
     private modalService: NgbModal,
@@ -21,8 +22,8 @@ export class PendingChangesGuard implements CanDeactivate<PendingChangesGuardCom
   ) {
   }
 
-  canDeactivate(): Observable<boolean> {
-    return this.canDeactivateService.canDeactivate().pipe(
+  canDeactivate(component?: ThemedSubmissionEditComponent, route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Observable<boolean> {
+    return this.canDeactivateService.canDeactivate(route?.params?.id).pipe(
       switchMap((canDeactivate) => {
         if (canDeactivate) {
           return of(true);

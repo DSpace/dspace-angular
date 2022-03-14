@@ -1,3 +1,4 @@
+import { PaginatedList } from './../core/data/paginated-list.model';
 import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../core/shared/item.model';
 import { TabDataService } from '../core/layout/tab-data.service';
@@ -7,6 +8,7 @@ import { filter, map, take } from 'rxjs/operators';
 
 import { getFirstSucceededRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../core/shared/operators';
 import { isNotEmpty } from '../shared/empty.util';
+import { ActivatedRoute } from '@angular/router';
 
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
@@ -40,14 +42,20 @@ export class CrisLayoutComponent implements OnInit {
 
   hasLeadingTab$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(private tabService: TabDataService) {
+  constructor(private tabService: TabDataService, private router: ActivatedRoute) {
   }
 
   /**
    * Get tabs for the specific item
    */
   ngOnInit(): void {
-    this.tabs$ = this.getTabsByItem();
+    // this.router.data.subscribe((res) => console.log(res));
+    // this.getTabsByItem();
+    this.tabs$ = this.router.data.pipe(
+      map((res: any) => {
+        return res.tabs.payload.page;
+      })
+    );
     this.leadingTabs$ = this.getLeadingTabs();
     this.loaderTabs$ = this.getLoaderTabs();
 

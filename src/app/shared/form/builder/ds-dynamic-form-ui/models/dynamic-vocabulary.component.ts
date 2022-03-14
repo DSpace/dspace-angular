@@ -24,6 +24,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/o
 import { VocabularyExternalSourceComponent } from '../../../../vocabulary-external-source/vocabulary-external-source.component';
 import { SubmissionScopeType } from '../../../../../core/submission/submission-scope-type';
 import { SubmissionService } from '../../../../../submission/submission.service';
+import { Metadata } from '../../../../../core/shared/metadata.utils';
 
 /**
  * An abstract class to be extended by form components that handle vocabulary
@@ -287,7 +288,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     return returnValue;
   }
 
-  private hasValidAuthority(value: FormFieldMetadataValueObject) {
-    return value.hasAuthority() && isNotEmpty(value.authority) && !value.authority.startsWith('will be');
+  private hasValidAuthority(formMetadataValue: FormFieldMetadataValueObject) {
+    return Metadata.hasValidAuthority(formMetadataValue?.authority);
   }
 }

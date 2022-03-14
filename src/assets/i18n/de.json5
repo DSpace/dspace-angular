@@ -107,7 +107,7 @@
   "admin.registries.bitstream-formats.edit.head": "Dateiformat: {{ format }}",
 
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
-  "admin.registries.bitstream-formats.edit.internal.hint": "Dateiformate, die als intern gekennzeichnet sind, dienen administrativen Zwecken und bleiben dem Endnutzer verborgen.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "Dateiformate, die als intern gekennzeichnet sind, dienen administrativen Zwecken und bleiben dem:der Endnutzer:in verborgen.",
 
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
   "admin.registries.bitstream-formats.edit.internal.label": "Intern",
@@ -483,8 +483,7 @@
   "admin.access-control.groups.form.alert.permanent": "Diese Gruppe ist permanent, das heißt sie kann nicht bearbeitet oder gelöscht werden. Sie können jedoch über diese Seite Gruppenmitglieder hinzufügen und entfernen.",
 
   // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
+  "admin.access-control.groups.form.alert.workflowGroup": "Diese Gruppe kann nicht geändert oder gelöscht werden, da sie einer Rolle im Einreichungs- und Workflow-Prozess im \"{{name}}\" {{comcol}} zugeordnet ist. Sie können sie über die Registerkarte <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> auf der Bearbeitungsseite {{comcol}} löschen. Sie können über diese Seite weiterhin Gruppenmitglieder hinzufügen und entfernen.",
 
   // "admin.access-control.groups.form.head.create": "Create group",
   "admin.access-control.groups.form.head.create": "Gruppe erstellen",
@@ -766,33 +765,29 @@
   "bitstream.edit.form.description.label": "Beschreibung",
 
   // "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
+  "bitstream.edit.form.embargo.hint": "Der erste Tag, ab dem der Zugang erlaubt ist. <b>Dieses Datum kann in diesem Formular nicht verändert werden.</b> Um eine Embargo-Frist für eine Datei festzulegen, zu <i>Item Status</i> gehen, auf <i>Authorizations...</i> klicken, die Richtlinie <i>READ</i> für die Datei erstellen oder verändern und das <i>Start Date</i> wie gewünscht einstellen.",
+
 
   // "bitstream.edit.form.embargo.label": "Embargo until specific date",
   "bitstream.edit.form.embargo.label": "Embargo bis zu einem bestimmten Datum",
 
   // "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
+  "bitstream.edit.form.fileName.hint": "Ändern Sie den Dateinamen für die Datei. Beachten Sie, dass sich dadurch die angezeigte Datei-URL ändert, aber alte Links weiterhin funktionieren, solange sich die Sequenz-ID nicht ändert.",
 
   // "bitstream.edit.form.fileName.label": "Filename",
   "bitstream.edit.form.fileName.label": "Dateiname",
 
   // "bitstream.edit.form.newFormat.label": "Describe new format",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.newFormat.label": "Describe new format",
+  "bitstream.edit.form.newFormat.label": "Neues Format beschreiben",
 
   // "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
+  "bitstream.edit.form.newFormat.hint": "Die Anwendung, mit der Sie die Datei erstellt haben, und die Versionsnummer (zum Beispiel, \"<i>ACMESoft SuperApp version 1.5</i>\").",
 
   // "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
   "bitstream.edit.form.primaryBitstream.label": "Primäre Datei",
 
   // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
+  "bitstream.edit.form.selectedFormat.hint": "Wenn das Format nicht in der obigen Liste enthalten ist, <b>wählen Sie \"Format in der Liste\"</b> und beschreiben Sie es unter \"Neues Format beschreiben\".",
 
   // "bitstream.edit.form.selectedFormat.label": "Selected Format",
   "bitstream.edit.form.selectedFormat.label": "Ausgewähltes Format",
@@ -815,7 +810,7 @@
 
 
   // "browse.comcol.by.author": "By Author",
-  "browse.comcol.by.author": "Nach Autor/in",
+  "browse.comcol.by.author": "Nach Autor:in",
 
   // "browse.comcol.by.dateissued": "By Issue Date",
   "browse.comcol.by.dateissued": "Nach Erscheinungsjahr",
@@ -830,10 +825,10 @@
   "browse.comcol.head": "Listen",
 
   // "browse.empty": "No items to show.",
-  "browse.empty": "Es gibt keine Dokumente, die angezeigt werden können.",
+  "browse.empty": "Es gibt keine Items, die angezeigt werden können.",
 
   // "browse.metadata.author": "Author",
-  "browse.metadata.author": "Autor/in",
+  "browse.metadata.author": "Autor:in",
 
   // "browse.metadata.dateissued": "Issue Date",
   "browse.metadata.dateissued": "Erscheinungsdatum",
@@ -845,7 +840,7 @@
   "browse.metadata.title": "Titel",
 
   // "browse.metadata.author.breadcrumbs": "Browse by Author",
-  "browse.metadata.author.breadcrumbs": "Auflistung nach Autor(in)",
+  "browse.metadata.author.breadcrumbs": "Auflistung nach Autor:in",
 
   // "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
   "browse.metadata.dateissued.breadcrumbs": "Auflistung nach Datum",
@@ -966,10 +961,10 @@
 
 
   // "collection.edit.tabs.mapper.head": "Item Mapper",
-  "collection.edit.tabs.mapper.head": "Ressource spiegeln",
+  "collection.edit.tabs.mapper.head": "Item spiegeln",
 
   // "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
-  "collection.edit.tabs.item-mapper.title": "Sammlung bearbeiten - Ressource spiegeln",
+  "collection.edit.tabs.item-mapper.title": "Sammlung bearbeiten - Item spiegeln",
 
   // "collection.edit.item-mapper.cancel": "Cancel",
   "collection.edit.item-mapper.cancel": "Abbrechen",
@@ -978,13 +973,13 @@
   "collection.edit.item-mapper.collection": "Sammlung: \"<b>{{name}}</b>\"",
 
   // "collection.edit.item-mapper.confirm": "Map selected items",
-  "collection.edit.item-mapper.confirm": "Ausgewählte Ressourcen spiegeln",
+  "collection.edit.item-mapper.confirm": "Ausgewählte Items spiegeln",
 
   // "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
-  "collection.edit.item-mapper.description": "Sammlungsadministratoren haben die Möglichkeit Ressourcen von einer Sammlung in eine andere zu spiegeln. Man kann nach Ressourcen in anderen Sammlungen suchen und diese spiegeln oder sich eine Liste der gespiegelten Ressourcen anzeigen lassen.",
+  "collection.edit.item-mapper.description": "Sammlungsadministrator:innen haben die Möglichkeit Items von einer Sammlung in eine andere zu spiegeln. Man kann nach Items in anderen Sammlungen suchen und diese spiegeln oder sich eine Liste der gespiegelten Items anzeigen lassen.",
 
   // "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
-  "collection.edit.item-mapper.head": "Ressourcen spiegeln - Spiegelt Ressourcen aus anderen Sammlungen",
+  "collection.edit.item-mapper.head": "Item spiegeln - Spiegelt Items aus anderen Sammlungen",
 
   // "collection.edit.item-mapper.no-search": "Please enter a query to search",
   "collection.edit.item-mapper.no-search": "Bitte geben Sie eine Suchanfrage ein.",
@@ -996,13 +991,13 @@
   "collection.edit.item-mapper.notifications.map.error.head": "Fehler beim Spiegeln",
 
   // "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
-  "collection.edit.item-mapper.notifications.map.success.content": "{{amount}} Ressource(n) erfolgreich gespiegelt.",
+  "collection.edit.item-mapper.notifications.map.success.content": "{{amount}} Item(s) erfolgreich gespiegelt.",
 
   // "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
   "collection.edit.item-mapper.notifications.map.success.head": "Spiegelung abgeschlossen",
 
   // "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
-  "collection.edit.item-mapper.notifications.unmap.error.content": "Beim Spiegeln von {{amount}} Ressource(n) ist ein Fehler aufgetreten.",
+  "collection.edit.item-mapper.notifications.unmap.error.content": "Beim Spiegeln von {{amount}} Item(s) ist ein Fehler aufgetreten.",
 
   // "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
   "collection.edit.item-mapper.notifications.unmap.error.head": "Spiegeln Entfernen Fehler",
@@ -1014,13 +1009,13 @@
   "collection.edit.item-mapper.notifications.unmap.success.head": "Spiegelung entfernen abgeschlossen",
 
   // "collection.edit.item-mapper.remove": "Remove selected item mappings",
-  "collection.edit.item-mapper.remove": "Spiegelung der gewählten Ressourcen entfernen.",
+  "collection.edit.item-mapper.remove": "Spiegelung der gewählten Items entfernen.",
 
   // "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
-  "collection.edit.item-mapper.tabs.browse": "Gespiegelte Ressourcen auflisten",
+  "collection.edit.item-mapper.tabs.browse": "Gespiegelte Items auflisten",
 
   // "collection.edit.item-mapper.tabs.map": "Map new items",
-  "collection.edit.item-mapper.tabs.map": "Neue Ressourcen spiegeln",
+  "collection.edit.item-mapper.tabs.map": "Neue Items spiegeln",
 
 
 
@@ -1065,8 +1060,7 @@
   "collection.edit.tabs.authorizations.head": "Berechtigungen",
 
   // "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
+  "collection.edit.tabs.authorizations.title": "Sammlung bearbeiten - Berechtigungen",
 
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
   "collection.edit.tabs.metadata.head": "Metadaten bearbeiten",
@@ -1152,24 +1146,19 @@
   "collection.edit.template.edit-button": "Bearbeiten",
 
   // "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
-  // TODO New key - Add a translation
-  "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
+  "collection.edit.template.head": "Itemvorlage für Sammlung \"{{ collection }}\" bearbeiten",
 
   // "collection.edit.template.label": "Template item",
-  // TODO New key - Add a translation
-  "collection.edit.template.label": "Template item",
+  "collection.edit.template.label": "Itemvorlage",
 
   // "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
-  // TODO New key - Add a translation
-  "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
+  "collection.edit.template.notifications.delete.error": "Löschen der Metadatenvorlage fehlgeschlagen",
 
   // "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
-  // TODO New key - Add a translation
-  "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
+  "collection.edit.template.notifications.delete.success": "Die Metadatenvorlage wurde erfolgreich gelöscht",
 
   // "collection.edit.template.title": "Edit Template Item",
-  // TODO New key - Add a translation
-  "collection.edit.template.title": "Edit Template Item",
+  "collection.edit.template.title": "Metadatenvorlage bearbeiten",
 
 
 
@@ -1208,7 +1197,7 @@
   "collection.page.browse.recent.head": "Neueste Veröffentlichungen",
 
   // "collection.page.browse.recent.empty": "No items to show",
-  "collection.page.browse.recent.empty": "Es gibt keine Ressourcen zum Anzeigen",
+  "collection.page.browse.recent.empty": "Es gibt keine Items zum Anzeigen",
 
   // "collection.page.edit": "Edit this collection",
   "collection.page.edit": "Diese Sammlung bearbeiten",
@@ -1369,87 +1358,72 @@
   "comcol-role.edit.create": "Erstellen",
 
   // "comcol-role.edit.restrict": "Restrict",
-  // TODO New key - Add a translation
-  "comcol-role.edit.restrict": "Restrict",
+  "comcol-role.edit.restrict": "Beschränken",
 
   // "comcol-role.edit.delete": "Delete",
   "comcol-role.edit.delete": "Löschen",
 
 
   // "comcol-role.edit.community-admin.name": "Administrators",
-  "comcol-role.edit.community-admin.name": "Administratoren",
+  "comcol-role.edit.community-admin.name": "Administrator:innen",
 
   // "comcol-role.edit.collection-admin.name": "Administrators",
-  "comcol-role.edit.collection-admin.name": "Administratoren",
+  "comcol-role.edit.collection-admin.name": "Administrator:innen",
 
 
   // "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  // TODO New key - Add a translation
-  "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+  "comcol-role.edit.community-admin.description": "Community-Administrator:innen können Teilbereiche oder Sammlungen erstellen, verwalten oder die Verwaltung anderen zuweisen. Darüber hinaus entscheiden sie, wer Items zu einer Teilsammlung einreichen, Item-Metadaten bearbeiten (nach der Einreichung) und bestehende Items von anderen Sammlungen verknüpfen kann (vorbehaltlich einer Berechtigung).",
 
   // "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
-  // TODO New key - Add a translation
-  "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
+  "comcol-role.edit.collection-admin.description": "Sammlungsadministrator:innen entscheiden, wer Items zu einer Sammlung einreichen, Item-Metadaten bearbeiten (nach der Einreichung) and und bestehende Items von anderen Sammlungen mit dieser Sammlung verknüpfen kann (vorbehaltlich einer Berechtigung für diese Sammlung).",
 
 
   // "comcol-role.edit.submitters.name": "Submitters",
-  // TODO New key - Add a translation
-  "comcol-role.edit.submitters.name": "Submitters",
+  "comcol-role.edit.submitters.name": "Einreichende",
 
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
+  "comcol-role.edit.submitters.description": "Die Personen und Gruppen, die die Berechtigungen haben, neue Items zu dieser Sammlung einzureichen.",
 
 
   // "comcol-role.edit.item_read.name": "Default item read access",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.name": "Default item read access",
+  "comcol-role.edit.item_read.name": "Standard-Lesezugriff Item",
 
   // "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
+  "comcol-role.edit.item_read.description": "Personen und Gruppen, die neu eingereichte Items dieser Sammlung lesen können. Änderungen an dieser Rolle sind nicht rückwirkend. Bestehende Items im System können weiterhin von denjenigen eingesehen werden, die zum Zeitpunkt des Hinzufügens Lesezugriff hatten.",
 
   // "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
+  "comcol-role.edit.item_read.anonymous-group": "Die Standardeinstellung für das Lesen eingehender Items ist derzeit auf Anonym eingestellt.",
 
 
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
+  "comcol-role.edit.bitstream_read.name": "Standard-Lesezugriff Datei",
 
   // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+  "comcol-role.edit.bitstream_read.description": "Community-Administrator:innen können Teilbereiche oder Sammlungen erstellen, verwalten oder die Verwaltung anderen zuweisen. Darüber hinaus entscheiden sie, wer Items zu einer Teilsammlung einreichen, Item-Metadaten bearbeiten (nach der Einreichung) und bestehende Items von anderen Sammlungen verknüpfen kann (vorbehaltlich einer Berechtigung).",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
+  "comcol-role.edit.bitstream_read.anonymous-group": "Die Standardeinstellung für das Lesen eingehender Dateien ist derzeit auf Anonym eingestellt.",
 
 
   // "comcol-role.edit.editor.name": "Editors",
-  "comcol-role.edit.editor.name": "Redakteure",
+  "comcol-role.edit.editor.name": "Redakteur:innen",
 
   // "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
   "comcol-role.edit.editor.description": "Die Redakteure können die Metadaten der eingehenden Beiträge bearbeiten und sie dann annehmen oder ablehnen.",
 
 
   // "comcol-role.edit.finaleditor.name": "Final editors",
-  // TODO New key - Add a translation
-  "comcol-role.edit.finaleditor.name": "Final editors",
+  "comcol-role.edit.finaleditor.name": "Endredakteur:innen",
 
   // "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
+  "comcol-role.edit.finaleditor.description": "Die Endredakteur:innen können die Metadaten der eingehenden Beiträge bearbeiten, sie können sie jedoch nicht ablehnen.",
 
 
   // "comcol-role.edit.reviewer.name": "Reviewers",
-  // TODO New key - Add a translation
-  "comcol-role.edit.reviewer.name": "Reviewers",
+  "comcol-role.edit.reviewer.name": "Prüfer:innen",
 
   // "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
+  "comcol-role.edit.reviewer.description": "Die Prüfer:innen können eingehende Beiträge annehmen oder ablehnen. Sie können jedoch nicht die Metadaten der Einreichung bearbeiten.",
 
 
 
@@ -1501,24 +1475,19 @@
   "cookies.consent.accept-selected": "Ausgewählte annehmen",
 
   // "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
-  // TODO New key - Add a translation
-  "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
+  "cookies.consent.app.opt-out.description": "Diese App wird standardmäßig geladen (Sie können dies jedoch deaktivieren)",
 
   // "cookies.consent.app.opt-out.title": "(opt-out)",
-  // TODO New key - Add a translation
   "cookies.consent.app.opt-out.title": "(opt-out)",
 
   // "cookies.consent.app.purpose": "purpose",
-  // TODO New key - Add a translation
-  "cookies.consent.app.purpose": "purpose",
+  "cookies.consent.app.purpose": "Verwendungszweck",
 
   // "cookies.consent.app.required.description": "This application is always required",
-  // TODO New key - Add a translation
-  "cookies.consent.app.required.description": "This application is always required",
+  "cookies.consent.app.required.description": "Dieser Eintrag ist immer erforderlich.",
 
   // "cookies.consent.app.required.title": "(always required)",
-  // TODO New key - Add a translation
-  "cookies.consent.app.required.title": "(always required)",
+  "cookies.consent.app.required.title": "(immer erforderlich)",
 
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Seit Ihrem letzten Besuch haben sich Änderungen ergeben, bitte aktualisieren Sie Ihr Einverständnis.",
@@ -1530,8 +1499,7 @@
   "cookies.consent.decline": "Ablehnen",
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
-  // TODO New key - Add a translation
-  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Wir sammeln und verarbeiten Ihre personenbezogenen Daten für die folgenden Zwecke: <strong>Authentifikation, Einstellungen, Zustimmungen und Statistiken</strong>. <br/> Um mehr zu erfahren, lesen Sie bitte unsere {privacyPolicy}.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Anpassen",
@@ -1569,87 +1537,68 @@
   "cookies.consent.app.title.acknowledgement": "Bestätigung",
 
   // "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
-  // TODO New key - Add a translation
   "cookies.consent.app.description.acknowledgement": "Erforderlich für die Speicherung Ihrer Bestätigungen und Einwilligungen",
 
 
 
   // "cookies.consent.app.title.google-analytics": "Google Analytics",
-  // TODO New key - Add a translation
   "cookies.consent.app.title.google-analytics": "Google Analytics",
 
   // "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
+  "cookies.consent.app.description.google-analytics": "Erlaubt uns, statistische Daten zu erfassen",
 
 
 
   // "cookies.consent.purpose.functional": "Functional",
-  // TODO New key - Add a translation
-  "cookies.consent.purpose.functional": "Functional",
+  "cookies.consent.purpose.functional": "Funktionell",
 
   // "cookies.consent.purpose.statistical": "Statistical",
-  // TODO New key - Add a translation
-  "cookies.consent.purpose.statistical": "Statistical",
+  "cookies.consent.purpose.statistical": "Statistisch",
 
 
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  // TODO New key - Add a translation
-  "curation-task.task.checklinks.label":  "Check Links in Metadata",
+  "curation-task.task.checklinks.label":  "Links in Metadaten prüfen",
 
   // "curation-task.task.noop.label": "NOOP",
-  // TODO New key - Add a translation
   "curation-task.task.noop.label": "NOOP",
 
   // "curation-task.task.profileformats.label": "Profile Bitstream Formats",
-  // TODO New key - Add a translation
-  "curation-task.task.profileformats.label": "Profile Bitstream Formats",
+  "curation-task.task.profileformats.label": "Dateiformate auflisten",
 
   // "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
-  // TODO New key - Add a translation
-  "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
+  "curation-task.task.requiredmetadata.label": "Prüfung auf erforderliche Metadaten",
 
   // "curation-task.task.translate.label": "Microsoft Translator",
-  // TODO New key - Add a translation
-  "curation-task.task.translate.label": "Microsoft Translator",
+  "curation-task.task.translate.label": "Microsoft Übersetzer",
 
   // "curation-task.task.vscan.label": "Virus Scan",
-  // TODO New key - Add a translation
-  "curation-task.task.vscan.label": "Virus Scan",
+  "curation-task.task.vscan.label": "Viren-Scan",
 
 
 
   // "curation.form.task-select.label": "Task:",
-  // TODO New key - Add a translation
-  "curation.form.task-select.label": "Task:",
+  "curation.form.task-select.label": "Aufgabe:",
 
   // "curation.form.submit": "Start",
-  // TODO New key - Add a translation
   "curation.form.submit": "Start",
 
   // "curation.form.submit.success.head": "The curation task has been started successfully",
-  // TODO New key - Add a translation
-  "curation.form.submit.success.head": "The curation task has been started successfully",
+  "curation.form.submit.success.head": "Die Datenpflegeroutine wurde erfolgreich gestartet",
 
   // "curation.form.submit.success.content": "You will be redirected to the corresponding process page.",
-  // TODO New key - Add a translation
-  "curation.form.submit.success.content": "You will be redirected to the corresponding process page.",
+  "curation.form.submit.success.content": "Sie werden auf die entsprechende Prozessseite weitergeleitet.",
 
   // "curation.form.submit.error.head": "Running the curation task failed",
-  // TODO New key - Add a translation
-  "curation.form.submit.error.head": "Running the curation task failed",
+  "curation.form.submit.error.head": "Die Ausführung der Datenpflegeroutine ist fehlgeschlagen",
 
   // "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
-  // TODO New key - Add a translation
-  "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+  "curation.form.submit.error.content": "Beim Versuch, die Datenpflegeroutine zu starten, ist ein Fehler aufgetreten.",
 
   // "curation.form.handle.label": "Handle:",
-  // TODO New key - Add a translation
   "curation.form.handle.label": "Handle:",
 
   // "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
-  // TODO New key - Add a translation
-  "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
+  "curation.form.handle.hint": "Hinweis: Geben Sie [handle-prefix]/0 ein, um eine Aufgabe für die gesamte Seite durchzuführen (nicht alle Aufgaben unterstützen diese Funktion)",
 
 
 
@@ -1657,8 +1606,7 @@
   "dso-selector.create.collection.head": "Neue Sammlung",
 
   // "dso-selector.create.collection.sub-level": "Create a new collection in",
-  // TODO New key - Add a translation
-  "dso-selector.create.collection.sub-level": "Create a new collection in",
+  "dso-selector.create.collection.sub-level": "Eine neue Sammlung erstellen in",
 
   // "dso-selector.create.community.head": "New community",
   "dso-selector.create.community.head": "Neuer Bereich",
@@ -1670,15 +1618,13 @@
   "dso-selector.create.community.top-level": "Einen neuen Bereich auf oberster Ebene anlgen",
 
   // "dso-selector.create.item.head": "New item",
-  "dso-selector.create.item.head": "Neue Ressource",
+  "dso-selector.create.item.head": "Neues Item",
 
   // "dso-selector.create.item.sub-level": "Create a new item in",
-  // TODO New key - Add a translation
-  "dso-selector.create.item.sub-level": "Create a new item in",
+  "dso-selector.create.item.sub-level": "Ein neues Item erstellen in",
 
   // "dso-selector.create.submission.head": "New submission",
-  // TODO New key - Add a translation
-  "dso-selector.create.submission.head": "New submission",
+  "dso-selector.create.submission.head": "Neue Veröffentlichung",
 
   // "dso-selector.edit.collection.head": "Edit collection",
   "dso-selector.edit.collection.head": "Sammlung bearbeiten",
@@ -1687,11 +1633,10 @@
   "dso-selector.edit.community.head": "Bereich bearbeiten",
 
   // "dso-selector.edit.item.head": "Edit item",
-  "dso-selector.edit.item.head": "Ressource bearbeiten",
+  "dso-selector.edit.item.head": "Item bearbeiten",
 
   // "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
-  // TODO New key - Add a translation
-  "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
+  "dso-selector.export-metadata.dspaceobject.head": "Exportieren der Metadaten aus",
 
   // "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.no-results": "Kein(e) {{ type }} gefunden",
@@ -1702,44 +1647,35 @@
 
 
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
-  // TODO New key - Add a translation
-  "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
+  "confirmation-modal.export-metadata.header": "Exportieren der Metadaten für {{ dsoName }}",
 
   // "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
-  // TODO New key - Add a translation
-  "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
+  "confirmation-modal.export-metadata.info": "Sind Sie sicher, dass Sie die Metadaten für {{ dsoName }} exportieren wollen",
 
   // "confirmation-modal.export-metadata.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "confirmation-modal.export-metadata.cancel": "Cancel",
+  "confirmation-modal.export-metadata.cancel": "Abbrechen",
 
   // "confirmation-modal.export-metadata.confirm": "Export",
-  // TODO New key - Add a translation
-  "confirmation-modal.export-metadata.confirm": "Export",
+  "confirmation-modal.export-metadata.confirm": "Exportieren",
 
   // "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.header": "Person \"{{ dsoName }}\" löschen",
 
   // "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.info": "Sind Sie sicher, dass Sie die Person \"{{ dsoName }}\" löschen möchten",
 
   // "confirmation-modal.delete-eperson.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-eperson.cancel": "Cancel",
+  "confirmation-modal.delete-eperson.cancel": "Abbrechen",
 
   // "confirmation-modal.delete-eperson.confirm": "Delete",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-eperson.confirm": "Delete",
+  "confirmation-modal.delete-eperson.confirm": "Löschen",
 
 
   // "error.bitstream": "Error fetching bitstream",
-  // TODO New key - Add a translation
-  "error.bitstream": "Error fetching bitstream",
+  "error.bitstream": "Fehler beim Laden der Datei",
 
   // "error.browse-by": "Error fetching items",
-  "error.browse-by": "Fehler beim Laden der Ressourcen",
+  "error.browse-by": "Fehler beim Laden der Items",
 
   // "error.collection": "Error fetching collection",
   "error.collection": "Fehler beim Laden der Sammlung",
@@ -1751,16 +1687,16 @@
   "error.community": "Fehler beim Laden des Bereichs",
 
   // "error.identifier": "No item found for the identifier",
-  "error.identifier": "Zu dieser Kennung wurde keine Ressource gefunden",
+  "error.identifier": "Zu dieser Kennung wurde kein Item gefunden",
 
   // "error.default": "Error",
   "error.default": "Fehler",
 
   // "error.item": "Error fetching item",
-  "error.item": "Fehler beim Laden der Ressource",
+  "error.item": "Fehler beim Laden des Items",
 
   // "error.items": "Error fetching items",
-  "error.items": "Fejöer beim Laden der Ressourcen",
+  "error.items": "Fehler beim Laden der Items",
 
   // "error.objects": "Error fetching objects",
   "error.objects": "Fehler beim Laden der Objekte",
@@ -1795,8 +1731,7 @@
 
 
   // "file-section.error.header": "Error obtaining files for this item",
-  // TODO New key - Add a translation
-  "file-section.error.header": "Error obtaining files for this item",
+  "file-section.error.header": "Fehler beim Abrufen der Dateien für dieses Item",
 
 
 
@@ -1810,124 +1745,95 @@
   "footer.link.lyrasis": "LYRASIS",
 
   // "footer.link.cookies": "Cookie settings",
-  // TODO New key - Add a translation
-  "footer.link.cookies": "Cookie settings",
+  "footer.link.cookies": "Cookie Einstellungen",
 
   // "footer.link.privacy-policy": "Privacy policy",
-  // TODO New key - Add a translation
-  "footer.link.privacy-policy": "Privacy policy",
+  "footer.link.privacy-policy": "Datenschutzbestimmungen",
 
   // "footer.link.end-user-agreement":"End User Agreement",
-  // TODO New key - Add a translation
-  "footer.link.end-user-agreement":"End User Agreement",
+  "footer.link.end-user-agreement":"Endnutzervereinbarung",
 
 
 
   // "forgot-email.form.header": "Forgot Password",
-  // TODO New key - Add a translation
-  "forgot-email.form.header": "Forgot Password",
+  "forgot-email.form.header": "Passwort vergessen",
 
   // "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
-  // TODO New key - Add a translation
-  "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
+  "forgot-email.form.info": "Geben Sie einen Account ein, um Sammlungen für E-Mail-Updates zu abonnieren und neue Items an DSpace zu übermitteln.",
 
   // "forgot-email.form.email": "Email Address *",
-  // TODO New key - Add a translation
-  "forgot-email.form.email": "Email Address *",
+  "forgot-email.form.email": "E-Mail-Addresse *",
 
   // "forgot-email.form.email.error.required": "Please fill in an email address",
-  // TODO New key - Add a translation
-  "forgot-email.form.email.error.required": "Please fill in an email address",
+  "forgot-email.form.email.error.required": "Bitte geben Sie eine E-Mail-Adresse ein",
 
   // "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
-  // TODO New key - Add a translation
-  "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
+  "forgot-email.form.email.error.pattern": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
 
   // "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
-  // TODO New key - Add a translation
-  "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
+  "forgot-email.form.email.hint": "Diese Adresse wird überprüft und als Ihr Anmeldename verwendet.",
 
   // "forgot-email.form.submit": "Submit",
-  // TODO New key - Add a translation
-  "forgot-email.form.submit": "Submit",
+  "forgot-email.form.submit": "Einreichen",
 
   // "forgot-email.form.success.head": "Verification email sent",
-  // TODO New key - Add a translation
-  "forgot-email.form.success.head": "Verification email sent",
+  "forgot-email.form.success.head": "Verifizierungs-E-Mail gesendet",
 
   // "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
-  // TODO New key - Add a translation
-  "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
+  "forgot-email.form.success.content": "Es wurde eine E-Mail mit einer speziellen URL und weiteren Anweisungen an {{ email }} gesendet.",
 
   // "forgot-email.form.error.head": "Error when trying to register email",
-  // TODO New key - Add a translation
-  "forgot-email.form.error.head": "Error when trying to register email",
+  "forgot-email.form.error.head": "Fehler beim Versuch, die E-Mail zu registrieren",
 
   // "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
-  // TODO New key - Add a translation
-  "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
+  "forgot-email.form.error.content": "Bei der Registrierung der folgenden E-Mail-Adresse ist ein Fehler aufgetreten: {{ email }}",
 
 
 
   // "forgot-password.title": "Forgot Password",
-  // TODO New key - Add a translation
-  "forgot-password.title": "Forgot Password",
+  "forgot-password.title": "Passwort vergessen",
 
   // "forgot-password.form.head": "Forgot Password",
-  // TODO New key - Add a translation
-  "forgot-password.form.head": "Forgot Password",
+  "forgot-password.form.head": "Passwort vergessen",
 
   // "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  // TODO New key - Add a translation
-  "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "forgot-password.form.info": "Geben Sie ein neues Kennwort in das unten stehende Feld ein und bestätigen Sie es, indem Sie es erneut in das zweite Feld eingeben. Es sollte mindestens sechs Zeichen lang sein.",
 
   // "forgot-password.form.card.security": "Security",
-  // TODO New key - Add a translation
-  "forgot-password.form.card.security": "Security",
+  "forgot-password.form.card.security": "Sicherheit",
 
   // "forgot-password.form.identification.header": "Identify",
-  // TODO New key - Add a translation
-  "forgot-password.form.identification.header": "Identify",
+  "forgot-password.form.identification.header": "Identifizieren",
 
   // "forgot-password.form.identification.email": "Email address: ",
-  // TODO New key - Add a translation
-  "forgot-password.form.identification.email": "Email address: ",
+  "forgot-password.form.identification.email": "E-Mail-Addresse: ",
 
   // "forgot-password.form.label.password": "Password",
-  // TODO New key - Add a translation
-  "forgot-password.form.label.password": "Password",
+  "forgot-password.form.label.password": "Passwort",
 
   // "forgot-password.form.label.passwordrepeat": "Retype to confirm",
-  // TODO New key - Add a translation
-  "forgot-password.form.label.passwordrepeat": "Retype to confirm",
+  "forgot-password.form.label.passwordrepeat": "Zum Bestätigen wiederholen",
 
   // "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
-  // TODO New key - Add a translation
-  "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
+  "forgot-password.form.error.empty-password": "Bitte geben Sie in das unten stehende Feld ein Passwort ein.",
 
   // "forgot-password.form.error.matching-passwords": "The passwords do not match.",
-  // TODO New key - Add a translation
-  "forgot-password.form.error.matching-passwords": "The passwords do not match.",
+  "forgot-password.form.error.matching-passwords": "Die Passwörter stimmen nicht überein.",
 
   // "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
-  // TODO New key - Add a translation
-  "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
+  "forgot-password.form.error.password-length": "Das Passwort sollte mindestens 6 Zeichen lang sein.",
 
   // "forgot-password.form.notification.error.title": "Error when trying to submit new password",
-  // TODO New key - Add a translation
-  "forgot-password.form.notification.error.title": "Error when trying to submit new password",
+  "forgot-password.form.notification.error.title": "Fehler beim Versuch, ein neues Passwort zu übermitteln",
 
   // "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
-  // TODO New key - Add a translation
-  "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
+  "forgot-password.form.notification.success.content": "Das Zurücksetzen des Passworts war erfolgreich. Sie wurden in den erstellten Account eingeloggt.",
 
   // "forgot-password.form.notification.success.title": "Password reset completed",
-  // TODO New key - Add a translation
-  "forgot-password.form.notification.success.title": "Password reset completed",
+  "forgot-password.form.notification.success.title": "Passwort zurücksetzen abgeschlossen",
 
   // "forgot-password.form.submit": "Submit password",
-  // TODO New key - Add a translation
-  "forgot-password.form.submit": "Submit password",
+  "forgot-password.form.submit": "Passwort abschicken",
 
 
 
@@ -2001,7 +1907,6 @@
   "form.search": "Suche",
 
   // "form.search-help": "Click here to look for an existing correspondence",
-  // TODO Source message changed - Revise the translation
   "form.search-help": "Klicken Sie hier, um eine Übereinstimmung zu suchen",
 
   // "form.submit": "Submit",
@@ -2013,8 +1918,10 @@
   "home.description": "",
 
   // "home.breadcrumbs": "Home",
-  // TODO New key - Add a translation
-  "home.breadcrumbs": "Home",
+  "home.breadcrumbs": "Startseite",
+
+  // "search.search-form.placeholder": "Search the repository ...",
+  "home.search-form.placeholder": "Durchsuche Repositorium",
 
   // "home.title": "DSpace Angular :: Home",
   "home.title": "DSpace Angular :: Startseite",
@@ -2063,22 +1970,18 @@
 
 
   // "item.alerts.private": "This item is private",
-  // TODO New key - Add a translation
-  "item.alerts.private": "This item is private",
+  "item.alerts.private": "Dieses Item ist privat",
 
   // "item.alerts.withdrawn": "This item has been withdrawn",
-  // TODO New key - Add a translation
-  "item.alerts.withdrawn": "This item has been withdrawn",
+  "item.alerts.withdrawn": "Dieses Item wurde zurückgezogen",
 
 
 
   // "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
-  // TODO New key - Add a translation
-  "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
+  "item.edit.authorizations.heading": "Mit diesem Editor können Sie die Richtlinien eines Items anzeigen und ändern sowie die Richtlinien der einzelnen Itemkomponenten, d. h. Bündel und Dateien, ändern. Kurz gesagt, ein Item ist ein Container von Bündeln, und Bündel sind Container von Dateien. Container haben normalerweise ADD/REMOVE/READ/WRITE-Richtlinien, während Dateien nur READ/WRITE-Richtlinien haben.",
 
   // "item.edit.authorizations.title": "Edit item's Policies",
-  // TODO New key - Add a translation
-  "item.edit.authorizations.title": "Edit item's Policies",
+  "item.edit.authorizations.title": "Item-Richtlinien bearbeiten",
 
 
 
@@ -2100,8 +2003,7 @@
   "item.bitstreams.upload.bundle.new": "Bündel erstellen",
 
   // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  "item.bitstreams.upload.bundles.empty": "Dieses Item enthält keine Bündel, um eine Datei hochzuladen.",
 
   // "item.bitstreams.upload.cancel": "Cancel",
   "item.bitstreams.upload.cancel": "Abbrechen",
@@ -2110,7 +2012,6 @@
   "item.bitstreams.upload.drop-message": "Eine Datei zum Hochladen ablegen",
 
   // "item.bitstreams.upload.item": "Item: ",
-  // TODO New key - Add a translation
   "item.bitstreams.upload.item": "Item: ",
 
   // "item.bitstreams.upload.notifications.bundle.created.content": "Successfully created new bundle.",
@@ -2123,8 +2024,7 @@
   "item.bitstreams.upload.notifications.upload.failed": "Hochladen fehlgeschlagen. Bitte überprüfen Sie den Inhalt, bevor Sie es erneut versuchen.",
 
   // "item.bitstreams.upload.title": "Upload bitstream",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.title": "Upload bitstream",
+  "item.bitstreams.upload.title": "Datei hochladen",
 
 
 
@@ -2132,12 +2032,10 @@
   "item.edit.bitstreams.bundle.edit.buttons.upload": "Hochladen",
 
   // "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
+  "item.edit.bitstreams.bundle.displaying": "Derzeit werden {{ amount }} Dateien von insgesamt {{ total }} angezeigt.",
 
   // "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",
+  "item.edit.bitstreams.bundle.load.all": "Alle ({{ total }}) laden",
 
   // "item.edit.bitstreams.bundle.load.more": "Load more",
   "item.edit.bitstreams.bundle.load.more": "Mehr laden",
@@ -2164,7 +2062,7 @@
   "item.edit.bitstreams.edit.buttons.undo": "Änderungen rückgängig machen",
 
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
-  "item.edit.bitstreams.empty": "Diese Ressource enthält keine Dateien. Klicken Sie auf das Feld Hochladen, um eine zu erstellen.",
+  "item.edit.bitstreams.empty": "Dieses Item enthält keine Dateien. Klicken Sie auf das Feld Hochladen, um eine zu erstellen.",
 
   // "item.edit.bitstreams.headers.actions": "Actions",
   "item.edit.bitstreams.headers.actions": "Aktionen",
@@ -2191,15 +2089,13 @@
   "item.edit.bitstreams.notifications.move.failed.title": "Fehler beim Verschieben von Dateien",
 
   // "item.edit.bitstreams.notifications.move.saved.content": "Your move changes to this item's bitstreams and bundles have been saved.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.move.saved.content": "Your move changes to this item's bitstreams and bundles have been saved.",
+  "item.edit.bitstreams.notifications.move.saved.content": "Die von Ihnen vorgenommenen Änderungen an den Dateien und Bündeln dieses Artikels wurden gespeichert.",
 
   // "item.edit.bitstreams.notifications.move.saved.title": "Move changes saved",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.move.saved.title": "Move changes saved",
+  "item.edit.bitstreams.notifications.move.saved.title": "Änderungen gespeichert",
 
   // "item.edit.bitstreams.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  "item.edit.bitstreams.notifications.outdated.content": "Die Ressource, an der Sie gerade arbeiten, wurde von einem anderen Benutzer geändert. Ihre aktuellen Änderungen werden verworfen, um Konflikte zu vermeiden.",
+  "item.edit.bitstreams.notifications.outdated.content": "Das Item, an der Sie gerade arbeiten, wurde von einem anderen Account geändert. Ihre aktuellen Änderungen werden verworfen, um Konflikte zu vermeiden.",
 
   // "item.edit.bitstreams.notifications.outdated.title": "Changes outdated",
   "item.edit.bitstreams.notifications.outdated.title": "Veraltete Änderungen",
@@ -2208,12 +2104,10 @@
   "item.edit.bitstreams.notifications.remove.failed.title": "Fehler beim Löschen der Datei",
 
   // "item.edit.bitstreams.notifications.remove.saved.content": "Your removal changes to this item's bitstreams have been saved.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.remove.saved.content": "Your removal changes to this item's bitstreams have been saved.",
+  "item.edit.bitstreams.notifications.remove.saved.content": "Ihre Entfernungsänderungen an den Dateien dieses Items wurden gespeichert.",
 
   // "item.edit.bitstreams.notifications.remove.saved.title": "Removal changes saved",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.remove.saved.title": "Removal changes saved",
+  "item.edit.bitstreams.notifications.remove.saved.title": "Änderungen gespeichert",
 
   // "item.edit.bitstreams.reinstate-button": "Undo",
   "item.edit.bitstreams.reinstate-button": "Rückgängig",
@@ -2233,59 +2127,59 @@
   "item.edit.delete.confirm": "Löschen",
 
   // "item.edit.delete.description": "Are you sure this item should be completely deleted? Caution: At present, no tombstone would be left.",
-  "item.edit.delete.description": "Sind Sie sicher, dass diese Ressource komplett gelöscht werden soll. Warnung: Zur Zeit wird kein Grabstein hinterlassen",
+  "item.edit.delete.description": "Sind Sie sicher, dass dieses Item komplett gelöscht werden soll. Warnung: Zur Zeit wird kein Grabstein hinterlassen",
 
   // "item.edit.delete.error": "An error occurred while deleting the item",
   "item.edit.delete.error": "Beim Löschen der Ressource ist ein Fehler aufgetreten",
 
   // "item.edit.delete.header": "Delete item: {{ id }}",
-  "item.edit.delete.header": "Löschen der Ressource: {{ id }}",
+  "item.edit.delete.header": "Löschen des Items: {{ id }}",
 
   // "item.edit.delete.success": "The item has been deleted",
-  "item.edit.delete.success": "Die Ressource wurde gelöscht",
+  "item.edit.delete.success": "Das Item wurde gelöscht",
 
   // "item.edit.head": "Edit Item",
-  "item.edit.head": "Ressource bearbeiten",
+  "item.edit.head": "Item bearbeiten",
 
   // "item.edit.breadcrumbs": "Edit Item",
-  "item.edit.breadcrumbs": "Ressource bearbeiten",
+  "item.edit.breadcrumbs": "Item bearbeiten",
 
 
   // "item.edit.tabs.mapper.head": "Collection Mapper",
   "item.edit.tabs.mapper.head": "Spiegeln",
 
   // "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
-  "item.edit.tabs.item-mapper.title": "Ressource bearbeiten - Spiegeln",
+  "item.edit.tabs.item-mapper.title": "Item bearbeiten - Spiegeln",
 
   // "item.edit.item-mapper.buttons.add": "Map item to selected collections",
-  "item.edit.item-mapper.buttons.add": "Ressource in die gewählte(n) Sammlung(en) spiegeln",
+  "item.edit.item-mapper.buttons.add": "Item in die gewählte(n) Sammlung(en) spiegeln",
 
   // "item.edit.item-mapper.buttons.remove": "Remove item's mapping for selected collections",
-  "item.edit.item-mapper.buttons.remove": "Spiegelung der Ressource aus der/den gewählten Sammlung(en) entfernen",
+  "item.edit.item-mapper.buttons.remove": "Spiegelung des Items aus der/den gewählten Sammlung(en) entfernen",
 
   // "item.edit.item-mapper.cancel": "Cancel",
   "item.edit.item-mapper.cancel": "Abbrechen",
 
   // "item.edit.item-mapper.description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
-  "item.edit.item-mapper.description": "Sammlungsadministratoren haben die Möglichkeit Ressourcen von einer Sammlung in eine andere zu spiegeln. Man kann nach Ressourcen in anderen Sammlungen suchen und diese spiegeln oder sich eine Liste der gespiegelten Ressourcen anzeigen lassen.",
+  "item.edit.item-mapper.description": "Sammlungsadministrator:innen haben die Möglichkeit Items von einer Sammlung in eine andere zu spiegeln. Man kann nach Items in anderen Sammlungen suchen und diese spiegeln oder sich eine Liste der gespiegelten Items anzeigen lassen.",
 
   // "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
-  "item.edit.item-mapper.head": "Ressourcen spiegeln - Spiegelt eine Ressource in andere Sammlungen",
+  "item.edit.item-mapper.head": "Item spiegeln - Spiegelt ein Item in andere Sammlungen",
 
   // "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
-  "item.edit.item-mapper.item": "Ressource: \"<b>{{name}}</b>\"",
+  "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
 
   // "item.edit.item-mapper.no-search": "Please enter a query to search",
   "item.edit.item-mapper.no-search": "Bitte geben Sie einen Suchbegriff ein",
 
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
-  "item.edit.item-mapper.notifications.add.error.content": "Beim Spiegeln der Ressource in {{amount}} Sammlung(en) ist ein Fehler aufgetreten.",
+  "item.edit.item-mapper.notifications.add.error.content": "Beim Spiegeln des Items in {{amount}} Sammlung(en) ist ein Fehler aufgetreten.",
 
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
   "item.edit.item-mapper.notifications.add.error.head": "Fehler beim Spiegeln",
 
   // "item.edit.item-mapper.notifications.add.success.content": "Successfully mapped item to {{amount}} collections.",
-  "item.edit.item-mapper.notifications.add.success.content": "Ressource erfolgreich in {{amount}} Sammlung(en) gespiegelt.",
+  "item.edit.item-mapper.notifications.add.success.content": "Item erfolgreich in {{amount}} Sammlung(en) gespiegelt.",
 
   // "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
   "item.edit.item-mapper.notifications.add.success.head": "Spiegeln abgeschlossen",
@@ -2294,10 +2188,10 @@
   "item.edit.item-mapper.notifications.remove.error.content": "Beim Entfernen der Spiegelung in {{amount}} Sammlung(en) ist ein Fehler aufgetreten.",
 
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
-  "item.edit.item-mapper.notifications.remove.error.head": "Fehler beim Entfernen von gespiegelten Ressourcen",
+  "item.edit.item-mapper.notifications.remove.error.head": "Fehler beim Entfernen von gespiegelten Items",
 
   // "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
-  "item.edit.item-mapper.notifications.remove.success.content": "Spiegelung der Ressource aus {{amount}} Sammlung(en) erfolgreich.",
+  "item.edit.item-mapper.notifications.remove.success.content": "Spiegelung des Items aus {{amount}} Sammlung(en) erfolgreich.",
 
   // "item.edit.item-mapper.notifications.remove.success.head": "Removal of mapping completed",
   "item.edit.item-mapper.notifications.remove.success.head": "Entfernen der Spiegelung abgeschlossen",
@@ -2329,7 +2223,7 @@
   "item.edit.metadata.edit.buttons.unedit": "Bearbeitung beenden",
 
   // "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
-  "item.edit.metadata.empty": "Die Ressource enthält derzeit keine Metadaten. Klicken Sie auf Hinzufügen, um einen Metadatenwert hinzuzufügen.",
+  "item.edit.metadata.empty": "Das Item enthält derzeit keine Metadaten. Klicken Sie auf Hinzufügen, um einen Metadatenwert hinzuzufügen.",
 
   // "item.edit.metadata.headers.edit": "Edit",
   "item.edit.metadata.headers.edit": "Bearbeiten",
@@ -2353,8 +2247,7 @@
   "item.edit.metadata.notifications.discarded.title": "Änderungen verworfen",
 
   // "item.edit.metadata.notifications.error.title": "An error occurred",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.error.title": "An error occurred",
+  "item.edit.metadata.notifications.error.title": "Es ist ein Fehler aufgetreten",
 
   // "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
   "item.edit.metadata.notifications.invalid.content": "Ihre Änderungen wurden nicht gespeichert. Stellen Sie sicher, dass alle Felder gültig sind, bevor Sie Abspeichern.",
@@ -2363,13 +2256,13 @@
   "item.edit.metadata.notifications.invalid.title": "Metadaten ungültig",
 
   // "item.edit.metadata.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  "item.edit.metadata.notifications.outdated.content": "Die Ressource, an der Sie gerade arbeiten, wurde von einem anderen Benutzer geändert. Ihre aktuellen Änderungen werden nicht angewandt, um Konflikte zu vermeiden.",
+  "item.edit.metadata.notifications.outdated.content": "Das Item, an dem Sie gerade arbeiten, wurde von einem anderen Account geändert. Ihre aktuellen Änderungen werden nicht angewandt, um Konflikte zu vermeiden.",
 
   // "item.edit.metadata.notifications.outdated.title": "Changed outdated",
   "item.edit.metadata.notifications.outdated.title": "Änderung veraltet",
 
   // "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
-  "item.edit.metadata.notifications.saved.content": "Ihre Änderungen an den Metadaten der Ressource wurden gespeichert.",
+  "item.edit.metadata.notifications.saved.content": "Ihre Änderungen an den Metadaten des Items wurden gespeichert.",
 
   // "item.edit.metadata.notifications.saved.title": "Metadata saved",
   "item.edit.metadata.notifications.saved.title": "Metadaten gespeichert",
@@ -2400,10 +2293,10 @@
   "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
 
   // "item.edit.move.error": "An error occurred when attempting to move the item",
-  "item.edit.move.error": "Ein Fehler ist beim Verschieben der Ressource aufgetreten",
+  "item.edit.move.error": "Ein Fehler ist beim Verschieben des Items aufgetreten",
 
   // "item.edit.move.head": "Move item: {{id}}",
-  "item.edit.move.head": "Ressource verschieben: {{id}}",
+  "item.edit.move.head": "Item verschieben: {{id}}",
 
   // "item.edit.move.inheritpolicies.checkbox": "Inherit policies",
   "item.edit.move.inheritpolicies.checkbox": "Rechte erben",
@@ -2421,10 +2314,10 @@
   "item.edit.move.search.placeholder": "Geben Sie einen Begriff ein, um nach Sammlungen zu suchen",
 
   // "item.edit.move.success": "The item has been moved successfully",
-  "item.edit.move.success": "Die Ressource wurde erfolgreich verschoben",
+  "item.edit.move.success": "Das Item wurde erfolgreich verschoben",
 
   // "item.edit.move.title": "Move item",
-  "item.edit.move.title": "Ressource verschieben",
+  "item.edit.move.title": "Item verschieben",
 
 
 
@@ -2435,16 +2328,16 @@
   "item.edit.private.confirm": "Privat machen",
 
   // "item.edit.private.description": "Are you sure this item should be made private in the archive?",
-  "item.edit.private.description": "Wollen Sie diese Ressource als privat markieren.",
+  "item.edit.private.description": "Wollen Sie dieses Item als privat markieren.",
 
   // "item.edit.private.error": "An error occurred while making the item private",
-  "item.edit.private.error": "Ein Fehler ist aufgetreten bei dem Versuch, die Ressource privat zu machen",
+  "item.edit.private.error": "Ein Fehler ist aufgetreten bei dem Versuch, das Item privat zu machen",
 
   // "item.edit.private.header": "Make item private: {{ id }}",
-  "item.edit.private.header": "Ressource: {{ id }} privat machen",
+  "item.edit.private.header": "Item: {{ id }} privat machen",
 
   // "item.edit.private.success": "The item is now private",
-  "item.edit.private.success": "Diese Ressource ist nun privat",
+  "item.edit.private.success": "Dieses Item ist nun privat",
 
 
 
@@ -2455,16 +2348,16 @@
   "item.edit.public.confirm": "Öffentlich machen",
 
   // "item.edit.public.description": "Are you sure this item should be made public in the archive?",
-  "item.edit.public.description": "Sind Sie sicher, dass diese Ressource im Repositorium öffentlich gemacht werden soll?",
+  "item.edit.public.description": "Sind Sie sicher, dass dieses Item im Repositorium öffentlich gemacht werden soll?",
 
   // "item.edit.public.error": "An error occurred while making the item public",
-  "item.edit.public.error": "Ein Fehler ist aufgetreten, als die Ressource öffentlich gemacht werden sollte.",
+  "item.edit.public.error": "Ein Fehler ist aufgetreten, als das Item öffentlich gemacht werden sollte.",
 
   // "item.edit.public.header": "Make item public: {{ id }}",
-  "item.edit.public.header": "Ressource: {{ id }} öffentlich machen",
+  "item.edit.public.header": "Item: {{ id }} öffentlich machen",
 
   // "item.edit.public.success": "The item is now public",
-  "item.edit.public.success": "Die Ressource ist nun öffentlich",
+  "item.edit.public.success": "Das Item ist nun öffentlich",
 
 
 
@@ -2475,16 +2368,16 @@
   "item.edit.reinstate.confirm": "Reinstantiieren",
 
   // "item.edit.reinstate.description": "Are you sure this item should be reinstated to the archive?",
-  "item.edit.reinstate.description": "Sind Sie sicher, dass die Ressource reinstantiiert werden soll?",
+  "item.edit.reinstate.description": "Sind Sie sicher, dass das Item reinstantiiert werden soll?",
 
   // "item.edit.reinstate.error": "An error occurred while reinstating the item",
-  "item.edit.reinstate.error": "Ein Fehler ist bei der Reinstantiierung der Ressource aufgetreten.",
+  "item.edit.reinstate.error": "Ein Fehler ist bei der Reinstantiierung des Items aufgetreten.",
 
   // "item.edit.reinstate.header": "Reinstate item: {{ id }}",
-  "item.edit.reinstate.header": "Ressource: {{ id }} reinstantiieren",
+  "item.edit.reinstate.header": "Item: {{ id }} reinstantiieren",
 
   // "item.edit.reinstate.success": "The item was reinstated successfully",
-  "item.edit.reinstate.success": "Die Ressource wurde erfolgreich reinstantiiert",
+  "item.edit.reinstate.success": "Das Item wurde erfolgreich reinstantiiert",
 
 
 
@@ -2513,13 +2406,13 @@
   "item.edit.relationships.notifications.failed.title": "Fehler beim Bearbeiten der Beziehung",
 
   // "item.edit.relationships.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  "item.edit.relationships.notifications.outdated.content": "Die Ressource, die Sie gerade bearbeiten, wurde von einem anderen Benutzer geändert. Ihre aktuellen Änderungen werden verworfen, um Konflikte zu vermeiden.",
+  "item.edit.relationships.notifications.outdated.content": "Das Item, das Sie gerade bearbeiten, wurde von einem anderen Account geändert. Ihre aktuellen Änderungen werden verworfen, um Konflikte zu vermeiden.",
 
   // "item.edit.relationships.notifications.outdated.title": "Changes outdated",
   "item.edit.relationships.notifications.outdated.title": "Änderungen veraltet",
 
   // "item.edit.relationships.notifications.saved.content": "Your changes to this item's relationships were saved.",
-  "item.edit.relationships.notifications.saved.content": "Ihre Änderungen an den Beziehungen der Ressource wurden gespeichert.",
+  "item.edit.relationships.notifications.saved.content": "Ihre Änderungen an den Beziehungen des Items wurden gespeichert.",
 
   // "item.edit.relationships.notifications.saved.title": "Relationships saved",
   "item.edit.relationships.notifications.saved.title": "Beziehungen gespeichert",
@@ -2531,40 +2424,39 @@
   "item.edit.relationships.save-button": "Speichern",
 
   // "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
-  "item.edit.relationships.no-entity-type": "Füge 'dspace.entity.type' in die Metadaten hinzu, um Beziehungen für diese Ressource zu ermöglichen",
+  "item.edit.relationships.no-entity-type": "Füge 'dspace.entity.type' in die Metadaten hinzu, um Beziehungen für dieses Item zu ermöglichen",
 
 
 
   // "item.edit.tabs.bitstreams.head": "Bitstreams",
-  // TODO Source message changed - Revise the translation
   "item.edit.tabs.bitstreams.head": "Dateien",
 
   // "item.edit.tabs.bitstreams.title": "Item Edit - Bitstreams",
-  "item.edit.tabs.bitstreams.title": "Ressource bearbeiten - Dateien",
+  "item.edit.tabs.bitstreams.title": "Item bearbeiten - Dateien",
 
   // "item.edit.tabs.curate.head": "Curate",
   "item.edit.tabs.curate.head": "Pflegen",
 
   // "item.edit.tabs.curate.title": "Item Edit - Curate",
-  "item.edit.tabs.curate.title": "Ressource bearbeiten - Pflegen",
+  "item.edit.tabs.curate.title": "Item bearbeiten - Pflegen",
 
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "Metadaten",
 
   // "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
-  "item.edit.tabs.metadata.title": "Ressource bearbeiten -  Metadaten",
+  "item.edit.tabs.metadata.title": "Item bearbeiten -  Metadaten",
 
   // "item.edit.tabs.relationships.head": "Relationships",
   "item.edit.tabs.relationships.head": "Beziehungen",
 
   // "item.edit.tabs.relationships.title": "Item Edit - Relationships",
-  "item.edit.tabs.relationships.title": "Ressource bearbeiten - Relationen",
+  "item.edit.tabs.relationships.title": "Item bearbeiten - Relationen",
 
   // "item.edit.tabs.status.buttons.authorizations.button": "Authorizations...",
-  "item.edit.tabs.status.buttons.authorizations.button": "Rechte...",
+  "item.edit.tabs.status.buttons.authorizations.button": "Berechtigungen...",
 
   // "item.edit.tabs.status.buttons.authorizations.label": "Edit item's authorization policies",
-  "item.edit.tabs.status.buttons.authorizations.label": "Rechte der Ressource bearbeiten",
+  "item.edit.tabs.status.buttons.authorizations.label": "Rechte des Items bearbeiten",
 
   // "item.edit.tabs.status.buttons.delete.button": "Permanently delete",
   "item.edit.tabs.status.buttons.delete.button": "Endgültig löschen",
@@ -2582,34 +2474,34 @@
   "item.edit.tabs.status.buttons.move.button": "Verschieben...",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
-  "item.edit.tabs.status.buttons.move.label": "Ressource in eine andere Sammlung verschieben",
+  "item.edit.tabs.status.buttons.move.label": "Item in eine andere Sammlung verschieben",
 
   // "item.edit.tabs.status.buttons.private.button": "Make it private...",
   "item.edit.tabs.status.buttons.private.button": "Privat machen...",
 
   // "item.edit.tabs.status.buttons.private.label": "Make item private",
-  "item.edit.tabs.status.buttons.private.label": "Ressource privat machen",
+  "item.edit.tabs.status.buttons.private.label": "Item privat machen",
 
   // "item.edit.tabs.status.buttons.public.button": "Make it public...",
   "item.edit.tabs.status.buttons.public.button": "Öffentlich machen...",
 
   // "item.edit.tabs.status.buttons.public.label": "Make item public",
-  "item.edit.tabs.status.buttons.public.label": "Ressource öffentlich machen",
+  "item.edit.tabs.status.buttons.public.label": "Item öffentlich machen",
 
   // "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
   "item.edit.tabs.status.buttons.reinstate.button": "Reinstantiieren...",
 
   // "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
-  "item.edit.tabs.status.buttons.reinstate.label": "Ressource wieder ins Repositorium einsetzen",
+  "item.edit.tabs.status.buttons.reinstate.label": "Item wieder ins Repositorium einsetzen",
 
   // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
   "item.edit.tabs.status.buttons.withdraw.button": "Zurückziehen...",
 
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
-  "item.edit.tabs.status.buttons.withdraw.label": "Ressource aus dem Repositorium zurückziehen",
+  "item.edit.tabs.status.buttons.withdraw.label": "Item aus dem Repositorium zurückziehen",
 
   // "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
-  "item.edit.tabs.status.description": "Ressource bearbeiten. Von hier können Sie Ressourcen zurückziehen, wiedereinsetzen, verschieben oder Löschen. Des weiteren können die Metadaten und die zugehörigen Dateien bearbeitet werden.",
+  "item.edit.tabs.status.description": "Item bearbeiten. Von hier können Sie Items zurückziehen, wiedereinsetzen, verschieben oder Löschen. Des weiteren können die Metadaten und die zugehörigen Dateien bearbeitet werden.",
 
   // "item.edit.tabs.status.head": "Status",
   "item.edit.tabs.status.head": "Status",
@@ -2618,31 +2510,31 @@
   "item.edit.tabs.status.labels.handle": "Handle",
 
   // "item.edit.tabs.status.labels.id": "Item Internal ID",
-  "item.edit.tabs.status.labels.id": "Interne ID der Ressource",
+  "item.edit.tabs.status.labels.id": "Interne ID des Items",
 
   // "item.edit.tabs.status.labels.itemPage": "Item Page",
-  "item.edit.tabs.status.labels.itemPage": "Startseite der Ressource",
+  "item.edit.tabs.status.labels.itemPage": "Startseite des Items",
 
   // "item.edit.tabs.status.labels.lastModified": "Last Modified",
   "item.edit.tabs.status.labels.lastModified": "Zuletzt geändert",
 
   // "item.edit.tabs.status.title": "Item Edit -  Status",
-  "item.edit.tabs.status.title": "Ressource bearbeiten -  Status",
+  "item.edit.tabs.status.title": "Item bearbeiten -  Status",
 
   // "item.edit.tabs.versionhistory.head": "Version History",
   "item.edit.tabs.versionhistory.head": "Versionsgeschichte",
 
   // "item.edit.tabs.versionhistory.title": "Item Edit - Version History",
-  "item.edit.tabs.versionhistory.title": "Ressource bearbeiten - Versionsgeschichte",
+  "item.edit.tabs.versionhistory.title": "Item bearbeiten - Versionsgeschichte",
 
   // "item.edit.tabs.versionhistory.under-construction": "Editing or adding new versions is not yet possible in this user interface.",
   "item.edit.tabs.versionhistory.under-construction": "Das Bearbeiten oder Hinzufügen neuer Versionen ist in dieser Benutzeroberfläche noch nicht möglich.",
 
   // "item.edit.tabs.view.head": "View Item",
-  "item.edit.tabs.view.head": "Ressource ansehen",
+  "item.edit.tabs.view.head": "Item ansehen",
 
   // "item.edit.tabs.view.title": "Item Edit -  View",
-  "item.edit.tabs.view.title": "Ressource bearbeiten -  Ansicht",
+  "item.edit.tabs.view.title": "Item bearbeiten -  Ansicht",
 
 
 
@@ -2653,27 +2545,27 @@
   "item.edit.withdraw.confirm": "Zurückziehen",
 
   // "item.edit.withdraw.description": "Are you sure this item should be withdrawn from the archive?",
-  "item.edit.withdraw.description": "Sind Sie sicher, dass Sie diese Ressource aus dem Repositorium zurückziehen wollen?",
+  "item.edit.withdraw.description": "Sind Sie sicher, dass Sie dieses Item aus dem Repositorium zurückziehen wollen?",
 
   // "item.edit.withdraw.error": "An error occurred while withdrawing the item",
-  "item.edit.withdraw.error": "Ein Fehler ist beim Zurückziehen der Ressource aufgetreten",
+  "item.edit.withdraw.error": "Ein Fehler ist beim Zurückziehen des Items aufgetreten",
 
   // "item.edit.withdraw.header": "Withdraw item: {{ id }}",
-  "item.edit.withdraw.header": "Ressource: {{ id }} zurückziehen",
+  "item.edit.withdraw.header": "Item: {{ id }} zurückziehen",
 
   // "item.edit.withdraw.success": "The item was withdrawn successfully",
-  "item.edit.withdraw.success": "Die Ressource wurde erfolgreich zurückgezogen",
+  "item.edit.withdraw.success": "Das Item wurde erfolgreich zurückgezogen",
 
 
 
   // "item.listelement.badge": "Item",
-  "item.listelement.badge": "Ressource",
+  "item.listelement.badge": "Item",
 
   // "item.page.description": "Description",
   "item.page.description": "Beschreibung",
 
   // "item.page.edit": "Edit this item",
-  "item.page.edit": "Diese Ressource bearbeiten",
+  "item.page.edit": "Dieses Item bearbeiten",
 
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "ISSN der Zeitschrift",
@@ -2685,16 +2577,16 @@
   "item.page.publisher": "Verlag",
 
   // "item.page.titleprefix": "Item: ",
-  "item.page.titleprefix": "Ressource: ",
+  "item.page.titleprefix": "Item: ",
 
   // "item.page.volume-title": "Volume Title",
   "item.page.volume-title": "Bandtitel",
 
   // "item.search.results.head": "Item Search Results",
-  "item.search.results.head": "Ressourcen Suchergebnisse",
+  "item.search.results.head": "Item Suchergebnisse",
 
   // "item.search.title": "DSpace Angular :: Item Search",
-  "item.search.title": "DSpace Angular :: Ressourcen-Suche",
+  "item.search.title": "DSpace Angular :: Item-Suche",
 
 
 
@@ -2702,7 +2594,7 @@
   "item.page.abstract": "Zusammenfassung",
 
   // "item.page.author": "Authors",
-  "item.page.author": "AutorInnen",
+  "item.page.author": "Autor:innen",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Zitierform",
@@ -2714,7 +2606,7 @@
   "item.page.date": "Datum",
 
   // "item.page.edit": "Edit this item",
-  "item.page.edit": "Diese Ressource bearbeiten",
+  "item.page.edit": "Dieses Item bearbeiten",
 
   // "item.page.files": "Files",
   "item.page.files": "Dateien",
@@ -2744,7 +2636,7 @@
   "item.page.link.simple": "Kurzanzeige",
 
   // "item.page.person.search.title": "Articles by this author",
-  "item.page.person.search.title": "Veröffentlichungen dieses/r Autor/in",
+  "item.page.person.search.title": "Veröffentlichungen dieses:dieser Autor:in",
 
   // "item.page.related-items.view-more": "Show {{ amount }} more",
   "item.page.related-items.view-more": "{{ amount }} mehr anzeigen",
@@ -2759,7 +2651,7 @@
   "item.page.relationships.isJournalOfPublication": "Veröffentlichungen",
 
   // "item.page.relationships.isOrgUnitOfPerson": "Authors",
-  "item.page.relationships.isOrgUnitOfPerson": "AutorInnen",
+  "item.page.relationships.isOrgUnitOfPerson": "Autor:innen",
 
   // "item.page.relationships.isOrgUnitOfProject": "Research Projects",
   "item.page.relationships.isOrgUnitOfProject": "Forschungsprojekte",
@@ -2786,7 +2678,7 @@
   "item.preview.dc.identifier.uri": "Identifikator:",
 
   // "item.preview.dc.contributor.author": "Authors:",
-  "item.preview.dc.contributor.author": "AutorInnen:",
+  "item.preview.dc.contributor.author": "Autor:innen:",
 
   // "item.preview.dc.date.issued": "Published date:",
   "item.preview.dc.date.issued": "Erscheinungsdatum:",
@@ -2807,7 +2699,6 @@
   "item.preview.dc.title": "Titel:",
 
   // "item.preview.person.familyName": "Surname:",
-  // TODO New key - Add a translation
   "item.preview.person.familyName": "Nachname:",
 
   // "item.preview.person.givenName": "Name:",
@@ -2821,10 +2712,10 @@
   "item.select.confirm": "Auswahl bestätigen",
 
   // "item.select.empty": "No items to show",
-  "item.select.empty": "Es gibt keine Ressourcen dazu",
+  "item.select.empty": "Es gibt keine Items dazu",
 
   // "item.select.table.author": "Author",
-  "item.select.table.author": "Autor/in",
+  "item.select.table.author": "Autor:in",
 
   // "item.select.table.collection": "Collection",
   "item.select.table.collection": "Sammlung",
@@ -2834,13 +2725,12 @@
 
 
   // "item.version.history.empty": "There are no other versions for this item yet.",
-  "item.version.history.empty": "Es gibt noch keine anderen Versionen für diese Ressource.",
+  "item.version.history.empty": "Es gibt noch keine anderen Versionen für dieses Item.",
 
   // "item.version.history.head": "Version History",
   "item.version.history.head": "Versionsgeschichte",
 
   // "item.version.history.return": "Return",
-  // TODO New key - Add a translation
   "item.version.history.return": "Zurück",
 
   // "item.version.history.selected": "Selected version",
@@ -2850,10 +2740,10 @@
   "item.version.history.table.version": "Version",
 
   // "item.version.history.table.item": "Item",
-  "item.version.history.table.item": "Ressource",
+  "item.version.history.table.item": "Item",
 
   // "item.version.history.table.editor": "Editor",
-  "item.version.history.table.editor": "Herausgeber/in",
+  "item.version.history.table.editor": "Herausgeber:in",
 
   // "item.version.history.table.date": "Date",
   "item.version.history.table.date": "Datum",
@@ -2864,8 +2754,7 @@
 
 
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
-  // TODO New key - Add a translation
-  "item.version.notice": "Dies ist nicht die neueste Version dieses Artikels. Die neueste Version finden Sie <a href='{{destination}}'>hier</a>.",
+  "item.version.notice": "Dies ist nicht die neueste Version dieses Items. Die neueste Version finden Sie unter <a href='{{destination}}'>hier</a>.",
 
 
 
@@ -2876,10 +2765,10 @@
   "journal.page.description": "Beschreibung",
 
   // "journal.page.edit": "Edit this item",
-  "journal.page.edit": "Diese Ressource bearbeiten",
+  "journal.page.edit": "Dieses Item bearbeiten",
 
   // "journal.page.editor": "Editor-in-Chief",
-  "journal.page.editor": "Chefredakteur",
+  "journal.page.editor": "Chefredakteur:in",
 
   // "journal.page.issn": "ISSN",
   "journal.page.issn": "ISSN",
@@ -2905,7 +2794,7 @@
   "journalissue.page.description": "Beschreibeung",
 
   // "journalissue.page.edit": "Edit this item",
-  "journalissue.page.edit": "Diese Ressource bearbeiten",
+  "journalissue.page.edit": "Dieses Item bearbeiten",
 
   // "journalissue.page.issuedate": "Issue Date",
   "journalissue.page.issuedate": "Erscheinungsdatum",
@@ -2934,7 +2823,7 @@
   "journalvolume.page.description": "Beschreibung",
 
   // "journalvolume.page.edit": "Edit this item",
-  "journalvolume.page.edit": "Diese Ressource bearbeiten",
+  "journalvolume.page.edit": "Dieses Item bearbeiten",
 
   // "journalvolume.page.issuedate": "Issue Date",
   "journalvolume.page.issuedate": "Erscheinungsdatum",
@@ -2954,7 +2843,7 @@
   "loading.bitstreams": "Lade Datei...",
 
   // "loading.browse-by": "Loading items...",
-  "loading.browse-by": "Lade Ressourcen...",
+  "loading.browse-by": "Lade Items...",
 
   // "loading.browse-by-page": "Loading page...",
   "loading.browse-by-page": "Lade Seite...",
@@ -2975,13 +2864,13 @@
   "loading.default": "Lade...",
 
   // "loading.item": "Loading item...",
-  "loading.item": "Lade Ressource...",
+  "loading.item": "Lade Item...",
 
   // "loading.items": "Loading items...",
-  "loading.items": "Lade Ressourcen...",
+  "loading.items": "Lade Items...",
 
   // "loading.mydspace-results": "Loading items...",
-  "loading.mydspace-results": "Lade Ressourcen...",
+  "loading.mydspace-results": "Lade Items...",
 
   // "loading.objects": "Loading...",
   "loading.objects": "Lade...",
@@ -3069,7 +2958,7 @@
 
 
   // "menu.section.admin_search": "Admin Search",
-  "menu.section.admin_search": "Administratoren Suche",
+  "menu.section.admin_search": "Administrator:innen Suche",
 
 
 
@@ -3077,7 +2966,7 @@
   "menu.section.browse_community": "Dieser Bereich",
 
   // "menu.section.browse_community_by_author": "By Author",
-  "menu.section.browse_community_by_author": "Nach Autor/in",
+  "menu.section.browse_community_by_author": "Nach Autor:in",
 
   // "menu.section.browse_community_by_issue_date": "By Issue Date",
   "menu.section.browse_community_by_issue_date": "Nach Erscheinungsdateum",
@@ -3089,7 +2978,7 @@
   "menu.section.browse_global": "Das gesamte Repositorium",
 
   // "menu.section.browse_global_by_author": "By Author",
-  "menu.section.browse_global_by_author": "Nach Autor/in",
+  "menu.section.browse_global_by_author": "Nach Autor:in",
 
   // "menu.section.browse_global_by_dateissued": "By Issue Date",
   "menu.section.browse_global_by_dateissued": "Nach Erscheinungsjahr",
@@ -3123,7 +3012,7 @@
   "menu.section.edit_community": "Bereich",
 
   // "menu.section.edit_item": "Item",
-  "menu.section.edit_item": "Ressource",
+  "menu.section.edit_item": "Item",
 
 
 
@@ -3137,7 +3026,7 @@
   "menu.section.export_community": "Bereich",
 
   // "menu.section.export_item": "Item",
-  "menu.section.export_item": "Ressource",
+  "menu.section.export_item": "Item",
 
   // "menu.section.export_metadata": "Metadata",
   "menu.section.export_metadata": "Metadaten",
@@ -3148,8 +3037,7 @@
   "menu.section.icon.access_control": "Menübereich Zugriffskontrolle",
 
   // "menu.section.icon.admin_search": "Admin search menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.admin_search": "Admin search menu section",
+  "menu.section.icon.admin_search": "Menübereich Admin-Suche",
 
   // "menu.section.icon.control_panel": "Control Panel menu section",
   "menu.section.icon.control_panel": "Menübereich Kontrollfeld",
@@ -3210,10 +3098,10 @@
   "menu.section.new_community": "Bereich",
 
   // "menu.section.new_item": "Item",
-  "menu.section.new_item": "Ressource",
+  "menu.section.new_item": "Item",
 
   // "menu.section.new_item_version": "Item Version",
-  "menu.section.new_item_version": "Ressourcenversion",
+  "menu.section.new_item_version": "Item-Version",
 
   // "menu.section.new_process": "Process",
   "menu.section.new_process": "Prozess",
@@ -3291,11 +3179,10 @@
   "mydspace.description": "",
 
   // "mydspace.general.text-here": "here",
-  // TODO New key - Add a translation
-  "mydspace.general.text-here": "here",
+  "mydspace.general.text-here": "hier",
 
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
-  "mydspace.messages.controller-help": "Wählen Sie diese Option, um dem/derjenigen, die die Ressource eingereicht hat, eine Nachricht zu schicken.",
+  "mydspace.messages.controller-help": "Wählen Sie diese Option, um dem:derjenigen, die das Item eingereicht hat, eine Nachricht zu schicken.",
 
   // "mydspace.messages.description-placeholder": "Insert your message here...",
   "mydspace.messages.description-placeholder": "Geben Sie Ihre Nachricht hier ein...",
@@ -3349,7 +3236,7 @@
   "mydspace.results.no-abstract": "Keine Zusammenfassung",
 
   // "mydspace.results.no-authors": "No Authors",
-  "mydspace.results.no-authors": "Keine AutorInnen",
+  "mydspace.results.no-authors": "Keine Autor:innen",
 
   // "mydspace.results.no-collections": "No Collections",
   "mydspace.results.no-collections": "Keine Sammlungen",
@@ -3361,7 +3248,7 @@
   "mydspace.results.no-files": "Keine Dateien",
 
   // "mydspace.results.no-results": "There were no items to show",
-  "mydspace.results.no-results": "Es gibt keine Ressourcen anzuzeigen",
+  "mydspace.results.no-results": "Es gibt keine Items anzuzeigen",
 
   // "mydspace.results.no-title": "No title",
   "mydspace.results.no-title": "Kein Titel",
@@ -3403,10 +3290,10 @@
   "mydspace.upload.upload-failed-moreonefile": "Unverarbeitbare Anfrage. Nur eine Datei ist erlaubt.",
 
   // "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
-  "mydspace.upload.upload-multiple-successful": "{{qty}} neue(s) Arbeitsbereichressource(n) angelegt.",
+  "mydspace.upload.upload-multiple-successful": "{{qty}} neue(s) Arbeitsbereichsitem(s) angelegt.",
 
   // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
-  "mydspace.upload.upload-successful": "Neue Arbeitsbereichressource angelegt. Klicken Sie {{here}}, um sie zu bearbeiten.",
+  "mydspace.upload.upload-successful": "Neues Arbeitsbereichsitem angelegt. Klicken Sie {{here}}, um sie zu bearbeiten.",
 
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Anzeige",
@@ -3461,7 +3348,7 @@
   "orgunit.page.description": "Beschreibung",
 
   // "orgunit.page.edit": "Edit this item",
-  "orgunit.page.edit": "Diese Ressourcen bearbeiten",
+  "orgunit.page.edit": "Dieses Item bearbeiten",
 
   // "orgunit.page.id": "ID",
   "orgunit.page.id": "ID",
@@ -3495,7 +3382,7 @@
   "person.page.birthdate": "Geburtsdatum",
 
   // "person.page.edit": "Edit this item",
-  "person.page.edit": "Diese Ressource bearbeiten",
+  "person.page.edit": "Dieses Item bearbeiten",
 
   // "person.page.email": "Email Address",
   "person.page.email": "E-Mail-Adresse",
@@ -3598,34 +3485,27 @@
   "process.detail.back" : "Zurück",
 
   // "process.detail.output" : "Process Output",
-  // TODO New key - Add a translation
-  "process.detail.output" : "Process Output",
+  "process.detail.output" : "Prozessausgabe",
 
   // "process.detail.logs.button": "Retrieve process output",
-  // TODO New key - Add a translation
-  "process.detail.logs.button": "Retrieve process output",
+  "process.detail.logs.button": "Abrufen der Prozessausgabe",
 
   // "process.detail.logs.loading": "Retrieving",
-  // TODO New key - Add a translation
-  "process.detail.logs.loading": "Retrieving",
+  "process.detail.logs.loading": "Abrufen",
 
   // "process.detail.logs.none": "This process has no output",
-  // TODO New key - Add a translation
-  "process.detail.logs.none": "This process has no output",
+  "process.detail.logs.none": "Dieser Prozess hat keine Ausgabe",
 
   // "process.detail.output-files" : "Output Files",
-  // TODO New key - Add a translation
-  "process.detail.output-files" : "Output Files",
+  "process.detail.output-files" : "Ausgabedateien",
 
   // "process.detail.output-files.empty" : "This process doesn't contain any output files",
-  // TODO New key - Add a translation
-  "process.detail.output-files.empty" : "This process doesn't contain any output files",
+  "process.detail.output-files.empty" : "Dieser Prozess enthält keine Ausgabedateien",
 
   // "process.detail.script" : "Script",
   "process.detail.script" : "Skript",
 
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  // TODO New key - Add a translation
   "process.detail.title" : "Prozess: {{ id }} - {{ name }}",
 
   // "process.detail.start-time" : "Start time",
@@ -3658,7 +3538,7 @@
   "process.overview.table.status" : "Status",
 
   // "process.overview.table.user" : "User",
-  "process.overview.table.user" : "Benutzer",
+  "process.overview.table.user" : "Benutzer:in",
 
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "Überblick der Prozesse",
@@ -3683,8 +3563,7 @@
   "profile.form.submit": "Profil aktualisieren",
 
   // "profile.groups.head": "Authorization groups you belong to",
-  // TODO New key - Add a translation
-  "profile.groups.head": "Authorization groups you belong to",
+  "profile.groups.head": "Berechtigungsgruppen, denen Sie angehören",
 
   // "profile.head": "Update Profile",
   "profile.head": "Profil aktualisieren",
@@ -3767,7 +3646,7 @@
   "project.page.description": "Beschreibung",
 
   // "project.page.edit": "Edit this item",
-  "project.page.edit": "Diese Ressource bearbeiten",
+  "project.page.edit": "Dieses Item bearbeiten",
 
   // "project.page.expectedcompletion": "Expected Completion",
   "project.page.expectedcompletion": "Erwartetes Abschlussdatum",
@@ -3799,7 +3678,7 @@
   "publication.page.description": "Beschreibung",
 
   // "publication.page.edit": "Edit this item",
-  "publication.page.edit": "Diese Ressource bearbeiten",
+  "publication.page.edit": "Dieses Item bearbeiten",
 
   // "publication.page.journal-issn": "Journal ISSN",
   "publication.page.journal-issn": "ISSN der Zeitschrift",
@@ -3824,7 +3703,7 @@
 
 
   // "register-email.title": "New user registration",
-  "register-email.title": "Registrierung neuer Benutzer",
+  "register-email.title": "Registrierung neuer Benutzer:innen",
 
   // "register-page.create-profile.header": "Create Profile",
   "register-page.create-profile.header": "Profil erstellen",
@@ -3878,23 +3757,23 @@
   "register-page.create-profile.submit": "Vollständige Registrierung",
 
   // "register-page.create-profile.submit.error.content": "Something went wrong while registering a new user.",
-  "register-page.create-profile.submit.error.content": "Bei der Registrierung eines neuen Benutzers ist ein Fehler aufgetreten.",
+  "register-page.create-profile.submit.error.content": "Bei der Registrierung eines neuen Accounts ist ein Fehler aufgetreten.",
 
   // "register-page.create-profile.submit.error.head": "Registration failed",
   "register-page.create-profile.submit.error.head": "Registrierung fehlgeschlagen.",
 
   // "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
-  "register-page.create-profile.submit.success.content": "Die Registrierung war erfolgreich. Sie wurden als der angelegte Benutzer angemeldet.",
+  "register-page.create-profile.submit.success.content": "Die Registrierung war erfolgreich. Sie wurden als der:die angelegte Benutzer:in angemeldet.",
 
   // "register-page.create-profile.submit.success.head": "Registration completed",
   "register-page.create-profile.submit.success.head": "Registrierung abgeschlossen",
 
 
   // "register-page.registration.header": "New user registration",
-  "register-page.registration.header": "Registrierung neuer Benutzer",
+  "register-page.registration.header": "Registrierung neuer Benutzer:innen",
 
   // "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
-  "register-page.registration.info": "Registrieren Sie ein Konto, um Sammlungen für E-Mail-Updates zu abonnieren und neue Ressourcen in DSpace einzugeben.",
+  "register-page.registration.info": "Registrieren Sie ein Konto, um Sammlungen für E-Mail-Updates zu abonnieren und neue Items in DSpace einzugeben.",
 
   // "register-page.registration.email": "Email Address *",
   "register-page.registration.email": "E-Mail-Adresse *",
@@ -3906,7 +3785,7 @@
   "register-page.registration.email.error.pattern": "Bitte geben Sie eine gültige E-Mail Adresse an",
 
   // "register-page.registration.email.hint": "This address will be verified and used as your login name.",
-  "register-page.registration.email.hint": "Diese Adresse wird überprüft und als Ihr Benutzername verwendet..",
+  "register-page.registration.email.hint": "Diese Adresse wird überprüft und als Ihr Accountname verwendet..",
 
   // "register-page.registration.submit": "Register",
   "register-page.registration.submit": "Registrieren",
@@ -3926,7 +3805,7 @@
 
 
   // "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
-  "relationships.add.error.relationship-type.content": "Für den Beziehungstyp {{ type }} zwischen den beiden Ressourcen konnte keine passende Übereinstimmung gefunden werden",
+  "relationships.add.error.relationship-type.content": "Für den Beziehungstyp {{ type }} zwischen den beiden Items konnte keine passende Übereinstimmung gefunden werden",
 
   // "relationships.add.error.server.content": "The server returned an error",
   "relationships.add.error.server.content": "Der Server hat einen Fehler zurückgegeben",
@@ -3935,13 +3814,13 @@
   "relationships.add.error.title": "Beziehung kann nicht hinzugefügt werden",
 
   // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "AutorInnen",
+  "relationships.isAuthorOf": "Autor:innen",
 
   // "relationships.isAuthorOf.Person": "Authors (persons)",
   "relationships.isAuthorOf.Person": "AutorInnen (Personen)",
 
   // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "AutorInnen (Organisationseinheiten)",
+  "relationships.isAuthorOf.OrgUnit": "Autor:innen (Organisationseinheiten)",
 
   // "relationships.isIssueOf": "Journal Issues",
   "relationships.isIssueOf": "Zeitschriftenausgaben",
@@ -3956,7 +3835,7 @@
   "relationships.isOrgUnitOf": "Organisationseinheiten",
 
   // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "AutorInnen",
+  "relationships.isPersonOf": "Autor:innen",
 
   // "relationships.isProjectOf": "Research Projects",
   "relationships.isProjectOf": "Forschungsvorhaben",
@@ -3988,79 +3867,63 @@
   "resource-policies.add.for.": "Eine neue Richtlinie hinzufügen",
 
   // "resource-policies.add.for.bitstream": "Add a new Bitstream policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.bitstream": "Add a new Bitstream policy",
+  "resource-policies.add.for.bitstream": "Eine neue Datei-Richtlinie hinzufügen",
 
   // "resource-policies.add.for.bundle": "Add a new Bundle policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.bundle": "Add a new Bundle policy",
+  "resource-policies.add.for.bundle": "Eine neue Bündel-Richtlinie hinzufügen",
 
   // "resource-policies.add.for.item": "Add a new Item policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.item": "Add a new Item policy",
+  "resource-policies.add.for.item": "Eine neue Item-Richtlinie hinzufügen",
 
   // "resource-policies.add.for.community": "Add a new Community policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.community": "Add a new Community policy",
+  "resource-policies.add.for.community": "Eine neue Bereiche-Richtlinie hinzufügen",
 
   // "resource-policies.add.for.collection": "Add a new Collection policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.collection": "Add a new Collection policy",
+  "resource-policies.add.for.collection": "Eine neue Sammlungen-Richtlinie hinzufügen",
 
   // "resource-policies.create.page.heading": "Create new resource policy for ",
-  // TODO New key - Add a translation
-  "resource-policies.create.page.heading": "Create new resource policy for ",
+  "resource-policies.create.page.heading": "Eine neue Ressourcen-Richtlinie erstellen für ",
 
   // "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
-  // TODO New key - Add a translation
-  "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
+  "resource-policies.create.page.failure.content": "Bei der Erstellung der Ressourcen-Richtlinie ist ein Fehler aufgetreten.",
 
   // "resource-policies.create.page.success.content": "Operation successful",
   "resource-policies.create.page.success.content": "Vorgang erfolgreich",
 
   // "resource-policies.create.page.title": "Create new resource policy",
-  // TODO New key - Add a translation
-  "resource-policies.create.page.title": "Create new resource policy",
+  "resource-policies.create.page.title": "Eine neue Ressourcen-Richtlinie erstellen",
 
   // "resource-policies.delete.btn": "Delete selected",
   "resource-policies.delete.btn": "Ausgewählte löschen",
 
   // "resource-policies.delete.btn.title": "Delete selected resource policies",
-  // TODO New key - Add a translation
-  "resource-policies.delete.btn.title": "Delete selected resource policies",
+  "resource-policies.delete.btn.title": "Ausgewählte Ressourcen-Richtlinien löschen",
 
   // "resource-policies.delete.failure.content": "An error occurred while deleting selected resource policies.",
-  // TODO New key - Add a translation
-  "resource-policies.delete.failure.content": "An error occurred while deleting selected resource policies.",
+  "resource-policies.delete.failure.content": "Beim Löschen der ausgewählten Ressourcen-Richtlinien ist ein Fehler aufgetreten.",
 
   // "resource-policies.delete.success.content": "Operation successful",
   "resource-policies.delete.success.content": "Vorgang erfolgreich",
 
   // "resource-policies.edit.page.heading": "Edit resource policy ",
-  // TODO New key - Add a translation
-  "resource-policies.edit.page.heading": "Edit resource policy ",
+  "resource-policies.edit.page.heading": "Ressourcen-Richtlinie bearbeiten ",
 
   // "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
-  // TODO New key - Add a translation
-  "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
+  "resource-policies.edit.page.failure.content": "Beim Bearbeiten der Ressourcen-Richtlinie ist ein Fehler aufgetreten.",
 
   // "resource-policies.edit.page.success.content": "Operation successful",
   "resource-policies.edit.page.success.content": "Vorgang erfolgreich",
 
   // "resource-policies.edit.page.title": "Edit resource policy",
-  // TODO New key - Add a translation
-  "resource-policies.edit.page.title": "Edit resource policy",
+  "resource-policies.edit.page.title": "Ressourcen-Richtlinie bearbeiten",
 
   // "resource-policies.form.action-type.label": "Select the action type",
-  // TODO New key - Add a translation
-  "resource-policies.form.action-type.label": "Select the action type",
+  "resource-policies.form.action-type.label": "Wählen Sie die Aktionsart",
 
   // "resource-policies.form.action-type.required": "You must select the resource policy action.",
-  // TODO New key - Add a translation
-  "resource-policies.form.action-type.required": "You must select the resource policy action.",
+  "resource-policies.form.action-type.required": "Sie müssen die Aktion der Ressourcen-Richtlinie auswählen.",
 
   // "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
-  // TODO New key - Add a translation
   "resource-policies.form.eperson-group-list.label": "Die Person oder Gruppe, der die Genehmigung erteilt wird",
 
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
@@ -4073,8 +3936,7 @@
   "resource-policies.form.eperson-group-list.tab.group": "Suche nach einer Gruppe",
 
   // "resource-policies.form.eperson-group-list.table.headers.action": "Action",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.table.headers.action": "Action",
+  "resource-policies.form.eperson-group-list.table.headers.action": "Aktion",
 
   // "resource-policies.form.eperson-group-list.table.headers.id": "ID",
   "resource-policies.form.eperson-group-list.table.headers.id": "ID",
@@ -4095,16 +3957,13 @@
   "resource-policies.form.name.label": "Name",
 
   // "resource-policies.form.policy-type.label": "Select the policy type",
-  // TODO New key - Add a translation
-  "resource-policies.form.policy-type.label": "Select the policy type",
+  "resource-policies.form.policy-type.label": "Wählen Sie den Richtlinientyp",
 
   // "resource-policies.form.policy-type.required": "You must select the resource policy type.",
-  // TODO New key - Add a translation
-  "resource-policies.form.policy-type.required": "You must select the resource policy type.",
+  "resource-policies.form.policy-type.required": "Sie müssen den Typ der Ressourcen-Richtlinie auswählen",
 
   // "resource-policies.table.headers.action": "Action",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.action": "Action",
+  "resource-policies.table.headers.action": "Aktion",
 
   // "resource-policies.table.headers.date.end": "End Date",
   "resource-policies.table.headers.date.end": "Enddatum",
@@ -4137,24 +3996,19 @@
   "resource-policies.table.headers.policyType": "Typ",
 
   // "resource-policies.table.headers.title.for.bitstream": "Policies for Bitstream",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.bitstream": "Policies for Bitstream",
+  "resource-policies.table.headers.title.for.bitstream": "Richtlinien für Dateien",
 
   // "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
+  "resource-policies.table.headers.title.for.bundle": "Richtlinien für Bündel",
 
   // "resource-policies.table.headers.title.for.item": "Policies for Item",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.item": "Policies for Item",
+  "resource-policies.table.headers.title.for.item": "Richtlinien für Items",
 
   // "resource-policies.table.headers.title.for.community": "Policies for Community",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.community": "Policies for Community",
+  "resource-policies.table.headers.title.for.community": "Richtlinien für Bereiche",
 
   // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.collection": "Policies for Collection",
+  "resource-policies.table.headers.title.for.collection": "Richtlinien für Sammlungen",
 
 
 
@@ -4170,9 +4024,11 @@
   // "search.breadcrumbs": "Search",
   "search.breadcrumbs": "Suche",
 
+  // "search.search-form.placeholder": "Search the repository ...",
+  "search.search-form.placeholder": "Durchsuche Repositorium",
 
   // "search.filters.applied.f.author": "Author",
-  "search.filters.applied.f.author": "AutorIn",
+  "search.filters.applied.f.author": "Autor:in",
 
   // "search.filters.applied.f.dateIssued.max": "End date",
   "search.filters.applied.f.dateIssued.max": "Enddatum",
@@ -4187,7 +4043,7 @@
   "search.filters.applied.f.discoverable": "Privat",
 
   // "search.filters.applied.f.entityType": "Item Type",
-  "search.filters.applied.f.entityType": "Art der Ressource",
+  "search.filters.applied.f.entityType": "Item-Typ",
 
   // "search.filters.applied.f.has_content_in_original_bundle": "Has files",
   "search.filters.applied.f.has_content_in_original_bundle": "Hat Dateien",
@@ -4202,7 +4058,7 @@
   "search.filters.applied.f.subject": "Thema",
 
   // "search.filters.applied.f.submitter": "Submitter",
-  "search.filters.applied.f.submitter": "Einreichende(r)",
+  "search.filters.applied.f.submitter": "Einreichende:r",
 
   // "search.filters.applied.f.jobTitle": "Job Title",
   "search.filters.applied.f.jobTitle": "Berufsbezeichnung",
@@ -4219,10 +4075,10 @@
 
 
   // "search.filters.filter.author.head": "Author",
-  "search.filters.filter.author.head": "AutorIn",
+  "search.filters.filter.author.head": "Autor:in",
 
   // "search.filters.filter.author.placeholder": "Author name",
-  "search.filters.filter.author.placeholder": "Name des/r AutorIn",
+  "search.filters.filter.author.placeholder": "Name des:der Autor:in",
 
   // "search.filters.filter.birthDate.head": "Birth Date",
   "search.filters.filter.birthDate.head": "Geburtsdatum",
@@ -4237,10 +4093,10 @@
   "search.filters.filter.creativeDatePublished.placeholder": "Erscheinungsdatum",
 
   // "search.filters.filter.creativeWorkEditor.head": "Editor",
-  "search.filters.filter.creativeWorkEditor.head": "Herausgeber",
+  "search.filters.filter.creativeWorkEditor.head": "Herausgeber:in",
 
   // "search.filters.filter.creativeWorkEditor.placeholder": "Editor",
-  "search.filters.filter.creativeWorkEditor.placeholder": "Herausgeber",
+  "search.filters.filter.creativeWorkEditor.placeholder": "Herausgeber:in",
 
   // "search.filters.filter.creativeWorkKeywords.head": "Subject",
   "search.filters.filter.creativeWorkKeywords.head": "Thema",
@@ -4276,10 +4132,10 @@
   "search.filters.filter.withdrawn.head": "Zurückgezogen",
 
   // "search.filters.filter.entityType.head": "Item Type",
-  "search.filters.filter.entityType.head": "Art der Ressource",
+  "search.filters.filter.entityType.head": "Item-Typ",
 
   // "search.filters.filter.entityType.placeholder": "Item Type",
-  "search.filters.filter.entityType.placeholder": "Art der Ressource",
+  "search.filters.filter.entityType.placeholder": "Item-Typ",
 
   // "search.filters.filter.has_content_in_original_bundle.head": "Has files",
   "search.filters.filter.has_content_in_original_bundle.head": "Enthält Dateien",
@@ -4351,10 +4207,10 @@
   "search.filters.filter.subject.placeholder": "Thema",
 
   // "search.filters.filter.submitter.head": "Submitter",
-  "search.filters.filter.submitter.head": "Einreichende(r)",
+  "search.filters.filter.submitter.head": "Einreichende:r",
 
   // "search.filters.filter.submitter.placeholder": "Submitter",
-  "search.filters.filter.submitter.placeholder": "Einreichende(r)",
+  "search.filters.filter.submitter.placeholder": "Einreichende:r",
 
 
 
@@ -4543,7 +4399,7 @@
   "submission.import-external.title": "Importieren von Metadaten aus einer externen Quelle",
 
   // "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
-  "submission.import-external.page.hint": "Geben Sie oben eine Abfrage ein, um Ressourcen aus dem Internet zu finden, die in DSpace importiert werden sollen.",
+  "submission.import-external.page.hint": "Geben Sie oben eine Abfrage ein, um Items aus dem Internet zu finden, die in DSpace importiert werden sollen.",
 
   // "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
   "submission.import-external.back-to-my-dspace": "Zurück zu MyDSpace",
@@ -4582,7 +4438,7 @@
   "submission.import-external.source.lcname": "Library of Congress Names",
 
   // "submission.import-external.preview.title": "Item Preview",
-  "submission.import-external.preview.title": "Ressourcen-Vorschau",
+  "submission.import-external.preview.title": "Item-Vorschau",
 
   // "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
   "submission.import-external.preview.subtitle": "Die folgenden Metadaten wurden aus einer externen Quelle importiert. Sie werden vorausgefüllt, wenn Sie die Eingabe starten.",
@@ -4603,8 +4459,7 @@
   "submission.sections.describe.relationship-lookup.external-source.added": "Der lokale Eintrage wurde erfolgreich zur Auswahl hinzugefügt.",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Importiere Autor:innen-Metadaten",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Import remote journal",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Zeitschrift importieren",
@@ -4616,14 +4471,13 @@
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Zeitschriftenband importieren",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Importiere Autor:innen-Metadaten",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Successfully added local author to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Erfolgreicher Import und Hinzufügen eines lokalen Autors zur Auswahl",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Erfolgreicher Import und Hinzufügen eines:einer lokalen Autor:in zur Auswahl",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Erfolgreicher Import und Hinzufügen eines externen Autors zur Auswahl",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Erfolgreicher Import und Hinzufügen eines:einer externen Autor:in zur Auswahl",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Referenz",
@@ -4716,55 +4570,46 @@
   "submission.sections.describe.relationship-lookup.search-tab.select-page": "Seite auswählen",
 
   // "submission.sections.describe.relationship-lookup.selected": "Selected {{ size }} items",
-  "submission.sections.describe.relationship-lookup.selected": "{{ size }} Ressourcen ausgewählt",
+  "submission.sections.describe.relationship-lookup.selected": "{{ size }} Items ausgewählt",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Local Authors ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Local Authors ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Lokale Autor:innen ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Lokale Zeitschriften ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Local Projects ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Local Projects ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Lokale Projekte ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Local Publications ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Local Publications ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Lokale Publicationen ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Local Authors ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Local Authors ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Lokale Autor:innen ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Local Organizational Units ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Local Organizational Units ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Lokale Organisationseinheiten ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Local Data Packages ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Local Data Packages ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Lokale Datenpakete ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataFile": "Local Data Files ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataFile": "Local Data Files ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataFile": "Lokale Dateien ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Local Journals ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Lokale Zeitschriften ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Lokale Zeitschriftenhefte ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Lokale Zeitschriftenhefte ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Lokale Zeitschriftenbände ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Lokale Zeitschriftenbände ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Zeitschriften ({{ count }})",
@@ -4785,12 +4630,10 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.arxiv": "arXiv ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Suche nach Fördereinrichtungen",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Suche nach Förderungen",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Suche nach Organisationseinheiten",
@@ -4812,7 +4655,7 @@
   "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Zeitschriften",
 
   // "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Authors",
-  "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "AutorInnen",
+  "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Autor:innen",
 
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Fördereinrichtung",
@@ -4823,29 +4666,25 @@
   "submission.sections.describe.relationship-lookup.title.Publication": "Publikationen",
 
   // "submission.sections.describe.relationship-lookup.title.Person": "Authors",
-  "submission.sections.describe.relationship-lookup.title.Person": "AutorInnen",
+  "submission.sections.describe.relationship-lookup.title.Person": "Autor:innen",
 
   // "submission.sections.describe.relationship-lookup.title.OrgUnit": "Organizational Units",
   "submission.sections.describe.relationship-lookup.title.OrgUnit": "Organisationseinheiten",
 
   // "submission.sections.describe.relationship-lookup.title.DataPackage": "Data Packages",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.DataPackage": "Data Packages",
+  "submission.sections.describe.relationship-lookup.title.DataPackage": "Datenpakete",
 
   // "submission.sections.describe.relationship-lookup.title.DataFile": "Data Files",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.DataFile": "Data Files",
+  "submission.sections.describe.relationship-lookup.title.DataFile": "Dateien",
 
   // "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
   "submission.sections.describe.relationship-lookup.title.Funding Agency": "Fördereinrichtung",
 
   // "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
+  "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Förderung",
 
   // "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
+  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Übergeordnete Organisationeinheit",
 
   // "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Liste umschalten",
@@ -4857,13 +4696,14 @@
   "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "Ihre Auswahl ist momentan leer.",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Selected Authors",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Ausgewählte AutorInnen",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Ausgewählte Autor:innen",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Ausgewählte Zeitschriften",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Ausgewählte Zeitschriftenbände",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
   "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Ausgewählte Projekte",
 
@@ -4871,24 +4711,23 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Ausgewählte Publikationen",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Selected Authors",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Ausgewählte AutorInnen",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Ausgewählte Autor:innen",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.OrgUnit": "Selected Organizational Units",
   "submission.sections.describe.relationship-lookup.selection-tab.title.OrgUnit": "Ausgewählte Organisationseinheiten",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.DataPackage": "Selected Data Packages",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.DataPackage": "Selected Data Packages",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.DataPackage": "Ausgewählte Datenpakete",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.DataFile": "Selected Data Files",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.DataFile": "Selected Data Files",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.DataFile": "Ausgewählte Dateien",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Selected Journals",
   "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Ausgewählte Zeitschriften",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Ausgewählte Ausgaben",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Ausgewählte Zeitschriftenbände",
 
@@ -4896,8 +4735,8 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Ausgewählte Fördereinrichtung",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Ausgewählte Förderung",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Selected Issue",
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Ausgewählte Ausgabe",
 
@@ -4950,12 +4789,10 @@
   "submission.sections.ccLicense.option.select": "Wählen Sie eine Option…",
 
   // "submission.sections.ccLicense.link": "You’ve selected the following license:",
-  // TODO New key - Add a translation
-  "submission.sections.ccLicense.link": "You’ve selected the following license:",
+  "submission.sections.ccLicense.link": "Sie haben die folgende Lizenz ausgewählt:",
 
   // "submission.sections.ccLicense.confirmation": "I grant the license above",
-  // TODO New key - Add a translation
-  "submission.sections.ccLicense.confirmation": "I grant the license above",
+  "submission.sections.ccLicense.confirmation": "Ich erteile die oben genannte Lizenz",
 
   // "submission.sections.general.add-more": "Add more",
   "submission.sections.general.add-more": "Mehr Hinzufügen",
@@ -4964,7 +4801,7 @@
   "submission.sections.general.collection": "Sammlung",
 
   // "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
-  "submission.sections.general.deposit_error_notice": "Beim Einreichen der Ressource ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
+  "submission.sections.general.deposit_error_notice": "Beim Einreichen des Items ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
   "submission.sections.general.deposit_success_notice": "Veröffentlichung erfolgreich eingereicht",
@@ -4988,7 +4825,7 @@
   "submission.sections.general.no-sections": "Es stehen keine Optionen zur Verfügung",
 
   // "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
-  "submission.sections.general.save_error_notice": "Beim Speichern der Ressource ist ein Fehler aufgetreten, bitte versuchen Sie es später noch einmal.",
+  "submission.sections.general.save_error_notice": "Beim Speichern des Items ist ein Fehler aufgetreten, bitte versuchen Sie es später noch einmal.",
 
   // "submission.sections.general.save_success_notice": "Submission saved successfully.",
   "submission.sections.general.save_success_notice": "Einreichung erfolgreich gespeichert.",
@@ -5002,7 +4839,6 @@
 
 
   // "submission.sections.submit.progressbar.CClicense": "Creative commons license",
-  // TODO New key - Add a translation
   "submission.sections.submit.progressbar.CClicense": "Creative commons license",
 
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
@@ -5044,7 +4880,7 @@
   "submission.sections.upload.delete.submit": "Löschen",
 
   // "submission.sections.upload.drop-message": "Drop files to attach them to the item",
-  "submission.sections.upload.drop-message": "Dateien herüberziehen, um sie der Ressource hinzuzufügen",
+  "submission.sections.upload.drop-message": "Dateien herüberziehen, um sie dem Item hinzuzufügen",
 
   // "submission.sections.upload.form.access-condition-label": "Access condition type",
   "submission.sections.upload.form.access-condition-label": "Zugriffsbedingung Typ",
@@ -5053,7 +4889,6 @@
   "submission.sections.upload.form.date-required": "Datum erforderlich.",
 
   // "submission.sections.upload.form.from-label": "Grant access from",
-  // TODO Source message changed - Revise the translation
   "submission.sections.upload.form.from-label": "Zugriff gewährt ab",
 
   // "submission.sections.upload.form.from-placeholder": "From",
@@ -5066,7 +4901,6 @@
   "submission.sections.upload.form.group-required": "Gruppe ist erforderlich",
 
   // "submission.sections.upload.form.until-label": "Grant access until",
-  // TODO Source message changed - Revise the translation
   "submission.sections.upload.form.until-label": "Zugriff gewährt bis",
 
   // "submission.sections.upload.form.until-placeholder": "Until",
@@ -5079,7 +4913,7 @@
   "submission.sections.upload.header.policy.default.withlist": "Bitte beachten Sie, dass in diese Sammlung {{collectionName}} hochgeladene Dateien zugüglich zu dem, was für einzelne Dateien entschieden wurde, für folgende Gruppe(n) zugänglich sein:",
 
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
-  "submission.sections.upload.info": "Hier finden Sie alle Dateien, die aktuell zur Ressource gehören. Sie können die Metadaten und Zugriffsrechte bearbeiten oder <strong>weitere Dateien hinzufügen, indem Sie sie einfach irgenwo auf diese Seite ziehen.</strong>",
+  "submission.sections.upload.info": "Hier finden Sie alle Dateien, die aktuell zum Item gehören. Sie können die Metadaten und Zugriffsrechte bearbeiten oder <strong>weitere Dateien hinzufügen, indem Sie sie einfach irgenwo auf diese Seite ziehen.</strong>",
 
   // "submission.sections.upload.no-entry": "No",
   "submission.sections.upload.no-entry": "Kein Eintrag",
@@ -5110,19 +4944,19 @@
   "submission.workflow.generic.delete": "Löschen",
 
   // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
-  "submission.workflow.generic.delete-help": "Wenn Sie die Ressource verwerfen möchten, wählen Sie \"Löschen\". Sie werden dies noch einmal gefragt, um die Aktion zu bestätigen.",
+  "submission.workflow.generic.delete-help": "Wenn Sie das Item verwerfen möchten, wählen Sie \"Löschen\". Sie werden dies noch einmal gefragt, um die Aktion zu bestätigen.",
 
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Bearbeiten",
 
   // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
-  "submission.workflow.generic.edit-help": "Wählen Sie diese Option, um die Metadaten der Ressource zu bearbeiten.",
+  "submission.workflow.generic.edit-help": "Wählen Sie diese Option, um die Metadaten des Items zu bearbeiten.",
 
   // "submission.workflow.generic.view": "View",
   "submission.workflow.generic.view": "Anzeige",
 
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
-  "submission.workflow.generic.view-help": "Wählen Sie diese Option, um die Metadaten der Ressourcen anzuzeigen",
+  "submission.workflow.generic.view-help": "Wählen Sie diese Option, um die Metadaten des Items anzuzeigen",
 
 
 
@@ -5130,22 +4964,22 @@
   "submission.workflow.tasks.claimed.approve": "Zustimmen",
 
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
-  "submission.workflow.tasks.claimed.approve_help": "Wenn Sie die Ressource begutachtet haben und die Aufnahme in die Sammlung befürworten, wählen Sie \"Zustimmen\".",
+  "submission.workflow.tasks.claimed.approve_help": "Wenn Sie das Item begutachtet haben und die Aufnahme in die Sammlung befürworten, wählen Sie \"Zustimmen\".",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "Bearbeiten",
 
   // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
-  "submission.workflow.tasks.claimed.edit_help": "Wählen Sie diese Option, um die Metadaten der Ressource zu bearbeiten.",
+  "submission.workflow.tasks.claimed.edit_help": "Wählen Sie diese Option, um die Metadaten des Items zu bearbeiten.",
 
   // "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
-  "submission.workflow.tasks.claimed.reject.reason.info": "Bitte geben Sie den Grund für die Ablehnung der eingereichten Ressource in das Feld unten ein. Bitte geben Sie an ob und wie der/die Einreichenden das Problem beheben und die Ressource erneut einreichen kann.",
+  "submission.workflow.tasks.claimed.reject.reason.info": "Bitte geben Sie den Grund für die Ablehnung der eingereichten Ressource in das Feld unten ein. Bitte geben Sie an ob und wie der:die Einreichende:n das Problem beheben und die Ressource erneut einreichen kann.",
 
   // "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describe the reason of reject",
   "submission.workflow.tasks.claimed.reject.reason.placeholder": "Beschreiben Sie den Grund für die Ablehnung",
 
   // "submission.workflow.tasks.claimed.reject.reason.submit": "Reject item",
-  "submission.workflow.tasks.claimed.reject.reason.submit": "Ressource ablehnen",
+  "submission.workflow.tasks.claimed.reject.reason.submit": "Item ablehnen",
 
   // "submission.workflow.tasks.claimed.reject.reason.title": "Reason",
   "submission.workflow.tasks.claimed.reject.reason.title": "Grund",
@@ -5154,7 +4988,7 @@
   "submission.workflow.tasks.claimed.reject.submit": "Ablehnen",
 
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  "submission.workflow.tasks.claimed.reject_help": "Wenn Sie die Ressource begutachtet und als <strong>ungeeignet</strong> für die Aufnahme in die Sammlung befunden haben, wählen Sie \"Ablehnen\".  Sie haben dann die Möglichkeit dem/der Einreichenden, den Grund für die Ablehnung zu erklären und ob es eine Möglichkeit gibt, durch entsprechenden Änderungen die Ressource erneut einzureichen.",
+  "submission.workflow.tasks.claimed.reject_help": "Wenn Sie das Item begutachtet und als <strong>ungeeignet</strong> für die Aufnahme in die Sammlung befunden haben, wählen Sie \"Ablehnen\".  Sie haben dann die Möglichkeit dem:der Einreichenden, den Grund für die Ablehnung zu erklären und ob es eine Möglichkeit gibt, durch entsprechenden Änderungen das Item erneut einzureichen.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Zurück in den gemeinsamen Aufgabenbereich",
@@ -5171,7 +5005,7 @@
   "submission.workflow.tasks.generic.processing": "Verarbeitung läuft...",
 
   // "submission.workflow.tasks.generic.submitter": "Submitter",
-  "submission.workflow.tasks.generic.submitter": "Einreichende(r)",
+  "submission.workflow.tasks.generic.submitter": "Einreichende:r",
 
   // "submission.workflow.tasks.generic.success": "Operation successful",
   "submission.workflow.tasks.generic.success": "Aktion erfolgreich",
@@ -5198,32 +5032,25 @@
 
 
   // "vocabulary-treeview.header": "Hierarchical tree view",
-  // TODO New key - Add a translation
-  "vocabulary-treeview.header": "Hierarchical tree view",
+  "vocabulary-treeview.header": "Hierarchische Baumstruktur",
 
   // "vocabulary-treeview.load-more": "Load more",
-  // TODO New key - Add a translation
-  "vocabulary-treeview.load-more": "Load more",
+  "vocabulary-treeview.load-more": "Mehr laden",
 
   // "vocabulary-treeview.search.form.reset": "Reset",
-  // TODO New key - Add a translation
-  "vocabulary-treeview.search.form.reset": "Reset",
+  "vocabulary-treeview.search.form.reset": "Zurücksetzen",
 
   // "vocabulary-treeview.search.form.search": "Search",
-  // TODO New key - Add a translation
-  "vocabulary-treeview.search.form.search": "Search",
+  "vocabulary-treeview.search.form.search": "Suche",
 
   // "vocabulary-treeview.search.no-result": "There were no items to show",
-  // TODO New key - Add a translation
-  "vocabulary-treeview.search.no-result": "There were no items to show",
+  "vocabulary-treeview.search.no-result": "Es gibt keine Items zu zeigen",
 
   // "vocabulary-treeview.tree.description.nsi": "The Norwegian Science Index",
-  // TODO New key - Add a translation
-  "vocabulary-treeview.tree.description.nsi": "The Norwegian Science Index",
+  "vocabulary-treeview.tree.description.nsi": "Der norwegische Wissenschaftsindex",
 
   // "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
-  // TODO New key - Add a translation
-  "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
+  "vocabulary-treeview.tree.description.srsc": "Kategorien von Forschungsthemen",
 
 
 
@@ -5234,8 +5061,7 @@
   "uploader.drag-message": "Ziehen Sie Ihre Dateien hierhin",
 
   // "uploader.or": ", or ",
-  // TODO Source message changed - Revise the translation
-  "uploader.or": " oder",
+  "uploader.or": ", oder",
 
   // "uploader.processing": "Processing",
   "uploader.processing": "Bearbeitung läuft",
@@ -5250,80 +5076,62 @@
   "virtual-metadata.delete-item.modal-head": "Virtuelle Metadaten dieser Relation",
 
   // "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
-  "virtual-metadata.delete-relationship.modal-head": "Wählen Sie die Ressourcen für die Sie die virtuellen Metadaten als reelle Metadaten speichern wollen",
+  "virtual-metadata.delete-relationship.modal-head": "Wählen Sie die Items für die Sie die virtuellen Metadaten als reelle Metadaten speichern wollen",
 
 
 
   // "workflowAdmin.search.results.head": "Administer Workflow",
-  // TODO New key - Add a translation
-  "workflowAdmin.search.results.head": "Administer Workflow",
+  "workflowAdmin.search.results.head": "Workflow verwalten",
 
 
 
   // "workflow-item.delete.notification.success.title": "Deleted",
-  // TODO New key - Add a translation
-  "workflow-item.delete.notification.success.title": "Deleted",
+  "workflow-item.delete.notification.success.title": "Gelöscht",
 
   // "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
-  // TODO New key - Add a translation
-  "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
+  "workflow-item.delete.notification.success.content": "Dieses Workflow-Item wurde erfolgreich gelöscht",
 
   // "workflow-item.delete.notification.error.title": "Something went wrong",
-  // TODO New key - Add a translation
-  "workflow-item.delete.notification.error.title": "Something went wrong",
+  "workflow-item.delete.notification.error.title": "Etwas ist schief gelaufen",
 
   // "workflow-item.delete.notification.error.content": "The workflow item could not be deleted",
-  // TODO New key - Add a translation
-  "workflow-item.delete.notification.error.content": "The workflow item could not be deleted",
+  "workflow-item.delete.notification.error.content": "Das Workflow-Item konnte nicht gelöscht werden",
 
   // "workflow-item.delete.title": "Delete workflow item",
-  // TODO New key - Add a translation
-  "workflow-item.delete.title": "Delete workflow item",
+  "workflow-item.delete.title": "Workflow-Item löschen",
 
   // "workflow-item.delete.header": "Delete workflow item",
-  // TODO New key - Add a translation
-  "workflow-item.delete.header": "Delete workflow item",
+  "workflow-item.delete.header": "Workflow-Item löschen",
 
   // "workflow-item.delete.button.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "workflow-item.delete.button.cancel": "Cancel",
+  "workflow-item.delete.button.cancel": "Abbrechen",
 
   // "workflow-item.delete.button.confirm": "Delete",
-  // TODO New key - Add a translation
-  "workflow-item.delete.button.confirm": "Delete",
+  "workflow-item.delete.button.confirm": "Löschen",
 
 
   // "workflow-item.send-back.notification.success.title": "Sent back to submitter",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.notification.success.title": "Sent back to submitter",
+  "workflow-item.send-back.notification.success.title": "An die:den Einreichende:n zurückgeschickt",
 
   // "workflow-item.send-back.notification.success.content": "This workflow item was successfully sent back to the submitter",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.notification.success.content": "This workflow item was successfully sent back to the submitter",
+  "workflow-item.send-back.notification.success.content": "Dieses Workflow-Item wurde erfolgreich an die:den Einreichende:n zurückgeschickt",
 
   // "workflow-item.send-back.notification.error.title": "Something went wrong",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.notification.error.title": "Something went wrong",
+  "workflow-item.send-back.notification.error.title": "Etwas ist schief gelaufen",
 
   // "workflow-item.send-back.notification.error.content": "The workflow item could not be sent back to the submitter",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.notification.error.content": "The workflow item could not be sent back to the submitter",
+  "workflow-item.send-back.notification.error.content": "Das Workflow-Item konnte nicht an die:den Einreichende:n zurückgeschickt werden",
 
   // "workflow-item.send-back.title": "Send workflow item back to submitter",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.title": "Send workflow item back to submitter",
+  "workflow-item.send-back.title": "Workflow-Item an die:den Einreichende:n zurücksenden",
 
   // "workflow-item.send-back.header": "Send workflow item back to submitter",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.header": "Send workflow item back to submitter",
+  "workflow-item.send-back.header": "Workflow-Item an die:den Einreichende:n zurücksenden",
 
   // "workflow-item.send-back.button.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.button.cancel": "Cancel",
+  "workflow-item.send-back.button.cancel": "Abbrechen",
 
   // "workflow-item.send-back.button.confirm": "Send back"
-  // TODO New key - Add a translation
-  "workflow-item.send-back.button.confirm": "Send back"
-
+  "workflow-item.send-back.button.confirm": "Zurücksenden"
 
 }

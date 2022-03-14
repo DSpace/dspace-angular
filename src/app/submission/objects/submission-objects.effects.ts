@@ -11,7 +11,7 @@ import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/w
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import {isEmpty, isNotEmpty, isNotUndefined, isUndefined} from '../../shared/empty.util';
+import { isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SectionsType } from '../sections/sections-type';
 import { SectionsService } from '../sections/sections.service';
@@ -525,7 +525,7 @@ export class SubmissionObjectEffects {
     const mappedActions = [];
     let errorsList = Object.create({});
 
-    if (errors && !isEmpty(errors)) {
+    if (errors && isNotEmpty(errors)) {
       // to avoid dispatching an action for every error, create an array of errors per section
       errorsList = parseSectionErrors(errors);
     }
