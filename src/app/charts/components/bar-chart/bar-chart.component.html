@@ -2,7 +2,8 @@
      [class.pr-3]="enableScrollToRight && hasScrollbar">
   <div class="scroll-class" #chartArea>
     <ng-container *ngIf="type === defaultChartType; else horizontalChartType" >
-      <ngx-charts-bar-vertical [view]="view"
+      <ngx-charts-bar-vertical
+        [view]="view"
         [results]="getResults()"
         [animations]="animations"
         [legend]="legend"

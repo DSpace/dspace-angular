@@ -40,7 +40,7 @@ export class BarChartComponent extends AbstractChartComponent implements OnInit 
    */
   private chartContainerWidth: number;
 
-  defaultChartType : ChartType = ChartType.BAR
+  defaultChartType: ChartType = ChartType.BAR;
 
   /**
    * Initialize the component, setting up the bundle and bitstream within the item
