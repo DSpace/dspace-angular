@@ -2,6 +2,7 @@
 
 import 'zone.js/testing';
 import { getTestBed } from '@angular/core/testing';
+import { MockStore } from '@ngrx/store/testing';
 import {
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting
@@ -12,10 +13,15 @@ declare const require: any;
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting(), {
-    teardown: { destroyAfterEach: false }
-}
+  platformBrowserDynamicTesting(),
+  { teardown: { destroyAfterEach: false } }
 );
+
+// If store is mocked, reset state after each test (see https://ngrx.io/guide/migration/v13)
+jasmine.getEnv().afterEach(() => {
+  getTestBed().inject(MockStore, null)?.resetSelectors();
+});
+
 // Then we find all the tests.
 const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.

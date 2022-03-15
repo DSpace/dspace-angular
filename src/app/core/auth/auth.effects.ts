@@ -67,7 +67,6 @@ export class AuthEffects {
    * Authenticate user.
    * @method authenticate
    */
-  
   public authenticate$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATE),
     switchMap((action: AuthenticateAction) => {
@@ -79,13 +78,11 @@ export class AuthEffects {
     })
   ));
 
-  
   public authenticateSuccess$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATE_SUCCESS),
     map((action: AuthenticationSuccessAction) => new AuthenticatedAction(action.payload))
   ));
 
-  
   public authenticated$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATED),
     switchMap((action: AuthenticatedAction) => {
@@ -95,7 +92,6 @@ export class AuthEffects {
     })
   ));
 
-  
   public authenticatedSuccess$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATED_SUCCESS),
     tap((action: AuthenticatedSuccessAction) => this.authService.storeToken(action.payload.authToken)),
@@ -112,7 +108,6 @@ export class AuthEffects {
     })
   ));
 
-  
   public redirectAfterLoginSuccess$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.REDIRECT_AFTER_LOGIN_SUCCESS),
     tap((action: RedirectAfterLoginSuccessAction) => {
@@ -122,13 +117,11 @@ export class AuthEffects {
   ), { dispatch: false });
 
   // It means "reacts to this action but don't send another"
-  
   public authenticatedError$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATED_ERROR),
     tap((action: LogOutSuccessAction) => this.authService.removeToken())
   ), { dispatch: false });
 
-  
   public retrieveAuthenticatedEperson$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON),
     switchMap((action: RetrieveAuthenticatedEpersonAction) => {
@@ -145,7 +138,6 @@ export class AuthEffects {
     })
   ));
 
-  
   public checkToken$: Observable<Action> = createEffect(() => this.actions$.pipe(ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN),
     switchMap(() => {
       return this.authService.hasValidAuthenticationToken().pipe(
@@ -155,7 +147,6 @@ export class AuthEffects {
     })
   ));
 
-  
   public checkTokenCookie$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE),
     switchMap(() => {
@@ -173,7 +164,6 @@ export class AuthEffects {
     })
   ));
 
-  
   public retrieveToken$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.RETRIEVE_TOKEN),
     switchMap((action: AuthenticateAction) => {
@@ -185,7 +175,6 @@ export class AuthEffects {
     })
   ));
 
-  
   public refreshToken$: Observable<Action> = createEffect(() => this.actions$.pipe(ofType(AuthActionTypes.REFRESH_TOKEN),
     switchMap((action: RefreshTokenAction) => {
       return this.authService.refreshAuthenticationToken(action.payload).pipe(
@@ -196,7 +185,6 @@ export class AuthEffects {
   ));
 
   // It means "reacts to this action but don't send another"
-  
   public refreshTokenSuccess$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.REFRESH_TOKEN_SUCCESS),
     tap((action: RefreshTokenSuccessAction) => this.authService.replaceToken(action.payload))
@@ -206,13 +194,12 @@ export class AuthEffects {
    * When the store is rehydrated in the browser,
    * clear a possible invalid token or authentication errors
    */
-  
   public clearInvalidTokenOnRehydrate$: Observable<any> = createEffect(() => this.actions$.pipe(
     ofType(StoreActionTypes.REHYDRATE),
     switchMap(() => {
       const isLoaded$ = this.store.pipe(select(isAuthenticatedLoaded));
       const authenticated$ = this.store.pipe(select(isAuthenticated));
-      return observableCombineLatest(isLoaded$, authenticated$).pipe(
+      return observableCombineLatest([isLoaded$, authenticated$]).pipe(
         take(1),
         filter(([loaded, authenticated]) => loaded && !authenticated),
         tap(() => this.authService.removeToken()),
@@ -230,7 +217,6 @@ export class AuthEffects {
       tap(() => this.authorizationsService.invalidateAuthorizationsRequestCache())
     ), { dispatch: false });
 
-  
   public logOut$: Observable<Action> = createEffect(() => this.actions$
     .pipe(
       ofType(AuthActionTypes.LOG_OUT),
@@ -243,7 +229,6 @@ export class AuthEffects {
       })
     ));
 
-  
   public logOutSuccess$: Observable<Action> = createEffect(() => this.actions$
     .pipe(ofType(AuthActionTypes.LOG_OUT_SUCCESS),
       tap(() => this.authService.removeToken()),
@@ -251,7 +236,6 @@ export class AuthEffects {
       tap(() => this.authService.refreshAfterLogout())
     ), { dispatch: false });
 
-  
   public redirectToLoginTokenExpired$: Observable<Action> = createEffect(() => this.actions$
     .pipe(
       ofType(AuthActionTypes.REDIRECT_TOKEN_EXPIRED),
@@ -259,7 +243,6 @@ export class AuthEffects {
       tap(() => this.authService.redirectToLoginWhenTokenExpired())
     ), { dispatch: false });
 
-  
   public retrieveMethods$: Observable<Action> = createEffect(() => this.actions$
     .pipe(
       ofType(AuthActionTypes.RETRIEVE_AUTH_METHODS),
@@ -278,7 +261,6 @@ export class AuthEffects {
    * => Return the action to set the user as idle ({@link SetUserAsIdleAction})
    * @method trackIdleness
    */
-  
   public trackIdleness$: Observable<Action> = createEffect(() => this.actions$.pipe(
     filter((action: Action) => !IDLE_TIMER_IGNORE_TYPES.includes(action.type)),
     // Using switchMap the effect will stop subscribing to the previous timer if a new action comes
