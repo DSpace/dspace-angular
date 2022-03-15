@@ -174,12 +174,6 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   // Default Language in which the UI will be rendered if the user's browser language is not an active language
-<<<<<<< HEAD
- // defaultLanguage = 'en';
-=======
-  defaultLanguage = 'es';
->>>>>>> 37e9ed19f6159c3e80d7e8b527c317f78599e210
-
   defaultLanguage = 'es';
   
   // Languages. DSpace Angular holds a message catalog for each of the following languages.
