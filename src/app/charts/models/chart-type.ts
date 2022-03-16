@@ -2,5 +2,5 @@ export enum ChartType {
   BAR = 'BAR',
   LINE = 'LINE',
   PIE = 'PIE',
-  HORIZONTAL = 'HORIZONTAL'
+  BAR_HORIZONTAL = 'BAR-HORIZONTAL'
 }

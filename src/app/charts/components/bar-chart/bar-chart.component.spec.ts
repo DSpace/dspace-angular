@@ -39,7 +39,7 @@ xdescribe('BarChartComponent', () => {
   const enableScrollToRight = false;
   const isLastPage = observableOf(false);
   const currentPage = observableOf(1);
-  const type: ChartType.BAR | ChartType.HORIZONTAL = ChartType.BAR;
+  const type: ChartType.BAR | ChartType.BAR_HORIZONTAL = ChartType.BAR;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -82,7 +82,7 @@ xdescribe('BarChartComponent', () => {
   });
 
   it('should render ngx-charts-bar-horizontal', (done) => {
-    component.type = ChartType.HORIZONTAL;
+    component.type = ChartType.BAR_HORIZONTAL;
     const chartTag = fixture.debugElement.query(By.css('ngx-charts-bar-horizontal'));
     expect(chartTag.nativeElement).toBeDefined();
     done();

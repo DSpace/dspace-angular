@@ -14,7 +14,7 @@ import { ChartSeries } from '../../models/chart-series';
   animations: [fadeIn],
 })
 @renderChartFor(ChartType.BAR)
-@renderChartFor(ChartType.HORIZONTAL)
+@renderChartFor(ChartType.BAR_HORIZONTAL)
 export class BarChartComponent extends AbstractChartComponent implements OnInit {
 
   /**
