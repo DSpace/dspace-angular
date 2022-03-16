@@ -1,32 +1,36 @@
-import { SearchConfigurationServiceStub } from './../../../../testing/search-configuration-service.stub';
-import { RemoteDataBuildService } from './../../../../../core/cache/builders/remote-data-build.service';
-import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from './../../../../../core/shared/search/search-filter.service';
-import { RouterStub } from './../../../../testing/router.stub';
-import { SearchServiceStub } from './../../../../testing/search-service.stub';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
+import {
+  FILTER_CONFIG,
+  IN_PLACE_SEARCH,
+  SearchFilterService,
+} from '../../../../../core/shared/search/search-filter.service';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { RouterStub } from '../../../../testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
+import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { FacetValue } from '../../../models/facet-value.model';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { of as observableOf } from 'rxjs';
 import { SearchChartHorizontalComponent } from './search-chart-horizontal.component';
-import { Router } from '@angular/router';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 
-describe('SearchChartHorizontalComponent', () => {
-  let component: SearchChartHorizontalComponent;
+xdescribe('SearchChartHorizontalComponent', () => {
+  let comp: SearchChartHorizontalComponent;
   let fixture: ComponentFixture<SearchChartHorizontalComponent>;
   const filterName1 = 'test name';
-  const value1 = 'testvalue1';
-  const value2 = 'test2';
-  const value3 = 'another value3';
+  const value1 = 'Value 1';
+  const value2 = 'Value 2';
+  const value3 = 'Value 3';
   const mockFilterConfig: SearchFilterConfig = Object.assign(
     new SearchFilterConfig(),
     {
@@ -85,8 +89,8 @@ describe('SearchChartHorizontalComponent', () => {
   let searchService;
   let router;
   const page = observableOf(0);
-  const mockValues = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), values));
 
+  const mockValues = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), values));
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
@@ -126,36 +130,18 @@ describe('SearchChartHorizontalComponent', () => {
       .compileComponents();
   }));
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ SearchChartHorizontalComponent ]
-    })
-    .compileComponents();
-  });
-
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchChartHorizontalComponent);
-    component = fixture.componentInstance;
-    component.filterConfig = mockFilterConfig;
-    filterService = (component as any).filterService;
-    searchService = (component as any).searchService;
+    comp = fixture.componentInstance; // SearchChartHorizontalComponent test instance
+    comp.filterConfig = mockFilterConfig;
+    filterService = (comp as any).filterService;
+    searchService = (comp as any).searchService;
     spyOn(searchService, 'getFacetValuesFor').and.returnValue(mockValues);
-    router = (component as any).router;
+    router = (comp as any).router;
     fixture.detectChanges();
   });
 
   it('should create SearchChartHorizontalComponent', () => {
-    expect(component).toBeTruthy();
-  });
-
-  describe('SearchChartHorizontalComponent filterConfig.type should be chart.bar.horizontal', () => {
-    beforeEach(() => {
-      fixture = TestBed.createComponent(SearchChartHorizontalComponent);
-      component = fixture.componentInstance; // SearchChartHorizontalComponent test instance
-
-      it(' filterConfig.type should be chart.bar.horizontal', () => {
-        expect(component.filterConfig.filterType).toEqual(FilterType['chart.bar.horizontal']);
-      });
-    });
+    expect(comp).toBeTruthy();
   });
 });
