@@ -14,9 +14,18 @@ import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.model';
 import { UIServerConfig } from './ui-server-config.interface';
+import { UniversalConfig } from './universal-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
+  rpp: 5
   production = false;
+
+  // Angular Universal settings
+  universal: UniversalConfig = {
+    preboot: true,
+    async: true,
+    time: false
+  };
 
   // NOTE: will log all redux actions and transfers in console
   debug = false;

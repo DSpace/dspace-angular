@@ -46,8 +46,8 @@ export class RecentItemListComponent implements OnInit {
     this.paginationConfig.id = 'rs';
     this.paginationConfig.maxSize = 0;
 
-    this.paginationConfig.pageSize = environment.rpp;
-   //this.paginationConfig.pageSize =new DefaultAppConfig().rpp; 
+    //this.paginationConfig.pageSize = environment.rpp;
+   this.paginationConfig.pageSize =new DefaultAppConfig().rpp; 
    this.paginationConfig.currentPage = 1;
     this.sortConfig = new SortOptions('dc.date.accessioned', SortDirection.DESC);
   }
