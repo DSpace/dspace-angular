@@ -10,6 +10,7 @@ import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model'
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
 
 let comp: ItemEditBitstreamComponent;
 let fixture: ComponentFixture<ItemEditBitstreamComponent>;
@@ -114,6 +115,12 @@ describe('ItemEditBitstreamComponent', () => {
   describe('when canUndo is called', () => {
     it('should return false', () => {
       expect(comp.canUndo()).toEqual(false);
+    });
+  });
+
+  describe('when the component loads', () => {
+    it('should contain bitstreamDownloadUrl with the correct url to the bitstream\'s download page', () => {
+      expect(comp.bitstreamDownloadUrl).toEqual(getBitstreamDownloadRoute(bitstream));
     });
   });
 });
