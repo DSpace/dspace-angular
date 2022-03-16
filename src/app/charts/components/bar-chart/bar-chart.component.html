@@ -1,9 +1,9 @@
 <div class="chart-container"
      [class.pr-3]="enableScrollToRight && hasScrollbar">
-  <div class="scroll-class" #chartArea>
+  <div class="scroll-class" #chartArea #chartContainer>
     <ng-container *ngIf="type === defaultChartType; else horizontalChartType" >
       <ngx-charts-bar-vertical
-        [view]="view"
+        [view]="view.length == 0 ? [chartContainer.offsetWidth] : view"
         [results]="getResults()"
         [animations]="animations"
         [legend]="legend"
@@ -16,7 +16,7 @@
     </ng-container>
     <ng-template #horizontalChartType>
       <ngx-charts-bar-horizontal
-        [view]="view"
+        [view]="view.length == 0 ? [chartContainer.offsetWidth] : view"
         [animations]="animations"
         [results]="getResults()"
         [xAxis]="xAxis"
