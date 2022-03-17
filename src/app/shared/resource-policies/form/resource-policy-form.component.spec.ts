@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
@@ -30,6 +31,14 @@ import { ResourcePolicy } from '../../../core/resource-policy/models/resource-po
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { EPersonMock } from '../../testing/eperson.mock';
 import { isNotEmptyOperator } from '../../empty.util';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RouterMock } from '../../mocks/router.mock';
+import { Store } from '@ngrx/store';
+import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreMock } from '../../testing/store.mock';
 
 export const mockResourcePolicyFormData = {
   name: [
@@ -156,12 +165,23 @@ describe('ResourcePolicyFormComponent test suite', () => {
     findAll: jasmine.createSpy('findAll')
   });
 
+  const mockPolicyRD: RemoteData<ResourcePolicy> = createSuccessfulRemoteDataObject(resourcePolicy);
+  const activatedRouteStub = {
+    parent: {
+      data: observableOf({
+        dso: mockPolicyRD
+      })
+    }
+  };
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
         CommonModule,
         FormsModule,
+        NgbModule,
+        NoopAnimationsModule,
         ReactiveFormsModule,
         TranslateModule.forRoot()
       ],
@@ -172,9 +192,13 @@ describe('ResourcePolicyFormComponent test suite', () => {
         TestComponent
       ],
       providers: [
+        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: Router, useValue: new RouterMock() },
+        { provide: Store, useValue: StoreMock },
         { provide: EPersonDataService, useValue: epersonService },
         { provide: FormService, useValue: formService },
         { provide: GroupDataService, useValue: groupService },
+        { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: RequestService, useValue: getMockRequestService() },
         FormBuilderService,
         ChangeDetectorRef,

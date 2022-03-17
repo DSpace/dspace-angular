@@ -5,6 +5,7 @@ import { WorkflowItemSearchResultAdminWorkflowGridElementComponent } from './adm
 import { WorkflowItemAdminWorkflowActionsComponent } from './admin-workflow-search-results/workflow-item-admin-workflow-actions.component';
 import { WorkflowItemSearchResultAdminWorkflowListElementComponent } from './admin-workflow-search-results/admin-workflow-search-result-list-element/workflow-item/workflow-item-search-result-admin-workflow-list-element.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page.component';
+import { SearchModule } from '../../shared/search/search.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -14,6 +15,7 @@ const ENTRY_COMPONENTS = [
 
 @NgModule({
   imports: [
+    SearchModule,
     SharedModule.withEntryComponents()
   ],
   declarations: [
@@ -28,7 +30,7 @@ const ENTRY_COMPONENTS = [
 export class AdminWorkflowModuleModule {
   /**
    * NOTE: this method allows to resolve issue with components that using a custom decorator
-   * which are not loaded during CSR otherwise
+   * which are not loaded during SSR otherwise
    */
   static withEntryComponents() {
     return {

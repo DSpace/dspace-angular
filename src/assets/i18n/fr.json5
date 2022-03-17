@@ -1622,6 +1622,19 @@
   // "dso-selector.placeholder": "Search for a {{ type }}",
   "dso-selector.placeholder": "Rechercher un(e) {{ type }}",
 
+  // "dso-selector.select.collection.head": "Select a collection",
+  "dso-selector.select.collection.head": "Sélectionner une collection",
+
+  // "dso-selector.set-scope.community.head": "Select a search scope",
+  "dso-selector.set-scope.community.head": "Sélectionnez un champ de recherche",
+
+  // "dso-selector.set-scope.community.button": "Search all of DSpace",
+  "dso-selector.set-scope.community.button": "Chercher dans toutes les collections",
+
+  // "dso-selector.set-scope.community.input-header": "Search for a community or collection",
+  "dso-selector.set-scope.community.input-header": "Chercher une communauté ou une collection",
+  
+    
 
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
   "confirmation-modal.export-metadata.header": "Exporter métadonnées de {{ dsoName }}",
@@ -4282,11 +4295,31 @@
   // "sorting.dc.title.DESC": "Title Descending",
   "sorting.dc.title.DESC": "Titre décroissant",
 
-  // "sorting.score.DESC": "Relevance",
-  "sorting.score.DESC": "Pertinence",
+  // "sorting.score.ASC": "Least Relevant",
+  "sorting.score.ASC": "Le moins pertinent",
+  
+  // "sorting.score.DESC": "Most Relevant",
+  "sorting.score.DESC": "Le plus pertinent",
+  
+  // "sorting.dc.date.issued.ASC": "Date Issued Ascending",
+  "sorting.dc.date.issued.ASC": "Date de publication (croissante)",
+  
+  //  "sorting.dc.date.issued.DESC": "Date Issued Descending",
+ "sorting.dc.date.issued.DESC": "Date de publication (decroissante)",
+  
+   // "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
+  "sorting.dc.date.accessioned.ASC": "Date de dépôt (croissante)",
+  
+  //  "sorting.dc.date.accessioned.DESC": "Accessioned Date Descending",
+  "sorting.dc.date.accessioned.DESC": "Date de dépôt (decroissante)",
+  
+  // "sorting.lastModified.ASC": "Last modified Ascending",
+  "sorting.lastModified.ASC": "Dernière modification (croissante)",
 
-
-
+  // "sorting.lastModified.DESC": "Last modified Descending",
+  "sorting.lastModified.ASC": "Dernière modification (descroissante)",
+  
+  
   // "statistics.title": "Statistics",
   "statistics.title": "Statistiques",
 

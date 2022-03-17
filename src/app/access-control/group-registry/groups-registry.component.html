@@ -48,6 +48,7 @@
             <tr>
               <th scope="col">{{messagePrefix + 'table.id' | translate}}</th>
               <th scope="col">{{messagePrefix + 'table.name' | translate}}</th>
+              <th scope="col">{{messagePrefix + 'table.collectionOrCommunity' | translate}}</th>
               <th scope="col">{{messagePrefix + 'table.members' | translate}}</th>
               <th>{{messagePrefix + 'table.edit' | translate}}</th>
             </tr>
@@ -56,6 +57,7 @@
             <tr *ngFor="let groupDto of (groupsDto$ | async)?.page">
               <td>{{groupDto.group.id}}</td>
               <td>{{groupDto.group.name}}</td>
+              <td>{{(groupDto.group.object | async)?.payload?.name}}</td>
               <td>{{groupDto.epersons?.totalElements + groupDto.subgroups?.totalElements}}</td>
               <td>
                 <div class="btn-group edit-field">

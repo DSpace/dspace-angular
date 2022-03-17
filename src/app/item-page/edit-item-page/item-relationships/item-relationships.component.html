@@ -27,6 +27,8 @@
               [item]="item"
               [itemType]="entityType$ | async"
               [relationshipType]="relationshipType"
+              [hasChanges] = hasChanges()
+              (submit) = submit()
             ></ds-edit-relationship-list>
           </div>
         </ng-container>

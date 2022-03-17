@@ -7,7 +7,7 @@ import { PostRequest } from './request.models';
 import { Registration } from '../shared/registration.model';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 describe('EpersonRegistrationService', () => {
@@ -90,10 +90,12 @@ describe('EpersonRegistrationService', () => {
       const expected = service.searchByToken('test-token');
 
       expect(expected).toBeObservable(cold('(a|)', {
-        a: Object.assign(new Registration(), {
-          email: registrationWithUser.email,
-          token: 'test-token',
-          user: registrationWithUser.user
+        a: jasmine.objectContaining({
+          payload: Object.assign(new Registration(), {
+            email: registrationWithUser.email,
+            token: 'test-token',
+            user: registrationWithUser.user
+          })
         })
       }));
     });
