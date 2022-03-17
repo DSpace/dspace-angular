@@ -11,6 +11,7 @@ import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
+import { By } from '@angular/platform-browser';
 
 let comp: ItemEditBitstreamComponent;
 let fixture: ComponentFixture<ItemEditBitstreamComponent>;
@@ -119,8 +120,10 @@ describe('ItemEditBitstreamComponent', () => {
   });
 
   describe('when the component loads', () => {
-    it('should contain bitstreamDownloadUrl with the correct url to the bitstream\'s download page', () => {
-      expect(comp.bitstreamDownloadUrl).toEqual(getBitstreamDownloadRoute(bitstream));
+    it('the download button should contain the link to the bitstreams download page', () => {
+      fixture.detectChanges();
+      const downloadBtnHref = fixture.debugElement.query(By.css('[data-test="download-button"]')).nativeElement.getAttribute('href');
+      expect(downloadBtnHref).toEqual(comp.bitstreamDownloadUrl);
     });
   });
 });
