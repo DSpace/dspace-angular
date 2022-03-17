@@ -78,8 +78,8 @@ describe('New Submission page', () => {
             // This is the GET command that will actually run the search
             cy.intercept('GET', '/server/api/discover/search/objects*').as('search-results');
             // On MyDSpace, find the submission we just saved via its ID
-            cy.get('[data-e2e="search-box"]').type(id);
-            cy.get('[data-e2e="search-button"]').click();
+            cy.get('[data-test="search-box"]').type(id);
+            cy.get('[data-test="search-button"]').click();
 
             // Wait for search results to come back from the above GET command
             cy.wait('@search-results');

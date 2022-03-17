@@ -11,7 +11,7 @@ describe('My DSpace page', () => {
         cy.get('ds-my-dspace-page').should('exist');
 
         // At least one recent submission should be displayed
-        cy.get('[data-e2e="list-object"]').should('be.visible');
+        cy.get('[data-test="list-object"]').should('be.visible');
 
         // Click each filter toggle to open *every* filter
         // (As we want to scan filter section for accessibility issues as well)
@@ -43,7 +43,7 @@ describe('My DSpace page', () => {
         cy.get('ds-my-dspace-page').should('exist');
 
         // Click button in sidebar to display detailed view
-        cy.get('ds-search-sidebar [data-e2e="detail-view"]').click();
+        cy.get('ds-search-sidebar [data-test="detail-view"]').click();
 
         cy.get('ds-object-detail').should('exist');
 
@@ -109,8 +109,8 @@ describe('My DSpace page', () => {
             // This is the GET command that will actually run the search
             cy.intercept('GET', '/server/api/discover/search/objects*').as('search-results');
             // On MyDSpace, find the submission we just created via its ID
-            cy.get('[data-e2e="search-box"]').type(id);
-            cy.get('[data-e2e="search-button"]').click();
+            cy.get('[data-test="search-box"]').type(id);
+            cy.get('[data-test="search-button"]').click();
 
             // Wait for search results to come back from the above GET command
             cy.wait('@search-results');

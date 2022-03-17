@@ -3,15 +3,15 @@ import { TEST_SEARCH_TERM } from 'cypress/support';
 const page = {
     fillOutQueryInNavBar(query) {
         // Click the magnifying glass
-        cy.get('ds-themed-navbar [data-e2e="header-search-icon"]').click();
+        cy.get('ds-themed-navbar [data-test="header-search-icon"]').click();
         // Fill out a query in input that appears
-        cy.get('ds-themed-navbar [data-e2e="header-search-box"]').type(query);
+        cy.get('ds-themed-navbar [data-test="header-search-box"]').type(query);
     },
     submitQueryByPressingEnter() {
-        cy.get('ds-themed-navbar [data-e2e="header-search-box"]').type('{enter}');
+        cy.get('ds-themed-navbar [data-test="header-search-box"]').type('{enter}');
     },
     submitQueryByPressingIcon() {
-        cy.get('ds-themed-navbar [data-e2e="header-search-icon"]').click();
+        cy.get('ds-themed-navbar [data-test="header-search-icon"]').click();
     }
 };
 
@@ -31,7 +31,7 @@ describe('Search from Navigation Bar', () => {
         // Wait for search results to come back from the above GET command
         cy.wait('@search-results');
         // At least one search result should be displayed
-        cy.get('[data-e2e="list-object"]').should('be.visible');
+        cy.get('[data-test="list-object"]').should('be.visible');
     });
 
     it('should go to search page with correct query if submitted (from search)', () => {
@@ -46,7 +46,7 @@ describe('Search from Navigation Bar', () => {
         // Wait for search results to come back from the above GET command
         cy.wait('@search-results');
         // At least one search result should be displayed
-        cy.get('[data-e2e="list-object"]').should('be.visible');
+        cy.get('[data-test="list-object"]').should('be.visible');
     });
 
     it('should allow user to also submit query by clicking icon', () => {
@@ -61,6 +61,6 @@ describe('Search from Navigation Bar', () => {
         // Wait for search results to come back from the above GET command
         cy.wait('@search-results');
         // At least one search result should be displayed
-        cy.get('[data-e2e="list-object"]').should('be.visible');
+        cy.get('[data-test="list-object"]').should('be.visible');
     });
 });

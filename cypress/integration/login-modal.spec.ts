@@ -3,31 +3,31 @@ import { TEST_ADMIN_PASSWORD, TEST_ADMIN_USER, TEST_ENTITY_PUBLICATION } from 'c
 const page = {
     openLoginMenu() {
         // Click the "Log In" dropdown menu in header
-        cy.get('ds-themed-navbar [data-e2e="login-menu"]').click();
+        cy.get('ds-themed-navbar [data-test="login-menu"]').click();
     },
     openUserMenu() {
         // Once logged in, click the User menu in header
-        cy.get('ds-themed-navbar [data-e2e="user-menu"]').click();
+        cy.get('ds-themed-navbar [data-test="user-menu"]').click();
     },
     submitLoginAndPasswordByPressingButton(email, password) {
         // Enter email
-        cy.get('ds-themed-navbar [data-e2e="email"]').type(email);
+        cy.get('ds-themed-navbar [data-test="email"]').type(email);
         // Enter password
-        cy.get('ds-themed-navbar [data-e2e="password"]').type(password);
+        cy.get('ds-themed-navbar [data-test="password"]').type(password);
         // Click login button
-        cy.get('ds-themed-navbar [data-e2e="login-button"]').click();
+        cy.get('ds-themed-navbar [data-test="login-button"]').click();
     },
     submitLoginAndPasswordByPressingEnter(email, password) {
         // In opened Login modal, fill out email & password, then click Enter
-        cy.get('ds-themed-navbar [data-e2e="email"]').type(email);
-        cy.get('ds-themed-navbar [data-e2e="password"]').type(password);
-        cy.get('ds-themed-navbar [data-e2e="password"]').type('{enter}');
+        cy.get('ds-themed-navbar [data-test="email"]').type(email);
+        cy.get('ds-themed-navbar [data-test="password"]').type(password);
+        cy.get('ds-themed-navbar [data-test="password"]').type('{enter}');
     },
     submitLogoutByPressingButton() {
         // This is the POST command that will actually log us out
         cy.intercept('POST', '/server/api/authn/logout').as('logout');
         // Click logout button
-        cy.get('ds-themed-navbar [data-e2e="logout-button"]').click();
+        cy.get('ds-themed-navbar [data-test="logout-button"]').click();
         // Wait until above POST command responds before continuing
         // (This ensures next action waits until logout completes)
         cy.wait('@logout');
@@ -102,10 +102,10 @@ describe('Login Modal', () => {
         page.openLoginMenu();
 
         // Registration link should be visible
-        cy.get('ds-themed-navbar [data-e2e="register"]').should('be.visible');
+        cy.get('ds-themed-navbar [data-test="register"]').should('be.visible');
 
         // Click registration link & you should go to registration page
-        cy.get('ds-themed-navbar [data-e2e="register"]').click();
+        cy.get('ds-themed-navbar [data-test="register"]').click();
         cy.location('pathname').should('eq', '/register');
         cy.get('ds-register-email').should('exist');
     });
@@ -116,10 +116,10 @@ describe('Login Modal', () => {
         page.openLoginMenu();
 
         // Forgot password link should be visible
-        cy.get('ds-themed-navbar [data-e2e="forgot"]').should('be.visible');
+        cy.get('ds-themed-navbar [data-test="forgot"]').should('be.visible');
 
         // Click link & you should go to Forgot Password page
-        cy.get('ds-themed-navbar [data-e2e="forgot"]').click();
+        cy.get('ds-themed-navbar [data-test="forgot"]').click();
         cy.location('pathname').should('eq', '/forgot');
         cy.get('ds-forgot-email').should('exist');
     });

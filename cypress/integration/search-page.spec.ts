@@ -7,20 +7,20 @@ describe('Search Page', () => {
         const queryString = 'Another interesting query string';
         cy.visit('/search');
         // Type query in searchbox & click search button
-        cy.get('[data-e2e="search-box"]').type(queryString);
-        cy.get('[data-e2e="search-button"]').click();
+        cy.get('[data-test="search-box"]').type(queryString);
+        cy.get('[data-test="search-button"]').click();
         cy.url().should('include', 'query=' + encodeURI(queryString));
     });
 
     it('should load results and pass accessibility tests', () => {
         cy.visit('/search?query=' + TEST_SEARCH_TERM);
-        cy.get('[data-e2e="search-box"]').should('have.value', TEST_SEARCH_TERM);
+        cy.get('[data-test="search-box"]').should('have.value', TEST_SEARCH_TERM);
 
         // <ds-search-page> tag must be loaded
         cy.get('ds-search-page').should('exist');
 
         // At least one search result should be displayed
-        cy.get('[data-e2e="list-object"]').should('be.visible');
+        cy.get('[data-test="list-object"]').should('be.visible');
 
         // Click each filter toggle to open *every* filter
         // (As we want to scan filter section for accessibility issues as well)
@@ -48,13 +48,13 @@ describe('Search Page', () => {
         cy.visit('/search?query=' + TEST_SEARCH_TERM);
 
         // Click button in sidebar to display grid view
-        cy.get('ds-search-sidebar [data-e2e="grid-view"]').click();
+        cy.get('ds-search-sidebar [data-test="grid-view"]').click();
 
         // <ds-search-page> tag must be loaded
         cy.get('ds-search-page').should('exist');
 
         // At least one grid object (card) should be displayed
-        cy.get('[data-e2e="grid-object"]').should('be.visible');
+        cy.get('[data-test="grid-object"]').should('be.visible');
 
         // Analyze <ds-search-page> for accessibility issues
         testA11y('ds-search-page',
