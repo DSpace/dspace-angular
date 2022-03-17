@@ -12,6 +12,10 @@
     <div *ngIf="enableArrows">
       <div class="row">
         <div class="col-12">
+          <div *ngIf="shouldDisplayResetButton$ |async" class="d-inline-block float-left reset">
+            <a class="btn btn-secondary" [routerLink]="[]"
+               [queryParams]="{startsWith: null, value: null}" queryParamsHandling="merge"><i class="fas fa-arrow-left"></i> {{'browse.back.all-results' | translate}}</a>
+          </div>
           <div *ngIf="!hideGear" ngbDropdown #paginationControls="ngbDropdown" placement="bottom-right" class="d-inline-block float-right">
             <button class="btn btn-secondary" id="paginationControls" [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate" ngbDropdownToggle><i class="fas fa-cog" aria-hidden="true"></i></button>
             <div id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" ngbDropdownMenu>
@@ -29,14 +33,25 @@
         </li>
       </ul>
       <div>
-        <button id="nav-prev" type="button" class="btn btn-outline-primary float-left" (click)="goPrev()" [disabled]="objects?.payload?.currentPage <= 1"><i class="fas fa-angle-left"></i> {{'browse.previous.button' |translate}}</button>
-        <button id="nav-next" type="button" class="btn btn-outline-primary float-right" (click)="goNext()" [disabled]="objects?.payload?.currentPage >= objects?.payload?.totalPages"><i class="fas fa-angle-right"></i> {{'browse.next.button' |translate}}</button>
+        <button id="nav-prev" type="button" class="btn btn-outline-primary float-left" (click)="goPrev()"  [disabled]="objects?.payload?.currentPage <= 1"><i class="fas fa-angle-left"></i> {{'browse.previous.button' |translate}}</button>
+          <button id="nav-next" type="button" class="btn btn-outline-primary float-right" (click)="goNext()"  [disabled]="objects?.payload?.currentPage >= objects?.payload?.totalPages">
+                    <span [ngbTooltip]="objects?.payload?.currentPage >= objects?.payload?.totalPages ? 'browse.next.button.disabled.tooltip': null">
+            <i class="fas fa-angle-right"></i> {{'browse.next.button' |translate}}
+                    </span>
+          </button>
       </div>
     </div>
   </div>
   <ds-loading *ngIf="!objects || objects?.isLoading" message="{{'loading.browse-by' | translate}}"></ds-loading>
   <ds-error *ngIf="objects?.hasFailed" message="{{'error.browse-by' | translate}}"></ds-error>
-  <div *ngIf="!objects?.isLoading && objects?.payload?.page.length === 0" class="alert alert-info w-100" role="alert">
-    {{'browse.empty' | translate}}
+  <div *ngIf="!objects?.isLoading && objects?.payload?.page.length === 0">
+    <div *ngIf="shouldDisplayResetButton$ |async" class="d-inline-block mb-4 reset">
+      <a class="btn btn-secondary" [routerLink]="[]"
+         [queryParams]="{startsWith: null, value: null}" queryParamsHandling="merge"><i
+              class="fas fa-arrow-left"></i> {{'browse.back.all-results' | translate}}</a>
+    </div>
+    <div class="alert alert-info w-100" role="alert">
+      {{'browse.empty' | translate}}
+    </div>
   </div>
 </ng-container>

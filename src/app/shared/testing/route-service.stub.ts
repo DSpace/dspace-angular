@@ -1,14 +1,17 @@
-import { of as observableOf } from 'rxjs';
+import { EMPTY, of as observableOf } from 'rxjs';
 
 export const routeServiceStub: any = {
   /* tslint:disable:no-empty */
   hasQueryParamWithValue: (param: string, value: string) => {
+    return EMPTY;
   },
   hasQueryParam: (param: string) => {
+    return EMPTY;
   },
   removeQueryParameterValue: (param: string, value: string) => {
+    return EMPTY;
   },
-  addQueryParameterValue: (param: string, value: string) => {
+  addQueryParameterValue: (param: string, value: string) => { return EMPTY;
   },
   getQueryParameterValues: (param: string) => {
     return observableOf({});

@@ -576,6 +576,8 @@
 
 
 
+  "browse.back.all-results": "All browse results",
+
   "browse.comcol.by.author": "By Author",
 
   "browse.comcol.by.dateissued": "By Issue Date",
@@ -605,6 +607,8 @@
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
   "browse.next.button": "Next",
+
+  "browse.next.button.disabled.tooltip": "No more pages of results",
 
   "browse.previous.button": "Previous",
 
@@ -650,7 +654,7 @@
 
   "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
 
-  "browse.startsWith.type_text": "Type the first few letters and click on the Browse button",
+  "browse.startsWith.type_text": "Filter results by typing the first few letters",
 
   "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
 

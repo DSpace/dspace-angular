@@ -18,9 +18,10 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { storeModuleConfig } from '../../app.reducer';
-import { FindListOptions } from '../../core/data/request.models';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { RouteService } from '../../core/services/route.service';
+import { routeServiceStub } from '../testing/route-service.stub';
 
 describe('BrowseByComponent', () => {
   let comp: BrowseByComponent;
@@ -75,7 +76,8 @@ describe('BrowseByComponent', () => {
       ],
       declarations: [],
       providers: [
-        {provide: PaginationService, useValue: paginationService}
+        {provide: PaginationService, useValue: paginationService},
+        {provide: RouteService, useValue: routeServiceStub}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -160,6 +162,20 @@ describe('BrowseByComponent', () => {
       it('should call the updateRoute method from the paginationService', () => {
         expect(paginationService.updateRoute).toHaveBeenCalledWith('test-pagination', {sortDirection: 'ASC'});
       });
+    });
+  });
+
+  describe('reset filters button', () => {
+    it('should not be present when no startsWith or value is present ', () => {
+      const button = fixture.debugElement.query(By.css('reset'));
+      expect(button).toBeNull();
+    });
+    it('should be present when a startsWith or value is present ', () => {
+      comp.shouldDisplayResetButton$ = observableOf(true);
+      fixture.detectChanges();
+
+      const button = fixture.debugElement.query(By.css('reset'));
+      expect(button).toBeDefined();
     });
   });
 
