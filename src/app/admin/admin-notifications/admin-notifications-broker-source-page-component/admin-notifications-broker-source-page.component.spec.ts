@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminNotificationsBrokerSourcePageComponent } from './admin-notifications-broker-source-page.component';
@@ -8,7 +9,8 @@ describe('AdminNotificationsBrokerSourcePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdminNotificationsBrokerSourcePageComponent ]
+      declarations: [ AdminNotificationsBrokerSourcePageComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   });
@@ -19,7 +21,7 @@ describe('AdminNotificationsBrokerSourcePageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create AdminNotificationsBrokerSourcePageComponent', () => {
     expect(component).toBeTruthy();
   });
 });
