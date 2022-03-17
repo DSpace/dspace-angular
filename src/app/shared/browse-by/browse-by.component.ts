@@ -11,6 +11,8 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { RouteService } from '../../core/services/route.service';
 import { map } from 'rxjs/operators';
 import { hasValue } from '../empty.util';
+import { Location } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-browse-by',
@@ -107,7 +109,8 @@ export class BrowseByComponent implements OnInit {
 
   public constructor(private injector: Injector,
                      protected paginationService: PaginationService,
-                     private routeService: RouteService
+                     private routeService: RouteService,
+                     protected translate: TranslateService
   ) {
 
   }
@@ -164,7 +167,10 @@ export class BrowseByComponent implements OnInit {
     this.shouldDisplayResetButton$ = observableCombineLatest([startsWith$, value$]).pipe(
       map(([startsWith, value]) => hasValue(startsWith) || hasValue(value))
     );
+  }
 
+  getTranslation(key: string): Observable<string> {
+    return this.translate.instant(key);
   }
 
 }
