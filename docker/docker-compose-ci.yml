@@ -17,6 +17,19 @@ services:
   # DSpace (backend) webapp container
   dspace:
     container_name: dspace
+    environment:
+      # Below syntax may look odd, but it is how to override dspace.cfg settings via env variables.
+      # See https://github.com/DSpace/DSpace/blob/main/dspace/config/config-definition.xml
+      # __P__ => "." (e.g. dspace__P__dir => dspace.dir)
+      # __D__ => "-" (e.g. google__D__metadata => google-metadata)
+      # dspace.dir, dspace.server.url and dspace.ui.url
+      dspace__P__dir: /dspace
+      dspace__P__server__P__url: http://localhost:8080/server
+      dspace__P__ui__P__url: http://localhost:4000
+      # db.url: Ensure we are using the 'dspacedb' image for our database
+      db__P__url: 'jdbc:postgresql://dspacedb:5432/dspace'
+      # solr.server: Ensure we are using the 'dspacesolr' image for Solr
+      solr__P__server: http://dspacesolr:8983/solr
     depends_on:
     - dspacedb
     image: dspace/dspace:dspace-7_x-test
@@ -29,7 +42,6 @@ services:
     tty: true
     volumes:
     - assetstore:/dspace/assetstore
-    - "./local.cfg:/dspace/config/local.cfg"
     # Mount DSpace's solr configs to a volume, so that we can share to 'dspacesolr' container (see below)
     - solr_configs:/dspace/solr
     # Ensure that the database is ready BEFORE starting tomcat
@@ -64,7 +76,7 @@ services:
   dspacesolr:
     container_name: dspacesolr
     # Uses official Solr image at https://hub.docker.com/_/solr/
-    image: solr:8.8
+    image: solr:8.11-slim
     # Needs main 'dspace' container to start first to guarantee access to solr_configs
     depends_on:
     - dspace

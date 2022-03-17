@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { hasValue } from '../../shared/empty.util';
-import { SearchObjects } from '../../shared/search/search-objects.model';
+import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { ParsedResponse } from '../cache/response.models';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';

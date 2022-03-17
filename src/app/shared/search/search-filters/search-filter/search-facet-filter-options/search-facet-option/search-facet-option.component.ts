@@ -2,8 +2,8 @@ import { combineLatest as observableCombineLatest, Observable, Subscription } fr
 import { map } from 'rxjs/operators';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FacetValue } from '../../../../facet-value.model';
-import { SearchFilterConfig } from '../../../../search-filter-config.model';
+import { FacetValue } from '../../../../models/facet-value.model';
+import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';

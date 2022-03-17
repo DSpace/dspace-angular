@@ -22,6 +22,7 @@ export class VersionHistory extends DSpaceObject {
   _links: {
     self: HALLink;
     versions: HALLink;
+    draftVersion: HALLink;
   };
 
   /**
@@ -29,6 +30,24 @@ export class VersionHistory extends DSpaceObject {
    */
   @autoserialize
   id: string;
+
+  /**
+   * The summary of this Version History
+   */
+  @autoserialize
+  summary: string;
+
+  /**
+   * The name of the submitter of this Version History
+   */
+  @autoserialize
+  submitterName: string;
+
+  /**
+   * Whether exist a workspace item
+   */
+  @autoserialize
+  draftVersion: boolean;
 
   /**
    * The list of versions within this history

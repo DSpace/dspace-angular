@@ -1,18 +1,24 @@
 <ng-template #bitstreamView>
   <div class="{{columnSizes.columns[0].buildClasses()}} row-element d-flex">
     <ng-content select="[slot=drag-handle]"></ng-content>
-    <div class="float-left d-flex align-items-center">
-      {{ bitstreamName }}
+    <div class="float-left d-flex align-items-center overflow-hidden">
+      <span class="text-truncate">
+        {{ bitstreamName }}
+      </span>
     </div>
   </div>
   <div class="{{columnSizes.columns[1].buildClasses()}} row-element d-flex align-items-center">
     <div class="w-100">
+      <span class="text-truncate">
       {{ bitstream?.firstMetadataValue('dc.description') }}
+      </span>
     </div>
   </div>
   <div class="{{columnSizes.columns[2].buildClasses()}} row-element d-flex align-items-center">
     <div class="text-center w-100">
-      {{ (format$ | async)?.shortDescription }}
+        <span class="text-truncate">
+            {{ (format$ | async)?.shortDescription }}
+        </span>
     </div>
   </div>
   <div class="{{columnSizes.columns[3].buildClasses()}} row-element d-flex align-items-center">

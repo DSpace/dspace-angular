@@ -10,6 +10,7 @@ import { CollectionAdminSearchResultGridElementComponent } from './admin-search-
 import { ItemAdminSearchResultActionsComponent } from './admin-search-results/item-admin-search-result-actions.component';
 import { JournalEntitiesModule } from '../../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../../entity-groups/research-entities/research-entities.module';
+import { SearchModule } from '../../shared/search/search.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -24,6 +25,7 @@ const ENTRY_COMPONENTS = [
 
 @NgModule({
   imports: [
+    SearchModule,
     SharedModule.withEntryComponents(),
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents()
@@ -36,7 +38,7 @@ const ENTRY_COMPONENTS = [
 export class AdminSearchModule {
   /**
    * NOTE: this method allows to resolve issue with components that using a custom decorator
-   * which are not loaded during CSR otherwise
+   * which are not loaded during SSR otherwise
    */
   static withEntryComponents() {
     return {
