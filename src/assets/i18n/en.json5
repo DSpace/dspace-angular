@@ -2716,11 +2716,11 @@
 
   "none.listelement.badge": "Item",
 
-  "notifications.broker.title": "Broker Title",
+  "notifications.broker.title": "Notifications",
 
   "notifications.broker.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
 
-  "notifications.broker.source.description": "Below you can see all the sources.",
+  "notifications.broker.source.description": "Below you can see all the notification's sources.",
 
   "notifications.broker.topics": "Current Topics",
 
@@ -2740,13 +2740,13 @@
 
   "notifications.broker.noSource": "No sources found.",
 
-  "notifications.events.title": "{{source}} Broker Suggestions",
+  "notifications.events.title": "Broker Suggestions",
 
   "notifications.broker.topic.error.service.retrieve": "An error occurred while loading the Notifications Broker topics",
 
   "notifications.broker.source.error.service.retrieve": "An error occurred while loading the Notifications Broker source",
 
-  "notifications.broker.events.description": "Below the list of all the suggestions, received from {{source}}, for the selected topic.",
+  "notifications.broker.events.description": "Below the list of all the suggestions for the selected topic.",
 
   "notifications.broker.loading": "Loading ...",
 
