@@ -90,10 +90,12 @@ describe('EpersonRegistrationService', () => {
       const expected = service.searchByToken('test-token');
 
       expect(expected).toBeObservable(cold('(a|)', {
-        a: Object.assign(new Registration(), {
-          email: registrationWithUser.email,
-          token: 'test-token',
-          user: registrationWithUser.user
+        a: jasmine.objectContaining({
+          payload: Object.assign(new Registration(), {
+            email: registrationWithUser.email,
+            token: 'test-token',
+            user: registrationWithUser.user
+          })
         })
       }));
     });
