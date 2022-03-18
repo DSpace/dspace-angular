@@ -1474,10 +1474,12 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@kolkov/ngx-gallery@1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@kolkov/ngx-gallery/-/ngx-gallery-1.2.3.tgz#bb15d4b64a5c03905677aa4ca741835aabe41f43"
-  integrity sha512-Dpnhwq3DGPSXrNt65gexo+/Smb2L0bne14A0WONN04+racETtcY33fqFvNWfRw5Nvk2Eza+sq95eEA0NbgF/6g==
+"@kolkov/ngx-gallery@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@kolkov/ngx-gallery/-/ngx-gallery-2.0.1.tgz#6c7903b4fc4719b093ef8a782aff731fe38ea320"
+  integrity sha512-mTigRy9Ha7bqCF/+GNKeW2Oe8ZILuM5GGMw+ZbvTQWq3X5hngeFFgv8GFG49Py3biX67kb0NhqCP+msLe4wbXQ==
+  dependencies:
+    tslib "^2.3.0"
 
 "@material-ui/core@^4.11.0":
   version "4.12.3"
