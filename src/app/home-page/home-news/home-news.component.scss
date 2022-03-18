@@ -15,7 +15,7 @@
 a {
   color: var(--ds-home-news-link-color);
 
-  @include hover {
+  &:hover {
     color: var(--ds-home-news-link-hover-color);
   }
 }

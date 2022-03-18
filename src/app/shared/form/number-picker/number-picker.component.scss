@@ -29,7 +29,7 @@ input {
   font-weight: $font-weight-normal;
   color: $link-color;
   text-decoration: $link-decoration;
-  @include hover {
+  &:hover {
     color: $link-hover-color;
     text-decoration: $link-hover-decoration;
   }
