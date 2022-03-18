@@ -31,6 +31,10 @@ const bitstream = Object.assign(new Bitstream(), {
   name: 'Fake Bitstream',
   bundleName: 'ORIGINAL',
   description: 'Description',
+  _links: {
+    content: { href: 'content-link' }
+  },
+
   format: createSuccessfulRemoteDataObject$(format)
 });
 const fieldUpdate = {
@@ -120,10 +124,17 @@ describe('ItemEditBitstreamComponent', () => {
   });
 
   describe('when the component loads', () => {
-    it('the download button should contain the link to the bitstreams download page', () => {
+    it('should contain download button with a valid link to the bitstreams download page', () => {
       fixture.detectChanges();
       const downloadBtnHref = fixture.debugElement.query(By.css('[data-test="download-button"]')).nativeElement.getAttribute('href');
       expect(downloadBtnHref).toEqual(comp.bitstreamDownloadUrl);
+    });
+  });
+
+  describe('when the bitstreamDownloadUrl property gets populated', () => {
+    it('should contain the bitstream download page route', () => {
+      expect(comp.bitstreamDownloadUrl).not.toEqual(bitstream._links.content.href);
+      expect(comp.bitstreamDownloadUrl).toEqual(getBitstreamDownloadRoute(bitstream));
     });
   });
 });
