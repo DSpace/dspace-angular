@@ -85,8 +85,8 @@ export class SearchExportCsvComponent implements OnInit {
                 operator = filter.operator;
                 filterValue = value;
               } else {
-                operator = value.substring(value.indexOf(',') + 1);
-                filterValue = value.substring(0, value.indexOf(','));
+                operator = value.substring(value.lastIndexOf(',') + 1);
+                filterValue = value.substring(0, value.lastIndexOf(','));
               }
               const valueToAdd = `${filter.key.substring(2)},${operator}=${filterValue}`;
               parameters.push({name: '-f', value: valueToAdd});

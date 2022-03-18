@@ -16,7 +16,7 @@ ui:
 
 # The REST API server settings
 # NOTE: these must be 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
-
+rest:
   ssl: true
   host: api7.dspace.org
   port: 443
