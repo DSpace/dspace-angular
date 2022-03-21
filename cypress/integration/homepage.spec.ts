@@ -6,9 +6,9 @@ describe('Homepage', () => {
     cy.visit('/');
   });
 
-  it('should display translated title "DSpace Angular :: Home"', () => {
-    cy.title().should('eq', 'DSpace Angular :: Home');
-  });
+//   it('should display translated title "DSpace Angular :: Home"', () => {
+//     cy.title().should('eq', 'DSpace Angular :: Home');
+//   });
 
   it('should contain a news section', () => {
     cy.get('ds-home-news').should('be.visible');
