@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ItemComponent } from '../../../../item-page/simple/item-types/shared/item.component';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { VersionedItemComponent } from '../../../../item-page/simple/item-types/versioned-item/versioned-item.component';
 
 @listableObjectComponent('JournalVolume', ViewMode.StandalonePage)
 @Component({
@@ -12,5 +12,5 @@ import { listableObjectComponent } from '../../../../shared/object-collection/sh
 /**
  * The component for displaying metadata and relations of an item of the type Journal Volume
  */
-export class JournalVolumeComponent extends ItemComponent {
+export class JournalVolumeComponent extends VersionedItemComponent {
 }
