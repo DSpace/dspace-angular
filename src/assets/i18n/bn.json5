@@ -4515,11 +4515,11 @@
   
   // "repository.title.prefix": "DSpace Angular :: ",
   // TODO New key - Add a translation
-  "repository.title.prefix": "ডিস্পেস অ্যাংগুলার :: ",
+  "repository.title.prefix": "DSpace Angular :: ",
   
   // "repository.title.prefixDSpace": "DSpace Angular ::",
   // TODO New key - Add a translation
-  "repository.title.prefixDSpace": "ডিস্পেস অ্যাংগুলার  ::",
+  "repository.title.prefixDSpace": "DSpace Angular ::",
   
   
   // "resource-policies.add.button": "Add",
