@@ -3154,8 +3154,7 @@
   "item.preview.person.givenName": "নাম:",
   
   // "item.preview.person.identifier.orcid": "ORCID:",
-  // TODO New key - Add a translation
-  "item.preview.person.identifier.orcid": "ORCID:",
+  "item.preview.person.identifier.orcid": "ওআরসিআইডি:",
   
   // "item.preview.project.funder.name": "Funder:",
   "item.preview.project.funder.name": "ফান্ডার:",
@@ -4507,19 +4506,17 @@
   "relationships.isContributorOf.Person": "অবদানকারী",
   
   // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "FUNDER.",
+  "relationships.isFundingAgencyOf.OrgUnit": "তহবিল.",
   
   
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "রিপোজিটরি লোগো",
   
   // "repository.title.prefix": "DSpace Angular :: ",
-  // TODO New key - Add a translation
-  "repository.title.prefix": "DSpace Angular :: ",
+  "repository.title.prefix": "ডিস্পেস অ্যাংগুলার :: ",
   
   // "repository.title.prefixDSpace": "DSpace Angular ::",
-  // TODO New key - Add a translation
-  "repository.title.prefixDSpace": "DSpace Angular ::",
+  "repository.title.prefixDSpace": "ডিস্পেস অ্যাংগুলার ::",
   
   
   // "resource-policies.add.button": "Add",
