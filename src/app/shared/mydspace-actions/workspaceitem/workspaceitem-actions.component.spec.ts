@@ -86,7 +86,7 @@ describe('WorkspaceitemActionsComponent', () => {
       ],
       declarations: [WorkspaceitemActionsComponent],
       providers: [
-        { provide: Injector, useValue: {} },
+        Injector,
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
         { provide: WorkspaceitemDataService, useValue: mockDataService },
