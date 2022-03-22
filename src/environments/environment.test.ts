@@ -178,7 +178,13 @@ export const environment: BuildConfig = {
     code: 'lv',
     label: 'Latviešu',
     active: true,
-  }],
+  }
+  // {
+  //   code: 'bn',
+  //   label: 'বাংলা',
+  //   active: true,
+  // }
+  ],
 
   // Browse-By Pages
   browseBy: {
