@@ -3817,7 +3817,7 @@
   "relationships.isAuthorOf": "Autor:innen",
   
   // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Autor*innen (Personen)",
+  "relationships.isAuthorOf.Person": "Autor:innen (Personen)",
   
   // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
   "relationships.isAuthorOf.OrgUnit": "Autor:innen (Organisationseinheiten)",
