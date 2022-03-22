@@ -44,6 +44,7 @@ export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList
       }),
       switchMap((item: Item) => this.tabService.findByItem(
         item.uuid, // Item UUID
+        true,
         true
       ).pipe(
         getFirstCompletedRemoteData(),

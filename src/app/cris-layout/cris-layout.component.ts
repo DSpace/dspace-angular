@@ -84,7 +84,7 @@ export class CrisLayoutComponent implements OnInit {
    */
   getLeadingTabs(): Observable<CrisLayoutTab[]> {
     return this.tabs$.pipe(
-      map((tabs: CrisLayoutTab[]) => tabs.filter(tab => tab.leading).filter(tab => this.checkForMinor(tab))),
+      map((tabs: CrisLayoutTab[]) => tabs.filter(tab => tab.leading)),
     );
   }
 
@@ -93,7 +93,7 @@ export class CrisLayoutComponent implements OnInit {
    */
   getLoaderTabs(): Observable<CrisLayoutTab[]> {
     return this.tabs$.pipe(
-      map((tabs: CrisLayoutTab[]) => tabs.filter(tab => !tab.leading ).filter(tab => this.checkForMinor(tab))),
+      map((tabs: CrisLayoutTab[]) => tabs.filter(tab => !tab.leading)),
     );
   }
 
@@ -105,22 +105,5 @@ export class CrisLayoutComponent implements OnInit {
       map((tabs: CrisLayoutTab[]) => tabs && tabs.length > 0)
     );
   }
-
-  /**
-   * @param tab  Contains a tab data which has rows, cells and boxes
-   * @returns Boolean based on cells has minor or not
-   */
-   checkForMinor(tab: CrisLayoutTab): boolean {
-    for (const row of tab.rows) {
-        for (const cell of row.cells) {
-            for (const box of cell.boxes) {
-                if (!box.minor) {
-                  return true;
-                }
-            }
-        }
-    }
-  return false;
-}
 
 }

@@ -19,6 +19,7 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
+import { map } from 'rxjs/operators';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -75,10 +76,41 @@ export class TabDataService {
    * @param useCachedVersionIfAvailable
    * @param linkToFollow
    */
-  findByItem(itemUuid: string, useCachedVersionIfAvailable, linkToFollow?: FollowLinkConfig<CrisLayoutTab>): Observable<RemoteData<PaginatedList<CrisLayoutTab>>> {
+  findByItem(itemUuid: string, useCachedVersionIfAvailable, excludeMinors?: boolean ,linkToFollow?: FollowLinkConfig<CrisLayoutTab>): Observable<RemoteData<PaginatedList<CrisLayoutTab>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('uuid', itemUuid)];
-    return this.dataService.searchBy(this.searchFindByItem, options, useCachedVersionIfAvailable);
+
+    return this.dataService.searchBy(this.searchFindByItem, options, useCachedVersionIfAvailable).pipe(map((data) => {
+        if (!!data.payload && !!data.payload.page && excludeMinors) {
+          data.payload.page = this.filterTab(data.payload.page);
+        }
+        return data;
+      }));
+  }
+
+  /**
+   * @param tabs
+   * @returns Tabs which contains non minor element
+   */
+  filterTab(tabs: CrisLayoutTab[]): CrisLayoutTab[] {
+   return tabs.filter(tab => this.checkForMinor(tab));
+  }
+
+  /**
+   * @param tab  Contains a tab data which has rows, cells and boxes
+   * @returns Boolean based on cells has minor or not
+   */
+  checkForMinor(tab: CrisLayoutTab): boolean {
+    for (const row of tab.rows) {
+        for (const cell of row.cells) {
+            for (const box of cell.boxes) {
+                if (!box.minor) {
+                  return true;
+                }
+            }
+        }
+    }
+    return false;
   }
 
   /**
