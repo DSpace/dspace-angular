@@ -78,6 +78,9 @@ jobs:
       - name: Run lint
         run: yarn run lint
 
+      - name: Check for circular dependencies
+        run: npx madge --exclude '(bitstream|bundle|collection|config-submission-form|eperson|item|version)\.model\.ts$' --circular --extensions ts ./
+
       - name: Run build
         run: yarn run build:prod
 
