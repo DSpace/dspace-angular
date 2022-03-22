@@ -13,6 +13,7 @@ export enum FeatureID {
   CanManageGroup = 'canManageGroup',
   IsCollectionAdmin = 'isCollectionAdmin',
   IsCommunityAdmin = 'isCommunityAdmin',
+  CanChangePassword = 'canChangePassword',
   CanDownload = 'canDownload',
   CanRequestACopy = 'canRequestACopy',
   CanManageVersions = 'canManageVersions',
@@ -25,4 +26,6 @@ export enum FeatureID {
   CanEditVersion = 'canEditVersion',
   CanDeleteVersion = 'canDeleteVersion',
   CanCreateVersion = 'canCreateVersion',
+  CanViewUsageStatistics = 'canViewUsageStatistics',
+  CanSendFeedback = 'canSendFeedback',
 }

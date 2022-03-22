@@ -11,9 +11,8 @@ import {
   OnChanges
 } from '@angular/core';
 import { hasValue, isNotEmpty } from '../empty.util';
-import { Observable, of as observableOf, Subscription } from 'rxjs';
+import { from as fromPromise, Observable, of as observableOf, Subscription } from 'rxjs';
 import { ThemeService } from './theme.service';
-import { fromPromise } from 'rxjs/internal-compatibility';
 import { catchError, switchMap, map } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 
@@ -47,6 +46,9 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
     // if an input or output has changed
     if (this.inAndOutputNames.some((name: any) => hasValue(changes[name]))) {
       this.connectInputsAndOutputs();
+      if (this.compRef?.instance && 'ngOnChanges' in this.compRef?.instance) {
+        (this.compRef.instance as any).ngOnChanges(changes);
+      }
     }
   }
 

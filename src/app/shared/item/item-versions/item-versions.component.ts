@@ -5,7 +5,6 @@ import { RemoteData } from '../../../core/data/remote-data';
 import {
   BehaviorSubject,
   combineLatest,
-  combineLatest as observableCombineLatest,
   Observable,
   of,
   Subscription,
@@ -23,7 +22,7 @@ import { map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
 import { AlertType } from '../../alert/aletr-type';
 import { followLink } from '../../utils/follow-link-config.model';
 import { hasValue, hasValueOperator } from '../../empty.util';
@@ -48,6 +47,7 @@ import { ItemVersionsSharedService } from './item-versions-shared.service';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 
 @Component({
   selector: 'ds-item-versions',
@@ -180,6 +180,7 @@ export class ItemVersionsComponent implements OnInit {
               private authorizationService: AuthorizationDataService,
               private workspaceItemDataService: WorkspaceitemDataService,
               private workflowItemDataService: WorkflowItemDataService,
+              private configurationService: ConfigurationDataService,
   ) {
   }
 
@@ -376,6 +377,36 @@ export class ItemVersionsComponent implements OnInit {
   }
 
   /**
+   * Show submitter in version history table
+   */
+  showSubmitter() {
+
+    const includeSubmitter$ = this.configurationService.findByPropertyName('versioning.item.history.include.submitter').pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map((configurationProperty) => configurationProperty.values[0]),
+      startWith(false),
+    );
+
+    const isAdmin$ = combineLatest([
+      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
+      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+    ]).pipe(
+      map(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin]) => {
+        return isCollectionAdmin || isCommunityAdmin || isSiteAdmin;
+      }),
+      take(1),
+    );
+
+    return combineLatest([includeSubmitter$, isAdmin$]).pipe(
+      map(([includeSubmitter, isAdmin]) => {
+        return includeSubmitter && isAdmin;
+      })
+    );
+
+  }
+
+  /**
    * Check if the current user can delete the version
    * @param version
    */
@@ -389,7 +420,7 @@ export class ItemVersionsComponent implements OnInit {
    */
   getAllVersions(versionHistory$: Observable<VersionHistory>): void {
     const currentPagination = this.paginationService.getCurrentPagination(this.options.id, this.options);
-    observableCombineLatest([versionHistory$, currentPagination]).pipe(
+    combineLatest([versionHistory$, currentPagination]).pipe(
       switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) => {
         return this.versionHistoryService.getVersions(versionHistory.id,
           new PaginatedSearchOptions({pagination: Object.assign({}, options, {currentPage: options.currentPage})}),
@@ -486,7 +517,7 @@ export class ItemVersionsComponent implements OnInit {
       );
       this.itemPageRoutes$ = this.versionsRD$.pipe(
         getAllSucceededRemoteDataPayload(),
-        switchMap((versions) => observableCombineLatest(...versions.page.map((version) => version.item.pipe(getAllSucceededRemoteDataPayload())))),
+        switchMap((versions) => combineLatest(versions.page.map((version) => version.item.pipe(getAllSucceededRemoteDataPayload())))),
         map((versions) => {
           const itemPageRoutes = {};
           versions.forEach((item) => itemPageRoutes[item.uuid] = getItemPageRoute(item));

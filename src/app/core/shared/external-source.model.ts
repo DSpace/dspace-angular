@@ -7,7 +7,7 @@ import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { ITEM_TYPE } from './item-relationships/item-type.resource-type';
 import { ItemType } from './item-relationships/item-type.model';
 
