@@ -9,31 +9,9 @@ import {
   RequestSuccessAction,
   ResetResponseTimestampsAction
 } from './request.actions';
-import { RestRequest } from './request.models';
-import { HALLink } from '../shared/hal-link.model';
-import { UnCacheableObject } from '../shared/uncacheable-object.model';
 import { isNull } from '../../shared/empty.util';
 import { hasSucceeded, isStale, RequestEntryState } from './request-entry-state.model';
-
-export class ResponseState {
-  timeCompleted: number;
-  statusCode: number;
-  errorMessage?: string;
-  payloadLink?: HALLink;
-  unCacheableObject?: UnCacheableObject;
-}
-
-// tslint:disable-next-line:max-classes-per-file
-export class RequestEntry {
-  request: RestRequest;
-  state: RequestEntryState;
-  response: ResponseState;
-  lastUpdated: number;
-}
-
-export interface RequestState {
-  [uuid: string]: RequestEntry;
-}
+import { RequestState } from './request-state.model';
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
 const initialState = Object.create(null);

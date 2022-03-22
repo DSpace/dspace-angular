@@ -12,9 +12,9 @@ import { CollectionDataService } from '../core/data/collection-data.service';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { Community } from '../core/shared/community.model';
 import { Collection } from '../core/shared/collection.model';
-import { FindListOptions } from '../core/data/request.models';
 import { PageInfo } from '../core/shared/page-info.model';
 import { FlatNode } from './flat-node.model';
+import { FindListOptions } from '../core/data/find-list-options.model';
 
 describe('CommunityListService', () => {
   let store: StoreMock<AppState>;

@@ -7,7 +7,7 @@ import { LinkService } from '../../cache/builders/link.service';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { ResponseParsingService } from '../../data/parsing.service';
 import { RemoteData } from '../../data/remote-data';
-import { GetRequest, RestRequest } from '../../data/request.models';
+import { GetRequest} from '../../data/request.models';
 import { RequestService } from '../../data/request.service';
 import { DSpaceObject } from '../dspace-object.model';
 import { GenericConstructor } from '../generic-constructor';
@@ -43,11 +43,12 @@ import { SearchConfigurationService } from './search-configuration.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { DataService } from '../../data/data.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../../core.reducers';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DSOChangeAnalyzer } from '../../data/dso-change-analyzer.service';
+import { RestRequest } from '../../data/rest-request.model';
+import { CoreState } from '../../core-state.model';
 
 /* tslint:disable:max-classes-per-file */
 /**

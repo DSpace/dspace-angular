@@ -139,7 +139,7 @@ describe('MyDSpacePageComponent', () => {
     fixture.detectChanges();
     searchServiceObject = (comp as any).service;
     searchConfigurationServiceObject = (comp as any).searchConfigService;
-    console.log(searchConfigurationServiceObject)
+    console.log(searchConfigurationServiceObject);
   });
 
   afterEach(() => {

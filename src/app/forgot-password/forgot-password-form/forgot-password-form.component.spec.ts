@@ -11,12 +11,12 @@ import { Store } from '@ngrx/store';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CoreState } from '../../core/core.reducers';
 import { Registration } from '../../core/shared/registration.model';
 import { ForgotPasswordFormComponent } from './forgot-password-form.component';
 import { By } from '@angular/platform-browser';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { CoreState } from '../../core/core-state.model';
 
 describe('ForgotPasswordFormComponent', () => {
   let comp: ForgotPasswordFormComponent;

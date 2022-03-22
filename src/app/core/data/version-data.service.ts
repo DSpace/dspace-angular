@@ -4,16 +4,16 @@ import { Version } from '../shared/version.model';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { FindListOptions } from './request.models';
 import { Observable } from 'rxjs';
 import { dataService } from '../cache/builders/build-decorators';
 import { VERSION } from '../shared/version.resource-type';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 /**
  * Service responsible for handling requests related to the Version object

@@ -7,14 +7,13 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ChangeAnalyzer } from './change-analyzer';
 import { DataService } from './data.service';
-import { FindListOptions, PatchRequest } from './request.models';
+import { PatchRequest } from './request.models';
 import { RequestService } from './request.service';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
@@ -23,6 +22,8 @@ import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-bu
 import { TestScheduler } from 'rxjs/testing';
 import { RemoteData } from './remote-data';
 import { RequestEntryState } from './request-entry-state.model';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 const endpoint = 'https://rest.api/core';
 

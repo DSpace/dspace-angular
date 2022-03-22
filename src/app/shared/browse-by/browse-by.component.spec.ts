@@ -18,9 +18,9 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { storeModuleConfig } from '../../app.reducer';
-import { FindListOptions } from '../../core/data/request.models';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 
 describe('BrowseByComponent', () => {
   let comp: BrowseByComponent;

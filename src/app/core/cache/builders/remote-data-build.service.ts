@@ -11,10 +11,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import { FollowLinkConfig, followLink } from '../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
-import {
-  RequestEntry,
-  ResponseState
-} from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
 import { ObjectCacheService } from '../object-cache.service';
 import { LinkService } from './link.service';
@@ -27,6 +23,8 @@ import { getUrlWithoutEmbedParams } from '../../index/index.selectors';
 import { getResourceTypeValueFor } from '../object-cache.reducer';
 import { hasSucceeded, RequestEntryState } from '../../data/request-entry-state.model';
 import { getRequestFromRequestHref, getRequestFromRequestUUID } from '../../shared/request.operators';
+import { RequestEntry } from '../../data/request-entry.model';
+import { ResponseState } from '../../data/response-state.model';
 
 @Injectable()
 export class RemoteDataBuildService {

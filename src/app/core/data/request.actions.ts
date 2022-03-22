@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 import { type } from '../../shared/ngrx/type';
-import { RestRequest } from './request.models';
 import { HALLink } from '../shared/hal-link.model';
 import { UnCacheableObject } from '../shared/uncacheable-object.model';
+import { RestRequest } from './rest-request.model';
 
 /**
  * The list of RequestAction type definitions

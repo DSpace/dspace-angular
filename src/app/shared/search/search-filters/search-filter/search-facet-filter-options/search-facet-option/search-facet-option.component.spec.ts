@@ -17,9 +17,9 @@ import { SearchFilterConfig } from '../../../../search-filter-config.model';
 import { SearchFacetOptionComponent } from './search-facet-option.component';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../../../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../../../../core/data/request.models';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
+import { FindListOptions } from '../../../../../../core/data/find-list-options.model';
 
 describe('SearchFacetOptionComponent', () => {
   let comp: SearchFacetOptionComponent;

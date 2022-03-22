@@ -11,7 +11,6 @@ import { HALEndpointService } from '../hal-endpoint.service';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
 import { RemoteData } from '../../data/remote-data';
-import { RequestEntry } from '../../data/request.reducer';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { CommunityDataService } from '../../data/community-data.service';
 import { ViewMode } from '../view-mode.model';
@@ -25,9 +24,10 @@ import { SearchObjects } from '../../../shared/search/search-objects.model';
 import { PaginationService } from '../../pagination/pagination.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
-import { FindListOptions } from '../../data/request.models';
 import { SearchConfigurationService } from './search-configuration.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { RequestEntry } from '../../data/request-entry.model';
+import { FindListOptions } from '../../data/find-list-options.model';
 
 @Component({ template: '' })
 class DummyComponent {

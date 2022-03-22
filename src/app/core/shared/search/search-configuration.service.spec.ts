@@ -8,12 +8,12 @@ import { combineLatest as observableCombineLatest, Observable, of as observableO
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { RequestEntry } from '../../data/request.reducer';
 import { map } from 'rxjs/operators';
 import { RemoteData } from '../../data/remote-data';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { SearchObjects } from '../../../shared/search/search-objects.model';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { RequestEntry } from '../../data/request-entry.model';
 
 describe('SearchConfigurationService', () => {
   let service: SearchConfigurationService;

@@ -6,7 +6,6 @@ import { ConfigObject } from './models/config.model';
 import { RemoteData } from '../data/remote-data';
 import { DataService } from '../data/data.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
@@ -14,6 +13,7 @@ import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { map } from 'rxjs/operators';
+import { CoreState } from '../core-state.model';
 
 class DataServiceImpl extends DataService<ConfigObject> {
   constructor(

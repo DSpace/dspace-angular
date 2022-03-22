@@ -1,5 +1,4 @@
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
-import { RequestEntry } from './request.reducer';
 import { RestResponse } from '../cache/response.models';
 import { Observable, of as observableOf } from 'rxjs';
 import { Action, Store } from '@ngrx/store';
@@ -17,8 +16,9 @@ import {
   BitstreamFormatsRegistrySelectAction
 } from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
 import { TestScheduler } from 'rxjs/testing';
-import { CoreState } from '../core.reducers';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { CoreState } from '../core-state.model';
+import { RequestEntry } from './request-entry.model';
 
 describe('BitstreamFormatDataService', () => {
   let service: BitstreamFormatDataService;

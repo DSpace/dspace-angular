@@ -22,7 +22,6 @@ import { getClassForType } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -34,7 +33,6 @@ import { RemoteData } from './remote-data';
 import {
   CreateRequest,
   GetRequest,
-  FindListOptions,
   PatchRequest,
   PutRequest,
   DeleteRequest
@@ -45,6 +43,8 @@ import { UpdateDataService } from './update-data.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { NoContent } from '../shared/NoContent.model';
 import { CacheableObject } from '../cache/cacheable-object.model';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 export abstract class DataService<T extends CacheableObject> implements UpdateDataService<T> {
   protected abstract requestService: RequestService;

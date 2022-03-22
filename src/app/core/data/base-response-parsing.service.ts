@@ -6,9 +6,9 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList, buildPaginatedList } from './paginated-list.model';
 import { getClassForType } from '../cache/builders/build-decorators';
-import { RestRequest } from './request.models';
 import { environment } from '../../../environments/environment';
 import { CacheableObject } from '../cache/cacheable-object.model';
+import { RestRequest } from './rest-request.model';
 
 /* tslint:disable:max-classes-per-file */
 

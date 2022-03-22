@@ -5,7 +5,7 @@ import { combineLatest as observableCombineLatest, Observable, of as observableO
 
 import { distinctUntilChanged, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isEmpty } from '../../shared/empty.util';
-import { CoreState } from '../core.reducers';
+import { CoreState } from '../core-state.model';
 import { coreSelector } from '../core.selectors';
 import { RestRequestMethod } from '../data/rest-request-method';
 import {

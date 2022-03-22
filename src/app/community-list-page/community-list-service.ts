@@ -6,7 +6,6 @@ import { filter, map, switchMap } from 'rxjs/operators';
 
 import { AppState } from '../app.reducer';
 import { CommunityDataService } from '../core/data/community-data.service';
-import { FindListOptions } from '../core/data/request.models';
 import { Community } from '../core/shared/community.model';
 import { Collection } from '../core/shared/collection.model';
 import { PageInfo } from '../core/shared/page-info.model';
@@ -22,6 +21,7 @@ import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../cor
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { FlatNode } from './flat-node.model';
 import { ShowMoreFlatNode } from './show-more-flat-node.model';
+import { FindListOptions } from '../core/data/find-list-options.model';
 
 // Helper method to combine an flatten an array of observables of flatNode arrays
 export const combineAndFlatten = (obsList: Observable<FlatNode[]>[]): Observable<FlatNode[]> =>

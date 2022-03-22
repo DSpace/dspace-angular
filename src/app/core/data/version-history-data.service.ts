@@ -4,13 +4,11 @@ import { Injectable } from '@angular/core';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { FindListOptions } from './request.models';
 import { Observable } from 'rxjs';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { RemoteData } from './remote-data';
@@ -21,6 +19,8 @@ import { dataService } from '../cache/builders/build-decorators';
 import { VERSION_HISTORY } from '../shared/version-history.resource-type';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { VersionDataService } from './version-data.service';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object

@@ -6,7 +6,6 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList, buildPaginatedList } from './paginated-list.model';
 import { getClassForType } from '../cache/builders/build-decorators';
-import { RestRequest } from './request.models';
 import { environment } from '../../../environments/environment';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
@@ -17,6 +16,7 @@ import { RestRequestMethod } from './rest-request-method';
 import { getUrlWithoutEmbedParams, getEmbedSizeParams } from '../index/index.selectors';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { CacheableObject } from '../cache/cacheable-object.model';
+import { RestRequest } from './rest-request.model';
 
 /* tslint:disable:max-classes-per-file */
 

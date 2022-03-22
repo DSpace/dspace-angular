@@ -6,7 +6,6 @@ import { distinctUntilChanged, filter, find, map, mergeMap, tap } from 'rxjs/ope
 import { DataService } from '../data/data.service';
 import {
   DeleteRequest,
-  FindListOptions,
   PostRequest,
   TaskDeleteRequest,
   TaskPostRequest
@@ -18,6 +17,7 @@ import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../share
 import { RemoteData } from '../data/remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { CacheableObject } from '../cache/cacheable-object.model';
+import { FindListOptions } from '../data/find-list-options.model';
 
 /**
  * An abstract class that provides methods to handle task requests.

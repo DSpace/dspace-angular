@@ -1,9 +1,10 @@
 import { RequestService } from '../data/request.service';
 import { Observable } from 'rxjs';
-import { RestRequest } from '../data/request.models';
 import { filter, map, mergeMap, tap } from 'rxjs/operators';
-import { RequestEntry, ResponseState } from '../data/request.reducer';
 import { hasValue, hasValueOperator } from '../../shared/empty.util';
+import { RestRequest } from '../data/rest-request.model';
+import { RequestEntry } from '../data/request-entry.model';
+import { ResponseState } from '../data/response-state.model';
 
 /**
  * This file contains custom RxJS operators that can be used in multiple places

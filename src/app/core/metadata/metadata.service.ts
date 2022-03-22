@@ -31,7 +31,7 @@ import { MetaTagState } from './meta-tag.reducer';
 import { createSelector, select, Store } from '@ngrx/store';
 import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
 import { coreSelector } from '../core.selectors';
-import { CoreState } from '../core.reducers';
+import { CoreState } from '../core-state.model';
 
 /**
  * The base selector function to select the metaTag section in the store

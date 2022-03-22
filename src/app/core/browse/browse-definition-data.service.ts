@@ -6,7 +6,6 @@ import { BrowseDefinition } from '../shared/browse-definition.model';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -15,8 +14,9 @@ import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
-import { FindListOptions } from '../data/request.models';
 import { PaginatedList } from '../data/paginated-list.model';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from '../data/find-list-options.model';
 
 /* tslint:disable:max-classes-per-file */
 

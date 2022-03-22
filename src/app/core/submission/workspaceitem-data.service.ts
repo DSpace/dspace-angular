@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { CoreState } from '../core.reducers';
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -12,6 +11,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { WorkspaceItem } from './models/workspaceitem.model';
+import { CoreState } from '../core-state.model';
 
 /**
  * A service that provides methods to make REST requests with workspaceitems endpoint.

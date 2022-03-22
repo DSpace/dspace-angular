@@ -8,7 +8,6 @@ import {
   EmptySSBAction,
   ServerSyncBufferActionTypes
 } from './server-sync-buffer.actions';
-import { CoreState } from '../core.reducers';
 import { Action, createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { ServerSyncBufferEntry, ServerSyncBufferState } from './server-sync-buffer.reducer';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
@@ -22,6 +21,7 @@ import { environment } from '../../../environments/environment';
 import { ObjectCacheEntry } from './object-cache.reducer';
 import { Operation } from 'fast-json-patch';
 import { NoOpAction } from '../../shared/ngrx/no-op.action';
+import { CoreState } from '../core-state.model';
 
 @Injectable()
 export class ServerSyncBufferEffects {

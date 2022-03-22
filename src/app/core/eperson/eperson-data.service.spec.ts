@@ -12,9 +12,8 @@ import {
   EPeopleRegistryEditEPersonAction
 } from '../../access-control/epeople-registry/epeople-registry.actions';
 import { RequestParam } from '../cache/models/request-param.model';
-import { CoreState } from '../core.reducers';
 import { ChangeAnalyzer } from '../data/change-analyzer';
-import { DeleteRequest, FindListOptions, PatchRequest, PostRequest } from '../data/request.models';
+import { DeleteRequest, PatchRequest, PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
@@ -27,6 +26,8 @@ import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { createPaginatedList, createRequestEntry$ } from '../../shared/testing/utils.test';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from '../data/find-list-options.model';
 
 describe('EPersonDataService', () => {
   let service: EPersonDataService;

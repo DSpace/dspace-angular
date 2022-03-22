@@ -42,7 +42,7 @@ import { SubmissionSectionModel } from './config/models/config-submission-sectio
 import { SubmissionUploadsModel } from './config/models/config-submission-uploads.model';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { coreEffects } from './core.effects';
-import { coreReducers, CoreState } from './core.reducers';
+import { coreReducers} from './core.reducers';
 import { BitstreamFormatDataService } from './data/bitstream-format-data.service';
 import { CollectionDataService } from './data/collection-data.service';
 import { CommunityDataService } from './data/community-data.service';
@@ -163,6 +163,7 @@ import { RootDataService } from './data/root-data.service';
 import { Root } from './data/root.model';
 import { SearchConfig } from './shared/search/search-filters/search-config.model';
 import { SequenceService } from './shared/sequence.service';
+import { CoreState } from './core-state.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes

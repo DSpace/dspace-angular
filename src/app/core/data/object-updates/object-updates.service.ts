@@ -1,6 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { CoreState } from '../../core.reducers';
 import { coreSelector } from '../../core.selectors';
 import {
   FieldState,
@@ -35,6 +34,7 @@ import { GenericConstructor } from '../../shared/generic-constructor';
 import { Identifiable } from './identifiable.model';
 import { FieldUpdates } from './field-updates.model';
 import { FieldChangeType } from './field-change-type.model';
+import { CoreState } from '../../core-state.model';
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
   return createSelector(coreSelector, (state: CoreState) => state['cache/object-updates']);

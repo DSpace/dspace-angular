@@ -13,7 +13,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { BITSTREAM_FORMAT } from '../shared/bitstream-format.resource-type';
@@ -25,6 +24,7 @@ import { RemoteData } from './remote-data';
 import { PostRequest, PutRequest } from './request.models';
 import { RequestService } from './request.service';
 import { sendRequest } from '../shared/request.operators';
+import { CoreState } from '../core-state.model';
 
 const bitstreamFormatsStateSelector = createSelector(
   coreSelector,

@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { CoreState } from '../core.reducers';
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
 import { WorkflowItem } from './models/workflowitem.model';
@@ -19,6 +18,7 @@ import { hasValue } from '../../shared/empty.util';
 import { RemoteData } from '../data/remote-data';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { CoreState } from '../core-state.model';
 
 /**
  * A service that provides methods to make REST requests with workflow items endpoint.

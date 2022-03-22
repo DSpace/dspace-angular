@@ -13,7 +13,6 @@ import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { Collection } from '../shared/collection.model';
@@ -29,12 +28,13 @@ import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import {
   ContentSourceRequest,
-  FindListOptions,
-  UpdateContentSourceRequest,
-  RestRequest
+  UpdateContentSourceRequest
 } from './request.models';
 import { RequestService } from './request.service';
 import { BitstreamDataService } from './bitstream-data.service';
+import { RestRequest } from './rest-request.model';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 @Injectable()
 @dataService(COLLECTION)

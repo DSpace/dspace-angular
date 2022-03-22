@@ -18,8 +18,8 @@ import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { Community } from '../../core/shared/community.model';
 import { MockElementRef } from '../testing/element-ref.mock';
 import { FollowLinkConfig } from '../utils/follow-link-config.model';
-import { FindListOptions } from '../../core/data/request.models';
 import { Observable } from 'rxjs/internal/Observable';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 
 const community: Community = Object.assign(new Community(), {
   id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',

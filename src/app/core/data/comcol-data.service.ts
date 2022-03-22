@@ -5,7 +5,6 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { Community } from '../shared/community.model';
 import { HALLink } from '../shared/hal-link.model';
 import { DataService } from './data.service';
-import { FindListOptions } from './request.models';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -17,6 +16,7 @@ import { NoContent } from '../shared/NoContent.model';
 import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { FindListOptions } from './find-list-options.model';
 
 export abstract class ComColDataService<T extends Community | Collection> extends DataService<T> {
   protected abstract objectCache: ObjectCacheService;

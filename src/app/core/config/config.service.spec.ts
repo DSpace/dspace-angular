@@ -3,11 +3,12 @@ import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { ConfigService } from './config.service';
 import { RequestService } from '../data/request.service';
-import { FindListOptions, GetRequest } from '../data/request.models';
+import { GetRequest } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { FindListOptions } from '../data/find-list-options.model';
 
 const LINK_NAME = 'test';
 const BROWSE = 'search/findByCollection';

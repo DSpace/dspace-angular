@@ -8,7 +8,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { Community } from '../shared/community.model';
 import { COMMUNITY } from '../shared/community.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -16,11 +15,12 @@ import { ComColDataService } from './comcol-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { FindListOptions } from './request.models';
 import { RequestService } from './request.service';
 import { BitstreamDataService } from './bitstream-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { isNotEmpty } from '../../shared/empty.util';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 @Injectable()
 @dataService(COMMUNITY)

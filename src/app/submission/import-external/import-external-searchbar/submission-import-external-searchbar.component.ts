@@ -17,10 +17,10 @@ import { PaginatedList, buildPaginatedList } from '../../../core/data/paginated-
 import { RemoteData } from '../../../core/data/remote-data';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { FindListOptions } from '../../../core/data/request.models';
 import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { hasValue } from '../../../shared/empty.util';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 /**
  * Interface for the selected external source element.

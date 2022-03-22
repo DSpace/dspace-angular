@@ -7,13 +7,11 @@ import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { Community } from '../shared/community.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { FindListOptions } from './request.models';
 import { RequestService } from './request.service';
 import {
   createFailedRemoteDataObject$,
@@ -22,6 +20,8 @@ import {
   createSuccessfulRemoteDataObject
 } from '../../shared/remote-data.utils';
 import { BitstreamDataService } from './bitstream-data.service';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 const LINK_NAME = 'test';
 
