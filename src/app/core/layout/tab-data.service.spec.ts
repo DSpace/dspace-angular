@@ -16,6 +16,7 @@ import { of } from 'rxjs';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { bothTabs } from '../../shared/testing/layout-tab.mocks';
 
 describe('TabDataService', () => {
   let scheduler: TestScheduler;
@@ -192,5 +193,13 @@ describe('TabDataService', () => {
       expect(result).toBeObservable(expected);
     });
 
+  });
+
+
+  fdescribe('filterTab', () => {
+    it('should return non minor element', () => {
+      const tabs: CrisLayoutTab[] = service.filterTab(bothTabs);
+      expect(tabs.length).toBe(2);
+    });
   });
 });

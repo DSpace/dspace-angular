@@ -104,13 +104,13 @@ export class TabDataService {
     for (const row of tab.rows) {
         for (const cell of row.cells) {
             for (const box of cell.boxes) {
-                if (!box.minor) {
-                  return true;
+                if (box.minor) {
+                  return false;
                 }
             }
         }
     }
-    return false;
+    return true;
   }
 
   /**
