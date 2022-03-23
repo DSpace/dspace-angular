@@ -495,8 +495,8 @@ export class DefaultAppConfig implements AppConfig {
     },
     {
       type: 'embedded-view',
-      icon: 'fa fa-expand',
-      class: 'alert-dark',
+      icon: 'fa fa-eye',
+      class: 'alert-success'
     },
     {
       type: 'embedded-download',
