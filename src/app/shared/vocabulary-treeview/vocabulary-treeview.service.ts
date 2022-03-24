@@ -171,7 +171,6 @@ export class VocabularyTreeviewService {
       }
       parent.childrenChange.next(children);
       this.dataChange.next(this.dataChange.value);
-      console.log(this.dataChange);
     });
 
   }
