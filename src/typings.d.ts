@@ -31,14 +31,14 @@ declare module 'modern-lru' {
   export = x;
 }
 
-declare var System: SystemJS;
+declare let System: SystemJS;
 
 interface SystemJS {
   import: (path?: string) => Promise<any>;
 }
 // Extra variables that live on Global that will be replaced by webpack DefinePlugin
-declare var ENV: string;
-declare var HMR: boolean;
+declare let ENV: string;
+declare let HMR: boolean;
 interface GlobalEnvironment {
   ENV;
   HMR;

@@ -79,7 +79,7 @@ class TestComponent {
 
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   public onBeforeUpload = () => {
-  }
+  };
 
   onCompleteItem(event) {
   }

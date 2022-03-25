@@ -303,7 +303,6 @@ export class SubmissionObjectEffects {
   /**
    * Show a notification on success and redirect to MyDSpace page
    */
-  
   discardSubmissionSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DISCARD_SUBMISSION_SUCCESS),
     tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.discard_success_notice'))),

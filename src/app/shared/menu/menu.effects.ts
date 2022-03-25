@@ -19,7 +19,6 @@ export class MenuEffects {
   /**
    * On route change, build menu sections for every menu type depending on the current route data
    */
-  
   public buildRouteMenuSections$: Observable<Action> = createEffect(() => this.actions$
     .pipe(
       ofType(ROUTER_NAVIGATED),
