@@ -182,7 +182,8 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'nl', label: 'Nederlands', active: true },
     { code: 'pt-PT', label: 'Português', active: true },
     { code: 'pt-BR', label: 'Português do Brasil', active: true },
-    { code: 'fi', label: 'Suomi', active: true }
+    { code: 'fi', label: 'Suomi', active: true },
+    { code: 'bn', label: 'বাংলা', active: true }
   ];
 
   // Browse-By Pages
