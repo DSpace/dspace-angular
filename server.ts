@@ -157,6 +157,20 @@ export function app() {
   */
   server.use('/iiif', express.static(IIIF_VIEWER, {index:false}));
 
+  /**
+   * Checking server status
+   */
+  server.get('/app/health', async (req,res) => {
+    try {
+      const serverStatus =  await https.get(`${environment.rest.baseUrl}/actuator/health`);
+      res.send(serverStatus);
+    } catch (error) {
+      res.send({
+        error: error.message
+      });
+    }
+  });
+
   // Register the ngApp callback function to handle incoming requests
   server.get('*', ngApp);
 

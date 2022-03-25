@@ -308,6 +308,18 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           icon: 'terminal',
           index: 10
         },
+        {
+          id: 'health',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.health',
+            link: '/health'
+          } as LinkMenuItemModel,
+          icon: 'heartbeat',
+          index: 11
+        },
       ];
       menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
         shouldPersistOnRouteChange: true

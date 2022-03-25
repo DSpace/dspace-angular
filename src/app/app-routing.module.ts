@@ -209,6 +209,11 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
               .then((m) => m.StatisticsPageRoutingModule)
           },
           {
+            path: 'health',
+            loadChildren: () => import('./health-page/health.routing.module')
+              .then((m) => m.HealthPageRoutingModule)
+          },
+          {
             path: ACCESS_CONTROL_MODULE_PATH,
             loadChildren: () => import('./access-control/access-control.module').then((m) => m.AccessControlModule),
             canActivate: [GroupAdministratorGuard],
