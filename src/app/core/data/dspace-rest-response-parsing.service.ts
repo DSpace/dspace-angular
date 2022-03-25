@@ -18,7 +18,7 @@ import { RestRequestMethod } from './rest-request-method';
 import { getUrlWithoutEmbedParams, getEmbedSizeParams } from '../index/index.selectors';
 import { URLCombiner } from '../url-combiner/url-combiner';
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 
 /**
  * Return true if obj has a value for `_links.self`
@@ -271,4 +271,4 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
     return statusCode >= 200 && statusCode < 300;
   }
 }
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */

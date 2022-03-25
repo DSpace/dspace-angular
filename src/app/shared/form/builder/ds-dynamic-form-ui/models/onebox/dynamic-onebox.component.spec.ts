@@ -34,7 +34,7 @@ export let ONEBOX_TEST_GROUP;
 
 export let ONEBOX_TEST_MODEL_CONFIG;
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 
 // Mock class for NgbModalRef
 export class MockNgbModalRef {
@@ -463,4 +463,4 @@ class TestComponent {
 
 }
 
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */

@@ -4,7 +4,7 @@ import { NgForOf } from '@angular/common';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 
 @Directive({
-  // tslint:disable-next-line:directive-selector
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[ngForTrackById]',
 })
 export class NgForTrackByIdDirective<T extends DSpaceObject> {

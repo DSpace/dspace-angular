@@ -224,7 +224,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
       const ngZone = TestBed.inject(NgZone);
 
-      // tslint:disable-next-line:ban-types
+      // eslint-disable-next-line @typescript-eslint/ban-types
       spyOn(ngZone, 'runOutsideAngular').and.callFake((fn: Function) => fn());
       component = fixture.componentInstance;
       debugElement = fixture.debugElement;

@@ -13,7 +13,7 @@ describe('ListableObject decorator function', () => {
   const typeAncestor = 'TestTypeAncestor';
   const typeUnthemed = 'TestTypeUnthemed';
 
-  /* tslint:disable:max-classes-per-file */
+  /* eslint-disable max-classes-per-file */
   class Test1List {
   }
 
@@ -38,7 +38,7 @@ describe('ListableObject decorator function', () => {
   class TestUnthemedComponent {
   }
 
-  /* tslint:enable:max-classes-per-file */
+  /* eslint-enable max-classes-per-file */
 
   beforeEach(() => {
     listableObjectComponent(type1, ViewMode.ListElement)(Test1List);

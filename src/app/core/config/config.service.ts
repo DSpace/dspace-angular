@@ -31,7 +31,7 @@ class DataServiceImpl extends DataService<ConfigObject> {
   }
 }
 
-// tslint:disable-next-line:max-classes-per-file
+// eslint-disable-next-line max-classes-per-file
 export abstract class ConfigService {
   /**
    * A private DataService instance to delegate specific methods to.

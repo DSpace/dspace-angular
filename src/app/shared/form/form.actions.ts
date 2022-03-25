@@ -21,7 +21,7 @@ export const FormActionTypes = {
   FORM_CLEAR_ERRORS: type('dspace/form/FORM_CLEAR_ERRORS'),
 };
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 export class FormInitAction implements Action {
   type = FormActionTypes.FORM_INIT;
   payload: {
@@ -160,7 +160,7 @@ export class FormClearErrorsAction implements Action {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */
 
 /**
  * Export a type alias of all actions in this action group

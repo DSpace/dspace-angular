@@ -7,7 +7,7 @@ import { getMockThemeService } from '../mocks/theme-service.mock';
 import { TestComponent } from './test/test.component.spec';
 import { ThemeConfig } from '../../../config/theme.model';
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 @Component({
   selector: 'ds-test-themed-component',
   templateUrl: './themed.component.html'
@@ -197,4 +197,4 @@ describe('ThemedComponent', () => {
     });
   });
 });
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */

@@ -25,7 +25,7 @@ import { of } from 'rxjs';
 
 const LINK_NAME = 'test';
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 class TestTask extends TaskObject {
 }
 
@@ -52,7 +52,7 @@ class DummyChangeAnalyzer implements ChangeAnalyzer<TestTask> {
 
 }
 
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */
 
 describe('TasksService', () => {
   let scheduler: TestScheduler;

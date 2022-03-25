@@ -1,7 +1,7 @@
 import { type } from '../../shared/ngrx/type';
 import { Action } from '@ngrx/store';
 
-// tslint:disable:max-classes-per-file
+/* eslint-disable max-classes-per-file */
 export const MetaTagTypes = {
   ADD: type('dspace/meta-tag/ADD'),
   CLEAR: type('dspace/meta-tag/CLEAR')

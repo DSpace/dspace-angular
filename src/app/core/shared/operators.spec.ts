@@ -20,7 +20,7 @@ import {
   createSuccessfulRemoteDataObject
 } from '../../shared/remote-data.utils';
 
-// tslint:disable:no-shadowed-variable
+/* eslint-disable @typescript-eslint/no-shadow */
 
 describe('Core Module - RxJS Operators', () => {
   let scheduler: TestScheduler;

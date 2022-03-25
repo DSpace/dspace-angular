@@ -3,7 +3,7 @@ import { hasValue, hasNoValue, isNotEmpty } from '../app/shared/empty.util';
 import { DSpaceObject } from '../app/core/shared/dspace-object.model';
 import { getDSORoute } from '../app/app-routing-paths';
 
-// tslint:disable:max-classes-per-file
+/* eslint-disable max-classes-per-file */
 export interface NamedThemeConfig extends Config {
   name: string;
 

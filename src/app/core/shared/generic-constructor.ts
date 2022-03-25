@@ -3,6 +3,6 @@
  * more details:
  * https://github.com/Microsoft/TypeScript/issues/204#issuecomment-257722306
  */
-/* tslint:disable:interface-over-type-literal */
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
 export type GenericConstructor<T> = new (...args: any[]) => T ;
-/* tslint:enable:interface-over-type-literal */
+/* eslint-enable @typescript-eslint/consistent-type-definitions */

@@ -26,7 +26,7 @@ export const MetadataRegistryActionTypes = {
   DESELECT_ALL_FIELD: type('dspace/metadata-registry/DESELECT_ALL_FIELD')
 };
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 /**
  * Used to edit a metadata schema in the metadata registry
  */
@@ -133,7 +133,7 @@ export class MetadataRegistryDeselectAllFieldAction implements Action {
   type = MetadataRegistryActionTypes.DESELECT_ALL_FIELD;
 }
 
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */
 
 /**
  * Export a type alias of all actions in this action group

@@ -26,7 +26,7 @@ import { RequestEntryState } from './request.reducer';
 
 const endpoint = 'https://rest.api/core';
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 class TestService extends DataService<any> {
 
   constructor(
@@ -833,4 +833,4 @@ describe('DataService', () => {
     });
   });
 });
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */

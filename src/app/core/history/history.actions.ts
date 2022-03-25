@@ -7,7 +7,7 @@ export const HistoryActionTypes = {
   GET_HISTORY: type('dspace/history/GET_HISTORY')
 };
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 
 export class AddUrlToHistoryAction implements Action {
   type = HistoryActionTypes.ADD_TO_HISTORY;
@@ -20,7 +20,7 @@ export class AddUrlToHistoryAction implements Action {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */
 
 export type HistoryAction
   = AddUrlToHistoryAction;

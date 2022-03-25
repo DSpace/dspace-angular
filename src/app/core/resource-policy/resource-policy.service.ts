@@ -28,7 +28,7 @@ import { map } from 'rxjs/operators';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -222,4 +222,4 @@ export class ResourcePolicyService {
   }
 
 }
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */

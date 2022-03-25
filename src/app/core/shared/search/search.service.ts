@@ -44,7 +44,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { HttpClient } from '@angular/common/http';
 import { DSOChangeAnalyzer } from '../../data/dso-change-analyzer.service';
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 /**
  * A class that lets us delegate some methods to DataService
  */

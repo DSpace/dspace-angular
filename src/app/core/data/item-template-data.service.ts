@@ -24,7 +24,7 @@ import { hasValue } from '../../shared/empty.util';
 import { Operation } from 'fast-json-patch';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 /**
  * A custom implementation of the ItemDataService, but for collection item templates
  * Makes sure to change the endpoint before sending out CRUD requests for the item template
@@ -228,4 +228,4 @@ export class ItemTemplateDataService implements UpdateDataService<Item> {
     return this.dataService.getCollectionEndpoint(collectionID);
   }
 }
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */

@@ -21,7 +21,7 @@ export const ObjectUpdatesActionTypes = {
   REMOVE_FIELD: type('dspace/core/cache/object-updates/REMOVE_FIELD')
 };
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 
 /**
  * Enum that represents the different types of updates that can be performed on a field in the ObjectUpdates store
@@ -283,7 +283,7 @@ export class RemoveFieldUpdateAction implements Action {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */
 
 /**
  * A type to encompass all ObjectUpdatesActions

@@ -10,7 +10,7 @@ import { getClassForType } from '../cache/builders/build-decorators';
 import { RestRequest } from './request.models';
 import { environment } from '../../../environments/environment';
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 
 /**
  * Return true if halObj has a value for `_links.self`
@@ -180,4 +180,4 @@ export abstract class BaseResponseParsingService {
     return statusCode >= 200 && statusCode < 300;
   }
 }
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */

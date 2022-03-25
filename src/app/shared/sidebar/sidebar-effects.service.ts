@@ -27,10 +27,10 @@ export class SidebarEffects {
   }
 
   getBaseUrl(action: any): string {
-    /* tslint:disable:no-string-literal */
+    /* eslint-disable @typescript-eslint/dot-notation */
     const url: string = action['payload'].routerState.url;
     return new URLBaser(url).toString();
-    /* tslint:enable:no-string-literal */
+    /* eslint-enable @typescript-eslint/dot-notation */
   }
 
 }

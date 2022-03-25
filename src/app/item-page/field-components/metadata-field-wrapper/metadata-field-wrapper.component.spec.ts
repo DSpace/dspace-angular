@@ -3,7 +3,7 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper.component';
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 @Component({
     selector: 'ds-component-without-content',
     template: '<ds-metadata-field-wrapper [hideIfNoTextContent]="hideIfNoTextContent" [label]="\'test label\'">\n' +
@@ -34,7 +34,7 @@ class TextContentComponent {
   @Input() hideIfNoTextContent = true;
 }
 
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */
 
 describe('MetadataFieldWrapperComponent', () => {
   let component: MetadataFieldWrapperComponent;

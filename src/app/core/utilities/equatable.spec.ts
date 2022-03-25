@@ -14,7 +14,7 @@ class Dog extends EquatableObject<Dog> {
   public favouriteToy: { name: string, colour: string };
 }
 
-// tslint:disable-next-line:max-classes-per-file
+// eslint-disable-next-line max-classes-per-file
 class Owner extends EquatableObject<Owner> {
   @excludeFromEquals
   favouriteFood: string;

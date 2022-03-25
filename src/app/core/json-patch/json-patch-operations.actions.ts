@@ -23,7 +23,7 @@ export const JsonPatchOperationsActionTypes = {
   DELETE_PENDING_JSON_PATCH_OPERATIONS: type('dspace/core/patch/DELETE_PENDING_JSON_PATCH_OPERATIONS'),
 };
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 
 /**
  * An ngrx action to commit the current transaction
@@ -269,7 +269,7 @@ export class DeletePendingJsonPatchOperationsAction implements Action {
   type = JsonPatchOperationsActionTypes.DELETE_PENDING_JSON_PATCH_OPERATIONS;
 }
 
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */
 
 /**
  * Export a type alias of all actions in this action group

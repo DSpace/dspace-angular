@@ -17,7 +17,7 @@ export const BitstreamFormatsRegistryActionTypes = {
   DESELECT_ALL_FORMAT: type('dspace/bitstream-formats-registry/DESELECT_ALL_FORMAT')
 };
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 /**
  * Used to select a single bitstream format in the bitstream format registry
  */
@@ -51,7 +51,7 @@ export class BitstreamFormatsRegistryDeselectAllAction implements Action {
   type = BitstreamFormatsRegistryActionTypes.DESELECT_ALL_FORMAT;
 }
 
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */
 
 /**
  * Export a type alias of all actions in this action group

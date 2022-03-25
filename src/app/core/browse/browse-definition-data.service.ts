@@ -18,7 +18,7 @@ import { RemoteData } from '../data/remote-data';
 import { FindListOptions } from '../data/request.models';
 import { PaginatedList } from '../data/paginated-list.model';
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 
 class DataServiceImpl extends DataService<BrowseDefinition> {
   protected linkPath = 'browses';
@@ -123,4 +123,4 @@ export class BrowseDefinitionDataService {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */

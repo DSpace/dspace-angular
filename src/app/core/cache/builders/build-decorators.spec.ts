@@ -3,7 +3,7 @@ import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
 import { dataService, getDataServiceFor, getLinkDefinition, link, } from './build-decorators';
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 class TestService {
 }
 
@@ -80,4 +80,4 @@ describe('build decorators', () => {
     });
   });
 });
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */

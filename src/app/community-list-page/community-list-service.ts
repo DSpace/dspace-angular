@@ -108,7 +108,7 @@ export const MAX_COMCOLS_PER_PAGE = 20;
  * Service class for the community list, responsible for the creating of the flat list used by communityList dataSource
  *  and connection to the store to retrieve and save the state of the community list
  */
-// tslint:disable-next-line:max-classes-per-file
+// eslint-disable-next-line max-classes-per-file
 @Injectable()
 export class CommunityListService {
 

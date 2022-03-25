@@ -9,7 +9,7 @@ export const NameVariantActionTypes = {
   REMOVE_NAME_VARIANT: type('dspace/name-variant/REMOVE_NAME_VARIANT'),
 };
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 /**
  * Abstract class for actions that happen to name variants
  */
@@ -51,7 +51,7 @@ export class RemoveNameVariantAction extends NameVariantListAction {
     super(listID, itemID);
   }
 }
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */
 
 /**
  * A type to encompass all RelationshipActions

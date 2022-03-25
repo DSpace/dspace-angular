@@ -15,7 +15,7 @@ export const ObjectCacheActionTypes = {
   APPLY_PATCH: type('dspace/core/cache/object/APPLY_PATCH')
 };
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 /**
  * An ngrx action to add an object to the cache
  */
@@ -126,7 +126,7 @@ export class ApplyPatchObjectCacheAction implements Action {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */
 
 /**
  * A type to encompass all ObjectCacheActions

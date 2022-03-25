@@ -18,7 +18,7 @@ import { RequestService } from './request.service';
 import { FindListOptions } from './request.models';
 import { PaginatedList } from './paginated-list.model';
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 class DataServiceImpl extends DataService<DSpaceObject> {
   protected linkPath = 'dso';
 
@@ -104,4 +104,4 @@ export class DSpaceObjectDataService {
   }
 
 }
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */

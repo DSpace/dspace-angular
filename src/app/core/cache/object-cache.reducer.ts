@@ -49,7 +49,7 @@ export const getResourceTypeValueFor = (type: any): string => {
   }
 };
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 /**
  * An interface to represent objects that can be cached
  *
@@ -110,7 +110,7 @@ export class ObjectCacheEntry implements CacheEntry {
   alternativeLinks: string[];
 }
 
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */
 
 /**
  * The ObjectCache State

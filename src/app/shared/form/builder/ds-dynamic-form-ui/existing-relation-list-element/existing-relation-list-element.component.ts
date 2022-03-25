@@ -14,7 +14,7 @@ import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
 import { SubmissionService } from '../../../../../submission/submission.service';
 
-// tslint:disable:max-classes-per-file
+/* eslint-disable max-classes-per-file */
 /**
  * Abstract class that defines objects that can be reordered
  */
@@ -120,4 +120,4 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
 
 }
 
-// tslint:enable:max-classes-per-file
+/* eslint-enable max-classes-per-file */

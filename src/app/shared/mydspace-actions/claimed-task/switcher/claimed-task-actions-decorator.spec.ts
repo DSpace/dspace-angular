@@ -5,7 +5,7 @@ describe('ClaimedTaskActions decorator function', () => {
   const option2 = 'test_option_2';
   const option3 = 'test_option_3';
 
-  /* tslint:disable:max-classes-per-file */
+  /* eslint-disable max-classes-per-file */
   class Test1Action {
   }
 
@@ -15,7 +15,7 @@ describe('ClaimedTaskActions decorator function', () => {
   class Test3Action {
   }
 
-  /* tslint:enable:max-classes-per-file */
+  /* eslint-enable max-classes-per-file */
 
   beforeAll(() => {
     rendersWorkflowTaskOption(option1)(Test1Action);

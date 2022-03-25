@@ -41,7 +41,7 @@ export class SearchFilterAction implements Action {
   }
 }
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 /**
  * Used to collapse a filter
  */
@@ -95,4 +95,4 @@ export class SearchFilterIncrementPageAction extends SearchFilterAction {
 export class SearchFilterResetPageAction extends SearchFilterAction {
   type = SearchFilterActionTypes.RESET_PAGE;
 }
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */

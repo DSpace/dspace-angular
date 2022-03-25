@@ -302,7 +302,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     Object.values(this.subMap).forEach((subscription) => subscription.unsubscribe());
   }
 
-  /* tslint:disable:no-empty */
+  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   /**
    * Called when discard button is clicked, emit discard event to parent to conclude functionality
    */
@@ -314,6 +314,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   submitEv(): void {
   }
-  /* tslint:enable:no-empty */
+  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
 }

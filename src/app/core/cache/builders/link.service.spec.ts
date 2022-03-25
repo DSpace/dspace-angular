@@ -12,7 +12,7 @@ import { isEmpty } from 'rxjs/operators';
 const TEST_MODEL = new ResourceType('testmodel');
 let result: any;
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 class TestModel implements HALResource {
   static type = TEST_MODEL;
 
@@ -251,4 +251,4 @@ describe('LinkService', () => {
   });
 
 });
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */

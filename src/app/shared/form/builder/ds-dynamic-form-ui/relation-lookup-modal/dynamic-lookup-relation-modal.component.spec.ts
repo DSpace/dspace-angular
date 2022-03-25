@@ -123,7 +123,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         { provide: RemoteDataBuildService, useValue: rdbService },
         {
           provide: Store, useValue: {
-            // tslint:disable-next-line:no-empty
+            // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function
             dispatch: () => {
             }
           }

@@ -21,7 +21,7 @@ import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { catchError, map } from 'rxjs/operators';
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -131,4 +131,4 @@ export class RootDataService {
     this.requestService.setStaleByHrefSubstring(this.halService.getRootHref());
   }
 }
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */

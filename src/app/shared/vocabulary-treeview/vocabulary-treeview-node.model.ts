@@ -7,7 +7,7 @@ export const LOAD_MORE_ROOT = 'LOAD_MORE_ROOT';
 export const LOAD_MORE_NODE: any = { id: LOAD_MORE };
 export const LOAD_MORE_ROOT_NODE: any = { id: LOAD_MORE_ROOT };
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 /** Nested node */
 export class TreeviewNode {
   childrenChange = new BehaviorSubject<TreeviewNode[]>([]);
@@ -42,4 +42,4 @@ export class TreeviewFlatNode {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */

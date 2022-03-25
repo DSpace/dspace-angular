@@ -34,7 +34,7 @@ import { VocabularyOptions } from './models/vocabulary-options.model';
 import { PageInfo } from '../../shared/page-info.model';
 import { HrefOnlyDataService } from '../../data/href-only-data.service';
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -386,4 +386,4 @@ export class VocabularyService {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */

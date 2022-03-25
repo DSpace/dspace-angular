@@ -15,7 +15,7 @@ import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { CONFIG_PROPERTY } from '../shared/config-property.resource-type';
 
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 class DataServiceImpl extends DataService<ConfigurationProperty> {
   protected linkPath = 'properties';
 
@@ -60,4 +60,4 @@ export class ConfigurationDataService {
     return this.dataService.findById(name);
   }
 }
-/* tslint:enable:max-classes-per-file */
+/* eslint-enable max-classes-per-file */

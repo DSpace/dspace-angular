@@ -22,7 +22,7 @@ import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
 
-// tslint:disable:max-classes-per-file
+/* eslint-disable max-classes-per-file */
 /**
  * Abstract class that defines objects that can be reordered
  */
@@ -218,4 +218,4 @@ export class ExistingMetadataListElementComponent implements OnInit, OnChanges, 
 
 }
 
-// tslint:enable:max-classes-per-file
+/* eslint-enable max-classes-per-file */
