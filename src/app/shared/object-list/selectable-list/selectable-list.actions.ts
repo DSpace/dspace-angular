@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 import { type } from '../../ngrx/type';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
@@ -22,7 +23,6 @@ export const SelectableListActionTypes = {
 /**
  * Abstract action class for actions on selectable lists
  */
-/* eslint-disable max-classes-per-file */
 export abstract class SelectableListAction implements Action {
   // eslint-disable-next-line @typescript-eslint/no-shadow
   constructor(public type, public id: string) {
@@ -98,4 +98,3 @@ export class SelectableListDeselectAllAction extends SelectableListAction {
     super(SelectableListActionTypes.DESELECT_ALL, id);
   }
 }
-/* eslint-enable max-classes-per-file */

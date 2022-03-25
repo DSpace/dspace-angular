@@ -1,3 +1,4 @@
+  /* eslint-disable max-classes-per-file */
 import {
   DEFAULT_ENTITY_TYPE,
   DEFAULT_REPRESENTATION_TYPE,
@@ -20,7 +21,6 @@ describe('MetadataRepresentation decorator function', () => {
   const typeUnthemed = 'TestTypeUnthemed';
   let prefix;
 
-  /* eslint-disable max-classes-per-file */
   class Test1PlainText {
   }
 

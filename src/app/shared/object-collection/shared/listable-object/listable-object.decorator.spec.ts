@@ -1,3 +1,4 @@
+  /* eslint-disable max-classes-per-file */
 import { Item } from '../../../../core/shared/item.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { getListableObjectComponent, listableObjectComponent } from './listable-object.decorator';
@@ -13,7 +14,6 @@ describe('ListableObject decorator function', () => {
   const typeAncestor = 'TestTypeAncestor';
   const typeUnthemed = 'TestTypeUnthemed';
 
-  /* eslint-disable max-classes-per-file */
   class Test1List {
   }
 

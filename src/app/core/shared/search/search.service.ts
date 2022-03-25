@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
@@ -44,7 +45,6 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { HttpClient } from '@angular/common/http';
 import { DSOChangeAnalyzer } from '../../data/dso-change-analyzer.service';
 
-/* eslint-disable max-classes-per-file */
 /**
  * A class that lets us delegate some methods to DataService
  */

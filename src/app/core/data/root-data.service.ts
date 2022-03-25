@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { DataService } from './data.service';
 import { Root } from './root.model';
 import { Injectable } from '@angular/core';
@@ -21,7 +22,6 @@ import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { catchError, map } from 'rxjs/operators';
 
-/* eslint-disable max-classes-per-file */
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -131,4 +131,3 @@ export class RootDataService {
     this.requestService.setStaleByHrefSubstring(this.halService.getRootHref());
   }
 }
-/* eslint-enable max-classes-per-file */

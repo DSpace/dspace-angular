@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { compare, Operation } from 'fast-json-patch';
@@ -26,7 +27,6 @@ import { RequestEntryState } from './request.reducer';
 
 const endpoint = 'https://rest.api/core';
 
-/* eslint-disable max-classes-per-file */
 class TestService extends DataService<any> {
 
   constructor(
@@ -833,4 +833,3 @@ describe('DataService', () => {
     });
   });
 });
-/* eslint-enable max-classes-per-file */
