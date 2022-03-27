@@ -31,6 +31,27 @@
   // "404.page-not-found": "page not found",
   "404.page-not-found": "Seite nicht gefunden",
   
+  // "admin.access-control.epeople.breadcrumbs": "EPeople",
+  "admin.access-control.epeople.breadcrumbs": "Personen suchen",
+
+  // "admin.access-control.epeople.search.placeholder": "Search people...",
+  "admin.access-control.epeople.search.placeholder": "Person suchen",
+
+  // "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
+  "admin.access-control.groups.addGroup.breadcrumbs": "Neue Gruppe",
+
+  // "admin.access-control.groups.breadcrumbs": "Groups",
+  "admin.access-control.groups.breadcrumbs": "Gruppe",
+
+  // "admin.access-control.groups.form.members-list.table.email": "Email",
+  "admin.access-control.groups.form.members-list.table.email": "E-Mail-Adresse",
+
+  // "admin.access-control.groups.search.placeholder": "Search groups...",
+  "admin.access-control.groups.search.placeholder": "Gruppe suchen",
+
+  // "admin.access-control.groups.singleGroup.breadcrumbs": "Edit Group",
+  "admin.access-control.groups.singleGroup.breadcrumbs": "Gruppe bearbeiten",
+
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
   "admin.curation-tasks.breadcrumbs": "Wartungsarbeiten",
   
@@ -107,7 +128,7 @@
   "admin.registries.bitstream-formats.edit.head": "Dateiformat: {{ format }}",
   
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
-  "admin.registries.bitstream-formats.edit.internal.hint": "Dateiformate, die als intern gekennzeichnet sind, dienen administrativen Zwecken und bleiben dem:der Endnutzer:in verborgen.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "Als \"intern\" gekennzeichnete Dateiformate dienen administrativen Zwecken und sind nicht öffentlich sichtbar.",
   
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
   "admin.registries.bitstream-formats.edit.internal.label": "intern",
@@ -483,7 +504,7 @@
   "admin.access-control.groups.form.alert.permanent": "Diese Gruppe ist permanent, das heißt sie kann nicht bearbeitet oder gelöscht werden. Sie können jedoch über diese Seite Gruppenmitglieder hinzufügen und entfernen.",
   
   // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
-  "admin.access-control.groups.form.alert.workflowGroup": "Diese Gruppe kann nicht geändert oder gelöscht werden, da sie einer Rolle im Einreichungs- und Workflow-Prozess im \"{{name}}\" {{comcol}} zugeordnet ist. Sie können sie über die Registerkarte <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> auf der Bearbeitungsseite {{comcol}} löschen. Sie können über diese Seite weiterhin Gruppenmitglieder hinzufügen und entfernen.",
+  "admin.access-control.groups.form.alert.workflowGroup": "Diese Gruppe kann nicht geändert oder gelöscht werden, da sie einer Rolle im Einreichungs- und Workflow-Prozess im \"{{name}}\" {{comcol}} zugeordnet ist. Sie können sie auf der Bearbeitungsseite {{comcol}} im Tab <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> löschen. Hier können Sie  Gruppenmitglieder hinzufügen und entfernen.",
   
   // "admin.access-control.groups.form.head.create": "Create group",
   "admin.access-control.groups.form.head.create": "Gruppe erstellen",
@@ -755,6 +776,66 @@
   
   
   
+  // "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
+  "auth.messages.token-refresh-failed": "Aktualisierung fehlgeschlagen. Bitte melden Sie sich erneut an.",
+
+  // "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
+  "bitstream-request-a-copy.alert.canDownload1": "Sie haben schon Zugriff auf die Datei. Um sie herunterzuladen, klicken Sie bitte",
+
+  // "bitstream-request-a-copy.alert.canDownload2": "here",
+  "bitstream-request-a-copy.alert.canDownload2": "hier",
+
+  // "bitstream-request-a-copy.allfiles.label": "Files",
+  "bitstream-request-a-copy.allfiles.label": "Dateien",
+
+  // "bitstream-request-a-copy.email.error": "Please enter a valid email address.",
+  "bitstream-request-a-copy.email.error": "Bitte geben Sie eine gültige E-Mail-Adresse an.",
+
+  // "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
+  "bitstream-request-a-copy.email.hint": "An diese E-Mail-Adresse wird die Datei geschickt.",
+
+  // "bitstream-request-a-copy.email.label": "Your e-mail address *",
+  "bitstream-request-a-copy.email.label": "E-Mail-Adresse *",
+
+  // "bitstream-request-a-copy.files-all-false.label": "Only the requested file",
+  "bitstream-request-a-copy.files-all-false.label": "Nur die angefragte Datei",
+
+  // "bitstream-request-a-copy.files-all-true.label": "All files (of this item) in restricted access",
+  "bitstream-request-a-copy.files-all-true.label": "Alle nicht öffentlich zugänglichen Dateien, die zu diesem Item gehören",
+
+  // "bitstream-request-a-copy.header": "Request a copy of the file",
+  "bitstream-request-a-copy.header": "Eine Datei anfordern",
+
+  // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
+  "bitstream-request-a-copy.intro": "Bitte füllen Sie für die Anfrage nach einer Datei die folgenden Felder aus:",
+
+  // "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
+  "bitstream-request-a-copy.intro.bitstream.all": "Bitte schicken Sie mir alle Dateien.",
+
+  // "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
+  "bitstream-request-a-copy.intro.bitstream.one": "Bitte schicken Sie mir die folgende Datei:",
+
+  // "bitstream-request-a-copy.message.label": "Message",
+  "bitstream-request-a-copy.message.label": "Nachricht",
+
+  // "bitstream-request-a-copy.name.error": "The name is required",
+  "bitstream-request-a-copy.name.error": "Bitte geben Sie Ihren Namen an.",
+
+  // "bitstream-request-a-copy.name.label": "Name *",
+  "bitstream-request-a-copy.name.label": "Name *",
+
+  // "bitstream-request-a-copy.return": "Back",
+  "bitstream-request-a-copy.return": "Zurück",
+
+  // "bitstream.download.page.back": "Back",
+  "bitstream.download.page.back": "Zurück",
+
+  // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
+  "bitstream.edit.authorizations.link": "Richtlinien für den Bitstream bearbeiten",
+
+  // "bitstream.edit.authorizations.title": "Edit bitstream's Policies",
+  "bitstream.edit.authorizations.title": "Richtlinien für den Bitstream bearbeiten",
+
   // "bitstream.edit.bitstream": "Bitstream: ",
   "bitstream.edit.bitstream": "Bitstream: ",
   
@@ -772,22 +853,25 @@
   "bitstream.edit.form.embargo.label": "Sperrfrist",
   
   // "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
-  "bitstream.edit.form.fileName.hint": "Ändern Sie den Dateinamen für die Datei. Beachten Sie, dass sich dadurch die angezeigte Datei-URL ändert, aber alte Links weiterhin funktionieren, solange sich die Sequenz-ID nicht ändert.",
+  "bitstream.edit.form.fileName.hint": "Hier können Sie den Dateinamen ändern. Beachten Sie bitte, dass sich dadurch die angezeigte Datei-URL ändert. Alte Links werden jedoch weiterhin aufgelöst, solange sich die Sequenz-ID nicht ändert.",
   
   // "bitstream.edit.form.fileName.label": "Filename",
   "bitstream.edit.form.fileName.label": "Dateiname",
   
+  // "bitstream.edit.form.iiifLabel.label": "IIIF Label",
+  "bitstream.edit.form.iiifLabel.label": "IIIF-Bezeichnung",
+
   // "bitstream.edit.form.newFormat.label": "Describe new format",
   "bitstream.edit.form.newFormat.label": "Neues Format beschreiben",
   
   // "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
-  "bitstream.edit.form.newFormat.hint": "Die Anwendung, mit der Sie die Datei erstellt haben, und die Versionsnummer (zum Beispiel, \"<i>ACMESoft SuperApp version 1.5</i>\").",
+  "bitstream.edit.form.newFormat.hint": "Name und Versionsnummer des Programms, das Sie verwendet haben, um die Datei zu erstellen (z. B. \"<i>ACMESoft SuperApp, Version 1.5</i>\").",
   
   // "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
   "bitstream.edit.form.primaryBitstream.label": "Primäre Datei",
   
   // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
-  "bitstream.edit.form.selectedFormat.hint": "Wenn das Format nicht in der obigen Liste enthalten ist, <b>wählen Sie \"Format in der Liste\"</b> und beschreiben Sie es unter \"Neues Format beschreiben\".",
+  "bitstream.edit.form.selectedFormat.hint": "Falls das Format nicht in der obigen Liste enthalten ist, <b>wählen Sie bitte \"Anderes Format\"</b> und beschreiben Sie es unter \"Neues Format beschreiben\".",
   
   // "bitstream.edit.form.selectedFormat.label": "Selected Format",
   "bitstream.edit.form.selectedFormat.label": "Ausgewähltes Format",
@@ -804,6 +888,9 @@
   // "bitstream.edit.notifications.saved.title": "Bitstream saved",
   "bitstream.edit.notifications.saved.title": "Datei gespeichert",
   
+  // "bitstream.edit.return": "Back",
+  "bitstream.edit.return": "Zurück",
+
   // "bitstream.edit.title": "Edit bitstream",
   "bitstream.edit.title": "Datei bearbeiten",
   
@@ -851,12 +938,21 @@
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Titel",
   
+  // "browse.next.button": "Next",
+  "browse.next.button": "Weiter",
+
+  // "browse.previous.button": "Previous",
+  "browse.previous.button": "Zurück",
+
   // "browse.startsWith.choose_start": "(Choose start)",
   "browse.startsWith.choose_start": "(Startpunkt wählen)",
   
   // "browse.startsWith.choose_year": "(Choose year)",
   "browse.startsWith.choose_year": "(Zeitpunkt wählen)",
   
+  // "browse.startsWith.choose_year.label": "Choose the issue year",
+  "browse.startsWith.choose_year.label": "Erscheinungsjahr auswählen",
+
   // "browse.startsWith.jump": "Jump to a point in the index:",
   "browse.startsWith.jump": "Zu einem Punkt im Index springen:",
   
@@ -890,6 +986,9 @@
   // "browse.startsWith.months.none": "(Choose month)",
   "browse.startsWith.months.none": "(Monat auswählen)",
   
+  // "browse.startsWith.months.none.label": "Choose the issue month",
+  "browse.startsWith.months.none.label": "Erscheinungsmonat auswählen",
+
   // "browse.startsWith.months.november": "November",
   "browse.startsWith.months.november": "November",
   
@@ -960,6 +1059,12 @@
   
   
   
+  // "collection.edit.logo.delete-undo.title": "Undo delete",
+  "collection.edit.logo.delete-undo.title": "Löschen rückgängig machen",
+
+  // "collection.edit.logo.delete.title": "Delete logo",
+  "collection.edit.logo.delete.title": "Logo löschen",
+
   // "collection.edit.tabs.mapper.head": "Item Mapper",
   "collection.edit.tabs.mapper.head": "Item spiegeln",
   
@@ -1009,7 +1114,7 @@
   "collection.edit.item-mapper.notifications.unmap.success.head": "Spiegelung entfernen abgeschlossen",
   
   // "collection.edit.item-mapper.remove": "Remove selected item mappings",
-  "collection.edit.item-mapper.remove": "Spiegelung der gewählten Items entfernen.",
+  "collection.edit.item-mapper.remove": "Spiegelung der ausgewählten Items entfernen",
   
   // "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
   "collection.edit.item-mapper.tabs.browse": "Gespiegelte Items auflisten",
@@ -1155,7 +1260,7 @@
   "collection.edit.template.notifications.delete.error": "Löschen der Metadatenvorlage fehlgeschlagen",
   
   // "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
-  "collection.edit.template.notifications.delete.success": "Die Metadatenvorlage wurde erfolgreich gelöscht",
+  "collection.edit.template.notifications.delete.success": "Die Metadatenvorlage wurde erfolgreich gelöscht.",
   
   // "collection.edit.template.title": "Edit Template Item",
   "collection.edit.template.title": "Metadatenvorlage bearbeiten",
@@ -1197,7 +1302,7 @@
   "collection.page.browse.recent.head": "Neueste Veröffentlichungen",
   
   // "collection.page.browse.recent.empty": "No items to show",
-  "collection.page.browse.recent.empty": "Es gibt keine Items zum Anzeigen",
+  "collection.page.browse.recent.empty": "Es gibt keine Items, die angezeigt werden können.",
   
   // "collection.page.edit": "Edit this collection",
   "collection.page.edit": "Diese Sammlung bearbeiten",
@@ -1224,6 +1329,18 @@
   
   
   
+  // "collection.source.controls.import.running": "Importing...",
+  "collection.source.controls.import.running": "Importiere...",
+
+  // "collection.source.controls.import.submit": "Import now",
+  "collection.source.controls.import.submit": "Jetzt importieren",
+
+  // "collection.source.controls.import.submit.success": "The import has been successfully initiated",
+  "collection.source.controls.import.submit.success": "Import begonnen",
+
+  // "collection.source.controls.test.running": "Testing configuration...",
+  "collection.source.controls.test.running": "Die Konfiguration wird getestet.",
+
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
   "collection.source.update.notifications.error.content": "Die angegebenen Einstellungen wurden getestet und haben nicht funktioniert.",
   
@@ -1232,6 +1349,12 @@
   
   
   
+  // "community.edit.logo.delete-undo.title": "Undo delete",
+  "community.edit.logo.delete-undo.title": "Löschen rückgängig machen",
+
+  // "community.edit.logo.delete.title": "Delete logo",
+  "community.edit.logo.delete.title": "Logo löschen",
+
   // "communityList.tabTitle": "DSpace - Community List",
   "communityList.tabTitle": "DSpace - Bereichsliste",
   
@@ -1382,27 +1505,27 @@
   "comcol-role.edit.submitters.name": "Einreichende",
   
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
-  "comcol-role.edit.submitters.description": "Die Personen und Gruppen, die die Berechtigungen haben, neue Items zu dieser Sammlung einzureichen.",
+  "comcol-role.edit.submitters.description": "Personen und Gruppen, die neue Items für diese Sammlung einreichen dürfen",
   
   
   // "comcol-role.edit.item_read.name": "Default item read access",
-  "comcol-role.edit.item_read.name": "Standard-Lesezugriff Item",
+  "comcol-role.edit.item_read.name": "Standardeinstellungen für den Lesezugriff auf Items",
   
   // "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
   "comcol-role.edit.item_read.description": "Personen und Gruppen, die neu eingereichte Items dieser Sammlung lesen können. Änderungen an dieser Rolle sind nicht rückwirkend. Bestehende Items im System können weiterhin von denjenigen eingesehen werden, die zum Zeitpunkt des Hinzufügens Lesezugriff hatten.",
   
   // "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
-  "comcol-role.edit.item_read.anonymous-group": "Die Standardeinstellung für das Lesen eingehender Items ist derzeit auf Anonym eingestellt.",
+  "comcol-role.edit.item_read.anonymous-group": "Freigeschaltete Items sind standardmäßig für jede:n öffentlich sichtbar.",
   
   
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
-  "comcol-role.edit.bitstream_read.name": "Standard-Lesezugriff Datei",
+  "comcol-role.edit.bitstream_read.name": "Standardeinstellungen für den Lesezugriff auf Dateien",
   
   // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
   "comcol-role.edit.bitstream_read.description": "Community-Administrator:innen können Teilbereiche oder Sammlungen erstellen, verwalten oder die Verwaltung anderen zuweisen. Darüber hinaus entscheiden sie, wer Items zu einer Teilsammlung einreichen, Item-Metadaten bearbeiten (nach der Einreichung) und bestehende Items von anderen Sammlungen verknüpfen kann (vorbehaltlich einer Berechtigung).",
   
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
-  "comcol-role.edit.bitstream_read.anonymous-group": "Die Standardeinstellung für das Lesen eingehender Dateien ist derzeit auf Anonym eingestellt.",
+  "comcol-role.edit.bitstream_read.anonymous-group": "Freigeschaltete Dateien sind standardmäßig für jede:n öffentlich sichtbar.",
   
   
   // "comcol-role.edit.editor.name": "Editors",
@@ -1475,7 +1598,7 @@
   "cookies.consent.accept-selected": "Nur ausgewählte Cookies akzeptieren",
   
   // "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
-  "cookies.consent.app.opt-out.description": "Diese App wird standardmäßig geladen (Sie können dies jedoch deaktivieren)",
+  "cookies.consent.app.opt-out.description": "Diese App wird standardmäßig geladen (Sie können dies jedoch deaktivieren).",
   
   // "cookies.consent.app.opt-out.title": "(opt-out)",
   "cookies.consent.app.opt-out.title": "(opt-out)",
@@ -1545,7 +1668,7 @@
   "cookies.consent.app.title.google-analytics": "Google Analytics",
   
   // "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
-  "cookies.consent.app.description.google-analytics": "Erlaubt uns, statistische Daten zu erfassen",
+  "cookies.consent.app.description.google-analytics": "Gestattet es uns, statistische Daten zu erheben",
   
   
   
@@ -1572,7 +1695,7 @@
   "curation-task.task.translate.label": "Microsoft Übersetzer",
   
   // "curation-task.task.vscan.label": "Virus Scan",
-  "curation-task.task.vscan.label": "Viren-Scan",
+  "curation-task.task.vscan.label": "Virenscan",
   
   
   
@@ -1598,10 +1721,25 @@
   "curation.form.handle.label": "Handle:",
   
   // "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
-  "curation.form.handle.hint": "Hinweis: Geben Sie [handle-prefix]/0 ein, um eine Aufgabe für die gesamte Seite durchzuführen (nicht alle Aufgaben unterstützen diese Funktion)",
+  "curation.form.handle.hint": "Tipp: Geben Sie [your-handle-prefix]/0 ein, um eine Aufgabe für die ganze Website auszuführen. Nicht alle Aufgaben unterstützen diese Funktion.",
   
   
   
+  // "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+  "deny-request-copy.email.message": "Sehr geehrte:r {{ recipientName }},\nLeider kann ich Ihnen die angeforderte Datei zu meiner Veröffentlichung \"{{ itemUrl }}\" ({{ itemName }}) nicht schicken.\n\nMit freundlichen Grüßen\n{{ authorName }} <{{ authorEmail }}>",
+
+  // "deny-request-copy.error": "An error occurred",
+  "deny-request-copy.error": "Es ist ein Fehler aufgetreten.",
+
+  // "deny-request-copy.header": "Deny document copy request",
+  "deny-request-copy.header": "Anfrage ablehnen",
+
+  // "deny-request-copy.intro": "This message will be sent to the applicant of the request",
+  "deny-request-copy.intro": "Die Nachricht wird an die:den Anfragende:n verschickt:",
+
+  // "deny-request-copy.success": "Successfully denied item request",
+  "deny-request-copy.success": "Anfrage abgelehnt",
+
   // "dso-selector.create.collection.head": "New collection",
   "dso-selector.create.collection.head": "Neue Sammlung",
   
@@ -1650,7 +1788,7 @@
   "confirmation-modal.export-metadata.header": "Exportieren der Metadaten für {{ dsoName }}",
   
   // "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
-  "confirmation-modal.export-metadata.info": "Sind Sie sicher, dass Sie die Metadaten für {{ dsoName }} exportieren wollen",
+  "confirmation-modal.export-metadata.info": "Möchten Sie wirklich Metadaten für {{ dsoName }} exportieren?",
   
   // "confirmation-modal.export-metadata.cancel": "Cancel",
   "confirmation-modal.export-metadata.cancel": "Abbrechen",
@@ -1662,7 +1800,7 @@
   "confirmation-modal.delete-eperson.header": "Person \"{{ dsoName }}\" löschen",
   
   // "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
-  "confirmation-modal.delete-eperson.info": "Sind Sie sicher, dass Sie die Person \"{{ dsoName }}\" löschen möchten",
+  "confirmation-modal.delete-eperson.info": "Möchten Sie die Person \"{{ dsoName }}\" wirklich löschen?",
   
   // "confirmation-modal.delete-eperson.cancel": "Cancel",
   "confirmation-modal.delete-eperson.cancel": "Abbrechen",
@@ -1671,8 +1809,14 @@
   "confirmation-modal.delete-eperson.confirm": "Löschen",
   
   
+  // "dso-selector.select.collection.head": "Select a collection",
+  "dso-selector.select.collection.head": "Bitte wählen Sie eine Sammlung aus.",
+
+  // "dso.name.untitled": "Untitled",
+  "dso.name.untitled": "Unbenannt",
+
   // "error.bitstream": "Error fetching bitstream",
-  "error.bitstream": "Fehler beim Laden der Datei",
+  "error.bitstream": "Die Datei konnte nicht geladen werden.",
   
   // "error.browse-by": "Error fetching items",
   "error.browse-by": "Fehler beim Laden der Items",
@@ -1687,11 +1831,14 @@
   "error.community": "Fehler beim Laden des Bereichs",
   
   // "error.identifier": "No item found for the identifier",
-  "error.identifier": "Zu dieser Kennung wurde kein Item gefunden",
+  "error.identifier": "Zu dieser Kennung wurde kein Item gefunden.",
   
   // "error.default": "Error",
   "error.default": "Fehler",
   
+  // "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
+  "error.invalid-search-query": "Ihre Suchanfrage ist ungültig. Weitere Informationen zur Syntax für Solr-Queries finden Sie <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">hier</a>.",
+
   // "error.item": "Error fetching item",
   "error.item": "Fehler beim Laden des Items",
   
@@ -1719,6 +1866,15 @@
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "Hauptbereich konnte nicht geladen werden",
   
+  // "error.validation.NotValidEmail": "This E-mail is not a valid email",
+  "error.validation.NotValidEmail": "Ungültige E-Mail-Adresse",
+
+  // "error.validation.emailTaken": "This E-mail is already taken",
+  "error.validation.emailTaken": "Diese E-Mail-Adresse wird schon verwendet.",
+
+  // "error.validation.groupExists": "This group already exists",
+  "error.validation.groupExists": "Diese Gruppe existiert schon.",
+
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
   "error.validation.license.notgranted": "Um die Veröffentlichung abzuschließen, müssen Sie die Lizenzbedingungen akzeptieren. Wenn Sie zur Zeit dazu nicht in der Lage sind, können Sie Ihre Arbeit sichern und später dazu zurückgkehren, um zuzustimmen oder die Einreichung zu löschen.",
   
@@ -1730,6 +1886,9 @@
   
   
   
+  // "error.validation.required": "This field is required",
+  "error.validation.required": "Dieses Feld darf nicht leer bleiben.",
+
   // "file-section.error.header": "Error obtaining files for this item",
   "file-section.error.header": "Fehler beim Abrufen der Dateien für dieses Item",
   
@@ -1741,11 +1900,14 @@
   // "footer.link.dspace": "DSpace software",
   "footer.link.dspace": "DSpace Software",
   
+  // "footer.link.feedback": "Send Feedback",
+  "footer.link.feedback": "Feedback schicken",
+
   // "footer.link.lyrasis": "LYRASIS",
   "footer.link.lyrasis": "LYRASIS",
   
   // "footer.link.cookies": "Cookie settings",
-  "footer.link.cookies": "Cookie Einstellungen",
+  "footer.link.cookies": "Cookie-Einstellungen",
   
   // "footer.link.privacy-policy": "Privacy policy",
   "footer.link.privacy-policy": "Datenschutzbestimmungen",
@@ -1759,16 +1921,16 @@
   "forgot-email.form.header": "Passwort vergessen",
   
   // "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
-  "forgot-email.form.info": "Geben Sie einen Account ein, um Sammlungen für E-Mail-Updates zu abonnieren und neue Items an DSpace zu übermitteln.",
+  "forgot-email.form.info": "Erstellen Sie ein Konto, um neue Einträge in DSpace hochzuladen und per E-Mail über Neuigkeiten informiert zu werden.",
   
   // "forgot-email.form.email": "Email Address *",
   "forgot-email.form.email": "E-Mail-Addresse *",
   
   // "forgot-email.form.email.error.required": "Please fill in an email address",
-  "forgot-email.form.email.error.required": "Bitte geben Sie eine E-Mail-Adresse ein",
+  "forgot-email.form.email.error.required": "Bitte geben Sie eine E-Mail-Adresse an.",
   
   // "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
-  "forgot-email.form.email.error.pattern": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+  "forgot-email.form.email.error.pattern": "Bitte geben Sie eine gültige E-Mail-Adresse an.",
   
   // "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
   "forgot-email.form.email.hint": "Diese Adresse wird überprüft und als Ihr Anmeldename verwendet.",
@@ -1780,13 +1942,13 @@
   "forgot-email.form.success.head": "Verifizierungs-E-Mail gesendet",
   
   // "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
-  "forgot-email.form.success.content": "Es wurde eine E-Mail mit einer speziellen URL und weiteren Anweisungen an {{ email }} gesendet.",
+  "forgot-email.form.success.content": "Eine E-Mail mit weitergehenden Informationen wurde an {{ email }} verschickt.",
   
   // "forgot-email.form.error.head": "Error when trying to register email",
-  "forgot-email.form.error.head": "Fehler beim Versuch, die E-Mail zu registrieren",
+  "forgot-email.form.error.head": "Registrierung der E-Mail-Adresse fehlgeschlagen",
   
   // "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
-  "forgot-email.form.error.content": "Bei der Registrierung der folgenden E-Mail-Adresse ist ein Fehler aufgetreten: {{ email }}",
+  "forgot-email.form.error.content": "Bei der Registrierung der E-Mail-Adresse {{ email }} ist ein Fehler aufgetreten.",
   
   
   
@@ -1797,7 +1959,7 @@
   "forgot-password.form.head": "Passwort vergessen",
   
   // "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  "forgot-password.form.info": "Geben Sie ein neues Kennwort in das unten stehende Feld ein und bestätigen Sie es, indem Sie es erneut in das zweite Feld eingeben. Es sollte mindestens sechs Zeichen lang sein.",
+  "forgot-password.form.info": "Bitte geben Sie ein neues Passwort (mindestens sechs Zeichen) ein und bestätigen Sie es erneut.",
   
   // "forgot-password.form.card.security": "Security",
   "forgot-password.form.card.security": "Sicherheit",
@@ -1815,7 +1977,7 @@
   "forgot-password.form.label.passwordrepeat": "Zum Bestätigen wiederholen",
   
   // "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
-  "forgot-password.form.error.empty-password": "Bitte geben Sie in das unten stehende Feld ein Passwort ein.",
+  "forgot-password.form.error.empty-password": "Bitte geben Sie unten ein Passwort ein.",
   
   // "forgot-password.form.error.matching-passwords": "The passwords do not match.",
   "forgot-password.form.error.matching-passwords": "Die Passwörter stimmen nicht überein.",
@@ -1827,10 +1989,10 @@
   "forgot-password.form.notification.error.title": "Fehler beim Versuch, ein neues Passwort zu übermitteln",
   
   // "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
-  "forgot-password.form.notification.success.content": "Das Zurücksetzen des Passworts war erfolgreich. Sie wurden in den erstellten Account eingeloggt.",
+  "forgot-password.form.notification.success.content": "Ihr Passwort wurde erfolgreich zurückgesetzt und Sie wurden eingeloggt.",
   
   // "forgot-password.form.notification.success.title": "Password reset completed",
-  "forgot-password.form.notification.success.title": "Passwort zurücksetzen abgeschlossen",
+  "forgot-password.form.notification.success.title": "Passwort erfolgreich zurückgesetzt",
   
   // "forgot-password.form.submit": "Submit password",
   "forgot-password.form.submit": "Passwort abschicken",
@@ -1852,6 +2014,9 @@
   // "form.clear-help": "Click here to remove the selected value",
   "form.clear-help": "Klicken Sie hier, um den ausgewählten Wert zu entfernen",
   
+  // "form.discard": "Discard",
+  "form.discard": "Verwerfen",
+
   // "form.edit": "Edit",
   "form.edit": "Bearbeiten",
   
@@ -1865,7 +2030,7 @@
   "form.group-collapse": "Zusammenklappen",
   
   // "form.group-collapse-help": "Click here to collapse",
-  "form.group-collapse-help": "Zum Zusammenfalten bitte hier klicken",
+  "form.group-collapse-help": "Einklappen",
   
   // "form.group-expand": "Expand",
   "form.group-expand": "Ausklappen",
@@ -1914,13 +2079,52 @@
   
   
   
+  // "grant-deny-request-copy.deny": "Don't send copy",
+  "grant-deny-request-copy.deny": "Anfrage ablehnen",
+
+  // "grant-deny-request-copy.email.back": "Back",
+  "grant-deny-request-copy.email.back": "Zurück",
+
+  // "grant-deny-request-copy.email.message": "Message",
+  "grant-deny-request-copy.email.message": "Nachricht",
+
+  // "grant-deny-request-copy.email.message.empty": "Please enter a message",
+  "grant-deny-request-copy.email.message.empty": "Bitte geben Sie eine Nachricht ein.",
+
+  // "grant-deny-request-copy.email.permissions.info": "You may use this occasion to reconsider the access restrictions on the document, to avoid having to respond to these requests. If you’d like to ask the repository administrators to remove these restrictions, please check the box below.",
+  "grant-deny-request-copy.email.permissions.info": "Möchten Sie die Datei öffentlich zugänglich machen, um die Sichtbarkeit Ihrer Publikation zu erhöhen und solche Anfragen in Zukunft zu vermeiden?",
+
+  // "grant-deny-request-copy.email.permissions.label": "Change to open access",
+  "grant-deny-request-copy.email.permissions.label": "Datei in Open Access überführen",
+
+  // "grant-deny-request-copy.email.send": "Send",
+  "grant-deny-request-copy.email.send": "Senden",
+
+  // "grant-deny-request-copy.email.subject": "Subject",
+  "grant-deny-request-copy.email.subject": "Betreff",
+
+  // "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
+  "grant-deny-request-copy.email.subject.empty": "Bitte geben Sie einen Betreff an",
+
+  // "grant-deny-request-copy.grant": "Send copy",
+  "grant-deny-request-copy.grant": "Datei senden",
+
+  // "grant-deny-request-copy.home-page": "Take me to the home page",
+  "grant-deny-request-copy.home-page": "Zur Startseite",
+
+  // "grant-deny-request-copy.intro1": "If you are one of the authors of the document <a href='{{ url }}'>{{ name }}</a>, then please use one of the options below to respond to the user's request.",
+  "grant-deny-request-copy.intro1": "Wenn Sie ein:e Autor:in des Dokuments <a href='{{ url }}'>{{ name }}</a> sind, wählen Sie bitte eine der Antwortmöglichkeiten aus#.",
+
+  // "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+  "grant-request-copy.email.message": "Sehr geehrte:r {{ recipientName }}, vielen Dank für Ihre Anfrage. Gerne schicke ich Ihnen die Datei zu meiner Veröffentlichung: \"{{ itemUrl }}\" ({{ itemName }}). \nMit freundlichen Grüßen,\n{{ authorName }} <{{ authorEmail }}>",
+
   // "home.description": "",
   "home.description": "",
   
   // "home.breadcrumbs": "Home",
   "home.breadcrumbs": "Startseite",
   
-  // "search.search-form.placeholder": "Search the repository ...",
+  // "home.search-form.placeholder": "Search the repository ...",
   "home.search-form.placeholder": "Durchsuche Repositorium",
   
   // "home.title": "DSpace Angular :: Home",
@@ -1970,15 +2174,15 @@
   
   
   // "item.alerts.private": "This item is private",
-  "item.alerts.private": "Dieses Item ist privat",
+  "item.alerts.private": "Dieses Item ist nicht öffentlich sichtbar.",
   
   // "item.alerts.withdrawn": "This item has been withdrawn",
-  "item.alerts.withdrawn": "Dieses Item wurde zurückgezogen",
+  "item.alerts.withdrawn": "Dieses Item wurde zurückgezogen.",
   
   
   
   // "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
-  "item.edit.authorizations.heading": "Mit diesem Editor können Sie die Richtlinien eines Items anzeigen und ändern sowie die Richtlinien der einzelnen Itemkomponenten, d. h. Bündel und Dateien, ändern. Kurz gesagt, ein Item ist ein Container von Bündeln, und Bündel sind Container von Dateien. Container haben normalerweise ADD/REMOVE/READ/WRITE-Richtlinien, während Dateien nur READ/WRITE-Richtlinien haben.",
+  "item.edit.authorizations.heading": "Mit diesem Editor können Sie die Richtlinien für Items sowie für einzelne Item-Komponenten (Pakete und Bitstreams) anzeigen und ändern. Ein Item ist ein Container für Pakete, und ein Paket ist ein Container für Bitstreams. Container haben normalerweise ADD/REMOVE/READ/WRITE-Richtlinien, während Bitstreams nur READ/WRITE-Richtlinien haben.",
   
   // "item.edit.authorizations.title": "Edit item's Policies",
   "item.edit.authorizations.title": "Item-Richtlinien bearbeiten",
@@ -2003,7 +2207,7 @@
   "item.bitstreams.upload.bundle.new": "Bündel erstellen",
   
   // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
-  "item.bitstreams.upload.bundles.empty": "Dieses Item enthält keine Bündel, um eine Datei hochzuladen.",
+  "item.bitstreams.upload.bundles.empty": "Diesem Item fehlt ein Bundle. Ohne Bundle kann keine Datei hochgeladen werden.",
   
   // "item.bitstreams.upload.cancel": "Cancel",
   "item.bitstreams.upload.cancel": "Abbrechen",
@@ -2032,7 +2236,7 @@
   "item.edit.bitstreams.bundle.edit.buttons.upload": "Hochladen",
   
   // "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
-  "item.edit.bitstreams.bundle.displaying": "Derzeit werden {{ amount }} Dateien von insgesamt {{ total }} angezeigt.",
+  "item.edit.bitstreams.bundle.displaying": "Derzeit werden {{ amount }} von insgesamt {{ total }} Dateien angezeigt.",
   
   // "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",
   "item.edit.bitstreams.bundle.load.all": "Alle ({{ total }}) laden",
@@ -2062,7 +2266,7 @@
   "item.edit.bitstreams.edit.buttons.undo": "Änderungen rückgängig machen",
   
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
-  "item.edit.bitstreams.empty": "Dieses Item enthält keine Dateien. Klicken Sie auf das Feld Hochladen, um eine zu erstellen.",
+  "item.edit.bitstreams.empty": "Dieses Item enthält keine Dateien. Klicken Sie auf das Feld \"Hochladen\", um eine Datei hinzuzufügen.",
   
   // "item.edit.bitstreams.headers.actions": "Actions",
   "item.edit.bitstreams.headers.actions": "Aktionen",
@@ -2104,7 +2308,7 @@
   "item.edit.bitstreams.notifications.remove.failed.title": "Fehler beim Löschen der Datei",
   
   // "item.edit.bitstreams.notifications.remove.saved.content": "Your removal changes to this item's bitstreams have been saved.",
-  "item.edit.bitstreams.notifications.remove.saved.content": "Ihre Entfernungsänderungen an den Dateien dieses Items wurden gespeichert.",
+  "item.edit.bitstreams.notifications.remove.saved.content": "Sie haben die Datei(en) entfernt.",
   
   // "item.edit.bitstreams.notifications.remove.saved.title": "Removal changes saved",
   "item.edit.bitstreams.notifications.remove.saved.title": "Änderungen gespeichert",
@@ -2127,7 +2331,7 @@
   "item.edit.delete.confirm": "Löschen",
   
   // "item.edit.delete.description": "Are you sure this item should be completely deleted? Caution: At present, no tombstone would be left.",
-  "item.edit.delete.description": "Sind Sie sicher, dass dieses Item komplett gelöscht werden soll. Warnung: Zur Zeit wird kein Grabstein hinterlassen",
+  "item.edit.delete.description": "Möchten Sie das Item wirklich löschen? Achtung: Wenn Sie es löschen, wird bei Aufruf der URL kein Hinweis auf ein zurückgezogenes Item angezeigt, sondern eine 404er-Fehlermeldung.",
   
   // "item.edit.delete.error": "An error occurred while deleting the item",
   "item.edit.delete.error": "Beim Löschen der Ressource ist ein Fehler aufgetreten",
@@ -2136,7 +2340,7 @@
   "item.edit.delete.header": "Löschen des Items: {{ id }}",
   
   // "item.edit.delete.success": "The item has been deleted",
-  "item.edit.delete.success": "Das Item wurde gelöscht",
+  "item.edit.delete.success": "Das Item wurde gelöscht.",
   
   // "item.edit.head": "Edit Item",
   "item.edit.head": "Item bearbeiten",
@@ -2155,7 +2359,7 @@
   "item.edit.item-mapper.buttons.add": "Item in die gewählte(n) Sammlung(en) spiegeln",
   
   // "item.edit.item-mapper.buttons.remove": "Remove item's mapping for selected collections",
-  "item.edit.item-mapper.buttons.remove": "Spiegelung des Items aus der/den gewählten Sammlung(en) entfernen",
+  "item.edit.item-mapper.buttons.remove": "Spiegelung des Items aus den ausgewählten Sammlungen entfernen",
   
   // "item.edit.item-mapper.cancel": "Cancel",
   "item.edit.item-mapper.cancel": "Abbrechen",
@@ -2179,7 +2383,7 @@
   "item.edit.item-mapper.notifications.add.error.head": "Fehler beim Spiegeln",
   
   // "item.edit.item-mapper.notifications.add.success.content": "Successfully mapped item to {{amount}} collections.",
-  "item.edit.item-mapper.notifications.add.success.content": "Item erfolgreich in {{amount}} Sammlung(en) gespiegelt.",
+  "item.edit.item-mapper.notifications.add.success.content": "Das Item wurde erfolgreich in {{amount}} Sammlung(en) gespiegelt.",
   
   // "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
   "item.edit.item-mapper.notifications.add.success.head": "Spiegeln abgeschlossen",
@@ -2191,7 +2395,7 @@
   "item.edit.item-mapper.notifications.remove.error.head": "Fehler beim Entfernen von gespiegelten Items",
   
   // "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
-  "item.edit.item-mapper.notifications.remove.success.content": "Spiegelung des Items aus {{amount}} Sammlung(en) erfolgreich.",
+  "item.edit.item-mapper.notifications.remove.success.content": "Die Spiegelung dieses Items wurde aus {{amount}} Sammlung(en) entfernt.",
   
   // "item.edit.item-mapper.notifications.remove.success.head": "Removal of mapping completed",
   "item.edit.item-mapper.notifications.remove.success.head": "Entfernen der Spiegelung abgeschlossen",
@@ -2223,7 +2427,7 @@
   "item.edit.metadata.edit.buttons.unedit": "Bearbeitung beenden",
   
   // "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
-  "item.edit.metadata.empty": "Das Item enthält derzeit keine Metadaten. Klicken Sie auf Hinzufügen, um einen Metadatenwert hinzuzufügen.",
+  "item.edit.metadata.empty": "Das Item enthält derzeit keine Metadaten. Klicken Sie auf \"Hinzufügen\", um Metadaten zu ergänzen.",
   
   // "item.edit.metadata.headers.edit": "Edit",
   "item.edit.metadata.headers.edit": "Bearbeiten",
@@ -2247,7 +2451,7 @@
   "item.edit.metadata.notifications.discarded.title": "Änderungen verworfen",
   
   // "item.edit.metadata.notifications.error.title": "An error occurred",
-  "item.edit.metadata.notifications.error.title": "Es ist ein Fehler aufgetreten",
+  "item.edit.metadata.notifications.error.title": "Es ist ein Fehler aufgetreten.",
   
   // "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
   "item.edit.metadata.notifications.invalid.content": "Ihre Änderungen wurden nicht gespeichert. Stellen Sie sicher, dass alle Felder gültig sind, bevor Sie Abspeichern.",
@@ -2293,10 +2497,10 @@
   "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
   
   // "item.edit.move.error": "An error occurred when attempting to move the item",
-  "item.edit.move.error": "Ein Fehler ist beim Verschieben des Items aufgetreten",
+  "item.edit.move.error": "Verschieben des Items fehlgeschlagen",
   
   // "item.edit.move.head": "Move item: {{id}}",
-  "item.edit.move.head": "Item verschieben: {{id}}",
+  "item.edit.move.head": "Item : {{id}} verschieben",
   
   // "item.edit.move.inheritpolicies.checkbox": "Inherit policies",
   "item.edit.move.inheritpolicies.checkbox": "Rechte erben",
@@ -2314,7 +2518,7 @@
   "item.edit.move.search.placeholder": "Geben Sie einen Begriff ein, um nach Sammlungen zu suchen",
   
   // "item.edit.move.success": "The item has been moved successfully",
-  "item.edit.move.success": "Das Item wurde erfolgreich verschoben",
+  "item.edit.move.success": "Das Item wurde verschoben.",
   
   // "item.edit.move.title": "Move item",
   "item.edit.move.title": "Item verschieben",
@@ -2328,16 +2532,16 @@
   "item.edit.private.confirm": "Verbergen",
   
   // "item.edit.private.description": "Are you sure this item should be made private in the archive?",
-  "item.edit.private.description": "Wollen Sie dieses Item als privat markieren.",
+  "item.edit.private.description": "Möchten Sie diesen Eintrag als nicht öffentlich sichtbar markieren?",
   
   // "item.edit.private.error": "An error occurred while making the item private",
-  "item.edit.private.error": "Ein Fehler ist aufgetreten bei dem Versuch, das Item privat zu machen",
+  "item.edit.private.error": "Verbergen des Items fehlgeschlagen",
   
   // "item.edit.private.header": "Make item private: {{ id }}",
-  "item.edit.private.header": "Item: {{ id }} privat machen",
+  "item.edit.private.header": "Item: {{ id }} verbergen",
   
   // "item.edit.private.success": "The item is now private",
-  "item.edit.private.success": "Dieses Item ist nun privat",
+  "item.edit.private.success": "Dieses Items ist nicht öffentlich sichtbar",
   
   
   
@@ -2348,16 +2552,16 @@
   "item.edit.public.confirm": "Öffentlich machen",
   
   // "item.edit.public.description": "Are you sure this item should be made public in the archive?",
-  "item.edit.public.description": "Sind Sie sicher, dass dieses Item im Repositorium öffentlich gemacht werden soll?",
+  "item.edit.public.description": "Möchten Sie das Item wirklich öffentlich sichtbar machen?",
   
   // "item.edit.public.error": "An error occurred while making the item public",
-  "item.edit.public.error": "Ein Fehler ist aufgetreten, als das Item öffentlich gemacht werden sollte.",
+  "item.edit.public.error": "Veröffentlichung des Items fehlgeschlagen",
   
   // "item.edit.public.header": "Make item public: {{ id }}",
-  "item.edit.public.header": "Item: {{ id }} öffentlich machen",
+  "item.edit.public.header": "Item: {{ id }} öffentlich sichtbar machen",
   
   // "item.edit.public.success": "The item is now public",
-  "item.edit.public.success": "Das Item ist nun öffentlich",
+  "item.edit.public.success": "Das Item ist nun öffentlich sichtbar.",
   
   
   
@@ -2368,16 +2572,16 @@
   "item.edit.reinstate.confirm": "Wiederherstellen",
   
   // "item.edit.reinstate.description": "Are you sure this item should be reinstated to the archive?",
-  "item.edit.reinstate.description": "Sind Sie sicher, dass das Item reinstantiiert werden soll?",
+  "item.edit.reinstate.description": "Möchten Sie das Item wirklich wieder aufnehmen?",
   
   // "item.edit.reinstate.error": "An error occurred while reinstating the item",
-  "item.edit.reinstate.error": "Ein Fehler ist bei der Reinstantiierung des Items aufgetreten.",
+  "item.edit.reinstate.error": "Wiederherstellen des Items fehlgeschlagen",
   
   // "item.edit.reinstate.header": "Reinstate item: {{ id }}",
-  "item.edit.reinstate.header": "Item: {{ id }} reinstantiieren",
+  "item.edit.reinstate.header": "Item: {{ id }} wiederherstellen",
   
   // "item.edit.reinstate.success": "The item was reinstated successfully",
-  "item.edit.reinstate.success": "Das Item wurde erfolgreich reinstantiiert",
+  "item.edit.reinstate.success": "Das Item wurde wiederhergestellt.",
   
   
   
@@ -2424,7 +2628,7 @@
   "item.edit.relationships.save-button": "Speichern",
   
   // "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
-  "item.edit.relationships.no-entity-type": "Füge 'dspace.entity.type' in die Metadaten hinzu, um Beziehungen für dieses Item zu ermöglichen",
+  "item.edit.relationships.no-entity-type": "Fügt den Metadaten 'dspace.entity.type' hinzu, damit Beziehungen für dieses Item angelegt werden können.",
   
   
   
@@ -2480,19 +2684,19 @@
   "item.edit.tabs.status.buttons.private.button": "Verbergen",
   
   // "item.edit.tabs.status.buttons.private.label": "Make item private",
-  "item.edit.tabs.status.buttons.private.label": "Item privat machen",
+  "item.edit.tabs.status.buttons.private.label": "Item verbergen",
   
   // "item.edit.tabs.status.buttons.public.button": "Make it public...",
   "item.edit.tabs.status.buttons.public.button": "Öffentlich machen...",
   
   // "item.edit.tabs.status.buttons.public.label": "Make item public",
-  "item.edit.tabs.status.buttons.public.label": "Item öffentlich machen",
+  "item.edit.tabs.status.buttons.public.label": "Item öffentlich sichtbar machen",
   
   // "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
   "item.edit.tabs.status.buttons.reinstate.button": "Wiederherstellen...",
   
   // "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
-  "item.edit.tabs.status.buttons.reinstate.label": "Item wieder ins Repositorium einsetzen",
+  "item.edit.tabs.status.buttons.reinstate.label": "Item im Repositorium wiederherstellen",
   
   // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
   "item.edit.tabs.status.buttons.withdraw.button": "Zurückziehen...",
@@ -2501,7 +2705,7 @@
   "item.edit.tabs.status.buttons.withdraw.label": "Item aus dem Repositorium zurückziehen",
   
   // "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
-  "item.edit.tabs.status.description": "Item bearbeiten. Von hier können Sie Items zurückziehen, wiedereinsetzen, verschieben oder Löschen. Des weiteren können die Metadaten und die zugehörigen Dateien bearbeitet werden.",
+  "item.edit.tabs.status.description": "Herzlich willkommen auf der Item-Bearbeitungs-Seite. Hier können Sie Items zurückziehen, wiederherstellen, verschieben oder löschen. In den anderen Tabs können Sie Dateien und Metadaten bearbeiten.",
   
   // "item.edit.tabs.status.head": "Status",
   "item.edit.tabs.status.head": "Status",
@@ -2545,16 +2749,16 @@
   "item.edit.withdraw.confirm": "Zurückziehen",
   
   // "item.edit.withdraw.description": "Are you sure this item should be withdrawn from the archive?",
-  "item.edit.withdraw.description": "Sind Sie sicher, dass Sie dieses Item aus dem Repositorium zurückziehen wollen?",
+  "item.edit.withdraw.description": "Möchten Sie das Item wirklich aus dem Repositorium zurückziehen?",
   
   // "item.edit.withdraw.error": "An error occurred while withdrawing the item",
-  "item.edit.withdraw.error": "Ein Fehler ist beim Zurückziehen des Items aufgetreten",
+  "item.edit.withdraw.error": "Zurückziehen des Items fehlgeschlagen",
   
   // "item.edit.withdraw.header": "Withdraw item: {{ id }}",
   "item.edit.withdraw.header": "Item: {{ id }} zurückziehen",
   
   // "item.edit.withdraw.success": "The item was withdrawn successfully",
-  "item.edit.withdraw.success": "Das Item wurde erfolgreich zurückgezogen",
+  "item.edit.withdraw.success": "Das Item wurde zurückgezogen.",
   
   
   
@@ -2583,7 +2787,7 @@
   "item.page.volume-title": "Bandtitel",
   
   // "item.search.results.head": "Item Search Results",
-  "item.search.results.head": "Item Suchergebnisse",
+  "item.search.results.head": "Item-Suchergebnisse",
   
   // "item.search.title": "DSpace Angular :: Item Search",
   "item.search.title": "DSpace Angular :: Item-Suche",
@@ -2712,7 +2916,7 @@
   "item.select.confirm": "Auswahl bestätigen",
   
   // "item.select.empty": "No items to show",
-  "item.select.empty": "Es gibt keine Items dazu",
+  "item.select.empty": "Es gibt keine Items, die angezeigt werden können.",
   
   // "item.select.table.author": "Author",
   "item.select.table.author": "Autor:in",
@@ -2725,7 +2929,7 @@
   
   
   // "item.version.history.empty": "There are no other versions for this item yet.",
-  "item.version.history.empty": "Es gibt noch keine anderen Versionen für dieses Item.",
+  "item.version.history.empty": "Dieses Item hat noch keine anderen Versionen.",
   
   // "item.version.history.head": "Version History",
   "item.version.history.head": "Versionsgeschichte",
@@ -2958,7 +3162,7 @@
   
   
   // "menu.section.admin_search": "Admin Search",
-  "menu.section.admin_search": "Administrator:innen Suche",
+  "menu.section.admin_search": "Admin-Suche",
   
   
   
@@ -3037,7 +3241,7 @@
   "menu.section.icon.access_control": "Menübereich Zugriffskontrolle",
   
   // "menu.section.icon.admin_search": "Admin search menu section",
-  "menu.section.icon.admin_search": "Menübereich Admin-Suche",
+  "menu.section.icon.admin_search": "Menüabschnitt (Admin-Suche)",
   
   // "menu.section.icon.control_panel": "Control Panel menu section",
   "menu.section.icon.control_panel": "Menübereich Kontrollfeld",
@@ -3182,7 +3386,7 @@
   "mydspace.general.text-here": "hier",
   
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
-  "mydspace.messages.controller-help": "Wählen Sie diese Option, um dem:derjenigen, die das Item eingereicht hat, eine Nachricht zu schicken.",
+  "mydspace.messages.controller-help": "Wählen Sie diese Option, um der Person eine Nachricht zu schicken, die das Item eingereicht hat.",
   
   // "mydspace.messages.description-placeholder": "Insert your message here...",
   "mydspace.messages.description-placeholder": "Geben Sie Ihre Nachricht hier ein...",
@@ -3248,7 +3452,7 @@
   "mydspace.results.no-files": "Keine Dateien",
   
   // "mydspace.results.no-results": "There were no items to show",
-  "mydspace.results.no-results": "Es gibt keine Items anzuzeigen",
+  "mydspace.results.no-results": "Es gibt keine Items, die angezeigt werden können.",
   
   // "mydspace.results.no-title": "No title",
   "mydspace.results.no-title": "Kein Titel",
@@ -3293,7 +3497,7 @@
   "mydspace.upload.upload-multiple-successful": "{{qty}} neue(s) Arbeitsbereichsitem(s) angelegt.",
   
   // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
-  "mydspace.upload.upload-successful": "Neues Arbeitsbereichsitem angelegt. Klicken Sie {{here}}, um sie zu bearbeiten.",
+  "mydspace.upload.upload-successful": "Das Workspace-Item wurde neu angelegt. Klicken Sie {{here}}, um es zu bearbeiten.",
   
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Anzeige",
@@ -3416,6 +3620,12 @@
   
   
   
+  // "process.detail.output": "Process Output",
+  "process.detail.output": "Prozessausgabe (Log)",
+
+  // "process.detail.output-files.empty": "This process doesn't contain any output files",
+  "process.detail.output-files.empty": "Dieser Prozess enthält keine Ausgabedateien.",
+
   // "process.new.select-parameters": "Parameters",
   "process.new.select-parameters": "Parameter",
   
@@ -3488,13 +3698,13 @@
   "process.detail.output" : "Prozessausgabe",
   
   // "process.detail.logs.button": "Retrieve process output",
-  "process.detail.logs.button": "Abrufen der Prozessausgabe",
+  "process.detail.logs.button": "Log anzeigen",
   
   // "process.detail.logs.loading": "Retrieving",
   "process.detail.logs.loading": "Abrufen",
   
   // "process.detail.logs.none": "This process has no output",
-  "process.detail.logs.none": "Dieser Prozess hat keine Ausgabe",
+  "process.detail.logs.none": "Dieser Prozess gibt nichts aus.",
   
   // "process.detail.output-files" : "Output Files",
   "process.detail.output-files" : "Ausgabedateien",
@@ -3703,7 +3913,7 @@
   
   
   // "register-email.title": "New user registration",
-  "register-email.title": "Registrierung neuer Benutzer:innen",
+  "register-email.title": "Neu registrieren",
   
   // "register-page.create-profile.header": "Create Profile",
   "register-page.create-profile.header": "Profil erstellen",
@@ -3763,14 +3973,14 @@
   "register-page.create-profile.submit.error.head": "Registrierung fehlgeschlagen",
   
   // "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
-  "register-page.create-profile.submit.success.content": "Die Registrierung war erfolgreich. Sie wurden als der:die angelegte Benutzer:in angemeldet.",
+  "register-page.create-profile.submit.success.content": "Sie haben sich erfolgreich registriert und wurden angemeldet.",
   
   // "register-page.create-profile.submit.success.head": "Registration completed",
   "register-page.create-profile.submit.success.head": "Registrierung abgeschlossen",
   
   
   // "register-page.registration.header": "New user registration",
-  "register-page.registration.header": "Registrierung neuer Benutzer:innen",
+  "register-page.registration.header": "Neues Konto anlegen",
   
   // "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
   "register-page.registration.info": "Registrieren Sie ein Konto, um Sammlungen für E-Mail-Updates zu abonnieren und neue Items in DSpace einzugeben.",
@@ -3921,7 +4131,7 @@
   "resource-policies.form.action-type.label": "Wählen Sie die Aktionsart",
   
   // "resource-policies.form.action-type.required": "You must select the resource policy action.",
-  "resource-policies.form.action-type.required": "Sie müssen die Aktion der Ressourcen-Richtlinie auswählen.",
+  "resource-policies.form.action-type.required": "Bitte wählen Sie eine Aktion für die Ressourcenrichtlinie aus.",
   
   // "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
   "resource-policies.form.eperson-group-list.label": "Die Person oder Gruppe, der die Genehmigung erteilt wird",
@@ -3960,7 +4170,7 @@
   "resource-policies.form.policy-type.label": "Wählen Sie den Richtlinientyp",
   
   // "resource-policies.form.policy-type.required": "You must select the resource policy type.",
-  "resource-policies.form.policy-type.required": "Sie müssen den Typ der Ressourcen-Richtlinie auswählen",
+  "resource-policies.form.policy-type.required": "Bitte wählen Sie einen Richtlinientyp für die Ressource aus.",
   
   // "resource-policies.table.headers.action": "Action",
   "resource-policies.table.headers.action": "Aktion",
@@ -4015,6 +4225,9 @@
   // "search.description": "",
   "search.description": "",
   
+  // "search.filters.filter.birthDate.label": "Search birth date",
+  "search.filters.filter.birthDate.label": "Geburtsdatum suchen",
+
   // "search.switch-configuration.title": "Show",
   "search.switch-configuration.title": "Zeige",
   
@@ -4064,10 +4277,10 @@
   "search.filters.applied.f.jobTitle": "Berufsbezeichnung",
   
   // "search.filters.applied.f.birthDate.max": "End birth date",
-  "search.filters.applied.f.birthDate.max": "Ende Geburtsdatum",
+  "search.filters.applied.f.birthDate.max": "Geburtsdatum (bis)",
   
   // "search.filters.applied.f.birthDate.min": "Start birth date",
-  "search.filters.applied.f.birthDate.min": "Anfang Geburtsdatum",
+  "search.filters.applied.f.birthDate.min": "Geburtsdatum (von)",
   
   // "search.filters.applied.f.withdrawn": "Withdrawn",
   "search.filters.applied.f.withdrawn": "Zurückgezogen",
@@ -4078,7 +4291,7 @@
   "search.filters.filter.author.head": "Autor:in",
   
   // "search.filters.filter.author.placeholder": "Author name",
-  "search.filters.filter.author.placeholder": "Name des:der Autor:in",
+  "search.filters.filter.author.placeholder": "Autor:innenname",
   
   // "search.filters.filter.birthDate.head": "Birth Date",
   "search.filters.filter.birthDate.head": "Geburtsdatum",
@@ -4474,10 +4687,10 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Importiere Autor:innen-Metadaten",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Successfully added local author to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Erfolgreicher Import und Hinzufügen eines:einer lokalen Autor:in zur Auswahl",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Lokal:e Autor:in wurde der Auswahl hinzugefügt",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Erfolgreicher Import und Hinzufügen eines:einer externen Autor:in zur Auswahl",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Externe:r Autor:in wurde importiert und zur Auswahl hinzugefügt",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Referenz",
@@ -4789,10 +5002,10 @@
   "submission.sections.ccLicense.option.select": "Wählen Sie eine Option…",
   
   // "submission.sections.ccLicense.link": "You’ve selected the following license:",
-  "submission.sections.ccLicense.link": "Sie haben die folgende Lizenz ausgewählt:",
+  "submission.sections.ccLicense.link": "Sie haben folgende Lizenz gewählt:",
   
   // "submission.sections.ccLicense.confirmation": "I grant the license above",
-  "submission.sections.ccLicense.confirmation": "Ich erteile die oben genannte Lizenz",
+  "submission.sections.ccLicense.confirmation": "Ich räume die oben genannte Lizenz ein.",
   
   // "submission.sections.general.add-more": "Add more",
   "submission.sections.general.add-more": "Mehr Hinzufügen",
@@ -4825,7 +5038,7 @@
   "submission.sections.general.no-sections": "Es stehen keine Optionen zur Verfügung",
   
   // "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
-  "submission.sections.general.save_error_notice": "Beim Speichern des Items ist ein Fehler aufgetreten, bitte versuchen Sie es später noch einmal.",
+  "submission.sections.general.save_error_notice": "Beim Speichern des Items ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
   
   // "submission.sections.general.save_success_notice": "Submission saved successfully.",
   "submission.sections.general.save_success_notice": "Einreichung erfolgreich gespeichert.",
@@ -4913,7 +5126,7 @@
   "submission.sections.upload.header.policy.default.withlist": "Bitte beachten Sie, dass in diese Sammlung {{collectionName}} hochgeladene Dateien zugüglich zu dem, was für einzelne Dateien entschieden wurde, für folgende Gruppe(n) zugänglich sein:",
   
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
-  "submission.sections.upload.info": "Hier finden Sie alle Dateien, die aktuell zum Item gehören. Sie können die Metadaten und Zugriffsrechte bearbeiten oder <strong>weitere Dateien hinzufügen, indem Sie sie einfach irgenwo auf diese Seite ziehen.</strong>",
+  "submission.sections.upload.info": "Hier finden Sie alle Dateien, die aktuell zum Item gehören. Sie können ihre Metadaten und Zugriffsrechte bearbeiten oder <strong>weitere Dateien per Drag & Drop hinzufügen.</strong>",
   
   // "submission.sections.upload.no-entry": "No",
   "submission.sections.upload.no-entry": "Kein Eintrag",
@@ -4944,7 +5157,7 @@
   "submission.workflow.generic.delete": "Löschen",
   
   // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
-  "submission.workflow.generic.delete-help": "Wenn Sie das Item verwerfen möchten, wählen Sie \"Löschen\". Sie werden dies noch einmal gefragt, um die Aktion zu bestätigen.",
+  "submission.workflow.generic.delete-help": "Wenn Sie dieses Item möchten, wählen Sie bitte \"Löschen\". Sie werden danach um Bestätigung gebeten.",
   
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Bearbeiten",
@@ -4956,7 +5169,7 @@
   "submission.workflow.generic.view": "Anzeige",
   
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
-  "submission.workflow.generic.view-help": "Wählen Sie diese Option, um die Metadaten des Items anzuzeigen",
+  "submission.workflow.generic.view-help": "Wählen Sie diese Option, um die Metadaten des Items anzuzeigen.",
   
   
   
@@ -4964,7 +5177,7 @@
   "submission.workflow.tasks.claimed.approve": "Zustimmen",
   
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
-  "submission.workflow.tasks.claimed.approve_help": "Wenn Sie das Item begutachtet haben und die Aufnahme in die Sammlung befürworten, wählen Sie \"Zustimmen\".",
+  "submission.workflow.tasks.claimed.approve_help": "Wenn Sie dieses Item begutachtet haben und die Aufnahme in die Sammlung befürworten, wählen Sie bitte \"Zustimmen\".",
   
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "Bearbeiten",
@@ -4973,7 +5186,7 @@
   "submission.workflow.tasks.claimed.edit_help": "Wählen Sie diese Option, um die Metadaten des Items zu bearbeiten.",
   
   // "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
-  "submission.workflow.tasks.claimed.reject.reason.info": "Bitte geben Sie den Grund für die Ablehnung der eingereichten Ressource in das Feld unten ein. Bitte geben Sie an ob und wie der:die Einreichende:n das Problem beheben und die Ressource erneut einreichen kann.",
+  "submission.workflow.tasks.claimed.reject.reason.info": "Bitte geben Sie unten den Grund für Ihre Ablehnung und Änderungswünsche für eine erneute Einreichung an.",
   
   // "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describe the reason of reject",
   "submission.workflow.tasks.claimed.reject.reason.placeholder": "Beschreiben Sie den Grund für die Ablehnung",
@@ -4988,7 +5201,7 @@
   "submission.workflow.tasks.claimed.reject.submit": "Ablehnen",
   
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  "submission.workflow.tasks.claimed.reject_help": "Wenn Sie das Item begutachtet und als <strong>ungeeignet</strong> für die Aufnahme in die Sammlung befunden haben, wählen Sie \"Ablehnen\".  Sie haben dann die Möglichkeit dem:der Einreichenden, den Grund für die Ablehnung zu erklären und ob es eine Möglichkeit gibt, durch entsprechenden Änderungen das Item erneut einzureichen.",
+  "submission.workflow.tasks.claimed.reject_help": "Wenn Sie dieses Item begutachtet und für <strong>ungeeignet</strong> zur Aufnahme in die Sammlung befunden haben, wählen Sie bitte \"Ablehnen\". Sie können anschließend der:dem Einreichenden den Grund für die Ablehnung und mögliche Änderungswünsche für eine erneute Einreichung mitteilen.",
   
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Zurück in den gemeinsamen Aufgabenbereich",
@@ -5032,7 +5245,7 @@
   
   
   // "vocabulary-treeview.header": "Hierarchical tree view",
-  "vocabulary-treeview.header": "Hierarchische Baumstruktur",
+  "vocabulary-treeview.header": "Hierarchische Baumansicht",
   
   // "vocabulary-treeview.load-more": "Load more",
   "vocabulary-treeview.load-more": "Mehr laden",
@@ -5044,13 +5257,13 @@
   "vocabulary-treeview.search.form.search": "Suche",
   
   // "vocabulary-treeview.search.no-result": "There were no items to show",
-  "vocabulary-treeview.search.no-result": "Es gibt keine Items zu zeigen",
+  "vocabulary-treeview.search.no-result": "Keine passenden Items vorhanden",
   
   // "vocabulary-treeview.tree.description.nsi": "The Norwegian Science Index",
-  "vocabulary-treeview.tree.description.nsi": "Der norwegische Wissenschaftsindex",
+  "vocabulary-treeview.tree.description.nsi": "Norwegischer Wissenschaftsindex (Norwegian Science Index)",
   
   // "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
-  "vocabulary-treeview.tree.description.srsc": "Kategorien von Forschungsthemen",
+  "vocabulary-treeview.tree.description.srsc": "Forschungsthemen-Kategorien",
   
   
   
@@ -5076,7 +5289,7 @@
   "virtual-metadata.delete-item.modal-head": "Virtuelle Metadaten dieser Relation",
   
   // "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
-  "virtual-metadata.delete-relationship.modal-head": "Wählen Sie die Items für die Sie die virtuellen Metadaten als reelle Metadaten speichern wollen",
+  "virtual-metadata.delete-relationship.modal-head": "Wählen Sie die Items aus, deren virtuelle Metadaten Sie als echte Metadaten speichern möchten.",
   
   
   
@@ -5089,13 +5302,13 @@
   "workflow-item.delete.notification.success.title": "Gelöscht",
   
   // "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
-  "workflow-item.delete.notification.success.content": "Dieses Workflow-Item wurde erfolgreich gelöscht",
+  "workflow-item.delete.notification.success.content": "Dieses Workflow-Item wurde gelöscht.",
   
   // "workflow-item.delete.notification.error.title": "Something went wrong",
-  "workflow-item.delete.notification.error.title": "Etwas ist schief gelaufen",
+  "workflow-item.delete.notification.error.title": "Das hat leider nicht funktioniert.",
   
   // "workflow-item.delete.notification.error.content": "The workflow item could not be deleted",
-  "workflow-item.delete.notification.error.content": "Das Workflow-Item konnte nicht gelöscht werden",
+  "workflow-item.delete.notification.error.content": "Das Workflow-Item konnte nicht gelöscht werden.",
   
   // "workflow-item.delete.title": "Delete workflow item",
   "workflow-item.delete.title": "Workflow-Item löschen",
@@ -5114,13 +5327,13 @@
   "workflow-item.send-back.notification.success.title": "An die:den Einreichende:n zurückgeschickt",
   
   // "workflow-item.send-back.notification.success.content": "This workflow item was successfully sent back to the submitter",
-  "workflow-item.send-back.notification.success.content": "Dieses Workflow-Item wurde erfolgreich an die:den Einreichende:n zurückgeschickt",
+  "workflow-item.send-back.notification.success.content": "Dieses Workflow-Item wurde an die:den Einreichende:n zurückgeschickt.",
   
   // "workflow-item.send-back.notification.error.title": "Something went wrong",
-  "workflow-item.send-back.notification.error.title": "Etwas ist schief gelaufen",
+  "workflow-item.send-back.notification.error.title": "Das hat leider nicht funktioniert.",
   
   // "workflow-item.send-back.notification.error.content": "The workflow item could not be sent back to the submitter",
-  "workflow-item.send-back.notification.error.content": "Das Workflow-Item konnte nicht an die:den Einreichende:n zurückgeschickt werden",
+  "workflow-item.send-back.notification.error.content": "Das Workflow-Item konnte nicht an die:den Einreichende:n zurückgeschickt werden.",
   
   // "workflow-item.send-back.title": "Send workflow item back to submitter",
   "workflow-item.send-back.title": "Workflow-Item an die:den Einreichende:n zurücksenden",
