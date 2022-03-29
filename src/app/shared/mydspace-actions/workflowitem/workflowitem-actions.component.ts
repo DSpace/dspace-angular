@@ -17,6 +17,7 @@ import { SearchService } from '../../../core/shared/search/search.service';
   selector: 'ds-workflowitem-actions',
   styleUrls: ['./workflowitem-actions.component.scss'],
   templateUrl: './workflowitem-actions.component.html',
+  preserveWhitespaces: true,
 })
 export class WorkflowitemActionsComponent extends MyDSpaceActionsComponent<WorkflowItem, WorkflowItemDataService> {
 

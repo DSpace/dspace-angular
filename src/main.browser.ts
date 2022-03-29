@@ -15,9 +15,7 @@ import { AppConfig } from './config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './config/config.util';
 
 const bootstrap = () => platformBrowserDynamic()
-  .bootstrapModule(BrowserAppModule, {
-    preserveWhitespaces: true
-  });
+  .bootstrapModule(BrowserAppModule, {});
 
 const main = () => {
   // Load fonts async

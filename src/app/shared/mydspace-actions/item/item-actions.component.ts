@@ -16,6 +16,7 @@ import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
   selector: 'ds-item-actions',
   styleUrls: ['./item-actions.component.scss'],
   templateUrl: './item-actions.component.html',
+  preserveWhitespaces: true,
 })
 
 export class ItemActionsComponent extends MyDSpaceActionsComponent<Item, ItemDataService> implements OnInit {

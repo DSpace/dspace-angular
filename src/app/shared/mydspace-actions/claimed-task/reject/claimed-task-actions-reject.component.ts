@@ -21,6 +21,7 @@ export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
   selector: 'ds-claimed-task-actions-reject',
   styleUrls: ['./claimed-task-actions-reject.component.scss'],
   templateUrl: './claimed-task-actions-reject.component.html',
+  preserveWhitespaces: true,
 })
 /**
  * Component for displaying and processing the reject action on a workflow task item
