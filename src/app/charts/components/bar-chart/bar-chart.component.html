@@ -11,6 +11,10 @@
         [legendPosition]="legendPosition"
         [xAxis]="xAxis"
         [yAxis]="yAxis"
+        [xAxisLabel]="xAxisLabel | translate"
+        [yAxisLabel]="yAxisLabel | translate"
+        [showYAxisLabel]="hasTranslation(yAxisLabel)"
+        [showXAxisLabel]="hasTranslation(xAxisLabel)"
         (select)="onSelect($event)">
       </ngx-charts-bar-vertical>
     </ng-container>
@@ -21,6 +25,10 @@
         [results]="getResults()"
         [xAxis]="xAxis"
         [yAxis]="yAxis"
+        [xAxisLabel]="xAxisLabel | translate"
+        [yAxisLabel]="yAxisLabel | translate"
+        [showYAxisLabel]="hasTranslation(yAxisLabel)"
+        [showXAxisLabel]="hasTranslation(xAxisLabel)"
         [legend]="legend"
         [legendTitle]="legendTitle"
         [legendPosition]="legendPosition"

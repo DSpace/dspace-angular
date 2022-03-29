@@ -1,13 +1,18 @@
 <div #chartContainer class="w-100">
   <ngx-charts-line-chart
     [view]="view.length == 0 ? [chartContainer.offsetWidth] : view"
-    [results]="(chartData | async)"
+    [results]="chartData | async"
     [animations]="animations"
     [legend]="legend"
     [legendTitle]="legendTitle"
     [legendPosition]="legendPosition"
     [xAxis]="xAxis"
     [yAxis]="yAxis"
-    (select)="onSelect($event)">
+    [xAxisLabel]="xAxisLabel | translate"
+    [yAxisLabel]="yAxisLabel | translate"
+    [showYAxisLabel]="hasTranslation(yAxisLabel)"
+    [showXAxisLabel]="hasTranslation(xAxisLabel)"
+    (select)="onSelect($event)"
+  >
   </ngx-charts-line-chart>
 </div>

@@ -37,6 +37,22 @@ export class SearchChartFilterComponent extends SearchFacetFilterComponent imple
    */
   results: Observable<ChartSeries[] | ChartData[]>;
 
+  /**
+   * Set default horizontal chart label i18n key pattern.
+   *
+   * @type {string}
+   * @memberof SearchChartFilterComponent
+   */
+  xAxisLabel = 'search.filters.applied.charts.<facet name>.x_label';
+
+  /**
+   * Set default vertical chart label i18n key pattern.
+   *
+   * @type {string}
+   * @memberof SearchChartFilterComponent
+   */
+  yAxisLabel = 'search.filters.applied.charts.<facet name>.y_label';
+
   ngOnInit() {
     super.ngOnInit();
     this.results = this.getInitData();
@@ -68,6 +84,8 @@ export class SearchChartFilterComponent extends SearchFacetFilterComponent imple
       map((facetValues: RemoteData<PaginatedList<FacetValue>[]>) => {
         const values = [];
         facetValues.payload.forEach((facetValue: FacetValues) => {
+          this.xAxisLabel = this.xAxisLabel.replace('<facet name>',facetValue.name );
+          this.yAxisLabel = this.yAxisLabel.replace('<facet name>',facetValue.name );
           values.push(...facetValue.page.map((item: FacetValue) => ({
             name: item.value,
             value: item.count,

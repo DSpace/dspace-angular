@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
 
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
@@ -34,7 +35,10 @@ export abstract class AbstractChartComponent implements OnInit {
     @Inject('showMore') public showMore: EventEmitter<string>,
     @Inject('isLastPage') public isLastPage: Observable<boolean>,
     @Inject('currentPage') public currentPage: Observable<number>,
-    @Inject('type') public type: ChartType
+    @Inject('type') public type: ChartType,
+    @Inject('xAxisLabel') public xAxisLabel: string,
+    @Inject('yAxisLabel') public yAxisLabel: string,
+    protected translateService: TranslateService
   ) {
   }
 
@@ -48,6 +52,7 @@ export abstract class AbstractChartComponent implements OnInit {
           this.chartData.next(results);
         })
     );
+
   }
 
   /**
@@ -63,6 +68,20 @@ export abstract class AbstractChartComponent implements OnInit {
    */
   loadMoreData(): void {
     this.showMore.emit();
+  }
+
+  /**
+   * Check if the key has an existing translation
+   * @param key
+   * @returns
+   */
+  hasTranslation(key: string): boolean {
+    if (key) {
+      const translation = this.translateService.instant(key);
+      return translation !== key && translation !== '';
+    }
+
+    return false;
   }
 
   /**

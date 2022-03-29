@@ -76,7 +76,5 @@ export class BarChartComponent extends AbstractChartComponent implements OnInit 
       const newWidth = this.chartContainerWidth + (this.chartContainerWidth / 2);
       this.view = [newWidth, this.chartArea.nativeElement.height];
     }
-
   }
-
 }
