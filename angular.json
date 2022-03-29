@@ -62,6 +62,11 @@
                 "input": "src/themes/dspace/styles/theme.scss",
                 "inject": false,
                 "bundleName": "dspace-theme"
+              },
+              {
+                "input": "src/themes/custom-unpsjb/styles/theme.scss",
+                "inject": false,
+                "bundleName": "custom-unpsjb-theme"
               }
             ],
             "scripts": []
