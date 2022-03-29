@@ -27,6 +27,10 @@
 
   "404.page-not-found": "page not found",
 
+  "admin.notifications.recitersuggestion.breadcrumbs": "Suggestions",
+
+  "admin.notifications.recitersuggestion.page.title": "Suggestions",
+
   "admin.curation-tasks.breadcrumbs": "System curation tasks",
 
   "admin.curation-tasks.title": "System curation tasks",
@@ -2511,6 +2515,7 @@
 
   "menu.section.icon.unpin": "Unpin sidebar",
 
+  "menu.section.icon.notifications": "Notifictions menu section",
 
 
   "menu.section.import": "Import",
@@ -2532,6 +2537,10 @@
   "menu.section.new_item_version": "Item Version",
 
   "menu.section.new_process": "Process",
+
+  "menu.section.notifications": "Notifications",
+
+  "menu.section.notifications_reciter": "Publication Claim",
 
 
 
@@ -2959,6 +2968,62 @@
   "media-viewer.previous": "Previous",
 
   "media-viewer.playlist": "Playlist",
+
+  "reciter.suggestion.loading": "Loading ...",
+
+  "reciter.suggestion.title": "Suggestions",
+
+  "reciter.suggestion.targets.description": "Below you can see all the suggestions ",
+
+  "reciter.suggestion.targets": "Current Suggestions",
+
+  "reciter.suggestion.table.name": "Researcher Name",
+
+  "reciter.suggestion.table.actions": "Actions",
+
+  "reciter.suggestion.button.review": "Review {{ total }} suggestion(s)",
+
+  "reciter.suggestion.noTargets": "No target found.",
+
+  "reciter.suggestion.target.error.service.retrieve": "An error occurred while loading the Suggestion targets",
+
+  "reciter.suggestion.evidence.type": "Type",
+
+  "reciter.suggestion.evidence.score": "Score",
+
+  "reciter.suggestion.evidence.notes": "Notes",
+
+  "reciter.suggestion.approveAndImport": "Approve & import",
+
+  "reciter.suggestion.approveAndImport.success": "The suggestion has been imported successfully",
+
+  "reciter.suggestion.approveAndImport.bulk": "Approve & import Selected",
+
+  "reciter.suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully ",
+
+  "reciter.suggestion.approveAndImport.bulk.error": "{{ count }} suggestions haven't been imported due to unexpected server errors",
+
+  "reciter.suggestion.notMine": "Not mine",
+
+  "reciter.suggestion.notMine.success": "The suggestion has been discarded",
+
+  "reciter.suggestion.notMine.bulk": "Not mine Selected",
+
+  "reciter.suggestion.notMine.bulk.success": "{{ count }} suggestions have been discarded ",
+
+  "reciter.suggestion.notMine.bulk.error": "{{ count }} suggestions haven't been discarded due to unexpected server errors",
+
+  "reciter.suggestion.seeEvidence": "See evidence",
+
+  "reciter.suggestion.hideEvidence": "Hide evidence",
+
+  "reciter.suggestion.suggestionFor": "Suggestion for",
+
+  "reciter.suggestion.source.oaire": "OpenAIRE Graph",
+
+  "reciter.suggestion.from.source": "from the ",
+
+  "reciter.suggestion.totalScore": "Total Score",
 
 
   "register-email.title": "New user registration",

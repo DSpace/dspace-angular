@@ -162,6 +162,9 @@ import { SearchConfig } from './shared/search/search-filters/search-config.model
 import { SequenceService } from './shared/sequence.service';
 import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
+import { OpenaireSuggestionTarget } from './openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+import { OpenaireSuggestion } from './openaire/reciter-suggestions/models/openaire-suggestion.model';
+import { OpenaireSuggestionSource } from './openaire/reciter-suggestions/models/openaire-suggestion-source.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -343,6 +346,9 @@ export const models =
     ShortLivedToken,
     Registration,
     UsageReport,
+    OpenaireSuggestion,
+    OpenaireSuggestionTarget,
+    OpenaireSuggestionSource,
     Root,
     SearchConfig,
     SubmissionAccessesModel
