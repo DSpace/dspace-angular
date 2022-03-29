@@ -71,7 +71,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Run lint
-        run: yarn run lint
+        run: yarn run lint --quiet
 
       - name: Run build
         run: yarn run build:prod
