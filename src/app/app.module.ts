@@ -28,8 +28,7 @@ import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
 import { LogInterceptor } from './core/log/log.interceptor';
 import { EagerThemesModule } from '../themes/eager-themes.module';
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
-import { StoreDevModules } from '../config/store/devtools';
-import { RootModule } from './root.module';
+import { DtqTestExampleComponent } from './dtq-test-example/dtq-test-example.component';
 
 export function getConfig() {
   return environment;
@@ -124,6 +123,7 @@ const EXPORTS = [
   ],
   declarations: [
     ...DECLARATIONS,
+    DtqTestExampleComponent,
   ],
   exports: [
     ...EXPORTS,
