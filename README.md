@@ -262,6 +262,9 @@ and run: `yarn test`
 
 If you run into odd test errors, see the Angular guide to debugging tests: https://angular.io/guide/test-debugging
 
+Run single unit test
+
+Edit `src/test.ts` file to load only the file for testing.
 ### E2E Tests
 
 E2E tests (aka integration tests) use [Cypress.io](https://www.cypress.io/). Configuration for cypress can be found in the `cypress.json` file in the root directory.
