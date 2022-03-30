@@ -1,10 +1,10 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {MetricPlumxComponent} from './metric-plumx.component';
-import {Injector} from '@angular/core';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateLoaderMock} from '../../mocks/translate-loader.mock';
-import {By} from '@angular/platform-browser';
-import { ListMetricPropsPipe } from '../../utils/list-metric-props/list-metric-props.pipe';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MetricPlumxComponent } from './metric-plumx.component';
+import { Injector } from '@angular/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { By } from '@angular/platform-browser';
+import { ListMetricPropsPipe } from '../pipes/list-metric-props/list-metric-props.pipe';
 
 describe('MetricPlumxComponent', () => {
   let component: MetricPlumxComponent;

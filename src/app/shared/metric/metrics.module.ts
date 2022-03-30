@@ -1,5 +1,5 @@
 import { MetricLoaderComponent } from './metric-loader/metric-loader.component';
-import { MetricStyleConfigPipe } from '../../cris-layout/pipes/metric-style-config/metric-style-config.pipe';
+import { MetricStyleConfigPipe } from './pipes/metric-style-config/metric-style-config.pipe';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MetricAltmetricComponent } from './metric-altmetric/metric-altmetric.component';
@@ -12,7 +12,7 @@ import { MetricPlumxComponent } from './metric-plumx/metric-plumx.component';
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 import { MissingTranslationHelper } from '../translate/missing-translation.helper';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { ListMetricPropsPipe } from '../utils/list-metric-props/list-metric-props.pipe';
+import { ListMetricPropsPipe } from './pipes/list-metric-props/list-metric-props.pipe';
 import { MetricBadgesComponent } from '../object-list/metric-badges/metric-badges.component';
 import { MetricDonutsComponent } from '../object-list/metric-donuts/metric-donuts.component';
 import { FormsModule } from '@angular/forms';

@@ -94,8 +94,7 @@ const ENTRY_COMPONENTS = [
     DsDatePipe,
     RowComponent,
     MetadataContainerComponent,
-    MetadataRenderComponent,
-
+    MetadataRenderComponent
   ],
   imports: [
     CommonModule,

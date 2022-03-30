@@ -4,7 +4,7 @@ import { MetricAltmetricComponent } from './metric-altmetric.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
-import { ListMetricPropsPipe } from '../../utils/list-metric-props/list-metric-props.pipe';
+import { ListMetricPropsPipe } from '../pipes/list-metric-props/list-metric-props.pipe';
 
 describe('MetricAltmetricComponent', () => {
   let component: MetricAltmetricComponent;

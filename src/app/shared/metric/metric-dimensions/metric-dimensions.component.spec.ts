@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MetricDimensionsComponent } from './metric-dimensions.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { ListMetricPropsPipe } from '../../utils/list-metric-props/list-metric-props.pipe';
+import { ListMetricPropsPipe } from '../pipes/list-metric-props/list-metric-props.pipe';
 import { By } from '@angular/platform-browser';
 
 describe('MetricDimensionsComponent', () => {

@@ -1,5 +1,4 @@
-import { MetricStyleConfigPipe } from './../../../../../pipes/metric-style-config/metric-style-config.pipe';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../../shared/mocks/translate-loader.mock';
@@ -13,7 +12,7 @@ describe('MetricRowComponent', () => {
   let component: MetricRowComponent;
   let fixture: ComponentFixture<MetricRowComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -22,8 +21,7 @@ describe('MetricRowComponent', () => {
         }
       }), BrowserAnimationsModule],
       declarations: [
-        MetricRowComponent,
-        MetricStyleConfigPipe
+        MetricRowComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

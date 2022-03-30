@@ -11,10 +11,7 @@ import { hasValue } from '../../../../../shared/empty.util';
 import { MetricsComponentsDataService } from '../../../../../core/layout/metrics-components-data.service';
 import { Metric } from '../../../../../core/shared/metric.model';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
-import {
-  CrisLayoutBox,
-  MetricsBoxConfiguration,
-} from '../../../../../core/layout/models/box.model';
+import { CrisLayoutBox, MetricsBoxConfiguration, } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 
 export interface MetricRow {
@@ -27,15 +24,15 @@ export interface MetricRow {
 @Component({
   selector: 'ds-cris-layout-metrics-box',
   templateUrl: './cris-layout-metrics-box.component.html',
-  styleUrls: ['./cris-layout-metrics-box.component.scss'],
+  styleUrls: ['./cris-layout-metrics-box.component.scss']
 })
 /**
  * For overwrite this component create a new one that extends CrisLayoutBoxObj and
  * add the CrisLayoutBoxModelComponent decorator indicating the type of box to overwrite
  */
 @RenderCrisLayoutBoxFor(LayoutBox.METRICS, true)
-export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent
-  implements OnInit, OnDestroy {
+export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent implements OnInit, OnDestroy {
+
   /**
    * Contains the metrics configuration for current box
    */
@@ -71,9 +68,7 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent
 
     this.metricsBoxConfiguration = this.box.configuration as MetricsBoxConfiguration;
     this.subs.push(
-      this.itemService
-        .getMetrics(this.item.uuid)
-        .pipe(getFirstSucceededRemoteDataPayload())
+      this.itemService.getMetrics(this.item.uuid).pipe(getFirstSucceededRemoteDataPayload())
         .subscribe((result) => {
           const matchingMetrics = this.metricsComponentService.getMatchingMetrics(
             result.page,
@@ -81,8 +76,7 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent
             this.metricsBoxConfiguration.metrics
           );
           this.metricRows.next(matchingMetrics);
-        })
-    );
+        }));
   }
 
   /**
