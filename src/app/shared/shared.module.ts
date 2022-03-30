@@ -219,7 +219,7 @@ import { ThemedSearchSectionComponent } from './explore/section-component/search
 import { ThemedTextSectionComponent } from './explore/section-component/text-section/themed-text-section.component';
 import { ThemedBrowseMostElementsComponent } from './browse-most-elements/themed-browse-most-elements.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
-import { MetricLoaderModule } from './metric/metric-loader/metric-loader.module';
+import { MetricsModule } from './metric/metrics.module';
 
 
 const MODULES = [
@@ -244,7 +244,7 @@ const MODULES = [
   TextMaskModule,
   DragDropModule,
   CdkTreeModule,
-  MetricLoaderModule
+  MetricsModule
 ];
 
 const ROOT_MODULES = [
