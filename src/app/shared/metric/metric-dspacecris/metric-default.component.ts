@@ -5,7 +5,7 @@ import { hasNoValue } from '../../empty.util';
 @Component({
   selector: 'ds-metric-default',
   templateUrl: './metric-default.component.html',
-  styleUrls: ['./metric-default.component.scss'],
+  styleUrls: ['./metric-default.component.scss', '../metric-loader/base-metric.component.scss'],
 })
 export class MetricDefaultComponent extends BaseMetricComponent {
   constructor() {

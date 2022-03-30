@@ -8,7 +8,7 @@ declare var _altmetric_embed_init: any;
 @Component({
   selector: 'ds-metric-altmetric',
   templateUrl: './metric-altmetric.component.html',
-  styleUrls: ['./metric-altmetric.component.scss']
+  styleUrls: ['./metric-altmetric.component.scss', '../metric-loader/base-metric.component.scss']
 })
 export class MetricAltmetricComponent extends BaseEmbeddedMetricComponent implements OnInit {
   remark: JSON;

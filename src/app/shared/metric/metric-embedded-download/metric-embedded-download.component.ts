@@ -1,12 +1,10 @@
-import { Router } from '@angular/router';
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 
 @Component({
   selector: 'ds-metric-embedded-download',
   templateUrl: './metric-embedded-download.component.html',
-  styleUrls: ['./metric-embedded-download.component.scss']
+  styleUrls: ['./metric-embedded-download.component.scss', '../metric-loader/base-metric.component.scss']
 })
 export class MetricEmbeddedDownloadComponent extends BaseMetricComponent implements OnInit {
 

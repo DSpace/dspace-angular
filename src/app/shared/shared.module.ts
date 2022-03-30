@@ -7,14 +7,14 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { NouisliderModule } from 'ng2-nouislider';
 import {
-    NgbCollapseModule,
-    NgbDatepickerModule,
-    NgbDropdownModule,
-    NgbNavModule,
-    NgbPaginationModule,
-    NgbTimepickerModule,
-    NgbTooltipModule,
-    NgbTypeaheadModule
+  NgbCollapseModule,
+  NgbDatepickerModule,
+  NgbDropdownModule,
+  NgbNavModule,
+  NgbPaginationModule,
+  NgbTimepickerModule,
+  NgbTooltipModule,
+  NgbTypeaheadModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -230,6 +230,7 @@ import { ThemedTextSectionComponent } from './explore/section-component/text-sec
 import { ThemedBrowseMostElementsComponent } from './browse-most-elements/themed-browse-most-elements.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { ListMetricPropsPipe } from './utils/list-metric-props/list-metric-props.pipe';
+import { MetricStyleConfigPipe } from '../cris-layout/pipes/metric-style-config/metric-style-config.pipe';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -278,7 +279,8 @@ const PIPES = [
   ObjectValuesPipe,
   ConsolePipe,
   ObjNgFor,
-  ListMetricPropsPipe
+  ListMetricPropsPipe,
+  MetricStyleConfigPipe
 ];
 
 const COMPONENTS = [

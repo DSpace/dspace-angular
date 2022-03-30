@@ -8,7 +8,7 @@ declare var __dimensions_embed: any;
 @Component({
   selector: 'ds-metric-dimensions',
   templateUrl: './metric-dimensions.component.html',
-  styleUrls: ['./metric-dimensions.component.scss']
+  styleUrls: ['./metric-dimensions.component.scss', '../metric-loader/base-metric.component.scss']
 })
 export class MetricDimensionsComponent extends BaseEmbeddedMetricComponent implements OnInit {
   remark: JSON;

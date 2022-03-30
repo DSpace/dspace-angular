@@ -12,35 +12,3 @@
     display: contents;
   }
 }
-
-::ng-deep {
-  .container.alert.metric-container {
-    max-height: inherit;
-    min-height: 7.1em;
-    height: 90%;
-
-    .btn-overlap-container {
-      display: none !important;
-      z-index: 1;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: auto;
-    }
-  }
-
-  .container.alert.metric-container:hover {
-    opacity: 0.7;
-    .btn-overlap-container {
-      margin-top: 1em;
-      display: inline-flex !important;
-      z-index: 3;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-    }
-  }
-}

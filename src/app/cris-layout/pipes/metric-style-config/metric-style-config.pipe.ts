@@ -1,7 +1,7 @@
 import { isEqual } from 'lodash';
-import { environment } from './../../../../environments/environment';
-import { MetricVisualizationConfig } from './../../../../config/metric-visualization-config.interfaces';
-import { Metric } from './../../../core/shared/metric.model';
+import { environment } from '../../../../environments/environment';
+import { MetricVisualizationConfig } from '../../../../config/metric-visualization-config.interfaces';
+import { Metric } from '../../../core/shared/metric.model';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -9,7 +9,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class MetricStyleConfigPipe implements PipeTransform {
   /**
-   * List of configrued metric's style in the environment
+   * List of configured metric's style in the environment
    *
    * @memberof MetricRowComponent
    */
