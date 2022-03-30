@@ -11,6 +11,7 @@
   },
   "files": [
     "src/test.ts",
+    "src/test-dtq.ts",
     "src/polyfills.ts"
   ],
   "include": [
