@@ -5,11 +5,6 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './dtq-test-example.component.html',
   styleUrls: ['./dtq-test-example.component.scss']
 })
-export class DtqTestExampleComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class DtqTestExampleComponent {
 
 }
