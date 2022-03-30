@@ -124,7 +124,7 @@
                 "loaders": "prepend"
               }
             },
-            "main": "src/test.ts",
+            "main": "src/test-dtq.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
