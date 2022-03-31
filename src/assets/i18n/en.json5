@@ -3583,6 +3583,8 @@
 
   "mydspace.results.no-uri": "No Uri",
 
+  "mydspace.results.is-correction": "Is a request of correction",
+
   "mydspace.search-form.placeholder": "Search in mydspace...",
 
   "mydspace.show.workflow": "Workflow tasks",

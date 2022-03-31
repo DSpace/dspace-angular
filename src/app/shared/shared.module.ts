@@ -230,6 +230,7 @@ import { ThemedTextSectionComponent } from './explore/section-component/text-sec
 import { ThemedBrowseMostElementsComponent } from './browse-most-elements/themed-browse-most-elements.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { SearchChartHorizontalComponent } from './search/search-charts/search-chart/search-chart-horizontal/search-chart-horizontal.component';
+import { ItemCorrectionComponent } from './object-collection/shared/mydspace-item-correction/item-correction.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -308,6 +309,7 @@ const COMPONENTS = [
   ItemListPreviewComponent,
   ThemedItemListPreviewComponent,
   MyDSpaceItemStatusComponent,
+  ItemCorrectionComponent,
   ItemSubmitterComponent,
   ItemDetailPreviewComponent,
   ItemDetailPreviewFieldComponent,
