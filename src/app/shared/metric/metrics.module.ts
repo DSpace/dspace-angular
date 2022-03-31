@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MetricAltmetricComponent } from './metric-altmetric/metric-altmetric.component';
 import { MetricDimensionsComponent } from './metric-dimensions/metric-dimensions.component';
-import { MetricDefaultComponent } from './metric-dspacecris/metric-default.component';
+import { MetricDefaultComponent } from './metric-default/metric-default.component';
 import { MetricEmbeddedDownloadComponent } from './metric-embedded-download/metric-embedded-download.component';
 import { MetricEmbeddedViewComponent } from './metric-embedded-view/metric-embedded-view.component';
 import { MetricGooglescholarComponent } from './metric-googlescholar/metric-googlescholar.component';
