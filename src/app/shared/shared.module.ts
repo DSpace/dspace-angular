@@ -7,14 +7,14 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { NouisliderModule } from 'ng2-nouislider';
 import {
-  NgbCollapseModule,
-  NgbDatepickerModule,
-  NgbDropdownModule,
-  NgbNavModule,
-  NgbPaginationModule,
-  NgbTimepickerModule,
-  NgbTooltipModule,
-  NgbTypeaheadModule
+    NgbCollapseModule,
+    NgbDatepickerModule,
+    NgbDropdownModule,
+    NgbNavModule,
+    NgbPaginationModule,
+    NgbTimepickerModule,
+    NgbTooltipModule,
+    NgbTypeaheadModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -219,6 +219,7 @@ import { ThemedSearchSectionComponent } from './explore/section-component/search
 import { ThemedTextSectionComponent } from './explore/section-component/text-section/themed-text-section.component';
 import { ThemedBrowseMostElementsComponent } from './browse-most-elements/themed-browse-most-elements.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
+import { SearchChartHorizontalComponent } from './search/search-charts/search-chart/search-chart-horizontal/search-chart-horizontal.component';
 import { MetricsModule } from './metric/metrics.module';
 
 
@@ -436,6 +437,7 @@ const COMPONENTS = [
   ThemedSearchSectionComponent,
   ThemedTextSectionComponent,
   ThemedBrowseMostElementsComponent,
+  SearchChartHorizontalComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -515,6 +517,7 @@ const ENTRY_COMPONENTS = [
   ThemedSearchSectionComponent,
   ThemedTextSectionComponent,
   ThemedBrowseMostElementsComponent,
+  SearchChartHorizontalComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
