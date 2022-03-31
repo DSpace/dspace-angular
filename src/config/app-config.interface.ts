@@ -1,5 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { makeStateKey } from '@angular/platform-browser';
+import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
 import { Config } from './config.interface';
 import { ServerConfig } from './server-config.interface';
 import { CacheConfig } from './cache-config.interface';
@@ -46,6 +47,7 @@ interface AppConfig extends Config {
   suggestion: SuggestionConfig[];
   addThisPlugin: AddThisPluginConfig;
   followAuthorityMetadata: FollowAuthorityMetadata[];
+  metricVisualizationConfig: MetricVisualizationConfig[];
 }
 
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
