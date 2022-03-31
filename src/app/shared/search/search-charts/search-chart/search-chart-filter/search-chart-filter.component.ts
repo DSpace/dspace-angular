@@ -53,6 +53,20 @@ export class SearchChartFilterComponent extends SearchFacetFilterComponent imple
    */
   yAxisLabel = 'search.filters.applied.charts.<facet name>.y_label';
 
+  /**
+   * Part of i18n key pattern that will be replaced
+   * @private
+   * @memberof SearchChartFilterComponent
+   */
+  private keyPlaceholder = '<facet name>';
+
+  /**
+   * Used to check if a chart is reversed or not
+   *
+   * @memberof SearchChartFilterComponent
+   */
+  isReverseChart = false;
+
   ngOnInit() {
     super.ngOnInit();
     this.results = this.getInitData();
@@ -84,14 +98,33 @@ export class SearchChartFilterComponent extends SearchFacetFilterComponent imple
       map((facetValues: RemoteData<PaginatedList<FacetValue>[]>) => {
         const values = [];
         facetValues.payload.forEach((facetValue: FacetValues) => {
-          this.xAxisLabel = this.xAxisLabel.replace('<facet name>',facetValue.name );
-          this.yAxisLabel = this.yAxisLabel.replace('<facet name>',facetValue.name );
-          values.push(...facetValue.page.map((item: FacetValue) => ({
-            name: item.value,
-            value: item.count,
-            extra: item,
-          } as ChartSeries)));
+          this.xAxisLabel = this.xAxisLabel.replace(this.keyPlaceholder, facetValue.name);
+          this.yAxisLabel = this.yAxisLabel.replace(this.keyPlaceholder, facetValue.name);
+          if (this.isReverseChart) {
+            values.push(
+              ...facetValue.page.map(
+                (item: FacetValue) =>
+                ({
+                  name: item.count.toString(),
+                  value: Number(item.value),
+                  extra: item,
+                } as ChartSeries)
+              )
+            );
+          } else {
+            values.push(
+              ...facetValue.page.map(
+                (item: FacetValue) =>
+                  ({
+                    name: item.value,
+                    value: item.count,
+                    extra: item,
+                  } as ChartSeries)
+              )
+            );
+          }
         });
+
         return values;
       }),
     );

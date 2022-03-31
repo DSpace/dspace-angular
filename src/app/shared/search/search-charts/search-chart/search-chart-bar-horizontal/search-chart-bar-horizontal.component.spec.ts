@@ -22,11 +22,11 @@ import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { FacetValue } from '../../../models/facet-value.model';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { SearchChartHorizontalComponent } from './search-chart-horizontal.component';
+import { SearchChartBarHorizontalComponent } from './search-chart-bar-horizontal.component';
 
 xdescribe('SearchChartHorizontalComponent', () => {
-  let comp: SearchChartHorizontalComponent;
-  let fixture: ComponentFixture<SearchChartHorizontalComponent>;
+  let comp: SearchChartBarHorizontalComponent;
+  let fixture: ComponentFixture<SearchChartBarHorizontalComponent>;
   const filterName1 = 'test name';
   const value1 = 'Value 1';
   const value2 = 'Value 2';
@@ -94,7 +94,7 @@ xdescribe('SearchChartHorizontalComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchChartHorizontalComponent],
+      declarations: [SearchChartBarHorizontalComponent],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
@@ -124,14 +124,14 @@ xdescribe('SearchChartHorizontalComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .overrideComponent(SearchChartHorizontalComponent, {
+      .overrideComponent(SearchChartBarHorizontalComponent, {
         set: { changeDetection: ChangeDetectionStrategy.Default },
       })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchChartHorizontalComponent);
+    fixture = TestBed.createComponent(SearchChartBarHorizontalComponent);
     comp = fixture.componentInstance; // SearchChartHorizontalComponent test instance
     comp.filterConfig = mockFilterConfig;
     filterService = (comp as any).filterService;
