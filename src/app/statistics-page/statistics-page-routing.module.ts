@@ -37,7 +37,6 @@ import { StatisticsWorkflowGuard } from '../core/data/feature-authorization/feat
             component: ThemedSiteStatisticsPageComponent,
           },
         ],
-        canActivate: [StatisticsAdministratorGuard]
       },
       {
           path: 'login',
