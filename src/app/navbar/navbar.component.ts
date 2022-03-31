@@ -13,7 +13,7 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { environment } from '../../environments/environment';
 import { map, switchMap, take } from 'rxjs/operators';
 import { SectionDataService } from '../core/layout/section-data.service';
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { Section } from '../core/layout/models/section.model';
 
@@ -39,17 +39,17 @@ export class NavbarComponent extends MenuComponent {
   /**
    * The boolean to check if user can view Usage
    */
-  _canViewUsage: boolean;
+  private _canViewUsage: boolean;
 
   /**
    * The boolean to check if user can view Login
    */
-  _canViewLogin: boolean;
+  private _canViewLogin: boolean;
 
   /**
    * The boolean to check if user can view Workflow
    */
-  _canViewWorkflow: boolean;
+  private _canViewWorkflow: boolean;
 
   constructor(protected menuService: MenuService,
               protected injector: Injector,
@@ -64,14 +64,14 @@ export class NavbarComponent extends MenuComponent {
 
   ngOnInit(): void {
     this.activatedRoutesLastChild = this.getActivatedRoute(this.route);
-    combineLatest(
+    combineLatest([
       this.getAuthorizedUsageStatistics(),
       this.getAuthorizedLoginStatistics(),
       this.getAuthorizedWorkflowStatistics()
-    ).pipe(take(1)).subscribe(([res1, res2, res3]) => {
-      this._canViewUsage = res1;
-      this._canViewLogin = res2;
-      this._canViewWorkflow = res3;
+    ]).pipe(take(1)).subscribe(([canViewUsage, canViewLogin, canViewWorkflow]) => {
+      this._canViewUsage = canViewUsage;
+      this._canViewLogin = canViewLogin;
+      this._canViewWorkflow = canViewWorkflow;
       this.createMenu();
       super.ngOnInit();
     });

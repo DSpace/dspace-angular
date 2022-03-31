@@ -9,8 +9,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { By } from '@angular/platform-browser';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import {NotificationsService} from '../../notifications/notifications.service';
-import {NotificationsServiceStub} from '../../testing/notifications-service.stub';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 
 describe('StatisticsMenuComponent', () => {
   let component: StatisticsMenuComponent;
@@ -49,7 +49,7 @@ describe('StatisticsMenuComponent', () => {
   });
 
   it('should check the authorization of the current user', () => {
-    expect(authorizationService.isAuthorized).toHaveBeenCalledWith(FeatureID.CanEditMetadata, dso.self, undefined, false);
+    expect(authorizationService.isAuthorized).toHaveBeenCalledWith(FeatureID.CanViewUsageStatistics, dso.self, undefined, false);
   });
 
   describe('when the user is authorized', () => {
