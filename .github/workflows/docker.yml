@@ -6,16 +6,15 @@ name: Docker images
 on:
   push:
     branches:
-      - main
-      - 'dspace-**'
+      - dtq-dev
     tags:
       - 'dspace-**'
   pull_request:
 
 jobs:
   docker:
-    # Ensure this job never runs on forked repos. It's only executed for 'dspace/dspace-angular'
-    if: github.repository == 'dspace/dspace-angular'
+    # Ensure this job never runs on forked repos. It's only executed for our repo
+    if: github.repository == 'dataquest-dev/dspace-angular'
     runs-on: ubuntu-latest
     env:
       # Define tags to use for Docker images based on Git tags/branches (for docker/metadata-action)
@@ -59,7 +58,7 @@ jobs:
         id: meta_build
         uses: docker/metadata-action@v3
         with:
-          images: dspace/dspace-angular
+          images: regreb01/dspace-angular
           tags: ${{ env.IMAGE_TAGS }}
           flavor: ${{ env.TAGS_FLAVOR }}
 
