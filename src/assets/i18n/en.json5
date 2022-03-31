@@ -491,9 +491,9 @@
 
   "admin.search.item.edit": "Edit",
 
-  "admin.search.item.make-private": "Make Private",
+  "admin.search.item.make-private": "Make non-discoverable",
 
-  "admin.search.item.make-public": "Make Public",
+  "admin.search.item.make-public": "Make discoverable",
 
   "admin.search.item.move": "Move",
 
@@ -1623,7 +1623,7 @@
 
 
 
-  "item.alerts.private": "This item is private",
+  "item.alerts.private": "This item is non-discoverable",
 
   "item.alerts.withdrawn": "This item has been withdrawn",
 
@@ -1635,7 +1635,7 @@
 
 
 
-  "item.badge.private": "Private",
+  "item.badge.private": "Non-discoverable",
 
   "item.badge.withdrawn": "Withdrawn",
 
@@ -1874,29 +1874,29 @@
 
   "item.edit.private.cancel": "Cancel",
 
-  "item.edit.private.confirm": "Make it Private",
+  "item.edit.private.confirm": "Make it non-discoverable",
 
-  "item.edit.private.description": "Are you sure this item should be made private in the archive?",
+  "item.edit.private.description": "Are you sure this item should be made non-discoverable in the archive?",
 
-  "item.edit.private.error": "An error occurred while making the item private",
+  "item.edit.private.error": "An error occurred while making the item non-discoverable",
 
-  "item.edit.private.header": "Make item private: {{ id }}",
+  "item.edit.private.header": "Make item non-discoverable: {{ id }}",
 
-  "item.edit.private.success": "The item is now private",
+  "item.edit.private.success": "The item is now non-discoverable",
 
 
 
   "item.edit.public.cancel": "Cancel",
 
-  "item.edit.public.confirm": "Make it Public",
+  "item.edit.public.confirm": "Make it discoverable",
 
-  "item.edit.public.description": "Are you sure this item should be made public in the archive?",
+  "item.edit.public.description": "Are you sure this item should be made discoverable in the archive?",
 
-  "item.edit.public.error": "An error occurred while making the item public",
+  "item.edit.public.error": "An error occurred while making the item discoverable",
 
-  "item.edit.public.header": "Make item public: {{ id }}",
+  "item.edit.public.header": "Make item discoverable: {{ id }}",
 
-  "item.edit.public.success": "The item is now public",
+  "item.edit.public.success": "The item is now discoverable",
 
 
 
@@ -1980,13 +1980,13 @@
 
   "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
 
-  "item.edit.tabs.status.buttons.private.button": "Make it private...",
+  "item.edit.tabs.status.buttons.private.button": "Make it non-discoverable...",
 
-  "item.edit.tabs.status.buttons.private.label": "Make item private",
+  "item.edit.tabs.status.buttons.private.label": "Make item non-discoverable",
 
-  "item.edit.tabs.status.buttons.public.button": "Make it public...",
+  "item.edit.tabs.status.buttons.public.button": "Make it discoverable...",
 
-  "item.edit.tabs.status.buttons.public.label": "Make item public",
+  "item.edit.tabs.status.buttons.public.label": "Make item discoverable",
 
   "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
 
@@ -3201,7 +3201,7 @@
 
   "search.filters.applied.f.dateSubmitted": "Date submitted",
 
-  "search.filters.applied.f.discoverable": "Private",
+  "search.filters.applied.f.discoverable": "Non-discoverable",
 
   "search.filters.applied.f.entityType": "Item Type",
 
@@ -3279,7 +3279,7 @@
 
   "search.filters.filter.dateSubmitted.label": "Search date submitted",
 
-  "search.filters.filter.discoverable.head": "Private",
+  "search.filters.filter.discoverable.head": "Non-discoverable",
 
   "search.filters.filter.withdrawn.head": "Withdrawn",
 
@@ -3407,6 +3407,8 @@
   "search.results.no-results-link": "quotes around it",
 
   "search.results.empty": "Your search returned no results.",
+
+  "search.results.view-result": "View",
 
 
   "default.search.results.head": "Search Results",

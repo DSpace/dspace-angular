@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Community } from '../../../core/shared/community.model';
 import { LinkService } from '../../../core/cache/builders/link.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 let communityGridElementComponent: CommunityGridElementComponent;
 let fixture: ComponentFixture<CommunityGridElementComponent>;
@@ -37,6 +38,9 @@ const linkService = jasmine.createSpyObj('linkService', {
 describe('CommunityGridElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot()
+      ],
       declarations: [CommunityGridElementComponent],
       providers: [
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) },
