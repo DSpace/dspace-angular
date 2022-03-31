@@ -1,6 +1,6 @@
 <div #chartContainer class="w-100">
   <ngx-charts-pie-chart
-    [view]="view.length == 0 ? [chartContainer.offsetWidth] : view"
+    [view]="view?.length == 0 ? [chartContainer.offsetWidth] : view"
     [results]="(chartData | async)"
     [animations]="animations"
     [legend]="legend"
