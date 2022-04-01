@@ -8,6 +8,11 @@
     [legendPosition]="legendPosition"
     [xAxis]="xAxis"
     [yAxis]="yAxis"
-    (select)="onSelect($event)">
+    [xAxisLabel]="xAxisLabel | translate"
+    [yAxisLabel]="yAxisLabel | translate"
+    [showYAxisLabel]="hasTranslation(yAxisLabel)"
+    [showXAxisLabel]="hasTranslation(xAxisLabel)"
+    (select)="onSelect($event)"
+  >
   </ngx-charts-line-chart>
 </div>

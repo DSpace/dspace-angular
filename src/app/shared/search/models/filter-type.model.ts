@@ -43,7 +43,7 @@ export enum FilterType {
   'chart.line' = 'chart.line',
 
   /**
-   * Represents horizontal chart
+   * Represents horizontal bar chart
    */
   'chart.bar.horizontal' = 'chart.bar.horizontal',
 
@@ -56,4 +56,14 @@ export enum FilterType {
    * Represents bar chart with more button on right side
    */
   'chart.bar.left-to-right' = 'chart.bar.left-to-right',
+
+  /**
+   * Represents a reversed horizontal bar chart
+   */
+  'chart.reverse-bar.horizontal' = 'chart.reverse-bar.horizontal',
+
+  /**
+   * Represents a reversed bar chart
+   */
+  'chart.reverse-bar' = 'chart.reverse-bar'
 }
