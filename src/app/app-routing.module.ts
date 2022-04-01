@@ -238,7 +238,6 @@ import { StatisticsAdministratorGuard } from './core/data/feature-authorization/
             path: 'statistics',
             loadChildren: () => import('./statistics-page/statistics-page-routing.module')
               .then((m) => m.StatisticsPageRoutingModule),
-            canActivate: [StatisticsAdministratorGuard]
           },
           {
             path: ACCESS_CONTROL_MODULE_PATH,

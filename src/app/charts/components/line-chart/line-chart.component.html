@@ -1,7 +1,7 @@
 <div #chartContainer class="w-100">
   <ngx-charts-line-chart
-    [view]="view.length == 0 ? [chartContainer.offsetWidth] : view"
-    [results]="chartData | async"
+    [view]="view?.length == 0 ? [chartContainer.offsetWidth] : view"
+    [results]="(chartData | async)"
     [animations]="animations"
     [legend]="legend"
     [legendTitle]="legendTitle"
