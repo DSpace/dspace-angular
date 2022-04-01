@@ -7,7 +7,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
 import { ChartData } from '../../models/chart-data';
 import { ChartSeries } from '../../models/chart-series';
 import { ChartType } from '../../models/chart-type';
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 
 @Component({
   template: ''
@@ -78,7 +78,7 @@ export abstract class AbstractChartComponent implements OnInit {
   hasTranslation(key: string): boolean {
     if (key) {
       const translation = this.translateService.instant(key);
-      return translation !== key && translation !== '';
+      return isNotEmpty(translation) && translation !== key;
     }
 
     return false;
