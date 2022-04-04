@@ -1,4 +1,4 @@
-[![Build](https://github.com/dataquest-dev/dspace-angular/actions/workflows/build.yml/badge.svg)](https://github.com/dataquest-dev/dspace-angular/actions/workflows/build.yml) [![Coverage Status](https://codecov.io/gh/DSpace/dspace-angular/branch/main/graph/badge.svg)](https://codecov.io/gh/DSpace/dspace-angular) [![Universal Angular](https://img.shields.io/badge/universal-angular2-brightgreen.svg?style=flat)](https://github.com/angular/universal)
+[![Build](https://github.com/dataquest-dev/dspace-angular/actions/workflows/build.yml/badge.svg)](https://github.com/dataquest-dev/dspace-angular/actions/workflows/build.yml) [![codecov](https://codecov.io/gh/dataquest-dev/dspace-angular/branch/dtq-dev/graph/badge.svg?token=DQ7QIZN8S6)](https://codecov.io/gh/dataquest-dev/dspace-angular) [![Universal Angular](https://img.shields.io/badge/universal-angular2-brightgreen.svg?style=flat)](https://github.com/angular/universal)
 
 dspace-angular
 ==============
