@@ -120,7 +120,7 @@ export class ItemExportComponent implements OnInit {
 
   onSubmit() {
     if (this.exportForm.valid) {
-      if (this.exportForm.value.format.id.indexOf(ItemExportComponent.BULK_IMPORT_READY_XLS_SUFFIX) > 0 && !this.selectCollection) {
+      if (!!this.exportForm.value.format.id && this.exportForm.value.format.id.indexOf(ItemExportComponent.BULK_IMPORT_READY_XLS_SUFFIX) > 0 && !this.selectCollection) {
         // if the "bulk import" format has been chosen, show the collection selection form
         this.selectCollection = true;
       } else {
