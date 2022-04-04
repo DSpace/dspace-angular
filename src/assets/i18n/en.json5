@@ -678,9 +678,9 @@
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
-  "browse.next.button": "Next",
+  "pagination.next.button": "Next",
 
-  "browse.previous.button": "Previous",
+  "pagination.previous.button": "Previous",
 
   "browse.startsWith.choose_start": "(Choose start)",
 
