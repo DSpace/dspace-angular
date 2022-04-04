@@ -19,7 +19,6 @@ jobs:
       # When Chrome version is specified, we pin to a specific version of Chrome
       # Comment this out to use the latest release
       #CHROME_VERSION: "90.0.4430.212-1"
-      NODE_OPTIONS: "--max_old_space_size=4096"
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:
