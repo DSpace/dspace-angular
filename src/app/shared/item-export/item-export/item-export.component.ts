@@ -125,10 +125,9 @@ export class ItemExportComponent implements OnInit {
         this.selectCollection = true;
       } else {
         // select the collection and submit
-
         if (isNotEmpty(this.bulkImportXlsEntityTypeCollectionUUID)) {
           this.searchOptions.query = `location.coll:${this.bulkImportXlsEntityTypeCollectionUUID}`;
-          console.log(JSON.stringify(this.searchOptions));
+          this.searchOptions.scope = this.bulkImportXlsEntityTypeCollectionUUID;
         }
 
         this.itemExportService.submitForm(
