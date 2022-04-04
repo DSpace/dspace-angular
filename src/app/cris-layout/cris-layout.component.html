@@ -1,15 +1,20 @@
 <div class="cris-layout">
 	<ng-container *ngIf="!!tabs$">
 		<ng-container *ngVar="(leadingTabs$ | async) as leadingTabs">
-			<ds-cris-layout-leading *ngIf="(hasLeadingTab$ | async) && !!leadingTabs && leadingTabs.length > 0" [tab]="leadingTabs[0]"
-			 [item]="item"></ds-cris-layout-leading>
+			<ds-cris-layout-leading *ngIf="(hasLeadingTab$ | async) && !!leadingTabs && leadingTabs.length > 0"
+                              [item]="item"
+                              [showContextMenu]="showContextMenu"
+                              [tab]="leadingTabs[0]"></ds-cris-layout-leading>
 		</ng-container>
 	</ng-container>
 
 	<ng-container *ngIf="!!tabs$">
 		<ng-container *ngVar="(loaderTabs$ | async) as loaderTabs">
-			<ds-cris-layout-loader *ngIf="!!loaderTabs && loaderTabs.length > 0" [leadingTabs]="(leadingTabs$ | async)" [tabs]="loaderTabs"
-			 [item]="item" [showContextMenu]="!(hasLeadingTab$ | async)"></ds-cris-layout-loader>
+			<ds-cris-layout-loader *ngIf="!!loaderTabs && loaderTabs.length > 0"
+                             [leadingTabs]="(leadingTabs$ | async)"
+                             [item]="item"
+                             [showContextMenu]="!(hasLeadingTab$ | async) && showContextMenu"
+                             [tabs]="loaderTabs"></ds-cris-layout-loader>
 		</ng-container>
 	</ng-container>
 </div>

@@ -49,6 +49,7 @@ import {
 import { sidebarReducer, SidebarState } from './shared/sidebar/sidebar.reducer';
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
 import { ThemeState, themeReducer } from './shared/theme-support/theme.reducer';
+import { StatisticsReducer, StatisticsState } from './core/statistics/statistics.reducer';
 import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
 
 export interface AppState {
@@ -70,6 +71,7 @@ export interface AppState {
   communityList: CommunityListState;
   epeopleRegistry: EPeopleRegistryState;
   groupRegistry: GroupRegistryState;
+  statistics: StatisticsState;
   correlationId: string;
 }
 
@@ -92,6 +94,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   communityList: CommunityListReducer,
   epeopleRegistry: ePeopleRegistryReducer,
   groupRegistry: groupRegistryReducer,
+  statistics: StatisticsReducer,
   correlationId: correlationIdReducer
 };
 

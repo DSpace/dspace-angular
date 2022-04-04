@@ -71,7 +71,6 @@ export class SearchChartComponent implements OnInit {
     this.caption = this.translate.instant(captionTranslationLabel);
     this.showCaption = this.caption !== captionTranslationLabel;
 
-    // console.log(JSON.stringify(this.filter));
     this.selectedValues$ = this.getSelectedValues();
     this.active$ = this.isActive();
     this.initializeFilter();

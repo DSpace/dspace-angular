@@ -21,8 +21,12 @@ import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { SiteDataServiceStub } from '../../shared/testing/site-data-service.stub';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 
+import { provideMockStore } from '@ngrx/store/testing';
+import { StatisticsState } from '../../core/statistics/statistics.reducer';
 
 describe('CrisStatisticsPageComponent', () => {
+
+  const initialState: StatisticsState = { reportId: '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits', categoryId: 'mainReports' };
   let component: CrisStatisticsPageComponent;
   let fixture: ComponentFixture<CrisStatisticsPageComponent>;
   let de: DebugElement;
@@ -64,6 +68,7 @@ describe('CrisStatisticsPageComponent', () => {
       ],
       declarations: [ CrisStatisticsPageComponent ],
       providers: [
+        provideMockStore({ initialState }),
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: UsageReportService, useValue: usageReportServiceStub },
         { provide: StatisticsCategoriesService, useValue: statisticsCategoriesServiceStub },
@@ -101,12 +106,38 @@ describe('CrisStatisticsPageComponent', () => {
 
   it('check if can get categories information and view changed', () => {
       component.categories$ = statisticsCategoriesServiceStub.searchStatistics('url', 1, 1);
+      component.categories$.subscribe((data) => {
+        component.selectedCategory = data[0];
+      });
       fixture.detectChanges();
       expect(de.query(By.css('#categories-tabs'))).toBeTruthy();
   });
 
+  it('check rendered categories length', () => {
+    component.categories$ = statisticsCategoriesServiceStub.searchStatistics('url', 1, 1);
+    component.categories$.subscribe((data) => {
+      component.selectedCategory = data[0];
+    });
+    fixture.detectChanges();
+    const renderedCategories = fixture.debugElement.queryAll(By.css('#categories-tabs li'));
+    expect(renderedCategories.length).toEqual(2);
+  });
+
+  it('check rendered categories has active class accrording to state', () => {
+    component.categories$ = statisticsCategoriesServiceStub.searchStatistics('url', 1, 1);
+    component.categories$.subscribe((data) => {
+      component.selectedCategory = data[0];
+    });
+    fixture.detectChanges();
+    const renderedCategories = fixture.debugElement.queryAll(By.css('#categories-tabs li a'));
+    expect(renderedCategories[0].nativeElement.classList.contains('active')).toBe(true);
+  });
+
   it('check if can get report information', () => {
       component.reports$ = usageReportServiceStub.searchStatistics('url', 1, 1);
+      component.reports$.subscribe((data) => {
+        component.selectedReportId = data[0].id;
+      });
       fixture.detectChanges();
   });
 

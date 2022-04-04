@@ -4,6 +4,7 @@ import { MetricAltmetricComponent } from './metric-altmetric.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
+import { ListMetricPropsPipe } from '../pipes/list-metric-props/list-metric-props.pipe';
 
 describe('MetricAltmetricComponent', () => {
   let component: MetricAltmetricComponent;
@@ -18,7 +19,7 @@ describe('MetricAltmetricComponent', () => {
     metricCount: 333,
     metricType: 'altmetric',
     rank: null,
-    remark: '{"popover":"bottom","badgeType":"medium-donut","doiAttr":"10.1056/Test","pmidAttr":"1234567890"}',
+    remark: '{"popover":"bottom","doiAttr":"10.1056/Test","pmidAttr":"1234567890"}',
     startDate: null,
     type: null,
     _links: null
@@ -31,7 +32,7 @@ describe('MetricAltmetricComponent', () => {
           useClass: TranslateLoaderMock
         }
       })],
-      declarations: [MetricAltmetricComponent]
+      declarations: [MetricAltmetricComponent, ListMetricPropsPipe]
     })
       .compileComponents();
   }));
@@ -49,10 +50,9 @@ describe('MetricAltmetricComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should render badge div', () => {
-    const div = fixture.debugElement.queryAll(By.css('div'))[2];
+    const div = fixture.debugElement.queryAll(By.css('div'))[3];
     expect(div.nativeElement.className).toEqual('altmetric-embed');
     expect(div.nativeElement.dataset.badgePopover).toEqual('bottom');
-    expect(div.nativeElement.dataset.badgeType).toEqual('medium-donut');
     expect(div.nativeElement.dataset.doi).toEqual('10.1056/Test');
     expect(div.nativeElement.dataset.pmid).toEqual('1234567890');
   });

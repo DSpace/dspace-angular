@@ -247,7 +247,8 @@ describe('SearchComponent', () => {
 
     const expectedSearchOptions = Object.assign(paginatedSearchOptions$.value, {
       configuration: 'default',
-      sort: sortOptionsList[0]
+      sort: sortOptionsList[0],
+      forcedEmbeddedKeys: ['metrics']
     });
     expect(comp.currentConfiguration$).toBeObservable(cold('b', {
       b: 'default'

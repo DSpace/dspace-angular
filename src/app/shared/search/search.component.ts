@@ -75,6 +75,11 @@ export class SearchComponent implements OnInit {
   @Input() fixedFilterQuery: string;
 
   /**
+   * Embedded keys to force during the search
+   */
+  @Input() forcedEmbeddedKeys = ['metrics'];
+
+  /**
    * If this is true, the request will only be sent if there's
    * no valid cached version. Defaults to true
    */
@@ -126,6 +131,16 @@ export class SearchComponent implements OnInit {
   @Input() selectionConfig: SelectionConfig;
 
   /**
+   * A boolean representing if show search charts
+   */
+  @Input() showCharts = false;
+
+  /**
+   * A boolean representing if show export button
+   */
+  @Input() showExport = true;
+
+  /**
    * A boolean representing if show search sidebar button
    */
   @Input() showSidebar = true;
@@ -144,6 +159,11 @@ export class SearchComponent implements OnInit {
    * List of available view mode
    */
   @Input() viewModeList: ViewMode[];
+
+  /**
+   * Defines whether or not to show the scope selector
+   */
+  @Input() showScopeSelector = false;
 
   /**
    * The current configuration used during the search
@@ -290,7 +310,8 @@ export class SearchComponent implements OnInit {
       const combinedOptions = Object.assign({}, searchOptions,
         {
           configuration: searchOptions.configuration || configuration,
-          sort: sortOption || searchOptions.sort
+          sort: sortOption || searchOptions.sort,
+          forcedEmbeddedKeys: this.forcedEmbeddedKeys
         });
       const newSearchOptions = new PaginatedSearchOptions(combinedOptions);
       // check if search options are changed
@@ -362,6 +383,7 @@ export class SearchComponent implements OnInit {
    */
   private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
+
     if (this.projection) {
       searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
         projection: this.projection

@@ -1,22 +1,27 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+
+import { of } from 'rxjs';
 
 import { MetricLoaderComponent } from './metric-loader.component';
 import { MetricLoaderService } from './metric-loader.service';
-import { of } from 'rxjs';
 import { metric1Mock } from '../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
-import { Component } from '@angular/core';
+import { MetricStyleConfigPipe } from '../pipes/metric-style-config/metric-style-config.pipe';
+import SpyObj = jasmine.SpyObj;
 
 describe('MetricLoaderComponent', () => {
   let component: MetricLoaderComponent;
   let fixture: ComponentFixture<MetricLoaderComponent>;
-  let metricLoaderService: MetricLoaderService;
+  let metricLoaderService: SpyObj<MetricLoaderService>;
 
-  beforeEach(async(() => {
-    metricLoaderService = new MetricLoaderService();
-    spyOn(metricLoaderService, 'loadMetricTypeComponent').and.returnValue(of(TestComponent).toPromise());
+  beforeEach(waitForAsync(() => {
+    metricLoaderService = jasmine.createSpyObj('MetricLoaderService', {
+      loadMetricTypeComponent: jasmine.createSpy('loadMetricTypeComponent')
+    });
+    metricLoaderService.loadMetricTypeComponent.and.returnValue(of(TestComponent).toPromise());
 
     TestBed.configureTestingModule({
-      declarations: [ MetricLoaderComponent ],
+      declarations: [ MetricLoaderComponent, MetricStyleConfigPipe ],
       providers: [
         { provide: MetricLoaderService, useValue: metricLoaderService }
       ],

@@ -9,6 +9,9 @@ import {
   tabPersonBiography,
   tabPersonProfile
 } from '../../../../shared/testing/layout-tab.mocks';
+import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
+import { BehaviorSubject } from 'rxjs';
+import { Item } from '../../../../core/shared/item.model';
 
 describe('CrisLayoutSidebarComponent', () => {
   let component: CrisLayoutSidebarComponent;
@@ -16,6 +19,25 @@ describe('CrisLayoutSidebarComponent', () => {
   let de: DebugElement;
   const tabs = [tabPersonProfile, tabPersonBiography, tabPersonBibliometrics];
 
+  const mockItem = Object.assign(new Item(), {
+    id: 'fake-id',
+    handle: 'fake/handle',
+    lastModified: '2018',
+    metadata: {
+      'dc.title': [
+        {
+          language: null,
+          value: 'test'
+        }
+      ],
+      'dspace.entity.type': [
+        {
+          language: null,
+          value: 'Person'
+        }
+      ]
+    }
+  });
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -32,13 +54,13 @@ describe('CrisLayoutSidebarComponent', () => {
     fixture = TestBed.createComponent(CrisLayoutSidebarComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
-
   });
 
   describe('when no tabs', () => {
 
     beforeEach(() => {
       component.tabs = [];
+      component.item = mockItem;
       fixture.detectChanges();
     });
 
@@ -58,8 +80,10 @@ describe('CrisLayoutSidebarComponent', () => {
 
   describe('when there are tabs', () => {
     beforeEach(() => {
+      component.item = mockItem;
       component.tabs = tabs;
       component.showNav = true;
+      component.activeTab$ = new BehaviorSubject<CrisLayoutTab>(tabs[0]);
       fixture.detectChanges();
     });
 

@@ -84,6 +84,7 @@ describe('submissionReducer test suite', () => {
         activeSection: null,
         sections: Object.create(null),
         isLoading: true,
+        isDiscarding: false,
         savePending: false,
         saveDecisionPending: false,
         depositPending: false,
@@ -118,6 +119,7 @@ describe('submissionReducer test suite', () => {
         activeSection: null,
         sections: Object.create(null),
         isLoading: true,
+        isDiscarding: false,
         savePending: false,
         depositPending: false
       }
@@ -237,8 +239,7 @@ describe('submissionReducer test suite', () => {
   it('should reset state once the discard action is completed successfully', () => {
     const action: any = new DiscardSubmissionSuccessAction(submissionId);
     const newState = submissionObjectReducer(initState, action);
-
-    expect(newState).toEqual({});
+    expect(newState).toEqual(Object.assign({}, initState, { 826: Object.assign({}, initState[826], { isDiscarding: true })}));
   });
 
   it('should return same state once the discard action is completed unsuccessfully', () => {

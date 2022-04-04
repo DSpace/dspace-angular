@@ -1,0 +1,9 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{'modal.item-detail-page.title' | translate}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="dismiss('cancel')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body p-2">
+  <ds-cris-layout [item]="itemRD$ | async" [dataTabs$]="dataTabs$" [showContextMenu]="false"></ds-cris-layout>
+</div>

@@ -6,9 +6,12 @@
     [animations]="true"
     [enableScrollToLeft]="true"
     [currentPage]="currentPage"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
     (select)="select($event)"
     (showMore)="showMore()"
-    [isLastPage]="isLastPage$">
+    [isLastPage]="isLastPage$"
+  >
   </ds-chart>
 </div>
 <ng-template #noData>

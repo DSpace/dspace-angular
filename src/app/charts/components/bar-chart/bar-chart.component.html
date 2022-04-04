@@ -1,16 +1,41 @@
 <div class="chart-container"
      [class.pr-3]="enableScrollToRight && hasScrollbar">
-  <div class="scroll-class" #chartArea>
-    <ngx-charts-bar-vertical [view]="view"
-                             [results]="getResults()"
-                             [animations]="animations"
-                             [legend]="legend"
-                             [legendTitle]="legendTitle"
-                             [legendPosition]="legendPosition"
-                             [xAxis]="xAxis"
-                             [yAxis]="yAxis"
-                             (select)="onSelect($event)">
-    </ngx-charts-bar-vertical>
+  <div class="scroll-class" #chartArea #chartContainer>
+    <ng-container *ngIf="type === defaultChartType; else horizontalChartType" >
+      <ngx-charts-bar-vertical
+        [view]="view?.length == 0 ? [chartContainer.offsetWidth] : view"
+        [results]="getResults()"
+        [animations]="animations"
+        [legend]="legend"
+        [legendTitle]="legendTitle"
+        [legendPosition]="legendPosition"
+        [xAxis]="xAxis"
+        [yAxis]="yAxis"
+        [xAxisLabel]="xAxisLabel | translate"
+        [yAxisLabel]="yAxisLabel | translate"
+        [showYAxisLabel]="hasTranslation(yAxisLabel)"
+        [showXAxisLabel]="hasTranslation(xAxisLabel)"
+        (select)="onSelect($event)">
+      </ngx-charts-bar-vertical>
+    </ng-container>
+    <ng-template #horizontalChartType>
+      <ngx-charts-bar-horizontal
+        [view]="view?.length == 0 ? [chartContainer.offsetWidth] : view"
+        [animations]="animations"
+        [results]="getResults()"
+        [xAxis]="xAxis"
+        [yAxis]="yAxis"
+        [xAxisLabel]="xAxisLabel | translate"
+        [yAxisLabel]="yAxisLabel | translate"
+        [showYAxisLabel]="hasTranslation(yAxisLabel)"
+        [showXAxisLabel]="hasTranslation(xAxisLabel)"
+        [legend]="legend"
+        [legendTitle]="legendTitle"
+        [legendPosition]="legendPosition"
+        (select)="onSelect($event)"
+       >
+      </ngx-charts-bar-horizontal>
+    </ng-template>
   </div>
   <button *ngIf="enableScrollToLeft"
           type="button"
