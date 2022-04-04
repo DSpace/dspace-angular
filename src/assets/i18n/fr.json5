@@ -736,10 +736,10 @@
   "administrativeView.search.results.head": "Recherche Administrateur",
 
   // "admin.workflow.breadcrumbs": "Administer Workflow",
-  "admin.workflow.breadcrumbs": "Gestion du Workflow",
+  "admin.workflow.breadcrumbs": "Gestion des soumissions en Workflow",
 
   // "admin.workflow.title": "Administer Workflow",
-  "admin.workflow.title": "Gestion du Workflow",
+  "admin.workflow.title": "Gestion des soumissions en Workflow",
 
   // "admin.workflow.item.workflow": "Workflow",
   "admin.workflow.item.workflow": "Workflow",
