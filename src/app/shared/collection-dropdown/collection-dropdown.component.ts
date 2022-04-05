@@ -22,7 +22,7 @@ import { CollectionDataService } from '../../core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { followLink } from '../utils/follow-link-config.model';
 import {
-  getFirstCompletedRemoteData,
+  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteWithNotEmptyData
 } from '../../core/shared/operators';
 import { FindListOptions } from '../../core/data/find-list-options.model';

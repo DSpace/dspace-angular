@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { BehaviorSubject, combineLatest as observableCombineLatest, merge as observableMerge, Observable, Subscription } from 'rxjs';
-import { filter, map, startWith } from 'rxjs/operators';
+import { filter, map, startWith, take } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../../../shared/search/models/search-options.model';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
@@ -15,7 +15,6 @@ import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData } from '.
 import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { SearchConfig, SortConfig } from './search-filters/search-config.model';
-import { SearchService } from './search.service';
 import { PaginationService } from '../../pagination/pagination.service';
 import { LinkService } from '../../cache/builders/link.service';
 import { HALEndpointService } from '../hal-endpoint.service';
@@ -23,12 +22,12 @@ import { RequestService } from '../../data/request.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { GetRequest } from '../../data/request.models';
 import { URLCombiner } from '../../url-combiner/url-combiner';
-import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
 import { GenericConstructor } from '../generic-constructor';
 import { ResponseParsingService } from '../../data/parsing.service';
 import { FacetConfigResponseParsingService } from '../../data/facet-config-response-parsing.service';
-import { FacetConfigResponse } from '../../../shared/search/facet-config-response.model';
 import { ViewMode } from '../view-mode.model';
+import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
+import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -232,11 +231,10 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * Creates an observable of SearchConfig every time the configuration stream emits.
    * @param configuration The search configuration
-   * @param service The search service to use
    * @param scope The search scope if exists
    */
-  getConfigurationSearchConfig(configuration: string, service: SearchService, scope?: string): Observable<SearchConfig> {
-    return service.getSearchConfigurationFor(scope, configuration).pipe(
+  getConfigurationSearchConfig(configuration: string, scope?: string): Observable<SearchConfig> {
+    return this.getSearchConfigurationFor(scope, configuration).pipe(
       getAllSucceededRemoteDataPayload()
     );
   }

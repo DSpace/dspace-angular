@@ -147,18 +147,28 @@ const routeServiceStub = {
   }
 };
 
-
-const searchConfigurationServiceStub = jasmine.createSpyObj('SearchConfigurationService', {
-  getConfigurationSortOptions: jasmine.createSpy('getConfigurationSortOptions'),
-  getConfigurationSearchConfig: jasmine.createSpy('getConfigurationSearchConfig'),
-  getCurrentConfiguration: jasmine.createSpy('getCurrentConfiguration'),
-  getCurrentScope: jasmine.createSpy('getCurrentScope'),
-  getCurrentSort: jasmine.createSpy('getCurrentSort'),
-  updateFixedFilter: jasmine.createSpy('updateFixedFilter'),
-  setPaginationId: jasmine.createSpy('setPaginationId')
-}, ['paginatedSearchOptions']);
+let searchConfigurationServiceStub;
 
 export function configureSearchComponentTestingModule(compType, additionalDeclarations: any[] = []) {
+  searchConfigurationServiceStub = jasmine.createSpyObj('SearchConfigurationService', {
+    getConfigurationSortOptions: sortOptionsList,
+    getConfigurationSearchConfig: observableOf(searchConfig),
+    getCurrentConfiguration: observableOf('default'),
+    getCurrentScope: observableOf('test-id'),
+    getCurrentSort: observableOf(sortOptionsList[0]),
+    updateFixedFilter: jasmine.createSpy('updateFixedFilter'),
+    setPaginationId: jasmine.createSpy('setPaginationId')
+  });
+
+  searchConfigurationServiceStub.setPaginationId.and.callFake((pageId) => {
+    paginatedSearchOptions$.next(Object.assign(paginatedSearchOptions$.value, {
+      pagination: Object.assign(new PaginationComponentOptions(), {
+        id: pageId
+      })
+    }));
+  });
+  searchConfigurationServiceStub.paginatedSearchOptions = new BehaviorSubject(new PaginatedSearchOptions({pagination: {id: 'default'} as any}));
+
   TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule],
     declarations: [compType, ...additionalDeclarations],
@@ -196,7 +206,14 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
     ],
     schemas: [NO_ERRORS_SCHEMA]
   }).overrideComponent(compType, {
-    set: { changeDetection: ChangeDetectionStrategy.Default }
+    set: {
+      changeDetection: ChangeDetectionStrategy.Default,
+      providers: [{
+        provide: SearchConfigurationService,
+        useValue: searchConfigurationServiceStub
+      }]
+    },
+
   }).compileComponents();
 }
 
@@ -211,18 +228,6 @@ describe('SearchComponent', () => {
     comp.inPlaceSearch = false;
     comp.paginationId = paginationId;
 
-    searchConfigurationServiceStub.getConfigurationSearchConfig.and.returnValue(observableOf(searchConfig));
-    searchConfigurationServiceStub.getConfigurationSortOptions.and.returnValue(sortOptionsList);
-    searchConfigurationServiceStub.getCurrentConfiguration.and.returnValue(observableOf('default'));
-    searchConfigurationServiceStub.getCurrentScope.and.returnValue(observableOf('test-id'));
-    searchConfigurationServiceStub.getCurrentSort.and.returnValue(observableOf(sortOptionsList[0]));
-    searchConfigurationServiceStub.setPaginationId.and.callFake((pageId) => {
-      paginatedSearchOptions$.next(Object.assign(paginatedSearchOptions$.value, {
-        pagination: Object.assign(new PaginationComponentOptions(), {
-          id: pageId
-        })
-      }));
-    });
     spyOn((comp as any), 'getSearchOptions').and.returnValue(paginatedSearchOptions$.asObservable());
 
     searchServiceObject = TestBed.inject(SearchService);

@@ -9,9 +9,9 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import { map } from 'rxjs/operators';
 import { RemoteData } from '../../data/remote-data';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { SearchObjects } from '../../../shared/search/search-objects.model';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { RequestEntry } from '../../data/request-entry.model';
+import { SearchObjects } from '../../../shared/search/models/search-objects.model';
 
 describe('SearchConfigurationService', () => {
   let service: SearchConfigurationService;

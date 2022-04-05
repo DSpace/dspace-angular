@@ -13,10 +13,10 @@ import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { WorkspaceItem } from './models/workspaceitem.model';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
-import { FindListOptions } from '../data/request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { CoreState } from '../core-state.model';
+import { FindListOptions } from '../data/find-list-options.model';
 
 /**
  * A service that provides methods to make REST requests with workspaceitems endpoint.

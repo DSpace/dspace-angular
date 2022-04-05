@@ -9,7 +9,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { Injectable } from '@angular/core';
-import { FindListOptions } from './request.models';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
@@ -19,6 +18,7 @@ import { ItemType } from '../shared/item-relationships/item-type.model';
 import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { RelationshipTypeService } from './relationship-type.service';
 import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 /**
  * Service handling all ItemType requests

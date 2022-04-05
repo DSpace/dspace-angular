@@ -9,7 +9,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { PostRequest, RestRequest } from './request.models';
+import { PostRequest } from './request.models';
 import { Observable, of } from 'rxjs';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { RemoteData } from './remote-data';
@@ -25,13 +25,15 @@ import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
-  sendRequest
+  getRemoteDataPayload
 } from '../shared/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { hasValueOperator } from '../../shared/empty.util';
 import { Item } from '../shared/item.model';
 import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
+import { sendRequest } from '../shared/request.operators';
+import { RestRequest } from './rest-request.model';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object
