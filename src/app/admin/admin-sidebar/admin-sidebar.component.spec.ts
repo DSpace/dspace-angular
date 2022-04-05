@@ -227,7 +227,18 @@ describe('AdminSidebarComponent', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
           parentID: 'access_control', visible: false,
         }));
+      });
 
+      it('should not show the import section', () => {
+        expect(menuService.addSection).not.toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'import', visible: true,
+        }));
+      });
+
+      it('should not show the export section', () => {
+        expect(menuService.addSection).not.toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'export', visible: true,
+        }));
       });
     });
 
@@ -257,6 +268,15 @@ describe('AdminSidebarComponent', () => {
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
             id: 'workflow', visible: true,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'workflow', visible: true,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'import', visible: true,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'export', visible: true,
         }));
       });
     });
