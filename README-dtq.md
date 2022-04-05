@@ -1,4 +1,4 @@
-[![Build](https://github.com/dataquest-dev/dspace-angular/actions/workflows/build.yml/badge.svg)](https://github.com/dataquest-dev/dspace-angular/actions/workflows/build.yml) [![codecov](https://codecov.io/gh/dataquest-dev/dspace-angular/branch/dtq-dev/graph/badge.svg?token=DQ7QIZN8S6)](https://codecov.io/gh/dataquest-dev/dspace-angular) [![Universal Angular](https://img.shields.io/badge/universal-angular2-brightgreen.svg?style=flat)](https://github.com/angular/universal)
+[![Build Status](https://github.com/DSpace/dspace-angular/workflows/Build/badge.svg?branch=main)](https://github.com/DSpace/dspace-angular/actions?query=workflow%3ABuild) [![Coverage Status](https://codecov.io/gh/DSpace/dspace-angular/branch/main/graph/badge.svg)](https://codecov.io/gh/DSpace/dspace-angular) [![Universal Angular](https://img.shields.io/badge/universal-angular2-brightgreen.svg?style=flat)](https://github.com/angular/universal)
 
 dspace-angular
 ==============
@@ -15,7 +15,7 @@ For more information, visit http://www.dspace.org/
 DSpace consists of both a Java-based backend and an Angular-based frontend.
 
 * Backend (https://github.com/DSpace/DSpace/) provides a REST API, along with other machine-based interfaces (e.g. OAI-PMH, SWORD, etc)
-  * The REST Contract is at https://github.com/DSpace/RestContract
+    * The REST Contract is at https://github.com/DSpace/RestContract
 * Frontend (this codebase) is the User Interface built on the REST API
 
 Downloads
@@ -61,17 +61,17 @@ Table of Contents
 -	[Introduction to the technology](#introduction-to-the-technology)
 -	[Requirements](#requirements)
 -	[Installing](#installing)
-   - [Configuring](#configuring)
+    - [Configuring](#configuring)
 -	[Running the app](#running-the-app)
-   - [Running in production mode](#running-in-production-mode)
-   - [Deploy](#deploy)
-   - [Running the application with Docker](#running-the-application-with-docker)
+    - [Running in production mode](#running-in-production-mode)
+    - [Deploy](#deploy)
+    - [Running the application with Docker](#running-the-application-with-docker)
 -	[Cleaning](#cleaning)
 -	[Testing](#testing)
-   - [Test a Pull Request](#test-a-pull-request)
-   - [Unit Tests](#unit-tests)
-   - [E2E Tests](#e2e-tests)
-  - [Writing E2E Tests](#writing-e2e-tests)
+    - [Test a Pull Request](#test-a-pull-request)
+	- [Unit Tests](#unit-tests)
+	- [E2E Tests](#e2e-tests)
+		- [Writing E2E Tests](#writing-e2e-tests)
 -	[Documentation](#documentation)
 -	[Other commands](#other-commands)
 -	[Recommended Editors/IDEs](#recommended-editorsides)
@@ -238,8 +238,8 @@ Testing
 If you would like to contribute by testing a Pull Request (PR), here's how to do so. Keep in mind, you **do not need to have a DSpace backend / REST API installed locally to test a PR**. By default, the dspace-angular project points at our demo REST API
 
 1. Pull down the branch that the Pull Request was built from.  Easy instructions for doing so can be found on the Pull Request itself.
-  * Next to the "Merge" button, you'll see a link that says "command line instructions".
-  * Click it, and follow "Step 1" of those instructions to checkout the pull down the PR branch.
+	* Next to the "Merge" button, you'll see a link that says "command line instructions".
+	* Click it, and follow "Step 1" of those instructions to checkout the pull down the PR branch.
 2. `yarn run clean`  (This resets your local dependencies to ensure you are up-to-date with this PR)
 3. `yarn install` (Updates your local dependencies to those in the PR)
 4. `yarn start` (Rebuilds the project, and deploys to localhost:4000, by default)
@@ -262,6 +262,9 @@ and run: `yarn test`
 
 If you run into odd test errors, see the Angular guide to debugging tests: https://angular.io/guide/test-debugging
 
+Run single unit test
+
+Edit `src/test-dtq.ts` file to load only the file for testing.
 ### E2E Tests
 
 E2E tests (aka integration tests) use [Cypress.io](https://www.cypress.io/). Configuration for cypress can be found in the `cypress.json` file in the root directory.
@@ -292,9 +295,9 @@ All E2E tests must be created under the `./cypress/integration/` folder, and mus
 * Run your test file from the Cypress window. This starts the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner) in a new browser window.
 * In the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner), you'll Cypress automatically visit the page.  This first test will succeed, as all you are doing is making sure the _page exists_.
 * From here, you can use the [Selector Playground](https://docs.cypress.io/guides/core-concepts/test-runner#Selector-Playground) in the Cypress Test Runner window to determine how to tell Cypress to interact with a specific HTML element on that page.
-  * Most commands start by telling Cypress to [get()](https://docs.cypress.io/api/commands/get) a specific element, using a CSS or jQuery style selector
-  * Cypress can then do actions like [click()](https://docs.cypress.io/api/commands/click) an element, or [type()](https://docs.cypress.io/api/commands/type) text in an input field, etc.
-  * Cypress can also validate that something occurs, using [should()](https://docs.cypress.io/api/commands/should) assertions.
+    * Most commands start by telling Cypress to [get()](https://docs.cypress.io/api/commands/get) a specific element, using a CSS or jQuery style selector
+    * Cypress can then do actions like [click()](https://docs.cypress.io/api/commands/click) an element, or [type()](https://docs.cypress.io/api/commands/type) text in an input field, etc.
+	* Cypress can also validate that something occurs, using [should()](https://docs.cypress.io/api/commands/should) assertions.
 * Any time you save your test file, the Cypress Test Runner will reload & rerun it. This allows you can see your results quickly as you write the tests & correct any broken tests rapidly.
 * Cypress also has a great guide on [writing your first test](https://on.cypress.io/writing-first-test) with much more info. Keep in mind, while the examples in the Cypress docs often involve Javascript files (.js), the same examples will work in our Typescript (.ts) e2e tests.
 
@@ -332,12 +335,12 @@ Recommended Editors/IDEs
 To get the most out of TypeScript, you'll need a TypeScript-aware editor. We've had good experiences using these editors:
 
 -	Free
-   -	[Visual Studio Code](https://code.visualstudio.com/)
-  -	[Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)
+	-	[Visual Studio Code](https://code.visualstudio.com/)
+		-	[Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)
 -	Paid
-   -	[Webstorm](https://www.jetbrains.com/webstorm/download/) or [IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)
-   -	[Sublime Text](http://www.sublimetext.com/3)
-  -	[Typescript-Sublime-Plugin](https://github.com/Microsoft/Typescript-Sublime-plugin#installation)
+	-	[Webstorm](https://www.jetbrains.com/webstorm/download/) or [IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)
+	-	[Sublime Text](http://www.sublimetext.com/3)
+		-	[Typescript-Sublime-Plugin](https://github.com/Microsoft/Typescript-Sublime-plugin#installation)
 
 Collaborating
 -------------
@@ -438,7 +441,7 @@ This project makes use of [`yarn`](https://yarnpkg.com/en/) to ensure that the e
 
 * `yarn` creates a [`yarn.lock`](https://yarnpkg.com/en/docs/yarn-lock) to track those versions. That file is updated automatically by whenever dependencies are added/updated/removed via yarn.
 * **Adding new dependencies**: To install/add a new dependency (third party library), use [`yarn add`](https://yarnpkg.com/en/docs/cli/add). For example: `yarn add some-lib`.
-  * If you are adding a new build tool dependency (to `devDependencies`), use `yarn add some-lib --dev`
+    * If you are adding a new build tool dependency (to `devDependencies`), use `yarn add some-lib --dev`
 * **Upgrading existing dependencies**: To upgrade existing dependencies, you can use [`yarn upgrade`](https://yarnpkg.com/en/docs/cli/upgrade).  For example: `yarn upgrade some-lib` or `yarn upgrade some-lib@version`
 * **Removing dependencies**: If a dependency is no longer needed, or replaced, use [`yarn remove`](https://yarnpkg.com/en/docs/cli/remove) to remove it.
 
@@ -480,22 +483,22 @@ Frequently asked questions
 --------------------------
 
 -	Why is my service, aka provider, is not injecting a parameter correctly?
-   -	Please use `@Injectable()` for your service for typescript to correctly attach the metadata
+	-	Please use `@Injectable()` for your service for typescript to correctly attach the metadata
 -	Where do I write my tests?
-   -	You can write your tests next to your component files. e.g. for `src/app/home/home.component.ts` call it `src/app/home/home.component.spec.ts`
+	-	You can write your tests next to your component files. e.g. for `src/app/home/home.component.ts` call it `src/app/home/home.component.spec.ts`
 -	How do I start the app when I get `EACCES` and `EADDRINUSE` errors?
-   -	The `EADDRINUSE` error means the port `4000` is currently being used and `EACCES` is lack of permission to build files to `./dist/`
+	-	The `EADDRINUSE` error means the port `4000` is currently being used and `EACCES` is lack of permission to build files to `./dist/`
 -	What are the naming conventions for Angular?
-   -	See [the official angular style guide](https://angular.io/styleguide)
+	-	See [the official angular style guide](https://angular.io/styleguide)
 -	Why is the size of my app larger in development?
-   -	The production build uses a whole host of techniques (ahead-of-time compilation, rollup to remove unreachable code, minification, etc.) to reduce the size, that aren't used during development in the intrest of build speed.
+	-	The production build uses a whole host of techniques (ahead-of-time compilation, rollup to remove unreachable code, minification, etc.) to reduce the size, that aren't used during development in the intrest of build speed.
 -	node-pre-gyp ERR in yarn install (Windows)
-   -	install Python x86 version between 2.5 and 3.0 on windows. See [this issue](https://github.com/AngularClass/angular2-webpack-starter/issues/626)
+	-	install Python x86 version between 2.5 and 3.0 on windows. See [this issue](https://github.com/AngularClass/angular2-webpack-starter/issues/626)
 -	How do I handle merge conflicts in yarn.lock?
-   -	first check out the yarn.lock file from the branch you're merging in to yours: e.g. `git checkout --theirs yarn.lock`
-   -	now run `yarn install` again. Yarn will create a new lockfile that contains both sets of changes.
-   -	then run `git add yarn.lock` to stage the lockfile for commit
-   -	and `git commit` to conclude the merge
+	-	first check out the yarn.lock file from the branch you're merging in to yours: e.g. `git checkout --theirs yarn.lock`
+	-	now run `yarn install` again. Yarn will create a new lockfile that contains both sets of changes.
+	-	then run `git add yarn.lock` to stage the lockfile for commit
+	-	and `git commit` to conclude the merge
 
 Getting Help
 ------------

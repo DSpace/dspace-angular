@@ -14,6 +14,7 @@
   ],
   "exclude": [
     "src/test.ts",
+    "src/test-dtq.ts",
     "src/**/*.spec.ts",
     "src/**/*.mock.ts",
     "src/**/*.test.ts",
