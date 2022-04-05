@@ -19,7 +19,6 @@ import {
 import { RequestService } from './request.service';
 import { ParsedResponse } from '../cache/response.models';
 import { RequestError } from './request-error.model';
-import { RestRequest } from './rest-request.model';
 import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 import { RequestEntry } from './request-entry.model';
 
