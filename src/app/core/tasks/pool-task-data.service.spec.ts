@@ -9,7 +9,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { PoolTaskDataService } from './pool-task-data.service';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { RequestParam } from '../cache/models/request-param.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';

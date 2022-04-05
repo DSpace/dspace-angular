@@ -16,6 +16,13 @@ import { LinkService } from '../core/cache/builders/link.service';
 import { HALEndpointService } from '../core/shared/hal-endpoint.service';
 import { RequestService } from '../core/data/request.service';
 import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
+import { Context } from '../core/shared/context.model';
+
+export const MyDSpaceConfigurationToContextMap = new Map([
+  [MyDSpaceConfigurationValueType.Workspace, Context.Workspace],
+  [MyDSpaceConfigurationValueType.Workflow, Context.Workflow]
+]);
+
 
 /**
  * Service that performs all actions that have to do with the current mydspace configuration
@@ -122,7 +129,8 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
         availableConfigurationTypes.forEach((type) => {
           const value = type;
           const label = `mydspace.show.${value}`;
-          configurationOptions.push({ value, label });
+          const context = MyDSpaceConfigurationToContextMap.get(type);
+          configurationOptions.push({ value, label, context });
         });
         return configurationOptions;
       })

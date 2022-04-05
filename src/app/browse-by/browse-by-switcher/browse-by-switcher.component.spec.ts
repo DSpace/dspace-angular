@@ -2,20 +2,46 @@ import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { BROWSE_BY_COMPONENT_FACTORY } from './browse-by-decorator';
+import { BROWSE_BY_COMPONENT_FACTORY, BrowseByDataType } from './browse-by-decorator';
+import { BrowseDefinition } from '../../core/shared/browse-definition.model';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
 
 describe('BrowseBySwitcherComponent', () => {
   let comp: BrowseBySwitcherComponent;
   let fixture: ComponentFixture<BrowseBySwitcherComponent>;
 
-  const types = environment.browseBy.types;
+  const types = [
+    Object.assign(
+      new BrowseDefinition(), {
+        id: 'title',
+        dataType: BrowseByDataType.Title,
+      }
+    ),
+    Object.assign(
+      new BrowseDefinition(), {
+        id: 'dateissued',
+        dataType: BrowseByDataType.Date,
+        metadataKeys: ['dc.date.issued']
+      }
+    ),
+    Object.assign(
+      new BrowseDefinition(), {
+        id: 'author',
+        dataType: BrowseByDataType.Metadata,
+      }
+    ),
+    Object.assign(
+      new BrowseDefinition(), {
+        id: 'subject',
+        dataType: BrowseByDataType.Metadata,
+      }
+    ),
+  ];
 
-  const params = new BehaviorSubject(createParamsWithId('initialValue'));
+  const data = new BehaviorSubject(createDataWithBrowseDefinition(new BrowseDefinition()));
 
   const activatedRouteStub = {
-    params: params
+    data
   };
 
   beforeEach(waitForAsync(() => {
@@ -34,20 +60,20 @@ describe('BrowseBySwitcherComponent', () => {
     comp = fixture.componentInstance;
   }));
 
-  types.forEach((type) => {
+  types.forEach((type: BrowseDefinition) => {
     describe(`when switching to a browse-by page for "${type.id}"`, () => {
       beforeEach(() => {
-        params.next(createParamsWithId(type.id));
+        data.next(createDataWithBrowseDefinition(type));
         fixture.detectChanges();
       });
 
-      it(`should call getComponentByBrowseByType with type "${type.type}"`, () => {
-        expect((comp as any).getComponentByBrowseByType).toHaveBeenCalledWith(type.type);
+      it(`should call getComponentByBrowseByType with type "${type.dataType}"`, () => {
+        expect((comp as any).getComponentByBrowseByType).toHaveBeenCalledWith(type.dataType);
       });
     });
   });
 });
 
-export function createParamsWithId(id) {
-  return { id: id };
+export function createDataWithBrowseDefinition(browseDefinition) {
+  return { browseDefinition: browseDefinition };
 }

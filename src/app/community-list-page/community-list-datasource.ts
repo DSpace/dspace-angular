@@ -1,8 +1,7 @@
-import { Subscription } from 'rxjs/internal/Subscription';
 import { hasValue } from '../shared/empty.util';
 import { CommunityListService} from './community-list-service';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject, Observable, } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { FlatNode } from './flat-node.model';
 import { FindListOptions } from '../core/data/find-list-options.model';

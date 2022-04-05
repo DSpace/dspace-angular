@@ -18,7 +18,7 @@ import {
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService
 } from '../../core/end-user-agreement/end-user-agreement.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { CoreState } from '../../core/core-state.model';
 
 /**
@@ -56,7 +56,8 @@ export class CreateProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.registration$ = this.route.data.pipe(
-      map((data) => data.registration as Registration),
+      map((data) => data.registration as RemoteData<Registration>),
+      getFirstSucceededRemoteDataPayload(),
     );
     this.registration$.subscribe((registration: Registration) => {
       this.email = registration.email;

@@ -17,7 +17,7 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { NoContent } from '../../../core/shared/NoContent.model';

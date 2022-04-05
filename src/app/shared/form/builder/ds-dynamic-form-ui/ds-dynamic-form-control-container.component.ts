@@ -81,7 +81,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/
 import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
 import { find, map, startWith, switchMap, take } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { SearchResult } from '../../../search/search-result.model';
+import { SearchResult } from '../../../search/models/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { RelationshipService } from '../../../../core/data/relationship.service';

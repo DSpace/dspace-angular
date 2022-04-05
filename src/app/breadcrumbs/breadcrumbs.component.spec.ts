@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../shared/testing/translate-loader.mock';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { DebugElement } from '@angular/core';
 
 describe('BreadcrumbsComponent', () => {
@@ -72,7 +72,7 @@ describe('BreadcrumbsComponent', () => {
     expect(breadcrumbs.length).toBe(3);
     expectBreadcrumb(breadcrumbs[0], 'home.breadcrumbs', '/');
     expectBreadcrumb(breadcrumbs[1], 'bc 1', '/example.com');
-    expectBreadcrumb(breadcrumbs[2], 'bc 2', null);
+    expectBreadcrumb(breadcrumbs[2].query(By.css('.text-truncate')), 'bc 2', null);
   });
 
 });

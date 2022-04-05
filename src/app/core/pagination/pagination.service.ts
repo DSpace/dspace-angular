@@ -10,7 +10,6 @@ import { difference } from '../../shared/object.util';
 import { isNumeric } from 'rxjs/internal-compatibility';
 import { FindListOptions } from '../data/find-list-options.model';
 
-
 @Injectable({
   providedIn: 'root',
 })

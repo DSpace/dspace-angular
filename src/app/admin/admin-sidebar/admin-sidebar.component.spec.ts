@@ -18,6 +18,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import createSpy = jasmine.createSpy;
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { Item } from '../../core/shared/item.model';
 
 describe('AdminSidebarComponent', () => {
   let comp: AdminSidebarComponent;
@@ -25,6 +27,28 @@ describe('AdminSidebarComponent', () => {
   const menuService = new MenuServiceStub();
   let authorizationService: AuthorizationDataService;
   let scriptService;
+
+
+  const mockItem = Object.assign(new Item(), {
+    id: 'fake-id',
+    uuid: 'fake-id',
+    handle: 'fake/handle',
+    lastModified: '2018',
+    _links: {
+      self: {
+        href: 'https://localhost:8000/items/fake-id'
+      }
+    }
+  });
+
+
+  const routeStub = {
+    data: observableOf({
+      dso: createSuccessfulRemoteDataObject(mockItem)
+    }),
+    children: []
+  };
+
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
@@ -42,6 +66,7 @@ describe('AdminSidebarComponent', () => {
         { provide: ActivatedRoute, useValue: {} },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
+        { provide: ActivatedRoute, useValue: routeStub },
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/
@@ -113,25 +138,10 @@ describe('AdminSidebarComponent', () => {
     });
   });
 
-  describe('when the collapse icon is clicked', () => {
-    beforeEach(() => {
-      spyOn(menuService, 'toggleMenu');
-      const sidebarToggler = fixture.debugElement.query(By.css('#sidebar-collapse-toggle')).query(By.css('a.shortcut-icon'));
-      sidebarToggler.triggerEventHandler('click', {
-        preventDefault: () => {/**/
-        }
-      });
-    });
-
-    it('should call toggleMenu on the menuService', () => {
-      expect(menuService.toggleMenu).toHaveBeenCalled();
-    });
-  });
-
   describe('when the collapse link is clicked', () => {
     beforeEach(() => {
       spyOn(menuService, 'toggleMenu');
-      const sidebarToggler = fixture.debugElement.query(By.css('#sidebar-collapse-toggle')).query(By.css('.sidebar-collapsible')).query(By.css('a'));
+      const sidebarToggler = fixture.debugElement.query(By.css('#sidebar-collapse-toggle > a'));
       sidebarToggler.triggerEventHandler('click', {
         preventDefault: () => {/**/
         }
@@ -244,19 +254,19 @@ describe('AdminSidebarComponent', () => {
 
       it('should contain site admin section', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            id: 'admin_search', visible: true,
+          id: 'admin_search', visible: true,
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            id: 'registries', visible: true,
+          id: 'registries', visible: true,
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            parentID: 'registries', visible: true,
+          parentID: 'registries', visible: true,
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            id: 'curation_tasks', visible: true,
+          id: 'curation_tasks', visible: true,
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            id: 'workflow', visible: true,
+          id: 'workflow', visible: true,
         }));
       });
     });
@@ -274,7 +284,7 @@ describe('AdminSidebarComponent', () => {
 
       it('should show edit_community', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            id: 'edit_community', visible: true,
+          id: 'edit_community', visible: true,
         }));
       });
     });
@@ -292,7 +302,7 @@ describe('AdminSidebarComponent', () => {
 
       it('should show edit_collection', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            id: 'edit_collection', visible: true,
+          id: 'edit_collection', visible: true,
         }));
       });
     });
@@ -310,10 +320,10 @@ describe('AdminSidebarComponent', () => {
 
       it('should show access control section', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            id: 'access_control', visible: true,
+          id: 'access_control', visible: true,
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            parentID: 'access_control', visible: true,
+          parentID: 'access_control', visible: true,
         }));
       });
     });

@@ -8,7 +8,8 @@ import { MenuID } from '../../shared/menu/menu-id.model';
  * Represents a non-expandable section in the navbar
  */
 @Component({
-  selector: 'ds-navbar-section',
+  /* tslint:disable:component-selector */
+  selector: 'li[ds-navbar-section]',
   templateUrl: './navbar-section.component.html',
   styleUrls: ['./navbar-section.component.scss']
 })

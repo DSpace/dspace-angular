@@ -23,7 +23,7 @@ import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { DeleteRequest, GetRequest, PostRequest, PutRequest} from './request.models';
 import { RequestService } from './request.service';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { Bundle } from '../shared/bundle.model';
 import { MetadataMap } from '../shared/metadata.models';
 import { BundleDataService } from './bundle-data.service';
@@ -61,6 +61,7 @@ export class ItemDataService extends DataService<Item> {
    * Get the endpoint for browsing items
    *  (When options.sort.field is empty, the default field to browse by will be 'dc.date.issued')
    * @param {FindListOptions} options
+   * @param linkPath
    * @returns {Observable<string>}
    */
   public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
@@ -289,4 +290,13 @@ export class ItemDataService extends DataService<Item> {
       switchMap((url: string) => this.halService.getEndpoint('bitstreams', `${url}/${itemId}`))
     );
   }
+
+  /**
+   * Invalidate the cache of the item
+   * @param itemUUID
+   */
+  invalidateItemCache(itemUUID: string) {
+    this.requestService.setStaleByHrefSubstring('item/' + itemUUID);
+  }
+
 }

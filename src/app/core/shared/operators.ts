@@ -1,7 +1,7 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { debounceTime, filter, find, map, switchMap, take, takeWhile } from 'rxjs/operators';
 import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
-import { SearchResult } from '../../shared/search/search-result.model';
+import { SearchResult } from '../../shared/search/models/search-result.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { MetadataField } from '../metadata/metadata-field.model';

@@ -9,9 +9,11 @@ describe(`BrowseDefinitionDataService`, () => {
     findAll: EMPTY,
     findByHref: EMPTY,
     findAllByHref: EMPTY,
+    findById: EMPTY,
   });
   const hrefAll = 'https://rest.api/server/api/discover/browses';
   const hrefSingle = 'https://rest.api/server/api/discover/browses/author';
+  const id = 'author';
   const options = new FindListOptions();
   const linksToFollow = [
     followLink('entries'),
@@ -44,4 +46,10 @@ describe(`BrowseDefinitionDataService`, () => {
     });
   });
 
+  describe(`findById`, () => {
+    it(`should call findById on DataServiceImpl`, () => {
+      service.findAllByHref(id, options, true, false, ...linksToFollow);
+      expect(dataServiceImplSpy.findAllByHref).toHaveBeenCalledWith(id, options, true, false, ...linksToFollow);
+    });
+  });
 });

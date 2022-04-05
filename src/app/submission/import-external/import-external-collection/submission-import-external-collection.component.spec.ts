@@ -1,10 +1,11 @@
-import { Component, NO_ERRORS_SCHEMA, EventEmitter } from '@angular/core';
-import { waitForAsync, TestBed, ComponentFixture, inject } from '@angular/core/testing';
+import { Component, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionImportExternalCollectionComponent } from './submission-import-external-collection.component';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { By } from '@angular/platform-browser';
 
 describe('SubmissionImportExternalCollectionComponent test suite', () => {
   let comp: SubmissionImportExternalCollectionComponent;
@@ -76,6 +77,46 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
 
       expect(compAsAny.activeModal.dismiss).toHaveBeenCalled();
     });
+
+    it('should be in loading state when search is not completed', () => {
+      comp.loading = null;
+      expect(comp.isLoading()).toBeFalse();
+
+      comp.loading = true;
+      expect(comp.isLoading()).toBeTrue();
+
+      comp.loading = false;
+      expect(comp.isLoading()).toBeFalse();
+    });
+
+    it('should set loading variable to false on searchComplete event', () => {
+      comp.loading = null;
+
+      comp.searchComplete();
+      expect(comp.loading).toBe(false);
+
+    });
+
+    it('should emit theOnlySelectable', () => {
+      spyOn(comp.selectedEvent, 'emit').and.callThrough();
+
+      const selected: any = {};
+      comp.theOnlySelectable(selected);
+
+      expect(comp.selectedEvent.emit).toHaveBeenCalledWith(selected);
+    });
+
+    it('dropdown should be invisible when the component is loading', fakeAsync(() => {
+
+      spyOn(comp, 'isLoading').and.returnValue(true);
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        const dropdownMenu = fixture.debugElement.query(By.css('ds-collection-dropdown')).nativeElement;
+        expect(dropdownMenu.classList).toContain('d-none');
+      });
+    }));
+
   });
 });
 

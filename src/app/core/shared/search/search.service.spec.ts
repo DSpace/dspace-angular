@@ -9,7 +9,7 @@ import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { HALEndpointService } from '../hal-endpoint.service';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { RemoteData } from '../../data/remote-data';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { CommunityDataService } from '../../data/community-data.service';
@@ -20,14 +20,11 @@ import { RouteService } from '../../services/route.service';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { SearchObjects } from '../../../shared/search/search-objects.model';
+import { SearchObjects } from '../../../shared/search/models/search-objects.model';
 import { PaginationService } from '../../pagination/pagination.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
 import { SearchConfigurationService } from './search-configuration.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { RequestEntry } from '../../data/request-entry.model';
-import { FindListOptions } from '../../data/find-list-options.model';
 
 @Component({ template: '' })
 class DummyComponent {

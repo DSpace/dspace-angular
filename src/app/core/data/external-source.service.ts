@@ -10,7 +10,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list.model';
