@@ -1,9 +1,7 @@
 import { Component, HostListener, Injector, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest, combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { first, map, take, filter } from 'rxjs/operators';
 import { combineLatest, combineLatest as observableCombineLatest, Observable, BehaviorSubject } from 'rxjs';
-import { debounceTime, first, map, take, distinctUntilChanged, withLatestFrom } from 'rxjs/operators';
+import { debounceTime, first, map, take, filter, distinctUntilChanged, withLatestFrom } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import {
   ScriptDataService,
