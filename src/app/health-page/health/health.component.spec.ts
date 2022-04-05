@@ -112,7 +112,7 @@ function getMockHealthDataService() {
   });
 }
 
-fdescribe('HealthComponent', () => {
+describe('HealthComponent', () => {
   let component: HealthComponent;
   let fixture: ComponentFixture<HealthComponent>;
 
