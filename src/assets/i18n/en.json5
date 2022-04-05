@@ -2909,7 +2909,13 @@
 
   "profile.title": "Update Profile",
 
+  "health.breadcrumbs": "Health",
 
+  "health-page.health" : "Health",
+
+  "health-page.info" : "Info",
+
+  "health-page.status" : "Status",
 
   "project.listelement.badge": "Research Project",
 

@@ -210,8 +210,8 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
           },
           {
             path: 'health',
-            loadChildren: () => import('./health-page/health.routing.module')
-              .then((m) => m.HealthPageRoutingModule)
+            loadChildren: () => import('./health-page/health.module')
+              .then((m) => m.HealthModule)
           },
           {
             path: ACCESS_CONTROL_MODULE_PATH,
