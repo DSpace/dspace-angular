@@ -26,9 +26,8 @@
             <div class="d-block d-md-none search-controls clearfix">
                 <ds-view-mode-switch [viewModeList]="viewModeList" [inPlaceSearch]="inPlaceSearch"></ds-view-mode-switch>
                 <button (click)="openSidebar()" aria-controls="#search-body"
-                        class="btn btn-outline-primary float-right open-sidebar"><i
-                        class="fas fa-sliders"></i> {{"search.sidebar.open"
-                        | translate}}
+                        class="btn btn-outline-primary float-right open-sidebar">
+                  <i class="fas fa-sliders"></i> {{"search.sidebar.open" | translate}}
                 </button>
             </div>
             <ds-search-results [searchResults]="resultsRD$ | async"
@@ -39,6 +38,8 @@
                                [context]="(currentContext$ | async)"
                                [selectable]="selectable"
                                [selectionConfig]="selectionConfig"
+                               [customData]="customData"
+                               (customEvent)="customEvent.emit($event)"
                                (deselectObject)="deselectObject.emit($event)"
                                (selectObject)="selectObject.emit($event)"></ds-search-results>
         </div>
@@ -81,7 +82,7 @@
                         [query]="(searchOptions$ | async)?.query"
                         [scope]="(searchOptions$ | async)?.scope"
                         [currentUrl]="searchLink"
-                    [showScopeSelector]="showScopeSelector"
+                        [showScopeSelector]="showScopeSelector"
                         [inPlaceSearch]="inPlaceSearch"
                         [searchPlaceholder]="searchFormPlaceholder | translate">
         </ds-search-form>
