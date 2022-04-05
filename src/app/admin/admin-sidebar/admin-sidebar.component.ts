@@ -1,7 +1,9 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, HostListener, Injector, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { combineLatest, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { first, map, take, filter } from 'rxjs/operators';
+import { combineLatest, combineLatest as observableCombineLatest, Observable, BehaviorSubject } from 'rxjs';
+import { debounceTime, first, map, take, distinctUntilChanged, withLatestFrom } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import {
   ScriptDataService,
@@ -25,6 +27,7 @@ import { MenuService } from '../../shared/menu/menu.service';
 import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { Router, ActivatedRoute } from '@angular/router';
 
 /**
  * Component representing the admin sidebar
@@ -64,15 +67,20 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    */
   sidebarExpanded: Observable<boolean>;
 
-  constructor(protected menuService: MenuService,
-              protected injector: Injector,
-              private variableService: CSSVariableService,
-              private authService: AuthService,
-              private modalService: NgbModal,
-              private authorizationService: AuthorizationDataService,
-              private scriptDataService: ScriptDataService,
+  inFocus$: BehaviorSubject<boolean>;
+
+  constructor(
+    protected menuService: MenuService,
+    protected injector: Injector,
+    protected variableService: CSSVariableService,
+    protected authService: AuthService,
+    protected modalService: NgbModal,
+    public authorizationService: AuthorizationDataService,
+    protected scriptDataService: ScriptDataService,
+    public route: ActivatedRoute
   ) {
-    super(menuService, injector);
+    super(menuService, injector, authorizationService, route);
+    this.inFocus$ = new BehaviorSubject(false);
   }
 
   /**
@@ -93,10 +101,25 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         this.sidebarOpen = !collapsed;
         this.sidebarClosed = collapsed;
       });
-    this.sidebarExpanded = observableCombineLatest(this.menuCollapsed, this.menuPreviewCollapsed)
+    this.sidebarExpanded = combineLatest([this.menuCollapsed, this.menuPreviewCollapsed])
       .pipe(
         map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed))
       );
+    this.inFocus$.pipe(
+      debounceTime(50),
+      distinctUntilChanged(),  // disregard focusout in situations like --(focusout)-(focusin)--
+      withLatestFrom(
+        combineLatest([this.menuCollapsed, this.menuPreviewCollapsed])
+      ),
+    ).subscribe(([inFocus, [collapsed, previewCollapsed]]) => {
+      if (collapsed) {
+        if (inFocus && previewCollapsed) {
+          this.expandPreview(new Event('focusin → expand'));
+        } else if (!inFocus && !previewCollapsed) {
+          this.collapsePreview(new Event('focusout → collapse'));
+        }
+      }
+    });
   }
 
   /**
@@ -130,7 +153,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             type: MenuItemType.TEXT,
             text: 'menu.section.new'
           } as TextMenuItemModel,
-        icon: 'plus',
+          icon: 'plus',
           index: 0
         },
         {
@@ -594,6 +617,32 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         shouldPersistOnRouteChange: true,
       })));
     });
+  }
+
+  @HostListener('focusin')
+  public handleFocusIn() {
+    this.inFocus$.next(true);
+  }
+
+  @HostListener('focusout')
+  public handleFocusOut() {
+    this.inFocus$.next(false);
+  }
+
+  public handleMouseEnter(event: any) {
+    if (!this.inFocus$.getValue()) {
+      this.expandPreview(event);
+    } else {
+      event.preventDefault();
+    }
+  }
+
+  public handleMouseLeave(event: any) {
+    if (!this.inFocus$.getValue()) {
+      this.collapsePreview(event);
+    } else {
+      event.preventDefault();
+    }
   }
 
   /**

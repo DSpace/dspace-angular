@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { getStartsWithComponent, StartsWithType } from '../starts-with/starts-with-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-browse-by',
@@ -22,6 +23,12 @@ import { PaginationService } from '../../core/pagination/pagination.service';
  * Component to display a browse-by page for any ListableObject
  */
 export class BrowseByComponent implements OnInit {
+
+  /**
+   * ViewMode that should be passed to {@link ListableObjectComponentLoaderComponent}.
+   */
+  viewMode: ViewMode = ViewMode.ListElement;
+
   /**
    * The i18n message to display as title
    */
@@ -60,30 +67,30 @@ export class BrowseByComponent implements OnInit {
   /**
    * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
    */
-  @Input() enableArrows = false;
+  @Input() showPaginator = false;
 
   /**
-   * If enableArrows is set to true, should it hide the options gear?
+   * It is used to hide or show gear
    */
   @Input() hideGear = false;
 
   /**
-   * If enableArrows is set to true, emit when the previous button is clicked
+   * Emits event when prev button clicked
    */
   @Output() prev = new EventEmitter<boolean>();
 
   /**
-   * If enableArrows is set to true, emit when the next button is clicked
+   * Emits event when next button clicked
    */
   @Output() next = new EventEmitter<boolean>();
 
   /**
-   * If enableArrows is set to true, emit when the page size is changed
+   * Emits event when page size is changed
    */
   @Output() pageSizeChange = new EventEmitter<number>();
 
   /**
-   * If enableArrows is set to true, emit when the sort direction is changed
+   * Emits event when page sort direction is changed
    */
   @Output() sortDirectionChange = new EventEmitter<SortDirection>();
 

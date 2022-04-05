@@ -6,6 +6,8 @@ import { LinkMenuItemComponent } from './link-menu-item.component';
 import { RouterLinkDirectiveStub } from '../../testing/router-link-directive.stub';
 import { environment } from '../../../../environments/environment';
 import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
+import { RouterStub } from '../../testing/router.stub';
+import { Router } from '@angular/router';
 
 describe('LinkMenuItemComponent', () => {
   let component: LinkMenuItemComponent;
@@ -28,6 +30,7 @@ describe('LinkMenuItemComponent', () => {
       declarations: [LinkMenuItemComponent, RouterLinkDirectiveStub, QueryParamsDirectiveStub],
       providers: [
         { provide: 'itemModelProvider', useValue: { text: text, link: link, queryParams: queryParams } },
+        { provide: Router, useValue: RouterStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

@@ -5,9 +5,10 @@
       <p [innerHTML]="'collection.edit.item-mapper.collection' | translate:{ name: (collectionName$ |async) }" id="collection-name"></p>
       <p>{{'collection.edit.item-mapper.description' | translate}}</p>
 
-      <ngb-tabset (tabChange)="tabChange($event)" [destroyOnHide]="true" #tabs="ngbTabset">
-        <ngb-tab title="{{'collection.edit.item-mapper.tabs.browse' | translate}}" id="browseTab">
-          <ng-template ngbTabContent>
+      <ul ngbNav (navChange)="tabChange($event)" [destroyOnHide]="true" #tabs="ngbNav" class="nav-tabs">
+        <li [ngbNavItem]="'browseTab'">
+          <a ngbNavLink>{{'collection.edit.item-mapper.tabs.browse' | translate}}</a>
+          <ng-template ngbNavContent>
             <div class="mt-2">
               <ds-item-select class="mt-2"
                 [key]="'browse'"
@@ -21,9 +22,10 @@
                 (cancel)="onCancel()"></ds-item-select>
             </div>
           </ng-template>
-        </ngb-tab>
-        <ngb-tab title="{{'collection.edit.item-mapper.tabs.map' | translate}}" id="mapTab">
-          <ng-template ngbTabContent>
+        </li>
+        <li [ngbNavItem]="'mapTab'">
+          <a ngbNavLink>{{'collection.edit.item-mapper.tabs.map' | translate}}</a>
+          <ng-template ngbNavContent>
             <div class="row mt-2">
               <div class="col-12 col-lg-6">
                 <ds-search-form id="search-form"
@@ -52,8 +54,9 @@
               {{'collection.edit.item-mapper.no-search' | translate}}
             </div>
           </ng-template>
-        </ngb-tab>
-      </ngb-tabset>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="tabs"></div>
     </div>
   </div>
 </div>

@@ -2,6 +2,7 @@
   <div class="col">
     <button *ngIf="(showDepositAndDiscard | async)"
             type="button"
+            id="discard"
             class="btn btn-danger"
             [disabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
             (click)="$event.preventDefault();confirmDiscard(content)">
@@ -40,8 +41,9 @@
       </button>
       <button *ngIf="(showDepositAndDiscard | async)"
               type="button"
+              id="deposit"
               class="btn btn-success"
-              [disabled]="(submissionIsInvalid | async) || (processingSaveStatus | async) || (processingDepositStatus | async)"
+              [disabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
               (click)="deposit($event)">
         <span><i class="fas fa-plus"></i> {{'submission.general.deposit' | translate}}</span>
       </button>
@@ -60,7 +62,7 @@
     <p>{{'submission.general.discard.confirm.info' | translate}}</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="c('cancel')">{{'submission.general.discard.confirm.cancel' | translate}}</button>
-    <button type="button" class="btn btn-danger" (click)="c('ok')">{{'submission.general.discard.confirm.submit' | translate}}</button>
+    <button type="button" id="discard_cancel" class="btn btn-secondary" (click)="c('cancel')">{{'submission.general.discard.confirm.cancel' | translate}}</button>
+    <button type="button" id="discard_submit" class="btn btn-danger" (click)="c('ok')">{{'submission.general.discard.confirm.submit' | translate}}</button>
   </div>
 </ng-template>

@@ -2,25 +2,43 @@ import { BrowseByComponent } from './browse-by.component';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs';
-import { SharedModule } from '../shared.module';
 import { CommonModule } from '@angular/common';
 import { Item } from '../../core/shared/item.model';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { StoreModule } from '@ngrx/store';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { storeModuleConfig } from '../../app.reducer';
-import { FindListOptions } from '../../core/data/request.models';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
+import {
+  DEFAULT_CONTEXT,
+  listableObjectComponent,
+} from '../object-collection/shared/listable-object/listable-object.decorator';
+import { BrowseEntry } from '../../core/shared/browse-entry.model';
+import { ITEM } from '../../core/shared/item.resource-type';
+import { ThemeService } from '../theme-support/theme.service';
+import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
+import { HostWindowServiceStub } from '../testing/host-window-service.stub';
+import { HostWindowService } from '../host-window.service';
+import SpyObj = jasmine.SpyObj;
+
+@listableObjectComponent(BrowseEntry, ViewMode.ListElement, DEFAULT_CONTEXT, 'custom')
+@Component({
+  selector: 'ds-browse-entry-list-element',
+  template: ''
+})
+class MockThemedBrowseEntryListElementComponent {
+}
 
 describe('BrowseByComponent', () => {
   let comp: BrowseByComponent;
@@ -56,14 +74,17 @@ describe('BrowseByComponent', () => {
   });
   const paginationService = new PaginationServiceStub(paginationConfig);
 
+  let themeService: SpyObj<ThemeService>;
+
   beforeEach(waitForAsync(() => {
+    themeService = jasmine.createSpyObj('themeService', {
+      getThemeName: 'dspace',
+      getThemeName$: observableOf('dspace'),
+    });
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        TranslateModule.forRoot(),
-        SharedModule,
         NgbModule,
-        StoreModule.forRoot({}, storeModuleConfig),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -71,11 +92,15 @@ describe('BrowseByComponent', () => {
           }
         }),
         RouterTestingModule,
-        BrowserAnimationsModule
+        NoopAnimationsModule
       ],
       declarations: [],
       providers: [
-        {provide: PaginationService, useValue: paginationService}
+        { provide: PaginationService, useValue: paginationService },
+        { provide: MockThemedBrowseEntryListElementComponent },
+        { provide: ThemeService, useValue: themeService },
+        { provide: SelectableListService, useValue: {} },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -104,61 +129,65 @@ describe('BrowseByComponent', () => {
     expect(fixture.debugElement.query(By.css('ds-viewable-collection'))).toBeDefined();
   });
 
-  describe('when enableArrows is true and objects are defined', () => {
-    beforeEach(() => {
-      comp.enableArrows = true;
-      comp.objects$ = mockItemsRD$;
+  describe('when showPaginator is true and browseEntries are provided', () => {
+    let browseEntries;
 
+    beforeEach(() => {
+      browseEntries = [
+        Object.assign(new BrowseEntry(), {
+          type: ITEM,
+          authority: 'authority key 1',
+          value: 'browse entry 1',
+          language: null,
+          count: 1,
+        }),
+        Object.assign(new BrowseEntry(), {
+          type: ITEM,
+          authority: null,
+          value: 'browse entry 2',
+          language: null,
+          count: 4,
+        }),
+      ];
+
+      comp.showPaginator = true;
+      comp.objects$ = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), browseEntries));
       comp.paginationConfig = paginationConfig;
       comp.sortConfig = Object.assign(new SortOptions('dc.title', SortDirection.ASC));
-      fixture.detectChanges();
+      // NOTE: do NOT trigger change detection until the theme is set, such that the theme can be picked up as well
     });
 
-    describe('when clicking the previous arrow button', () => {
+    describe('when theme is base', () => {
       beforeEach(() => {
-        spyOn(comp.prev, 'emit');
-        fixture.debugElement.query(By.css('#nav-prev')).triggerEventHandler('click', null);
+        themeService.getThemeName.and.returnValue('base');
+        themeService.getThemeName$.and.returnValue(observableOf('base'));
         fixture.detectChanges();
       });
 
-      it('should emit a signal to the EventEmitter', () => {
-        expect(comp.prev.emit).toHaveBeenCalled();
+      it('should use the base component to render browse entries', () => {
+        const componentLoaders = fixture.debugElement.queryAll(By.directive(ListableObjectComponentLoaderComponent));
+        expect(componentLoaders.length).toEqual(browseEntries.length);
+        componentLoaders.forEach((componentLoader) => {
+          const browseEntry = componentLoader.query(By.css('ds-browse-entry-list-element'));
+          expect(browseEntry.componentInstance).toBeInstanceOf(BrowseEntryListElementComponent);
+        });
       });
     });
 
-    describe('when clicking the next arrow button', () => {
+    describe('when theme is custom', () => {
       beforeEach(() => {
-        spyOn(comp.next, 'emit');
-        fixture.debugElement.query(By.css('#nav-next')).triggerEventHandler('click', null);
+        themeService.getThemeName.and.returnValue('custom');
+        themeService.getThemeName$.and.returnValue(observableOf('custom'));
         fixture.detectChanges();
       });
 
-      it('should emit a signal to the EventEmitter', () => {
-        expect(comp.next.emit).toHaveBeenCalled();
-      });
-    });
-
-    describe('when clicking a different page size', () => {
-      beforeEach(() => {
-        spyOn(comp.pageSizeChange, 'emit');
-        fixture.debugElement.query(By.css('.page-size-change')).triggerEventHandler('click', null);
-        fixture.detectChanges();
-      });
-
-      it('should call the updateRoute method from the paginationService', () => {
-        expect(paginationService.updateRoute).toHaveBeenCalledWith('test-pagination', {pageSize: paginationConfig.pageSizeOptions[0]});
-      });
-    });
-
-    describe('when clicking a different sort direction', () => {
-      beforeEach(() => {
-        spyOn(comp.sortDirectionChange, 'emit');
-        fixture.debugElement.query(By.css('.sort-direction-change')).triggerEventHandler('click', null);
-        fixture.detectChanges();
-      });
-
-      it('should call the updateRoute method from the paginationService', () => {
-        expect(paginationService.updateRoute).toHaveBeenCalledWith('test-pagination', {sortDirection: 'ASC'});
+      it('should use the themed component to render browse entries', () => {
+        const componentLoaders = fixture.debugElement.queryAll(By.directive(ListableObjectComponentLoaderComponent));
+        expect(componentLoaders.length).toEqual(browseEntries.length);
+        componentLoaders.forEach((componentLoader) => {
+          const browseEntry = componentLoader.query(By.css('ds-browse-entry-list-element'));
+          expect(browseEntry.componentInstance).toBeInstanceOf(MockThemedBrowseEntryListElementComponent);
+        });
       });
     });
   });

@@ -14,7 +14,7 @@ import { getFirstSucceededRemoteData } from '../../core/shared/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
-import { BrowseByType, rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
+import { BrowseByDataType, rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 
@@ -28,7 +28,7 @@ import { map } from 'rxjs/operators';
  * A metadata definition (a.k.a. browse id) is a short term used to describe one or multiple metadata fields.
  * An example would be 'author' for 'dc.contributor.*'
  */
-@rendersBrowseBy(BrowseByType.Metadata)
+@rendersBrowseBy(BrowseByDataType.Metadata)
 export class BrowseByMetadataPageComponent implements OnInit {
 
   /**
@@ -100,6 +100,11 @@ export class BrowseByMetadataPageComponent implements OnInit {
   value = '';
 
   /**
+   * The authority key (may be undefined) associated with {@link #value}.
+   */
+   authority: string;
+
+  /**
    * The current startsWith option (fetched and updated from query-params)
    */
   startsWith: string;
@@ -123,11 +128,12 @@ export class BrowseByMetadataPageComponent implements OnInit {
         })
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
           this.browseId = params.id || this.defaultBrowseId;
+          this.authority = params.authority;
           this.value = +params.value || params.value || '';
           this.startsWith = +params.startsWith || params.startsWith;
           const searchOptions = browseParamsToOptions(params, currentPage, currentSort, this.browseId);
           if (isNotEmpty(this.value)) {
-            this.updatePageWithItems(searchOptions, this.value);
+            this.updatePageWithItems(searchOptions, this.value, this.authority);
           } else {
             this.updatePage(searchOptions);
           }
@@ -166,8 +172,8 @@ export class BrowseByMetadataPageComponent implements OnInit {
    *                          scope: string }
    * @param value          The value of the browse-entry to display items for
    */
-  updatePageWithItems(searchOptions: BrowseEntrySearchOptions, value: string) {
-    this.items$ = this.browseService.getBrowseItemsFor(value, searchOptions);
+  updatePageWithItems(searchOptions: BrowseEntrySearchOptions, value: string, authority: string) {
+    this.items$ = this.browseService.getBrowseItemsFor(value, authority, searchOptions);
   }
 
   /**

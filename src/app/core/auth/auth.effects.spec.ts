@@ -219,6 +219,9 @@ describe('AuthEffects', () => {
         const expected = cold('--b-', { b: new RetrieveTokenAction() });
 
         expect(authEffects.checkTokenCookie$).toBeObservable(expected);
+        authEffects.checkTokenCookie$.subscribe(() => {
+          expect((authEffects as any).authorizationsService.invalidateAuthorizationsRequestCache).toHaveBeenCalled();
+        });
       });
 
       it('should return a RETRIEVE_AUTH_METHODS action in response to a CHECK_AUTHENTICATION_TOKEN_COOKIE action when authenticated is false', () => {
