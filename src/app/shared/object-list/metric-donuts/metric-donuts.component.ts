@@ -8,7 +8,7 @@ import { Item } from '../../../core/shared/item.model';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { followLink } from '../../utils/follow-link-config.model';
 
-export const allowedDonuts = ['altmetric', 'dimensions'];
+export const allowedDonuts = ['altmetric', 'dimensions', 'plumX'];
 
 @Component({
   selector: 'ds-metric-donuts',

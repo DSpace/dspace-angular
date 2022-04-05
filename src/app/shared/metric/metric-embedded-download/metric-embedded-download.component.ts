@@ -1,19 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
-import {BaseMetricComponent} from '../metric-loader/base-metric.component';
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 
 @Component({
   selector: 'ds-metric-embedded-download',
   templateUrl: './metric-embedded-download.component.html',
-  styleUrls: ['./metric-embedded-download.component.scss']
+  styleUrls: ['./metric-embedded-download.component.scss', '../metric-loader/base-metric.component.scss']
 })
 export class MetricEmbeddedDownloadComponent extends BaseMetricComponent implements OnInit {
-  sanitizedInnerHtml;
-  constructor(protected sr: DomSanitizer) {
+
+  href = '';
+
+  constructor(private render: Renderer2) {
     super();
   }
 
   ngOnInit(): void {
-    this.sanitizedInnerHtml = this.sr.bypassSecurityTrustHtml(this.metric.remark);
+    if (this.metric.remark) {
+      const element: HTMLElement = this.render.createElement('div');
+      element.innerHTML = this.metric.remark;
+      const hrefAttr = (element.childNodes[0] as any).href;
+      this.href = hrefAttr ? hrefAttr : '';
+    }
   }
 }
