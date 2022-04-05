@@ -4,7 +4,7 @@
   "401.help": "Sie sind nicht berechtigt, auf diese Seite zuzugreifen. Mit dem Link unten kommen Sie zurück zur Startseite.",
   
   // "401.link.home-page": "Take me to the home page",
-  "401.link.home-page": "Bringe mich zur Startseite",
+  "401.link.home-page": "Zur Startseite",
   
   // "401.unauthorized": "unauthorized",
   "401.unauthorized": "unautorisiert",
@@ -12,10 +12,10 @@
   
   
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
-  "403.help": "Sie haben keine Berechtigung, auf diese Seite zuzugreifen. Mit dem Link unten kommen Sie zurück zur Startseite.",
+  "403.help": "Sie sind nicht berechtigt, auf diese Seite zuzugreifen. Über den Button unten auf der Seite gelangen Sie zurück zur Startseite.",
   
   // "403.link.home-page": "Take me to the home page",
-  "403.link.home-page": "Bringe mich zur Startseite",
+  "403.link.home-page": "Zur Startseite",
   
   // "403.forbidden": "forbidden",
   "403.forbidden": "verboten",
@@ -23,22 +23,22 @@
   
   
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
-  "404.help": "Die Seite, die Sie aufrufen wollten, konnte nicht gefunden werden. Sie könnte verschoben oder gelöscht worden sein. Mit dem Link unten kommen Sie zurück zur Startseite. ",
+  "404.help": "Die Seite konnte nicht gefunden werden. Eventuell wurde sie verschoben oder gelöscht. Über den Button unten auf der Seite gelangen Sie zurück zur Startseite.",
   
   // "404.link.home-page": "Take me to the home page",
-  "404.link.home-page": "Zurück zur Startseite",
+  "404.link.home-page": "Zur Startseite",
   
   // "404.page-not-found": "page not found",
   "404.page-not-found": "Seite nicht gefunden",
   
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
-  "admin.curation-tasks.breadcrumbs": "Datenpflegeroutinen",
+  "admin.curation-tasks.breadcrumbs": "Wartungsarbeiten",
   
   // "admin.curation-tasks.title": "System curation tasks",
-  "admin.curation-tasks.title": "Datenpflegeroutinen",
+  "admin.curation-tasks.title": "Wartungsarbeiten",
   
   // "admin.curation-tasks.header": "System curation tasks",
-  "admin.curation-tasks.header": "Datenpflegeroutinen",
+  "admin.curation-tasks.header": "Wartungsarbeiten",
   
   // "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
   "admin.registries.bitstream-formats.breadcrumbs": "Referenzliste der Dateiformate",
@@ -47,10 +47,10 @@
   "admin.registries.bitstream-formats.create.breadcrumbs": "Dateiformat",
   
   // "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
-  "admin.registries.bitstream-formats.create.failure.content": "Ein Fehler ist beim Anlegen eines neuen Dateiformates aufgetreten.",
+  "admin.registries.bitstream-formats.create.failure.content": "Beim Anlegen eines neuen Dateiformates ist ein Fehler aufgetreten.",
   
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
-  "admin.registries.bitstream-formats.create.failure.head": "Fehler",
+  "admin.registries.bitstream-formats.create.failure.head": "Aktion fehlgeschlagen",
   
   // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
   "admin.registries.bitstream-formats.create.head": "Neues Dateiformat anlegen",
@@ -62,19 +62,19 @@
   "admin.registries.bitstream-formats.create.success.content": "Das neue Dateiformat wurde erfolgreich angelegt.",
   
   // "admin.registries.bitstream-formats.create.success.head": "Success",
-  "admin.registries.bitstream-formats.create.success.head": "Erfolg",
+  "admin.registries.bitstream-formats.create.success.head": "Aktion erfolgreich",
   
   // "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
-  "admin.registries.bitstream-formats.delete.failure.amount": "{{ amount }} Format(e)  konnte(n) nicht gelöscht werden",
+  "admin.registries.bitstream-formats.delete.failure.amount": "{{ amount }} Dateiformat(e)  konnte(n) nicht gelöscht werden.",
   
   // "admin.registries.bitstream-formats.delete.failure.head": "Failure",
   "admin.registries.bitstream-formats.delete.failure.head": "Fehler",
   
   // "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
-  "admin.registries.bitstream-formats.delete.success.amount": "{{ amount }} Format(e) erfolgreich gelöscht",
+  "admin.registries.bitstream-formats.delete.success.amount": "{{ amount }} Dateiformat(e) wurden erfolgreich gelöscht.",
   
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
-  "admin.registries.bitstream-formats.delete.success.head": "Erfolg",
+  "admin.registries.bitstream-formats.delete.success.head": "Aktion erfolgreich",
   
   // "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
   "admin.registries.bitstream-formats.description": "Die Liste der Dateiformate enthält Informationen über bekannte Formate und deren Unterstützungsgrad.",
@@ -89,19 +89,19 @@
   "admin.registries.bitstream-formats.edit.description.label": "Beschreibung",
   
   // "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
-  "admin.registries.bitstream-formats.edit.extensions.hint": "Extensionen sind Dateieindungen, welche zur Identifizierung der Formate von hochgeladenen Dateien dienen. Sie können mehrere Endungen pro Format angeben.",
+  "admin.registries.bitstream-formats.edit.extensions.hint": "Hier können Sie Endungen angeben, anhand derer das Format hochgeladener Dateien automatisch erkannt wird. Sie können mehrere Endungen pro Dateiformat angeben.",
   
   // "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
   "admin.registries.bitstream-formats.edit.extensions.label": "Dateiendungen",
   
   // "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
-  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Geben Sie die Endung des Dateinamens ohne Punkt ein",
+  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Bitte geben Sie die Dateiendung ohne Punkt ein.",
   
   // "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
-  "admin.registries.bitstream-formats.edit.failure.content": "Ein Fehler ist beim Editieren des Dateiformates",
+  "admin.registries.bitstream-formats.edit.failure.content": "Beim Bearbeiten des Dateiformats ist ein Fehler aufgetreten.",
   
   // "admin.registries.bitstream-formats.edit.failure.head": "Failure",
-  "admin.registries.bitstream-formats.edit.failure.head": "Fehler",
+  "admin.registries.bitstream-formats.edit.failure.head": "Aktion fehlgeschlagen",
   
   // "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
   "admin.registries.bitstream-formats.edit.head": "Dateiformat: {{ format }}",
@@ -110,13 +110,13 @@
   "admin.registries.bitstream-formats.edit.internal.hint": "Dateiformate, die als intern gekennzeichnet sind, dienen administrativen Zwecken und bleiben dem:der Endnutzer:in verborgen.",
   
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
-  "admin.registries.bitstream-formats.edit.internal.label": "Intern",
+  "admin.registries.bitstream-formats.edit.internal.label": "intern",
   
   // "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
-  "admin.registries.bitstream-formats.edit.mimetype.hint": "Der MIME Typ dieses Formates. Er muss nicht einzigartig sein.",
+  "admin.registries.bitstream-formats.edit.mimetype.hint": "MIME-Type dieses Dateiformats. Ein MIME-Type kann auch mehreren Dateiformaten zugeordnet werden.",
   
   // "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
-  "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Typ",
+  "admin.registries.bitstream-formats.edit.mimetype.label": "MIME-Type",
   
   // "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
   "admin.registries.bitstream-formats.edit.shortDescription.hint": "Ein eindeutiger Name für dieses Format, (z.B. Microsoft Word XP oder Microsoft Word 2000)",
@@ -128,10 +128,10 @@
   "admin.registries.bitstream-formats.edit.success.content": "Das Dateiformat wurde erfolgreich bearbeitet.",
   
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
-  "admin.registries.bitstream-formats.edit.success.head": "Erfolg",
+  "admin.registries.bitstream-formats.edit.success.head": "Aktion erfolgreich",
   
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
-  "admin.registries.bitstream-formats.edit.supportLevel.hint": "Der Unterstützungsgrad den Ihre Einrichtung für dieses Format anbietet.",
+  "admin.registries.bitstream-formats.edit.supportLevel.hint": "Der Unterstützungsgrad, den Ihre Einrichtung für dieses Format anbietet",
   
   // "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
   "admin.registries.bitstream-formats.edit.supportLevel.label": "Unterstützungsgrad",
@@ -146,13 +146,13 @@
   "admin.registries.bitstream-formats.table.delete": "Auswahl löschen",
   
   // "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
-  "admin.registries.bitstream-formats.table.deselect-all": "Alle abwählen",
+  "admin.registries.bitstream-formats.table.deselect-all": "Nichts auswählen",
   
   // "admin.registries.bitstream-formats.table.internal": "internal",
   "admin.registries.bitstream-formats.table.internal": "intern",
   
   // "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
-  "admin.registries.bitstream-formats.table.mimetype": "MIME Typ",
+  "admin.registries.bitstream-formats.table.mimetype": "MIME-Type",
   
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Name",
@@ -199,7 +199,7 @@
   "admin.registries.metadata.head": "Metadatenreferenzliste",
   
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
-  "admin.registries.metadata.schemas.no-items": "Es gibt keinen Metadatenschemata in der Referenzliste.",
+  "admin.registries.metadata.schemas.no-items": "Es gibt keine Metadatenschemata in der Referenzliste.",
   
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   "admin.registries.metadata.schemas.table.delete": "Auswahl löschen",
@@ -261,7 +261,7 @@
   "admin.registries.schema.notification.created": "\"{{prefix}}\" wurde erfolgreich angelegt.",
   
   // "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
-  "admin.registries.schema.notification.deleted.failure": "{{amount}} Metadatenschema(ta) konnte(n) nicht gelöscht werden",
+  "admin.registries.schema.notification.deleted.failure": "{{amount}} Metadatenschema(ta) konnte(n) nicht gelöscht werden.",
   
   // "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
   "admin.registries.schema.notification.deleted.success": "{{amount}} Metadatenschema(ta) wurde(n) gelöscht.",
@@ -368,37 +368,37 @@
   "admin.access-control.epeople.form.email": "E-Mail-Adresse",
   
   // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
-  "admin.access-control.epeople.form.emailHint": "Muss eine gültige E-Mail-Adresse sein",
+  "admin.access-control.epeople.form.emailHint": "Bitte geben Sie eine gültige E-Mail-Adresse an.",
   
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
   "admin.access-control.epeople.form.canLogIn": "Darf sich anmelden",
   
   // "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
-  "admin.access-control.epeople.form.requireCertificate": "Zertifikat benötigt",
+  "admin.access-control.epeople.form.requireCertificate": "Es wird ein Zertifikat benötigt.",
   
   // "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.created.success": "Person \"{{name}}\" erfolgreich erstellt",
+  "admin.access-control.epeople.form.notification.created.success": "Die Person \"{{name}}\" wurde erstellt.",
   
   // "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.created.failure": "Person \"{{name}}\" konnte nicht erstellt werden",
+  "admin.access-control.epeople.form.notification.created.failure": "Die Person \"{{name}}\" konnte nicht erstellt werden.",
   
   // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Person \"{{name}}\" konnte nicht erstellt werden, E-Mail \"{{email}}\" wird bereits verwendet.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Die Person \"{{name}}\" konnte nicht erstellt werden, weil die E-Mail-Adresse \"{{email}}\" bereits verwendet wird.",
   
   // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Person \"{{name}}\" konnte nicht bearbeitet werden, E-Mail \"{{email}}\" wird bereits verwendet.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Die Person \"{{name}}\" konnte nicht bearbeitet werden, weil die E-Mail-Adresse \"{{email}}\" bereits verwendet wird.",
   
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.edited.success": "Person \"{{name}}\" erfolgreich bearbeitet",
+  "admin.access-control.epeople.form.notification.edited.success": "Die Person \"{{name}}\" wurde erfolgreich bearbeitet.",
   
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.edited.failure": "Person \"{{name}}\" konnte nicht bearbeitet werden",
+  "admin.access-control.epeople.form.notification.edited.failure": "Die Person \"{{name}}\" konnte nicht bearbeitet werden.",
   
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.deleted.success": "Person \"{{name}}\" erfolgreich gelöscht",
+  "admin.access-control.epeople.form.notification.deleted.success": "Die Person \"{{name}}\" wurde gelöscht.",
   
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.deleted.failure": "Person \"{{name}}\" konnte nicht gelöscht werden",
+  "admin.access-control.epeople.form.notification.deleted.failure": "Die Person \"{{name}}\" konnte nicht gelöscht werden.",
   
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Mitglied dieser Gruppen:",
@@ -410,7 +410,7 @@
   "admin.access-control.epeople.form.table.name": "Name",
   
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
-  "admin.access-control.epeople.form.memberOfNoGroups": "Diese Person ist kein Mitglied von einer Gruppe",
+  "admin.access-control.epeople.form.memberOfNoGroups": "Diese Person ist kein Mitglied einer Gruppe.",
   
   // "admin.access-control.epeople.form.goToGroups": "Add to groups",
   "admin.access-control.epeople.form.goToGroups": "Zu Gruppen hinzufügen",
@@ -573,16 +573,16 @@
   "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Mitglieder mit dem Namen \"{{name}}\" entfernen",
   
   // "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.success.addMember": "Mitglied: \"{{name}}\" erfolgreich hinzugefügt",
+  "admin.access-control.groups.form.members-list.notification.success.addMember": "Das Mitglied \"{{name}}\" wurde hinzugefügt.",
   
   // "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Mitglied: \"{{name}}\" konnte nicht hinzugefügt werden",
+  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Das Mitglied \"{{name}}\" konnte nicht hinzugefügt werden.",
   
   // "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Mitglied: \"{{name}}\" erfolgreich gelöscht",
+  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Das Mitglied \"{{name}}\" wurde gelöscht.",
   
   // "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Mitglied: \"{{name}}\" konnte nicht gelöscht werden",
+  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Das Mitglied \"{{name}}\" konnte nicht gelöscht werden.",
   
   // "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
   "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Mitglied mit dem Namen \"{{name}}\" hinzufügen",
@@ -654,7 +654,7 @@
   "admin.access-control.groups.form.subgroups-list.no-items": "Keine Gruppen gefunden, die dies in ihrem Namen oder als UUID haben",
   
   // "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
-  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "Noch keine Untergruppen in der Gruppe.",
+  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "Die Gruppe hat noch keine Untergruppen.",
   
   // "admin.access-control.groups.form.return": "Return to groups",
   "admin.access-control.groups.form.return": "Zurück zu den Gruppen",
@@ -662,7 +662,7 @@
   
   
   // "admin.search.breadcrumbs": "Administrative Search",
-  "admin.search.breadcrumbs": "Administrative Suche",
+  "admin.search.breadcrumbs": "Admin-Suche",
   
   // "admin.search.collection.edit": "Edit",
   "admin.search.collection.edit": "Bearbeiten",
@@ -677,10 +677,10 @@
   "admin.search.item.edit": "Bearbeiten",
   
   // "admin.search.item.make-private": "Make Private",
-  "admin.search.item.make-private": "Privat stellen",
+  "admin.search.item.make-private": "Verbergen",
   
   // "admin.search.item.make-public": "Make Public",
-  "admin.search.item.make-public": "Öffentlich stellen",
+  "admin.search.item.make-public": "Öffentlich anzeigen",
   
   // "admin.search.item.move": "Move",
   "admin.search.item.move": "Verschieben",
@@ -692,22 +692,22 @@
   "admin.search.item.withdraw": "Zurückziehen",
   
   // "admin.search.title": "Administrative Search",
-  "admin.search.title": "Administrative Suche",
+  "admin.search.title": "Admin-Suche",
   
   // "administrativeView.search.results.head": "Administrative Search",
-  "administrativeView.search.results.head": "Administrative Suche",
+  "administrativeView.search.results.head": "Admin-Suche",
   
   
   
   
   // "admin.workflow.breadcrumbs": "Administer Workflow",
-  "admin.workflow.breadcrumbs": "Geschäftsgänge verwalten",
+  "admin.workflow.breadcrumbs": "Workflows verwalten",
   
   // "admin.workflow.title": "Administer Workflow",
-  "admin.workflow.title": "Geschäftsgänghe verwalten",
+  "admin.workflow.title": "Workflows verwalten",
   
   // "admin.workflow.item.workflow": "Workflow",
-  "admin.workflow.item.workflow": "Geschäftsgänge",
+  "admin.workflow.item.workflow": "Workflows",
   
   // "admin.workflow.item.delete": "Delete",
   "admin.workflow.item.delete": "Löschen",
@@ -727,13 +727,13 @@
   "admin.metadata-import.page.header": "Metadaten importieren",
   
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
-  "admin.metadata-import.page.help": "Zum Importieren von Metadaten im Batch-Verfahren, wählen Sie eine CSV-Datei zum Hochladen aus, oder ziehen Sie diese in das Browser-Fenster",
+  "admin.metadata-import.page.help": "Um Metadaten im Batch-Verfahren zu importieren, wählen Sie bitte eine CSV-Datei zum Hochladen aus oder ziehen Sie diese ins Browser-Fenster.",
   
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
-  "admin.metadata-import.page.dropMsg": "Ziehen Sie eine CSV-Datei mit Metadaten zum Importieren in das Browser-Fenster",
+  "admin.metadata-import.page.dropMsg": "Ziehen Sie eine CSV-Datei mit Metadaten zum Importieren in das Browser-Fenster.",
   
   // "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
-  "admin.metadata-import.page.dropMsgReplace": "Legen Sie ab, um die CSV-Datei für den Import zu ersetzen.",
+  "admin.metadata-import.page.dropMsgReplace": "Legen Sie eine neue CSV-Datei hier ab, um die Importdatei zu ersetzen.",
   
   // "admin.metadata-import.page.button.return": "Return",
   "admin.metadata-import.page.button.return": "Zurück",
@@ -742,7 +742,7 @@
   "admin.metadata-import.page.button.proceed": "Fortfahren",
   
   // "admin.metadata-import.page.error.addFile": "Select file first!",
-  "admin.metadata-import.page.error.addFile": "Zuerst Datei auswählen!",
+  "admin.metadata-import.page.error.addFile": "Bitte wählen Sie zuerst eine Datei aus.",
   
   
   
@@ -751,7 +751,7 @@
   "auth.errors.invalid-user": "Passwort oder E-Mail-Adresse ungültig.",
   
   // "auth.messages.expired": "Your session has expired. Please log in again.",
-  "auth.messages.expired": "Ihre Sitzung ist abgelaufen, bitte melden Sie sich erneut an.",
+  "auth.messages.expired": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
   
   
   
@@ -759,7 +759,7 @@
   "bitstream.edit.bitstream": "Bitstream: ",
   
   // "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
-  "bitstream.edit.form.description.hint": "Optional können Sie eine kurze Beschreibung der Datei angeben, zum Beispiel \"<i>Main article</i>\" oder \"<i>Experiment data readings</i>\".",
+  "bitstream.edit.form.description.hint": "Hier können Sie eine kurze Beschreibung der Datei angeben, zum Beispiel \"<i>Artikel</i>\" oder \"<i>Tabellenhanhang</i>\".",
   
   // "bitstream.edit.form.description.label": "Description",
   "bitstream.edit.form.description.label": "Beschreibung",
@@ -769,7 +769,7 @@
 
   
   // "bitstream.edit.form.embargo.label": "Embargo until specific date",
-  "bitstream.edit.form.embargo.label": "Embargo bis zu einem bestimmten Datum",
+  "bitstream.edit.form.embargo.label": "Sperrfrist",
   
   // "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
   "bitstream.edit.form.fileName.hint": "Ändern Sie den Dateinamen für die Datei. Beachten Sie, dass sich dadurch die angezeigte Datei-URL ändert, aber alte Links weiterhin funktionieren, solange sich die Sequenz-ID nicht ändert.",
@@ -793,7 +793,7 @@
   "bitstream.edit.form.selectedFormat.label": "Ausgewähltes Format",
   
   // "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
-  "bitstream.edit.form.selectedFormat.unknown": "Format nicht in der Liste",
+  "bitstream.edit.form.selectedFormat.unknown": "Anderes Format",
   
   // "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
   "bitstream.edit.notifications.error.format.title": "Beim Speichern des Dateiformats ist ein Fehler aufgetreten",
@@ -846,10 +846,10 @@
   "browse.metadata.dateissued.breadcrumbs": "Auflistung nach Datum",
   
   // "browse.metadata.subject.breadcrumbs": "Browse by Subject",
-  "browse.metadata.subject.breadcrumbs": "Auflistung nach Schlagwort",
+  "browse.metadata.subject.breadcrumbs": "Schlagwörter",
   
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
-  "browse.metadata.title.breadcrumbs": "Auflistung nach Titel",
+  "browse.metadata.title.breadcrumbs": "Titel",
   
   // "browse.startsWith.choose_start": "(Choose start)",
   "browse.startsWith.choose_start": "(Startpunkt wählen)",
@@ -1023,7 +1023,7 @@
   "collection.edit.logo.label": "Sammlungslogo",
   
   // "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
-  "collection.edit.logo.notifications.add.error": "Hochladen des Sammlungslogos fehlgeschlagen. Bitte überprüfen Sie den Inhalt, bevor Sie es nochmal versuchen.",
+  "collection.edit.logo.notifications.add.error": "Hochladen des Sammlungslogos fehlgeschlagen. Bitte überprüfen Sie den Inhalt, bevor Sie es erneut versuchen.",
   
   // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
   "collection.edit.logo.notifications.add.success": "Sammlungslogo erfolgreich hochgeladen.",
@@ -1038,7 +1038,7 @@
   "collection.edit.logo.notifications.delete.error.title": "Fehler beim Löschen des Logos",
   
   // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
-  "collection.edit.logo.upload": "Ziehen Sie ein Logo herüber, um es hochzuladen",
+  "collection.edit.logo.upload": "Ziehen Sie ein Logo herüber, um es hochzuladen.",
   
   
   
@@ -1090,10 +1090,10 @@
   "collection.edit.tabs.source.form.metadataConfigId": "Metadatenformat",
   
   // "collection.edit.tabs.source.form.oaiSetId": "OAI specific set id",
-  "collection.edit.tabs.source.form.oaiSetId": "OAI spezifische Set-ID",
+  "collection.edit.tabs.source.form.oaiSetId": "OAI-spezifische Set-ID",
   
   // "collection.edit.tabs.source.form.oaiSource": "OAI Provider",
-  "collection.edit.tabs.source.form.oaiSource": "OAI Anbieter",
+  "collection.edit.tabs.source.form.oaiSource": "OAI-Anbieter",
   
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest metadata and bitstreams (requires ORE support)",
   "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Bezieht Metadaten und Dateien (ORE-Schnittstelle erforderlich)",
@@ -1108,7 +1108,7 @@
   "collection.edit.tabs.source.head": "Herkunft des Inhalts",
   
   // "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  "collection.edit.tabs.source.notifications.discarded.content": "Die Änderungen wurden verworfen. Um die Änderungen wieder einzusetzen klicken Sie auf den 'Rückgängig' Knopf",
+  "collection.edit.tabs.source.notifications.discarded.content": "Die Änderungen wurden verworfen. Bitte klicken Sie auf \"Rückgängig\", um sie wieder einzusetzen.",
   
   // "collection.edit.tabs.source.notifications.discarded.title": "Changed discarded",
   "collection.edit.tabs.source.notifications.discarded.title": "Änderungen verworfen",
@@ -1120,7 +1120,7 @@
   "collection.edit.tabs.source.notifications.invalid.title": "Metadaten ungültig",
   
   // "collection.edit.tabs.source.notifications.saved.content": "Your changes to this collection's content source were saved.",
-  "collection.edit.tabs.source.notifications.saved.content": "Ihre Änderunge bezüglich der Quelle für den Inhalt der Sammlung wurden gespeichert.",
+  "collection.edit.tabs.source.notifications.saved.content": "Die Quelle für den Inhalt der Sammlung wurde geändert.",
   
   // "collection.edit.tabs.source.notifications.saved.title": "Content Source saved",
   "collection.edit.tabs.source.notifications.saved.title": "Bezugsquelle für den Inhalt gespeichert",
@@ -1287,7 +1287,7 @@
   "community.edit.logo.label": "Bereichslogo",
   
   // "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
-  "community.edit.logo.notifications.add.error": "Hochladen des Bereichslogos fehlgeschlagen. Bitte überprüfen Sie den Inhalt bevor Sie es noch einmal versuchen.",
+  "community.edit.logo.notifications.add.error": "Hochladen des Bereichslogos fehlgeschlagen. Bitte überprüfen Sie den Inhalt bevor Sie es erneut versuchen.",
   
   // "community.edit.logo.notifications.add.success": "Upload Community logo successful.",
   "community.edit.logo.notifications.add.success": "Hochladen des Bereichslogos erfolgreich.",
@@ -1469,10 +1469,10 @@
   
   
   // "cookies.consent.accept-all": "Accept all",
-  "cookies.consent.accept-all": "Alle annehmen",
+  "cookies.consent.accept-all": "Alle Cookies akzeptieren",
   
   // "cookies.consent.accept-selected": "Accept selected",
-  "cookies.consent.accept-selected": "Ausgewählte annehmen",
+  "cookies.consent.accept-selected": "Nur ausgewählte Cookies akzeptieren",
   
   // "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
   "cookies.consent.app.opt-out.description": "Diese App wird standardmäßig geladen (Sie können dies jedoch deaktivieren)",
@@ -1868,16 +1868,16 @@
   "form.group-collapse-help": "Zum Zusammenfalten bitte hier klicken",
   
   // "form.group-expand": "Expand",
-  "form.group-expand": "Auffalten",
+  "form.group-expand": "Ausklappen",
   
   // "form.group-expand-help": "Click here to expand and add more elements",
-  "form.group-expand-help": "Zum Ausklappen und Hinzufügen von weiteren Elementen klicken Sie hier",
+  "form.group-expand-help": "Zum Ausklappen und Hinzufügen weiterer Elemente klicken Sie bitte hier.",
   
   // "form.last-name": "Last name",
   "form.last-name": "Nachname",
   
   // "form.loading": "Loading...",
-  "form.loading": "Am Laden ...",
+  "form.loading": "Lädt...",
   
   // "form.lookup": "Lookup",
   "form.lookup": "Nachschlagen",
@@ -1986,7 +1986,7 @@
   
   
   // "item.badge.private": "Private",
-  "item.badge.private": "Privat",
+  "item.badge.private": "Verborgen",
   
   // "item.badge.withdrawn": "Withdrawn",
   "item.badge.withdrawn": "Zurückgezogen",
@@ -2080,7 +2080,7 @@
   "item.edit.bitstreams.headers.name": "Name",
   
   // "item.edit.bitstreams.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  "item.edit.bitstreams.notifications.discarded.content": "Ihre Änderungen wurden verworfen. Um Ihre Änderungen wiederherzustellen, klicken Sie auf die Schaltfläche 'Rückgängig'",
+  "item.edit.bitstreams.notifications.discarded.content": "Ihre Änderungen wurden verworfen. Um sie wiederherzustellen, klicken Sie bitte auf \"Rückgängig\".",
   
   // "item.edit.bitstreams.notifications.discarded.title": "Changes discarded",
   "item.edit.bitstreams.notifications.discarded.title": "Änderungen verworfen",
@@ -2241,7 +2241,7 @@
   "item.edit.metadata.metadatafield.invalid": "Bitte wählen Sie ein gültiges Metadatenfeld",
   
   // "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  "item.edit.metadata.notifications.discarded.content": "Ihre Änderungen wurden verworfen. Um diese wieder anzuwenden, klicken Sie auf den 'Rückgängig machen' Knopf",
+  "item.edit.metadata.notifications.discarded.content": "Ihre Änderungen wurden verworfen. Um sie wiederherzustellen, klicken Sie bitte auf \"Rückgängig\".",
   
   // "item.edit.metadata.notifications.discarded.title": "Changed discarded",
   "item.edit.metadata.notifications.discarded.title": "Änderungen verworfen",
@@ -2325,7 +2325,7 @@
   "item.edit.private.cancel": "Abbrechen",
   
   // "item.edit.private.confirm": "Make it Private",
-  "item.edit.private.confirm": "Privat machen",
+  "item.edit.private.confirm": "Verbergen",
   
   // "item.edit.private.description": "Are you sure this item should be made private in the archive?",
   "item.edit.private.description": "Wollen Sie dieses Item als privat markieren.",
@@ -2365,7 +2365,7 @@
   "item.edit.reinstate.cancel": "Abbrechen",
   
   // "item.edit.reinstate.confirm": "Reinstate",
-  "item.edit.reinstate.confirm": "Reinstantiieren",
+  "item.edit.reinstate.confirm": "Wiederherstellen",
   
   // "item.edit.reinstate.description": "Are you sure this item should be reinstated to the archive?",
   "item.edit.reinstate.description": "Sind Sie sicher, dass das Item reinstantiiert werden soll?",
@@ -2397,7 +2397,7 @@
   "item.edit.relationships.no-relationships": "Keine Beziehungen",
   
   // "item.edit.relationships.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  "item.edit.relationships.notifications.discarded.content": "Ihre Änderungen wurden verworfen. Um sie dennoch anzuwenden klicken Sie auf den 'Rückgängig machen' Knopf",
+  "item.edit.relationships.notifications.discarded.content": "Ihre Änderungen wurden verworfen. Um sie wiederherzustellen, klicken Sie bitte auf \"Rückgängig\".",
   
   // "item.edit.relationships.notifications.discarded.title": "Changes discarded",
   "item.edit.relationships.notifications.discarded.title": "Änderungen verworfen",
@@ -2477,7 +2477,7 @@
   "item.edit.tabs.status.buttons.move.label": "Item in eine andere Sammlung verschieben",
   
   // "item.edit.tabs.status.buttons.private.button": "Make it private...",
-  "item.edit.tabs.status.buttons.private.button": "Privat machen...",
+  "item.edit.tabs.status.buttons.private.button": "Verbergen",
   
   // "item.edit.tabs.status.buttons.private.label": "Make item private",
   "item.edit.tabs.status.buttons.private.label": "Item privat machen",
@@ -2489,7 +2489,7 @@
   "item.edit.tabs.status.buttons.public.label": "Item öffentlich machen",
   
   // "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
-  "item.edit.tabs.status.buttons.reinstate.button": "Reinstantiieren...",
+  "item.edit.tabs.status.buttons.reinstate.button": "Wiederherstellen...",
   
   // "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
   "item.edit.tabs.status.buttons.reinstate.label": "Item wieder ins Repositorium einsetzen",
@@ -2780,7 +2780,7 @@
   "journal.page.titleprefix": "Zeitschrift: ",
   
   // "journal.search.results.head": "Journal Search Results",
-  "journal.search.results.head": "Zeitschrift Suchergebenisse",
+  "journal.search.results.head": "Suchergebnisse für Zeitschriften",
   
   // "journal.search.title": "DSpace Angular :: Journal Search",
   "journal.search.title": "DSpace Angular :: Zeitschriftensuche",
@@ -2788,7 +2788,7 @@
   
   
   // "journalissue.listelement.badge": "Journal Issue",
-  "journalissue.listelement.badge": "Zeitschriftenausgabe",
+  "journalissue.listelement.badge": "Zeitschriftenheft",
   
   // "journalissue.page.description": "Description",
   "journalissue.page.description": "Beschreibeung",
@@ -2812,7 +2812,7 @@
   "journalissue.page.number": "Zählung",
   
   // "journalissue.page.titleprefix": "Journal Issue: ",
-  "journalissue.page.titleprefix": "Zeitschriftenausgabe: ",
+  "journalissue.page.titleprefix": "Zeitschriftenheft:",
   
   
   
@@ -2925,7 +2925,7 @@
   
   
   // "logout.form.header": "Log out from DSpace",
-  "logout.form.header": "Aus dem Repositorium abmelden",
+  "logout.form.header": "Abmelden",
   
   // "logout.form.submit": "Log out",
   "logout.form.submit": "Abmelden",
@@ -2969,7 +2969,7 @@
   "menu.section.browse_community_by_author": "Nach Autor:in",
   
   // "menu.section.browse_community_by_issue_date": "By Issue Date",
-  "menu.section.browse_community_by_issue_date": "Nach Erscheinungsdateum",
+  "menu.section.browse_community_by_issue_date": "Nach Erscheinungsdatum",
   
   // "menu.section.browse_community_by_title": "By Title",
   "menu.section.browse_community_by_title": "Nach Titel",
@@ -3200,7 +3200,7 @@
   "mydspace.messages.no-content": "Kein Inhalt.",
   
   // "mydspace.messages.no-messages": "No messages yet.",
-  "mydspace.messages.no-messages": "Noch keine Nachrichten.",
+  "mydspace.messages.no-messages": "Es sind noch keine Nachrichten vorhanden.",
   
   // "mydspace.messages.send-btn": "Send",
   "mydspace.messages.send-btn": "Senden",
@@ -3359,7 +3359,7 @@
   
   
   // "pagination.results-per-page": "Results Per Page",
-  "pagination.results-per-page": "Anzeige pro Seite",
+  "pagination.results-per-page": "Treffer pro Seite",
   
   // "pagination.showing.detail": "{{ range }} of {{ total }}",
   "pagination.showing.detail": "{{ range }} von {{ total }}",
@@ -3587,10 +3587,10 @@
   "profile.metadata.form.label.lastname": "Nachname",
   
   // "profile.metadata.form.label.phone": "Contact Telephone",
-  "profile.metadata.form.label.phone": "Kontakt Telefon",
+  "profile.metadata.form.label.phone": "Telefonnummer",
   
   // "profile.metadata.form.notifications.success.content": "Your changes to the profile were saved.",
-  "profile.metadata.form.notifications.success.content": "Ihre Änderungen am Profil wurden gespeichert.",
+  "profile.metadata.form.notifications.success.content": "Ihre Profiländerungen wurden gespeichert.",
   
   // "profile.metadata.form.notifications.success.title": "Profile saved",
   "profile.metadata.form.notifications.success.title": "Profil gespeichert",
@@ -3617,10 +3617,10 @@
   "profile.security.form.label.passwordrepeat": "Zum Bestätigen erneut eingeben",
   
   // "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
-  "profile.security.form.notifications.success.content": "Ihre Änderungen am Passwort wurden gespeichert.",
+  "profile.security.form.notifications.success.content": "Ihr geändertes Passwort wurde gespeichert.",
   
   // "profile.security.form.notifications.success.title": "Password saved",
-  "profile.security.form.notifications.success.title": "Password gespeichert",
+  "profile.security.form.notifications.success.title": "Passwort gespeichert",
   
   // "profile.security.form.notifications.error.title": "Error changing passwords",
   "profile.security.form.notifications.error.title": "Fehler beim Ändern von Passwörtern",
@@ -3727,7 +3727,7 @@
   "register-page.create-profile.identification.last-name.error": "Bitte geben Sie einen Nachnamen ein",
   
   // "register-page.create-profile.identification.contact": "Contact Telephone",
-  "register-page.create-profile.identification.contact": "Kontakt Telefon",
+  "register-page.create-profile.identification.contact": "Telefonnummer",
   
   // "register-page.create-profile.identification.language": "Language",
   "register-page.create-profile.identification.language": "Sprache",
@@ -3760,7 +3760,7 @@
   "register-page.create-profile.submit.error.content": "Bei der Registrierung eines neuen Accounts ist ein Fehler aufgetreten.",
   
   // "register-page.create-profile.submit.error.head": "Registration failed",
-  "register-page.create-profile.submit.error.head": "Registrierung fehlgeschlagen.",
+  "register-page.create-profile.submit.error.head": "Registrierung fehlgeschlagen",
   
   // "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
   "register-page.create-profile.submit.success.content": "Die Registrierung war erfolgreich. Sie wurden als der:die angelegte Benutzer:in angemeldet.",
@@ -3817,16 +3817,16 @@
   "relationships.isAuthorOf": "Autor:innen",
   
   // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "AutorInnen (Personen)",
+  "relationships.isAuthorOf.Person": "Autor:innen (Personen)",
   
   // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
   "relationships.isAuthorOf.OrgUnit": "Autor:innen (Organisationseinheiten)",
   
   // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Zeitschriftenausgaben",
+  "relationships.isIssueOf": "Zeitschriftenhefte",
   
   // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Zeitschriftenausgabe",
+  "relationships.isJournalIssueOf": "Zeitschriftenheft",
   
   // "relationships.isJournalOf": "Journals",
   "relationships.isJournalOf": "Zeitschriften",
@@ -3894,7 +3894,7 @@
   "resource-policies.create.page.title": "Eine neue Ressourcen-Richtlinie erstellen",
   
   // "resource-policies.delete.btn": "Delete selected",
-  "resource-policies.delete.btn": "Ausgewählte löschen",
+  "resource-policies.delete.btn": "Markierte löschen",
   
   // "resource-policies.delete.btn.title": "Delete selected resource policies",
   "resource-policies.delete.btn.title": "Ausgewählte Ressourcen-Richtlinien löschen",
@@ -4040,13 +4040,13 @@
   "search.filters.applied.f.dateSubmitted": "Datum der Einreichung",
   
   // "search.filters.applied.f.discoverable": "Private",
-  "search.filters.applied.f.discoverable": "Privat",
+  "search.filters.applied.f.discoverable": "Verborgen",
   
   // "search.filters.applied.f.entityType": "Item Type",
   "search.filters.applied.f.entityType": "Item-Typ",
   
   // "search.filters.applied.f.has_content_in_original_bundle": "Has files",
-  "search.filters.applied.f.has_content_in_original_bundle": "Hat Dateien",
+  "search.filters.applied.f.has_content_in_original_bundle": "Dateien dazu vorhanden?",
   
   // "search.filters.applied.f.itemtype": "Type",
   "search.filters.applied.f.itemtype": "Typ",
@@ -4126,7 +4126,7 @@
   "search.filters.filter.dateSubmitted.placeholder": "Datum der Einreichung",
   
   // "search.filters.filter.discoverable.head": "Private",
-  "search.filters.filter.discoverable.head": "Privat",
+  "search.filters.filter.discoverable.head": "Verborgen",
   
   // "search.filters.filter.withdrawn.head": "Withdrawn",
   "search.filters.filter.withdrawn.head": "Zurückgezogen",
@@ -4215,7 +4215,7 @@
   
   
   // "search.filters.entityType.JournalIssue": "Journal Issue",
-  "search.filters.entityType.JournalIssue": "Zeitschriftenausgabe",
+  "search.filters.entityType.JournalIssue": "Zeitschriftenheft",
   
   // "search.filters.entityType.JournalVolume": "Journal Volume",
   "search.filters.entityType.JournalVolume": "Zeitschriftenband",
@@ -4302,10 +4302,10 @@
   "search.view-switch.show-detail": "Detailanzeige",
   
   // "search.view-switch.show-grid": "Show as grid",
-  "search.view-switch.show-grid": "Anzeige als Raster",
+  "search.view-switch.show-grid": "Als Raster anzeigen",
   
   // "search.view-switch.show-list": "Show as list",
-  "search.view-switch.show-list": "Anzeige als Liste",
+  "search.view-switch.show-list": "Als Liste anzeigen",
   
   
   
@@ -4465,7 +4465,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Zeitschrift importieren",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Zeitschriftenausgabe importieren",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Zeitschriftenheft importieren",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Zeitschriftenband importieren",
@@ -4489,7 +4489,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Abbrechen",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Select a collection to import new entries to",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Wählen Sie eine Sammlung, um neue Einträge dorthin zu importieren",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Wählen Sie eine Sammlung, um neue Einträge dorthin zu importieren.",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.entities": "Entities",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.entities": "Entitäten",
@@ -4519,7 +4519,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.title": "Import Remote Journal",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.title": "Zeitschrift von externer Quelle importieren",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.title": "Zeitschrift aus externer Quelle importieren",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.local-entity": "Successfully added local journal to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.local-entity": "Lokale Zeitschrift wurde erfolgreich zur Auswahl hinzugefügt",
@@ -4549,7 +4549,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Wählen Sie einen lokalen Treffer aus:",
   
   // "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
-  "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Alle abwählen",
+  "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Nichts auswählen",
   
   // "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Deselect page",
   "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Seite abwählen",
@@ -4642,9 +4642,9 @@
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Aktuelle Auswahl ({{ count }})",
   
   // "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
-  "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Zeitschriftenausgaben",
+  "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Zeitschriftenhefte",
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
-  "submission.sections.describe.relationship-lookup.title.JournalIssue": "Zeitschriftenausgaben",
+  "submission.sections.describe.relationship-lookup.title.JournalIssue": "Zeitschriftenhefte",
   
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Zeitschriftenbände",
@@ -4765,7 +4765,7 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Suchergebnisse",
   
   // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
-  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Möchten Sie \"{{ value }}\" als Namesvariante für diese Person speichern? So können Sie und andere diese bei zukünftigen Veröffentlichungen verwenden. Wenn Sie das nicht tun, können Sie die Variante immer noch für diese Veröffentlichung verwenden.",
+  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Möchten Sie die Namensvariante \"{{ value }}\" speichern, damit sie bei zukünftigen Veröffentlichungen erneut verwendet werden kann? Sie können die Variante bei dieser Veröffentlichung auch verwenden, ohne sie zu speichern.",
   
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
   "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Als Namensvariante speichern",
@@ -4813,7 +4813,7 @@
   "submission.sections.general.discard_success_notice": "Einreichung erfolgreich verworfen.",
   
   // "submission.sections.general.metadata-extracted": "New metadata have been extracted and added to the <strong>{{sectionId}}</strong> section.",
-  "submission.sections.general.metadata-extracted": "Neue Metainformation wurden extrahier unt dem Bereich <strong>{{sectionId}}</strong> zugeordnet.",
+  "submission.sections.general.metadata-extracted": "Neue Metadaten wurden extrahiert und dem Bereich <strong>{{sectionId}}</strong> zugeordnet.",
   
   // "submission.sections.general.metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission.",
   "submission.sections.general.metadata-extracted-new-section": "Neuer Bereich <strong>{{sectionId}}</strong> wurde zur Einreichung hinzugefügt.",
@@ -4854,7 +4854,7 @@
   "submission.sections.submit.progressbar.describe.steptwo": "Beschreiben",
   
   // "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
-  "submission.sections.submit.progressbar.detect-duplicate": "Mögliche Dubletten",
+  "submission.sections.submit.progressbar.detect-duplicate": "Doppelter Eintrag?",
   
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "Einreichlizenz",
@@ -4898,7 +4898,7 @@
   "submission.sections.upload.form.group-label": "Gruppe",
   
   // "submission.sections.upload.form.group-required": "Group is required.",
-  "submission.sections.upload.form.group-required": "Gruppe ist erforderlich",
+  "submission.sections.upload.form.group-required": "Bitte geben Sie eine Gruppe an.",
   
   // "submission.sections.upload.form.until-label": "Grant access until",
   "submission.sections.upload.form.until-label": "Zugriff gewährt bis",
@@ -4994,7 +4994,7 @@
   "submission.workflow.tasks.claimed.return": "Zurück in den gemeinsamen Aufgabenbereich",
   
   // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
-  "submission.workflow.tasks.claimed.return_help": "Aufgabe in den gemeinsamen Aufgabenbereich überführen, so dass ein anderer Bearbeiter die Aufgabe übernehmen kann.",
+  "submission.workflow.tasks.claimed.return_help": "Aufgabe in den Aufgabenpool zurückgeben, so dass jemand Anderes die Aufgabe übernehmen kann",
   
   
   
@@ -5016,7 +5016,7 @@
   "submission.workflow.tasks.pool.claim": "Übernehmen",
   
   // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
-  "submission.workflow.tasks.pool.claim_help": "Aufgabe übernehmen.",
+  "submission.workflow.tasks.pool.claim_help": "Aufgabe übernehmen",
   
   // "submission.workflow.tasks.pool.hide-detail": "Hide detail",
   "submission.workflow.tasks.pool.hide-detail": "Details verbergen",
@@ -5058,13 +5058,13 @@
   "uploader.browse": "stöbern",
   
   // "uploader.drag-message": "Drag & Drop your files here",
-  "uploader.drag-message": "Ziehen Sie Ihre Dateien hierhin",
+  "uploader.drag-message": "Bitte ziehen Sie Ihre Dateien hierhin.",
   
   // "uploader.or": ", or ",
   "uploader.or": ", oder",
   
   // "uploader.processing": "Processing",
-  "uploader.processing": "Bearbeitung läuft",
+  "uploader.processing": "In Arbeit...",
   
   // "uploader.queue-length": "Queue length",
   "uploader.queue-length": "Länge der Warteschlange",
