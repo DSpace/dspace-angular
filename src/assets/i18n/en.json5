@@ -4964,6 +4964,18 @@
 
   "sorting.dc.title.DESC": "Title Descending",
 
+  "sorting.metric.view.ASC" : "Views Ascending",
+
+  "sorting.metric.view.DESC" : "Views Descending",
+
+  "sorting.metric.download.ASC" : "Downloads Ascending",
+
+  "sorting.metric.download.DESC" : "Downloads Descending",
+
+  "sorting.metric.scopus.citation.ASC" : "Citations Ascending",
+
+  "sorting.metric.scopus.citation.DESC" : "Citations Descending",
+
   "sorting.score.ASC": "Least Relevant",
 
   "sorting.score.DESC": "Most Relevant",
