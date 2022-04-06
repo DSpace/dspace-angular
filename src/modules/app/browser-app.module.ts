@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule, makeStateKey, TransferState } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -39,6 +39,7 @@ import { extendEnvironmentWithAppConfig } from '../../config/config.util';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 
 import { environment } from '../../environments/environment';
+import { CsrRestUrlInterceptor } from 'src/app/core/csr-rest-url/csr-rest-url.interceptor';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -139,6 +140,11 @@ export function getRequest(transferState: TransferState): any {
     {
       provide: LocationToken,
       useFactory: locationProvider,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CsrRestUrlInterceptor,
+      multi: true
     },
   ]
 })

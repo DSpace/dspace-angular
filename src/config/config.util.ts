@@ -1,11 +1,12 @@
 import * as merge from 'deepmerge';
-
-import { environment } from '../environments/environment';
-
 import { hasNoValue } from '../app/shared/empty.util';
-
+import { environment } from '../environments/environment';
 import { AppConfig } from './app-config.interface';
+import { ServerConfig } from './server-config.interface';
 import { ThemeConfig } from './theme.model';
+
+
+
 
 /**
  * Extend Angular environment with app config.
@@ -47,8 +48,17 @@ const getDefaultThemeConfig = (): ThemeConfig => {
   );
 };
 
+const buildRootUrl = (config: ServerConfig): string => {
+  return [
+    config.ssl ? 'https://' : 'http://',
+    config.host,
+    config.port && config.port !== 80 && config.port !== 443 ? `:${config.port}` : ''
+  ].join('');
+};
+
 export {
   extendEnvironmentWithAppConfig,
   mergeConfig,
-  getDefaultThemeConfig
+  getDefaultThemeConfig,
+  buildRootUrl
 };
