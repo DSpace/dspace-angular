@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { isEqual } from 'lodash';
+import { Component, OnInit } from '@angular/core';
 
 import { FilterType } from '../../../models/filter-type.model';
 import { facetLoad } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
@@ -12,7 +13,18 @@ import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-
   animations: [facetLoad],
 })
 /**
- * Component that represents a search bar chart filter
+ * Component that represents a search bar/reverse-bar chart filter
  */
 @renderChartFor(FilterType['chart.bar'])
-export class SearchChartBarComponent extends SearchChartFilterComponent {}
+@renderChartFor(FilterType['chart.reverse-bar'])
+export class SearchChartBarComponent extends SearchChartFilterComponent implements OnInit {
+
+  ngOnInit() {
+    super.ngOnInit();
+    if (
+      isEqual(this.filterConfig.filterType, FilterType['chart.reverse-bar'])
+    ) {
+      this.isReverseChart = true;
+    }
+  }
+}

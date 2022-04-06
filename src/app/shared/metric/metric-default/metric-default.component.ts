@@ -3,12 +3,11 @@ import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 import { hasNoValue } from '../../empty.util';
 
 @Component({
-  selector: 'ds-metric-dspacecris',
-  templateUrl: './metric-dspacecris.component.html',
-  styleUrls: ['./metric-dspacecris.component.scss']
+  selector: 'ds-metric-default',
+  templateUrl: './metric-default.component.html',
+  styleUrls: ['./metric-default.component.scss', '../metric-loader/base-metric.component.scss'],
 })
-export class MetricDspacecrisComponent extends BaseMetricComponent {
-
+export class MetricDefaultComponent extends BaseMetricComponent {
   constructor() {
     super();
   }
@@ -33,5 +32,4 @@ export class MetricDspacecrisComponent extends BaseMetricComponent {
     }
     return null;
   }
-
 }

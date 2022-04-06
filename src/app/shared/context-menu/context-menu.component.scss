@@ -1,3 +1,7 @@
 .dropdown-toggle::after {
   display:none;
 }
+
+#itemOptionsDropdownMenu {
+  z-index: 2000;
+}

@@ -6,7 +6,7 @@
             <div id="collapsingNav">
                 <ul class="navbar-nav mr-auto shadow-none">
                     <ng-container *ngFor="let section of (sections | async)">
-                        <ng-container *ngComponentOutlet="(sectionMap$ | async).get(section.id)?.component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
+                        <ng-container *ngComponentOutlet="(sectionMap$ | async).get(section.id)?.component; injector: (sectionMap$ | async).get(section.id)?.injector;"></ng-container>
                     </ng-container>
                 </ul>
             </div>

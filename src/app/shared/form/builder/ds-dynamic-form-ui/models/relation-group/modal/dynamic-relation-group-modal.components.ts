@@ -146,12 +146,20 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
   }
 
   save() {
-    if (this.item) {
-      this.modifyChip();
-    } else {
-      this.addToChips();
-    }
-    this.closeModal();
+    this.canShowExternalSourceButton().pipe(
+      take(1)
+    ).subscribe((hanExternalSource: boolean) => {
+      if (this.item) {
+        this.modifyChip();
+      } else {
+        this.addToChips();
+      }
+      if (hanExternalSource) {
+        this.submissionService.dispatchSave(this.model.submissionId);
+      }
+      this.closeModal();
+    });
+
   }
 
   canShowExternalSourceButton(): Observable<boolean> {
@@ -188,7 +196,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       modalRef.componentInstance.entityType = vocabulary.entity;
       modalRef.componentInstance.externalSourceIdentifier = vocabulary.getExternalSourceByMetadata(this.model.mandatoryField);
       modalRef.componentInstance.submissionObjectID = this.model.submissionId;
-      modalRef.componentInstance.metadataPlace = this.itemIndex.toString(10) || '0';
+      modalRef.componentInstance.metadataPlace = this.itemIndex?.toString(10) || '0';
 
       modalRef.componentInstance.updateAuthority.pipe(take(1)).subscribe((authority) => {
         setTimeout(() => {
