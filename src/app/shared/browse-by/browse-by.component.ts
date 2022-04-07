@@ -12,7 +12,6 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { RouteService } from '../../core/services/route.service';
 import { map } from 'rxjs/operators';
 import { hasValue } from '../empty.util';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-browse-by',

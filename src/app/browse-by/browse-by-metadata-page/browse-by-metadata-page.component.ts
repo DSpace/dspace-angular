@@ -17,7 +17,6 @@ import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { BrowseByDataType, rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
-import { RouteService } from '../../core/services/route.service';
 
 @Component({
   selector: 'ds-browse-by-metadata-page',
