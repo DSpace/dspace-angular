@@ -686,13 +686,15 @@
 
   "pagination.next.button.disabled.tooltip": "No more pages of results",
 
+  "browse.startsWith": ", starting with {{ startsWith }}",
+
   "browse.startsWith.choose_start": "(Choose start)",
 
   "browse.startsWith.choose_year": "(Choose year)",
 
   "browse.startsWith.choose_year.label": "Choose the issue year",
 
-  "browse.startsWith.jump": "Jump to a point in the index:",
+  "browse.startsWith.jump": "Filter results by year or month",
 
   "browse.startsWith.months.april": "April",
 
@@ -724,13 +726,13 @@
 
   "browse.startsWith.submit": "Browse",
 
-  "browse.startsWith.type_date": "Or type in a date (year-month) and click 'Browse'",
+  "browse.startsWith.type_date": "Filter results by date",
 
   "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
 
   "browse.startsWith.type_text": "Filter results by typing the first few letters",
 
-  "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+  "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
 
 
   "chips.remove": "Remove chip",
