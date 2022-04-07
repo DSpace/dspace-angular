@@ -44,7 +44,7 @@
       <button id="nav-next" type="button" class="btn btn-outline-primary float-right"
               (click)="goNext()"
               [disabled]="objects?.payload?.currentPage >= objects?.payload?.totalPages">
-          <span [ngbTooltip]="objects?.payload?.currentPage >= objects?.payload?.totalPages ? ('browse.next.button.disabled.tooltip' |translate) : null">
+          <span [ngbTooltip]="objects?.payload?.currentPage >= objects?.payload?.totalPages ? ('pagination.next.button.disabled.tooltip' |translate) : null">
             <i class="fas fa-angle-right"></i> {{'pagination.next.button' |translate}}
           </span>
       </button>
