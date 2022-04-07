@@ -23,7 +23,7 @@ export class ItemExportComponent implements OnInit {
   /**
    * Export format suitable for bulk import
    */
-  public static BULK_IMPORT_READY_XLS_SUFFIX = '-bulkimportready-xls';
+  public static BULK_IMPORT_READY_XLS = 'collection-xls';
 
   @Input() molteplicity: ItemExportFormatMolteplicity;
   @Input() item: Item;
@@ -86,7 +86,7 @@ export class ItemExportComponent implements OnInit {
       this.selectedEntityType = entityType;
       const xlsConfigurationFormat: ItemExportFormat = Object.assign(new ItemExportFormat(), {
         type: 'itemexportformat',
-        id: entityType.toLowerCase() + ItemExportComponent.BULK_IMPORT_READY_XLS_SUFFIX,
+        id: ItemExportComponent.BULK_IMPORT_READY_XLS,
         mimeType: 'application/vnd.ms-excel',
         entityType: entityType,
         molteplicity: 'MULTIPLE',
@@ -120,7 +120,8 @@ export class ItemExportComponent implements OnInit {
 
   onSubmit() {
     if (this.exportForm.valid) {
-      if (!!this.exportForm.value.format.id && this.exportForm.value.format.id.indexOf(ItemExportComponent.BULK_IMPORT_READY_XLS_SUFFIX) > 0 && !this.selectCollection) {
+      console.log(`${this.exportForm.value.format.id} === ${ItemExportComponent.BULK_IMPORT_READY_XLS}`);
+      if (!!this.exportForm.value.format.id && this.exportForm.value.format.id === ItemExportComponent.BULK_IMPORT_READY_XLS && !this.selectCollection) {
         // if the "bulk import" format has been chosen, show the collection selection form
         this.selectCollection = true;
       } else {
