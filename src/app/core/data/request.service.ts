@@ -312,6 +312,21 @@ export class RequestService {
   }
 
   /**
+   * Mark a request as stale
+   * @param uuid  the UUID of the request
+   * @return      an Observable that will emit true once the Request becomes stale
+   */
+  setStaleByUUID(uuid: string): Observable<boolean> {
+    this.store.dispatch(new RequestStaleAction(uuid));
+
+    return this.getByUUID(uuid).pipe(
+      map(request => isStale(request.state)),
+      filter(stale => stale === true),
+      take(1),
+    );
+  }
+
+  /**
    * Check if a GET request is in the cache or if it's still pending
    * @param {GetRequest} request The request to check
    * @param {boolean} useCachedVersionIfAvailable Whether or not to allow the use of a cached version
@@ -339,7 +354,7 @@ export class RequestService {
           .subscribe((entry: ObjectCacheEntry) => {
             // if the object cache has a match, check if the request that the object came with is
             // still valid
-            inObjCache = this.hasByUUID(entry.requestUUID);
+            inObjCache = this.hasByUUID(entry.requestUUIDs[0]);
           }).unsubscribe();
 
         // we should send the request if it isn't cached

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
-import { Observable, of as observableOf } from 'rxjs';
+import { combineLatest, from, Observable, of as observableOf } from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
@@ -12,7 +12,7 @@ import {
   takeWhile,
   switchMap,
   tap,
-  skipWhile,
+  skipWhile, toArray
 } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
@@ -25,7 +25,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getRemoteDataPayload, getFirstSucceededRemoteData, } from '../shared/operators';
+import { getRemoteDataPayload, getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { ChangeAnalyzer } from './change-analyzer';
 import { PaginatedList } from './paginated-list.model';
@@ -580,6 +580,37 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
   }
 
   /**
+   * Invalidate an existing DSpaceObject by marking all requests it is included in as stale
+   * @param   objectId The id of the object to be invalidated
+   * @return  An Observable that will emit `true` once all requests are stale
+   */
+  invalidate(objectId: string): Observable<boolean> {
+    return this.getIDHrefObs(objectId).pipe(
+      switchMap((href: string) => this.invalidateByHref(href))
+    );
+  }
+
+  /**
+   * Invalidate an existing DSpaceObject by marking all requests it is included in as stale
+   * @param   href The self link of the object to be invalidated
+   * @return  An Observable that will emit `true` once all requests are stale
+   */
+  invalidateByHref(href: string): Observable<boolean> {
+    return this.objectCache.getByHref(href).pipe(
+      map(oce => oce.requestUUIDs),
+      switchMap(requestUUIDs => {
+        return from(requestUUIDs).pipe(
+          mergeMap(requestUUID => this.requestService.setStaleByUUID(requestUUID)),
+          toArray(),
+        );
+      }),
+      map(areRequestsStale => areRequestsStale.every(Boolean)),
+      distinctUntilChanged(),
+      takeWhile(allStale => allStale === false, true),
+    );
+  }
+
+  /**
    * Delete an existing DSpace Object on the server
    * @param   objectId The id of the object to be removed
    * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
@@ -600,6 +631,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    *                            metadata should be saved as real metadata
    * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
    *          errorMessage, timeCompleted, etc
+   *          Only emits once all request related to the DSO has been invalidated.
    */
   deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     const requestId = this.requestService.generateRequestId();
@@ -618,7 +650,26 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     }
     this.requestService.send(request);
 
-    return this.rdbService.buildFromRequestUUID(requestId);
+    const response$ = this.rdbService.buildFromRequestUUID(requestId);
+
+    const invalidated$ = response$.pipe(
+      getFirstCompletedRemoteData(),
+      switchMap(rd => {
+        if (rd.hasSucceeded) {
+          return this.invalidateByHref(href);
+        } else {
+          return [true];
+        }
+      })
+    );
+
+    return combineLatest([response$, invalidated$]).pipe(
+      filter(([_, invalidated]) => invalidated),
+      tap(() => {
+        console.log(`DataService.deleteByHref() href=${href} done.`);
+      }),
+      map(([response, _]) => response),
+    );
   }
 
   /**

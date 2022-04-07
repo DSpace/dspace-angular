@@ -63,9 +63,11 @@ export class ObjectCacheEntry implements CacheEntry {
   msToLive: number;
 
   /**
-   * The UUID of the request that caused this entry to be added
+   * The UUIDs of the requests that caused this entry to be added
+   * New UUIDs should be added to the front of the array
+   * to make retrieving the latest UUID easier.
    */
-  requestUUID: string;
+  requestUUIDs: string[];
 
   /**
    * An array of patches that were made on the client side to this entry, but haven't been sent to the server yet
@@ -156,11 +158,11 @@ function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheActio
       data: action.payload.objectToCache,
       timeCompleted: action.payload.timeCompleted,
       msToLive: action.payload.msToLive,
-      requestUUID: action.payload.requestUUID,
+      requestUUIDs: [action.payload.requestUUID, ...(existing.requestUUIDs || [])],
       isDirty: isNotEmpty(existing.patches),
       patches: existing.patches || [],
       alternativeLinks: [...(existing.alternativeLinks || []), ...newAltLinks]
-    }
+    } as ObjectCacheEntry
   });
 }
 

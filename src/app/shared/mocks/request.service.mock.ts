@@ -13,6 +13,7 @@ export function getMockRequestService(requestEntry$: Observable<RequestEntry> = 
     isCachedOrPending: false,
     removeByHrefSubstring: observableOf(true),
     setStaleByHrefSubstring: observableOf(true),
+    setStaleByUUID: observableOf(true),
     hasByHref$: observableOf(false)
   });
 }

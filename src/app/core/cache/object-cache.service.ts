@@ -197,7 +197,7 @@ export class ObjectCacheService {
    */
   getRequestUUIDBySelfLink(selfLink: string): Observable<string> {
     return this.getByHref(selfLink).pipe(
-      map((entry: ObjectCacheEntry) => entry.requestUUID),
+      map((entry: ObjectCacheEntry) => entry.requestUUIDs[0]),
       distinctUntilChanged());
   }
 
@@ -282,7 +282,7 @@ export class ObjectCacheService {
     let result = false;
     this.getByHref(href).subscribe((entry: ObjectCacheEntry) => {
       if (isNotEmpty(requestUUID)) {
-        result = entry.requestUUID === requestUUID;
+        result = entry.requestUUIDs[0] === requestUUID;  // todo: may make more sense to do entry.requestUUIDs.includes(requestUUID) instead
       } else {
         result = true;
       }
