@@ -18,7 +18,6 @@ export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
   selector: 'ds-claimed-task-actions-approve',
   styleUrls: ['./claimed-task-actions-approve.component.scss'],
   templateUrl: './claimed-task-actions-approve.component.html',
-  preserveWhitespaces: true,
 })
 /**
  * Component for displaying and processing the approve action on a workflow task item

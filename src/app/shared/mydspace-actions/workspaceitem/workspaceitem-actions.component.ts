@@ -22,7 +22,6 @@ import { NoContent } from '../../../core/shared/NoContent.model';
   selector: 'ds-workspaceitem-actions',
   styleUrls: ['./workspaceitem-actions.component.scss'],
   templateUrl: './workspaceitem-actions.component.html',
-  preserveWhitespaces: true,
 })
 export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<WorkspaceItem, WorkspaceitemDataService> {
 

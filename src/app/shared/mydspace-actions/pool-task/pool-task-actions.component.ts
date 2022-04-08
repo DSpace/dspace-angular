@@ -27,7 +27,6 @@ import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-res
   selector: 'ds-pool-task-actions',
   styleUrls: ['./pool-task-actions.component.scss'],
   templateUrl: './pool-task-actions.component.html',
-  preserveWhitespaces: true,
 })
 export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent<PoolTask, PoolTaskDataService> implements OnDestroy {
 

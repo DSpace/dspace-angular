@@ -26,7 +26,6 @@ import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workf
   selector: 'ds-claimed-task-actions',
   styleUrls: ['./claimed-task-actions.component.scss'],
   templateUrl: './claimed-task-actions.component.html',
-  preserveWhitespaces: true,
 })
 export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<ClaimedTask, ClaimedTaskDataService> implements OnInit {
 
