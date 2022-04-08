@@ -54,6 +54,11 @@ export class ItemExportComponent implements OnInit {
    */
   bulkImportXlsCollectionSelector = [DSpaceObjectType.COLLECTION];
 
+  /**
+   * When true, export configurations have been loaded and the select field can be shown.
+   */
+  configurationLoaded = false;
+
   constructor(protected itemExportService: ItemExportService,
     protected router: Router,
     protected notificationsService: NotificationsService,
@@ -79,6 +84,7 @@ export class ItemExportComponent implements OnInit {
   }
 
   onEntityTypeChange(entityType: string) {
+    this.configurationLoaded = false;
     this.itemExportService.onSelectEntityType(this.configuration.entityTypes, entityType).pipe(take(1)).subscribe((configuration) => {
       this.configuration = configuration;
 
@@ -94,6 +100,8 @@ export class ItemExportComponent implements OnInit {
       this.configuration.formats.push(xlsConfigurationFormat);
 
       this.exportForm.controls.format.patchValue(this.configuration.format);
+
+      this.configurationLoaded = true;
     });
   }
 
