@@ -201,9 +201,6 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
 
   describe('when initialized and is relationship show the list of buttons', () => {
-    it('should show buttons container', () => {
-      expect(debugElement.query(By.css('.button-row'))).toBeTruthy();
-    });
     it('submit button should be disabled', () => {
       expect(debugElement.query(By.css('.submit')).nativeElement?.disabled).toBeTrue();
     });
