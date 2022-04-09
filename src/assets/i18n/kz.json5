@@ -2016,172 +2016,131 @@
   "forgot-password.form.card.security": "Қауіпсіздік",
   
   // "forgot-password.form.identification.header": "Identify",
-  // TODO New key - Add a translation
-  "forgot-password.form.identification.header": "Identify",
+  "forgot-password.form.identification.header": "Анықтау",
   
   // "forgot-password.form.identification.email": "Email address: ",
-  // TODO New key - Add a translation
-  "forgot-password.form.identification.email": "Email address: ",
+  "forgot-password.form.identification.email": "Электрондық пошта: ",
   
   // "forgot-password.form.label.password": "Password",
-  // TODO New key - Add a translation
-  "forgot-password.form.label.password": "Password",
+  "forgot-password.form.label.password": "Құпия сөз",
   
   // "forgot-password.form.label.passwordrepeat": "Retype to confirm",
-  // TODO New key - Add a translation
-  "forgot-password.form.label.passwordrepeat": "Retype to confirm",
+  "forgot-password.form.label.passwordrepeat": "Растау үшін қайта теріңіз",
   
   // "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
-  // TODO New key - Add a translation
-  "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
+  "forgot-password.form.error.empty-password": "Төмендегі ұяшыққа құпия сөзді енгізіңіз.",
   
   // "forgot-password.form.error.matching-passwords": "The passwords do not match.",
-  // TODO New key - Add a translation
-  "forgot-password.form.error.matching-passwords": "The passwords do not match.",
-  
+  "forgot-password.form.error.matching-passwords": "Құпия сөздер сәйкес келмейді.",
   // "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
-  // TODO New key - Add a translation
-  "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
+
+  "forgot-password.form.error.password-length":"Құпия сөз кемінде 6 таңбадан тұруы керек.",
   
   // "forgot-password.form.notification.error.title": "Error when trying to submit new password",
-  // TODO New key - Add a translation
-  "forgot-password.form.notification.error.title": "Error when trying to submit new password",
+  "forgot-password.form.notification.error.title": "Жаңа құпия сөзді жіберу әрекеті кезіндегі қате",
   
   // "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
-  // TODO New key - Add a translation
-  "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
-  
+  "forgot-password.form.notification.success.content": "Құпия сөзді қалпына келтіру сәтті аяқталды. Сіз құрылған пайдаланушы ретінде жүйеге кірдіңіз.",
+
   // "forgot-password.form.notification.success.title": "Password reset completed",
-  // TODO New key - Add a translation
-  "forgot-password.form.notification.success.title": "Password reset completed",
+  "forgot-password.form.notification.success.title": "Құпия сөзді қалпына келтіру аяқталды",
   
   // "forgot-password.form.submit": "Submit password",
-  // TODO New key - Add a translation
-  "forgot-password.form.submit": "Submit password",
+  "forgot-password.form.submit": "Құпия сөзді жіберу",
   
   
   
   // "form.add": "Add",
-  // TODO New key - Add a translation
-  "form.add": "Add",
+  "form.add": "Қосу",
   
   // "form.add-help": "Click here to add the current entry and to add another one",
-  // TODO New key - Add a translation
-  "form.add-help": "Click here to add the current entry and to add another one",
+  "form.add-help": "Ағымдағы жазбаны қосу және басқасын қосу үшін осы жерді басыңыз",
   
   // "form.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "form.cancel": "Cancel",
+  "form.cancel": "Бас тарту",
   
   // "form.clear": "Clear",
-  // TODO New key - Add a translation
-  "form.clear": "Clear",
+   "form.clear": "Түсінікті",
   
   // "form.clear-help": "Click here to remove the selected value",
-  // TODO New key - Add a translation
-  "form.clear-help": "Click here to remove the selected value",
+  "form.clear-help": "Таңдалған мәнді жою үшін осы жерді басыңыз",
   
   // "form.edit": "Edit",
-  // TODO New key - Add a translation
-  "form.edit": "Edit",
+  "form.edit": "Өзгерту",
   
   // "form.edit-help": "Click here to edit the selected value",
-  // TODO New key - Add a translation
-  "form.edit-help": "Click here to edit the selected value",
+  "form.edit-help": "Таңдалған мәнді өзгерту үшін осы жерді басыңыз",
   
   // "form.first-name": "First name",
-  // TODO New key - Add a translation
-  "form.first-name": "First name",
+  "form.first-name": "Есімі",
   
   // "form.group-collapse": "Collapse",
-  // TODO New key - Add a translation
-  "form.group-collapse": "Collapse",
+  "form.group-collapse": "Ықшамдау",
   
   // "form.group-collapse-help": "Click here to collapse",
-  // TODO New key - Add a translation
-  "form.group-collapse-help": "Click here to collapse",
+  "form.group-collapse-help": "Ықшамдау үшін осы жерді басыңыз",
   
   // "form.group-expand": "Expand",
-  // TODO New key - Add a translation
-  "form.group-expand": "Expand",
+  "form.group-expand": "Ретке келтіру",
   
   // "form.group-expand-help": "Click here to expand and add more elements",
-  // TODO New key - Add a translation
-  "form.group-expand-help": "Click here to expand and add more elements",
+  "form.group-expand-help": "Қосымша элементтерді кеңейту және қосу үшін мына жерді басыңыз",
   
   // "form.last-name": "Last name",
-  // TODO New key - Add a translation
-  "form.last-name": "Last name",
+  "form.last-name": "Тегі(Фамилия)",
   
   // "form.loading": "Loading...",
-  // TODO New key - Add a translation
-  "form.loading": "Loading...",
+  "form.loading": "Жүктелуде...",
   
   // "form.lookup": "Lookup",
-  // TODO New key - Add a translation
-  "form.lookup": "Lookup",
+  "form.lookup": "Іздеу",
   
   // "form.lookup-help": "Click here to look up an existing relation",
-  // TODO New key - Add a translation
-  "form.lookup-help": "Click here to look up an existing relation",
+  "form.lookup-help": "Қазіргі қатынасты іздеу/көру үшін осы жерді басыңыз",
   
   // "form.no-results": "No results found",
-  // TODO New key - Add a translation
-  "form.no-results": "No results found",
+  "form.no-results": "Нәтижесіз",
   
   // "form.no-value": "No value entered",
-  // TODO New key - Add a translation
-  "form.no-value": "No value entered",
+  "form.no-value": "Мәні енгізілмеді",
   
   // "form.other-information": {},
-  // TODO New key - Add a translation
   "form.other-information": {},
   
   // "form.remove": "Remove",
-  // TODO New key - Add a translation
-  "form.remove": "Remove",
+  "form.remove": "Өшіру",
   
   // "form.save": "Save",
-  // TODO New key - Add a translation
-  "form.save": "Save",
+  "form.save": "Сақтау",
   
   // "form.save-help": "Save changes",
-  // TODO New key - Add a translation
-  "form.save-help": "Save changes",
+  "form.save-help": "Өзгерістерді сақтау",
   
   // "form.search": "Search",
-  // TODO New key - Add a translation
-  "form.search": "Search",
+  "form.search": "Іздеу",
   
   // "form.search-help": "Click here to look for an existing correspondence",
-  // TODO New key - Add a translation
-  "form.search-help": "Click here to look for an existing correspondence",
+  "form.search-help": "Хат алмасуды табу үшін мына жерді басыңыз",
   
   // "form.submit": "Submit",
-  // TODO New key - Add a translation
-  "form.submit": "Submit",
+  "form.submit": "Жіберу",
   
   
   
   // "home.description": "",
-  // TODO New key - Add a translation
   "home.description": "",
   
   // "home.breadcrumbs": "Home",
-  // TODO New key - Add a translation
-  "home.breadcrumbs": "Home",
+  "home.breadcrumbs": "Басты",
   
   // "home.title": "DSpace Angular :: Home",
-  // TODO New key - Add a translation
-  "home.title": "DSpace Angular :: Home",
+  "home.title": "DSpace Angular :: Басты»,
   
   // "home.top-level-communities.head": "Communities in DSpace",
-  // TODO New key - Add a translation
-  "home.top-level-communities.head": "Communities in DSpace",
+  "home.top-level-communities.head": "DSpace-тегі қауымдастықтар",
   
   // "home.top-level-communities.help": "Select a community to browse its collections.",
-  // TODO New key - Add a translation
-  "home.top-level-communities.help": "Select a community to browse its collections.",
+  "home.top-level-communities.help": "Оның жинақтарын шолу үшін қауымдастықты таңдаңыз.",
   
   
   
