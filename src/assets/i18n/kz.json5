@@ -1,8 +1,7 @@
 {
   
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
-  // TODO New key - Add a translation
-  "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
+  "401.help": "Сіз бұл бетке өтуге тіркелемегенсіз. Басты бетке оралу үшін төмендегі батырманы пайдалануға болады",
   
   // "401.link.home-page": "Take me to the home page",
   "401.link.home-page": "Басты бетке өту",
@@ -1436,163 +1435,126 @@
   "collection.source.update.notifications.error.content": "Берілген параметрлер тексерілді және жұмыс істемеді.",
   
   // "collection.source.update.notifications.error.title": "Server Error",
-  // TODO New key - Add a translation
   "collection.source.update.notifications.error.title": "Сервер қатесі",
   
   
   
   // "communityList.tabTitle": "DSpace - Community List",
-  // TODO New key - Add a translation
-  "communityList.tabTitle": "DSpace - Community List",
+  "communityList.tabTitle": "DSpace - Қауымдастық Тізімі",
   
   // "communityList.title": "List of Communities",
-  // TODO New key - Add a translation
-  "communityList.title": "List of Communities",
+  "communityList.title": "Қауымдастықтар Тізімі",
   
   // "communityList.showMore": "Show More",
-  // TODO New key - Add a translation
-  "communityList.showMore": "Show More",
+  "communityList.showMore": "Көбірек Көрсету",
   
   
   
   // "community.create.head": "Create a Community",
-  // TODO New key - Add a translation
-  "community.create.head": "Create a Community",
+  "community.create.head": "Қауымдастық Құру",
   
   // "community.create.notifications.success": "Successfully created the Community",
-  // TODO New key - Add a translation
-  "community.create.notifications.success": "Successfully created the Community",
+  "community.create.notifications.success": "Қауымдастық Сәтті құрылды",
   
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
-  // TODO New key - Add a translation
-  "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
+  "community.create.sub-head": "Қауымдастық үшін Қосалқы Қауымдастық Жасаңыз {{ parent }}",
   
   // "community.curate.header": "Curate Community: {{community}}",
-  // TODO New key - Add a translation
-  "community.curate.header": "Curate Community: {{community}}",
+  "community.curate.header": "Кураторлық Қауымдастық: {{community}}",
   
   // "community.delete.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "community.delete.cancel": "Cancel",
+  "community.delete.cancel": "Бас тарту",
   
   // "community.delete.confirm": "Confirm",
-  // TODO New key - Add a translation
-  "community.delete.confirm": "Confirm",
+  "community.delete.confirm": "Растау",
   
   // "community.delete.head": "Delete Community",
-  // TODO New key - Add a translation
-  "community.delete.head": "Delete Community",
+  "community.delete.head": "Қауымдастықты Жою",
   
   // "community.delete.notification.fail": "Community could not be deleted",
-  // TODO New key - Add a translation
-  "community.delete.notification.fail": "Community could not be deleted",
+  "community.delete.notification.fail": "Қауымдастықты жою мүмкін емес",
   
   // "community.delete.notification.success": "Successfully deleted community",
-  // TODO New key - Add a translation
-  "community.delete.notification.success": "Successfully deleted community",
+  "community.delete.notification.success": "Қауымдастық сәтті жойылды",
   
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
-  // TODO New key - Add a translation
-  "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
+  "community.delete.text": "Қауымдастықты жойғыңыз келетініне сенімдісіз бе \"{{ dso }}\"",
   
   // "community.edit.delete": "Delete this community",
-  // TODO New key - Add a translation
-  "community.edit.delete": "Delete this community",
+  "community.edit.delete": "Бұл қауымдастықты жойыңыз",
   
   // "community.edit.head": "Edit Community",
-  // TODO New key - Add a translation
-  "community.edit.head": "Edit Community",
+  "community.edit.head": "Қауымдастықты Өзгерту",
   
   // "community.edit.breadcrumbs": "Edit Community",
-  // TODO New key - Add a translation
   "community.edit.breadcrumbs": "Edit Community",
   
   
   // "community.edit.logo.label": "Community logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.label": "Community logo",
+  "community.edit.logo.label": "Қауымдастық логотипі",
   
   // "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
+  "community.edit.logo.notifications.add.error": "Қауымдастық логотипін жүктеу мүмкін емес. Қайта қолданар алдында мазмұның тексеріңіз.",
   
   // "community.edit.logo.notifications.add.success": "Upload Community logo successful.",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.add.success": "Upload Community logo successful.",
+  "community.edit.logo.notifications.add.success": "Қауымдастық логотипін жүктеу сәтті өтті.",
   
   // "community.edit.logo.notifications.delete.success.title": "Logo deleted",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.delete.success.title": "Logo deleted",
+  "community.edit.logo.notifications.delete.success.title": "Логотип жойылды",
   
   // "community.edit.logo.notifications.delete.success.content": "Successfully deleted the community's logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.delete.success.content": "Successfully deleted the community's logo",
+  "community.edit.logo.notifications.delete.success.content": "Қауымдастық логотипі сәтті жойылды",
   
   // "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
+  "community.edit.logo.notifications.delete.error.title": "Логотипті жою қатесі",
   
   // "community.edit.logo.upload": "Drop a Community Logo to upload",
-  // TODO New key - Add a translation
-  "community.edit.logo.upload": "Drop a Community Logo to upload",
+  "community.edit.logo.upload": "Жүктеу үшін Қауымдастық Логотипін жойыңыз",
   
   
   
-  // "community.edit.notifications.success": "Successfully edited the Community",
-  // TODO New key - Add a translation
-  "community.edit.notifications.success": "Successfully edited the Community",
+    // "community.edit.notifications.success": "Successfully edited the Community",
+  "community.edit.notifications.success": "Сәтті өзгертілген Қауымдастық",
   
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
-  // TODO New key - Add a translation
-  "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
+  "community.edit.notifications.unauthorized": "Бұл өзгерісті жасауға Сіздің құқығыңыз жоқ",
   
   // "community.edit.notifications.error": "An error occured while editing the Community",
-  // TODO New key - Add a translation
-  "community.edit.notifications.error": "An error occured while editing the Community",
+  "community.edit.notifications.error": "Қауымдастықты өзгерту кезінде қате орын алды",
   
   // "community.edit.return": "Return",
-  // TODO New key - Add a translation
-  "community.edit.return": "Return",
+  "community.edit.return": "Қайтару",
   
   
   
   // "community.edit.tabs.curate.head": "Curate",
-  // TODO New key - Add a translation
-  "community.edit.tabs.curate.head": "Curate",
+  "community.edit.tabs.curate.head": "Куратор",
   
   // "community.edit.tabs.curate.title": "Community Edit - Curate",
-  // TODO New key - Add a translation
-  "community.edit.tabs.curate.title": "Community Edit - Curate",
+  "community.edit.tabs.curate.title": "Қауымдастық Өзгерту - Куратор",
   
   // "community.edit.tabs.metadata.head": "Edit Metadata",
-  // TODO New key - Add a translation
-  "community.edit.tabs.metadata.head": "Edit Metadata",
+  "community.edit.tabs.metadata.head": "Метадеректерді Өзгерту",
   
   // "community.edit.tabs.metadata.title": "Community Edit - Metadata",
-  // TODO New key - Add a translation
-  "community.edit.tabs.metadata.title": "Community Edit - Metadata",
+  "community.edit.tabs.metadata.title": "Қауымдастықты Өзгерту-Метадеректер",
   
   // "community.edit.tabs.roles.head": "Assign Roles",
-  // TODO New key - Add a translation
-  "community.edit.tabs.roles.head": "Assign Roles",
+  "community.edit.tabs.roles.head": "Рөлдерді Бөлу",
   
   // "community.edit.tabs.roles.title": "Community Edit - Roles",
-  // TODO New key - Add a translation
-  "community.edit.tabs.roles.title": "Community Edit - Roles",
+  "community.edit.tabs.roles.title": "Қауымдастықты Өзгерту - Рөлдер",
   
   // "community.edit.tabs.authorizations.head": "Authorizations",
-  // TODO New key - Add a translation
-  "community.edit.tabs.authorizations.head": "Authorizations",
+  "community.edit.tabs.authorizations.head": "Рұқсаттар",
   
   // "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
-  // TODO New key - Add a translation
-  "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
+  "community.edit.tabs.authorizations.title": "Қауымдастықты Өзгерту - Рұқсаттар",
   
   
   
   // "community.listelement.badge": "Community",
-  // TODO New key - Add a translation
-  "community.listelement.badge": "Community",
+  "community.listelement.badge": "Қауымдастық",
   
   
   
@@ -1695,56 +1657,43 @@
   
   
   // "community.form.abstract": "Short Description",
-  // TODO New key - Add a translation
-  "community.form.abstract": "Short Description",
+  "community.form.abstract": "Қысқаша Сипаттамасы",
   
   // "community.form.description": "Introductory text (HTML)",
-  // TODO New key - Add a translation
-  "community.form.description": "Introductory text (HTML)",
+  "community.form.description": "Кіріспе мәтін (HTML)",
   
   // "community.form.errors.title.required": "Please enter a community name",
-  // TODO New key - Add a translation
-  "community.form.errors.title.required": "Please enter a community name",
+  "community.form.errors.title.required": "Қауымдастық атын енгізіңіз",
   
   // "community.form.rights": "Copyright text (HTML)",
-  // TODO New key - Add a translation
-  "community.form.rights": "Copyright text (HTML)",
+  "community.form.rights": "Авторлық мәтін (HTML)",
   
   // "community.form.tableofcontents": "News (HTML)",
-  // TODO New key - Add a translation
-  "community.form.tableofcontents": "News (HTML)",
+  "community.form.tableofcontents": "Жаңалықтар (HTML)",
   
   // "community.form.title": "Name",
-  // TODO New key - Add a translation
-  "community.form.title": "Name",
+  "community.form.title": "Атауы",
   
   // "community.page.edit": "Edit this community",
-  // TODO New key - Add a translation
-  "community.page.edit": "Edit this community",
+  "community.page.edit": "Қауымдастықты өзгерту",
   
   // "community.page.handle": "Permanent URI for this community",
-  // TODO New key - Add a translation
-  "community.page.handle": "Permanent URI for this community",
+  "community.page.handle": "Осы қауымдастық үшін Тұрақты URI",
   
   // "community.page.license": "License",
-  // TODO New key - Add a translation
-  "community.page.license": "License",
+  "community.page.license": "Лицензия",
   
   // "community.page.news": "News",
-  // TODO New key - Add a translation
-  "community.page.news": "News",
+  "community.page.news": "Жаңалықтыр",
   
   // "community.all-lists.head": "Subcommunities and Collections",
-  // TODO New key - Add a translation
-  "community.all-lists.head": "Subcommunities and Collections",
+  "community.all-lists.head": "Қосалқы қауымдамтықтар мен топтамалар",
   
   // "community.sub-collection-list.head": "Collections of this Community",
-  // TODO New key - Add a translation
-  "community.sub-collection-list.head": "Collections of this Community",
+  "community.sub-collection-list.head": "Қауымдастық Топтамалары",
   
   // "community.sub-community-list.head": "Communities of this Community",
-  // TODO New key - Add a translation
-  "community.sub-community-list.head": "Communities of this Community",
+  "community.sub-community-list.head": "Осы қоғамдастық шеңберіндегі қауымдастықтар",
   
   
   
@@ -1819,327 +1768,252 @@
   
   
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  // TODO New key - Add a translation
-  "curation-task.task.checklinks.label":  "Check Links in Metadata",
+  "curation-task.task.checklinks.label":  "Метадеректердегі Сілтемелерді Тексеріңіз",
   
   // "curation-task.task.noop.label": "NOOP",
-  // TODO New key - Add a translation
-  "curation-task.task.noop.label": "NOOP",
+  "curation-task.task.noop.label": "NOOP бағдарлама тілі",
   
   // "curation-task.task.profileformats.label": "Profile Bitstream Formats",
-  // TODO New key - Add a translation
-  "curation-task.task.profileformats.label": "Profile Bitstream Formats",
+  "curation-task.task.profileformats.label": "Бит ағыны Профильдерінің Форматы",
   
   // "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
-  // TODO New key - Add a translation
-  "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
+  "curation-task.task.requiredmetadata.label": "Қажетті Деректерді Тексеріңіз",
   
   // "curation-task.task.translate.label": "Microsoft Translator",
-  // TODO New key - Add a translation
-  "curation-task.task.translate.label": "Microsoft Translator",
+  "curation-task.task.translate.label": "Microsoft Аудармашысы",
   
   // "curation-task.task.vscan.label": "Virus Scan",
-  // TODO New key - Add a translation
-  "curation-task.task.vscan.label": "Virus Scan",
+  "curation-task.task.vscan.label": "Вирустарды тексеру",
   
   
   
   // "curation.form.task-select.label": "Task:",
-  // TODO New key - Add a translation
-  "curation.form.task-select.label": "Task:",
+  "curation.form.task-select.label": "Міндет(Тапсырма):",
   
   // "curation.form.submit": "Start",
-  // TODO New key - Add a translation
-  "curation.form.submit": "Start",
+  "curation.form.submit": "Бастау",
   
   // "curation.form.submit.success.head": "The curation task has been started successfully",
-  // TODO New key - Add a translation
-  "curation.form.submit.success.head": "The curation task has been started successfully",
+  "curation.form.submit.success.head": "Кураторлық(Жетекшілік) міндет сәтті басталды",
   
   // "curation.form.submit.success.content": "You will be redirected to the corresponding process page.",
-  // TODO New key - Add a translation
-  "curation.form.submit.success.content": "You will be redirected to the corresponding process page.",
+  "curation.form.submit.success.content": "Сіз процестің тиісті бетіне қайта бағытталасыз.",
   
   // "curation.form.submit.error.head": "Running the curation task failed",
-  // TODO New key - Add a translation
-  "curation.form.submit.error.head": "Running the curation task failed",
+  "curation.form.submit.error.head": "Кураторлық(Жетекшілік) тапсырманы орындау мүмкін емес",
   
   // "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
-  // TODO New key - Add a translation
-  "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+  "curation.form.submit.error.content": "Тапсырманы іске қосу кезіндегі қателік.",
   
   // "curation.form.handle.label": "Handle:",
-  // TODO New key - Add a translation
-  "curation.form.handle.label": "Handle:",
+  "curation.form.handle.label": "Қалам:",
   
   // "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
-  // TODO New key - Add a translation
-  "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
+  "curation.form.handle.hint": "Кеңес: Енгізіңіз [your-handle-prefix]/0 бүкіл сайт бойынша тапсырманы орындау үшін(барлық тапсырмалар бұл мүмкіндікті қолдамауы мүмкін)",
   
   
   
   // "dso-selector.create.collection.head": "New collection",
-  // TODO New key - Add a translation
-  "dso-selector.create.collection.head": "New collection",
+  "dso-selector.create.collection.head": "Жаңа топтама",
   
   // "dso-selector.create.collection.sub-level": "Create a new collection in",
-  // TODO New key - Add a translation
-  "dso-selector.create.collection.sub-level": "Create a new collection in",
+  "dso-selector.create.collection.sub-level": "Жаңа топтама жасаңыз",
   
   // "dso-selector.create.community.head": "New community",
-  // TODO New key - Add a translation
-  "dso-selector.create.community.head": "New community",
+  "dso-selector.create.community.head": "Жаңа қауымдастық",
   
   // "dso-selector.create.community.sub-level": "Create a new community in",
-  // TODO New key - Add a translation
-  "dso-selector.create.community.sub-level": "Create a new community in",
+  "dso-selector.create.community.sub-level": "Жаңңа қауымдастық жасаңыз",
   
   // "dso-selector.create.community.top-level": "Create a new top-level community",
-  // TODO New key - Add a translation
-  "dso-selector.create.community.top-level": "Create a new top-level community",
+  "dso-selector.create.community.top-level": "Жаңа жоғары деңгейлі қауымдастық құрыңыз",
   
   // "dso-selector.create.item.head": "New item",
-  // TODO New key - Add a translation
-  "dso-selector.create.item.head": "New item",
+  "dso-selector.create.item.head": "Жаңа элемент",
   
   // "dso-selector.create.item.sub-level": "Create a new item in",
-  // TODO New key - Add a translation
-  "dso-selector.create.item.sub-level": "Create a new item in",
+  "dso-selector.create.item.sub-level": "Жаңа элемент жасаңыз",
   
   // "dso-selector.create.submission.head": "New submission",
-  // TODO New key - Add a translation
-  "dso-selector.create.submission.head": "New submission",
+  "dso-selector.create.submission.head": "Жаңа өтініш",
   
   // "dso-selector.edit.collection.head": "Edit collection",
-  // TODO New key - Add a translation
-  "dso-selector.edit.collection.head": "Edit collection",
+  "dso-selector.edit.collection.head": "Топтаманы өзгерту",
   
   // "dso-selector.edit.community.head": "Edit community",
-  // TODO New key - Add a translation
-  "dso-selector.edit.community.head": "Edit community",
+  "dso-selector.edit.community.head": "Қауымдастықты өзгерту",
   
   // "dso-selector.edit.item.head": "Edit item",
-  // TODO New key - Add a translation
-  "dso-selector.edit.item.head": "Edit item",
+  "dso-selector.edit.item.head": "Элементті өзгерту",
   
   // "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
-  // TODO New key - Add a translation
-  "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
+  "dso-selector.export-metadata.dspaceobject.head": "Метадеректерді экспорттау",
   
   // "dso-selector.no-results": "No {{ type }} found",
-  // TODO New key - Add a translation
-  "dso-selector.no-results": "No {{ type }} found",
-  
+  "dso-selector.no-results": "Табылған жоқ {{ type }}",
+ 
   // "dso-selector.placeholder": "Search for a {{ type }}",
-  // TODO New key - Add a translation
-  "dso-selector.placeholder": "Search for a {{ type }}",
+  "dso-selector.placeholder": "{{ type }} іздеу",
   
   
   
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
-  // TODO New key - Add a translation
-  "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
+  "confirmation-modal.export-metadata.header": "{{ dsoName }} метадеректерін экспорттау",
   
   // "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
-  // TODO New key - Add a translation
-  "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
-  
+  "confirmation-modal.export-metadata.info": "{{ dsoName }} метадеректерін экспорттағыңыз келетініне сенімдісіз бе",
+
   // "confirmation-modal.export-metadata.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "confirmation-modal.export-metadata.cancel": "Cancel",
+  "confirmation-modal.export-metadata.cancel":"Болдырмау",
   
   // "confirmation-modal.export-metadata.confirm": "Export",
-  // TODO New key - Add a translation
-  "confirmation-modal.export-metadata.confirm": "Export",
+  "confirmation-modal.export-metadata.confirm":"Экспорт",
   
   // "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
+ "confirmation-modal.delete-eperson.header": "EPerson \"{{ dsoName }}\" жою,
   
   // "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
+
+  "confirmation-modal.delete-eperson.info": "EPerson \"{{ dsoName }}\ қолданбасын жойғыңыз келетініне сенімдісіз бе"",
   
   // "confirmation-modal.delete-eperson.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-eperson.cancel": "Cancel",
+  
+  "confirmation-modal.delete-eperson.cancel": "Болдырмау",
   
   // "confirmation-modal.delete-eperson.confirm": "Delete",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-eperson.confirm": "Delete",
+  "confirmation-modal.delete-eperson.confirm": "Жою",
   
   
   // "error.bitstream": "Error fetching bitstream",
-  // TODO New key - Add a translation
-  "error.bitstream": "Error fetching bitstream",
+  "error.bitstream": "Бақыттық ағынды алу қатесі",
   
   // "error.browse-by": "Error fetching items",
-  // TODO New key - Add a translation
-  "error.browse-by": "Error fetching items",
+  "error.browse-by": "Элементтерді алу қатесі",
   
   // "error.collection": "Error fetching collection",
-  // TODO New key - Add a translation
-  "error.collection": "Error fetching collection",
+  "error.collection": "Жинауды алу қатесі",
   
   // "error.collections": "Error fetching collections",
-  // TODO New key - Add a translation
-  "error.collections": "Error fetching collections",
+  "error.collections": "Жинақтарды алу қатесі",
   
   // "error.community": "Error fetching community",
-  // TODO New key - Add a translation
-  "error.community": "Error fetching community",
+  "error.community": "Қауымдастықты алу қатесі",
   
   // "error.identifier": "No item found for the identifier",
-  // TODO New key - Add a translation
-  "error.identifier": "No item found for the identifier",
+  "error.identifier": "Идентификатор үшін ешбір элемент табылмады",
   
   // "error.default": "Error",
-  // TODO New key - Add a translation
-  "error.default": "Error",
+  "error.default": "Қате",
   
   // "error.item": "Error fetching item",
-  // TODO New key - Add a translation
-  "error.item": "Error fetching item",
-  
+  "error.item": "Элементті алу қатесі",
+ 
   // "error.items": "Error fetching items",
-  // TODO New key - Add a translation
-  "error.items": "Error fetching items",
+  "error.items": "Элементтерді алу қатесі",
   
   // "error.objects": "Error fetching objects",
-  // TODO New key - Add a translation
-  "error.objects": "Error fetching objects",
+  "error.objects":"Нысандарды алу қатесі",
   
   // "error.recent-submissions": "Error fetching recent submissions",
-  // TODO New key - Add a translation
-  "error.recent-submissions": "Error fetching recent submissions",
+  "error.recent-submissions":"Соңғы жіберілімдерді алу қатесі",
   
   // "error.search-results": "Error fetching search results",
-  // TODO New key - Add a translation
-  "error.search-results": "Error fetching search results",
+  "error.search-results": "Іздеу нәтижелерін алу қатесі",
   
   // "error.sub-collections": "Error fetching sub-collections",
-  // TODO New key - Add a translation
-  "error.sub-collections": "Error fetching sub-collections",
+  "error.sub-collections":"Ішкі жинақтарды алу қатесі",
   
   // "error.sub-communities": "Error fetching sub-communities",
-  // TODO New key - Add a translation
-  "error.sub-communities": "Error fetching sub-communities",
+  "error.sub-communities": "Қосымша қауымдастықтарды алу қатесі",
   
   // "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
-  // TODO New key - Add a translation
-  "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
+  "error.submission.sections.init-form-error":"Бөлімді инициализациялау кезінде қате орын алды, енгізу пішінінің конфигурациясын тексеріңіз. Мәліметтер төменде берілген: <br> <br>",
   
-  // "error.top-level-communities": "Error fetching top-level communities",
-  // TODO New key - Add a translation
-  "error.top-level-communities": "Error fetching top-level communities",
+  // "error.top-level-communities": "Error fetching top-level communities", 
+  "error.top-level-communities": "Жоғары деңгейлі қауымдастықтарды алу қатесі",
+
+  // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.", 
+  "error.validation.license.notgranted": "Жіберуді аяқтау үшін осы лицензияны беруіңіз керек. Бұл лицензияны қазір бере алмасаңыз, жұмысыңызды сақтап, кейінірек оралуыңызға немесе жіберуді жоюға болады.",
   
-  // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  // TODO New key - Add a translation
-  "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  
-  // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
-  // TODO New key - Add a translation
-  "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
+  // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",  
+  "error.validation.pattern": "Бұл енгізу ағымдағы үлгімен шектелген: {{ үлгі }}.",
   
   // "error.validation.filerequired": "The file upload is mandatory",
-  // TODO New key - Add a translation
-  "error.validation.filerequired": "The file upload is mandatory",
+  "error.validation.filerequired": "Файлды жүктеп салу міндетті",
   
   
   
   // "file-section.error.header": "Error obtaining files for this item",
-  // TODO New key - Add a translation
-  "file-section.error.header": "Error obtaining files for this item",
+  "file-section.error.header": "Осы элемент үшін файлдарды алу қатесі",
   
   
   
   // "footer.copyright": "copyright © 2002-{{ year }}",
-  // TODO New key - Add a translation
-  "footer.copyright": "copyright © 2002-{{ year }}",
+  "footer.copyright": "Авторлық құқық © 2002-{{ year }}",
   
   // "footer.link.dspace": "DSpace software",
-  // TODO New key - Add a translation
-  "footer.link.dspace": "DSpace software",
+  "footer.link.dspace": "DSpace бағдарламалық құралы",
   
   // "footer.link.lyrasis": "LYRASIS",
-  // TODO New key - Add a translation
   "footer.link.lyrasis": "LYRASIS",
   
   // "footer.link.cookies": "Cookie settings",
-  // TODO New key - Add a translation
-  "footer.link.cookies": "Cookie settings",
+  "footer.link.cookies": "Cookie параметрлері",
   
   // "footer.link.privacy-policy": "Privacy policy",
-  // TODO New key - Add a translation
-  "footer.link.privacy-policy": "Privacy policy",
+  "footer.link.privacy-policy": "Құпиялылық саясаты",
   
   // "footer.link.end-user-agreement":"End User Agreement",
-  // TODO New key - Add a translation
-  "footer.link.end-user-agreement":"End User Agreement",
+  "footer.link.end-user-agreement":"Соңғы пайдаланушы келісімі",
   
   
   
   // "forgot-email.form.header": "Forgot Password",
-  // TODO New key - Add a translation
-  "forgot-email.form.header": "Forgot Password",
+  "forgot-email.form.header": "Парольді Ұмыттыңыз Ба",
   
   // "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
-  // TODO New key - Add a translation
-  "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
+  "forgot-email.form.info": "Электрондық пошта жаңартуларына арналған жинақтарға жазылу және DSpace қызметіне жаңа элементтерді жіберу үшін тіркелгіні тіркеңіз.",
   
   // "forgot-email.form.email": "Email Address *",
-  // TODO New key - Add a translation
-  "forgot-email.form.email": "Email Address *",
+  "forgot-email.form.email": "Электрондық пошта *",
   
   // "forgot-email.form.email.error.required": "Please fill in an email address",
-  // TODO New key - Add a translation
-  "forgot-email.form.email.error.required": "Please fill in an email address",
+  "forgot-email.form.email.error.required": "Электрондық пошта мекенжайын толтырыңыз",
   
   // "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
-  // TODO New key - Add a translation
-  "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
+  "forgot-email.form.email.error.pattern": "Жарамды электрондық пошта мекенжайын толтырыңыз",
   
   // "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
-  // TODO New key - Add a translation
-  "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
+  "forgot-email.form.email.hint": "Бұл мекенжай тексеріледі және сіздің логин атыңыз ретінде пайдаланылады.",
   
   // "forgot-email.form.submit": "Submit",
-  // TODO New key - Add a translation
-  "forgot-email.form.submit": "Submit",
+  "forgot-email.form.submit": "Жіберу",
   
   // "forgot-email.form.success.head": "Verification email sent",
-  // TODO New key - Add a translation
-  "forgot-email.form.success.head": "Verification email sent",
+  "forgot-email.form.success.head": "Растау электрондық поштасы жіберілді",
   
   // "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
-  // TODO New key - Add a translation
-  "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
+  "forgot-email.form.success.content": "Арнайы URL мекенжайы және қосымша нұсқаулары бар электрондық пошта {{ email }} мекенжайына жіберілді.",
   
   // "forgot-email.form.error.head": "Error when trying to register email",
-  // TODO New key - Add a translation
-  "forgot-email.form.error.head": "Error when trying to register email",
+  "forgot-email.form.error.head": "Электрондық поштаны тіркеу кезіндегі қате",
   
   // "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
-  // TODO New key - Add a translation
-  "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
+  "forgot-email.form.error.content": "Келесі электрондық пошта мекенжайын тіркеу кезінде қате орын алды: {{ email }}",
   
   
   
   // "forgot-password.title": "Forgot Password",
-  // TODO New key - Add a translation
-  "forgot-password.title": "Forgot Password",
+  "forgot-password.title": "Құпия сөзді ұмыттыңыз ба",
   
   // "forgot-password.form.head": "Forgot Password",
-  // TODO New key - Add a translation
-  "forgot-password.form.head": "Forgot Password",
+  "forgot-password.form.head": "Құпия сөзді ұмыттыңыз ба",
   
   // "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  // TODO New key - Add a translation
-  "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "forgot-password.form.info": "Төмендегі жолаққа жаңа құпия сөзді енгізіп, оны екінші жолаққа қайта теру арқылы растаңыз. Оның ұзындығы кемінде алты таңба болуы керек.",
   
   // "forgot-password.form.card.security": "Security",
-  // TODO New key - Add a translation
-  "forgot-password.form.card.security": "Security",
+  "forgot-password.form.card.security": "Қауіпсіздік",
   
   // "forgot-password.form.identification.header": "Identify",
   // TODO New key - Add a translation
