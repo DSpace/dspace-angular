@@ -1,0 +1,22 @@
+name: New issue assign
+on:
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened]
+    
+env:
+  MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+
+jobs:
+  assign_one_project:
+    runs-on: ubuntu-latest
+    name: Assign to One Project
+    steps:
+    - uses: actions/checkout@v3
+    - name: Assign NEW issues to dspace-project
+      uses: ./.github/actions/project-management-action
+      if: github.event.action == 'opened'
+      with:
+        project: 'https://github.com/orgs/dataquest-dev/projects/6'
+        column_name: 'To do'
