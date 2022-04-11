@@ -2583,6 +2583,9 @@
   "menu.section.workflow": "Administer Workflow",
 
 
+  "metadata-export-search-csl.tooltip": "Export search results in various bibliographic formats",
+
+
   "mydspace.breadcrumbs": "MyDSpace",
 
   "mydspace.description": "",

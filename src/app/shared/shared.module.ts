@@ -173,6 +173,9 @@ import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-p
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
+import { SearchExportCslComponent } from './search/search-export-csl/search-export-csl.component';
+
+
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -284,6 +287,7 @@ const COMPONENTS = [
 
   CollectionSearchResultGridElementComponent,
   CommunitySearchResultGridElementComponent,
+  SearchExportCslComponent,
   PageSizeSelectorComponent,
   ListableObjectComponentLoaderComponent,
   CollectionListElementComponent,
