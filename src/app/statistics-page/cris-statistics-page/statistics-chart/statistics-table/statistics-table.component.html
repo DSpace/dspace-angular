@@ -14,7 +14,7 @@
     <tbody>
       <tr>
         <th scope="col" *ngFor="let header of headers" class="{{header}}-header">
-          {{ header }}
+          {{ 'statistics.table.' + categoryType + '.header.' + header | translate }}
         </th>
       </tr>
 

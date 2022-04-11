@@ -85,6 +85,7 @@ describe('StatisticsTableComponent', () => {
       providers: [
         { provide: REPORT_DATA, useValue: report},
         { provide: ExportService, useValue: ExportServiceStub},
+        { provide: 'categoryType', useValue: 'mainReports' },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(StatisticsTableComponent, {
@@ -133,9 +134,9 @@ describe('StatisticsTableComponent', () => {
       expect(de.query(By.css('table'))).toBeTruthy();
 
       expect(de.query(By.css('th.country-header')).nativeElement.innerText)
-        .toEqual('country');
+        .toEqual('statistics.table.mainReports.header.country');
       expect(de.query(By.css('th.views-header')).nativeElement.innerText)
-        .toEqual('views');
+        .toEqual('statistics.table.mainReports.header.views');
 
       expect(de.query(By.css('td.US-views-data')).nativeElement.innerText)
         .toEqual('2');

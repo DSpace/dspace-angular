@@ -57,6 +57,7 @@ describe('StatisticsChartDataComponent', () => {
       providers: [
         { provide: REPORT_DATA, useValue: report },
         { provide: ExportService, useValue: ExportServiceStub},
+        { provide: 'categoryType', useValue: 'mainReports' },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(StatisticsChartDataComponent, {

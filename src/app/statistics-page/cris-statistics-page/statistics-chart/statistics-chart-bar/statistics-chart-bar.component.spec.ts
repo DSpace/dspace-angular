@@ -64,6 +64,7 @@ describe('StatisticsChartBarComponent', () => {
       providers: [
         { provide: REPORT_DATA, useValue: selectedReport },
         { provide: ExportService, useValue: exportServiceStub },
+        { provide: 'categoryType', useValue: 'mainReports' },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
