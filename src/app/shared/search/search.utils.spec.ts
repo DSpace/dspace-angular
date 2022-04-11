@@ -50,8 +50,17 @@ describe('Search Utils', () => {
   });
 
   describe('stripOperatorFromFilterValue', () => {
-    it('should strip the operator from the value', () => {
-      expect(stripOperatorFromFilterValue('value,operator')).toEqual('value');
+    it('should strip equals operator from the value', () => {
+      expect(stripOperatorFromFilterValue('value,equals')).toEqual('value');
+    });
+    it('should strip query operator from the value', () => {
+      expect(stripOperatorFromFilterValue('value,query')).toEqual('value');
+    });
+    it('should strip authority operator from the value', () => {
+      expect(stripOperatorFromFilterValue('value,authority')).toEqual('value');
+    });
+    it('should not strip a the part after the last , from a value if it isn\'t a valid operator', () => {
+      expect(stripOperatorFromFilterValue('value,invalid_operator')).toEqual('value,invalid_operator');
     });
   });
 
