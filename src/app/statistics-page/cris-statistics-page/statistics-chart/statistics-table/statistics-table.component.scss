@@ -3,8 +3,12 @@ th, td {
 }
 
 td {
-  width: 50px;
+  //width: 50px;
   //max-width: 50px;
+}
+
+th.number, td.number {
+  text-align: right;
 }
 
 .export-buttons-container{
