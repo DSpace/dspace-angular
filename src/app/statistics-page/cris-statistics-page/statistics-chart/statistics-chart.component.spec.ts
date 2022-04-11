@@ -10,6 +10,7 @@ import { UsageReport } from '../../../core/statistics/models/usage-report.model'
 import { StatisticsPipesPageModule } from '../statistics-pipes/statistics-pipes.module';
 
 import { By } from '@angular/platform-browser';
+import { StatisticsType } from '../statistics-type.model';
 
 
 describe('StatisticsChartComponent', () => {
@@ -21,7 +22,7 @@ describe('StatisticsChartComponent', () => {
                 'id': '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits',
                 'type': USAGE_REPORT,
                 'reportType': 'TotalVisits',
-                'viewMode': 'chart.bar',
+                'viewMode': StatisticsType['chart.bar'],
                 'points': [
                     {
                         'label': '1911e8a4-6939-490c-b58b-a5d70f8d91fb',
@@ -42,7 +43,7 @@ describe('StatisticsChartComponent', () => {
                 'id': '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisitsPerMonth',
                 'type': USAGE_REPORT,
                 'reportType': 'TotalVisitsPerMonth',
-                'viewMode': 'chart.line',
+                'viewMode': StatisticsType['chart.line'],
                 'points': [
                   {
                     'id': 'September 2020',
@@ -111,7 +112,7 @@ describe('StatisticsChartComponent', () => {
                 'id': '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalDownloads',
                 'type': USAGE_REPORT,
                 'reportType': 'TotalDownloads',
-                'viewMode': 'chart.pie',
+                'viewMode': StatisticsType['chart.pie'],
                 'points': [
                     {
                         'label': '8d33bdfb-e7ba-43e6-a93a-f445b7e8a1e2',
@@ -132,7 +133,7 @@ describe('StatisticsChartComponent', () => {
                 'id': '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TopCountries',
                 'type': USAGE_REPORT,
                 'reportType': 'TopCountries',
-                'viewMode': 'map',
+                'viewMode': StatisticsType.map,
                 'points': [
                     {
                         'label': 'United States',
