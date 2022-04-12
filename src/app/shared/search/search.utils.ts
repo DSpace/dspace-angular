@@ -33,12 +33,11 @@ export function escapeRegExp(input: string): string {
 }
 
 /**
- * Strip the operator from a filter value
- * Warning: This expects the value to end with an operator, otherwise it might strip unwanted content
- * @param value
+ * Strip the operator (equals, query or authority) from a filter value.
+ * @param value The value from which the operator should be stripped.
  */
 export function stripOperatorFromFilterValue(value: string) {
-  if (value.lastIndexOf(',') > -1) {
+  if (value.match(new RegExp(`.+,(equals|query|authority)$`))) {
     return value.substring(0, value.lastIndexOf(','));
   }
   return value;

@@ -154,7 +154,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
                 if (hasValue(fValue)) {
                   return fValue;
                 }
-                return Object.assign(new FacetValue(), { label: stripOperatorFromFilterValue(value), value: value });
+                const filterValue = stripOperatorFromFilterValue(value);
+                return Object.assign(new FacetValue(), { label: filterValue, value: filterValue });
               });
             })
           );
