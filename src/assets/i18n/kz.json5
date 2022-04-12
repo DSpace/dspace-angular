@@ -2145,1087 +2145,789 @@
   
   
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
+  "info.end-user-agreement.accept": "Мен Түпкі пайдаланушы келісімін оқыдым және келісемін",
   
   // "info.end-user-agreement.accept.error": "An error occurred accepting the End User Agreement",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.accept.error": "An error occurred accepting the End User Agreement",
+   "info.end-user-agreement.accept.error": "Түпкілікті пайдаланушы келісімін қабылдау кезінде қате орын алды",
   
   // "info.end-user-agreement.accept.success": "Successfully updated the End User Agreement",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.accept.success": "Successfully updated the End User Agreement",
+    "info.end-user-agreement.accept.success": "Соңғы пайдаланушы келісімі сәтті жаңартылды",
   
   // "info.end-user-agreement.breadcrumbs": "End User Agreement",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.breadcrumbs": "End User Agreement",
+     "info.end-user-agreement.breadcrumbs":"Соңғы пайдаланушы келісімі",
   
   // "info.end-user-agreement.buttons.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.buttons.cancel": "Cancel",
+     "info.end-user-agreement.buttons.cancel": "Болдырмау",
   
   // "info.end-user-agreement.buttons.save": "Save",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.buttons.save": "Save",
+    "info.end-user-agreement.buttons.save": "Сақтау",
   
   // "info.end-user-agreement.head": "End User Agreement",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.head": "End User Agreement",
+"info.end-user-agreement.head": "Соңғы пайдаланушы келісімі",
   
   // "info.end-user-agreement.title": "End User Agreement",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.title": "End User Agreement",
+"info.end-user-agreement.title": "Түпкі пайдаланушы келісімі",
   
   // "info.privacy.breadcrumbs": "Privacy Statement",
-  // TODO New key - Add a translation
-  "info.privacy.breadcrumbs": "Privacy Statement",
+"info.privacy.breadcrumbs": "Құпиялылық туралы мәлімдеме",
   
   // "info.privacy.head": "Privacy Statement",
-  // TODO New key - Add a translation
-  "info.privacy.head": "Privacy Statement",
-  
+"info.privacy.head": "Құпиялылық туралы мәлімдеме",
+
   // "info.privacy.title": "Privacy Statement",
-  // TODO New key - Add a translation
-  "info.privacy.title": "Privacy Statement",
+"info.privacy.title": "Құпиялылық туралы мәлімдеме",
+
   
-  
-  
-  // "item.alerts.private": "This item is private",
-  // TODO New key - Add a translation
-  "item.alerts.private": "This item is private",
+
+// "item.alerts.private": "This item is private",
+"item.alerts.private": "Бұл элемент жеке",
   
   // "item.alerts.withdrawn": "This item has been withdrawn",
-  // TODO New key - Add a translation
-  "item.alerts.withdrawn": "This item has been withdrawn",
-  
-  
+ "item.alerts.withdrawn": "Бұл тармақ алынып тасталды", 
   
   // "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
-  // TODO New key - Add a translation
-  "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
-  
+  "item.edit.authorizations.heading": "Осы өңдегіштің көмегімен элементтің саясаттарын көруге және өзгертуге, сонымен қатар жеке элемент құрамдастарының саясаттарын өзгертуге болады: байламдар және бит ағындары. Қысқаша айтқанда, элемент - бумалардың контейнері, ал бумалар - биттік ағындардың контейнерлері. Контейнерлерде әдетте ҚОСУ/ЖОЮ мүмкіндігі болады. /READ/WRITE саясаттары, ал биттік ағындарда тек ОҚУ/ЖАЗУ саясаттары бар.",
+ 
   // "item.edit.authorizations.title": "Edit item's Policies",
-  // TODO New key - Add a translation
-  "item.edit.authorizations.title": "Edit item's Policies",
-  
-  
-  
+ "item.edit.authorizations.title": "Элемент саясаттарын өңдеу",
+
   // "item.badge.private": "Private",
-  // TODO New key - Add a translation
-  "item.badge.private": "Private",
+"item.badge.private": "Жеке",
   
   // "item.badge.withdrawn": "Withdrawn",
-  // TODO New key - Add a translation
-  "item.badge.withdrawn": "Withdrawn",
-  
-  
-  
-  // "item.bitstreams.upload.bundle": "Bundle",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.bundle": "Bundle",
+ "item.badge.withdrawn": "Шығарылды",
+ 
+// "item.bitstreams.upload.bundle": "Bundle",
+"item.bitstreams.upload.bundle": "Бума",
   
   // "item.bitstreams.upload.bundle.placeholder": "Select a bundle",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.bundle.placeholder": "Select a bundle",
+"item.bitstreams.upload.bundle.placeholder": "Буманы таңдау",
   
   // "item.bitstreams.upload.bundle.new": "Create bundle",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.bundle.new": "Create bundle",
+"item.bitstreams.upload.bundle.new": "Буманы жасау",
   
   // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+ "item.bitstreams.upload.bundles.empty": "Бұл элементте биттік ағынды жүктеп салуға арналған бумалар жоқ.",
   
   // "item.bitstreams.upload.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.cancel": "Cancel",
+"item.bitstreams.upload.cancel": "Болдырмау",
   
   // "item.bitstreams.upload.drop-message": "Drop a file to upload",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.drop-message": "Drop a file to upload",
+"item.bitstreams.upload.drop-message": "Жүктеп салу үшін файлды тастаңыз",
   
   // "item.bitstreams.upload.item": "Item: ",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.item": "Item: ",
+"item.bitstreams.upload.item":"Элемент:",
   
   // "item.bitstreams.upload.notifications.bundle.created.content": "Successfully created new bundle.",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.notifications.bundle.created.content": "Successfully created new bundle.",
+"item.bitstreams.upload.notifications.bundle.created.content": "Жаңа топтама сәтті жасалды.",
   
   // "item.bitstreams.upload.notifications.bundle.created.title": "Created bundle",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.notifications.bundle.created.title": "Created bundle",
+"item.bitstreams.upload.notifications.bundle.created.title": "Жасалған топтама",
   
   // "item.bitstreams.upload.notifications.upload.failed": "Upload failed. Please verify the content before retrying.",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.notifications.upload.failed": "Upload failed. Please verify the content before retrying.",
+  "item.bitstreams.upload.notifications.upload.failed": "Жүктеп салу сәтсіз аяқталды. Әрекетті қайталаудан бұрын мазмұнды тексеріңіз.",
   
   // "item.bitstreams.upload.title": "Upload bitstream",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.title": "Upload bitstream",
-  
-  
+"item.bitstreams.upload.title": "Бақыттық ағынды жүктеп салу",
   
   // "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
+"item.edit.bitstreams.bundle.edit.buttons.upload": "Жүктеп салу",
   
   // "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
-  
+  "item.edit.bitstreams.bundle.displaying": "Қазір {{ amount }} {{ total }} бит ағыны көрсетілуде.",
+
   // "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",
+"item.edit.bitstreams.bundle.load.all": "Барлығын жүктеу ({{ total }})",
   
   // "item.edit.bitstreams.bundle.load.more": "Load more",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.load.more": "Load more",
+"item.edit.bitstreams.bundle.load.more":"Көбірек жүктеңіз",
   
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
+"item.edit.bitstreams.bundle.name": "БАНДЛ: {{ name }}",
   
   // "item.edit.bitstreams.discard-button": "Discard",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.discard-button": "Discard",
+ "item.edit.bitstreams.discard-button": "Тастау",
   
   // "item.edit.bitstreams.edit.buttons.download": "Download",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.buttons.download": "Download",
+ "item.edit.bitstreams.edit.buttons.download": "Жүктеп алу",
   
   // "item.edit.bitstreams.edit.buttons.drag": "Drag",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.buttons.drag": "Drag",
+"item.edit.bitstreams.edit.buttons.drag": "Сүйреу",
   
   // "item.edit.bitstreams.edit.buttons.edit": "Edit",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.buttons.edit": "Edit",
+"item.edit.bitstreams.edit.buttons.edit": "Өңдеу",
   
   // "item.edit.bitstreams.edit.buttons.remove": "Remove",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.buttons.remove": "Remove",
+"item.edit.bitstreams.edit.buttons.remove": "Жою",
   
   // "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
+"item.edit.bitstreams.edit.buttons.undo": "Өзгерістерді болдырмау",
   
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
+"item.edit.bitstreams.empty":"Бұл элементте биттік ағындар жоқ. Біреуін жасау үшін жүктеп салу түймесін басыңыз.",
   
   // "item.edit.bitstreams.headers.actions": "Actions",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.headers.actions": "Actions",
+"item.edit.bitstreams.headers.actions":"Әрекеттер",
   
   // "item.edit.bitstreams.headers.bundle": "Bundle",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.headers.bundle": "Bundle",
+"item.edit.bitstreams.headers.bundle": "Бума",
   
   // "item.edit.bitstreams.headers.description": "Description",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.headers.description": "Description",
+  "item.edit.bitstreams.headers.description": "Сипаттамасы",
   
   // "item.edit.bitstreams.headers.format": "Format",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.headers.format": "Format",
+"item.edit.bitstreams.headers.format": "Формат",
   
   // "item.edit.bitstreams.headers.name": "Name",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.headers.name": "Name",
-  
+  "item.edit.bitstreams.headers.name":"Аты",
+
   // "item.edit.bitstreams.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+  "item.edit.bitstreams.notifications.discarded.content": "Өзгертулеріңіз жойылды. Өзгерістерді қалпына келтіру үшін 'Болдырмау' түймесін басыңыз",
   
   // "item.edit.bitstreams.notifications.discarded.title": "Changes discarded",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.discarded.title": "Changes discarded",
+"item.edit.bitstreams.notifications.discarded.title": "Өзгерістер жойылды",
   
   // "item.edit.bitstreams.notifications.move.failed.title": "Error moving bitstreams",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.move.failed.title": "Error moving bitstreams",
+"item.edit.bitstreams.notifications.move.failed.title": "Бақыттық ағындарды жылжыту қатесі",
   
   // "item.edit.bitstreams.notifications.move.saved.content": "Your move changes to this item's bitstreams and bundles have been saved.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.move.saved.content": "Your move changes to this item's bitstreams and bundles have been saved.",
+"item.edit.bitstreams.notifications.move.saved.content": "Сіздің жылжытуыңыз осы элементтің бит ағындары мен бумаларына жасалған өзгерістер сақталды.",
   
   // "item.edit.bitstreams.notifications.move.saved.title": "Move changes saved",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.move.saved.title": "Move changes saved",
+"item.edit.bitstreams.notifications.move.saved.title": "Өзгерістерді жылжыту сақталды",
   
   // "item.edit.bitstreams.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
+"item.edit.bitstreams.notifications.outdated.content": "Сіз қазір жұмыс істеп жатқан элементті басқа пайдаланушы өзгертті. Қайшылықтарды болдырмау үшін ағымдағы өзгертулеріңіз жойылды",
   
   // "item.edit.bitstreams.notifications.outdated.title": "Changes outdated",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.outdated.title": "Changes outdated",
+"item.edit.bitstreams.notifications.outdated.title": "Өзгерістер ескірген",
   
   // "item.edit.bitstreams.notifications.remove.failed.title": "Error deleting bitstream",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.remove.failed.title": "Error deleting bitstream",
+"item.edit.bitstreams.notifications.remove.failed.title": "Бақыттық ағынды жою қатесі",
   
   // "item.edit.bitstreams.notifications.remove.saved.content": "Your removal changes to this item's bitstreams have been saved.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.remove.saved.content": "Your removal changes to this item's bitstreams have been saved.",
+ "item.edit.bitstreams.notifications.remove.saved.content": "Осы элементтің бит ағындарына жасалған жою өзгерістеріңіз сақталды.",
   
   // "item.edit.bitstreams.notifications.remove.saved.title": "Removal changes saved",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.remove.saved.title": "Removal changes saved",
+"item.edit.bitstreams.notifications.remove.saved.title": "Жою өзгерістері сақталды",
   
   // "item.edit.bitstreams.reinstate-button": "Undo",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.reinstate-button": "Undo",
+"item.edit.bitstreams.reinstate-button": "Болдырмау",
   
   // "item.edit.bitstreams.save-button": "Save",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.save-button": "Save",
+"item.edit.bitstreams.save-button": "Сақтау",
   
   // "item.edit.bitstreams.upload-button": "Upload",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.upload-button": "Upload",
-  
-  
-  
+"item.edit.bitstreams.upload-button": "Жүктеп салу",
+
   // "item.edit.delete.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.delete.cancel": "Cancel",
+"item.edit.delete.cancel": "Болдырмау",
   
   // "item.edit.delete.confirm": "Delete",
-  // TODO New key - Add a translation
-  "item.edit.delete.confirm": "Delete",
+  "item.edit.delete.confirm": "Жою",
   
   // "item.edit.delete.description": "Are you sure this item should be completely deleted? Caution: At present, no tombstone would be left.",
-  // TODO New key - Add a translation
-  "item.edit.delete.description": "Are you sure this item should be completely deleted? Caution: At present, no tombstone would be left.",
+  "item.edit.delete.description": "Бұл элемент толығымен жойылуы керек екеніне сенімдісіз бе? Абайлаңыз: Қазіргі уақытта құлпытас қалмас еді".,
   
   // "item.edit.delete.error": "An error occurred while deleting the item",
-  // TODO New key - Add a translation
-  "item.edit.delete.error": "An error occurred while deleting the item",
+"item.edit.delete.error": "Элементті жою кезінде қате орын алды",
   
   // "item.edit.delete.header": "Delete item: {{ id }}",
-  // TODO New key - Add a translation
-  "item.edit.delete.header": "Delete item: {{ id }}",
+"item.edit.delete.header": "Элементті жою: {{ id }}",
   
   // "item.edit.delete.success": "The item has been deleted",
-  // TODO New key - Add a translation
-  "item.edit.delete.success": "The item has been deleted",
-  
+"item.edit.delete.success": "Элемент жойылды",
+
   // "item.edit.head": "Edit Item",
-  // TODO New key - Add a translation
-  "item.edit.head": "Edit Item",
+ "item.edit.head": "Элементті өңдеу",
   
   // "item.edit.breadcrumbs": "Edit Item",
-  // TODO New key - Add a translation
-  "item.edit.breadcrumbs": "Edit Item",
-  
-  
-  // "item.edit.tabs.mapper.head": "Collection Mapper",
-  // TODO New key - Add a translation
-  "item.edit.tabs.mapper.head": "Collection Mapper",
+ "item.edit.breadcrumbs": "Элементті өңдеу",
+ 
+// "item.edit.tabs.mapper.head": "Collection Mapper",
+ "item.edit.tabs.mapper.head": "Коллекция картасы",
   
   // "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
-  // TODO New key - Add a translation
-  "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
-  
+ "item.edit.tabs.item-mapper.title": "Item Edit - Коллекция картасы",
+ 
   // "item.edit.item-mapper.buttons.add": "Map item to selected collections",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.buttons.add": "Map item to selected collections",
+  "item.edit.item-mapper.buttons.add": "Таңдалған жинақтарға элементті картаға салу",
   
   // "item.edit.item-mapper.buttons.remove": "Remove item's mapping for selected collections",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.buttons.remove": "Remove item's mapping for selected collections",
+"item.edit.item-mapper.buttons.remove": "Таңдалған жинақтар үшін элементтің салыстыруын жою",
   
   // "item.edit.item-mapper.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.cancel": "Cancel",
+  "item.edit.item-mapper.cancel":"Болдырмау",
   
   // "item.edit.item-mapper.description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
+"item.edit.item-mapper.description": "Бұл әкімшілерге осы элементті басқа жинақтармен салыстыруға мүмкіндік беретін элементті салыстыру құралы. Жинақтарды іздеуге және оларды салыстыруға немесе элемент қазіргі уақытта салыстырылған жинақтар тізімін шолуға болады.",
   
   // "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
+"item.edit.item-mapper.head":"Элемент салыстырушы - Элементті коллекциялармен салыстыру",
   
   // "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
+  "item.edit.item-mapper.item": "Элемент: \"<b>{{name}}</b>\"",
   
   // "item.edit.item-mapper.no-search": "Please enter a query to search",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.no-search": "Please enter a query to search",
+  "item.edit.item-mapper.no-search": "Іздеу үшін сұрауды енгізіңіз",
   
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
-  
+  "item.edit.item-mapper.notifications.add.error.content": "Элементті {{amount}} жинаққа салыстыру кезінде қателер орын алды.",
+
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
+  "item.edit.item-mapper.notifications.add.error.head": "Карталау қателері",
   
   // "item.edit.item-mapper.notifications.add.success.content": "Successfully mapped item to {{amount}} collections.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.success.content": "Successfully mapped item to {{amount}} collections.",
+  "item.edit.item-mapper.notifications.add.success.content": "Элемент {{amount}} жинаққа сәтті салыстырылды.",
   
   // "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
+  "item.edit.item-mapper.notifications.add.success.head":"Карталау аяқталды",
   
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
+  "item.edit.item-mapper.notifications.remove.error.content": "{{amount}} жинаққа салыстыруды жою кезінде қателер орын алды.",
   
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
+  "item.edit.item-mapper.notifications.remove.error.head": "Карталау қателерін жою",
   
   // "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
+  "item.edit.item-mapper.notifications.remove.success.content": "Элементтің {{amount}} жинаққа салыстыруы сәтті жойылды.",
   
   // "item.edit.item-mapper.notifications.remove.success.head": "Removal of mapping completed",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.success.head": "Removal of mapping completed",
+  "item.edit.item-mapper.notifications.remove.success.head": "Карталауды жою аяқталды",
   
   // "item.edit.item-mapper.tabs.browse": "Browse mapped collections",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.tabs.browse": "Browse mapped collections",
+  "item.edit.item-mapper.tabs.browse": "Карталанған жинақтарды шолу",
   
   // "item.edit.item-mapper.tabs.map": "Map new collections",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.tabs.map": "Map new collections",
-  
-  
-  
+  "item.edit.item-mapper.tabs.map": "Жаңа жинақтарды картаға түсіру",
+
   // "item.edit.metadata.add-button": "Add",
-  // TODO New key - Add a translation
-  "item.edit.metadata.add-button": "Add",
+  "item.edit.metadata.add-button": "Қосу",
   
   // "item.edit.metadata.discard-button": "Discard",
-  // TODO New key - Add a translation
-  "item.edit.metadata.discard-button": "Discard",
+  "item.edit.metadata.discard-button": "Тастау",
   
   // "item.edit.metadata.edit.buttons.edit": "Edit",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.edit": "Edit",
+  "item.edit.metadata.edit.buttons.edit": "Өңдеу",
   
   // "item.edit.metadata.edit.buttons.remove": "Remove",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.remove": "Remove",
+  "item.edit.metadata.edit.buttons.remove": "Жою",
   
   // "item.edit.metadata.edit.buttons.undo": "Undo changes",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.undo": "Undo changes",
+  "item.edit.metadata.edit.buttons.undo": "Өзгерістерді болдырмау",
   
   // "item.edit.metadata.edit.buttons.unedit": "Stop editing",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.unedit": "Stop editing",
+  "item.edit.metadata.edit.buttons.unedit": "Өңдеуді тоқтату",
   
   // "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
-  // TODO New key - Add a translation
-  "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
+  "item.edit.metadata.empty": "Элементте қазір ешбір метадеректер жоқ. Метадеректер мәнін қосуды бастау үшін Қосу түймесін басыңыз.",
   
   // "item.edit.metadata.headers.edit": "Edit",
-  // TODO New key - Add a translation
-  "item.edit.metadata.headers.edit": "Edit",
+  "item.edit.metadata.headers.edit": "Өңдеу",
   
   // "item.edit.metadata.headers.field": "Field",
-  // TODO New key - Add a translation
-  "item.edit.metadata.headers.field": "Field",
-  
-  // "item.edit.metadata.headers.language": "Lang",
-  // TODO New key - Add a translation
-  "item.edit.metadata.headers.language": "Lang",
-  
+  "item.edit.metadata.headers.field": "Жолақ",
+
+
+  "item.edit.metadata.headers.language": "Тіл",
+
   // "item.edit.metadata.headers.value": "Value",
-  // TODO New key - Add a translation
-  "item.edit.metadata.headers.value": "Value",
+  "item.edit.metadata.headers.value": "құн",
   
   // "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
-  // TODO New key - Add a translation
-  "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
+  "item.edit.metadata.metadatafield.invalid": "Жарамды метадеректер өрісін таңдаңыз",
   
   // "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+  "item.edit.metadata.notifications.discarded.content": "Өзгерістеріңіз жойылды. Өзгерістерді қалпына келтіру үшін 'Болдырмау' түймесін басыңыз",
   
   // "item.edit.metadata.notifications.discarded.title": "Changed discarded",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.discarded.title": "Changed discarded",
+  "item.edit.metadata.notifications.discarded.title": "Өзгертілген жойылды",
   
   // "item.edit.metadata.notifications.error.title": "An error occurred",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.error.title": "An error occurred",
-  
+  "item.edit.metadata.notifications.error.title": "Қате орын алды",
+
   // "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
+  "item.edit.metadata.notifications.invalid.content": "Өзгертулеріңіз сақталмады. Сақтамас бұрын барлық өрістердің жарамды екеніне көз жеткізіңіз.",
   
   // "item.edit.metadata.notifications.invalid.title": "Metadata invalid",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.invalid.title": "Metadata invalid",
+  "item.edit.metadata.notifications.invalid.title": "Метадеректер жарамсыз",
   
   // "item.edit.metadata.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
+  "item.edit.metadata.notifications.outdated.content": "Сіз қазір жұмыс істеп жатқан элементті басқа пайдаланушы өзгертті. Қақтығыстардың алдын алу үшін сіздің қазіргі өзгерістеріңіз жойылады",
   
   // "item.edit.metadata.notifications.outdated.title": "Changed outdated",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.outdated.title": "Changed outdated",
+  "item.edit.metadata.notifications.outdated.title": "Өзгертілген ескірген",
   
   // "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
+  "item.edit.metadata.notifications.saved.content": "Осы элементтің метадеректеріндегі өзгерістер сақталды".,
   
   // "item.edit.metadata.notifications.saved.title": "Metadata saved",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.saved.title": "Metadata saved",
-  
+  "item.edit.metadata.notifications.saved.title": "Сақталған метадеректер",
+
   // "item.edit.metadata.reinstate-button": "Undo",
-  // TODO New key - Add a translation
-  "item.edit.metadata.reinstate-button": "Undo",
+  "item.edit.metadata.reinstate-button": "Болдырмау",
   
   // "item.edit.metadata.save-button": "Save",
-  // TODO New key - Add a translation
-  "item.edit.metadata.save-button": "Save",
-  
-  
-  
+  "item.edit.metadata.save-button":"Сақтау",
+
   // "item.edit.modify.overview.field": "Field",
-  // TODO New key - Add a translation
-  "item.edit.modify.overview.field": "Field",
+  "item.edit.modify.overview.field": "Өріс",
   
   // "item.edit.modify.overview.language": "Language",
-  // TODO New key - Add a translation
-  "item.edit.modify.overview.language": "Language",
+  "item.edit.modify.overview.language": "Тіл",
   
   // "item.edit.modify.overview.value": "Value",
-  // TODO New key - Add a translation
-  "item.edit.modify.overview.value": "Value",
-  
-  
-  
+  "item.edit.modify.overview.value": "Құндылық",
+
   // "item.edit.move.cancel": "Cancel",
-  // TODO New key - Add a translation
   "item.edit.move.cancel": "Cancel",
   
   // "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
-  // TODO New key - Add a translation
-  "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
+  "item.edit.move.description": "Осы элементті жылжытқыңыз келетін коллекцияны таңдаңыз. Көрсетілген жинақтардың тізімін тарылту үшін өріске іздеу сұрауын енгізуге болады.",
   
   // "item.edit.move.error": "An error occurred when attempting to move the item",
-  // TODO New key - Add a translation
-  "item.edit.move.error": "An error occurred when attempting to move the item",
+  "item.edit.move.error": "Элементті жылжыту кезінде қате пайда болды",
   
   // "item.edit.move.head": "Move item: {{id}}",
-  // TODO New key - Add a translation
-  "item.edit.move.head": "Move item: {{id}}",
+  "item.edit.move.head": "Элементті жылжыту: {{id}}",
   
   // "item.edit.move.inheritpolicies.checkbox": "Inherit policies",
-  // TODO New key - Add a translation
-  "item.edit.move.inheritpolicies.checkbox": "Inherit policies",
+  "item.edit.move.inheritpolicies.checkbox": "Мұрагерлік саясат",
   
   // "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
-  // TODO New key - Add a translation
-  "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
+  "item.edit.move.inheritpolicies.description": "Мақсатты жинақтың әдепкі саясатын мұра ету",
   
   // "item.edit.move.move": "Move",
-  // TODO New key - Add a translation
-  "item.edit.move.move": "Move",
+  "item.edit.move.move": "Жылжыту",
   
   // "item.edit.move.processing": "Moving...",
-  // TODO New key - Add a translation
-  "item.edit.move.processing": "Moving...",
+  "item.edit.move.processing": "Ысырулыда...",
   
   // "item.edit.move.search.placeholder": "Enter a search query to look for collections",
-  // TODO New key - Add a translation
-  "item.edit.move.search.placeholder": "Enter a search query to look for collections",
+  "item.edit.move.search.placeholder": "Жинақтарды іздеу үшін іздеу сұрауын енгізіңіз",
   
   // "item.edit.move.success": "The item has been moved successfully",
-  // TODO New key - Add a translation
-  "item.edit.move.success": "The item has been moved successfully",
+  "item.edit.move.success": "Элемент сәтті көшірілді",
   
   // "item.edit.move.title": "Move item",
-  // TODO New key - Add a translation
-  "item.edit.move.title": "Move item",
-  
-  
-  
+  "item.edit.move.title": "Элементті жылжыту",
+
   // "item.edit.private.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.private.cancel": "Cancel",
+  "item.edit.private.cancel":"Болдырмау",
   
   // "item.edit.private.confirm": "Make it Private",
-  // TODO New key - Add a translation
-  "item.edit.private.confirm": "Make it Private",
+  "item.edit.private.confirm": "Мұны жеке жаса",
   
   // "item.edit.private.description": "Are you sure this item should be made private in the archive?",
-  // TODO New key - Add a translation
-  "item.edit.private.description": "Are you sure this item should be made private in the archive?",
+  "item.edit.private.description": "Сіз бұл затты мұрағатта жабу керек екеніне сенімдісіз бе?",
   
   // "item.edit.private.error": "An error occurred while making the item private",
-  // TODO New key - Add a translation
-  "item.edit.private.error": "An error occurred while making the item private",
+  "item.edit.private.error": "Элементті жабу кезінде қате пайда болды",
   
   // "item.edit.private.header": "Make item private: {{ id }}",
-  // TODO New key - Add a translation
-  "item.edit.private.header": "Make item private: {{ id }}",
+  "item.edit.private.header": "Элементті жеке ету: {{ id }}",
   
   // "item.edit.private.success": "The item is now private",
-  // TODO New key - Add a translation
-  "item.edit.private.success": "The item is now private",
-  
-  
-  
+  "item.edit.private.success": "Тауар қазір жеке",
+
   // "item.edit.public.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.public.cancel": "Cancel",
+  "item.edit.public.cancel": "Болдырмау",
   
   // "item.edit.public.confirm": "Make it Public",
-  // TODO New key - Add a translation
-  "item.edit.public.confirm": "Make it Public",
+  "item.edit.public.confirm": "Мұны көпшілікке жария ету",
   
   // "item.edit.public.description": "Are you sure this item should be made public in the archive?",
-  // TODO New key - Add a translation
-  "item.edit.public.description": "Are you sure this item should be made public in the archive?",
-  
+  "item.edit.public.description": "Сіз бұл материалды мұрағатта жариялау керек екеніне сенімдісіз бе?",
+
   // "item.edit.public.error": "An error occurred while making the item public",
-  // TODO New key - Add a translation
-  "item.edit.public.error": "An error occurred while making the item public",
+  "item.edit.public.error": "Элементті жариялау кезінде қате пайда болды",
   
   // "item.edit.public.header": "Make item public: {{ id }}",
-  // TODO New key - Add a translation
-  "item.edit.public.header": "Make item public: {{ id }}",
+  "item.edit.public.header": "Элементті жалпыға қол жетімді ету: {{ id }}",
   
   // "item.edit.public.success": "The item is now public",
-  // TODO New key - Add a translation
-  "item.edit.public.success": "The item is now public",
-  
-  
-  
+  "item.edit.public.success": "Тауар қазір көпшілікке қол жетімді",
+
   // "item.edit.reinstate.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.cancel": "Cancel",
+  "item.edit.reinstate.cancel": "Болдырмау",
   
   // "item.edit.reinstate.confirm": "Reinstate",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.confirm": "Reinstate",
-  
-  // "item.edit.reinstate.description": "Are you sure this item should be reinstated to the archive?",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.description": "Are you sure this item should be reinstated to the archive?",
+  "item.edit.reinstate.confirm": "Қалпына келтіру",
+
+  // "item.edit.reinstate.description": "Are you sure this item should be reinstated to the archive?"
+  "item.edit.reinstate.description": "Сіз бұл элементті мұрағатта қалпына келтіру керек екеніне сенімдісіз бе?",
   
   // "item.edit.reinstate.error": "An error occurred while reinstating the item",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.error": "An error occurred while reinstating the item",
+  "item.edit.reinstate.error": "Элементті қалпына келтіру кезінде қате пайда болды",
   
   // "item.edit.reinstate.header": "Reinstate item: {{ id }}",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.header": "Reinstate item: {{ id }}",
+  "item.edit.reinstate.header": "Элементті қалпына келтіру: {{ id }}",
   
   // "item.edit.reinstate.success": "The item was reinstated successfully",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.success": "The item was reinstated successfully",
-  
-  
-  
+  "item.edit.reinstate.success": "Элемент сәтті қалпына келтірілді",
+
   // "item.edit.relationships.discard-button": "Discard",
-  // TODO New key - Add a translation
-  "item.edit.relationships.discard-button": "Discard",
+   "item.edit.relationships.discard-button": "Тастау",
   
   // "item.edit.relationships.edit.buttons.add": "Add",
-  // TODO New key - Add a translation
-  "item.edit.relationships.edit.buttons.add": "Add",
+ "item.edit.relationships.edit.buttons.add":"Қосу",
   
   // "item.edit.relationships.edit.buttons.remove": "Remove",
-  // TODO New key - Add a translation
-  "item.edit.relationships.edit.buttons.remove": "Remove",
+  "item.edit.relationships.edit.buttons.remove": "Жою",
   
   // "item.edit.relationships.edit.buttons.undo": "Undo changes",
-  // TODO New key - Add a translation
-  "item.edit.relationships.edit.buttons.undo": "Undo changes",
+  "item.edit.relationships.edit.buttons.undo": "Өзгерістерді болдырмау",
   
   // "item.edit.relationships.no-relationships": "No relationships",
-  // TODO New key - Add a translation
-  "item.edit.relationships.no-relationships": "No relationships",
+  "item.edit.relationships.no-relationships": "Қарым-қатынас жоқ",
   
   // "item.edit.relationships.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+  "item.edit.relationships.notifications.discarded.content": "Сіздің өзгертулеріңіз жойылды. Енгізілген өзгертулерді қалпына келтіру үшін 'Болдырмау' түймесін басыңыз,
   
   // "item.edit.relationships.notifications.discarded.title": "Changes discarded",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.discarded.title": "Changes discarded",
+  "item.edit.relationships.notifications.discarded.title": "Өзгерістер жойылды",
   
   // "item.edit.relationships.notifications.failed.title": "Error editing relationships",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.failed.title": "Error editing relationships",
+  "item.edit.relationships.notifications.failed.title": "Қарым-қатынасты өңдеу қатесі",
   
   // "item.edit.relationships.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
+  "item.edit.relationships.notifications.outdated.content": "Сіз қазір жұмыс істеп жатқан элементті басқа пайдаланушы өзгертті. Қақтығыстардың алдын алу үшін сіздің қазіргі өзгерістеріңіз жойылады",
   
   // "item.edit.relationships.notifications.outdated.title": "Changes outdated",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.outdated.title": "Changes outdated",
+  "item.edit.relationships.notifications.outdated.title": "Өзгерістер ескірген",
   
   // "item.edit.relationships.notifications.saved.content": "Your changes to this item's relationships were saved.",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.saved.content": "Your changes to this item's relationships were saved.",
-  
+  "item.edit.relationships.notifications.saved.content": "Осы элементтің қарым-қатынасындағы өзгерістер сақталды.",
+
   // "item.edit.relationships.notifications.saved.title": "Relationships saved",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.saved.title": "Relationships saved",
+  "item.edit.relationships.notifications.saved.title": "Сақталған қатынастар",
   
   // "item.edit.relationships.reinstate-button": "Undo",
-  // TODO New key - Add a translation
-  "item.edit.relationships.reinstate-button": "Undo",
+  "item.edit.relationships.reinstate-button":"Болдырмау",
   
   // "item.edit.relationships.save-button": "Save",
-  // TODO New key - Add a translation
-  "item.edit.relationships.save-button": "Save",
+  "item.edit.relationships.save-button": "Сақтау",
   
   // "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
-  // TODO New key - Add a translation
-  "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
+  "item.edit.relationships.no-entity-type": "Метадеректерін элемент үшін байланыстарды қосу үшін 'dspace.entity.type' басыныз",
   
-  
-  
-  // "item.edit.tabs.bitstreams.head": "Bitstreams",
-  // TODO New key - Add a translation
-  "item.edit.tabs.bitstreams.head": "Bitstreams",
+// "item.edit.tabs.bitstreams.head": "Bitstreams",
+  "item.edit.tabs.bitstreams.head": "Бит ағындары",
   
   // "item.edit.tabs.bitstreams.title": "Item Edit - Bitstreams",
-  // TODO New key - Add a translation
-  "item.edit.tabs.bitstreams.title": "Item Edit - Bitstreams",
+  "item.edit.tabs.bitstreams.title": "Item Edit - Бит ағындары",
   
   // "item.edit.tabs.curate.head": "Curate",
-  // TODO New key - Add a translation
-  "item.edit.tabs.curate.head": "Curate",
+  "item.edit.tabs.curate.head": "Викар",
   
   // "item.edit.tabs.curate.title": "Item Edit - Curate",
-  // TODO New key - Add a translation
-  "item.edit.tabs.curate.title": "Item Edit - Curate",
+  "item.edit.tabs.curate.title": "Өңдеу элементі-Куратор",
   
   // "item.edit.tabs.metadata.head": "Metadata",
-  // TODO New key - Add a translation
-  "item.edit.tabs.metadata.head": "Metadata",
+  "item.edit.tabs.metadata.head": "Метадеректер",
   
   // "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
-  // TODO New key - Add a translation
-  "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
+  "item.edit.tabs.metadata.title": "Item Edit -  Метадеректер",
   
   // "item.edit.tabs.relationships.head": "Relationships",
-  // TODO New key - Add a translation
-  "item.edit.tabs.relationships.head": "Relationships",
+  "item.edit.tabs.relationships.head": "Қатынастар",
   
   // "item.edit.tabs.relationships.title": "Item Edit - Relationships",
-  // TODO New key - Add a translation
-  "item.edit.tabs.relationships.title": "Item Edit - Relationships",
+  "item.edit.tabs.relationships.title": "Элементті өңдеу - қарым-қатынас",
   
   // "item.edit.tabs.status.buttons.authorizations.button": "Authorizations...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.authorizations.button": "Authorizations...",
+  "item.edit.tabs.status.buttons.authorizations.button": "Рұқсат...",
   
   // "item.edit.tabs.status.buttons.authorizations.label": "Edit item's authorization policies",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.authorizations.label": "Edit item's authorization policies",
+  "item.edit.tabs.status.buttons.authorizations.label":"Элементті авторизациялау саясатын өзгерту",
   
   // "item.edit.tabs.status.buttons.delete.button": "Permanently delete",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.delete.button": "Permanently delete",
+  "item.edit.tabs.status.buttons.delete.button":"Біржола жою",
   
   // "item.edit.tabs.status.buttons.delete.label": "Completely expunge item",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.delete.label": "Completely expunge item",
-  
+  "item.edit.tabs.status.buttons.delete.label": "Элементті толығымен алып тастаңыз",
+
   // "item.edit.tabs.status.buttons.mappedCollections.button": "Mapped collections",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.mappedCollections.button": "Mapped collections",
+  "item.edit.tabs.status.buttons.mappedCollections.button": "Салыстырмалы коллекциялар",
   
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
+  "item.edit.tabs.status.buttons.mappedCollections.label": "Салыстырмалы коллекцияларды басқару",
   
   // "item.edit.tabs.status.buttons.move.button": "Move...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.move.button": "Move...",
+  "item.edit.tabs.status.buttons.move.button": "Ысыру...",
   
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
+  "item.edit.tabs.status.buttons.move.label": "Элементті басқа жинаққа жылжытыңыз",
   
   // "item.edit.tabs.status.buttons.private.button": "Make it private...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.private.button": "Make it private...",
+  "item.edit.tabs.status.buttons.private.button": "Мұны жеке етіңіз...",
   
   // "item.edit.tabs.status.buttons.private.label": "Make item private",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.private.label": "Make item private",
+  "item.edit.tabs.status.buttons.private.label": "Затты жеке ету",
   
   // "item.edit.tabs.status.buttons.public.button": "Make it public...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.public.button": "Make it public...",
+  "item.edit.tabs.status.buttons.public.button": "Мұны көпшілікке жария етіңіз...",
   
   // "item.edit.tabs.status.buttons.public.label": "Make item public",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.public.label": "Make item public",
+  "item.edit.tabs.status.buttons.public.label": "Өнімді жалпыға қол жетімді ету",
   
   // "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
+  "item.edit.tabs.status.buttons.reinstate.button": "Қалпына келтіру...",
   
   // "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
+  "item.edit.tabs.status.buttons.reinstate.label": "Сақтау ішіндегі элементті қалпына келтіру",
   
   // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
+  "item.edit.tabs.status.buttons.withdraw.button": "Шегінуге...",
   
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
+  "item.edit.tabs.status.buttons.withdraw.label": "Қоймадан тауарды алып қою",
   
   // "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
+  "item.edit.tabs.status.description": "Тауарларды басқару бетіне қош келдіңіз. Осы жерден элементті алып тастауға, қалпына келтіруге, жылжытуға немесе жоюға болады. Басқа қойындыларда жаңа метадеректерді / бит ағындарын жаңартуға немесе қосуға болады.",
   
   // "item.edit.tabs.status.head": "Status",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.head": "Status",
+  "item.edit.tabs.status.head":"Мәртебе",
   
   // "item.edit.tabs.status.labels.handle": "Handle",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.labels.handle": "Handle",
+  "item.edit.tabs.status.labels.handle": "Қалам",
   
   // "item.edit.tabs.status.labels.id": "Item Internal ID",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.labels.id": "Item Internal ID",
+  "item.edit.tabs.status.labels.id": "Ішкі элемент идентификаторы",
   
   // "item.edit.tabs.status.labels.itemPage": "Item Page",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.labels.itemPage": "Item Page",
+  "item.edit.tabs.status.labels.itemPage": "Өнім беті",
   
   // "item.edit.tabs.status.labels.lastModified": "Last Modified",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.labels.lastModified": "Last Modified",
+  "item.edit.tabs.status.labels.lastModified": "Соңғы өзгеріс",
   
   // "item.edit.tabs.status.title": "Item Edit -  Status",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.title": "Item Edit -  Status",
+  "item.edit.tabs.status.title": "Item Edit - Мәртебесі",
   
   // "item.edit.tabs.versionhistory.head": "Version History",
-  // TODO New key - Add a translation
-  "item.edit.tabs.versionhistory.head": "Version History",
+  "item.edit.tabs.versionhistory.head": "Нұсқа тарихы",
   
   // "item.edit.tabs.versionhistory.title": "Item Edit - Version History",
-  // TODO New key - Add a translation
-  "item.edit.tabs.versionhistory.title": "Item Edit - Version History",
+  "item.edit.tabs.versionhistory.title": "Элементті өңдеу-нұсқа тарихы",
   
   // "item.edit.tabs.versionhistory.under-construction": "Editing or adding new versions is not yet possible in this user interface.",
-  // TODO New key - Add a translation
-  "item.edit.tabs.versionhistory.under-construction": "Editing or adding new versions is not yet possible in this user interface.",
+  "item.edit.tabs.versionhistory.under-construction": "Бұл пайдаланушы интерфейсінде жаңа нұсқаларды өңдеу немесе қосу әлі мүмкін емес".,
   
   // "item.edit.tabs.view.head": "View Item",
-  // TODO New key - Add a translation
-  "item.edit.tabs.view.head": "View Item",
+  "item.edit.tabs.view.head": "Элементті қарау",
   
   // "item.edit.tabs.view.title": "Item Edit -  View",
-  // TODO New key - Add a translation
-  "item.edit.tabs.view.title": "Item Edit -  View",
-  
-  
-  
+  "item.edit.tabs.view.title": "Элементті өңдеу-қарау",
+
   // "item.edit.withdraw.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.cancel": "Cancel",
+  "item.edit.withdraw.cancel": "Болдырмау",
   
   // "item.edit.withdraw.confirm": "Withdraw",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.confirm": "Withdraw",
+  "item.edit.withdraw.confirm": "Шақыру",
   
   // "item.edit.withdraw.description": "Are you sure this item should be withdrawn from the archive?",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.description": "Are you sure this item should be withdrawn from the archive?",
-  
+  "item.edit.withdraw.description": "Сіз бұл затты мұрағаттан алып тастау керек деп ойлайсыз ба?",
+
   // "item.edit.withdraw.error": "An error occurred while withdrawing the item",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.error": "An error occurred while withdrawing the item",
+  "item.edit.withdraw.error": "Тауарды алып қою кезінде қате кетті",
   
   // "item.edit.withdraw.header": "Withdraw item: {{ id }}",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.header": "Withdraw item: {{ id }}",
+  "item.edit.withdraw.header": "Өнім шығару: {{ id }}",
   
   // "item.edit.withdraw.success": "The item was withdrawn successfully",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.success": "The item was withdrawn successfully",
-  
-  
-  
+  "item.edit.withdraw.success": "Тауар сәтті алынды",
+
   // "item.listelement.badge": "Item",
-  // TODO New key - Add a translation
-  "item.listelement.badge": "Item",
+  "item.listelement.badge": "Пән",
   
   // "item.page.description": "Description",
-  // TODO New key - Add a translation
-  "item.page.description": "Description",
+  "item.page.description": "Сипаттама",
   
   // "item.page.edit": "Edit this item",
-  // TODO New key - Add a translation
-  "item.page.edit": "Edit this item",
+  "item.page.edit": "Бұл элементті өңдеу",
   
   // "item.page.journal-issn": "Journal ISSN",
-  // TODO New key - Add a translation
-  "item.page.journal-issn": "Journal ISSN",
+  "item.page.journal-issn": "ISSN журналы",
   
   // "item.page.journal-title": "Journal Title",
-  // TODO New key - Add a translation
-  "item.page.journal-title": "Journal Title",
+  "item.page.journal-title": "Журналдың атауы",
   
   // "item.page.publisher": "Publisher",
-  // TODO New key - Add a translation
-  "item.page.publisher": "Publisher",
+  "item.page.publisher": "Баспагер",
   
   // "item.page.titleprefix": "Item: ",
-  // TODO New key - Add a translation
-  "item.page.titleprefix": "Item: ",
+  "item.page.titleprefix": "Пән:",
   
   // "item.page.volume-title": "Volume Title",
-  // TODO New key - Add a translation
-  "item.page.volume-title": "Volume Title",
-  
+  "item.page.volume-title": "Томның атауы",
+
   // "item.search.results.head": "Item Search Results",
-  // TODO New key - Add a translation
-  "item.search.results.head": "Item Search Results",
+  "item.search.results.head": "Өнімді іздеу нәтижелері",
   
   // "item.search.title": "DSpace Angular :: Item Search",
-  // TODO New key - Add a translation
-  "item.search.title": "DSpace Angular :: Item Search",
-  
-  
-  
+  "item.search.title": "DSpace Angular :: элементтерді іздеу",
+
   // "item.page.abstract": "Abstract",
-  // TODO New key - Add a translation
-  "item.page.abstract": "Abstract",
+  "item.page.abstract": "Дерексіз",
   
   // "item.page.author": "Authors",
-  // TODO New key - Add a translation
-  "item.page.author": "Authors",
+  "item.page.author": "Авторлар",
   
   // "item.page.citation": "Citation",
-  // TODO New key - Add a translation
-  "item.page.citation": "Citation",
+  "item.page.citation":"Дәйексөз",
   
   // "item.page.collections": "Collections",
-  // TODO New key - Add a translation
-  "item.page.collections": "Collections",
+  "item.page.collections": "Жинақтар",
   
   // "item.page.date": "Date",
-  // TODO New key - Add a translation
-  "item.page.date": "Date",
+  "item.page.date": "Кездесуге",
   
   // "item.page.edit": "Edit this item",
-  // TODO New key - Add a translation
-  "item.page.edit": "Edit this item",
+  "item.page.edit": "Бұл элементті өңдеңіз",
   
   // "item.page.files": "Files",
-  // TODO New key - Add a translation
-  "item.page.files": "Files",
+  "item.page.files": "Файлдар",
   
   // "item.page.filesection.description": "Description:",
-  // TODO New key - Add a translation
-  "item.page.filesection.description": "Description:",
+  "item.page.filesection.description": "Сипаттама:"
   
   // "item.page.filesection.download": "Download",
-  // TODO New key - Add a translation
-  "item.page.filesection.download": "Download",
+  "item.page.filesection.download": "Жүктеу",
   
   // "item.page.filesection.format": "Format:",
-  // TODO New key - Add a translation
-  "item.page.filesection.format": "Format:",
+  "item.page.filesection.format": "Формат:",
   
   // "item.page.filesection.name": "Name:",
-  // TODO New key - Add a translation
-  "item.page.filesection.name": "Name:",
+  "item.page.filesection.name": "Аты:",
   
   // "item.page.filesection.size": "Size:",
-  // TODO New key - Add a translation
-  "item.page.filesection.size": "Size:",
-  
+  "item.page.filesection.size": "Көлемі:",
+
   // "item.page.journal.search.title": "Articles in this journal",
-  // TODO New key - Add a translation
-  "item.page.journal.search.title": "Articles in this journal",
+  "item.page.journal.search.title": "Осы журналдағы мақалалар",
   
   // "item.page.link.full": "Full item page",
-  // TODO New key - Add a translation
-  "item.page.link.full": "Full item page",
+  "item.page.link.full": "Өнімнің толық беті",
   
   // "item.page.link.simple": "Simple item page",
-  // TODO New key - Add a translation
-  "item.page.link.simple": "Simple item page",
+  "item.page.link.simple": "Тауардың қарапайым беті",
   
   // "item.page.person.search.title": "Articles by this author",
-  // TODO New key - Add a translation
-  "item.page.person.search.title": "Articles by this author",
+  "item.page.person.search.title": "Осы автордың мақалалары",
   
   // "item.page.related-items.view-more": "Show {{ amount }} more",
-  // TODO New key - Add a translation
-  "item.page.related-items.view-more": "Show {{ amount }} more",
+  "item.page.related-items.view-more": "{{ amount }} көбірек көрсету",
   
   // "item.page.related-items.view-less": "Hide last {{ amount }}",
-  // TODO New key - Add a translation
-  "item.page.related-items.view-less": "Hide last {{ amount }}",
+  "item.page.related-items.view-less": "Соңғы {{ amount }} жасыру",
   
   // "item.page.relationships.isAuthorOfPublication": "Publications",
-  // TODO New key - Add a translation
-  "item.page.relationships.isAuthorOfPublication": "Publications",
+  "item.page.relationships.isAuthorOfPublication": "Жарияланымдар",
   
   // "item.page.relationships.isJournalOfPublication": "Publications",
-  // TODO New key - Add a translation
-  "item.page.relationships.isJournalOfPublication": "Publications",
+  "item.page.relationships.isJournalOfPublication": "Жарияланымдар",
   
   // "item.page.relationships.isOrgUnitOfPerson": "Authors",
-  // TODO New key - Add a translation
-  "item.page.relationships.isOrgUnitOfPerson": "Authors",
+  "item.page.relationships.isOrgUnitOfPerson": "Авторлары",
   
   // "item.page.relationships.isOrgUnitOfProject": "Research Projects",
-  // TODO New key - Add a translation
-  "item.page.relationships.isOrgUnitOfProject": "Research Projects",
+  "item.page.relationships.isOrgUnitOfProject": "Зерттеу жобалары",
   
   // "item.page.subject": "Keywords",
-  // TODO New key - Add a translation
-  "item.page.subject": "Keywords",
+  "item.page.subject": "Кілт сөздер",
   
   // "item.page.uri": "URI",
-  // TODO New key - Add a translation
   "item.page.uri": "URI",
   
   // "item.page.bitstreams.view-more": "Show more",
-  // TODO New key - Add a translation
-  "item.page.bitstreams.view-more": "Show more",
+  "item.page.bitstreams.view-more": "Көбірек көрсету",
   
   // "item.page.bitstreams.collapse": "Collapse",
-  // TODO New key - Add a translation
-  "item.page.bitstreams.collapse": "Collapse",
+  "item.page.bitstreams.collapse": "Коллапс",
   
   // "item.page.filesection.original.bundle" : "Original bundle",
-  // TODO New key - Add a translation
-  "item.page.filesection.original.bundle" : "Original bundle",
-  
+  "item.page.filesection.original.bundle" : "Түпнұсқа жинақ",
+
   // "item.page.filesection.license.bundle" : "License bundle",
-  // TODO New key - Add a translation
-  "item.page.filesection.license.bundle" : "License bundle",
-  
+  "item.page.filesection.license.bundle" : "Лицензиялық пакет",
+
   // "item.preview.dc.identifier.uri": "Identifier:",
-  // TODO New key - Add a translation
-  "item.preview.dc.identifier.uri": "Identifier:",
-  
+  "item.preview.dc.identifier.uri": "Идентификатор:",
+
   // "item.preview.dc.contributor.author": "Authors:",
-  // TODO New key - Add a translation
-  "item.preview.dc.contributor.author": "Authors:",
-  
+  "item.preview.dc.contributor.author":"Авторлар:",
+
   // "item.preview.dc.date.issued": "Published date:",
-  // TODO New key - Add a translation
-  "item.preview.dc.date.issued": "Published date:",
+  "item.preview.dc.date.issued": "Жарияланған күні:",
   
   // "item.preview.dc.description.abstract": "Abstract:",
-  // TODO New key - Add a translation
-  "item.preview.dc.description.abstract": "Abstract:",
+  "item.preview.dc.description.abstract": "Аннотация:,
   
   // "item.preview.dc.identifier.other": "Other identifier:",
-  // TODO New key - Add a translation
-  "item.preview.dc.identifier.other": "Other identifier:",
+  "item.preview.dc.identifier.other": "Басқа идентификатор:",
   
   // "item.preview.dc.language.iso": "Language:",
-  // TODO New key - Add a translation
-  "item.preview.dc.language.iso": "Language:",
+  "item.preview.dc.language.iso": "Тіл:",
   
   // "item.preview.dc.subject": "Subjects:",
-  // TODO New key - Add a translation
-  "item.preview.dc.subject": "Subjects:",
+  "item.preview.dc.subject": "Тақырыбы:",
   
   // "item.preview.dc.title": "Title:",
-  // TODO New key - Add a translation
-  "item.preview.dc.title": "Title:",
-  
+  "item.preview.dc.title": "Атауы:",
+
   // "item.preview.person.familyName": "Surname:",
-  // TODO New key - Add a translation
-  "item.preview.person.familyName": "Surname:",
+  "item.preview.person.familyName": "Тегі:",
   
   // "item.preview.person.givenName": "Name:",
-  // TODO New key - Add a translation
-  "item.preview.person.givenName": "Name:",
+  "item.preview.person.givenName": "Аты:",
   
   // "item.preview.person.identifier.orcid": "ORCID:",
-  // TODO New key - Add a translation
   "item.preview.person.identifier.orcid": "ORCID:",
   
-  
-  // "item.select.confirm": "Confirm selected",
-  // TODO New key - Add a translation
-  "item.select.confirm": "Confirm selected",
+// "item.select.confirm": "Confirm selected",
+  "item.select.confirm": "Таңдауды растау",
   
   // "item.select.empty": "No items to show",
-  // TODO New key - Add a translation
-  "item.select.empty": "No items to show",
+  "item.select.empty":"Көрсету үшін элементтер жоқ",
   
   // "item.select.table.author": "Author",
-  // TODO New key - Add a translation
-  "item.select.table.author": "Author",
+  "item.select.table.author": "Автор",
   
   // "item.select.table.collection": "Collection",
-  // TODO New key - Add a translation
-  "item.select.table.collection": "Collection",
+  "item.select.table.collection": "Жинақ",
   
   // "item.select.table.title": "Title",
-  // TODO New key - Add a translation
-  "item.select.table.title": "Title",
+  "item.select.table.title": "Атауы",
   
-  
-  // "item.version.history.empty": "There are no other versions for this item yet.",
-  // TODO New key - Add a translation
-  "item.version.history.empty": "There are no other versions for this item yet.",
+// "item.version.history.empty": "There are no other versions for this item yet.",
+  "item.version.history.empty": "Бұл тақырыпқа арналған басқа нұсқалар әлі жоқ".,
   
   // "item.version.history.head": "Version History",
-  // TODO New key - Add a translation
-  "item.version.history.head": "Version History",
+  "item.version.history.head": "Нұсқа тарихы",
   
   // "item.version.history.return": "Return",
-  // TODO New key - Add a translation
-  "item.version.history.return": "Return",
+  "item.version.history.return": "Возвращение",
   
   // "item.version.history.selected": "Selected version",
-  // TODO New key - Add a translation
-  "item.version.history.selected": "Selected version",
+  "item.version.history.selected": "Таңдалған нұсқа",
   
   // "item.version.history.table.version": "Version",
-  // TODO New key - Add a translation
-  "item.version.history.table.version": "Version",
+  "item.version.history.table.version": "Нұсқа",
   
   // "item.version.history.table.item": "Item",
-  // TODO New key - Add a translation
-  "item.version.history.table.item": "Item",
+  "item.version.history.table.item": "Пән",
   
   // "item.version.history.table.editor": "Editor",
-  // TODO New key - Add a translation
-  "item.version.history.table.editor": "Editor",
+  "item.version.history.table.editor": "Редакторы",
   
   // "item.version.history.table.date": "Date",
-  // TODO New key - Add a translation
-  "item.version.history.table.date": "Date",
+  "item.version.history.table.date":"Кездесуге",
   
   // "item.version.history.table.summary": "Summary",
-  // TODO New key - Add a translation
-  "item.version.history.table.summary": "Summary",
+  "item.version.history.table.summary": "Қысқаша мазмұны",
   
-  
-  
-  // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
-  // TODO New key - Add a translation
-  "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
+// "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
+  "item.version.notice": "Бұл өнімнің соңғы нұсқасы емес. Соңғы нұсқаны <a href='{{destination}}'>мына жерден</a>табуға болады.",
   
   
   
