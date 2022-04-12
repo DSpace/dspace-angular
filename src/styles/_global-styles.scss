@@ -92,3 +92,9 @@ ngb-modal-backdrop {
   hyphens: auto;
 
 }
+.researcher-profile-switch button:focus{
+  outline: none !important;
+}
+.researcher-profile-switch .switch.checked{
+  color: #fff;
+}

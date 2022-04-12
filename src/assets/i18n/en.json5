@@ -1311,7 +1311,13 @@
 
   "dso-selector.set-scope.community.input-header": "Search for a community or collection",
 
+  "dso-selector.claim.item.head": "Profile tips",
 
+  "dso-selector.claim.item.body": "These are existing profiles that may be related to you. If you recognize yourself in one of these profiles, select it and on the detail page, among the options, choose to claim it. Otherwise you can create a new profile from scratch using the button below.",
+
+  "dso-selector.claim.item.not-mine-label": "None of these are mine",
+
+  "dso-selector.claim.item.create-from-scratch": "Create a new one",
 
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
 
@@ -2907,7 +2913,7 @@
 
   "profile.title": "Update Profile",
 
-
+  "profile.card.researcher": "Researcher Profile",
 
   "project.listelement.badge": "Research Project",
 
@@ -4165,5 +4171,41 @@
 
   "idle-modal.log-out": "Log out",
 
-  "idle-modal.extend-session": "Extend session"
+  "idle-modal.extend-session": "Extend session",
+
+  "researcher.profile.action.processing" : "Processing...",
+
+  "researcher.profile.associated": "Researcher profile associated",
+
+  "researcher.profile.create.new": "Create new",
+
+  "researcher.profile.create.success": "Researcher profile created successfully",
+
+  "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
+
+  "researcher.profile.delete": "Delete",
+
+  "researcher.profile.expose": "Expose",
+
+  "researcher.profile.hide": "Hide",
+
+  "researcher.profile.not.associated": "Researcher profile not yet associated",
+
+  "researcher.profile.view": "View",
+
+  "researcher.profile.private.visibility" : "PRIVATE",
+
+  "researcher.profile.public.visibility" : "PUBLIC",
+
+  "researcher.profile.status": "Status:",
+
+  "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
+
+  "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
+
+  "researcherprofile.error.claim.title" : "Error",
+
+  "researcherprofile.success.claim.body" : "Profile claimed with success",
+
+  "researcherprofile.success.claim.title" : "Success",
 }
