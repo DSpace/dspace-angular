@@ -1,9 +1,6 @@
-<!-- TODO types list -->
 <select name="bibStyle">
-  <option></option>
-  <option></option>
+  <option *ngFor="let style of bibStyles">{{style}}</option>
 </select>
-<!-- XXX -->
 <button *ngIf="shouldShowButton$ | async"
    class="export-button btn btn-dark btn-sm"
    [ngbTooltip]="tooltipMsg | translate"

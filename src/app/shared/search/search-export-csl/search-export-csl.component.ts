@@ -1,11 +1,12 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+
 import { AuthorizationDataService }
     from '../../../core/data/feature-authorization/authorization-data.service';
-import { hasValue } from '../../empty.util';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 
 @Component ({
@@ -17,36 +18,57 @@ import { PaginatedSearchOptions } from '../models/paginated-search-options.model
  * Display a button to export the current search results as csv
  */
 export class SearchExportCslComponent implements OnInit {
-  /**
-   * Results of the recent search.
-   */
-  @Input() searchConfig: PaginatedSearchOptions;
+    search_path = '/api/discover/search';
 
-  /**
-   * Observable used to determine whether the button should be shown
-   */
-  shouldShowButton$: Observable<boolean>;
+    /**
+     * Results of the recent search.
+     */
+    @Input() searchConfig: PaginatedSearchOptions;
 
-  /**
-   * The message key used for the tooltip of the button
-   */
-  tooltipMsg = 'metadata-export-search-csl.tooltip';
+    /**
+     * Available bibliographic formats.
+     */
+    bibStyles: string[];
 
-  constructor(private authorizationDataService: AuthorizationDataService
-              ) {
-  }
+    /**
+     * Selected format.
+     */
+    @Input() bibStyle: string;
+
+    /**
+     * Observable used to determine whether the button should be shown
+     */
+    shouldShowButton$: Observable<boolean>;
+
+    /**
+     * The message key used for the tooltip of the button
+     */
+    tooltipMsg = 'metadata-export-search-csl.tooltip';
+
+    constructor(private authorizationDataService: AuthorizationDataService,
+        private http: HttpClient
+        ) {
+    }
 
   ngOnInit(): void {
-    const isAuthorized$ = this.authorizationDataService
-        .isAuthorized(FeatureID.AdministratorOf);
+      this.shouldShowButton$ = this.authorizationDataService
+        .isAuthorized(FeatureID.AdministratorOf)
+        .pipe(map((isAuthorized: boolean) => isAuthorized));
 
-    this.shouldShowButton$ = observableCombineLatest([isAuthorized$]) // XXX de-complicate
-        .pipe(map(([isAuthorized]: [boolean]) => isAuthorized)
-    );
+      const getter = this.http.get(this.search_path + '/csl/styles', { responseType: 'json' })
+        .subscribe((body: string) => this.bibStyles = JSON.parse(body));
+      getter.unsubscribe();
   }
 
   export() {
       // build a URL from endpoint and fetch it.
-      const url = this.searchConfig.toRestUrl('/path/to/csl/search/endpoint', ['csl']);
+      const moreParams : string = new HttpParams()
+        .set('cslType', this.bibStyle)
+        .toString();
+      const url = this.searchConfig.toRestUrl(this.search_path + '/csl',
+        [moreParams]);
+      console.log(url); // XXX DEBUG
+      // Request search returning bib-styled report as "attachment"
+      window.location.href = url;
   }
 }
