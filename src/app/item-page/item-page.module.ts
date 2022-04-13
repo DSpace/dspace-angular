@@ -34,6 +34,9 @@ import { MiradorViewerComponent } from './mirador-viewer/mirador-viewer.componen
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 import { VersionedItemComponent } from './simple/item-types/versioned-item/versioned-item.component';
 import { ThemedFileSectionComponent } from './simple/field-components/file-section/themed-file-section.component';
+import { OrcidAuthComponent } from './orcid-page/orcid-auth/orcid-auth.component';
+import { OrcidPageComponent } from './orcid-page/orcid-page.component';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 const ENTRY_COMPONENTS = [
@@ -67,6 +70,8 @@ const DECLARATIONS = [
   MediaViewerImageComponent,
   MiradorViewerComponent,
   VersionPageComponent,
+  OrcidPageComponent,
+  OrcidAuthComponent
 ];
 
 @NgModule({
@@ -79,6 +84,7 @@ const DECLARATIONS = [
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
     NgxGalleryModule,
+    NgbAccordionModule
   ],
   declarations: [
     ...DECLARATIONS,
