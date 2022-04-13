@@ -38,6 +38,7 @@ import { OrcidAuthComponent } from './orcid-page/orcid-auth/orcid-auth.component
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrcidSettingComponent } from './orcid-page/orcid-sync/orcid-setting.component';
+import { OrcidQueueComponent } from './orcid-page/orcid-queue/orcid-queue.component';
 
 
 const ENTRY_COMPONENTS = [
@@ -73,7 +74,8 @@ const DECLARATIONS = [
   VersionPageComponent,
   OrcidPageComponent,
   OrcidAuthComponent,
-  OrcidSettingComponent
+  OrcidSettingComponent,
+  OrcidQueueComponent
 ];
 
 @NgModule({
