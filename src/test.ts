@@ -7,6 +7,7 @@ import {
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 declare const require: any;
 
@@ -17,9 +18,11 @@ getTestBed().initTestEnvironment(
   { teardown: { destroyAfterEach: false } }
 );
 
-// If store is mocked, reset state after each test (see https://ngrx.io/guide/migration/v13)
 jasmine.getEnv().afterEach(() => {
+  // If store is mocked, reset state after each test (see https://ngrx.io/guide/migration/v13)
   getTestBed().inject(MockStore, null)?.resetSelectors();
+  // Close any leftover modals
+  getTestBed().inject(NgbModal, null)?.dismissAll?.();
 });
 
 // Then we find all the tests.
