@@ -34,7 +34,10 @@ export class DefaultAppConfig implements AppConfig {
     rateLimiter: {
       windowMs: 1 * 60 * 1000, // 1 minute
       max: 500 // limit each IP to 500 requests per windowMs
-    }
+    },
+
+    // Show the file access status in items lists
+    showAccessStatuses: false
   };
 
   // The REST API server settings

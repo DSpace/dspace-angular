@@ -10,5 +10,7 @@ export class UIServerConfig extends ServerConfig {
     windowMs: number;
     max: number;
   };
+  // This section is used to show the access status of items in results lists
+  showAccessStatuses: boolean;
 
 }

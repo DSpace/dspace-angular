@@ -163,6 +163,7 @@ import { SequenceService } from './shared/sequence.service';
 import { CoreState } from './core-state.model';
 import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
+import { AccessStatusObject } from '../shared/object-list/access-status-badge/access-status.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -346,7 +347,8 @@ export const models =
     UsageReport,
     Root,
     SearchConfig,
-    SubmissionAccessesModel
+    SubmissionAccessesModel,
+    AccessStatusObject
   ];
 
 @NgModule({

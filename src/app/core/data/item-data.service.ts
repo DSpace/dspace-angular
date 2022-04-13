@@ -36,6 +36,7 @@ import { sendRequest } from '../shared/request.operators';
 import { RestRequest } from './rest-request.model';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from './find-list-options.model';
+import { AccessStatusObject } from 'src/app/shared/object-list/access-status-badge/access-status.model';
 
 @Injectable()
 @dataService(ITEM)
@@ -289,6 +290,27 @@ export class ItemDataService extends DataService<Item> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       switchMap((url: string) => this.halService.getEndpoint('bitstreams', `${url}/${itemId}`))
     );
+  }
+
+  /**
+   * Get the the access status
+   * @param itemId
+   */
+  public getAccessStatus(itemId: string): Observable<RemoteData<AccessStatusObject>> {
+    const requestId = this.requestService.generateRequestId();
+    const href$ = this.halService.getEndpoint('accessStatus').pipe(
+      map((href) => href.replace('{?uuid}', `?uuid=${itemId}`))
+    );
+
+    href$.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new GetRequest(requestId, href);
+        this.requestService.send(request);
+      })
+    ).subscribe();
+
+    return this.rdbService.buildFromRequestUUID(requestId);
   }
 
   /**
