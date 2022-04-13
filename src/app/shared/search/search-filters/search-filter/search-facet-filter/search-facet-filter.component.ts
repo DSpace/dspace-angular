@@ -230,27 +230,29 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Submits a new active custom value to the filter from the input field
+   * Submits a new active custom value to the filter from the input field when the input field isn't empty.
    * @param data The string from the input field
    */
   onSubmit(data: any) {
-    this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
-        if (isNotEmpty(data)) {
-          this.router.navigate(this.getSearchLinkParts(), {
-            queryParams:
-              {
-                [this.filterConfig.paramName]: [
-                  ...selectedValues.map((facet) => this.getFacetValue(facet)),
-                  data
-                ]
-              },
-            queryParamsHandling: 'merge'
-          });
-          this.filter = '';
+    if (data.match(new RegExp(`^.+,(equals|query|authority)$`))) {
+      this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
+          if (isNotEmpty(data)) {
+            this.router.navigate(this.getSearchLinkParts(), {
+              queryParams:
+                {
+                  [this.filterConfig.paramName]: [
+                    ...selectedValues.map((facet) => this.getFacetValue(facet)),
+                    data
+                  ]
+                },
+              queryParamsHandling: 'merge'
+            });
+            this.filter = '';
+          }
+          this.filterSearchResults = observableOf([]);
         }
-        this.filterSearchResults = observableOf([]);
-      }
-    );
+      );
+    }
   }
 
   /**
