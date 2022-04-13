@@ -77,7 +77,7 @@ export class SearchComponent implements OnInit {
   /**
    * Embedded keys to force during the search
    */
-  @Input() forcedEmbeddedKeys = ['metrics'];
+  @Input() forcedEmbeddedKeys: Map<string, string[]> = new Map([['default', ['metrics']]]) ;
 
   /**
    * If this is true, the request will only be sent if there's
@@ -307,11 +307,13 @@ export class SearchComponent implements OnInit {
       debounceTime(100)
     ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
       // Build the PaginatedSearchOptions object
+      const searchOptionsConfiguration = searchOptions.configuration || configuration;
+      console.log(searchOptionsConfiguration, this.forcedEmbeddedKeys.get(searchOptionsConfiguration));
       const combinedOptions = Object.assign({}, searchOptions,
         {
-          configuration: searchOptions.configuration || configuration,
+          configuration: searchOptionsConfiguration,
           sort: sortOption || searchOptions.sort,
-          forcedEmbeddedKeys: this.forcedEmbeddedKeys
+          forcedEmbeddedKeys: this.forcedEmbeddedKeys.get(searchOptionsConfiguration)
         });
       const newSearchOptions = new PaginatedSearchOptions(combinedOptions);
       // check if search options are changed

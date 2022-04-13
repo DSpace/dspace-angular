@@ -29,7 +29,7 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
   @Input() fixedFilterQuery: string;
 
-  @Input() forcedEmbeddedKeys = ['metrics'];
+  @Input() forcedEmbeddedKeys: Map<string, string[]> = new Map([['default', ['metrics']]]) ;
 
   @Input() useCachedVersionIfAvailable = true;
 
