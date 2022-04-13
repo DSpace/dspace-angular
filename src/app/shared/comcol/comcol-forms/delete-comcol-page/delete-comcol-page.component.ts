@@ -41,7 +41,6 @@ export class DeleteComColPageComponent<TDomain extends Community | Collection> i
     protected route: ActivatedRoute,
     protected notifications: NotificationsService,
     protected translate: TranslateService,
-    protected requestService: RequestService
   ) {
   }
 
@@ -61,7 +60,6 @@ export class DeleteComColPageComponent<TDomain extends Community | Collection> i
         if (response.hasSucceeded) {
           const successMessage = this.translate.instant((dso as any).type + '.delete.notification.success');
           this.notifications.success(successMessage);
-          this.dsoDataService.refreshCache(dso);
         } else {
           const errorMessage = this.translate.instant((dso as any).type + '.delete.notification.fail');
           this.notifications.error(errorMessage);

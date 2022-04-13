@@ -24,8 +24,7 @@ export class DeleteCollectionPageComponent extends DeleteComColPageComponent<Col
     protected route: ActivatedRoute,
     protected notifications: NotificationsService,
     protected translate: TranslateService,
-    protected requestService: RequestService
   ) {
-    super(dsoDataService, router, route, notifications, translate, requestService);
+    super(dsoDataService, router, route, notifications, translate);
   }
 }

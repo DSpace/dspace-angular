@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule, FormArray, FormControl, FormGroup,Validators, NG_VALIDATORS, NG_ASYNC_VALIDATORS } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
@@ -27,7 +27,7 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { GroupMock, GroupMock2 } from '../../../shared/testing/group-mock';
 import { GroupFormComponent } from './group-form.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { TranslateLoaderMock } from '../../../shared/testing/translate-loader.mock';
@@ -35,6 +35,7 @@ import { RouterMock } from '../../../shared/mocks/router.mock';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { Operation } from 'fast-json-patch';
 import { ValidateGroupExists } from './validators/group-exists.validator';
+import { NoContent } from '../../../core/shared/NoContent.model';
 
 describe('GroupFormComponent', () => {
   let component: GroupFormComponent;
@@ -86,6 +87,9 @@ describe('GroupFormComponent', () => {
       },
       patch(group: Group, operations: Operation[]) {
         return null;
+      },
+      delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
+        return createSuccessfulRemoteDataObject$({});
       },
       cancelEditGroup(): void {
         this.activeGroup = null;
@@ -348,4 +352,54 @@ describe('GroupFormComponent', () => {
     });
   });
 
+  describe('delete', () => {
+    let deleteButton;
+    let confirmButton;
+    let cancelButton;
+
+    beforeEach(() => {
+      component.initialisePage();
+
+      component.canEdit$ = observableOf(true);
+      component.groupBeingEdited = {
+        permanent: false
+      } as Group;
+
+      fixture.detectChanges();
+      deleteButton = fixture.debugElement.query(By.css('.delete-button')).nativeElement;
+
+      spyOn(groupsDataServiceStub, 'delete').and.callThrough();
+      spyOn(groupsDataServiceStub, 'getActiveGroup').and.returnValue(observableOf({ id: 'active-group' }));
+    });
+
+    describe('if confirmed via modal', () => {
+      beforeEach(() => {
+        deleteButton.click();
+        fixture.detectChanges();
+        confirmButton = (document as any).querySelector('.modal-footer .confirm');
+      });
+
+      it('should call GroupDataService.delete', () => {
+        confirmButton.click();
+        fixture.detectChanges();
+
+        expect(groupsDataServiceStub.delete).toHaveBeenCalledWith('active-group');
+      });
+    });
+
+    describe('if canceled via modal', () => {
+      beforeEach(() => {
+        deleteButton.click();
+        fixture.detectChanges();
+        cancelButton = (document as any).querySelector('.modal-footer .cancel');
+      });
+
+      it('should not call GroupDataService.delete', () => {
+        cancelButton.click();
+        fixture.detectChanges();
+
+        expect(groupsDataServiceStub.delete).not.toHaveBeenCalled();
+      });
+    });
+  });
 });

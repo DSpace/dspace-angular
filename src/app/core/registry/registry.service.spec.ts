@@ -386,6 +386,10 @@ describe('RegistryService', () => {
       result = registryService.deleteMetadataSchema(mockSchemasList[0].id);
     });
 
+    it('should defer to MetadataSchemaDataService.delete', () => {
+      expect(metadataSchemaService.delete).toHaveBeenCalledWith(`${mockSchemasList[0].id}`);
+    });
+
     it('should return a successful response', () => {
       result.subscribe((response: RemoteData<NoContent>) => {
         expect(response.hasSucceeded).toBe(true);
@@ -398,6 +402,10 @@ describe('RegistryService', () => {
 
     beforeEach(() => {
       result = registryService.deleteMetadataField(mockFieldsList[0].id);
+    });
+
+    it('should defer to MetadataFieldDataService.delete', () => {
+      expect(metadataFieldService.delete).toHaveBeenCalledWith(`${mockFieldsList[0].id}`);
     });
 
     it('should return a successful response', () => {

@@ -184,7 +184,6 @@ export class ComColFormComponent<T extends Collection | Community> implements On
         }
         this.dso.logo = undefined;
         this.uploadFilesOptions.method = RestRequestMethod.POST;
-        this.refreshCache();
         this.finish.emit();
       });
     }

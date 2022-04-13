@@ -8,12 +8,12 @@
     <p class="pb-2">{{ "item.version.delete.modal.text" | translate : {version: versionNumber} }}</p>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-outline-secondary btn-sm"
+    <button class="btn btn-outline-secondary btn-sm cancel"
             (click)="onModalClose()"
             title="{{'item.version.delete.modal.button.cancel.tooltip' | translate}}">
       <i class="fas fa-times fa-fw"></i> {{'item.version.delete.modal.button.cancel' | translate}}
     </button>
-    <button class="btn btn-danger btn-sm"
+    <button class="btn btn-danger btn-sm confirm"
             (click)="onModalSubmit()"
             title="{{'item.version.delete.modal.button.confirm.tooltip' | translate}}">
       <i class="fas fa-check fa-fw"></i> {{'item.version.delete.modal.button.confirm' | translate}}

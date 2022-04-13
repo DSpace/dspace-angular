@@ -157,7 +157,6 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
         } else {
           this.notificationsService.error(null, this.translate.get('resource-policies.delete.failure.content'));
         }
-        this.requestService.setStaleByHrefSubstring(this.resourceUUID);
         this.processingDelete$.next(false);
       })
     );
