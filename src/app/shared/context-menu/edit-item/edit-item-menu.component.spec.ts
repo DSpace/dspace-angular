@@ -13,8 +13,8 @@ import { createPaginatedList } from '../../testing/utils.test';
 import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
-import {NotificationsService} from '../../notifications/notifications.service';
-import {NotificationsServiceStub} from '../../testing/notifications-service.stub';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 
 describe('EditItemMenuComponent', () => {
   let component: EditItemMenuComponent;
@@ -46,11 +46,11 @@ describe('EditItemMenuComponent', () => {
       }
     });
     editItemDataService = jasmine.createSpyObj('EditItemDataService', {
-      findById: jasmine.createSpy('findById')
+      searchEditModesById: jasmine.createSpy('searchEditModesById')
     });
 
     TestBed.configureTestingModule({
-      declarations: [ EditItemMenuComponent ],
+      declarations: [EditItemMenuComponent],
       imports: [
         TranslateModule.forRoot({
           loader: {
@@ -71,7 +71,7 @@ describe('EditItemMenuComponent', () => {
 
   describe('when edit modes are available', () => {
     beforeEach(() => {
-      editItemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(editItem));
+      editItemDataService.searchEditModesById.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([editItemMode])));
       fixture = TestBed.createComponent(EditItemMenuComponent);
       component = fixture.componentInstance;
       componentAsAny = fixture.componentInstance;
@@ -91,7 +91,7 @@ describe('EditItemMenuComponent', () => {
 
   describe('when no edit modes are available', () => {
     beforeEach(() => {
-      editItemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(noEditItem));
+      editItemDataService.searchEditModesById.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([])));
       fixture = TestBed.createComponent(EditItemMenuComponent);
       component = fixture.componentInstance;
       componentAsAny = fixture.componentInstance;

@@ -6,7 +6,7 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue, isNotEmpty } from '../../empty.util';
 import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';
 import { followLink } from '../../utils/follow-link-config.model';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload, getPaginatedListPayload } from '../../../core/shared/operators';
 import { EditItem } from '../../../core/submission/models/edititem.model';
 import { EditItemDataService } from '../../../core/submission/edititem-data.service';
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
@@ -102,11 +102,9 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
     }
   }
   getData(): void {
-    this.sub = this.editItemService.findById(this.contextMenuObject.id + ':none', false, true, followLink('modes')).pipe(
+    this.sub = this.editItemService.searchEditModesById(this.contextMenuObject.id).pipe(
       getAllSucceededRemoteDataPayload(),
-      mergeMap((editItem: EditItem) => editItem.modes.pipe(
-        getFirstSucceededRemoteListPayload())
-      ),
+      getPaginatedListPayload(),
       startWith([])
     ).subscribe((editModes: EditItemMode[]) => {
       this.editModes$.next(editModes);

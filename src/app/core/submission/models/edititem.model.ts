@@ -45,4 +45,10 @@ export class EditItem extends SubmissionObject {
    */
   @link(EditItemMode.type)
   modes?: Observable<RemoteData<PaginatedList<EditItemMode>>>;
+  /**
+   * Existing EditItem modes for current EditItem
+   * Will be undefined unless the modes {@link HALLink} has been resolved.
+   */
+  @link(EditItemMode.type)
+  edititemmodes?: Observable<RemoteData<PaginatedList<EditItemMode>>>;
 }
