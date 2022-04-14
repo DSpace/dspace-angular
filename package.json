@@ -36,7 +36,8 @@
     "merge-i18n": "ts-node --project ./tsconfig.ts-node.json scripts/merge-i18n-files.ts",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "env:yaml": "ts-node --project ./tsconfig.ts-node.json scripts/env-to-yaml.ts"
+    "env:yaml": "ts-node --project ./tsconfig.ts-node.json scripts/env-to-yaml.ts",
+    "check-circ-deps": "npx madge --exclude '(bitstream|bundle|collection|config-submission-form|eperson|item|version)\\.model\\.ts$' --circular --extensions ts ./"
   },
   "browser": {
     "fs": false,
