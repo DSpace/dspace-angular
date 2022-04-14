@@ -9,11 +9,11 @@ import { isNotEmpty } from '../empty.util';
  * @param searchFilterConfig
  */
 export function getFacetValueForType(facetValue: FacetValue, searchFilterConfig: SearchFilterConfig): string {
-  const regex = new RegExp(`[?|&]${escapeRegExp(searchFilterConfig.paramName)}=(${escapeRegExp(facetValue.value)}[^&]*)`, 'g');
+  const regex = new RegExp(`[?|&]${escapeRegExp(encodeURIComponent(searchFilterConfig.paramName))}=(${escapeRegExp(encodeURIComponent(facetValue.value))}[^&]*)`, 'g');
   if (isNotEmpty(facetValue._links)) {
     const values = regex.exec(facetValue._links.search.href);
     if (isNotEmpty(values)) {
-      return values[1];
+      return decodeURIComponent(values[1]);
     }
   }
   if (facetValue.authorityKey) {

@@ -37,7 +37,7 @@ describe('Search Utils', () => {
     });
 
     it('should retrieve the correct value from the search href', () => {
-      expect(getFacetValueForType(facetValueWithSearchHref, searchFilterConfig)).toEqual('Value with search href,operator');
+      expect(getFacetValueForType(facetValueWithSearchHref, searchFilterConfig)).toEqual('Value with search href,equals');
     });
 
     it('should retrieve the correct value from the Facet', () => {
