@@ -87,6 +87,12 @@
                   "maximumWarning": "200kb",
                   "maximumError": "300kb"
                 }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/config/store/devtools.ts",
+                  "with": "src/config/store/devtools.prod.ts"
+                }
               ]
             }
           }
