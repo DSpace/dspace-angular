@@ -163,7 +163,7 @@ export class SearchComponent implements OnInit {
   /**
    * Defines whether or not to show the scope selector
    */
-  @Input() showScopeSelector = false;
+  @Input() showScopeSelector = true;
 
   /**
    * The current configuration used during the search

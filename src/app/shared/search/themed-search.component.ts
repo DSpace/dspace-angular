@@ -63,7 +63,7 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
   @Input() viewModeList: ViewMode[];
 
-  @Input() showScopeSelector = false;
+  @Input() showScopeSelector = true;
 
   @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter<SearchObjects<DSpaceObject>>();
 
