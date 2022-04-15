@@ -20,6 +20,9 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
   templateUrl: './scope-selector-modal.component.html',
 })
 export class ScopeSelectorModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {
+
+  configuration = 'communityOrCollection';
+
   objectType = DSpaceObjectType.COMMUNITY;
   /**
    * The types of DSO that can be selected from this list
