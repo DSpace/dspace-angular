@@ -387,16 +387,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   protected subs: Subscription[] = [];
 
-  /**
-   * Set to blank to detect changes in format.
-   */
-  bitstreamFormat = {};
-
-  /**
-   * Set to true to detect changes in bundle.
-   */
-  bitstreamBundle = {};
-
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -695,31 +685,15 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const regexExcludeBundles = /OTHERCONTENT|THUMBNAIL|LICENSE/;
     const regexIIIFItem = /true|yes/i;
 
-    this.bitstream.format.subscribe(res => {
-      this.bitstreamFormat = res;
-    });
-    this.bitstream.bundle.subscribe(res => {
-      this.bitstreamBundle = res;
-    });
-
     const isImage$ = this.bitstream.format.pipe(
       getFirstSucceededRemoteData(),
       map((format: RemoteData<BitstreamFormat>) => format.payload.mimetype.includes('image/')));
-
-    let isImageBitstream = false;
-    isImage$.subscribe(res => {
-      isImageBitstream = res;
-    });
 
     const isIIIFBundle$ = this.bitstream.bundle.pipe(
       getFirstSucceededRemoteData(),
       map((bundle: RemoteData<Bundle>) =>
         this.dsoNameService.getName(bundle.payload).match(regexExcludeBundles) == null));
 
-    let isIIIFBundleBitstream = false;
-    isIIIFBundle$.subscribe(res => {
-      isIIIFBundleBitstream = res;
-    });
     const isEnabled$ = this.bitstream.bundle.pipe(
       getFirstSucceededRemoteData(),
       map((bundle: RemoteData<Bundle>) => bundle.payload.item.pipe(
@@ -728,11 +702,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
             (item.payload.firstMetadataValue('dspace.iiif.enabled') &&
               item.payload.firstMetadataValue('dspace.iiif.enabled').match(regexIIIFItem) !== null)
       ))));
-
-    let isEnabledBitstream: Observable<boolean>;
-    isEnabled$.subscribe(res => {
-      isEnabledBitstream = res;
-    });
 
     const iiifSub = combineLatest(
       isImage$,
