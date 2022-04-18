@@ -387,6 +387,16 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   protected subs: Subscription[] = [];
 
+  /**
+   * Set to blank to detect changes in format.
+   */
+  bitstreamFormat = {};
+
+  /**
+   * Set to true to detect changes in bundle.
+   */
+  bitstreamBundle = {};
+
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -684,6 +694,13 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
     const regexExcludeBundles = /OTHERCONTENT|THUMBNAIL|LICENSE/;
     const regexIIIFItem = /true|yes/i;
+
+    this.bitstream.format.subscribe(res => {
+      this.bitstreamFormat = res;
+    });
+    this.bitstream.bundle.subscribe(res => {
+      this.bitstreamBundle = res;
+    });
 
     const isImage$ = this.bitstream.format.pipe(
       getFirstSucceededRemoteData(),
