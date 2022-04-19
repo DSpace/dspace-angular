@@ -864,6 +864,16 @@ describe('DataService', () => {
       });
     });
 
+    it('should call setStaleByUUID even if not subscribing to returned Observable', fakeAsync(() => {
+      service.invalidateByHref('some-href');
+      tick();
+
+      expect(getByHrefSpy).toHaveBeenCalledWith('some-href');
+      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request1');
+      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request2');
+      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request3');
+    }));
+
     it('should return an Observable that only emits true once all requests are stale', () => {
       testScheduler.run(({ cold, expectObservable }) => {
         requestService.setStaleByUUID.and.callFake((uuid) => {
@@ -906,11 +916,11 @@ describe('DataService', () => {
 
     it('should retrieve href by ID and call deleteByHref', () => {
       getIDHrefObsSpy.and.returnValue(observableOf('some-href'));
-      buildFromRequestUUIDSpy.and.returnValue(null);
+      buildFromRequestUUIDSpy.and.returnValue(createSuccessfulRemoteDataObject$({}));
 
-      service.delete('some-id').subscribe(rd => {
+      service.delete('some-id', ['a', 'b', 'c']).subscribe(rd => {
         expect(getIDHrefObsSpy).toHaveBeenCalledWith('some-id');
-        expect(deleteByHrefSpy).toHaveBeenCalledWith('some-href');
+        expect(deleteByHrefSpy).toHaveBeenCalledWith('some-href', ['a', 'b', 'c']);
       });
     });
 
@@ -924,6 +934,15 @@ describe('DataService', () => {
           done();
         });
       });
+
+      it('should call invalidateByHref even if not subscribing to returned Observable', fakeAsync(() => {
+        buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+
+        service.deleteByHref('some-href');
+        tick();
+
+        expect(invalidateByHrefSpy).toHaveBeenCalled();
+      }));
 
       it('should not call invalidateByHref if the DELETE request fails', (done) => {
         buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_FAILED_RD));

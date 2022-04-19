@@ -282,7 +282,7 @@ export class ObjectCacheService {
     let result = false;
     this.getByHref(href).subscribe((entry: ObjectCacheEntry) => {
       if (isNotEmpty(requestUUID)) {
-        result = entry.requestUUIDs[0] === requestUUID;  // todo: may make more sense to do entry.requestUUIDs.includes(requestUUID) instead
+        result = entry.requestUUIDs.includes(requestUUID);
       } else {
         result = true;
       }

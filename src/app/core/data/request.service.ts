@@ -320,8 +320,8 @@ export class RequestService {
     this.store.dispatch(new RequestStaleAction(uuid));
 
     return this.getByUUID(uuid).pipe(
-      map(request => isStale(request.state)),
-      filter(stale => stale === true),
+      map((request: RequestEntry) => isStale(request.state)),
+      filter((stale: boolean) => stale),
       take(1),
     );
   }

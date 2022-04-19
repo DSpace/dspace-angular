@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
-import { combineLatest, from, Observable, of as observableOf } from 'rxjs';
+import { AsyncSubject, combineLatest, from as observableFrom, Observable, of as observableOf } from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
@@ -21,6 +21,7 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { DSpaceObject } from '../shared/dspace-object.model';
@@ -596,18 +597,22 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    * @return  An Observable that will emit `true` once all requests are stale
    */
   invalidateByHref(href: string): Observable<boolean> {
-    return this.objectCache.getByHref(href).pipe(
-      map(oce => oce.requestUUIDs),
-      switchMap(requestUUIDs => {
-        return from(requestUUIDs).pipe(
-          mergeMap(requestUUID => this.requestService.setStaleByUUID(requestUUID)),
-          toArray(),
-        );
-      }),
-      map(areRequestsStale => areRequestsStale.every(Boolean)),
+    const done$ = new AsyncSubject<boolean>();
+
+    this.objectCache.getByHref(href).pipe(
+      switchMap((oce: ObjectCacheEntry) => observableFrom(oce.requestUUIDs)),
+      mergeMap((requestUUID: string) => this.requestService.setStaleByUUID(requestUUID)),
+      toArray(),
+      map((areRequestsStale: boolean[]) => areRequestsStale.every(Boolean)),
       distinctUntilChanged(),
-      takeWhile(allStale => allStale === false, true),
-    );
+    ).subscribe((done: boolean) => {
+      if (done) {
+        done$.next(true);
+        done$.complete();
+      }
+    });
+
+    return done$;
   }
 
   /**
@@ -652,22 +657,25 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
 
     const response$ = this.rdbService.buildFromRequestUUID(requestId);
 
-    const invalidated$ = response$.pipe(
+    const invalidated$ = new AsyncSubject<boolean>();
+    response$.pipe(
       getFirstCompletedRemoteData(),
-      switchMap(rd => {
+      switchMap((rd: RemoteData<NoContent>) => {
         if (rd.hasSucceeded) {
           return this.invalidateByHref(href);
         } else {
           return [true];
         }
       })
-    );
+    ).subscribe((invalidated: boolean) => {
+      if (invalidated) {
+        invalidated$.next(true);
+        invalidated$.complete();
+      }
+    });
 
     return combineLatest([response$, invalidated$]).pipe(
       filter(([_, invalidated]) => invalidated),
-      tap(() => {
-        console.log(`DataService.deleteByHref() href=${href} done.`);
-      }),
       map(([response, _]) => response),
     );
   }
