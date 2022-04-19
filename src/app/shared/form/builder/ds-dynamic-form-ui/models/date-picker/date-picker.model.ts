@@ -7,7 +7,7 @@ import {
   serializable
 } from '@ng-dynamic-forms/core';
 import {BehaviorSubject, Subject} from 'rxjs';
-import {isEmpty, isNotEmpty, isNotUndefined} from '../../../../../empty.util';
+import {isEmpty, isNotUndefined} from '../../../../../empty.util';
 import {MetadataValue} from '../../../../../../core/shared/metadata.models';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
@@ -37,13 +37,15 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
     this.metadataValue = (config as any).metadataValue;
     this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
     this.hiddenUpdates = new BehaviorSubject<boolean>(this.hidden);
-    this.hiddenUpdates.subscribe((hidden: boolean) => {
+
+    // Asynchronously hide parent if this is hidden
+    setTimeout((hidden: boolean) => {
       this.hidden = hidden;
       const parentModel = this.getRootParent(this);
       if (parentModel && isNotUndefined(parentModel.hidden)) {
         parentModel.hidden = hidden;
       }
-    });
+    }, 0);
   }
 
   private getRootParent(model: any): DynamicFormControlModel {
