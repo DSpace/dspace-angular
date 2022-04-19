@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, FormArray, FormControl, FormGroup,Validators, NG_VALIDATORS, NG_ASYNC_VALIDATORS } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
@@ -27,7 +27,7 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { GroupMock, GroupMock2 } from '../../../shared/testing/group-mock';
 import { GroupFormComponent } from './group-form.component';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { TranslateLoaderMock } from '../../../shared/testing/translate-loader.mock';
@@ -354,8 +354,6 @@ describe('GroupFormComponent', () => {
 
   describe('delete', () => {
     let deleteButton;
-    let confirmButton;
-    let cancelButton;
 
     beforeEach(() => {
       component.initialisePage();
@@ -373,31 +371,25 @@ describe('GroupFormComponent', () => {
     });
 
     describe('if confirmed via modal', () => {
-      beforeEach(() => {
+      beforeEach(waitForAsync(() => {
         deleteButton.click();
         fixture.detectChanges();
-        confirmButton = (document as any).querySelector('.modal-footer .confirm');
-      });
+        (document as any).querySelector('.modal-footer .confirm').click();
+      }));
 
       it('should call GroupDataService.delete', () => {
-        confirmButton.click();
-        fixture.detectChanges();
-
         expect(groupsDataServiceStub.delete).toHaveBeenCalledWith('active-group');
       });
     });
 
     describe('if canceled via modal', () => {
-      beforeEach(() => {
+      beforeEach(waitForAsync(() => {
         deleteButton.click();
         fixture.detectChanges();
-        cancelButton = (document as any).querySelector('.modal-footer .cancel');
-      });
+        (document as any).querySelector('.modal-footer .cancel').click();
+      }));
 
       it('should not call GroupDataService.delete', () => {
-        cancelButton.click();
-        fixture.detectChanges();
-
         expect(groupsDataServiceStub.delete).not.toHaveBeenCalled();
       });
     });

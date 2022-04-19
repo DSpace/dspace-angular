@@ -297,8 +297,6 @@ describe('ItemVersionsComponent', () => {
 
   describe('when deleting a version', () => {
     let deleteButton;
-    let confirmButton;
-    let cancelButton;
 
     beforeEach(() => {
       const canDelete = (featureID: FeatureID, url: string ) => of(featureID === FeatureID.CanDeleteVersion);
@@ -313,31 +311,25 @@ describe('ItemVersionsComponent', () => {
     });
 
     describe('if confirmed via modal', () => {
-      beforeEach(() => {
+      beforeEach(waitForAsync(() => {
         deleteButton.click();
         fixture.detectChanges();
-        confirmButton = (document as any).querySelector('.modal-footer .confirm');
-      });
+        (document as any).querySelector('.modal-footer .confirm').click();
+      }));
 
       it('should call ItemService.delete', () => {
-        confirmButton.click();
-        fixture.detectChanges();
-
         expect(itemDataServiceSpy.delete).toHaveBeenCalledWith(item2.id);
       });
     });
 
     describe('if canceled via modal', () => {
-      beforeEach(() => {
+      beforeEach(waitForAsync(() => {
         deleteButton.click();
         fixture.detectChanges();
-        cancelButton = (document as any).querySelector('.modal-footer .cancel');
-      });
+        (document as any).querySelector('.modal-footer .cancel').click();
+      }));
 
       it('should not call ItemService.delete', () => {
-        cancelButton.click();
-        fixture.detectChanges();
-
         expect(itemDataServiceSpy.delete).not.toHaveBeenCalled();
       });
     });
