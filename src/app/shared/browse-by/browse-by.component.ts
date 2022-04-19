@@ -70,7 +70,7 @@ export class BrowseByComponent implements OnInit {
   /**
    * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
    */
-  @Input() showPaginator = false;
+  @Input() showPaginator = true;
 
   /**
    * It is used to hide or show gear
@@ -173,4 +173,7 @@ export class BrowseByComponent implements OnInit {
     );
   }
 
+  back() {
+    this.paginationService.updateRoute(this.paginationConfig.id, {page: 1}, {value: null, startsWith: null});
+  }
 }

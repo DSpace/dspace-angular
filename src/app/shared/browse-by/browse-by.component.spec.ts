@@ -17,9 +17,13 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
+import {
+  BrowseEntryListElementComponent
+} from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
 import {
   DEFAULT_CONTEXT,
   listableObjectComponent,
@@ -30,6 +34,8 @@ import { ThemeService } from '../theme-support/theme.service';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { HostWindowService } from '../host-window.service';
+import { RouteService } from '../../core/services/route.service';
+import { routeServiceStub } from '../testing/route-service.stub';
 import SpyObj = jasmine.SpyObj;
 
 @listableObjectComponent(BrowseEntry, ViewMode.ListElement, DEFAULT_CONTEXT, 'custom')
@@ -39,8 +45,6 @@ import SpyObj = jasmine.SpyObj;
 })
 class MockThemedBrowseEntryListElementComponent {
 }
-import { RouteService } from '../../core/services/route.service';
-import { routeServiceStub } from '../testing/route-service.stub';
 
 describe('BrowseByComponent', () => {
   let comp: BrowseByComponent;
@@ -112,6 +116,8 @@ describe('BrowseByComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BrowseByComponent);
     comp = fixture.componentInstance;
+    comp.paginationConfig = paginationConfig;
+    fixture.detectChanges();
   });
 
   it('should display a loading message when objects is empty', () => {
@@ -206,6 +212,15 @@ describe('BrowseByComponent', () => {
 
       const button = fixture.debugElement.query(By.css('reset'));
       expect(button).toBeDefined();
+    });
+  });
+  describe('back', () => {
+    it('should navigate back to the main browse page', () => {
+      comp.back();
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('test-pagination', {page: 1}, {
+        value: null,
+        startsWith: null
+      });
     });
   });
 

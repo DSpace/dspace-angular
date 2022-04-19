@@ -54,10 +54,6 @@ describe('StartsWithTextComponent', () => {
   describe('when filling in the input form', () => {
     let form;
     const expectedValue = 'A';
-    const extras: NavigationExtras = {
-      queryParams: Object.assign({ startsWith: expectedValue }),
-      queryParamsHandling: 'merge'
-    };
 
     beforeEach(() => {
       form = fixture.debugElement.query(By.css('form'));
@@ -71,7 +67,7 @@ describe('StartsWithTextComponent', () => {
     });
 
     it('should add a startsWith query parameter', () => {
-      expect(router.navigate).toHaveBeenCalledWith([], extras);
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', {page: 1}, {startsWith: expectedValue});
     });
   });
 

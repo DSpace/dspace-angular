@@ -734,6 +734,8 @@
 
   "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
 
+  "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
+
 
   "chips.remove": "Remove chip",
 
