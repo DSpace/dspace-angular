@@ -299,6 +299,13 @@ export class DefaultAppConfig implements AppConfig {
       ]
     },
   ];
+  // The default bundles that should always be displayed when you edit or add a bundle even when no bundle has been
+  // added to the item yet.
+  standardBundles: [
+    { bundle: 'ORIGINAL' },
+    { bundle: 'THUMBNAIL' },
+    { bundle: 'LICENSE' }
+  ];
   // Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with "image" or "video").
   // For images, this enables a gallery viewer where you can zoom or page through images.
   // For videos, this enables embedded video streaming
