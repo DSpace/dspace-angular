@@ -1,5 +1,4 @@
-
-import { FilterType } from '../../filter-type.model';
+import { FilterType } from '../../models/filter-type.model';
 
 /**
  * Contains the mapping between a facet component and a FilterType

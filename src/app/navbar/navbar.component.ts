@@ -6,7 +6,13 @@ import { MenuID, MenuItemType } from '../shared/menu/initial-menus-state';
 import { TextMenuItemModel } from '../shared/menu/menu-item/models/text.model';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { HostWindowService } from '../shared/host-window.service';
-import { environment } from '../../environments/environment';
+import { BrowseService } from '../core/browse/browse.service';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { PaginatedList } from '../core/data/paginated-list.model';
+import { BrowseDefinition } from '../core/shared/browse-definition.model';
+import { RemoteData } from '../core/data/remote-data';
+import { ActivatedRoute } from '@angular/router';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 
 /**
  * Component representing the public navbar
@@ -25,10 +31,13 @@ export class NavbarComponent extends MenuComponent {
   menuID = MenuID.PUBLIC;
 
   constructor(protected menuService: MenuService,
-              protected injector: Injector,
-              public windowService: HostWindowService
+    protected injector: Injector,
+              public windowService: HostWindowService,
+              public browseService: BrowseService,
+              public authorizationService: AuthorizationDataService,
+              public route: ActivatedRoute
   ) {
-    super(menuService, injector);
+    super(menuService, injector, authorizationService, route);
   }
 
   ngOnInit(): void {
@@ -52,37 +61,44 @@ export class NavbarComponent extends MenuComponent {
           text: `menu.section.browse_global_communities_and_collections`,
           link: `/community-list`
         } as LinkMenuItemModel
-      },
-      /* News */
-      {
-        id: 'browse_global',
-        active: false,
-        visible: true,
-        index: 1,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.browse_global'
-        } as TextMenuItemModel,
-      },
+      }
     ];
     // Read the different Browse-By types from config and add them to the browse menu
-    const types = environment.browseBy.types;
-    types.forEach((typeConfig) => {
-      menuList.push({
-        id: `browse_global_by_${typeConfig.id}`,
-        parentID: 'browse_global',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: `menu.section.browse_global_by_${typeConfig.id}`,
-          link: `/browse/${typeConfig.id}`
-        } as LinkMenuItemModel
+    this.browseService.getBrowseDefinitions()
+      .pipe(getFirstCompletedRemoteData<PaginatedList<BrowseDefinition>>())
+      .subscribe((browseDefListRD: RemoteData<PaginatedList<BrowseDefinition>>) => {
+        if (browseDefListRD.hasSucceeded) {
+          browseDefListRD.payload.page.forEach((browseDef: BrowseDefinition) => {
+            menuList.push({
+              id: `browse_global_by_${browseDef.id}`,
+              parentID: 'browse_global',
+              active: false,
+              visible: true,
+              model: {
+                type: MenuItemType.LINK,
+                text: `menu.section.browse_global_by_${browseDef.id}`,
+                link: `/browse/${browseDef.id}`
+              } as LinkMenuItemModel
+            });
+          });
+          menuList.push(
+            /* Browse */
+            {
+              id: 'browse_global',
+              active: false,
+              visible: true,
+              index: 1,
+              model: {
+                type: MenuItemType.TEXT,
+                text: 'menu.section.browse_global'
+              } as TextMenuItemModel,
+            }
+          );
+        }
+        menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
+          shouldPersistOnRouteChange: true
+        })));
       });
-    });
-    menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
-      shouldPersistOnRouteChange: true
-    })));
 
   }
 }

@@ -105,7 +105,7 @@ export class BrowseService {
    * @param options                   Options to narrow down your search
    * @returns {Observable<RemoteData<PaginatedList<Item>>>}
    */
-  getBrowseItemsFor(filterValue: string, options: BrowseEntrySearchOptions): Observable<RemoteData<PaginatedList<Item>>> {
+  getBrowseItemsFor(filterValue: string, filterAuthority: string, options: BrowseEntrySearchOptions): Observable<RemoteData<PaginatedList<Item>>> {
     const href$ = this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(options.metadataDefinition),
       hasValueOperator(),
@@ -131,6 +131,9 @@ export class BrowseService {
         }
         if (isNotEmpty(filterValue)) {
           args.push(`filterValue=${encodeURIComponent(filterValue)}`);
+        }
+        if (isNotEmpty(filterAuthority)) {
+          args.push(`filterAuthority=${encodeURIComponent(filterAuthority)}`);
         }
         if (isNotEmpty(args)) {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();

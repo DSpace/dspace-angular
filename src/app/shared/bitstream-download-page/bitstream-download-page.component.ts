@@ -12,6 +12,7 @@ import { FileService } from '../../core/shared/file.service';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { getForbiddenRoute } from '../../app-routing-paths';
 import { RemoteData } from '../../core/data/remote-data';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ds-bitstream-download-page',
@@ -33,8 +34,13 @@ export class BitstreamDownloadPageComponent implements OnInit {
     private auth: AuthService,
     private fileService: FileService,
     private hardRedirectService: HardRedirectService,
+    private location: Location,
   ) {
 
+  }
+
+  back(): void {
+    this.location.back();
   }
 
   ngOnInit(): void {

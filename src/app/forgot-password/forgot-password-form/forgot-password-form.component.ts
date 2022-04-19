@@ -11,7 +11,10 @@ import { Store } from '@ngrx/store';
 import { CoreState } from '../../core/core.reducers';
 import { RemoteData } from '../../core/data/remote-data';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
 
 @Component({
   selector: 'ds-forgot-password-form',
@@ -48,7 +51,8 @@ export class ForgotPasswordFormComponent {
 
   ngOnInit(): void {
     this.registration$ = this.route.data.pipe(
-      map((data) => data.registration as Registration),
+      map((data) => data.registration as RemoteData<Registration>),
+      getFirstSucceededRemoteDataPayload(),
     );
     this.registration$.subscribe((registration: Registration) => {
       this.email = registration.email;
