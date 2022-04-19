@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 // import @ngrx
 import { Action } from '@ngrx/store';
 // import type function
@@ -39,7 +40,6 @@ export const AuthActionTypes = {
   UNSET_USER_AS_IDLE: type('dspace/auth/UNSET_USER_AS_IDLE')
 };
 
-/* tslint:disable:max-classes-per-file */
 
 /**
  * Authenticate.
@@ -411,7 +411,6 @@ export class SetUserAsIdleAction implements Action {
 export class UnsetUserAsIdleAction implements Action {
   public type: string = AuthActionTypes.UNSET_USER_AS_IDLE;
 }
-/* tslint:enable:max-classes-per-file */
 
 /**
  * Actions type.

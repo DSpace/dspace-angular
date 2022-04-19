@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Observable } from 'rxjs';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -31,7 +32,6 @@ class DataServiceImpl extends DataService<ConfigObject> {
   }
 }
 
-// tslint:disable-next-line:max-classes-per-file
 export abstract class ConfigService {
   /**
    * A private DataService instance to delegate specific methods to.

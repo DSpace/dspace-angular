@@ -1,6 +1,6 @@
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import {
   AddToObjectCacheAction,
@@ -24,7 +24,7 @@ import { NoOpAction } from '../../shared/ngrx/no-op.action';
 @Injectable()
 export class UUIDIndexEffects {
 
-  @Effect() addObject$ = this.actions$
+   addObject$ = createEffect(() => this.actions$
     .pipe(
       ofType(ObjectCacheActionTypes.ADD),
       filter((action: AddToObjectCacheAction) => hasValue(action.payload.objectToCache.uuid)),
@@ -35,13 +35,13 @@ export class UUIDIndexEffects {
           action.payload.objectToCache._links.self.href
         );
       })
-    );
+    ));
 
   /**
    * Adds an alternative link to an object to the ALTERNATIVE_OBJECT_LINK index
    * When the self link of the objectToCache is not the same as the alternativeLink
    */
-  @Effect() addAlternativeObjectLink$ = this.actions$
+   addAlternativeObjectLink$ = createEffect(() => this.actions$
     .pipe(
       ofType(ObjectCacheActionTypes.ADD),
       map((action: AddToObjectCacheAction) => {
@@ -57,9 +57,9 @@ export class UUIDIndexEffects {
           return new NoOpAction();
         }
       })
-    );
+    ));
 
-  @Effect() removeObject$ = this.actions$
+   removeObject$ = createEffect(() => this.actions$
     .pipe(
       ofType(ObjectCacheActionTypes.REMOVE),
       map((action: RemoveFromObjectCacheAction) => {
@@ -68,9 +68,9 @@ export class UUIDIndexEffects {
           action.payload
         );
       })
-    );
+    ));
 
-  @Effect() addRequest$ = this.actions$
+   addRequest$ = createEffect(() => this.actions$
     .pipe(
       ofType(RequestActionTypes.CONFIGURE),
       filter((action: RequestConfigureAction) => action.payload.method === RestRequestMethod.GET),
@@ -95,7 +95,7 @@ export class UUIDIndexEffects {
         )];
         return actions;
       })
-    );
+    ));
 
   constructor(private actions$: Actions, private store: Store<CoreState>) {
 

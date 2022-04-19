@@ -23,13 +23,13 @@ import {
 } from '../../../../../testing/dynamic-form-mock-services';
 
 function createKeyUpEvent(key: number) {
-  /* tslint:disable:no-empty */
+  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   const event = {
     keyCode: key, preventDefault: () => {
     }, stopPropagation: () => {
     }
   };
-  /* tslint:enable:no-empty */
+  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   spyOn(event, 'preventDefault');
   spyOn(event, 'stopPropagation');
   return event;

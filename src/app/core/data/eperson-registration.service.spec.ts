@@ -100,7 +100,7 @@ describe('EpersonRegistrationService', () => {
       }));
     });
 
-    // tslint:disable:no-shadowed-variable
+    /* eslint-disable @typescript-eslint/no-shadow */
     it('should use cached responses and /registrations/search/findByToken?', () => {
       testScheduler.run(({ cold, expectObservable }) => {
         rdbService.buildSingle.and.returnValue(cold('a', { a: rd }));

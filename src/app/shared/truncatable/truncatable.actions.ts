@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 import { type } from '../ngrx/type';
 
@@ -35,7 +36,6 @@ export class TruncatableAction implements Action {
   }
 }
 
-/* tslint:disable:max-classes-per-file */
 /**
  * Used to collapse a truncatable component when it's expanded and expand it when it's collapsed
  */
@@ -57,4 +57,3 @@ export class TruncatableExpandAction extends TruncatableAction {
   type = TruncatableActionTypes.EXPAND;
 }
 
-/* tslint:enable:max-classes-per-file */
