@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { map, take } from 'rxjs/operators';
+import { map, take, switchMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UploaderOptions } from '../../../shared/uploader/uploader-options.model';
 import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
@@ -13,11 +13,13 @@ import { TranslateService } from '@ngx-translate/core';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { UploaderComponent } from '../../../shared/uploader/uploader.component';
 import { RequestService } from '../../../core/data/request.service';
 import { getBitstreamModuleRoute } from '../../../app-routing-paths';
 import { getEntityEditRoute } from '../../item-page-routing-paths';
+import { environment } from '../../../../environments/environment';
+import { StandardBundleConfig } from '../../../../config/standard-bundle-config.interface';
 
 @Component({
   selector: 'ds-upload-bitstream',
@@ -49,9 +51,9 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
   itemRD$: Observable<RemoteData<Item>>;
 
   /**
-   * The item's bundles
+   * The item's bundles and default the default bundles that should be suggested (defined in environment)
    */
-  bundlesRD$: Observable<RemoteData<PaginatedList<Bundle>>>;
+  bundles: Bundle[] = [];
 
   /**
    * The ID of the currently selected bundle to upload a bitstream to
@@ -99,7 +101,6 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
   /**
    * Initialize component properties:
    * itemRD$          Fetched from the current route data (populated by BitstreamPageResolver)
-   * bundlesRD$       List of bundles on the item
    * selectedBundleId Starts off by checking if the route's queryParams contain a "bundle" parameter. If none is found,
    *                  the ID of the first bundle in the list is selected.
    * Calls setUploadUrl after setting the selected bundle
@@ -108,7 +109,39 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
     this.itemId = this.route.snapshot.params.id;
     this.entityType = this.route.snapshot.params['entity-type'];
     this.itemRD$ = this.route.data.pipe(map((data) => data.dso));
-    this.bundlesRD$ = this.itemService.getBundles(this.itemId);
+    const bundlesRD$ = this.itemService.getBundles(this.itemId).pipe(
+      getFirstCompletedRemoteData(),
+      switchMap((remoteData: RemoteData<PaginatedList<Bundle>>) => {
+        if (remoteData.hasSucceeded) {
+          if (remoteData.payload.page) {
+            this.bundles = remoteData.payload.page;
+          } else if (environment.standardBundles) {
+            this.bundles = environment.standardBundles.map((defaultBundle: StandardBundleConfig) => Object.assign(new Bundle(), {
+                _name: defaultBundle.bundle,
+                type: 'bundle'
+              })
+            );
+          }
+          if (remoteData.payload.page && environment.standardBundles) {
+            for (const defaultBundle of environment.standardBundles) {
+              let check = true;
+              remoteData.payload.page.forEach((bundle: Bundle) => {
+                // noinspection JSDeprecatedSymbols
+                if (defaultBundle.bundle === bundle.name) {
+                  check = false;
+                }
+              });
+              if (check) {
+                this.bundles.push(Object.assign(new Bundle(), {
+                  _name: defaultBundle.bundle,
+                  type: 'bundle'
+                }));
+              }
+            }
+          }
+          return observableOf(remoteData.payload.page);
+        }
+      }));
     this.selectedBundleId = this.route.snapshot.queryParams.bundle;
     if (isNotEmpty(this.selectedBundleId)) {
       this.bundleService.findById(this.selectedBundleId).pipe(
@@ -118,6 +151,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
       });
       this.setUploadUrl();
     }
+    this.subs.push(bundlesRD$.subscribe());
   }
 
   /**
@@ -142,6 +176,13 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
    */
   bundleNameChange() {
     this.selectedBundleId = undefined;
+    for (const bundle of this.bundles) {
+      // noinspection JSDeprecatedSymbols
+      if (this.selectedBundleName === bundle.name) {
+        this.selectedBundleId = bundle.id;
+        break;
+      }
+    }
   }
 
   /**

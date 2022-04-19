@@ -21,9 +21,8 @@ import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
-import { getTestScheduler } from 'jasmine-marbles';
 
-describe('UploadBistreamComponent', () => {
+describe('UploadBitstreamComponent', () => {
   let comp: UploadBitstreamComponent;
   let fixture: ComponentFixture<UploadBitstreamComponent>;
 
@@ -92,22 +91,6 @@ describe('UploadBistreamComponent', () => {
   const uploaderComponent = jasmine.createSpyObj('uploaderComponent', ['ngOnInit', 'ngAfterViewInit']);
   const requestService = jasmine.createSpyObj('requestService', {
     removeByHrefSubstring: {}
-  });
-
-
-  describe('on init', () => {
-    beforeEach(waitForAsync(() => {
-      createUploadBitstreamTestingModule({
-        bundle: bundle.id
-      });
-    }));
-    beforeEach(() => {
-      loadFixtureAndComp();
-    });
-    it('should initialize the bundles', () => {
-      expect(comp.bundlesRD$).toBeDefined();
-      getTestScheduler().expectObservable(comp.bundlesRD$).toBe('(a|)', {a: createSuccessfulRemoteDataObject([bundle])});
-    });
   });
 
   describe('when a file is uploaded', () => {
