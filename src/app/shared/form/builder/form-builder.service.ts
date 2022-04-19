@@ -20,7 +20,16 @@ import {
 } from '@ng-dynamic-forms/core';
 import { isObject, isString, mergeWith } from 'lodash';
 
-import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull, isObjectEmpty } from '../../empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+  isNull,
+  isObjectEmpty
+} from '../../empty.util';
 import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
@@ -281,11 +290,11 @@ export class FormBuilderService extends DynamicFormService {
       });
     }
 
-    if (isNull(typeBindModel)) {
+    if (hasNoValue(typeBindModel)) {
       typeBindModel = this.findById(this.typeField, rows);
     }
 
-    if (typeBindModel !== null) {
+    if (hasValue(typeBindModel)) {
       this.setTypeBindModel(typeBindModel);
     }
     return rows;
