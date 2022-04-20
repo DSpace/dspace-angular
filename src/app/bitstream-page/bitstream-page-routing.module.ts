@@ -10,6 +10,7 @@ import { ResourcePolicyResolver } from '../shared/resource-policies/resolvers/re
 import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
 import { LegacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
+import { BitstreamBreadcrumbResolver } from '../core/breadcrumbs/bitstream-breadcrumb.resolver';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
@@ -25,7 +26,8 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
         path: 'handle/:prefix/:suffix/:filename',
         component: BitstreamDownloadPageComponent,
         resolve: {
-          bitstream: LegacyBitstreamUrlResolver
+          bitstream: LegacyBitstreamUrlResolver,
+          breadcrumb: BitstreamBreadcrumbResolver
         },
       },
       {
@@ -33,7 +35,8 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
         path: ':prefix/:suffix/:sequence_id/:filename',
         component: BitstreamDownloadPageComponent,
         resolve: {
-          bitstream: LegacyBitstreamUrlResolver
+          bitstream: LegacyBitstreamUrlResolver,
+          breadcrumb: BitstreamBreadcrumbResolver
         },
       },
       {
@@ -41,14 +44,16 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
         path: ':id/download',
         component: BitstreamDownloadPageComponent,
         resolve: {
-          bitstream: BitstreamPageResolver
+          bitstream: BitstreamPageResolver,
+          breadcrumb: BitstreamBreadcrumbResolver
         },
       },
       {
         path: EDIT_BITSTREAM_PATH,
         component: EditBitstreamPageComponent,
         resolve: {
-          bitstream: BitstreamPageResolver
+          bitstream: BitstreamPageResolver,
+          breadcrumb: BitstreamBreadcrumbResolver
         },
         canActivate: [AuthenticatedGuard]
       },
@@ -59,7 +64,8 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
           {
             path: 'create',
             resolve: {
-              resourcePolicyTarget: ResourcePolicyTargetResolver
+              resourcePolicyTarget: ResourcePolicyTargetResolver,
+              breadcrumb: BitstreamBreadcrumbResolver
             },
             component: ResourcePolicyCreateComponent,
             data: { title: 'resource-policies.create.page.title', showBreadcrumbs: true }
@@ -67,7 +73,8 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
           {
             path: 'edit',
             resolve: {
-              resourcePolicy: ResourcePolicyResolver
+              resourcePolicy: ResourcePolicyResolver,
+              breadcrumb: BitstreamBreadcrumbResolver
             },
             component: ResourcePolicyEditComponent,
             data: { title: 'resource-policies.edit.page.title', showBreadcrumbs: true }
@@ -75,7 +82,8 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
           {
             path: '',
             resolve: {
-              bitstream: BitstreamPageResolver
+              bitstream: BitstreamPageResolver,
+              breadcrumb: BitstreamBreadcrumbResolver
             },
             component: BitstreamAuthorizationsComponent,
             data: { title: 'bitstream.edit.authorizations.title', showBreadcrumbs: true }
@@ -86,6 +94,7 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
   ],
   providers: [
     BitstreamPageResolver,
+    BitstreamBreadcrumbResolver
   ]
 })
 export class BitstreamPageRoutingModule {
