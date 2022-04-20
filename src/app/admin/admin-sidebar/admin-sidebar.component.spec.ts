@@ -239,12 +239,18 @@ describe('AdminSidebarComponent', () => {
         }));
       });
 
+      // We check that the menu section has not been called with visible set to true
+      // The reason why we don't check if it has been called with visible set to false
+      // Is because the function does not get called unless a user is authorised
       it('should not show the import section', () => {
         expect(menuService.addSection).not.toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
           id: 'import', visible: true,
         }));
       });
 
+      // We check that the menu section has not been called with visible set to true
+      // The reason why we don't check if it has been called with visible set to false
+      // Is because the function does not get called unless a user is authorised
       it('should not show the export section', () => {
         expect(menuService.addSection).not.toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
           id: 'export', visible: true,

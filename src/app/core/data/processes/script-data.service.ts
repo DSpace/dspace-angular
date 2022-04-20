@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from '../default-change-analyzer.service';
 import { Script } from '../../../process-page/scripts/script.model';
 import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
-import { map, take, find } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { RemoteData } from '../remote-data';
 import { MultipartPostRequest, RestRequest } from '../request.models';
