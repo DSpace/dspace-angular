@@ -215,7 +215,13 @@ export class SubmissionObjectEffects {
           if (this.canDeposit(response)) {
             return new DepositSubmissionAction(action.payload.submissionId);
           } else {
-            return new SaveSubmissionFormSuccessAction(action.payload.submissionId, response);
+            this.notificationsService.warning(
+              null,
+              this.translate.instant('submission.sections.general.cannot_deposit'),
+              null,
+              true
+            );
+            return new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, false);
           }
         }),
         catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));

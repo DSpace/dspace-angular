@@ -884,6 +884,7 @@ describe('SubmissionObjectEffects test suite', () => {
       });
 
       expect(submissionObjectEffects.saveAndDeposit$).toBeObservable(expected);
+      expect(notificationsServiceStub.warning).not.toHaveBeenCalled();
     });
 
     it('should return a SAVE_SUBMISSION_FORM_SUCCESS action when there are errors', () => {
@@ -910,10 +911,11 @@ describe('SubmissionObjectEffects test suite', () => {
       submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(response));
 
       const expected = cold('--b-', {
-        b: new SaveSubmissionFormSuccessAction(submissionId, response as any[])
+        b: new SaveSubmissionFormSuccessAction(submissionId, response as any[], false)
       });
 
       expect(submissionObjectEffects.saveAndDeposit$).toBeObservable(expected);
+      expect(notificationsServiceStub.warning).toHaveBeenCalled();
     });
 
     it('should catch errors and return a SAVE_SUBMISSION_FORM_ERROR', () => {
