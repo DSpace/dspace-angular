@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -34,7 +35,6 @@ import { VocabularyOptions } from './models/vocabulary-options.model';
 import { PageInfo } from '../../shared/page-info.model';
 import { HrefOnlyDataService } from '../../data/href-only-data.service';
 
-/* tslint:disable:max-classes-per-file */
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -386,4 +386,3 @@ export class VocabularyService {
   }
 }
 
-/* tslint:enable:max-classes-per-file */

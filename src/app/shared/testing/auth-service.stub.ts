@@ -33,7 +33,7 @@ export class AuthServiceStub {
       return observableOf(authStatus);
     } else {
       console.log('error');
-      throw(new Error('Message Error test'));
+      throw (new Error('Message Error test'));
     }
   }
 
@@ -41,7 +41,7 @@ export class AuthServiceStub {
     if (token.accessToken === 'token_test') {
       return observableOf(EPersonMock._links.self.href);
     } else {
-      throw(new Error('Message Error test'));
+      throw (new Error('Message Error test'));
     }
   }
 

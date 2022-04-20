@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { SortOptions } from '../cache/models/sort-options.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from './parsing.service';
@@ -11,7 +12,6 @@ import { ContentSourceResponseParsingService } from './content-source-response-p
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { environment } from '../../../environments/environment';
 
-/* tslint:disable:max-classes-per-file */
 
 // uuid and handle requests have separate endpoints
 export enum IdentifierType {
@@ -280,4 +280,3 @@ export class RequestError extends Error {
   statusCode: number;
   statusText: string;
 }
-/* tslint:enable:max-classes-per-file */

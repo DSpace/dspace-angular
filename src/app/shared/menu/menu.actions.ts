@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 import { MenuID } from './initial-menus-state';
 import { type } from '../ngrx/type';
@@ -28,7 +29,6 @@ export const MenuActionTypes = {
   TOGGLE_ACTIVE_SECTION: type('dspace/menu-section/TOGGLE_ACTIVE_SECTION'),
 };
 
-/* tslint:disable:max-classes-per-file */
 
 // MENU STATE ACTIONS
 /**
@@ -225,4 +225,3 @@ export type MenuAction =
   | ToggleActiveMenuSectionAction
   | CollapseMenuPreviewAction
   | ExpandMenuPreviewAction;
-/* tslint:enable:max-classes-per-file */
