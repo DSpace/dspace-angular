@@ -14,7 +14,7 @@ import { AuthConfig } from './auth-config.interfaces';
 import { UIServerConfig } from './ui-server-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { BrowseByConfig } from './browse-by-config.interface';
-import { StandardBundleConfig } from './standard-bundle-config.interface';
+import { BundleConfig } from './bundle-config.interface';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -33,7 +33,7 @@ interface AppConfig extends Config {
   collection: CollectionPageConfig;
   themes: ThemeConfig[];
   mediaViewer: MediaViewerConfig;
-  standardBundles: StandardBundleConfig[];
+  bundle: BundleConfig;
 }
 
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');

@@ -19,7 +19,6 @@ import { RequestService } from '../../../core/data/request.service';
 import { getBitstreamModuleRoute } from '../../../app-routing-paths';
 import { getEntityEditRoute } from '../../item-page-routing-paths';
 import { environment } from '../../../../environments/environment';
-import { StandardBundleConfig } from '../../../../config/standard-bundle-config.interface';
 
 @Component({
   selector: 'ds-upload-bitstream',
@@ -115,29 +114,27 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
         if (remoteData.hasSucceeded) {
           if (remoteData.payload.page) {
             this.bundles = remoteData.payload.page;
-          } else if (environment.standardBundles) {
-            this.bundles = environment.standardBundles.map((defaultBundle: StandardBundleConfig) => Object.assign(new Bundle(), {
-                _name: defaultBundle.bundle,
-                type: 'bundle'
-              })
-            );
-          }
-          if (remoteData.payload.page && environment.standardBundles) {
-            for (const defaultBundle of environment.standardBundles) {
+            for (const defaultBundle of environment.bundle.standardBundles) {
               let check = true;
               remoteData.payload.page.forEach((bundle: Bundle) => {
                 // noinspection JSDeprecatedSymbols
-                if (defaultBundle.bundle === bundle.name) {
+                if (defaultBundle === bundle.name) {
                   check = false;
                 }
               });
               if (check) {
                 this.bundles.push(Object.assign(new Bundle(), {
-                  _name: defaultBundle.bundle,
+                  _name: defaultBundle,
                   type: 'bundle'
                 }));
               }
             }
+          } else {
+            this.bundles = environment.bundle.standardBundles.map((defaultBundle: string) => Object.assign(new Bundle(), {
+                _name: defaultBundle,
+                type: 'bundle'
+              })
+            );
           }
           return observableOf(remoteData.payload.page);
         }
@@ -232,7 +229,9 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
   onClick(bundle: Bundle) {
     this.selectedBundleId = bundle.id;
     this.selectedBundleName = bundle.name;
-    this.setUploadUrl();
+    if (bundle.id) {
+      this.setUploadUrl();
+    }
   }
 
   /**

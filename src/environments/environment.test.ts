@@ -224,11 +224,9 @@ export const environment: BuildConfig = {
       name: 'base',
     },
   ],
-  standardBundles: [
-    { bundle: 'ORIGINAL' },
-    { bundle: 'THUMBNAIL' },
-    { bundle: 'LICENSE' }
-  ],
+  bundle: {
+    standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE'],
+  },
   mediaViewer: {
     image: true,
     video: true
