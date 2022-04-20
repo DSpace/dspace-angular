@@ -39,9 +39,9 @@ describe('SelectableListService', () => {
 
   let service: SelectableListService;
   const store: Store<AppState> = jasmine.createSpyObj('store', {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

@@ -195,7 +195,7 @@ describe('ItemBitstreamsComponent', () => {
     const event = {
       fromIndex: 0,
       toIndex: 50,
-      // tslint:disable-next-line:no-empty
+      // eslint-disable-next-line no-empty,@typescript-eslint/no-empty-function
       finish: () => {
       }
     };
@@ -210,7 +210,7 @@ describe('ItemBitstreamsComponent', () => {
       comp.dropBitstream(bundle, {
         fromIndex: 0,
         toIndex: 50,
-        // tslint:disable-next-line:no-empty
+        // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function
         finish: () => {
           done();
         }

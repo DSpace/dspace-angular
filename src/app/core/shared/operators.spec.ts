@@ -17,7 +17,7 @@ import { getRequestFromRequestHref, getRequestFromRequestUUID, getResponseFromEn
 import { redirectOn4xx } from './authorized.operators';
 import { RequestEntry } from '../data/request-entry.model';
 
-// tslint:disable:no-shadowed-variable
+/* eslint-disable @typescript-eslint/no-shadow */
 
 describe('Core Module - RxJS Operators', () => {
   let scheduler: TestScheduler;

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -20,7 +21,6 @@ import { CacheableObject } from '../cache/cacheable-object.model';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from './find-list-options.model';
 
-/* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<any> {
   // linkPath isn't used if we're only searching by href.
   protected linkPath = undefined;

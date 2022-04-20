@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { type } from '../../../shared/ngrx/type';
 import { Action } from '@ngrx/store';
 import { INotification } from '../../../shared/notifications/models/notification.model';
@@ -22,7 +23,6 @@ export const ObjectUpdatesActionTypes = {
   REMOVE_FIELD: type('dspace/core/cache/object-updates/REMOVE_FIELD')
 };
 
-/* tslint:disable:max-classes-per-file */
 
 /**
  * An ngrx action to initialize a new page's fields in the ObjectUpdates state
@@ -275,7 +275,6 @@ export class RemoveFieldUpdateAction implements Action {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * A type to encompass all ObjectUpdatesActions

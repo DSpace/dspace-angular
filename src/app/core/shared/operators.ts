@@ -1,4 +1,4 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { debounceTime, filter, find, map, switchMap, take, takeWhile } from 'rxjs/operators';
 import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/models/search-result.model';
@@ -9,6 +9,9 @@ import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
 import { InjectionToken } from '@angular/core';
+import { Bitstream } from './bitstream.model';
+import { FeatureID } from '../data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 
 export const DEBOUNCE_TIME_OPERATOR = new InjectionToken<<T>(dueTime: number) => (source: Observable<T>) => Observable<T>>('debounceTime', {
   providedIn: 'root',
@@ -219,5 +222,23 @@ export const metadataFieldsToString = () =>
       }),
       map((fieldSchemaArray: { field: MetadataField, schema: MetadataSchema }[]): string[] => {
         return fieldSchemaArray.map((fieldSchema: { field: MetadataField, schema: MetadataSchema }) => fieldSchema.schema.prefix + '.' + fieldSchema.field.toString());
+      })
+    );
+
+/**
+ * Operator to check if the given bitstream is downloadable
+ */
+export const getDownloadableBitstream = (authService: AuthorizationDataService) =>
+  (source: Observable<Bitstream>): Observable<Bitstream | null> =>
+    source.pipe(
+      switchMap((bit: Bitstream) => {
+        if (hasValue(bit)) {
+          return authService.isAuthorized(FeatureID.CanDownload, bit.self).pipe(
+            map((canDownload: boolean) => {
+              return canDownload ? bit : null;
+            }));
+        } else {
+          return observableOf(null);
+        }
       })
     );

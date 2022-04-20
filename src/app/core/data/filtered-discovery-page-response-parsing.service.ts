@@ -16,7 +16,8 @@ export class FilteredDiscoveryPageResponseParsingService extends BaseResponsePar
   toCache = false;
   constructor(
     protected objectCache: ObjectCacheService,
-  ) { super();
+  ) {
+    super();
   }
 
   /**

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 import { type } from '../../shared/ngrx/type';
 import { HALLink } from '../shared/hal-link.model';
@@ -17,7 +18,6 @@ export const RequestActionTypes = {
   REMOVE: type('dspace/core/data/request/REMOVE')
 };
 
-/* tslint:disable:max-classes-per-file */
 export abstract class RequestUpdateAction implements Action {
   abstract type: string;
   lastUpdated: number;
@@ -185,7 +185,6 @@ export class RequestRemoveAction implements Action {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * A type to encompass all RequestActions

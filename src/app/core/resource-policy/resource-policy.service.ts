@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -28,7 +29,6 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';
 
-/* tslint:disable:max-classes-per-file */
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -222,4 +222,3 @@ export class ResourcePolicyService {
   }
 
 }
-/* tslint:enable:max-classes-per-file */

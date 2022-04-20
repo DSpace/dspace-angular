@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
  * Represents a expandable section in the sidebar
  */
 @Component({
-  /* tslint:disable:component-selector */
+  /* eslint-disable @angular-eslint/component-selector */
   selector: 'li[ds-expandable-admin-sidebar-section]',
   templateUrl: './expandable-admin-sidebar-section.component.html',
   styleUrls: ['./expandable-admin-sidebar-section.component.scss'],

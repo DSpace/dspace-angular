@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -15,7 +16,6 @@ import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { CONFIG_PROPERTY } from '../shared/config-property.resource-type';
 import { CoreState } from '../core-state.model';
 
-/* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<ConfigurationProperty> {
   protected linkPath = 'properties';
 
@@ -60,4 +60,3 @@ export class ConfigurationDataService {
     return this.dataService.findById(name);
   }
 }
-/* tslint:enable:max-classes-per-file */

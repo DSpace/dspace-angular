@@ -185,5 +185,5 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
 class TestComponent {
   reload = (event) => {
     return;
-  }
+  };
 }

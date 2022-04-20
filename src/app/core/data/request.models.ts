@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from './parsing.service';
 import { EndpointMapResponseParsingService } from './endpoint-map-response-parsing.service';
@@ -12,7 +13,6 @@ import { RestRequestWithResponseParser } from './rest-request-with-response-pars
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { FindListOptions } from './find-list-options.model';
 
-/* tslint:disable:max-classes-per-file */
 
 // uuid and handle requests have separate endpoints
 export enum IdentifierType {
@@ -254,5 +254,3 @@ export class TaskDeleteRequest extends DeleteRequest {
 export class MyDSpaceRequest extends GetRequest {
   public responseMsToLive = 10 * 1000;
 }
-
-/* tslint:enable:max-classes-per-file */

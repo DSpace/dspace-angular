@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { Observable, BehaviorSubject, of as observableOf } from 'rxjs';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { HostWindowService } from '../host-window.service';
@@ -29,16 +29,15 @@ import { Item } from '../../core/shared/item.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Observable } from 'rxjs/internal/Observable';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
 let searchServiceObject: SearchService;
 let searchConfigurationServiceObject: SearchConfigurationService;
 const store: Store<SearchComponent> = jasmine.createSpyObj('store', {
-  /* tslint:disable:no-empty */
+  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   dispatch: {},
-  /* tslint:enable:no-empty */
+  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   select: observableOf(true)
 });
 const sortConfigList: SortConfig[] = [

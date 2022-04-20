@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
@@ -42,7 +43,6 @@ import { DSOChangeAnalyzer } from '../../data/dso-change-analyzer.service';
 import { RestRequest } from '../../data/rest-request.model';
 import { CoreState } from '../../core-state.model';
 
-/* tslint:disable:max-classes-per-file */
 /**
  * A class that lets us delegate some methods to DataService
  */

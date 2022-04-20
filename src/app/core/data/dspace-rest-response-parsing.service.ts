@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { Serializer } from '../serializer';
@@ -18,7 +19,6 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { RestRequest } from './rest-request.model';
 
-/* tslint:disable:max-classes-per-file */
 
 /**
  * Return true if obj has a value for `_links.self`
@@ -271,4 +271,3 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
     return statusCode >= 200 && statusCode < 300;
   }
 }
-/* tslint:enable:max-classes-per-file */

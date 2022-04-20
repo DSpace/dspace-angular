@@ -17,7 +17,7 @@ import { FieldUpdate } from '../../../../core/data/object-updates/field-update.m
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 
 @Component({
-  // tslint:disable-next-line:component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[ds-edit-in-place-field]',
   styleUrls: ['./edit-in-place-field.component.scss'],
   templateUrl: './edit-in-place-field.component.html',

@@ -190,5 +190,5 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
 class TestComponent {
   reload = (event) => {
     return;
-  }
+  };
 }

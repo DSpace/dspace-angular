@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import {
   AddPatchObjectCacheAction,
   AddToObjectCacheAction,
@@ -84,7 +85,6 @@ export class ObjectCacheEntry implements CacheEntry {
   alternativeLinks: string[];
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * The ObjectCache State

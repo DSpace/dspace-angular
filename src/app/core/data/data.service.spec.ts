@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { compare, Operation } from 'fast-json-patch';
@@ -27,7 +28,6 @@ import { FindListOptions } from './find-list-options.model';
 
 const endpoint = 'https://rest.api/core';
 
-/* tslint:disable:max-classes-per-file */
 class TestService extends DataService<any> {
 
   constructor(
@@ -834,4 +834,3 @@ describe('DataService', () => {
     });
   });
 });
-/* tslint:enable:max-classes-per-file */

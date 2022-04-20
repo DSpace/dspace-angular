@@ -36,7 +36,7 @@ export class ServerAuthService extends AuthService {
         if (hasValue(status) && status.authenticated) {
           return status._links.eperson.href;
         } else {
-          throw(new Error('Not authenticated'));
+          throw (new Error('Not authenticated'));
         }
       }));
   }

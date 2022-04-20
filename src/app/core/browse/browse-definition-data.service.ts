@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
 import { dataService } from '../cache/builders/build-decorators';
 import { BROWSE_DEFINITION } from '../shared/browse-definition.resource-type';
@@ -18,7 +19,6 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';
 
-/* tslint:disable:max-classes-per-file */
 
 class DataServiceImpl extends DataService<BrowseDefinition> {
   protected linkPath = 'browses';
@@ -123,4 +123,3 @@ export class BrowseDefinitionDataService {
   }
 }
 
-/* tslint:enable:max-classes-per-file */

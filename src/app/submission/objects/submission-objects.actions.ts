@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
@@ -66,7 +67,6 @@ export const SubmissionObjectActionTypes = {
   REMOVE_SECTION_ERRORS: type('dspace/submission/REMOVE_SECTION_ERRORS'),
 };
 
-/* tslint:disable:max-classes-per-file */
 
 /**
  * Insert a new error of type SubmissionSectionError into the given section
@@ -804,7 +804,6 @@ export class DeleteUploadedFileAction implements Action {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * Export a type alias of all actions in this action group

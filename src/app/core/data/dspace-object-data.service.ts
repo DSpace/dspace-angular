@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -18,7 +19,6 @@ import { PaginatedList } from './paginated-list.model';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from './find-list-options.model';
 
-/* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<DSpaceObject> {
   protected linkPath = 'dso';
 
@@ -104,4 +104,3 @@ export class DSpaceObjectDataService {
   }
 
 }
-/* tslint:enable:max-classes-per-file */
