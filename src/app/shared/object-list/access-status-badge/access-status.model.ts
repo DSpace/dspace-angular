@@ -1,11 +1,13 @@
-import { autoserialize } from 'cerialize';
+import { autoserialize, deserialize } from 'cerialize';
 import { typedObject } from 'src/app/core/cache/builders/build-decorators';
+import { CacheableObject } from 'src/app/core/cache/object-cache.reducer';
+import { HALLink } from 'src/app/core/shared/hal-link.model';
 import { ResourceType } from 'src/app/core/shared/resource-type';
 import { excludeFromEquals } from 'src/app/core/utilities/equals.decorators';
 import { ACCESS_STATUS } from './access-status.resource-type';
 
 @typedObject
-export class AccessStatusObject {
+export class AccessStatusObject implements CacheableObject {
   static type = ACCESS_STATUS;
 
   /**
@@ -20,4 +22,12 @@ export class AccessStatusObject {
    */
   @autoserialize
   status: string;
+
+  /**
+   * The {@link HALLink}s for this AccessStatusObject
+   */
+   @deserialize
+   _links: {
+     self: HALLink;
+   };
 }

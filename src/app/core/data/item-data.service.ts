@@ -293,24 +293,30 @@ export class ItemDataService extends DataService<Item> {
   }
 
   /**
+   * Get the endpoint for an item's access status
+   * @param itemId
+   */
+   public getAccessStatusEndpoint(itemId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      switchMap((url: string) => this.halService.getEndpoint('accessStatus', `${url}/${itemId}`))
+    );
+  }
+
+  /**
    * Get the the access status
    * @param itemId
    */
   public getAccessStatus(itemId: string): Observable<RemoteData<AccessStatusObject>> {
-    const requestId = this.requestService.generateRequestId();
-    const href$ = this.halService.getEndpoint('accessStatus').pipe(
-      map((href) => href.replace('{?uuid}', `?uuid=${itemId}`))
-    );
+    const hrefObs = this.getAccessStatusEndpoint(itemId);
 
-    href$.pipe(
-      find((href: string) => hasValue(href)),
-      map((href: string) => {
-        const request = new GetRequest(requestId, href);
-        this.requestService.send(request);
-      })
-    ).subscribe();
+    hrefObs.pipe(
+      take(1)
+    ).subscribe((href) => {
+      const request = new GetRequest(this.requestService.generateRequestId(), href);
+      this.requestService.send(request);
+    });
 
-    return this.rdbService.buildFromRequestUUID(requestId);
+    return this.rdbService.buildSingle<AccessStatusObject>(hrefObs);
   }
 
   /**
