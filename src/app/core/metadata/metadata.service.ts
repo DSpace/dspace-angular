@@ -20,8 +20,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
 import {
   getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getDownloadableBitstream
+  getFirstSucceededRemoteDataPayload
 } from '../shared/operators';
 import { RootDataService } from '../data/root-data.service';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
@@ -37,6 +36,7 @@ import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { getDownloadableBitstream } from '../shared/bitstream.operators';
 
 /**
  * The base selector function to select the metaTag section in the store
