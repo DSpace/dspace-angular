@@ -1,3 +1,4 @@
+/* eslint-disable no-empty, @typescript-eslint/no-empty-function */
 import { SearchConfigurationService } from './search-configuration.service';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
@@ -47,11 +48,8 @@ describe('SearchConfigurationService', () => {
   const linkService: any = {};
   const requestService: any = getMockRequestService();
   const halService: any = {
-    /* tslint:disable:no-empty */
     getEndpoint: () => {
     }
-    /* tslint:enable:no-empty */
-
   };
 
   const rdb: any = {
@@ -199,10 +197,8 @@ describe('SearchConfigurationService', () => {
     const requestUrl = endPoint + '?scope=' + scope;
     beforeEach(() => {
       spyOn((service as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
-      /* tslint:disable:no-empty */
       service.getSearchConfigurationFor(scope).subscribe((t) => {
       }); // subscribe to make sure all methods are called
-      /* tslint:enable:no-empty */
     });
 
     it('should call getEndpoint on the halService', () => {
@@ -223,10 +219,8 @@ describe('SearchConfigurationService', () => {
     beforeEach(() => {
       spyOn((service as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
       spyOn((service as any).rdb, 'buildFromHref').and.callThrough();
-      /* tslint:disable:no-empty */
       service.getSearchConfigurationFor(null).subscribe((t) => {
       }); // subscribe to make sure all methods are called
-      /* tslint:enable:no-empty */
     });
 
     it('should call getEndpoint on the halService', () => {
@@ -246,10 +240,8 @@ describe('SearchConfigurationService', () => {
     beforeEach(() => {
       spyOn((service as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
       spyOn((service as any).rdb, 'buildFromHref').and.callThrough();
-      /* tslint:disable:no-empty */
       service.getConfig(null).subscribe((t) => {
       }); // subscribe to make sure all methods are called
-      /* tslint:enable:no-empty */
     });
 
     it('should call getEndpoint on the halService', () => {
@@ -271,10 +263,8 @@ describe('SearchConfigurationService', () => {
     const requestUrl = endPoint + '?scope=' + scope;
     beforeEach(() => {
       spyOn((service as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
-      /* tslint:disable:no-empty */
       service.getConfig(scope).subscribe((t) => {
       }); // subscribe to make sure all methods are called
-      /* tslint:enable:no-empty */
     });
 
     it('should call getEndpoint on the halService', () => {
