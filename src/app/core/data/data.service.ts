@@ -600,16 +600,13 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     const done$ = new AsyncSubject<boolean>();
 
     this.objectCache.getByHref(href).pipe(
-      switchMap((oce: ObjectCacheEntry) => observableFrom(oce.requestUUIDs)),
-      mergeMap((requestUUID: string) => this.requestService.setStaleByUUID(requestUUID)),
-      toArray(),
-      map((areRequestsStale: boolean[]) => areRequestsStale.every(Boolean)),
-      distinctUntilChanged(),
-    ).subscribe((done: boolean) => {
-      if (done) {
-        done$.next(true);
-        done$.complete();
-      }
+      switchMap((oce: ObjectCacheEntry) => observableFrom(oce.requestUUIDs).pipe(
+        mergeMap((requestUUID: string) => this.requestService.setStaleByUUID(requestUUID)),
+        toArray(),
+      )),
+    ).subscribe(() => {
+      done$.next(true);
+      done$.complete();
     });
 
     return done$;
@@ -667,11 +664,9 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
           return [true];
         }
       })
-    ).subscribe((invalidated: boolean) => {
-      if (invalidated) {
-        invalidated$.next(true);
-        invalidated$.complete();
-      }
+    ).subscribe(() => {
+      invalidated$.next(true);
+      invalidated$.complete();
     });
 
     return combineLatest([response$, invalidated$]).pipe(
