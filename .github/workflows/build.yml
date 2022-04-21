@@ -72,6 +72,9 @@ jobs:
       - name: Run lint
         run: yarn run lint --quiet
 
+      - name: Check for circular dependencies
+        run: yarn run check-circ-deps
+
       - name: Run build
         run: yarn run build:prod
 

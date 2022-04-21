@@ -13,6 +13,7 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 
 describe('SearchFormComponent', () => {
   let comp: SearchFormComponent;

@@ -20,9 +20,9 @@ import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../../core/data/request.models';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
+import { FindListOptions } from '../../../../core/data/find-list-options.model';
 
 describe('EpersonGroupListComponent test suite', () => {
   let comp: EpersonGroupListComponent;

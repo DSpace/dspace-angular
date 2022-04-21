@@ -18,8 +18,6 @@ describe('SearchFiltersComponent', () => {
 
   const searchServiceStub = {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    getConfig: () =>
-      observableOf({ hasSucceeded: true, payload: [] }),
     getClearFiltersQueryParams: () => {
     },
     getSearchLink: () => {

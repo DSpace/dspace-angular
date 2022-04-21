@@ -1,10 +1,11 @@
 import { createSelector, MemoizedSelector } from '@ngrx/store';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { IndexName, IndexState, MetaIndexState } from './index.reducer';
+import { IndexState, MetaIndexState } from './index.reducer';
 import * as parse from 'url-parse';
+import { IndexName } from './index-name.model';
+import { CoreState } from '../core-state.model';
 
 /**
  * Return the given url without `embed` params.
