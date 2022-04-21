@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 import { Item } from '../../../../core/shared/item.model';
 import { fadeInOut } from '../../../animations/fade';
@@ -36,4 +37,12 @@ export class ItemListPreviewComponent {
    */
   @Input() showSubmitter = false;
 
+  /**
+   * Whether to show the access status badge or not
+   */
+  showAccessStatus: boolean;
+
+  ngOnInit(): void {
+    this.showAccessStatus = environment.ui.showAccessStatuses;
+  }
 }

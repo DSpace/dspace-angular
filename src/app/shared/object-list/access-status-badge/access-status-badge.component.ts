@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
+import { catchError, map } from 'rxjs/operators';
+import { Observable, of as observableOf } from 'rxjs';
+import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 import { ItemDataService } from 'src/app/core/data/item-data.service';
 import { AccessStatusObject } from './access-status.model';
 import { hasValue } from '../../empty.util';
@@ -29,9 +29,17 @@ export class AccessStatusBadgeComponent {
     this._accessStatus$ = this.itemDataService
       .getAccessStatus(this._uuid)
       .pipe(
-        getFirstSucceededRemoteDataPayload(),
+        getFirstCompletedRemoteData(),
+        map((accessStatusRD) => {
+          if (accessStatusRD.statusCode !== 401 && hasValue(accessStatusRD.payload)) {
+            return accessStatusRD.payload;
+          } else {
+            return [];
+          }
+        }),
         map((accessStatus: AccessStatusObject) => hasValue(accessStatus.status) ? accessStatus.status : 'unknown'),
-        map((status: string) => `access-status.${status.toLowerCase()}.listelement.badge`)
+        map((status: string) => `access-status.${status.toLowerCase()}.listelement.badge`),
+        catchError(() => observableOf('access-status.unknown.listelement.badge'))
       );
   }
 

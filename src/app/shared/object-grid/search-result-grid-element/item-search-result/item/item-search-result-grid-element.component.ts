@@ -6,6 +6,7 @@ import { SearchResultGridElementComponent } from '../../search-result-grid-eleme
 import { Item } from '../../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { getItemPageRoute } from '../../../../../item-page/item-page-routing-paths';
+import { environment } from 'src/environments/environment';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.GridElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement)
@@ -23,9 +24,14 @@ export class ItemSearchResultGridElementComponent extends SearchResultGridElemen
    * Route to the item's page
    */
   itemPageRoute: string;
+  /**
+   * Whether to show the access status badge or not
+   */
+  showAccessStatus: boolean;
 
   ngOnInit(): void {
     super.ngOnInit();
     this.itemPageRoute = getItemPageRoute(this.dso);
+    this.showAccessStatus = environment.ui.showAccessStatuses;
   }
 }
