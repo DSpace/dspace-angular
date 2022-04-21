@@ -18,6 +18,8 @@ import { Observable } from 'rxjs';
 import { dataService } from '../../cache/builders/build-decorators';
 import { SCRIPT } from '../../../process-page/scripts/script.resource-type';
 import { Process } from '../../../process-page/processes/process.model';
+import { hasValue } from '../../../shared/empty.util';
+import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { RestRequest } from '../rest-request.model';
 import { CoreState } from '../../core-state.model';
 
@@ -62,5 +64,17 @@ export class ScriptDataService extends DataService<Script> {
       form.append('file', file);
     });
     return form;
+  }
+
+  /**
+   * Check whether a script with given name exist; user needs to be allowed to execute script for this to to not throw a 401 Unauthorized
+   * @param scriptName    script we want to check exists (and we can execute)
+   */
+  public scriptWithNameExistsAndCanExecute(scriptName: string): Observable<boolean> {
+    return this.findById(scriptName).pipe(
+      getFirstCompletedRemoteData(),
+      map((rd: RemoteData<Script>) => {
+        return hasValue(rd.payload);
+      }));
   }
 }

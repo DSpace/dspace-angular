@@ -1,9 +1,13 @@
 import { Component, HostListener, Injector, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { combineLatest, combineLatest as observableCombineLatest, Observable, BehaviorSubject } from 'rxjs';
-import { debounceTime, first, map, take, distinctUntilChanged, withLatestFrom } from 'rxjs/operators';
+import { debounceTime, first, map, take, filter, distinctUntilChanged, withLatestFrom } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
+import {
+  ScriptDataService,
+  METADATA_IMPORT_SCRIPT_NAME,
+  METADATA_EXPORT_SCRIPT_NAME
+} from '../../core/data/processes/script-data.service';
 import { slideHorizontal, slideSidebar } from '../../shared/animations/slide';
 import { CreateCollectionParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import { CreateCommunityParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
@@ -322,19 +326,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    */
   createExportMenuSections() {
     const menuList = [
-      /* Export */
-      {
-        id: 'export',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.export'
-        } as TextMenuItemModel,
-        icon: 'file-export',
-        index: 3,
-        shouldPersistOnRouteChange: true
-      },
       // TODO: enable this menu item once the feature has been implemented
       // {
       //   id: 'export_community',
@@ -379,12 +370,26 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
 
     observableCombineLatest(
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      // this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME)
+      this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME)
     ).pipe(
-      // TODO uncomment when #635 (https://github.com/DSpace/dspace-angular/issues/635) is fixed; otherwise even in production mode, the metadata export button is only available after a refresh (and not in dev mode)
-      // filter(([authorized, metadataExportScriptExists]: boolean[]) => authorized && metadataExportScriptExists),
+      filter(([authorized, metadataExportScriptExists]: boolean[]) => authorized && metadataExportScriptExists),
       take(1)
     ).subscribe(() => {
+      // Hides the export menu for unauthorised people
+      // If in the future more sub-menus are added,
+      // it should be reviewed if they need to be in this subscribe
+      this.menuService.addSection(this.menuID, {
+          id: 'export',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.export'
+          } as TextMenuItemModel,
+          icon: 'file-export',
+          index: 3,
+          shouldPersistOnRouteChange: true
+        });
       this.menuService.addSection(this.menuID, {
         id: 'export_metadata',
         parentID: 'export',
@@ -408,18 +413,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    */
   createImportMenuSections() {
     const menuList = [
-      /* Import */
-      {
-        id: 'import',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.import'
-        } as TextMenuItemModel,
-        icon: 'file-import',
-        index: 2
-      },
       // TODO: enable this menu item once the feature has been implemented
       // {
       //   id: 'import_batch',
@@ -439,12 +432,25 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
 
     observableCombineLatest(
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      // this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME)
+      this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME)
     ).pipe(
-      // TODO uncomment when #635 (https://github.com/DSpace/dspace-angular/issues/635) is fixed
-      // filter(([authorized, metadataImportScriptExists]: boolean[]) => authorized && metadataImportScriptExists),
+      filter(([authorized, metadataImportScriptExists]: boolean[]) => authorized && metadataImportScriptExists),
       take(1)
     ).subscribe(() => {
+      // Hides the import menu for unauthorised people
+      // If in the future more sub-menus are added,
+      // it should be reviewed if they need to be in this subscribe
+      this.menuService.addSection(this.menuID, {
+          id: 'import',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.import'
+          } as TextMenuItemModel,
+          icon: 'file-import',
+          index: 2
+        });
       this.menuService.addSection(this.menuID, {
         id: 'import_metadata',
         parentID: 'import',
