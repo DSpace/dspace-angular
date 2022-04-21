@@ -8,10 +8,9 @@ import { combineLatest as combineLatestObservable, Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
 

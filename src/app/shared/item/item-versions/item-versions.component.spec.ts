@@ -1,10 +1,9 @@
 import { ItemVersionsComponent } from './item-versions.component';
 import {
-  ComponentFixture, discardPeriodicTasks, fakeAsync, flush, flushMicrotasks, TestBed, tick, waitForAsync
+  ComponentFixture, TestBed, waitForAsync
 } from '@angular/core/testing';
 import { VarDirective } from '../../utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { Version } from '../../../core/shared/version.model';
@@ -27,10 +26,8 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { Group } from '../../../core/eperson/models/group.model';
 import { Router } from '@angular/router';
-import { RouterStub } from '../../testing/router.stub';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 
 describe('ItemVersionsComponent', () => {

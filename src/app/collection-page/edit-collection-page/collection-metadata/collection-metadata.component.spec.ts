@@ -12,7 +12,6 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { Item } from '../../../core/shared/item.model';
 import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
 import { Collection } from '../../../core/shared/collection.model';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';

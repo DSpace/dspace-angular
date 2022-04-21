@@ -22,7 +22,6 @@ import {
 import { BitstreamDataService } from './bitstream-data.service';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from './find-list-options.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
 import { Bitstream } from '../shared/bitstream.model';
 
 const LINK_NAME = 'test';

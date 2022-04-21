@@ -7,7 +7,6 @@ import { NotificationsService } from '../../../notifications/notifications.servi
 import { TranslateService } from '@ngx-translate/core';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { NoContent } from '../../../../core/shared/NoContent.model';
-import { RequestService } from '../../../../core/data/request.service';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { Community } from '../../../../core/shared/community.model';
 import { Collection } from '../../../../core/shared/collection.model';
