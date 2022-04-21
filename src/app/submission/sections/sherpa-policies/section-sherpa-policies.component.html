@@ -1,0 +1,45 @@
+<ngb-accordion #acc="ngbAccordion" activeIds="publication-information">
+    <ngb-panel id="publication-information">
+        <ng-template ngbPanelTitle>
+            <div class="d-inline-block float-left">
+                <span *ngIf="!acc.isExpanded('publication-information')" class="fas fa-chevron-up fa-fw"></span>
+                <span *ngIf="acc.isExpanded('publication-information')" class="fas fa-chevron-down fa-fw"></span>
+            </div>
+            <span class="float-left section-title" tabindex="0">Publication information</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+            <div class="ml-4">
+                <div class="row">
+                    <div class="col-4">
+                        <p class="m-0">Title</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="m-0" *ngFor="let title of sherpaPoliciesData.details.journals.titles">{{title}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <p class="m-0">ISSNs</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="m-0" *ngFor="let issn of sherpaPoliciesData.details.journals.issns">{{issn}}</p>
+                    </div>
+                </div>
+            </div>
+
+        </ng-template>
+    </ngb-panel>
+    <ngb-panel id="publisher-policy">
+        <ng-template ngbPanelTitle>
+            <div class="d-inline-block float-left">
+                <span *ngIf="!acc.isExpanded('publisher-policy')" class="fas fa-chevron-up fa-fw"></span>
+                <span *ngIf="acc.isExpanded('publisher-policy')" class="fas fa-chevron-down fa-fw"></span>
+            </div>
+            <span class="float-left section-title" tabindex="0">Publisher Policy</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+            <ds-content-accordion></ds-content-accordion>
+            <ds-content-accordion></ds-content-accordion>
+        </ng-template>
+    </ngb-panel>
+</ngb-accordion>

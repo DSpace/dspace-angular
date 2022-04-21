@@ -1,3 +1,4 @@
+import { WorkspaceitemSectionSherpaPoliciesObject } from './../../core/submission/models/workspaceitem-section-sherpa-policies.model';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -51,6 +52,7 @@ import { SubmissionObjectDataService } from '../../core/submission/submission-ob
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { FormState } from '../../shared/form/form.reducer';
+import { SUBMISSION_SECTION_TYPE } from 'src/app/core/config/models/config-type';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -63,7 +65,7 @@ export class SubmissionObjectEffects {
     map((action: InitSubmissionFormAction) => {
       const definition = action.payload.submissionDefinition;
       const mappedActions = [];
-      definition.sections.page.forEach((sectionDefinition: any) => {
+      definition.sections.page.forEach((sectionDefinition: any, index) => {
         const selfLink = sectionDefinition._links.self.href || sectionDefinition._links.self;
         const sectionId = selfLink.substr(selfLink.lastIndexOf('/') + 1);
         const config = sectionDefinition._links.config ? (sectionDefinition._links.config.href || sectionDefinition._links.config) : '';
@@ -75,6 +77,7 @@ export class SubmissionObjectEffects {
           sectionData = action.payload.item.metadata;
         }
         const sectionErrors = isNotEmpty(action.payload.errors) ? (action.payload.errors[sectionId] || null) : null;
+
         mappedActions.push(
           new InitSectionAction(
             action.payload.submissionId,
@@ -89,7 +92,87 @@ export class SubmissionObjectEffects {
             sectionErrors
           )
         );
+
+        if (index === definition.sections.page.length - 1) {
+          mappedActions.push(
+            new InitSectionAction(
+              action.payload.submissionId,
+              'sherpaPolicies',
+              'submit.progressbar.sherpaPolicies',
+              'submit.progressbar.sherpaPolicies',
+              true,
+              SectionsType.SherpaPolicies,
+              { main: null, other: 'READONLY' },
+              true,
+              {
+                'id': 'sherpaPolicies',
+                'retrievalTime': '2022-01-11T09:43:53Z',
+                'details': {
+                  'uri': 'https://www.nature.com/natsynth/',
+                  'journals': {
+                    'titles': [
+                      'Nature Synthesis'
+                    ],
+                    'url': 'http://europepmc.org/',
+                    'issns': [
+                      '2731-0582',
+                      '2731-0583',
+                      '2731-0584',
+                    ],
+                    'romeoPub': 'Self archiving and license to publish',
+                    'zetoPub': 'Self archiving and license to publish',
+                    'inDOAJ': true,
+                    'publisher': {
+                      'name': 'Europe PMC',
+                      'relationshipType': 'Stest',
+                      'country': 'gb',
+                      'uri': 'https://v2.sherpa.ac.uk/id/publication/40863',
+                      'identifier': '123123123',
+                      'paidAccessDescription': 'test test sss',
+                      'paidAccessUrl': 'https://www.nature.com/nature-portfolio/editorial-policies/preprints-and-conference-proceedings'
+                    },
+                    'policies': {
+                      'openAccessPermitted': true,
+                      'uri': 'https://v2.sherpa.ac.uk/id/publisher_policy/3286',
+                      'internalMoniker': 'Default Policy',
+                      'permittedVersions': {
+                        'articleVersion': 'submitted',
+                        'conditions': [
+                          'Must link to publisher version',
+                          'Published source must be acknowledged and DOI cited',
+                          'Post-prints are subject to Springer Nature re-use terms',
+                          'Non-commercial use only'
+                        ],
+                        'prerequisites': [],
+                        'locations': [
+                          'authors_homepage',
+                          'funder_designated_location',
+                          'institutional_repository',
+                          'preprint_repository'
+                        ],
+                        'licenses': [],
+                        'embargo': {
+                          'units': 'months',
+                          'amount': 6
+                        }
+                      }
+                    },
+                    'urls': [
+                      'https://www.nature.com/neuro/editorial-policies/self-archiving-and-license-to-publish',
+                      'https://www.nature.com/nature-portfolio/editorial-policies/preprints-and-conference-proceedings',
+                      'https://www.springernature.com/gp/open-research/policies/accepted-manuscript-terms'
+                    ],
+                    'openAccessProhibited': true
+                  }
+                }
+              } as WorkspaceitemSectionSherpaPoliciesObject,
+              null
+            )
+          );
+        }
+
       });
+      console.log(mappedActions);
       return { action: action, definition: definition, mappedActions: mappedActions };
     }),
     mergeMap((result) => {
@@ -125,8 +208,8 @@ export class SubmissionObjectEffects {
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
         'sections').pipe(
-        map((response: SubmissionObject[]) => new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, action.payload.isManual)),
-        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
+          map((response: SubmissionObject[]) => new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, action.payload.isManual)),
+          catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     }));
 
   /**
@@ -139,8 +222,8 @@ export class SubmissionObjectEffects {
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
         'sections').pipe(
-        map((response: SubmissionObject[]) => new SaveForLaterSubmissionFormSuccessAction(action.payload.submissionId, response)),
-        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
+          map((response: SubmissionObject[]) => new SaveForLaterSubmissionFormSuccessAction(action.payload.submissionId, response)),
+          catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     }));
 
   /**
@@ -179,8 +262,8 @@ export class SubmissionObjectEffects {
         action.payload.submissionId,
         'sections',
         action.payload.sectionId).pipe(
-        map((response: SubmissionObject[]) => new SaveSubmissionSectionFormSuccessAction(action.payload.submissionId, response)),
-        catchError(() => observableOf(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId))));
+          map((response: SubmissionObject[]) => new SaveSubmissionSectionFormSuccessAction(action.payload.submissionId, response)),
+          catchError(() => observableOf(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId))));
     }));
 
   /**
@@ -317,13 +400,13 @@ export class SubmissionObjectEffects {
     tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.discard_error_notice'))));
 
   constructor(private actions$: Actions,
-              private notificationsService: NotificationsService,
-              private operationsService: SubmissionJsonPatchOperationsService,
-              private sectionService: SectionsService,
-              private store$: Store<any>,
-              private submissionService: SubmissionService,
-              private submissionObjectService: SubmissionObjectDataService,
-              private translate: TranslateService) {
+    private notificationsService: NotificationsService,
+    private operationsService: SubmissionJsonPatchOperationsService,
+    private sectionService: SectionsService,
+    private store$: Store<any>,
+    private submissionService: SubmissionService,
+    private submissionObjectService: SubmissionObjectDataService,
+    private translate: TranslateService) {
   }
 
   /**

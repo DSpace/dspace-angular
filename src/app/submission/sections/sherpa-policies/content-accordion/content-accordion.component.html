@@ -1,0 +1,30 @@
+<ngb-accordion #acc="ngbAccordion" activeIds="publication-information">
+    <ngb-panel id="publication-information">
+        <ng-template ngbPanelTitle>
+            <span class="float-left section-title" tabindex="0">Publication information</span>
+            <div class="d-inline-block float-right">
+                <span *ngIf="!acc.isExpanded('publication-information')" class="fas fa-plus"></span>
+                <span *ngIf="acc.isExpanded('publication-information')" class="fas fa-minus"></span>
+            </div>
+        </ng-template>
+        <ng-template ngbPanelContent>
+            <div class="ml-4">
+                <div class="row">
+                    <div class="col-4">
+                        <p class="m-0">Title</p>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <p class="m-0">ISSNs</p>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                </div>
+            </div>
+
+        </ng-template>
+    </ngb-panel>
+</ngb-accordion>

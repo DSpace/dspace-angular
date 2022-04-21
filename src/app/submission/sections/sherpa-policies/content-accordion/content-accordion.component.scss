@@ -1,0 +1,33 @@
+:host ::ng-deep {
+    .card {
+        border: none;
+        margin-bottom: 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+
+        .card-header {
+            border: none;
+            background-color: transparent;
+            border-top: 1px solid rgba(0, 0, 0, 0.125);
+
+            button {
+                text-align: left;
+                padding: 0px;
+                width: 100%;
+                color: #000;
+                font-weight: normal;
+
+                .fas {
+                    background: #fff;
+                    color: #000;
+                    margin-right: 10px;
+                    height: 1.25em;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+}
