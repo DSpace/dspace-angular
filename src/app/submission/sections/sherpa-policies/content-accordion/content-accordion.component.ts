@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'ds-content-accordion',
   templateUrl: './content-accordion.component.html',
   styleUrls: ['./content-accordion.component.scss']
 })
-export class ContentAccordionComponent implements OnInit {
+export class ContentAccordionComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  @Input() id: string;
+  @Input() data: any;
 
 }

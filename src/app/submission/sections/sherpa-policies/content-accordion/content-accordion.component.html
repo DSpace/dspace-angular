@@ -1,26 +1,60 @@
-<ngb-accordion #acc="ngbAccordion" activeIds="publication-information">
-    <ngb-panel id="publication-information">
+<ngb-accordion #acc="ngbAccordion" [activeIds]="id">
+    <ngb-panel [id]="id">
         <ng-template ngbPanelTitle>
-            <span class="float-left section-title" tabindex="0">Publication information</span>
+            <span class="float-left section-title" tabindex="0">{{id.replace('-',' ') | titlecase}}</span>
             <div class="d-inline-block float-right">
-                <span *ngIf="!acc.isExpanded('publication-information')" class="fas fa-plus"></span>
-                <span *ngIf="acc.isExpanded('publication-information')" class="fas fa-minus"></span>
+                <span *ngIf="!acc.isExpanded(id)" class="fas fa-plus"></span>
+                <span *ngIf="acc.isExpanded(id)" class="fas fa-minus"></span>
             </div>
         </ng-template>
         <ng-template ngbPanelContent>
             <div class="ml-4">
                 <div class="row">
                     <div class="col-4">
-                        <p class="m-0">Title</p>
+                        <p class="m-0">Article Version</p>
                     </div>
                     <div class="col-4">
+                        {{data.articleVersion}}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <p class="m-0">ISSNs</p>
+                        <p class="m-0">Conditions</p>
                     </div>
                     <div class="col-4">
+                        <p class="m-0" *ngFor="let condition of data.conditions">{{condition}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <p class="m-0">Prerequisites</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="m-0" *ngFor="let prerequisite of data.prerequisites">{{prerequisite}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <p class="m-0">Location</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="m-0" *ngFor="let location of data.locations">{{location}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <p class="m-0">License</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="m-0" *ngFor="let license of data.licenses">{{license}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <p class="m-0">Embargo</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="m-0">{{data.embargo.amount}} {{data.embargo.units}}</p>
                     </div>
                 </div>
             </div>

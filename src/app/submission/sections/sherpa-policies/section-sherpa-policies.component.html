@@ -25,6 +25,50 @@
                         <p class="m-0" *ngFor="let issn of sherpaPoliciesData.details.journals.issns">{{issn}}</p>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-4">
+                        <p class="m-0">URL</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="m-0">
+                            <a href="{{sherpaPoliciesData.details.journals.url}}">
+                                {{sherpaPoliciesData.details.journals.url}}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <p class="m-0">Publisher</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="m-0">
+                            <a href="{{sherpaPoliciesData.details.journals.publisher.uri}}">
+                                {{sherpaPoliciesData.details.journals.publisher.name}}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <p class="m-0">romeoPub</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="m-0">
+                            {{sherpaPoliciesData.details.journals.romeoPub}}
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <p class="m-0">zetoPub</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="m-0">
+                            {{sherpaPoliciesData.details.journals.zetoPub}}
+                        </p>
+                    </div>
+                </div>
             </div>
 
         </ng-template>
@@ -38,8 +82,38 @@
             <span class="float-left section-title" tabindex="0">Publisher Policy</span>
         </ng-template>
         <ng-template ngbPanelContent>
-            <ds-content-accordion></ds-content-accordion>
-            <ds-content-accordion></ds-content-accordion>
+            <div class="ml-4">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="m-0">
+                            Open Access pathways permitted by this journal's policy are listed below by article version.
+                            Click on a pathway for a more detailed view
+                        </p>
+                    </div>
+                </div>
+                <ds-content-accordion [id]="'permitted-versions'"
+                    [data]="sherpaPoliciesData.details.journals.policies.permittedVersions">
+                </ds-content-accordion>
+                <!-- <ds-content-accordion></ds-content-accordion> -->
+                <div class="row">
+                    <div class="col-12">
+                        <p class="m-0">
+                            For more information, please see the following links:
+                        </p>
+                        <ul>
+                            <li *ngFor="let url of sherpaPoliciesData.details.journals.urls">
+                                <a href="{{url}}">{{url}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
         </ng-template>
     </ngb-panel>
 </ngb-accordion>
