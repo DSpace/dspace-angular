@@ -15,10 +15,11 @@ import {
   OR_OPERATOR
 } from '@ng-dynamic-forms/core';
 
-import { isNotUndefined, isUndefined } from '../../../empty.util';
+import { isNotUndefined, isUndefined, hasNoValue, hasValue } from '../../../empty.util';
 import { FormBuilderService } from '../form-builder.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
+import {DsDynamicInputModel} from "./models/ds-dynamic-input.model";
 
 /**
  * Service to manage type binding for submission input fields
@@ -39,11 +40,12 @@ export class DsDynamicTypeBindRelationService {
    * @param bindModelValue
    * @private
    */
-  private static getTypeBindValue(bindModelValue: string | FormFieldMetadataValueObject): string {
+  public getTypeBindValue(bindModelValue: string | FormFieldMetadataValueObject): string {
     let value;
-    if (isUndefined(bindModelValue) || typeof bindModelValue === 'string') {
+    if (hasNoValue(bindModelValue) || typeof bindModelValue === 'string') {
       value = bindModelValue;
-    } else if (bindModelValue.hasAuthority()) {
+    } else if (bindModelValue instanceof FormFieldMetadataValueObject
+      && bindModelValue.hasAuthority()) {
       value = bindModelValue.authority;
     } else {
       value = bindModelValue.value;
@@ -110,9 +112,9 @@ export class DsDynamicTypeBindRelationService {
       // be used, or where the entry doesn't have .value but is a string itself, etc)
       // If values isn't an array, make it a single element array with the looked-up type bind value.
       if (Array.isArray(bindModelValue)) {
-        values = [...bindModelValue.map((entry) => DsDynamicTypeBindRelationService.getTypeBindValue(entry))];
+        values = [...bindModelValue.map((entry) => this.getTypeBindValue(entry))];
       } else {
-        values = [DsDynamicTypeBindRelationService.getTypeBindValue(bindModelValue)];
+        values = [this.getTypeBindValue(bindModelValue)];
       }
 
       // If bind model evaluates to 'true' (is not undefined, is not null, is not false etc,
@@ -186,10 +188,12 @@ export class DsDynamicTypeBindRelationService {
     const relatedModels = this.getRelatedFormModel(model);
     const subscriptions: Subscription[] = [];
 
+    console.dir(relatedModels);
+
     Object.values(relatedModels).forEach((relatedModel: any) => {
 
-      if (isNotUndefined(relatedModel)) {
-        const initValue = (isUndefined(relatedModel.value) || typeof relatedModel.value === 'string') ? relatedModel.value :
+      if (hasValue(relatedModel)) {
+        const initValue = (hasNoValue(relatedModel.value) || typeof relatedModel.value === 'string') ? relatedModel.value :
           (Array.isArray(relatedModel.value) ? relatedModel.value : relatedModel.value.value);
 
         const valueChanges = relatedModel.valueChanges.pipe(
@@ -200,20 +204,22 @@ export class DsDynamicTypeBindRelationService {
         // I still don't fully understand what is happening here, or the triggers in various form usage that
         // cause which / what to fire change events, why the matcher has onChange() instead of a field value or
         // form model, etc.
-        subscriptions.push(valueChanges.subscribe(() => {
-          // Iterate each matcher
-          this.dynamicMatchers.forEach((matcher) => {
+        if (hasValue(this.dynamicMatchers) || true) {
+          subscriptions.push(valueChanges.subscribe(() => {
+            // Iterate each matcher
+            this.dynamicMatchers.forEach((matcher) => {
 
-            // Find the relation
-            const relation = this.dynamicFormRelationService.findRelationByMatcher((model as any).typeBindRelations, matcher);
+              // Find the relation
+              const relation = this.dynamicFormRelationService.findRelationByMatcher((model as any).typeBindRelations, matcher);
 
-            // If the relation is defined, get matchesCondition result and pass it to the onChange event listener
-            if (relation !== undefined) {
-              const hasMatch = this.matchesCondition(relation, matcher);
-              matcher.onChange(hasMatch, model, control, this.injector);
-            }
-          });
-        }));
+              // If the relation is defined, get matchesCondition result and pass it to the onChange event listener
+              if (relation !== undefined) {
+                const hasMatch = this.matchesCondition(relation, matcher);
+                matcher.onChange(hasMatch, model, control, this.injector);
+              }
+            });
+          }));
+        }
       }
     });
 

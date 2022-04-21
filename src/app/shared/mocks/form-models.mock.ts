@@ -306,3 +306,57 @@ export const mockFileFormEditRowGroupModel = new DynamicRowGroupModel({
   id: 'mockRowGroupModel',
   group: [mockFileFormEditInputModel]
 });
+
+// Mock configuration and model for an input with type binding
+export const inputWithTypeBindConfig = {
+  name: 'testWithTypeBind',
+  id: 'testWithTypeBind',
+  readOnly: false,
+  disabled: false,
+  repeatable: false,
+  value: {
+    value: 'testWithTypeBind',
+    display: 'testWithTypeBind',
+    authority: 'bound-auth-key'
+  },
+  submissionId: '1234',
+  metadataFields: [],
+  hasSelectableMetadata: false,
+  getTypeBindModel: new DsDynamicInputModel({
+      name: 'testWithTypeBind',
+      id: 'testWithTypeBind',
+      readOnly: false,
+      disabled: false,
+      repeatable: false,
+      value: {
+        value: 'testWithTypeBind',
+        display: 'testWithTypeBind',
+        authority: 'bound-auth-key'
+      },
+      submissionId: '1234',
+      metadataFields: [],
+      hasSelectableMetadata: false,
+      typeBindRelations: [
+        {match: 'VISIBLE', operator: 'OR', when: [{'id': 'dc.type', 'value': 'boundType'}]}
+      ]
+    }
+  )
+};
+
+export const mockInputWithTypeBindModel = new DsDynamicInputModel(inputWithAuthorityValueConfig);
+
+export const dcTypeInputConfig = {
+  name: 'dc.type',
+  id: 'dc_type',
+  readOnly: false,
+  disabled: false,
+  repeatable: false,
+  submissionId: '1234',
+  metadataFields: [],
+  hasSelectableMetadata: false,
+  value: {
+    value: 'boundType'
+  }
+};
+
+export const mockDcTypeInputModel = new DsDynamicInputModel(dcTypeInputConfig);
