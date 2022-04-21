@@ -11,9 +11,8 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData, getFirstSucceededRemoteListPayload, getPaginatedListPayload, getRemoteDataPayload } from '../shared/operators';
-import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 import { EditItemMode } from './models/edititem-mode.model';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
@@ -48,7 +47,7 @@ export class EditItemDataService extends DataService<EditItem> {
    * @method searchEditModesById
    * @param id string id of edit item
    */
-  searchEditModesById(id: string): Observable<RemoteData<PaginatedList<EditItemMode>>> {
+  searchEditModesById(id: string, useCachedVersionIfAvailable = false): Observable<RemoteData<PaginatedList<EditItemMode>>> {
     const hrefObs = this.getSearchByHref(
       'findModesById', {
       searchParams: [
@@ -62,7 +61,7 @@ export class EditItemDataService extends DataService<EditItem> {
       take(1)
     ).subscribe((href) => {
       const request = new GetRequest(this.requestService.generateRequestId(), href);
-      this.requestService.send(request);
+      this.requestService.send(request, useCachedVersionIfAvailable);
     });
     return this.rdbService.buildList<EditItemMode>(hrefObs);
   }
@@ -82,4 +81,13 @@ export class EditItemDataService extends DataService<EditItem> {
         return !!editModes.find(editMode => editMode.uuid === editModeId);
       }));
   }
+
+  /**
+   * Invalidate the cache of the editMode
+   * @param id
+   */
+  invalidateItemCache(id: string) {
+    this.requestService.setStaleByHrefSubstring('findModesById?uuid=' + id);
+  }
+
 }
