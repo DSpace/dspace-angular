@@ -237,6 +237,7 @@ describe('SubmissionObjectEffects test suite', () => {
         b: new SaveSubmissionFormSuccessAction(
           submissionId,
           mockSubmissionRestResponse as any,
+          true,
           true
         )
       });
@@ -260,6 +261,7 @@ describe('SubmissionObjectEffects test suite', () => {
         b: new SaveSubmissionFormSuccessAction(
           submissionId,
           mockSubmissionRestResponse as any,
+          false,
           false
         )
       });
@@ -911,7 +913,7 @@ describe('SubmissionObjectEffects test suite', () => {
       submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(response));
 
       const expected = cold('--b-', {
-        b: new SaveSubmissionFormSuccessAction(submissionId, response as any[], false)
+        b: new SaveSubmissionFormSuccessAction(submissionId, response as any[], false, true)
       });
 
       expect(submissionObjectEffects.saveAndDeposit$).toBeObservable(expected);
