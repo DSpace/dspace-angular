@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
-import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { BitstreamDataService } from '../data/bitstream-data.service';
 import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from 'src/app/bitstream-page/bitstream-page.resolver';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
+import { BreadcrumbConfig } from 'src/app/breadcrumbs/breadcrumb/breadcrumb-config.model';
+import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../shared/operators';
+import { map } from 'rxjs/operators';
+import { hasValue } from 'src/app/shared/empty.util';
+import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 
 /**
  * The class that resolves the BreadcrumbConfig object for an Item
@@ -15,6 +21,29 @@ import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from 'src/app/bitstream-page/bitstream
 export class BitstreamBreadcrumbResolver extends DSOBreadcrumbResolver<Bitstream> {
   constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: BitstreamDataService) {
     super(breadcrumbService, dataService);
+  }
+
+  /**
+   * Method for resolving a breadcrumb config object
+   * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
+   * @param {RouterStateSnapshot} state The current RouterStateSnapshot
+   * @returns BitstreamBreadcrumbConfig object
+   */
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<BreadcrumbConfig<Bitstream>> {
+    const uuid = route.params.id;
+    return this.dataService.findById(uuid, true, false, ...this.followLinks).pipe(
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload(),
+      map((object: Bitstream) => {
+        if (hasValue(object)) {
+          const fullPath = state.url;
+          const url = fullPath.substr(0, fullPath.indexOf(uuid)) + uuid;
+          return {provider: this.breadcrumbService, key: object, url: url};
+        } else {
+          return undefined;
+        }
+      })
+    );
   }
 
   /**
