@@ -5,7 +5,6 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
-import { slide } from '../../../animations/slide';
 import { isNotEmpty } from '../../../empty.util';
 import { SearchFilterConfig } from '../../models/search-filter-config.model';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,8 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'ds-search-chart',
   styleUrls: ['./search-chart.component.scss'],
-  templateUrl: './search-chart.component.html',
-  animations: [slide],
+  templateUrl: './search-chart.component.html'
 })
 
 /**
