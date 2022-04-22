@@ -163,6 +163,9 @@ languages:
   - code: fi
     label: Suomi
     active: true
+  - code: bn
+    label: বাংলা
+    active: true
 
 # Browse-By Pages
 browseBy:

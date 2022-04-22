@@ -19,7 +19,7 @@ import {
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService
 } from '../../core/end-user-agreement/end-user-agreement.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token
@@ -56,7 +56,8 @@ export class CreateProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.registration$ = this.route.data.pipe(
-      map((data) => data.registration as Registration),
+      map((data) => data.registration as RemoteData<Registration>),
+      getFirstSucceededRemoteDataPayload(),
     );
     this.registration$.pipe(take(1))
       .subscribe((registration: Registration) => {

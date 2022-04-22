@@ -12,7 +12,7 @@ import { isEmpty } from '../empty.util';
 })
 
 export class NumberPickerComponent implements OnInit, ControlValueAccessor {
-
+  @Input() id: string;
   @Input() step: number;
   @Input() min: number;
   @Input() max: number;

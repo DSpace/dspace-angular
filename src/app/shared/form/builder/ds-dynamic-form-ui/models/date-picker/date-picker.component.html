@@ -5,6 +5,7 @@
     </legend>
     <ds-number-picker
       tabindex="1"
+      [id]="model.id + '_year'"
       [disabled]="model.disabled"
       [min]="minYear"
       [max]="maxYear"
@@ -22,6 +23,7 @@
 
   <ds-number-picker class="date-month"
       tabindex="2"
+      [id]="model.id + '_month'"
       [min]="minMonth"
       [max]="maxMonth"
       [name]="'month'"
@@ -38,6 +40,7 @@
 
   <ds-number-picker class="date-day"
       tabindex="3"
+      [id]="model.id + '_day'"
       [min]="minDay"
       [max]="maxDay"
       [name]="'day'"

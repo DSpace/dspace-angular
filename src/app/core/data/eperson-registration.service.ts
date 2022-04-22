@@ -79,7 +79,7 @@ export class EpersonRegistrationService {
    * Search a registration based on the provided token
    * @param token
    */
-  searchByToken(token: string): Observable<Registration> {
+  searchByToken(token: string): Observable<RemoteData<Registration>> {
     const requestId = this.requestService.generateRequestId();
 
     const href$ = this.getTokenSearchEndpoint(token).pipe(
@@ -97,18 +97,18 @@ export class EpersonRegistrationService {
     });
 
     return this.rdbService.buildSingle<Registration>(href$).pipe(
-      skipWhile((rd: RemoteData<Registration>) => rd.isStale),
-      getFirstSucceededRemoteData(),
-      map((restResponse: RemoteData<Registration>) => {
-        return Object.assign(new Registration(), {
-          email: restResponse.payload.email, token: token, user: restResponse.payload.user,
-          groupNames: restResponse.payload.groupNames ? restResponse.payload.groupNames : [],
-          groups: restResponse.payload.groups ? restResponse.payload.groups : []
-
-        });
-      }),
+      map((rd) => {
+        if (rd.hasSucceeded && hasValue(rd.payload)) {
+          return Object.assign(rd, { payload: Object.assign(new Registration(), {
+              email: rd.payload.email, token: token, user: rd.payload.user,
+              groupNames: rd.payload.groupNames ? rd.payload.groupNames : [],
+              groups: rd.payload.groups ? rd.payload.groups : []
+            }) });
+        } else {
+          return rd;
+        }
+      })
     );
-
   }
   searchByTokenAndHandleError(token: string): Observable<RemoteData<Registration>> {
     const requestId = this.requestService.generateRequestId();

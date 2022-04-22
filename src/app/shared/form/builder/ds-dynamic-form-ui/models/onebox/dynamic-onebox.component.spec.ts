@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -40,7 +41,6 @@ export let ONEBOX_TEST_GROUP;
 
 export let ONEBOX_TEST_MODEL_CONFIG;
 
-/* tslint:disable:max-classes-per-file */
 
 const validAuthority = uuidv4();
 
@@ -533,4 +533,3 @@ class TestComponent {
 
 }
 
-/* tslint:enable:max-classes-per-file */

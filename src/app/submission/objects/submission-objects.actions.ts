@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
@@ -75,7 +76,6 @@ export const SubmissionObjectActionTypes = {
   CLEAN_DETECT_DUPLICATE: type('dspace/submission/CLEAN_DETECT_DUPLICATE')
 };
 
-/* tslint:disable:max-classes-per-file */
 
 /**
  * Insert a new error of type SubmissionSectionError into the given section
@@ -1004,7 +1004,6 @@ export class SetDuplicateDecisionErrorAction implements Action {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * Export a type alias of all actions in this action group

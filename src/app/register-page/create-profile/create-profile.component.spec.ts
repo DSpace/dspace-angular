@@ -21,7 +21,11 @@ import {
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService
 } from '../../core/end-user-agreement/end-user-agreement.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/remote-data.utils';
 
 describe('CreateProfileComponent', () => {
   let comp: CreateProfileComponent;
@@ -115,7 +119,7 @@ describe('CreateProfileComponent', () => {
     };
     epersonWithAgreement = Object.assign(new EPerson(), valuesWithAgreement);
 
-    route = { data: observableOf({ registration: registration }) };
+    route = {data: observableOf({registration: createSuccessfulRemoteDataObject(registration)})};
     router = new RouterStub();
     notificationsService = new NotificationsServiceStub();
 

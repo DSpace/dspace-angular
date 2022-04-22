@@ -104,7 +104,7 @@ export class AuthService {
         if (hasValue(rd.payload) && rd.payload.authenticated) {
           return rd.payload;
         } else {
-          throw(new Error('Invalid email or password'));
+          throw (new Error('Invalid email or password'));
         }
       }));
 
@@ -158,7 +158,7 @@ export class AuthService {
         if (hasValue(status) && status.authenticated) {
           return status._links.eperson.href;
         } else {
-          throw(new Error('Not authenticated'));
+          throw (new Error('Not authenticated'));
         }
       }));
   }
@@ -240,7 +240,7 @@ export class AuthService {
         if (hasValue(status) && status.authenticated) {
           return status.token;
         } else {
-          throw(new Error('Not authenticated'));
+          throw (new Error('Not authenticated'));
         }
       }));
   }
@@ -279,7 +279,7 @@ export class AuthService {
         if (hasValue(status) && !status.authenticated) {
           return true;
         } else {
-          throw(new Error('auth.errors.invalid-user'));
+          throw (new Error('auth.errors.invalid-user'));
         }
       }));
   }

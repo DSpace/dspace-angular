@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Registration } from '../../core/shared/registration.model';
 import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { switchMap, take } from 'rxjs/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -29,7 +29,9 @@ export class InvitationAcceptanceComponent implements OnInit {
       switchMap((paramMap: ParamMap) => {
         const token = paramMap.get('registrationToken');
         return this.epersonRegistrationService.searchByToken(token);
-      })
+      }),
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload()
     ).subscribe((registrationData: Registration) => {
       this.registrationData = registrationData;
     });

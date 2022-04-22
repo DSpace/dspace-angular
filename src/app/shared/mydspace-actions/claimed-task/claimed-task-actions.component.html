@@ -1,5 +1,5 @@
 <ng-container *ngVar="(actionRD$ | async)?.payload as workflowAction">
-  <div class="mt-1 mb-3">
+  <div class="mt-1 mb-3 space-children-mr">
     <ds-claimed-task-actions-loader *ngFor="let option of workflowAction?.options"
                                     [option]="option"
                                     [object]="object"

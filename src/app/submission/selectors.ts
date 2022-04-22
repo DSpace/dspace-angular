@@ -9,8 +9,8 @@ import { MetadataSecurityConfiguration } from '../core/submission/models/metadat
  * Export a function to return a subset of the state by key
  */
 export function keySelector<T, V>(parentSelector: Selector<any, any>, subState: string, key: string): MemoizedSelector<T, V> {
-  return createSelector(parentSelector, (state: T) => {
-     if (hasValue(state) && hasValue(state[subState])) {
+  return createSelector<T,unknown[],V>(parentSelector, (state: T) => {
+    if (hasValue(state) && hasValue(state[subState])) {
       return state[subState][key];
     } else {
       return undefined;
@@ -22,7 +22,7 @@ export function keySelector<T, V>(parentSelector: Selector<any, any>, subState: 
  * Export a function to return a subset of the state
  */
 export function subStateSelector<T, V>(parentSelector: Selector<any, any>, subState: string): MemoizedSelector<T, V> {
-  return createSelector(parentSelector, (state: T) => {
+  return createSelector<T,unknown[],V>(parentSelector, (state: T) => {
     if (hasValue(state) && hasValue(state[subState])) {
       return state[subState];
     } else {

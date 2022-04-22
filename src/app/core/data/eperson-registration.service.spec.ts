@@ -90,17 +90,19 @@ describe('EpersonRegistrationService', () => {
       const expected = service.searchByToken('test-token');
 
       expect(expected).toBeObservable(cold('(a|)', {
-        a: Object.assign(new Registration(), {
-          email: registrationWithUser.email,
+        a: jasmine.objectContaining({
+          payload: Object.assign(new Registration(), {
+            email: registrationWithUser.email,
           groupNames: [],
           groups: [],
-          token: 'test-token',
-          user: registrationWithUser.user
+            token: 'test-token',
+            user: registrationWithUser.user
+          })
         })
       }));
     });
 
-    // tslint:disable:no-shadowed-variable
+    /* eslint-disable @typescript-eslint/no-shadow */
     it('should use cached responses and /registrations/search/findByToken?', () => {
       testScheduler.run(({ cold, expectObservable }) => {
         rdbService.buildSingle.and.returnValue(cold('a', { a: rd }));

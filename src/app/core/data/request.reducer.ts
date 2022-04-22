@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import {
   RequestAction,
   RequestActionTypes,
@@ -121,7 +122,6 @@ export class ResponseState {
   unCacheableObject?: UnCacheableObject;
 }
 
-// tslint:disable-next-line:max-classes-per-file
 export class RequestEntry {
   request: RestRequest;
   state: RequestEntryState;

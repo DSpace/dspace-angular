@@ -29,7 +29,7 @@ describe('SearchFilterComponent', () => {
     isOpenByDefault: false
   });
   const mockFilterService = {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     toggle: (filter) => {
     },
     collapse: (filter) => {
@@ -47,7 +47,7 @@ describe('SearchFilterComponent', () => {
     isCollapsed: (filter) => {
       return observableOf(true);
     }
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   };
   let filterService;

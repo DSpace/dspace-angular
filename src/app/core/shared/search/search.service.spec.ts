@@ -75,10 +75,10 @@ describe('SearchService', () => {
     let routeService;
 
     const halService = {
-      /* tslint:disable:no-empty */
+      /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
       getEndpoint: () => {
       }
-      /* tslint:enable:no-empty */
+      /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
 
     };
 
@@ -170,10 +170,10 @@ describe('SearchService', () => {
       beforeEach(() => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
         spyOn((searchService as any).rdb, 'buildFromHref').and.callThrough();
-        /* tslint:disable:no-empty */
+        /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
         searchService.search(searchOptions).subscribe((t) => {
         }); // subscribe to make sure all methods are called
-        /* tslint:enable:no-empty */
+        /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
       });
 
       it('should call getEndpoint on the halService', () => {
@@ -194,10 +194,10 @@ describe('SearchService', () => {
       beforeEach(() => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
         spyOn((searchService as any).rdb, 'buildFromHref').and.callThrough();
-        /* tslint:disable:no-empty */
+        /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
         searchService.getConfig(null).subscribe((t) => {
         }); // subscribe to make sure all methods are called
-        /* tslint:enable:no-empty */
+        /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
       });
 
       it('should call getEndpoint on the halService', () => {
@@ -219,10 +219,10 @@ describe('SearchService', () => {
       const requestUrl = endPoint + '?scope=' + scope;
       beforeEach(() => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
-        /* tslint:disable:no-empty */
+        /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
         searchService.getConfig(scope).subscribe((t) => {
         }); // subscribe to make sure all methods are called
-        /* tslint:enable:no-empty */
+        /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
       });
 
       it('should call getEndpoint on the halService', () => {
@@ -243,10 +243,10 @@ describe('SearchService', () => {
       beforeEach(() => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
         spyOn((searchService as any).rdb, 'buildFromHref').and.callThrough();
-        /* tslint:disable:no-empty */
+        /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
         searchService.getSearchConfigurationFor(null).subscribe((t) => {
         }); // subscribe to make sure all methods are called
-        /* tslint:enable:no-empty */
+        /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
       });
 
       it('should call getEndpoint on the halService', () => {
@@ -268,10 +268,10 @@ describe('SearchService', () => {
       const requestUrl = endPoint + '?scope=' + scope;
       beforeEach(() => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
-        /* tslint:disable:no-empty */
+        /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
         searchService.getSearchConfigurationFor(scope).subscribe((t) => {
         }); // subscribe to make sure all methods are called
-        /* tslint:enable:no-empty */
+        /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
       });
 
       it('should call getEndpoint on the halService', () => {

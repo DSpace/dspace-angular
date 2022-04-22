@@ -6,6 +6,7 @@
                 [linkType]="linkType"
                 [context]="context"
                 [hidePaginationDetail]="hidePaginationDetail"
+                [showPaginator]="showPaginator"
                 (paginationChange)="onPaginationChange($event)"
                 (pageChange)="onPageChange($event)"
                 (pageSizeChange)="onPageSizeChange($event)"
@@ -21,6 +22,8 @@
                 (importObject)="importObject.emit($event)"
                 (contentChange)="contentChange.emit()"
                 (customEvent)="customEvent.emit($event)"
+                (prev)="goPrev()"
+                (next)="goNext()"
                 *ngIf="(currentMode$ | async) === viewModeEnum.ListElement">
 </ds-object-list>
 
@@ -31,6 +34,7 @@
                 [linkType]="linkType"
                 [context]="context"
                 [hidePaginationDetail]="hidePaginationDetail"
+                [showPaginator]="showPaginator"
                 (paginationChange)="onPaginationChange($event)"
                 (pageChange)="onPageChange($event)"
                 (pageSizeChange)="onPageSizeChange($event)"
@@ -46,6 +50,7 @@
                   [linkType]="linkType"
                   [context]="context"
                   [hidePaginationDetail]="hidePaginationDetail"
+                  [showPaginator]="showPaginator"
                   *ngIf="(currentMode$ | async) === viewModeEnum.DetailedListElement">
 </ds-object-detail>
 

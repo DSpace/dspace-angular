@@ -105,6 +105,7 @@ const overrideWithConfig = (config: Config, pathToConfig: string) => {
 };
 
 const overrideWithEnvironment = (config: Config, key: string = '') => {
+  // eslint-disable-next-line guard-for-in
   for (const property in config) {
     const variable = `${key}${isNotEmpty(key) ? '_' : ''}${property.toUpperCase()}`;
     const innerConfig = config[property];

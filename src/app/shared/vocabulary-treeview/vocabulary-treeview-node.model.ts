@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { BehaviorSubject } from 'rxjs';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { PageInfo } from '../../core/shared/page-info.model';
@@ -7,7 +8,6 @@ export const LOAD_MORE_ROOT = 'LOAD_MORE_ROOT';
 export const LOAD_MORE_NODE: any = { id: LOAD_MORE };
 export const LOAD_MORE_ROOT_NODE: any = { id: LOAD_MORE_ROOT };
 
-/* tslint:disable:max-classes-per-file */
 /** Nested node */
 export class TreeviewNode {
   childrenChange = new BehaviorSubject<TreeviewNode[]>([]);
@@ -42,4 +42,3 @@ export class TreeviewFlatNode {
   }
 }
 
-/* tslint:enable:max-classes-per-file */

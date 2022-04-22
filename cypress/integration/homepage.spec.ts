@@ -17,8 +17,8 @@ describe('Homepage', () => {
 
   xit('should have a working search box', () => {
     const queryString = 'test';
-    cy.get('ds-search-form input[name="query"]').type(queryString);
-    cy.get('ds-search-form button.search-button').click();
+    cy.get('[data-test="search-box"]').type(queryString);
+    cy.get('[data-test="search-button"]').click();
     cy.url().should('include', '/search');
     cy.url().should('include', 'query=' + encodeURI(queryString));
   });

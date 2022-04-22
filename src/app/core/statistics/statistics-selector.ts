@@ -1,5 +1,6 @@
-import { createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { StatisticsState } from './statistics.reducer';
+import { CoreState } from '../core.reducers';
 
 /**
  * Returns the statistic state.
@@ -7,7 +8,7 @@ import { StatisticsState } from './statistics.reducer';
  * @param {State} state Top level state.
  * @returns  {StatisticsState}
  */
-const getStatisticState = (state: any) => state.statistics;
+const getStatisticState = createFeatureSelector<StatisticsState>('statistics');
 
 /**
  * Returns a category id.
