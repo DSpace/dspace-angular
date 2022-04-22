@@ -38,14 +38,11 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
     this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
     this.hiddenUpdates = new BehaviorSubject<boolean>(this.hidden);
 
-    // Asynchronously hide parent if this is hidden
-    setTimeout((hidden: boolean) => {
-      this.hidden = hidden;
-      const parentModel = this.getRootParent(this);
-      if (parentModel && isNotUndefined(parentModel.hidden)) {
-        parentModel.hidden = hidden;
-      }
-    }, 0);
+    // This was a subscription, then an async setTimeout, but it seems unnecessary
+    const parentModel = this.getRootParent(this);
+    if (parentModel && isNotUndefined(parentModel.hidden)) {
+      parentModel.hidden = this.hidden;
+    }
   }
 
   private getRootParent(model: any): DynamicFormControlModel {

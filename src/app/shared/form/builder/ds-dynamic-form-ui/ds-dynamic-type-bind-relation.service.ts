@@ -199,22 +199,20 @@ export class DsDynamicTypeBindRelationService {
         );
 
         // Build up the subscriptions to watch for changes;
-        if (hasValue(this.dynamicMatchers) || true) {
-          subscriptions.push(valueChanges.subscribe(() => {
-            // Iterate each matcher
+        subscriptions.push(valueChanges.subscribe(() => {
+          // Iterate each matcher
+          if (hasValue(this.dynamicMatchers)) {
             this.dynamicMatchers.forEach((matcher) => {
-
               // Find the relation
               const relation = this.dynamicFormRelationService.findRelationByMatcher((model as any).typeBindRelations, matcher);
-
               // If the relation is defined, get matchesCondition result and pass it to the onChange event listener
               if (relation !== undefined) {
                 const hasMatch = this.matchesCondition(relation, matcher);
                 matcher.onChange(hasMatch, model, control, this.injector);
               }
             });
-          }));
-        }
+          }
+        }));
       }
     });
 
