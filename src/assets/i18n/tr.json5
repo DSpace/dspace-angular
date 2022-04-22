@@ -178,16 +178,16 @@
   
   
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
-  "admin.registries.metadata.breadcrumbs": "Metaveri kayıt defteri",
+  "admin.registries.metadata.breadcrumbs": "Metadata kayıt defteri",
   
   // "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
-  "admin.registries.metadata.description": "Metaveri kayıt defteri, veri havuzda bulunan tüm metaveri alanlarının bir listesini tutar. Bu alanlar birden çok şema arasında bölünebilir. Ancak, DSpace nitelikli Dublin Core şemasını gerektirir.",
+  "admin.registries.metadata.description": "Metadata kayıt defteri, veri havuzda bulunan tüm metadata alanlarının bir listesini tutar. Bu alanlar birden çok şema arasında bölünebilir. Ancak, DSpace nitelikli Dublin Core şemasını gerektirir.",
   
   // "admin.registries.metadata.form.create": "Create metadata schema",
-  "admin.registries.metadata.form.create": "Metaveri şeması oluştur",
+  "admin.registries.metadata.form.create": "Metadata şeması oluştur",
   
   // "admin.registries.metadata.form.edit": "Edit metadata schema",
-  "admin.registries.metadata.form.edit": "Metaveri şemasını düzenle",
+  "admin.registries.metadata.form.edit": "Metadata şemasını düzenle",
   
   // "admin.registries.metadata.form.name": "Name",
   "admin.registries.metadata.form.name": "İsim",
@@ -196,10 +196,10 @@
   "admin.registries.metadata.form.namespace": "Ad Alanı",
   
   // "admin.registries.metadata.head": "Metadata Registry",
-  "admin.registries.metadata.head": "Metaveri Kayıt Defteri",
+  "admin.registries.metadata.head": "Metadata Kayıt Defteri",
   
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
-  "admin.registries.metadata.schemas.no-items": "Gösterilecek metaveri alanı yok.",
+  "admin.registries.metadata.schemas.no-items": "Gösterilecek metadata alanı yok.",
   
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   "admin.registries.metadata.schemas.table.delete": "Silme Seçildi",
@@ -214,21 +214,21 @@
   "admin.registries.metadata.schemas.table.namespace": "Ad Alanı",
   
   // "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
-  "admin.registries.metadata.title": "DSpace Angular :: Metaveri Kayıt Defteri",
+  "admin.registries.metadata.title": "DSpace Angular :: Metadata Kayıt Defteri",
   
   
   
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
-  "admin.registries.schema.breadcrumbs": "Metaveri şeması",
+  "admin.registries.schema.breadcrumbs": "Metadata şeması",
   
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   "admin.registries.schema.description": "Bu, \"{{namesapce}}\" için metadata şemasıdır.",
   
   // "admin.registries.schema.fields.head": "Schema metadata fields",
-  "admin.registries.schema.fields.head": "Şema metaveri alanları",
+  "admin.registries.schema.fields.head": "Şema metadata alanları",
   
   // "admin.registries.schema.fields.no-items": "No metadata fields to show.",
-  "admin.registries.schema.fields.no-items": "Gösterilecek metaveri alanı yok.",
+  "admin.registries.schema.fields.no-items": "Gösterilecek metadata alanı yok.",
   
   // "admin.registries.schema.fields.table.delete": "Delete selected",
   "admin.registries.schema.fields.table.delete": "Silme Seçildi",
@@ -240,10 +240,10 @@
   "admin.registries.schema.fields.table.scopenote": "Kapsam Notu",
   
   // "admin.registries.schema.form.create": "Create metadata field",
-  "admin.registries.schema.form.create": "Metaveri alanı oluştur",
+  "admin.registries.schema.form.create": "Metadata alanı oluştur",
   
   // "admin.registries.schema.form.edit": "Edit metadata field",
-  "admin.registries.schema.form.edit": "Metaveri alanını düzenle",
+  "admin.registries.schema.form.edit": "Metadata alanını düzenle",
   
   // "admin.registries.schema.form.element": "Element",
   "admin.registries.schema.form.element": "Element",
@@ -255,34 +255,34 @@
   "admin.registries.schema.form.scopenote": "Kapsam Notu",
   
   // "admin.registries.schema.head": "Metadata Schema",
-  "admin.registries.schema.head": "Metaveri Şeması",
+  "admin.registries.schema.head": "Metadata Şeması",
   
   // "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
-  "admin.registries.schema.notification.created": "Metaveri şeması \"{{prefix}}\" başarıyla oluşturuldu",
+  "admin.registries.schema.notification.created": "Metadata şeması \"{{prefix}}\" başarıyla oluşturuldu",
   
   // "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
-  "admin.registries.schema.notification.deleted.failure": "{{amount}} metaveri şeması silinemedi",
+  "admin.registries.schema.notification.deleted.failure": "{{amount}} metadata şeması silinemedi",
   
   // "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
-  "admin.registries.schema.notification.deleted.success": "{{amount}} metaveri şeması başarıyla silindi",
+  "admin.registries.schema.notification.deleted.success": "{{amount}} metadata şeması başarıyla silindi",
   
   // "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
-  "admin.registries.schema.notification.edited": "Metaveri şeması \"{{prefix}}\" başarıyla düzenlendi",
+  "admin.registries.schema.notification.edited": "Metadata şeması \"{{prefix}}\" başarıyla düzenlendi",
   
   // "admin.registries.schema.notification.failure": "Error",
   "admin.registries.schema.notification.failure": "Hata",
   
   // "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.created": "\"{{field}}\" metaveri alanı başarıyla oluşturuldu",
+  "admin.registries.schema.notification.field.created": "\"{{field}}\" metadata alanı başarıyla oluşturuldu",
   
   // "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
-  "admin.registries.schema.notification.field.deleted.failure": "{{amount}} metaveri alanı silinemedi",
+  "admin.registries.schema.notification.field.deleted.failure": "{{amount}} metadata alanı silinemedi",
   
   // "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
-  "admin.registries.schema.notification.field.deleted.success": "{{amount}} metaveri alanı başarıyla silindi",
+  "admin.registries.schema.notification.field.deleted.success": "{{amount}} metadata alanı başarıyla silindi",
   
   // "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.edited": "Metaveri alanı \"{{field}}\" başarıyla düzenlendi",
+  "admin.registries.schema.notification.field.edited": "Metadata alanı \"{{field}}\" başarıyla düzenlendi",
   
   // "admin.registries.schema.notification.success": "Success",
   "admin.registries.schema.notification.success": "Başarılı",
@@ -291,7 +291,7 @@
   "admin.registries.schema.return": "Geri Dön",
   
   // "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
-  "admin.registries.schema.title": "DSpace Angular :: Metaveri Şeması Kayıt Defteri",
+  "admin.registries.schema.title": "DSpace Angular :: Metadata Şeması Kayıt Defteri",
   
   
   
@@ -320,7 +320,7 @@
   "admin.access-control.epeople.button.see-all": "Browse All",
   
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
-  "admin.access-control.epeople.search.scope.metadata": "Metaveri",
+  "admin.access-control.epeople.search.scope.metadata": "Metadata",
   
   // "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
   "admin.access-control.epeople.search.scope.email": "E-posta (tam)",
@@ -552,7 +552,7 @@
   "admin.access-control.groups.form.members-list.headMembers": "Mevcut Üyeler",
   
   // "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
-  "admin.access-control.groups.form.members-list.search.scope.metadata": "Metaveri",
+  "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
   
   // "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
   "admin.access-control.groups.form.members-list.search.scope.email": "E-posta (tam)",
@@ -718,22 +718,22 @@
   
   
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
-  "admin.metadata-import.breadcrumbs": "Metaverileri İçe Aktar",
+  "admin.metadata-import.breadcrumbs": "Metadataları İçe Aktar",
   
   // "admin.metadata-import.title": "Import Metadata",
-  "admin.metadata-import.title": "Metaverileri İçe Aktar",
+  "admin.metadata-import.title": "Metadataları İçe Aktar",
   
   // "admin.metadata-import.page.header": "Import Metadata",
-  "admin.metadata-import.page.header": "Metaverileri İçe Aktar",
+  "admin.metadata-import.page.header": "Metadataları İçe Aktar",
   
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
   "admin.metadata-import.page.help": "Dosyalarda toplu metadata işlemleri içeren CSV dosyalarını buraya bırakabilir veya bunlara göz atabilirsiniz.",
   
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
-  "admin.metadata-import.page.dropMsg": "İçe aktarmak için bir metaveri CSV'si bırakın",
+  "admin.metadata-import.page.dropMsg": "İçe aktarmak için bir metadata CSV'si bırakın",
   
   // "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
-  "admin.metadata-import.page.dropMsgReplace": "İçe aktarılacak CSV metaverilerini değiştirmek için bırakın",
+  "admin.metadata-import.page.dropMsgReplace": "İçe aktarılacak CSV metadatalarını değiştirmek için bırakın",
   
   // "admin.metadata-import.page.button.return": "Return",
   "admin.metadata-import.page.button.return": "Geri Dön",
