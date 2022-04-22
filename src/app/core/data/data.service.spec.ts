@@ -29,6 +29,7 @@ import { RemoteData } from './remote-data';
 import { RequestEntryState } from './request-entry-state.model';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from './find-list-options.model';
+import { fakeAsync, tick } from '@angular/core/testing';
 
 const endpoint = 'https://rest.api/core';
 
