@@ -31,15 +31,14 @@ declare module 'modern-lru' {
   export = x;
 }
 
-declare var System: SystemJS;
+declare let System: SystemJS;
 
 interface SystemJS {
   import: (path?: string) => Promise<any>;
 }
 // Extra variables that live on Global that will be replaced by webpack DefinePlugin
-declare var ENV: string;
-declare var HMR: boolean;
-declare var Zone: { current: any };
+declare let ENV: string;
+declare let HMR: boolean;
 interface GlobalEnvironment {
   ENV;
   HMR;
@@ -68,11 +67,11 @@ interface WebpackRequire {
 }
 
 // Extend typings
-// tslint:disable:no-empty-interface
+/* eslint-disable @typescript-eslint/no-empty-interface */
 interface NodeRequire extends WebpackRequire { }
 interface NodeModule extends WebpackModule { }
 interface Global extends GlobalEnvironment { }
-// tslint:enable:no-empty-interface
+/* eslint-enable @typescript-eslint/no-empty-interface */
 
 // Allows us to import json files in typescript
 // See https://hackernoon.com/import-json-into-typescript-8d465beded79#.88tfoy2df

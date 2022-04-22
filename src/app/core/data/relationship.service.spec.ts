@@ -107,12 +107,12 @@ describe('RelationshipService', () => {
     'https://rest.api/core/publication/relationships': relationships$
   });
   const objectCache = Object.assign({
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     remove: () => {
     },
     hasBySelfLinkObservable: () => observableOf(false),
     hasByHref$: () => observableOf(false)
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   }) as ObjectCacheService;
 
   const itemService = jasmine.createSpyObj('itemService', {

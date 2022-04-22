@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { HALLink } from '../shared/hal-link.model';
 import { HALResource } from '../shared/hal-resource.model';
 import {
@@ -49,7 +50,6 @@ export const getResourceTypeValueFor = (type: any): string => {
   }
 };
 
-/* tslint:disable:max-classes-per-file */
 /**
  * An interface to represent objects that can be cached
  *
@@ -110,7 +110,6 @@ export class ObjectCacheEntry implements CacheEntry {
   alternativeLinks: string[];
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * The ObjectCache State

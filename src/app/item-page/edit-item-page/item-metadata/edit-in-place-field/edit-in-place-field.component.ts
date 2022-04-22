@@ -17,7 +17,7 @@ import { InputSuggestion } from '../../../../shared/input-suggestions/input-sugg
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 
 @Component({
-  // tslint:disable-next-line:component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[ds-edit-in-place-field]',
   styleUrls: ['./edit-in-place-field.component.scss'],
   templateUrl: './edit-in-place-field.component.html',
