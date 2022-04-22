@@ -42,18 +42,18 @@ export function getMockFormBuilderService(): FormBuilderService {
     isRelationGroup: true,
     hasArrayGroupValue: true,
     getTypeBindModel: new DsDynamicInputModel({
-        name: 'testWithTypeBind',
-        id: 'testWithTypeBind',
+        name: 'dc.type',
+        id: 'dc_type',
         readOnly: false,
         disabled: false,
         repeatable: false,
         value: {
-          value: 'testWithTypeBind',
-          display: 'testWithTypeBind',
+          value: 'boundType',
+          display: 'Bound Type',
           authority: 'bound-auth-key'
         },
         submissionId: '1234',
-        metadataFields: [],
+        metadataFields: ['dc.type'],
         hasSelectableMetadata: false,
         typeBindRelations: [
           {match: 'VISIBLE', operator: 'OR', when: [{'id': 'dc.type', 'value': 'boundType'}]}

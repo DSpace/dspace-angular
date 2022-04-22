@@ -188,8 +188,6 @@ export class DsDynamicTypeBindRelationService {
     const relatedModels = this.getRelatedFormModel(model);
     const subscriptions: Subscription[] = [];
 
-    console.dir(relatedModels);
-
     Object.values(relatedModels).forEach((relatedModel: any) => {
 
       if (hasValue(relatedModel)) {
@@ -201,9 +199,6 @@ export class DsDynamicTypeBindRelationService {
         );
 
         // Build up the subscriptions to watch for changes;
-        // I still don't fully understand what is happening here, or the triggers in various form usage that
-        // cause which / what to fire change events, why the matcher has onChange() instead of a field value or
-        // form model, etc.
         if (hasValue(this.dynamicMatchers) || true) {
           subscriptions.push(valueChanges.subscribe(() => {
             // Iterate each matcher

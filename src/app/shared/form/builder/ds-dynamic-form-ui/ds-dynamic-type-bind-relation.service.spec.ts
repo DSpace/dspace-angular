@@ -1,52 +1,54 @@
 import {inject, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {
-  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
-  DYNAMIC_FORM_CONTROL_TYPE_GROUP,
-  DynamicFormControlEvent, DynamicFormControlRelation, DynamicFormValidationService,
-  DynamicFormControlMatcher, DynamicFormRelationService,
-  DynamicInputModel, MATCH_VISIBLE, OR_OPERATOR, HIDDEN_MATCHER, DYNAMIC_MATCHERS
+  DynamicFormControlRelation,
+  DynamicFormControlMatcher,
+  DynamicFormRelationService,
+  MATCH_VISIBLE,
+  OR_OPERATOR,
+  HIDDEN_MATCHER,
+  DISABLED_MATCHER,
+  REQUIRED_MATCHER,
 } from '@ng-dynamic-forms/core';
-
-
 
 import {
   mockInputWithTypeBindModel, MockRelationModel, mockDcTypeInputModel
 } from '../../../mocks/form-models.mock';
 import {DsDynamicTypeBindRelationService} from './ds-dynamic-type-bind-relation.service';
-import {FormFieldMetadataValueObject} from "../models/form-field-metadata-value.model";
-import {FormControl, NG_ASYNC_VALIDATORS, NG_VALIDATORS, ReactiveFormsModule} from "@angular/forms";
-import {FormBuilderService} from "../form-builder.service";
-import {getMockFormBuilderService} from "../../../mocks/form-builder-service.mock";
-import {DsDynamicFormComponent} from "./ds-dynamic-form.component";
-import {DsDynamicInputModel} from "./models/ds-dynamic-input.model";
-import {FieldParser} from "../parsers/field-parser";
+import {FormFieldMetadataValueObject} from '../models/form-field-metadata-value.model';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilderService} from '../form-builder.service';
+import {getMockFormBuilderService} from '../../../mocks/form-builder-service.mock';
+import {Injector} from '@angular/core';
 
 describe('DSDynamicTypeBindRelationService test suite', () => {
   let service: DsDynamicTypeBindRelationService;
   let dynamicFormRelationService: DynamicFormRelationService;
   let dynamicFormControlMatchers: DynamicFormControlMatcher[];
+  let injector: Injector;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       providers: [
-        //{ provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
         { provide: DynamicFormRelationService },
+        { provide: Injector }
       ]
     }).compileComponents().then();
   });
 
   beforeEach(inject([DsDynamicTypeBindRelationService, DynamicFormRelationService],
     (relationService: DsDynamicTypeBindRelationService,
-     formRelationService: DynamicFormRelationService
+     formRelationService: DynamicFormRelationService,
+     mockInjector: Injector,
     ) => {
     service = relationService;
     dynamicFormRelationService = formRelationService;
     dynamicFormControlMatchers = [];
+    injector = mockInjector;
+    dynamicFormControlMatchers = [HIDDEN_MATCHER, REQUIRED_MATCHER, DISABLED_MATCHER];
   }));
 
   describe('Test getTypeBindValue method', () => {
@@ -77,12 +79,12 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
 
   describe('Test getRelatedFormModel method', () => {
     it('Should get 0 related form models for simple type bind mock data', () => {
-      const testModel = mockInputWithTypeBindModel;
+      const testModel = MockRelationModel;
       const relatedModels = service.getRelatedFormModel(testModel);
       expect(relatedModels).toHaveSize(0);
     });
     it('Should get 1 related form models for mock relation model data', () => {
-      const testModel = MockRelationModel;
+      const testModel = mockInputWithTypeBindModel;
       testModel.typeBindRelations = getTypeBindRelations(['boundType']);
       const relatedModels = service.getRelatedFormModel(testModel);
       expect(relatedModels).toHaveSize(1);
@@ -91,27 +93,44 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
 
   describe('Test matchesCondition method', () => {
     it('Should receive one subscription to dc.type type binding"', () => {
-      const testModel = MockRelationModel;
-      //testModel.typeBindRelations = getTypeBindRelations(['boundType']);
-      const relatedModels = service.getRelatedFormModel(testModel);
+      const testModel = mockInputWithTypeBindModel;
+      testModel.typeBindRelations = getTypeBindRelations(['boundType']);
       const dcTypeControl = new FormControl();
       dcTypeControl.setValue('boundType');
       expect(service.subscribeRelations(testModel, dcTypeControl)).toHaveSize(1);
     });
 
-    it('TEST MTACHe"', () => {
-      const testModel = MockRelationModel;
+    it('Expect hasMatch to be true (ie. this should be hidden)', () => {
+      const testModel = mockInputWithTypeBindModel;
       testModel.typeBindRelations = getTypeBindRelations(['boundType']);
-      const relatedModels = service.getRelatedFormModel(testModel);
       const dcTypeControl = new FormControl();
       dcTypeControl.setValue('boundType');
-      testModel.typeBindRelations[0].when[0].value = 'asdfaf';
+      testModel.typeBindRelations[0].when[0].value = 'anotherType';
       const relation = dynamicFormRelationService.findRelationByMatcher((testModel as any).typeBindRelations, HIDDEN_MATCHER);
-     // console.dir(relation);
+      const matcher = HIDDEN_MATCHER;
+      if (relation !== undefined) {
+        const hasMatch = service.matchesCondition(relation, matcher);
+        matcher.onChange(hasMatch, testModel, dcTypeControl, injector);
+        expect(hasMatch).toBeTruthy();
+      }
     });
+
+    it('Expect hasMatch to be false (ie. this should NOT be hidden)', () => {
+      const testModel = mockInputWithTypeBindModel;
+      testModel.typeBindRelations = getTypeBindRelations(['boundType']);
+      const dcTypeControl = new FormControl();
+      dcTypeControl.setValue('boundType');
+      testModel.typeBindRelations[0].when[0].value = 'boundType';
+      const relation = dynamicFormRelationService.findRelationByMatcher((testModel as any).typeBindRelations, HIDDEN_MATCHER);
+      const matcher = HIDDEN_MATCHER;
+      if (relation !== undefined) {
+        const hasMatch = service.matchesCondition(relation, matcher);
+        matcher.onChange(hasMatch, testModel, dcTypeControl, injector);
+        expect(hasMatch).toBeFalsy();
+      }
+    });
+
   });
-
-
 
 });
 
