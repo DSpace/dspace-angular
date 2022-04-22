@@ -156,84 +156,6 @@ export class ResearcherProfileService {
       return this.dataService.patch(researcherProfile, operations);
     }
 
-    /**
-     * Check if the given item is linked to an ORCID profile.
-     *
-     * @param item the item to check
-     * @returns the check result
-     */
-    isLinkedToOrcid(item: Item): boolean {
-      return item.hasMetadata('cris.orcid.authenticated');
-    }
-
-    /**
-     * Returns true if only the admin users can disconnect a researcher profile from ORCID.
-     *
-     * @returns the check result
-     */
-    onlyAdminCanDisconnectProfileFromOrcid(): Observable<boolean> {
-      return this.getOrcidDisconnectionAllowedUsersConfiguration().pipe(
-        map((property) => property.values.map( (value) => value.toLowerCase()).includes('only_admin'))
-      );
-    }
-
-    /**
-     * Returns true if the profile's owner can disconnect that profile from ORCID.
-     *
-     * @returns the check result
-     */
-    ownerCanDisconnectProfileFromOrcid(): Observable<boolean> {
-      return this.getOrcidDisconnectionAllowedUsersConfiguration().pipe(
-        map((property) => {
-          const values = property.values.map( (value) => value.toLowerCase());
-          return values.includes('only_owner') || values.includes('admin_and_owner');
-        })
-      );
-    }
-
-    /**
-     * Returns true if the admin users can disconnect a researcher profile from ORCID.
-     *
-     * @returns the check result
-     */
-    adminCanDisconnectProfileFromOrcid(): Observable<boolean> {
-      return this.getOrcidDisconnectionAllowedUsersConfiguration().pipe(
-        map((property) => {
-          const values = property.values.map( (value) => value.toLowerCase());
-          return values.includes('only_admin') || values.includes('admin_and_owner');
-        })
-      );
-    }
-
-    /**
-     * If the given item represents a profile unlink it from ORCID.
-     */
-     unlinkOrcid(item: Item): Observable<RemoteData<ResearcherProfile>> {
-
-      const operations: RemoveOperation[] = [{
-        path:'/orcid',
-        op:'remove'
-      }];
-
-      return this.findById(item.firstMetadata('cris.owner').authority).pipe(
-        switchMap((profile) => this.patch(profile, operations)),
-        getFinishedRemoteData()
-      );
-    }
-
-    getOrcidAuthorizeUrl(profile: Item): Observable<string> {
-      return combineLatest([
-        this.configurationService.findByPropertyName('orcid.authorize-url').pipe(getFirstSucceededRemoteDataPayload()),
-        this.configurationService.findByPropertyName('orcid.application-client-id').pipe(getFirstSucceededRemoteDataPayload()),
-        this.configurationService.findByPropertyName('orcid.scope').pipe(getFirstSucceededRemoteDataPayload())]
-      ).pipe(
-        map(([authorizeUrl, clientId, scopes]) => {
-          const redirectUri = environment.rest.baseUrl + '/api/cris/orcid/' + profile.id + '/?url=' + encodeURIComponent(this.router.url);
-          return authorizeUrl.values[0] + '?client_id=' + clientId.values[0]   + '&redirect_uri=' + redirectUri + '&response_type=code&scope='
-          + scopes.values.join(' ');
-      }));
-    }
-
   /**
    * Creates a researcher profile starting from an external source URI
    * @param sourceUri URI of source item of researcher profile.
@@ -257,11 +179,5 @@ export class ResearcherProfileService {
 
     return this.rdbService.buildFromRequestUUID(requestId);
   }
-
-    private getOrcidDisconnectionAllowedUsersConfiguration(): Observable<ConfigurationProperty> {
-      return this.configurationService.findByPropertyName('orcid.disconnection.allowed-users').pipe(
-        getFirstSucceededRemoteDataPayload()
-      );
-    }
 
 }
