@@ -1,18 +1,14 @@
 import { WorkspaceitemSectionSherpaPoliciesObject } from './../../../core/submission/models/workspaceitem-section-sherpa-policies.model';
 import { SectionSherpaPoliciesService } from './section-sherpa-policies.service';
-import { Component, Inject, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Inject, ViewChildren, QueryList } from '@angular/core';
 
-import { filter, map, mergeMap, take } from 'rxjs/operators';
-import { combineLatest, Observable, of, Subscription } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
+import { Observable, of } from 'rxjs';
 
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SectionModelComponent } from '../models/section.model';
-import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
 
 /**
  * This component represents a section for managing item's access conditions.
@@ -24,6 +20,8 @@ import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 @renderSectionFor(SectionsType.SherpaPolicies)
 export class SubmissionSectionSherpaPoliciesComponent extends SectionModelComponent {
+
+  @ViewChildren('acc', { emitDistinctChangesOnly: true }) acc: QueryList<any>;
 
   /**
    * The accesses section data
@@ -56,12 +54,18 @@ export class SubmissionSectionSherpaPoliciesComponent extends SectionModelCompon
 
   }
 
+  ngAfterViewInit() {
+    this.acc.forEach(accordion => {
+      accordion.expandAll();
+    });
+  }
+
+
   /**
    * Initialize all instance variables and retrieve collection default access conditions
    */
   protected onSectionInit(): void {
     this.sectionSherpaPoliciesService.getSherpaPoliciesData(this.submissionId, this.sectionData.id).subscribe((sherpaPolicies: WorkspaceitemSectionSherpaPoliciesObject) => {
-      console.log(sherpaPolicies);
       this.sherpaPoliciesData = sherpaPolicies;
     });
   }

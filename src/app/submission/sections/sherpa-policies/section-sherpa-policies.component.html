@@ -1,119 +1,48 @@
-<ngb-accordion #acc="ngbAccordion" activeIds="publication-information">
-    <ngb-panel id="publication-information">
+<ngb-accordion *ngFor="let sherpaData of sherpaPoliciesData.sherpaResponse;let i = index;" #acc="ngbAccordion">
+    <ng-container *ngFor="let journal of sherpaData.journals;let j=index;">
+        <ngb-panel id="publication-information-{{j}}">
+            <ng-template ngbPanelTitle>
+                <div class="d-inline-block float-left">
+                    <span *ngIf="!acc.isExpanded('publication-information-{{j}}')"
+                        class="fas fa-chevron-up fa-fw"></span>
+                    <span *ngIf="acc.isExpanded('publication-information-{{j}}')"
+                        class="fas fa-chevron-down fa-fw"></span>
+                </div>
+                <span class="float-left section-title"
+                    tabindex="0">{{'submission.sections.sherpa.publication.information'
+                    | translate}}</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <ds-publication-information [journal]="journal"></ds-publication-information>
+            </ng-template>
+        </ngb-panel>
+        <ng-container *ngFor="let policy of journal.policies">
+            <ngb-panel id="publisher-policy-{{j}}">
+                <ng-template ngbPanelTitle>
+                    <div class="d-inline-block float-left">
+                        <span *ngIf="!acc.isExpanded('publisher-policy-{{j}}')" class="fas fa-chevron-up fa-fw"></span>
+                        <span *ngIf="acc.isExpanded('publisher-policy-{{j}}')" class="fas fa-chevron-down fa-fw"></span>
+                    </div>
+                    <span class="float-left section-title" tabindex="0">{{'submission.sections.sherpa.publisher.policy'
+                        | translate}}</span>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    <ds-publisher-policy [policy]="policy"></ds-publisher-policy>
+                </ng-template>
+            </ngb-panel>
+        </ng-container>
+    </ng-container>
+    <ngb-panel id="metadata-{{i}}">
         <ng-template ngbPanelTitle>
             <div class="d-inline-block float-left">
-                <span *ngIf="!acc.isExpanded('publication-information')" class="fas fa-chevron-up fa-fw"></span>
-                <span *ngIf="acc.isExpanded('publication-information')" class="fas fa-chevron-down fa-fw"></span>
+                <span *ngIf="!acc.isExpanded('metadata-{{i}}')" class="fas fa-chevron-up fa-fw"></span>
+                <span *ngIf="acc.isExpanded('metadata-{{i}}')" class="fas fa-chevron-down fa-fw"></span>
             </div>
-            <span class="float-left section-title" tabindex="0">Publication information</span>
+            <span class="float-left section-title" tabindex="0">{{'submission.sections.sherpa.record.information'
+                | translate}}</span>
         </ng-template>
         <ng-template ngbPanelContent>
-            <div class="ml-4">
-                <div class="row">
-                    <div class="col-4">
-                        <p class="m-0">Title</p>
-                    </div>
-                    <div class="col-4">
-                        <p class="m-0" *ngFor="let title of sherpaPoliciesData.details.journals.titles">{{title}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <p class="m-0">ISSNs</p>
-                    </div>
-                    <div class="col-4">
-                        <p class="m-0" *ngFor="let issn of sherpaPoliciesData.details.journals.issns">{{issn}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <p class="m-0">URL</p>
-                    </div>
-                    <div class="col-4">
-                        <p class="m-0">
-                            <a href="{{sherpaPoliciesData.details.journals.url}}">
-                                {{sherpaPoliciesData.details.journals.url}}
-                            </a>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <p class="m-0">Publisher</p>
-                    </div>
-                    <div class="col-4">
-                        <p class="m-0">
-                            <a href="{{sherpaPoliciesData.details.journals.publisher.uri}}">
-                                {{sherpaPoliciesData.details.journals.publisher.name}}
-                            </a>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <p class="m-0">romeoPub</p>
-                    </div>
-                    <div class="col-4">
-                        <p class="m-0">
-                            {{sherpaPoliciesData.details.journals.romeoPub}}
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <p class="m-0">zetoPub</p>
-                    </div>
-                    <div class="col-4">
-                        <p class="m-0">
-                            {{sherpaPoliciesData.details.journals.zetoPub}}
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-        </ng-template>
-    </ngb-panel>
-    <ngb-panel id="publisher-policy">
-        <ng-template ngbPanelTitle>
-            <div class="d-inline-block float-left">
-                <span *ngIf="!acc.isExpanded('publisher-policy')" class="fas fa-chevron-up fa-fw"></span>
-                <span *ngIf="acc.isExpanded('publisher-policy')" class="fas fa-chevron-down fa-fw"></span>
-            </div>
-            <span class="float-left section-title" tabindex="0">Publisher Policy</span>
-        </ng-template>
-        <ng-template ngbPanelContent>
-            <div class="ml-4">
-                <div class="row">
-                    <div class="col-12">
-                        <p class="m-0">
-                            Open Access pathways permitted by this journal's policy are listed below by article version.
-                            Click on a pathway for a more detailed view
-                        </p>
-                    </div>
-                </div>
-                <ds-content-accordion [id]="'permitted-versions'"
-                    [data]="sherpaPoliciesData.details.journals.policies.permittedVersions">
-                </ds-content-accordion>
-                <!-- <ds-content-accordion></ds-content-accordion> -->
-                <div class="row">
-                    <div class="col-12">
-                        <p class="m-0">
-                            For more information, please see the following links:
-                        </p>
-                        <ul>
-                            <li *ngFor="let url of sherpaPoliciesData.details.journals.urls">
-                                <a href="{{url}}">{{url}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-
-            </div>
-
-
-
-
+            <ds-metadata-information [metadata]="sherpaData.metadata"></ds-metadata-information>
         </ng-template>
     </ngb-panel>
 </ngb-accordion>

@@ -1,64 +1,63 @@
-<ngb-accordion #acc="ngbAccordion" [activeIds]="id">
-    <ngb-panel [id]="id">
+<ngb-accordion #acc="ngbAccordion" [activeIds]="'version'">
+    <ngb-panel id="version">
         <ng-template ngbPanelTitle>
-            <span class="float-left section-title" tabindex="0">{{id.replace('-',' ') | titlecase}}</span>
+            <span class="float-left section-title" tabindex="0">
+                {{version.articleVersion | titlecase}} {{ 'submission.sections.sherpa.publisher.policy.version' |
+                translate }}
+            </span>
             <div class="d-inline-block float-right">
-                <span *ngIf="!acc.isExpanded(id)" class="fas fa-plus"></span>
-                <span *ngIf="acc.isExpanded(id)" class="fas fa-minus"></span>
+                <span *ngIf="!acc.isExpanded('version')" class="fas fa-plus"></span>
+                <span *ngIf="acc.isExpanded('version')" class="fas fa-minus"></span>
             </div>
         </ng-template>
         <ng-template ngbPanelContent>
             <div class="ml-4">
                 <div class="row">
                     <div class="col-4">
-                        <p class="m-0">Article Version</p>
+                        <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.embargo' | translate }}</p>
                     </div>
-                    <div class="col-4">
-                        {{data.articleVersion}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <p class="m-0">Conditions</p>
-                    </div>
-                    <div class="col-4">
-                        <p class="m-0" *ngFor="let condition of data.conditions">{{condition}}</p>
+                    <div class="col-6">
+                        <p class="m-1" *ngIf="!!version.embargo;else noEmbargo">{{version.embargo.amount}}
+                            {{version.embargo.units}}</p>
+                        <ng-template #noEmbargo>
+                            <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.noembargo' | translate }}</p>
+                        </ng-template>
+
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <p class="m-0">Prerequisites</p>
+                        <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.license' | translate }}</p>
                     </div>
-                    <div class="col-4">
-                        <p class="m-0" *ngFor="let prerequisite of data.prerequisites">{{prerequisite}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <p class="m-0">Location</p>
-                    </div>
-                    <div class="col-4">
-                        <p class="m-0" *ngFor="let location of data.locations">{{location}}</p>
+                    <div class="col-6">
+                        <p class="m-1" *ngFor="let license of version.licenses">{{license}}</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <p class="m-0">License</p>
+                        <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.prerequisites' | translate }}</p>
                     </div>
-                    <div class="col-4">
-                        <p class="m-0" *ngFor="let license of data.licenses">{{license}}</p>
+                    <div class="col-6">
+                        <p class="m-1" *ngFor="let prerequisite of version.prerequisites">{{prerequisite}}</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <p class="m-0">Embargo</p>
+                        <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.location' | translate }}</p>
                     </div>
+                    <div class="col-6">
+                        <p class="m-1" *ngFor="let location of version.locations">{{location}}</p>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-4">
-                        <p class="m-0">{{data.embargo.amount}} {{data.embargo.units}}</p>
+                        <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.conditions' | translate }}</p>
+                    </div>
+                    <div class="col-6">
+                        <p class="m-1" *ngFor="let condition of version.conditions">{{condition}}</p>
                     </div>
                 </div>
             </div>
-
         </ng-template>
     </ngb-panel>
 </ngb-accordion>

@@ -1,3 +1,4 @@
+import { PermittedVersions } from './../../../../core/submission/models/sherpa-policies-details.model';
 import { Component, Input } from '@angular/core';
 
 @Component({
@@ -7,7 +8,6 @@ import { Component, Input } from '@angular/core';
 })
 export class ContentAccordionComponent {
 
-  @Input() id: string;
-  @Input() data: any;
+  @Input() version: PermittedVersions;
 
 }

@@ -4,18 +4,39 @@
 export class SherpaPoliciesDetailsObject {
 
   /**
-   * The sherpa policies uri
+   * The sherpa policies error
    */
-  uri: string;
+  error: boolean;
 
   /**
-   * The sherpa policies details
+   * The sherpa policies journal details
    */
-  journals: Journals;
+  journals: Journal[];
+
+  /**
+   * The sherpa policies message
+   */
+  message: string;
+
+  /**
+   * The sherpa policies metadata
+   */
+  metadata: Metadata;
+
 }
 
 
-export interface Journals {
+export interface Metadata {
+  id: number;
+  uri: string;
+  dateCreated: string;
+  dateModified: string;
+  inDOAJ: boolean;
+  publiclyVisible: boolean;
+}
+
+
+export interface Journal {
   titles: string[];
   url: string;
   issns: string[];
@@ -23,9 +44,8 @@ export interface Journals {
   zetoPub: string;
   inDOAJ: boolean;
   publisher: Publisher;
-  policies: Policies;
-  urls: string[];
-  openAccessProhibited: boolean;
+  publishers: Publisher[];
+  policies: Policy[];
 }
 
 export interface Publisher {
@@ -36,17 +56,26 @@ export interface Publisher {
   identifier: string;
   paidAccessDescription: string;
   paidAccessUrl: string;
+  publicationCount: number;
 }
 
-export interface Policies {
+export interface Policy {
+  id: number;
   openAccessPermitted: boolean;
   uri: string;
   internalMoniker: string;
-  permittedVersions: PermittedVersions;
+  permittedVersions: PermittedVersions[];
+  urls: any;
+  publicationCount: number;
+  preArchiving: string;
+  postArchiving: string;
+  pubArchiving: string;
+  openAccessProhibited: boolean;
 }
 
 export interface PermittedVersions {
   articleVersion: string;
+  option: number;
   conditions: string[];
   prerequisites: string[];
   locations: string[];

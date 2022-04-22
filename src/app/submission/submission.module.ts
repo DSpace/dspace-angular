@@ -45,6 +45,9 @@ import { SubmissionAccessesConfigService } from '../core/config/submission-acces
 import { SectionAccessesService } from './sections/accesses/section-accesses.service';
 import { SubmissionSectionSherpaPoliciesComponent } from './sections/sherpa-policies/section-sherpa-policies.component';
 import { ContentAccordionComponent } from './sections/sherpa-policies/content-accordion/content-accordion.component';
+import { PublisherPolicyComponent } from './sections/sherpa-policies/publisher-policy/publisher-policy.component';
+import { PublicationInformationComponent } from './sections/sherpa-policies/publication-information/publication-information.component';
+import { MetadataInformationComponent } from './sections/sherpa-policies/metadata-information/metadata-information.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -80,6 +83,9 @@ const DECLARATIONS = [
   SubmissionImportExternalPreviewComponent,
   SubmissionImportExternalCollectionComponent,
   ContentAccordionComponent,
+  PublisherPolicyComponent,
+  PublicationInformationComponent,
+  MetadataInformationComponent,
 ];
 
 @NgModule({

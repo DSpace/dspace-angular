@@ -1,0 +1,26 @@
+<div class="ml-4">
+    <div class="row">
+        <div class="col-12">
+            <p class="m-1">
+                {{'submission.sections.sherpa.publisher.policy.openaccess' | translate}}
+            </p>
+        </div>
+    </div>
+    <ds-content-accordion *ngFor="let permittedVersions of policy.permittedVersions" [version]="permittedVersions">
+    </ds-content-accordion>
+    <!-- <ds-content-accordion></ds-content-accordion> -->
+    <div class="row">
+        <div class="col-12">
+            <p class="m-1">
+                {{'submission.sections.sherpa.publisher.policy.more.information' | translate}}
+            </p>
+            <ul>
+                <li *ngFor="let url of policy.urls | keyvalue">
+                    <a href="{{url.key}}">{{url.value}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+</div>
