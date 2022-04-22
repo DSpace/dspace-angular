@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 import { Injectable } from '@angular/core';
 import { dataService } from '../cache/builders/build-decorators';
 import { EditItemMode } from './models/edititem-mode.model';
@@ -17,7 +19,6 @@ import { RemoteData } from '../data/remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../data/paginated-list.model';
 
-/* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<EditItemMode> {
   protected linkPath = 'edititemmodes';
 

@@ -10,7 +10,7 @@ import { ConfirmationModalComponent } from '../../../confirmation-modal/confirma
 import { SubscriptionService } from '../../subscription.service';
 
 @Component({
-  // tslint:disable-next-line: component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[ds-subscription-view]',
   templateUrl: './subscription-view.component.html',
   styleUrls: ['./subscription-view.component.scss']

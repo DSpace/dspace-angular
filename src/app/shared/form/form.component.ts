@@ -296,7 +296,8 @@ export class FormComponent implements OnDestroy, OnInit {
     this.formGroup.markAsPristine();
     if (this.emitChange) {
       this.change.emit(event);
-    }}
+    }
+}
 
   /**
    * Method called on submit.

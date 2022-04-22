@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
@@ -23,8 +25,6 @@ import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.mo
 import { PaginatedList } from '../../../data/paginated-list.model';
 import { ReplaceOperation } from 'fast-json-patch';
 import { NoContent } from '../../../shared/NoContent.model';
-
-/* tslint:disable:max-classes-per-file */
 
 /**
  * A private DataService implementation to delegate specific methods to.

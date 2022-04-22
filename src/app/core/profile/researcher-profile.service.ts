@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -31,8 +33,6 @@ import { RESEARCHER_PROFILE } from './model/researcher-profile.resource-type';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { PostRequest } from '../data/request.models';
 import { hasValue } from '../../shared/empty.util';
-
-/* tslint:disable:max-classes-per-file */
 
 /**
  * A private DataService implementation to delegate specific methods to.

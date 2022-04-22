@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
@@ -24,8 +26,6 @@ import { OpenaireSuggestionTarget } from './models/openaire-suggestion-target.mo
 import { OpenaireSuggestion } from './models/openaire-suggestion.model';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { NoContent } from '../../shared/NoContent.model';
-
-/* tslint:disable:max-classes-per-file */
 
 /**
  * A private DataService implementation to delegate specific methods to.

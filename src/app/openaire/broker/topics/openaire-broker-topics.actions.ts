@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 import { Action } from '@ngrx/store';
 import { type } from '../../../shared/ngrx/type';
 import { OpenaireBrokerTopicObject } from '../../../core/openaire/broker/models/openaire-broker-topic.model';
@@ -15,8 +17,6 @@ export const OpenaireBrokerTopicActionTypes = {
   RETRIEVE_ALL_TOPICS: type('dspace/integration/openaire/broker/topic/RETRIEVE_ALL_TOPICS'),
   RETRIEVE_ALL_TOPICS_ERROR: type('dspace/integration/openaire/broker/topic/RETRIEVE_ALL_TOPICS_ERROR'),
 };
-
-/* tslint:disable:max-classes-per-file */
 
 /**
  * An ngrx action to retrieve all the OpenAIRE Broker topics.
@@ -86,8 +86,6 @@ export class AddTopicsAction implements Action {
   }
 
 }
-
-/* tslint:enable:max-classes-per-file */
 
 /**
  * Export a type alias of all actions in this action group

@@ -55,14 +55,15 @@ export class LuckySearchComponent implements OnInit {
     this.searchOptions$ = this.getSearchOptions();
     this.readResult();
     const urlTree = this.router.parseUrl(this.router.url);
-    // tslint:disable-next-line:forin
-    for (const key in urlTree.queryParams) {
-      if (key === 'index') {
-        this.currentFilter.identifier = urlTree.queryParams[key];
-      }
-      if (key === 'value') {
-        this.currentFilter.value = urlTree.queryParams[key];
-      }
+    if (urlTree.queryParams) {
+      Object.keys(urlTree.queryParams).forEach((key) => {
+        if (key && key === 'index') {
+          this.currentFilter.identifier = urlTree.queryParams[key];
+        }
+        if (key && key === 'value') {
+          this.currentFilter.value = urlTree.queryParams[key];
+        }
+      });
     }
     if (!(this.currentFilter.value !== '' && this.currentFilter.identifier !== '')) {
       this.showEmptySearchSection = true;

@@ -12,7 +12,7 @@ import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  // tslint:disable-next-line: component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'span[ds-thumbnail].float-left',
   templateUrl: './thumbnail.component.html',
   styleUrls: ['./thumbnail.component.scss']

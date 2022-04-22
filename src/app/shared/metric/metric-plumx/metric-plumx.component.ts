@@ -29,7 +29,7 @@ export class MetricPlumxComponent extends BaseMetricComponent implements OnInit 
       this.metricLoaderService = this.injector.get(MetricLoadScriptService);
       await this.metricLoaderService.loadScript('plumX', script);
       // use the method to find and render all placeholders that haven't already been initialized
-      this._window.nativeWindow[`__plumX`].widgets.init();
+      this._window.nativeWindow.__plumX.widgets.init();
     }
   }
 }

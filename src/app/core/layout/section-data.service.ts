@@ -1,5 +1,4 @@
-/* tslint:disable:max-classes-per-file */
-
+/* eslint-disable max-classes-per-file */
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

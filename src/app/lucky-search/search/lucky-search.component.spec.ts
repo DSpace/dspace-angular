@@ -62,7 +62,6 @@ describe('SearchComponent', () => {
     parseUrl: urlTree,
     createUrlTree: new UrlTree(),
     url: itemPageUrl,
-    // tslint:disable-next-line:no-unused-expression
     navigateByUrl: void {}
   });
   beforeEach(async () => {

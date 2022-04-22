@@ -1,11 +1,8 @@
 import { SearchService } from '../../../../core/shared/search/search.service';
-import { waitForAsync } from '@angular/core/testing';
-/* tslint:disable:no-unused-variable */
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CountersSectionComponent } from './counters-section.component';
 import { NativeWindowService } from '../../../../core/services/window.service';
-// import { NativeWindowMockFactory } from 'src/app/shared/mocks/mock-native-window-ref';
 import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
 
 xdescribe('CountersSectionComponent', () => {

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Observable, of } from 'rxjs';
@@ -58,7 +59,6 @@ export const metricRowsMock = [{
   metrics: [metric1Mock, metric2Mock]
 }];
 
-// tslint:disable-next-line: max-classes-per-file
 class MetricsComponentsDataServiceMock {
   findById(boxShortname: string): Observable<RemoteData<MetricsComponent>> {
     return of(

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
@@ -18,7 +19,6 @@ import { MetricsComponent } from './models/metrics-component.model';
 import { Metric } from '../shared/metric.model';
 import { MetricRow } from '../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component';
 
-/* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<MetricsComponent> {
   protected linkPath = 'boxmetricsconfigurations';
 

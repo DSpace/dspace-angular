@@ -28,9 +28,10 @@ describe('SearchChartComponent', () => {
     isOpenByDefault: false
   });
   const mockFilterService = {
-    /* tslint:disable:no-empty */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     expand: (filter) => {
     },
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     initializeFilter: (filter) => {
     },
     getSelectedValuesForFilter: (filter) => {
@@ -38,9 +39,7 @@ describe('SearchChartComponent', () => {
     },
     isFilterActive: (filter) => {
       return observableOf([filterName1, filterName2, filterName3].indexOf(filter) >= 0);
-    },
-    /* tslint:enable:no-empty */
-
+    }
   };
   let filterService;
   const mockResults = observableOf(['test', 'data']);

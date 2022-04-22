@@ -265,12 +265,9 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    * @param relationship  the relationship to update place
    */
   updateRelationship(relationship: Relationship): void {
-    this.relationshipService.updateRightPlace(relationship).pipe(take(1))
-      // tslint:disable-next-line:no-empty
-      .subscribe((res) => {
-      }, (err) => {
-        this.retrieveRelationships();
-      });
+    this.relationshipService.updateRightPlace(relationship).pipe(take(1)).subscribe({
+      error: err => this.retrieveRelationships()
+    });
   }
 
   /**

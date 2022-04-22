@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -32,9 +32,9 @@ describe('ExportCollectionMenuComponent', () => {
   let requestService: any;
   let router: any;
   let scriptDataService: any;
-  // tslint:disable-next-line:prefer-const
-  let notificationService = new NotificationsServiceStub();
-  beforeEach(async(() => {
+
+  const notificationService = new NotificationsServiceStub();
+  beforeEach(waitForAsync(() => {
     dso = Object.assign(new Collection(), {
       id: 'test-collection',
       _links: {

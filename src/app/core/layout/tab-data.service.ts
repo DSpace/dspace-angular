@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 import { Injectable } from '@angular/core';
 import { CrisLayoutTab } from './models/tab.model';
 import { DataService } from '../data/data.service';
@@ -19,8 +21,6 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
-
-/* tslint:disable:max-classes-per-file */
 
 class DataServiceImpl extends DataService<CrisLayoutTab> {
   protected linkPath = 'tabs';

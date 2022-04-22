@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 import { Injectable } from '@angular/core';
 import { dataService } from '../cache/builders/build-decorators';
 import { DataService } from '../data/data.service';
@@ -15,7 +17,6 @@ import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { MetadataSecurityConfiguration } from './models/metadata-security-configuration';
 
-/* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<MetadataSecurityConfiguration> {
   protected linkPath = 'securitysettings';
 

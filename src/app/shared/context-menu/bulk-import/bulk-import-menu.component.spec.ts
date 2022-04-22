@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -13,20 +13,19 @@ import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { BulkImportMenuComponent } from './bulk-import-menu.component';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { Collection } from '../../../core/shared/collection.model';
-import {NotificationsService} from '../../notifications/notifications.service';
-import {NotificationsServiceStub} from '../../testing/notifications-service.stub';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 
 describe('BulkImportMenuComponent', () => {
   let component: BulkImportMenuComponent;
   let componentAsAny: any;
   let fixture: ComponentFixture<BulkImportMenuComponent>;
   let scheduler: TestScheduler;
-  // tslint:disable-next-line:prefer-const
   let notificationService = new NotificationsServiceStub();
   let dso: DSpaceObject;
   let authorizationService: any;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     dso = Object.assign(new Collection(), {
       id: 'test-collection',
       _links: {
