@@ -65,7 +65,6 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
@@ -79,29 +78,6 @@ import { FormService } from '../../form.service';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { FormBuilderService } from '../form-builder.service';
 import { NgxMaskModule } from 'ngx-mask';
-
-function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
-  return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
-    getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
-    matchesCondition: jasmine.createSpy('matchesCondition'),
-    subscribeRelations: jasmine.createSpy('subscribeRelations')
-  });
-}
-
-function getTypeBindRelations(configuredTypeBindValues: string[]): DynamicFormControlRelation[] {
-  const bindValues = [];
-  configuredTypeBindValues.forEach((value) => {
-    bindValues.push({
-      id: 'dc.type',
-      value: value
-    });
-  });
-  return [{
-    match: MATCH_VISIBLE,
-    operator: OR_OPERATOR,
-    when: bindValues
-  }];
-}
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
 
@@ -136,7 +112,11 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       repeatable: false,
       submissionId: '1234',
       hasSelectableMetadata: false,
-      typeBindRelations: getTypeBindRelations(['Book'])
+      typeBindRelations: [{
+        match: MATCH_VISIBLE,
+        operator: OR_OPERATOR,
+        when: [{id: 'dc.type', value: 'Book'}]
+      }]
     }),
     new DynamicScrollableDropdownModel({
       id: 'scrollableDropdown',
@@ -225,7 +205,6 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       providers: [
         DsDynamicFormControlContainerComponent,
         DynamicFormService,
-        { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: RelationshipService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
@@ -381,17 +360,6 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     expect(testFn(formModel[23])).toEqual(DsDynamicLookupComponent);
     expect(testFn(formModel[24])).toEqual(DsDynamicLookupComponent);
     expect(testFn(formModel[25])).toEqual(DsDynamicFormGroupComponent);
-  });
-
-  it('should display a type-bound field when dc.type matcher set to Book', () => {
-    const rels: any = getMockDsDynamicTypeBindRelationService().getRelatedFormModel(formModel[16]);
-    const isVisible = getMockDsDynamicTypeBindRelationService().matchesCondition(rels.typeBindRelations, rels.matcher);
-    expect(isVisible).toBeTruthy();
-  });
-
-  it('Should successfully subscribe type bind relations for component', () => {
-   const subscriptions = getMockDsDynamicTypeBindRelationService().subscribeRelations(component.model, component.control);
-   expect(subscriptions).toBeDefined();
   });
 
 });

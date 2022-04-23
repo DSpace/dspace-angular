@@ -15,7 +15,7 @@ import {
   DynamicEditorModel,
   DynamicFileUploadModel,
   DynamicFormArrayModel,
-  DynamicFormControlModel,
+  DynamicFormControlModel, DynamicFormControlRelation,
   DynamicFormGroupModel,
   DynamicFormValidationService,
   DynamicFormValueControlModel,
@@ -26,7 +26,7 @@ import {
   DynamicSliderModel,
   DynamicSwitchModel,
   DynamicTextAreaModel,
-  DynamicTimePickerModel
+  DynamicTimePickerModel, MATCH_VISIBLE, OR_OPERATOR
 } from '@ng-dynamic-forms/core';
 import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { DynamicListCheckboxGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
@@ -317,7 +317,7 @@ describe('FormBuilderService test suite', () => {
           metadataFields: ['dc.contributor.author'],
           hasSelectableMetadata: true,
           showButtons: true,
-          typeBindRelations: []
+          typeBindRelations: typeBindRelationService.getTypeBindRelations(['Book'])
         },
       ),
     ];
@@ -890,12 +890,6 @@ describe('FormBuilderService test suite', () => {
     service.clearFormArray(formArray, model);
 
     expect(formArray.length === 0).toBe(true);
-  });
-
-  it('should hide on type bind', () => {
-    const model = service.findById('testFormArray', testModel) as DynamicFormArrayModel;
-    typeBindRelationService.getRelatedFormModel(model);
-    const formArray = service.createFormArray(model);
   });
 
 });
