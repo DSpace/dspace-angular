@@ -73,7 +73,7 @@ export class FormBuilderService extends DynamicFormService {
     this.formModels = new Map();
     this.formGroups = new Map();
     // Replace . with _ in configured type field here, to make configuration more simple and user-friendly
-    this.typeField = environment.submission.typeBind.field.replace('\.', '_');
+    this.typeField = environment.submission.typeBind.field.replace(/\./g, '_');
   }
 
   createDynamicFormControlEvent(control: FormControl, group: FormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {

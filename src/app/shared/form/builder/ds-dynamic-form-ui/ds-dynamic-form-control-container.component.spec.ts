@@ -14,7 +14,7 @@ import {
   DynamicEditorModel,
   DynamicFileUploadModel,
   DynamicFormArrayModel,
-  DynamicFormControlModel, DynamicFormControlRelation,
+  DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormsCoreModule,
   DynamicFormService,

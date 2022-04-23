@@ -4,26 +4,6 @@ import {DsDynamicInputModel} from '../form/builder/ds-dynamic-form-ui/models/ds-
 
 export function getMockFormBuilderService(): FormBuilderService {
 
-  const inputWithTypeBindConfig = {
-    name: 'testWithTypeBind',
-    id: 'testWithTypeBind',
-    readOnly: false,
-    disabled: false,
-    repeatable: false,
-    value: {
-      value: 'testWithTypeBind',
-      display: 'testWithTypeBind'
-    },
-    submissionId: '1234',
-    metadataFields: [],
-    hasSelectableMetadata: false,
-    typeBindRelations: [
-      {match: 'VISIBLE', operator: 'OR', when: [{'id': 'dc.type', 'value': 'boundType'}]}
-    ]
-  };
-
-  const thing = new DsDynamicInputModel(inputWithTypeBindConfig);
-
   return jasmine.createSpyObj('FormBuilderService', {
     modelFromConfiguration: [],
     createFormGroup: new FormGroup({}),
@@ -55,7 +35,7 @@ export function getMockFormBuilderService(): FormBuilderService {
         metadataFields: ['dc.type'],
         hasSelectableMetadata: false,
         typeBindRelations: [
-          {match: 'VISIBLE', operator: 'OR', when: [{'id': 'dc.type', 'value': 'boundType'}]}
+          {match: 'VISIBLE', operator: 'OR', when: [{id: 'dc.type', value: 'boundType'}]}
         ]
       }
     )

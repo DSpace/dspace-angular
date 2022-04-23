@@ -40,7 +40,7 @@ export abstract class FieldParser {
     @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions
   ) {
     // Replace . with _ in configured type field here, to make configuration more simple and user-friendly
-    this.typeField = environment.submission.typeBind.field.replace('\.', '_');
+    this.typeField = environment.submission.typeBind.field.replace(/\./g, '_');
   }
 
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any;
