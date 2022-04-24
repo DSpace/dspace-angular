@@ -6,7 +6,7 @@ import {
   serializable
 } from '@ng-dynamic-forms/core';
 import { RelationshipOptions } from '../../models/relationship-options.model';
-import { hasValue, isNotUndefined } from '../../../../empty.util';
+import { hasValue } from '../../../../empty.util';
 
 export interface DynamicRowArrayModelConfig extends DynamicFormArrayModelConfig {
   notRepeatable: boolean;
