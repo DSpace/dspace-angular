@@ -15,7 +15,7 @@ import {
   DynamicEditorModel,
   DynamicFileUploadModel,
   DynamicFormArrayModel,
-  DynamicFormControlModel, DynamicFormControlRelation,
+  DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormValidationService,
   DynamicFormValueControlModel,
@@ -26,7 +26,7 @@ import {
   DynamicSliderModel,
   DynamicSwitchModel,
   DynamicTextAreaModel,
-  DynamicTimePickerModel, MATCH_VISIBLE, OR_OPERATOR
+  DynamicTimePickerModel,
 } from '@ng-dynamic-forms/core';
 import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { DynamicListCheckboxGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
@@ -48,21 +48,12 @@ import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-conca
 import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
-import { DsDynamicTypeBindRelationService } from './ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 
 describe('FormBuilderService test suite', () => {
 
   let testModel: DynamicFormControlModel[];
   let testFormConfiguration: SubmissionFormsModel;
   let service: FormBuilderService;
-  let typeBindRelationService: DsDynamicTypeBindRelationService;
-
-  function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
-    return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
-      getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
-      matchesCondition: jasmine.createSpy('matchesCondition')
-    });
-  }
 
   const submissionId = '1234';
 
@@ -80,7 +71,6 @@ describe('FormBuilderService test suite', () => {
       imports: [ReactiveFormsModule],
       providers: [
         { provide: FormBuilderService, useClass: FormBuilderService },
-        { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: DynamicFormValidationService, useValue: {} },
         { provide: NG_VALIDATORS, useValue: testValidator, multi: true },
         { provide: NG_ASYNC_VALIDATORS, useValue: testAsyncValidator, multi: true }
@@ -317,7 +307,7 @@ describe('FormBuilderService test suite', () => {
           metadataFields: ['dc.contributor.author'],
           hasSelectableMetadata: true,
           showButtons: true,
-          typeBindRelations: typeBindRelationService.getTypeBindRelations(['Book'])
+          typeBindRelations: [{ match: 'VISIBLE', operator: 'OR', when: [{id: 'dc.type', value: 'Book' }]}]
         },
       ),
     ];
@@ -437,9 +427,8 @@ describe('FormBuilderService test suite', () => {
     } as any;
   });
 
-  beforeEach(inject([FormBuilderService, DsDynamicTypeBindRelationService], (formService: FormBuilderService, relationService: DsDynamicTypeBindRelationService) => {
+  beforeEach(inject([FormBuilderService], (formService: FormBuilderService) => {
     service = formService;
-    typeBindRelationService = relationService;
   }));
 
   it('should find a dynamic form control model by id', () => {
