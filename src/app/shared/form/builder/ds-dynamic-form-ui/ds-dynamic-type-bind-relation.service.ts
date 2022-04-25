@@ -101,15 +101,12 @@ export class DsDynamicTypeBindRelationService {
       let values: string[];
       let bindModelValue = bindModel.value;
 
-      // If the form type is RELATION, map values to the mandatory field for the model? Don't totally understand
-      // what is going on here
+      // If the form type is RELATION, set bindModelValue to the mandatory field for this model, otherwise leave
+      // as plain value
       if (bindModel.type === DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP) {
         bindModelValue = bindModel.value.map((entry) => entry[bindModel.mandatoryField]);
       }
-      // If we have an array of values, map the bindModelValue[] back to values[], looking up
-      // the type bind value for each in the static method here (this just handles cases where authority should
-      // be used, or where the entry doesn't have .value but is a string itself, etc)
-      // If values isn't an array, make it a single element array with the looked-up type bind value.
+      // Support multiple bind models
       if (Array.isArray(bindModelValue)) {
         values = [...bindModelValue.map((entry) => this.getTypeBindValue(entry))];
       } else {
@@ -118,20 +115,14 @@ export class DsDynamicTypeBindRelationService {
 
       // If bind model evaluates to 'true' (is not undefined, is not null, is not false etc,
       // AND the relation match (type bind) is equal to the matcher match (item publication type), then the return
-      // value is initialised as false. I'm not sure why the negation is used here!
-      // Perhaps as a fail-safe for a bad mind model but an exact match of the strings in relation and matcher
-      // passed to this method.
+      // value is initialised as false.
       let returnValue = (!(bindModel && relation.match === matcher.match));
 
       // Iterate the type bind values parsed and mapped from our form/relation group model
       for (const value of values) {
         if (bindModel && relation.match === matcher.match) {
           // If we're not at the first array element, and we're using the AND operator, and we have not
-          // yet matched anything, return false. This is just a kind of short-hand put in here for some kind of
-          // optimisation, I guess, since the AND requires all values to match, and if we're on index > 0 but haven't
-          // matched then we've already failed. But surely it's simpler and just as optimal to break on the first
-          // non-match if using the AND operator?!
-          // In the case of default type bind usage, we always use OR anyway.
+          // yet matched anything, return false.
           if (index > 0 && operator === AND_OPERATOR && !hasAlreadyMatched) {
             return false;
           }
@@ -151,8 +142,7 @@ export class DsDynamicTypeBindRelationService {
           }
         }
 
-        // Here we have tests using 'opposingMatch' which I'm not certain about yet
-        // It looks like a negation of sorts? Or a 'not equals' comparison used in combination I think?
+        // Test opposingMatch (eg. if match is VISIBLE, opposingMatch will be HIDDEN)
         if (bindModel && relation.match === matcher.opposingMatch) {
           // If we're not at the first element, using AND, and already matched, just return true here
           if (index > 0 && operator === AND_OPERATOR && hasAlreadyMatched) {
@@ -164,7 +154,7 @@ export class DsDynamicTypeBindRelationService {
             return false;
           }
 
-          // Negated comparison
+          // Negated comparison for return value since this is expected to be in the context of a HIDDEN_MATCHER
           returnValue = !(condition.value === value);
 
           // Break if already false
@@ -218,6 +208,10 @@ export class DsDynamicTypeBindRelationService {
     return subscriptions;
   }
 
+  /**
+   * Helper function to construct a typeBindRelations array
+   * @param configuredTypeBindValues
+   */
   public getTypeBindRelations(configuredTypeBindValues: string[]): DynamicFormControlRelation[] {
     const bindValues = [];
     configuredTypeBindValues.forEach((value) => {
