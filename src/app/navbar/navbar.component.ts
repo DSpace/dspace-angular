@@ -13,6 +13,7 @@ import { BrowseDefinition } from '../core/shared/browse-definition.model';
 import { RemoteData } from '../core/data/remote-data';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { ThemeService } from '../shared/theme-support/theme.service';
 
 /**
  * Component representing the public navbar
@@ -35,9 +36,10 @@ export class NavbarComponent extends MenuComponent {
               public windowService: HostWindowService,
               public browseService: BrowseService,
               public authorizationService: AuthorizationDataService,
-              public route: ActivatedRoute
+              public route: ActivatedRoute,
+              protected themeService: ThemeService
   ) {
-    super(menuService, injector, authorizationService, route);
+    super(menuService, injector, authorizationService, route, themeService);
   }
 
   ngOnInit(): void {

@@ -22,6 +22,7 @@ import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 
 /**
  * Component representing the admin sidebar
@@ -70,9 +71,10 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     private modalService: NgbModal,
     public authorizationService: AuthorizationDataService,
     private scriptDataService: ScriptDataService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    protected themeService: ThemeService
   ) {
-    super(menuService, injector, authorizationService, route);
+    super(menuService, injector, authorizationService, route, themeService);
     this.inFocus$ = new BehaviorSubject(false);
   }
 
