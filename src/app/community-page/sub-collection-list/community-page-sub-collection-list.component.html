@@ -9,5 +9,5 @@
     </ds-viewable-collection>
   </div>
   <ds-error *ngIf="subCollectionsRD?.hasFailed" message="{{'error.sub-collections' | translate}}"></ds-error>
-  <ds-loading *ngIf="subCollectionsRD?.isLoading" message="{{'loading.sub-collections' | translate}}"></ds-loading>
+  <ds-themed-loading *ngIf="subCollectionsRD?.isLoading" message="{{'loading.sub-collections' | translate}}"></ds-themed-loading>
 </ng-container>

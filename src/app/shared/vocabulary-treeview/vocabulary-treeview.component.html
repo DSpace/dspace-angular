@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="treeview-container">
-      <ds-loading *ngIf="loading | async" [showMessage]="false"></ds-loading>
+      <ds-themed-loading *ngIf="loading | async" [showMessage]="false"></ds-themed-loading>
       <h4 *ngIf="!(loading | async) && dataSource.data.length === 0" class="text-center text-muted mt-4" >
         <span>{{'vocabulary-treeview.search.no-result' | translate}}</span>
       </h4>

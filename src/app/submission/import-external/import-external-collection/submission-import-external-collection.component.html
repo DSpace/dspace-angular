@@ -5,7 +5,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <ds-loading *ngIf="isLoading()"></ds-loading>
+    <ds-themed-loading *ngIf="isLoading()"></ds-themed-loading>
     <ds-collection-dropdown [ngClass]="{'d-none': isLoading()}"
                             (selectionChange)="selectObject($event)"
                             (searchComplete)="searchComplete()"

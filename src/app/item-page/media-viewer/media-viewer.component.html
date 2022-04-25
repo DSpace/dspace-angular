@@ -1,9 +1,9 @@
 <ng-container *ngVar="mediaList$ | async as mediaList">
-  <ds-loading
+  <ds-themed-loading
     *ngIf="isLoading"
     message="{{ 'loading.default' | translate }}"
     [showMessage]="false"
-  ></ds-loading>
+  ></ds-themed-loading>
   <div class="media-viewer" *ngIf="!isLoading">
     <ng-container *ngIf="mediaList.length > 0">
       <ng-container *ngIf="videoOptions">

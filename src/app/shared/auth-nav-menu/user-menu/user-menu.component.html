@@ -1,4 +1,4 @@
-<ds-loading *ngIf="(loading$ | async)"></ds-loading>
+<ds-themed-loading *ngIf="(loading$ | async)"></ds-themed-loading>
 <div *ngIf="!(loading$ | async)">
   <span class="dropdown-item-text">{{(user$ | async)?.name}} ({{(user$ | async)?.email}})</span>
   <a class="dropdown-item" [routerLink]="[profileRoute]" routerLinkActive="active">{{'nav.profile' | translate}}</a>

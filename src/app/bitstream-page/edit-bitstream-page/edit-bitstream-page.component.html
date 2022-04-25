@@ -27,7 +27,7 @@
       </div>
     </div>
     <ds-error *ngIf="bitstreamRD?.hasFailed" message="{{'error.bitstream' | translate}}"></ds-error>
-    <ds-loading *ngIf="!bitstreamRD || !formatsRD || bitstreamRD?.isLoading || formatsRD?.isLoading"
-                message="{{'loading.bitstream' | translate}}"></ds-loading>
+    <ds-themed-loading *ngIf="!bitstreamRD || !formatsRD || bitstreamRD?.isLoading || formatsRD?.isLoading"
+                message="{{'loading.bitstream' | translate}}"></ds-themed-loading>
   </div>
 </ng-container>
