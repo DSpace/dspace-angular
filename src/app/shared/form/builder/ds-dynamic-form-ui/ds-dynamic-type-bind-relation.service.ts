@@ -78,9 +78,9 @@ export class DsDynamicTypeBindRelationService {
   }
 
   /**
-   * Return true if the type bind relation (eg. {MATCH_VISIBLE, OR, ['book', 'book part']}) matches the value in
-   * matcher.match (or matcher.opposingMatch? not sure what that is), which in this case would be the current dc.type
-   * of the submission item
+   * Return false if the type bind relation (eg. {MATCH_VISIBLE, OR, ['book', 'book part']}) matches the value in
+   * matcher.match or true if the opposite match. Since this is called with regard to actively *hiding* a form
+   * component, the negation of the comparison is returned.
    * @param relation type bind relation (eg. {MATCH_VISIBLE, OR, ['book', 'book part']})
    * @param matcher contains 'match' value and an onChange() event listener
    */
