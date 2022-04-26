@@ -27,6 +27,8 @@ import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } f
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RelationshipTypeService } from '../../../core/data/relationship-type.service';
 import { relationshipTypes } from '../../../shared/testing/relationship-types.mock';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 
 let comp: any;
 let fixture: ComponentFixture<ItemRelationshipsComponent>;
@@ -211,6 +213,7 @@ describe('ItemRelationshipsComponent', () => {
       imports: [SharedModule, TranslateModule.forRoot()],
       declarations: [ItemRelationshipsComponent],
       providers: [
+        { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ItemDataService, useValue: itemService },
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: Router, useValue: router },

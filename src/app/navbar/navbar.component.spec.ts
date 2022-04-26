@@ -20,6 +20,8 @@ import { BrowseDefinition } from '../core/shared/browse-definition.model';
 import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-decorator';
 import { Item } from '../core/shared/item.model';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { ThemeService } from '../shared/theme-support/theme.service';
+import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 
 let comp: NavbarComponent;
 let fixture: ComponentFixture<NavbarComponent>;
@@ -91,6 +93,7 @@ describe('NavbarComponent', () => {
       declarations: [NavbarComponent],
       providers: [
         Injector,
+        { provide: ThemeService, useValue: getMockThemeService() },
         { provide: MenuService, useValue: menuService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         { provide: ActivatedRoute, useValue: routeStub },

@@ -31,6 +31,7 @@ import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { ITEM } from '../../core/shared/item.resource-type';
 import { ThemeService } from '../theme-support/theme.service';
 import SpyObj = jasmine.SpyObj;
+import { getMockThemeService } from '../mocks/theme-service.mock';
 
 @listableObjectComponent(BrowseEntry, ViewMode.ListElement, DEFAULT_CONTEXT, 'custom')
 @Component({
@@ -73,13 +74,10 @@ describe('BrowseByComponent', () => {
   });
   const paginationService = new PaginationServiceStub(paginationConfig);
 
-  let themeService: SpyObj<ThemeService>;
+  let themeService;
 
   beforeEach(waitForAsync(() => {
-    themeService = jasmine.createSpyObj('themeService', {
-      getThemeName: 'dspace',
-      getThemeName$: observableOf('dspace'),
-    });
+    themeService = getMockThemeService('dspace');
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
