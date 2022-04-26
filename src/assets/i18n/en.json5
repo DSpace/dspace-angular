@@ -724,6 +724,10 @@
 
   "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
 
+  "bitstream.edit.form.fileType.label": "File type",
+
+  "bitstream.edit.form.fileType.hint": "Personal picture, logo, main article, etc.",
+
   "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
 
   "bitstream.edit.form.selectedFormat.label": "Selected Format",
@@ -2736,6 +2740,8 @@
 
   "item.page.metric.label.view": "Views",
 
+  "item.page.metric.label.view-detail-btn": "View Details",
+
   "item.page.metric.label.google-scholar": "Google Scholar",
 
   "item.page.metric.label.scopusCitation": "Scopus© citations",
@@ -3371,6 +3377,11 @@
   "menu.section.statistics.site": "Site",
 
   "menu.section.statistics_task": "Statistics Task",
+
+  "modal.item-detail-page.title" : "Item Page Detail",
+
+  "modal.item-detail-page.confirm.cancel" : "Close",
+
 
   "statistics": "Statistics",
 
@@ -4955,6 +4966,18 @@
 
   "sorting.dc.title.DESC": "Title Descending",
 
+  "sorting.metric.view.ASC" : "Views Ascending",
+
+  "sorting.metric.view.DESC" : "Views Descending",
+
+  "sorting.metric.download.ASC" : "Downloads Ascending",
+
+  "sorting.metric.download.DESC" : "Downloads Descending",
+
+  "sorting.metric.scopus.citation.ASC" : "Citations Ascending",
+
+  "sorting.metric.scopus.citation.DESC" : "Citations Descending",
+
   "sorting.score.ASC": "Least Relevant",
 
   "sorting.score.DESC": "Most Relevant",
@@ -5010,29 +5033,33 @@
 
   "statistics.table.no-data": "No data available",
 
-  "statistics.table.mainReports.title.TotalVisits": "Most viewed",
+  "statistics.table.mainReports.title.TotalVisits": "Total Visits",
 
-  "statistics.table.mainReports.title.TotalVisitsPerMonth": "Most viewed per month",
+  "statistics.table.mainReports.title.TopItems": "Most Viewed",
+
+  "statistics.table.mainReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
 
   "statistics.table.mainReports.title.TotalDownloads": "File Visits",
 
   "statistics.table.mainReports.title.TotalVisitsAndDownloads": "Items and file Visits",
 
-  "statistics.table.mainReports.title.TopCountries": "Top country views",
+  "statistics.table.mainReports.title.TopCountries": "Top Country Views",
 
-  "statistics.table.mainReports.title.TopContinents": "Top region views",
+  "statistics.table.mainReports.title.TopContinents": "Top Region Views",
 
   "statistics.table.mainReports.title.TopCategories": "Categories",
 
-  "statistics.table.mainReports.title.TopCities": "Top city views",
+  "statistics.table.mainReports.title.TopCities": "Top City Views",
 
   "statistics.table.downloadReports.title.TotalVisits": "Most downloaded",
 
-  "statistics.table.downloadReports.title.TotalVisitsPerMonth": "Most downloaded per month",
+  "statistics.table.downloadReports.title.TopItems": "Most downloaded",
 
-  "statistics.table.downloadReports.title.TotalDownloads": "Most downloaded",
+  "statistics.table.downloadReports.title.TotalVisitsPerMonth": "Total Downloads Per Month",
 
-  "statistics.table.downloadReports.title.TotalDownloadsPerMonth": "Most downloaded per month",
+  "statistics.table.downloadReports.title.TotalDownloads": "Most Downloaded",
+
+  "statistics.table.downloadReports.title.TotalDownloadsPerMonth": "Total Downloads Per Month",
 
   "statistics.table.downloadReports.title.TopCountries": "Top country downloads",
 
@@ -5046,13 +5073,59 @@
 
   "statistics.table.publicationsReports.title.TotalVisits": "Total Visits",
 
+  "statistics.table.publicationsReports.title.TopItems": "Most Viewed",
+
   "statistics.table.publicationsReports.title.TopCities": "Top Cities",
 
   "statistics.table.publicationsReports.title.TopCountries": "Top Countries",
 
   "statistics.table.publicationsReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
 
-  "statistics.table.projectsReports.title.TotalVisits": "Tota Visits",
+  "statistics.table.publicationsReports.title.TotalDownloads": "Downloads",
+
+  "statistics.table.publicationsReports.title.TotalVisitsAndDownloads": "Items and file Visits",
+
+  "statistics.table.projectsReports.title.TotalVisits": "Total Visits",
+
+  "statistics.table.projectsReports.title.TopItems": "Most Viewed",
+
+  "statistics.table.projectsReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
+
+  "statistics.table.projectsReports.title.TopCities": "Top Cities",
+
+  "statistics.table.projectsReports.title.TopCountries": "Top Countries",
+
+  "statistics.table.projectsReports.title.TotalDownloads": "Downloads",
+
+  "statistics.table.projectsReports.title.TotalVisitsAndDownloads": "Items and file Visits",
+
+  "statistics.table.rppublicationsReports.title.TotalVisits": "Total Visits",
+
+  "statistics.table.rppublicationsReports.title.TopItems": "Most Viewed",
+
+  "statistics.table.rppublicationsReports.title.TopCities": "Top Cities",
+
+  "statistics.table.rppublicationsReports.title.TopCountries": "Top Countries",
+
+  "statistics.table.rppublicationsReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
+
+  "statistics.table.rppublicationsReports.title.TotalDownloads": "Downloads",
+
+  "statistics.table.rppublicationsReports.title.TotalVisitsAndDownloads": "Items and file Visits",
+
+  "statistics.table.rpprojectsReports.title.TotalVisits": "Total Visits",
+
+  "statistics.table.rpprojectsReports.title.TopItems": "Most Viewed",
+
+  "statistics.table.rpprojectsReports.title.TopCities": "Top Cities",
+
+  "statistics.table.rpprojectsReports.title.TopCountries": "Top Countries",
+
+  "statistics.table.rpprojectsReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
+
+  "statistics.table.rpprojectsReports.title.TotalDownloads": "Downloads",
+
+  "statistics.table.rpprojectsReports.title.TotalVisitsAndDownloads": "Items and file Visits",
 
   "statistics.categories.title": "Statistics by Category",
 

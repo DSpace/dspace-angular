@@ -209,9 +209,9 @@ export class ItemExportFormatService {
         return [...parameterValues, Object.assign(new ProcessParameter(), { name: '-s', value: fixedFilter[1] })];
       }
     }
-    // if (searchOptions.scope) {
-    //   return [...parameterValues, Object.assign(new ProcessParameter(), { name: '-s', value: searchOptions.scope })];
-    // }
+    if (searchOptions.scope) {
+      return [...parameterValues, Object.assign(new ProcessParameter(), { name: '-s', value: searchOptions.scope })];
+    }
     return parameterValues;
   }
 

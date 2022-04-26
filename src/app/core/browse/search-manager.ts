@@ -20,6 +20,7 @@ import { hasValue } from '../../shared/empty.util';
 import { FollowAuthorityMetadata } from '../../../config/search-follow-metadata.interface';
 import { MetadataValue } from '../shared/metadata.models';
 import { Metadata } from '../shared/metadata.utils';
+import { isArray } from 'lodash';
 
 /**
  * The service aims to manage browse requests and subsequent extra fetch requests.
@@ -116,11 +117,17 @@ export class SearchManager {
     items.forEach((item) => {
       metadataToFollow.forEach((followMetadata: FollowAuthorityMetadata) => {
         if (item.entityType === followMetadata.type) {
-          followMetadata.metadata.forEach((metadata) => {
-            item.allMetadata(metadata)
+          if (isArray(followMetadata.metadata)) {
+            followMetadata.metadata.forEach((metadata) => {
+              item.allMetadata(metadata)
+                .filter((metadataValue: MetadataValue) => Metadata.hasValidAuthority(metadataValue.authority))
+                .forEach((metadataValue: MetadataValue) => uuidMap[metadataValue.authority] = metadataValue);
+            });
+          } else {
+            item.allMetadata(followMetadata.metadata)
               .filter((metadataValue: MetadataValue) => Metadata.hasValidAuthority(metadataValue.authority))
               .forEach((metadataValue: MetadataValue) => uuidMap[metadataValue.authority] = metadataValue);
-          });
+          }
         }
       });
     });

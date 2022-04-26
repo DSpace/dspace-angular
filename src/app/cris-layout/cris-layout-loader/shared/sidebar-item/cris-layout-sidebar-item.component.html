@@ -21,7 +21,7 @@
             <li *ngFor="let subTab of tab.children" [ngClass]="{'active' : !!subTab && !!activeTab && subTab.id == activeTab.id}">
                 <a class="nav-item shortcut-icon" href="javascript:;" [ngClass]="{ 'px-4 justify-content-between' : layout == 'vertical' }"
                     (click)="$event.preventDefault();selectTab(subTab)">
-                    <span id="sidebarName-{{subTab.id}}" class="section-header-text" [innerHTML]="getTabHeader(subTab)">
+                    <span id="sidebarName-{{subTab.id}}" class="pl-3 section-header-text" [innerHTML]="getTabHeader(subTab)">
                     </span>
                 </a>
             </li>

@@ -122,6 +122,11 @@ describe('EditBitstreamPageComponent', () => {
             {
               value: 'Bitstream title'
             }
+          ],
+          'dc.type': [
+            {
+              value: 'Logo'
+            }
           ]
         },
         format: createSuccessfulRemoteDataObject$(selectedFormat),
@@ -194,6 +199,10 @@ describe('EditBitstreamPageComponent', () => {
 
       it('should fill in the bitstream\'s description', () => {
         expect(rawForm.descriptionContainer.description).toEqual(bitstream.firstMetadataValue('dc.description'));
+      });
+
+      it('should fill in the bitstream\'s file type', () => {
+        expect(rawForm.fileTypeContainer.fileType).toEqual(bitstream.firstMetadataValue('dc.type'));
       });
 
       it('should select the correct format', () => {
@@ -293,6 +302,11 @@ describe('EditBitstreamPageComponent', () => {
           'dc.title': [
             {
               value: 'Bitstream title'
+            }
+          ],
+          'dc.type': [
+            {
+              value: 'Logo'
             }
           ],
           'iiif.label': [
@@ -412,6 +426,11 @@ describe('EditBitstreamPageComponent', () => {
             'dc.title': [
               {
                 value: 'Bitstream title'
+              }
+            ],
+            'dc.type': [
+              {
+                value: 'Logo'
               }
             ],
             'iiif.label': [
