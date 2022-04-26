@@ -7,7 +7,9 @@ import { Journal } from './../../../../core/submission/models/sherpa-policies-de
   styleUrls: ['./publication-information.component.scss']
 })
 export class PublicationInformationComponent {
-
+  /**
+   * Journal to show information from
+   */
   @Input() journal: Journal;
 
 }

@@ -1,3 +1,9 @@
+<div class="refresh-container mt-2 mb-2">
+    <button type="button" class="btn btn-secondary pull-right" (click)="refresh()">
+        <span><i class="fas fa-sync"></i> {{'submission.sections.sherpa.publisher.policy.refresh' | translate}} </span>
+    </button>
+</div>
+
 <ngb-accordion *ngFor="let sherpaData of sherpaPoliciesData.sherpaResponse;let i = index;" #acc="ngbAccordion">
     <ng-container *ngFor="let journal of sherpaData.journals;let j=index;">
         <ngb-panel id="publication-information-{{j}}">

@@ -7,7 +7,9 @@ import { Metadata } from './../../../../core/submission/models/sherpa-policies-d
   styleUrls: ['./metadata-information.component.scss']
 })
 export class MetadataInformationComponent {
-
+  /**
+   * Metadata to show information from
+   */
   @Input() metadata: Metadata;
 
 }

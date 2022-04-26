@@ -10,7 +10,7 @@ import { isNotUndefined } from '../../../shared/empty.util';
 import { submissionSectionDataFromIdSelector } from '../../selectors';
 
 /**
- * A service that provides methods to handle submission item's accesses condition state.
+ * A service that provides methods to handle submission item's sherpa policies state.
  */
 @Injectable()
 export class SectionSherpaPoliciesService {
@@ -24,7 +24,7 @@ export class SectionSherpaPoliciesService {
 
 
   /**
-   * Return item's accesses condition state.
+   * Return item's sherpa policies state.
    *
    * @param submissionId
    *    The submission id

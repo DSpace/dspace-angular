@@ -8,6 +8,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PublisherPolicyComponent {
 
+  /**
+   * Policy to show information from
+   */
   @Input() policy: Policy;
 
 }

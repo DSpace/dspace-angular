@@ -7,7 +7,9 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./content-accordion.component.scss']
 })
 export class ContentAccordionComponent {
-
+  /**
+   * PermittedVersions to show information from
+   */
   @Input() version: PermittedVersions;
 
 }
