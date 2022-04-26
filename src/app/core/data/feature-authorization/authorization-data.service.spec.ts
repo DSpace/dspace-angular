@@ -4,7 +4,6 @@ import { AuthService } from '../../auth/auth.service';
 import { Site } from '../../shared/site.model';
 import { EPerson } from '../../eperson/models/eperson.model';
 import { of as observableOf } from 'rxjs';
-import { FindListOptions } from '../request.models';
 import { FeatureID } from './feature-id';
 import { hasValue } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
@@ -12,6 +11,7 @@ import { Authorization } from '../../shared/authorization.model';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { Feature } from '../../shared/feature.model';
+import { FindListOptions } from '../find-list-options.model';
 
 describe('AuthorizationDataService', () => {
   let service: AuthorizationDataService;

@@ -6,15 +6,15 @@ import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { CoreState } from '../core.reducers';
 import { ClaimedTaskDataService } from './claimed-task-data.service';
-import { of as observableOf } from 'rxjs';
-import { FindListOptions } from '../data/request.models';
+import { of as observableOf } from 'rxjs/internal/observable/of';
 import { RequestParam } from '../cache/models/request-param.model';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from '../data/find-list-options.model';
 
 describe('ClaimedTaskDataService', () => {
   let scheduler: TestScheduler;

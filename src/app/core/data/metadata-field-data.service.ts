@@ -7,7 +7,6 @@ import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
@@ -16,11 +15,12 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { METADATA_FIELD } from '../metadata/metadata-field.resource-type';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { FindListOptions } from './request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { RequestParam } from '../cache/models/request-param.model';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the metadatafields endpoint

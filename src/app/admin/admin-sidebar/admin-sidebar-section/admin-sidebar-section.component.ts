@@ -1,10 +1,10 @@
 import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-section.component';
-import { MenuID } from '../../../shared/menu/initial-menus-state';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
 import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
-import { MenuSection } from '../../../shared/menu/menu.reducer';
+import { MenuSection } from '../../../shared/menu/menu-section.model';
+import { MenuID } from '../../../shared/menu/menu-id.model';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { Router } from '@angular/router';
 

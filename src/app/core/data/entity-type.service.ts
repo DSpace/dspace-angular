@@ -3,14 +3,12 @@ import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { Injectable } from '@angular/core';
-import { FindListOptions } from './request.models';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
@@ -19,6 +17,8 @@ import { PaginatedList } from './paginated-list.model';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { RelationshipTypeService } from './relationship-type.service';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 /**
  * Service handling all ItemType requests

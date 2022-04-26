@@ -9,13 +9,11 @@ import { dataService } from '../cache/builders/build-decorators';
 
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
-import { FindListOptions } from '../data/request.models';
 import { Collection } from '../shared/collection.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ResourcePolicy } from './models/resource-policy.model';
 import { RemoteData } from '../data/remote-data';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RESOURCE_POLICY } from './models/resource-policy.resource-type';
@@ -28,6 +26,8 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { map } from 'rxjs/operators';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from '../data/find-list-options.model';
 
 
 /**

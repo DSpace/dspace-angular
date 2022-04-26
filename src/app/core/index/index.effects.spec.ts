@@ -6,9 +6,9 @@ import { cold, hot } from 'jasmine-marbles';
 import { AddToObjectCacheAction } from '../cache/object-cache.actions';
 import { Item } from '../shared/item.model';
 import { AddToIndexAction } from './index.actions';
-import { IndexName } from './index.reducer';
 import { provideMockStore } from '@ngrx/store/testing';
 import { NoOpAction } from '../../shared/ngrx/no-op.action';
+import { IndexName } from './index-name.model';
 
 describe('ObjectUpdatesEffects', () => {
   let indexEffects: UUIDIndexEffects;

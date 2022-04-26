@@ -1,10 +1,10 @@
 import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
 import { typedObject } from '../cache/builders/build-decorators';
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
 import { CONFIG_PROPERTY } from './config-property.resource-type';
+import { CacheableObject } from '../cache/cacheable-object.model';
 
 /**
  * Model class for a Configuration Property

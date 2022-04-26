@@ -16,13 +16,13 @@ import { CollectionDropdownComponent } from '../../shared/collection-dropdown/co
 import { Collection } from '../../core/shared/collection.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Community } from '../../core/shared/community.model';
-import { FindListOptions } from '../../core/data/request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { MockElementRef } from '../../shared/testing/element-ref.mock';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 
 
 describe('CollectionSelectorComponent', () => {

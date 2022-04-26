@@ -9,7 +9,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DataService } from './data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
@@ -20,6 +19,7 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import { CoreState } from '../core-state.model';
 
 @Injectable()
 export class DsoRedirectDataService extends DataService<any> {
