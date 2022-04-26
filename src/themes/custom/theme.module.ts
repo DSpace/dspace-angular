@@ -84,6 +84,7 @@ import { SearchModule } from '../../app/shared/search/search.module';
 import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
+import { RootModule } from '../../app/root.module';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -136,6 +137,7 @@ const DECLARATIONS = [
     AdminSearchModule,
     AdminWorkflowModuleModule,
     AppModule,
+    RootModule,
     BitstreamFormatsModule,
     BrowseByModule,
     CollectionFormModule,

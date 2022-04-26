@@ -37,7 +37,7 @@ const menuByIDSelector = (menuID: MenuID): MemoizedSelector<AppState, MenuState>
   return keySelector<MenuState>(menuID, menusStateSelector);
 };
 
-const menuSectionStateSelector = (state: MenuState) => state.sections;
+const menuSectionStateSelector = (state: MenuState) => hasValue(state) ? state.sections : {};
 
 const menuSectionByIDSelector = (id: string): MemoizedSelector<MenuState, MenuSection> => {
   return menuKeySelector<MenuSection>(id, menuSectionStateSelector);
@@ -164,7 +164,7 @@ export class MenuService {
    */
   isMenuCollapsed(menuID: MenuID): Observable<boolean> {
     return this.getMenu(menuID).pipe(
-      map((state: MenuState) => state.collapsed)
+      map((state: MenuState) => hasValue(state) ? state.collapsed : undefined)
     );
   }
 
@@ -175,7 +175,7 @@ export class MenuService {
    */
   isMenuPreviewCollapsed(menuID: MenuID): Observable<boolean> {
     return this.getMenu(menuID).pipe(
-      map((state: MenuState) => state.previewCollapsed)
+      map((state: MenuState) => hasValue(state) ? state.previewCollapsed : undefined)
     );
   }
 
@@ -186,7 +186,7 @@ export class MenuService {
    */
   isMenuVisible(menuID: MenuID): Observable<boolean> {
     return this.getMenu(menuID).pipe(
-      map((state: MenuState) => state.visible)
+      map((state: MenuState) => hasValue(state) ? state.visible : undefined)
     );
   }
 

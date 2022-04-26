@@ -14,5 +14,5 @@ export abstract class DSpaceTransferState {
   ) {
   }
 
-  abstract transfer(): void;
+  abstract transfer(): Promise<boolean>;
 }
