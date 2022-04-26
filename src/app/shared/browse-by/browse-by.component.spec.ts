@@ -102,12 +102,9 @@ describe('BrowseByComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(BrowseByComponent);
     comp = fixture.componentInstance;
-  });
+  }));
 
   it('should display a loading message when objects is empty', () => {
     (comp as any).objects = undefined;
