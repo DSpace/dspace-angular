@@ -32,6 +32,8 @@ import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field/ite
 import { ItemDetailPreviewComponent } from './item-detail-preview.component';
 import { createPaginatedList } from '../../../testing/utils.test';
 import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import { environment } from 'src/environments/environment';
+import { By } from '@angular/platform-browser';
 
 function getMockFileService(): FileService {
   return jasmine.createSpyObj('FileService', {
@@ -68,6 +70,12 @@ const mockItem: Item = Object.assign(new Item(), {
       {
         language: null,
         value: 'Article'
+      }
+    ],
+    'dc.description.additional': [
+      {
+        language: null,
+        value: 'This is an additional description metadata.'
       }
     ]
   }
@@ -122,14 +130,62 @@ describe('ItemDetailPreviewComponent', () => {
     component.item = mockItem;
     component.separator = ', ';
     // spyOn(component.item, 'getFiles').and.returnValue(mockItem.bundles as any);
-    fixture.detectChanges();
-
   }));
 
-  it('should get item bitstreams', (done) => {
-    component.getFiles().subscribe((bitstreams) => {
-      expect(bitstreams).toBeDefined();
-      done();
+  afterEach(() => {
+    environment.myDSpace.additionalMetadatas = []
+  });
+
+  describe('When the component is initialized', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
+
+    it('should get item bitstreams', (done) => {
+      component.getFiles().subscribe((bitstreams) => {
+        expect(bitstreams).toBeDefined();
+        done();
+      });
+    });
+  });
+
+  describe('When the config has no additional metadata', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
+
+    it('should not show the additional section', () => {
+      const additionalSection = fixture.debugElement.query(By.css('div.item-list-additional'));
+      expect(additionalSection).toBeNull();
+    });
+  });
+
+  describe('When the config has one additional metadata with no match', () => {
+    beforeEach(() => {
+      environment.myDSpace.additionalMetadatas = [{ value: 'fake' }]
+      fixture.detectChanges();
+    });
+
+    it('should show the additional section', () => {
+      const additionalSection = fixture.debugElement.query(By.css('div.item-list-additional'));
+      expect(additionalSection).not.toBeNull();
+    });
+
+    it('should not show the additional metadata span', () => {
+      const additionalSpan = fixture.debugElement.query(By.css('span.item-additional'));
+      expect(additionalSpan).toBeNull();
+    });
+  });
+
+  describe('When the config has one additional metadata with a match', () => {
+    beforeEach(() => {
+      environment.myDSpace.additionalMetadatas = [{ value: 'dc.description.additional' }]
+      fixture.detectChanges();
+    });
+
+    it('should show the additional metadata span', () => {
+      const additionalSpan = fixture.debugElement.query(By.css('span.item-additional'));
+      expect(additionalSpan).not.toBeNull();
     });
   });
 });

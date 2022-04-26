@@ -11,6 +11,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from 'src/environments/environment';
 
 let component: ItemListPreviewComponent;
 let fixture: ComponentFixture<ItemListPreviewComponent>;
@@ -66,6 +67,23 @@ const mockItemWithEntityType: Item = Object.assign(new Item(), {
     ]
   }
 });
+const mockItemWithAdditionalMeta: Item = Object.assign(new Item(), {
+  bundles: observableOf({}),
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'This is just another title'
+      }
+    ],
+    'dspace.description.additional': [
+      {
+        language: null,
+        value: 'This is an additional description metadata.'
+      }
+    ]
+  }
+});
 
 const environmentUseThumbs = {
   browseBy: {
@@ -111,6 +129,10 @@ describe('ItemListPreviewComponent', () => {
 
   beforeEach(() => {
     component.object = { hitHighlights: {} } as any;
+  });
+
+  afterEach(() => {
+    environment.myDSpace.additionalMetadatas = []
   });
 
   describe('When showThumbnails is true', () => {
@@ -181,6 +203,49 @@ describe('ItemListPreviewComponent', () => {
     it('should show the entity type span', () => {
       const entityField = fixture.debugElement.query(By.css('ds-type-badge'));
       expect(entityField).not.toBeNull();
+    });
+  });
+
+  describe('When the config has no additional metadata', () => {
+    beforeEach(() => {
+      component.item = mockItemWithAdditionalMeta;
+      fixture.detectChanges();
+    });
+
+    it('should not show the additional section', () => {
+      const additionalSection = fixture.debugElement.query(By.css('div.item-list-additional'));
+      expect(additionalSection).toBeNull();
+    });
+  });
+
+  describe('When the config has one additional metadata with no match', () => {
+    beforeEach(() => {
+      environment.myDSpace.additionalMetadatas = [{ value: 'fake' }]
+      component.item = mockItemWithAdditionalMeta;
+      fixture.detectChanges();
+    });
+
+    it('should show the additional section', () => {
+      const additionalSection = fixture.debugElement.query(By.css('div.item-list-additional'));
+      expect(additionalSection).not.toBeNull();
+    });
+
+    it('should not show the additional metadata span', () => {
+      const additionalSpan = fixture.debugElement.query(By.css('span.item-additional'));
+      expect(additionalSpan).toBeNull();
+    });
+  });
+
+  describe('When the config has one additional metadata with a match', () => {
+    beforeEach(() => {
+      environment.myDSpace.additionalMetadatas = [{ value: 'dspace.description.additional' }]
+      component.item = mockItemWithAdditionalMeta;
+      fixture.detectChanges();
+    });
+
+    it('should show the additional metadata span', () => {
+      const additionalSpan = fixture.debugElement.query(By.css('span.item-additional'));
+      expect(additionalSpan).not.toBeNull();
     });
   });
 });

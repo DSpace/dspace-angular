@@ -31,15 +31,18 @@
                 <span *ngIf="!last">; </span>
               </span>
           </span>
-
-          </ds-truncatable-part>
+        </ds-truncatable-part>
       </span>
 
           <ds-truncatable-part [id]="item.id" [minLines]="1" class="item-list-abstract">
         <span [ngClass]="{'text-muted': !item.firstMetadataValue('dc.description.abstract')}"
               [innerHTML]="(item.firstMetadataValue('dc.description.abstract')) || ('mydspace.results.no-abstract' | translate)"></span>
           </ds-truncatable-part>
-
+          <div *ngIf="additionalMetadatas" class="item-list-additional">
+            <ds-truncatable-part *ngFor="let meta of item.allMetadataValues(additionalMetadatas)" [id]="item.id" [minLines]="1">
+              <span class='text-muted item-additional' [innerHTML]="meta"></span>
+            </ds-truncatable-part>
+          </div>
         </div>
       </ds-truncatable>
       <ds-item-submitter *ngIf="showSubmitter" [object]="object.indexableObject"></ds-item-submitter>

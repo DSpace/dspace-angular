@@ -271,4 +271,7 @@ export const environment: BuildConfig = {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
   },
+  myDSpace: {
+    additionalMetadatas: []
+  }
 };

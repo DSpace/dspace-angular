@@ -1,5 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-
+import { hasValue, isNotEmpty } from 'src/app/shared/empty.util';
+import { environment } from 'src/environments/environment';
 import { Item } from '../../../../core/shared/item.model';
 import { fadeInOut } from '../../../animations/fade';
 import {
@@ -41,6 +42,11 @@ export class ItemListPreviewComponent implements OnInit {
   @Input() showSubmitter = false;
 
   /**
+   * A list of additional metadatas to display
+   */
+  public additionalMetadatas: string[];
+
+  /**
    * Display thumbnails if required by configuration
    */
   showThumbnails: boolean;
@@ -56,6 +62,9 @@ export class ItemListPreviewComponent implements OnInit {
   ngOnInit(): void {
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
     this.dsoTitle = this.dsoNameService.getName(this.item);
+    if (hasValue(environment.myDSpace) && isNotEmpty(environment.myDSpace.additionalMetadatas)) {
+      this.additionalMetadatas = environment.myDSpace.additionalMetadatas.map(m => m.value);
+    }
   }
 
 

@@ -53,6 +53,11 @@
         <div>
           <ng-content></ng-content>
         </div>
+        <div *ngIf="additionalMetadatas" class="item-list-additional">
+          <ng-container *ngFor="let meta of item.allMetadataValues(additionalMetadatas)">
+            <span class='text-muted item-additional' [innerHTML]="meta"></span>
+          </ng-container>
+        </div>
       </div>
     </div>
   </div>
