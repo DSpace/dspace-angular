@@ -2,7 +2,7 @@ import { Options } from 'cypress-axe';
 import { TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD, TEST_SUBMIT_COLLECTION_NAME } from 'cypress/support';
 import { testA11y } from 'cypress/support/utils';
 
-describe('My DSpace page', () => {
+xdescribe('My DSpace page', () => {
     it('should display recent submissions and pass accessibility tests', () => {
         cy.login(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
 
