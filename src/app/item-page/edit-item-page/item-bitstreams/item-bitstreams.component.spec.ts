@@ -9,7 +9,6 @@ import { ObjectUpdatesService } from '../../../core/data/object-updates/object-u
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
@@ -25,6 +24,7 @@ import { RouterStub } from '../../../shared/testing/router.stub';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 
 let comp: ItemBitstreamsComponent;
 let fixture: ComponentFixture<ItemBitstreamsComponent>;
@@ -195,7 +195,7 @@ describe('ItemBitstreamsComponent', () => {
     const event = {
       fromIndex: 0,
       toIndex: 50,
-      // tslint:disable-next-line:no-empty
+      // eslint-disable-next-line no-empty,@typescript-eslint/no-empty-function
       finish: () => {
       }
     };
@@ -210,7 +210,7 @@ describe('ItemBitstreamsComponent', () => {
       comp.dropBitstream(bundle, {
         fromIndex: 0,
         toIndex: 50,
-        // tslint:disable-next-line:no-empty
+        // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function
         finish: () => {
           done();
         }

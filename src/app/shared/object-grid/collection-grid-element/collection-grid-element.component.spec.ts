@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Collection } from '../../../core/shared/collection.model';
 import { LinkService } from '../../../core/cache/builders/link.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 let collectionGridElementComponent: CollectionGridElementComponent;
 let fixture: ComponentFixture<CollectionGridElementComponent>;
@@ -37,6 +38,9 @@ const linkService = jasmine.createSpyObj('linkService', {
 describe('CollectionGridElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot()
+      ],
       declarations: [CollectionGridElementComponent],
       providers: [
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },

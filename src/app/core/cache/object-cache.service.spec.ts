@@ -7,7 +7,7 @@ import { Operation } from 'fast-json-patch';
 import { empty, of as observableOf } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { coreReducers, CoreState } from '../core.reducers';
+import { coreReducers} from '../core.reducers';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { Item } from '../shared/item.model';
 import {
@@ -20,10 +20,11 @@ import { Patch } from './object-cache.reducer';
 import { ObjectCacheService } from './object-cache.service';
 import { AddToSSBAction } from './server-sync-buffer.actions';
 import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
-import { IndexName } from '../index/index.reducer';
 import { HALLink } from '../shared/hal-link.model';
 import { storeModuleConfig } from '../../app.reducer';
 import { TestColdObservable } from 'jasmine-marbles/src/test-observables';
+import { IndexName } from '../index/index-name.model';
+import { CoreState } from '../core-state.model';
 
 describe('ObjectCacheService', () => {
   let service: ObjectCacheService;

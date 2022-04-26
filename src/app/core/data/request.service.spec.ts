@@ -6,7 +6,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 import { defaultUUID, getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { coreReducers, CoreState } from '../core.reducers';
+import { coreReducers} from '../core.reducers';
 import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
 import {
@@ -16,14 +16,16 @@ import {
   OptionsRequest,
   PatchRequest,
   PostRequest,
-  PutRequest,
-  RestRequest
+  PutRequest
 } from './request.models';
-import { RequestEntry, RequestEntryState } from './request.reducer';
 import { RequestService } from './request.service';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { storeModuleConfig } from '../../app.reducer';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { RequestEntryState } from './request-entry-state.model';
+import { RestRequest } from './rest-request.model';
+import { CoreState } from '../core-state.model';
+import { RequestEntry } from './request-entry.model';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;

@@ -8,7 +8,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { MetaReducer, Store, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {
   DYNAMIC_ERROR_MESSAGES_MATCHER,
   DYNAMIC_MATCHER_PROVIDERS,
@@ -56,8 +55,12 @@ import { ThemedHeaderNavbarWrapperComponent } from './header-nav-wrapper/themed-
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { PageInternalServerErrorComponent } from './page-internal-server-error/page-internal-server-error.component';
+import { ThemedAdminSidebarComponent } from './admin/admin-sidebar/themed-admin-sidebar.component';
 
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
+import { NgxMaskModule } from 'ngx-mask';
+
+import { StoreDevModules } from '../config/store/devtools';
 
 export function getConfig() {
   return environment;
@@ -89,18 +92,13 @@ const IMPORTS = [
   ScrollToModule.forRoot(),
   NgbModule,
   TranslateModule.forRoot(),
+  NgxMaskModule.forRoot(),
   EffectsModule.forRoot(appEffects),
   StoreModule.forRoot(appReducers, storeModuleConfig),
   StoreRouterConnectingModule.forRoot(),
   ThemedEntryComponentModule.withEntryComponents(),
+  StoreDevModules,
 ];
-
-IMPORTS.push(
-  StoreDevtoolsModule.instrument({
-    maxAge: 1000,
-    logOnly: environment.production,
-  })
-);
 
 const PROVIDERS = [
   {
@@ -171,6 +169,7 @@ const DECLARATIONS = [
   HeaderNavbarWrapperComponent,
   ThemedHeaderNavbarWrapperComponent,
   AdminSidebarComponent,
+  ThemedAdminSidebarComponent,
   AdminSidebarSectionComponent,
   ExpandableAdminSidebarSectionComponent,
   FooterComponent,

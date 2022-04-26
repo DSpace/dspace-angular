@@ -1,8 +1,9 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
-import { CacheableObject } from './object-cache.reducer';
 import { Operation } from 'fast-json-patch';
+import { CacheableObject } from './cacheable-object.model';
 
 /**
  * The list of ObjectCacheAction type definitions
@@ -15,7 +16,6 @@ export const ObjectCacheActionTypes = {
   APPLY_PATCH: type('dspace/core/cache/object/APPLY_PATCH')
 };
 
-/* tslint:disable:max-classes-per-file */
 /**
  * An ngrx action to add an object to the cache
  */
@@ -126,7 +126,6 @@ export class ApplyPatchObjectCacheAction implements Action {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * A type to encompass all ObjectCacheActions

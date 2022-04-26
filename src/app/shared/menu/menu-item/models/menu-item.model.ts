@@ -1,4 +1,4 @@
-import { MenuItemType } from '../../initial-menus-state';
+import { MenuItemType } from '../../menu-item-type.model';
 
 /**
  * Interface for models representing a Menu Section

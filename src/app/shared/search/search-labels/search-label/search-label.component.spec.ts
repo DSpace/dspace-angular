@@ -13,10 +13,10 @@ import { SearchConfigurationServiceStub } from '../../../testing/search-configur
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../../core/data/request.models';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
+import { FindListOptions } from '../../../../core/data/find-list-options.model';
 
 describe('SearchLabelComponent', () => {
   let comp: SearchLabelComponent;

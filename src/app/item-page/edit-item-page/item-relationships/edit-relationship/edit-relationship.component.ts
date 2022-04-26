@@ -1,10 +1,8 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { combineLatest as observableCombineLatest, Observable, of } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
-import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import {
   DeleteRelationship,
-  FieldUpdate,
   RelationshipIdentifiable
 } from '../../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
@@ -13,9 +11,11 @@ import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../../c
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 
 @Component({
-  // tslint:disable-next-line:component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'ds-edit-relationship',
   styleUrls: ['./edit-relationship.component.scss'],
   templateUrl: './edit-relationship.component.html',
