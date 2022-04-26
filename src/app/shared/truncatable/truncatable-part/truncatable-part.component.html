@@ -1,5 +1,11 @@
 <div class="clamp-{{background}}-{{lines}} min-{{minLines}} {{type}} {{fixedHeight ? 'fixedHeight' : ''}}">
-    <div class="content dont-break-out">
+    <div class="content dont-break-out" id="dontBreakContent">
         <ng-content></ng-content>
     </div>
+    <label for="dontBreakContent" role="button" id="expandButton">
+        <a dsDragClick (actualClick)="toggle()">
+            <i class="fas fa-angle-down"></i> {{ 'item.truncatable-part.show-more' | translate }}</a>
+    </label>
+    <a id="collapseButton" dsDragClick (actualClick)="toggle()" *ngIf="expand && expandable">
+        <i class="fas fa-angle-up"></i> {{ 'item.truncatable-part.show-less' | translate }}</a>
 </div>

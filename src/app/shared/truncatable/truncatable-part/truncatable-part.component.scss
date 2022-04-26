@@ -1,0 +1,10 @@
+#dontBreakContent:not(.truncated) ~ label{
+    display: none;
+  }
+
+a {
+    color: #207698 !important;
+    text-decoration: none !important;
+    background-color: transparent !important;
+    cursor: pointer;
+}

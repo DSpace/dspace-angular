@@ -2056,6 +2056,10 @@
 
   "item.search.title": "Item Search",
 
+  "item.truncatable-part.show-more": "Show more",
+
+  "item.truncatable-part.show-less": "Collapse",
+
 
 
   "item.page.abstract": "Abstract",

@@ -1,6 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { TruncatableService } from '../truncatable.service';
 import { hasValue } from '../../empty.util';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { NativeWindowRef, NativeWindowService } from 'src/app/core/services/window.service';
 
 @Component({
   selector: 'ds-truncatable-part',
@@ -49,8 +51,34 @@ export class TruncatablePartComponent implements OnInit, OnDestroy {
    * Subscription to unsubscribe from
    */
   private sub;
+  /**
+   * store variable used for local to expand collapse
+   */
+  expand = false;
+  /**
+   * variable to check if expandable
+   */
+  expandable = false;
+  /**
+   * variable to check if it is a browser
+   */
+  isBrowser: boolean;
+  /**
+   * variable which save get observer
+   */
+  observer;
+  /**
+   * variable to save content to be observed
+   */
+  observedContent;
 
-  public constructor(private service: TruncatableService) {
+  public constructor(
+    private service: TruncatableService,
+    @Inject(DOCUMENT) private document: any,
+    @Inject(NativeWindowService) private _window: NativeWindowRef,
+    @Inject(PLATFORM_ID) platformId: object
+    ) {
+      this.isBrowser = isPlatformBrowser(platformId);
   }
 
   /**
@@ -67,10 +95,68 @@ export class TruncatablePartComponent implements OnInit, OnDestroy {
     this.sub = this.service.isCollapsed(this.id).subscribe((collapsed: boolean) => {
       if (collapsed) {
         this.lines = this.minLines.toString();
+        this.expand = false;
       } else {
         this.lines = this.maxLines < 0 ? 'none' : this.maxLines.toString();
+        this.expand = true;
       }
     });
+  }
+
+  ngAfterContentChecked() {
+    if (this.isBrowser) {
+      if (this.observer && this.observedContent) {
+        this.toUnobserve();
+      }
+      this.toObserve();
+    }
+  }
+
+  /**
+   * Function to get data to be observed
+   */
+  toObserve() {
+    this.observedContent = this.document.querySelectorAll('#dontBreakContent');
+    this.observer = new (this._window.nativeWindow as any).ResizeObserver(entries => {
+      // tslint:disable-next-line:prefer-const
+      for (let entry of entries) {
+        if (!entry.target.classList.contains('notruncatable')) {
+          if (entry.target.scrollHeight > entry.contentRect.height) {
+            if (entry.target.children.length > 0) {
+              if (entry.target.children[0].offsetHeight > entry.contentRect.height) {
+                entry.target.classList.add('truncated');
+              } else {
+                entry.target.classList.remove('truncated');
+              }
+            } else {
+              entry.target.classList.add('truncated');
+            }
+          } else {
+            entry.target.classList.remove('truncated');
+          }
+        }
+      }
+    });
+    this.observedContent.forEach(p => {
+      this.observer.observe(p);
+    });
+  }
+
+  /**
+   * Function to remove data which is observed
+   */
+   toUnobserve() {
+    this.observedContent.forEach(p => {
+      this.observer.unobserve(p);
+    });
+   }
+
+  /**
+   * Expands the truncatable when it's collapsed, collapses it when it's expanded
+   */
+  public toggle() {
+    this.service.toggle(this.id);
+    this.expandable = !this.expandable;
   }
 
   /**
@@ -79,6 +165,9 @@ export class TruncatablePartComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();
+    }
+    if (this.isBrowser) {
+      this.toUnobserve();
     }
   }
 }
