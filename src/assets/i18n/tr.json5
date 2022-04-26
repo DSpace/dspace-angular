@@ -1252,7 +1252,7 @@
   "community.create.sub-head": "Komünite için bir alt komünite oluşturun {{ parent }}",
   
   // "community.curate.header": "Curate Community: {{community}}",
-  "community.curate.header": "Kuratör komüniteyi: {{community}}",
+  "community.curate.header": "Kuratör komünitesi: {{community}}",
   
   // "community.delete.cancel": "Cancel",
   "community.delete.cancel": "İptal",
