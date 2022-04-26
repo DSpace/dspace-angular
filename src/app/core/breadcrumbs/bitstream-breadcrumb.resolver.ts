@@ -3,14 +3,19 @@ import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { BitstreamDataService } from '../data/bitstream-data.service';
-import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from 'src/app/bitstream-page/bitstream-page.resolver';
+import { BITSTREAM_PAGE_LINKS_TO_FOLLOW, BUNDLE_PAGE_LINKS_TO_FOLLOW } from 'src/app/bitstream-page/bitstream-page.resolver';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { BreadcrumbConfig } from 'src/app/breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { map } from 'rxjs/operators';
 import { hasValue } from 'src/app/shared/empty.util';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
+import { BundleDataService } from '../data/bundle-data.service';
+import { Bundle } from '../shared/bundle.model';
+import { ItemDataService } from '../data/item-data.service';
+import { Item } from '../shared/item.model';
+import { ITEM_PAGE_LINKS_TO_FOLLOW } from 'src/app/item-page/item.resolver';
 
 /**
  * The class that resolves the BreadcrumbConfig object for an Item
@@ -19,7 +24,7 @@ import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
   providedIn: 'root'
 })
 export class BitstreamBreadcrumbResolver extends DSOBreadcrumbResolver<Bitstream> {
-  constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: BitstreamDataService) {
+  constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: BitstreamDataService, protected itemService: ItemDataService) {
     super(breadcrumbService, dataService);
   }
 
@@ -36,9 +41,19 @@ export class BitstreamBreadcrumbResolver extends DSOBreadcrumbResolver<Bitstream
       getRemoteDataPayload(),
       map((object: Bitstream) => {
         if (hasValue(object)) {
-          const fullPath = state.url;
-          const url = fullPath.substr(0, fullPath.indexOf(uuid)) + uuid;
-          return {provider: this.breadcrumbService, key: object, url: url};
+          object.bundle.pipe(
+            getFirstCompletedRemoteData(),
+            getRemoteDataPayload()
+          ).subscribe(res => {
+            this.itemService.findById(res.uuid, true, false, ...this.bfollowLinks).pipe(
+              getFirstCompletedRemoteData(),
+              getRemoteDataPayload()
+            ).subscribe(bres => {
+              console.log(bres);
+            });
+            const url = res._links.item.href;
+            return {provider: this.breadcrumbService, key: of(res), url: url};
+          });
         } else {
           return undefined;
         }
@@ -53,5 +68,9 @@ export class BitstreamBreadcrumbResolver extends DSOBreadcrumbResolver<Bitstream
    */
   get followLinks(): FollowLinkConfig<Bitstream>[] {
     return BITSTREAM_PAGE_LINKS_TO_FOLLOW;
+  }
+
+  get bfollowLinks(): FollowLinkConfig<Item>[] {
+    return ITEM_PAGE_LINKS_TO_FOLLOW;
   }
 }

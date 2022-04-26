@@ -6,6 +6,7 @@ import { Bitstream } from '../core/shared/bitstream.model';
 import { BitstreamDataService } from '../core/data/bitstream-data.service';
 import { followLink, FollowLinkConfig } from '../shared/utils/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { Bundle } from '../core/shared/bundle.model';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future
@@ -18,6 +19,14 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
   ),
   followLink('bundle'),
   followLink('thumbnail')
+];
+
+export const BUNDLE_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Bundle>[] = [
+  followLink('bitstreams', {},
+    followLink('parentCommunity', {},
+      followLink('parentCommunity'))
+  ),
+  followLink('primaryBitstream')
 ];
 
 /**
