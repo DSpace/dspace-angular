@@ -1252,7 +1252,7 @@
   "community.create.sub-head": "Komünite için bir alt komünite oluşturun {{ parent }}",
   
   // "community.curate.header": "Curate Community: {{community}}",
-  "community.curate.header": "Kuratör topluluğu: {{community}}",
+  "community.curate.header": "Kuratör komüniteyi: {{community}}",
   
   // "community.delete.cancel": "Cancel",
   "community.delete.cancel": "İptal",
@@ -1261,7 +1261,7 @@
   "community.delete.confirm": "Onayla",
   
   // "community.delete.head": "Delete Community",
-  "community.delete.head": "Topluluğu sil",
+  "community.delete.head": "Komüniteyi sil",
   
   // "community.delete.notification.fail": "Community could not be deleted",
   "community.delete.notification.fail": "Komünite silinemedi",
@@ -1270,16 +1270,16 @@
   "community.delete.notification.success": "Komünite başarıyla silindi",
   
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
-  "community.delete.text": "Topluluğu silmek istediğinize emin misiniz \"{{ dso }}\"",
+  "community.delete.text": "Komüniteyi silmek istediğinize emin misiniz \"{{ dso }}\"",
   
   // "community.edit.delete": "Delete this community",
-  "community.edit.delete": "Bu topluluğu sil",
+  "community.edit.delete": "Bu komüniteyi sil",
   
   // "community.edit.head": "Edit Community",
-  "community.edit.head": "Topluluğu düzenle",
+  "community.edit.head": "Komüniteyi düzenle",
   
   // "community.edit.breadcrumbs": "Edit Community",
-  "community.edit.breadcrumbs": "Topluluğu düzenle",
+  "community.edit.breadcrumbs": "Komüniteyi düzenle",
   
   
   // "community.edit.logo.label": "Community logo",
@@ -1312,7 +1312,7 @@
   "community.edit.notifications.unauthorized": "Bu değişikliği yapmak için ayrıcalıklarınız yok",
   
   // "community.edit.notifications.error": "An error occured while editing the Community",
-  "community.edit.notifications.error": "Topluluğu düzenlerken bir hata oluştu",
+  "community.edit.notifications.error": "Komüniteyi düzenlerken bir hata oluştu",
   
   // "community.edit.return": "Return",
   "community.edit.return": "Dönüş",
@@ -1445,7 +1445,7 @@
   "community.form.title": "İsim",
   
   // "community.page.edit": "Edit this community",
-  "community.page.edit": "Bu topluluğu düzenle",
+  "community.page.edit": "Bu komüniteyi düzenle",
   
   // "community.page.handle": "Permanent URI for this community",
   "community.page.handle": "Bu komünite için Kalıcı Uri",
@@ -1460,10 +1460,10 @@
   "community.all-lists.head": "Alt komüniteler ve koleksiyonlar",
   
   // "community.sub-collection-list.head": "Collections of this Community",
-  "community.sub-collection-list.head": "Bu topluluğun koleksiyonları",
+  "community.sub-collection-list.head": "Bu komünitenin koleksiyonları",
   
   // "community.sub-community-list.head": "Communities of this Community",
-  "community.sub-community-list.head": "Bu topluluğun koleksiyonları",
+  "community.sub-community-list.head": "Bu komünitenin koleksiyonları",
   
   
   
