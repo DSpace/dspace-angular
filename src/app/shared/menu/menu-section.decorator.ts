@@ -1,6 +1,6 @@
 import { DEFAULT_THEME } from '../object-collection/shared/listable-object/listable-object.decorator';
 import { MenuID } from './initial-menus-state';
-import { hasNoValue } from '../empty.util';
+import { hasNoValue, hasValue } from '../empty.util';
 
 const menuComponentMap = new Map();
 
@@ -33,7 +33,9 @@ export function rendersSectionForMenu(menuID: MenuID, expandable: boolean, theme
  */
 export function getComponentForMenu(menuID: MenuID, expandable: boolean, theme: string) {
   const comp = menuComponentMap.get(menuID).get(expandable).get(theme);
-  if (hasNoValue(comp)) {
+  if (hasValue(comp)) {
+    return comp;
+  } else {
     return menuComponentMap.get(menuID).get(expandable).get(DEFAULT_THEME);
   }
 }
