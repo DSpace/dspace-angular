@@ -1,5 +1,3 @@
-import { MenuID, MenuItemType } from './initial-menus-state';
-import { MenuSection } from './menu.reducer';
 import { LinkMenuItemModel } from './menu-item/models/link.model';
 import { TestBed } from '@angular/core/testing';
 import { MenuService } from './menu.service';
@@ -9,6 +7,9 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { ROUTER_NAVIGATED } from '@ngrx/router-store';
 import { MenuEffects } from './menu.effects';
+import { MenuSection } from './menu-section.model';
+import { MenuID } from './menu-id.model';
+import { MenuItemType } from './menu-item-type.model';
 
 describe('MenuEffects', () => {
   let menuEffects: MenuEffects;

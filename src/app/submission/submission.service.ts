@@ -22,10 +22,8 @@ import {
   SetActiveSectionAction
 } from './objects/submission-objects.actions';
 import {
-  SubmissionError,
   SubmissionObjectEntry,
-  SubmissionSectionEntry,
-  SubmissionSectionObject
+  SubmissionSectionEntry
 } from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';
 import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
@@ -46,6 +44,8 @@ import { SearchService } from '../core/shared/search/search.service';
 import { Item } from '../core/shared/item.model';
 import { environment } from '../../environments/environment';
 import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
+import { SubmissionSectionObject } from './objects/submission-section-object.model';
+import { SubmissionError } from './objects/submission-error.model';
 
 /**
  * A service that provides methods used in submission process.

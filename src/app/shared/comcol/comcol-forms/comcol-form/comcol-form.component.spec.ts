@@ -62,9 +62,9 @@ describe('ComColFormComponent', () => {
   });
   const notificationsService = new NotificationsServiceStub();
 
-  /* tslint:disable:no-empty */
+  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   const locationStub = jasmine.createSpyObj('location', ['back']);
-  /* tslint:enable:no-empty */
+  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   const requestServiceStub = jasmine.createSpyObj('requestService', {
     removeByHrefSubstring: {}

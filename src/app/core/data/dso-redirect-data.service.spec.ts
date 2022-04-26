@@ -6,13 +6,13 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DsoRedirectDataService } from './dso-redirect-data.service';
 import { GetRequest, IdentifierType } from './request.models';
 import { RequestService } from './request.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { Item } from '../shared/item.model';
+import { CoreState } from '../core-state.model';
 
 describe('DsoRedirectDataService', () => {
   let scheduler: TestScheduler;

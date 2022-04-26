@@ -1,16 +1,16 @@
+/* eslint-disable max-classes-per-file */
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { TasksService } from './tasks.service';
 import { RequestService } from '../data/request.service';
-import { FindListOptions, TaskDeleteRequest, TaskPostRequest } from '../data/request.models';
+import { TaskDeleteRequest, TaskPostRequest } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { TaskObject } from './models/task-object.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -22,10 +22,11 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { of } from 'rxjs';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from '../data/find-list-options.model';
 
 const LINK_NAME = 'test';
 
-/* tslint:disable:max-classes-per-file */
 class TestTask extends TaskObject {
 }
 
@@ -52,7 +53,6 @@ class DummyChangeAnalyzer implements ChangeAnalyzer<TestTask> {
 
 }
 
-/* tslint:enable:max-classes-per-file */
 
 describe('TasksService', () => {
   let scheduler: TestScheduler;
