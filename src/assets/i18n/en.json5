@@ -3828,7 +3828,7 @@
 
   "submission.sections.general.add-more": "Add more",
 
-  "submission.sections.general.cannot_deposit": "Deposit cannot be completed due to missing mandatory information.<br>Please add them for final submission.",
+  "submission.sections.general.cannot_deposit": "Deposit cannot be completed due to errors in the form.<br>Please fill out all required fields to complete the deposit.",
 
   "submission.sections.general.collection": "Collection",
 
