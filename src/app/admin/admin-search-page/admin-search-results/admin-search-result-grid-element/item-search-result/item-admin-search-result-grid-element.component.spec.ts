@@ -18,6 +18,7 @@ import { ItemAdminSearchResultGridElementComponent } from './item-admin-search-r
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { NativeWindowRef, NativeWindowService } from '../../../../../core/services/window.service';
 
 describe('ItemAdminSearchResultGridElementComponent', () => {
   let component: ItemAdminSearchResultGridElementComponent;
@@ -52,6 +53,7 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
           SharedModule
         ],
         providers: [
+          { provide: NativeWindowService, useValue: new NativeWindowRef() },
           { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
           { provide: ThemeService, useValue: mockThemeService },

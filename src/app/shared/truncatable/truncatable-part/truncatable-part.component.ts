@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angul
 import { TruncatableService } from '../truncatable.service';
 import { hasValue } from '../../empty.util';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { NativeWindowRef, NativeWindowService } from 'src/app/core/services/window.service';
+import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
 
 @Component({
   selector: 'ds-truncatable-part',

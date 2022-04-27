@@ -9,6 +9,7 @@ import { getMockTranslateService } from '../../mocks/translate.service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
 import { By } from '@angular/platform-browser';
+import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
 
 describe('TruncatablePartComponent', () => {
   let comp: TruncatablePartComponent;
@@ -29,7 +30,7 @@ describe('TruncatablePartComponent', () => {
   };
   beforeEach(waitForAsync(() => {
     translateService = getMockTranslateService();
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       imports: [NoopAnimationsModule,
         TranslateModule.forRoot({
           loader: {
@@ -40,6 +41,7 @@ describe('TruncatablePartComponent', () => {
       ],
       declarations: [TruncatablePartComponent],
       providers: [
+        { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -110,7 +112,7 @@ describe('TruncatablePartComponent', () => {
   let truncatableService;
   beforeEach(waitForAsync(() => {
     translateService = getMockTranslateService();
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot({
@@ -122,6 +124,7 @@ describe('TruncatablePartComponent', () => {
       ],
       declarations: [TruncatablePartComponent],
       providers: [
+        { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: TruncatableService, useValue: mockTruncatableService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
