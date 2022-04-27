@@ -1,18 +1,19 @@
-import { JsonPatchOperationPathCombiner } from './../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from './../../../core/json-patch/builder/json-patch-operations-builder';
-import { WorkspaceitemSectionSherpaPoliciesObject } from './../../../core/submission/models/workspaceitem-section-sherpa-policies.model';
-import { SectionSherpaPoliciesService } from './section-sherpa-policies.service';
-import { Component, Inject, ViewChildren, QueryList } from '@angular/core';
+import { Component, Inject, QueryList, ViewChildren } from '@angular/core';
 
-import { Observable, of, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import {
+  WorkspaceitemSectionSherpaPoliciesObject
+} from '../../../core/submission/models/workspaceitem-section-sherpa-policies.model';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SubmissionService } from '../../submission.service';
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue, isEmpty } from '../../../shared/empty.util';
 
 /**
  * This component represents a section for managing item's access conditions.
@@ -31,7 +32,7 @@ export class SubmissionSectionSherpaPoliciesComponent extends SectionModelCompon
    * The accesses section data
    * @type {WorkspaceitemSectionAccessesObject}
    */
-  public sherpaPoliciesData: WorkspaceitemSectionSherpaPoliciesObject;
+  public sherpaPoliciesData$: BehaviorSubject<WorkspaceitemSectionSherpaPoliciesObject> = new BehaviorSubject<WorkspaceitemSectionSherpaPoliciesObject>(null);
 
   /**
    * The [[JsonPatchOperationPathCombiner]] object
@@ -50,14 +51,12 @@ export class SubmissionSectionSherpaPoliciesComponent extends SectionModelCompon
    *
    * @param {SectionsService} sectionService
    * @param {SectionDataObject} injectedSectionData
-   * @param {SectionSherpaPoliciesService} sectionSherpaPoliciesService
    * @param {JsonPatchOperationsBuilder} operationsBuilder
    * @param {SubmissionService} submissionService
    * @param {string} injectedSubmissionId
    */
   constructor(
     protected sectionService: SectionsService,
-    private sectionSherpaPoliciesService: SectionSherpaPoliciesService,
     protected operationsBuilder: JsonPatchOperationsBuilder,
     private submissionService: SubmissionService,
     @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
@@ -88,11 +87,14 @@ export class SubmissionSectionSherpaPoliciesComponent extends SectionModelCompon
    * Initialize all instance variables and retrieve collection default access conditions
    */
   protected onSectionInit(): void {
+
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     this.subs.push(
-      this.sectionSherpaPoliciesService.getSherpaPoliciesData(this.submissionId, this.sectionData.id).subscribe((sherpaPolicies: WorkspaceitemSectionSherpaPoliciesObject) => {
-        this.sherpaPoliciesData = sherpaPolicies;
-      })
+      this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType)
+        .subscribe((sherpaPolicies: WorkspaceitemSectionSherpaPoliciesObject) => {
+          this.sherpaPoliciesData$.next(sherpaPolicies);
+          console.log(this.sherpaPoliciesData$.value)
+        })
     );
   }
 
@@ -104,6 +106,13 @@ export class SubmissionSectionSherpaPoliciesComponent extends SectionModelCompon
    */
   protected getSectionStatus(): Observable<boolean> {
     return of(true);
+  }
+
+  /**
+   * Check if section has no data
+   */
+  hasNoData(): boolean {
+    return isEmpty(this.sherpaPoliciesData$.value);
   }
 
   /**

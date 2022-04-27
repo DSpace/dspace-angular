@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Journal } from './../../../../core/submission/models/sherpa-policies-details.model';
+import { Component, Input } from '@angular/core';
+
+import { Journal } from '../../../../core/submission/models/sherpa-policies-details.model';
 
 @Component({
   selector: 'ds-publication-information',

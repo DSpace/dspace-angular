@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Metadata } from './../../../../core/submission/models/sherpa-policies-details.model';
+
+import { Metadata } from '../../../../core/submission/models/sherpa-policies-details.model';
 
 @Component({
   selector: 'ds-metadata-information',

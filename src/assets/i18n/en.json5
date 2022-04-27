@@ -3874,9 +3874,13 @@
 
   "submission.sections.submit.progressbar.license": "Deposit license",
 
+  "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
+
   "submission.sections.submit.progressbar.upload": "Upload files",
 
 
+
+  "submission.sections.sherpa-policy.title-empty": "No information available",
 
   "submission.sections.status.errors.title": "Errors",
 
@@ -3990,7 +3994,7 @@
 
 
   "submission.sections.sherpa.publication.information": "Publication information",
-  
+
   "submission.sections.sherpa.publication.information.title": "Title",
 
   "submission.sections.sherpa.publication.information.issns": "ISSNs",

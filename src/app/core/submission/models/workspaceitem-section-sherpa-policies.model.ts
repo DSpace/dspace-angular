@@ -18,5 +18,5 @@ export interface WorkspaceitemSectionSherpaPoliciesObject {
   /**
    * The sherpa policies details
    */
-  sherpaResponse: SherpaPoliciesDetailsObject[];
+  sherpaResponse: SherpaPoliciesDetailsObject;
 }

@@ -1,11 +1,11 @@
-import { TranslateLoaderMock } from './../../../../shared/testing/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PublicationInformationComponent } from './publication-information.component';
-import { dataRes } from './../../../../shared/mocks/section-sherpa-policies.service.mock';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SherpaDataResponse } from '../../../../shared/mocks/section-sherpa-policies.service.mock';
 
 describe('PublicationInformationComponent', () => {
   let component: PublicationInformationComponent;
@@ -32,7 +32,7 @@ describe('PublicationInformationComponent', () => {
     fixture = TestBed.createComponent(PublicationInformationComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
-    component.journal = dataRes.sherpaResponse[0].journals[0];
+    component.journal = SherpaDataResponse.sherpaResponse.journals[0];
     fixture.detectChanges();
   });
 

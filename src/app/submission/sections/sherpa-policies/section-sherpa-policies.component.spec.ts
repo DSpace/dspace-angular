@@ -1,25 +1,21 @@
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
-import { SubmissionServiceStub } from './../../../shared/testing/submission-service.stub';
-import { dataRes, getSherpaPoliciesData } from './../../../shared/mocks/section-sherpa-policies.service.mock';
+import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import { SherpaDataResponse } from '../../../shared/mocks/section-sherpa-policies.service.mock';
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 
 import { SectionsService } from '../sections.service';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-
-import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { BrowserModule, By } from '@angular/platform-browser';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.reducer';
-import { SectionSherpaPoliciesService } from './section-sherpa-policies.service';
 import { SubmissionSectionSherpaPoliciesComponent } from './section-sherpa-policies.component';
 import { SubmissionService } from '../../submission.service';
 import { DebugElement } from '@angular/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { of as observableOf } from 'rxjs';
 
 describe('SubmissionSectionSherpaPoliciesComponent', () => {
   let component: SubmissionSectionSherpaPoliciesComponent;
@@ -27,10 +23,6 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
   let de: DebugElement;
 
   const sectionsServiceStub = new SectionsServiceStub();
-  // const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionId, 'files', fileIndex);
-
-  const builderService: FormBuilderService = getMockFormBuilderService();
-  const sectionSherpaPoliciesService = getSherpaPoliciesData();
 
   const operationsBuilder = jasmine.createSpyObj('operationsBuilder', {
     add: undefined,
@@ -47,7 +39,7 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
     sectionType: 'sherpaPolicies',
     collapsed: false,
     enabled: true,
-    data: dataRes,
+    data: SherpaDataResponse,
     errorsToShow: [],
     serverValidationErrors: [],
     isLoading: false,
@@ -71,7 +63,6 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
         declarations: [SubmissionSectionSherpaPoliciesComponent],
         providers: [
           { provide: SectionsService, useValue: sectionsServiceStub },
-          { provide: SectionSherpaPoliciesService, useValue: sectionSherpaPoliciesService },
           { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
           { provide: SubmissionService, useValue: SubmissionServiceStub },
           { provide: Store, useValue: storeStub },
@@ -86,6 +77,7 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
       fixture = TestBed.createComponent(SubmissionSectionSherpaPoliciesComponent);
       component = fixture.componentInstance;
       de = fixture.debugElement;
+      sectionsServiceStub.getSectionData.and.returnValue(observableOf(SherpaDataResponse))
       fixture.detectChanges();
     }));
 

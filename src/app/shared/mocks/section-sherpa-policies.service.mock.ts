@@ -1,11 +1,11 @@
-import { WorkspaceitemSectionSherpaPoliciesObject } from './../../core/submission/models/workspaceitem-section-sherpa-policies.model';
-import { SubmissionFormsModel } from '../../core/config/models/config-submission-forms.model';
-import { of as observableOf } from 'rxjs';
+import {
+  WorkspaceitemSectionSherpaPoliciesObject
+} from '../../core/submission/models/workspaceitem-section-sherpa-policies.model';
 
-export const dataRes = {
+export const SherpaDataResponse = {
   'id': 'sherpaPolicies',
   'retrievalTime': '2022-04-20T09:44:39.870+00:00',
-  'sherpaResponse': [
+  'sherpaResponse':
     {
       'error': false,
       'message': null,
@@ -98,11 +98,4 @@ export const dataRes = {
         'inDOAJ': false
       }]
     }
-  ]
 } as WorkspaceitemSectionSherpaPoliciesObject;
-
-export function getSherpaPoliciesData() {
-  return jasmine.createSpyObj('SectionAccessesService', {
-    getSherpaPoliciesData: observableOf(dataRes),
-  });
-}

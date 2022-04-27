@@ -1,5 +1,6 @@
-import { PermittedVersions } from './../../../../core/submission/models/sherpa-policies-details.model';
 import { Component, Input } from '@angular/core';
+
+import { PermittedVersions } from '../../../../core/submission/models/sherpa-policies-details.model';
 
 @Component({
   selector: 'ds-content-accordion',

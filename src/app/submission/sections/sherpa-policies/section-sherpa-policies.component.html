@@ -1,10 +1,13 @@
+<ds-alert [type]="'alert-info'" *ngIf="hasNoData()" [content]="'submission.sections.sherpa-policy.title-empty'">
+</ds-alert>
+
 <div class="refresh-container mt-2 mb-2">
     <button type="button" class="btn btn-secondary pull-right" (click)="refresh()">
         <span><i class="fas fa-sync"></i> {{'submission.sections.sherpa.publisher.policy.refresh' | translate}} </span>
     </button>
 </div>
 
-<ngb-accordion *ngFor="let sherpaData of sherpaPoliciesData.sherpaResponse;let i = index;" #acc="ngbAccordion">
+<ngb-accordion *ngVar="(sherpaPoliciesData$ | async)?.sherpaResponse as sherpaData" #acc="ngbAccordion">
     <ng-container *ngFor="let journal of sherpaData.journals;let j=index;">
         <ngb-panel id="publication-information-{{j}}">
             <ng-template ngbPanelTitle>
@@ -38,11 +41,11 @@
             </ngb-panel>
         </ng-container>
     </ng-container>
-    <ngb-panel id="metadata-{{i}}">
+    <ngb-panel id="metadata">
         <ng-template ngbPanelTitle>
             <div class="d-inline-block float-left">
-                <span *ngIf="!acc.isExpanded('metadata-{{i}}')" class="fas fa-chevron-up fa-fw"></span>
-                <span *ngIf="acc.isExpanded('metadata-{{i}}')" class="fas fa-chevron-down fa-fw"></span>
+                <span *ngIf="!acc.isExpanded('metadata')" class="fas fa-chevron-up fa-fw"></span>
+                <span *ngIf="acc.isExpanded('metadata')" class="fas fa-chevron-down fa-fw"></span>
             </div>
             <span class="float-left section-title" tabindex="0">{{'submission.sections.sherpa.record.information'
                 | translate}}</span>

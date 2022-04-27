@@ -1,12 +1,11 @@
-import { TranslateLoaderMock } from './../../../../shared/testing/translate-loader.mock';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PublisherPolicyComponent } from './publisher-policy.component';
-import { dataRes } from './../../../../shared/mocks/section-sherpa-policies.service.mock';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
+import { SherpaDataResponse } from '../../../../shared/mocks/section-sherpa-policies.service.mock';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 
 describe('PublisherPolicyComponent', () => {
   let component: PublisherPolicyComponent;
@@ -32,7 +31,7 @@ describe('PublisherPolicyComponent', () => {
     fixture = TestBed.createComponent(PublisherPolicyComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
-    component.policy = dataRes.sherpaResponse[0].journals[0].policies[0];
+    component.policy = SherpaDataResponse.sherpaResponse.journals[0].policies[0];
     fixture.detectChanges();
   });
 
