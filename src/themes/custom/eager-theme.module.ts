@@ -9,12 +9,15 @@ import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-na
 import { SearchModule } from '../../app/shared/search/search.module';
 import { RootModule } from '../../app/root.module';
 import { NavbarModule } from '../../app/navbar/navbar.module';
+import { PublicationComponent } from './app/item-page/simple/item-types/publication/publication.component';
+import { ItemPageModule } from '../../app/item-page/item-page.module';
 
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
  * This will ensure that decorator gets picked up when the app loads
  */
 const ENTRY_COMPONENTS = [
+  PublicationComponent,
 ];
 
 const DECLARATIONS = [
@@ -33,6 +36,7 @@ const DECLARATIONS = [
     FormsModule,
     RootModule,
     NavbarModule,
+    ItemPageModule,
   ],
   declarations: DECLARATIONS,
   providers: [
