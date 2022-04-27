@@ -141,11 +141,11 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
       }));
     this.selectedBundleId = this.route.snapshot.queryParams.bundle;
     if (isNotEmpty(this.selectedBundleId)) {
-      this.bundleService.findById(this.selectedBundleId).pipe(
+      this.subs.push(this.bundleService.findById(this.selectedBundleId).pipe(
         getFirstSucceededRemoteDataPayload()
       ).subscribe((bundle: Bundle) => {
         this.selectedBundleName = bundle.name;
-      });
+      }));
       this.setUploadUrl();
     }
     this.subs.push(bundlesRD$.subscribe());
