@@ -1,4 +1,3 @@
-import { WorkspaceitemSectionSherpaPoliciesObject } from './../../core/submission/models/workspaceitem-section-sherpa-policies.model';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -44,7 +43,7 @@ import {
   UpdateSectionDataAction,
   UpdateSectionDataSuccessAction
 } from './submission-objects.actions';
-import { SubmissionObjectEntry } from './submission-objects.reducer';
+import { SubmissionObjectEntry} from './submission-objects.reducer';
 import { Item } from '../../core/shared/item.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
@@ -61,12 +60,12 @@ export class SubmissionObjectEffects {
   /**
    * Dispatch a [InitSectionAction] for every submission sections and dispatch a [CompleteInitSubmissionFormAction]
    */
-  loadForm$ = createEffect(() => this.actions$.pipe(
+   loadForm$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.INIT_SUBMISSION_FORM),
     map((action: InitSubmissionFormAction) => {
       const definition = action.payload.submissionDefinition;
       const mappedActions = [];
-      definition.sections.page.forEach((sectionDefinition: any, index) => {
+      definition.sections.page.forEach((sectionDefinition: any) => {
         const selfLink = sectionDefinition._links.self.href || sectionDefinition._links.self;
         const sectionId = selfLink.substr(selfLink.lastIndexOf('/') + 1);
         const config = sectionDefinition._links.config ? (sectionDefinition._links.config.href || sectionDefinition._links.config) : '';
@@ -78,7 +77,6 @@ export class SubmissionObjectEffects {
           sectionData = action.payload.item.metadata;
         }
         const sectionErrors = isNotEmpty(action.payload.errors) ? (action.payload.errors[sectionId] || null) : null;
-
         mappedActions.push(
           new InitSectionAction(
             action.payload.submissionId,
@@ -93,123 +91,7 @@ export class SubmissionObjectEffects {
             sectionErrors
           )
         );
-
-        if (index === definition.sections.page.length - 1) {
-          mappedActions.push(
-            new InitSectionAction(
-              action.payload.submissionId,
-              'sherpaPolicies',
-              'submit.progressbar.sherpaPolicies',
-              'submit.progressbar.sherpaPolicies',
-              true,
-              SectionsType.SherpaPolicies,
-              { main: null, other: 'READONLY' },
-              true,
-              {
-                'id': 'sherpaPolicies',
-                'retrievalTime': '2022-04-20T09:44:39.870+00:00',
-                'sherpaResponse': [
-                  {
-                    'error': false,
-                    'message': null,
-                    'metadata': {
-                      'id': 23803,
-                      'uri': 'http://v2.sherpa.ac.uk/id/publication/23803',
-                      'dateCreated': '2012-11-20 14:51:52',
-                      'dateModified': '2020-03-06 11:25:54',
-                      'inDOAJ': false,
-                      'publiclyVisible': true
-                    },
-                    'journals': [{
-                      'titles': ['The Lancet', 'Lancet'],
-                      'url': 'http://www.thelancet.com/journals/lancet/issue/current',
-                      'issns': ['0140-6736', '1474-547X'],
-                      'romeoPub': 'Elsevier: The Lancet',
-                      'zetoPub': 'Elsevier: The Lancet',
-                      'publisher': {
-                        'name': 'Elsevier',
-                        'relationshipType': null,
-                        'country': null,
-                        'uri': 'http://www.elsevier.com/',
-                        'identifier': null,
-                        'publicationCount': 0,
-                        'paidAccessDescription': 'Open access',
-                        'paidAccessUrl': 'https://www.elsevier.com/about/open-science/open-access'
-                      },
-                      'publishers': [{
-                        'name': 'Elsevier',
-                        'relationshipType': null,
-                        'country': null,
-                        'uri': 'http://www.elsevier.com/',
-                        'identifier': null,
-                        'publicationCount': 0,
-                        'paidAccessDescription': 'Open access',
-                        'paidAccessUrl': 'https://www.elsevier.com/about/open-science/open-access'
-                      }],
-                      'policies': [{
-                        'id': 0,
-                        'openAccessPermitted': false,
-                        'uri': null,
-                        'internalMoniker': 'Lancet',
-                        'permittedVersions': [{
-                          'articleVersion': 'submitted',
-                          'option': 1,
-                          'conditions': ['Upon publication publisher copyright and source must be acknowledged', 'Upon publication must link to publisher version'],
-                          'prerequisites': [],
-                          'locations': ['Author\'s Homepage', 'Preprint Repository'],
-                          'licenses': [],
-                          'embargo': null
-                        }, {
-                          'articleVersion': 'accepted',
-                          'option': 1,
-                          'conditions': ['Publisher copyright and source must be acknowledged', 'Must link to publisher version'],
-                          'prerequisites': [],
-                          'locations': ['Author\'s Homepage', 'Institutional Website'],
-                          'licenses': ['CC BY-NC-ND'],
-                          'embargo': null
-                        }, {
-                          'articleVersion': 'accepted',
-                          'option': 2,
-                          'conditions': ['Publisher copyright and source must be acknowledged', 'Must link to publisher version'],
-                          'prerequisites': ['If Required by Funder'],
-                          'locations': ['Non-Commercial Repository'],
-                          'licenses': ['CC BY-NC-ND'],
-                          'embargo': null
-                        }, {
-                          'articleVersion': 'accepted',
-                          'option': 3,
-                          'conditions': ['Publisher copyright and source must be acknowledged', 'Must link to publisher version'],
-                          'prerequisites': [],
-                          'locations': ['Non-Commercial Repository'],
-                          'licenses': [],
-                          'embargo': null
-                        }],
-                        'urls': {
-                          'http://download.thelancet.com/flatcontentassets/authors/lancet-information-for-authors.pdf': 'Guidelines for Authors',
-                          'http://www.thelancet.com/journals/lancet/article/PIIS0140-6736%2813%2960720-5/fulltext': 'The Lancet journals welcome a new open access policy',
-                          'http://www.thelancet.com/lancet-information-for-authors/after-publication': 'What happens after publication?',
-                          'http://www.thelancet.com/lancet/information-for-authors/disclosure-of-results': 'Disclosure of results before publication',
-                          'https://www.elsevier.com/__data/assets/pdf_file/0005/78476/external-embargo-list.pdf': 'Journal Embargo Period List',
-                          'https://www.elsevier.com/__data/assets/pdf_file/0011/78473/UK-Embargo-Periods.pdf': 'Journal Embargo List for UK Authors'
-                        },
-                        'openAccessProhibited': false,
-                        'publicationCount': 0,
-                        'preArchiving': 'can',
-                        'postArchiving': 'can',
-                        'pubArchiving': 'cannot'
-                      }],
-                      'inDOAJ': false
-                    }]
-                  }
-                ]
-              } as WorkspaceitemSectionSherpaPoliciesObject,
-              null
-            )
-          );
-        }
-
       });
-      console.log(mappedActions);
       return { action: action, definition: definition, mappedActions: mappedActions };
     }),
     mergeMap((result) => {
@@ -222,7 +104,7 @@ export class SubmissionObjectEffects {
   /**
    * Dispatch a [InitSubmissionFormAction]
    */
-  resetForm$ = createEffect(() => this.actions$.pipe(
+   resetForm$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.RESET_SUBMISSION_FORM),
     map((action: ResetSubmissionFormAction) =>
       new InitSubmissionFormAction(
@@ -238,40 +120,41 @@ export class SubmissionObjectEffects {
   /**
    * Dispatch a [SaveSubmissionFormSuccessAction] or a [SaveSubmissionFormErrorAction] on error
    */
-  saveSubmission$ = createEffect(() => this.actions$.pipe(
+   saveSubmission$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM),
     switchMap((action: SaveSubmissionFormAction) => {
       return this.operationsService.jsonPatchByResourceType(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
         'sections').pipe(
-          map((response: SubmissionObject[]) => new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, action.payload.isManual)),
-          catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
+        map((response: SubmissionObject[]) => new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, action.payload.isManual, action.payload.isManual)),
+        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     })));
 
   /**
    * Dispatch a [SaveForLaterSubmissionFormSuccessAction] or a [SaveSubmissionFormErrorAction] on error
    */
-  saveForLaterSubmission$ = createEffect(() => this.actions$.pipe(
+   saveForLaterSubmission$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM),
     switchMap((action: SaveForLaterSubmissionFormAction) => {
       return this.operationsService.jsonPatchByResourceType(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
         'sections').pipe(
-          map((response: SubmissionObject[]) => new SaveForLaterSubmissionFormSuccessAction(action.payload.submissionId, response)),
-          catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
+        map((response: SubmissionObject[]) => new SaveForLaterSubmissionFormSuccessAction(action.payload.submissionId, response)),
+        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     })));
 
   /**
    * Call parseSaveResponse and dispatch actions
    */
-  saveSubmissionSuccess$ = createEffect(() => this.actions$.pipe(
+   saveSubmissionSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS),
     withLatestFrom(this.store$),
     map(([action, currentState]: [SaveSubmissionFormSuccessAction, any]) => {
       return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId],
-        action.payload.submissionObject, action.payload.submissionId, currentState.forms, action.payload.notify);
+        action.payload.submissionObject, action.payload.submissionId, currentState.forms,
+        action.payload.showNotifications, action.payload.showErrors);
     }),
     mergeMap((actions) => observableFrom(actions))));
 
@@ -279,19 +162,19 @@ export class SubmissionObjectEffects {
    * Call parseSaveResponse and dispatch actions.
    * Notification system is forced to be disabled.
    */
-  saveSubmissionSectionSuccess$ = createEffect(() => this.actions$.pipe(
+   saveSubmissionSectionSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS),
     withLatestFrom(this.store$),
     map(([action, currentState]: [SaveSubmissionSectionFormSuccessAction, any]) => {
       return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId],
-        action.payload.submissionObject, action.payload.submissionId, currentState.forms, false);
+        action.payload.submissionObject, action.payload.submissionId, currentState.forms, false, false);
     }),
     mergeMap((actions) => observableFrom(actions))));
 
   /**
    * Dispatch a [SaveSubmissionSectionFormSuccessAction] or a [SaveSubmissionSectionFormErrorAction] on error
    */
-  saveSection$ = createEffect(() => this.actions$.pipe(
+   saveSection$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM),
     switchMap((action: SaveSubmissionSectionFormAction) => {
       return this.operationsService.jsonPatchByResourceID(
@@ -299,14 +182,14 @@ export class SubmissionObjectEffects {
         action.payload.submissionId,
         'sections',
         action.payload.sectionId).pipe(
-          map((response: SubmissionObject[]) => new SaveSubmissionSectionFormSuccessAction(action.payload.submissionId, response)),
-          catchError(() => observableOf(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId))));
+        map((response: SubmissionObject[]) => new SaveSubmissionSectionFormSuccessAction(action.payload.submissionId, response)),
+        catchError(() => observableOf(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId))));
     })));
 
   /**
    * Show a notification on error
    */
-  saveError$ = createEffect(() => this.actions$.pipe(
+   saveError$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR, SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_ERROR),
     withLatestFrom(this.store$),
     tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.save_error_notice')))), { dispatch: false });
@@ -314,7 +197,7 @@ export class SubmissionObjectEffects {
   /**
    * Call parseSaveResponse and dispatch actions or dispatch [SaveSubmissionFormErrorAction] on error
    */
-  saveAndDeposit$ = createEffect(() => this.actions$.pipe(
+   saveAndDeposit$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION),
     withLatestFrom(this.submissionService.hasUnsavedModification()),
     switchMap(([action, hasUnsavedModification]: [SaveAndDepositSubmissionAction, boolean]) => {
@@ -335,7 +218,13 @@ export class SubmissionObjectEffects {
           if (this.canDeposit(response)) {
             return new DepositSubmissionAction(action.payload.submissionId);
           } else {
-            return new SaveSubmissionFormSuccessAction(action.payload.submissionId, response);
+            this.notificationsService.warning(
+              null,
+              this.translate.instant('submission.sections.general.cannot_deposit'),
+              null,
+              true
+            );
+            return new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, false, true);
           }
         }),
         catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
@@ -344,7 +233,7 @@ export class SubmissionObjectEffects {
   /**
    * Dispatch a [DepositSubmissionSuccessAction] or a [DepositSubmissionErrorAction] on error
    */
-  depositSubmission$ = createEffect(() => this.actions$.pipe(
+   depositSubmission$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION),
     withLatestFrom(this.store$),
     switchMap(([action, state]: [DepositSubmissionAction, any]) => {
@@ -356,7 +245,7 @@ export class SubmissionObjectEffects {
   /**
    * Show a notification on success and redirect to MyDSpace page
    */
-  saveForLaterSubmissionSuccess$ = createEffect(() => this.actions$.pipe(
+   saveForLaterSubmissionSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS),
     tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.save_success_notice'))),
     tap(() => this.submissionService.redirectToMyDSpace())), { dispatch: false });
@@ -364,7 +253,7 @@ export class SubmissionObjectEffects {
   /**
    * Show a notification on success and redirect to MyDSpace page
    */
-  depositSubmissionSuccess$ = createEffect(() => this.actions$.pipe(
+   depositSubmissionSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS),
     tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.deposit_success_notice'))),
     tap(() => this.submissionService.redirectToMyDSpace())), { dispatch: false });
@@ -372,14 +261,14 @@ export class SubmissionObjectEffects {
   /**
    * Show a notification on error
    */
-  depositSubmissionError$ = createEffect(() => this.actions$.pipe(
+   depositSubmissionError$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_ERROR),
     tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.deposit_error_notice')))), { dispatch: false });
 
   /**
    * Dispatch a [DiscardSubmissionSuccessAction] or a [DiscardSubmissionErrorAction] on error
    */
-  discardSubmission$ = createEffect(() => this.actions$.pipe(
+   discardSubmission$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DISCARD_SUBMISSION),
     switchMap((action: DepositSubmissionAction) => {
       return this.submissionService.discardSubmission(action.payload.submissionId).pipe(
@@ -390,7 +279,7 @@ export class SubmissionObjectEffects {
   /**
    * Adds all metadata an item to the SubmissionForm sections of the submission
    */
-  addAllMetadataToSectionData = createEffect(() => this.actions$.pipe(
+   addAllMetadataToSectionData = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.UPDATE_SECTION_DATA),
     switchMap((action: UpdateSectionDataAction) => {
       return this.sectionService.getSectionState(action.payload.submissionId, action.payload.sectionId, SectionsType.Upload)
@@ -431,18 +320,18 @@ export class SubmissionObjectEffects {
   /**
    * Show a notification on error
    */
-  discardSubmissionError$ = createEffect(() => this.actions$.pipe(
+   discardSubmissionError$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DISCARD_SUBMISSION_ERROR),
     tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.discard_error_notice')))), { dispatch: false });
 
   constructor(private actions$: Actions,
-    private notificationsService: NotificationsService,
-    private operationsService: SubmissionJsonPatchOperationsService,
-    private sectionService: SectionsService,
-    private store$: Store<any>,
-    private submissionService: SubmissionService,
-    private submissionObjectService: SubmissionObjectDataService,
-    private translate: TranslateService) {
+              private notificationsService: NotificationsService,
+              private operationsService: SubmissionJsonPatchOperationsService,
+              private sectionService: SectionsService,
+              private store$: Store<any>,
+              private submissionService: SubmissionService,
+              private submissionObjectService: SubmissionObjectDataService,
+              private translate: TranslateService) {
   }
 
   /**
@@ -481,18 +370,23 @@ export class SubmissionObjectEffects {
    *    A boolean that indicate if show notification or not
    * @return SubmissionObjectAction[]
    *    List of SubmissionObjectAction to dispatch
+   * @param showNotifications
+   *    A boolean representing if to show notifications on save
+   * @param showErrors
+   *    A boolean representing if to show errors on save
    */
   protected parseSaveResponse(
     currentState: SubmissionObjectEntry,
     response: SubmissionObject[],
     submissionId: string,
     forms: FormState,
-    notify: boolean = true): SubmissionObjectAction[] {
+    showNotifications: boolean = true,
+    showErrors: boolean = true): SubmissionObjectAction[] {
 
     const mappedActions = [];
 
     if (isNotEmpty(response)) {
-      if (notify) {
+      if (showNotifications) {
         this.notificationsService.success(null, this.translate.get('submission.sections.general.save_success_notice'));
       }
 
@@ -504,7 +398,7 @@ export class SubmissionObjectEffects {
         if (errors && !isEmpty(errors)) {
           // to avoid dispatching an action for every error, create an array of errors per section
           errorsList = parseSectionErrors(errors);
-          if (notify) {
+          if (showNotifications) {
             this.notificationsService.warning(null, this.translate.get('submission.sections.general.sections_not_valid'));
           }
         }
@@ -523,12 +417,12 @@ export class SubmissionObjectEffects {
             continue;
           }
 
-          if (notify && !currentState.sections[sectionId].enabled) {
+          if (showNotifications && !currentState.sections[sectionId].enabled) {
             this.submissionService.notifyNewSection(submissionId, sectionId, currentState.sections[sectionId].sectionType);
           }
 
           const sectionForm = getForm(forms, currentState, sectionId);
-          const filteredErrors = filterErrors(sectionForm, sectionErrors, currentState.sections[sectionId].sectionType, notify);
+          const filteredErrors = filterErrors(sectionForm, sectionErrors, currentState.sections[sectionId].sectionType, showErrors);
           mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, filteredErrors, sectionErrors));
         }
       });
