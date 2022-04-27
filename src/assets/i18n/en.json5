@@ -4054,6 +4054,10 @@
   "submission.workflow.tasks.pool.show-detail": "Show detail",
 
 
+  "submission.workspace.generic.view": "View",
+
+  "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+
 
   "thumbnail.default.alt": "Thumbnail Image",
 
@@ -4160,6 +4164,9 @@
 
   "workflow-item.view.breadcrumbs": "Workflow View",
 
+  "workspace-item.view.breadcrumbs": "Workspace View",
+
+  "workspace-item.view.title": "Workspace View",
 
   "idle-modal.header": "Session will expire soon",
 
