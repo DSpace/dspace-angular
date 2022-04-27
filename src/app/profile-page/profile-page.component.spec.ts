@@ -20,9 +20,6 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { getTestScheduler } from 'jasmine-marbles';
 import { By } from '@angular/platform-browser';
-import { RemoteData } from '../core/data/remote-data';
-import { PaginatedList } from '../core/data/paginated-list.model';
-import { Group } from '../core/eperson/models/group.model';
 import { SpecialGroupData } from '../shared/testing/special-group.mock';
 
 describe('ProfilePageComponent', () => {
