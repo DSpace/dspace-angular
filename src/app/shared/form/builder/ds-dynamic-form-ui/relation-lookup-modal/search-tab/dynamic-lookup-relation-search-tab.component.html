@@ -7,6 +7,7 @@
            [searchFormPlaceholder]="'submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder'"
            [selectable]="true"
            [selectionConfig]="{ repeatable: repeatable, listId: listId }"
+           [showScopeSelector]="false"
            [showViewModes]="false"
            (resultFound)="onResultFound($event)"
            (deselectObject)="deselectObject.emit($event)"
