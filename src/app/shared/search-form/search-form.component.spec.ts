@@ -14,6 +14,7 @@ import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
 
 describe('SearchFormComponent', () => {
   let comp: SearchFormComponent;
@@ -37,7 +38,10 @@ describe('SearchFormComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfigService },
         { provide: DSpaceObjectDataService, useValue: { findById: () => createSuccessfulRemoteDataObject$(undefined)} }
       ],
-      declarations: [SearchFormComponent]
+      declarations: [
+        SearchFormComponent,
+        BrowserOnlyMockPipe,
+      ]
     }).compileComponents();
   }));
 

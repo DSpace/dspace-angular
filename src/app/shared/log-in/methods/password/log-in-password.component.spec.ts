@@ -17,6 +17,7 @@ import { storeModuleConfig } from '../../../../app.reducer';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
 
 describe('LogInPasswordComponent', () => {
 
@@ -57,7 +58,8 @@ describe('LogInPasswordComponent', () => {
         TranslateModule.forRoot()
       ],
       declarations: [
-        LogInPasswordComponent
+        LogInPasswordComponent,
+        BrowserOnlyMockPipe,
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
