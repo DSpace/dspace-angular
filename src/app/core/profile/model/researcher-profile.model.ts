@@ -1,10 +1,10 @@
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';
 import { typedObject } from '../../cache/builders/build-decorators';
-import { CacheableObject } from '../../cache/object-cache.reducer';
 import { HALLink } from '../../shared/hal-link.model';
 import { ResourceType } from '../../shared/resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { RESEARCHER_PROFILE } from './researcher-profile.resource-type';
+import {CacheableObject} from "../../cache/cacheable-object.model";
 
 /**
  * Class the represents a Researcher Profile.

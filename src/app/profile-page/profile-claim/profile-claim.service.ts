@@ -10,7 +10,7 @@ import { SearchService } from '../../core/shared/search/search.service';
 import { hasValue } from '../../shared/empty.util';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchResult } from '../../shared/search/models/search-result.model';
-import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from './../../core/shared/operators';
+import { getFirstSucceededRemoteData } from './../../core/shared/operators';
 
 @Injectable()
 export class ProfileClaimService {
@@ -27,18 +27,10 @@ export class ProfileClaimService {
       return of(false);
     }
 
-    return this.configurationService.findByPropertyName('claimable.entityType').pipe(
-      getFirstSucceededRemoteDataPayload(),
-      switchMap((claimableTypes) => {
-        if (!claimableTypes.values || claimableTypes.values.length === 0) {
-          return of(false);
-        } else {
-          return this.lookup(query).pipe(
-            mergeMap((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => of(rd.payload.totalElements > 0))
-          );
-        }
-      })
+    return this.lookup(query).pipe(
+      mergeMap((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => of(rd.payload.totalElements > 0))
     );
+
   }
 
   search(eperson: EPerson): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
@@ -73,4 +65,6 @@ export class ProfileClaimService {
     if (!hasValue(value)) {return;}
     query.push(metadata + ':' + value);
   }
+
+
 }
