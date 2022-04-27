@@ -13,13 +13,17 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { authReducer } from '../core/auth/auth.reducer';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { createPaginatedList } from '../shared/testing/utils.test';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { AuthService } from '../core/auth/auth.service';
 import { RestResponse } from '../core/cache/response.models';
 import { provideMockStore } from '@ngrx/store/testing';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { getTestScheduler } from 'jasmine-marbles';
 import { By } from '@angular/platform-browser';
+import { RemoteData } from '../core/data/remote-data';
+import { PaginatedList } from '../core/data/paginated-list.model';
+import { Group } from '../core/eperson/models/group.model';
+import { SpecialGroupData } from '../shared/testing/special-group.mock';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
@@ -233,6 +237,22 @@ describe('ProfilePageComponent', () => {
         fixture.detectChanges();
         expect(fixture.debugElement.query(By.css('.security-section'))).toBeNull();
       });
+    });
+  });
+
+  describe('check for specialGroups', () => {
+    it('should contains specialGroups list', () => {
+     component.specialGroupsRD$ = SpecialGroupData;
+      fixture.detectChanges();
+      const specialGroupsEle = fixture.debugElement.query(By.css('#specialGroups'));
+      expect(specialGroupsEle).toBeTruthy();
+    });
+
+    it('should not contains specialGroups list', () => {
+      component.specialGroupsRD$ = null;
+      fixture.detectChanges();
+      const specialGroupsEle = fixture.debugElement.query(By.css('#specialGroups'));
+      expect(specialGroupsEle).toBeFalsy();
     });
   });
 });

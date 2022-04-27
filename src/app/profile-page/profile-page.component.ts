@@ -20,6 +20,8 @@ import { AuthService } from '../core/auth/auth.service';
 import { Operation } from 'fast-json-patch';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { SpecialGroupData } from '../shared/testing/special-group.mock';
+
 
 @Component({
   selector: 'ds-profile-page',
@@ -44,6 +46,11 @@ export class ProfilePageComponent implements OnInit {
    * The groups the user belongs to
    */
   groupsRD$: Observable<RemoteData<PaginatedList<Group>>>;
+
+  /**
+   * The special groups the user belongs to
+   */
+  specialGroupsRD$: Observable<RemoteData<PaginatedList<Group>>>;
 
   /**
    * Prefix for the notification messages of this component
@@ -88,6 +95,7 @@ export class ProfilePageComponent implements OnInit {
     );
     this.groupsRD$ = this.user$.pipe(switchMap((user: EPerson) => user.groups));
     this.canChangePassword$ = this.user$.pipe(switchMap((user: EPerson) => this.authorizationService.isAuthorized(FeatureID.CanChangePassword, user._links.self.href)));
+    this.specialGroupsRD$ = SpecialGroupData;
   }
 
   /**

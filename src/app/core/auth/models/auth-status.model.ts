@@ -6,6 +6,8 @@ import { CacheableObject } from '../../cache/object-cache.reducer';
 import { RemoteData } from '../../data/remote-data';
 import { EPerson } from '../../eperson/models/eperson.model';
 import { EPERSON } from '../../eperson/models/eperson.resource-type';
+import { Group } from '../../eperson/models/group.model';
+import { GROUP } from '../../eperson/models/group.resource-type';
 import { HALLink } from '../../shared/hal-link.model';
 import { ResourceType } from '../../shared/resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
@@ -13,6 +15,7 @@ import { AuthError } from './auth-error.model';
 import { AUTH_STATUS } from './auth-status.resource-type';
 import { AuthTokenInfo } from './auth-token-info.model';
 import { AuthMethod } from './auth.method';
+
 
 /**
  * Object that represents the authenticated status of a user
@@ -61,6 +64,7 @@ export class AuthStatus implements CacheableObject {
   _links: {
     self: HALLink;
     eperson: HALLink;
+    specialGroups: HALLink;
   };
 
   /**
@@ -69,6 +73,13 @@ export class AuthStatus implements CacheableObject {
    */
   @link(EPERSON)
   eperson?: Observable<RemoteData<EPerson>>;
+
+  /**
+   * The SpecialGroup of this auth status
+   * Will be undefined unless the SpecialGroup {@link HALLink} has been resolved.
+   */
+  @link(GROUP)
+  specialGroups?: Observable<RemoteData<Group>>;
 
   /**
    * True if the token is valid, false if there was no token or the token wasn't valid

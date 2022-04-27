@@ -2861,6 +2861,8 @@
 
   "profile.groups.head": "Authorization groups you belong to",
 
+  "profile.special.groups.head": "Authorization special groups you belong to",
+
   "profile.head": "Update Profile",
 
   "profile.metadata.form.error.firstname.required": "First Name is required",
