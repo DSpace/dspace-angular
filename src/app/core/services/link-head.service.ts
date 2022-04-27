@@ -29,8 +29,6 @@ export class LinkHeadService {
       });
 
       const link = renderer.createElement('link');
-      console.log(tag);
-      console.log(link);
       const head = this.document.head;
 
       if (head === null) {

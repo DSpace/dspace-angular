@@ -96,17 +96,17 @@ describe('RssComponent', () => {
     });
 
     it('should formulate the correct url given params in url', () => {
-        const route = comp.formulateRoute(uuid, options, query);
+        const route = comp.formulateRoute(uuid, 'opensearch', options, query);
         expect(route).toBe('/opensearch/search?format=atom&scope=2cfcf65e-0a51-4bcb-8592-b8db7b064790&sort=dc.title&sort_direction=DESC&query=test');
     });
 
     it('should skip uuid if its null', () => {
-        const route = comp.formulateRoute(null, options, query);
+        const route = comp.formulateRoute(null, 'opensearch', options, query);
         expect(route).toBe('/opensearch/search?format=atom&sort=dc.title&sort_direction=DESC&query=test');
     });
 
     it('should default to query * if none provided', () => {
-        const route = comp.formulateRoute(null, options, null);
+        const route = comp.formulateRoute(null, 'opensearch', options, null);
         expect(route).toBe('/opensearch/search?format=atom&sort=dc.title&sort_direction=DESC&query=*');
     });
 });

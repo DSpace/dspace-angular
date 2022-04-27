@@ -45,10 +45,17 @@ export class RSSComponent implements OnInit, OnDestroy  {
               private router: Router,
               protected paginationService: PaginationService) {
   }
+  /**
+   * Removes the linktag created when the component gets removed from the page.
+   */
   ngOnDestroy(): void {
     this.linkHeadService.removeTag("rel='alternate'");
   }
 
+
+  /**
+   * Generates the link tags and the url to opensearch when the component is loaded.
+   */
   ngOnInit(): void {
     this.configuration$ = this.searchConfigurationService.getCurrentConfiguration('default');
 
@@ -58,26 +65,36 @@ export class RSSComponent implements OnInit, OnDestroy  {
       const enabled = (result.payload.values[0] === 'true');
       this.isEnabled$.next(enabled);
     });
-
-    this.searchConfigurationService.getCurrentQuery('').subscribe((query) => {
-      this.sortOption$ = this.paginationService.getCurrentSort(this.searchConfigurationService.paginationID, null, true);
-      this.sortOption$.subscribe((sort) => {
-        this.uuid = this.groupDataService.getUUIDFromString(this.router.url);
-
-        const route = environment.rest.baseUrl + this.formulateRoute(this.uuid, sort, query);
-        this.addLinks(route);
-        this.linkHeadService.addTag({
-          href: environment.rest.baseUrl + '/opensearch/service',
-          type: 'application/atom+xml',
-          rel: 'search',
-          title: 'Dspace'
+    this.configurationService.findByPropertyName('websvc.opensearch.svccontext').pipe(
+      getFirstCompletedRemoteData(),
+    ).subscribe((url) => {
+      this.searchConfigurationService.getCurrentQuery('').subscribe((query) => {
+        this.sortOption$ = this.paginationService.getCurrentSort(this.searchConfigurationService.paginationID, null, true);
+        this.sortOption$.subscribe((sort) => {
+          this.uuid = this.groupDataService.getUUIDFromString(this.router.url);
+          const route = environment.rest.baseUrl + this.formulateRoute(this.uuid, url.payload.values[0], sort, query);
+          this.addLinks(route);
+          this.linkHeadService.addTag({
+            href: environment.rest.baseUrl + '/' + url.payload.values[0] + '/service',
+            type: 'application/atom+xml',
+            rel: 'search',
+            title: 'Dspace'
+          });
+          this.route$ = new BehaviorSubject<string>(route);
         });
-        this.route$ = new BehaviorSubject<string>(route);
       });
     });
   }
 
-  formulateRoute(uuid: string, sort: SortOptions, query: string): string {
+  /**
+   * Function created a route given the different params available to opensearch
+   * @param uuid The uuid if a scope is present
+   * @param opensearch openSearch uri 
+   * @param sort The sort options for the opensearch request
+   * @param query The query string that was provided in the search
+   * @returns The combine URL to opensearch
+   */
+  formulateRoute(uuid: string, opensearch: string, sort: SortOptions, query: string): string {
     let route = 'search?format=atom';
     if (uuid) {
       route += `&scope=${uuid}`;
@@ -90,10 +107,14 @@ export class RSSComponent implements OnInit, OnDestroy  {
     } else {
       route += `&query=*`;
     }
-    route = '/opensearch/' + route;
+    route = '/' + opensearch +'/' + route;
     return route;
   }
 
+  /**
+   * Creates <link> tags in the header of the page
+   * @param route The composed url to opensearch
+   */
   addLinks(route: string): void {
     this.linkHeadService.addTag({
       href: route,
