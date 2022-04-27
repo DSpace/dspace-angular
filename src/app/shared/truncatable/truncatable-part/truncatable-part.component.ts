@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { AfterContentChecked, Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { TruncatableService } from '../truncatable.service';
 import { hasValue } from '../../empty.util';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
@@ -14,7 +14,7 @@ import { NativeWindowRef, NativeWindowService } from '../../../core/services/win
  * Component that truncates/clamps a piece of text
  * It needs a TruncatableComponent parent to identify it's current state
  */
-export class TruncatablePartComponent implements OnInit, OnDestroy {
+export class TruncatablePartComponent implements AfterContentChecked, OnInit, OnDestroy {
   /**
    * Number of lines shown when the part is collapsed
    */
@@ -116,10 +116,9 @@ export class TruncatablePartComponent implements OnInit, OnDestroy {
    * Function to get data to be observed
    */
   toObserve() {
-    this.observedContent = this.document.querySelectorAll('#dontBreakContent');
-    this.observer = new (this._window.nativeWindow as any).ResizeObserver(entries => {
-      // tslint:disable-next-line:prefer-const
-      for (let entry of entries) {
+    this.observedContent = this.document.querySelectorAll('.content');
+    this.observer = new (this._window.nativeWindow as any).ResizeObserver((entries) => {
+       for (let entry of entries) {
         if (!entry.target.classList.contains('notruncatable')) {
           if (entry.target.scrollHeight > entry.contentRect.height) {
             if (entry.target.children.length > 0) {

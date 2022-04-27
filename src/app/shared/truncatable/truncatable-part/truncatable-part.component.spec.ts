@@ -70,7 +70,7 @@ describe('TruncatablePartComponent', () => {
     });
 
     it('collapseButton should be hidden', () => {
-      const a = fixture.debugElement.query(By.css('#collapseButton'));
+      const a = fixture.debugElement.query(By.css('.collapseButton'));
       expect(a).toBeNull();
     });
   });
@@ -98,7 +98,7 @@ describe('TruncatablePartComponent', () => {
       (comp as any).setLines();
       (comp as any).expandable = true;
       fixture.detectChanges();
-      const a = fixture.debugElement.query(By.css('#collapseButton'));
+      const a = fixture.debugElement.query(By.css('.collapseButton'));
       expect(a).not.toBeNull();
     });
   });

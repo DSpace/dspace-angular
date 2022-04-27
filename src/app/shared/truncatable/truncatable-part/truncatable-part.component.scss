@@ -1,10 +1,7 @@
-#dontBreakContent:not(.truncated) ~ label{
-    display: none;
-  }
+.content:not(.truncated) ~ button.expandButton {
+  display: none;
+}
 
-a {
-    color: #207698 !important;
-    text-decoration: none !important;
-    background-color: transparent !important;
-    cursor: pointer;
+.btn:focus {
+  box-shadow: none !important;
 }
