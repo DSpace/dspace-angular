@@ -1,25 +1,47 @@
+import { TranslateLoaderMock } from './../../../../shared/testing/translate-loader.mock';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PublicationInformationComponent } from './publication-information.component';
+import { dataRes } from './../../../../shared/mocks/section-sherpa-policies.service.mock';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 describe('PublicationInformationComponent', () => {
   let component: PublicationInformationComponent;
   let fixture: ComponentFixture<PublicationInformationComponent>;
+  let de: DebugElement;
+
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PublicationInformationComponent ]
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }),
+      ],
+      declarations: [PublicationInformationComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PublicationInformationComponent);
     component = fixture.componentInstance;
+    de = fixture.debugElement;
+    component.journal = dataRes.sherpaResponse[0].journals[0];
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should show 6 rows', () => {
+    expect(de.queryAll(By.css('.row')).length).toEqual(6);
+  });
+
 });
