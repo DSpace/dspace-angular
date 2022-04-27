@@ -1,6 +1,6 @@
 import { MenuID } from '../menu/initial-menus-state';
 import { Observable, of as observableOf } from 'rxjs';
-import { MenuSection } from '../menu/menu.reducer';
+import { MenuSection, MenuState } from '../menu/menu.reducer';
 
 export class MenuServiceStub {
   visibleSection1 = {
@@ -75,6 +75,10 @@ export class MenuServiceStub {
 
   hasSubSections(id: MenuID, sectionID: string): Observable<boolean> {
     return observableOf(true);
+  }
+
+  getMenu(id: MenuID): Observable<MenuState> {
+    return observableOf({} as MenuState);
   }
 
   getMenuTopSections(id: MenuID): Observable<MenuSection[]> {
