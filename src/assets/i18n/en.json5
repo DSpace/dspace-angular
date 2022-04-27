@@ -2130,6 +2130,8 @@
 
   "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
 
+  "item.page.claim.button": "Claim",
+
   "item.preview.dc.identifier.uri": "Identifier:",
 
   "item.preview.dc.contributor.author": "Authors:",
