@@ -148,6 +148,9 @@ languages:
   - code: fi
     label: Suomi
     active: true
+  - code: tr
+    label: Türkçe
+    active: true
   - code: bn
     label: বাংলা
     active: true
