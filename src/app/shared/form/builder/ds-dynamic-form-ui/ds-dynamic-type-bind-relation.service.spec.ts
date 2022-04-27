@@ -8,7 +8,7 @@ import {
   OR_OPERATOR,
   HIDDEN_MATCHER,
   DISABLED_MATCHER,
-  REQUIRED_MATCHER,
+  REQUIRED_MATCHER, HIDDEN_MATCHER_PROVIDER, REQUIRED_MATCHER_PROVIDER, DISABLED_MATCHER_PROVIDER,
 } from '@ng-dynamic-forms/core';
 
 import {
@@ -34,7 +34,8 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
         { provide: DynamicFormRelationService },
-        { provide: Injector }
+        { provide: Injector },
+        DISABLED_MATCHER_PROVIDER, HIDDEN_MATCHER_PROVIDER, REQUIRED_MATCHER_PROVIDER
       ]
     }).compileComponents().then();
   });
@@ -64,7 +65,6 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
         'boundType', null, 'bound-auth-key', 'Bound Type'
       );
       const bindType = service.getTypeBindValue(mockMetadataValueObject);
-      console.dir(bindType);
       expect(bindType).toBe('bound-auth-key');
     });
     it('Should get passed string returned directly as string passed instead of metadata', () => {
@@ -97,7 +97,8 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
       testModel.typeBindRelations = getTypeBindRelations(['boundType']);
       const dcTypeControl = new FormControl();
       dcTypeControl.setValue('boundType');
-      expect(service.subscribeRelations(testModel, dcTypeControl)).toHaveSize(1);
+      let subscriptions = service.subscribeRelations(testModel, dcTypeControl);
+      expect(subscriptions).toHaveSize(1);
     });
 
     it('Expect hasMatch to be true (ie. this should be hidden)', () => {
