@@ -16,7 +16,6 @@ import { Item } from '../core/shared/item.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteData,
-  redirectOn4xx,
   toDSpaceObjectListRD
 } from '../core/shared/operators';
 
@@ -28,6 +27,7 @@ import { PaginationService } from '../core/pagination/pagination.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { getCollectionPageRoute } from './collection-page-routing-paths';
+import { redirectOn4xx } from '../core/shared/authorized.operators';
 
 @Component({
   selector: 'ds-collection-page',

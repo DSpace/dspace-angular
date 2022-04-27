@@ -11,6 +11,12 @@ import { cold, hot } from 'jasmine-marbles';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
 import { Context } from '../core/shared/context.model';
+import { LinkService } from '../core/cache/builders/link.service';
+import { HALEndpointService } from '../core/shared/hal-endpoint.service';
+import { RequestService } from '../core/data/request.service';
+import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
+import { HALEndpointServiceStub } from '../shared/testing/hal-endpoint-service.stub';
+import { getMockRemoteDataBuildService } from '../shared/mocks/remote-data-build.service.mock';
 
 describe('MyDSpaceConfigurationService', () => {
   let service: MyDSpaceConfigurationService;
@@ -44,8 +50,13 @@ describe('MyDSpaceConfigurationService', () => {
 
   const roleService: any = new RoleServiceMock();
 
+  const linkService: any = {};
+  const halService: any = new HALEndpointServiceStub('');
+  const requestService: any = {};
+  const rdb: any = getMockRemoteDataBuildService();
+
   beforeEach(() => {
-    service = new MyDSpaceConfigurationService(roleService, spy, paginationService as any, activatedRoute);
+    service = new MyDSpaceConfigurationService(roleService, spy, paginationService as any, activatedRoute, linkService, halService, requestService, rdb);
   });
 
   describe('when the scope is called', () => {

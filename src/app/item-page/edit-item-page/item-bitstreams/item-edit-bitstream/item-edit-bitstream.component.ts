@@ -1,14 +1,14 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
-import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { cloneDeep } from 'lodash';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { Observable } from 'rxjs';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../../core/shared/operators';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
 
 @Component({

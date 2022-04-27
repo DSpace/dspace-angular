@@ -2,7 +2,6 @@ import { autoserialize, deserialize, deserializeAs } from 'cerialize';
 import { link, typedObject } from '../../cache/builders/build-decorators';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { ActionType } from './action-type.model';
-import { CacheableObject } from '../../cache/object-cache.reducer';
 import { HALLink } from '../../shared/hal-link.model';
 import { RESOURCE_POLICY } from './resource-policy.resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
@@ -14,6 +13,7 @@ import { GROUP } from '../../eperson/models/group.resource-type';
 import { Group } from '../../eperson/models/group.model';
 import { EPERSON } from '../../eperson/models/eperson.resource-type';
 import { EPerson } from '../../eperson/models/eperson.model';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 
 /**
  * Model class for a Resource Policy

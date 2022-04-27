@@ -2,8 +2,8 @@
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
-import { CacheableObject } from './object-cache.reducer';
 import { Operation } from 'fast-json-patch';
+import { CacheableObject } from './cacheable-object.model';
 
 /**
  * The list of ObjectCacheAction type definitions

@@ -11,7 +11,8 @@ export const routeServiceStub: any = {
   removeQueryParameterValue: (param: string, value: string) => {
     return EMPTY;
   },
-  addQueryParameterValue: (param: string, value: string) => { return EMPTY;
+  addQueryParameterValue: (param: string, value: string) => {
+    return EMPTY;
   },
   getQueryParameterValues: (param: string) => {
     return observableOf({});

@@ -17,6 +17,7 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 import {
   ListableObjectComponentLoaderComponent
 } from '../object-collection/shared/listable-object/listable-object-component-loader.component';

@@ -1,22 +1,35 @@
 import { Component, HostListener, Injector, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest, combineLatest as observableCombineLatest, Observable, BehaviorSubject } from 'rxjs';
-import { debounceTime, first, map, take, filter, distinctUntilChanged, withLatestFrom } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest as observableCombineLatest, combineLatest, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, first, map, take, withLatestFrom } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import {
-  ScriptDataService,
+  METADATA_EXPORT_SCRIPT_NAME,
   METADATA_IMPORT_SCRIPT_NAME,
-  METADATA_EXPORT_SCRIPT_NAME
+  ScriptDataService
 } from '../../core/data/processes/script-data.service';
 import { slideHorizontal, slideSidebar } from '../../shared/animations/slide';
-import { CreateCollectionParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
-import { CreateCommunityParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
-import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
-import { EditCollectionSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
-import { EditCommunitySelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
-import { EditItemSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
-import { ExportMetadataSelectorComponent } from '../../shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
-import { MenuID, MenuItemType } from '../../shared/menu/initial-menus-state';
+import {
+  CreateCollectionParentSelectorComponent
+} from '../../shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
+import {
+  CreateCommunityParentSelectorComponent
+} from '../../shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
+import {
+  CreateItemParentSelectorComponent
+} from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import {
+  EditCollectionSelectorComponent
+} from '../../shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
+import {
+  EditCommunitySelectorComponent
+} from '../../shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
+import {
+  EditItemSelectorComponent
+} from '../../shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
+import {
+  ExportMetadataSelectorComponent
+} from '../../shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { LinkMenuItemModel } from '../../shared/menu/menu-item/models/link.model';
 import { OnClickMenuItemModel } from '../../shared/menu/menu-item/models/onclick.model';
 import { TextMenuItemModel } from '../../shared/menu/menu-item/models/text.model';
@@ -25,7 +38,9 @@ import { MenuService } from '../../shared/menu/menu.service';
 import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { Router, ActivatedRoute } from '@angular/router';
+import { MenuID } from '../../shared/menu/menu-id.model';
+import { MenuItemType } from '../../shared/menu/menu-item-type.model';
+import { ActivatedRoute } from '@angular/router';
 
 /**
  * Component representing the admin sidebar
@@ -85,12 +100,12 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * Set and calculate all initial values of the instance variables
    */
   ngOnInit(): void {
-    this.createMenu();
     super.ngOnInit();
     this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
     this.authService.isAuthenticated()
       .subscribe((loggedIn: boolean) => {
         if (loggedIn) {
+          this.createMenu();
           this.menuService.showMenu(this.menuID);
         }
       });
@@ -367,10 +382,10 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     ];
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, menuSection));
 
-    observableCombineLatest(
+    observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME)
-    ).pipe(
+    ]).pipe(
       filter(([authorized, metadataExportScriptExists]: boolean[]) => authorized && metadataExportScriptExists),
       take(1)
     ).subscribe(() => {
@@ -429,10 +444,10 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       shouldPersistOnRouteChange: true
     })));
 
-    observableCombineLatest(
+    observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME)
-    ).pipe(
+    ]).pipe(
       filter(([authorized, metadataImportScriptExists]: boolean[]) => authorized && metadataImportScriptExists),
       take(1)
     ).subscribe(() => {
@@ -558,10 +573,10 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * Create menu sections dependent on whether or not the current user can manage access control groups
    */
   createAccessControlMenuSections() {
-    observableCombineLatest(
+    observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.authorizationService.isAuthorized(FeatureID.CanManageGroups)
-    ).subscribe(([isSiteAdmin, canManageGroups]) => {
+    ]).subscribe(([isSiteAdmin, canManageGroups]) => {
       const menuList = [
         /* Access Control */
         {
