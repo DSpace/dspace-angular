@@ -175,6 +175,7 @@ import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-l
 import { ClaimItemSelectorComponent } from './dso-selector/modal-wrappers/claim-item-selector/claim-item-selector.component';
 import { ExternalLinkMenuItemComponent } from './menu/menu-item/external-link-menu-item.component';
 import { DsoPageOrcidButtonComponent } from './dso-page/dso-page-orcid-button/dso-page-orcid-button.component';
+import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -307,6 +308,7 @@ const COMPONENTS = [
 
   LogInShibbolethComponent,
   LogInOidcComponent,
+  LogInOrcidComponent,
   LogInPasswordComponent,
   LogInContainerComponent,
   ItemVersionsComponent,
@@ -381,6 +383,7 @@ const ENTRY_COMPONENTS = [
   LogInPasswordComponent,
   LogInShibbolethComponent,
   LogInOidcComponent,
+  LogInOrcidComponent,
   BundleListElementComponent,
   ClaimedTaskActionsApproveComponent,
   ClaimedTaskActionsRejectComponent,
