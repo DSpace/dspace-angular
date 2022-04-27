@@ -6,10 +6,10 @@ import { map, mergeMap, take } from 'rxjs/operators';
 
 import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { FindListOptions } from '../../../core/data/request.models';
 import { hasValue } from '../../../shared/empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 /**
  * This component represents the 'Import metadata from external source' dropdown menu

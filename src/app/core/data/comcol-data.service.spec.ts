@@ -7,13 +7,11 @@ import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { Community } from '../shared/community.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { FindListOptions } from './request.models';
 import { RequestService } from './request.service';
 import {
   createFailedRemoteDataObject$,
@@ -22,8 +20,16 @@ import {
   createSuccessfulRemoteDataObject
 } from '../../shared/remote-data.utils';
 import { BitstreamDataService } from './bitstream-data.service';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 const LINK_NAME = 'test';
+
+const scopeID = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
+
+const communitiesEndpoint = 'https://rest.api/core/communities';
+
+const communityEndpoint = `${communitiesEndpoint}/${scopeID}`;
 
 class TestService extends ComColDataService<any> {
 
@@ -47,6 +53,11 @@ class TestService extends ComColDataService<any> {
     // implementation in subclasses for communities/collections
     return undefined;
   }
+
+  protected getScopeCommunityHref(options: FindListOptions): Observable<string> {
+    // implementation in subclasses for communities/collections
+    return observableOf(communityEndpoint);
+  }
 }
 
 /* eslint-disable @typescript-eslint/no-shadow */
@@ -66,12 +77,9 @@ describe('ComColDataService', () => {
   const http = {} as HttpClient;
   const comparator = {} as any;
 
-  const scopeID = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
   const options = Object.assign(new FindListOptions(), {
     scopeID: scopeID
   });
-  const communitiesEndpoint = 'https://rest.api/core/communities';
-  const communityEndpoint = `${communitiesEndpoint}/${scopeID}`;
   const scopedEndpoint = `${communityEndpoint}/${LINK_NAME}`;
 
   const mockHalService = {

@@ -3,7 +3,6 @@ import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -11,7 +10,6 @@ import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { Injectable } from '@angular/core';
 import { VOCABULARY_ENTRY } from '../submission/vocabularies/models/vocabularies.resource-type';
-import { FindListOptions } from './request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteData } from './remote-data';
@@ -19,7 +17,9 @@ import { Observable } from 'rxjs';
 import { PaginatedList } from './paginated-list.model';
 import { ITEM_TYPE } from '../shared/item-relationships/item-type.resource-type';
 import { LICENSE } from '../shared/license.resource-type';
-import { CacheableObject } from '../cache/object-cache.reducer';
+import { CacheableObject } from '../cache/cacheable-object.model';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 class DataServiceImpl extends DataService<any> {
   // linkPath isn't used if we're only searching by href.

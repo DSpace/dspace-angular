@@ -14,12 +14,12 @@ import {
 } from '../data/request.actions';
 import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions';
 import { hasValue } from '../../shared/empty.util';
-import { IndexName } from './index.reducer';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { getUrlWithoutEmbedParams, uuidFromHrefSelector } from './index.selectors';
 import { Store, select } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { NoOpAction } from '../../shared/ngrx/no-op.action';
+import { IndexName } from './index-name.model';
+import { CoreState } from '../core-state.model';
 
 @Injectable()
 export class UUIDIndexEffects {

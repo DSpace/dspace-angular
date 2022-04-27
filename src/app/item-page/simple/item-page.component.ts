@@ -9,10 +9,11 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 
 import { fadeInOut } from '../../shared/animations/fade';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData, redirectOn4xx } from '../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { AuthService } from '../../core/auth/auth.service';
 import { getItemPageRoute } from '../item-page-routing-paths';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { TranslateService } from '@ngx-translate/core';
@@ -75,12 +76,12 @@ export class ItemPageComponent implements OnInit {
     private translate: TranslateService,
     private notificationsService: NotificationsService,
     private researcherProfileService: ResearcherProfileService
-  ) { 
+  ) {
     this.route.data.pipe(
       map((data) => data.dso as RemoteData<Item>)
     ).subscribe((data: RemoteData<Item>) => {
       this.itemUrl = data?.payload?.self
-    });    
+    });
   }
 
   /**

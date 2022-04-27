@@ -173,6 +173,7 @@ import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { ClaimItemSelectorComponent } from './dso-selector/modal-wrappers/claim-item-selector/claim-item-selector.component';
+import { ExternalLinkMenuItemComponent } from './menu/menu-item/external-link-menu-item.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -400,7 +401,8 @@ const ENTRY_COMPONENTS = [
   OnClickMenuItemComponent,
   TextMenuItemComponent,
   ScopeSelectorModalComponent,
-  ClaimItemSelectorComponent
+  ClaimItemSelectorComponent,
+  ExternalLinkMenuItemComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

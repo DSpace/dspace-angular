@@ -1,6 +1,6 @@
-import { MenuID } from '../menu/initial-menus-state';
 import { Observable, of as observableOf } from 'rxjs';
-import { MenuSection } from '../menu/menu.reducer';
+import { MenuSection } from '../menu/menu-section.model';
+import { MenuID } from '../menu/menu-id.model';
 
 export class MenuServiceStub {
   visibleSection1 = {

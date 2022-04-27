@@ -5,8 +5,7 @@ import { ItemRequest } from '../../core/shared/item-request.model';
 import { Observable } from 'rxjs';
 import {
   getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  redirectOn4xx
+  getFirstSucceededRemoteDataPayload
 } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { AuthService } from '../../core/auth/auth.service';
@@ -15,6 +14,7 @@ import { Item } from '../../core/shared/item.model';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
 
 @Component({
   selector: 'ds-grant-deny-request-copy',

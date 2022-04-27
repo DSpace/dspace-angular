@@ -7,7 +7,6 @@ import { Authorization } from '../../shared/authorization.model';
 import { RequestService } from '../request.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../../core.reducers';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -15,7 +14,6 @@ import { HttpClient } from '@angular/common/http';
 import { DSOChangeAnalyzer } from '../dso-change-analyzer.service';
 import { AuthService } from '../../auth/auth.service';
 import { SiteDataService } from '../site-data.service';
-import { FindListOptions } from '../request.models';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteData } from '../remote-data';
 import { PaginatedList } from '../paginated-list.model';
@@ -26,6 +24,8 @@ import { AuthorizationSearchParams } from './authorization-search-params';
 import { addSiteObjectUrlIfEmpty, oneAuthorizationMatchesFeature } from './authorization-utils';
 import { FeatureID } from './feature-id';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
+import { CoreState } from '../../core-state.model';
+import { FindListOptions } from '../find-list-options.model';
 
 /**
  * A service to retrieve {@link Authorization}s from the REST API

@@ -11,7 +11,7 @@ import { DataService } from '../data/data.service';
 import { map } from 'rxjs/operators';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { environment } from '../../../environments/environment';
-import { RequestEntryState } from '../data/request.reducer';
+import { RequestEntryState } from '../data/request-entry-state.model';
 
 /**
  * A service to retrieve submission objects (WorkspaceItem/WorkflowItem)

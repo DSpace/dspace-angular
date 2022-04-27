@@ -12,13 +12,13 @@ import { RequestService } from '../data/request.service';
 import { ResourcePolicyService } from './resource-policy.service';
 import { PolicyType } from './models/policy-type.model';
 import { ActionType } from './models/action-type.model';
-import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 import { PageInfo } from '../shared/page-info.model';
 import { buildPaginatedList } from '../data/paginated-list.model';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { RequestEntry } from '../data/request.reducer';
 import { RestResponse } from '../cache/response.models';
+import { RequestEntry } from '../data/request-entry.model';
+import { FindListOptions } from '../data/find-list-options.model';
 
 describe('ResourcePolicyService', () => {
   let scheduler: TestScheduler;

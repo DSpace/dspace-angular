@@ -1,6 +1,6 @@
-import { SubmissionSectionError } from '../../objects/submission-objects.reducer';
 import { WorkspaceitemSectionDataType } from '../../../core/submission/models/workspaceitem-sections.model';
 import { SectionsType } from '../sections-type';
+import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 
 /**
  * An interface to represent section model

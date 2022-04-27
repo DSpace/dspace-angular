@@ -80,6 +80,10 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.production.ts"
+                },
+                {
+                  "replace": "src/config/store/devtools.ts",
+                  "with": "src/config/store/devtools.prod.ts"
                 }
               ],
               "optimization": true,
@@ -205,6 +209,10 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.production.ts"
+                },
+                {
+                  "replace": "src/config/store/devtools.ts",
+                  "with": "src/config/store/devtools.prod.ts"
                 }
               ]
             }

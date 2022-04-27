@@ -9,10 +9,10 @@ import {
   ExpandMenuPreviewAction,
   MenuActionTypes
 } from '../shared/menu/menu.actions';
-import { MenuID } from '../shared/menu/initial-menus-state';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuState } from '../shared/menu/menu.reducer';
 import { NoOpAction } from '../shared/ngrx/no-op.action';
+import { MenuState } from '../shared/menu/menu-state.model';
+import { MenuID } from '../shared/menu/menu-id.model';
 
 @Injectable()
 export class NavbarEffects {
