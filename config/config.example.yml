@@ -231,6 +231,10 @@ themes:
         rel: manifest
         href: assets/dspace/images/favicons/manifest.webmanifest
 
+# The default bundles that should always be displayed as suggestions when you upload a new bundle
+bundle:
+  - standardBundles: [ ORIGINAL, THUMBNAIL, LICENSE ]
+
 # Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with 'image' or 'video').
 # For images, this enables a gallery viewer where you can zoom or page through images.
 # For videos, this enables embedded video streaming
