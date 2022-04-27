@@ -1,14 +1,12 @@
-import {inject, TestBed, waitForAsync} from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
 import {
   DynamicFormControlRelation,
-  DynamicFormControlMatcher,
   DynamicFormRelationService,
   MATCH_VISIBLE,
   OR_OPERATOR,
   HIDDEN_MATCHER,
-  DISABLED_MATCHER,
-  REQUIRED_MATCHER, HIDDEN_MATCHER_PROVIDER, REQUIRED_MATCHER_PROVIDER, DISABLED_MATCHER_PROVIDER,
+  HIDDEN_MATCHER_PROVIDER, REQUIRED_MATCHER_PROVIDER, DISABLED_MATCHER_PROVIDER,
 } from '@ng-dynamic-forms/core';
 
 import {
@@ -24,7 +22,6 @@ import {Injector} from '@angular/core';
 describe('DSDynamicTypeBindRelationService test suite', () => {
   let service: DsDynamicTypeBindRelationService;
   let dynamicFormRelationService: DynamicFormRelationService;
-  let dynamicFormControlMatchers: DynamicFormControlMatcher[];
   let injector: Injector;
 
   beforeEach(() => {
@@ -34,7 +31,6 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
         { provide: DynamicFormRelationService },
-        { provide: Injector },
         DISABLED_MATCHER_PROVIDER, HIDDEN_MATCHER_PROVIDER, REQUIRED_MATCHER_PROVIDER
       ]
     }).compileComponents().then();
@@ -43,13 +39,9 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
   beforeEach(inject([DsDynamicTypeBindRelationService, DynamicFormRelationService],
     (relationService: DsDynamicTypeBindRelationService,
      formRelationService: DynamicFormRelationService,
-     mockInjector: Injector,
     ) => {
     service = relationService;
     dynamicFormRelationService = formRelationService;
-    dynamicFormControlMatchers = [];
-    injector = mockInjector;
-    dynamicFormControlMatchers = [HIDDEN_MATCHER, REQUIRED_MATCHER, DISABLED_MATCHER];
   }));
 
   describe('Test getTypeBindValue method', () => {
