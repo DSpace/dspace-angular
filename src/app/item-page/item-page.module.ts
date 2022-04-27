@@ -37,6 +37,7 @@ import { ThemedFileSectionComponent } from './simple/field-components/file-secti
 import { OrcidAuthComponent } from './orcid-page/orcid-auth/orcid-auth.component';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { OrcidSettingComponent } from './orcid-page/orcid-sync/orcid-setting.component';
 
 
 const ENTRY_COMPONENTS = [
@@ -71,7 +72,8 @@ const DECLARATIONS = [
   MiradorViewerComponent,
   VersionPageComponent,
   OrcidPageComponent,
-  OrcidAuthComponent
+  OrcidAuthComponent,
+  OrcidSettingComponent
 ];
 
 @NgModule({
