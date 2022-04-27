@@ -115,3 +115,14 @@ ngb-modal-backdrop {
 .ml-gap {
   margin-left: var(--ds-gap);
 }
+
+.custom-accordion .card-header button {
+  -webkit-box-shadow: none!important;
+  box-shadow: none!important;
+  width: 100%;
+}
+.custom-accordion .card:first-of-type {
+  border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color)!important;
+  border-bottom-left-radius: var(--bs-card-border-radius)!important;
+  border-bottom-right-radius: var(--bs-card-border-radius)!important;
+}
