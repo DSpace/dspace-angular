@@ -133,7 +133,7 @@ describe('ItemDetailPreviewComponent', () => {
   }));
 
   afterEach(() => {
-    environment.myDSpace.additionalMetadatas = []
+    environment.myDSpace.additionalMetadatas = [];
   });
 
   describe('When the component is initialized', () => {
@@ -162,7 +162,7 @@ describe('ItemDetailPreviewComponent', () => {
 
   describe('When the config has one additional metadata with no match', () => {
     beforeEach(() => {
-      environment.myDSpace.additionalMetadatas = [{ value: 'fake' }]
+      environment.myDSpace.additionalMetadatas = [{ value: 'fake' }];
       fixture.detectChanges();
     });
 
@@ -179,7 +179,7 @@ describe('ItemDetailPreviewComponent', () => {
 
   describe('When the config has one additional metadata with a match', () => {
     beforeEach(() => {
-      environment.myDSpace.additionalMetadatas = [{ value: 'dc.description.additional' }]
+      environment.myDSpace.additionalMetadatas = [{ value: 'dc.description.additional' }];
       fixture.detectChanges();
     });
 
