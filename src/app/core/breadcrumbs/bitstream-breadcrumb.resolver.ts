@@ -8,7 +8,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { BreadcrumbConfig } from 'src/app/breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../shared/operators';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { hasValue } from 'src/app/shared/empty.util';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 import { BundleDataService } from '../data/bundle-data.service';
@@ -16,6 +16,7 @@ import { Bundle } from '../shared/bundle.model';
 import { ItemDataService } from '../data/item-data.service';
 import { Item } from '../shared/item.model';
 import { ITEM_PAGE_LINKS_TO_FOLLOW } from 'src/app/item-page/item.resolver';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 /**
  * The class that resolves the BreadcrumbConfig object for an Item
@@ -26,10 +27,10 @@ import { ITEM_PAGE_LINKS_TO_FOLLOW } from 'src/app/item-page/item.resolver';
 export class BitstreamBreadcrumbResolver extends DSOBreadcrumbResolver<Item> {
   constructor(
     protected breadcrumbService: DSOBreadcrumbsService,
-    protected dataService: BitstreamDataService,
-    protected itemService: ItemDataService
+    protected bitstreamService: BitstreamDataService,
+    protected dataService: ItemDataService
     ) {
-    super(breadcrumbService, itemService);
+    super(breadcrumbService, dataService);
   }
 
   /**
@@ -40,20 +41,37 @@ export class BitstreamBreadcrumbResolver extends DSOBreadcrumbResolver<Item> {
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<BreadcrumbConfig<Item>> {
     const uuid = route.params.id;
-    return this.dataService.findById(uuid, true, false, ...this.followLinks).pipe(
+    return this.bitstreamService.findById(uuid, true, false, ...this.bfollowLinks).pipe(
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
-      map((object: Bitstream) => {
-        if (hasValue(object)) {
-          object.bundle.pipe(
+      switchMap((bitstream: Bitstream) => {
+        if (hasValue(bitstream)) {
+          return bitstream.bundle.pipe(
             getFirstCompletedRemoteData(),
-            getRemoteDataPayload()
-          ).subscribe(res => {
-            const url = res._links.item.href;
-            return {provider: this.breadcrumbService, key: of(res), url: url};
-          });
+            getRemoteDataPayload(),
+            switchMap((bundle: Bundle) => {
+              if (hasValue(bundle)) {
+                return bundle.item.pipe(
+                  getFirstCompletedRemoteData(),
+                  getRemoteDataPayload(),
+                  map((item: Item) => {
+                    if (hasValue(item)) {
+                      console.log(item);
+                      const fullPath = state.url;
+                      const url = fullPath.substr(0, fullPath.indexOf(uuid)) + uuid;
+                      return {provider: this.breadcrumbService, key: item, url: url};
+                    } else {
+                      return undefined;
+                    }
+                  })
+                );
+              } else {
+                return of(undefined);
+              }
+            })
+          );
         } else {
-          return undefined;
+          return of(undefined);
         }
       })
     );
@@ -64,11 +82,11 @@ export class BitstreamBreadcrumbResolver extends DSOBreadcrumbResolver<Item> {
    * The self links defined in this list are expected to be requested somewhere in the near future
    * Requesting them as embeds will limit the number of requests
    */
-  get followLinks(): FollowLinkConfig<Bitstream>[] {
-    return [followLink('bundle', followLink('item'))];
+  get followLinks(): FollowLinkConfig<Item>[] {
+    return ITEM_PAGE_LINKS_TO_FOLLOW;
   }
 
-  get bfollowLinks(): FollowLinkConfig<Item>[] {
-    return ITEM_PAGE_LINKS_TO_FOLLOW;
+  get bfollowLinks(): FollowLinkConfig<Bitstream>[] {
+    return [followLink('bundle', followLink('item'))];
   }
 }
