@@ -1,57 +1,62 @@
 <ds-alert [type]="'alert-info'" *ngIf="hasNoData()" [content]="'submission.sections.sherpa-policy.title-empty'">
 </ds-alert>
 
-<div class="refresh-container mt-2 mb-2">
+<div *ngIf="!hasNoData()" class="refresh-container mt-2 mb-2">
     <button type="button" class="btn btn-secondary pull-right" (click)="refresh()">
         <span><i class="fas fa-sync"></i> {{'submission.sections.sherpa.publisher.policy.refresh' | translate}} </span>
     </button>
 </div>
 
 <ngb-accordion *ngVar="(sherpaPoliciesData$ | async)?.sherpaResponse as sherpaData" #acc="ngbAccordion">
-    <ng-container *ngFor="let journal of sherpaData.journals;let j=index;">
-        <ngb-panel id="publication-information-{{j}}">
-            <ng-template ngbPanelTitle>
-                <div class="d-inline-block float-left">
-                    <span *ngIf="!acc.isExpanded('publication-information-{{j}}')"
-                        class="fas fa-chevron-up fa-fw"></span>
-                    <span *ngIf="acc.isExpanded('publication-information-{{j}}')"
-                        class="fas fa-chevron-down fa-fw"></span>
-                </div>
-                <span class="float-left section-title"
-                    tabindex="0">{{'submission.sections.sherpa.publication.information'
-                    | translate}}</span>
-            </ng-template>
-            <ng-template ngbPanelContent>
-                <ds-publication-information [journal]="journal"></ds-publication-information>
-            </ng-template>
-        </ngb-panel>
-        <ng-container *ngFor="let policy of journal.policies">
-            <ngb-panel id="publisher-policy-{{j}}">
+    <ng-container *ngIf="!hasNoData()">
+        <ng-container *ngFor="let journal of sherpaData.journals;let j=index;">
+            <ngb-panel id="publication-information-{{j}}">
                 <ng-template ngbPanelTitle>
                     <div class="d-inline-block float-left">
-                        <span *ngIf="!acc.isExpanded('publisher-policy-{{j}}')" class="fas fa-chevron-up fa-fw"></span>
-                        <span *ngIf="acc.isExpanded('publisher-policy-{{j}}')" class="fas fa-chevron-down fa-fw"></span>
+                        <span *ngIf="!acc.isExpanded('publication-information-{{j}}')"
+                            class="fas fa-chevron-up fa-fw"></span>
+                        <span *ngIf="acc.isExpanded('publication-information-{{j}}')"
+                            class="fas fa-chevron-down fa-fw"></span>
                     </div>
-                    <span class="float-left section-title" tabindex="0">{{'submission.sections.sherpa.publisher.policy'
+                    <span class="float-left section-title"
+                        tabindex="0">{{'submission.sections.sherpa.publication.information'
                         | translate}}</span>
                 </ng-template>
                 <ng-template ngbPanelContent>
-                    <ds-publisher-policy [policy]="policy"></ds-publisher-policy>
+                    <ds-publication-information [journal]="journal"></ds-publication-information>
                 </ng-template>
             </ngb-panel>
+            <ng-container *ngFor="let policy of journal.policies; let p=index;">
+                <ngb-panel id="publisher-policy-{{j}}-{{p}}">
+                    <ng-template ngbPanelTitle>
+                        <div class="d-inline-block float-left">
+                            <span *ngIf="!acc.isExpanded('publisher-policy-{{j}}-{{p}}')"
+                                class="fas fa-chevron-up fa-fw"></span>
+                            <span *ngIf="acc.isExpanded('publisher-policy-{{j}}-{{p}}')"
+                                class="fas fa-chevron-down fa-fw"></span>
+                        </div>
+                        <span class="float-left section-title"
+                            tabindex="0">{{'submission.sections.sherpa.publisher.policy'
+                            | translate}}</span>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <ds-publisher-policy [policy]="policy"></ds-publisher-policy>
+                    </ng-template>
+                </ngb-panel>
+            </ng-container>
         </ng-container>
+        <ngb-panel id="metadata">
+            <ng-template ngbPanelTitle>
+                <div class="d-inline-block float-left">
+                    <span *ngIf="!acc.isExpanded('metadata')" class="fas fa-chevron-up fa-fw"></span>
+                    <span *ngIf="acc.isExpanded('metadata')" class="fas fa-chevron-down fa-fw"></span>
+                </div>
+                <span class="float-left section-title" tabindex="0">{{'submission.sections.sherpa.record.information'
+                    | translate}}</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <ds-metadata-information [metadata]="sherpaData.metadata"></ds-metadata-information>
+            </ng-template>
+        </ngb-panel>
     </ng-container>
-    <ngb-panel id="metadata">
-        <ng-template ngbPanelTitle>
-            <div class="d-inline-block float-left">
-                <span *ngIf="!acc.isExpanded('metadata')" class="fas fa-chevron-up fa-fw"></span>
-                <span *ngIf="acc.isExpanded('metadata')" class="fas fa-chevron-down fa-fw"></span>
-            </div>
-            <span class="float-left section-title" tabindex="0">{{'submission.sections.sherpa.record.information'
-                | translate}}</span>
-        </ng-template>
-        <ng-template ngbPanelContent>
-            <ds-metadata-information [metadata]="sherpaData.metadata"></ds-metadata-information>
-        </ng-template>
-    </ngb-panel>
 </ngb-accordion>

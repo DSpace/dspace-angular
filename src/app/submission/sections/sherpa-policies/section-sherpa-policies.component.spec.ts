@@ -1,7 +1,8 @@
+import { SharedModule } from './../../../shared/shared.module';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { SherpaDataResponse } from '../../../shared/mocks/section-sherpa-policies.service.mock';
-import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { SectionsService } from '../sections.service';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
@@ -58,7 +59,8 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
               useClass: TranslateLoaderMock
             }
           }),
-          NgbAccordionModule
+          NgbAccordionModule,
+          SharedModule
         ],
         declarations: [SubmissionSectionSherpaPoliciesComponent],
         providers: [
@@ -77,7 +79,7 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
       fixture = TestBed.createComponent(SubmissionSectionSherpaPoliciesComponent);
       component = fixture.componentInstance;
       de = fixture.debugElement;
-      sectionsServiceStub.getSectionData.and.returnValue(observableOf(SherpaDataResponse))
+      sectionsServiceStub.getSectionData.and.returnValue(observableOf(SherpaDataResponse));
       fixture.detectChanges();
     }));
 
@@ -112,7 +114,6 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
 
     it('when refresh button click operationsBuilder.remove should have been called', () => {
       de.query(By.css('.refresh-container > button')).nativeElement.click();
-      fixture.detectChanges();
       expect(operationsBuilder.remove).toHaveBeenCalled();
     });
 
