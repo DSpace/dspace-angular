@@ -10,6 +10,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ComcolModule } from '../../../comcol.module';
+import { NotificationsService } from '../../../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
 
 describe('ComcolRoleComponent', () => {
 
@@ -20,6 +22,7 @@ describe('ComcolRoleComponent', () => {
   let group;
   let statusCode;
   let comcolRole;
+  let notificationsService;
 
   const requestService = { hasByHref$: () => observableOf(true) };
 
@@ -40,6 +43,7 @@ describe('ComcolRoleComponent', () => {
       providers: [
         { provide: GroupDataService, useValue: groupService },
         { provide: RequestService, useValue: requestService },
+        { provide: NotificationsService, useClass: NotificationsServiceStub }
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
@@ -59,12 +63,14 @@ describe('ComcolRoleComponent', () => {
       fixture = TestBed.createComponent(ComcolRoleComponent);
       comp = fixture.componentInstance;
       de = fixture.debugElement;
+      notificationsService = TestBed.inject(NotificationsService);
 
       comcolRole = {
         name: 'test role name',
         href: 'test role link',
       };
       comp.comcolRole = comcolRole;
+      comp.roleName$ = observableOf(comcolRole.name);
 
       fixture.detectChanges();
     });
@@ -98,6 +104,18 @@ describe('ComcolRoleComponent', () => {
 
       it('should call the groupService create method', (done) => {
         expect(groupService.createComcolGroup).toHaveBeenCalled();
+        done();
+      });
+    });
+
+    describe('when a group cannot be created', () => {
+      beforeEach(() => {
+        groupService.createComcolGroup.and.returnValue(createFailedRemoteDataObject$());
+        de.query(By.css('.btn.create')).nativeElement.click();
+      });
+
+      it('should show an error notification', (done) => {
+        expect(notificationsService.error).toHaveBeenCalled();
         done();
       });
     });
@@ -166,6 +184,18 @@ describe('ComcolRoleComponent', () => {
 
       it('should call the groupService delete method', (done) => {
         expect(groupService.deleteComcolGroup).toHaveBeenCalled();
+        done();
+      });
+    });
+
+    describe('when a group cannot be deleted', () => {
+      beforeEach(() => {
+        groupService.deleteComcolGroup.and.returnValue(createFailedRemoteDataObject$());
+        de.query(By.css('.btn.delete')).nativeElement.click();
+      });
+
+      it('should show an error notification', (done) => {
+        expect(notificationsService.error).toHaveBeenCalled();
         done();
       });
     });

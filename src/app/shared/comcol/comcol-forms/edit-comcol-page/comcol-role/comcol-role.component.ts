@@ -12,6 +12,8 @@ import { HALLink } from '../../../../../core/shared/hal-link.model';
 import { getGroupEditRoute } from '../../../../../access-control/access-control-routing-paths';
 import { hasNoValue, hasValue } from '../../../../empty.util';
 import { NoContent } from '../../../../../core/shared/NoContent.model';
+import { NotificationsService } from '../../../../notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component for managing a community or collection role.
@@ -64,9 +66,16 @@ export class ComcolRoleComponent implements OnInit {
    */
   hasCustomGroup$: Observable<boolean>;
 
+  /**
+   * The human-readable name of this role
+   */
+  roleName$: Observable<string>;
+
   constructor(
     protected requestService: RequestService,
     protected groupService: GroupDataService,
+    protected notificationsService: NotificationsService,
+    protected translateService: TranslateService,
   ) {
   }
 
@@ -101,7 +110,12 @@ export class ComcolRoleComponent implements OnInit {
         this.groupService.clearGroupsRequests();
         this.requestService.setStaleByHrefSubstring(this.comcolRole.href);
       } else {
-        // TODO show error notification
+        this.notificationsService.error(
+          this.roleName$.pipe(
+            switchMap(role => this.translateService.get('comcol-role.edit.create.error.title', { role }))
+          ),
+          `${rd.statusCode} ${rd.errorMessage}`
+        );
       }
     });
   }
@@ -117,7 +131,12 @@ export class ComcolRoleComponent implements OnInit {
         this.groupService.clearGroupsRequests();
         this.requestService.setStaleByHrefSubstring(this.comcolRole.href);
       } else {
-        // TODO show error notification
+        this.notificationsService.error(
+          this.roleName$.pipe(
+            switchMap(role => this.translateService.get('comcol-role.edit.delete.error.title', { role }))
+          ),
+          rd.errorMessage
+        );
       }
     });
   }
@@ -154,5 +173,7 @@ export class ComcolRoleComponent implements OnInit {
     this.hasCustomGroup$ = this.group$.pipe(
       map((group: Group) => hasValue(group) && group.name !== 'Anonymous'),
     );
+
+    this.roleName$ = this.translateService.get(`comcol-role.edit.${this.comcolRole.name}.name`);
   }
 }

@@ -1082,9 +1082,13 @@
 
   "comcol-role.edit.create": "Create",
 
+  "comcol-role.edit.create.error.title": "Failed to create a group for the '{{ role }}' role",
+
   "comcol-role.edit.restrict": "Restrict",
 
   "comcol-role.edit.delete": "Delete",
+
+  "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
 
 
   "comcol-role.edit.community-admin.name": "Administrators",
