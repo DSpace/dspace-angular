@@ -154,7 +154,7 @@
     "@typescript-eslint/eslint-plugin": "5.11.0",
     "@typescript-eslint/parser": "5.11.0",
     "axe-core": "^4.3.3",
-    "compression-webpack-plugin": "^6.1.1",
+    "compression-webpack-plugin": "^9.2.0",
     "copy-webpack-plugin": "^6.4.1",
     "cross-env": "^7.0.3",
     "css-loader": "^6.2.0",
