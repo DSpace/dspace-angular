@@ -92,3 +92,19 @@ ngb-modal-backdrop {
   hyphens: auto;
 
 }
+
+/* Replicate default spacing look ~ preserveWhitespace=true
+   To be used e.g. on a div containing buttons that should have a bit of spacing in between
+ */
+.space-children-mr > :not(:last-child) {
+  margin-right: var(--ds-gap);
+}
+
+/* Complement .space-children-mr when spaced elements are not on the same level */
+.mr-gap {
+  margin-right: var(--ds-gap);
+}
+
+.ml-gap {
+  margin-left: var(--ds-gap);
+}

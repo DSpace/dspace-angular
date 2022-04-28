@@ -1643,7 +1643,7 @@
 
   "item.bitstreams.upload.bundle": "Bundle",
 
-  "item.bitstreams.upload.bundle.placeholder": "Select a bundle",
+  "item.bitstreams.upload.bundle.placeholder": "Select a bundle or input new bundle name",
 
   "item.bitstreams.upload.bundle.new": "Create bundle",
 
@@ -3827,6 +3827,8 @@
   "submission.sections.ccLicense.confirmation": "I grant the license above",
 
   "submission.sections.general.add-more": "Add more",
+
+  "submission.sections.general.cannot_deposit": "Deposit cannot be completed due to errors in the form.<br>Please fill out all required fields to complete the deposit.",
 
   "submission.sections.general.collection": "Collection",
 

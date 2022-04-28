@@ -34,7 +34,7 @@
                           [title]="'collection.page.news'">
                   </ds-comcol-page-content>
                 </header>
-                <div class="pl-2">
+                <div class="pl-2 space-children-mr">
                   <ds-dso-page-edit-button *ngIf="isCollectionAdmin$ | async"  [pageRoute]="collectionPageRoute$ | async" [dso]="collection" [tooltipMsg]="'collection.page.edit'"></ds-dso-page-edit-button>
                 </div>
               </div>

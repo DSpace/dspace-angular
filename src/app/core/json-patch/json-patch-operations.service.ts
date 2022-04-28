@@ -6,7 +6,6 @@ import { hasValue, isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../.
 import { PatchRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { CoreState } from '../core.reducers';
 import { jsonPatchOperationsByResourceType } from './selectors';
 import { JsonPatchOperationsResourceEntry } from './json-patch-operations.reducer';
 import {
@@ -18,6 +17,7 @@ import { JsonPatchOperationModel } from './json-patch.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
+import { CoreState } from '../core-state.model';
 
 /**
  * An abstract class that provides methods to make JSON Patch requests.

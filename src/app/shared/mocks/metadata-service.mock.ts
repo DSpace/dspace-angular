@@ -1,7 +1,7 @@
 
 export class MetadataServiceMock {
 
-  // tslint:disable-next-line:no-empty
+  // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function
   public listenForRouteChange(): void {
 
   }

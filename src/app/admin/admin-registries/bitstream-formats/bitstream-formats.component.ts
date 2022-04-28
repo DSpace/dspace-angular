@@ -5,7 +5,6 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
-import { FindListOptions } from '../../../core/data/request.models';
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -13,6 +12,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 /**
  * This component renders a list of bitstream formats

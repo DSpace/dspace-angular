@@ -17,9 +17,9 @@ describe('LoginPageComponent', () => {
   });
 
   const store: Store<LoginPageComponent> = jasmine.createSpyObj('store', {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
     select: observableOf(true)
   });
 

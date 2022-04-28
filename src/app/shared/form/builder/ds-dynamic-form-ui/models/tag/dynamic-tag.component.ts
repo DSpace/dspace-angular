@@ -90,7 +90,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
       }),
       map((list: PaginatedList<VocabularyEntry>) => list.page),
       tap(() => this.changeSearchingStatus(false)),
-      merge(this.hideSearchingWhenUnsubscribed))
+      merge(this.hideSearchingWhenUnsubscribed));
 
   /**
    * Initialize the component, setting up the init form value

@@ -4,7 +4,7 @@ import { SearchConfigurationService } from '../../../../../../core/shared/search
 import { Item } from '../../../../../../core/shared/item.model';
 import { SearchResult } from '../../../../../search/models/search-result.model';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
@@ -23,7 +23,6 @@ import { RelationshipType } from '../../../../../../core/shared/item-relationshi
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
 import { SearchObjects } from '../../../../../search/models/search-objects.model';
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 
 @Component({

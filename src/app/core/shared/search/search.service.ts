@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
@@ -7,7 +8,7 @@ import { LinkService } from '../../cache/builders/link.service';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { ResponseParsingService } from '../../data/parsing.service';
 import { RemoteData } from '../../data/remote-data';
-import { GetRequest, RestRequest } from '../../data/request.models';
+import { GetRequest} from '../../data/request.models';
 import { RequestService } from '../../data/request.service';
 import { DSpaceObject } from '../dspace-object.model';
 import { GenericConstructor } from '../generic-constructor';
@@ -19,7 +20,6 @@ import { SearchFilterConfig } from '../../../shared/search/models/search-filter-
 import { SearchResponseParsingService } from '../../data/search-response-parsing.service';
 import { SearchObjects } from '../../../shared/search/models/search-objects.model';
 import { FacetValueResponseParsingService } from '../../data/facet-value-response-parsing.service';
-import { FacetConfigResponseParsingService } from '../../data/facet-config-response-parsing.service';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { CommunityDataService } from '../../data/community-data.service';
 import { ViewMode } from '../view-mode.model';
@@ -30,21 +30,19 @@ import { RouteService } from '../../services/route.service';
 import { SearchResult } from '../../../shared/search/models/search-result.model';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
-import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
 import { FacetValues } from '../../../shared/search/models/facet-values.model';
-import { SearchConfig } from './search-filters/search-config.model';
 import { PaginationService } from '../../pagination/pagination.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { DataService } from '../../data/data.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../../core.reducers';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DSOChangeAnalyzer } from '../../data/dso-change-analyzer.service';
+import { RestRequest } from '../../data/rest-request.model';
+import { CoreState } from '../../core-state.model';
 
-/* tslint:disable:max-classes-per-file */
 /**
  * A class that lets us delegate some methods to DataService
  */
@@ -81,19 +79,9 @@ class DataServiceImpl extends DataService<any> {
 export class SearchService implements OnDestroy {
 
   /**
-   * Endpoint link path for retrieving search configurations
-   */
-  private configurationLinkPath = 'discover/search';
-
-  /**
    * Endpoint link path for retrieving general search results
    */
   private searchLinkPath = 'discover/search/objects';
-
-  /**
-   * Endpoint link path for retrieving facet config incl values
-   */
-  private facetLinkPathPrefix = 'discover/facets/';
 
   /**
    * The ResponseParsingService constructor name
@@ -293,71 +281,6 @@ export class SearchService implements OnDestroy {
     );
   }
 
-  private getConfigUrl(url: string, scope?: string, configurationName?: string) {
-    const args: string[] = [];
-
-    if (isNotEmpty(scope)) {
-      args.push(`scope=${scope}`);
-    }
-
-    if (isNotEmpty(configurationName)) {
-      args.push(`configuration=${configurationName}`);
-    }
-
-    if (isNotEmpty(args)) {
-      url = new URLCombiner(url, `?${args.join('&')}`).toString();
-    }
-
-    return url;
-  }
-
-  /**
-   * Request the filter configuration for a given scope or the whole repository
-   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
-   * @param {string} configurationName the name of the configuration
-   * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
-   */
-  getConfig(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
-    const href$ = this.halService.getEndpoint(this.facetLinkPathPrefix).pipe(
-      map((url: string) => this.getConfigUrl(url, scope, configurationName)),
-    );
-
-    href$.pipe(take(1)).subscribe((url: string) => {
-      let request = new this.request(this.requestService.generateRequestId(), url);
-      request = Object.assign(request, {
-        getResponseParser(): GenericConstructor<ResponseParsingService> {
-          return FacetConfigResponseParsingService;
-        }
-      });
-      this.requestService.send(request, true);
-    });
-
-    return this.rdb.buildFromHref(href$).pipe(
-      map((rd: RemoteData<FacetConfigResponse>) => {
-        if (rd.hasSucceeded) {
-          let filters: SearchFilterConfig[];
-          if (isNotEmpty(rd.payload.filters)) {
-            filters = rd.payload.filters
-              .map((filter: any) => Object.assign(new SearchFilterConfig(), filter));
-          } else {
-            filters = [];
-          }
-
-          return new RemoteData(
-            rd.timeCompleted,
-            rd.msToLive,
-            rd.lastUpdated,
-            rd.state,
-            rd.errorMessage,
-            filters,
-            rd.statusCode,
-          );
-        } else {
-          return rd as any as RemoteData<SearchFilterConfig[]>;
-        }
-      })
-    );
-  }
 
   /**
    * Method to request a single page of filter values for a given value
@@ -421,25 +344,6 @@ export class SearchService implements OnDestroy {
         }
         this.paginationService.updateRouteWithUrl(this.searchConfigurationService.paginationID, hasValue(searchLinkParts) ? searchLinkParts : [this.getSearchLink()], pageParams, queryParams);
       });
-  }
-
-  /**
-   * Request the search configuration for a given scope or the whole repository
-   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
-   * @param {string} configurationName the name of the configuration
-   * @returns {Observable<RemoteData<SearchConfig[]>>} The found configuration
-   */
-  getSearchConfigurationFor(scope?: string, configurationName?: string): Observable<RemoteData<SearchConfig>> {
-    const href$ = this.halService.getEndpoint(this.configurationLinkPath).pipe(
-      map((url: string) => this.getConfigUrl(url, scope, configurationName)),
-    );
-
-    href$.pipe(take(1)).subscribe((url: string) => {
-      const request = new this.request(this.requestService.generateRequestId(), url);
-      this.requestService.send(request, true);
-    });
-
-    return this.rdb.buildFromHref(href$);
   }
 
   /**

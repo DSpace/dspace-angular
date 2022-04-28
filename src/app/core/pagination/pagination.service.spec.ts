@@ -3,7 +3,7 @@ import { RouterStub } from '../../shared/testing/router.stub';
 import { of as observableOf } from 'rxjs';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
-import { FindListOptions } from '../data/request.models';
+import { FindListOptions } from '../data/find-list-options.model';
 
 
 describe('PaginationService', () => {
