@@ -193,11 +193,11 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    */
   private buildResourcePolicyForm(): DynamicFormControlModel[] {
     const formModel: DynamicFormControlModel[] = [];
-    // TODO to be removed when https://jira.lyrasis.org/browse/DS-4477 will be implemented
+    // TODO to be removed when https://github.com/DSpace/DSpace/issues/7812 will be implemented
     const policyTypeConf = Object.assign({}, RESOURCE_POLICY_FORM_POLICY_TYPE_CONFIG, {
       disabled: isNotEmpty(this.resourcePolicy)
     });
-    // TODO to be removed when https://jira.lyrasis.org/browse/DS-4477 will be implemented
+    // TODO to be removed when https://github.com/DSpace/DSpace/issues/7812 will be implemented
     const actionConf = Object.assign({}, RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG, {
       disabled: isNotEmpty(this.resourcePolicy)
     });
