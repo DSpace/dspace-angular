@@ -3,7 +3,6 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule, TransferState } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ServerModule } from '@angular/platform-server';
-import { RouterModule } from '@angular/router';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
