@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { isEqual, isUndefined, union } from 'lodash';
+import { findKey, isEqual, union } from 'lodash';
 
 import { from as observableFrom, Observable, of as observableOf } from 'rxjs';
 import { catchError, filter, map, mergeMap, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
@@ -425,12 +425,15 @@ export class SubmissionObjectEffects {
           const filteredErrors = filterErrors(sectionForm, sectionErrors, currentState.sections[sectionId].sectionType, showErrors);
           mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, filteredErrors, sectionErrors));
         }
+
+        // Sherpa Policies section needs to be updated when the rest response section is empty
+        const sherpaPoliciesSectionId = findKey(currentState.sections, (section) => section.sectionType === SectionsType.SherpaPolicies);
+        if (isNotUndefined(sherpaPoliciesSectionId) && isNotEmpty(currentState.sections[sherpaPoliciesSectionId]?.data)
+          && isEmpty(sections[sherpaPoliciesSectionId])) {
+          mappedActions.push(new UpdateSectionDataAction(submissionId, sherpaPoliciesSectionId, null, [], []));
+        }
       });
-      let currentStateId = currentState.selfUrl.split('/')[currentState.selfUrl.split('/').length - 1];
-      let currentResponseItem = response.find(item => item.id.toString() === currentStateId);
-      if (!isUndefined(currentState.sections.sherpaPolicies?.data) && isUndefined(currentResponseItem.sections.sherpaPolicies)) {
-        mappedActions.push(new UpdateSectionDataAction(submissionId, 'sherpaPolicies', null, [], []));
-      }
+
     }
     return mappedActions;
   }
