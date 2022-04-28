@@ -29,6 +29,11 @@ import { TruncatableService } from '../../../../shared/truncatable/truncatable.s
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { JournalComponent } from './journal.component';
 import { RouteService } from '../../../../core/services/route.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
+import { VersionDataService } from '../../../../core/data/version-data.service';
+import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
 
 let comp: JournalComponent;
 let fixture: ComponentFixture<JournalComponent>;
@@ -65,12 +70,15 @@ describe('JournalComponent', () => {
   };
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }),
+        RouterTestingModule,
+      ],
       declarations: [JournalComponent, GenericItemPageFieldComponent, TruncatePipe],
       providers: [
         { provide: ItemDataService, useValue: {} },
@@ -86,7 +94,11 @@ describe('JournalComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: NotificationsService, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
+        { provide: VersionHistoryDataService, useValue: {} },
+        { provide: VersionDataService, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: WorkspaceitemDataService, useValue: {} },
+        { provide: SearchService, useValue: {} },
         { provide: RouteService, useValue: {} }
       ],
 

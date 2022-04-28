@@ -32,6 +32,11 @@ import { ItemComponent } from './item.component';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { RouteService } from '../../../../core/services/route.service';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
+import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { VersionDataService } from '../../../../core/data/version-data.service';
+import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 export const iiifEnabled = Object.assign(new MetadataValue(),{
   'value': 'true',
@@ -70,12 +75,15 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
         }
       };
       TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })],
+        imports: [
+            TranslateModule.forRoot({
+              loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+              }
+            }),
+            RouterTestingModule,
+        ],
         declarations: [component, GenericItemPageFieldComponent, TruncatePipe],
         providers: [
           { provide: ItemDataService, useValue: {} },
@@ -89,9 +97,13 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           { provide: HALEndpointService, useValue: {} },
           { provide: HttpClient, useValue: {} },
           { provide: DSOChangeAnalyzer, useValue: {} },
+          { provide: VersionHistoryDataService, useValue: {} },
+          { provide: VersionDataService, useValue: {} },
           { provide: NotificationsService, useValue: {} },
           { provide: DefaultChangeAnalyzer, useValue: {} },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+          { provide: WorkspaceitemDataService, useValue: {} },
+          { provide: SearchService, useValue: {} },
           { provide: RouteService, useValue: {} }
         ],
 
