@@ -166,6 +166,10 @@ import { SubmissionAccessesModel } from './config/models/config-submission-acces
 import { ResearcherProfileService } from './profile/researcher-profile.service';
 import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
 import { ResearcherProfile } from './profile/model/researcher-profile.model';
+import { OrcidQueueService } from './orcid/orcid-queue.service';
+import { OrcidHistoryService } from './orcid/orcid-history.service';
+import { OrcidQueue } from './orcid/model/orcid-queue.model';
+import { OrcidHistory } from './orcid/model/orcid-history.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -291,7 +295,9 @@ const PROVIDERS = [
   GroupDataService,
   FeedbackDataService,
   ResearcherProfileService,
-  ProfileClaimService
+  ProfileClaimService,
+  OrcidQueueService,
+  OrcidHistoryService,
 ];
 
 /**
@@ -352,7 +358,9 @@ export const models =
     Root,
     SearchConfig,
     SubmissionAccessesModel,
-    ResearcherProfile
+    ResearcherProfile,
+    OrcidQueue,
+    OrcidHistory,
   ];
 
 @NgModule({

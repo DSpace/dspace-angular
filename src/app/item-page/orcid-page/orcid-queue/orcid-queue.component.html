@@ -1,0 +1,59 @@
+<div class="container custom-accordion mb-4">
+    <ngb-accordion activeIds="queue">
+      <ngb-panel title="{{'person.orcid.registry.queue' | translate}}" id="queue">
+        <ng-template ngbPanelContent>
+            <div class="container">
+                <ds-loading *ngIf="(processing$ | async)"></ds-loading>
+
+                <div *ngIf="!(processing$ | async) && (getList() | async)?.payload?.totalElements == 0"
+                    class="row alert alert-info">
+                    {{ 'person.page.orcid.sync-queue.empty-message' | translate}}
+                </div>
+                <ds-pagination *ngIf="!(processing$ | async) && (getList() | async)?.payload?.totalElements > 0"
+                    [paginationOptions]="paginationOptions" [collectionSize]="(getList() | async)?.payload?.totalElements"
+                    [retainScrollPosition]="false" [hideGear]="true" (paginationChange)="updateList()">
+
+                    <div class="table-responsive">
+                        <table id="groups" class="table table-sm table-striped table-hover table-bordered">
+                            <thead>
+                                <tr class="text-center align-middle">
+                                    <th>{{'person.page.orcid.sync-queue.description' | translate}}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let entry of (getList() | async)?.payload?.page">
+                                    <td class="text-center align-middle">
+                                        {{ entry.description }}
+                                    </td>
+                                    <td style="width: 20%" class="text-center">
+                                        <div class="btn-group edit-field">
+                                            <button [ngbTooltip]="getOperationTooltip(entry) | translate" container="body"
+                                                class="btn btn-outline-success my-1 col-md">
+                                                <i [ngClass]="getOperationClass(entry)"></i>
+                                            </button>
+                                            <button [ngbTooltip]="getIconTooltip(entry) | translate" container="body"
+                                                class="btn btn-outline-warning my-1 col-md">
+                                                <i [ngClass]="getIconClass(entry)"
+                                                aria-hidden="true"></i>
+                                            </button>
+                                            <button [ngbTooltip]="'person.page.orcid.sync-queue.send' | translate" container="body"
+                                                class="btn btn-outline-success my-1 col-md" (click)="send(entry)">
+                                                <i class="fas fa-cogs"></i>
+                                            </button>
+                                            <button [ngbTooltip]="'person.page.orcid.sync-queue.discard' | translate" container="body"
+                                                class="btn btn-outline-danger my-1 col-md" (click)="discardEntry(entry)">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </ds-pagination>
+            </div>
+        </ng-template>
+        </ngb-panel>
+    </ngb-accordion>  
+</div>
