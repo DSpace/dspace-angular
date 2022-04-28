@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 import { type } from '../ngrx/type';
 import { INotification } from './models/notification.model';
@@ -8,7 +9,6 @@ export const NotificationsActionTypes = {
   REMOVE_NOTIFICATION: type('dspace/notifications/REMOVE_NOTIFICATION'),
 };
 
-/* tslint:disable:max-classes-per-file */
 
 /**
  * New notification.
@@ -49,7 +49,6 @@ export class RemoveNotificationAction implements Action {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * Actions type.

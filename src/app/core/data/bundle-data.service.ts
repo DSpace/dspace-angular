@@ -9,7 +9,6 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { Bundle } from '../shared/bundle.model';
 import { BUNDLE } from '../shared/bundle.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -18,11 +17,13 @@ import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { FindListOptions, GetRequest } from './request.models';
+import { GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { Bitstream } from '../shared/bitstream.model';
-import { RequestEntryState } from './request.reducer';
+import { RequestEntryState } from './request-entry-state.model';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 /**
  * A service to retrieve {@link Bundle}s from the REST API

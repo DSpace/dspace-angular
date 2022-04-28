@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -6,7 +7,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DataService } from './data.service';
 import { RemoteData } from './remote-data';
@@ -14,8 +14,8 @@ import { RequestService } from './request.service';
 import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { CONFIG_PROPERTY } from '../shared/config-property.resource-type';
+import { CoreState } from '../core-state.model';
 
-/* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<ConfigurationProperty> {
   protected linkPath = 'properties';
 
@@ -60,4 +60,3 @@ export class ConfigurationDataService {
     return this.dataService.findById(name);
   }
 }
-/* tslint:enable:max-classes-per-file */

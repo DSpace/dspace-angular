@@ -144,10 +144,10 @@ describe('DeleteComColPageComponent', () => {
             url: ''
           },
           queue: [],
-          /* tslint:disable:no-empty */
+          /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
           uploadAll: () => {
           }
-          /* tslint:enable:no-empty */
+          /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
         }
       };
     });

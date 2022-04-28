@@ -1,17 +1,18 @@
-import { SortOptions } from '../cache/models/sort-options.model';
+/* eslint-disable max-classes-per-file */
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from './parsing.service';
 import { EndpointMapResponseParsingService } from './endpoint-map-response-parsing.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';
+import {
+  SubmissionResponseParsingService
+} from '../submission/submission-response-parsing.service';
 import { RestRequestMethod } from './rest-request-method';
-import { RequestParam } from '../cache/models/request-param.model';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
 import { ContentSourceResponseParsingService } from './content-source-response-parsing.service';
+import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
-import { environment } from '../../../environments/environment';
+import { FindListOptions } from './find-list-options.model';
 
-/* tslint:disable:max-classes-per-file */
 
 // uuid and handle requests have separate endpoints
 export enum IdentifierType {
@@ -19,26 +20,13 @@ export enum IdentifierType {
   HANDLE = 'handle'
 }
 
-export abstract class RestRequest {
-  public responseMsToLive;
-  public isMultipart = false;
-
-  constructor(
-    public uuid: string,
-    public href: string,
-    public method: RestRequestMethod = RestRequestMethod.GET,
-    public body?: any,
-    public options?: HttpOptions,
-  ) {
-    this.responseMsToLive = environment.cache.msToLive.default;
-  }
-
+class DSpaceRestRequest extends RestRequestWithResponseParser {
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return DspaceRestResponseParsingService;
   }
 }
 
-export class GetRequest extends RestRequest {
+export class GetRequest extends DSpaceRestRequest {
   constructor(
     public uuid: string,
     public href: string,
@@ -49,7 +37,7 @@ export class GetRequest extends RestRequest {
   }
 }
 
-export class PostRequest extends RestRequest {
+export class PostRequest extends DSpaceRestRequest {
   constructor(
     public uuid: string,
     public href: string,
@@ -63,7 +51,7 @@ export class PostRequest extends RestRequest {
 /**
  * Request representing a multipart post request
  */
-export class MultipartPostRequest extends RestRequest {
+export class MultipartPostRequest extends DSpaceRestRequest {
   public isMultipart = true;
   constructor(
     public uuid: string,
@@ -75,7 +63,7 @@ export class MultipartPostRequest extends RestRequest {
   }
 }
 
-export class PutRequest extends RestRequest {
+export class PutRequest extends DSpaceRestRequest {
   constructor(
     public uuid: string,
     public href: string,
@@ -86,7 +74,7 @@ export class PutRequest extends RestRequest {
   }
 }
 
-export class DeleteRequest extends RestRequest {
+export class DeleteRequest extends DSpaceRestRequest {
   constructor(
     public uuid: string,
     public href: string,
@@ -97,7 +85,7 @@ export class DeleteRequest extends RestRequest {
   }
 }
 
-export class OptionsRequest extends RestRequest {
+export class OptionsRequest extends DSpaceRestRequest {
   constructor(
     public uuid: string,
     public href: string,
@@ -108,7 +96,7 @@ export class OptionsRequest extends RestRequest {
   }
 }
 
-export class HeadRequest extends RestRequest {
+export class HeadRequest extends DSpaceRestRequest {
   constructor(
     public uuid: string,
     public href: string,
@@ -119,7 +107,7 @@ export class HeadRequest extends RestRequest {
   }
 }
 
-export class PatchRequest extends RestRequest {
+export class PatchRequest extends DSpaceRestRequest {
   constructor(
     public uuid: string,
     public href: string,
@@ -128,15 +116,6 @@ export class PatchRequest extends RestRequest {
   ) {
     super(uuid, href, RestRequestMethod.PATCH, body);
   }
-}
-
-export class FindListOptions {
-  scopeID?: string;
-  elementsPerPage?: number;
-  currentPage?: number;
-  sort?: SortOptions;
-  searchParams?: RequestParam[];
-  startsWith?: string;
 }
 
 export class FindListRequest extends GetRequest {
@@ -275,9 +254,3 @@ export class TaskDeleteRequest extends DeleteRequest {
 export class MyDSpaceRequest extends GetRequest {
   public responseMsToLive = 10 * 1000;
 }
-
-export class RequestError extends Error {
-  statusCode: number;
-  statusText: string;
-}
-/* tslint:enable:max-classes-per-file */

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
@@ -14,7 +15,6 @@ import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
 import { SubmissionService } from '../../../../../submission/submission.service';
 
-// tslint:disable:max-classes-per-file
 /**
  * Abstract class that defines objects that can be reordered
  */
@@ -120,4 +120,3 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
 
 }
 
-// tslint:enable:max-classes-per-file
