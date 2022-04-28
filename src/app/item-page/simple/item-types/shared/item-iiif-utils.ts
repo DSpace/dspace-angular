@@ -1,6 +1,6 @@
 import { Item } from '../../../../core/shared/item.model';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import { RouteService } from '../../../../core/services/route.service';
 
 export const isIiifEnabled = (item: Item) => {
@@ -26,10 +26,9 @@ export const getDSpaceQuery = (item: Item, routeService: RouteService): Observab
       return r.includes('/search');
     }),
     map(r => {
-      const arr = r.split('&');
-      const q = arr[1];
-      const v = q.split('=');
+      const v = r.split('query=');
       return v[1];
-    })
+    }),
+    take(1)
   );
 };

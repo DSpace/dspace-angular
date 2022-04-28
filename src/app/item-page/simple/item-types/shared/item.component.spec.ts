@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -33,21 +33,25 @@ import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { RouteService } from '../../../../core/services/route.service';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 
-export const iiifEnabled = Object.assign(new MetadataValue(),{
-  'value': 'true',
-  'language': null,
-  'authority': null,
-  'confidence': -1,
-  'place': 0
-});
+export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
+  return Object.assign(new MetadataValue(), {
+    'value': enabled,
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0
+  });
+}
 
-export const iiifSearchEnabled = Object.assign(new MetadataValue(), {
-  'value': 'true',
-  'language': null,
-  'authority': null,
-  'confidence': -1,
-  'place': 0
-});
+export function getIIIFEnabled(enabled: boolean): MetadataValue {
+  return Object.assign(new MetadataValue(), {
+    'value': enabled,
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0
+  });
+}
 
 export const mockRouteService = jasmine.createSpyObj('RouteService', ['getPreviousUrl']);
 
