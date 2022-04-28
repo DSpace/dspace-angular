@@ -89,7 +89,7 @@ export class RSSComponent implements OnInit, OnDestroy  {
   /**
    * Function created a route given the different params available to opensearch
    * @param uuid The uuid if a scope is present
-   * @param opensearch openSearch uri 
+   * @param opensearch openSearch uri
    * @param sort The sort options for the opensearch request
    * @param query The query string that was provided in the search
    * @returns The combine URL to opensearch
@@ -107,7 +107,7 @@ export class RSSComponent implements OnInit, OnDestroy  {
     } else {
       route += `&query=*`;
     }
-    route = '/' + opensearch +'/' + route;
+    route = '/' + opensearch + '/' + route;
     return route;
   }
 
