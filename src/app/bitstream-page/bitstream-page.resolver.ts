@@ -17,7 +17,7 @@ import { Bundle } from '../core/shared/bundle.model';
     followLink('parentCommunity', {},
       followLink('parentCommunity'))
   ),
-  followLink('bundle'),
+  followLink('bundle', {}, followLink('item')),
   followLink('thumbnail')
 ];
 
