@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
@@ -15,6 +15,9 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
 import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Router } from '@angular/router';
+import { map, switchMap } from 'rxjs/operators';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 
 
 /**
@@ -32,11 +35,13 @@ export class RSSComponent implements OnInit, OnDestroy  {
 
   route$: BehaviorSubject<string>;
 
-  isEnabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isEnabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
   uuid: string;
   configuration$: Observable<string>;
   sortOption$: Observable<SortOptions>;
+
+  subs: Subscription[] = [];
 
   constructor(private groupDataService: GroupDataService,
               private linkHeadService: LinkHeadService,
@@ -50,6 +55,9 @@ export class RSSComponent implements OnInit, OnDestroy  {
    */
   ngOnDestroy(): void {
     this.linkHeadService.removeTag("rel='alternate'");
+    this.subs.forEach(sub => {
+      sub.unsubscribe();
+    });
   }
 
 
@@ -59,31 +67,32 @@ export class RSSComponent implements OnInit, OnDestroy  {
   ngOnInit(): void {
     this.configuration$ = this.searchConfigurationService.getCurrentConfiguration('default');
 
-    this.configurationService.findByPropertyName('websvc.opensearch.enable').pipe(
+    this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.enable').pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((result) => {
       const enabled = (result.payload.values[0] === 'true');
       this.isEnabled$.next(enabled);
-    });
-    this.configurationService.findByPropertyName('websvc.opensearch.svccontext').pipe(
+    }));
+    this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.svccontext').pipe(
       getFirstCompletedRemoteData(),
-    ).subscribe((url) => {
-      this.searchConfigurationService.getCurrentQuery('').subscribe((query) => {
-        this.sortOption$ = this.paginationService.getCurrentSort(this.searchConfigurationService.paginationID, null, true);
-        this.sortOption$.subscribe((sort) => {
-          this.uuid = this.groupDataService.getUUIDFromString(this.router.url);
-          const route = environment.rest.baseUrl + this.formulateRoute(this.uuid, url.payload.values[0], sort, query);
-          this.addLinks(route);
-          this.linkHeadService.addTag({
-            href: environment.rest.baseUrl + '/' + url.payload.values[0] + '/service',
-            type: 'application/atom+xml',
-            rel: 'search',
-            title: 'Dspace'
-          });
-          this.route$ = new BehaviorSubject<string>(route);
-        });
+      map((response: RemoteData<any>) => response.payload.values[0]),
+      switchMap((openSearchUri: string) =>
+        this.searchConfigurationService.paginatedSearchOptions.pipe(
+          map((searchOptions: PaginatedSearchOptions) => ({ openSearchUri,  searchOptions }))
+        )
+      ),
+    ).subscribe(({ openSearchUri,  searchOptions }) => {
+      this.uuid = this.groupDataService.getUUIDFromString(this.router.url);
+      const route = environment.rest.baseUrl + this.formulateRoute(this.uuid, openSearchUri, searchOptions.sort, searchOptions.query);
+      this.addLinks(route);
+      this.linkHeadService.addTag({
+        href: environment.rest.baseUrl + '/' + openSearchUri + '/service',
+        type: 'application/atom+xml',
+        rel: 'search',
+        title: 'Dspace'
       });
-    });
+      this.route$ = new BehaviorSubject<string>(route);
+    }));
   }
 
   /**
@@ -99,7 +108,7 @@ export class RSSComponent implements OnInit, OnDestroy  {
     if (uuid) {
       route += `&scope=${uuid}`;
     }
-    if (sort.direction && sort.field) {
+    if (sort && sort.direction && sort.field) {
       route += `&sort=${sort.field}&sort_direction=${sort.direction}`;
     }
     if (query) {
