@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import { TransferState } from '@angular/platform-browser';
 import { NGX_TRANSLATE_STATE, NgxTranslateState } from './ngx-translate-state';
 
-import * as JSON5 from 'json5';
+const JSON5 = require('json5').default;
 
 /**
  * A TranslateLoader for ngx-translate to parse json5 files server-side, and store them in the

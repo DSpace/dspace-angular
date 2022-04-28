@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../empty.util';
-import { getRemoteDataPayload, redirectOn4xx } from '../../core/shared/operators';
+import { getRemoteDataPayload} from '../../core/shared/operators';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
@@ -12,6 +12,8 @@ import { FileService } from '../../core/shared/file.service';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { getForbiddenRoute } from '../../app-routing-paths';
 import { RemoteData } from '../../core/data/remote-data';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ds-bitstream-download-page',
@@ -33,8 +35,13 @@ export class BitstreamDownloadPageComponent implements OnInit {
     private auth: AuthService,
     private fileService: FileService,
     private hardRedirectService: HardRedirectService,
+    private location: Location,
   ) {
 
+  }
+
+  back(): void {
+    this.location.back();
   }
 
   ngOnInit(): void {

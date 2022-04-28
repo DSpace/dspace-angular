@@ -105,10 +105,10 @@ describe('objectCacheReducer', () => {
     const action = new AddToObjectCacheAction(objectToCache, timeCompleted, msToLive, requestUUID, altLink1);
     const newState = objectCacheReducer(testState, action);
 
-    /* tslint:disable:no-string-literal */
+    /* eslint-disable @typescript-eslint/dot-notation */
     expect(newState[selfLink1].data['foo']).toBe('baz');
     expect(newState[selfLink1].data['somethingElse']).toBe(true);
-    /* tslint:enable:no-string-literal */
+    /* eslint-enable @typescript-eslint/dot-notation */
   });
 
   it('should perform the ADD action without affecting the previous state', () => {

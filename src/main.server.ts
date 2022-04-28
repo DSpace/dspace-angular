@@ -1,5 +1,5 @@
 import 'core-js/es/reflect';
-import 'zone.js/dist/zone';
+import 'zone.js';
 import 'reflect-metadata';
 
 import { enableProdMode } from '@angular/core';

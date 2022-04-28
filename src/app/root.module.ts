@@ -7,6 +7,7 @@ import {
   AdminSidebarSectionComponent
 } from './admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
 import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
+import { ThemedAdminSidebarComponent } from './admin/admin-sidebar/themed-admin-sidebar.component';
 import {
   ExpandableAdminSidebarSectionComponent
 } from './admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
@@ -58,6 +59,7 @@ const DECLARATIONS = [
   HeaderNavbarWrapperComponent,
   ThemedHeaderNavbarWrapperComponent,
   AdminSidebarComponent,
+  ThemedAdminSidebarComponent,
   AdminSidebarSectionComponent,
   ExpandableAdminSidebarSectionComponent,
   FooterComponent,

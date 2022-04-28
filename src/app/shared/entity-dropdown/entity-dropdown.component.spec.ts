@@ -9,7 +9,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { By } from '@angular/platform-browser';
 import { createPaginatedList } from '../testing/utils.test';
 
-// tslint:disable-next-line:pipe-prefix
+// eslint-disable-next-line @angular-eslint/pipe-prefix
 @Pipe({ name: 'translate' })
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {

@@ -78,6 +78,9 @@ import { WorkflowItemDeleteComponent } from './app/workflowitems-edit-page/workf
 import { WorkflowItemSendBackComponent } from './app/workflowitems-edit-page/workflow-item-send-back/workflow-item-send-back.component';
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
+import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
+
+// todo: optimize imports
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -115,6 +118,7 @@ const DECLARATIONS = [
   WorkflowItemSendBackComponent,
   BreadcrumbsComponent,
   FeedbackComponent,
+  CommunityListComponent,
 ];
 
 @NgModule({

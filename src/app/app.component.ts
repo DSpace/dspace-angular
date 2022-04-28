@@ -201,7 +201,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (event instanceof NavigationStart) {
         resolveEndFound = false;
         this.distinctNext(this.isRouteLoading$, true);
-        this.distinctNext(this.isThemeLoading$, true);
+        this.distinctNext(this.isThemeLoading$, true);  // todo: looks like this was removed after 7.2?
       } else  if (event instanceof ResolveEnd) {
         resolveEndFound = true;
         const activatedRouteSnapShot: ActivatedRouteSnapshot = event.state.root;

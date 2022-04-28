@@ -86,7 +86,7 @@ describe('WorkspaceitemActionsComponent', () => {
       ],
       declarations: [WorkspaceitemActionsComponent],
       providers: [
-        { provide: Injector, useValue: {} },
+        Injector,
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
         { provide: WorkspaceitemDataService, useValue: mockDataService },
@@ -132,22 +132,27 @@ describe('WorkspaceitemActionsComponent', () => {
     expect(btn).toBeDefined();
   });
 
-  it('should call confirmDiscard on discard confirmation', () => {
-    mockDataService.delete.and.returnValue(observableOf(true));
-    spyOn(component, 'reload');
-    const btn = fixture.debugElement.query(By.css('.btn-danger'));
-    btn.nativeElement.click();
-    fixture.detectChanges();
+  describe('on discard confirmation', () => {
+    beforeEach((done) => {
+      mockDataService.delete.and.returnValue(observableOf(true));
+      spyOn(component, 'reload');
+      const btn = fixture.debugElement.query(By.css('.btn-danger'));
+      btn.nativeElement.click();
+      fixture.detectChanges();
 
-    const confirmBtn: any = ((document as any).querySelector('.modal-footer .btn-danger'));
-    confirmBtn.click();
+      const confirmBtn: any = ((document as any).querySelector('.modal-footer .btn-danger'));
+      confirmBtn.click();
 
-    fixture.detectChanges();
+      fixture.detectChanges();
 
-    fixture.whenStable().then(() => {
-      expect(mockDataService.delete).toHaveBeenCalledWith(mockObject.id);
+      fixture.whenStable().then(() => {
+        done();
+      });
     });
 
+    it('should call confirmDiscard', () => {
+      expect(mockDataService.delete).toHaveBeenCalledWith(mockObject.id);
+    });
   });
 
   it('should display a success notification on delete success', waitForAsync(() => {

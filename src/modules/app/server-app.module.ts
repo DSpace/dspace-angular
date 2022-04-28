@@ -56,8 +56,8 @@ export function createTranslateLoader(transferState: TransferState) {
         deps: [TransferState]
       }
     }),
+    AppModule,
     ServerModule,
-    AppModule
   ],
   providers: [
     // Initialize app config and extend environment

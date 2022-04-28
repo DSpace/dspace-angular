@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '../shared/menu/initial-menus-state';
+import { MenuID } from '../shared/menu/menu-id.model';
 
 /**
  * Represents the header with the logo and simple navigation

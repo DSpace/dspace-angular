@@ -9,7 +9,6 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { Bitstream } from '../shared/bitstream.model';
 import { BITSTREAM } from '../shared/bitstream.resource-type';
 import { Bundle } from '../shared/bundle.model';
@@ -20,15 +19,17 @@ import { DataService } from './data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { buildPaginatedList, PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { FindListOptions, PutRequest } from './request.models';
+import { PutRequest } from './request.models';
 import { RequestService } from './request.service';
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { sendRequest } from '../shared/operators';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PageInfo } from '../shared/page-info.model';
 import { RequestParam } from '../cache/models/request-param.model';
+import { sendRequest } from '../shared/request.operators';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 /**
  * A service to retrieve {@link Bitstream}s from the REST API

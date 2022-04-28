@@ -1,4 +1,4 @@
-import { fakeAsync, flush, TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
@@ -219,6 +219,9 @@ describe('AuthEffects', () => {
         const expected = cold('--b-', { b: new RetrieveTokenAction() });
 
         expect(authEffects.checkTokenCookie$).toBeObservable(expected);
+        authEffects.checkTokenCookie$.subscribe(() => {
+          expect((authEffects as any).authorizationsService.invalidateAuthorizationsRequestCache).toHaveBeenCalled();
+        });
       });
 
       it('should return a RETRIEVE_AUTH_METHODS action in response to a CHECK_AUTHENTICATION_TOKEN_COOKIE action when authenticated is false', () => {
@@ -393,44 +396,43 @@ describe('AuthEffects', () => {
     });
 
     describe('when auth loaded is false', () => {
-      it('should not call removeToken method', (done) => {
+      it('should not call removeToken method', fakeAsync(() => {
         store.overrideSelector(isAuthenticatedLoaded, false);
-        actions = hot('--a-|', { a: { type: StoreActionTypes.REHYDRATE } });
+        actions = observableOf({ type: StoreActionTypes.REHYDRATE });
         spyOn(authServiceStub, 'removeToken');
 
         authEffects.clearInvalidTokenOnRehydrate$.subscribe(() => {
-          expect(authServiceStub.removeToken).not.toHaveBeenCalled();
-
+          expect(false).toBeTrue();  // subscribe to trigger taps, fail if the effect emits (we don't expect it to)
         });
-
-        done();
-      });
+        tick(1000);
+        expect(authServiceStub.removeToken).not.toHaveBeenCalled();
+      }));
     });
 
     describe('when auth loaded is true', () => {
-      it('should call removeToken method', fakeAsync(() => {
+      it('should call removeToken method', (done) => {
+        spyOn(console, 'log').and.callThrough();
+
         store.overrideSelector(isAuthenticatedLoaded, true);
-        actions = hot('--a-|', { a: { type: StoreActionTypes.REHYDRATE } });
+        actions = observableOf({ type: StoreActionTypes.REHYDRATE });
         spyOn(authServiceStub, 'removeToken');
 
         authEffects.clearInvalidTokenOnRehydrate$.subscribe(() => {
           expect(authServiceStub.removeToken).toHaveBeenCalled();
-          flush();
+          done();
         });
-
-      }));
+      });
     });
   });
 
   describe('invalidateAuthorizationsRequestCache$', () => {
     it('should call invalidateAuthorizationsRequestCache method in response to a REHYDRATE action', (done) => {
-      actions = hot('--a-|', { a: { type: StoreActionTypes.REHYDRATE } });
+      actions = observableOf({ type: StoreActionTypes.REHYDRATE });
 
       authEffects.invalidateAuthorizationsRequestCache$.subscribe(() => {
         expect((authEffects as  any).authorizationsService.invalidateAuthorizationsRequestCache).toHaveBeenCalled();
+        done();
       });
-
-      done();
     });
   });
 });
