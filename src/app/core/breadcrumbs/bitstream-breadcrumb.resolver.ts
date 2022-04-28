@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { BitstreamDataService } from '../data/bitstream-data.service';
 import { BITSTREAM_PAGE_LINKS_TO_FOLLOW, BUNDLE_PAGE_LINKS_TO_FOLLOW } from 'src/app/bitstream-page/bitstream-page.resolver';
@@ -23,9 +23,13 @@ import { ITEM_PAGE_LINKS_TO_FOLLOW } from 'src/app/item-page/item.resolver';
 @Injectable({
   providedIn: 'root'
 })
-export class BitstreamBreadcrumbResolver extends DSOBreadcrumbResolver<Bitstream> {
-  constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: BitstreamDataService, protected itemService: ItemDataService) {
-    super(breadcrumbService, dataService);
+export class BitstreamBreadcrumbResolver extends DSOBreadcrumbResolver<Item> {
+  constructor(
+    protected breadcrumbService: DSOBreadcrumbsService,
+    protected dataService: BitstreamDataService,
+    protected itemService: ItemDataService
+    ) {
+    super(breadcrumbService, itemService);
   }
 
   /**
@@ -34,7 +38,7 @@ export class BitstreamBreadcrumbResolver extends DSOBreadcrumbResolver<Bitstream
    * @param {RouterStateSnapshot} state The current RouterStateSnapshot
    * @returns BitstreamBreadcrumbConfig object
    */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<BreadcrumbConfig<Bitstream>> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<BreadcrumbConfig<Item>> {
     const uuid = route.params.id;
     return this.dataService.findById(uuid, true, false, ...this.followLinks).pipe(
       getFirstCompletedRemoteData(),
@@ -45,12 +49,6 @@ export class BitstreamBreadcrumbResolver extends DSOBreadcrumbResolver<Bitstream
             getFirstCompletedRemoteData(),
             getRemoteDataPayload()
           ).subscribe(res => {
-            this.itemService.findById(res.uuid, true, false, ...this.bfollowLinks).pipe(
-              getFirstCompletedRemoteData(),
-              getRemoteDataPayload()
-            ).subscribe(bres => {
-              console.log(bres);
-            });
             const url = res._links.item.href;
             return {provider: this.breadcrumbService, key: of(res), url: url};
           });
@@ -67,7 +65,7 @@ export class BitstreamBreadcrumbResolver extends DSOBreadcrumbResolver<Bitstream
    * Requesting them as embeds will limit the number of requests
    */
   get followLinks(): FollowLinkConfig<Bitstream>[] {
-    return BITSTREAM_PAGE_LINKS_TO_FOLLOW;
+    return [followLink('bundle', followLink('item'))];
   }
 
   get bfollowLinks(): FollowLinkConfig<Item>[] {
