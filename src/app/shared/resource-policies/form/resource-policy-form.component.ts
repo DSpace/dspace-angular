@@ -274,6 +274,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
   updateObjectSelected(object: DSpaceObject, isEPerson: boolean): void {
     this.resourcePolicyGrant = object;
     this.resourcePolicyGrantType = isEPerson ? 'eperson' : 'group';
+    this.resourcePolicyTargetName$.next(this.getResourcePolicyTargetName());
   }
 
   /**
