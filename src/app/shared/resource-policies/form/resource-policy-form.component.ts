@@ -41,6 +41,7 @@ import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
+import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 export interface ResourcePolicyEvent {
   object: ResourcePolicy;
@@ -125,6 +126,8 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    */
   private subs: Subscription[] = [];
 
+  navActiveId: string;
+
   /**
    * Initialize instance variables
    *
@@ -151,28 +154,27 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
     this.formId = this.formService.getUniqueId('resource-policy-form');
     this.formModel = this.buildResourcePolicyForm();
 
-    if (!this.canSetGrant()) {
-      const epersonRD$ = this.ePersonService.findByHref(this.resourcePolicy._links.eperson.href, false).pipe(
-        getFirstSucceededRemoteData()
-      );
-      const groupRD$ = this.groupService.findByHref(this.resourcePolicy._links.group.href, false).pipe(
-        getFirstSucceededRemoteData()
-      );
-      const dsoRD$: Observable<RemoteData<DSpaceObject>> = observableCombineLatest([epersonRD$, groupRD$]).pipe(
-        map((rdArr: RemoteData<DSpaceObject>[]) => {
-          return rdArr.find((rd: RemoteData<DSpaceObject>) => isNotEmpty(rd.payload));
-        }),
-        hasValueOperator(),
-      );
-      this.subs.push(
-        dsoRD$.pipe(
-          filter(() => this.isActive),
-        ).subscribe((dsoRD: RemoteData<DSpaceObject>) => {
-          this.resourcePolicyGrant = dsoRD.payload;
-          this.resourcePolicyTargetName$.next(this.getResourcePolicyTargetName());
-        })
-      );
-    }
+    const epersonRD$ = this.ePersonService.findByHref(this.resourcePolicy._links.eperson.href, false).pipe(
+      getFirstSucceededRemoteData()
+    );
+    const groupRD$ = this.groupService.findByHref(this.resourcePolicy._links.group.href, false).pipe(
+      getFirstSucceededRemoteData()
+    );
+    const dsoRD$: Observable<RemoteData<DSpaceObject>> = observableCombineLatest([epersonRD$, groupRD$]).pipe(
+      map((rdArr: RemoteData<DSpaceObject>[]) => {
+        return rdArr.find((rd: RemoteData<DSpaceObject>) => isNotEmpty(rd.payload));
+      }),
+      hasValueOperator(),
+    );
+    this.subs.push(
+      dsoRD$.pipe(
+        filter(() => this.isActive),
+      ).subscribe((dsoRD: RemoteData<DSpaceObject>) => {
+        this.resourcePolicyGrant = dsoRD.payload;
+        this.navActiveId = String(dsoRD.payload.type);
+        this.resourcePolicyTargetName$.next(this.getResourcePolicyTargetName());
+      })
+    );
   }
 
   /**
@@ -255,8 +257,8 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    *
    * @return true if is possible, false otherwise
    */
-  canSetGrant(): boolean {
-    return isEmpty(this.resourcePolicy);
+  isBeingEdited(): boolean {
+    return !isEmpty(this.resourcePolicy);
   }
 
   /**
@@ -329,5 +331,15 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
+  }
+
+  onNavChange(changeEvent: NgbNavChangeEvent) {
+    console.log(`CHANGE ${changeEvent.activeId} -> ${changeEvent.nextId}`);
+
+    if (this.isBeingEdited())  {
+      // if a policy is being edited it should not be possible to switch between group and eperson
+      changeEvent.preventDefault();
+      // TODO add informative modal
+    }
   }
 }

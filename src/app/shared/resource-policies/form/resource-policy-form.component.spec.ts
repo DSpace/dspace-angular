@@ -266,7 +266,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
     });
 
     it('should can set grant', () => {
-      expect(comp.canSetGrant()).toBeTruthy();
+      expect(comp.isBeingEdited()).toBeTruthy();
     });
 
     it('should not have a target name', () => {
@@ -344,7 +344,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
     });
 
     it('should not can set grant', () => {
-      expect(comp.canSetGrant()).toBeFalsy();
+      expect(comp.isBeingEdited()).toBeFalsy();
     });
 
     it('should have a target name', () => {
