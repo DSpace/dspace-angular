@@ -45,6 +45,11 @@ export class ThumbnailComponent implements OnChanges {
    */
   @Input() limitWidth? = true;
 
+  /**
+   * Keep image aspect ratio, add padding and do not crop the image
+   */
+  @Input() keepAspectRatio? = false;
+
   isLoading: boolean;
 
   /**

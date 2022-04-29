@@ -2,6 +2,14 @@
   max-width: var(--ds-thumbnail-max-width);
 }
 
+.keep-aspect-ratio {
+  display: block;
+  max-height: var(--ds-thumbnail-max-height);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+}
+
 img {
   max-width: 100%;
 }
