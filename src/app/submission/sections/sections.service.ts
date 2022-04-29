@@ -19,9 +19,7 @@ import {
   UpdateSectionDataAction
 } from '../objects/submission-objects.actions';
 import {
-  SubmissionObjectEntry,
-  SubmissionSectionError,
-  SubmissionSectionObject
+  SubmissionObjectEntry
 } from '../objects/submission-objects.reducer';
 import {
   submissionObjectFromIdSelector,
@@ -43,6 +41,8 @@ import { parseReviver } from '@ng-dynamic-forms/core';
 import { FormService } from '../../shared/form/form.service';
 import { JsonPatchOperationPathCombiner } from '../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { FormError } from '../../shared/form/form.reducer';
+import { SubmissionSectionObject } from '../objects/submission-section-object.model';
+import { SubmissionSectionError } from '../objects/submission-section-error.model';
 
 /**
  * A service that provides methods used in submission process.

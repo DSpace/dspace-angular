@@ -113,10 +113,10 @@ describe('ComColMetadataComponent', () => {
               url: ''
             },
             queue: [],
-            /* tslint:disable:no-empty */
+            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             uploadAll: () => {
             }
-            /* tslint:enable:no-empty */
+            /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
           },
           deleteLogo: false,
         };
@@ -166,10 +166,10 @@ describe('ComColMetadataComponent', () => {
             queue: [
               {}
             ],
-            /* tslint:disable:no-empty */
+            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             uploadAll: () => {
             }
-            /* tslint:enable:no-empty */
+            /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
           }
         };
       });

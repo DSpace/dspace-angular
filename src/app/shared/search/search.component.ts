@@ -137,7 +137,7 @@ export class SearchComponent implements OnInit {
   /**
    * Defines whether or not to show the scope selector
    */
-  @Input() showScopeSelector = false;
+  @Input() showScopeSelector = true;
 
   /**
    * The current configuration used during the search
@@ -254,7 +254,7 @@ export class SearchComponent implements OnInit {
       .getCurrentConfiguration(this.configuration).pipe(distinctUntilChanged());
     const searchSortOptions$: Observable<SortOptions[]> = configuration$.pipe(
       switchMap((configuration: string) => this.searchConfigService
-        .getConfigurationSearchConfig(configuration, this.service)),
+        .getConfigurationSearchConfig(configuration)),
       map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
       distinctUntilChanged()
     );

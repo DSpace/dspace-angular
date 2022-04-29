@@ -1,14 +1,14 @@
 import { ActivatedRoute } from '@angular/router';
-import { MenuSection } from './menu.reducer';
 import { hasNoValue, hasValue } from '../empty.util';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MenuService } from './menu.service';
 import { Observable } from 'rxjs';
 import { Action } from '@ngrx/store';
 import { ROUTER_NAVIGATED } from '@ngrx/router-store';
 import { Injectable } from '@angular/core';
 import { map, take, tap } from 'rxjs/operators';
-import { MenuID } from './initial-menus-state';
+import { MenuSection } from './menu-section.model';
+import { MenuID } from './menu-id.model';
 
 /**
  * Effects modifying the state of menus
@@ -19,8 +19,7 @@ export class MenuEffects {
   /**
    * On route change, build menu sections for every menu type depending on the current route data
    */
-  @Effect({ dispatch: false })
-  public buildRouteMenuSections$: Observable<Action> = this.actions$
+  public buildRouteMenuSections$: Observable<Action> = createEffect(() => this.actions$
     .pipe(
       ofType(ROUTER_NAVIGATED),
       tap(() => {
@@ -28,7 +27,7 @@ export class MenuEffects {
           this.buildRouteMenuSections(menuID);
         });
       })
-    );
+    ), { dispatch: false });
 
   constructor(private actions$: Actions,
     private menuService: MenuService,

@@ -65,11 +65,11 @@ describe('RelationshipTypeService', () => {
     buildList = createSuccessfulRemoteDataObject(createPaginatedList([relationshipType1, relationshipType2]));
     rdbService = getMockRemoteDataBuildService(undefined, observableOf(buildList));
     objectCache = Object.assign({
-      /* tslint:disable:no-empty */
+      /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
       remove: () => {
       },
       hasBySelfLinkObservable: () => observableOf(false)
-      /* tslint:enable:no-empty */
+      /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
     }) as ObjectCacheService;
 
     itemService = undefined;

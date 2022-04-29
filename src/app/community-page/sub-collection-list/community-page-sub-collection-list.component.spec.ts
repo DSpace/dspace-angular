@@ -11,7 +11,6 @@ import { CommunityPageSubCollectionListComponent } from './community-page-sub-co
 import { Community } from '../../core/shared/community.model';
 import { SharedModule } from '../../shared/shared.module';
 import { CollectionDataService } from '../../core/data/collection-data.service';
-import { FindListOptions } from '../../core/data/request.models';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
@@ -25,6 +24,7 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 
 describe('CommunityPageSubCollectionList Component', () => {
   let comp: CommunityPageSubCollectionListComponent;

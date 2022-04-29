@@ -1,7 +1,7 @@
 import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import { CommunityListComponent } from './community-list.component';
-import { CommunityListService, FlatNode, showMoreFlatNode, toFlatNode } from '../community-list-service';
+import { CommunityListService, showMoreFlatNode, toFlatNode } from '../community-list-service';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
@@ -15,6 +15,7 @@ import { Collection } from '../../core/shared/collection.model';
 import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { FlatNode } from '../flat-node.model';
 
 describe('CommunityListComponent', () => {
   let component: CommunityListComponent;
