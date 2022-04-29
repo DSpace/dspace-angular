@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 
 import {
   Observable,
@@ -41,7 +41,7 @@ import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
-import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 export interface ResourcePolicyEvent {
   object: ResourcePolicy;
@@ -83,6 +83,8 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    * Event's payload equals to a new ResourcePolicy.
    */
   @Output() submit: EventEmitter<ResourcePolicyEvent> = new EventEmitter<ResourcePolicyEvent>();
+
+  @ViewChild('content') content: ElementRef;
 
   /**
    * The form id
@@ -136,6 +138,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    * @param {FormService} formService
    * @param {GroupDataService} groupService
    * @param {RequestService} requestService
+   * @param modalService
    */
   constructor(
     private dsoNameService: DSONameService,
@@ -143,6 +146,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
     private formService: FormService,
     private groupService: GroupDataService,
     private requestService: RequestService,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -334,12 +338,10 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
   }
 
   onNavChange(changeEvent: NgbNavChangeEvent) {
-    console.log(`CHANGE ${changeEvent.activeId} -> ${changeEvent.nextId}`);
-
+    // if a policy is being edited it should not be possible to switch between group and eperson
     if (this.isBeingEdited())  {
-      // if a policy is being edited it should not be possible to switch between group and eperson
       changeEvent.preventDefault();
-      // TODO add informative modal
+      this.modalService.open(this.content);
     }
   }
 }
