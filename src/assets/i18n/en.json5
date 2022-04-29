@@ -3585,6 +3585,8 @@
 
   "mydspace.results.no-uri": "No Uri",
 
+  "mydspace.results.is-correction": "Is a request of correction",
+
   "mydspace.search-form.placeholder": "Search in mydspace...",
 
   "mydspace.show.workflow": "Workflow tasks",
@@ -5288,6 +5290,32 @@
 
   "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
 
+  
+
+  "submission.sections.correction.bitstream.operation.add": "Bitstream added",
+
+  "submission.sections.correction.bitstream.operation.modify": "Bitstream modified",
+
+  "submission.sections.correction.bitstream.operation.remove": "Bitstream removed",
+
+  "submission.sections.correction.column.current-value": "Current value",
+
+  "submission.sections.correction.column.file": "File",
+
+  "submission.sections.correction.column.file.info": "Here are the changes related the item's bitstream",
+
+  "submission.sections.correction.column.metadata": "Metadata",
+
+  "submission.sections.correction.column.metadata.info": "Here are the changes related the item's metadata",
+
+  "submission.sections.correction.column.previous-value": "Previous value",
+
+  "submission.sections.correction.column.policy": "Policy",
+
+  "submission.sections.submit.progressbar.correction": "Correction details",
+
+
+
   "submission.sections.detect-duplicate.clear-decision": "Undo",
 
   "submission.sections.detect-duplicate.clear-decision-help": "Click for clear the decision about this pontential duplicate",
@@ -5707,6 +5735,8 @@
   "submission.sections.submit.progressbar.license": "Deposit license",
 
   "submission.sections.submit.progressbar.upload": "Upload files",
+
+  "submission.sections.submit.progressbar.correction-step": "Corrections",
 
 
 
