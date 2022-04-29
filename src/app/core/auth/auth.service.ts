@@ -55,6 +55,7 @@ import { buildPaginatedList, PaginatedList } from '../data/paginated-list.model'
 import { Group } from '../eperson/models/group.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PageInfo } from '../shared/page-info.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -219,7 +220,7 @@ export class AuthService {
    * Return the special groups list embedded in the AuthStatus model
    */
   public getSpecialGroupsFromAuthStatus(): Observable<RemoteData<PaginatedList<Group>>> {
-    return this.authRequestService.getRequest('status', null, true).pipe(
+    return this.authRequestService.getRequest('status', null, followLink('specialGroups')).pipe(
       getFirstCompletedRemoteData(),
       switchMap((status: RemoteData<AuthStatus>) => {
         if (status.hasSucceeded) {

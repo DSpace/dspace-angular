@@ -12,6 +12,7 @@ import { AuthStatus } from './models/auth-status.model';
 import { ShortLivedToken } from './models/short-lived-token.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { RestRequest } from '../data/rest-request.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 /**
  * Abstract service to send authentication requests
@@ -26,16 +27,18 @@ export abstract class AuthRequestService {
               ) {
   }
 
-  protected fetchRequest(request: RestRequest): Observable<RemoteData<AuthStatus>> {
-    return this.rdbService.buildFromRequestUUID<AuthStatus>(request.uuid).pipe(
+  protected fetchRequest(request: RestRequest, ...linksToFollow: FollowLinkConfig<AuthStatus>[]): Observable<RemoteData<AuthStatus>> {
+    return this.rdbService.buildFromRequestUUID<AuthStatus>(request.uuid, ...linksToFollow).pipe(
       getFirstCompletedRemoteData(),
     );
   }
 
-  protected getEndpointByMethod(endpoint: string, method: string, embed = false): string {
+  protected getEndpointByMethod(endpoint: string, method: string, ...linksToFollow: FollowLinkConfig<AuthStatus>[]): string {
     let url = isNotEmpty(method) ? `${endpoint}/${method}` : `${endpoint}`;
-    if (embed) {
-      url += '?embed=specialGroups';
+    if (linksToFollow && linksToFollow.length > 0) {
+      linksToFollow.forEach((link: FollowLinkConfig<AuthStatus>, index: number) => {
+        url += ((index === 0) ? '?' : '&') + `embed=${link.name}`;
+      });
     }
 
     return url;
@@ -52,14 +55,14 @@ export abstract class AuthRequestService {
       distinctUntilChanged());
   }
 
-  public getRequest(method: string, options?: HttpOptions, embed = false): Observable<RemoteData<AuthStatus>> {
+  public getRequest(method: string, options?: HttpOptions, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<AuthStatus>> {
     return this.halService.getEndpoint(this.linkName).pipe(
       filter((href: string) => isNotEmpty(href)),
-      map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
+      map((endpointURL) => this.getEndpointByMethod(endpointURL, method, ...linksToFollow)),
       distinctUntilChanged(),
       map((endpointURL: string) => new GetRequest(this.requestService.generateRequestId(), endpointURL, undefined, options)),
       tap((request: GetRequest) => this.requestService.send(request)),
-      mergeMap((request: GetRequest) => this.fetchRequest(request)),
+      mergeMap((request: GetRequest) => this.fetchRequest(request, ...linksToFollow)),
       distinctUntilChanged());
   }
 
