@@ -9,19 +9,13 @@ import { RemoteData } from '../core/data/remote-data';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-  getFirstCompletedRemoteData
-} from '../core/shared/operators';
+import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getRemoteDataPayload } from '../core/shared/operators';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { AuthService } from '../core/auth/auth.service';
 import { Operation } from 'fast-json-patch';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { SpecialGroupData } from '../shared/testing/special-group.mock';
-
 
 @Component({
   selector: 'ds-profile-page',
@@ -95,7 +89,7 @@ export class ProfilePageComponent implements OnInit {
     );
     this.groupsRD$ = this.user$.pipe(switchMap((user: EPerson) => user.groups));
     this.canChangePassword$ = this.user$.pipe(switchMap((user: EPerson) => this.authorizationService.isAuthorized(FeatureID.CanChangePassword, user._links.self.href)));
-    this.specialGroupsRD$ = SpecialGroupData;
+    this.specialGroupsRD$ = this.authService.getSpecialGroupsFromAuthStatus();
   }
 
   /**

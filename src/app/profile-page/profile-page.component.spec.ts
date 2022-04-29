@@ -13,14 +13,14 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { authReducer } from '../core/auth/auth.reducer';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { createPaginatedList } from '../shared/testing/utils.test';
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
 import { AuthService } from '../core/auth/auth.service';
 import { RestResponse } from '../core/cache/response.models';
 import { provideMockStore } from '@ngrx/store/testing';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { getTestScheduler } from 'jasmine-marbles';
 import { By } from '@angular/platform-browser';
-import { SpecialGroupData } from '../shared/testing/special-group.mock';
+import { SpecialGroupDataMock$ } from '../shared/testing/special-group.mock';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
@@ -55,7 +55,8 @@ describe('ProfilePageComponent', () => {
     };
 
     authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: observableOf(user)
+      getAuthenticatedUserFromStore: observableOf(user),
+      getSpecialGroupsFromAuthStatus: SpecialGroupDataMock$
     });
     epersonService = jasmine.createSpyObj('epersonService', {
       findById: createSuccessfulRemoteDataObject$(user),
@@ -239,8 +240,6 @@ describe('ProfilePageComponent', () => {
 
   describe('check for specialGroups', () => {
     it('should contains specialGroups list', () => {
-     component.specialGroupsRD$ = SpecialGroupData;
-      fixture.detectChanges();
       const specialGroupsEle = fixture.debugElement.query(By.css('#specialGroups'));
       expect(specialGroupsEle).toBeTruthy();
     });

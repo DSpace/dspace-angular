@@ -1,12 +1,11 @@
-import { EPersonMock } from './eperson.mock';
-import { of } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { environment } from '../../../environments/environment';
-import { RequestEntryState } from '../../core/data/request.reducer';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { Group } from '../../core/eperson/models/group.model';
+import { Observable } from 'rxjs';
 
+import { EPersonMock } from './eperson.mock';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
+import { Group } from '../../core/eperson/models/group.model';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { RemoteData } from '../../core/data/remote-data';
 
 export const SpecialGroupMock2: Group = Object.assign(new Group(), {
     handle: null,
@@ -49,16 +48,8 @@ export const SpecialGroupMock: Group = Object.assign(new Group(), {
     type: 'specialGroups',
 });
 
-export const SpecialGroupData = of(new RemoteData(
-    new Date().getTime(),
-    environment.cache.msToLive.default,
-    new Date().getTime(),
-    RequestEntryState.Success,
-    undefined,
-    buildPaginatedList(new PageInfo(), [SpecialGroupMock2,SpecialGroupMock]),
-    200
-  ));
+export const SpecialGroupDataMock: RemoteData<PaginatedList<Group>> = createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), [SpecialGroupMock2,SpecialGroupMock]));
+export const SpecialGroupDataMock$: Observable<RemoteData<PaginatedList<Group>>> = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [SpecialGroupMock2,SpecialGroupMock]));
 
-  
 
 

@@ -15,7 +15,7 @@ import { AUTH_STATUS } from './auth-status.resource-type';
 import { AuthTokenInfo } from './auth-token-info.model';
 import { AuthMethod } from './auth.method';
 import { CacheableObject } from '../../cache/cacheable-object.model';
-
+import { PaginatedList } from '../../data/paginated-list.model';
 
 /**
  * Object that represents the authenticated status of a user
@@ -78,8 +78,8 @@ export class AuthStatus implements CacheableObject {
    * The SpecialGroup of this auth status
    * Will be undefined unless the SpecialGroup {@link HALLink} has been resolved.
    */
-  @link(GROUP)
-  specialGroups?: Observable<RemoteData<Group>>;
+  @link(GROUP, true)
+  specialGroups?: Observable<RemoteData<PaginatedList<Group>>>;
 
   /**
    * True if the token is valid, false if there was no token or the token wasn't valid
