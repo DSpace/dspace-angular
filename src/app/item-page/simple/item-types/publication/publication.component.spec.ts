@@ -155,7 +155,7 @@ describe('PublicationComponent', () => {
     beforeEach(waitForAsync(() => {
       const localMockRouteService = {
         getPreviousUrl(): Observable<string> {
-          return of('/search?query=test')
+          return of('/search?query=test');
         }
       };
       const iiifEnabledMap: MetadataMap = {
@@ -178,7 +178,7 @@ describe('PublicationComponent', () => {
     it('should retrieve the query term for previous route', fakeAsync((): void => {
       //tick(10)
       expect(comp.iiifQuery$.subscribe(result => expect(result).toEqual('test')));
-    }))
+    }));
 
   });
 
@@ -187,7 +187,7 @@ describe('PublicationComponent', () => {
     beforeEach(waitForAsync(() => {
       const localMockRouteService = {
         getPreviousUrl(): Observable<string> {
-          return of('/item')
+          return of('/item');
         }
       };
       const iiifEnabledMap: MetadataMap = {
@@ -210,7 +210,7 @@ describe('PublicationComponent', () => {
     it('should not retrieve the query term for previous route', fakeAsync( () => {
       let emitted;
       comp.iiifQuery$.subscribe(result => emitted = result);
-      tick(10)
+      tick(10);
       expect(emitted).toBeUndefined();
     }));
 
