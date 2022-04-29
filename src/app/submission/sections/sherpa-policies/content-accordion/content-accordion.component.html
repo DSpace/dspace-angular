@@ -6,8 +6,8 @@
                 translate }}
             </span>
             <div class="d-inline-block float-right">
-                <span *ngIf="!acc.isExpanded('version')" class="fas fa-plus"></span>
-                <span *ngIf="acc.isExpanded('version')" class="fas fa-minus"></span>
+                <span *ngIf="acc.isExpanded('version')" class="fas fa-chevron-up fa-fw"></span>
+                <span *ngIf="!acc.isExpanded('version')" class="fas fa-chevron-down fa-fw"></span>
             </div>
         </ng-template>
         <ng-template ngbPanelContent>
