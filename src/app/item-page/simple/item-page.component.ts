@@ -80,7 +80,7 @@ export class ItemPageComponent implements OnInit {
     this.route.data.pipe(
       map((data) => data.dso as RemoteData<Item>)
     ).subscribe((data: RemoteData<Item>) => {
-      this.itemUrl = data?.payload?.self
+      this.itemUrl = data?.payload?.self;
     });
   }
 
@@ -102,7 +102,7 @@ export class ItemPageComponent implements OnInit {
     this.authorizationService.isAuthorized(FeatureID.ShowClaimItem, this.itemUrl).pipe(
       take(1)
     ).subscribe((isAuthorized: boolean) => {
-      this.claimable$.next(isAuthorized)
+      this.claimable$.next(isAuthorized);
     });
   }
 
