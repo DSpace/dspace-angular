@@ -518,7 +518,8 @@ const ENTRY_COMPONENTS = [
   ThemedSearchSectionComponent,
   ThemedTextSectionComponent,
   ThemedBrowseMostElementsComponent,
-  SearchChartBarHorizontalComponent
+  SearchChartBarHorizontalComponent,
+  RelationshipsListComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -559,11 +560,11 @@ const DIRECTIVES = [
 ];
 
 @NgModule({
-    imports: [
-        ...MODULES,
-        ...ROOT_MODULES,
-        NgbCollapseModule,
-    ],
+  imports: [
+    ...MODULES,
+    ...ROOT_MODULES,
+    NgbCollapseModule,
+  ],
   declarations: [
     ...PIPES,
     ...COMPONENTS,

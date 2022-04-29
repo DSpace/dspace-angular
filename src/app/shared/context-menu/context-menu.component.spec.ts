@@ -146,6 +146,18 @@ describe('ContextMenuComponent', () => {
       done();
     });
 
+    it('should display d-none', (done) => {
+      const menu = fixture.debugElement.query(By.css('div.d-none'));
+      expect(menu).not.toBeNull();
+      done();
+    });
+
+    it('should not display d-inline-block', (done) => {
+      const menu = fixture.debugElement.query(By.css('div.d-inline-block'));
+      expect(menu).toBeNull();
+      done();
+    });
+
     it('should display stand alone buttons', (done) => {
       const menu = fixture.debugElement.query(By.css('button.btn-primary'));
       expect(menu).not.toBeNull();
@@ -203,6 +215,18 @@ describe('ContextMenuComponent', () => {
         done();
       });
 
+      it('should display d-none', (done) => {
+        const menu = fixture.debugElement.query(By.css('div.d-none'));
+        expect(menu).not.toBeNull();
+        done();
+      });
+
+      it('should not display d-inline-block', (done) => {
+        const menu = fixture.debugElement.query(By.css('div.d-inline-block'));
+        expect(menu).toBeNull();
+        done();
+      });
+
       it('should not display stand alone buttons', (done) => {
         const menu = fixture.debugElement.query(By.css('button.btn-primary'));
         expect(menu).not.toBeNull();
@@ -228,6 +252,18 @@ describe('ContextMenuComponent', () => {
 
       it('should not display context menu', (done) => {
         const menu = fixture.debugElement.query(By.css('button#context-menu'));
+        expect(menu).toBeNull();
+        done();
+      });
+
+      it('should display d-inline-block', (done) => {
+        const menu = fixture.debugElement.query(By.css('div.d-inline-block'));
+        expect(menu).toBeNull();
+        done();
+      });
+
+      it('should not display d-none', (done) => {
+        const menu = fixture.debugElement.query(By.css('div.d-none'));
         expect(menu).toBeNull();
         done();
       });
