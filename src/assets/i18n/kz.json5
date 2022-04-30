@@ -30,959 +30,711 @@
   "404.page-not-found": "Бұл бет табылмады",
 
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
-  // TODO New key - Add a translation
-  "admin.curation-tasks.breadcrumbs": "System curation tasks",
+  "admin.curation-tasks.breadcrumbs": "Тапсырмаларға жетекшілік ету жүйесі",
 
   // "admin.curation-tasks.title": "System curation tasks",
-  // TODO New key - Add a translation
-  "admin.curation-tasks.title": "System curation tasks",
+  "admin.curation-tasks.title": "Тапсырмаларға жетекшілік ету жүйесі",
 
   // "admin.curation-tasks.header": "System curation tasks",
-  // TODO New key - Add a translation
-  "admin.curation-tasks.header": "System curation tasks",
+  "admin.curation-tasks.header": "Тапсырмаларға жетекшілік ету жүйесі",
 
   // "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
+  "admin.registries.bitstream-formats.breadcrumbs": "Тізілім форматы",
 
   // "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
+  "admin.registries.bitstream-formats.create.breadcrumbs": "Бит ағынының форматы",
 
   // "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
+  "admin.registries.bitstream-formats.create.failure.content": "Бит ағынының жаңа форматын құру қатесі.",
 
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.failure.head": "Failure",
+  "admin.registries.bitstream-formats.create.failure.head": "Ақау",
 
   // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
+  "admin.registries.bitstream-formats.create.head": "Бит ағынының форматын жасау",
 
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
+   "admin.registries.bitstream-formats.create.new": "Бит ағынының жаңа форматын қосыңыз",
 
   // "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
+  "admin.registries.bitstream-formats.create.success.content": "Жаңа бит ағынының форматы сәтті жасалды.",
 
   // "admin.registries.bitstream-formats.create.success.head": "Success",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.success.head": "Success",
+  "admin.registries.bitstream-formats.create.success.head": "Сәтті",
 
   // "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
+  "admin.registries.bitstream-formats.delete.failure.amount": "{{ amount }} пішімін (лерін) жою мүмкін емес",
 
   // "admin.registries.bitstream-formats.delete.failure.head": "Failure",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.failure.head": "Failure",
+  "admin.registries.bitstream-formats.delete.failure.head": "Сәтсіздік",
 
   // "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
+  "admin.registries.bitstream-formats.delete.success.amount":"{{ amount }} пішімі (лері) сәтті жойылды",
 
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.success.head": "Success",
+  "admin.registries.bitstream-formats.delete.success.head": "Сәтті",
 
   // "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
+  "admin.registries.bitstream-formats.description": "Бит ағынының форматтарының бұл тізімінде белгілі форматтар және оларды қолдау деңгейі туралы ақпарат бар.",
 
   // "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
+  "admin.registries.bitstream-formats.edit.breadcrumbs": "Бит ағынының форматы",
 
   // "admin.registries.bitstream-formats.edit.description.hint": "",
-  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.edit.description.hint": "",
 
   // "admin.registries.bitstream-formats.edit.description.label": "Description",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.description.label": "Description",
+  "admin.registries.bitstream-formats.edit.description.label": "Сипаттама",
 
   // "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
+  "admin.registries.bitstream-formats.edit.extensions.hint": "Кеңейтімдер-бұл жүктелетін файл пішімін автоматты түрде анықтау үшін қолданылатын файл кеңейтімдері. Әр формат үшін бірнеше кеңейтімдерді енгізуге болады.",
 
   // "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
+  "admin.registries.bitstream-formats.edit.extensions.label": "Файл кеңейтімдері",
 
   // "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
+  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Файл кеңейтімін нүктесіз енгізіңіз",
 
   // "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
+  "admin.registries.bitstream-formats.edit.failure.content": "Бит ағынының форматын өңдеу кезінде қате пайда болды.",
 
   // "admin.registries.bitstream-formats.edit.failure.head": "Failure",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.failure.head": "Failure",
+  "admin.registries.bitstream-formats.edit.failure.head": "Сәтсіздік",
 
   // "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
+  "admin.registries.bitstream-formats.edit.head": "Бит ағынының пішімі: {{ format }}",
 
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "Ішкі деп белгіленген форматтар қолданушыдан жасырылған және әкімшілік мақсатта қолданылады",
 
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.internal.label": "Internal",
+  "admin.registries.bitstream-formats.edit.internal.label": "Ішкі",
 
   // "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
+  "admin.registries.bitstream-formats.edit.mimetype.hint": "Осы форматпен байланысты MIME түрі ерекше болуы міндетті емес.",
 
   // "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
+  "admin.registries.bitstream-formats.edit.mimetype.label": "Пантомима түрі",
 
   // "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
+  "admin.registries.bitstream-formats.edit.shortDescription.hint":"Бұл форматтың ерекше атауы,(e.g. Microsoft Word XP or Microsoft Word 2000)",
 
   // "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
+  "admin.registries.bitstream-formats.edit.shortDescription.label": "Аты",
 
   // "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
+  "admin.registries.bitstream-formats.edit.success.content": "Бит ағынының форматы сәтті өңделді",
 
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.success.head": "Success",
+  "admin.registries.bitstream-formats.edit.success.head": "Cәтті",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
+  "admin.registries.bitstream-formats.edit.supportLevel.hint": "Сіздің мекеме осы форматқа уәде беретін қолдау деңгейі",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
+  "admin.registries.bitstream-formats.edit.supportLevel.label": "Қолдау деңгейі",
 
   // "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
+  "admin.registries.bitstream-formats.head": "Бит ағыны форматтарының тізілімі",
 
   // "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
+  "admin.registries.bitstream-formats.no-items": "Көрсету үшін бит ағынының форматтары жоқ",
 
   // "admin.registries.bitstream-formats.table.delete": "Delete selected",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.delete": "Delete selected",
+  "admin.registries.bitstream-formats.table.delete": "Жою таңдалған",
 
   // "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
+  "admin.registries.bitstream-formats.table.deselect-all": "Барлығын таңдаудан бас тарту",
 
   // "admin.registries.bitstream-formats.table.internal": "internal",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.internal": "internal",
+  "admin.registries.bitstream-formats.table.internal": "ішкі",
 
   // "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
+  "admin.registries.bitstream-formats.table.mimetype": "Пантомима түрі",
 
   // "admin.registries.bitstream-formats.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.name": "Name",
+  "admin.registries.bitstream-formats.table.name":"Аты",
 
   // "admin.registries.bitstream-formats.table.return": "Return",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.return": "Return",
+  "admin.registries.bitstream-formats.table.return": "Қайтару",
 
   // "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
+  "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Белгілі",
 
   // "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supported",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supported",
+  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED":"Қолдау",
 
   // "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
+  "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Белгісіз",
 
   // "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
+  "admin.registries.bitstream-formats.table.supportLevel.head": "Қолдау деңгейі",
 
   // "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
-
-
+  "admin.registries.bitstream-formats.title": "DSpace Angular ::Бит ағыны форматтарының тізілімі",
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.breadcrumbs": "Metadata registry",
+  "admin.registries.metadata.breadcrumbs": "Метадеректер тізілімі",
 
   // "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
+  "admin.registries.metadata.description": "Метадеректер тізілімі репозиторийде қол жетімді барлық метадеректер өрістерінің тізімін жүргізеді. Бұл өрістерді бірнеше тізбектер арасында бөлуге болады. Алайда, DSpace білікті Dublin Core схемасын қажет етеді.",
 
   // "admin.registries.metadata.form.create": "Create metadata schema",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.form.create": "Create metadata schema",
+  "admin.registries.metadata.form.create": "Метадеректер схемасын құру",
 
   // "admin.registries.metadata.form.edit": "Edit metadata schema",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.form.edit": "Edit metadata schema",
+  "admin.registries.metadata.form.edit":"Метадеректер схемасын өңдеу",
 
   // "admin.registries.metadata.form.name": "Name",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.form.name": "Name",
+  "admin.registries.metadata.form.name": "Аты",
 
   // "admin.registries.metadata.form.namespace": "Namespace",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.form.namespace": "Namespace",
+  "admin.registries.metadata.form.namespace": "Аттар кеңістігі",
 
   // "admin.registries.metadata.head": "Metadata Registry",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.head": "Metadata Registry",
+  "admin.registries.metadata.head": "Метадеректер тізілімі",
 
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
+  "admin.registries.metadata.schemas.no-items":"Көрсету үшін метадеректер схемасы жоқ",
 
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.delete": "Delete selected",
+  "admin.registries.metadata.schemas.table.delete": "Жою таңдалған",
 
   // "admin.registries.metadata.schemas.table.id": "ID",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.id": "ID",
+  "admin.registries.metadata.schemas.table.id": "Жеке куәлік",
 
   // "admin.registries.metadata.schemas.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.name": "Name",
+  "admin.registries.metadata.schemas.table.name": "Аты",
 
   // "admin.registries.metadata.schemas.table.namespace": "Namespace",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.namespace": "Namespace",
+  "admin.registries.metadata.schemas.table.namespace": "Аттар кеңістігі",
 
   // "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
-
-
+  "admin.registries.metadata.title": "DSpace Angular :: Метадеректер тізілімі",
 
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
-  // TODO New key - Add a translation
-  "admin.registries.schema.breadcrumbs": "Metadata schema",
+  "admin.registries.schema.breadcrumbs":"Метадеректер схемасы",
 
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
-  // TODO New key - Add a translation
-  "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
+  "admin.registries.schema.description": "Бұл \" {{аттар кеңістігі}} \" үшін метадеректер схемасы.",
 
   // "admin.registries.schema.fields.head": "Schema metadata fields",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.head": "Schema metadata fields",
+  "admin.registries.schema.fields.head": "Схема метадеректерінің өрістері",
 
   // "admin.registries.schema.fields.no-items": "No metadata fields to show.",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.no-items": "No metadata fields to show.",
+  "admin.registries.schema.fields.no-items": "Көрсету үшін метадеректер өрісі жоқ",
 
   // "admin.registries.schema.fields.table.delete": "Delete selected",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.delete": "Delete selected",
+  "admin.registries.schema.fields.table.delete": "Жою таңдалған",
 
   // "admin.registries.schema.fields.table.field": "Field",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.field": "Field",
+  "admin.registries.schema.fields.table.field": "Өріс",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.scopenote": "Scope Note",
+  "admin.registries.schema.fields.table.scopenote": "Қолдану саласы бойынша ескертпе",
 
   // "admin.registries.schema.form.create": "Create metadata field",
-  // TODO New key - Add a translation
-  "admin.registries.schema.form.create": "Create metadata field",
+  "admin.registries.schema.form.create": "Метадеректер өрісін құру",
 
   // "admin.registries.schema.form.edit": "Edit metadata field",
-  // TODO New key - Add a translation
-  "admin.registries.schema.form.edit": "Edit metadata field",
+  "admin.registries.schema.form.edit": "Метадеректер өрісін өңдеу",
 
   // "admin.registries.schema.form.element": "Element",
-  // TODO New key - Add a translation
-  "admin.registries.schema.form.element": "Element",
+  "admin.registries.schema.form.element": "Элемент",
 
   // "admin.registries.schema.form.qualifier": "Qualifier",
-  // TODO New key - Add a translation
-  "admin.registries.schema.form.qualifier": "Qualifier",
+  "admin.registries.schema.form.qualifier": "Квалификатор",
 
   // "admin.registries.schema.form.scopenote": "Scope Note",
-  // TODO New key - Add a translation
-  "admin.registries.schema.form.scopenote": "Scope Note",
+  "admin.registries.schema.form.scopenote": "Қолдану саласы бойынша ескертпе",
 
   // "admin.registries.schema.head": "Metadata Schema",
-  // TODO New key - Add a translation
-  "admin.registries.schema.head": "Metadata Schema",
+  "admin.registries.schema.head": "Метадеректер схемасы",
 
   // "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
+  "admin.registries.schema.notification.created": "Сәтті құрылған метадеректер схемасы \"{{prefix}}\"",
 
   // "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
+  "admin.registries.schema.notification.deleted.failure": "Жою мүмкін емес{{amount}} метадеректер схемалары",
 
   // "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
+  "admin.registries.schema.notification.deleted.success": "Сәтті жойылды{{amount}} метадеректер схемалары",
 
   // "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
+  "admin.registries.schema.notification.edited": "Сәтті өңделген метадеректер схемасы \"{{prefix}}\"",
 
   // "admin.registries.schema.notification.failure": "Error",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.failure": "Error",
+  "admin.registries.schema.notification.failure": "Қате",
 
   // "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
+  "admin.registries.schema.notification.field.created": "Сәтті құрылған метадеректер өрісі\"{{field}}\"",
 
   // "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
+  "admin.registries.schema.notification.field.deleted.failure": "Жою мүмкін емес {{amount}}метадеректер өрісі",
 
   // "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
+  "admin.registries.schema.notification.field.deleted.success":"Сәтті жойылды {{amount}} метадеректер өрісі",
 
   // "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
+  "admin.registries.schema.notification.field.edited": "Сәтті өңделген метадеректер өрісі\"{{field}}\"",
 
   // "admin.registries.schema.notification.success": "Success",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.success": "Success",
+  "admin.registries.schema.notification.success": "Успех",
 
   // "admin.registries.schema.return": "Return",
-  // TODO New key - Add a translation
-  "admin.registries.schema.return": "Return",
+  "admin.registries.schema.return": "Қайтару",
 
   // "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
-  // TODO New key - Add a translation
-  "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
-
-
+  "admin.registries.schema.title": "DSpace Angular:: метадеректер тізбегінің тізілімі",
 
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.delete": "Delete EPerson",
+  "admin.access-control.epeople.actions.delete": "Адамды жою",
 
   // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
+  "admin.access-control.epeople.actions.impersonate": "Өзіңді басқа адам ретінде көрсету",
 
   // "admin.access-control.epeople.actions.reset": "Reset password",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.reset": "Reset password",
+  "admin.access-control.epeople.actions.reset": "Құпия сөзді қалпына келтіру",
 
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
+  "admin.access-control.epeople.actions.stop-impersonating": "Адам туралы ойлауды доғарыңыз",
 
   // "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
+  "admin.access-control.epeople.title": "DSpace Angular :: Адамдар",
 
   // "admin.access-control.epeople.head": "EPeople",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.head": "EPeople",
+  "admin.access-control.epeople.head": "Адамдар",
 
   // "admin.access-control.epeople.search.head": "Search",
   "admin.access-control.epeople.search.head": "Іздеу",
 
   // "admin.access-control.epeople.button.see-all": "Browse All",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.button.see-all": "Browse All",
+  "admin.access-control.epeople.button.see-all": "Барлығын қарау",
 
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.scope.metadata": "Metadata",
+  "admin.access-control.epeople.search.scope.metadata": "Метадеректер",
 
   // "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
+  "admin.access-control.epeople.search.scope.email": "Электрондық пошта (exact)",
 
   // "admin.access-control.epeople.search.button": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.button": "Search",
+  "admin.access-control.epeople.search.button": "Іздеу",
 
   // "admin.access-control.epeople.button.add": "Add EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.button.add": "Add EPerson",
+  "admin.access-control.epeople.button.add": "Адамды қосу",
 
   // "admin.access-control.epeople.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.table.id": "ID",
 
   // "admin.access-control.epeople.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.name": "Name",
+  "admin.access-control.epeople.table.name": "Аты",
 
   // "admin.access-control.epeople.table.email": "E-mail (exact)",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.email": "E-mail (exact)",
+  "admin.access-control.epeople.table.email": "Электрондық пошта (exact)",
 
   // "admin.access-control.epeople.table.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit": "Edit",
+  "admin.access-control.epeople.table.edit": "Өңдеу",
 
   // "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.edit": "Өңдеу \"{{name}}\"",
 
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove": "Жою\"{{name}}\"",
 
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.no-items": "No EPeople to show.",
+  "admin.access-control.epeople.no-items": "Көрсетуге болатын адамдар жоқ",
 
   // "admin.access-control.epeople.form.create": "Create EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.create": "Create EPerson",
+  "admin.access-control.epeople.form.create": "Адамды құру",
 
   // "admin.access-control.epeople.form.edit": "Edit EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.edit": "Edit EPerson",
+  "admin.access-control.epeople.form.edit": "Адамды редакциялау",
 
   // "admin.access-control.epeople.form.firstName": "First name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.firstName": "First name",
+  "admin.access-control.epeople.form.firstName": "Аты",
 
   // "admin.access-control.epeople.form.lastName": "Last name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.lastName": "Last name",
+  "admin.access-control.epeople.form.lastName": "Тегі",
 
   // "admin.access-control.epeople.form.email": "E-mail",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.email": "E-mail",
+  "admin.access-control.epeople.form.email": "Электрондық пошта",
 
   // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+  "admin.access-control.epeople.form.emailHint": "Жарамды электрондық пошта мекенжайы болуы керек",
 
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.canLogIn": "Can log in",
+  "admin.access-control.epeople.form.canLogIn": "Мен кіре аламын",
 
   // "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
+  "admin.access-control.epeople.form.requireCertificate": "Сертификат қажет",
 
   // "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.success": "Сәтті құрылған Эпперсон \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.failure": "Адамды құру мүмкін емес \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Адамды құру мүмкін емес\"{{name}}\", email \"{{email}}\" қазірдің өзінде қолданылады.",
 
   // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Адамды өңдеу мүмкін емес\"{{name}}\", email \"{{email}}\" қазірдің өзінде қолданылады.",
 
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.success": "Сәтті өңделген адам \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.failure":"Адамды өңдеу мүмкін емес\"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.success": "Сәтті жойылған тұлға \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.failure": "Пайдаланушыны жою мүмкін емес\"{{name}}\"",
 
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
+  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Осы топтардың мүшесі:",
 
   // "admin.access-control.epeople.form.table.id": "ID",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.table.id": "ID",
+  "admin.access-control.epeople.form.table.id": "Жеке куәлік",
 
   // "admin.access-control.epeople.form.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.table.name": "Name",
+  "admin.access-control.epeople.form.table.name": "Аты",
 
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
+  "admin.access-control.epeople.form.memberOfNoGroups": "Бұл адам ешқандай топтың мүшесі емес",
 
   // "admin.access-control.epeople.form.goToGroups": "Add to groups",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.goToGroups": "Add to groups",
+  "admin.access-control.epeople.form.goToGroups": "Топтарға қосу",
 
   // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "Пайдаланушыны өшіру мүмкін емес: \"{{name}}\"",
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
-
-
+  "admin.access-control.epeople.notification.deleted.success": "Сәтті жойылған тұлға: \"{{name}}\"",
 
   // "admin.access-control.groups.title": "DSpace Angular :: Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.title": "DSpace Angular :: Groups",
+  "admin.access-control.groups.title": "DSpace Angular :: Топтар",
 
   // "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
+  "admin.access-control.groups.title.singleGroup": "DSpace Angular:: редакциялау тобы",
 
   // "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
+  "admin.access-control.groups.title.addGroup": "DSpace Angular :: Жаңа топ",
 
   // "admin.access-control.groups.head": "Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.head": "Groups",
+  "admin.access-control.groups.head": "Топтар",
 
   // "admin.access-control.groups.button.add": "Add group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.button.add": "Add group",
+  "admin.access-control.groups.button.add": "Топты қосу",
 
   // "admin.access-control.groups.search.head": "Search groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.search.head": "Search groups",
+  "admin.access-control.groups.search.head": "Іздеу топтары",
 
   // "admin.access-control.groups.button.see-all": "Browse all",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.button.see-all": "Browse all",
+  "admin.access-control.groups.button.see-all": "Барлығын қарау",
 
   // "admin.access-control.groups.search.button": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.search.button": "Search",
+  "admin.access-control.groups.search.button": "Іздеу",
 
   // "admin.access-control.groups.table.id": "ID",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.id": "ID",
+  "admin.access-control.groups.table.id": "Жеке куәлік",
 
   // "admin.access-control.groups.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.name": "Name",
+  "admin.access-control.groups.table.name": "Аты",
 
   // "admin.access-control.groups.table.members": "Members",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.members": "Members",
+  "admin.access-control.groups.table.members": "Қатысушылар",
 
   // "admin.access-control.groups.table.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit": "Edit",
+  "admin.access-control.groups.table.edit": "Өңдеу",
 
   // "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.edit": "Редакциялау \"{{name}}\"",
 
   // "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.remove": "Өшіру \"{{name}}\"",
 
   // "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
+  "admin.access-control.groups.no-items": "Бұл атаумен немесе UUID сияқты топтар табылған жоқ",
 
   // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.success": "Сәтті қашықтағы топ \"{{name}}\"",
 
   // "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.failure.title": "Топты жою мүмкін емес \"{{name}}\"",
 
   // "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
-
-
+  "admin.access-control.groups.notification.deleted.failure.content": "Себебі: \"{{cause}}\"",
 
   // "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
+  "admin.access-control.groups.form.alert.permanent": "Бұл топ тұрақты, сондықтан оны өңдеуге немесе жоюға болмайды. Осы бетті қолдана отырып, топ мүшелерін қосуға және жоюға болады.",
 
   // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
+  "admin.access-control.groups.form.alert.workflowGroup": "Бұл топты өзгерту немесе жою мүмкін емес, өйткені ол жіберу және жұмыс процесінің рөліне сәйкес келеді \"{{name}}\" {{comcol}}. Сіз оны <a href-тен жоя аласыз='{{comcolEditRolesRoute}}'>\"рөлдерді тағайындау\"</a> өңдеу қойындысы {{comcol}} page. You can still add and remove group members using this page.",
 
   // "admin.access-control.groups.form.head.create": "Create group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.head.create": "Create group",
+  "admin.access-control.groups.form.head.create": "Топ құру",
 
   // "admin.access-control.groups.form.head.edit": "Edit group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.head.edit": "Edit group",
+  "admin.access-control.groups.form.head.edit": "Топты өңдеу",
 
   // "admin.access-control.groups.form.groupName": "Group name",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.groupName": "Group name",
+  "admin.access-control.groups.form.groupName": "Топтың атауы",
 
   // "admin.access-control.groups.form.groupDescription": "Description",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.groupDescription": "Description",
+  "admin.access-control.groups.form.groupDescription":"Сипаттама",
 
   // "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.success": "Сәтті құрылған топ \"{{name}}\"",
 
   // "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.failure": "Топ құру мүмкін емес \"{{name}}\"",
 
   // "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Аты бар топ құру мүмкін емес: \"{{name}}\", бұл атау әлі қолданылмағанына көз жеткізіңіз.",
 
   // "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.failure": "Топты өңдеу мүмкін емес\"{{name}}\"",
 
   // "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Аты \"{{name}}\" қазірдің өзінде қолданылады",
 
   // "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.success": "Сәтті өңделген топ \"{{name}}\"",
 
   // "admin.access-control.groups.form.actions.delete": "Delete Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.actions.delete": "Delete Group",
+  "admin.access-control.groups.form.actions.delete": "Топты өшіру",
 
   // "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.header": "Топты жою \"{{ dsoName }}\"",
 
   // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.info": "Сіз топты жойғыңыз келетініне сенімдісіз \"{{ dsoName }}\"",
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
+  "admin.access-control.groups.form.delete-group.modal.cancel": "Болдырмау",
 
   // "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
+  "admin.access-control.groups.form.delete-group.modal.confirm": "Жою",
 
   // "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.success": "Сәтті қашықтағы топ \"{{ name }}\"",
 
   // "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.title": "Топты жою мүмкін емес\"{{ name }}\"",
 
   // "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.content": "Өйткені: \"{{ cause }}\"",
 
   // "admin.access-control.groups.form.members-list.head": "EPeople",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.head": "EPeople",
+  "admin.access-control.groups.form.members-list.head": "Адамдар",
 
   // "admin.access-control.groups.form.members-list.search.head": "Add EPeople",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.head": "Add EPeople",
+  "admin.access-control.groups.form.members-list.search.head": "Адамдарды қосу",
 
   // "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
+  "admin.access-control.groups.form.members-list.button.see-all": "Барлығын қарау",
 
   // "admin.access-control.groups.form.members-list.headMembers": "Current Members",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.headMembers": "Current Members",
+  "admin.access-control.groups.form.members-list.headMembers": "Қазіргі мүшелер",
 
   // "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
+  "admin.access-control.groups.form.members-list.search.scope.metadata": "Метадеректер",
 
   // "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
+  "admin.access-control.groups.form.members-list.search.scope.email": "Электрондық пошта (exact)",
 
   // "admin.access-control.groups.form.members-list.search.button": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.button": "Search",
+  "admin.access-control.groups.form.members-list.search.button": "Іздеу",
 
   // "admin.access-control.groups.form.members-list.table.id": "ID",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.id": "ID",
+  "admin.access-control.groups.form.members-list.table.id": "Жеке куәлік",
 
   // "admin.access-control.groups.form.members-list.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.name": "Name",
+  "admin.access-control.groups.form.members-list.table.name": "Аты",
 
   // "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
+  "admin.access-control.groups.form.members-list.table.edit": "Жою/ Add",
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Қатысушыны аты-жөнімен жою \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.addMember":"Сәтті қосылған мүше: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.addMember":"Қатысушыны қосу мүмкін емес: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Сәтті қашықтағы мүше: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Қатысушыны жою мүмкін емес: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Аты бар мүшені қосу\"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "Ағымдағы белсенді топ жоқ, алдымен атын енгізіңіз.",
 
   // "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
+  "admin.access-control.groups.form.members-list.no-members-yet": "Топта әлі мүшелер жоқ, табыңыз және қосыңыз",
 
   // "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
+  "admin.access-control.groups.form.members-list.no-items": "Бұл іздеу барысында бірде-бір адам табылған жоқ",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure": "Бір нәрсе дұрыс болмады: \"{{cause}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.head": "Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.head": "Groups",
+  "admin.access-control.groups.form.subgroups-list.head": "Топтар",
 
   // "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
+  "admin.access-control.groups.form.subgroups-list.search.head":"Кіші топты қосу",
 
   // "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
+  "admin.access-control.groups.form.subgroups-list.button.see-all": "Барлығын Қарау",
 
   // "admin.access-control.groups.form.subgroups-list.headSubgroups": "Current Subgroups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.headSubgroups": "Current Subgroups",
+  "admin.access-control.groups.form.subgroups-list.headSubgroups": "Ағымдағы кіші топтар",
 
   // "admin.access-control.groups.form.subgroups-list.search.button": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.search.button": "Search",
+  "admin.access-control.groups.form.subgroups-list.search.button": "Іздеу",
 
   // "admin.access-control.groups.form.subgroups-list.table.id": "ID",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.id": "ID",
+  "admin.access-control.groups.form.subgroups-list.table.id": "Жеке куәлік",
 
   // "admin.access-control.groups.form.subgroups-list.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.name": "Name",
+  "admin.access-control.groups.form.subgroups-list.table.name": "Аты",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
+  "admin.access-control.groups.form.subgroups-list.table.edit": "Жою / Қосу",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Аты бар кіші топты жою \"{{name}}\"",
 
-  // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
+  // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\""
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Атауы бар кіші топты қосыңыз \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
+  "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Ағымдағы топ",
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
   "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Кіші топ қосу мүмкін емес: \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Сәтті жойылған кіші топ: \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Кіші топты жою мүмкін емес: \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "Ағымдағы белсенді топ жоқ, алдымен атын енгізіңіз.",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "This is the current group, can't be added.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "This is the current group, can't be added.",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "Бұл қазіргі топ, оны қосу мүмкін емес.",
 
   // "admin.access-control.groups.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
+  "admin.access-control.groups.form.subgroups-list.no-items": "Бұл атаумен немесе UUID сияқты топтар табылған жоқ",
 
   // "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
+  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "Топта әлі кіші топтар жоқ.",
 
   // "admin.access-control.groups.form.return": "Return to groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.return": "Return to groups",
-
-
+  "admin.access-control.groups.form.return": "Топтарға оралу",
 
   // "admin.search.breadcrumbs": "Administrative Search",
-  // TODO New key - Add a translation
-  "admin.search.breadcrumbs": "Administrative Search",
+  "admin.search.breadcrumbs": "Әкімшілік іздеу",
 
   // "admin.search.collection.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.search.collection.edit": "Edit",
+  "admin.search.collection.edit": "Өңдеу",
 
   // "admin.search.community.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.search.community.edit": "Edit",
+  "admin.search.community.edit":"Өңдеу",
 
   // "admin.search.item.delete": "Delete",
-  // TODO New key - Add a translation
-  "admin.search.item.delete": "Delete",
+  "admin.search.item.delete": "Жою",
 
   // "admin.search.item.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.search.item.edit": "Edit",
+  "admin.search.item.edit": "Өңдеу",
 
   // "admin.search.item.make-private": "Make Private",
-  // TODO New key - Add a translation
-  "admin.search.item.make-private": "Make Private",
+  "admin.search.item.make-private": "Жеке ету",
 
   // "admin.search.item.make-public": "Make Public",
-  // TODO New key - Add a translation
-  "admin.search.item.make-public": "Make Public",
+  "admin.search.item.make-public": "Жариялау",
 
   // "admin.search.item.move": "Move",
-  // TODO New key - Add a translation
-  "admin.search.item.move": "Move",
+  "admin.search.item.move": "Жылжыту",
 
   // "admin.search.item.reinstate": "Reinstate",
-  // TODO New key - Add a translation
-  "admin.search.item.reinstate": "Reinstate",
+  "admin.search.item.reinstate":"Қалпына келтіру",
 
   // "admin.search.item.withdraw": "Withdraw",
-  // TODO New key - Add a translation
-  "admin.search.item.withdraw": "Withdraw",
+  "admin.search.item.withdraw": "Шақыру",
 
   // "admin.search.title": "Administrative Search",
-  // TODO New key - Add a translation
-  "admin.search.title": "Administrative Search",
+  "admin.search.title": "Әкімшілік іздеу",
 
   // "administrativeView.search.results.head": "Administrative Search",
-  // TODO New key - Add a translation
-  "administrativeView.search.results.head": "Administrative Search",
-
-
-
+  "administrativeView.search.results.head": "Әкімшілік іздеу",
 
   // "admin.workflow.breadcrumbs": "Administer Workflow",
-  // TODO New key - Add a translation
-  "admin.workflow.breadcrumbs": "Administer Workflow",
+  "admin.workflow.breadcrumbs": "Жұмыс процесін басқару",
 
   // "admin.workflow.title": "Administer Workflow",
-  // TODO New key - Add a translation
-  "admin.workflow.title": "Administer Workflow",
+  "admin.workflow.title": "Жұмыс процесін басқару",
 
   // "admin.workflow.item.workflow": "Workflow",
-  // TODO New key - Add a translation
-  "admin.workflow.item.workflow": "Workflow",
+  "admin.workflow.item.workflow": "Жұмыс процесі",
 
   // "admin.workflow.item.delete": "Delete",
-  // TODO New key - Add a translation
-  "admin.workflow.item.delete": "Delete",
+  "admin.workflow.item.delete": "Жою",
 
   // "admin.workflow.item.send-back": "Send back",
-  // TODO New key - Add a translation
-  "admin.workflow.item.send-back": "Send back",
-
-
+  "admin.workflow.item.send-back": "Кері жіберу",
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
-  // TODO New key - Add a translation
-  "admin.metadata-import.breadcrumbs": "Import Metadata",
+  "admin.metadata-import.breadcrumbs": "Метадеректерді импорттау",
 
   // "admin.metadata-import.title": "Import Metadata",
-  // TODO New key - Add a translation
-  "admin.metadata-import.title": "Import Metadata",
+  "admin.metadata-import.title": "Метадеректерді импорттау",
 
   // "admin.metadata-import.page.header": "Import Metadata",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.header": "Import Metadata",
+  "admin.metadata-import.page.header": "Метадеректерді импорттау",
 
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
+  "admin.metadata-import.page.help": "Мұнда файлдарда метадеректермен пакеттік операциялары бар CSV файлдарын жоюға немесе көруге болады",
 
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
+  "admin.metadata-import.page.dropMsg": "Импорттау үшін метадеректердің CSV файлын сүйреңіз",
 
   // "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
+  "admin.metadata-import.page.dropMsgReplace": "Импорттау үшін CSV метадеректерін ауыстыру үшін тастаңыз",
 
   // "admin.metadata-import.page.button.return": "Return",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.button.return": "Return",
+  "admin.metadata-import.page.button.return": "Қайтару",
 
   // "admin.metadata-import.page.button.proceed": "Proceed",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.button.proceed": "Proceed",
+  "admin.metadata-import.page.button.proceed": "Жалғастыра беріңіз",
 
   // "admin.metadata-import.page.error.addFile": "Select file first!",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.error.addFile": "Select file first!",
+  "admin.metadata-import.page.error.addFile": "Алдымен файлды таңдаңыз!",
 
 
 
 
   // "auth.errors.invalid-user": "Invalid email address or password.",
   // TODO New key - Add a translation
-  "auth.errors.invalid-user": "Invalid email address or password.",
+  "auth.errors.invalid-user": "Жарамсыз электрондық пошта мекенжайы немесе құпия сөз.",
 
   // "auth.messages.expired": "Your session has expired. Please log in again.",
   // TODO New key - Add a translation
-  "auth.messages.expired": "Your session has expired. Please log in again.",
+  "auth.messages.expired": "Сессияңыздың мерзімі аяқталды. Жүйеге қайта кіріңіз.",
 
 
 
