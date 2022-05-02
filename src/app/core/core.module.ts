@@ -162,10 +162,13 @@ import { SearchConfig } from './shared/search/search-filters/search-config.model
 import { SequenceService } from './shared/sequence.service';
 import { CoreState } from './core-state.model';
 import { GroupDataService } from './eperson/group-data.service';
-import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
 import { OpenaireSuggestionTarget } from './openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { OpenaireSuggestion } from './openaire/reciter-suggestions/models/openaire-suggestion.model';
 import { OpenaireSuggestionSource } from './openaire/reciter-suggestions/models/openaire-suggestion-source.model';
+import { ResearcherProfileService } from './profile/researcher-profile.service';
+import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
+import { ResearcherProfile } from './profile/model/researcher-profile.model';
+import {SubmissionAccessesModel} from "./config/models/config-submission-accesses.model";
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -290,6 +293,8 @@ const PROVIDERS = [
   SequenceService,
   GroupDataService,
   FeedbackDataService,
+  ResearcherProfileService,
+  ProfileClaimService
 ];
 
 /**
@@ -352,7 +357,8 @@ export const models =
     OpenaireSuggestionSource,
     Root,
     SearchConfig,
-    SubmissionAccessesModel
+    SubmissionAccessesModel,
+    ResearcherProfile
   ];
 
 @NgModule({

@@ -8879,6 +8879,16 @@ ngx-sortablejs@^11.1.0:
   dependencies:
     tslib "^2.0.0"
 
+ngx-ui-switch@^11.0.1:
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-ui-switch/-/ngx-ui-switch-11.0.1.tgz#c7f1e97ebe698f827a26f49951b50492b22c7839"
+  integrity sha512-N8QYT/wW+xJdyh/aeebTSLPA6Sgrwp69H6KAcW0XZueg/LF+FKiqyG6Po/gFHq2gDhLikwyJEMpny8sudTI08w==
+
+nice-try@^1.0.4:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
+  integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
+
 nice-napi@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/nice-napi/-/nice-napi-1.0.2.tgz#dc0ab5a1eac20ce548802fc5686eaa6bc654927b"

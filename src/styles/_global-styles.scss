@@ -93,6 +93,13 @@ ngb-modal-backdrop {
 
 }
 
+.researcher-profile-switch button:focus{
+  outline: none !important;
+}
+.researcher-profile-switch .switch.checked{
+  color: #fff;
+}
+
 /* Replicate default spacing look ~ preserveWhitespace=true
    To be used e.g. on a div containing buttons that should have a bit of spacing in between
  */
