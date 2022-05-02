@@ -12,8 +12,10 @@
     [dropMessageLabelReplacement]="'admin.metadata-import.page.dropMsgReplace'">
   </ds-file-dropzone-no-uploader>
 
-  <button class="btn btn-secondary" id="backButton"
-          (click)="this.onReturn();">{{'admin.metadata-import.page.button.return' | translate}}</button>
-  <button class="btn btn-primary" id="proceedButton"
-          (click)="this.importMetadata();">{{'admin.metadata-import.page.button.proceed' | translate}}</button>
+  <div class="space-children-mr">
+    <button class="btn btn-secondary" id="backButton"
+            (click)="this.onReturn();">{{'admin.metadata-import.page.button.return' | translate}}</button>
+    <button class="btn btn-primary" id="proceedButton"
+            (click)="this.importMetadata();">{{'admin.metadata-import.page.button.proceed' | translate}}</button>
+  </div>
 </div>
