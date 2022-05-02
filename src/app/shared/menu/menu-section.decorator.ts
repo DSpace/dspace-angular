@@ -1,4 +1,4 @@
-import { MenuID } from './initial-menus-state';
+import { MenuID } from './menu-id.model';
 
 const menuComponentMap = new Map();
 

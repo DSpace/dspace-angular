@@ -4,12 +4,10 @@ import { ExternalSource } from '../shared/external-source.model';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { FindListOptions } from './request.models';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
@@ -19,6 +17,8 @@ import { PaginatedList } from './paginated-list.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 /**
  * A service handling all external source requests

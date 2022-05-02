@@ -201,7 +201,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (event instanceof NavigationStart) {
         resolveEndFound = false;
         this.isRouteLoading$.next(true);
-        this.isThemeLoading$.next(true);
       } else  if (event instanceof ResolveEnd) {
         resolveEndFound = true;
         const activatedRouteSnapShot: ActivatedRouteSnapshot = event.state.root;
