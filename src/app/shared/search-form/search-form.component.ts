@@ -77,6 +77,9 @@ export class SearchFormComponent {
    * @param data Values submitted using the form
    */
   onSubmit(data: any) {
+    if (isNotEmpty(this.scope)) {
+      data = Object.assign(data, { scope: this.scope });
+    }
     this.updateSearch(data);
     this.submitSearch.emit(data);
   }
