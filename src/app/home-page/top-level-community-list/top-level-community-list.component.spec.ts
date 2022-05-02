@@ -13,7 +13,6 @@ import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { SharedModule } from '../../shared/shared.module';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { FindListOptions } from '../../core/data/request.models';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { CommunityDataService } from '../../core/data/community-data.service';
@@ -25,6 +24,7 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 
 describe('TopLevelCommunityList Component', () => {
   let comp: TopLevelCommunityListComponent;

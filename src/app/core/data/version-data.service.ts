@@ -4,7 +4,6 @@ import { Version } from '../shared/version.model';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -18,6 +17,7 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
 import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { map, switchMap } from 'rxjs/operators';
 import { isNotEmpty } from '../../shared/empty.util';
+import { CoreState } from '../core-state.model';
 
 /**
  * Service responsible for handling requests related to the Version object

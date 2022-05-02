@@ -9,7 +9,6 @@ import { ContentSource, ContentSourceHarvestType } from '../../../core/shared/co
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import { FieldUpdate } from '../../../core/data/object-updates/object-updates.reducer';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { DynamicFormControlModel, DynamicFormService } from '@ng-dynamic-forms/core';
 import { hasValue } from '../../../shared/empty.util';
@@ -20,6 +19,7 @@ import { Collection } from '../../../core/shared/collection.model';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');

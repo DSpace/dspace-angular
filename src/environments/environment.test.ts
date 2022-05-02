@@ -178,6 +178,10 @@ export const environment: BuildConfig = {
     code: 'lv',
     label: 'Latviešu',
     active: true,
+  }, {
+    code: 'bn',
+    label: 'বাংলা',
+    active: true,
   }],
 
   // Browse-By Pages
@@ -224,6 +228,9 @@ export const environment: BuildConfig = {
       name: 'base',
     },
   ],
+  bundle: {
+    standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE'],
+  },
   mediaViewer: {
     image: true,
     video: true

@@ -5,7 +5,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { METADATA_SCHEMA } from '../metadata/metadata-schema.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -16,6 +15,7 @@ import { Observable } from 'rxjs';
 import { hasValue } from '../../shared/empty.util';
 import { tap } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
+import { CoreState } from '../core-state.model';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the metadataschemas endpoint

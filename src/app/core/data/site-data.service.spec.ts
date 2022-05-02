@@ -5,14 +5,14 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Site } from '../shared/site.model';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindListOptions } from './request.models';
 import { TestScheduler } from 'rxjs/testing';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 describe('SiteDataService', () => {
   let scheduler: TestScheduler;

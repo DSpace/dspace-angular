@@ -1,24 +1,5 @@
 <form class="w-100" [formGroup]="formData" (ngSubmit)="submitForm(formData.value)">
   <div class="row">
-    <div class="col-12 d-none d-sm-inline-block">
-      <ul class="list-inline">
-        <li class="list-inline-item" *ngFor="let option of startsWithOptions">
-          <a [routerLink]="[]" (click)="setStartsWith(option)">{{option}}</a>
-        </li>
-      </ul>
-    </div>
-    <div class="col-4 col-sm-12 d-sm-none">
-      <select class="form-control" (change)="setStartsWithEvent($event)">
-        <option [value]="'-1'" [selected]="!startsWith">
-          {{'browse.startsWith.choose_start' | translate}}
-        </option>
-        <option *ngFor="let option of startsWithOptions"
-                [value]="option"
-                [selected]="isSelectedOption(option) ? 'selected': null">
-          {{option}}
-        </option>
-      </select>
-    </div>
     <div class="form-group input-group col-8 col-sm-12 col-md-6">
       <input class="form-control" placeholder="{{'browse.startsWith.type_text' | translate}}" type="text" name="startsWith" formControlName="startsWith" [value]="getStartsWith()" />
       <span class="input-group-append">

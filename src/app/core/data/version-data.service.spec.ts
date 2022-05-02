@@ -9,12 +9,10 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from './request.service';
 import { PageInfo } from '../shared/page-info.model';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { RequestEntry } from './request.reducer';
 import { HrefOnlyDataService } from './href-only-data.service';
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { RestResponse } from '../cache/response.models';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { Item } from '../shared/item.model';
@@ -22,6 +20,8 @@ import { VersionDataService } from './version-data.service';
 import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { CoreState } from '../core-state.model';
+import { RequestEntry } from './request-entry.model';
 
 
 describe('VersionDataService test', () => {

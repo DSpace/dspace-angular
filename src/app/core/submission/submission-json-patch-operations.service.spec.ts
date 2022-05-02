@@ -3,12 +3,12 @@ import { Store } from '@ngrx/store';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from './submission-json-patch-operations.service';
 import { RequestService } from '../data/request.service';
 import { SubmissionPatchRequest } from '../data/request.models';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { CoreState } from '../core-state.model';
 
 describe('SubmissionJsonPatchOperationsService', () => {
   let scheduler: TestScheduler;
