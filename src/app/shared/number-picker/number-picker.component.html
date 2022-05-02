@@ -9,6 +9,7 @@
       <span class="sr-only">Increment</span>
     </button>
     <input
+      id="{{id}}"
       type="text"
       class="form-control d-inline-block text-center"
       maxlength="{{size}}"
@@ -22,7 +23,7 @@
       [readonly]="disabled"
       [disabled]="disabled"
       [ngClass]="{'is-invalid': invalid}"
-      aria-label="name"
+      title="{{placeholder}}"
     >
     <button
       class="btn btn-link-focus"

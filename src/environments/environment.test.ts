@@ -1,9 +1,9 @@
 // This configuration is only used for unit tests, end-to-end tests use environment.production.ts
+import { BuildConfig } from 'src/config/build-config.interface';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
-import { AppConfig } from '../config/app-config.interface';
 
-export const environment: AppConfig = {
+export const environment: BuildConfig = {
   production: false,
 
   // Angular Universal settings
@@ -178,6 +178,10 @@ export const environment: AppConfig = {
     code: 'lv',
     label: 'Latviešu',
     active: true,
+  }, {
+    code: 'bn',
+    label: 'বাংলা',
+    active: true,
   }],
 
   // Browse-By Pages
@@ -224,6 +228,9 @@ export const environment: AppConfig = {
       name: 'base',
     },
   ],
+  bundle: {
+    standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE'],
+  },
   mediaViewer: {
     image: true,
     video: true

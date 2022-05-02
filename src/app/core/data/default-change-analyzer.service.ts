@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { compare } from 'fast-json-patch';
 import { Operation } from 'fast-json-patch';
 import { getClassForType } from '../cache/builders/build-decorators';
-import { TypedObject } from '../cache/object-cache.reducer';
 import { DSpaceNotNullSerializer } from '../dspace-rest/dspace-not-null.serializer';
 import { ChangeAnalyzer } from './change-analyzer';
+import { TypedObject } from '../cache/typed-object.model';
 
 /**
  * A class to determine what differs between two

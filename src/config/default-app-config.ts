@@ -14,17 +14,10 @@ import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.model';
 import { UIServerConfig } from './ui-server-config.interface';
-import { UniversalConfig } from './universal-config.interface';
+import { BundleConfig } from './bundle-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
-
-  // Angular Universal settings
-  universal: UniversalConfig = {
-    preboot: true,
-    async: true,
-    time: false
-  };
 
   // NOTE: will log all redux actions and transfers in console
   debug = false;
@@ -190,7 +183,9 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'nl', label: 'Nederlands', active: true },
     { code: 'pt-PT', label: 'Português', active: true },
     { code: 'pt-BR', label: 'Português do Brasil', active: true },
-    { code: 'fi', label: 'Suomi', active: true }
+    { code: 'fi', label: 'Suomi', active: true },
+    { code: 'tr', label: 'Türkçe', active: true },
+    { code: 'bn', label: 'বাংলা', active: true }
   ];
 
   // Browse-By Pages
@@ -307,6 +302,11 @@ export class DefaultAppConfig implements AppConfig {
       ]
     },
   ];
+  // The default bundles that should always be displayed when you edit or add a bundle even when no bundle has been
+  // added to the item yet.
+  bundle: BundleConfig = {
+    standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE']
+  };
   // Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with "image" or "video").
   // For images, this enables a gallery viewer where you can zoom or page through images.
   // For videos, this enables embedded video streaming

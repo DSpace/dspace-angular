@@ -20,6 +20,7 @@ import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { CommunitySearchResultGridElementComponent } from './community-search-result-grid-element.component';
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 let communitySearchResultGridElementComponent: CommunitySearchResultGridElementComponent;
 let fixture: ComponentFixture<CommunitySearchResultGridElementComponent>;
@@ -60,6 +61,9 @@ const linkService = jasmine.createSpyObj('linkService', {
 describe('CommunitySearchResultGridElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot()
+      ],
       declarations: [CommunitySearchResultGridElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },

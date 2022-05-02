@@ -83,7 +83,7 @@ describe('ServerSyncBufferEffects', () => {
     });
 
     it('should return a COMMIT action in response to an ADD action', () => {
-      // tslint:disable-next-line:no-shadowed-variable
+      // eslint-disable-next-line @typescript-eslint/no-shadow
       testScheduler.run(({ hot, expectObservable }) => {
         actions = hot('a', {
           a: {

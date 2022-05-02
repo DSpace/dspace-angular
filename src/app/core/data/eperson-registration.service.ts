@@ -79,7 +79,7 @@ export class EpersonRegistrationService {
    * Search a registration based on the provided token
    * @param token
    */
-  searchByToken(token: string): Observable<Registration> {
+  searchByToken(token: string): Observable<RemoteData<Registration>> {
     const requestId = this.requestService.generateRequestId();
 
     const href$ = this.getTokenSearchEndpoint(token).pipe(
@@ -97,15 +97,14 @@ export class EpersonRegistrationService {
     });
 
     return this.rdbService.buildSingle<Registration>(href$).pipe(
-      skipWhile((rd: RemoteData<Registration>) => rd.isStale),
-      getFirstSucceededRemoteData(),
-      map((restResponse: RemoteData<Registration>) => {
-        return Object.assign(new Registration(), {
-          email: restResponse.payload.email, token: token, user: restResponse.payload.user
-        });
-      }),
+      map((rd) => {
+        if (rd.hasSucceeded && hasValue(rd.payload)) {
+          return Object.assign(rd, { payload: Object.assign(rd.payload, { token }) });
+        } else {
+          return rd;
+        }
+      })
     );
-
   }
 
 }

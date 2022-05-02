@@ -124,5 +124,5 @@ class TestComponent {
 
   reload = (event) => {
     return;
-  }
+  };
 }
