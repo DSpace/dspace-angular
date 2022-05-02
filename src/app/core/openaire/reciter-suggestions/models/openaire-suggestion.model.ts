@@ -1,12 +1,12 @@
 import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
 
-import { CacheableObject } from '../../../cache/object-cache.reducer';
 import { SUGGESTION } from './openaire-suggestion-objects.resource-type';
 import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { ResourceType } from '../../../shared/resource-type';
 import { HALLink } from '../../../shared/hal-link.model';
 import { typedObject } from '../../../cache/builders/build-decorators';
 import { MetadataMap, MetadataMapSerializer } from '../../../shared/metadata.models';
+import {CacheableObject} from "../../../cache/cacheable-object.model";
 
 export interface SuggestionEvidences {
   [sectionId: string]: {

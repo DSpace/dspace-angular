@@ -42,7 +42,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {NOTIFICATIONS_RECITER_SUGGESTION_PATH} from "../admin-notifications/admin-notifications-routing-paths";
 import { MenuID } from '../../shared/menu/menu-id.model';
 import { MenuItemType } from '../../shared/menu/menu-item-type.model';
-import { ActivatedRoute } from '@angular/router';
 
 /**
  * Component representing the admin sidebar

@@ -14,6 +14,7 @@ import { AuthConfig } from './auth-config.interfaces';
 import { UIServerConfig } from './ui-server-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { BrowseByConfig } from './browse-by-config.interface';
+import {SuggestionConfig} from "./layout-config.interfaces";
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -32,6 +33,7 @@ interface AppConfig extends Config {
   collection: CollectionPageConfig;
   themes: ThemeConfig[];
   mediaViewer: MediaViewerConfig;
+  suggestion: SuggestionConfig[];
 }
 
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');

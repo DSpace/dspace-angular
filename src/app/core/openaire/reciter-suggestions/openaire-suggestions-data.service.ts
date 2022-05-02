@@ -4,14 +4,12 @@ import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 
-import { CoreState } from '../../core.reducers';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { dataService } from '../../cache/builders/build-decorators';
 import { RequestService } from '../../data/request.service';
-import { FindListOptions } from '../../data/request.models';
 import { DataService } from '../../data/data.service';
 import { ChangeAnalyzer } from '../../data/change-analyzer';
 import { DefaultChangeAnalyzer } from '../../data/default-change-analyzer.service';
@@ -24,6 +22,8 @@ import { OpenaireSuggestionTarget } from './models/openaire-suggestion-target.mo
 import { OpenaireSuggestion } from './models/openaire-suggestion.model';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { NoContent } from '../../shared/NoContent.model';
+import {CoreState} from "../../core-state.model";
+import {FindListOptions} from "../../data/find-list-options.model";
 
 /* tslint:disable:max-classes-per-file */
 

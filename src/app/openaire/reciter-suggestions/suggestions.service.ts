@@ -5,7 +5,6 @@ import { catchError, map, mergeMap, take } from 'rxjs/operators';
 
 import { OpenaireSuggestionsDataService } from '../../core/openaire/reciter-suggestions/openaire-suggestions-data.service';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../core/data/request.models';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { OpenaireSuggestionTarget } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
@@ -25,8 +24,9 @@ import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-da
 import { TranslateService } from '@ngx-translate/core';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { environment } from '../../../environments/environment';
-import { SuggestionConfig } from '../../../config/layout-config.interfaces';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
+import {FindListOptions} from "../../core/data/find-list-options.model";
+import {SuggestionConfig} from "../../../config/layout-config.interfaces";
 
 export interface SuggestionBulkResult {
   success: number;
@@ -142,11 +142,11 @@ export class SuggestionsService {
   /**
    * Retrieve suggestion targets for the given user
    *
-   * @param user
-   *   The EPerson object for which to retrieve suggestion targets
+   * @param userUuid
+   *   The EPerson id for which to retrieve suggestion targets
    */
-  public retrieveCurrentUserSuggestions(user: EPerson): Observable<OpenaireSuggestionTarget[]> {
-    return this.researcherProfileService.findById(user.uuid).pipe(
+  public retrieveCurrentUserSuggestions(userUuid: string): Observable<OpenaireSuggestionTarget[]> {
+    return this.researcherProfileService.findById(userUuid).pipe(
       mergeMap((profile: ResearcherProfile) => {
         if (isNotEmpty(profile)) {
           return this.researcherProfileService.findRelatedItemId(profile).pipe(

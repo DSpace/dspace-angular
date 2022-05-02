@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
 import { dataService } from '../cache/builders/build-decorators';
@@ -17,6 +17,10 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import {HttpOptions} from "../dspace-rest/dspace-rest.service";
+import {find, map} from "rxjs/operators";
+import {PostRequest} from "../data/request.models";
+import {hasValue} from "../../shared/empty.util";
 
 /**
  * A service that provides methods to make REST requests with workspaceitems endpoint.
@@ -55,6 +59,31 @@ export class WorkspaceitemDataService extends DataService<WorkspaceItem> {
     findListOptions.searchParams = [new RequestParam('uuid', encodeURIComponent(uuid))];
     const href$ = this.getSearchByHref(this.searchByItemLinkPath, findListOptions, ...linksToFollow);
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Import an external source entry into a collection
+   * @param externalSourceEntryHref
+   * @param collectionId
+   */
+  public importExternalSourceEntry(externalSourceEntryHref: string, collectionId: string): Observable<RemoteData<WorkspaceItem>> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+
+    const requestId = this.requestService.generateRequestId();
+    const href$ = this.halService.getEndpoint(this.linkPath).pipe(map((href) => `${href}?owningCollection=${collectionId}`));
+
+    href$.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PostRequest(requestId, href, externalSourceEntryHref, options);
+        this.requestService.send(request);
+      })
+    ).subscribe();
+
+    return this.rdbService.buildFromRequestUUID(requestId);
   }
 
 }

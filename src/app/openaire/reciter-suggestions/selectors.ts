@@ -1,8 +1,8 @@
-import { createSelector, MemoizedSelector } from '@ngrx/store';
-import { subStateSelector } from '../../shared/selector.util';
+import {createFeatureSelector, createSelector, MemoizedSelector} from '@ngrx/store';
 import { openaireSelector, OpenaireState } from '../openaire.reducer';
 import { OpenaireSuggestionTarget } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { SuggestionTargetState } from './suggestion-targets/suggestion-targets.reducer';
+import {subStateSelector} from "../../submission/selectors";
 
 /**
  * Returns the Reciter Suggestion Target state.
@@ -10,7 +10,7 @@ import { SuggestionTargetState } from './suggestion-targets/suggestion-targets.r
  * @param {AppState} state Top level state.
  * @return {OpenaireState}
  */
-const _getReciterSuggestionTargetState = (state: any) => state.openaire;
+const _getReciterSuggestionTargetState = createFeatureSelector<OpenaireState>('openaire');
 
 // Reciter Suggestion Targets
 // ----------------------------------------------------------------------------

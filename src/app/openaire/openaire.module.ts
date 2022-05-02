@@ -18,12 +18,14 @@ import { SuggestionsPopupComponent } from './reciter-suggestions/suggestions-pop
 import { SuggestionsNotificationComponent } from './reciter-suggestions/suggestions-notification/suggestions-notification.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchModule } from '../shared/search/search.module';
+import {openaireEffects} from "./openaire.effects";
 
 const MODULES = [
   CommonModule,
   SharedModule,
   CoreModule.forRoot(),
   StoreModule.forFeature('openaire', openaireReducers, storeModuleConfig as StoreConfig<OpenaireState, Action>),
+  EffectsModule.forFeature(openaireEffects),
   TranslateModule
 ];
 
