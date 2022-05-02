@@ -49,6 +49,7 @@ export interface ResourcePolicyEvent {
     type: string,
     uuid: string
   };
+  updateTarget: boolean;
 }
 
 @Component({
@@ -129,6 +130,8 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
   private subs: Subscription[] = [];
 
   navActiveId: string;
+
+  resourcePolicyTargetUpdated = false;
 
   /**
    * Initialize instance variables
@@ -278,6 +281,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    * Update reference to the eperson or group that will be granted the permission
    */
   updateObjectSelected(object: DSpaceObject, isEPerson: boolean): void {
+    this.resourcePolicyTargetUpdated = true;
     this.resourcePolicyGrant = object;
     this.resourcePolicyGrantType = isEPerson ? 'eperson' : 'group';
     this.resourcePolicyTargetName$.next(this.getResourcePolicyTargetName());
@@ -304,6 +308,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
           type: this.resourcePolicyGrantType,
           uuid: this.resourcePolicyGrant.id
         };
+        eventPayload.updateTarget = this.resourcePolicyTargetUpdated;
         this.submit.emit(eventPayload);
       });
   }

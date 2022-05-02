@@ -222,6 +222,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
+      testComp.resourcePolicy = resourcePolicy;
+      fixture.detectChanges();
     });
 
     afterEach(() => {
@@ -242,6 +244,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       fixture = TestBed.createComponent(ResourcePolicyFormComponent);
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
+      compAsAny.resourcePolicy = resourcePolicy;
       comp.isProcessing = observableOf(false);
     });
 
@@ -261,7 +264,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       expect(compAsAny.buildResourcePolicyForm).toHaveBeenCalled();
       expect(compAsAny.initModelsValue).toHaveBeenCalled();
       expect(compAsAny.formModel.length).toBe(5);
-      expect(compAsAny.subs.length).toBe(0);
+      expect(compAsAny.subs.length).toBe(1);
 
     });
 
@@ -279,7 +282,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       expect(compAsAny.reset.emit).toHaveBeenCalled();
     });
 
-    it('should  update resource policy grant object properly', () => {
+    it('should update resource policy grant object properly', () => {
       comp.updateObjectSelected(EPersonMock, true);
 
       expect(comp.resourcePolicyGrant).toEqual(EPersonMock);
@@ -301,6 +304,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
       comp.resourcePolicy = resourcePolicy;
+      compAsAny.resourcePolicy = resourcePolicy;
       comp.isProcessing = observableOf(false);
       compAsAny.ePersonService.findByHref.and.returnValue(
         observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100))
@@ -343,8 +347,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
       });
     });
 
-    it('should not can set grant', () => {
-      expect(comp.isBeingEdited()).toBeFalsy();
+    it('should be being edited', () => {
+      expect(comp.isBeingEdited()).toBeTrue();
     });
 
     it('should have a target name', () => {
@@ -398,6 +402,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
         type: 'group',
         uuid: GroupMock.id
       };
+      eventPayload.updateTarget = false;
 
       scheduler = getTestScheduler();
       scheduler.schedule(() => comp.onSubmit());

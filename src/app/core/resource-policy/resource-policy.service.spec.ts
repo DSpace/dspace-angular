@@ -19,6 +19,8 @@ import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils
 import { RestResponse } from '../cache/response.models';
 import { RequestEntry } from '../data/request-entry.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import { EPersonDataService } from '../eperson/eperson-data.service';
+import { GroupDataService } from '../eperson/group-data.service';
 
 describe('ResourcePolicyService', () => {
   let scheduler: TestScheduler;
@@ -28,6 +30,8 @@ describe('ResourcePolicyService', () => {
   let objectCache: ObjectCacheService;
   let halService: HALEndpointService;
   let responseCacheEntry: RequestEntry;
+  let ePersonService: EPersonDataService;
+  let groupService: GroupDataService;
 
   const resourcePolicy: any = {
     id: '1',
@@ -129,7 +133,9 @@ describe('ResourcePolicyService', () => {
       halService,
       notificationsService,
       http,
-      comparator
+      comparator,
+      ePersonService,
+      groupService
     );
 
     spyOn((service as any).dataService, 'create').and.callThrough();

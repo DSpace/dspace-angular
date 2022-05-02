@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -23,11 +23,19 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { ActionType } from './models/action-type.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { isNotEmpty } from '../../shared/empty.util';
-import { map } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { PostRequest } from '../data/request.models';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { ResponseParsingService } from '../data/parsing.service';
+import { StatusCodeOnlyResponseParsingService } from '../data/status-code-only-response-parsing.service';
+import { HALLink } from '../shared/hal-link.model';
+import { EPersonDataService } from '../eperson/eperson-data.service';
+import { GroupDataService } from '../eperson/group-data.service';
 
 
 /**
@@ -44,7 +52,8 @@ class DataServiceImpl extends DataService<ResourcePolicy> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<ResourcePolicy>) {
+    protected comparator: ChangeAnalyzer<ResourcePolicy>,
+  ) {
     super();
   }
 
@@ -68,7 +77,10 @@ export class ResourcePolicyService {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<ResourcePolicy>) {
+    protected comparator: DefaultChangeAnalyzer<ResourcePolicy>,
+    protected ePersonService: EPersonDataService,
+    protected groupService: GroupDataService,
+  ) {
     this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
   }
 
@@ -219,6 +231,41 @@ export class ResourcePolicyService {
       options.searchParams.push(new RequestParam('action', action));
     }
     return this.dataService.searchBy(this.searchByResourceMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Update the target of the resource policy
+   * @param resourcePolicyHref the link to the resource policy
+   * @param uuid the UUID of the target to which the permission is being granted
+   * @param type the type of the target (eperson or group) to which the permission is being granted
+   */
+  updateTarget(resourcePolicyHref: string, uuid: string, type: string): Observable<RemoteData<any>> {
+
+    const targetService = type === 'eperson' ? this.ePersonService : this.groupService;
+
+    const ep$ = targetService.getBrowseEndpoint().pipe(
+      take(1),
+      map((endpoint: string) =>`${endpoint}/${uuid}`),
+    );
+
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+
+    const requestId = this.requestService.generateRequestId();
+
+    return ep$.pipe(switchMap((ep) => {
+      const request = new PostRequest(requestId, resourcePolicyHref, ep, options);
+      Object.assign(request, {
+        getResponseParser(): GenericConstructor<ResponseParsingService> {
+          return StatusCodeOnlyResponseParsingService;
+        }
+      });
+      this.requestService.send(request);
+      return this.rdbService.buildFromRequestUUID(requestId);
+    }));
+
   }
 
 }

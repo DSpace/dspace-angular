@@ -3136,6 +3136,16 @@
 
   "resource-policies.form.eperson-group-list.table.headers.name": "Name",
 
+  "resource-policies.form.eperson-group-list.modal.header": "Cannot change type",
+
+  "resource-policies.form.eperson-group-list.modal.text1.toGroup": "It is not possible to replace an ePerson with a group.",
+
+  "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "It is not possible to replace a group with an ePerson.",
+
+  "resource-policies.form.eperson-group-list.modal.text2": "Delete the current resource policy and create a new one with the desired type.",
+
+  "resource-policies.form.eperson-group-list.modal.close": "Ok",
+
   "resource-policies.form.date.end.label": "End Date",
 
   "resource-policies.form.date.start.label": "Start Date",
