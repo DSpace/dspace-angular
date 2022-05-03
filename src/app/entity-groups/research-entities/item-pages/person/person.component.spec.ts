@@ -54,7 +54,12 @@ const mockItem: Item = Object.assign(new Item(), {
       }
     ]
   },
-  relationships: createRelationshipsObservable()
+  relationships: createRelationshipsObservable(),
+  _links: {
+    self : {
+      href: 'item-href'
+    }
+  }
 });
 
 describe('PersonComponent', getItemPageFieldsTest(mockItem, PersonComponent));

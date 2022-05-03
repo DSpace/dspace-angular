@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
@@ -12,7 +12,7 @@ import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
-  getFirstCompletedRemoteData
+  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload
 } from '../core/shared/operators';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { followLink } from '../shared/utils/follow-link-config.model';
@@ -20,6 +20,7 @@ import { AuthService } from '../core/auth/auth.service';
 import { Operation } from 'fast-json-patch';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import {ConfigurationDataService} from '../core/data/configuration-data.service';
 
 @Component({
   selector: 'ds-profile-page',
@@ -71,11 +72,14 @@ export class ProfilePageComponent implements OnInit {
   private currentUser: EPerson;
   canChangePassword$: Observable<boolean>;
 
+  isResearcherProfileEnabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor(private authService: AuthService,
               private notificationsService: NotificationsService,
               private translate: TranslateService,
               private epersonService: EPersonDataService,
-              private authorizationService: AuthorizationDataService) {
+              private authorizationService: AuthorizationDataService,
+              private configurationService: ConfigurationDataService) {
   }
 
   ngOnInit(): void {
@@ -88,6 +92,10 @@ export class ProfilePageComponent implements OnInit {
     );
     this.groupsRD$ = this.user$.pipe(switchMap((user: EPerson) => user.groups));
     this.canChangePassword$ = this.user$.pipe(switchMap((user: EPerson) => this.authorizationService.isAuthorized(FeatureID.CanChangePassword, user._links.self.href)));
+
+    this.configurationService.findByPropertyName('researcher-profile.entity-type').pipe(
+      getFirstSucceededRemoteDataPayload()
+    ).subscribe(() => this.isResearcherProfileEnabled$.next(true));
   }
 
   /**
@@ -163,4 +171,9 @@ export class ProfilePageComponent implements OnInit {
   submit() {
     this.updateProfile();
   }
+
+  isResearcherProfileEnabled(){
+    return this.isResearcherProfileEnabled$;
+  }
+
 }

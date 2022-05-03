@@ -1,15 +1,16 @@
 <ng-container *ngVar="(user$ | async) as user">
   <div class="container" *ngIf="user">
-    <h3 class="mb-4">{{'profile.head' | translate}}</h3>
-    <div class="card mb-4">
-      <div class="card-header">{{'profile.card.researcher' | translate}}</div>
-      <div class="card-body">
-        <div class="mb-4">
-          <ds-profile-page-researcher-form [user]="user"></ds-profile-page-researcher-form>
+    <ng-container *ngIf="isResearcherProfileEnabled() | async">
+      <h3 class="mb-4">{{'profile.head' | translate}}</h3>
+      <div class="card mb-4">
+        <div class="card-header">{{'profile.card.researcher' | translate}}</div>
+        <div class="card-body">
+          <div class="mb-4">
+            <ds-profile-page-researcher-form [user]="user" ></ds-profile-page-researcher-form>
+          </div>
         </div>
-        <!-- <ds-suggestions-notification></ds-suggestions-notification> -->
       </div>
-    </div>
+    </ng-container>
     <div class="card mb-4">
       <div class="card-header">{{'profile.card.identify' | translate}}</div>
       <div class="card-body">

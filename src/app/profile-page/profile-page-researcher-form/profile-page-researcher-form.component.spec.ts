@@ -16,11 +16,6 @@ import { ProfilePageResearcherFormComponent } from './profile-page-researcher-fo
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/core/auth/auth.service';
-import { EditItemDataService } from '../../core/submission/edititem-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { EditItemMode } from '../../core/submission/models/edititem-mode.model';
-import { EditItem } from '../../core/submission/models/edititem.model';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 
 describe('ProfilePageResearcherFormComponent', () => {
 
@@ -38,17 +33,6 @@ describe('ProfilePageResearcherFormComponent', () => {
   let profileClaimService: ProfileClaimService;
 
   let authService: AuthService;
-
-  let editItemDataService: any;
-
-  const editItemMode: EditItemMode = Object.assign(new EditItemMode(), {
-    name: 'test',
-    label: 'test'
-  });
-
-  const editItem: EditItem = Object.assign(new EditItem(), {
-    modes: createSuccessfulRemoteDataObject$(createPaginatedList([editItemMode]))
-  });
 
   function init() {
 
@@ -80,10 +64,6 @@ describe('ProfilePageResearcherFormComponent', () => {
       canClaimProfiles: observableOf(false),
     });
 
-    editItemDataService = jasmine.createSpyObj('EditItemDataService', {
-      findById: createSuccessfulRemoteDataObject$(editItem)
-    });
-
   }
 
   beforeEach(waitForAsync(() => {
@@ -96,8 +76,7 @@ describe('ProfilePageResearcherFormComponent', () => {
         { provide: ResearcherProfileService, useValue: researcherProfileService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: ProfileClaimService, useValue: profileClaimService },
-        { provide: AuthService, useValue: authService },
-        { provide: EditItemDataService, useValue: editItemDataService }
+        { provide: AuthService, useValue: authService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
