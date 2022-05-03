@@ -18,7 +18,9 @@ import {
   getMetadataBoxFieldRendering,
   MetadataBoxFieldRenderOptions
 } from '../../../rendering-types/metadata-box.decorator';
-import { PLACEHOLDER_PARENT_METADATA } from '../../../../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
+import {
+  PLACEHOLDER_PARENT_METADATA
+} from '../../../../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { MetadataValue } from '../../../../../../../../core/shared/metadata.models';
 
 @Component({
@@ -44,10 +46,13 @@ export class MetadataRenderComponent implements OnInit {
    * The metadata value
    */
   @Input() metadataValue: MetadataValue;
+
   /**
-   * The rendering sub type, if exists
+   * The rendering sub-type, if exists
+   * e.g. for type identifier.doi this property
+   * contains the sub-type doi
    */
-  @Input() renderingSubType: string;
+  renderingSubType: string;
 
   /**
    * Directive hook used to place the dynamic render component
@@ -66,6 +71,7 @@ export class MetadataRenderComponent implements OnInit {
 
   ngOnInit(): void {
     this.metadataValueViewRef.clear();
+    this.renderingSubType = this.computeSubType(this.field);
     this.generateComponentRef();
   }
 
@@ -122,6 +128,22 @@ export class MetadataRenderComponent implements OnInit {
       rendering = values[0];
     }
     return rendering;
+  }
+
+  /**
+   * Return the rendering sub-type of the field to render
+   *
+   * @return the rendering type
+   */
+  computeSubType(field: LayoutField): string | FieldRenderingType {
+    const rendering = field.rendering;
+    let subtype: string;
+
+    if (rendering?.indexOf('.') > -1) {
+      const values = rendering.split('.');
+      subtype = values[1];
+    }
+    return subtype;
   }
 
   /**
