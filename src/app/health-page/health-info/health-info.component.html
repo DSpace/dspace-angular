@@ -1,0 +1,7 @@
+<ng-container *ngIf="healthInfoResponse">
+  <div *ngFor="let entry of healthInfoResponse | dsObjNgFor" class="mb-3">
+    <ds-health-info-component [healthInfoComponentName]="entry.key"
+                              [healthInfoComponent]="entry.value"
+                              data-test="info-component"></ds-health-info-component>
+  </div>
+</ng-container>

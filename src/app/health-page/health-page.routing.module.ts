@@ -1,8 +1,11 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { HealthComponent } from './health/health.component';
+
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { HealthPageComponent } from './health-page.component';
+import {
+  SiteAdministratorGuard
+} from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 
 @NgModule({
   imports: [
@@ -11,15 +14,9 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
         path: '',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         data: { breadcrumbKey: 'health' },
-        canActivate: [AuthenticatedGuard],
-        children: [
-          {
-            path: '',
-            component: HealthComponent,
-          },
-        ]
-      },
-
+        canActivate: [SiteAdministratorGuard],
+        component: HealthPageComponent
+      }
     ])
   ]
 })

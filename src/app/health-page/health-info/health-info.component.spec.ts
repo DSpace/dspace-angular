@@ -1,0 +1,37 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { HealthInfoComponent } from './health-info.component';
+import { HealthInfoResponseObj } from '../../shared/mocks/health-endpoint.mocks';
+import { ObjNgFor } from '../../shared/utils/object-ngfor.pipe';
+import { By } from '@angular/platform-browser';
+
+describe('HealthInfoComponent', () => {
+  let component: HealthInfoComponent;
+  let fixture: ComponentFixture<HealthInfoComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [
+        HealthInfoComponent,
+        ObjNgFor
+      ]
+    })
+    .compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(HealthInfoComponent);
+    component = fixture.componentInstance;
+    component.healthInfoResponse = HealthInfoResponseObj;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should create info component properly', () => {
+    const components = fixture.debugElement.queryAll(By.css('[data-test="info-component"]'));
+    expect(components.length).toBe(3);
+  });
+});
