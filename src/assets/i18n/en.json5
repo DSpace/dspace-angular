@@ -61,6 +61,8 @@
 
   "admin.edit-user-agreement.title": "Edit User Agreement",
 
+  "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://daringfireball.net/projects/markdown/\" target=\"_blank\">Markdown</a> language.",
+
   "admin.edit-cms-metadata.title": "Edit CMS Metadata",
 
   "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
