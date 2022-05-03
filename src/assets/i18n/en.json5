@@ -4703,6 +4703,10 @@
 
   "search.filters.filter.birthDate.placeholder": "Birth Date",
 
+  "search.filters.filter.birthDate.min.label": "From",
+
+  "search.filters.filter.birthDate.max.label": "To",
+
   "search.filters.filter.birthDate.label": "Search birth date",
 
   "search.filters.filter.collapse": "Collapse filter",
@@ -5290,7 +5294,7 @@
 
   "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
 
-  
+
 
   "submission.sections.correction.bitstream.operation.add": "Bitstream added",
 
