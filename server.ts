@@ -19,6 +19,7 @@ import 'zone.js/node';
 import 'reflect-metadata';
 import 'rxjs';
 
+import axios from 'axios';
 import * as pem from 'pem';
 import * as https from 'https';
 import * as morgan from 'morgan';
@@ -37,14 +38,14 @@ import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { hasValue, hasNoValue } from './src/app/shared/empty.util';
+import { hasNoValue, hasValue } from './src/app/shared/empty.util';
 
 import { UIServerConfig } from './src/config/ui-server-config.interface';
 
 import { ServerAppModule } from './src/main.server';
 
 import { buildAppConfig } from './src/config/config.server';
-import { AppConfig, APP_CONFIG } from './src/config/app-config.interface';
+import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 
 /*
@@ -160,16 +161,7 @@ export function app() {
   /**
    * Checking server status
    */
-  server.get('/app/health', async (req,res) => {
-    try {
-      const serverStatus =  await https.get(`${environment.rest.baseUrl}/actuator/health`);
-      res.send(serverStatus);
-    } catch (error) {
-      res.send({
-        error: error.message
-      });
-    }
-  });
+  server.get('/app/health', healthCheck);
 
   // Register the ngApp callback function to handle incoming requests
   server.get('*', ngApp);
@@ -301,6 +293,21 @@ function start() {
   }
 }
 
+/*
+ * The callback function to serve health check requests
+ */
+function healthCheck(req, res) {
+  const baseUrl = `${environment.rest.baseUrl}${environment.actuators.endpointPath}`;
+  axios.get(baseUrl)
+    .then((response) => {
+      res.status(response.status).send(response.data);
+    })
+    .catch((error) => {
+      res.status(error.response.status).send({
+        error: error.message
+      });
+    });
+}
 // Webpack will replace 'require' with '__webpack_require__'
 // '__non_webpack_require__' is a proxy to Node 'require'
 // The below code is to ensure that the server is run only when not requiring the bundle.
