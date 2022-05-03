@@ -2,7 +2,7 @@ import { Inject, Injectable, Injector, Optional } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
-import { startWith } from 'rxjs/operators';
+import {map, startWith} from 'rxjs/operators';
 
 import {
   AND_OPERATOR,
@@ -15,10 +15,12 @@ import {
   OR_OPERATOR
 } from '@ng-dynamic-forms/core';
 
-import { hasNoValue, hasValue } from '../../../empty.util';
+import {hasNoValue, hasValue, isEmpty} from '../../../empty.util';
 import { FormBuilderService } from '../form-builder.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
+import {getFirstCompletedRemoteData} from "../../../../core/shared/operators";
+import {ConfigurationDataService} from "../../../../core/data/configuration-data.service";
 
 /**
  * Service to manage type binding for submission input fields
@@ -31,7 +33,6 @@ export class DsDynamicTypeBindRelationService {
               protected dynamicFormRelationService: DynamicFormRelationService,
               protected formBuilderService: FormBuilderService,
               protected injector: Injector) {
-
   }
 
   /**
@@ -52,6 +53,7 @@ export class DsDynamicTypeBindRelationService {
 
     return value;
   }
+
 
   /**
    * Get models for this bind type

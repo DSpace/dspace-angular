@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, Optional} from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 import {
@@ -42,6 +42,8 @@ import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/d
 import { CONCAT_GROUP_SUFFIX, DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
 import { environment } from '../../../../environments/environment';
+import {ConfigurationDataService} from "../../../core/data/configuration-data.service";
+import {getFirstCompletedRemoteData} from "../../../core/shared/operators";
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -66,13 +68,17 @@ export class FormBuilderService extends DynamicFormService {
   constructor(
     componentService: DynamicFormComponentService,
     validationService: DynamicFormValidationService,
-    protected rowParser: RowParser
+    protected rowParser: RowParser,
+    @Optional() protected configService: ConfigurationDataService,
   ) {
     super(componentService, validationService);
     this.formModels = new Map();
     this.formGroups = new Map();
-    // Replace . with _ in configured type field here, to make configuration more simple and user-friendly
-    this.typeField = environment.submission.typeBind.field.replace(/\./g, '_');
+    if (hasValue(configService)) {
+      this.setTypeBindFieldFromConfig();
+    } else {
+      this.typeField = 'dc_type';
+    }
   }
 
   createDynamicFormControlEvent(control: FormControl, group: FormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {
@@ -278,7 +284,8 @@ export class FormBuilderService extends DynamicFormService {
      const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
-        const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope, readOnly);
+        const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope,
+          readOnly, this.typeField);
         if (isNotNull(rowParsed)) {
           if (Array.isArray(rowParsed)) {
             rows = rows.concat(rowParsed);
@@ -487,6 +494,32 @@ export class FormBuilderService extends DynamicFormService {
     const result = iterateControlModels([model]);
 
     return Object.keys(result);
+  }
+
+  /**
+   * Get the type bind field from config
+   */
+  setTypeBindFieldFromConfig(): void {
+    this.configService.findByPropertyName('submit.type-bind.field').pipe(
+      getFirstCompletedRemoteData(),
+    ).subscribe((remoteData: any) => {
+      // make sure we got a success response from the backend
+      if (!remoteData.hasSucceeded) {
+        this.typeField = 'dc_type';
+        return;
+      }
+      // Read type bind value from response and set if non-empty
+      const typeFieldConfig = remoteData.payload.values[0];
+      if (isEmpty(typeFieldConfig)) {
+        this.typeField = 'dc_type';
+      } else {
+        this.typeField = typeFieldConfig.replace(/\./g, '_');
+      }
+    });
+  }
+
+  getTypeField(): string {
+    return this.typeField;
   }
 
 }
