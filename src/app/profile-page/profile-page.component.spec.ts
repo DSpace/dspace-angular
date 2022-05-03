@@ -20,6 +20,8 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { getTestScheduler } from 'jasmine-marbles';
 import { By } from '@angular/platform-browser';
+import {ConfigurationDataService} from '../core/data/configuration-data.service';
+import {ConfigurationProperty} from '../core/shared/configuration-property.model';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
@@ -80,6 +82,14 @@ describe('ProfilePageComponent', () => {
         { provide: EPersonDataService, useValue: epersonService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: AuthService, useValue: authService },
+        { provide: ConfigurationDataService, useValue: jasmine.createSpyObj('configurationDataService', {
+            findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+              name: 'researcher-profile.entity-type',
+              values: [
+                'Person'
+              ]
+            }))
+          })},
         { provide: AuthorizationDataService, useValue: jasmine.createSpyObj('authorizationService', { isAuthorized: canChangePassword }) },
         provideMockStore({ initialState }),
       ],

@@ -64,24 +64,13 @@ export class ItemPageComponent implements OnInit {
 
   itemUrl: string;
 
-  public claimable$: BehaviorSubject<boolean> =  new BehaviorSubject<boolean>(false);
-  public isProcessing$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
   constructor(
     protected route: ActivatedRoute,
     private router: Router,
     private items: ItemDataService,
     private authService: AuthService,
-    private authorizationService: AuthorizationDataService,
-    private translate: TranslateService,
-    private notificationsService: NotificationsService,
-    private researcherProfileService: ResearcherProfileService
+    private authorizationService: AuthorizationDataService
   ) {
-    this.route.data.pipe(
-      map((data) => data.dso as RemoteData<Item>)
-    ).subscribe((data: RemoteData<Item>) => {
-      this.itemUrl = data?.payload?.self
-    });
   }
 
   /**
@@ -99,55 +88,5 @@ export class ItemPageComponent implements OnInit {
 
     this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
 
-    this.authorizationService.isAuthorized(FeatureID.ShowClaimItem, this.itemUrl).pipe(
-      take(1)
-    ).subscribe((isAuthorized: boolean) => {
-      this.claimable$.next(isAuthorized)
-    });
-  }
-
-  claim() {
-    this.isProcessing$.next(true);
-
-    this.authorizationService.isAuthorized(FeatureID.CanClaimItem, this.itemUrl).pipe(
-      take(1)
-    ).subscribe((isAuthorized: boolean) => {
-      if (!isAuthorized) {
-        this.notificationsService.warning(this.translate.get('researcherprofile.claim.not-authorized'));
-        this.isProcessing$.next(false);
-      } else {
-        this.createFromExternalSource();
-      }
-    });
-
-  }
-
-  createFromExternalSource() {
-    this.researcherProfileService.createFromExternalSource(this.itemUrl).pipe(
-      tap((rd: any) => {
-        if (!rd.hasSucceeded) {
-          this.isProcessing$.next(false);
-        }
-      }),
-      getFirstSucceededRemoteData(),
-      mergeMap((rd: RemoteData<ResearcherProfile>) => {
-        return this.researcherProfileService.findRelatedItemId(rd.payload);
-      }))
-    .subscribe((id: string) => {
-      if (isNotUndefined(id)) {
-        this.notificationsService.success(this.translate.get('researcherprofile.success.claim.title'),
-          this.translate.get('researcherprofile.success.claim.body'));
-        this.claimable$.next(false);
-        this.isProcessing$.next(false);
-      } else {
-        this.notificationsService.error(
-          this.translate.get('researcherprofile.error.claim.title'),
-          this.translate.get('researcherprofile.error.claim.body'));
-      }
-    });
-  }
-
-  isClaimable(): Observable<boolean> {
-    return this.claimable$;
   }
 }
