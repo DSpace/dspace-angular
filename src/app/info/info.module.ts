@@ -12,6 +12,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { FeedbackFormComponent } from './feedback/feedback-form/feedback-form.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import { FeedbackGuard } from '../core/feedback/feedback.guard';
+import { NuMarkdownModule } from '@ng-util/markdown';
 
 
 const DECLARATIONS = [
@@ -31,6 +32,7 @@ const DECLARATIONS = [
     CommonModule,
     SharedModule,
     InfoRoutingModule,
+    NuMarkdownModule,
   ],
   declarations: [
     ...DECLARATIONS
