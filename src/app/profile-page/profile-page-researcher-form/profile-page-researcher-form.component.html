@@ -9,7 +9,7 @@
   <div *ngIf="!researcherProfile">
     <p>{{'researcher.profile.not.associated' | translate}}</p>
   </div>
-  <button class="btn btn-primary"
+  <button class="btn btn-primary mr-2"
           [disabled]="researcherProfile || (isProcessingCreate() | async)"
           (click)="createProfile()">
     <span *ngIf="(isProcessingCreate() | async)">
@@ -20,7 +20,7 @@
     </span>
   </button>
   <ng-container *ngIf="researcherProfile">
-    <button class="btn btn-primary" [disabled]="!researcherProfile" (click)="viewProfile(researcherProfile)">
+    <button class="btn btn-primary mr-2" [disabled]="!researcherProfile" (click)="viewProfile(researcherProfile)">
       <i class="fas fa-info-circle"></i> {{'researcher.profile.view' | translate}}
     </button>
     <button class="btn btn-danger" [disabled]="!researcherProfile" (click)="deleteProfile(researcherProfile)">

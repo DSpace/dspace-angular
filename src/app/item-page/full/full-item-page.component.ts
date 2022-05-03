@@ -16,10 +16,6 @@ import { hasValue } from '../../shared/empty.util';
 import { AuthService } from '../../core/auth/auth.service';
 import { Location } from '@angular/common';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { TranslateService } from '@ngx-translate/core';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
-import { CollectionDataService } from '../../core/data/collection-data.service';
 
 
 /**
@@ -52,11 +48,8 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
               items: ItemDataService,
               authService: AuthService,
               authorizationService: AuthorizationDataService,
-              translate: TranslateService,
-              notificationsService: NotificationsService,
-              researcherProfileService: ResearcherProfileService,
               private _location: Location) {
-    super(route, router, items, authService, authorizationService, translate, notificationsService, researcherProfileService);
+    super(route, router, items, authService, authorizationService);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/
