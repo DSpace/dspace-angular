@@ -21,7 +21,7 @@ import './commands';
 import 'cypress-axe';
 
 // Runs once before the first test in each "block"
-before(() => {
+beforeEach(() => {
     // Pre-agree to all Klaro cookies by setting the klaro-anonymous cookie
     // This just ensures it doesn't get in the way of matching other objects in the page.
     cy.setCookie('klaro-anonymous', '{%22authentication%22:true%2C%22preferences%22:true%2C%22acknowledgement%22:true%2C%22google-analytics%22:true}');
