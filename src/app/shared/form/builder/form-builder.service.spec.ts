@@ -897,7 +897,7 @@ describe('FormBuilderService test suite', () => {
   });
 
   it(`should request the ${typeFieldProp} property and set value "dc_type"`, () => {
-    service.setTypeBindFieldFromConfig();
+    // This should have been called in the service constructor
     expect(configSpy.findByPropertyName).toHaveBeenCalledTimes(1);
     expect(configSpy.findByPropertyName).toHaveBeenCalledWith(typeFieldProp);
     expect(service.getTypeField()).toEqual('dc_type');

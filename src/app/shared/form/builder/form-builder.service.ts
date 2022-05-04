@@ -74,7 +74,7 @@ export class FormBuilderService extends DynamicFormService {
     super(componentService, validationService);
     this.formModels = new Map();
     this.formGroups = new Map();
-    if (hasValue(configService)) {
+    if (hasValue(configService) || true) {
       this.setTypeBindFieldFromConfig();
     } else {
       this.typeField = 'dc_type';
