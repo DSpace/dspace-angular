@@ -286,12 +286,9 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     this.formModel.forEach((row) => {
       const modelRow = row as DynamicFormGroupModel;
       modelRow.group.forEach((control: DynamicInputModel) => {
-        if (typeof control.value === 'string' && (control as any).securityLevel !== undefined) {
-          item[control.name] = new FormFieldMetadataValueObject(control.value || PLACEHOLDER_PARENT_METADATA, null, (control as any).securityLevel);
-        } else {
-          const controlValue: any = control?.value;
-          item[control.name] = controlValue?.value || controlValue || PLACEHOLDER_PARENT_METADATA;
-        }
+        const controlValue: any = (control?.value as any)?.value || control?.value || PLACEHOLDER_PARENT_METADATA;
+        const controlAuthority: any = (control?.value as any)?.authority || null;
+        item[control.name] = new FormFieldMetadataValueObject(controlValue, (control as any)?.language, (control as any)?.securityLevel, controlAuthority);
       });
     });
     return item;
