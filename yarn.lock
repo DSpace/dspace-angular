@@ -1659,6 +1659,29 @@
   dependencies:
     tslib "^2.0.0"
 
+"@ng-util/lazy@^10.0.0":
+  version "10.2.2"
+  resolved "https://registry.yarnpkg.com/@ng-util/lazy/-/lazy-10.2.2.tgz#5a962204dba3393e5959b955cb57f5d090799aa7"
+  integrity sha512-4VPUTU+I8FT6T3/2zVqw3IGuSh2quJgzxFNnfMpG9tRwrM5Guqv2/mQrneBHBosqxkt0EaIKbd7eIDky78VEPA==
+  dependencies:
+    tslib "^2.0.0"
+
+"@ng-util/markdown@^12.1.2":
+  version "12.1.2"
+  resolved "https://registry.yarnpkg.com/@ng-util/markdown/-/markdown-12.1.2.tgz#cd8f18b55abc99094fb2153c068bc5bf6ad02970"
+  integrity sha512-/7ok2lbGGMob+nIbVTaq2ZTwfcemeUgIEPcF3rSQ+kEgFQF3dHitYm0JInkDbom3lpK5rTagaKH6PmWtb3GCWw==
+  dependencies:
+    "@ng-util/lazy" "^10.0.0"
+    "@ng-util/util" "^10.0.0"
+    tslib "^2.2.0"
+
+"@ng-util/util@^10.0.0":
+  version "10.2.2"
+  resolved "https://registry.yarnpkg.com/@ng-util/util/-/util-10.2.2.tgz#8a32637a804b7547a3f43763b3e0be62d7429b2a"
+  integrity sha512-Rgi/GTsZav8xS+pmwE+8tKA1HaIpusl/fCFUgZjMxomixTKOntdUgpcNYoUuIAi3CaTcn/kM8DDtxJeBQlcyUQ==
+  dependencies:
+    tslib "^2.0.0"
+
 "@ngrx/effects@^11.1.1":
   version "11.1.1"
   resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-11.1.1.tgz#82abd97df8c1cdf1d9bd0bf720289591230d260c"
