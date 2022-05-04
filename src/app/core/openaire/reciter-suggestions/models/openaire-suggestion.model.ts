@@ -6,7 +6,7 @@ import { ResourceType } from '../../../shared/resource-type';
 import { HALLink } from '../../../shared/hal-link.model';
 import { typedObject } from '../../../cache/builders/build-decorators';
 import { MetadataMap, MetadataMapSerializer } from '../../../shared/metadata.models';
-import {CacheableObject} from "../../../cache/cacheable-object.model";
+import {CacheableObject} from '../../../cache/cacheable-object.model';
 
 export interface SuggestionEvidences {
   [sectionId: string]: {

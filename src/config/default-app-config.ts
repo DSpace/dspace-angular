@@ -14,7 +14,7 @@ import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.model';
 import { UIServerConfig } from './ui-server-config.interface';
-import {SuggestionConfig} from "./layout-config.interfaces";
+import {SuggestionConfig} from './layout-config.interfaces';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;

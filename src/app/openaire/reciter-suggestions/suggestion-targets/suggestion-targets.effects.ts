@@ -78,10 +78,10 @@ export class SuggestionTargetsEffects {
   @Effect() refreshUserTargets$ = this.actions$.pipe(
     ofType(SuggestionTargetActionTypes.REFRESH_USER_SUGGESTIONS),
     switchMap((action: RefreshUserSuggestionsAction) => {
-      return this.store$.select((state: any) => state.core.auth.user)
+      return this.store$.select((state: any) => state.core.auth.userId)
         .pipe(
-          switchMap((user: EPerson) => {
-            return this.suggestionsService.retrieveCurrentUserSuggestions(user.uuid)
+          switchMap((userId: string) => {
+            return this.suggestionsService.retrieveCurrentUserSuggestions(userId)
               .pipe(
                 map((suggestionTargets: OpenaireSuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
                 catchError((errors) => of(errors))

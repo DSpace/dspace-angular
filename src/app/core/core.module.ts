@@ -168,7 +168,7 @@ import { OpenaireSuggestionSource } from './openaire/reciter-suggestions/models/
 import { ResearcherProfileService } from './profile/researcher-profile.service';
 import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
 import { ResearcherProfile } from './profile/model/researcher-profile.model';
-import {SubmissionAccessesModel} from "./config/models/config-submission-accesses.model";
+import {SubmissionAccessesModel} from './config/models/config-submission-accesses.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes

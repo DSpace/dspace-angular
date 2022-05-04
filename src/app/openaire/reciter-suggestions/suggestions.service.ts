@@ -25,8 +25,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { environment } from '../../../environments/environment';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import {FindListOptions} from "../../core/data/find-list-options.model";
-import {SuggestionConfig} from "../../../config/layout-config.interfaces";
+import {FindListOptions} from '../../core/data/find-list-options.model';
+import {SuggestionConfig} from '../../../config/layout-config.interfaces';
 
 export interface SuggestionBulkResult {
   success: number;

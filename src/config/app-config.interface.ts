@@ -14,7 +14,7 @@ import { AuthConfig } from './auth-config.interfaces';
 import { UIServerConfig } from './ui-server-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { BrowseByConfig } from './browse-by-config.interface';
-import {SuggestionConfig} from "./layout-config.interfaces";
+import {SuggestionConfig} from './layout-config.interfaces';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;

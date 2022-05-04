@@ -20,8 +20,8 @@ import { SuggestionTargetsStateService } from '../openaire/reciter-suggestions/s
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
-import {FindListOptions} from "../core/data/find-list-options.model";
-import {redirectOn4xx} from "../core/shared/authorized.operators";
+import {FindListOptions} from '../core/data/find-list-options.model';
+import {redirectOn4xx} from '../core/shared/authorized.operators';
 
 @Component({
   selector: 'ds-suggestion-page',

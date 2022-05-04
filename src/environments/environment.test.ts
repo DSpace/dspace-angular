@@ -2,6 +2,7 @@
 import { BuildConfig } from 'src/config/build-config.interface';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
+import {SuggestionConfig} from '../config/layout-config.interfaces';
 
 export const environment: BuildConfig = {
   production: false,
@@ -203,6 +204,13 @@ export const environment: BuildConfig = {
       undoTimeout: 10000 // 10 seconds
     }
   },
+  suggestion: [
+    // {
+    //   // Use this configuration to map a suggestion import to a specific collection based on the suggestion type.
+    //   source: 'suggestionSource',
+    //   collectionId: 'collectionUUID'
+    // }
+  ],
   themes: [
     {
       name: 'full-item-page-theme',

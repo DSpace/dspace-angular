@@ -39,7 +39,7 @@ import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { Router, ActivatedRoute } from '@angular/router';
-import {NOTIFICATIONS_RECITER_SUGGESTION_PATH} from "../admin-notifications/admin-notifications-routing-paths";
+import {NOTIFICATIONS_RECITER_SUGGESTION_PATH} from '../admin-notifications/admin-notifications-routing-paths';
 import { MenuID } from '../../shared/menu/menu-id.model';
 import { MenuItemType } from '../../shared/menu/menu-item-type.model';
 

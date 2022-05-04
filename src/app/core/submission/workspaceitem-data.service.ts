@@ -17,10 +17,10 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';
-import {HttpOptions} from "../dspace-rest/dspace-rest.service";
-import {find, map} from "rxjs/operators";
-import {PostRequest} from "../data/request.models";
-import {hasValue} from "../../shared/empty.util";
+import {HttpOptions} from '../dspace-rest/dspace-rest.service';
+import {find, map} from 'rxjs/operators';
+import {PostRequest} from '../data/request.models';
+import {hasValue} from '../../shared/empty.util';
 
 /**
  * A service that provides methods to make REST requests with workspaceitems endpoint.

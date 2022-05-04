@@ -2,7 +2,7 @@ import {createFeatureSelector, createSelector, MemoizedSelector} from '@ngrx/sto
 import { openaireSelector, OpenaireState } from '../openaire.reducer';
 import { OpenaireSuggestionTarget } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { SuggestionTargetState } from './suggestion-targets/suggestion-targets.reducer';
-import {subStateSelector} from "../../submission/selectors";
+import {subStateSelector} from '../../submission/selectors';
 
 /**
  * Returns the Reciter Suggestion Target state.
