@@ -3,7 +3,7 @@ import {Inject, InjectionToken} from '@angular/core';
 import { uniqueId } from 'lodash';
 import {DynamicFormControlLayout, DynamicFormControlRelation, MATCH_VISIBLE, OR_OPERATOR} from '@ng-dynamic-forms/core';
 
-import {hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined} from '../../../empty.util';
+import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import {
@@ -17,9 +17,6 @@ import { RelationshipOptions } from '../models/relationship-options.model';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { ParserType } from './parser-type';
 import { isNgbDateStruct } from '../../../date.util';
-import { environment } from '../../../../../environments/environment';
-import {getFirstCompletedRemoteData} from "../../../../core/shared/operators";
-import {map} from "rxjs/operators";
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');

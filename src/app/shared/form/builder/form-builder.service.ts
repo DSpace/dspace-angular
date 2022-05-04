@@ -41,9 +41,8 @@ import { dateToString, isNgbDateStruct } from '../../date.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { CONCAT_GROUP_SUFFIX, DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
-import { environment } from '../../../../environments/environment';
-import {ConfigurationDataService} from "../../../core/data/configuration-data.service";
-import {getFirstCompletedRemoteData} from "../../../core/shared/operators";
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {

@@ -48,9 +48,9 @@ import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-conca
 import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
-import {ConfigurationDataService} from "../../../core/data/configuration-data.service";
-import {createSuccessfulRemoteDataObject$} from "../../remote-data.utils";
-import {ConfigurationProperty} from "../../../core/shared/configuration-property.model";
+import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
+import {createSuccessfulRemoteDataObject$} from '../../remote-data.utils';
+import {ConfigurationProperty} from '../../../core/shared/configuration-property.model';
 
 describe('FormBuilderService test suite', () => {
 

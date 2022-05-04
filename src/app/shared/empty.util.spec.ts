@@ -457,28 +457,28 @@ describe('Empty Utils', () => {
     */
     it('should be empty if no parameter passed', () => {
       expect(isObjectEmpty()).toBeTrue();
-    })
+    });
     it('should be empty if null parameter passed', () => {
       expect(isObjectEmpty(null)).toBeTrue();
-    })
+    });
     it('should be empty if undefined parameter passed', () => {
       expect(isObjectEmpty(undefined)).toBeTrue();
-    })
+    });
     it('should be empty if empty string passed', () => {
       expect(isObjectEmpty('')).toBeTrue();
-    })
+    });
     it('should be empty if empty array passed', () => {
       expect(isObjectEmpty([])).toBeTrue();
-    })
+    });
     it('should be empty if empty object passed', () => {
       expect(isObjectEmpty({})).toBeTrue();
-    })
+    });
     it('should be empty if single key with null value passed', () => {
       expect(isObjectEmpty({ name: null })).toBeTrue();
-    })
+    });
     it('should NOT be empty if object with at least one non-null value passed', () => {
       expect(isObjectEmpty({ name: 'Adam Hawkins', surname : null })).toBeFalse();
-    })
+    });
   });
 
   describe('ensureArrayHasValue', () => {

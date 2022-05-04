@@ -42,7 +42,6 @@ import { NgbAccordionModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionSectionAccessesComponent } from './sections/accesses/section-accesses.component';
 import { SubmissionAccessesConfigService } from '../core/config/submission-accesses-config.service';
 import { SectionAccessesService } from './sections/accesses/section-accesses.service';
-import {ConfigurationDataService} from "../core/data/configuration-data.service";
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
