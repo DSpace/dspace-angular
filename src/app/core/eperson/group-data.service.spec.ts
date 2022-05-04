@@ -11,9 +11,8 @@ import {
 } from '../../access-control/group-registry/group-registry.actions';
 import { GroupMock, GroupMock2 } from '../../shared/testing/group-mock';
 import { RequestParam } from '../cache/models/request-param.model';
-import { CoreState } from '../core.reducers';
 import { ChangeAnalyzer } from '../data/change-analyzer';
-import { DeleteRequest, FindListOptions, PostRequest } from '../data/request.models';
+import { DeleteRequest, PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Item } from '../shared/item.model';
@@ -25,6 +24,8 @@ import { TranslateLoaderMock } from '../../shared/testing/translate-loader.mock'
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
 import { createPaginatedList, createRequestEntry$ } from '../../shared/testing/utils.test';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from '../data/find-list-options.model';
 
 describe('GroupDataService', () => {
   let service: GroupDataService;

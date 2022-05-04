@@ -14,7 +14,6 @@ import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core'
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FileUploadModule } from 'ng2-file-upload';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { TextMaskModule } from 'angular2-text-mask';
 import { MomentModule } from 'ngx-moment';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import { ExportMetadataSelectorComponent } from './dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
@@ -173,6 +172,7 @@ import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-p
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
+import { ExternalLinkMenuItemComponent } from './menu/menu-item/external-link-menu-item.component';
 import { SearchExportCsvComponent } from './search/search-export-csv/search-export-csv.component';
 
 
@@ -195,7 +195,6 @@ const MODULES = [
   RouterModule,
   NouisliderModule,
   MomentModule,
-  TextMaskModule,
   DragDropModule,
   CdkTreeModule
 ];
@@ -402,6 +401,7 @@ const ENTRY_COMPONENTS = [
   OnClickMenuItemComponent,
   TextMenuItemComponent,
   ScopeSelectorModalComponent,
+  ExternalLinkMenuItemComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

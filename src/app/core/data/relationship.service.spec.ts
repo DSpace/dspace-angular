@@ -6,15 +6,16 @@ import { Relationship } from '../shared/item-relationships/relationship.model';
 import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';
 import { buildPaginatedList } from './paginated-list.model';
-import { DeleteRequest, FindListOptions } from './request.models';
+import { DeleteRequest} from './request.models';
 import { RelationshipService } from './relationship.service';
 import { RequestService } from './request.service';
-import { RequestEntry } from './request.reducer';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { RequestEntry } from './request-entry.model';
+import { FindListOptions } from './find-list-options.model';
 
 describe('RelationshipService', () => {
   let service: RelationshipService;
@@ -107,12 +108,12 @@ describe('RelationshipService', () => {
     'https://rest.api/core/publication/relationships': relationships$
   });
   const objectCache = Object.assign({
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     remove: () => {
     },
     hasBySelfLinkObservable: () => observableOf(false),
     hasByHref$: () => observableOf(false)
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   }) as ObjectCacheService;
 
   const itemService = jasmine.createSpyObj('itemService', {

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -7,7 +8,6 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { DSPACE_OBJECT } from '../shared/dspace-object.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -15,10 +15,10 @@ import { DataService } from './data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
-import { FindListOptions } from './request.models';
 import { PaginatedList } from './paginated-list.model';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
-/* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<DSpaceObject> {
   protected linkPath = 'dso';
 
@@ -104,4 +104,3 @@ export class DSpaceObjectDataService {
   }
 
 }
-/* tslint:enable:max-classes-per-file */

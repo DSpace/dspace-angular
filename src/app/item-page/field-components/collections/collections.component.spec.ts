@@ -9,9 +9,9 @@ import { Item } from '../../../core/shared/item.model';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { CollectionsComponent } from './collections.component';
-import { FindListOptions } from '../../../core/data/request.models';
 import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 const createMockCollection = (id: string) => Object.assign(new Collection(), {
   id: id,

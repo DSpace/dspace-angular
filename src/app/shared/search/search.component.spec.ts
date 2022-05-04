@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { Observable, BehaviorSubject, of as observableOf } from 'rxjs';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { HostWindowService } from '../host-window.service';
@@ -29,16 +29,15 @@ import { Item } from '../../core/shared/item.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Observable } from 'rxjs/internal/Observable';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
 let searchServiceObject: SearchService;
 let searchConfigurationServiceObject: SearchConfigurationService;
 const store: Store<SearchComponent> = jasmine.createSpyObj('store', {
-  /* tslint:disable:no-empty */
+  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   dispatch: {},
-  /* tslint:enable:no-empty */
+  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   select: observableOf(true)
 });
 const sortConfigList: SortConfig[] = [
@@ -147,18 +146,28 @@ const routeServiceStub = {
   }
 };
 
-
-const searchConfigurationServiceStub = jasmine.createSpyObj('SearchConfigurationService', {
-  getConfigurationSortOptions: jasmine.createSpy('getConfigurationSortOptions'),
-  getConfigurationSearchConfig: jasmine.createSpy('getConfigurationSearchConfig'),
-  getCurrentConfiguration: jasmine.createSpy('getCurrentConfiguration'),
-  getCurrentScope: jasmine.createSpy('getCurrentScope'),
-  getCurrentSort: jasmine.createSpy('getCurrentSort'),
-  updateFixedFilter: jasmine.createSpy('updateFixedFilter'),
-  setPaginationId: jasmine.createSpy('setPaginationId')
-}, ['paginatedSearchOptions']);
+let searchConfigurationServiceStub;
 
 export function configureSearchComponentTestingModule(compType, additionalDeclarations: any[] = []) {
+  searchConfigurationServiceStub = jasmine.createSpyObj('SearchConfigurationService', {
+    getConfigurationSortOptions: sortOptionsList,
+    getConfigurationSearchConfig: observableOf(searchConfig),
+    getCurrentConfiguration: observableOf('default'),
+    getCurrentScope: observableOf('test-id'),
+    getCurrentSort: observableOf(sortOptionsList[0]),
+    updateFixedFilter: jasmine.createSpy('updateFixedFilter'),
+    setPaginationId: jasmine.createSpy('setPaginationId')
+  });
+
+  searchConfigurationServiceStub.setPaginationId.and.callFake((pageId) => {
+    paginatedSearchOptions$.next(Object.assign(paginatedSearchOptions$.value, {
+      pagination: Object.assign(new PaginationComponentOptions(), {
+        id: pageId
+      })
+    }));
+  });
+  searchConfigurationServiceStub.paginatedSearchOptions = new BehaviorSubject(new PaginatedSearchOptions({pagination: {id: 'default'} as any}));
+
   TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule],
     declarations: [compType, ...additionalDeclarations],
@@ -196,7 +205,14 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
     ],
     schemas: [NO_ERRORS_SCHEMA]
   }).overrideComponent(compType, {
-    set: { changeDetection: ChangeDetectionStrategy.Default }
+    set: {
+      changeDetection: ChangeDetectionStrategy.Default,
+      providers: [{
+        provide: SearchConfigurationService,
+        useValue: searchConfigurationServiceStub
+      }]
+    },
+
   }).compileComponents();
 }
 
@@ -211,18 +227,6 @@ describe('SearchComponent', () => {
     comp.inPlaceSearch = false;
     comp.paginationId = paginationId;
 
-    searchConfigurationServiceStub.getConfigurationSearchConfig.and.returnValue(observableOf(searchConfig));
-    searchConfigurationServiceStub.getConfigurationSortOptions.and.returnValue(sortOptionsList);
-    searchConfigurationServiceStub.getCurrentConfiguration.and.returnValue(observableOf('default'));
-    searchConfigurationServiceStub.getCurrentScope.and.returnValue(observableOf('test-id'));
-    searchConfigurationServiceStub.getCurrentSort.and.returnValue(observableOf(sortOptionsList[0]));
-    searchConfigurationServiceStub.setPaginationId.and.callFake((pageId) => {
-      paginatedSearchOptions$.next(Object.assign(paginatedSearchOptions$.value, {
-        pagination: Object.assign(new PaginationComponentOptions(), {
-          id: pageId
-        })
-      }));
-    });
     spyOn((comp as any), 'getSearchOptions').and.returnValue(paginatedSearchOptions$.asObservable());
 
     searchServiceObject = TestBed.inject(SearchService);

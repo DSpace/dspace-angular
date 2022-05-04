@@ -1,9 +1,11 @@
-import {type} from '../../../shared/ngrx/type';
-import {Action} from '@ngrx/store';
-import {Identifiable} from './object-updates.reducer';
-import {INotification} from '../../../shared/notifications/models/notification.model';
+/* eslint-disable max-classes-per-file */
+import { type } from '../../../shared/ngrx/type';
+import { Action } from '@ngrx/store';
+import { INotification } from '../../../shared/notifications/models/notification.model';
 import { PatchOperationService } from './patch-operation-service/patch-operation.service';
 import { GenericConstructor } from '../../shared/generic-constructor';
+import { Identifiable } from './identifiable.model';
+import { FieldChangeType } from './field-change-type.model';
 
 /**
  * The list of ObjectUpdatesAction type definitions
@@ -21,16 +23,6 @@ export const ObjectUpdatesActionTypes = {
   REMOVE_FIELD: type('dspace/core/cache/object-updates/REMOVE_FIELD')
 };
 
-/* tslint:disable:max-classes-per-file */
-
-/**
- * Enum that represents the different types of updates that can be performed on a field in the ObjectUpdates store
- */
-export enum FieldChangeType {
-  UPDATE = 0,
-  ADD = 1,
-  REMOVE = 2
-}
 
 /**
  * An ngrx action to initialize a new page's fields in the ObjectUpdates state
@@ -283,7 +275,6 @@ export class RemoveFieldUpdateAction implements Action {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * A type to encompass all ObjectUpdatesActions
