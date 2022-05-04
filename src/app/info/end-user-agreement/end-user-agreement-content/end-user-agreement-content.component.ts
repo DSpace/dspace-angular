@@ -3,6 +3,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { SiteDataService } from '../../../core/data/site-data.service';
 import { LocaleService } from '../../../core/locale/locale.service';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
+import { isNotEmpty } from '../../../shared/empty.util';
 
 @Component({
   selector: 'ds-end-user-agreement-content',
@@ -26,7 +27,7 @@ export class EndUserAgreementContentComponent implements OnInit, OnDestroy {
   }
 
   private filterMetadata(metadata: MetadatumViewModel, langCode: string) {
-    return metadata.key === this.USER_AGREEMENT_TEXT_METADATA && metadata.language === langCode && metadata.value !== '';
+    return metadata.key === this.USER_AGREEMENT_TEXT_METADATA && metadata.language === langCode && isNotEmpty(metadata.value);
   }
 
   ngOnInit(): void {
