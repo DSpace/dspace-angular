@@ -121,6 +121,17 @@ export class RSSComponent implements OnInit, OnDestroy  {
   }
 
   /**
+   * Check if the router url contains the specified route
+   *
+   * @param {string} route
+   * @returns
+   * @memberof MyComponent
+   */
+  hasRoute(route: string) {
+    return this.router.url.includes(route);
+  }
+
+  /**
    * Creates <link> tags in the header of the page
    * @param route The composed url to opensearch
    */
