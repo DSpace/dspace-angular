@@ -45,17 +45,19 @@
     <div *ngFor="let columnItems of items" class="col-sm ml-3">
 
       <div  *ngFor="let item of columnItems" class="custom-control custom-radio">
+        <input type="radio" class="custom-control-input"
+               [checked]="item.value"
+               [id]="item.id"
+               [name]="model.id"
+               [required]="model.required"
+               [value]="item.index"
+               (blur)="onBlur($event)"
+               (focus)="onFocus($event)"/>
         <label class="custom-control-label"
                [class.disabled]="model.disabled"
-               [ngClass]="model.layout.element?.control">
-          <input type="radio" class="custom-control-input"
-                 [checked]="item.value"
-                 [id]="item.id"
-                 [name]="model.id"
-                 [required]="model.required"
-                 [value]="item.index"
-                 (blur)="onBlur($event)"
-                 (focus)="onFocus($event)"/>
+               [ngClass]="model.layout.element?.control"
+                [for]="item.id">
+
           <span [ngClass]="model.layout.element?.label" [innerHTML]="item.label"></span>
         </label>
       </div>
