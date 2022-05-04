@@ -16,8 +16,8 @@ import { environment } from 'src/environments/environment';
  */
 export class AccessStatusBadgeComponent {
 
-  private _uuid: string;
-  private _accessStatus$: Observable<string>;
+  @Input() uuid: string;
+  accessStatus$: Observable<string>;
 
   /**
    * Whether to show the access status badge or not
@@ -33,8 +33,8 @@ export class AccessStatusBadgeComponent {
 
   ngOnInit(): void {
     this.showAccessStatus = environment.item.showAccessStatuses;
-    this._accessStatus$ = this.itemDataService
-      .getAccessStatus(this._uuid)
+    this.accessStatus$ = this.itemDataService
+      .getAccessStatus(this.uuid)
       .pipe(
         getFirstCompletedRemoteData(),
         map((accessStatusRD) => {
@@ -48,13 +48,5 @@ export class AccessStatusBadgeComponent {
         map((status: string) => `access-status.${status.toLowerCase()}.listelement.badge`),
         catchError(() => observableOf('access-status.unknown.listelement.badge'))
       );
-  }
-
-  @Input() set uuid(uuid: string) {
-    this._uuid = uuid;
-  }
-
-  get accessStatus$(): Observable<string> {
-    return this._accessStatus$;
   }
 }
