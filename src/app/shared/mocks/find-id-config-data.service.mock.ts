@@ -8,7 +8,7 @@ export function getMockFindByIdDataService(propertyKey: string, ...values: strin
       name: propertyKey,
       values: values,
     })
-  })
+  });
 }
 
 
