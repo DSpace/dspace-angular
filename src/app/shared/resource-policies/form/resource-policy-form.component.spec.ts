@@ -222,8 +222,6 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
-      testComp.resourcePolicy = resourcePolicy;
-      fixture.detectChanges();
     });
 
     afterEach(() => {

@@ -161,27 +161,31 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
     this.formId = this.formService.getUniqueId('resource-policy-form');
     this.formModel = this.buildResourcePolicyForm();
 
-    const epersonRD$ = this.ePersonService.findByHref(this.resourcePolicy._links.eperson.href, false).pipe(
-      getFirstSucceededRemoteData()
-    );
-    const groupRD$ = this.groupService.findByHref(this.resourcePolicy._links.group.href, false).pipe(
-      getFirstSucceededRemoteData()
-    );
-    const dsoRD$: Observable<RemoteData<DSpaceObject>> = observableCombineLatest([epersonRD$, groupRD$]).pipe(
-      map((rdArr: RemoteData<DSpaceObject>[]) => {
-        return rdArr.find((rd: RemoteData<DSpaceObject>) => isNotEmpty(rd.payload));
-      }),
-      hasValueOperator(),
-    );
-    this.subs.push(
-      dsoRD$.pipe(
-        filter(() => this.isActive),
-      ).subscribe((dsoRD: RemoteData<DSpaceObject>) => {
-        this.resourcePolicyGrant = dsoRD.payload;
-        this.navActiveId = String(dsoRD.payload.type);
-        this.resourcePolicyTargetName$.next(this.getResourcePolicyTargetName());
-      })
-    );
+    if (this.isBeingEdited()) {
+      const epersonRD$ = this.ePersonService.findByHref(this.resourcePolicy._links.eperson.href, false).pipe(
+        getFirstSucceededRemoteData()
+      );
+      const groupRD$ = this.groupService.findByHref(this.resourcePolicy._links.group.href, false).pipe(
+        getFirstSucceededRemoteData()
+      );
+      const dsoRD$: Observable<RemoteData<DSpaceObject>> = observableCombineLatest([epersonRD$, groupRD$]).pipe(
+        map((rdArr: RemoteData<DSpaceObject>[]) => {
+          return rdArr.find((rd: RemoteData<DSpaceObject>) => isNotEmpty(rd.payload));
+        }),
+        hasValueOperator(),
+      );
+      this.subs.push(
+        dsoRD$.pipe(
+          filter(() => this.isActive),
+        ).subscribe((dsoRD: RemoteData<DSpaceObject>) => {
+          this.resourcePolicyGrant = dsoRD.payload;
+          this.navActiveId = String(dsoRD.payload.type);
+          this.resourcePolicyTargetName$.next(this.getResourcePolicyTargetName());
+        })
+      )
+    } else {
+
+    }
   }
 
   /**
@@ -202,19 +206,12 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    */
   private buildResourcePolicyForm(): DynamicFormControlModel[] {
     const formModel: DynamicFormControlModel[] = [];
-    // TODO to be removed when https://github.com/DSpace/DSpace/issues/7812 will be implemented
-    const policyTypeConf = Object.assign({}, RESOURCE_POLICY_FORM_POLICY_TYPE_CONFIG, {
-      disabled: isNotEmpty(this.resourcePolicy)
-    });
-    // TODO to be removed when https://github.com/DSpace/DSpace/issues/7812 will be implemented
-    const actionConf = Object.assign({}, RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG, {
-      disabled: isNotEmpty(this.resourcePolicy)
-    });
+
     formModel.push(
       new DsDynamicInputModel(RESOURCE_POLICY_FORM_NAME_CONFIG),
       new DsDynamicTextAreaModel(RESOURCE_POLICY_FORM_DESCRIPTION_CONFIG),
-      new DynamicSelectModel(policyTypeConf),
-      new DynamicSelectModel(actionConf)
+      new DynamicSelectModel(RESOURCE_POLICY_FORM_POLICY_TYPE_CONFIG),
+      new DynamicSelectModel(RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG)
     );
 
     const startDateModel = new DynamicDatePickerModel(
