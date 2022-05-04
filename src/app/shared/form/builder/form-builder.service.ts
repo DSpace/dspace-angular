@@ -74,11 +74,6 @@ export class FormBuilderService extends DynamicFormService {
     super(componentService, validationService);
     this.formModels = new Map();
     this.formGroups = new Map();
-    if (hasValue(configService) || true) {
-      this.setTypeBindFieldFromConfig();
-    } else {
-      this.typeField = 'dc_type';
-    }
   }
 
   createDynamicFormControlEvent(control: FormControl, group: FormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {
@@ -285,7 +280,7 @@ export class FormBuilderService extends DynamicFormService {
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
         const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope,
-          readOnly, this.typeField);
+          readOnly, this.getTypeField());
         if (isNotNull(rowParsed)) {
           if (Array.isArray(rowParsed)) {
             rows = rows.concat(rowParsed);
@@ -518,7 +513,16 @@ export class FormBuilderService extends DynamicFormService {
     });
   }
 
+  /**
+   * Get type field. If the type isn't already set, and a ConfigurationDataService is provided, set (with subscribe)
+   * from back end. Otherwise, get/set a default "dc_type" value
+   */
   getTypeField(): string {
+    if (hasValue(this.configService) && hasNoValue(this.typeField)) {
+      this.setTypeBindFieldFromConfig();
+    } else if (hasNoValue(this.typeField)) {
+      this.typeField = 'dc_type';
+    }
     return this.typeField;
   }
 
