@@ -13,8 +13,6 @@ ui:
   rateLimiter:
     windowMs: 60000 # 1 minute
     max: 500 # limit each IP to 500 requests per windowMs
-  # Show the file access status in items lists
-  showAccessStatuses: false
 
 # The REST API server settings
 # NOTE: these must be 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
@@ -163,10 +161,12 @@ browseBy:
   # The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
   defaultLowerLimit: 1900
 
-# Item Page Config
+# Item Config
 item:
   edit:
     undoTimeout: 10000 # 10 seconds
+  # Show the item access status label in items lists
+  showAccessStatuses: false
 
 # Collection Page Config
 collection:

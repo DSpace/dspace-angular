@@ -30,6 +30,6 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
   ngOnInit(): void {
     super.ngOnInit();
     this.itemPageRoute = getItemPageRoute(this.dso);
-    this.showAccessStatus = environment.ui.showAccessStatuses;
+    this.showAccessStatus = environment.item.showAccessStatuses;
   }
 }

@@ -25,9 +25,7 @@ export const environment: BuildConfig = {
     rateLimiter: {
       windowMs: 1 * 60 * 1000, // 1 minute
       max: 500 // limit each IP to 500 requests per windowMs
-    },
-    // Show the file access status in items lists
-    showAccessStatuses: false
+    }
   },
 
   // The REST API server settings.
@@ -198,7 +196,9 @@ export const environment: BuildConfig = {
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds
-    }
+    },
+    // Show the item access status label in items lists
+    showAccessStatuses: false
   },
   collection: {
     edit: {

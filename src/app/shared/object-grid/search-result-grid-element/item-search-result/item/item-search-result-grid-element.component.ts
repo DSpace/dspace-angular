@@ -32,6 +32,6 @@ export class ItemSearchResultGridElementComponent extends SearchResultGridElemen
   ngOnInit(): void {
     super.ngOnInit();
     this.itemPageRoute = getItemPageRoute(this.dso);
-    this.showAccessStatus = environment.ui.showAccessStatuses;
+    this.showAccessStatus = environment.item.showAccessStatuses;
   }
 }

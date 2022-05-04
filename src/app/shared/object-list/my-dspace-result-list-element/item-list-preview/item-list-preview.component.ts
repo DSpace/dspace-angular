@@ -43,6 +43,6 @@ export class ItemListPreviewComponent {
   showAccessStatus: boolean;
 
   ngOnInit(): void {
-    this.showAccessStatus = environment.ui.showAccessStatuses;
+    this.showAccessStatus = environment.item.showAccessStatuses;
   }
 }
