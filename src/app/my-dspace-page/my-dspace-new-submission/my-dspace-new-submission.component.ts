@@ -13,8 +13,7 @@ import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { NotificationType } from '../../shared/notifications/models/notification-type';
 import { hasValue } from '../../shared/empty.util';
-import { SearchResult } from '../../shared/search/search-result.model';
-import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { SearchResult } from '../../shared/search/models/search-result.model';
 import { CollectionSelectorComponent } from '../collection-selector/collection-selector.component';
 import { UploaderComponent } from '../../shared/uploader/uploader.component';
 import { UploaderError } from '../../shared/uploader/uploader-error.model';
@@ -116,14 +115,6 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
       errorMessageKey = 'mydspace.upload.upload-failed-manyentries';
     }
     this.notificationsService.error(null, this.translate.get(errorMessageKey));
-  }
-
-  /**
-   * Method called on clicking the button "New Submition", It opens a dialog for
-   * select a collection.
-   */
-  openDialog() {
-    this.modalService.open(CreateItemParentSelectorComponent);
   }
 
   /**

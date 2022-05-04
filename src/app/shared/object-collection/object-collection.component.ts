@@ -2,14 +2,14 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } fro
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { filter, map, startWith } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ListableObject } from './shared/listable-object.model';
-import { isNotEmpty } from '../empty.util';
+import { isEmpty } from '../empty.util';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { CollectionElementLinkType } from './collection-element-link.type';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -89,6 +89,11 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() hidePaginationDetail = false;
 
   /**
+   * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
+   */
+  @Input() showPaginator = true;
+
+  /**
    * the page info of the list
    */
   pageInfo: Observable<PageInfo>;
@@ -123,6 +128,16 @@ export class ObjectCollectionComponent implements OnInit {
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
 
   /**
+   * If showPaginator is set to true, emit when the previous button is clicked
+   */
+  @Output() prev = new EventEmitter<boolean>();
+
+  /**
+   * If showPaginator is set to true, emit when the next button is clicked
+   */
+  @Output() next = new EventEmitter<boolean>();
+
+  /**
    * Emits the current view mode
    */
   currentMode$: Observable<ViewMode>;
@@ -136,9 +151,8 @@ export class ObjectCollectionComponent implements OnInit {
     this.currentMode$ = this.route
       .queryParams
       .pipe(
-        filter((params) => isNotEmpty(params.view)),
-        map((params) => params.view),
-        startWith(ViewMode.ListElement)
+        map((params) => isEmpty(params?.view) ? ViewMode.ListElement : params.view),
+        distinctUntilChanged()
       );
   }
 
@@ -191,6 +205,20 @@ export class ObjectCollectionComponent implements OnInit {
    */
   onPaginationChange(event) {
     this.paginationChange.emit(event);
+  }
+
+  /**
+   * Go to the previous page
+   */
+  goPrev() {
+      this.prev.emit(true);
+  }
+
+ /**
+  * Go to the next page
+  */
+  goNext() {
+      this.next.emit(true);
   }
 
 }

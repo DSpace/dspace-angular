@@ -1,5 +1,5 @@
-import { excludeFromEquals, fieldsForEquals } from './equals.decorators';
-import { EquatableObject } from './equatable';
+/* eslint-disable max-classes-per-file */
+import { EquatableObject, excludeFromEquals, fieldsForEquals } from './equals.decorators';
 import { cloneDeep } from 'lodash';
 
 class Dog extends EquatableObject<Dog> {
@@ -14,7 +14,6 @@ class Dog extends EquatableObject<Dog> {
   public favouriteToy: { name: string, colour: string };
 }
 
-// tslint:disable-next-line:max-classes-per-file
 class Owner extends EquatableObject<Owner> {
   @excludeFromEquals
   favouriteFood: string;

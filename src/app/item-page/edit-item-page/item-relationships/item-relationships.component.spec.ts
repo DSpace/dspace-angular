@@ -9,7 +9,6 @@ import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../core/cache/response.models';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { RequestService } from '../../../core/data/request.service';
@@ -25,6 +24,9 @@ import { RouterStub } from '../../../shared/testing/router.stub';
 import { ItemRelationshipsComponent } from './item-relationships.component';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
+import { RelationshipTypeService } from '../../../core/data/relationship-type.service';
+import { relationshipTypes } from '../../../shared/testing/relationship-types.mock';
 
 let comp: any;
 let fixture: ComponentFixture<ItemRelationshipsComponent>;
@@ -46,6 +48,7 @@ const notificationsService = jasmine.createSpyObj('notificationsService',
   }
 );
 const router = new RouterStub();
+let relationshipTypeService;
 let routeStub;
 let itemService;
 
@@ -178,6 +181,13 @@ describe('ItemRelationshipsComponent', () => {
       }
     );
 
+
+    relationshipTypeService = jasmine.createSpyObj('searchByEntityType',
+      {
+        searchByEntityType: observableOf(relationshipTypes)
+      }
+    );
+
     requestService = jasmine.createSpyObj('requestService',
       {
         removeByHrefSubstring: {},
@@ -210,6 +220,7 @@ describe('ItemRelationshipsComponent', () => {
         { provide: EntityTypeService, useValue: entityTypeService },
         { provide: ObjectCacheService, useValue: objectCache },
         { provide: RequestService, useValue: requestService },
+        { provide: RelationshipTypeService, useValue: relationshipTypeService },
         ChangeDetectorRef
       ], schemas: [
         NO_ERRORS_SCHEMA
@@ -255,4 +266,22 @@ describe('ItemRelationshipsComponent', () => {
       expect(relationshipService.deleteRelationship).toHaveBeenCalledWith(relationships[1].uuid, 'left');
     });
   });
+
+
+
+  describe('discard', () => {
+    beforeEach(() => {
+      comp.item.firstMetadataValue = (info) => {
+        return 'Publication';
+      };
+      fixture.detectChanges();
+      comp.initializeUpdates();
+      fixture.detectChanges();
+    });
+
+    it('it should call relationshipTypeService.searchByEntityType', () => {
+      expect(relationshipTypeService.searchByEntityType).toHaveBeenCalled();
+    });
+  });
+
 });

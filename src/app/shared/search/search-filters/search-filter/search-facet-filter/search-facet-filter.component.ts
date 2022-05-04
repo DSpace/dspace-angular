@@ -15,14 +15,18 @@ import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../../empty.util';
 import { EmphasizePipe } from '../../../../utils/emphasize.pipe';
-import { FacetValue } from '../../../facet-value.model';
-import { SearchFilterConfig } from '../../../search-filter-config.model';
+import { FacetValue } from '../../../models/facet-value.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
-import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
+import {
+  FILTER_CONFIG,
+  IN_PLACE_SEARCH,
+  SearchFilterService
+} from '../../../../../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { getFirstSucceededRemoteData } from '../../../../../core/shared/operators';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
-import { SearchOptions } from '../../../search-options.model';
+import { SearchOptions } from '../../../models/search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../../../utils/route.utils';
 import { getFacetValueForType, stripOperatorFromFilterValue } from '../../../search.utils';
@@ -150,7 +154,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
                 if (hasValue(fValue)) {
                   return fValue;
                 }
-                return Object.assign(new FacetValue(), { label: stripOperatorFromFilterValue(value), value: value });
+                const filterValue = stripOperatorFromFilterValue(value);
+                return Object.assign(new FacetValue(), { label: filterValue, value: filterValue });
               });
             })
           );
@@ -225,27 +230,29 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Submits a new active custom value to the filter from the input field
+   * Submits a new active custom value to the filter from the input field when the input field isn't empty.
    * @param data The string from the input field
    */
   onSubmit(data: any) {
-    this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
-        if (isNotEmpty(data)) {
-          this.router.navigate(this.getSearchLinkParts(), {
-            queryParams:
-              {
-                [this.filterConfig.paramName]: [
-                  ...selectedValues.map((facet) => this.getFacetValue(facet)),
-                  data
-                ]
-              },
-            queryParamsHandling: 'merge'
-          });
-          this.filter = '';
+    if (data.match(new RegExp(`^.+,(equals|query|authority)$`))) {
+      this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
+          if (isNotEmpty(data)) {
+            this.router.navigate(this.getSearchLinkParts(), {
+              queryParams:
+                {
+                  [this.filterConfig.paramName]: [
+                    ...selectedValues.map((facet) => this.getFacetValue(facet)),
+                    data
+                  ]
+                },
+              queryParamsHandling: 'merge'
+            });
+            this.filter = '';
+          }
+          this.filterSearchResults = observableOf([]);
         }
-        this.filterSearchResults = observableOf([]);
-      }
-    );
+      );
+    }
   }
 
   /**

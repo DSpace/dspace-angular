@@ -1,5 +1,5 @@
 import { map } from 'rxjs/operators';
-import { Component, Inject, OnInit, Input } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
@@ -13,12 +13,13 @@ import { NativeWindowRef, NativeWindowService } from '../core/services/window.se
 import { AuthService } from '../core/auth/auth.service';
 import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '../shared/menu/initial-menus-state';
 import { HostWindowService } from '../shared/host-window.service';
 import { ThemeConfig } from '../../config/theme.model';
 import { Angulartics2DSpace } from '../statistics/angulartics/dspace-provider';
 import { environment } from '../../environments/environment';
 import { slideSidebarPadding } from '../shared/animations/slide';
+import { MenuID } from '../shared/menu/menu-id.model';
+import { getPageInternalServerErrorRoute } from '../app-routing-paths';
 
 @Component({
   selector: 'ds-root',
@@ -32,7 +33,7 @@ export class RootComponent implements OnInit {
   collapsedSidebarWidth: Observable<string>;
   totalSidebarWidth: Observable<string>;
   theme: Observable<ThemeConfig> = of({} as any);
-  notificationOptions = environment.notifications;
+  notificationOptions;
   models;
 
   /**
@@ -58,6 +59,7 @@ export class RootComponent implements OnInit {
     private menuService: MenuService,
     private windowService: HostWindowService
   ) {
+    this.notificationOptions = environment.notifications;
   }
 
   ngOnInit() {
@@ -67,9 +69,13 @@ export class RootComponent implements OnInit {
     this.totalSidebarWidth = this.cssService.getVariable('totalSidebarWidth');
 
     const sidebarCollapsed = this.menuService.isMenuCollapsed(MenuID.ADMIN);
-    this.slideSidebarOver = combineLatestObservable(sidebarCollapsed, this.windowService.isXsOrSm())
+    this.slideSidebarOver = combineLatestObservable([sidebarCollapsed, this.windowService.isXsOrSm()])
       .pipe(
         map(([collapsed, mobile]) => collapsed || mobile)
       );
+
+    if (this.router.url === getPageInternalServerErrorRoute()) {
+      this.shouldShowRouteLoader = false;
+    }
   }
 }

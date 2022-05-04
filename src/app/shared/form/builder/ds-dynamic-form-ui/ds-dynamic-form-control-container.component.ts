@@ -81,7 +81,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/
 import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
 import { find, map, startWith, switchMap, take } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { SearchResult } from '../../../search/search-result.model';
+import { SearchResult } from '../../../search/models/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { RelationshipService } from '../../../../core/data/relationship.service';
@@ -192,7 +192,7 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
 })
 export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
 
   @Input() formId: string;
@@ -218,12 +218,12 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    */
   private subs: Subscription[] = [];
 
-  /* tslint:disable:no-output-rename */
+  /* eslint-disable @angular-eslint/no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfFocus') focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('ngbEvent') customEvent: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
-  /* tslint:enable:no-output-rename */
+  /* eslint-enable @angular-eslint/no-output-rename */
   @ViewChild('componentViewContainer', { read: ViewContainerRef, static: true }) componentViewContainerRef: ViewContainerRef;
 
   private showErrorMessagesPreviousStage: boolean;
@@ -323,7 +323,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               getAllSucceededRemoteData(),
               getRemoteDataPayload(),
               map((leftItem: Item) => {
-                return new ReorderableRelationship(relationship, leftItem.uuid !== item.uuid, this.relationshipService, this.store, this.model.submissionId);
+                return new ReorderableRelationship(relationship, leftItem.uuid !== item.uuid, this.store, this.model.submissionId);
               }),
             )
           ),

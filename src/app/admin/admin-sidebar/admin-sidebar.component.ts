@@ -1,18 +1,35 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, HostListener, Injector, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest, combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { first, map, take } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest as observableCombineLatest, combineLatest, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, first, map, take, withLatestFrom } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
+import {
+  METADATA_EXPORT_SCRIPT_NAME,
+  METADATA_IMPORT_SCRIPT_NAME,
+  ScriptDataService
+} from '../../core/data/processes/script-data.service';
 import { slideHorizontal, slideSidebar } from '../../shared/animations/slide';
-import { CreateCollectionParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
-import { CreateCommunityParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
-import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
-import { EditCollectionSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
-import { EditCommunitySelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
-import { EditItemSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
-import { ExportMetadataSelectorComponent } from '../../shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
-import { MenuID, MenuItemType } from '../../shared/menu/initial-menus-state';
+import {
+  CreateCollectionParentSelectorComponent
+} from '../../shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
+import {
+  CreateCommunityParentSelectorComponent
+} from '../../shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
+import {
+  CreateItemParentSelectorComponent
+} from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import {
+  EditCollectionSelectorComponent
+} from '../../shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
+import {
+  EditCommunitySelectorComponent
+} from '../../shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
+import {
+  EditItemSelectorComponent
+} from '../../shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
+import {
+  ExportMetadataSelectorComponent
+} from '../../shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { LinkMenuItemModel } from '../../shared/menu/menu-item/models/link.model';
 import { OnClickMenuItemModel } from '../../shared/menu/menu-item/models/onclick.model';
 import { TextMenuItemModel } from '../../shared/menu/menu-item/models/text.model';
@@ -21,6 +38,9 @@ import { MenuService } from '../../shared/menu/menu.service';
 import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { MenuID } from '../../shared/menu/menu-id.model';
+import { MenuItemType } from '../../shared/menu/menu-item-type.model';
+import { ActivatedRoute } from '@angular/router';
 
 /**
  * Component representing the admin sidebar
@@ -60,27 +80,32 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    */
   sidebarExpanded: Observable<boolean>;
 
-  constructor(protected menuService: MenuService,
-              protected injector: Injector,
-              private variableService: CSSVariableService,
-              private authService: AuthService,
-              private modalService: NgbModal,
-              private authorizationService: AuthorizationDataService,
-              private scriptDataService: ScriptDataService,
+  inFocus$: BehaviorSubject<boolean>;
+
+  constructor(
+    protected menuService: MenuService,
+    protected injector: Injector,
+    protected variableService: CSSVariableService,
+    protected authService: AuthService,
+    protected modalService: NgbModal,
+    public authorizationService: AuthorizationDataService,
+    protected scriptDataService: ScriptDataService,
+    public route: ActivatedRoute
   ) {
-    super(menuService, injector);
+    super(menuService, injector, authorizationService, route);
+    this.inFocus$ = new BehaviorSubject(false);
   }
 
   /**
    * Set and calculate all initial values of the instance variables
    */
   ngOnInit(): void {
-    this.createMenu();
     super.ngOnInit();
     this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
     this.authService.isAuthenticated()
       .subscribe((loggedIn: boolean) => {
         if (loggedIn) {
+          this.createMenu();
           this.menuService.showMenu(this.menuID);
         }
       });
@@ -89,10 +114,25 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         this.sidebarOpen = !collapsed;
         this.sidebarClosed = collapsed;
       });
-    this.sidebarExpanded = observableCombineLatest(this.menuCollapsed, this.menuPreviewCollapsed)
+    this.sidebarExpanded = combineLatest([this.menuCollapsed, this.menuPreviewCollapsed])
       .pipe(
         map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed))
       );
+    this.inFocus$.pipe(
+      debounceTime(50),
+      distinctUntilChanged(),  // disregard focusout in situations like --(focusout)-(focusin)--
+      withLatestFrom(
+        combineLatest([this.menuCollapsed, this.menuPreviewCollapsed])
+      ),
+    ).subscribe(([inFocus, [collapsed, previewCollapsed]]) => {
+      if (collapsed) {
+        if (inFocus && previewCollapsed) {
+          this.expandPreview(new Event('focusin → expand'));
+        } else if (!inFocus && !previewCollapsed) {
+          this.collapsePreview(new Event('focusout → collapse'));
+        }
+      }
+    });
   }
 
   /**
@@ -126,7 +166,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             type: MenuItemType.TEXT,
             text: 'menu.section.new'
           } as TextMenuItemModel,
-        icon: 'plus',
+          icon: 'plus',
           index: 0
         },
         {
@@ -300,19 +340,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    */
   createExportMenuSections() {
     const menuList = [
-      /* Export */
-      {
-        id: 'export',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.export'
-        } as TextMenuItemModel,
-        icon: 'file-export',
-        index: 3,
-        shouldPersistOnRouteChange: true
-      },
       // TODO: enable this menu item once the feature has been implemented
       // {
       //   id: 'export_community',
@@ -355,14 +382,28 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     ];
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, menuSection));
 
-    observableCombineLatest(
+    observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      // this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME)
-    ).pipe(
-      // TODO uncomment when #635 (https://github.com/DSpace/dspace-angular/issues/635) is fixed; otherwise even in production mode, the metadata export button is only available after a refresh (and not in dev mode)
-      // filter(([authorized, metadataExportScriptExists]: boolean[]) => authorized && metadataExportScriptExists),
+      this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME)
+    ]).pipe(
+      filter(([authorized, metadataExportScriptExists]: boolean[]) => authorized && metadataExportScriptExists),
       take(1)
     ).subscribe(() => {
+      // Hides the export menu for unauthorised people
+      // If in the future more sub-menus are added,
+      // it should be reviewed if they need to be in this subscribe
+      this.menuService.addSection(this.menuID, {
+          id: 'export',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.export'
+          } as TextMenuItemModel,
+          icon: 'file-export',
+          index: 3,
+          shouldPersistOnRouteChange: true
+        });
       this.menuService.addSection(this.menuID, {
         id: 'export_metadata',
         parentID: 'export',
@@ -386,18 +427,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    */
   createImportMenuSections() {
     const menuList = [
-      /* Import */
-      {
-        id: 'import',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.import'
-        } as TextMenuItemModel,
-        icon: 'file-import',
-        index: 2
-      },
       // TODO: enable this menu item once the feature has been implemented
       // {
       //   id: 'import_batch',
@@ -415,14 +444,27 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       shouldPersistOnRouteChange: true
     })));
 
-    observableCombineLatest(
+    observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      // this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME)
-    ).pipe(
-      // TODO uncomment when #635 (https://github.com/DSpace/dspace-angular/issues/635) is fixed
-      // filter(([authorized, metadataImportScriptExists]: boolean[]) => authorized && metadataImportScriptExists),
+      this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME)
+    ]).pipe(
+      filter(([authorized, metadataImportScriptExists]: boolean[]) => authorized && metadataImportScriptExists),
       take(1)
     ).subscribe(() => {
+      // Hides the import menu for unauthorised people
+      // If in the future more sub-menus are added,
+      // it should be reviewed if they need to be in this subscribe
+      this.menuService.addSection(this.menuID, {
+          id: 'import',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.import'
+          } as TextMenuItemModel,
+          icon: 'file-import',
+          index: 2
+        });
       this.menuService.addSection(this.menuID, {
         id: 'import_metadata',
         parentID: 'import',
@@ -531,10 +573,10 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * Create menu sections dependent on whether or not the current user can manage access control groups
    */
   createAccessControlMenuSections() {
-    observableCombineLatest(
+    observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.authorizationService.isAuthorized(FeatureID.CanManageGroups)
-    ).subscribe(([isSiteAdmin, canManageGroups]) => {
+    ]).subscribe(([isSiteAdmin, canManageGroups]) => {
       const menuList = [
         /* Access Control */
         {
@@ -588,6 +630,32 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         shouldPersistOnRouteChange: true,
       })));
     });
+  }
+
+  @HostListener('focusin')
+  public handleFocusIn() {
+    this.inFocus$.next(true);
+  }
+
+  @HostListener('focusout')
+  public handleFocusOut() {
+    this.inFocus$.next(false);
+  }
+
+  public handleMouseEnter(event: any) {
+    if (!this.inFocus$.getValue()) {
+      this.expandPreview(event);
+    } else {
+      event.preventDefault();
+    }
+  }
+
+  public handleMouseLeave(event: any) {
+    if (!this.inFocus$.getValue()) {
+      this.collapsePreview(event);
+    } else {
+      event.preventDefault();
+    }
   }
 
   /**

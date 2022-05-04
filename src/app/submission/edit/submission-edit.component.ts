@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { debounceTime, filter, switchMap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -16,10 +16,9 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { getAllSucceededRemoteData } from '../../core/shared/operators';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import { SubmissionError } from '../objects/submission-objects.reducer';
 import parseSectionErrors from '../utils/parseSectionErrors';
+import { SubmissionError } from '../objects/submission-error.model';
 
 /**
  * This component allows to edit an existing workspaceitem/workflowitem.

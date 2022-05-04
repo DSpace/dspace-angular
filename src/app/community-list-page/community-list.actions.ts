@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { type } from '../shared/ngrx/type';
-import { FlatNode } from './community-list-service';
+import { FlatNode } from './flat-node.model';
 
 /**
  * All the action types of the community-list

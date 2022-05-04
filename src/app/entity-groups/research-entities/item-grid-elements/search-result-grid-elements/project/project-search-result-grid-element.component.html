@@ -6,7 +6,7 @@
     <a *ngIf="linkType != linkTypes.None"
        [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
        rel="noopener noreferrer" [routerLink]="[itemPageRoute]"
-       class="card-img-top full-width">
+       class="card-img-top full-width" [attr.title]="'search.results.view-result' | translate">
       <div>
         <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="false">
         </ds-thumbnail>
@@ -31,7 +31,7 @@
       <div *ngIf="linkType != linkTypes.None" class="text-center">
         <a [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
            rel="noopener noreferrer" [routerLink]="[itemPageRoute]"
-           class="lead btn btn-primary viewButton">View</a>
+           class="lead btn btn-primary viewButton">{{ 'search.results.view-result' | translate}}</a>
       </div>
     </div>
   </ds-truncatable>

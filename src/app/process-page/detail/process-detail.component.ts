@@ -13,7 +13,6 @@ import { Bitstream } from '../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
   getFirstSucceededRemoteDataPayload,
-  redirectOn4xx,
   getFirstSucceededRemoteData
 } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
@@ -21,6 +20,7 @@ import { AlertType } from '../../shared/alert/aletr-type';
 import { hasValue } from '../../shared/empty.util';
 import { ProcessStatus } from '../processes/process-status.model';
 import { Process } from '../processes/process.model';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
 
 @Component({
   selector: 'ds-process-detail',
@@ -65,6 +65,11 @@ export class ProcessDetailComponent implements OnInit {
    * When it's retrieving the output logs from backend, to show loading component
    */
   retrievingOutputLogs$: BehaviorSubject<boolean>;
+
+  /**
+   * Date format to use for start and end time of processes
+   */
+  dateFormat = 'yyyy-MM-dd HH:mm:ss ZZZZ';
 
   constructor(protected route: ActivatedRoute,
               protected router: Router,

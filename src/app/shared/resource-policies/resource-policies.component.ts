@@ -281,7 +281,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * Redirect to resource policy creation page
    */
   redirectToResourcePolicyCreatePage(): void {
-    this.router.navigate([`../create`], {
+    this.router.navigate([`./create`], {
       relativeTo: this.route,
       queryParams: {
         policyTargetId: this.resourceUUID,
@@ -296,7 +296,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * @param policy The resource policy
    */
   redirectToResourcePolicyEditPage(policy: ResourcePolicy): void {
-    this.router.navigate([`../edit`], {
+    this.router.navigate([`./edit`], {
       relativeTo: this.route,
       queryParams: {
         policyId: policy.id

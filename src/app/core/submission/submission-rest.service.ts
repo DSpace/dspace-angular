@@ -8,7 +8,6 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import {
   DeleteRequest,
   PostRequest,
-  RestRequest,
   SubmissionDeleteRequest,
   SubmissionPatchRequest,
   SubmissionPostRequest,
@@ -22,6 +21,7 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { RemoteData } from '../data/remote-data';
 import { SubmissionResponse } from './submission-response.model';
+import { RestRequest } from '../data/rest-request.model';
 
 /**
  * The service handling all submission REST requests

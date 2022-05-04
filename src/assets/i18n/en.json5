@@ -14,6 +14,11 @@
 
   "403.forbidden": "forbidden",
 
+  "500.page-internal-server-error": "Service Unavailable",
+
+  "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
+
+  "500.link.home-page": "Take me to the home page",
 
 
   "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
@@ -284,6 +289,8 @@
 
   "admin.access-control.epeople.form.table.name": "Name",
 
+  "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
+
   "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
 
   "admin.access-control.epeople.form.goToGroups": "Add to groups",
@@ -322,6 +329,8 @@
 
   "admin.access-control.groups.table.name": "Name",
 
+  "admin.access-control.groups.table.collectionOrCommunity": "Collection/Community",
+
   "admin.access-control.groups.table.members": "Members",
 
   "admin.access-control.groups.table.edit": "Edit",
@@ -349,6 +358,8 @@
   "admin.access-control.groups.form.head.edit": "Edit group",
 
   "admin.access-control.groups.form.groupName": "Group name",
+
+  "admin.access-control.groups.form.groupCommunity": "Community or Collection",
 
   "admin.access-control.groups.form.groupDescription": "Description",
 
@@ -398,6 +409,12 @@
 
   "admin.access-control.groups.form.members-list.table.name": "Name",
 
+  "admin.access-control.groups.form.members-list.table.identity": "Identity",
+
+  "admin.access-control.groups.form.members-list.table.email": "Email",
+
+  "admin.access-control.groups.form.members-list.table.netid": "NetID",
+
   "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
 
   "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
@@ -433,6 +450,8 @@
   "admin.access-control.groups.form.subgroups-list.table.id": "ID",
 
   "admin.access-control.groups.form.subgroups-list.table.name": "Name",
+
+  "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Collection/Community",
 
   "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
 
@@ -472,9 +491,9 @@
 
   "admin.search.item.edit": "Edit",
 
-  "admin.search.item.make-private": "Make Private",
+  "admin.search.item.make-private": "Make non-discoverable",
 
-  "admin.search.item.make-public": "Make Public",
+  "admin.search.item.make-public": "Make discoverable",
 
   "admin.search.item.move": "Move",
 
@@ -532,6 +551,7 @@
 
   "bitstream.download.page": "Now downloading {{bitstream}}..." ,
 
+  "bitstream.download.page.back": "Back" ,
 
 
   "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
@@ -568,13 +588,69 @@
 
   "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
 
+  "bitstream.edit.form.iiifLabel.label": "IIIF Label",
+
+  "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image. If not provided default label will be used.",
+
+  "bitstream.edit.form.iiifToc.label": "IIIF Table of Contents",
+
+  "bitstream.edit.form.iiifToc.hint": "Adding text here makes this the start of a new table of contents range.",
+
+  "bitstream.edit.form.iiifWidth.label": "IIIF Canvas Width",
+
+  "bitstream.edit.form.iiifWidth.hint": "The canvas width should usually match the image width.",
+
+  "bitstream.edit.form.iiifHeight.label": "IIIF Canvas Height",
+
+  "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
+
+
   "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
 
   "bitstream.edit.notifications.saved.title": "Bitstream saved",
 
   "bitstream.edit.title": "Edit bitstream",
 
+  "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
 
+  "bitstream-request-a-copy.alert.canDownload2": "here",
+
+  "bitstream-request-a-copy.header": "Request a copy of the file",
+
+  "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
+
+  "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
+  "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
+
+  "bitstream-request-a-copy.name.label": "Name *",
+
+  "bitstream-request-a-copy.name.error": "The name is required",
+
+  "bitstream-request-a-copy.email.label": "Your e-mail address *",
+
+  "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
+
+  "bitstream-request-a-copy.email.error": "Please enter a valid email address.",
+
+  "bitstream-request-a-copy.allfiles.label": "Files",
+
+  "bitstream-request-a-copy.files-all-false.label": "Only the requested file",
+
+  "bitstream-request-a-copy.files-all-true.label": "All files (of this item) in restricted access",
+
+  "bitstream-request-a-copy.message.label": "Message",
+
+  "bitstream-request-a-copy.return": "Back",
+
+  "bitstream-request-a-copy.submit": "Request copy",
+
+  "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
+
+  "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
+
+
+
+  "browse.back.all-results": "All browse results",
 
   "browse.comcol.by.author": "By Author",
 
@@ -604,9 +680,13 @@
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
-  "browse.next.button": "Next",
+  "pagination.next.button": "Next",
 
-  "browse.previous.button": "Previous",
+  "pagination.previous.button": "Previous",
+
+  "pagination.next.button.disabled.tooltip": "No more pages of results",
+
+  "browse.startsWith": ", starting with {{ startsWith }}",
 
   "browse.startsWith.choose_start": "(Choose start)",
 
@@ -614,7 +694,7 @@
 
   "browse.startsWith.choose_year.label": "Choose the issue year",
 
-  "browse.startsWith.jump": "Jump to a point in the index:",
+  "browse.startsWith.jump": "Filter results by year or month",
 
   "browse.startsWith.months.april": "April",
 
@@ -646,13 +726,15 @@
 
   "browse.startsWith.submit": "Browse",
 
-  "browse.startsWith.type_date": "Or type in a date (year-month) and click 'Browse'",
+  "browse.startsWith.type_date": "Filter results by date",
 
   "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
 
-  "browse.startsWith.type_text": "Type the first few letters and click on the Browse button",
+  "browse.startsWith.type_text": "Filter results by typing the first few letters",
 
-  "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+  "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
+
+  "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
 
 
   "chips.remove": "Remove chip",
@@ -730,7 +812,6 @@
   "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
 
   "collection.edit.item-mapper.tabs.map": "Map new items",
-
 
 
   "collection.edit.logo.delete.title": "Delete logo",
@@ -855,6 +936,8 @@
 
   "collection.form.title": "Name",
 
+  "collection.form.entityType": "Entity Type",
+
 
 
   "collection.listelement.badge": "Collection",
@@ -881,6 +964,30 @@
 
   "collection.select.table.title": "Title",
 
+
+  "collection.source.controls.head": "Harvest Controls",
+  "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
+  "collection.source.controls.test.failed": "The script to test the settings has failed",
+  "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
+  "collection.source.controls.test.submit": "Test configuration",
+  "collection.source.controls.test.running": "Testing configuration...",
+  "collection.source.controls.import.submit.success": "The import has been successfully initiated",
+  "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
+  "collection.source.controls.import.submit": "Import now",
+  "collection.source.controls.import.running": "Importing...",
+  "collection.source.controls.import.failed": "An error occurred during the import",
+  "collection.source.controls.import.completed": "The import completed",
+  "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
+  "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
+  "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
+  "collection.source.controls.reset.completed": "The reset and reimport completed",
+  "collection.source.controls.reset.submit": "Reset and reimport",
+  "collection.source.controls.reset.running": "Resetting and reimporting...",
+  "collection.source.controls.harvest.status": "Harvest status:",
+  "collection.source.controls.harvest.start": "Harvest start time:",
+  "collection.source.controls.harvest.last": "Last time harvested:",
+  "collection.source.controls.harvest.message": "Harvest info:",
+  "collection.source.controls.harvest.no-information": "N/A",
 
 
   "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
@@ -1156,6 +1263,20 @@
 
 
 
+  "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+
+  "deny-request-copy.email.subject": "Request copy of document",
+
+  "deny-request-copy.error": "An error occurred",
+
+  "deny-request-copy.header": "Deny document copy request",
+
+  "deny-request-copy.intro": "This message will be sent to the applicant of the request",
+
+  "deny-request-copy.success": "Successfully denied item request",
+
+
+
   "dso.name.untitled": "Untitled",
 
 
@@ -1189,6 +1310,14 @@
   "dso-selector.no-results": "No {{ type }} found",
 
   "dso-selector.placeholder": "Search for a {{ type }}",
+
+  "dso-selector.select.collection.head": "Select a collection",
+
+  "dso-selector.set-scope.community.head": "Select a search scope",
+
+  "dso-selector.set-scope.community.button": "Search all of DSpace",
+
+  "dso-selector.set-scope.community.input-header": "Search for a community or collection",
 
 
 
@@ -1233,6 +1362,8 @@
 
   "error.search-results": "Error fetching search results",
 
+  "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
+
   "error.sub-collections": "Error fetching sub-collections",
 
   "error.sub-communities": "Error fetching sub-communities",
@@ -1247,6 +1378,13 @@
 
   "error.validation.filerequired": "The file upload is mandatory",
 
+  "error.validation.required": "This field is required",
+
+  "error.validation.NotValidEmail": "This E-mail is not a valid email",
+
+  "error.validation.emailTaken": "This E-mail is already taken",
+
+  "error.validation.groupExists": "This group already exists",
 
 
   "file-section.error.header": "Error obtaining files for this item",
@@ -1264,6 +1402,8 @@
   "footer.link.privacy-policy": "Privacy policy",
 
   "footer.link.end-user-agreement":"End User Agreement",
+
+  "footer.link.feedback":"Send Feedback",
 
 
 
@@ -1380,6 +1520,53 @@
   "form.repeatable.sort.tip": "Drop the item in the new position",
 
 
+
+  "grant-deny-request-copy.deny": "Don't send copy",
+
+  "grant-deny-request-copy.email.back": "Back",
+
+  "grant-deny-request-copy.email.message": "Message",
+
+  "grant-deny-request-copy.email.message.empty": "Please enter a message",
+
+  "grant-deny-request-copy.email.permissions.info": "You may use this occasion to reconsider the access restrictions on the document, to avoid having to respond to these requests. If you’d like to ask the repository administrators to remove these restrictions, please check the box below.",
+
+  "grant-deny-request-copy.email.permissions.label": "Change to open access",
+
+  "grant-deny-request-copy.email.send": "Send",
+
+  "grant-deny-request-copy.email.subject": "Subject",
+
+  "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
+
+  "grant-deny-request-copy.grant": "Send copy",
+
+  "grant-deny-request-copy.header": "Document copy request",
+
+  "grant-deny-request-copy.home-page": "Take me to the home page",
+
+  "grant-deny-request-copy.intro1": "If you are one of the authors of the document <a href='{{ url }}'>{{ name }}</a>, then please use one of the options below to respond to the user's request.",
+
+  "grant-deny-request-copy.intro2": "After choosing an option, you will be presented with a suggested email reply which you may edit.",
+
+  "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
+
+
+
+  "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+
+  "grant-request-copy.email.subject": "Request copy of document",
+
+  "grant-request-copy.error": "An error occurred",
+
+  "grant-request-copy.header": "Grant document copy request",
+
+  "grant-request-copy.intro": "This message will be sent to the applicant of the request. The requested document(s) will be attached.",
+
+  "grant-request-copy.success": "Successfully granted item request",
+
+
+
   "home.description": "",
 
   "home.breadcrumbs": "Home",
@@ -1416,9 +1603,35 @@
 
   "info.privacy.title": "Privacy Statement",
 
+  "info.feedback.breadcrumbs": "Feedback",
+
+  "info.feedback.head": "Feedback",
+
+  "info.feedback.title": "Feedback",
+
+  "info.feedback.info": "Thanks for sharing your feedback about the DSpace system. Your comments are appreciated!",
+
+  "info.feedback.email_help": "This address will be used to follow up on your feedback.",
+
+  "info.feedback.send": "Send Feedback",
+
+  "info.feedback.comments": "Comments",
+
+  "info.feedback.email-label": "Your Email",
+
+  "info.feedback.create.success" : "Feedback Sent Successfully!",
+
+  "info.feedback.error.email.required" : "A valid email address is required",
+
+  "info.feedback.error.message.required" : "A comment is required",
+
+  "info.feedback.page-label" : "Page",
+
+  "info.feedback.page_help" : "Tha page related to your feedback",
 
 
-  "item.alerts.private": "This item is private",
+
+  "item.alerts.private": "This item is non-discoverable",
 
   "item.alerts.withdrawn": "This item has been withdrawn",
 
@@ -1430,7 +1643,7 @@
 
 
 
-  "item.badge.private": "Private",
+  "item.badge.private": "Non-discoverable",
 
   "item.badge.withdrawn": "Withdrawn",
 
@@ -1438,7 +1651,7 @@
 
   "item.bitstreams.upload.bundle": "Bundle",
 
-  "item.bitstreams.upload.bundle.placeholder": "Select a bundle",
+  "item.bitstreams.upload.bundle.placeholder": "Select a bundle or input new bundle name",
 
   "item.bitstreams.upload.bundle.new": "Create bundle",
 
@@ -1669,29 +1882,29 @@
 
   "item.edit.private.cancel": "Cancel",
 
-  "item.edit.private.confirm": "Make it Private",
+  "item.edit.private.confirm": "Make it non-discoverable",
 
-  "item.edit.private.description": "Are you sure this item should be made private in the archive?",
+  "item.edit.private.description": "Are you sure this item should be made non-discoverable in the archive?",
 
-  "item.edit.private.error": "An error occurred while making the item private",
+  "item.edit.private.error": "An error occurred while making the item non-discoverable",
 
-  "item.edit.private.header": "Make item private: {{ id }}",
+  "item.edit.private.header": "Make item non-discoverable: {{ id }}",
 
-  "item.edit.private.success": "The item is now private",
+  "item.edit.private.success": "The item is now non-discoverable",
 
 
 
   "item.edit.public.cancel": "Cancel",
 
-  "item.edit.public.confirm": "Make it Public",
+  "item.edit.public.confirm": "Make it discoverable",
 
-  "item.edit.public.description": "Are you sure this item should be made public in the archive?",
+  "item.edit.public.description": "Are you sure this item should be made discoverable in the archive?",
 
-  "item.edit.public.error": "An error occurred while making the item public",
+  "item.edit.public.error": "An error occurred while making the item discoverable",
 
-  "item.edit.public.header": "Make item public: {{ id }}",
+  "item.edit.public.header": "Make item discoverable: {{ id }}",
 
-  "item.edit.public.success": "The item is now public",
+  "item.edit.public.success": "The item is now discoverable",
 
 
 
@@ -1775,13 +1988,13 @@
 
   "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
 
-  "item.edit.tabs.status.buttons.private.button": "Make it private...",
+  "item.edit.tabs.status.buttons.private.button": "Make it non-discoverable...",
 
-  "item.edit.tabs.status.buttons.private.label": "Make item private",
+  "item.edit.tabs.status.buttons.private.label": "Make item non-discoverable",
 
-  "item.edit.tabs.status.buttons.public.button": "Make it public...",
+  "item.edit.tabs.status.buttons.public.button": "Make it discoverable...",
 
-  "item.edit.tabs.status.buttons.public.label": "Make item public",
+  "item.edit.tabs.status.buttons.public.label": "Make item discoverable",
 
   "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
 
@@ -1861,6 +2074,10 @@
 
   "item.page.collections": "Collections",
 
+  "item.page.collections.loading": "Loading...",
+
+  "item.page.collections.load-more": "Load more",
+
   "item.page.date": "Date",
 
   "item.page.edit": "Edit this item",
@@ -1911,6 +2128,10 @@
 
   "item.page.return": "Back",
 
+  "item.page.version.create": "Create new version",
+
+  "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+
   "item.preview.dc.identifier.uri": "Identifier:",
 
   "item.preview.dc.contributor.author": "Authors:",
@@ -1933,6 +2154,19 @@
 
   "item.preview.person.identifier.orcid": "ORCID:",
 
+  "item.preview.project.funder.name": "Funder:",
+
+  "item.preview.project.funder.identifier": "Funder Identifier:",
+
+  "item.preview.oaire.awardNumber": "Funding ID:",
+
+  "item.preview.dc.title.alternative": "Acronym:",
+
+  "item.preview.dc.coverage.spatial": "Jurisdiction:",
+
+  "item.preview.oaire.fundingStream": "Funding Stream:",
+
+
 
   "item.select.confirm": "Confirm selected",
 
@@ -1953,6 +2187,8 @@
 
   "item.version.history.selected": "Selected version",
 
+  "item.version.history.selected.alert": "You are currently viewing version {{version}} of the item.",
+
   "item.version.history.table.version": "Version",
 
   "item.version.history.table.item": "Item",
@@ -1963,9 +2199,75 @@
 
   "item.version.history.table.summary": "Summary",
 
+  "item.version.history.table.workspaceItem": "Workspace item",
+
+  "item.version.history.table.workflowItem": "Workflow item",
+
+  "item.version.history.table.actions": "Action",
+
+  "item.version.history.table.action.editWorkspaceItem": "Edit workspace item",
+
+  "item.version.history.table.action.editSummary": "Edit summary",
+
+  "item.version.history.table.action.saveSummary": "Save summary edits",
+
+  "item.version.history.table.action.discardSummary": "Discard summary edits",
+
+  "item.version.history.table.action.newVersion": "Create new version from this one",
+
+  "item.version.history.table.action.deleteVersion": "Delete version",
+
+  "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
 
 
   "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
+
+
+  "item.version.create.modal.header": "New version",
+
+  "item.version.create.modal.text": "Create a new version for this item",
+
+  "item.version.create.modal.text.startingFrom": "starting from version {{version}}",
+
+  "item.version.create.modal.button.confirm": "Create",
+
+  "item.version.create.modal.button.confirm.tooltip": "Create new version",
+
+  "item.version.create.modal.button.cancel": "Cancel",
+
+  "item.version.create.modal.button.cancel.tooltip": "Do not create new version",
+
+  "item.version.create.modal.form.summary.label": "Summary",
+
+  "item.version.create.modal.form.summary.placeholder": "Insert the summary for the new version",
+
+  "item.version.create.notification.success" : "New version has been created with version number {{version}}",
+
+  "item.version.create.notification.failure" : "New version has not been created",
+
+  "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
+
+
+  "item.version.delete.modal.header": "Delete version",
+
+  "item.version.delete.modal.text": "Do you want to delete version {{version}}?",
+
+  "item.version.delete.modal.button.confirm": "Delete",
+
+  "item.version.delete.modal.button.confirm.tooltip": "Delete this version",
+
+  "item.version.delete.modal.button.cancel": "Cancel",
+
+  "item.version.delete.modal.button.cancel.tooltip": "Do not delete this version",
+
+  "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
+
+  "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
+
+
+  "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
+
+  "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
 
 
 
@@ -2022,6 +2324,28 @@
   "journalvolume.page.volume": "Volume",
 
 
+  "iiifsearchable.listelement.badge": "Document Media",
+
+  "iiifsearchable.page.titleprefix": "Document: ",
+
+  "iiifsearchable.page.doi": "Permanent Link: ",
+
+  "iiifsearchable.page.issue": "Issue: ",
+
+  "iiifsearchable.page.description": "Description: ",
+
+  "iiifviewer.fullscreen.notice": "Use full screen for better viewing.",
+
+  "iiif.listelement.badge": "Image Media",
+
+  "iiif.page.titleprefix": "Image: ",
+
+  "iiif.page.doi": "Permanent Link: ",
+
+  "iiif.page.issue": "Issue: ",
+
+  "iiif.page.description": "Description: ",
+
 
   "loading.bitstream": "Loading bitstream...",
 
@@ -2070,6 +2394,8 @@
   "login.form.new-user": "New user? Click here to register.",
 
   "login.form.or-divider": "or",
+
+  "login.form.oidc": "Log in with OIDC",
 
   "login.form.password": "Password",
 
@@ -2169,7 +2495,7 @@
 
   "menu.section.icon.control_panel": "Control Panel menu section",
 
-  "menu.section.icon.curation_task": "Curation Task menu section",
+  "menu.section.icon.curation_tasks": "Curation Task menu section",
 
   "menu.section.icon.edit": "Edit menu section",
 
@@ -2188,6 +2514,8 @@
   "menu.section.icon.registries": "Registries menu section",
 
   "menu.section.icon.statistics_task": "Statistics Task menu section",
+
+  "menu.section.icon.workflow": "Administer workflow menu section",
 
   "menu.section.icon.unpin": "Unpin sidebar",
 
@@ -2321,7 +2649,7 @@
 
   "mydspace.search-form.placeholder": "Search in mydspace...",
 
-  "mydspace.show.workflow": "All tasks",
+  "mydspace.show.workflow": "Workflow tasks",
 
   "mydspace.show.workspace": "Your Submissions",
 
@@ -2377,6 +2705,7 @@
 
   "nav.user.description" : "User profile bar",
 
+  "none.listelement.badge": "Item",
 
 
   "orgunit.listelement.badge": "Organizational Unit",
@@ -2511,13 +2840,13 @@
 
 
 
-  "process.overview.table.finish" : "Finish time",
+  "process.overview.table.finish" : "Finish time (UTC)",
 
   "process.overview.table.id" : "Process ID",
 
   "process.overview.table.name" : "Name",
 
-  "process.overview.table.start" : "Start time",
+  "process.overview.table.start" : "Start time (UTC)",
 
   "process.overview.table.status" : "Status",
 
@@ -2745,10 +3074,18 @@
 
   "relationships.isContributorOf": "Contributors",
 
+  "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+
+  "relationships.isContributorOf.Person": "Contributor",
+
+  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+
 
   "repository.image.logo": "Repository logo",
 
   "repository.title.prefix": "DSpace Angular :: ",
+
+  "repository.title.prefixDSpace": "DSpace Angular ::",
 
 
   "resource-policies.add.button": "Add",
@@ -2872,7 +3209,7 @@
 
   "search.filters.applied.f.dateSubmitted": "Date submitted",
 
-  "search.filters.applied.f.discoverable": "Private",
+  "search.filters.applied.f.discoverable": "Non-discoverable",
 
   "search.filters.applied.f.entityType": "Item Type",
 
@@ -2950,7 +3287,7 @@
 
   "search.filters.filter.dateSubmitted.label": "Search date submitted",
 
-  "search.filters.filter.discoverable.head": "Private",
+  "search.filters.filter.discoverable.head": "Non-discoverable",
 
   "search.filters.filter.withdrawn.head": "Withdrawn",
 
@@ -3067,6 +3404,8 @@
 
   "search.form.search_dspace": "All repository",
 
+  "search.form.scope.all": "All of DSpace",
+
 
 
   "search.results.head": "Search Results",
@@ -3076,6 +3415,8 @@
   "search.results.no-results-link": "quotes around it",
 
   "search.results.empty": "Your search returned no results.",
+
+  "search.results.view-result": "View",
 
 
   "default.search.results.head": "Search Results",
@@ -3187,6 +3528,22 @@
 
   "submission.import-external.title": "Import metadata from an external source",
 
+  "submission.import-external.title.Journal": "Import a journal from an external source",
+
+  "submission.import-external.title.JournalIssue": "Import a journal issue from an external source",
+
+  "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
+
+  "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
+
+  "submission.import-external.title.Person": "Import a person from an external source",
+
+  "submission.import-external.title.Project": "Import a project from an external source",
+
+  "submission.import-external.title.Publication": "Import a publication from an external source",
+
+  "submission.import-external.title.none": "Import metadata from an external source",
+
   "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
 
   "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
@@ -3208,6 +3565,8 @@
   "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
 
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+
+  "submission.import-external.source.openAIREFunding": "Funding OpenAIRE API",
 
   "submission.import-external.source.orcid": "ORCID",
 
@@ -3236,6 +3595,14 @@
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
 
@@ -3348,6 +3715,23 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
+
+  "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
+
+  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
+
+
+
+
   "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
 
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
@@ -3452,6 +3836,8 @@
 
   "submission.sections.general.add-more": "Add more",
 
+  "submission.sections.general.cannot_deposit": "Deposit cannot be completed due to errors in the form.<br>Please fill out all required fields to complete the deposit.",
+
   "submission.sections.general.collection": "Collection",
 
   "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
@@ -3480,6 +3866,8 @@
 
 
 
+  "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
+
   "submission.sections.submit.progressbar.CClicense": "Creative commons license",
 
   "submission.sections.submit.progressbar.describe.recycle": "Recycle",
@@ -3504,9 +3892,19 @@
 
   "submission.sections.status.warnings.title": "Warnings",
 
+  "submission.sections.status.errors.aria": "has errors",
+
+  "submission.sections.status.valid.aria": "is valid",
+
+  "submission.sections.status.warnings.aria": "has warnings",
+
   "submission.sections.toggle.open": "Open section",
 
   "submission.sections.toggle.close": "Close section",
+
+  "submission.sections.toggle.aria.open": "Expand {{sectionHeader}} section",
+
+  "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
 
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
 
@@ -3526,9 +3924,17 @@
 
   "submission.sections.upload.form.access-condition-label": "Access condition type",
 
+  "submission.sections.upload.form.access-condition-hint": "Select an access condition to apply on the bitstream once the item is deposited",
+
   "submission.sections.upload.form.date-required": "Date is required.",
 
+  "submission.sections.upload.form.date-required-from": "Grant access from date is required.",
+
+  "submission.sections.upload.form.date-required-until": "Grant access until date is required.",
+
   "submission.sections.upload.form.from-label": "Grant access from",
+
+  "submission.sections.upload.form.from-hint": "Select the date from which the related access condition is applied",
 
   "submission.sections.upload.form.from-placeholder": "From",
 
@@ -3537,6 +3943,8 @@
   "submission.sections.upload.form.group-required": "Group is required.",
 
   "submission.sections.upload.form.until-label": "Grant access until",
+
+  "submission.sections.upload.form.until-hint": "Select the date until which the related access condition is applied",
 
   "submission.sections.upload.form.until-placeholder": "Until",
 
@@ -3558,6 +3966,35 @@
 
   "submission.sections.upload.upload-successful": "Upload successful",
 
+  "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
+
+  "submission.sections.accesses.form.discoverable-label": "Discoverable",
+
+  "submission.sections.accesses.form.access-condition-label": "Access condition type",
+
+  "submission.sections.accesses.form.access-condition-hint": "Select an access condition to apply on the item once it is deposited",
+
+  "submission.sections.accesses.form.date-required": "Date is required.",
+
+  "submission.sections.accesses.form.date-required-from": "Grant access from date is required.",
+
+  "submission.sections.accesses.form.date-required-until": "Grant access until date is required.",
+
+  "submission.sections.accesses.form.from-label": "Grant access from",
+
+  "submission.sections.accesses.form.from-hint": "Select the date from which the related access condition is applied",
+
+  "submission.sections.accesses.form.from-placeholder": "From",
+
+  "submission.sections.accesses.form.group-label": "Group",
+
+  "submission.sections.accesses.form.group-required": "Group is required.",
+
+  "submission.sections.accesses.form.until-label": "Grant access until",
+
+  "submission.sections.accesses.form.until-hint": "Select the date until which the related access condition is applied",
+
+  "submission.sections.accesses.form.until-placeholder": "Until",
 
 
   "submission.submit.breadcrumbs": "New submission",
@@ -3684,15 +4121,17 @@
 
 
 
+  "workspace.search.results.head": "Your submissions",
+
   "workflowAdmin.search.results.head": "Administer Workflow",
+
+  "workflow.search.results.head": "Workflow tasks",
 
 
 
   "workflow-item.edit.breadcrumbs": "Edit workflowitem",
 
   "workflow-item.edit.title": "Edit workflowitem",
-
-  "workflow-item.edit.title": "View workflowitem",
 
   "workflow-item.delete.notification.success.title": "Deleted",
 

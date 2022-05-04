@@ -4,7 +4,7 @@ import { VarDirective } from '../../../../../utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
-import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { of as observableOf } from 'rxjs';
 import {
@@ -26,6 +26,7 @@ import { ExternalSourceEntryImportModalComponent } from './external-source-entry
 import { createPaginatedList } from '../../../../../testing/utils.test';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
+import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
 
 describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let component: DsDynamicLookupRelationExternalSourceTabComponent;
@@ -35,10 +36,12 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let selectableListService;
   let modalService;
 
+  const itemType = Object.assign(new ItemType(), { label: 'Person' });
   const externalSource = {
     id: 'orcidV2',
     name: 'orcidV2',
-    hierarchical: false
+    hierarchical: false,
+    entityTypes: createSuccessfulRemoteDataObject$(createPaginatedList([itemType]))
   } as ExternalSource;
   const externalEntries = [
     Object.assign({

@@ -10,6 +10,19 @@
   background-color: var(--ds-breadcrumb-bg);
 }
 
+li.breadcrumb-item {
+  display: flex;
+}
+
+.breadcrumb-item-limiter {
+  display: inline-block;
+  max-width: var(--ds-breadcrumb-max-length);
+  > * {
+    max-width: 100%;
+    display: block;
+  }
+}
+
 li.breadcrumb-item > a {
   color: var(--ds-breadcrumb-link-color) !important;
 }
@@ -18,5 +31,6 @@ li.breadcrumb-item.active {
 }
 
 .breadcrumb-item+ .breadcrumb-item::before {
+  display: block;
   content: quote("•") !important;
 }

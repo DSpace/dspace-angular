@@ -59,3 +59,52 @@ ds-admin-sidebar {
     display: none;
   }
 }
+
+ngb-modal-backdrop {
+  // ng-bootsrap animates opacity, causing the fully opaque background to flash briefly before the transition starts
+  // animating background-color between transparent & a RGBA color instead looks smoother
+  &.fade {
+    opacity: 1 !important;
+    background-color: transparent;
+    transition: background-color 0.15s linear;
+
+    &.show {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+
+.dont-break-out {
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+
+}
+
+/* Replicate default spacing look ~ preserveWhitespace=true
+   To be used e.g. on a div containing buttons that should have a bit of spacing in between
+ */
+.space-children-mr > :not(:last-child) {
+  margin-right: var(--ds-gap);
+}
+
+/* Complement .space-children-mr when spaced elements are not on the same level */
+.mr-gap {
+  margin-right: var(--ds-gap);
+}
+
+.ml-gap {
+  margin-left: var(--ds-gap);
+}

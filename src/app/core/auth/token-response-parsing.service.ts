@@ -1,9 +1,9 @@
 import { ResponseParsingService } from '../data/parsing.service';
-import { RestRequest } from '../data/request.models';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { RestResponse, TokenResponse } from '../cache/response.models';
 import { isNotEmpty } from '../../shared/empty.util';
 import { Injectable } from '@angular/core';
+import { RestRequest } from '../data/rest-request.model';
 
 @Injectable()
 /**

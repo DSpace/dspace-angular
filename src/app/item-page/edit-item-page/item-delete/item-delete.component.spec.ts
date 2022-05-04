@@ -3,7 +3,7 @@ import { ItemType } from '../../../core/shared/item-relationships/item-type.mode
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../core/shared/item.model';
 import { RouterStub } from '../../../shared/testing/router.stub';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, EMPTY } from 'rxjs';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -24,6 +24,8 @@ import { RelationshipType } from '../../../core/shared/item-relationships/relati
 import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { getItemEditRoute } from '../../item-page-routing-paths';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { RelationshipTypeService } from '../../../core/data/relationship-type.service';
+import { LinkService } from '../../../core/cache/builders/link.service';
 
 let comp: ItemDeleteComponent;
 let fixture: ComponentFixture<ItemDeleteComponent>;
@@ -40,6 +42,7 @@ let mockItemDataService: ItemDataService;
 let routeStub;
 let objectUpdatesServiceStub;
 let relationshipService;
+let linkService;
 let entityTypeService;
 let notificationsServiceStub;
 let typesSelection;
@@ -52,7 +55,12 @@ describe('ItemDeleteComponent', () => {
       uuid: 'fake-uuid',
       handle: 'fake/handle',
       lastModified: '2018',
-      isWithdrawn: true
+      isWithdrawn: true,
+      metadata: {
+        'dspace.entity.type': [
+          { value: 'Person' }
+        ]
+      }
     });
 
     itemType = Object.assign(new ItemType(), {
@@ -129,6 +137,12 @@ describe('ItemDeleteComponent', () => {
       }
     );
 
+    linkService = jasmine.createSpyObj('linkService',
+      {
+        resolveLinks: relationships[0],
+      }
+    );
+
     notificationsServiceStub = new NotificationsServiceStub();
 
     TestBed.configureTestingModule({
@@ -142,6 +156,8 @@ describe('ItemDeleteComponent', () => {
         { provide: ObjectUpdatesService, useValue: objectUpdatesServiceStub },
         { provide: RelationshipService, useValue: relationshipService },
         { provide: EntityTypeService, useValue: entityTypeService },
+        { provide: RelationshipTypeService, useValue: {} },
+        { provide: LinkService, useValue: linkService },
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA
       ]
@@ -166,25 +182,45 @@ describe('ItemDeleteComponent', () => {
   });
 
   describe('performAction', () => {
-    it('should call delete function from the ItemDataService', () => {
-      spyOn(comp, 'notify');
-      comp.performAction();
-      expect(mockItemDataService.delete)
-        .toHaveBeenCalledWith(mockItem.id, types.filter((type) => typesSelection[type]).map((type) => type.id));
-      expect(comp.notify).toHaveBeenCalled();
+    describe(`when there are entitytypes`, () => {
+      it('should call delete function from the ItemDataService', () => {
+        spyOn(comp, 'notify');
+        comp.performAction();
+        expect(mockItemDataService.delete)
+          .toHaveBeenCalledWith(mockItem.id, types.filter((type) => typesSelection[type]).map((type) => type.id));
+        expect(comp.notify).toHaveBeenCalled();
+      });
+
+      it('should call delete function from the ItemDataService with empty types', () => {
+
+        spyOn(comp, 'notify');
+        jasmine.getEnv().allowRespy(true);
+        spyOn(entityTypeService, 'getEntityTypeRelationships').and.returnValue([]);
+        comp.ngOnInit();
+
+        comp.performAction();
+
+        expect(mockItemDataService.delete).toHaveBeenCalledWith(mockItem.id, []);
+        expect(comp.notify).toHaveBeenCalled();
+      });
     });
 
-    it('should call delete function from the ItemDataService with empty types', () => {
+    describe(`when there are no entity types`, () => {
+      beforeEach(() => {
+        (comp as any).entityTypeService = jasmine.createSpyObj('entityTypeService',
+          {
+            getEntityTypeByLabel: EMPTY,
+          }
+        );
+      });
 
-      spyOn(comp, 'notify');
-      jasmine.getEnv().allowRespy(true);
-      spyOn(entityTypeService, 'getEntityTypeRelationships').and.returnValue([]);
-      comp.ngOnInit();
-
-      comp.performAction();
-
-      expect(mockItemDataService.delete).toHaveBeenCalledWith(mockItem.id, []);
-      expect(comp.notify).toHaveBeenCalled();
+      it('should call delete function from the ItemDataService', () => {
+        spyOn(comp, 'notify');
+        comp.performAction();
+        expect(mockItemDataService.delete)
+          .toHaveBeenCalledWith(mockItem.id, types.filter((type) => typesSelection[type]).map((type) => type.id));
+        expect(comp.notify).toHaveBeenCalled();
+      });
     });
   });
   describe('notify', () => {

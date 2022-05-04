@@ -8,8 +8,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchFilterComponent } from './search-filter.component';
-import { SearchFilterConfig } from '../../search-filter-config.model';
-import { FilterType } from '../../filter-type.model';
+import { SearchFilterConfig } from '../../models/search-filter-config.model';
+import { FilterType } from '../../models/filter-type.model';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { SequenceService } from '../../../../core/shared/sequence.service';
@@ -29,7 +29,7 @@ describe('SearchFilterComponent', () => {
     isOpenByDefault: false
   });
   const mockFilterService = {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     toggle: (filter) => {
     },
     collapse: (filter) => {
@@ -47,7 +47,7 @@ describe('SearchFilterComponent', () => {
     isCollapsed: (filter) => {
       return observableOf(true);
     }
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   };
   let filterService;

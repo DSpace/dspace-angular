@@ -6,6 +6,7 @@ import { BrowseByMetadataPageComponent } from './browse-by-metadata-page/browse-
 import { BrowseByDatePageComponent } from './browse-by-date-page/browse-by-date-page.component';
 import { BrowseBySwitcherComponent } from './browse-by-switcher/browse-by-switcher.component';
 import { ThemedBrowseBySwitcherComponent } from './browse-by-switcher/themed-browse-by-switcher.component';
+import { ComcolModule } from '../shared/comcol/comcol.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -17,6 +18,7 @@ const ENTRY_COMPONENTS = [
 @NgModule({
   imports: [
     CommonModule,
+    ComcolModule,
     SharedModule
   ],
   declarations: [
@@ -31,7 +33,7 @@ const ENTRY_COMPONENTS = [
 export class BrowseByModule {
   /**
    * NOTE: this method allows to resolve issue with components that using a custom decorator
-   * which are not loaded during CSR otherwise
+   * which are not loaded during SSR otherwise
    */
   static withEntryComponents() {
     return {

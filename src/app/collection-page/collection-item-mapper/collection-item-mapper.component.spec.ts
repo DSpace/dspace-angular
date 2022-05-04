@@ -16,7 +16,7 @@ import { Collection } from '../../core/shared/collection.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, EventEmitter } from '@angular/core';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { By } from '@angular/platform-browser';
@@ -27,13 +27,13 @@ import { ItemSelectComponent } from '../../shared/object-select/item-select/item
 import { ObjectSelectService } from '../../shared/object-select/object-select.service';
 import { ObjectSelectServiceStub } from '../../shared/testing/object-select-service.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { RouteService } from '../../core/services/route.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { LoadingComponent } from '../../shared/loading/loading.component';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../core/shared/search/search.service';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
@@ -41,6 +41,8 @@ import {
 } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { MyDSpacePageComponent, SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service.stub';
 
 describe('CollectionItemMapperComponent', () => {
   let comp: CollectionItemMapperComponent;
@@ -110,15 +112,15 @@ describe('CollectionItemMapperComponent', () => {
   };
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
     search: () => observableOf(emptyList),
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     clearDiscoveryRequests: () => {}
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
   });
   const collectionDataServiceStub = {
     getMappedItems: () => observableOf(emptyList),
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     clearMappedItemsRequests: () => {}
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
   const routeServiceStub = {
     getRouteParameterValue: () => {
@@ -159,6 +161,14 @@ describe('CollectionItemMapperComponent', () => {
         { provide: RouteService, useValue: routeServiceStub },
         { provide: AuthorizationDataService, useValue: authorizationDataService }
       ]
+    }).overrideComponent(CollectionItemMapperComponent, {
+      set: {
+        providers: [
+          {
+            provide: SEARCH_CONFIG_SERVICE,
+            useClass: SearchConfigurationServiceStub
+          }
+        ] }
     }).compileComponents();
   }));
 

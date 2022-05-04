@@ -7,7 +7,6 @@ import { dataService } from '../cache/builders/build-decorators';
 import { SUBMISSION_UPLOADS_TYPE } from './models/config-type';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
@@ -16,6 +15,7 @@ import { SubmissionUploadsModel } from './models/config-submission-uploads.model
 import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { CoreState } from '../core-state.model';
 
 /**
  * Provides methods to retrieve, from REST server, bitstream access conditions configurations applicable during the submission process.

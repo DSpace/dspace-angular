@@ -8,13 +8,14 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { BrowseService } from '../browse/browse.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
-import { CoreState } from '../core.reducers';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { ItemDataService } from './item-data.service';
-import { DeleteRequest, FindListOptions, PostRequest } from './request.models';
-import { RequestEntry } from './request.reducer';
+import { DeleteRequest, PostRequest } from './request.models';
 import { RequestService } from './request.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { CoreState } from '../core-state.model';
+import { RequestEntry } from './request-entry.model';
+import { FindListOptions } from './find-list-options.model';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
@@ -31,7 +32,7 @@ describe('ItemDataService', () => {
     },
     removeByHrefSubstring(href: string) {
       // Do nothing
-    }
+    },
   }) as RequestService;
   const rdbService = getMockRemoteDataBuildService();
 
@@ -181,6 +182,16 @@ describe('ItemDataService', () => {
         expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PostRequest));
         done();
       });
+    });
+  });
+
+  describe('when cache is invalidated', () => {
+    beforeEach(() => {
+      service = initTestService();
+    });
+    it('should call setStaleByHrefSubstring', () => {
+      service.invalidateItemCache('uuid');
+      expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('item/uuid');
     });
   });
 

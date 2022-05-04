@@ -3,6 +3,7 @@ import { AddUrlToHistoryAction, HistoryAction, HistoryActionTypes } from './hist
 /**
  * The auth state.
  */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface HistoryState extends Array<string> {
 
 }
