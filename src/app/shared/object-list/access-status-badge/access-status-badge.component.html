@@ -1,3 +1,5 @@
-<div *ngIf="accessStatus$ | async as accessStatus">
-  <span class="badge badge-secondary">{{ accessStatus | translate }}</span>
-</div>
+<ng-container *ngIf="showAccessStatus">
+  <div *ngIf="accessStatus$ | async as accessStatus">
+    <span class="badge badge-secondary">{{ accessStatus | translate }}</span>
+  </div>
+</ng-container>

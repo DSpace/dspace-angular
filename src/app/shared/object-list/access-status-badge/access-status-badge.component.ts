@@ -5,6 +5,7 @@ import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 import { ItemDataService } from 'src/app/core/data/item-data.service';
 import { AccessStatusObject } from './access-status.model';
 import { hasValue } from '../../empty.util';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'ds-access-status-badge',
@@ -19,6 +20,11 @@ export class AccessStatusBadgeComponent {
   private _accessStatus$: Observable<string>;
 
   /**
+   * Whether to show the access status badge or not
+   */
+  showAccessStatus: boolean;
+
+  /**
    * Initialize instance variables
    *
    * @param {ItemDataService} itemDataService
@@ -26,6 +32,7 @@ export class AccessStatusBadgeComponent {
   constructor(private itemDataService: ItemDataService) { }
 
   ngOnInit(): void {
+    this.showAccessStatus = environment.item.showAccessStatuses;
     this._accessStatus$ = this.itemDataService
       .getAccessStatus(this._uuid)
       .pipe(
