@@ -2,6 +2,7 @@ import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../empty.util';
 import { ConfidenceType } from '../../../../core/shared/confidence-type';
 import { MetadataValueInterface, VIRTUAL_METADATA_PREFIX } from '../../../../core/shared/metadata.models';
 import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { Metadata } from '../../../../core/shared/metadata.utils';
 
 export interface OtherInformation {
   [name: string]: string;
@@ -37,7 +38,7 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
     this.display = display || value;
     this.securityLevel = securityLevel;
     this.confidence = confidence;
-    if (authority != null && (isEmpty(confidence) || confidence === -1)) {
+    if (Metadata.hasValidAuthority(authority) && (isEmpty(confidence) || confidence === -1)) {
       this.confidence = ConfidenceType.CF_ACCEPTED;
     } else if (isNotEmpty(confidence)) {
       this.confidence = confidence;
@@ -57,7 +58,7 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
    * Returns true if this this object has an authority value
    */
   hasAuthority(): boolean {
-    return isNotEmpty(this.authority);
+    return Metadata.hasValidAuthority(this.authority);
   }
 
   /**

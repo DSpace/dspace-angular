@@ -4,11 +4,14 @@ import { HALLink } from '../../../shared/hal-link.model';
 import { VOCABULARY_ENTRY } from './vocabularies.resource-type';
 import { typedObject } from '../../../cache/builders/build-decorators';
 import { excludeFromEquals } from '../../../utilities/equals.decorators';
-import { PLACEHOLDER_PARENT_METADATA } from '../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
+import {
+  PLACEHOLDER_PARENT_METADATA
+} from '../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { OtherInformation } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { ListableObject } from '../../../../shared/object-collection/shared/listable-object.model';
 import { GenericConstructor } from '../../../shared/generic-constructor';
+import { Metadata } from '../../../shared/metadata.utils';
 
 /**
  * Model class for a VocabularyEntry
@@ -71,7 +74,7 @@ export class VocabularyEntry extends ListableObject {
    * @return boolean
    */
   hasAuthority(): boolean {
-    return isNotEmpty(this.authority);
+    return Metadata.hasValidAuthority(this.authority);
   }
 
   /**
