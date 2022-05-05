@@ -182,9 +182,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
           this.navActiveId = String(dsoRD.payload.type);
           this.resourcePolicyTargetName$.next(this.getResourcePolicyTargetName());
         })
-      )
-    } else {
-
+      );
     }
   }
 

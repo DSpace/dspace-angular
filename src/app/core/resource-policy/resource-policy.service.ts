@@ -259,7 +259,7 @@ export class ResourcePolicyService {
     this.requestService.setStaleByHrefSubstring(`${this.dataService.getLinkPath()}/${resourcePolicyId}/${type}`);
 
     return targetEndpoint$.pipe(switchMap((targetEndpoint) => {
-      const resourceEndpoint = resourcePolicyHref + '/' + type
+      const resourceEndpoint = resourcePolicyHref + '/' + type;
       const request = new PostRequest(requestId, resourceEndpoint, targetEndpoint, options);
       Object.assign(request, {
         getResponseParser(): GenericConstructor<ResponseParsingService> {
