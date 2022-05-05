@@ -3122,6 +3122,10 @@
 
   "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
 
+  "resource-policies.edit.page.target-failure.content": "An error occurred while editing the target (ePerson or group) of the resource policy.",
+
+  "resource-policies.edit.page.other-failure.content": "An error occurred while editing the resource policy. The target (ePerson or group) has been successfully updated.",
+
   "resource-policies.edit.page.success.content": "Operation successful",
 
   "resource-policies.edit.page.title": "Edit resource policy",

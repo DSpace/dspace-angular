@@ -235,15 +235,16 @@ export class ResourcePolicyService {
 
   /**
    * Update the target of the resource policy
+   * @param resourcePolicyId the ID of the resource policy
    * @param resourcePolicyHref the link to the resource policy
    * @param uuid the UUID of the target to which the permission is being granted
    * @param type the type of the target (eperson or group) to which the permission is being granted
    */
-  updateTarget(resourcePolicyHref: string, uuid: string, type: string): Observable<RemoteData<any>> {
+  updateTarget(resourcePolicyId: string, resourcePolicyHref: string, uuid: string, type: string): Observable<RemoteData<any>> {
 
     const targetService = type === 'eperson' ? this.ePersonService : this.groupService;
 
-    const ep$ = targetService.getBrowseEndpoint().pipe(
+    const targetEndpoint$ = targetService.getBrowseEndpoint().pipe(
       take(1),
       map((endpoint: string) =>`${endpoint}/${uuid}`),
     );
@@ -255,8 +256,11 @@ export class ResourcePolicyService {
 
     const requestId = this.requestService.generateRequestId();
 
-    return ep$.pipe(switchMap((ep) => {
-      const request = new PostRequest(requestId, resourcePolicyHref, ep, options);
+    this.requestService.setStaleByHrefSubstring(`${this.dataService.getLinkPath()}/${resourcePolicyId}/${type}`);
+
+    return targetEndpoint$.pipe(switchMap((targetEndpoint) => {
+      const resourceEndpoint = resourcePolicyHref + '/' + type
+      const request = new PostRequest(requestId, resourceEndpoint, targetEndpoint, options);
       Object.assign(request, {
         getResponseParser(): GenericConstructor<ResponseParsingService> {
           return StatusCodeOnlyResponseParsingService;

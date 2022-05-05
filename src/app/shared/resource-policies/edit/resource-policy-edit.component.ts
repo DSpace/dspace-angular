@@ -90,7 +90,7 @@ export class ResourcePolicyEditComponent implements OnInit {
     });
 
     const updateTargetSucceeded$ = event.updateTarget ? this.resourcePolicyService.updateTarget(
-      this.resourcePolicy._links.self.href, event.target.uuid, event.target.type
+      this.resourcePolicy.id, this.resourcePolicy._links.self.href, event.target.uuid, event.target.type
     ).pipe(
       getFirstCompletedRemoteData(),
       map((responseRD) => responseRD && responseRD.hasSucceeded)
@@ -107,7 +107,11 @@ export class ResourcePolicyEditComponent implements OnInit {
         if (updateTargetSucceeded && updateResourcePolicySucceeded) {
           this.notificationsService.success(null, this.translate.get('resource-policies.edit.page.success.content'));
           this.redirectToAuthorizationsPage();
-        } else {
+        } else if (updateResourcePolicySucceeded) { // everything except target has been updated
+          this.notificationsService.error(null, this.translate.get('resource-policies.edit.page.target-failure.content'));
+        } else if (updateTargetSucceeded) { // only target has been updated
+          this.notificationsService.error(null, this.translate.get('resource-policies.edit.page.other-failure.content'));
+        } else { // nothing has been updated
           this.notificationsService.error(null, this.translate.get('resource-policies.edit.page.failure.content'));
         }
       }
