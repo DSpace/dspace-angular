@@ -40,7 +40,7 @@ export class AccessStatusBadgeComponent {
     if (this.item.accessStatus == null) {
       // In case the access status has not been loaded, do it individually.
       this.item.accessStatus = this.accessStatusDataService.findAccessStatusFor(this.item);
-    } 
+    }
     this.accessStatus$ = this.item.accessStatus.pipe(
       map((accessStatusRD) => {
         if (accessStatusRD.statusCode !== 401 && hasValue(accessStatusRD.payload)) {

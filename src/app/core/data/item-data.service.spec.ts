@@ -184,33 +184,6 @@ describe('ItemDataService', () => {
     });
   });
 
-  describe('getAccessStatusEndpoint', () => {
-    beforeEach(() => {
-      service = initTestService();
-    });
-    it('should retrieve the access status endpoint', () => {
-      const itemId = '3de6ea60-ec39-419b-ae6f-065930ac1429';
-      const result = service.getAccessStatusEndpoint(itemId);
-      result.subscribe(((value) => {
-        expect(value).toEqual(`${itemEndpoint}/items/${itemId}/accessStatus`);
-      }));
-    });
-  });
-
-  describe('getAccessStatus', () => {
-    beforeEach(() => {
-      service = initTestService();
-    });
-    it('should send a GET request', (done) => {
-      const itemId = '3de6ea60-ec39-419b-ae6f-065930ac1429';
-      const result = service.getAccessStatus(itemId);
-      result.subscribe(() => {
-        expect(requestService.send).toHaveBeenCalledWith(jasmine.any(GetRequest));
-        done();
-      });
-    });
-  });
-
   describe('when cache is invalidated', () => {
     beforeEach(() => {
       service = initTestService();
