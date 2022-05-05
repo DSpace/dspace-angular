@@ -1,6 +1,6 @@
 <div class="d-flex">
   <ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
-  <ds-access-status-badge [uuid]="dso.uuid" class="pl-1"></ds-access-status-badge>
+  <ds-access-status-badge [item]="dso" class="pl-1"></ds-access-status-badge>
 </div>
 
 <ds-truncatable [id]="dso.id" *ngIf="object !== undefined && object !== null">
