@@ -1,5 +1,6 @@
+import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Injectable } from '@angular/core';
+import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 import { isNotEmpty } from '../../shared/empty.util';
 
 /**
@@ -8,7 +9,10 @@ import { isNotEmpty } from '../../shared/empty.util';
  */
 @Injectable()
 export class ReloadGuard implements CanActivate {
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    @Inject(APP_CONFIG) private appConfig: AppConfig,
+  ) {
   }
 
   /**
@@ -18,7 +22,10 @@ export class ReloadGuard implements CanActivate {
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): UrlTree {
     if (isNotEmpty(route.queryParams.redirect)) {
-      return this.router.parseUrl(route.queryParams.redirect);
+      const url = route.queryParams.redirect.startsWith(this.appConfig.ui.nameSpace)
+        ? route.queryParams.redirect.substring(this.appConfig.ui.nameSpace.length)
+        : route.queryParams.redirect;
+      return this.router.parseUrl(url);
     } else {
       return this.router.createUrlTree(['home']);
     }

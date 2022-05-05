@@ -1,4 +1,4 @@
-import { APP_BASE_HREF, CommonModule } from '@angular/common';
+import { APP_BASE_HREF, CommonModule, DOCUMENT } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
@@ -66,9 +66,11 @@ export function getConfig() {
   return environment;
 }
 
-export function getBase(appConfig: AppConfig) {
-  return appConfig.ui.nameSpace;
-}
+const getBaseHref = (document: Document, appConfig: AppConfig): string => {
+  const baseTag = document.querySelector('head > base');
+  baseTag.setAttribute('href', `${appConfig.ui.nameSpace}${appConfig.ui.nameSpace.endsWith('/') ? '' : '/'}`);
+  return baseTag.getAttribute('href');
+};
 
 export function getMetaReducers(appConfig: AppConfig): MetaReducer<AppState>[] {
   return appConfig.debug ? [...appMetaReducers, ...debugMetaReducers] : appMetaReducers;
@@ -107,8 +109,8 @@ const PROVIDERS = [
   },
   {
     provide: APP_BASE_HREF,
-    useFactory: getBase,
-    deps: [APP_CONFIG]
+    useFactory: getBaseHref,
+    deps: [DOCUMENT, APP_CONFIG]
   },
   {
     provide: USER_PROVIDED_META_REDUCERS,

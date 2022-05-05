@@ -447,8 +447,8 @@ export class AuthService {
    */
   public navigateToRedirectUrl(redirectUrl: string) {
     // Don't do redirect if already on reload url
-    if (!hasValue(redirectUrl) || !redirectUrl.includes('/reload/')) {
-      let url = `/reload/${new Date().getTime()}`;
+    if (!hasValue(redirectUrl) || !redirectUrl.includes('reload/')) {
+      let url = `reload/${new Date().getTime()}`;
       if (isNotEmpty(redirectUrl) && !redirectUrl.startsWith(LOGIN_ROUTE)) {
         url += `?redirect=${encodeURIComponent(redirectUrl)}`;
       }

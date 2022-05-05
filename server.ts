@@ -66,6 +66,8 @@ extendEnvironmentWithAppConfig(environment, appConfig);
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
 
+  const router = express.Router();
+
   /*
    * Create a new express application
    */
@@ -133,7 +135,11 @@ export function app() {
   /**
    * Proxy the sitemaps
    */
-  server.use('/sitemap**', createProxyMiddleware({ target: `${environment.rest.baseUrl}/sitemaps`, changeOrigin: true }));
+  router.use('/sitemap**', createProxyMiddleware({
+    target: `${environment.rest.baseUrl}/sitemaps`,
+    pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
+    changeOrigin: true
+  }));
 
   /**
    * Checks if the rateLimiter property is present
@@ -151,14 +157,16 @@ export function app() {
   /*
    * Serve static resources (images, i18n messages, …)
    */
-  server.get('*.*', cacheControl, express.static(DIST_FOLDER, { index: false }));
+  router.get('*.*', cacheControl, express.static(DIST_FOLDER, { index: false }));
   /*
   * Fallthrough to the IIIF viewer (must be included in the build).
   */
-  server.use('/iiif', express.static(IIIF_VIEWER, {index:false}));
+  router.use('/iiif', express.static(IIIF_VIEWER, { index: false }));
 
   // Register the ngApp callback function to handle incoming requests
-  server.get('*', ngApp);
+  router.get('*', ngApp);
+
+  server.use(environment.ui.nameSpace, router);
 
   return server;
 }
@@ -191,13 +199,25 @@ function ngApp(req, res) {
         if (hasValue(err)) {
           console.warn('Error details : ', err);
         }
-        res.sendFile(DIST_FOLDER + '/index.html');
+        res.render(indexHtml, {
+          req,
+          providers: [{
+            provide: APP_BASE_HREF,
+            useValue: req.baseUrl
+          }]
+        });
       }
     });
   } else {
     // If preboot is disabled, just serve the client
     console.log('Universal off, serving for direct CSR');
-    res.sendFile(DIST_FOLDER + '/index.html');
+    res.render(indexHtml, {
+      req,
+      providers: [{
+        provide: APP_BASE_HREF,
+        useValue: req.baseUrl
+      }]
+    });
   }
 }
 

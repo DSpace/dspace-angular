@@ -368,25 +368,25 @@ describe('AuthService test', () => {
     it('should redirect to reload with redirect url', () => {
       authService.navigateToRedirectUrl('/collection/123');
       // Reload with redirect URL set to /collection/123
-      expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('/reload/[0-9]*\\?redirect=' + encodeURIComponent('/collection/123'))));
+      expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('reload/[0-9]*\\?redirect=' + encodeURIComponent('/collection/123'))));
     });
 
     it('should redirect to reload with /home', () => {
       authService.navigateToRedirectUrl('/home');
       // Reload with redirect URL set to /home
-      expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('/reload/[0-9]*\\?redirect=' + encodeURIComponent('/home'))));
+      expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('reload/[0-9]*\\?redirect=' + encodeURIComponent('/home'))));
     });
 
     it('should redirect to regular reload and not to /login', () => {
       authService.navigateToRedirectUrl('/login');
       // Reload without a redirect URL
-      expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('/reload/[0-9]*(?!\\?)$')));
+      expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('reload/[0-9]*(?!\\?)$')));
     });
 
     it('should redirect to regular reload when no redirect url is found', () => {
       authService.navigateToRedirectUrl(undefined);
       // Reload without a redirect URL
-      expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('/reload/[0-9]*(?!\\?)$')));
+      expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('reload/[0-9]*(?!\\?)$')));
     });
 
     describe('impersonate', () => {
