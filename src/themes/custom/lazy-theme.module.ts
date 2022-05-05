@@ -80,7 +80,6 @@ import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 
-// todo: optimize imports
 
 const DECLARATIONS = [
   FileSectionComponent,
