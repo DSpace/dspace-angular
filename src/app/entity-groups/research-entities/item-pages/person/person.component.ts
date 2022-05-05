@@ -40,7 +40,7 @@ export class PersonComponent extends ItemComponent implements OnInit {
   ngOnInit(): void {
     super.ngOnInit();
 
-    this.authorizationService.isAuthorized(FeatureID.ShowClaimItem, this.object._links.self.href).pipe(
+    this.authorizationService.isAuthorized(FeatureID.CanClaimItem, this.object._links.self.href).pipe(
       take(1)
     ).subscribe((isAuthorized: boolean) => {
       this.claimable$.next(isAuthorized);
@@ -48,21 +48,10 @@ export class PersonComponent extends ItemComponent implements OnInit {
 
   }
 
+  /**
+   * Create a new researcher profile claiming the current item.
+   */
   claim() {
-
-    this.authorizationService.isAuthorized(FeatureID.CanClaimItem, this.object._links.self.href).pipe(
-      take(1)
-    ).subscribe((isAuthorized: boolean) => {
-      if (!isAuthorized) {
-        this.notificationsService.warning(this.translate.get('researcherprofile.claim.not-authorized'));
-      } else {
-        this.createFromExternalSource();
-      }
-    });
-
-  }
-
-  createFromExternalSource() {
     this.researcherProfileService.createFromExternalSource(this.object._links.self.href).pipe(
       getFirstSucceededRemoteData(),
       mergeMap((rd: RemoteData<ResearcherProfile>) => {
@@ -81,10 +70,16 @@ export class PersonComponent extends ItemComponent implements OnInit {
       });
   }
 
+  /**
+   * Returns true if the item is claimable, false otherwise.
+   */
   isClaimable(): Observable<boolean> {
     return this.claimable$;
   }
 
+  /**
+   * Returns the metadata values to be used for the page title.
+   */
   getTitleMetadataValues(): MetadataValue[]{
     const metadataValues = [];
     const familyName = this.object?.firstMetadata('person.familyName');

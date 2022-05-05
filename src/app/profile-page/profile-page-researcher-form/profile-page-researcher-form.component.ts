@@ -152,6 +152,9 @@ export class ProfilePageResearcherFormComponent implements OnInit {
     return this.processingCreate$.asObservable();
   }
 
+  /**
+   * Create a new profile related to the current user from scratch.
+   */
   createProfileFromScratch() {
     this.processingCreate$.next(true);
     this.researcherProfileService.create().pipe(
@@ -167,6 +170,9 @@ export class ProfilePageResearcherFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Initializes the researcherProfile and researcherProfileItemId attributes using the profile of the current user.
+   */
   private initResearchProfile(): void {
     this.researcherProfileService.findById(this.user.id).pipe(
       take(1),
