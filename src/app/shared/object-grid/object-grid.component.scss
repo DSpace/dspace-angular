@@ -17,13 +17,22 @@
   }
 }
 
-.card-columns {
+.row {
   margin-left: calc(-1 * var(--ds-wrapper-grid-spacing));
   margin-right: calc(-1 * var(--ds-wrapper-grid-spacing));
   column-gap: 0;
 
-  .card-column {
+  .object-grid {
     padding-left: var(--ds-wrapper-grid-spacing);
     padding-right: var(--ds-wrapper-grid-spacing);
+  }
+}
+
+.object-grid ::ng-deep {
+  div.card {
+    height: 100%;
+  }
+  h4.card-title {
+    min-height: 4.5em;
   }
 }

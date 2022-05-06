@@ -180,23 +180,10 @@ export class ObjectGridComponent implements OnInit {
       distinctUntilChanged()
     ).pipe(startWith(3));
 
-    this.columns$ = observableCombineLatest(
-      nbColumns$,
-      this._objects$).pipe(map(([nbColumns, objects]) => {
+    this.columns$ = observableCombineLatest(this._objects$)
+    .pipe(map(([objects]) => {
       if (hasValue(objects) && hasValue(objects.payload) && hasValue(objects.payload.page)) {
-        const page = objects.payload.page;
-
-        const result = [];
-
-        page.forEach((obj: ListableObject, i: number) => {
-          const colNb = i % nbColumns;
-          let col = result[colNb];
-          if (hasNoValue(col)) {
-            col = [];
-          }
-          result[colNb] = [...col, obj];
-        });
-        return result;
+        return objects.payload.page;
       } else {
         return [];
       }
