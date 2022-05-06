@@ -9,7 +9,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { getFirstSucceededRemoteDataWithNotEmptyPayload } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { environment } from '../../../../src/environments/environment';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
@@ -17,6 +17,7 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
+import { RemoteData } from '../../core/data/remote-data';
 
 
 /**
@@ -67,20 +68,30 @@ export class RSSComponent implements OnInit, OnDestroy  {
     this.configuration$ = this.searchConfigurationService.getCurrentConfiguration('default');
 
     this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.enable').pipe(
-      getFirstSucceededRemoteDataWithNotEmptyPayload(),
+      getFirstCompletedRemoteData(),
     ).subscribe((result) => {
-      const enabled = (result.values[0] === 'true');
-      this.isEnabled$.next(enabled);
+      if (result.hasSucceeded) {
+        const enabled = (result.payload.values[0] === 'true');
+        this.isEnabled$.next(enabled);
+      }
     }));
     this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.svccontext').pipe(
-      getFirstSucceededRemoteDataWithNotEmptyPayload(),
-      map((result) => result.values[0]),
-      switchMap((openSearchUri: string) =>
+      getFirstCompletedRemoteData(),
+      map((result: RemoteData<any>) => { 
+        if (result.hasSucceeded) {
+          return result.payload.values[0];
+        }
+        return null;
+      }),
+      switchMap((openSearchUri: string) => 
         this.searchConfigurationService.paginatedSearchOptions.pipe(
           map((searchOptions: PaginatedSearchOptions) => ({ openSearchUri,  searchOptions }))
         )
       ),
     ).subscribe(({ openSearchUri,  searchOptions }) => {
+      if (!openSearchUri) {
+        return null;
+      }
       this.uuid = this.groupDataService.getUUIDFromString(this.router.url);
       const route = environment.rest.baseUrl + this.formulateRoute(this.uuid, openSearchUri, searchOptions.sort, searchOptions.query);
       this.addLinks(route);
