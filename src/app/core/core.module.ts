@@ -164,12 +164,9 @@ import { SequenceService } from './shared/sequence.service';
 import { CoreState } from './core-state.model';
 import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
-<<<<<<< HEAD
 import { AccessStatusObject } from '../shared/object-list/access-status-badge/access-status.model';
 import { AccessStatusDataService } from './data/access-status-data.service';
-=======
 import { LinkHeadService } from './services/link-head.service';
->>>>>>> 354768d98 (w2p-85140 ds-rss component now adds a button to all search pages and community and collection, link-head service adds the rss to the head element)
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes

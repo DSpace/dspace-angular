@@ -77,13 +77,13 @@ export class RSSComponent implements OnInit, OnDestroy  {
     }));
     this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.svccontext').pipe(
       getFirstCompletedRemoteData(),
-      map((result: RemoteData<any>) => { 
+      map((result: RemoteData<any>) => {
         if (result.hasSucceeded) {
           return result.payload.values[0];
         }
         return null;
       }),
-      switchMap((openSearchUri: string) => 
+      switchMap((openSearchUri: string) =>
         this.searchConfigurationService.paginatedSearchOptions.pipe(
           map((searchOptions: PaginatedSearchOptions) => ({ openSearchUri,  searchOptions }))
         )
