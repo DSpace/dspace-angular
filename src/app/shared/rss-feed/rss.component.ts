@@ -9,7 +9,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataWithNotEmptyPayload } from '../../core/shared/operators';
 import { environment } from '../../../../src/environments/environment';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
@@ -68,14 +68,14 @@ export class RSSComponent implements OnInit, OnDestroy  {
     this.configuration$ = this.searchConfigurationService.getCurrentConfiguration('default');
 
     this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.enable').pipe(
-      getFirstCompletedRemoteData(),
+      getFirstSucceededRemoteDataWithNotEmptyPayload(),
     ).subscribe((result) => {
-      const enabled = (result.payload.values[0] === 'true');
+      const enabled = (result.values[0] === 'true');
       this.isEnabled$.next(enabled);
     }));
     this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.svccontext').pipe(
-      getFirstCompletedRemoteData(),
-      map((response: RemoteData<any>) => response.payload.values[0]),
+      getFirstSucceededRemoteDataWithNotEmptyPayload(),
+      map((result) => result.values[0]),
       switchMap((openSearchUri: string) =>
         this.searchConfigurationService.paginatedSearchOptions.pipe(
           map((searchOptions: PaginatedSearchOptions) => ({ openSearchUri,  searchOptions }))
