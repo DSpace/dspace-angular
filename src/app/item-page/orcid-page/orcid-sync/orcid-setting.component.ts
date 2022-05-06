@@ -77,9 +77,9 @@ export class OrcidSettingComponent implements OnInit {
         };
       });
 
-    const syncProfilePreferences = this.item.allMetadataValues('cris.orcid.sync-profile');
+    const syncProfilePreferences = this.item.allMetadataValues('dspace.orcid.sync-profile');
 
-    this.syncProfileOptions = ['AFFILIATION', 'EDUCATION', 'BIOGRAPHICAL', 'IDENTIFIERS']
+    this.syncProfileOptions = ['BIOGRAPHICAL', 'IDENTIFIERS']
       .map((value) => {
         return {
           label: this.messagePrefix + '.sync-profile.' + value.toLowerCase(),
@@ -88,9 +88,9 @@ export class OrcidSettingComponent implements OnInit {
         };
       });
 
-    this.currentSyncMode = this.getCurrentPreference('cris.orcid.sync-mode', ['BATCH, MANUAL'], 'MANUAL');
-    this.currentSyncPublications = this.getCurrentPreference('cris.orcid.sync-publications', ['DISABLED', 'ALL'], 'DISABLED');
-    this.currentSyncFundings = this.getCurrentPreference('cris.orcid.sync-fundings', ['DISABLED', 'ALL'], 'DISABLED');
+    this.currentSyncMode = this.getCurrentPreference('dspace.orcid.sync-mode', ['BATCH, MANUAL'], 'MANUAL');
+    this.currentSyncPublications = this.getCurrentPreference('dspace.orcid.sync-publications', ['DISABLED', 'ALL'], 'DISABLED');
+    this.currentSyncFundings = this.getCurrentPreference('dspace.orcid.sync-fundings', ['DISABLED', 'ALL'], 'DISABLED');
   }
 
   onSubmit(form: FormGroup) {
@@ -110,7 +110,7 @@ export class OrcidSettingComponent implements OnInit {
       return;
     }
 
-    this.researcherProfileService.findById(this.item.firstMetadata('cris.owner').authority).pipe(
+    this.researcherProfileService.findById(this.item.firstMetadata('dspace.object.owner').authority).pipe(
       switchMap((profile) => this.researcherProfileService.patch(profile, operations)),
       getFinishedRemoteData()
     ).subscribe((remoteData) => {
