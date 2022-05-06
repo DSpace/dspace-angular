@@ -158,6 +158,7 @@ describe('ContextMenuComponent', () => {
       fixture.detectChanges();
       const deMenu = fixture.debugElement.query(By.css('#showAllMetadata'));
       expect(deMenu).toBeNull();
+      
     it('should display d-none', (done) => {
       const menu = fixture.debugElement.query(By.css('div.d-none'));
       expect(menu).not.toBeNull();
