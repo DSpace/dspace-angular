@@ -46,6 +46,7 @@ import { NgbAccordionModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionSectionAccessesComponent } from './sections/accesses/section-accesses.component';
 import { SubmissionAccessesConfigService } from '../core/config/submission-accesses-config.service';
 import { SectionAccessesService } from './sections/accesses/section-accesses.service';
+import { SubmissionSectionCorrectionComponent } from './sections/correction/ section-correction.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -55,7 +56,8 @@ const ENTRY_COMPONENTS = [
   SubmissionSectionCcLicensesComponent,
   SubmissionSectionAccessesComponent,
   SubmissionSectionDetectDuplicateComponent,
-  SubmissionSectionCustomUrlComponent
+  SubmissionSectionCustomUrlComponent,
+  SubmissionSectionCorrectionComponent
 ];
 
 const DECLARATIONS = [

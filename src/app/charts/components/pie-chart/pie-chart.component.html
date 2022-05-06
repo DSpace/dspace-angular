@@ -1,10 +1,12 @@
-<ngx-charts-pie-chart
-  [view]="view"
-  [results]="(chartData | async)"
-  [animations]="animations"
-  [legend]="legend"
-  [legendTitle]="legendTitle"
-  [legendPosition]="legendPosition"
-  [labels]="showLabels"
-  (select)="onSelect($event)">
-</ngx-charts-pie-chart>
+<div #chartContainer class="w-100">
+  <ngx-charts-pie-chart
+    [view]="view?.length == 0 ? [chartContainer.offsetWidth] : view"
+    [results]="(chartData | async)"
+    [animations]="animations"
+    [legend]="legend"
+    [legendTitle]="legendTitle"
+    [legendPosition]="legendPosition"
+    [labels]="showLabels"
+    (select)="onSelect($event)">
+  </ngx-charts-pie-chart>
+</div>

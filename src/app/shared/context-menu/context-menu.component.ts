@@ -1,4 +1,4 @@
-import { Component, Injector, Input, OnInit } from '@angular/core';
+import { Component, Inject, Injector, Input, OnInit } from '@angular/core';
 
 import { select, Store } from '@ngrx/store';
 import { from, Observable } from 'rxjs';
@@ -17,6 +17,7 @@ import { ContextMenuEntryType } from './context-menu-entry-type';
 import { isNotEmpty } from '../empty.util';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { DOCUMENT } from '@angular/common';
 
 /**
  * This component renders a context menu for a given DSO.
@@ -51,8 +52,15 @@ export class ContextMenuComponent implements OnInit {
   public objectInjector: Injector;
 
   /**
+   * context menu options count.
+   * @type {number}
+   */
+  public optionCount = 0;
+
+  /**
    * Initialize instance variables
    *
+   * @param {Document} _document
    * @param {ConfigurationDataService} configurationService
    * @param {Injector} injector
    * @param {Store<CoreState>} store
@@ -64,6 +72,7 @@ export class ContextMenuComponent implements OnInit {
    */
   public objectType = DSpaceObjectType;
   constructor(
+    @Inject(DOCUMENT) private _document: Document,
     private configurationService: ConfigurationDataService,
     private injector: Injector,
     private store: Store<CoreState>
@@ -129,5 +138,18 @@ export class ContextMenuComponent implements OnInit {
 
   isItem(): boolean {
     return this.contextMenuObjectType === DSpaceObjectType.ITEM;
+  }
+
+  ngAfterViewChecked() {
+    // To check that Context-menu contains options or not
+    if (this._document.getElementById('itemOptionsDropdownMenu')) {
+      const el = Array.from(this._document.getElementById('itemOptionsDropdownMenu')?.getElementsByClassName('ng-star-inserted'));
+      this.optionCount = 0;
+      if (el) {
+        el.forEach(element => {
+          this.optionCount += element.childElementCount;
+        });
+      }
+    }
   }
 }

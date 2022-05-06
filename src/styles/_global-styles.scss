@@ -108,3 +108,11 @@ button.switch {
 .authority-confidence-clickable {
   cursor: pointer;
 }
+
+// overrides @ng-util/markdown customizations
+.vditor-reset {
+  font-family: inherit !important;
+  h1, h2, h3, h4, h5, h6 {
+    border-bottom: inherit !important;
+  }
+}

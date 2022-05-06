@@ -34,8 +34,12 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { environment } from '../../../../environments/environment';
 import { ConfigObject } from '../../../core/config/models/config.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionVisibility } from '../../utils/visibility.util';
 import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
+import { SubmissionVisibilityType } from '../../../core/config/models/config-submission-section.model';
 
 /**
  * This component represents a section that contains a Form.
@@ -106,15 +110,18 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    * The [FormFieldPreviousValueObject] object
    * @type {FormFieldPreviousValueObject}
    */
-  previousValue: FormFieldPreviousValueObject = new FormFieldPreviousValueObject();
+  protected previousValue: FormFieldPreviousValueObject = new FormFieldPreviousValueObject();
 
   /**
    * The list of Subscription
    * @type {Array}
    */
   protected subs: Subscription[] = [];
-  protected workspaceItem: WorkspaceItem;
+
   protected metadataSecurityConfiguration: MetadataSecurityConfiguration;
+
+  protected submissionObject: SubmissionObject;
+
   /**
    * The FormComponent reference
    */
@@ -187,11 +194,11 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
         ]);
       }),
       take(1))
-      .subscribe(([sectionData, workspaceItem, metadataSecurity]: [WorkspaceitemSectionFormObject, WorkspaceItem, MetadataSecurityConfiguration]) => {
+      .subscribe(([sectionData, submissionObject, metadataSecurity]: [WorkspaceitemSectionFormObject, SubmissionObject, MetadataSecurityConfiguration]) => {
           if (isUndefined(this.formModel)) {
             this.metadataSecurityConfiguration = metadataSecurity;
             // this.sectionData.errorsToShow = [];
-            this.workspaceItem = workspaceItem;
+          this.submissionObject = submissionObject;
             // Is the first loading so init form
             this.initForm(sectionData);
             this.sectionData.data = sectionData;
@@ -238,7 +245,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
 
     const sectionDataToCheck = {};
     Object.keys(sectionData).forEach((key) => {
-      if (this.sectionMetadata && this.sectionMetadata.includes(key)) {
+      if (this.sectionMetadata && this.sectionMetadata.includes(key) && this.inCurrentSubmissionScope(key)) {
         sectionDataToCheck[key] = sectionData[key];
       }
     });
@@ -253,12 +260,24 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
       .forEach((key) => {
         diffObj[key].forEach((value) => {
           // the findIndex extra check excludes values already present in the form but in different positions
-          if (value.hasOwnProperty('value') && findIndex(this.formData[key], {value: value.value}) < 0) {
+          if (value.hasOwnProperty('value') && findIndex(this.formData[key], { value: value.value }) < 0) {
             diffResult.push(value);
           }
         });
       });
     return isNotEmpty(diffResult);
+  }
+
+  /**
+   * Whether a specific field is editable in the current scope. Unscoped fields always return true.
+   * @private
+   */
+  private inCurrentSubmissionScope(field: string): boolean {
+    const visibility: SubmissionVisibilityType = this.formConfig?.rows.find(row => {
+      return row.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
+    }).fields?.[0]?.visibility;
+
+    return SubmissionVisibility.isVisible(visibility, this.submissionService.getSubmissionScope());
   }
 
   /**
@@ -304,7 +323,8 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    *    the section errors retrieved from the server
    */
   updateForm(sectionData: WorkspaceitemSectionFormObject, errors: SubmissionSectionError[]): void {
-     if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
+
+    if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
       this.sectionData.data = sectionData;
       if (this.hasMetadataEnrichment(sectionData)) {
         this.isUpdating = true;
@@ -343,7 +363,6 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    * Initialize all subscriptions
    */
   subscriptions(): void {
-
     this.subs.push(
       /**
        * Subscribe to form's data
@@ -378,7 +397,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    *    the [[DynamicFormControlEvent]] emitted
    */
   onChange(event: DynamicFormControlEvent): void {
-      this.formOperationsService.dispatchOperationsFromEvent(
+    this.formOperationsService.dispatchOperationsFromEvent(
       this.pathCombiner,
       event,
       this.previousValue,

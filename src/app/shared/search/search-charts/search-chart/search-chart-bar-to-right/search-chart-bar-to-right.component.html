@@ -1,7 +1,4 @@
-<div
-  class="d-flex w-100 search-chart-container"
-  *ngIf="(results | async) && (results | async).length > 0; else noData"
->
+<div class="d-flex w-100 search-chart-container" *ngIf="(results | async) && (results | async).length > 0; else noData">
   <ds-chart
     [results]="results"
     [view]="view"
@@ -9,6 +6,8 @@
     [animations]="true"
     [enableScrollToRight]="true"
     [currentPage]="currentPage"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
     (select)="select($event)"
     (showMore)="showMore()"
     [isLastPage]="isLastPage$"

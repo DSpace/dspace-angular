@@ -9,6 +9,7 @@ import { filter, map, take } from 'rxjs/operators';
 import { getFirstSucceededRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../core/shared/operators';
 import { isNotEmpty } from '../shared/empty.util';
 import { ActivatedRoute } from '@angular/router';
+import { RemoteData } from '../core/data/remote-data';
 
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
@@ -26,6 +27,16 @@ export class CrisLayoutComponent implements OnInit {
   @Input() item: Item;
 
   /**
+   * DSpace dataTabs coming as Input for specific item
+   */
+  @Input() dataTabs$: Observable<RemoteData<PaginatedList<CrisLayoutTab>>>;
+
+  /**
+   * A boolean representing if to show context menu or not
+   */
+  @Input() showContextMenu = true;
+
+  /**
    * Get tabs for the specific item
    */
   tabs$: Observable<CrisLayoutTab[]>;
@@ -40,6 +51,9 @@ export class CrisLayoutComponent implements OnInit {
    */
   leadingTabs$: Observable<CrisLayoutTab[]>;
 
+  /**
+   * Get if has leading tabs
+   */
   hasLeadingTab$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private tabService: TabDataService, private router: ActivatedRoute) {
@@ -49,13 +63,20 @@ export class CrisLayoutComponent implements OnInit {
    * Get tabs for the specific item
    */
   ngOnInit(): void {
-    // this.router.data.subscribe((res) => console.log(res));
-    // this.getTabsByItem();
-    this.tabs$ = this.router.data.pipe(
-      map((res: any) => {
-        return res.tabs.payload.page;
-      })
-    );
+
+    if (!!this.dataTabs$) {
+      this.tabs$ = this.dataTabs$.pipe(
+        map((res: any) => {
+          return res.payload.page;
+        })
+      );
+    } else {
+      this.tabs$ = this.router.data.pipe(
+        map((res: any) => {
+          return res.tabs.payload.page;
+        })
+      );
+    }
     this.leadingTabs$ = this.getLeadingTabs();
     this.loaderTabs$ = this.getLoaderTabs();
 
