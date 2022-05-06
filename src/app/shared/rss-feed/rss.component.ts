@@ -9,14 +9,13 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataWithNotEmptyPayload } from '../../core/shared/operators';
+import { getFirstSucceededRemoteDataWithNotEmptyPayload } from '../../core/shared/operators';
 import { environment } from '../../../../src/environments/environment';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
-import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 
 
