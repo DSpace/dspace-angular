@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { mergeMap, switchMap, take } from 'rxjs/operators';
+import { mergeMap, take } from 'rxjs/operators';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
@@ -12,6 +12,9 @@ import { PaginatedSearchOptions } from '../../shared/search/models/paginated-sea
 import { SearchResult } from '../../shared/search/models/search-result.model';
 import { getFirstSucceededRemoteData } from './../../core/shared/operators';
 
+/**
+ * Service that handle profiles claim.
+ */
 @Injectable()
 export class ProfileClaimService {
 
@@ -19,6 +22,11 @@ export class ProfileClaimService {
     private configurationService: ConfigurationDataService) {
   }
 
+  /**
+   * Returns true if it is possible to suggest profiles to be claimed to the given eperson.
+   *
+   * @param eperson the eperson
+   */
   canClaimProfiles(eperson: EPerson): Observable<boolean> {
 
     const query = this.personQueryData(eperson);
@@ -33,6 +41,10 @@ export class ProfileClaimService {
 
   }
 
+  /**
+   * Returns profiles that could be associated with the given user.
+   * @param eperson the user
+   */
   search(eperson: EPerson): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     const query = this.personQueryData(eperson);
     if (!hasValue(query) || query.length === 0) {
@@ -41,6 +53,10 @@ export class ProfileClaimService {
     return this.lookup(query);
   }
 
+  /**
+   * Search object by the given query.
+   * @param query the query for the search
+   */
   private lookup(query: string): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     if (!hasValue(query)) {
       return of(null);
@@ -55,16 +71,7 @@ export class ProfileClaimService {
   }
 
   private personQueryData(eperson: EPerson): string {
-    const querySections = [];
-    this.queryParam(querySections, 'dc.title', eperson.name);
-    this.queryParam(querySections, 'crisrp.name', eperson.name);
-    return querySections.join(' OR ');
+    return 'dc.title:' + eperson.name;
   }
-
-  private queryParam(query: string[], metadata: string, value: string) {
-    if (!hasValue(value)) {return;}
-    query.push(metadata + ':' + value);
-  }
-
 
 }
