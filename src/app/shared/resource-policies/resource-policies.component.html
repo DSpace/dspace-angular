@@ -4,9 +4,16 @@
       <tr>
         <th colspan="10">
           <div class="d-flex justify-content-between align-items-center m-0">
-            {{ 'resource-policies.table.headers.title.for.' + resourceType | translate }} {{resourceUUID}}
+            <span>
+              {{ 'resource-policies.table.headers.title.for.' + resourceType | translate }}
+              <!-- {{(getResourcePolicies() | async)?.length}} -->
+              <span class="text-info"> {{resourceName}} </span>
+              <ng-container *ngIf="resourceType != 'item'">
+                ({{resourceUUID}})
+              </ng-container>
+            </span>
             <div class="space-children-mr">
-              <button class="btn btn-danger"
+              <button class="btn btn-danger p-1"
                       [disabled]="(!(canDelete() | async)) || (isProcessingDelete() | async)"
                       [title]="'resource-policies.delete.btn.title' | translate"
                       (click)="deleteSelectedResourcePolicies()">
@@ -18,7 +25,7 @@
                   {{'resource-policies.delete.btn' | translate}}
                 </span>
               </button>
-              <button class="btn btn-success"
+              <button class="btn btn-success p-1"
                       [disabled]="(isProcessingDelete() | async)"
                       [title]="'resource-policies.add.for.' + resourceType | translate"
                       (click)="redirectToResourcePolicyCreatePage()">
