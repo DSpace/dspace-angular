@@ -73,6 +73,12 @@ export class FormBuilderService extends DynamicFormService {
     super(componentService, validationService);
     this.formModels = new Map();
     this.formGroups = new Map();
+    // If optional config service was passed, perform an initial set of type field (default dc_type) for type binds
+    if (hasValue(this.configService)) {
+      this.setTypeBindFieldFromConfig();
+    }
+
+
   }
 
   createDynamicFormControlEvent(control: FormControl, group: FormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {
