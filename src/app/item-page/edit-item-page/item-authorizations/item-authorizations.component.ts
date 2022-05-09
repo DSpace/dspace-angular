@@ -69,7 +69,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    * The number of current page
    * @type {number}
    */
-  bunblesPageSize = 6;
+  bunblesPageSize = 1;
 
   /**
    * The flag to show or not the 'Load more' button
