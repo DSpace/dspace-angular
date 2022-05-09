@@ -1,7 +1,7 @@
 import { cold, hot } from 'jasmine-marbles';
 import { ObjectGridComponent } from './object-grid.component';
 
-fdescribe('ObjectGridComponent', () => {
+describe('ObjectGridComponent', () => {
   const testObjects = [
     { one: 1 },
     { two: 2 },
