@@ -1,5 +1,5 @@
 rest:
-  ssl: false
-  host: localhost:8080
+  ssl: true
+  host: api7.dspace.org
   port: 443
   nameSpace: /server
