@@ -63,7 +63,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    * The size of the bundles to be loaded on demand
    * @type {number}
    */
-  bunblesPerPage = 1;
+  bunblesPerPage = 6;
 
   /**
    * The number of current page
