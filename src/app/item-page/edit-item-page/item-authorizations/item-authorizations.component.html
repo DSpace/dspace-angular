@@ -3,7 +3,7 @@
   <ds-resource-policies [resourceType]="'item'" [resourceName]="(getItemName() | async)"
     [resourceUUID]="(getItemUUID() | async)">
   </ds-resource-policies>
-  <ng-container *ngFor="let bundle of (bundlesToShow$ | async); trackById">
+  <ng-container *ngFor="let bundle of (bundles$ | async); trackById">
     <ds-resource-policies [resourceType]="'bundle'" [resourceUUID]="bundle.id" [resourceName]="bundle.name">
     </ds-resource-policies>
     <ng-container *ngIf="(bundleBitstreamsMap.get(bundle.id)?.bitstreams | async)?.length > 0">
@@ -11,7 +11,7 @@
         <div class="card-header">
           <button type="button" class="btn btn-outline-primary" (click)="collapseArea(bundle.id)"
             [attr.aria-expanded]="false" [attr.aria-controls]="bundle.id">
-            Show all Bitstreams' Policies for Bundle {{bundle.name}}
+            {{ 'collection.edit.item.authorizations.show-bitstreams-button' | translate }} {{bundle.name}}
           </button>
         </div>
         <div class="card-body" [id]="bundle.id" [ngbCollapse]="bundleBitstreamsMap.get(bundle.id).isCollapsed">
@@ -21,13 +21,13 @@
               [resourceName]="bitstream.name"></ds-resource-policies>
           </ng-container>
           <div class="row justify-content-center" *ngIf="!bundleBitstreamsMap.get(bundle.id).allBitstreamsLoaded">
-            <button type="button" class="btn btn-link" (click)="onBitstreamsLoad(bundle)">Load more</button>
+            <button type="button" class="btn btn-link" (click)="onBitstreamsLoad(bundle)">{{ 'collection.edit.item.authorizations.load-more-button' | translate }}</button>
           </div>
         </div>
       </div>
     </ng-container>
   </ng-container>
   <div class="row justify-content-center" *ngIf="!allBundlesLoaded">
-    <button type="button" class="btn btn-link" (click)="onBunbleLoad()">Load more bundles</button>
+    <button type="button" class="btn btn-link" (click)="onBunbleLoad()">{{ 'collection.edit.item.authorizations.load-bundle-button' | translate }}</button>
   </div>
 </div>

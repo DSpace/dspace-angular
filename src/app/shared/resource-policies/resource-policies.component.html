@@ -6,7 +6,6 @@
           <div class="d-flex justify-content-between align-items-center m-0">
             <span>
               {{ 'resource-policies.table.headers.title.for.' + resourceType | translate }}
-              <!-- {{(getResourcePolicies() | async)?.length}} -->
               <span class="text-info"> {{resourceName}} </span>
               <ng-container *ngIf="resourceType != 'item'">
                 ({{resourceUUID}})

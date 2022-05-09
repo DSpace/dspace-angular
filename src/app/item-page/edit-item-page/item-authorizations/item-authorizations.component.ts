@@ -45,13 +45,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    * The list of all bundles for the item
    * @type {Observable<PaginatedList<Bundle>>}
    */
-  private bundles$: BehaviorSubject<Bundle[]> = new BehaviorSubject<Bundle[]>([]);
-
-  /**
-   * The list of bundles to be displayed in the template
-   * @type {BehaviorSubject<Bundle[]>}
-   */
-  bundlesToShow$: BehaviorSubject<Bundle[]> = new BehaviorSubject<Bundle[]>([]);
+  bundles$: BehaviorSubject<Bundle[]> = new BehaviorSubject<Bundle[]>([]);
 
   /**
    * The target editing item
@@ -69,13 +63,13 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    * The size of the bundles to be loaded on demand
    * @type {number}
    */
-  bunblesPerPage = 6;
+  bunblesPerPage = 1;
 
   /**
    * The number of current page
    * @type {number}
    */
-  bunblesPageSize = 1;
+  bunblesPageSize = 6;
 
   /**
    * The flag to show or not the 'Load more' button
@@ -179,9 +173,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
         }
         if (isEqual(page, 1)) {
           this.bundles$.next(bundles);
-          this.bundlesToShow$.next(bundles);
         } else {
-          this.bundlesToShow$.next(this.bundles$.getValue().concat(bundles));
           this.bundles$.next(this.bundles$.getValue().concat(bundles));
         }
       }),
