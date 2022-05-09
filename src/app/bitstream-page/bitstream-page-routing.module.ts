@@ -10,6 +10,9 @@ import { ResourcePolicyResolver } from '../shared/resource-policies/resolvers/re
 import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
 import { LegacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
+import { BitstreamBreadcrumbResolver } from '../core/breadcrumbs/bitstream-breadcrumb.resolver';
+import { BitstreamBreadcrumbsService } from '../core/breadcrumbs/bitstream-breadcrumbs.service';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
@@ -48,7 +51,8 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
         path: EDIT_BITSTREAM_PATH,
         component: EditBitstreamPageComponent,
         resolve: {
-          bitstream: BitstreamPageResolver
+          bitstream: BitstreamPageResolver,
+          breadcrumb: BitstreamBreadcrumbResolver,
         },
         canActivate: [AuthenticatedGuard]
       },
@@ -67,15 +71,17 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
           {
             path: 'edit',
             resolve: {
+              breadcrumb: I18nBreadcrumbResolver,
               resourcePolicy: ResourcePolicyResolver
             },
             component: ResourcePolicyEditComponent,
-            data: { title: 'resource-policies.edit.page.title', showBreadcrumbs: true }
+            data: { breadcrumbKey: 'item.edit', title: 'resource-policies.edit.page.title', showBreadcrumbs: true }
           },
           {
             path: '',
             resolve: {
-              bitstream: BitstreamPageResolver
+              bitstream: BitstreamPageResolver,
+              breadcrumb: BitstreamBreadcrumbResolver,
             },
             component: BitstreamAuthorizationsComponent,
             data: { title: 'bitstream.edit.authorizations.title', showBreadcrumbs: true }
@@ -86,6 +92,8 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
   ],
   providers: [
     BitstreamPageResolver,
+    BitstreamBreadcrumbResolver,
+    BitstreamBreadcrumbsService
   ]
 })
 export class BitstreamPageRoutingModule {

@@ -650,6 +650,8 @@
 
 
 
+  "browse.back.all-results": "All browse results",
+
   "browse.comcol.by.author": "By Author",
 
   "browse.comcol.by.dateissued": "By Issue Date",
@@ -682,13 +684,17 @@
 
   "pagination.previous.button": "Previous",
 
+  "pagination.next.button.disabled.tooltip": "No more pages of results",
+
+  "browse.startsWith": ", starting with {{ startsWith }}",
+
   "browse.startsWith.choose_start": "(Choose start)",
 
   "browse.startsWith.choose_year": "(Choose year)",
 
   "browse.startsWith.choose_year.label": "Choose the issue year",
 
-  "browse.startsWith.jump": "Jump to a point in the index:",
+  "browse.startsWith.jump": "Filter results by year or month",
 
   "browse.startsWith.months.april": "April",
 
@@ -720,13 +726,15 @@
 
   "browse.startsWith.submit": "Browse",
 
-  "browse.startsWith.type_date": "Or type in a date (year-month) and click 'Browse'",
+  "browse.startsWith.type_date": "Filter results by date",
 
   "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
 
-  "browse.startsWith.type_text": "Type the first few letters and click on the Browse button",
+  "browse.startsWith.type_text": "Filter results by typing the first few letters",
 
-  "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+  "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
+
+  "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
 
 
   "chips.remove": "Remove chip",
@@ -1649,7 +1657,7 @@
 
   "item.bitstreams.upload.bundle": "Bundle",
 
-  "item.bitstreams.upload.bundle.placeholder": "Select a bundle",
+  "item.bitstreams.upload.bundle.placeholder": "Select a bundle or input new bundle name",
 
   "item.bitstreams.upload.bundle.new": "Create bundle",
 

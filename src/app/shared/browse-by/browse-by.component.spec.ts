@@ -18,9 +18,13 @@ import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { FindListOptions } from '../../core/data/find-list-options.model';
-import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
+import {
+  BrowseEntryListElementComponent
+} from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
 import {
   DEFAULT_CONTEXT,
   listableObjectComponent,
@@ -31,6 +35,8 @@ import { ThemeService } from '../theme-support/theme.service';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { HostWindowService } from '../host-window.service';
+import { RouteService } from '../../core/services/route.service';
+import { routeServiceStub } from '../testing/route-service.stub';
 import SpyObj = jasmine.SpyObj;
 
 @listableObjectComponent(BrowseEntry, ViewMode.ListElement, DEFAULT_CONTEXT, 'custom')
@@ -100,6 +106,7 @@ describe('BrowseByComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: MockThemedBrowseEntryListElementComponent },
         { provide: ThemeService, useValue: themeService },
+        {provide: RouteService, useValue: routeServiceStub},
         { provide: SelectableListService, useValue: {} },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
       ],
@@ -110,6 +117,8 @@ describe('BrowseByComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BrowseByComponent);
     comp = fixture.componentInstance;
+    comp.paginationConfig = paginationConfig;
+    fixture.detectChanges();
   });
 
   it('should display a loading message when objects is empty', () => {
@@ -189,6 +198,29 @@ describe('BrowseByComponent', () => {
           const browseEntry = componentLoader.query(By.css('ds-browse-entry-list-element'));
           expect(browseEntry.componentInstance).toBeInstanceOf(MockThemedBrowseEntryListElementComponent);
         });
+      });
+    });
+  });
+
+  describe('reset filters button', () => {
+    it('should not be present when no startsWith or value is present ', () => {
+      const button = fixture.debugElement.query(By.css('reset'));
+      expect(button).toBeNull();
+    });
+    it('should be present when a startsWith or value is present ', () => {
+      comp.shouldDisplayResetButton$ = observableOf(true);
+      fixture.detectChanges();
+
+      const button = fixture.debugElement.query(By.css('reset'));
+      expect(button).toBeDefined();
+    });
+  });
+  describe('back', () => {
+    it('should navigate back to the main browse page', () => {
+      comp.back();
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('test-pagination', {page: 1}, {
+        value: null,
+        startsWith: null
       });
     });
   });
