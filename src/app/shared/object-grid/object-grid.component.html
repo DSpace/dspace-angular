@@ -17,8 +17,8 @@
   (next)="goNext()"
   >
     <div class="row" *ngIf="objects?.hasSucceeded">
-      <div class="col col-sm-6 col-lg-4 mb-3 object-grid" *ngFor="let column of (columns$ | async)" @fadeIn>
-        <ds-listable-object-component-loader [object]="column" [viewMode]="viewMode" [context]="context" [linkType]="linkType"></ds-listable-object-component-loader>
+      <div class="col col-sm-6 col-lg-4 mb-3 object-grid" *ngFor="let result of (results$ | async)" @fadeIn>
+        <ds-listable-object-component-loader [object]="result" [viewMode]="viewMode" [context]="context" [linkType]="linkType"></ds-listable-object-component-loader>
       </div>
     </div>
   <ds-error *ngIf="objects.hasFailed" message="{{'error.objects' | translate}}"></ds-error>
