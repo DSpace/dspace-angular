@@ -78,7 +78,7 @@ export const leadingTabs: CrisLayoutTab[] = [
     'leading': true,
     'rows': [
       {
-        'style': 'col-md-12',
+        'style': 'test-class',
         'cells': [
           {
             'style': 'col-md-6',
@@ -177,10 +177,8 @@ export const leadingTabs: CrisLayoutTab[] = [
         ]
       },
       {
-        'style': 'col-md-12',
         'cells': [
           {
-            'style': 'col-md-12',
             'boxes': [
               {
                 'shortname': 'metrics',

@@ -1,9 +1,9 @@
 <ng-container *ngIf="!!tab">
   <div class="container">
     <ng-container *ngFor="let row of tab.rows">
-      <div [class]="!!row.style ? row.style : 'row'">
+      <div [class]="row.style" [class.row]="!hasRowClass(row.style)">
         <ng-container *ngFor="let cell of row.cells">
-          <div class="cell" [class]="!!cell.style ? cell.style : 'col'" [class.px-0]="!showCellPadding">
+          <div class="cell" [class]="cell.style" [class.col]="!hasColClass(cell.style)" [class.px-0]="!showCellPadding">
             <ng-container *ngFor="let box of cell.boxes">
               <ds-cris-layout-box-container [box]="box" [item]="item"></ds-cris-layout-box-container>
             </ng-container>
