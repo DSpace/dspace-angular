@@ -4,17 +4,18 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, mergeMap, switchMap, take, tap } from 'rxjs/operators';
+import { mergeMap, switchMap, take, tap } from 'rxjs/operators';
 
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { ClaimItemSelectorComponent } from '../../shared/dso-selector/modal-wrappers/claim-item-selector/claim-item-selector.component';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import {
+  ClaimItemSelectorComponent
+} from '../../shared/dso-selector/modal-wrappers/claim-item-selector/claim-item-selector.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
 import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
-import { isNotEmpty } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-profile-page-researcher-form',
@@ -77,10 +78,10 @@ export class ProfilePageResearcherFormComponent implements OnInit {
     this.processingCreate$.next(true);
 
     this.authService.getAuthenticatedUserFromStore().pipe(
-      switchMap((currentUser) => this.profileClaimService.canClaimProfiles(currentUser)))
-      .subscribe((canClaimProfiles) => {
+      switchMap((currentUser) => this.profileClaimService.hasProfilesToSuggest(currentUser)))
+      .subscribe((hasProfilesToSuggest) => {
 
-        if (canClaimProfiles) {
+        if (hasProfilesToSuggest) {
           this.processingCreate$.next(false);
           const modal = this.modalService.open(ClaimItemSelectorComponent);
           modal.componentInstance.dso = this.user;
@@ -174,9 +175,8 @@ export class ProfilePageResearcherFormComponent implements OnInit {
    * Initializes the researcherProfile and researcherProfileItemId attributes using the profile of the current user.
    */
   private initResearchProfile(): void {
-    this.researcherProfileService.findById(this.user.id).pipe(
-      take(1),
-      filter((researcherProfile) => isNotEmpty(researcherProfile)),
+    this.researcherProfileService.findById(this.user.id, false).pipe(
+      getFirstSucceededRemoteDataPayload(),
       tap((researcherProfile) => this.researcherProfile$.next(researcherProfile)),
       mergeMap((researcherProfile) => this.researcherProfileService.findRelatedItemId(researcherProfile)),
     ).subscribe((itemId: string) => {

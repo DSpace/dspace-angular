@@ -16,6 +16,7 @@ import { ProfilePageResearcherFormComponent } from './profile-page-researcher-fo
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/core/auth/auth.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('ProfilePageResearcherFormComponent', () => {
 
@@ -51,7 +52,7 @@ describe('ProfilePageResearcherFormComponent', () => {
     });
 
     researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
-      findById: observableOf(profile),
+      findById: createSuccessfulRemoteDataObject$(profile),
       create: observableOf(profile),
       setVisibility: observableOf(profile),
       delete: observableOf(true),
@@ -61,7 +62,7 @@ describe('ProfilePageResearcherFormComponent', () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
     profileClaimService = jasmine.createSpyObj('profileClaimService', {
-      canClaimProfiles: observableOf(false),
+      hasProfilesToSuggest: observableOf(false),
     });
 
   }
@@ -91,7 +92,7 @@ describe('ProfilePageResearcherFormComponent', () => {
   });
 
   it('should search the researcher profile for the current user', () => {
-    expect(researcherProfileService.findById).toHaveBeenCalledWith(user.id);
+    expect(researcherProfileService.findById).toHaveBeenCalledWith(user.id, false);
   });
 
   describe('createProfile', () => {
