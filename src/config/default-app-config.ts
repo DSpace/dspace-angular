@@ -111,6 +111,9 @@ export class DefaultAppConfig implements AppConfig {
        */
       timer: 0
     },
+    typeBind: {
+      field: 'dc.type'
+    },
     icons: {
       metadata: [
         /**
