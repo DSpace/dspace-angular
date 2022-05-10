@@ -196,7 +196,9 @@ export const environment: BuildConfig = {
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds
-    }
+    },
+    // Show the item access status label in items lists
+    showAccessStatuses: false
   },
   collection: {
     edit: {
