@@ -66,11 +66,6 @@ export class ContextMenuComponent implements OnInit {
    * @param {Store<CoreState>} store
    */
 
-  /**
-   * DSpaceObjectType imported Model to Show all metadata (technical view)
-   * @type {Model}
-   */
-  public objectType = DSpaceObjectType;
   constructor(
     @Inject(DOCUMENT) private _document: Document,
     private configurationService: ConfigurationDataService,

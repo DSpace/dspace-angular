@@ -132,7 +132,6 @@ describe('ContextMenuComponent', () => {
 
     beforeEach(() => {
       spyOn(component, 'getContextMenuEntries').and.returnValue(of([]));
-      component.contextMenuObjectType = DSpaceObjectType.ITEM;
       fixture.detectChanges();
     });
 
@@ -196,7 +195,6 @@ describe('ContextMenuComponent', () => {
 
     beforeEach(() => {
       store.setState(notAuthState);
-      component.contextMenuObjectType = DSpaceObjectType.ITEM;
       spyOn(component, 'getContextMenuEntries').and.returnValue(of([]));
     });
 
