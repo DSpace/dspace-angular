@@ -65,7 +65,6 @@ export class ContextMenuComponent implements OnInit {
    * @param {Injector} injector
    * @param {Store<CoreState>} store
    */
-
   constructor(
     @Inject(DOCUMENT) private _document: Document,
     private configurationService: ConfigurationDataService,
