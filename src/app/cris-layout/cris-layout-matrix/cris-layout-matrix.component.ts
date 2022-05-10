@@ -38,6 +38,10 @@ export class CrisLayoutMatrixComponent {
     return style?.split(' ').filter((c) => (c === 'col' || c.startsWith('col-'))).length > 0;
   }
 
+  /**
+   * Check if style contains 'row'
+   * @param style the style of the row (a list of classes separated by space)
+   */
   hasRowClass(style) {
     return style?.split(' ').filter((r) => (r === 'row')).length > 0;
   }
