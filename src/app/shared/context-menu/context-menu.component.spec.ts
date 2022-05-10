@@ -147,19 +147,6 @@ describe('ContextMenuComponent', () => {
       done();
     });
 
-    it('should display show all metadata option', (done) => {
-      const deMenu = fixture.debugElement.query(By.css('#showAllMetadata'));
-      expect(deMenu).not.toBeNull();
-      done();
-    });
-
-    it('should not display show all metadata option', () => {
-      component.contextMenuObjectType = DSpaceObjectType.COLLECTION;
-      fixture.detectChanges();
-      const deMenu = fixture.debugElement.query(By.css('#showAllMetadata'));
-      expect(deMenu).toBeNull();
-    });
-
     it('should display d-none', (done) => {
       const menu = fixture.debugElement.query(By.css('div.d-none'));
       expect(menu).not.toBeNull();
@@ -223,20 +210,6 @@ describe('ContextMenuComponent', () => {
         expect(component).toBeTruthy();
         done();
       });
-
-      it('should display show all metadata option', (done) => {
-        const deMenu = fixture.debugElement.query(By.css('#showAllMetadata'));
-        expect(deMenu).not.toBeNull();
-        done();
-      });
-
-      it('should not display show all metadata option', () => {
-        component.contextMenuObjectType = DSpaceObjectType.COLLECTION;
-        fixture.detectChanges();
-        const deMenu = fixture.debugElement.query(By.css('#showAllMetadata'));
-        expect(deMenu).toBeNull();
-      });
-
 
       it('should not display context menu', (done) => {
         const menu = fixture.debugElement.query(By.css('button#context-menu'));
