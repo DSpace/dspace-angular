@@ -1,4 +1,4 @@
-import { Inject } from '@angular/core';
+import {Inject} from '@angular/core';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import {
