@@ -84,6 +84,7 @@ import { SearchModule } from '../../app/shared/search/search.module';
 import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
+import { SearchResultsComponent } from './app/shared/search/search-results/search-results.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -126,7 +127,8 @@ const DECLARATIONS = [
   NavbarComponent,
   HeaderNavbarWrapperComponent,
   BreadcrumbsComponent,
-  FeedbackComponent
+  FeedbackComponent,
+  SearchResultsComponent,
 ];
 
 @NgModule({
