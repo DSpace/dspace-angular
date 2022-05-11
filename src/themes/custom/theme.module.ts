@@ -84,6 +84,7 @@ import { SearchModule } from '../../app/shared/search/search.module';
 import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
+import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 import { ItemMetadataComponent } from './app/item-page/edit-item-page/item-metadata/item-metadata.component';
 import {
   EditItemTemplatePageComponent
@@ -131,6 +132,7 @@ const DECLARATIONS = [
   HeaderNavbarWrapperComponent,
   BreadcrumbsComponent,
   FeedbackComponent,
+  CommunityListComponent,
   ItemMetadataComponent,
   EditItemTemplatePageComponent,
 ];
