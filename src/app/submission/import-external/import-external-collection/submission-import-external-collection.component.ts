@@ -35,10 +35,10 @@ export class SubmissionImportExternalCollectionComponent {
   ) { }
 
   /**
-   * This method populates the 'selectedEvent' variable.
+   * This method emits the selected Collection from the 'selectedEvent' variable.
    */
-  public selectObject(event): void {
-    this.selectedEvent.emit(event);
+  public selectObject(object: CollectionListEntry): void {
+    this.selectedEvent.emit(object);
   }
 
   /**
