@@ -24,6 +24,7 @@ import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators'
 import { SubmissionDefinitionModel } from '../../core/config/models/config-submission-definition.model';
 import { catchError } from 'rxjs/operators';
 import {
+  collectionFormCorrectionSubmissionDefinitionSelectionConfig,
   collectionFormEntityTypeSelectionConfig,
   collectionFormModels,
   collectionFormSharedWorkspaceCheckboxConfig,
@@ -64,6 +65,12 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
    */
   submissionDefinitionSelection: DynamicSelectModel<string> = new DynamicSelectModel(collectionFormSubmissionDefinitionSelectionConfig);
 
+  /**
+   * The dynamic form field used for correction submission definition selection
+   * @type {DynamicSelectModel<string>}
+   */
+  correctionSubmissionDefinitionSelection: DynamicSelectModel<string> = new DynamicSelectModel(collectionFormCorrectionSubmissionDefinitionSelectionConfig);
+
   sharedWorkspaceChekbox: DynamicCheckboxModel = new DynamicCheckboxModel(collectionFormSharedWorkspaceCheckboxConfig);
 
   /**
@@ -88,10 +95,12 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
 
     let currentRelationshipValue: MetadataValue[];
     let currentDefinitionValue: MetadataValue[];
+    let currentCorrectionDefinitionValue: MetadataValue[];
     let currentSharedWorkspaceValue: MetadataValue[];
     if (this.dso && this.dso.metadata) {
       currentRelationshipValue = this.dso.metadata['dspace.entity.type'];
       currentDefinitionValue = this.dso.metadata['cris.submission.definition'];
+      currentCorrectionDefinitionValue = this.dso.metadata['cris.submission.definition-correction'];
       currentSharedWorkspaceValue = this.dso.metadata['cris.workspace.shared'];
     }
 
@@ -129,12 +138,20 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
             label: definition.name,
             value: definition.name
           } as DynamicFormOptionConfig<string>);
+          this.correctionSubmissionDefinitionSelection.add({
+            disabled: false,
+            label: definition.name,
+            value: definition.name
+          } as DynamicFormOptionConfig<string>);
           if (currentDefinitionValue && currentDefinitionValue.length > 0 && currentDefinitionValue[0].value === definition.name) {
             this.submissionDefinitionSelection.select(index);
           }
+          if (currentCorrectionDefinitionValue && currentCorrectionDefinitionValue.length > 0 && currentCorrectionDefinitionValue[0].value === definition.name) {
+            this.correctionSubmissionDefinitionSelection.select(index);
+          }
         });
 
-        this.formModel = [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection, this.sharedWorkspaceChekbox];
+        this.formModel = [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection, this.correctionSubmissionDefinitionSelection, this.sharedWorkspaceChekbox];
 
         super.ngOnInit();
 
