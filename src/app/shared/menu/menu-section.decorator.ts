@@ -1,6 +1,6 @@
 import { DEFAULT_THEME } from '../object-collection/shared/listable-object/listable-object.decorator';
 import { MenuID } from './initial-menus-state';
-import { hasNoValue, hasValue } from '../empty.util';
+import { hasValue } from '../empty.util';
 
 const menuComponentMap = new Map();
 
