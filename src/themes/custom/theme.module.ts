@@ -85,6 +85,9 @@ import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resou
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { ItemMetadataComponent } from './app/item-page/edit-item-page/item-metadata/item-metadata.component';
+import {
+  EditItemTemplatePageComponent
+} from './app/collection-page/edit-item-template-page/edit-item-template-page.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -129,6 +132,7 @@ const DECLARATIONS = [
   BreadcrumbsComponent,
   FeedbackComponent,
   ItemMetadataComponent,
+  EditItemTemplatePageComponent,
 ];
 
 @NgModule({
