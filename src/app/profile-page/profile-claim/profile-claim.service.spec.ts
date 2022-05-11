@@ -110,7 +110,7 @@ describe('ProfileClaimService', () => {
     page: []
   });
   const searchResultRD = createSuccessfulRemoteDataObject(searchResult);
-  const emptyRearchResultRD = createSuccessfulRemoteDataObject(emptySearchResult);
+  const emptySearchResultRD = createSuccessfulRemoteDataObject(emptySearchResult);
 
   beforeEach(() => {
     scheduler = getTestScheduler();
@@ -127,7 +127,7 @@ describe('ProfileClaimService', () => {
 
     describe('when has suggestions', () => {
       beforeEach(() => {
-        spyOn(service, 'search').and.returnValue(observableOf(searchResultRD));
+        spyOn(service, 'searchForSuggestions').and.returnValue(observableOf(searchResultRD));
       });
 
       it('should return true', () => {
@@ -142,7 +142,7 @@ describe('ProfileClaimService', () => {
 
     describe('when has not suggestions', () => {
       beforeEach(() => {
-        spyOn(service, 'search').and.returnValue(observableOf(emptyRearchResultRD));
+        spyOn(service, 'searchForSuggestions').and.returnValue(observableOf(emptySearchResultRD));
       });
 
       it('should return false', () => {
@@ -176,7 +176,7 @@ describe('ProfileClaimService', () => {
       });
 
       it('should return the proper search object', () => {
-        const result = service.search(eperson);
+        const result = service.searchForSuggestions(eperson);
         const expected = cold('(a|)', {
           a: searchResultRD
         });
@@ -187,13 +187,13 @@ describe('ProfileClaimService', () => {
 
     describe('when has not suggestions', () => {
       beforeEach(() => {
-        searchService.search.and.returnValue(observableOf(emptyRearchResultRD));
+        searchService.search.and.returnValue(observableOf(emptySearchResultRD));
       });
 
       it('should return null', () => {
-        const result = service.search(eperson);
+        const result = service.searchForSuggestions(eperson);
         const expected = cold('(a|)', {
-          a: emptyRearchResultRD
+          a: emptySearchResultRD
         });
         expect(result).toBeObservable(expected);
       });
@@ -202,7 +202,7 @@ describe('ProfileClaimService', () => {
 
     describe('when has not valid eperson', () => {
       it('should return null', () => {
-        const result = service.search(null);
+        const result = service.searchForSuggestions(null);
         const expected = cold('(a|)', {
           a: null
         });

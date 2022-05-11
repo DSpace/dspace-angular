@@ -7,15 +7,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { mergeMap, switchMap, take, tap } from 'rxjs/operators';
 
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import {
-  ClaimItemSelectorComponent
-} from '../../shared/dso-selector/modal-wrappers/claim-item-selector/claim-item-selector.component';
+import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/profile-claim-item-modal.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
 import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
+import { RemoteData } from '../../core/data/remote-data';
 
 @Component({
   selector: 'ds-profile-page-researcher-form',
@@ -83,7 +82,7 @@ export class ProfilePageResearcherFormComponent implements OnInit {
 
         if (hasProfilesToSuggest) {
           this.processingCreate$.next(false);
-          const modal = this.modalService.open(ClaimItemSelectorComponent);
+          const modal = this.modalService.open(ProfileClaimItemModalComponent);
           modal.componentInstance.dso = this.user;
           modal.componentInstance.create.pipe(take(1)).subscribe(() => {
             this.createProfileFromScratch();
@@ -130,8 +129,12 @@ export class ProfilePageResearcherFormComponent implements OnInit {
    */
   toggleProfileVisibility(researcherProfile: ResearcherProfile): void {
     this.researcherProfileService.setVisibility(researcherProfile, !researcherProfile.visible)
-      .subscribe((updatedProfile) => {
-        this.researcherProfile$.next(updatedProfile);
+      .subscribe((rd: RemoteData<ResearcherProfile>) => {
+        if (rd.hasSucceeded) {
+          this.researcherProfile$.next(rd.payload);
+        } else {
+          this.notificationService.error(null, this.translationService.get('researcher.profile.change-visibility.fail'));
+        }
       });
   }
 
@@ -164,9 +167,9 @@ export class ProfilePageResearcherFormComponent implements OnInit {
       this.processingCreate$.next(false);
       if (remoteData.isSuccess) {
         this.initResearchProfile();
-        this.notificationService.success(this.translationService.get('researcher.profile.create.success'));
+        this.notificationService.success(null, this.translationService.get('researcher.profile.create.success'));
       } else {
-        this.notificationService.error(this.translationService.get('researcher.profile.create.fail'));
+        this.notificationService.error(null, this.translationService.get('researcher.profile.create.fail'));
       }
     });
   }

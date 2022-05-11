@@ -27,7 +27,7 @@ export class ProfileClaimService {
    * @param eperson the eperson
    */
   hasProfilesToSuggest(eperson: EPerson): Observable<boolean> {
-    return this.search(eperson).pipe(
+    return this.searchForSuggestions(eperson).pipe(
       map((rd: RemoteData<SearchObjects<DSpaceObject>>) => {
         return isNotEmpty(rd) && rd.hasSucceeded && rd.payload?.page?.length > 0;
       })
@@ -36,9 +36,10 @@ export class ProfileClaimService {
 
   /**
    * Returns profiles that could be associated with the given user.
+   *
    * @param eperson the user
    */
-  search(eperson: EPerson): Observable<RemoteData<SearchObjects<DSpaceObject>>> {
+  searchForSuggestions(eperson: EPerson): Observable<RemoteData<SearchObjects<DSpaceObject>>> {
     const query = this.personQueryData(eperson);
     if (isEmpty(query)) {
       return of(null);
@@ -48,6 +49,7 @@ export class ProfileClaimService {
 
   /**
    * Search object by the given query.
+   *
    * @param query the query for the search
    */
   private lookup(query: string): Observable<RemoteData<SearchObjects<DSpaceObject>>> {
@@ -71,7 +73,7 @@ export class ProfileClaimService {
     if (eperson) {
       const firstname = eperson.firstMetadataValue('eperson.firstname');
       const lastname = eperson.firstMetadataValue('eperson.lastname');
-      return 'dc.title:' + eperson.name + ' OR (person.familyName:' + lastname + ' AND person.givenName:' + firstname + ')';
+      return '(dc.title:' + eperson.name + ') OR (person.familyName:' + lastname + ' AND person.givenName:' + firstname + ')';
     } else {
       return null;
     }

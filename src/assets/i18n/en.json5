@@ -4191,6 +4191,8 @@
 
   "researcher.profile.associated": "Researcher profile associated",
 
+  "researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
+
   "researcher.profile.create.new": "Create new",
 
   "researcher.profile.create.success": "Researcher profile created successfully",

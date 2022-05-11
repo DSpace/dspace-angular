@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Operation, ReplaceOperation } from 'fast-json-patch';
 import { Observable, of as observableOf } from 'rxjs';
-import { catchError, find, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, find, map, tap } from 'rxjs/operators';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
@@ -142,18 +142,14 @@ export class ResearcherProfileService {
    * @param researcherProfile the profile to update
    * @param visible the visibility value to set
    */
-  public setVisibility(researcherProfile: ResearcherProfile, visible: boolean): Observable<ResearcherProfile> {
-
+  public setVisibility(researcherProfile: ResearcherProfile, visible: boolean): Observable<RemoteData<ResearcherProfile>> {
     const replaceOperation: ReplaceOperation<boolean> = {
       path: '/visible',
       op: 'replace',
       value: visible
     };
 
-    return this.patch(researcherProfile, [replaceOperation]).pipe(
-      switchMap(() => this.findById(researcherProfile.id)),
-      getFirstSucceededRemoteDataPayload()
-    );
+    return this.patch(researcherProfile, [replaceOperation]);
   }
 
   /**
@@ -181,6 +177,8 @@ export class ResearcherProfileService {
   }
 
   private patch(researcherProfile: ResearcherProfile, operations: Operation[]): Observable<RemoteData<ResearcherProfile>> {
-    return this.dataService.patch(researcherProfile, operations);
+    return this.dataService.patch(researcherProfile, operations).pipe(
+      getFirstCompletedRemoteData()
+    );
   }
 }
