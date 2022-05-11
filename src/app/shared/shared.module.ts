@@ -7,13 +7,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { NouisliderModule } from 'ng2-nouislider';
 import {
-  NgbDatepickerModule,
-  NgbDropdownModule,
-  NgbNavModule,
-  NgbPaginationModule,
-  NgbTimepickerModule,
-  NgbTooltipModule,
-  NgbTypeaheadModule
+  NgbDatepickerModule, NgbDropdownModule, NgbNavModule, NgbPaginationModule, NgbTimepickerModule, NgbTooltipModule,
+  NgbTypeaheadModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -178,6 +173,7 @@ import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
+import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -254,6 +250,7 @@ const COMPONENTS = [
   UploaderComponent,
   FileDropzoneNoUploaderComponent,
   ItemListPreviewComponent,
+  ThemedItemListPreviewComponent,
   MyDSpaceItemStatusComponent,
   ItemSubmitterComponent,
   ItemDetailPreviewComponent,

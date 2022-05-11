@@ -46,6 +46,9 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
     // if an input or output has changed
     if (this.inAndOutputNames.some((name: any) => hasValue(changes[name]))) {
       this.connectInputsAndOutputs();
+      if (this.compRef?.instance && 'ngOnChanges' in this.compRef?.instance) {
+        (this.compRef.instance as any).ngOnChanges(changes);
+      }
     }
   }
 
