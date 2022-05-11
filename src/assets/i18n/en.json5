@@ -1421,6 +1421,8 @@
 
   "context-menu.actions.label": "Options",
 
+  "context-menu.actions.show-all-metadata": "Show all metadata (technical view)",
+
   "context-menu.actions.edit-item.btn.FULL": "Edit all the details",
 
   "context-menu.actions.edit-item.btn.OWNER": "Edit",
