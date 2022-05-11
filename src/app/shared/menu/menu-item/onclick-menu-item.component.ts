@@ -17,4 +17,10 @@ export class OnClickMenuItemComponent {
   constructor(@Inject('itemModelProvider') item: OnClickMenuItemModel) {
     this.item = item;
   }
+
+  public activate(event: any) {
+    event.preventDefault();
+    this.item.function();
+    event.stopPropagation();
+  }
 }

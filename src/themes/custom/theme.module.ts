@@ -79,9 +79,15 @@ import { HeaderComponent } from './app/header/header.component';
 import { FooterComponent } from './app/footer/footer.component';
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
+import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
+import { SearchModule } from '../../app/shared/search/search.module';
+import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
+import { ComcolModule } from '../../app/shared/comcol/comcol.module';
+import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.component';
 
 const DECLARATIONS = [
+  FileSectionComponent,
   HomePageComponent,
   HomeNewsComponent,
   RootComponent,
@@ -121,6 +127,7 @@ const DECLARATIONS = [
   NavbarComponent,
   HeaderNavbarWrapperComponent,
   BreadcrumbsComponent,
+  FeedbackComponent,
   AuthNavMenuComponent,
 ];
 
@@ -168,6 +175,10 @@ const DECLARATIONS = [
     SubmissionModule,
     MyDSpacePageModule,
     MyDspaceSearchModule,
+    SearchModule,
+    FormsModule,
+    ResourcePoliciesModule,
+    ComcolModule
   ],
   declarations: DECLARATIONS
 })

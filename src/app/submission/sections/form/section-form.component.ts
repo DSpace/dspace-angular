@@ -44,7 +44,7 @@ import { RemoteData } from '../../../core/data/remote-data';
   templateUrl: './section-form.component.html',
 })
 @renderSectionFor(SectionsType.SubmissionForm)
-export class SubmissionSectionformComponent extends SectionModelComponent {
+export class SubmissionSectionFormComponent extends SectionModelComponent {
 
   /**
    * The form id
