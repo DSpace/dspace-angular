@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import {Injectable, Optional} from '@angular/core';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -7,6 +7,7 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
   DYNAMIC_FORM_CONTROL_TYPE_INPUT,
   DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP,
+  DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
   DynamicFormComponentService,
   DynamicFormControlEvent,
@@ -19,7 +20,15 @@ import {
 } from '@ng-dynamic-forms/core';
 import { isObject, isString, mergeWith } from 'lodash';
 
-import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull } from '../../empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+  isNull
+} from '../../empty.util';
 import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
@@ -32,16 +41,61 @@ import { dateToString, isNgbDateStruct } from '../../date.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { CONCAT_GROUP_SUFFIX, DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
 
+  private typeBindModel: DynamicFormControlModel;
+
+  /**
+   * This map contains the active forms model
+   */
+  private formModels: Map<string, DynamicFormControlModel[]>;
+
+  /**
+   * This map contains the active forms control groups
+   */
+  private formGroups: Map<string, FormGroup>;
+
+  /**
+   * This is the field to use for type binding
+   */
+  private typeField: string;
+
   constructor(
     componentService: DynamicFormComponentService,
     validationService: DynamicFormValidationService,
-    protected rowParser: RowParser
+    protected rowParser: RowParser,
+    @Optional() protected configService: ConfigurationDataService,
   ) {
     super(componentService, validationService);
+    this.formModels = new Map();
+    this.formGroups = new Map();
+    // If optional config service was passed, perform an initial set of type field (default dc_type) for type binds
+    if (hasValue(this.configService)) {
+      this.setTypeBindFieldFromConfig();
+    }
+
+
+  }
+
+  createDynamicFormControlEvent(control: FormControl, group: FormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {
+    const $event = {
+      value: (model as any).value,
+      autoSave: false
+    };
+    const context: DynamicFormArrayGroupModel = (model?.parent instanceof DynamicFormArrayGroupModel) ? model?.parent : null;
+    return {$event, context, control: control, group: group, model: model, type};
+  }
+
+  getTypeBindModel() {
+    return this.typeBindModel;
+  }
+
+  setTypeBindModel(model: DynamicFormControlModel) {
+    this.typeBindModel = model;
   }
 
   findById(id: string, groupModel: DynamicFormControlModel[], arrayIndex = null): DynamicFormControlModel | null {
@@ -223,13 +277,15 @@ export class FormBuilderService extends DynamicFormService {
     return result;
   }
 
-  modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {}, submissionScope?: string, readOnly = false): DynamicFormControlModel[] | never {
-    let rows: DynamicFormControlModel[] = [];
-    const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
-
+  modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {},
+                         submissionScope?: string, readOnly = false, typeBindModel = null,
+                         isInnerForm = false): DynamicFormControlModel[] | never {
+     let rows: DynamicFormControlModel[] = [];
+     const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
-        const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope, readOnly);
+        const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope,
+          readOnly, this.getTypeField());
         if (isNotNull(rowParsed)) {
           if (Array.isArray(rowParsed)) {
             rows = rows.concat(rowParsed);
@@ -240,6 +296,13 @@ export class FormBuilderService extends DynamicFormService {
       });
     }
 
+    if (hasNoValue(typeBindModel)) {
+      typeBindModel = this.findById(this.typeField, rows);
+    }
+
+    if (hasValue(typeBindModel)) {
+      this.setTypeBindModel(typeBindModel);
+    }
     return rows;
   }
 
@@ -309,6 +372,10 @@ export class FormBuilderService extends DynamicFormService {
     return isNotEmpty(fieldModel) ? formGroup.get(this.getPath(fieldModel)) : null;
   }
 
+  getFormControlByModel(formGroup: FormGroup, fieldModel: DynamicFormControlModel): AbstractControl {
+    return isNotEmpty(fieldModel) ? formGroup.get(this.getPath(fieldModel)) : null;
+  }
+
   /**
    * Note (discovered while debugging) this is not the ID as used in the form,
    * but the first part of the path needed in a patch operation:
@@ -326,6 +393,35 @@ export class FormBuilderService extends DynamicFormService {
     }
 
     return (tempModel.id !== tempModel.name) ? tempModel.name : tempModel.id;
+  }
+
+  /**
+   * If present, remove form model from formModels map
+   * @param id id of model
+   */
+  removeFormModel(id: string): void {
+    if (this.formModels.has(id)) {
+      this.formModels.delete(id);
+    }
+  }
+
+  /**
+   * Add new form model to formModels map
+   * @param id id of model
+   * @param formGroup FormGroup
+   */
+  addFormGroups(id: string, formGroup: FormGroup): void {
+    this.formGroups.set(id, formGroup);
+  }
+
+  /**
+   * If present, remove form model from formModels map
+   * @param id id of model
+   */
+  removeFormGroup(id: string): void {
+    if (this.formGroups.has(id)) {
+      this.formGroups.delete(id);
+    }
   }
 
   /**
@@ -398,6 +494,41 @@ export class FormBuilderService extends DynamicFormService {
     const result = iterateControlModels([model]);
 
     return Object.keys(result);
+  }
+
+  /**
+   * Get the type bind field from config
+   */
+  setTypeBindFieldFromConfig(): void {
+    this.configService.findByPropertyName('submit.type-bind.field').pipe(
+      getFirstCompletedRemoteData(),
+    ).subscribe((remoteData: any) => {
+      // make sure we got a success response from the backend
+      if (!remoteData.hasSucceeded) {
+        this.typeField = 'dc_type';
+        return;
+      }
+      // Read type bind value from response and set if non-empty
+      const typeFieldConfig = remoteData.payload.values[0];
+      if (isEmpty(typeFieldConfig)) {
+        this.typeField = 'dc_type';
+      } else {
+        this.typeField = typeFieldConfig.replace(/\./g, '_');
+      }
+    });
+  }
+
+  /**
+   * Get type field. If the type isn't already set, and a ConfigurationDataService is provided, set (with subscribe)
+   * from back end. Otherwise, get/set a default "dc_type" value
+   */
+  getTypeField(): string {
+    if (hasValue(this.configService) && hasNoValue(this.typeField)) {
+      this.setTypeBindFieldFromConfig();
+    } else if (hasNoValue(this.typeField)) {
+      this.typeField = 'dc_type';
+    }
+    return this.typeField;
   }
 
 }

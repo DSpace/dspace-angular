@@ -137,6 +137,7 @@ import { SiteAdministratorGuard } from './data/feature-authorization/feature-aut
 import { Registration } from './shared/registration.model';
 import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
 import { MetadataFieldDataService } from './data/metadata-field-data.service';
+import { DsDynamicTypeBindRelationService } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { TokenResponseParsingService } from './auth/token-response-parsing.service';
 import { SubmissionCcLicenseDataService } from './submission/submission-cc-license-data.service';
 import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
@@ -163,6 +164,8 @@ import { SequenceService } from './shared/sequence.service';
 import { CoreState } from './core-state.model';
 import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
+import { AccessStatusObject } from '../shared/object-list/access-status-badge/access-status.model';
+import { AccessStatusDataService } from './data/access-status-data.service';
 import { ResearcherProfileService } from './profile/researcher-profile.service';
 import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
 import { ResearcherProfile } from './profile/model/researcher-profile.model';
@@ -223,6 +226,7 @@ const PROVIDERS = [
   MyDSpaceResponseParsingService,
   ServerResponseService,
   BrowseService,
+  AccessStatusDataService,
   SubmissionCcLicenseDataService,
   SubmissionCcLicenseUrlDataService,
   SubmissionFormsConfigService,
@@ -253,6 +257,7 @@ const PROVIDERS = [
   ClaimedTaskDataService,
   PoolTaskDataService,
   BitstreamDataService,
+  DsDynamicTypeBindRelationService,
   EntityTypeService,
   ContentSourceResponseParsingService,
   ItemTemplateDataService,
@@ -352,6 +357,7 @@ export const models =
     Root,
     SearchConfig,
     SubmissionAccessesModel,
+    AccessStatusObject,
     ResearcherProfile
   ];
 

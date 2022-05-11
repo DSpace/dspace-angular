@@ -6,6 +6,7 @@ import {
   DynamicFormControlCustomEvent,
   DynamicFormControlEvent,
   DynamicFormControlLayout,
+  DynamicFormControlModel,
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
@@ -22,6 +23,8 @@ import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 })
 export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
 
+  @Input() bindId = true;
+  @Input() formModel: DynamicFormControlModel[];
   @Input() formLayout: DynamicFormLayout;
   @Input() group: FormGroup;
   @Input() layout: DynamicFormControlLayout;

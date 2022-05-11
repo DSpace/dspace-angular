@@ -13,7 +13,8 @@ describe('ListFieldParser test suite', () => {
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: 'testScopeUUID',
-    collectionUUID: null
+    collectionUUID: null,
+    typeField: 'dc_type'
   };
 
   beforeEach(() => {

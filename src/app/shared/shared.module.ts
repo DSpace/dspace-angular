@@ -180,6 +180,7 @@ import {
 } from './input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { ItemGridElementComponent } from './object-grid/item-grid-element/item-types/item/item-grid-element.component';
 import { TypeBadgeComponent } from './object-list/type-badge/type-badge.component';
+import { AccessStatusBadgeComponent } from './object-list/access-status-badge/access-status-badge.component';
 import {
   MetadataRepresentationLoaderComponent
 } from './metadata-representation/metadata-representation-loader.component';
@@ -407,6 +408,7 @@ const COMPONENTS = [
   AbstractTrackableComponent,
   ComcolMetadataComponent,
   TypeBadgeComponent,
+  AccessStatusBadgeComponent,
   BrowseByComponent,
   AbstractTrackableComponent,
 

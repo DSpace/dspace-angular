@@ -27,6 +27,16 @@
 
   "404.page-not-found": "page not found",
 
+  "access-status.embargo.listelement.badge": "Embargo",
+
+  "access-status.metadata.only.listelement.badge": "Metadata only",
+
+  "access-status.open.access.listelement.badge": "Open Access",
+
+  "access-status.restricted.listelement.badge": "Restricted",
+
+  "access-status.unknown.listelement.badge": "Unknown",
+
   "admin.curation-tasks.breadcrumbs": "System curation tasks",
 
   "admin.curation-tasks.title": "System curation tasks",
