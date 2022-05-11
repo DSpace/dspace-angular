@@ -79,6 +79,7 @@ import { HeaderComponent } from './app/header/header.component';
 import { FooterComponent } from './app/footer/footer.component';
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
+import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.component';
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -119,7 +120,8 @@ const DECLARATIONS = [
   HeaderComponent,
   NavbarComponent,
   HeaderNavbarWrapperComponent,
-  BreadcrumbsComponent
+  BreadcrumbsComponent,
+  AuthNavMenuComponent,
 ];
 
 @NgModule({
