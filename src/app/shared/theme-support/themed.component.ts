@@ -70,7 +70,6 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
 
     this.lazyLoadSub = this.resolveThemedComponent(this.themeService.getThemeName()).pipe(
       switchMap((themedFile: any) => {
-        console.log(themedFile);
         if (hasValue(themedFile) && hasValue(themedFile[this.getComponentName()])) {
           // if the file is not null, and exports a component with the specified name,
           // return that component
