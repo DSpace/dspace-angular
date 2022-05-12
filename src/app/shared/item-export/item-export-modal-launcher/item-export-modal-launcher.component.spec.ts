@@ -11,6 +11,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { ItemExportModalLauncherComponent } from './item-export-modal-launcher.component';
 import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 
 describe('ItemExportModalWrapperComponent', () => {
   let component: ItemExportModalLauncherComponent;
@@ -21,6 +22,21 @@ describe('ItemExportModalWrapperComponent', () => {
 
   const authServiceMock: any = jasmine.createSpyObj('AuthService', {
     isAuthenticated: jasmine.createSpy('isAuthenticated')
+  });
+
+  const itemType = Object.assign(new ItemType(),{
+    'type': 'entitytype',
+    'id': 1,
+    'label': 'Person',
+    'uuid': 'entitytype-1',
+    '_links': {
+        'self': {
+            'href': 'https://dspacecris7.4science.cloud/server/api/core/entitytypes/1'
+        },
+        'relationshiptypes': {
+            'href': 'https://dspacecris7.4science.cloud/server/api/core/entitytypes/1/relationshiptypes'
+        }
+    }
   });
 
   beforeEach(async(() => {
@@ -85,7 +101,7 @@ describe('ItemExportModalWrapperComponent', () => {
       });
 
       it('should invoke component.open method', () => {
-        component.open();
+        component.open(itemType);
         fixture.detectChanges();
         btnDebugElement.triggerEventHandler('click', undefined);
         expect(component.open).toHaveBeenCalled();
@@ -98,11 +114,10 @@ describe('ItemExportModalWrapperComponent', () => {
         });
 
         it('should configure the ItemExportComponent with the item and molteplicity SINGLE', () => {
-          component.open();
+          component.open(itemType);
           expect(modalService.open).toHaveBeenCalledWith(ItemExportComponent);
           expect(modalRef.componentInstance.item).toEqual('item');
           expect(modalRef.componentInstance.searchOptions).toBeFalsy();
-          expect(modalRef.componentInstance.molteplicity).toEqual(ItemExportFormatMolteplicity.SINGLE);
         });
 
       });
@@ -114,7 +129,7 @@ describe('ItemExportModalWrapperComponent', () => {
         });
 
         it('should configure the ItemExportComponent with the searchOptions$ and molteplicity MULTIPLE', () => {
-          component.open();
+          component.open(itemType);
           expect(modalService.open).toHaveBeenCalledWith(ItemExportComponent);
           expect(modalRef.componentInstance.item).toBeFalsy();
           expect(modalRef.componentInstance.searchOptions).toEqual('searchOptions');

@@ -15,6 +15,7 @@
                                       [context]="context"
                                       [fixedFilterQuery]="searchFilter"
                                       [customData]="{ relationships$ : relationshipResults$, entityType: relationshipType }"
+                                      [showScopeSelector]="false"
                                       (customEvent)="manageRelationship($event)"></ds-configuration-search-page>
 
         <div *ngIf="!(isXsOrSm$ | async)">

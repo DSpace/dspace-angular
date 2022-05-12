@@ -15,7 +15,7 @@ import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { FormService } from '../../../../form.service';
 import { Chips } from '../../../../../chips/models/chips.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../../../../empty.util';
+import { hasValue, isEmpty } from '../../../../../empty.util';
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { ChipsItem } from '../../../../../chips/models/chips-item.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
@@ -27,6 +27,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { DsDynamicRelationGroupModalComponent } from './modal/dynamic-relation-group-modal.components';
 import { MetadataSecurityConfiguration } from '../../../../../../core/submission/models/metadata-security-configuration';
+import { Metadata } from '../../../../../../core/shared/metadata.utils';
 
 /**
  * Component representing a group input field
@@ -216,21 +217,25 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
       true);
     const fieldId = fieldName.replace(/\./g, '_');
     const model = this.formBuilderService.findById(fieldId, formModel);
-    return this.vocabularyService.findEntryDetailById(
-      valueObj[fieldName].authority,
-      (model as any).vocabularyOptions.name
-    ).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((entryDetail: VocabularyEntryDetail) => Object.assign(
-        new FormFieldMetadataValueObject(),
-        valueObj[fieldName],
-        {
-          otherInformation: entryDetail.otherInformation
-        })
-      ));
+    if ((model as any)?.vocabularyOptions?.name) {
+      return this.vocabularyService.findEntryDetailById(
+        valueObj[fieldName].authority,
+        (model as any).vocabularyOptions.name
+      ).pipe(
+        getFirstSucceededRemoteDataPayload(),
+        map((entryDetail: VocabularyEntryDetail) => Object.assign(
+          new FormFieldMetadataValueObject(),
+          valueObj[fieldName],
+          {
+            otherInformation: entryDetail.otherInformation
+          })
+        ));
+    } else {
+      return observableOf(valueObj[fieldName]);
+    }
   }
 
-  private hasValidAuthority(value: FormFieldMetadataValueObject) {
-    return value.hasAuthority() && isNotEmpty(value.authority) && !value.authority.startsWith('will be');
+  private hasValidAuthority(formMetadataValue: FormFieldMetadataValueObject) {
+    return Metadata.hasValidAuthority(formMetadataValue?.authority);
   }
 }

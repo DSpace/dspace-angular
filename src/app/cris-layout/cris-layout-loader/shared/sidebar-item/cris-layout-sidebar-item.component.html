@@ -1,8 +1,7 @@
-<li class="sidebar-section h-100" [ngClass]="{ 'active' : tab.isActive, 'expanded': expanded, 'vertical': layout == 'vertical', 'horizontal': layout == 'horizontal' }">
+<li class="sidebar-section h-100" [ngClass]="{ 'active' : !!tab && !!activeTab && (tab.isActive || tab.id == activeTab.id), 'expanded': expanded, 'vertical': layout == 'vertical', 'horizontal': layout == 'horizontal' }">
     <div class="icon-wrapper" *ngIf="!tab.children || tab.children.length == 0 ">
         <a class="nav-item shortcut-icon" href="javascript:;" [ngClass]="{ 'px-4 justify-content-between' : layout == 'vertical' }"
-            [title]="getTabHeader(tab)" (click)="$event.preventDefault();selectTab(tab)"
-            [innerHTML]="getTabHeader(tab)">
+            [title]="getTabHeader(tab)" (click)="$event.preventDefault();selectTab(tab)" [innerHTML]="getTabHeader(tab)">
 
         </a>
     </div>
@@ -19,9 +18,10 @@
                 [title]="getTabHeader(tab)"></i>
         </a>
         <ul class="sidebar-sub-level-items list-unstyled" @slide *ngIf="expanded">
-            <li *ngFor="let subTab of tab.children" [ngClass]="{'active' : subTab.isActive}">
-                <a class="nav-item shortcut-icon" href="javascript:;" [ngClass]="{ 'px-4 justify-content-between' : layout == 'vertical' }" (click)="$event.preventDefault();selectTab(subTab)">
-                    <span id="sidebarName-{{subTab.id}}" class="section-header-text" [innerHTML]="getTabHeader(subTab)">
+            <li *ngFor="let subTab of tab.children" [ngClass]="{'active' : !!subTab && !!activeTab && subTab.id == activeTab.id}">
+                <a class="nav-item shortcut-icon" href="javascript:;" [ngClass]="{ 'px-4 justify-content-between' : layout == 'vertical' }"
+                    (click)="$event.preventDefault();selectTab(subTab)">
+                    <span id="sidebarName-{{subTab.id}}" class="pl-3 section-header-text" [innerHTML]="getTabHeader(subTab)">
                     </span>
                 </a>
             </li>

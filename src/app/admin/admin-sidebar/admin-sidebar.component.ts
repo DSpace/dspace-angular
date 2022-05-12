@@ -68,13 +68,14 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
 
   inFocus$: BehaviorSubject<boolean>;
 
-  constructor(protected menuService: MenuService,
+  constructor(
+    protected menuService: MenuService,
     protected injector: Injector,
-    private variableService: CSSVariableService,
-    private authService: AuthService,
-    private modalService: NgbModal,
+    protected variableService: CSSVariableService,
+    protected authService: AuthService,
+    protected modalService: NgbModal,
     public authorizationService: AuthorizationDataService,
-    private scriptDataService: ScriptDataService,
+    protected scriptDataService: ScriptDataService,
     public route: ActivatedRoute
   ) {
     super(menuService, injector, authorizationService, route);

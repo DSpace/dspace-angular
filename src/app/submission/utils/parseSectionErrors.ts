@@ -9,17 +9,19 @@ import { default as parseSectionErrorPaths, SectionErrorPath } from './parseSect
 const parseSectionErrors = (errors: SubmissionObjectError[] = []): any => {
   const errorsList = Object.create({});
 
-  errors.forEach((error: SubmissionObjectError) => {
-    const paths: SectionErrorPath[] = parseSectionErrorPaths(error.paths);
+  if (Array.isArray(errors)) {
+    errors.forEach((error: SubmissionObjectError) => {
+      const paths: SectionErrorPath[] = parseSectionErrorPaths(error.paths);
 
-    paths.forEach((path: SectionErrorPath) => {
-      const sectionError = {path: path.originalPath, message: error.message};
-      if (!errorsList[path.sectionId]) {
-        errorsList[path.sectionId] = [];
-      }
-      errorsList[path.sectionId].push(sectionError);
+      paths.forEach((path: SectionErrorPath) => {
+        const sectionError = { path: path.originalPath, message: error.message };
+        if (!errorsList[path.sectionId]) {
+          errorsList[path.sectionId] = [];
+        }
+        errorsList[path.sectionId].push(sectionError);
+      });
     });
-  });
+  }
 
   return errorsList;
 };

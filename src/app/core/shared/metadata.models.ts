@@ -78,13 +78,6 @@ export class MetadataValue implements MetadataValueInterface {
       return undefined;
     }
   }
-
-  /**
-   * Returns true if this Metadatum's authority key is a valid UUID
-   */
-  get hasValidAuthority(): boolean {
-    return hasValue(this.authority) && uuidValidate(this.authority);
-  }
 }
 
 /** Constraints for matching metadata values. */

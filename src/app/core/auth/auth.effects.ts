@@ -166,6 +166,7 @@ export class AuthEffects {
       return this.authService.checkAuthenticationCookie().pipe(
         map((response: AuthStatus) => {
           if (response.authenticated) {
+            this.authorizationsService.invalidateAuthorizationsRequestCache();
             return new RetrieveTokenAction();
           } else {
             return new RetrieveAuthMethodsAction(response);

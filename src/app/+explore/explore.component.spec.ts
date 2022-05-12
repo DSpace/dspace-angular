@@ -34,6 +34,7 @@ describe('ExploreComponent', () => {
     style: 'col-md-6',
     order: 'desc',
     sortField: 'dc.date.accessioned',
+    numberOfItems: 5,
     titleKey: 'lastPublications'
   };
 
