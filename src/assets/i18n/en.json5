@@ -2279,6 +2279,8 @@
 
   "journal.search.results.head": "Journal Search Results",
 
+  "journal-relationships.search.results.head": "Journal Search Results",
+
   "journal.search.title": "Journal Search",
 
 
@@ -2756,6 +2758,8 @@
 
   "person.search.results.head": "Person Search Results",
 
+  "person-relationships.search.results.head": "Person Search Results",
+
   "person.search.title": "Person Search",
 
 
@@ -2931,6 +2935,8 @@
 
   "project.search.results.head": "Project Search Results",
 
+  "project-relationships.search.results.head": "Project Search Results",
+
 
 
   "publication.listelement.badge": "Publication",
@@ -2950,6 +2956,8 @@
   "publication.page.volume-title": "Volume Title",
 
   "publication.search.results.head": "Publication Search Results",
+
+  "publication-relationships.search.results.head": "Publication Search Results",
 
   "publication.search.title": "Publication Search",
 
@@ -3412,6 +3420,8 @@
 
 
   "default.search.results.head": "Search Results",
+
+  "default-relationships.search.results.head": "Search Results",
 
 
   "search.sidebar.close": "Back to results",
