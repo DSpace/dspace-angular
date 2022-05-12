@@ -548,6 +548,10 @@
 
   "admin.metadata-import.page.error.addFile": "Select file first!",
 
+  "admin.metadata-import.page.validateOnly": "Validate Only",
+
+  "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
+
 
 
 
