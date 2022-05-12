@@ -14,6 +14,7 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NoContent } from '../../../core/shared/NoContent.model';
+import { getWorkspaceItemViewRoute } from '../../../workspaceitems-edit-page/workspaceitems-edit-page-routing-paths';
 
 /**
  * This component represents actions related to WorkspaceItem object.
@@ -48,12 +49,12 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
    * @param {RequestService} requestService
    */
   constructor(protected injector: Injector,
-              protected router: Router,
-              protected modalService: NgbModal,
-              protected notificationsService: NotificationsService,
-              protected translate: TranslateService,
-              protected searchService: SearchService,
-              protected requestService: RequestService) {
+    protected router: Router,
+    protected modalService: NgbModal,
+    protected notificationsService: NotificationsService,
+    protected translate: TranslateService,
+    protected searchService: SearchService,
+    protected requestService: RequestService) {
     super(WorkspaceItem.type, injector, router, notificationsService, translate, searchService, requestService);
   }
 
@@ -83,6 +84,13 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
    */
   initObjects(object: WorkspaceItem) {
     this.object = object;
+  }
+
+  /**
+   * Get the workflowitem view route.
+   */
+  getWorkspaceItemViewRoute(workspaceItem: WorkspaceItem): string {
+    return getWorkspaceItemViewRoute(workspaceItem?.id);
   }
 
 }

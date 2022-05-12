@@ -27,6 +27,16 @@
 
   "404.page-not-found": "page not found",
 
+  "access-status.embargo.listelement.badge": "Embargo",
+
+  "access-status.metadata.only.listelement.badge": "Metadata only",
+
+  "access-status.open.access.listelement.badge": "Open Access",
+
+  "access-status.restricted.listelement.badge": "Restricted",
+
+  "access-status.unknown.listelement.badge": "Unknown",
+
   "admin.curation-tasks.breadcrumbs": "System curation tasks",
 
   "admin.curation-tasks.title": "System curation tasks",
@@ -4064,6 +4074,10 @@
   "submission.workflow.tasks.pool.show-detail": "Show detail",
 
 
+  "submission.workspace.generic.view": "View",
+
+  "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+
 
   "thumbnail.default.alt": "Thumbnail Image",
 
@@ -4170,6 +4184,9 @@
 
   "workflow-item.view.breadcrumbs": "Workflow View",
 
+  "workspace-item.view.breadcrumbs": "Workspace View",
+
+  "workspace-item.view.title": "Workspace View",
 
   "idle-modal.header": "Session will expire soon",
 
