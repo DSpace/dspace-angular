@@ -13,6 +13,7 @@ import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { getForbiddenRoute } from '../../app-routing-paths';
 import { RemoteData } from '../../core/data/remote-data';
 import { Location } from '@angular/common';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-bitstream-download-page',
@@ -38,6 +39,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
     private fileService: FileService,
     private hardRedirectService: HardRedirectService,
     private location: Location,
+    private nameService: DSONameService,
   ) {
 
   }
@@ -52,8 +54,6 @@ export class BitstreamDownloadPageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log('LEN = ' + window.history.length);
-
     this.bitstreamRD$ = this.route.data.pipe(
       map((data) => data.bitstream));
 
@@ -63,7 +63,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
     );
 
     this.fileName$ = this.bitstream$.pipe(
-      map((bitstream) => bitstream.name),
+      map((bitstream: Bitstream) => this.nameService.getName(bitstream)),
       startWith('file'),
     );
 
