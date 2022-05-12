@@ -2158,6 +2158,22 @@
 
   "item.preview.dc.title": "Title:",
 
+  "item.preview.dc.type": "Type:",
+
+  "item.preview.oaire.citation.issue" : "Issue",
+
+  "item.preview.oaire.citation.volume" : "Volume",
+
+  "item.preview.dc.relation.issn" : "ISSN",
+
+  "item.preview.dc.identifier.isbn" : "ISBN",
+
+  "item.preview.dc.identifier": "Identifier:",
+
+  "item.preview.dc.relation.ispartof" : "Journal or Serie",
+
+  "item.preview.dc.identifier.doi" : "DOI",
+
   "item.preview.person.familyName": "Surname:",
 
   "item.preview.person.givenName": "Name:",
@@ -3568,6 +3584,22 @@
 
   "submission.import-external.source.arxiv": "arXiv",
 
+  "submission.import-external.source.ads": "NASA/ADS",
+
+  "submission.import-external.source.cinii": "CiNii",
+
+  "submission.import-external.source.crossref": "CrossRef",
+
+  "submission.import-external.source.scielo": "SciELO",
+
+  "submission.import-external.source.scopus": "Scopus",
+
+  "submission.import-external.source.vufind": "VuFind",
+
+  "submission.import-external.source.wos": "Web Of Science",
+
+  "submission.import-external.source.epo": "European Patent Office (EPO)",
+
   "submission.import-external.source.loading": "Loading ...",
 
   "submission.import-external.source.sherpaJournal": "SHERPA Journals",
@@ -3582,9 +3614,13 @@
 
   "submission.import-external.source.pubmed": "Pubmed",
 
+  "submission.import-external.source.pubmedeu": "Pubmed Europe",
+
   "submission.import-external.source.lcname": "Library of Congress Names",
 
   "submission.import-external.preview.title": "Item Preview",
+
+  "submission.import-external.preview.title.Publication": "Publication Preview",
 
   "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
 
@@ -3823,6 +3859,18 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
 
