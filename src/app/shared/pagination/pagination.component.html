@@ -15,6 +15,7 @@
             <button class="dropdown-item" *ngFor="let direction of (sortDirections | dsKeys)" (click)="doSortDirectionChange(direction.value)"><i [ngClass]="{'invisible': direction.value !== (sortDirection$ |async)}" class="fas fa-check" aria-hidden="true"></i> {{'sorting.' + direction.key | translate}} </button>
           </div>
         </div>
+        <ds-rss></ds-rss>
       </div>
     </div>
   </div>
