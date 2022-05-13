@@ -17,7 +17,7 @@ import { ThemedBrowseBySwitcherComponent } from './browse-by-switcher/themed-bro
             component: ThemedBrowseBySwitcherComponent,
             canActivate: [BrowseByGuard],
             resolve: { breadcrumb: BrowseByI18nBreadcrumbResolver },
-            data: { title: 'browse.title', breadcrumbKey: 'browse.metadata' }
+            data: { title: 'browse.title.page', breadcrumbKey: 'browse.metadata' }
           }
         ]
       }])

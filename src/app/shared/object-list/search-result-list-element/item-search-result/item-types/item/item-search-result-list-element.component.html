@@ -1,4 +1,7 @@
-<ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
+<div class="d-flex">
+  <ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
+  <ds-access-status-badge [item]="dso" class="pl-1"></ds-access-status-badge>
+</div>
 
 <ds-truncatable [id]="dso.id" *ngIf="object !== undefined && object !== null">
     <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer"

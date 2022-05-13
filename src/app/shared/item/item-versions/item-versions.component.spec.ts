@@ -100,7 +100,9 @@ describe('ItemVersionsComponent', () => {
     isAuthenticated: observableOf(true),
     setRedirectUrl: {}
   });
-  const authorizationServiceSpy = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
+  const authorizationServiceSpy = jasmine.createSpyObj('authorizationService', {
+    isAuthorized: observableOf(true)
+  });
   const workspaceItemDataServiceSpy = jasmine.createSpyObj('workspaceItemDataService', {
     findByItem: EMPTY,
   });

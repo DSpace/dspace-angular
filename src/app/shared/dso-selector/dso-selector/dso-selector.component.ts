@@ -143,7 +143,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
     this.typesString = this.types.map((type: string) => type.toString().toLowerCase()).join(', ');
 
     // Create an observable searching for the current DSO (return empty list if there's no current DSO)
-    let currentDSOResult$;
+    let currentDSOResult$: Observable<PaginatedList<SearchResult<DSpaceObject>>>;
     if (isNotEmpty(this.currentDSOId)) {
       currentDSOResult$ = this.search(this.getCurrentDSOQuery(), 1).pipe(getFirstSucceededRemoteDataPayload());
     } else {

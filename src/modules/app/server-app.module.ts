@@ -7,7 +7,7 @@ import { ServerModule } from '@angular/platform-server';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { Angulartics2 } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { AppComponent } from '../../app/app.component';
 

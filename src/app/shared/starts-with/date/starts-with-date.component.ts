@@ -68,7 +68,7 @@ export class StartsWithDateComponent extends StartsWithAbstractComponent {
   setStartsWithYearEvent(event: Event) {
     this.startsWithYear = +(event.target as HTMLInputElement).value;
     this.setStartsWithYearMonth();
-    this.setStartsWithParam();
+    this.setStartsWithParam(true);
   }
 
   /**
@@ -78,7 +78,7 @@ export class StartsWithDateComponent extends StartsWithAbstractComponent {
   setStartsWithMonthEvent(event: Event) {
     this.startsWithMonth = (event.target as HTMLInputElement).value;
     this.setStartsWithYearMonth();
-    this.setStartsWithParam();
+    this.setStartsWithParam(true);
   }
 
   /**
@@ -131,7 +131,7 @@ export class StartsWithDateComponent extends StartsWithAbstractComponent {
     } else {
       this.startsWithYear = +startsWith;
     }
-    this.setStartsWithParam();
+    this.setStartsWithParam(false);
   }
 
   /**
