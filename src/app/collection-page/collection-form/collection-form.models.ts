@@ -31,6 +31,12 @@ export const collectionFormSubmissionDefinitionSelectionConfig: DynamicSelectMod
     required: 'collection.form.errors.submissionDefinition.required'
   },
 };
+export const collectionFormCorrectionSubmissionDefinitionSelectionConfig: DynamicSelectModelConfig<string> = {
+  id: 'correctionSubmissionDefinition',
+  name: 'cris.submission.definition-correction',
+  required: false,
+  disabled: false
+};
 
 export const collectionFormSharedWorkspaceCheckboxConfig: DynamicCheckboxModelConfig = {
   id: 'sharedWorkspace',
