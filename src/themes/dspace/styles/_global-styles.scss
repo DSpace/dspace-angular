@@ -23,8 +23,7 @@
 }
 
 header {
-  li > .navbar-section,
-  li > .expandable-navbar-section {
+  .navbar-navigation > li {
     display: flex;
     flex-direction: column;
     justify-content: center;
