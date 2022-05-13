@@ -41,7 +41,6 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { MenuID } from '../../shared/menu/menu-id.model';
 import { MenuItemType } from '../../shared/menu/menu-item-type.model';
 import { ActivatedRoute } from '@angular/router';
-import { Router, ActivatedRoute } from '@angular/router';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 
 /**
