@@ -2092,15 +2092,15 @@
 
   "form.no-value": "No value entered",
 
-  "form.other-information.data-oairecerif_author_affiliation": "Affiliation",
+  "form.other-information.oairecerif_author_affiliation": "Affiliation",
 
-  "form.other-information.data-oairecerif_editor_affiliation": "Affiliation",
+  "form.other-information.oairecerif_editor_affiliation": "Affiliation",
 
-  "form.other-information.data-person_identifier_orcid": "ORCID iD",
+  "form.other-information.person_identifier_orcid": "ORCID iD",
 
   "form.other-information.institution-affiliation-name": "Affiliation(s)",
 
-  "form.other-information.data-dc_relation_grantno": "Grant Number",
+  "form.other-information.dc_relation_grantno": "Grant Number",
 
   "form.other-information.not-available": "Not available",
 

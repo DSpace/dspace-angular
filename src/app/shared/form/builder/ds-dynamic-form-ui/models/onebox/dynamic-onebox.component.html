@@ -8,9 +8,11 @@
 <ng-template #hasInfo let-entry="entry">
   <ul class="list-unstyled mb-0">
     <li class="list-item text-truncate text-primary font-weight-bold">{{entry.value}}</li>
-    <li class="list-item text-truncate text-secondary" *ngFor="let item of entry.otherInformation | dsObjNgFor" >
-      {{ 'form.other-information.' + item.key | translate }} : {{item.value !== '' ? getOtherInfoValue(item.value) : ('form.other-information.not-available' | translate)}}
-    </li>
+    <ng-container *ngFor="let item of entry.otherInformation | dsObjNgFor">
+      <li *ngIf="!item.key.startsWith('data-')" class="list-item text-truncate text-secondary"  >
+        {{ 'form.other-information.' + item.key | translate }} : {{item.value !== '' ? getOtherInfoValue(item.value) : ('form.other-information.not-available' | translate)}}
+      </li>
+    </ng-container>
   </ul>
 </ng-template>
 
