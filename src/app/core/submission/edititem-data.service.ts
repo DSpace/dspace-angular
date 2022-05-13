@@ -12,7 +12,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { map, take } from 'rxjs/operators';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData, getFirstSucceededRemoteListPayload, getPaginatedListPayload, getRemoteDataPayload } from '../shared/operators';
+import { getAllSucceededRemoteDataPayload, getPaginatedListPayload } from '../shared/operators';
 import { EditItemMode } from './models/edititem-mode.model';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
@@ -40,14 +40,15 @@ export class EditItemDataService extends DataService<EditItem> {
     super();
   }
 
-
   /**
    * Search for editModes from the editItem id
-   * Paginated list of edit item modes
-   * @method searchEditModesById
+   *
    * @param id string id of edit item
+   * @param useCachedVersionIfAvailable   If this is true, the request will only be sent if there's
+   *                                      no valid cached version. Defaults to false
+   * @return Paginated list of edit item modes
    */
-  searchEditModesById(id: string, useCachedVersionIfAvailable = false): Observable<RemoteData<PaginatedList<EditItemMode>>> {
+  searchEditModesById(id: string, useCachedVersionIfAvailable = true): Observable<RemoteData<PaginatedList<EditItemMode>>> {
     const hrefObs = this.getSearchByHref(
       'findModesById', {
       searchParams: [
@@ -68,7 +69,7 @@ export class EditItemDataService extends DataService<EditItem> {
 
   /**
    * Check if editMode with id is part of the edit item with id
-   * @method checkEditModeByIdAndType
+   *
    * @param id string id of edit item
    * @param editModeId string id of edit item
    * @return boolean
