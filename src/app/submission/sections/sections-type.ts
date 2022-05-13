@@ -7,5 +7,6 @@ export enum SectionsType {
   collection = 'collection',
   CustomUrl = 'custom-url',
   AccessesCondition = 'accessCondition',
-  DetectDuplicate = 'detect-duplicate'
+  DetectDuplicate = 'detect-duplicate',
+  Correction = 'correction'
 }
