@@ -118,7 +118,7 @@ export class RSSComponent implements OnInit, OnDestroy  {
     if (uuid) {
       route += `&scope=${uuid}`;
     }
-    if (sort && sort.direction && sort.field) {
+    if (sort && sort.direction && sort.field && sort.field !== 'id') {
       route += `&sort=${sort.field}&sort_direction=${sort.direction}`;
     }
     if (query) {
