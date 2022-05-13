@@ -1401,6 +1401,9 @@
   "error.validation.groupExists": "This group already exists",
 
 
+  "feed.description": "Syndication feed",
+
+
   "file-section.error.header": "Error obtaining files for this item",
 
 
