@@ -1,7 +1,7 @@
 <div class="thumbnail" [class.limit-width]="limitWidth">
-  <ds-loading *ngIf="isLoading; else showThumbnail" class="thumbnail-content" [showMessage]="false">
+  <ds-themed-loading *ngIf="isLoading; else showThumbnail" class="thumbnail-content" [showMessage]="false">
     text-content
-  </ds-loading>
+  </ds-themed-loading>
   <ng-template #showThumbnail>
     <img *ngIf="src !== null" class="thumbnail-content img-fluid"
          [src]="src | dsSafeUrl" [alt]="alt | translate" (error)="errorHandler()">

@@ -23,5 +23,5 @@
       </div>
     </div>
   <ds-error *ngIf="objects.hasFailed" message="{{'error.objects' | translate}}"></ds-error>
-  <ds-loading *ngIf="objects.isLoading" message="{{'loading.objects' | translate}}"></ds-loading>
+  <ds-themed-loading *ngIf="objects.isLoading" message="{{'loading.objects' | translate}}"></ds-themed-loading>
 </ds-pagination>

@@ -6,7 +6,7 @@
     </button>
 </div>
 <div class="modal-body">
-    <ds-loading *ngIf="!item || !collection"></ds-loading>
+    <ds-themed-loading *ngIf="!item || !collection"></ds-themed-loading>
     <ng-container *ngIf="item && collection">
         <ul ngbNav #nav="ngbNav" class="nav-tabs">
             <li ngbNavItem>

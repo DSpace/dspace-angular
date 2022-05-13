@@ -41,6 +41,8 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { MenuID } from '../../shared/menu/menu-id.model';
 import { MenuItemType } from '../../shared/menu/menu-item-type.model';
 import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 
 /**
  * Component representing the admin sidebar
@@ -90,9 +92,10 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     protected modalService: NgbModal,
     public authorizationService: AuthorizationDataService,
     protected scriptDataService: ScriptDataService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    protected themeService: ThemeService
   ) {
-    super(menuService, injector, authorizationService, route);
+    super(menuService, injector, authorizationService, route, themeService);
     this.inFocus$ = new BehaviorSubject(false);
   }
 

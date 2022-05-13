@@ -93,6 +93,7 @@ import { ItemMetadataComponent } from './app/item-page/edit-item-page/item-metad
 import {
   EditItemTemplatePageComponent
 } from './app/collection-page/edit-item-template-page/edit-item-template-page.component';
+import { LoadingComponent } from './app/shared/loading/loading.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -141,6 +142,7 @@ const DECLARATIONS = [
   ExpandableNavbarSectionComponent,
   ItemMetadataComponent,
   EditItemTemplatePageComponent,
+  LoadingComponent,
 ];
 
 @NgModule({

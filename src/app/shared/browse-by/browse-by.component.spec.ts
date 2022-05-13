@@ -38,6 +38,7 @@ import { HostWindowService } from '../host-window.service';
 import { RouteService } from '../../core/services/route.service';
 import { routeServiceStub } from '../testing/route-service.stub';
 import SpyObj = jasmine.SpyObj;
+import { getMockThemeService } from '../mocks/theme-service.mock';
 
 @listableObjectComponent(BrowseEntry, ViewMode.ListElement, DEFAULT_CONTEXT, 'custom')
 @Component({
@@ -81,13 +82,10 @@ describe('BrowseByComponent', () => {
   });
   const paginationService = new PaginationServiceStub(paginationConfig);
 
-  let themeService: SpyObj<ThemeService>;
+  let themeService;
 
   beforeEach(waitForAsync(() => {
-    themeService = jasmine.createSpyObj('themeService', {
-      getThemeName: 'dspace',
-      getThemeName$: observableOf('dspace'),
-    });
+    themeService = getMockThemeService('dspace');
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -112,19 +110,16 @@ describe('BrowseByComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(BrowseByComponent);
     comp = fixture.componentInstance;
     comp.paginationConfig = paginationConfig;
     fixture.detectChanges();
-  });
+  }));
 
   it('should display a loading message when objects is empty', () => {
     (comp as any).objects = undefined;
     fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('ds-loading'))).toBeDefined();
+    expect(fixture.debugElement.query(By.css('ds-themed-loading'))).toBeDefined();
   });
 
   it('should display results when objects is not empty', () => {

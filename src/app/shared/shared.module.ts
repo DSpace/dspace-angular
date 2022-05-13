@@ -175,6 +175,7 @@ import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { ExternalLinkMenuItemComponent } from './menu/menu-item/external-link-menu-item.component';
+import { ThemedLoadingComponent } from './loading/themed-loading.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -232,6 +233,7 @@ const COMPONENTS = [
   FileSectionComponent,
   LangSwitchComponent,
   LoadingComponent,
+  ThemedLoadingComponent,
   LogInComponent,
   LogOutComponent,
   NumberPickerComponent,

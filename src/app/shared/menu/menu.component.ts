@@ -12,6 +12,7 @@ import { MenuID } from './menu-id.model';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { ThemeService } from '../theme-support/theme.service';
 
 /**
  * A basic implementation of a MenuComponent
@@ -72,7 +73,9 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   private activatedRouteLastChild: ActivatedRoute;
 
-  constructor(protected menuService: MenuService, protected injector: Injector, public authorizationService: AuthorizationDataService, public route: ActivatedRoute) {
+  constructor(protected menuService: MenuService, protected injector: Injector, public authorizationService: AuthorizationDataService,
+              public route: ActivatedRoute, protected themeService: ThemeService
+  ) {
   }
 
   /**
@@ -215,7 +218,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   private getSectionComponent(section: MenuSection): Observable<GenericConstructor<MenuSectionComponent>> {
     return this.menuService.hasSubSections(this.menuID, section.id).pipe(
       map((expandable: boolean) => {
-        return getComponentForMenu(this.menuID, expandable);
+        return getComponentForMenu(this.menuID, expandable, this.themeService.getThemeName());
       }
       ),
     );

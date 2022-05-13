@@ -45,7 +45,7 @@
           </div>
         </form>
 
-        <ds-loading *ngIf="searching$ | async"></ds-loading>
+        <ds-themed-loading *ngIf="searching$ | async"></ds-themed-loading>
         <ds-pagination
           *ngIf="(pageInfoState$ | async)?.totalElements > 0 && !(searching$ | async)"
           [paginationOptions]="config"

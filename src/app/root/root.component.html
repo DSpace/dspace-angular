@@ -9,7 +9,7 @@
       <ds-themed-breadcrumbs></ds-themed-breadcrumbs>
 
       <div class="container d-flex justify-content-center align-items-center h-100" *ngIf="shouldShowRouteLoader">
-        <ds-loading [showMessage]="false"></ds-loading>
+        <ds-themed-loading [showMessage]="false"></ds-themed-loading>
       </div>
       <div [class.d-none]="shouldShowRouteLoader">
         <router-outlet></router-outlet>
@@ -24,5 +24,5 @@
 </ds-notifications-board>
 
 <div class="ds-full-screen-loader" *ngIf="shouldShowFullscreenLoader">
-  <ds-loading [showMessage]="false"></ds-loading>
+  <ds-themed-loading [showMessage]="false"></ds-themed-loading>
 </div>

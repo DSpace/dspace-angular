@@ -115,7 +115,7 @@ describe('ThumbnailComponent', () => {
         comp.thumbnail = thumbnail;
         comp.ngOnChanges();
         fixture.detectChanges();
-        expect(de.query(By.css('ds-loading'))).toBeTruthy();
+        expect(de.query(By.css('ds-themed-loading'))).toBeTruthy();
       });
     });
 

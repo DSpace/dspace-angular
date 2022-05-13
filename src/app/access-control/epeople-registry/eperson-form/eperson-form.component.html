@@ -36,12 +36,12 @@
   </button>
 </ds-form>
 
-<ds-loading [showMessage]="false" *ngIf="!formGroup"></ds-loading>
+<ds-themed-loading [showMessage]="false" *ngIf="!formGroup"></ds-themed-loading>
 
 <div *ngIf="epersonService.getActiveEPerson() | async">
   <h5>{{messagePrefix + '.groupsEPersonIsMemberOf' | translate}}</h5>
 
-  <ds-loading [showMessage]="false" *ngIf="!(groups | async)"></ds-loading>
+  <ds-themed-loading [showMessage]="false" *ngIf="!(groups | async)"></ds-themed-loading>
 
   <ds-pagination
     *ngIf="(groups | async)?.payload?.totalElements > 0"
