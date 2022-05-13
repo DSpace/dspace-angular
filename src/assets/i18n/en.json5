@@ -697,7 +697,9 @@
 
   "bitstream.download.page": "Now downloading {{bitstream}}..." ,
 
-  "bitstream.download.page.back": "Back" ,
+  "bitstream.download.page.back": "Back",
+
+  "bitstream.download.page.close": "Close",
 
 
   "bitstream.edit.authorizations.link": "Edit bitstream's Policies",

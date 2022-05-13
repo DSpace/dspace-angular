@@ -1,9 +1,12 @@
 <div class="container">
   <div class="d-flex justify-content-between">
-    <h3>{{'bitstream.download.page' | translate:{bitstream: (bitstream$ | async)?.name} }}</h3>
+    <h3>{{'bitstream.download.page' | translate: {bitstream: (fileName$ | async)} }}</h3>
     <div class="pt-3">
-      <button (click)="back()" class="btn btn-outline-secondary">
+      <button *ngIf="hasHistory" (click)="back()" class="btn btn-outline-secondary">
         <i class="fas fa-arrow-left"></i> {{'bitstream.download.page.back' | translate}}
+      </button>
+      <button *ngIf="!hasHistory" (click)="close()" class="btn btn-outline-secondary">
+        <i class="fas fa-times"></i> {{'bitstream.download.page.close' | translate}}
       </button>
     </div>
   </div>
