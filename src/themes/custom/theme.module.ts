@@ -86,6 +86,9 @@ import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.component';
+import {
+  ExpandableNavbarSectionComponent
+} from './app/navbar/expandable-navbar-section/expandable-navbar-section.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -131,6 +134,7 @@ const DECLARATIONS = [
   FeedbackComponent,
   CommunityListComponent,
   AuthNavMenuComponent,
+  ExpandableNavbarSectionComponent,
 ];
 
 @NgModule({
