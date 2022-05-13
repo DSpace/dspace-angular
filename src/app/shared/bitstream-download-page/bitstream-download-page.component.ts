@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../empty.util';
@@ -14,6 +14,7 @@ import { getForbiddenRoute } from '../../app-routing-paths';
 import { RemoteData } from '../../core/data/remote-data';
 import { Location } from '@angular/common';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { NativeWindowRef, NativeWindowService } from '../../core/services/window.service';
 
 @Component({
   selector: 'ds-bitstream-download-page',
@@ -29,9 +30,10 @@ export class BitstreamDownloadPageComponent implements OnInit {
 
   fileName$: Observable<string>;
 
-  hasHistory = window.history.length > 1;
+  hasHistory = this._window.nativeWindow.history.length > 1;
 
   constructor(
+    @Inject(NativeWindowService) private _window: NativeWindowRef,
     private route: ActivatedRoute,
     protected router: Router,
     private authorizationService: AuthorizationDataService,
@@ -49,7 +51,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
   }
 
   close(): void {
-    close();
+    this._window.nativeWindow.self.close();
   }
 
   ngOnInit(): void {
