@@ -89,6 +89,10 @@ import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.c
 import {
   ExpandableNavbarSectionComponent
 } from './app/navbar/expandable-navbar-section/expandable-navbar-section.component';
+import { ItemMetadataComponent } from './app/item-page/edit-item-page/item-metadata/item-metadata.component';
+import {
+  EditItemTemplatePageComponent
+} from './app/collection-page/edit-item-template-page/edit-item-template-page.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -135,6 +139,8 @@ const DECLARATIONS = [
   CommunityListComponent,
   AuthNavMenuComponent,
   ExpandableNavbarSectionComponent,
+  ItemMetadataComponent,
+  EditItemTemplatePageComponent,
 ];
 
 @NgModule({
