@@ -17,6 +17,8 @@ import { Router } from '@angular/router';
 @Component({
   /* eslint-disable @angular-eslint/component-selector */
   selector: 'li[ds-expandable-admin-sidebar-section]',
+  // To theme this element remove the surrounding li[] in this component but leave it in the new
+  // ThemedExpandableAdminSidebarSectionComponent
   templateUrl: './expandable-admin-sidebar-section.component.html',
   styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
   animations: [rotate, slide, bgColor]

@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
 @Component({
   /* eslint-disable @angular-eslint/component-selector */
   selector: 'li[ds-admin-sidebar-section]',
+  // To theme this element remove the surrounding li[] in this component but leave it in the new
+  // ThemedAdminSidebarSectionComponent
   templateUrl: './admin-sidebar-section.component.html',
   styleUrls: ['./admin-sidebar-section.component.scss'],
 

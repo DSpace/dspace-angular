@@ -11,8 +11,7 @@ import { MenuID } from '../../shared/menu/menu-id.model';
  * Represents an expandable section in the navbar
  */
 @Component({
-  /* eslint-disable @angular-eslint/component-selector */
-  selector: 'li[ds-expandable-navbar-section]',
+  selector: 'ds-expandable-navbar-section',
   templateUrl: './expandable-navbar-section.component.html',
   styleUrls: ['./expandable-navbar-section.component.scss'],
   animations: [slide]
