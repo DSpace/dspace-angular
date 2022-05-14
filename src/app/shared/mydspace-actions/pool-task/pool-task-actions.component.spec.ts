@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
@@ -129,6 +129,12 @@ describe('PoolTaskActionsComponent', () => {
 
   it('should display claim task button', () => {
     const btn = fixture.debugElement.query(By.css('.btn-info'));
+
+    expect(btn).toBeDefined();
+  });
+
+  it('should display view button', () => {
+    const btn = fixture.debugElement.query(By.css('button [data-test="view-btn"]'));
 
     expect(btn).toBeDefined();
   });

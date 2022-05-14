@@ -166,6 +166,7 @@ import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
 import { AccessStatusObject } from '../shared/object-list/access-status-badge/access-status.model';
 import { AccessStatusDataService } from './data/access-status-data.service';
+import { LinkHeadService } from './services/link-head.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -205,6 +206,7 @@ const PROVIDERS = [
   SectionFormOperationsService,
   FormService,
   EPersonDataService,
+  LinkHeadService,
   HALEndpointService,
   HostWindowService,
   ItemDataService,
