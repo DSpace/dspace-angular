@@ -94,6 +94,7 @@ import {
   EditItemTemplatePageComponent
 } from './app/collection-page/edit-item-template-page/edit-item-template-page.component';
 import { LoadingComponent } from './app/shared/loading/loading.component';
+import { SearchResultsComponent } from './app/shared/search/search-results/search-results.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -143,6 +144,7 @@ const DECLARATIONS = [
   ItemMetadataComponent,
   EditItemTemplatePageComponent,
   LoadingComponent,
+  SearchResultsComponent,
 ];
 
 @NgModule({
