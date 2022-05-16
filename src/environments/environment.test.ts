@@ -104,6 +104,9 @@ export const environment: BuildConfig = {
       // NOTE: every how many minutes submission is saved automatically
       timer: 5
     },
+    typeBind: {
+      field: 'dc.type'
+    },
     icons: {
       metadata: [
         {
@@ -200,7 +203,9 @@ export const environment: BuildConfig = {
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds
-    }
+    },
+    // Show the item access status label in items lists
+    showAccessStatuses: false
   },
   collection: {
     edit: {

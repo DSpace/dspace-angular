@@ -27,6 +27,16 @@
 
   "404.page-not-found": "page not found",
 
+  "access-status.embargo.listelement.badge": "Embargo",
+
+  "access-status.metadata.only.listelement.badge": "Metadata only",
+
+  "access-status.open.access.listelement.badge": "Open Access",
+
+  "access-status.restricted.listelement.badge": "Restricted",
+
+  "access-status.unknown.listelement.badge": "Unknown",
+
   "admin.curation-tasks.breadcrumbs": "System curation tasks",
 
   "admin.curation-tasks.title": "System curation tasks",
@@ -537,6 +547,10 @@
   "admin.metadata-import.page.button.proceed": "Proceed",
 
   "admin.metadata-import.page.error.addFile": "Select file first!",
+
+  "admin.metadata-import.page.validateOnly": "Validate Only",
+
+  "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
 
 
 
@@ -1385,6 +1399,9 @@
   "error.validation.emailTaken": "This E-mail is already taken",
 
   "error.validation.groupExists": "This group already exists",
+
+
+  "feed.description": "Syndication feed",
 
 
   "file-section.error.header": "Error obtaining files for this item",
@@ -4095,6 +4112,10 @@
   "submission.workflow.tasks.pool.show-detail": "Show detail",
 
 
+  "submission.workspace.generic.view": "View",
+
+  "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+
 
   "thumbnail.default.alt": "Thumbnail Image",
 
@@ -4201,6 +4222,9 @@
 
   "workflow-item.view.breadcrumbs": "Workflow View",
 
+  "workspace-item.view.breadcrumbs": "Workspace View",
+
+  "workspace-item.view.title": "Workspace View",
 
   "idle-modal.header": "Session will expire soon",
 

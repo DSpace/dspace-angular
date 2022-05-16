@@ -6,7 +6,7 @@ import { BrowseByConfig } from './browse-by-config.interface';
 import { CacheConfig } from './cache-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { FormConfig } from './form-config.interfaces';
-import { ItemPageConfig } from './item-page-config.interface';
+import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
@@ -116,6 +116,9 @@ export class DefaultAppConfig implements AppConfig {
        */
       timer: 0
     },
+    typeBind: {
+      field: 'dc.type'
+    },
     icons: {
       metadata: [
         /**
@@ -203,11 +206,13 @@ export class DefaultAppConfig implements AppConfig {
     defaultLowerLimit: 1900
   };
 
-  // Item Page Config
-  item: ItemPageConfig = {
+  // Item Config
+  item: ItemConfig = {
     edit: {
       undoTimeout: 10000 // 10 seconds
-    }
+    },
+    // Show the item access status label in items lists
+    showAccessStatuses: false
   };
 
   // Collection Page Config

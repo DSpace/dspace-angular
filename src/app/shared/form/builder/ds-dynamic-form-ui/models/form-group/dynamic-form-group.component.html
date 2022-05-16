@@ -1,11 +1,17 @@
+<div style="width: 100%">
 <ng-container [formGroup]="group">
 
-  <div role="group" [formGroupName]="model.id" [id]="id" [ngClass]="getClass('element','control')">
-
-    <ds-dynamic-form-control-container *ngFor="let _model of model.group"
+  <div role="group" [formGroupName]="model.id"
+                    [id]="id"
+                    [class.d-none]="model.hidden"
+                    [ngClass]="getClass('element','control')">
+     <ds-dynamic-form-control-container *ngFor="let _model of model.group"
+                                       [formGroup]="group"
+                                       [formModel]="formModel"
                                        [group]="control"
                                        [hasErrorMessaging]="model.hasErrorMessages"
                                        [hidden]="_model.hidden"
+                                        [class.d-none]="_model.hidden"
                                        [layout]="formLayout"
                                        [model]="_model"
                                        [templates]="templates"
@@ -16,3 +22,4 @@
                                        (ngbEvent)="onCustomEvent($event, null, true)"></ds-dynamic-form-control-container>
   </div>
 </ng-container>
+</div>
