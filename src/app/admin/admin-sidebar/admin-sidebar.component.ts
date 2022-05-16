@@ -440,9 +440,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       //   } as LinkMenuItemModel,
       // }
     ];
-    menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
-      shouldPersistOnRouteChange: true
-    })));
+    menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, menuSection));
 
     observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
@@ -463,7 +461,8 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             text: 'menu.section.import'
           } as TextMenuItemModel,
           icon: 'file-import',
-          index: 2
+          index: 2,
+          shouldPersistOnRouteChange: true
         });
       this.menuService.addSection(this.menuID, {
         id: 'import_metadata',
