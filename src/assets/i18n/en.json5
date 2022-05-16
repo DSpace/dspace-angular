@@ -1583,6 +1583,8 @@
   "grant-request-copy.success": "Successfully granted item request",
 
 
+  "health-page.error.msg": "The health check service is temporarily unavailable",
+
   "health-page.section.db.title": "Database",
 
   "health-page.section.geoIp.title": "GeoIp",

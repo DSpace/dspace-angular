@@ -30,12 +30,15 @@ export class HealthPageComponent implements OnInit {
    * Retrieve responses from rest
    */
   ngOnInit(): void {
-    this.healthDataService.getHealth().pipe(take(1)).subscribe((data: any) => {
-      this.healthResponse.next(data.payload);
+    this.healthDataService.getHealth().pipe(take(1)).subscribe({
+      next: (data: any) => { this.healthResponse.next(data.payload); },
+      error: () => { this.healthResponse.next(null); }
     });
 
-    this.healthDataService.getInfo().pipe(take(1)).subscribe((data) => {
-      this.healthInfoResponse.next(data.payload);
+    this.healthDataService.getInfo().pipe(take(1)).subscribe({
+      next: (data: any) => { this.healthInfoResponse.next(data.payload); },
+      error: () => { this.healthInfoResponse.next(null); }
     });
+
   }
 }
