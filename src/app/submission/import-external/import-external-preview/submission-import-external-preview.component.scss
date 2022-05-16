@@ -1,3 +1,7 @@
 .close:focus {
   outline: none !important;
 }
+.scrollable-body {
+  height: 65vh;
+  overflow: auto;
+}
