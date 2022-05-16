@@ -7,7 +7,7 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { HealthPageComponent } from './health-page.component';
-import { HealthDataService } from './health-data.service';
+import { HealthService } from './health.service';
 import { HealthInfoResponseObj, HealthResponseObj } from '../shared/mocks/health-endpoint.mocks';
 import { RawRestResponse } from '../core/dspace-rest/raw-rest-response.model';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
@@ -47,7 +47,7 @@ describe('HealthPageComponent', () => {
       ],
       declarations: [ HealthPageComponent ],
       providers: [
-        { provide: HealthDataService, useValue: healthService }
+        { provide: HealthService, useValue: healthService }
       ]
     })
     .compileComponents();

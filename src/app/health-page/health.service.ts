@@ -8,7 +8,7 @@ import { HALEndpointService } from '../core/shared/hal-endpoint.service';
 @Injectable({
     providedIn: 'root'
 })
-export class HealthDataService {
+export class HealthService {
     constructor(protected halService: HALEndpointService,
         protected restService: DspaceRestService) {
         }

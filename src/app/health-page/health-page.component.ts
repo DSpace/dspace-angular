@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { HealthDataService } from './health-data.service';
+import { HealthService } from './health.service';
 import { HealthInfoResponse, HealthResponse } from './models/health-component.model';
 
 @Component({
@@ -23,7 +23,7 @@ export class HealthPageComponent implements OnInit {
    */
   healthResponse: BehaviorSubject<HealthResponse> = new BehaviorSubject<HealthResponse>(null);
 
-  constructor(private healthDataService: HealthDataService) {
+  constructor(private healthDataService: HealthService) {
   }
 
   /**
