@@ -5,7 +5,7 @@
       <div class="w-100 d-flex justify-content-between" ngbPanelToggle (click)="acc.toggle(entry.key)" data-test="component">
         <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()" [attr.aria-expanded]="!acc.isExpanded(entry.key)"
                 aria-controls="collapseExample">
-          {{ entry.key | titlecase }}
+          {{ 'health-page.section.' + entry.key +'.title'  | translate }}
         </button>
         <div class="text-right d-flex">
           <ds-health-status [status]="entry.value?.status"></ds-health-status>

@@ -1566,6 +1566,21 @@
   "grant-request-copy.success": "Successfully granted item request",
 
 
+  "health-page.section.db.title": "Database",
+
+  "health-page.section.geoIp.title": "GeoIp",
+
+  "health-page.section.solrAuthorityCore.title": "Sor: authority core",
+
+  "health-page.section.solrOaiCore.title": "Sor: oai core",
+
+  "health-page.section.solrSearchCore.title": "Sor: search core",
+
+  "health-page.section.solrStatisticsCore.title": "Sor: statistics core",
+
+  "health-page.section-info.app.title": "Application Backend",
+
+  "health-page.section-info.java.title": "Java",
 
   "health-page.status.ok.info": "Operational",
 
