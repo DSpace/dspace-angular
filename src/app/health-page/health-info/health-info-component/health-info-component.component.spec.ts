@@ -46,7 +46,9 @@ describe('HealthInfoComponentComponent', () => {
     });
 
     it('should display property', () => {
-      const components = fixture.debugElement.queryAll(By.css('[data-test="component"]'));
+      const properties = fixture.debugElement.queryAll(By.css('[data-test="property"]'));
+      expect(properties.length).toBe(14);
+      const components = fixture.debugElement.queryAll(By.css('[data-test="info-component"]'));
       expect(components.length).toBe(4);
     });
 

@@ -134,7 +134,27 @@ export const HealthInfoComponentOne: HealthInfoComponent = {
   'name': 'DSpace at My University',
   'dir': '/home/giuseppe/development/java/install/dspace7-review',
   'url': 'http://localhost:8080/server',
-  'db': 'jdbc:postgresql://localhost:5432/dspace7'
+  'db': 'jdbc:postgresql://localhost:5432/dspace7',
+  'solr': {
+    'server': 'http://localhost:8983/solr',
+    'prefix': ''
+  },
+  'mail': {
+    'server': 'smtp.example.com',
+    'from-address': 'dspace-noreply@myu.edu',
+    'feedback-recipient': 'dspace-help@myu.edu',
+    'mail-admin': 'dspace-help@myu.edu',
+    'mail-helpdesk': 'dspace-help@myu.edu',
+    'alert-recipient': 'dspace-help@myu.edu'
+  },
+  'cors': {
+    'allowed-origins': 'http://localhost:4000'
+  },
+  'ui': {
+    'url': 'http://localhost:4000'
+  }
 };
 
-export const HealthInfoComponentTwo = '7.3-SNAPSHOT';
+export const HealthInfoComponentTwo = {
+  'version': '7.3-SNAPSHOT'
+};

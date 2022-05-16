@@ -4,6 +4,8 @@ import { HealthInfoComponent } from './health-info.component';
 import { HealthInfoResponseObj } from '../../shared/mocks/health-endpoint.mocks';
 import { ObjNgFor } from '../../shared/utils/object-ngfor.pipe';
 import { By } from '@angular/platform-browser';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('HealthInfoComponent', () => {
   let component: HealthInfoComponent;
@@ -11,10 +13,14 @@ describe('HealthInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        NgbAccordionModule,
+      ],
       declarations: [
         HealthInfoComponent,
         ObjNgFor
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   });

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HealthResponse } from '../models/health-component.model';
 
 @Component({
@@ -6,7 +6,7 @@ import { HealthResponse } from '../models/health-component.model';
   templateUrl: './health-panel.component.html',
   styleUrls: ['./health-panel.component.scss']
 })
-export class HealthPanelComponent {
+export class HealthPanelComponent implements OnInit {
 
   /**
    * Health endpoint response
@@ -14,8 +14,11 @@ export class HealthPanelComponent {
   @Input() healthResponse: HealthResponse;
 
   /**
-   * A boolean representing if div should start collapsed
+   * The first active panel id
    */
-  public isCollapsed = true;
+  activeId: string;
 
+  ngOnInit(): void {
+    this.activeId = Object.keys(this.healthResponse.components)[0];
+  }
 }

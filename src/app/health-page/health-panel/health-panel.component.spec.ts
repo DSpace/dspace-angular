@@ -5,14 +5,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { NgbCollapseModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { HealthPanelComponent } from './health-panel.component';
 import { HealthResponseObj } from '../../shared/mocks/health-endpoint.mocks';
 import { ObjNgFor } from '../../shared/utils/object-ngfor.pipe';
 
-describe('HealthComponent', () => {
+describe('HealthPanelComponent', () => {
   let component: HealthPanelComponent;
   let fixture: ComponentFixture<HealthPanelComponent>;
 
@@ -20,7 +20,7 @@ describe('HealthComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         NgbNavModule,
-        NgbCollapseModule,
+        NgbAccordionModule,
         CommonModule,
         BrowserAnimationsModule,
         TranslateModule.forRoot({
@@ -42,7 +42,6 @@ describe('HealthComponent', () => {
     fixture = TestBed.createComponent(HealthPanelComponent);
     component = fixture.componentInstance;
     component.healthResponse = HealthResponseObj;
-    component.isCollapsed = false;
     fixture.detectChanges();
   });
 
@@ -50,7 +49,7 @@ describe('HealthComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render a card for each component', () => {
+  it('should render a panel for each component', () => {
     const components = fixture.debugElement.queryAll(By.css('[data-test="component"]'));
     expect(components.length).toBe(5);
   });
