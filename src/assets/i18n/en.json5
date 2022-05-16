@@ -2503,13 +2503,15 @@
 
   "menu.section.icon.find": "Find menu section",
 
+  "menu.section.icon.health": "Health check menu section",
+
   "menu.section.icon.import": "Import menu section",
 
   "menu.section.icon.new": "New menu section",
 
   "menu.section.icon.pin": "Pin sidebar",
 
-  "menu.section.icon.processes": "Processes menu section",
+  "menu.section.icon.processes": "Processes Health",
 
   "menu.section.icon.registries": "Registries menu section",
 
