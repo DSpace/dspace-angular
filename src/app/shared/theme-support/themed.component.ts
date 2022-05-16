@@ -8,7 +8,8 @@ import {
   OnDestroy,
   ComponentFactoryResolver,
   ChangeDetectorRef,
-  OnChanges
+  OnChanges,
+  ElementRef
 } from '@angular/core';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { from as fromPromise, Observable, of as observableOf, Subscription } from 'rxjs';
@@ -23,6 +24,7 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
 })
 export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges {
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
+  @ViewChild('content') themedElementContent: ElementRef;
   protected compRef: ComponentRef<T>;
 
   protected lazyLoadSub: Subscription;
@@ -33,7 +35,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
   constructor(
     protected resolver: ComponentFactoryResolver,
     protected cdr: ChangeDetectorRef,
-    protected themeService: ThemeService
+    protected themeService: ThemeService,
   ) {
   }
 
@@ -88,7 +90,10 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
       }),
     ).subscribe((constructor: GenericConstructor<T>) => {
       const factory = this.resolver.resolveComponentFactory(constructor);
-      this.compRef = this.vcr.createComponent(factory);
+
+      const contentNodes = [[...this.themedElementContent.nativeElement.children].map(node => node)] || undefined;
+
+      this.compRef = this.vcr.createComponent(factory, undefined, undefined, contentNodes);
       this.connectInputsAndOutputs();
       this.cdr.markForCheck();
     });
