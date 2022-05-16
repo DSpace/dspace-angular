@@ -6,8 +6,8 @@
         {{ entry.key | titlecase }}
       </button>
       <div class="d-inline-block">
-        <span *ngIf="collapse.collapsed" class="fas fa-plus"></span>
-        <span *ngIf="!collapse.collapsed" class="fas fa-minus"></span>
+        <span *ngIf="collapse.collapsed" class="fas fa-chevron-down"></span>
+        <span *ngIf="!collapse.collapsed" class="fas fa-chevron-up"></span>
       </div>
     </div>
     <div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">

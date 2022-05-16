@@ -1,13 +1,13 @@
 <ng-container *ngIf="healthInfoComponent && !isPlainProperty(healthInfoComponent)">
   <div class="mb-3 border-bottom" >
-    <div class="w-100 d-flex justify-content-between py-2 mb-0" [class.h4]="!isNested" (click)="collapse.toggle()">
+    <div class="w-100 d-flex justify-content-between py-2 mb-0" (click)="collapse.toggle()">
       <button type="button" class="btn btn-link p-0 " (click)="$event.preventDefault()" [attr.aria-expanded]="!collapse.collapsed"
               aria-controls="collapseExample">
         <span [class.h4]="!isNested">{{ healthInfoComponentName | titlecase }}</span>
       </button>
       <div class="d-inline-block">
-        <span *ngIf="collapse.collapsed" class="fas fa-plus"></span>
-        <span *ngIf="!collapse.collapsed" class="fas fa-minus"></span>
+        <span *ngIf="collapse.collapsed" class="fas fa-chevron-down"></span>
+        <span *ngIf="!collapse.collapsed" class="fas fa-chevron-up"></span>
       </div>
     </div>
     <div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
