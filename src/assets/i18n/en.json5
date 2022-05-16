@@ -1567,6 +1567,14 @@
 
 
 
+  "health-page.status.ok.info": "Operational",
+
+  "health-page.status.error.info": "Problems detected",
+
+  "health-page.status.warning.info": "Possible issues detected",
+
+
+
   "home.description": "",
 
   "home.breadcrumbs": "Home",
