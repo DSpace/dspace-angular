@@ -58,7 +58,6 @@ export class PageWithSidebarComponent implements OnInit {
   ngOnInit(): void {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.isXsOrSm$.subscribe( isMobile => {
-      console.log(isMobile, this.collapseSidebar);
       if (!isMobile && !this.collapseSidebar) {
         this.openSidebar();
       } else {
