@@ -8,24 +8,22 @@
   <div class="container-fluid">
     <label for="ResourcePolicyObject">{{'resource-policies.form.eperson-group-list.label' | translate}}</label>
     <input id="ResourcePolicyObject" class="form-control mb-3" type="text" [value]="resourcePolicyTargetName$ | async">
-    <ng-container>
-      <ul ngbNav #nav="ngbNav" class="nav-pills" [(activeId)]="navActiveId" (navChange)="onNavChange($event)">
-        <li [ngbNavItem]="'eperson'">
-          <a ngbNavLink>{{'resource-policies.form.eperson-group-list.tab.eperson' | translate}}</a>
-          <ng-template ngbNavContent>
-            <ds-eperson-group-list (select)="updateObjectSelected($event, true)"></ds-eperson-group-list>
-          </ng-template>
-        </li>
-        <li [ngbNavItem]="'group'">
-          <a ngbNavLink>{{'resource-policies.form.eperson-group-list.tab.group' | translate}}</a>
-          <ng-template ngbNavContent>
-            <ds-eperson-group-list [isListOfEPerson]="false"
-                                  (select)="updateObjectSelected($event, false)"></ds-eperson-group-list>
-          </ng-template>
-        </li>
-      </ul>
-      <div [ngbNavOutlet]="nav"></div>
-    </ng-container>
+    <ul ngbNav #nav="ngbNav" class="nav-pills" [(activeId)]="navActiveId" (navChange)="onNavChange($event)">
+      <li [ngbNavItem]="'eperson'">
+        <a ngbNavLink>{{'resource-policies.form.eperson-group-list.tab.eperson' | translate}}</a>
+        <ng-template ngbNavContent>
+          <ds-eperson-group-list (select)="updateObjectSelected($event, true)"></ds-eperson-group-list>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="'group'">
+        <a ngbNavLink>{{'resource-policies.form.eperson-group-list.tab.group' | translate}}</a>
+        <ng-template ngbNavContent>
+          <ds-eperson-group-list [isListOfEPerson]="false"
+                                 (select)="updateObjectSelected($event, false)"></ds-eperson-group-list>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
     <div>
       <hr>
       <div class="form-group row">

@@ -29,7 +29,7 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { PostRequest } from '../data/request.models';
+import { PutRequest } from '../data/request.models';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from '../data/parsing.service';
 import { StatusCodeOnlyResponseParsingService } from '../data/status-code-only-response-parsing.service';
@@ -260,7 +260,7 @@ export class ResourcePolicyService {
 
     return targetEndpoint$.pipe(switchMap((targetEndpoint) => {
       const resourceEndpoint = resourcePolicyHref + '/' + type;
-      const request = new PostRequest(requestId, resourceEndpoint, targetEndpoint, options);
+      const request = new PutRequest(requestId, resourceEndpoint, targetEndpoint, options);
       Object.assign(request, {
         getResponseParser(): GenericConstructor<ResponseParsingService> {
           return StatusCodeOnlyResponseParsingService;
