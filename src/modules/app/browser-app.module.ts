@@ -18,7 +18,7 @@ import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.ser
 import { ClientCookieService } from '../../app/core/services/client-cookie.service';
 import { CookieService } from '../../app/core/services/cookie.service';
 import { AuthService } from '../../app/core/auth/auth.service';
-import { Angulartics2RouterlessModule } from 'angulartics2/routerlessmodule';
+import { Angulartics2RouterlessModule } from 'angulartics2';
 import { SubmissionService } from '../../app/submission/submission.service';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { BrowserKlaroService } from '../../app/shared/cookies/browser-klaro.service';
