@@ -78,7 +78,6 @@ import { SubmissionModule } from '../../app/submission/submission.module';
 import { MyDSpacePageModule } from '../../app/my-dspace-page/my-dspace-page.module';
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { HeaderComponent } from './app/header/header.component';
-import { FooterComponent } from './app/footer/footer.component';
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
 import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
@@ -91,6 +90,8 @@ import { CrisItemPageModule } from '../../app/cris-item-page/cris-item-page.modu
 import { CrisStatisticsPageModule } from '../../app/statistics-page/cris-statistics-page/cris-statistics-page.module';
 import { BrowseMostElementsComponent } from './app/browse-most-elements/browse-most-elements.component';
 import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
+import { ExploreModule } from '../../app/shared/explore/explore.module';
+import { FooterModule } from '../../app/footer/footer.module';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -128,7 +129,6 @@ const DECLARATIONS = [
   SubmissionSubmitComponent,
   WorkflowItemDeleteComponent,
   WorkflowItemSendBackComponent,
-  FooterComponent,
   HeaderComponent,
   NavbarComponent,
   HeaderNavbarWrapperComponent,
@@ -191,6 +191,8 @@ const DECLARATIONS = [
     CrisItemPageModule,
     CrisStatisticsPageModule,
     MiradorViewerModule,
+    FooterModule,
+    ExploreModule
   ],
   declarations: DECLARATIONS
 })

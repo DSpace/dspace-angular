@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { BrowseSection } from '../../../../core/layout/models/section.model';
 
 /**

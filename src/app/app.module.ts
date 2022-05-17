@@ -28,7 +28,7 @@ import { appReducers, AppState, storeModuleConfig } from './app.reducer';
 import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { CoreModule } from './core/core.module';
 import { ClientCookieService } from './core/services/client-cookie.service';
-import { FooterComponent } from './footer/footer.component';
+import { FooterModule } from './footer/footer.module';
 import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
 import { HeaderComponent } from './header/header.component';
 import { NavbarModule } from './navbar/navbar.module';
@@ -86,6 +86,7 @@ const IMPORTS = [
   CommonModule,
   SharedModule,
   NavbarModule,
+  FooterModule,
   HttpClientModule,
   AppRoutingModule,
   NuMarkdownModule.forRoot({}),
@@ -179,7 +180,6 @@ const DECLARATIONS = [
   ThemedAdminSidebarComponent,
   AdminSidebarSectionComponent,
   ExpandableAdminSidebarSectionComponent,
-  FooterComponent,
   ThemedFooterComponent,
   PageNotFoundComponent,
   ThemedPageNotFoundComponent,

@@ -10,6 +10,7 @@ import { StatisticsModule } from '../statistics/statistics.module';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 import { ThemedHomePageComponent } from './themed-home-page.component';
 import { OpenaireModule } from '../openaire/openaire.module';
+import { ExploreModule } from '../shared/explore/explore.module';
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -23,6 +24,7 @@ const DECLARATIONS = [
   imports: [
     CommonModule,
     SharedModule,
+    ExploreModule,
     HomePageRoutingModule,
     OpenaireModule,
     StatisticsModule.forRoot()
