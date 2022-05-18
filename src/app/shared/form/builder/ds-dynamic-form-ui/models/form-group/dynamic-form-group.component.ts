@@ -5,7 +5,9 @@ import {
   DynamicFormControlCustomEvent,
   DynamicFormControlEvent,
   DynamicFormControlLayout,
-  DynamicFormGroupModel, DynamicFormLayout,
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+  DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
   DynamicTemplateDirective
@@ -18,6 +20,7 @@ import {
 })
 export class DsDynamicFormGroupComponent extends DynamicFormControlComponent {
 
+  @Input() formModel: DynamicFormControlModel[];
   @Input() formLayout: DynamicFormLayout;
   @Input() group: FormGroup;
   @Input() layout: DynamicFormControlLayout;

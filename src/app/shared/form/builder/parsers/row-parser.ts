@@ -31,7 +31,8 @@ export class RowParser {
                scopeUUID,
                initFormValues: any,
                submissionScope,
-               readOnly: boolean): DynamicRowGroupModel {
+               readOnly: boolean,
+               typeField: string): DynamicRowGroupModel {
     let fieldModel: any = null;
     let parsedResult = null;
     const config: DynamicFormGroupModelConfig = {
@@ -47,7 +48,8 @@ export class RowParser {
     const parserOptions: ParserOptions = {
       readOnly: readOnly,
       submissionScope: submissionScope,
-      collectionUUID: scopeUUID
+      collectionUUID: scopeUUID,
+      typeField: typeField
     };
 
     // Iterate over row's fields

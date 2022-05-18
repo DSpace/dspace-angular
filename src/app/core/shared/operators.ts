@@ -1,5 +1,5 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { debounceTime, filter, find, map, switchMap, take, takeWhile } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable, interval } from 'rxjs';
+import { filter, find, map, switchMap, take, takeWhile, debounce, debounceTime } from 'rxjs/operators';
 import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/models/search-result.model';
 import { PaginatedList } from '../data/paginated-list.model';
@@ -9,6 +9,17 @@ import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
 import { InjectionToken } from '@angular/core';
+import { MonoTypeOperatorFunction, SchedulerLike } from 'rxjs/internal/types';
+
+/**
+ * Use this method instead of the RxJs debounceTime if you're waiting for debouncing in tests;
+ * debounceTime doesn't work with fakeAsync/tick anymore as of Angular 13.2.6 & RxJs 7.5.5
+ * Workaround suggested in https://github.com/angular/angular/issues/44351#issuecomment-1107454054
+ * todo: remove once the above issue is fixed
+ */
+export const debounceTimeWorkaround = <T>(dueTime: number, scheduler?: SchedulerLike): MonoTypeOperatorFunction<T> => {
+  return debounce(() => interval(dueTime, scheduler));
+};
 
 export const DEBOUNCE_TIME_OPERATOR = new InjectionToken<<T>(dueTime: number) => (source: Observable<T>) => Observable<T>>('debounceTime', {
   providedIn: 'root',
