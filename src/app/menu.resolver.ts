@@ -434,9 +434,7 @@ export class MenuResolver implements Resolve<boolean> {
       //   } as LinkMenuItemModel,
       // }
     ];
-    menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
-      shouldPersistOnRouteChange: true
-    })));
+    menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, menuSection));
 
     observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
@@ -457,7 +455,8 @@ export class MenuResolver implements Resolve<boolean> {
           text: 'menu.section.import'
         } as TextMenuItemModel,
         icon: 'file-import',
-        index: 2
+        index: 2,
+        shouldPersistOnRouteChange: true,
       });
       this.menuService.addSection(MenuID.ADMIN, {
         id: 'import_metadata',
