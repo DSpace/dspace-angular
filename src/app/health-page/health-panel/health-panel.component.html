@@ -1,4 +1,4 @@
-<p class="h2">{{'health-page.status' | translate}} : <ds-health-status [status]="healthResponse.status"></ds-health-status></p>
+<p class="h4">{{'health-page.status' | translate}} : <ds-health-status [status]="healthResponse.status"></ds-health-status></p>
 <ngb-accordion #acc="ngbAccordion" [activeIds]="activeId">
   <ngb-panel [id]="entry.key" *ngFor="let entry of healthResponse.components | dsObjNgFor">
     <ng-template ngbPanelHeader>
