@@ -1583,6 +1583,14 @@
   "grant-request-copy.success": "Successfully granted item request",
 
 
+  "health.breadcrumbs": "Health",
+
+  "health-page.heading" : "Health",
+
+  "health-page.info" : "Info",
+
+  "health-page.status" : "Status",
+
   "health-page.error.msg": "The health check service is temporarily unavailable",
 
   "health-page.property.status": "Status code",
@@ -1608,6 +1616,8 @@
   "health-page.status.error.info": "Problems detected",
 
   "health-page.status.warning.info": "Possible issues detected",
+
+  "health-page.title": "Health",
 
 
 
@@ -2962,14 +2972,6 @@
   "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
 
   "profile.title": "Update Profile",
-
-  "health.breadcrumbs": "Health",
-
-  "health-page.health" : "Health",
-
-  "health-page.info" : "Info",
-
-  "health-page.status" : "Status",
 
   "project.listelement.badge": "Research Project",
 

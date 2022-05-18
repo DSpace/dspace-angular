@@ -13,7 +13,10 @@ import {
       {
         path: '',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
-        data: { breadcrumbKey: 'health' },
+        data: {
+          breadcrumbKey: 'health',
+          title: 'health-page.title',
+        },
         canActivate: [SiteAdministratorGuard],
         component: HealthPageComponent
       }
