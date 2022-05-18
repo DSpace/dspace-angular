@@ -9,6 +9,8 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { HealthComponentComponent } from './health-component.component';
 import { HealthComponentOne, HealthComponentTwo } from '../../../shared/mocks/health-endpoint.mocks';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 
 describe('HealthComponentComponent', () => {
   let component: HealthComponentComponent;
@@ -19,7 +21,13 @@ describe('HealthComponentComponent', () => {
       imports: [
         CommonModule,
         NgbCollapseModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        })
       ],
       declarations: [
         HealthComponentComponent,

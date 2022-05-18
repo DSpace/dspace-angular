@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { HealthComponent } from '../../models/health-component.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-health-component',
@@ -22,6 +23,20 @@ export class HealthComponentComponent {
   /**
    * A boolean representing if div should start collapsed
    */
-  public isCollapsed = true;
+  public isCollapsed = false;
 
+  constructor(private translate: TranslateService) {
+  }
+
+  /**
+   * Return translated label if exist for the given property
+   *
+   * @param property
+   */
+  public getPropertyLabel(property: string): string {
+    const translationKey = `health-page.property.${property}`;
+    const translation = this.translate.instant(translationKey);
+
+    return (translation === translationKey) ? property : translation;
+  }
 }

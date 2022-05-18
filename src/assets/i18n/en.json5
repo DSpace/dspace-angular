@@ -1585,6 +1585,8 @@
 
   "health-page.error.msg": "The health check service is temporarily unavailable",
 
+  "health-page.property.status": "Status code",
+
   "health-page.section.db.title": "Database",
 
   "health-page.section.geoIp.title": "GeoIp",

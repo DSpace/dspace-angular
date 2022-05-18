@@ -1,6 +1,6 @@
 <ng-container *ngIf="healthComponent?.components">
   <div *ngFor="let entry of healthComponent?.components | dsObjNgFor" class="mb-3 border-bottom" data-test="collapse">
-    <div class="w-100 d-flex justify-content-between" (click)="collapse.toggle()">
+    <div class="w-100 d-flex justify-content-between collapse-toggle" (click)="collapse.toggle()">
       <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()" [attr.aria-expanded]="!collapse.collapsed"
               aria-controls="collapseExample">
         {{ entry.key | titlecase }}
@@ -22,7 +22,7 @@
 </ng-container>
 <ng-container *ngIf="healthComponent?.details">
   <div *ngFor="let item of healthComponent?.details | dsObjNgFor" data-test="details">
-    <p data-test="property"><span class="font-weight-bold">{{ item.key | titlecase }}</span> : {{item.value}}</p>
+    <p data-test="property"><span class="font-weight-bold">{{ getPropertyLabel(item.key) | titlecase }}</span> : {{item.value}}</p>
 
   </div>
 </ng-container>

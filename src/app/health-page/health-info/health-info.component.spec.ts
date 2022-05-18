@@ -6,6 +6,8 @@ import { ObjNgFor } from '../../shared/utils/object-ngfor.pipe';
 import { By } from '@angular/platform-browser';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 
 describe('HealthInfoComponent', () => {
   let component: HealthInfoComponent;
@@ -15,6 +17,12 @@ describe('HealthInfoComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         NgbAccordionModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        })
       ],
       declarations: [
         HealthInfoComponent,
