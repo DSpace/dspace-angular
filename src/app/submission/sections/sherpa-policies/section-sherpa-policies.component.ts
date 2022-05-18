@@ -27,8 +27,6 @@ import { debounce, debounceTime, timeInterval } from 'rxjs/operators';
 @renderSectionFor(SectionsType.SherpaPolicies)
 export class SubmissionSectionSherpaPoliciesComponent extends SectionModelComponent {
 
-  @ViewChildren('acc', { emitDistinctChangesOnly: true }) acc: QueryList<any>;
-
   /**
    * The accesses section data
    * @type {WorkspaceitemSectionAccessesObject}
@@ -46,6 +44,11 @@ export class SubmissionSectionSherpaPoliciesComponent extends SectionModelCompon
    * @type {Array}
    */
   protected subs: Subscription[] = [];
+
+  /**
+   * A boolean representing if div should start collapsed
+   */
+  public isCollapsed = false;
 
   /**
    * Initialize instance variables
@@ -74,17 +77,6 @@ export class SubmissionSectionSherpaPoliciesComponent extends SectionModelCompon
       .forEach((subscription) => subscription.unsubscribe());
   }
 
-  /**
-   * Expand all primary accordions
-   */
-  ngAfterViewInit() {
-    if (this.acc) {
-      this.acc.forEach(accordion => {
-        accordion.expandAll();
-      });
-    }
-  }
-
 
   /**
    * Initialize all instance variables and retrieve collection default access conditions
@@ -97,18 +89,6 @@ export class SubmissionSectionSherpaPoliciesComponent extends SectionModelCompon
         .subscribe((sherpaPolicies: WorkspaceitemSectionSherpaPoliciesObject) => {
           this.sherpaPoliciesData$.next(sherpaPolicies);
         })
-    );
-
-    this.subs.push(
-      this.sherpaPoliciesData$.pipe(
-        debounceTime(500)
-      ).subscribe((sherpaPolicies: WorkspaceitemSectionSherpaPoliciesObject) => {
-        if (this.acc) {
-          this.acc.forEach(accordion => {
-            accordion.expandAll();
-          });
-        }
-      })
     );
   }
 

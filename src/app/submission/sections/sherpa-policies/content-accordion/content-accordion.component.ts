@@ -13,4 +13,8 @@ export class ContentAccordionComponent {
    */
   @Input() version: PermittedVersions;
 
+  /**
+   * A boolean representing if div should start collapsed
+   */
+  public isCollapsed = false;
 }

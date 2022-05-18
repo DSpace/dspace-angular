@@ -1,63 +1,62 @@
-<ngb-accordion #acc="ngbAccordion" [activeIds]="'version'">
-    <ngb-panel id="version">
-        <ng-template ngbPanelTitle>
-            <span class="float-left section-title" tabindex="0">
-                {{version.articleVersion | titlecase}} {{ 'submission.sections.sherpa.publisher.policy.version' |
-                translate }}
-            </span>
-            <div class="d-inline-block float-right">
-                <span *ngIf="acc.isExpanded('version')" class="fas fa-chevron-up fa-fw"></span>
-                <span *ngIf="!acc.isExpanded('version')" class="fas fa-chevron-down fa-fw"></span>
-            </div>
-        </ng-template>
-        <ng-template ngbPanelContent>
-            <div class="ml-4">
-                <div class="row">
-                    <div class="col-4">
-                        <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.embargo' | translate }}</p>
-                    </div>
-                    <div class="col-6">
-                        <p class="m-1" *ngIf="!!version.embargo;else noEmbargo">{{version.embargo.amount}}
-                            {{version.embargo.units}}</p>
-                        <ng-template #noEmbargo>
-                            <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.noembargo' | translate }}</p>
-                        </ng-template>
+<div class="mb-3 border-bottom" data-test="collapse">
+    <div class="w-100 d-flex justify-content-between collapse-toggle" (click)="collapse.toggle()">
+        <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()"
+            [attr.aria-expanded]="!collapse.collapsed" aria-controls="collapseExample">
+            {{version.articleVersion | titlecase}} {{ 'submission.sections.sherpa.publisher.policy.version' | translate
+            }}
+        </button>
+        <div class="d-inline-block">
+            <span *ngIf="collapse.collapsed" class="fas fa-chevron-down"></span>
+            <span *ngIf="!collapse.collapsed" class="fas fa-chevron-up"></span>
+        </div>
+    </div>
+    <div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
+        <div class="ml-4">
+            <div class="row">
+                <div class="col-4">
+                    <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.embargo' | translate }}</p>
+                </div>
+                <div class="col-6">
+                    <p class="m-1" *ngIf="!!version.embargo;else noEmbargo">{{version.embargo.amount}}
+                        {{version.embargo.units}}</p>
+                    <ng-template #noEmbargo>
+                        <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.noembargo' | translate }}</p>
+                    </ng-template>
 
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.license' | translate }}</p>
-                    </div>
-                    <div class="col-6">
-                        <p class="m-1" *ngFor="let license of version.licenses">{{license}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.prerequisites' | translate }}</p>
-                    </div>
-                    <div class="col-6">
-                        <p class="m-1" *ngFor="let prerequisite of version.prerequisites">{{prerequisite}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.location' | translate }}</p>
-                    </div>
-                    <div class="col-6">
-                        <p class="m-1" *ngFor="let location of version.locations">{{location}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.conditions' | translate }}</p>
-                    </div>
-                    <div class="col-6">
-                        <p class="m-1" *ngFor="let condition of version.conditions">{{condition}}</p>
-                    </div>
                 </div>
             </div>
-        </ng-template>
-    </ngb-panel>
-</ngb-accordion>
+            <div class="row">
+                <div class="col-4">
+                    <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.license' | translate }}</p>
+                </div>
+                <div class="col-6">
+                    <p class="m-1" *ngFor="let license of version.licenses">{{license}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.prerequisites' | translate }}</p>
+                </div>
+                <div class="col-6">
+                    <p class="m-1" *ngFor="let prerequisite of version.prerequisites">{{prerequisite}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.location' | translate }}</p>
+                </div>
+                <div class="col-6">
+                    <p class="m-1" *ngFor="let location of version.locations">{{location}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.conditions' | translate }}</p>
+                </div>
+                <div class="col-6">
+                    <p class="m-1" *ngFor="let condition of version.conditions">{{condition}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

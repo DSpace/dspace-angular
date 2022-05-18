@@ -1,4 +1,4 @@
-import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -23,7 +23,7 @@ describe('ContentAccordionComponent', () => {
             useClass: TranslateLoaderMock
           }
         }),
-        NgbAccordionModule
+        NgbCollapseModule
       ],
       declarations: [ContentAccordionComponent]
     })
@@ -40,10 +40,6 @@ describe('ContentAccordionComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should show accordion', () => {
-    expect(de.query(By.css('ngb-accordion'))).toBeTruthy();
   });
 
   it('should show 5 rows', () => {

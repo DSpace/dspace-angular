@@ -7,56 +7,56 @@
     </button>
 </div>
 
-<ngb-accordion *ngVar="(sherpaPoliciesData$ | async)?.sherpaResponse as sherpaData" #acc="ngbAccordion">
+<ng-container *ngVar="(sherpaPoliciesData$ | async)?.sherpaResponse as sherpaData">
     <ng-container *ngIf="!hasNoData()">
         <ng-container *ngFor="let journal of sherpaData.journals;let j=index;">
-            <ngb-panel id="publication-information-{{j}}">
-                <ng-template ngbPanelTitle>
-                    <span class="float-left section-title"
-                        tabindex="0">{{'submission.sections.sherpa.publication.information'
-                        | translate}}</span>
-                    <div class="d-inline-block float-right">
-                        <span *ngIf="acc.isExpanded('publication-information-'+j)"
-                            class="fas fa-chevron-up fa-fw"></span>
-                        <span *ngIf="!acc.isExpanded('publication-information-'+j)"
-                            class="fas fa-chevron-down fa-fw"></span>
+            <div class="mb-3 border-bottom" data-test="collapse">
+                <div class="w-100 d-flex justify-content-between collapse-toggle" (click)="collapse.toggle()">
+                    <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()"
+                        [attr.aria-expanded]="!collapse.collapsed" aria-controls="collapseExample">
+                        {{'submission.sections.sherpa.publication.information' | translate}}
+                    </button>
+                    <div class="d-inline-block">
+                        <span *ngIf="collapse.collapsed" class="fas fa-chevron-down"></span>
+                        <span *ngIf="!collapse.collapsed" class="fas fa-chevron-up"></span>
                     </div>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                    <ds-publication-information [journal]="journal"></ds-publication-information>
-                </ng-template>
-            </ngb-panel>
-            <ng-container *ngFor="let policy of journal.policies; let p=index;">
-                <ngb-panel id="publisher-policy-{{j}}-{{p}}">
-                    <ng-template ngbPanelTitle>
-                        <span class="float-left section-title"
-                            tabindex="0">{{'submission.sections.sherpa.publisher.policy'
-                            | translate}}</span>
-                        <div class="d-inline-block float-right">
-                            <span *ngIf="acc.isExpanded('publisher-policy-'+j+'-'+p)"
-                                class="fas fa-chevron-up fa-fw"></span>
-                            <span *ngIf="!acc.isExpanded('publisher-policy-'+j+'-'+p)"
-                                class="fas fa-chevron-down fa-fw"></span>
-                        </div>
-                    </ng-template>
-                    <ng-template ngbPanelContent>
-                        <ds-publisher-policy [policy]="policy"></ds-publisher-policy>
-                    </ng-template>
-                </ngb-panel>
-            </ng-container>
-        </ng-container>
-        <ngb-panel id="metadata">
-            <ng-template ngbPanelTitle>
-                <span class="section-title" tabindex="0">{{'submission.sections.sherpa.record.information'
-                    | translate}}</span>
-                <div class="d-inline-block float-right">
-                    <span *ngIf="acc.isExpanded('metadata')" class="fas fa-chevron-up fa-fw"></span>
-                    <span *ngIf="!acc.isExpanded('metadata')" class="fas fa-chevron-down fa-fw"></span>
                 </div>
-            </ng-template>
-            <ng-template ngbPanelContent>
+                <div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
+                    <ds-publication-information [journal]="journal"></ds-publication-information>
+                </div>
+            </div>
+            <div *ngFor="let policy of journal.policies; let p=index;" class="mb-3 border-bottom" data-test="collapse">
+                <div class="w-100 d-flex justify-content-between collapse-toggle" (click)="collapse.toggle()">
+                    <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()"
+                        [attr.aria-expanded]="!collapse.collapsed" aria-controls="collapseExample">
+                        {{'submission.sections.sherpa.publisher.policy' | translate}}
+                    </button>
+                    <div class="d-inline-block">
+                        <span *ngIf="collapse.collapsed" class="fas fa-chevron-down"></span>
+                        <span *ngIf="!collapse.collapsed" class="fas fa-chevron-up"></span>
+                    </div>
+                </div>
+                <div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
+                    <ds-publisher-policy [policy]="policy"></ds-publisher-policy>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="mb-3 border-bottom" data-test="collapse">
+            <div class="w-100 d-flex justify-content-between collapse-toggle" (click)="collapse.toggle()">
+                <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()"
+                    [attr.aria-expanded]="!collapse.collapsed" aria-controls="collapseExample">
+                    {{'submission.sections.sherpa.record.information' | translate}}
+                </button>
+                <div class="d-inline-block">
+                    <span *ngIf="collapse.collapsed" class="fas fa-chevron-down"></span>
+                    <span *ngIf="!collapse.collapsed" class="fas fa-chevron-up"></span>
+                </div>
+            </div>
+            <div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
                 <ds-metadata-information [metadata]="sherpaData.metadata"></ds-metadata-information>
-            </ng-template>
-        </ngb-panel>
+            </div>
+        </div>
     </ng-container>
-</ngb-accordion>
+
+</ng-container>

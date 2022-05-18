@@ -1,5 +1,5 @@
 import { SharedModule } from './../../../shared/shared.module';
-import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { SherpaDataResponse } from '../../../shared/mocks/section-sherpa-policies.service.mock';
 import { ComponentFixture, inject, TestBed, fakeAsync, tick } from '@angular/core/testing';
@@ -59,7 +59,7 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
               useClass: TranslateLoaderMock
             }
           }),
-          NgbAccordionModule,
+          NgbCollapseModule,
           SharedModule
         ],
         declarations: [SubmissionSectionSherpaPoliciesComponent],
@@ -86,14 +86,6 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
 
     it('should create', () => {
       expect(component).toBeTruthy();
-    });
-
-    it('should show accordions', () => {
-      expect(de.query(By.css('ngb-accordion'))).toBeTruthy();
-    });
-
-    it('should show expanded accordion', () => {
-      expect(component.acc.first.isExpanded('publication-information-0')).toBeTrue();
     });
 
     it('should show refresh button', () => {
