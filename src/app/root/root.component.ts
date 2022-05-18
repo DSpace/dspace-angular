@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { MetadataService } from '../core/metadata/metadata.service';
 import { HostWindowState } from '../shared/search/host-window.reducer';
