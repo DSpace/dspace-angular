@@ -75,6 +75,7 @@ export class ItemExportComponent implements OnInit {
           this.onEntityTypeChange(this.itemType.label);
         } else {
           this.exportForm = this.initForm(configuration);
+          this.onEntityTypeChange(configuration.entityType);
           // listen for entityType selections in order to update the available formats
           this.exportForm.controls.entityType.valueChanges.subscribe((entityType) => {
             this.onEntityTypeChange(entityType);
@@ -84,6 +85,7 @@ export class ItemExportComponent implements OnInit {
   }
 
   onEntityTypeChange(entityType: string) {
+    console.log(entityType);
     this.configurationLoaded = false;
     this.itemExportService.onSelectEntityType(this.configuration.entityTypes, entityType).pipe(take(1)).subscribe((configuration) => {
       this.configuration = configuration;
