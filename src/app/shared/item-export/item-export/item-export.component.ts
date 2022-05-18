@@ -85,7 +85,6 @@ export class ItemExportComponent implements OnInit {
   }
 
   onEntityTypeChange(entityType: string) {
-    console.log(entityType);
     this.configurationLoaded = false;
     this.itemExportService.onSelectEntityType(this.configuration.entityTypes, entityType).pipe(take(1)).subscribe((configuration) => {
       this.configuration = configuration;
