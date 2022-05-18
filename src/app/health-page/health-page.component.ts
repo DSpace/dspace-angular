@@ -23,6 +23,16 @@ export class HealthPageComponent implements OnInit {
    */
   healthResponse: BehaviorSubject<HealthResponse> = new BehaviorSubject<HealthResponse>(null);
 
+  /**
+   * Represent if the response from health status endpoint is already retrieved or not
+   */
+  healthResponseInitialised: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
+   * Represent if the response from health info endpoint is already retrieved or not
+   */
+  healthInfoResponseInitialised: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor(private healthDataService: HealthService) {
   }
 
@@ -31,13 +41,25 @@ export class HealthPageComponent implements OnInit {
    */
   ngOnInit(): void {
     this.healthDataService.getHealth().pipe(take(1)).subscribe({
-      next: (data: any) => { this.healthResponse.next(data.payload); },
-      error: () => { this.healthResponse.next(null); }
+      next: (data: any) => {
+        this.healthResponse.next(data.payload);
+        this.healthResponseInitialised.next(true);
+      },
+      error: () => {
+        this.healthResponse.next(null);
+        this.healthResponseInitialised.next(true);
+      }
     });
 
     this.healthDataService.getInfo().pipe(take(1)).subscribe({
-      next: (data: any) => { this.healthInfoResponse.next(data.payload); },
-      error: () => { this.healthInfoResponse.next(null); }
+      next: (data: any) => {
+        this.healthInfoResponse.next(data.payload);
+        this.healthInfoResponseInitialised.next(true);
+      },
+      error: () => {
+        this.healthInfoResponse.next(null);
+        this.healthInfoResponseInitialised.next(true);
+      }
     });
 
   }

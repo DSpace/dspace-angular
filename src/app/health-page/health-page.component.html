@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="(healthResponseInitialised | async) && (healthInfoResponseInitialised | async)">
   <div *ngIf="(healthResponse | async) && (healthInfoResponse | async)">
     <ul ngbNav #nav="ngbNav" [activeId]="'health'" class="nav-tabs">
       <li [ngbNavItem]="'health'">
