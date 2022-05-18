@@ -162,7 +162,7 @@ export class ResearcherProfileService {
    * @returns the check result
    */
   isLinkedToOrcid(item: Item): boolean {
-    return item.hasMetadata('cris.orcid.authenticated');
+    return item.hasMetadata('dspace.orcid.authenticated');
   }
 
   /**
@@ -214,7 +214,7 @@ export class ResearcherProfileService {
       op:'remove'
     }];
 
-    return this.findById(item.firstMetadata('cris.owner').authority).pipe(
+    return this.findById(item.firstMetadata('dspace.object.owner').authority).pipe(
       switchMap((profile) => this.patch(profile, operations)),
       getFinishedRemoteData()
     );
@@ -227,7 +227,7 @@ export class ResearcherProfileService {
       this.configurationService.findByPropertyName('orcid.scope').pipe(getFirstSucceededRemoteDataPayload())]
     ).pipe(
       map(([authorizeUrl, clientId, scopes]) => {
-        const redirectUri = environment.rest.baseUrl + '/api/cris/orcid/' + profile.id + '/?url=' + encodeURIComponent(this.router.url);
+        const redirectUri = environment.rest.baseUrl + '/api/eperson/orcid/' + profile.id + '/?url=' + encodeURIComponent(this.router.url);
         return authorizeUrl.values[0] + '?client_id=' + clientId.values[0]   + '&redirect_uri=' + redirectUri + '&response_type=code&scope='
           + scopes.values.join(' ');
       }));

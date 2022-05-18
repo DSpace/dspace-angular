@@ -14,8 +14,9 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { ProfileClaimService } from '../../../../profile-page/profile-claim/profile-claim.service';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
 
-
-
+/**
+ * Component
+ */
 @Component({
   selector: 'ds-claim-item-selector',
   templateUrl: './claim-item-selector.component.html'

@@ -33,7 +33,7 @@ export class OrcidAuthComponent implements OnInit {
     private itemService: ItemDataService,
     private route: ActivatedRoute,
     @Inject(NativeWindowService) private _window: NativeWindowRef,
-   ) { 
+   ) {
       this.itemService.findById(this.route.snapshot.paramMap.get('id'), true, true).pipe(getFirstCompletedRemoteData()).subscribe((data: RemoteData<Item>) => {
         this.item = data.payload;
       });
@@ -49,10 +49,10 @@ export class OrcidAuthComponent implements OnInit {
   }
 
   getOrcidAuthorizations(): string[] {
-    return this.item.allMetadataValues('cris.orcid.scope');
+    return this.item.allMetadataValues('dspace.orcid.scope');
   }
 
-  isLinkedToOrcid(): boolean {    
+  isLinkedToOrcid(): boolean {
     return this.researcherProfileService.isLinkedToOrcid(this.item);
   }
 
