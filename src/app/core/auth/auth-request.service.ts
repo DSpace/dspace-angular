@@ -35,7 +35,7 @@ export abstract class AuthRequestService {
 
   protected getEndpointByMethod(endpoint: string, method: string, ...linksToFollow: FollowLinkConfig<AuthStatus>[]): string {
     let url = isNotEmpty(method) ? `${endpoint}/${method}` : `${endpoint}`;
-    if (linksToFollow && linksToFollow.length > 0) {
+    if (linksToFollow?.length > 0) {
       linksToFollow.forEach((link: FollowLinkConfig<AuthStatus>, index: number) => {
         url += ((index === 0) ? '?' : '&') + `embed=${link.name}`;
       });
