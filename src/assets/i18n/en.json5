@@ -1587,9 +1587,9 @@
 
   "health-page.heading" : "Health",
 
-  "health-page.info" : "Info",
+  "health-page.info-tab" : "Info",
 
-  "health-page.status" : "Status",
+  "health-page.status-tab" : "Status",
 
   "health-page.error.msg": "The health check service is temporarily unavailable",
 
@@ -1610,6 +1610,8 @@
   "health-page.section-info.app.title": "Application Backend",
 
   "health-page.section-info.java.title": "Java",
+
+  "health-page.status": "Status",
 
   "health-page.status.ok.info": "Operational",
 
