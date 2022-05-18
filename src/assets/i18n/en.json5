@@ -3644,7 +3644,7 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.none = "Import remote item",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Import remote item",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Import remote event",
 
@@ -3652,17 +3652,17 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit = "Import remote organizational unit",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Import remote organizational unit",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Import remote fund",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person = "Import remote person",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Import remote person",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Import remote patent",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project = "Import remote project",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Import remote project",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication = "Import remote publication",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
 
