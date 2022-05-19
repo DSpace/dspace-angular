@@ -20,7 +20,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { getTestScheduler } from 'jasmine-marbles';
 import { By } from '@angular/platform-browser';
-import { SpecialGroupDataMock$ } from '../shared/testing/special-group.mock';
+import { EmptySpecialGroupDataMock$, SpecialGroupDataMock$ } from '../shared/testing/special-group.mock';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
@@ -240,14 +240,21 @@ describe('ProfilePageComponent', () => {
 
   describe('check for specialGroups', () => {
     it('should contains specialGroups list', () => {
-      const specialGroupsEle = fixture.debugElement.query(By.css('#specialGroups'));
+      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
       expect(specialGroupsEle).toBeTruthy();
     });
 
     it('should not contains specialGroups list', () => {
       component.specialGroupsRD$ = null;
       fixture.detectChanges();
-      const specialGroupsEle = fixture.debugElement.query(By.css('#specialGroups'));
+      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+      expect(specialGroupsEle).toBeFalsy();
+    });
+
+    it('should not contains specialGroups list', () => {
+      component.specialGroupsRD$ = EmptySpecialGroupDataMock$;
+      fixture.detectChanges();
+      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
       expect(specialGroupsEle).toBeFalsy();
     });
   });

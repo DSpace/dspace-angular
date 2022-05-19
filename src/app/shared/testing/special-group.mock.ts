@@ -50,6 +50,7 @@ export const SpecialGroupMock: Group = Object.assign(new Group(), {
 
 export const SpecialGroupDataMock: RemoteData<PaginatedList<Group>> = createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), [SpecialGroupMock2,SpecialGroupMock]));
 export const SpecialGroupDataMock$: Observable<RemoteData<PaginatedList<Group>>> = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [SpecialGroupMock2,SpecialGroupMock]));
+export const EmptySpecialGroupDataMock$: Observable<RemoteData<PaginatedList<Group>>> = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
 
 
 
