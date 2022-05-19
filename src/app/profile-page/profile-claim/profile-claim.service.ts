@@ -70,10 +70,8 @@ export class ProfileClaimService {
    * @param eperson The eperson to use for the lookup
    */
   private personQueryData(eperson: EPerson): string {
-    if (eperson) {
-      const firstname = eperson.firstMetadataValue('eperson.firstname');
-      const lastname = eperson.firstMetadataValue('eperson.lastname');
-      return '(dc.title:' + eperson.name + ') OR (person.familyName:' + lastname + ' AND person.givenName:' + firstname + ')';
+    if (eperson && eperson.email) {
+      return 'person.email:' + eperson.email;
     } else {
       return null;
     }
