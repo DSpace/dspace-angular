@@ -25,6 +25,7 @@ import * as morgan from 'morgan';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
+import * as expressStaticGzip from 'express-static-gzip';
 
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
@@ -76,11 +77,15 @@ export function app() {
   /*
    * If production mode is enabled in the environment file:
    * - Enable Angular's production mode
-   * - Enable compression for response bodies. See [compression](https://github.com/expressjs/compression)
+   * - Enable compression for SSR reponses. See [compression](https://github.com/expressjs/compression)
    */
   if (environment.production) {
     enableProdMode();
-    server.use(compression());
+    server.use(compression({
+      // only compress responses we've marked as SSR
+      // otherwise, this middleware may compress files we've chosen not to compress via compression-webpack-plugin
+      filter: (_, res) => res.locals.ssr,
+    }));
   }
 
   /*
@@ -156,8 +161,14 @@ export function app() {
 
   /*
    * Serve static resources (images, i18n messages, …)
+   * Handle pre-compressed files with [express-static-gzip](https://github.com/tkoenig89/express-static-gzip)
    */
-  router.get('*.*', cacheControl, express.static(DIST_FOLDER, { index: false }));
+  server.get('*.*', cacheControl, expressStaticGzip(DIST_FOLDER, {
+    index: false,
+    enableBrotli: true,
+    orderPreference: ['br', 'gzip'],
+  }));
+
   /*
   * Fallthrough to the IIIF viewer (must be included in the build).
   */
@@ -188,6 +199,7 @@ function ngApp(req, res) {
       providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }]
     }, (err, data) => {
       if (hasNoValue(err) && hasValue(data)) {
+        res.locals.ssr = true;  // mark response as SSR
         res.send(data);
       } else if (hasValue(err) && err.code === 'ERR_HTTP_HEADERS_SENT') {
         // When this error occurs we can't fall back to CSR because the response has already been

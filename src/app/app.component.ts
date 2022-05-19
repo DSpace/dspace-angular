@@ -72,7 +72,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   /**
    * Whether or not the app is in the process of rerouting
    */
-  isRouteLoading$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  isRouteLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
    * Whether or not the theme is in the process of being swapped
@@ -121,7 +121,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.themeService.getThemeName$().subscribe((themeName: string) => {
       if (isPlatformBrowser(this.platformId)) {
         // the theme css will never download server side, so this should only happen on the browser
-        this.isThemeCSSLoading$.next(true);
+        this.distinctNext(this.isThemeCSSLoading$, true);
       }
       if (hasValue(themeName)) {
         this.loadGlobalThemeConfig(themeName);
@@ -200,7 +200,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         resolveEndFound = false;
-        this.isRouteLoading$.next(true);
+        this.distinctNext(this.isRouteLoading$, true);
       } else  if (event instanceof ResolveEnd) {
         resolveEndFound = true;
         const activatedRouteSnapShot: ActivatedRouteSnapshot = event.state.root;
@@ -213,16 +213,16 @@ export class AppComponent implements OnInit, AfterViewInit {
             }
           })
         ).subscribe((changed) => {
-          this.isThemeLoading$.next(changed);
+          this.distinctNext(this.isThemeLoading$, changed);
         });
       } else if (
         event instanceof NavigationEnd ||
         event instanceof NavigationCancel
       ) {
         if (!resolveEndFound) {
-          this.isThemeLoading$.next(false);
+          this.distinctNext(this.isThemeLoading$, false);
         }
-        this.isRouteLoading$.next(false);
+        this.distinctNext(this.isRouteLoading$, false);
       }
     });
   }
@@ -280,7 +280,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         });
       }
       // the fact that this callback is used, proves we're on the browser.
-      this.isThemeCSSLoading$.next(false);
+      this.distinctNext(this.isThemeCSSLoading$, false);
     };
     head.appendChild(link);
   }
@@ -374,5 +374,18 @@ export class AppComponent implements OnInit, AfterViewInit {
           }
         }
       });
+  }
+
+  /**
+   * Use nextValue to update a given BehaviorSubject, only if it differs from its current value
+   *
+   * @param bs a BehaviorSubject
+   * @param nextValue the next value for that BehaviorSubject
+   * @protected
+   */
+  protected distinctNext<T>(bs: BehaviorSubject<T>, nextValue: T): void {
+    if (bs.getValue() !== nextValue) {
+      bs.next(nextValue);
+    }
   }
 }
