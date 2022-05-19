@@ -1,4 +1,4 @@
-<div *ngIf="(getResourcePolicies() | async)?.length > 0" class="table-responsive">
+<div class="table-responsive">
   <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
@@ -29,7 +29,7 @@
           </div>
         </th>
       </tr>
-      <tr class="text-center">
+      <tr *ngIf="(getResourcePolicies() | async)?.length > 0" class="text-center">
         <th>
           <div class="custom-control custom-checkbox">
             <input type="checkbox"
@@ -50,7 +50,7 @@
         <th>{{'resource-policies.table.headers.edit' | translate}}</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="(getResourcePolicies() | async)?.length > 0">
       <tr *ngFor="let entry of (getResourcePolicies() | async); trackById">
         <td class="text-center">
           <div class="custom-control custom-checkbox">

@@ -43,6 +43,10 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { MyDSpacePageComponent, SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service.stub';
+import { GroupDataService } from '../../core/eperson/group-data.service';
+import { LinkHeadService } from '../../core/services/link-head.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 
 describe('CollectionItemMapperComponent', () => {
   let comp: CollectionItemMapperComponent;
@@ -143,6 +147,25 @@ describe('CollectionItemMapperComponent', () => {
     isAuthorized: observableOf(true)
   });
 
+  const linkHeadService = jasmine.createSpyObj('linkHeadService', {
+    addTag: ''
+  });
+
+  const groupDataService = jasmine.createSpyObj('groupsDataService', {
+    findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    getGroupRegistryRouterLink: '',
+    getUUIDFromString: '',
+  });
+
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'test',
+      values: [
+        'org.dspace.ctask.general.ProfileFormats = test'
+      ]
+    }))
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
@@ -159,7 +182,10 @@ describe('CollectionItemMapperComponent', () => {
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub() },
         { provide: RouteService, useValue: routeServiceStub },
-        { provide: AuthorizationDataService, useValue: authorizationDataService }
+        { provide: AuthorizationDataService, useValue: authorizationDataService },
+        { provide: GroupDataService, useValue: groupDataService },
+        { provide: LinkHeadService, useValue: linkHeadService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
       ]
     }).overrideComponent(CollectionItemMapperComponent, {
       set: {

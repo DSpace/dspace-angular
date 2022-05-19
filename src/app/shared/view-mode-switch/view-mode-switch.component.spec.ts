@@ -9,6 +9,7 @@ import { SearchService } from '../../core/shared/search/search.service';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
 import { SearchServiceStub } from '../testing/search-service.stub';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -36,7 +37,8 @@ describe('ViewModeSwitchComponent', () => {
       ],
       declarations: [
         ViewModeSwitchComponent,
-        DummyComponent
+        DummyComponent,
+        BrowserOnlyMockPipe,
       ],
       providers: [
         { provide: SearchService, useValue: searchService },
