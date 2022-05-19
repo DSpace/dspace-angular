@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, NoPreloading } from '@angular/router';
 import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
@@ -37,6 +37,7 @@ import {
   ThemedPageInternalServerErrorComponent
 } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
+import { MenuResolver } from './menu.resolver';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
         path: '',
         canActivate: [AuthBlockingGuard],
         canActivateChild: [ServerCheckGuard],
+        resolve: [MenuResolver],
         children: [
           { path: '', redirectTo: '/home', pathMatch: 'full' },
           {
@@ -229,6 +231,12 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
         ]
       }
     ], {
+      // enableTracing: true,
+      useHash: false,
+      scrollPositionRestoration: 'enabled',
+      anchorScrolling: 'enabled',
+      initialNavigation: 'enabledBlocking',
+      preloadingStrategy: NoPreloading,
       onSameUrlNavigation: 'reload',
 })
   ],

@@ -13,6 +13,7 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
 import { SearchServiceStub } from '../testing/search-service.stub';
 import { Router } from '@angular/router';
 import { RouterStub } from '../testing/router.stub';
@@ -41,7 +42,10 @@ describe('SearchFormComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfigService },
         { provide: DSpaceObjectDataService, useValue: dspaceObjectService },
       ],
-      declarations: [SearchFormComponent]
+      declarations: [
+        SearchFormComponent,
+        BrowserOnlyMockPipe,
+      ]
     }).compileComponents();
   }));
 
