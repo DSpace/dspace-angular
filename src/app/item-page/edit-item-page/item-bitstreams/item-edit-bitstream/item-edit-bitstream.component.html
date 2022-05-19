@@ -27,7 +27,7 @@
         <a *ngIf="bitstreamDownloadUrl != null" [href]="bitstreamDownloadUrl"
                 class="btn btn-outline-primary btn-sm"
                 title="{{'item.edit.bitstreams.edit.buttons.download' | translate}}"
-                data-test="download-button">
+                [attr.data-test]="'download-button' | dsBrowserOnly">
           <i class="fas fa-download fa-fw"></i>
         </a>
         <button [routerLink]="['/bitstreams/', bitstream.id, 'edit']" class="btn btn-outline-primary btn-sm"

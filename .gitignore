@@ -37,3 +37,5 @@ package-lock.json
 
 .env
 /nbproject/
+
+junit.xml

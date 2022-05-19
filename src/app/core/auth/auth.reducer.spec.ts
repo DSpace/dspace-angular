@@ -192,7 +192,7 @@ describe('authReducer', () => {
     state = {
       authenticated: false,
       loaded: false,
-      blocking: true,
+      blocking: false,
       loading: true,
       idle: false
     };
@@ -212,7 +212,7 @@ describe('authReducer', () => {
     state = {
       authenticated: false,
       loaded: false,
-      blocking: true,
+      blocking: false,
       loading: true,
       idle: false
     };
@@ -558,7 +558,7 @@ describe('authReducer', () => {
     state = {
       authenticated: false,
       loaded: false,
-      blocking: true,
+      blocking: false,
       loading: true,
       authMethods: [],
       idle: false
