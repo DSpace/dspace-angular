@@ -70,7 +70,11 @@ export class ItemExportComponent implements OnInit {
     this.itemExportService.initialItemExportFormConfiguration(this.item).pipe(take(1))
       .subscribe((configuration: ItemExportFormConfiguration) => {
         this.configuration = configuration;
-        if (!!this.itemType) {
+        this.configurationLoaded = true;
+
+        if (!!this.item) {
+          this.exportForm = this.initForm(configuration);
+        } else if (!!this.itemType) {
           this.exportForm = this.initFormItemType(configuration);
           this.onEntityTypeChange(this.itemType.label);
         } else {
