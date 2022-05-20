@@ -88,7 +88,7 @@ export class OrcidSettingComponent implements OnInit {
         };
       });
 
-    this.currentSyncMode = this.getCurrentPreference('dspace.orcid.sync-mode', ['BATCH, MANUAL'], 'MANUAL');
+    this.currentSyncMode = this.getCurrentPreference('dspace.orcid.sync-mode', ['BATCH', 'MANUAL'], 'MANUAL');
     this.currentSyncPublications = this.getCurrentPreference('dspace.orcid.sync-publications', ['DISABLED', 'ALL'], 'DISABLED');
     this.currentSyncFundings = this.getCurrentPreference('dspace.orcid.sync-fundings', ['DISABLED', 'ALL'], 'DISABLED');
   }

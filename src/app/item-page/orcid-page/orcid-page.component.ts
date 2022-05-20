@@ -9,6 +9,7 @@ import {NativeWindowRef, NativeWindowService} from '../../core/services/window.s
 import {getFirstCompletedRemoteData} from '../../core/shared/operators';
 import {RemoteData} from '../../core/data/remote-data';
 import {Item} from '../../core/shared/item.model';
+import {getItemPageRoute} from '../item-page-routing-paths';
 
 @Component({
   selector: 'ds-orcid-page',
@@ -32,6 +33,10 @@ export class OrcidPageComponent  {
 
   isLinkedToOrcid(): boolean {
     return this.researcherProfileService.isLinkedToOrcid(this.item);
+  }
+
+  getItemPage(): string {
+    return getItemPageRoute(this.item);
   }
 
 }
