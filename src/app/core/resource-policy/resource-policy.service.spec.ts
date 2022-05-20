@@ -342,12 +342,9 @@ describe('ResourcePolicyService', () => {
 
   describe('updateTarget', () => {
     it('should create a new PUT request for eperson', () => {
-      const resourcePolicyId = 'RESOURCE_POLICY_ID';
-      const resourcePolicyHref = 'RESOURCE_POLICY_HREF';
-      const targetUUID = 'TARGET_UUID';
       const targetType = 'eperson';
 
-      const result = service.updateTarget(resourcePolicyId, resourcePolicyHref, targetUUID, targetType);
+      const result = service.updateTarget(resourcePolicyId, requestURL, epersonUUID, targetType);
       const expected = cold('a|', {
         a: resourcePolicyRD
       });
