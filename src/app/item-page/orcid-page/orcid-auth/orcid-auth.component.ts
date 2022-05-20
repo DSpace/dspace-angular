@@ -23,7 +23,7 @@ export class OrcidAuthComponent implements OnInit {
 
   unlinkProcessing = false;
 
-  item: Item
+  item: Item;
 
   constructor(
     private configurationService: ConfigurationDataService,

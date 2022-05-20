@@ -14,7 +14,7 @@ import { AuthService } from '../../../../core/auth/auth.service';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { take } from 'rxjs/operators';
 import { URLCombiner } from '../../../../core/url-combiner/url-combiner';
-import {CoreState} from "../../../../core/core-state.model";
+import {CoreState} from '../../../../core/core-state.model';
 
 @Component({
   selector: 'ds-log-in-orcid',
