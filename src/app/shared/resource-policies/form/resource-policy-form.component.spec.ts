@@ -254,6 +254,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
     });
 
     it('should init form model properly', () => {
+      epersonService.findByHref.and.returnValue(observableOf(undefined));
+      groupService.findByHref.and.returnValue(observableOf(undefined));
       spyOn(compAsAny, 'isFormValid').and.returnValue(observableOf(false));
       spyOn(compAsAny, 'initModelsValue').and.callThrough();
       spyOn(compAsAny, 'buildResourcePolicyForm').and.callThrough();
