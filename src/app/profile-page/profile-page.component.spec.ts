@@ -22,6 +22,7 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { By } from '@angular/platform-browser';
 import {ConfigurationDataService} from '../core/data/configuration-data.service';
 import {ConfigurationProperty} from '../core/shared/configuration-property.model';
+import { EmptySpecialGroupDataMock$, SpecialGroupDataMock$ } from '../shared/testing/special-group.mock';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
@@ -56,7 +57,8 @@ describe('ProfilePageComponent', () => {
     };
 
     authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: observableOf(user)
+      getAuthenticatedUserFromStore: observableOf(user),
+      getSpecialGroupsFromAuthStatus: SpecialGroupDataMock$
     });
     epersonService = jasmine.createSpyObj('epersonService', {
       findById: createSuccessfulRemoteDataObject$(user),
@@ -243,6 +245,27 @@ describe('ProfilePageComponent', () => {
         fixture.detectChanges();
         expect(fixture.debugElement.query(By.css('.security-section'))).toBeNull();
       });
+    });
+  });
+
+  describe('check for specialGroups', () => {
+    it('should contains specialGroups list', () => {
+      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+      expect(specialGroupsEle).toBeTruthy();
+    });
+
+    it('should not contains specialGroups list', () => {
+      component.specialGroupsRD$ = null;
+      fixture.detectChanges();
+      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+      expect(specialGroupsEle).toBeFalsy();
+    });
+
+    it('should not contains specialGroups list', () => {
+      component.specialGroupsRD$ = EmptySpecialGroupDataMock$;
+      fixture.detectChanges();
+      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+      expect(specialGroupsEle).toBeFalsy();
     });
   });
 });

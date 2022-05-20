@@ -178,6 +178,7 @@ import { RSSComponent } from './rss-feed/rss.component';
 import { ExternalLinkMenuItemComponent } from './menu/menu-item/external-link-menu-item.component';
 import { DsoPageOrcidButtonComponent } from './dso-page/dso-page-orcid-button/dso-page-orcid-button.component';
 import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
+import { BrowserOnlyPipe } from './utils/browser-only.pipe';
 
 const MODULES = [
   CommonModule,
@@ -219,7 +220,8 @@ const PIPES = [
   ObjectKeysPipe,
   ObjectValuesPipe,
   ConsolePipe,
-  ObjNgFor
+  ObjNgFor,
+  BrowserOnlyPipe,
 ];
 
 const COMPONENTS = [

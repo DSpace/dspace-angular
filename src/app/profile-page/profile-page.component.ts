@@ -47,6 +47,11 @@ export class ProfilePageComponent implements OnInit {
   groupsRD$: Observable<RemoteData<PaginatedList<Group>>>;
 
   /**
+   * The special groups the user belongs to
+   */
+  specialGroupsRD$: Observable<RemoteData<PaginatedList<Group>>>;
+
+  /**
    * Prefix for the notification messages of this component
    */
   NOTIFICATIONS_PREFIX = 'profile.notifications.';
@@ -92,10 +97,10 @@ export class ProfilePageComponent implements OnInit {
     );
     this.groupsRD$ = this.user$.pipe(switchMap((user: EPerson) => user.groups));
     this.canChangePassword$ = this.user$.pipe(switchMap((user: EPerson) => this.authorizationService.isAuthorized(FeatureID.CanChangePassword, user._links.self.href)));
-
     this.configurationService.findByPropertyName('researcher-profile.entity-type').pipe(
       getFirstSucceededRemoteDataPayload()
     ).subscribe(() => this.isResearcherProfileEnabled$.next(true));
+    this.specialGroupsRD$ = this.authService.getSpecialGroupsFromAuthStatus();
   }
 
   /**
