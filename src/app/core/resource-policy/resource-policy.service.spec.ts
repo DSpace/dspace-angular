@@ -129,11 +129,6 @@ describe('ResourcePolicyService', () => {
         a: ePersonEndpoint
       }),
     });
-    /*groupService = jasmine.createSpyObj('groupService', {
-      getBrowseEndpoint: cold('a|', {
-        a: groupEndpoint
-      }),
-    });*/
     objectCache = {} as ObjectCacheService;
     const notificationsService = {} as NotificationsService;
     const http = {} as HttpClient;

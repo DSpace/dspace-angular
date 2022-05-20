@@ -71,7 +71,7 @@ export class ResourcePolicyService {
   protected searchByResourceMethod = 'resource';
 
   constructor(
-    public requestService: RequestService,
+    protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
