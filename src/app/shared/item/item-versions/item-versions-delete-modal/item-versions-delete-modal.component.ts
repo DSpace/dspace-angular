@@ -1,6 +1,5 @@
-import { Component, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'ds-item-versions-delete-modal',
@@ -12,7 +11,7 @@ export class ItemVersionsDeleteModalComponent {
    * An event fired when the cancel or confirm button is clicked, with respectively false or true
    */
   @Output()
-  response: Subject<boolean> = new Subject();
+  response = new EventEmitter<boolean>();
 
   versionNumber: number;
 
@@ -21,12 +20,12 @@ export class ItemVersionsDeleteModalComponent {
   }
 
   onModalClose() {
-    this.response.next(false);
+    this.response.emit(false);
     this.activeModal.dismiss();
   }
 
   onModalSubmit() {
-    this.response.next(true);
+    this.response.emit(true);
     this.activeModal.close();
   }
 
