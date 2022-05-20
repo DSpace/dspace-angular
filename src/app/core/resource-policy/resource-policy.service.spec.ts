@@ -92,6 +92,8 @@ describe('ResourcePolicyService', () => {
   const resourcePolicyRD = createSuccessfulRemoteDataObject(resourcePolicy);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
+  const ePersonEndpoint = 'EPERSON_EP';
+
   beforeEach(() => {
     scheduler = getTestScheduler();
 
@@ -109,6 +111,7 @@ describe('ResourcePolicyService', () => {
       removeByHrefSubstring: {},
       getByHref: observableOf(responseCacheEntry),
       getByUUID: observableOf(responseCacheEntry),
+      setStaleByHrefSubstring: {},
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: hot('a|', {
@@ -121,6 +124,16 @@ describe('ResourcePolicyService', () => {
         a: resourcePolicyRD
       })
     });
+    ePersonService = jasmine.createSpyObj('ePersonService', {
+      getBrowseEndpoint: hot('a', {
+        a: ePersonEndpoint
+      }),
+    });
+    /*groupService = jasmine.createSpyObj('groupService', {
+      getBrowseEndpoint: cold('a|', {
+        a: groupEndpoint
+      }),
+    });*/
     objectCache = {} as ObjectCacheService;
     const notificationsService = {} as NotificationsService;
     const http = {} as HttpClient;
@@ -326,4 +339,20 @@ describe('ResourcePolicyService', () => {
       expect(result).toBeObservable(expected);
     });
   });
+
+  describe('updateTarget', () => {
+    it('should create a new PUT request for eperson', () => {
+      const resourcePolicyId = 'RESOURCE_POLICY_ID';
+      const resourcePolicyHref = 'RESOURCE_POLICY_HREF';
+      const targetUUID = 'TARGET_UUID';
+      const targetType = 'eperson';
+
+      const result = service.updateTarget(resourcePolicyId, resourcePolicyHref, targetUUID, targetType);
+      const expected = cold('a|', {
+        a: resourcePolicyRD
+      });
+      expect(result).toBeObservable(expected);
+    });
+  });
+
 });

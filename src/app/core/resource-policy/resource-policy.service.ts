@@ -23,7 +23,7 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { ActionType } from './models/action-type.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { isNotEmpty } from '../../shared/empty.util';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { CoreState } from '../core-state.model';
@@ -71,7 +71,7 @@ export class ResourcePolicyService {
   protected searchByResourceMethod = 'resource';
 
   constructor(
-    protected requestService: RequestService,
+    public requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
@@ -237,16 +237,16 @@ export class ResourcePolicyService {
    * Update the target of the resource policy
    * @param resourcePolicyId the ID of the resource policy
    * @param resourcePolicyHref the link to the resource policy
-   * @param uuid the UUID of the target to which the permission is being granted
-   * @param type the type of the target (eperson or group) to which the permission is being granted
+   * @param targetUUID the UUID of the target to which the permission is being granted
+   * @param targetType the type of the target (eperson or group) to which the permission is being granted
    */
-  updateTarget(resourcePolicyId: string, resourcePolicyHref: string, uuid: string, type: string): Observable<RemoteData<any>> {
+  updateTarget(resourcePolicyId: string, resourcePolicyHref: string, targetUUID: string, targetType: string): Observable<RemoteData<any>> {
 
-    const targetService = type === 'eperson' ? this.ePersonService : this.groupService;
+    const targetService = targetType === 'eperson' ? this.ePersonService : this.groupService;
 
     const targetEndpoint$ = targetService.getBrowseEndpoint().pipe(
       take(1),
-      map((endpoint: string) =>`${endpoint}/${uuid}`),
+      map((endpoint: string) =>`${endpoint}/${targetUUID}`),
     );
 
     const options: HttpOptions = Object.create({});
@@ -256,10 +256,10 @@ export class ResourcePolicyService {
 
     const requestId = this.requestService.generateRequestId();
 
-    this.requestService.setStaleByHrefSubstring(`${this.dataService.getLinkPath()}/${resourcePolicyId}/${type}`);
+    this.requestService.setStaleByHrefSubstring(`${this.dataService.getLinkPath()}/${resourcePolicyId}/${targetType}`);
 
-    return targetEndpoint$.pipe(switchMap((targetEndpoint) => {
-      const resourceEndpoint = resourcePolicyHref + '/' + type;
+    targetEndpoint$.subscribe((targetEndpoint) => {
+      const resourceEndpoint = resourcePolicyHref + '/' + targetType;
       const request = new PutRequest(requestId, resourceEndpoint, targetEndpoint, options);
       Object.assign(request, {
         getResponseParser(): GenericConstructor<ResponseParsingService> {
@@ -267,8 +267,9 @@ export class ResourcePolicyService {
         }
       });
       this.requestService.send(request);
-      return this.rdbService.buildFromRequestUUID(requestId);
-    }));
+    });
+
+    return this.rdbService.buildFromRequestUUID(requestId);
 
   }
 
