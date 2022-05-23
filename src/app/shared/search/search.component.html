@@ -18,18 +18,9 @@
 
 <ng-template #searchContent>
     <div class="row">
-        <div class="col-12" id="searchTopBar" *ngIf="!(isXsOrSm$ | async)">
-            <div class="d-flex align-items-center my-1">
-                <button class="btn btn-outline-secondary mt-n-5 mb-3 mr-3" (click)="toggleSidebar()" *ngIf="showFilterToggle">
-                    <div class="d-flex align-items-center">
-                        <i class="fa fa-filter mr-2"></i> 
-                        {{"search.sidebar.show.hide" | translate}}</div>
-                </button>
-                <div class="flex-fill">
-                    <ng-template *ngTemplateOutlet="searchForm"></ng-template>
-                    <ng-content select="[additionalSearchOptions]"></ng-content>
-                </div>
-            </div>
+        <div class="col-12" *ngIf="!(isXsOrSm$ | async)">
+            <ng-template *ngTemplateOutlet="searchForm"></ng-template>
+            <ng-content select="[additionalSearchOptions]"></ng-content>
         </div>
         <div id="search-content" class="col-12">
             <div class="d-block d-md-none search-controls clearfix">
@@ -86,7 +77,12 @@
 </ng-template>
 
 <ng-template #searchForm>
-    <div class="d-flex justify-content-end">
+    <div class="d-flex align-items-center my-1">
+        <button class="btn btn-outline-secondary mb-3 mr-3" (click)="toggleSidebar()" *ngIf="showFilterToggle">
+            <div class="d-flex align-items-center">
+                <i class="fa fa-filter mr-2"></i> 
+                {{"search.sidebar.show.hide" | translate}}</div>
+        </button>
         <ds-search-form *ngIf="searchEnabled" id="search-form" class="flex-grow-1"
                         [query]="(searchOptions$ | async)?.query"
                         [scope]="(searchOptions$ | async)?.scope"

@@ -36,17 +36,12 @@ export class SearchChartsComponent implements OnInit {
   /**
    * Toggle button to Show/Hide chart
    */
-  @Input() showChartsToggle = false;
+  @Input() showChartsToggle = true;
 
   /**
    * An observable containing configuration about which filters are shown and how they are shown
    */
   filters: Observable<RemoteData<SearchFilterConfig[]>>;
-
-  /**
-   * Emits true if were on a small screen
-   */
-  isXsOrSm$: Observable<boolean>;
 
   selectedTypeIndex = 0;
 
@@ -73,9 +68,7 @@ export class SearchChartsComponent implements OnInit {
     @Inject(SEARCH_CONFIG_SERVICE)
     private searchConfigService: SearchConfigurationService,
     protected windowService: HostWindowService,
-  ) {
-    this.isXsOrSm$ = this.windowService.isXsOrSm();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.filters = this.searchConfigService.searchOptions

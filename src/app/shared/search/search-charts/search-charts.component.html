@@ -5,7 +5,7 @@
         <div class="mr-auto">
           <h2 class="m-0">{{'search.filters.applied.charts.' + ((configuration | async) ? (configuration | async) : 'default') + '.title' | translate}}</h2>
         </div>
-        <button class="btn btn-outline-secondary" (click)="toggleChart()" *ngIf="!(isXsOrSm$ | async) && showChartsToggle">
+        <button class="btn btn-outline-secondary" (click)="toggleChart()" *ngIf="showChartsToggle">
           <i class="fa fa-chart-line mr-2"></i> {{"search.filters.applied.charts.show.hide" | translate}}</button>
       </div>
       <div *ngIf="!hideChart" @shrinkInOut>
