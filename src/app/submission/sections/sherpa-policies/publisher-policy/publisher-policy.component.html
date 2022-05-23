@@ -2,7 +2,9 @@
     <div class="row">
         <div class="col-12">
             <p class="m-1">
-                {{'submission.sections.sherpa.publisher.policy.openaccess' | translate}}
+                <ds-alert [type]="AlertTypeEnum.Info"
+                    [content]="'submission.sections.sherpa.publisher.policy.openaccess'| translate">
+                </ds-alert>
             </p>
         </div>
     </div>

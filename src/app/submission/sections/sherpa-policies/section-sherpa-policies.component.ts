@@ -1,3 +1,4 @@
+import { AlertType } from './../../../shared/alert/aletr-type';
 import { Component, Inject, QueryList, ViewChildren } from '@angular/core';
 
 import { BehaviorSubject, interval, Observable, of, Subscription } from 'rxjs';
@@ -49,6 +50,13 @@ export class SubmissionSectionSherpaPoliciesComponent extends SectionModelCompon
    */
   public isCollapsed = false;
 
+
+  /**
+   * The AlertType enumeration
+   * @type {AlertType}
+   */
+  public AlertTypeEnum = AlertType;
+
   /**
    * Initialize instance variables
    *
@@ -71,6 +79,7 @@ export class SubmissionSectionSherpaPoliciesComponent extends SectionModelCompon
    * Unsubscribe from all subscriptions
    */
   onSectionDestroy() {
+
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
@@ -81,7 +90,6 @@ export class SubmissionSectionSherpaPoliciesComponent extends SectionModelCompon
    * Initialize all instance variables and retrieve collection default access conditions
    */
   protected onSectionInit(): void {
-
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     this.subs.push(
       this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType)

@@ -4046,6 +4046,8 @@
 
   "submission.sections.sherpa.record.information.uri": "URI",
 
+  "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
+
 
 
   "submission.submit.breadcrumbs": "New submission",
