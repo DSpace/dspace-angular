@@ -30,4 +30,20 @@ export class CrisLayoutMatrixComponent {
    */
   @Input() showCellPadding = true;
 
+  /**
+   * Check if style contains 'col' or 'col-x'
+   * @param style the style of the cell (a list of classes separated by space)
+   */
+  hasColClass(style) {
+    return style?.split(' ').filter((c) => (c === 'col' || c.startsWith('col-'))).length > 0;
+  }
+
+  /**
+   * Check if style contains 'row'
+   * @param style the style of the row (a list of classes separated by space)
+   */
+  hasRowClass(style) {
+    return style?.split(' ').filter((r) => (r === 'row')).length > 0;
+  }
+
 }

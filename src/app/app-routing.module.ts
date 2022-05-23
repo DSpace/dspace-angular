@@ -144,8 +144,8 @@ import { StatisticsAdministratorGuard } from './core/data/feature-authorization/
           },
           {
             path: 'explore',
-            loadChildren: () => import('./+explore/explore.module')
-              .then((m) => m.ExploreModule),
+            loadChildren: () => import('./explore-page/explore-page.module')
+              .then((m) => m.ExplorePageModule),
           },
           {
             path: ADMIN_MODULE_PATH,

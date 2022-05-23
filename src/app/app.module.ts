@@ -27,7 +27,7 @@ import { appReducers, AppState, storeModuleConfig } from './app.reducer';
 import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { CoreModule } from './core/core.module';
 import { ClientCookieService } from './core/services/client-cookie.service';
-import { FooterComponent } from './footer/footer.component';
+import { FooterModule } from './footer/footer.module';
 import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
 import { HeaderComponent } from './header/header.component';
 import { NavbarModule } from './navbar/navbar.module';
@@ -62,6 +62,7 @@ import { NgxMaskModule } from 'ngx-mask';
 
 import { StoreDevModules } from '../config/store/devtools';
 import { SocialComponent } from './social/social.component';
+import { NuMarkdownModule } from '@ng-util/markdown';
 
 export function getConfig() {
   return environment;
@@ -87,8 +88,10 @@ const IMPORTS = [
   CommonModule,
   SharedModule,
   NavbarModule,
+  FooterModule,
   HttpClientModule,
   AppRoutingModule,
+  NuMarkdownModule.forRoot({}),
   CoreModule.forRoot(),
   ScrollToModule.forRoot(),
   NgbModule,
@@ -174,7 +177,6 @@ const DECLARATIONS = [
   ThemedAdminSidebarComponent,
   AdminSidebarSectionComponent,
   ExpandableAdminSidebarSectionComponent,
-  FooterComponent,
   ThemedFooterComponent,
   PageNotFoundComponent,
   ThemedPageNotFoundComponent,

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ExploreComponent } from './explore.component';
+import { ExplorePageComponent } from './explore-page.component';
 import { ExploreI18nBreadcrumbResolver } from './explore-i18n-breadcrumb.resolver';
 import { EndUserAgreementCurrentUserGuard } from '../core/end-user-agreement/end-user-agreement-current-user.guard';
 
@@ -9,7 +9,7 @@ import { EndUserAgreementCurrentUserGuard } from '../core/end-user-agreement/end
     RouterModule.forChild([
       {
         path: ':id',
-        component: ExploreComponent,
+        component: ExplorePageComponent,
         resolve: { breadcrumb: ExploreI18nBreadcrumbResolver },
         data: { title: 'explore.title', breadcrumbKey: 'explore', showSocialButtons: true },
         canActivate: [EndUserAgreementCurrentUserGuard]

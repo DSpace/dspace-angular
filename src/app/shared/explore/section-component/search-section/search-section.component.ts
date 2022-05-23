@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { SearchSection } from '../../../../core/layout/models/section.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { SearchService } from '../../../../core/shared/search/search.service';

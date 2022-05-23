@@ -28,6 +28,10 @@ export function getItemEditRoute(item: Item) {
   return new URLCombiner(getItemPageRoute(item), ITEM_EDIT_PATH).toString();
 }
 
+export function getItemFullPageRoute(item: Item) {
+  return new URLCombiner(getItemPageRoute(item), ITEM_FULL_PATH).toString();
+}
+
 export function getItemEditVersionhistoryRoute(item: Item) {
   return new URLCombiner(getItemPageRoute(item), ITEM_EDIT_PATH, ITEM_EDIT_VERSIONHISTORY_PATH).toString();
 }
@@ -57,3 +61,4 @@ export const ITEM_EDIT_PATH = 'edit';
 export const ITEM_EDIT_VERSIONHISTORY_PATH = 'versionhistory';
 export const ITEM_VERSION_PATH = 'version';
 export const UPLOAD_BITSTREAM_PATH = 'bitstreams/new';
+export const ITEM_FULL_PATH = 'full';

@@ -11,9 +11,9 @@ import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
  */
 @Component({
     selector: 'ds-explore',
-    templateUrl: './explore.component.html'
+    templateUrl: './explore-page.component.html'
 })
-export class ExploreComponent implements OnInit {
+export class ExplorePageComponent implements OnInit {
 
     /**
      * The id of the current section.

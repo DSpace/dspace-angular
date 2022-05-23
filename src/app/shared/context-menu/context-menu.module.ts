@@ -22,6 +22,7 @@ import { SubscriptionMenuComponent } from './subscription/subscription-menu.comp
 import { SubscriptionsModule } from '../subscriptions/subscriptions.module';
 import { ItemVersionMenuComponent } from './item-version/item-version-menu.component';
 import { ItemVersionContainerComponent } from './item-version/item-version-container/item-version-container.component';
+import { FullItemMenuComponent } from './full-item/full-item-menu.component';
 
 const COMPONENTS = [
   BulkImportMenuComponent,
@@ -37,7 +38,8 @@ const COMPONENTS = [
   StatisticsMenuComponent,
   SubscriptionMenuComponent,
   ItemVersionMenuComponent,
-  ItemVersionContainerComponent
+  ItemVersionContainerComponent,
+  FullItemMenuComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -53,6 +55,7 @@ const ENTRY_COMPONENTS = [
   StatisticsMenuComponent,
   SubscriptionMenuComponent,
   ItemVersionMenuComponent,
+  FullItemMenuComponent
 ];
 
 const MODULE = [
