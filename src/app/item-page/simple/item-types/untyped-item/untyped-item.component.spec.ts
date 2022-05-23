@@ -173,7 +173,7 @@ describe('UntypedItemComponent', () => {
     beforeEach(waitForAsync(() => {
       const localMockRouteService = {
         getPreviousUrl(): Observable<string> {
-          return of('/search?query=test');
+          return of('/search?query=test%20query&fakeParam=true');
         }
       };
       const iiifEnabledMap: MetadataMap = {
@@ -194,7 +194,7 @@ describe('UntypedItemComponent', () => {
     });
 
     it('should retrieve the query term for previous route', (): void => {
-      expect(comp.iiifQuery$.subscribe(result => expect(result).toEqual('test')));
+      expect(comp.iiifQuery$.subscribe(result => expect(result).toEqual('test query')));
     });
 
   });

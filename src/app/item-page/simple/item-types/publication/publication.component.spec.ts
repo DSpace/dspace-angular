@@ -17,7 +17,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { Item } from '../../../../core/shared/item.model';
-import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.models';
+import { MetadataMap  } from '../../../../core/shared/metadata.models';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
@@ -31,7 +31,6 @@ import {
 import { PublicationComponent } from './publication.component';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { RouteService } from '../../../../core/services/route.service';
-import { UntypedItemComponent } from '../untyped-item/untyped-item.component';
 
 const noMetadata = new MetadataMap();
 
@@ -155,7 +154,7 @@ describe('PublicationComponent', () => {
     beforeEach(waitForAsync(() => {
       const localMockRouteService = {
         getPreviousUrl(): Observable<string> {
-          return of('/search?query=test');
+          return of('/search?query=test%20query&fakeParam=true');
         }
       };
       const iiifEnabledMap: MetadataMap = {
@@ -176,8 +175,7 @@ describe('PublicationComponent', () => {
     });
 
     it('should retrieve the query term for previous route', fakeAsync((): void => {
-      //tick(10)
-      expect(comp.iiifQuery$.subscribe(result => expect(result).toEqual('test')));
+      expect(comp.iiifQuery$.subscribe(result => expect(result).toEqual('test query')));
     }));
 
   });
