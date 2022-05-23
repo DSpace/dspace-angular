@@ -14,10 +14,9 @@ import { SectionsService } from '../sections.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SubmissionService } from '../../submission.service';
 import { hasValue, isEmpty } from '../../../shared/empty.util';
-import { debounce, debounceTime, timeInterval } from 'rxjs/operators';
 
 /**
- * This component represents a section for managing item's access conditions.
+ * This component represents a section for the sherpa policy informations structure.
  */
 @Component({
   selector: 'ds-section-sherpa-policies',

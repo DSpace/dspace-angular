@@ -3894,6 +3894,10 @@
 
   "submission.sections.status.warnings.aria": "has warnings",
 
+  "submission.sections.status.info.title": "Additional Information",
+
+  "submission.sections.status.info.aria": "Additional Information",
+
   "submission.sections.toggle.open": "Open section",
 
   "submission.sections.toggle.close": "Close section",
@@ -4020,6 +4024,8 @@
 
   "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
 
+  "submission.sections.sherpa.publisher.policy.nolocation": "None",
+
   "submission.sections.sherpa.publisher.policy.license": "License",
 
   "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
@@ -4039,11 +4045,6 @@
   "submission.sections.sherpa.record.information.date.modified": "Last Modified",
 
   "submission.sections.sherpa.record.information.uri": "URI",
-
-
-
-
-
 
 
 

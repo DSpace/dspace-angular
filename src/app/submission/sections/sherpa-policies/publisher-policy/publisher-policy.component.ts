@@ -2,6 +2,9 @@ import { Component, Input } from '@angular/core';
 
 import { Policy } from '../../../../core/submission/models/sherpa-policies-details.model';
 
+/**
+ * This component represents a section that contains the publisher policy informations.
+ */
 @Component({
   selector: 'ds-publisher-policy',
   templateUrl: './publisher-policy.component.html',

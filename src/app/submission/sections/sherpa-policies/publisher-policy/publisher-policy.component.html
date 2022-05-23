@@ -8,7 +8,7 @@
     </div>
     <ds-content-accordion *ngFor="let permittedVersions of policy.permittedVersions" [version]="permittedVersions">
     </ds-content-accordion>
-    <div class="row">
+    <div class="row" *ngIf="!!policy?.urls">
         <div class="col-12">
             <p class="m-1">
                 {{'submission.sections.sherpa.publisher.policy.more.information' | translate}}
