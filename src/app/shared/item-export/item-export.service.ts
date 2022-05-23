@@ -43,7 +43,6 @@ export class ItemExportService {
    * @param entityType
    */
   public onSelectEntityType(entityTypes: string[], entityType): Observable<ItemExportFormConfiguration> {
-    console.log(entityTypes, entityType);
     return this.itemExportFormatService.byEntityTypeAndMolteplicity(entityType, ItemExportFormatMolteplicity.MULTIPLE).pipe(
       take(1),
       map(values => this.buildConfiguration(entityTypes, entityType, values[entityType]))
