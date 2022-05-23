@@ -9,11 +9,14 @@ import { SearchConfigurationService } from '../../../core/shared/search/search-c
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { shrinkInOut } from '../../animations/shrink';
+import { HostWindowService } from '../../host-window.service';
 
 @Component({
   selector: 'ds-search-charts',
   styleUrls: ['./search-charts.component.scss'],
   templateUrl: './search-charts.component.html',
+  animations: [shrinkInOut]
 })
 
 /**
@@ -31,13 +34,28 @@ export class SearchChartsComponent implements OnInit {
   @Input() inPlaceSearch;
 
   /**
+   * Toggle button to Show/Hide chart
+   */
+  @Input() showChartsToggle = false;
+
+  /**
    * An observable containing configuration about which filters are shown and how they are shown
    */
   filters: Observable<RemoteData<SearchFilterConfig[]>>;
 
+  /**
+   * Emits true if were on a small screen
+   */
+  isXsOrSm$: Observable<boolean>;
+
   selectedTypeIndex = 0;
 
   selectedFilter: any;
+
+  /**
+   * Emits true if chart is hidden
+   */
+  hideChart = false;
 
   /**
    * For chart regular expression
@@ -53,8 +71,11 @@ export class SearchChartsComponent implements OnInit {
     private searchService: SearchService,
     @Inject(SEARCH_CONFIG_SERVICE)
     @Inject(SEARCH_CONFIG_SERVICE)
-    private searchConfigService: SearchConfigurationService
-  ) {}
+    private searchConfigService: SearchConfigurationService,
+    protected windowService: HostWindowService,
+  ) {
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
+  }
 
   ngOnInit(): void {
     this.filters = this.searchConfigService.searchOptions
@@ -86,5 +107,12 @@ export class SearchChartsComponent implements OnInit {
 
   changeChartType(filter) {
     this.selectedFilter = filter;
+  }
+
+  /**
+   * To Toggle the Chart
+   */
+  toggleChart() {
+    this.hideChart = !this.hideChart;
   }
 }
