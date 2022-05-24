@@ -8,7 +8,7 @@
 
 <ds-search-charts *ngIf="showCharts" [configuration]="currentConfiguration$" [inPlaceSearch]="inPlaceSearch"></ds-search-charts>
 
-<div class="container" *ngIf="!showSidebar && (initialized$ | async)">
+<div *ngIf="!showSidebar && (initialized$ | async)">
     <ng-template *ngTemplateOutlet="searchContent"></ng-template>
 </div>
 
@@ -78,7 +78,7 @@
 
 <ng-template #searchForm>
     <div class="d-flex align-items-center my-1">
-        <button class="btn btn-outline-secondary mb-3 mr-3" (click)="toggleSidebar()" *ngIf="showFilterToggle">
+        <button class="btn btn-outline-secondary mb-3 mr-3" (click)="toggleSidebar()" *ngIf="!(isXsOrSm$ | async) && showFilterToggle">
             <div class="d-flex align-items-center">
                 <i class="fa fa-filter mr-2"></i> 
                 {{"search.sidebar.show.hide" | translate}}</div>

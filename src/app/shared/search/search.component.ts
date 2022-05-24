@@ -434,7 +434,7 @@ export class SearchComponent implements OnInit {
    * To Toggle the Sidebar
    */
   toggleSidebar() {
-    this.showSidebar = !this.showSidebar;
+    this.sidebarService.toggle();
   }
 
 
