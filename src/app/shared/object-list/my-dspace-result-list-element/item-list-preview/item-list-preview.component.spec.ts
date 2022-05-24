@@ -132,7 +132,7 @@ describe('ItemListPreviewComponent', () => {
   });
 
   afterEach(() => {
-    environment.myDSpace.additionalMetadatas = [];
+    environment.myDSpace.additionalMetadataFields = [];
   });
 
   describe('When showThumbnails is true', () => {
@@ -220,7 +220,7 @@ describe('ItemListPreviewComponent', () => {
 
   describe('When the config has one additional metadata with no match', () => {
     beforeEach(() => {
-      environment.myDSpace.additionalMetadatas = [{ value: 'fake' }];
+      environment.myDSpace.additionalMetadataFields = ['fake'];
       component.item = mockItemWithAdditionalMeta;
       fixture.detectChanges();
     });
@@ -238,7 +238,7 @@ describe('ItemListPreviewComponent', () => {
 
   describe('When the config has one additional metadata with a match', () => {
     beforeEach(() => {
-      environment.myDSpace.additionalMetadatas = [{ value: 'dspace.description.additional' }];
+      environment.myDSpace.additionalMetadataFields = ['dspace.description.additional'];
       component.item = mockItemWithAdditionalMeta;
       fixture.detectChanges();
     });

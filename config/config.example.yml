@@ -288,10 +288,10 @@ info:
 
 # MyDSpace Config
 myDSpace:
-  # Add additional metadatas to display at the end of the item component. By default, this is an empty list.
-  additionalMetadatas: []
+  # Add additional metadata fields to display at the end of the item component. By default, this is an empty list.
+  additionalMetadataFields: []
   # Replace the empty list by some values here.
-  # additionalMetadatas:
-    # - value: metadata.1
-    # - value: metadata.2
+  # additionalMetadataFields:
+    # - metadata.1
+    # - metadata.2
     # - ...

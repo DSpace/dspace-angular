@@ -5,15 +5,8 @@ import { Config } from './config.interface';
  */
 export interface MyDSpaceConfig extends Config {
   /**
-   * The list of additional metadatas to display at the end of the item component
+   * The list of additional metadata fields to display at the end of the item component
    */
-  additionalMetadatas: AdditionalMetaConfig[]
+   additionalMetadataFields:  string[]
 }
 
-/**
- * Config that represents an additional metadata.
- * Contains a value matching a metadata code.
- */
-export interface AdditionalMetaConfig extends Config {
-  value: string;
-}

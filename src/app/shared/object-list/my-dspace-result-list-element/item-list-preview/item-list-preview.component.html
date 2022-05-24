@@ -38,8 +38,8 @@
         <span [ngClass]="{'text-muted': !item.firstMetadataValue('dc.description.abstract')}"
               [innerHTML]="(item.firstMetadataValue('dc.description.abstract')) || ('mydspace.results.no-abstract' | translate)"></span>
           </ds-truncatable-part>
-          <div *ngIf="additionalMetadatas" class="item-list-additional">
-            <ds-truncatable-part *ngFor="let meta of item.allMetadataValues(additionalMetadatas)" [id]="item.id" [minLines]="1">
+          <div *ngIf="additionalMetadataFields" class="item-list-additional">
+            <ds-truncatable-part *ngFor="let meta of item.allMetadataValues(additionalMetadataFields)" [id]="item.id" [minLines]="1">
               <span class='text-muted item-additional' [innerHTML]="meta"></span>
             </ds-truncatable-part>
           </div>

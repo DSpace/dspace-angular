@@ -42,9 +42,9 @@ export class ItemListPreviewComponent implements OnInit {
   @Input() showSubmitter = false;
 
   /**
-   * A list of additional metadatas to display
+   * A list of additional metadata fields to display
    */
-  public additionalMetadatas: string[];
+  public additionalMetadataFields: string[];
 
   /**
    * Display thumbnails if required by configuration
@@ -62,8 +62,8 @@ export class ItemListPreviewComponent implements OnInit {
   ngOnInit(): void {
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
     this.dsoTitle = this.dsoNameService.getName(this.item);
-    if (hasValue(environment.myDSpace) && isNotEmpty(environment.myDSpace.additionalMetadatas)) {
-      this.additionalMetadatas = environment.myDSpace.additionalMetadatas.map(m => m.value);
+    if (hasValue(environment.myDSpace) && isNotEmpty(environment.myDSpace.additionalMetadataFields)) {
+      this.additionalMetadataFields = environment.myDSpace.additionalMetadataFields;
     }
   }
 
