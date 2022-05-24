@@ -172,7 +172,6 @@ import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { EditItem } from './submission/models/edititem.model';
 import { EditItemDataService } from './submission/edititem-data.service';
 import { EditItemMode } from './submission/models/edititem-mode.model';
-import { EditItemModeDataService } from './submission/edititemmode-data.service';
 import { AuditDataService } from './audit/audit-data.service';
 import { Audit } from './audit/model/audit.model';
 import { ItemExportFormat } from './itemexportformat/model/item-export-format.model';
@@ -336,7 +335,6 @@ const PROVIDERS = [
   OrcidQueueService,
   OrcidHistoryService,
   EditItemDataService,
-  EditItemModeDataService,
   EditItemRelationsGuard,
   SequenceService,
   GroupDataService,

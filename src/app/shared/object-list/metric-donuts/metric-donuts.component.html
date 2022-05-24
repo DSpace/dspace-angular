@@ -1,4 +1,10 @@
-<ng-container *ngFor="let metric of donuts() | async;  trackBy:identify">
-    <ds-metric-loader class="d-inline-block" [metric]="metric" [hideLabel]="true"></ds-metric-loader>
-</ng-container>
-
+<div class="flex-row d-flex ml-4">
+  <ng-container *ngFor="let metric of donuts() | async; trackBy: identify">
+    <ds-metric-loader
+      class="d-inline-block d-flex flex-col mr-2"
+      [metric]="metric"
+      [isListElement]="true"
+      [hideLabel]="true"
+    ></ds-metric-loader>
+  </ng-container>
+</div>

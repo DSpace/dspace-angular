@@ -27,6 +27,8 @@ export enum FeatureID {
   CanDeleteVersion = 'canDeleteVersion',
   CanCreateVersion = 'canCreateVersion',
   CanViewUsageStatistics = 'canViewUsageStatistics',
+  CanViewLoginStatistics = 'canViewLoginStatistics',
+  CanViewWorkflowStatistics = 'canViewWorkflowStatistics',
   CanSendFeedback = 'canSendFeedback',
   ShowClaimItem = 'showClaimItem',
   CanClaimItem = 'canClaimItem',

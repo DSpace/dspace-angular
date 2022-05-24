@@ -85,7 +85,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    */
   formatter = (x: { display: string }) => {
     return (typeof x === 'object') ? x.display : x;
-  }
+  };
 
   /**
    * Converts a stream of text values from the `<input>` element to the stream of the array of items
@@ -121,7 +121,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       tap(() => this.changeSearchingStatus(false)),
       merge(this.hideSearchingWhenUnsubscribed$)
     );
-  }
+  };
 
   /**
    * Initialize the component, setting up the init form value

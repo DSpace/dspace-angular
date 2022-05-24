@@ -21,7 +21,7 @@ import { AuthService } from '../../core/auth/auth.service';
   selector: 'ds-statistics-page',
   template: ''
 })
-export abstract class StatisticsPageComponent<T extends DSpaceObject> implements OnInit {
+export abstract class StatisticsPageComponent<T extends DSpaceObject> {
 
   /**
    * The scope dso for this statistics page, as an Observable.
@@ -47,16 +47,6 @@ export abstract class StatisticsPageComponent<T extends DSpaceObject> implements
     protected nameService: DSONameService,
     protected authService: AuthService,
   ) {
-  }
-
-  ngOnInit(): void {
-    // this.scope$ = this.getScope$();
-    // this.reports$ = this.getReports$();
-    // this.hasData$ = this.reports$.pipe(
-    //   map((reports) => reports.some(
-    //     (report) => report.points.length > 0
-    //   )),
-    // );
   }
 
   /**

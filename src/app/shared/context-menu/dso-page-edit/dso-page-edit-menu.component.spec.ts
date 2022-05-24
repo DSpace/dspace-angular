@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DsoPageEditMenuComponent } from './dso-page-edit-menu.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
@@ -18,9 +18,8 @@ describe('DsoPageEditMenuComponent', () => {
 
   let authorizationService: AuthorizationDataService;
   let dso: DSpaceObject;
-  // tslint:disable-next-line:prefer-const
-  let notificationService = new NotificationsServiceStub();
-  beforeEach(async(() => {
+  const notificationService = new NotificationsServiceStub();
+  beforeEach(waitForAsync(() => {
     dso = Object.assign(new Item(), {
       id: 'test-item',
       _links: {

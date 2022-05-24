@@ -33,6 +33,7 @@ import { GroupAdministratorGuard } from './core/data/feature-authorization/featu
 import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
+import { StatisticsAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
 
 @NgModule({
   imports: [
@@ -143,8 +144,8 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
           },
           {
             path: 'explore',
-            loadChildren: () => import('./+explore/explore.module')
-              .then((m) => m.ExploreModule),
+            loadChildren: () => import('./explore-page/explore-page.module')
+              .then((m) => m.ExplorePageModule),
           },
           {
             path: ADMIN_MODULE_PATH,
@@ -237,7 +238,6 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
             path: 'statistics',
             loadChildren: () => import('./statistics-page/statistics-page-routing.module')
               .then((m) => m.StatisticsPageRoutingModule),
-            canActivate: [SiteAdministratorGuard]
           },
           {
             path: ACCESS_CONTROL_MODULE_PATH,

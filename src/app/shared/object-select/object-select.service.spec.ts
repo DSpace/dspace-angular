@@ -19,23 +19,23 @@ describe('ObjectSelectService', () => {
   const mockObjectId = 'id1';
 
   const selectionStore: Store<ObjectSelectionListState> = jasmine.createSpyObj('selectionStore', {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
     select: of(true)
   });
 
   const store: Store<ObjectSelectionsState> = jasmine.createSpyObj('store', {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
     select: of(true)
   });
 
   const appStore: Store<AppState> = jasmine.createSpyObj('appStore', {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
     select: of(true)
   });
 

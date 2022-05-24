@@ -59,8 +59,8 @@ export function createTranslateLoader() {
         deps: []
       }
     }),
+    AppModule,
     ServerModule,
-    AppModule
   ],
   providers: [
     // Initialize app config and extend environment

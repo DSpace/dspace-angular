@@ -19,6 +19,8 @@ import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
+import { MetadataValue } from "../../../core/shared/metadata.models";
+import { By } from "@angular/platform-browser";
 
 const externalEntry = Object.assign(new ExternalSourceEntry(), {
   id: '0001-0001-0001-0001',
@@ -155,6 +157,37 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
       expect(compAsAny.submissionService.createSubmissionFromExternalSource).toHaveBeenCalledWith(externalEntry._links.self.href, emittedEvent.collection.id);
       expect(compAsAny.router.navigateByUrl).toHaveBeenCalledWith('/workspaceitems/' + submissionObjects[0].id + '/edit');
       done();
+    });
+
+    it('Should render truncatable part', () => {
+      comp.externalSourceEntry = externalEntry;
+      comp.externalSourceEntry.metadata = {
+        "dc.description.abstract": [
+          {
+            "uuid": "9096d13d-fc37-4e91-b13b-0f04e0e366e9",
+            "language": null,
+            "value": "has many mechanisms of resistance to fluoroquinolones. The main mechanism is to change the effect of two enzymes that open the DNA helix - the enzyme DNA gyrase () and the topoisomerase IV (). In addition, mutations that render the MexAB-oprM pump () dysfunctional, leading to its overexpression, also enhance resistance to fluoroquinolones. In this study, we aim to detect point mutations of , , and  genes that are predicted to be associated with fluoroquinolone resistance in 141 fluoroquinolone-resistant clinical isolates of  isolated in Vietnam during 2013-2016.",
+            "place": -1,
+            "authority": null,
+            "confidence": -1
+          } as MetadataValue
+        ]
+      };
+      fixture.detectChanges();
+      expect(fixture.debugElement.query(By.css('#truncatable'))).toBeTruthy();
+    });
+
+    it('Should not render truncatable part', () => {
+      comp.externalSourceEntry = externalEntry;
+      comp.externalSourceEntry.metadata = {
+        'dc.identifier.uri': [
+          {
+            value: 'https://orcid.org/0001-0001-0001-0001'
+          } as MetadataValue
+        ]
+      }
+      fixture.detectChanges();
+      expect(fixture.debugElement.query(By.css('#truncatable'))).toBeFalsy();
     });
   });
 });

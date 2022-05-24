@@ -38,10 +38,10 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
   @Input() abstract group: FormGroup;
   @Input() abstract model: DsDynamicInputModel;
 
-  @Output() abstract blur: EventEmitter<any> = new EventEmitter<any>();
-  @Output() abstract change: EventEmitter<any> = new EventEmitter<any>();
-  @Output() abstract focus: EventEmitter<any> = new EventEmitter<any>();
-  @Output() abstract customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
+  @Output() abstract blur: EventEmitter<any>;
+  @Output() abstract change: EventEmitter<any>;
+  @Output() abstract focus: EventEmitter<any>;
+  @Output() abstract customEvent: EventEmitter<DynamicFormControlCustomEvent>;
 
   /**
    * The vocabulary entry
@@ -246,7 +246,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       if (hasValue(otherInformation)) {
         const updatedModels = [];
         for (const key in otherInformation) {
-          if (otherInformation.hasOwnProperty(key)) {
+          if (otherInformation.hasOwnProperty(key) && key.startsWith('data-')) {
             const fieldId = key.replace('data-', '');
             const newValue: FormFieldMetadataValueObject = this.getOtherInformationValue(otherInformation[key]);
             if (isNotEmpty(newValue)) {

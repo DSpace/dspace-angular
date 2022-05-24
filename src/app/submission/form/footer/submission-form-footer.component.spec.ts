@@ -17,6 +17,10 @@ import { SubmissionRestService } from '../../../core/submission/submission-rest.
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 
+const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
+
+const submissionId = mockSubmissionId;
+
 describe('SubmissionFormFooterComponent Component', () => {
 
   let comp: SubmissionFormFooterComponent;
@@ -24,9 +28,6 @@ describe('SubmissionFormFooterComponent Component', () => {
   let fixture: ComponentFixture<SubmissionFormFooterComponent>;
   let submissionRestServiceStub: SubmissionRestServiceStub;
   let scheduler: TestScheduler;
-
-  const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
-  const submissionId = mockSubmissionId;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -183,22 +184,29 @@ describe('SubmissionFormFooterComponent Component', () => {
       expect(submissionServiceStub.dispatchDeposit).toHaveBeenCalledWith(submissionId);
     });
 
-    it('should call dispatchDiscard on discard confirmation', (done) => {
-      comp.showDepositAndDiscard = observableOf(true);
-      fixture.detectChanges();
-      const modalBtn = fixture.debugElement.query(By.css('.btn-danger'));
+    describe('on discard confirmation', () => {
+      beforeEach((done) => {
+        comp.showDepositAndDiscard = observableOf(true);
+        fixture.detectChanges();
+        const modalBtn = fixture.debugElement.query(By.css('.btn-danger'));
 
-      modalBtn.nativeElement.click();
-      fixture.detectChanges();
+        modalBtn.nativeElement.click();
+        fixture.detectChanges();
 
-      const confirmBtn: any = ((document as any).querySelector('.btn-danger:nth-child(2)'));
-      confirmBtn.click();
+        const confirmBtn: any = ((document as any).querySelector('.btn-danger:nth-child(2)'));
 
-      fixture.detectChanges();
+        console.log(confirmBtn);
 
-      fixture.whenStable().then(() => {
+        confirmBtn.click();
+
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          done();
+        });
+      });
+
+      it('should call dispatchDiscard', () => {
         expect(submissionServiceStub.dispatchDiscard).toHaveBeenCalledWith(submissionId);
-        done();
       });
     });
 

@@ -109,7 +109,7 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
   /**
    * Hook called on init to initialized the required information used to reload the object.
    */
-  // tslint:disable-next-line:no-empty
+  // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function
   initReloadAnchor() {}
 
   /**

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { Component, Inject, OnInit } from '@angular/core';
+import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { getRemoteDataPayload, redirectOn4xx } from '../../core/shared/operators';
@@ -13,6 +13,8 @@ import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { getForbiddenRoute } from '../../app-routing-paths';
 import { RemoteData } from '../../core/data/remote-data';
 import { Location } from '@angular/common';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { NativeWindowRef, NativeWindowService } from '../../core/services/window.service';
 
 @Component({
   selector: 'ds-bitstream-download-page',
@@ -26,8 +28,12 @@ export class BitstreamDownloadPageComponent implements OnInit {
   bitstream$: Observable<Bitstream>;
   bitstreamRD$: Observable<RemoteData<Bitstream>>;
 
+  fileName$: Observable<string>;
+
+  hasHistory = this._window.nativeWindow.history.length > 1;
 
   constructor(
+    @Inject(NativeWindowService) private _window: NativeWindowRef,
     private route: ActivatedRoute,
     protected router: Router,
     private authorizationService: AuthorizationDataService,
@@ -35,12 +41,17 @@ export class BitstreamDownloadPageComponent implements OnInit {
     private fileService: FileService,
     private hardRedirectService: HardRedirectService,
     private location: Location,
+    private nameService: DSONameService,
   ) {
 
   }
 
   back(): void {
     this.location.back();
+  }
+
+  close(): void {
+    this._window.nativeWindow.self.close();
   }
 
   ngOnInit(): void {
@@ -51,6 +62,11 @@ export class BitstreamDownloadPageComponent implements OnInit {
     this.bitstream$ = this.bitstreamRD$.pipe(
       redirectOn4xx(this.router, this.auth),
       getRemoteDataPayload()
+    );
+
+    this.fileName$ = this.bitstream$.pipe(
+      map((bitstream: Bitstream) => this.nameService.getName(bitstream)),
+      startWith('file'),
     );
 
     this.bitstream$.pipe(

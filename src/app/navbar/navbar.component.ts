@@ -11,9 +11,9 @@ import { getFirstSucceededRemoteListPayload } from '../core/shared/operators';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { environment } from '../../environments/environment';
-import { take } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { SectionDataService } from '../core/layout/section-data.service';
-import { Observable } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { Section } from '../core/layout/models/section.model';
 
@@ -34,6 +34,23 @@ export class NavbarComponent extends MenuComponent {
    */
   menuID = MenuID.PUBLIC;
 
+  private activatedRoutesLastChild: ActivatedRoute;
+
+  /**
+   * The boolean to check if user can view Usage
+   */
+  private _canViewUsage: boolean;
+
+  /**
+   * The boolean to check if user can view Login
+   */
+  private _canViewLogin: boolean;
+
+  /**
+   * The boolean to check if user can view Workflow
+   */
+  private _canViewWorkflow: boolean;
+
   constructor(protected menuService: MenuService,
               protected injector: Injector,
               public windowService: HostWindowService,
@@ -46,8 +63,18 @@ export class NavbarComponent extends MenuComponent {
   }
 
   ngOnInit(): void {
-    this.createMenu();
-    super.ngOnInit();
+    this.activatedRoutesLastChild = this.getActivatedRoute(this.route);
+    combineLatest([
+      this.getAuthorizedUsageStatistics(),
+      this.getAuthorizedLoginStatistics(),
+      this.getAuthorizedWorkflowStatistics()
+    ]).pipe(take(1)).subscribe(([canViewUsage, canViewLogin, canViewWorkflow]) => {
+      this._canViewUsage = canViewUsage;
+      this._canViewLogin = canViewLogin;
+      this._canViewWorkflow = canViewWorkflow;
+      this.createMenu();
+      super.ngOnInit();
+    });
   }
 
   /**
@@ -73,63 +100,62 @@ export class NavbarComponent extends MenuComponent {
       menuList.push(CommunityCollectionMenuItem);
     }
 
+    if (this._canViewUsage || this._canViewLogin || this._canViewWorkflow) {
+      menuList.push(
+        {
+          id: 'statistics',
+          active: false,
+          visible: true,
+          index: 1,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.statistics'
+          } as TextMenuItemModel,
+        }
+      );
 
-    this.isCurrentUserAdmin().subscribe(((isAdmin) => {
-
-        if (isAdmin) {
-
-          menuList.push(
-            {
-              id: 'statistics',
-              active: false,
-              visible: true,
-              index: 1,
-              model: {
-                type: MenuItemType.TEXT,
-                text: 'menu.section.statistics'
-              } as TextMenuItemModel,
-            }
-          );
-
-          menuList.push({
-            id: 'statistics_site',
-            parentID: 'statistics',
-            active: false,
-            visible: true,
-            model: {
-            type: MenuItemType.LINK,
-              text: 'menu.section.statistics.site',
-              link: '/statistics'
+      if (this._canViewUsage) {
+        menuList.push({
+          id: 'statistics_site',
+          parentID: 'statistics',
+          active: false,
+          visible: true,
+          model: {
+          type: MenuItemType.LINK,
+            text: 'menu.section.statistics.site',
+            link: '/statistics'
           } as LinkMenuItemModel
         });
-
-          menuList.push({
-            id: 'statistics_login',
-            parentID: 'statistics',
-            active: false,
-            visible: true,
-            model: {
-              type: MenuItemType.LINK,
-              text: 'menu.section.statistics.login',
-              link: '/statistics/login'
-            } as LinkMenuItemModel
-          });
-
-          menuList.push({
-            id: 'statistics_workflow',
-            parentID: 'statistics',
-            active: false,
-            visible: true,
-            model: {
-              type: MenuItemType.LINK,
-              text: 'menu.section.statistics.workflow',
-              link: '/statistics/workflow'
-            } as LinkMenuItemModel
-          });
-        }
       }
 
-    ));
+      if (this._canViewLogin) {
+        menuList.push({
+          id: 'statistics_login',
+          parentID: 'statistics',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.statistics.login',
+            link: '/statistics/login'
+          } as LinkMenuItemModel
+        });
+      }
+
+      if (this._canViewWorkflow) {
+        menuList.push({
+          id: 'statistics_workflow',
+          parentID: 'statistics',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.statistics.workflow',
+            link: '/statistics/workflow'
+          } as LinkMenuItemModel
+        });
+      }
+    }
 
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
       shouldPersistOnRouteChange: true
@@ -155,13 +181,47 @@ export class NavbarComponent extends MenuComponent {
             }));
           });
       });
-
   }
 
-  isCurrentUserAdmin(): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, undefined, undefined)
-      .pipe(
-        take(1)
-      );
+  /**
+   *  Checking authorization for Usage
+   */
+  getAuthorizedUsageStatistics() {
+    return this.activatedRoutesLastChild.data.pipe(
+      switchMap((data) => {
+        return this.authorizationService.isAuthorized(FeatureID.CanViewUsageStatistics, this.getObjectUrl(data)).pipe(
+          map((canViewUsageStatistics: boolean) => {
+            return canViewUsageStatistics;
+          }));
+      })
+    );
+  }
+
+  /**
+   *  Checking authorization for Login
+   */
+  getAuthorizedLoginStatistics() {
+    return this.activatedRoutesLastChild.data.pipe(
+      switchMap((data) => {
+        return this.authorizationService.isAuthorized(FeatureID.CanViewLoginStatistics, this.getObjectUrl(data)).pipe(
+          map((canViewLoginStatistics: boolean) => {
+            return canViewLoginStatistics;
+          }));
+      })
+    );
+  }
+
+  /**
+   *  Checking authorization for Workflow
+   */
+  getAuthorizedWorkflowStatistics() {
+    return this.activatedRoutesLastChild.data.pipe(
+      switchMap((data) => {
+        return this.authorizationService.isAuthorized(FeatureID.CanViewWorkflowStatistics, this.getObjectUrl(data)).pipe(
+          map((canViewWorkflowStatistics: boolean) => {
+            return canViewWorkflowStatistics;
+          }));
+      })
+    );
   }
 }

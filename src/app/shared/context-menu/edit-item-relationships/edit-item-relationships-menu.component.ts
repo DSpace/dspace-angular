@@ -6,7 +6,7 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue, isNotEmpty } from '../../empty.util';
 import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';
 import { followLink } from '../../utils/follow-link-config.model';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload, getPaginatedListPayload } from '../../../core/shared/operators';
 import { EditItem } from '../../../core/submission/models/edititem.model';
 import { EditItemDataService } from '../../../core/submission/edititem-data.service';
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
@@ -123,15 +123,14 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
 
   initialize(): void {
     // Retrieve edit modes
-    this.subs.push(this.editItemService.findById(this.contextMenuObject.id + ':none', false, true, followLink('modes')).pipe(
-      getAllSucceededRemoteDataPayload(),
-      mergeMap((editItem: EditItem) => editItem.modes.pipe(
-        getFirstSucceededRemoteListPayload())
-      ),
-      startWith([])
-    ).subscribe((editModes: EditItemMode[]) => {
-      this.editModes$.next(editModes);
-    }));
+    this.subs.push(
+      this.editItemService.searchEditModesById(this.contextMenuObject.id).pipe(
+        getAllSucceededRemoteDataPayload(),
+        getPaginatedListPayload(),
+        startWith([])
+      ).subscribe((editModes: EditItemMode[]) => {
+        this.editModes$.next(editModes);
+      }));
 
     // Retrieve tabs by UUID of item
     this.subs.push(this.tabService.findByItem(this.contextMenuObject.id, false).pipe(

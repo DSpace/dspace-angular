@@ -56,11 +56,14 @@ export class Metric implements CacheableObject {
   @autoserialize
   rank: number;
 
+  @autoserialize
+  icon?: string;
+
   /**
    * The {@link HALLink}s for this Metric
    */
   @deserialize
   _links: {
-    self: HALLink,
+    self: HALLink;
   };
 }

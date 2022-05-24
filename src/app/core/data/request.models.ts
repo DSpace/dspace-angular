@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { SortOptions } from '../cache/models/sort-options.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from './parsing.service';
@@ -12,7 +13,6 @@ import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing
 import { environment } from '../../../environments/environment';
 import { PathableObjectError } from './request.reducer';
 
-/* tslint:disable:max-classes-per-file */
 
 // uuid and handle requests have separate endpoints
 export enum IdentifierType {
@@ -282,4 +282,3 @@ export class RequestError extends Error {
   statusText: string;
   errors?: PathableObjectError[];
 }
-/* tslint:enable:max-classes-per-file */

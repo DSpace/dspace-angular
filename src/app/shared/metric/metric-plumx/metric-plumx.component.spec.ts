@@ -1,9 +1,11 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {MetricPlumxComponent} from './metric-plumx.component';
-import {Injector} from '@angular/core';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateLoaderMock} from '../../mocks/translate-loader.mock';
-import {By} from '@angular/platform-browser';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MetricPlumxComponent } from './metric-plumx.component';
+import { Injector } from '@angular/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { By } from '@angular/platform-browser';
+import { ListMetricPropsPipe } from '../pipes/list-metric-props/list-metric-props.pipe';
+import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
 
 describe('MetricPlumxComponent', () => {
   let component: MetricPlumxComponent;
@@ -25,7 +27,7 @@ describe('MetricPlumxComponent', () => {
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MetricPlumxComponent],
+      declarations: [MetricPlumxComponent, ListMetricPropsPipe],
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
@@ -33,7 +35,8 @@ describe('MetricPlumxComponent', () => {
         }
       })],
       providers: [
-        {provide: Injector, useValue: Injector}
+        { provide: Injector, useValue: Injector },
+        { provide: NativeWindowService, useValue: new NativeWindowRef() },
       ],
     })
       .compileComponents();
