@@ -1,7 +1,7 @@
 <ds-alert [type]="'alert-info'" *ngIf="hasNoData()" [content]="'submission.sections.sherpa-policy.title-empty'">
 </ds-alert>
 
-<div *ngIf="!hasNoData()" class="refresh-container mt-2 mb-2">
+<div *ngIf="!hasNoData()" class="d-flex justify-content-end mt-2 mb-2">
     <button type="button" class="btn btn-secondary pull-right" (click)="refresh()">
         <span><i class="fas fa-sync"></i> {{'submission.sections.sherpa.publisher.policy.refresh' | translate}} </span>
     </button>
