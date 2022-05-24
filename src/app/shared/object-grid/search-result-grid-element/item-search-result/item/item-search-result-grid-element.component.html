@@ -18,6 +18,7 @@
       </span>
       <div class="card-body">
           <ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
+          <ds-access-status-badge [item]="dso"></ds-access-status-badge>
           <ds-truncatable-part [id]="dso.id" [minLines]="3" type="h4">
               <h4 class="card-title" [innerHTML]="firstMetadataValue('dc.title')"></h4>
           </ds-truncatable-part>
