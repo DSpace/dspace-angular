@@ -109,6 +109,11 @@ export class MetadataService {
   private processRouteChange(routeInfo: any): void {
     this.clearMetaTags();
 
+    if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
+      this.currentObject.next(routeInfo.data.value.dso.payload);
+      this.setDSOMetaTags();
+    }
+
     if (routeInfo.data.value.title) {
       const titlePrefix = this.translate.get('repository.title.prefix');
       const title = this.translate.get(routeInfo.data.value.title, routeInfo.data.value);
@@ -121,11 +126,6 @@ export class MetadataService {
       this.translate.get(routeInfo.data.value.description).pipe(take(1)).subscribe((translatedDescription: string) => {
         this.addMetaTag('description', translatedDescription);
       });
-    }
-
-    if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
-      this.currentObject.next(routeInfo.data.value.dso.payload);
-      this.setDSOMetaTags();
     }
   }
 

@@ -6,7 +6,7 @@ import { BrowseByConfig } from './browse-by-config.interface';
 import { CacheConfig } from './cache-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { FormConfig } from './form-config.interfaces';
-import { ItemPageConfig } from './item-page-config.interface';
+import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
@@ -14,6 +14,7 @@ import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.model';
 import { UIServerConfig } from './ui-server-config.interface';
+import { BundleConfig } from './bundle-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -110,6 +111,9 @@ export class DefaultAppConfig implements AppConfig {
        */
       timer: 0
     },
+    typeBind: {
+      field: 'dc.type'
+    },
     icons: {
       metadata: [
         /**
@@ -183,6 +187,7 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'pt-PT', label: 'Português', active: true },
     { code: 'pt-BR', label: 'Português do Brasil', active: true },
     { code: 'fi', label: 'Suomi', active: true },
+    { code: 'tr', label: 'Türkçe', active: true },
     { code: 'bn', label: 'বাংলা', active: true }
   ];
 
@@ -196,11 +201,13 @@ export class DefaultAppConfig implements AppConfig {
     defaultLowerLimit: 1900
   };
 
-  // Item Page Config
-  item: ItemPageConfig = {
+  // Item Config
+  item: ItemConfig = {
     edit: {
       undoTimeout: 10000 // 10 seconds
-    }
+    },
+    // Show the item access status label in items lists
+    showAccessStatuses: false
   };
 
   // Collection Page Config
@@ -300,6 +307,11 @@ export class DefaultAppConfig implements AppConfig {
       ]
     },
   ];
+  // The default bundles that should always be displayed when you edit or add a bundle even when no bundle has been
+  // added to the item yet.
+  bundle: BundleConfig = {
+    standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE']
+  };
   // Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with "image" or "video").
   // For images, this enables a gallery viewer where you can zoom or page through images.
   // For videos, this enables embedded video streaming

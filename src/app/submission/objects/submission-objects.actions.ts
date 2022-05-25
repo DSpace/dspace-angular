@@ -421,7 +421,8 @@ export class SaveSubmissionFormSuccessAction implements Action {
   payload: {
     submissionId: string;
     submissionObject: SubmissionObject[];
-    notify?: boolean
+    showNotifications?: boolean;
+    showErrors?: boolean;
   };
 
   /**
@@ -431,9 +432,13 @@ export class SaveSubmissionFormSuccessAction implements Action {
    *    the submission's ID
    * @param submissionObject
    *    the submission's Object
+   * @param showNotifications
+   *    a boolean representing if to show notifications on save
+   * @param showErrors
+   *    a boolean representing if to show errors on save
    */
-  constructor(submissionId: string, submissionObject: SubmissionObject[], notify?: boolean) {
-    this.payload = { submissionId, submissionObject, notify };
+  constructor(submissionId: string, submissionObject: SubmissionObject[], showNotifications?: boolean, showErrors?: boolean) {
+    this.payload = { submissionId, submissionObject, showNotifications, showErrors };
   }
 }
 

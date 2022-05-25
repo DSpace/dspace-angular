@@ -97,7 +97,7 @@ const DECLARATIONS = [
     SectionsService,
     SubmissionUploadsConfigService,
     SubmissionAccessesConfigService,
-    SectionAccessesService
+    SectionAccessesService,
   ]
 })
 
