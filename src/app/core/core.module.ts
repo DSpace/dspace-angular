@@ -75,7 +75,6 @@ import { RegistryService } from './registry/registry.service';
 import { RoleService } from './roles/role.service';
 import { FeedbackDataService } from './feedback/feedback-data.service';
 
-import { ApiService } from './services/api.service';
 import { ServerResponseService } from './services/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from './services/window.service';
 import { BitstreamFormat } from './shared/bitstream-format.model';
@@ -191,7 +190,6 @@ const DECLARATIONS = [];
 const EXPORTS = [];
 
 const PROVIDERS = [
-  ApiService,
   AuthenticatedGuard,
   CommunityDataService,
   CollectionDataService,

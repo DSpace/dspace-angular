@@ -22,12 +22,21 @@
     </div>
 
     <ng-container *ngVar="(groupsRD$ | async)?.payload?.page as groups">
-      <div *ngIf="groups">
+      <div *ngIf="groups?.length > 0">
         <h3 class="mt-4">{{'profile.groups.head' | translate}}</h3>
         <ul class="list-group list-group-flush">
           <li *ngFor="let group of groups" class="list-group-item">{{group.name}}</li>
         </ul>
       </div>
+    </ng-container>
+
+    <ng-container *ngVar="(specialGroupsRD$ | async)?.payload?.page as specialGroups">
+      <div *ngIf="specialGroups?.length > 0" data-test="specialGroups">
+        <h3 class="mt-4">{{'profile.special.groups.head' | translate}}</h3>
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let specialGroup of specialGroups" class="list-group-item">{{specialGroup.name}}</li>
+        </ul>
+     </div>
     </ng-container>
   </div>
 </ng-container>

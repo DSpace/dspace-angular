@@ -175,7 +175,7 @@ import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component'
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { RSSComponent } from './rss-feed/rss.component';
 import { ExternalLinkMenuItemComponent } from './menu/menu-item/external-link-menu-item.component';
-
+import { BrowserOnlyPipe } from './utils/browser-only.pipe';
 const MODULES = [
   CommonModule,
   SortablejsModule,
@@ -216,7 +216,8 @@ const PIPES = [
   ObjectKeysPipe,
   ObjectValuesPipe,
   ConsolePipe,
-  ObjNgFor
+  ObjNgFor,
+  BrowserOnlyPipe,
 ];
 
 const COMPONENTS = [
