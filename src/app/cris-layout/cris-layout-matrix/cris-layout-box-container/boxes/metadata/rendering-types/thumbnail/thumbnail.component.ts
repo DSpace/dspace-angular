@@ -44,19 +44,6 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
   ngOnInit(): void {
     this.setDefaultImage();
     this.getBitstreams()
-      .pipe(
-        map((bitstreams: Bitstream[]) => {
-          return bitstreams.filter((bitstream) => {
-            const metadataValue = bitstream.firstMetadataValue(
-              this.field.bitstream.metadataField
-            );
-            return (
-              hasValue(metadataValue) &&
-              metadataValue === this.field.bitstream.metadataValue
-            );
-          });
-        })
-      )
       .subscribe((bitstreams: Bitstream[]) => {
         if (bitstreams.length > 0) {
           this.bitstream$.next(bitstreams[0]);
