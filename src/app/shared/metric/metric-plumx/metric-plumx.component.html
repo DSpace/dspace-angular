@@ -1,6 +1,7 @@
 <div class="row d-flex align-items-center justify-content-center" *ngIf="remark && !(isHidden$ | async)">
   <div *ngIf="(remark | dsListMetricProps: 'type':isListElement) == 'Person'; else publication" [ngClass]="{'person-type-plumX': isListElement}">
-    <a *ngIf="remark && (remark | dsListMetricProps: 'data-person-badge-enabled':isListElement == true)"
+    <a
+      *ngIf="remark && (remark | dsListMetricProps: 'data-person-badge-enabled':isListElement == true)"
       [href]="remark | dsListMetricProps: 'href':isListElement"
       class="plumx-person"
       data-site="plum"
@@ -11,24 +12,22 @@
       [attr.data-no-stats]="remark | dsListMetricProps: 'data-no-stats':isListElement"
       [attr.data-no-thumbnail]="remark | dsListMetricProps: 'data-no-thumbnail':isListElement"
       [attr.data-no-artifacts]="remark | dsListMetricProps: 'data-no-artifacts':isListElement"
-    >
-      {{ remark | dsListMetricProps: "placeholder":isListElement }}
-    </a>
+    >{{ remark | dsListMetricProps: "placeholder":isListElement }}</a>
   </div>
   <ng-template #publication>
-    <a *ngIf="remark && (remark | dsListMetricProps: 'data-publication-badge-enabled':isListElement == true)"
+    <a
+      *ngIf="remark && (remark | dsListMetricProps: 'data-publication-badge-enabled':isListElement == true)"
       [attr.data-popup]="remark | dsListMetricProps: 'data-popup':isListElement"
       [attr.data-hide-when-empty]="remark | dsListMetricProps: 'data-hide-when-empty':isListElement"
       [attr.data-hide-usage]="remark | dsListMetricProps: 'data-hide-usage':isListElement"
       [attr.data-hide-captures]="remark | dsListMetricProps: 'data-hide-captures':isListElement"
       [attr.data-hide-mentions]="remark | dsListMetricProps: 'data-hide-mentions':isListElement"
+      [attr.data-hide-socialmedia]="remark | dsListMetricProps: 'data-hide-socialmedia':isListElement"
       [attr.data-hide-citations]="remark | dsListMetricProps: 'data-hide-citations':isListElement"
       [attr.data-pass-hidden-categories]="remark | dsListMetricProps: 'data-pass-hidden-categories':isListElement"
       [attr.data-detail-same-page]="remark | dsListMetricProps: 'data-detail-same-page':isListElement"
       [href]="remark | dsListMetricProps: 'href':isListElement"
       class="plumx-plum-print-popup"
-    >
-    {{ remark | dsListMetricProps: "placeholder":isListElement }}
-    </a>
+    >{{ remark | dsListMetricProps: "placeholder":isListElement }}</a>
   </ng-template>
 </div>
