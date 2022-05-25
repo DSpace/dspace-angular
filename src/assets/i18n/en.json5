@@ -3161,6 +3161,10 @@
 
   "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
 
+  "resource-policies.edit.page.target-failure.content": "An error occurred while editing the target (ePerson or group) of the resource policy.",
+
+  "resource-policies.edit.page.other-failure.content": "An error occurred while editing the resource policy. The target (ePerson or group) has been successfully updated.",
+
   "resource-policies.edit.page.success.content": "Operation successful",
 
   "resource-policies.edit.page.title": "Edit resource policy",
@@ -3182,6 +3186,16 @@
   "resource-policies.form.eperson-group-list.table.headers.id": "ID",
 
   "resource-policies.form.eperson-group-list.table.headers.name": "Name",
+
+  "resource-policies.form.eperson-group-list.modal.header": "Cannot change type",
+
+  "resource-policies.form.eperson-group-list.modal.text1.toGroup": "It is not possible to replace an ePerson with a group.",
+
+  "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "It is not possible to replace a group with an ePerson.",
+
+  "resource-policies.form.eperson-group-list.modal.text2": "Delete the current resource policy and create a new one with the desired type.",
+
+  "resource-policies.form.eperson-group-list.modal.close": "Ok",
 
   "resource-policies.form.date.end.label": "End Date",
 
