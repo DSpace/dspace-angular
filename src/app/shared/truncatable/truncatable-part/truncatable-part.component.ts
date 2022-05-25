@@ -116,23 +116,21 @@ export class TruncatablePartComponent implements AfterContentChecked, OnInit, On
    * Function to get data to be observed
    */
   toObserve() {
-    this.observedContent = this.document.querySelectorAll('.content');
+    this.observedContent = this.document.querySelectorAll('.content:not(.notruncatable)');
     this.observer = new (this._window.nativeWindow as any).ResizeObserver((entries) => {
        for (let entry of entries) {
-        if (!entry.target.classList.contains('notruncatable')) {
-          if (entry.target.scrollHeight > entry.contentRect.height) {
-            if (entry.target.children.length > 0) {
-              if (entry.target.children[0].offsetHeight > entry.contentRect.height) {
-                entry.target.classList.add('truncated');
-              } else {
-                entry.target.classList.remove('truncated');
-              }
-            } else {
+        if (entry.target.scrollHeight > entry.contentRect.height) {
+          if (entry.target.children.length > 0) {
+            if (entry.target.children[entry.target.children.length - 1].offsetHeight > entry.contentRect.height) {
               entry.target.classList.add('truncated');
+            } else {
+              entry.target.classList.remove('truncated');
             }
           } else {
-            entry.target.classList.remove('truncated');
+            entry.target.classList.add('truncated');
           }
+        } else {
+          entry.target.classList.remove('truncated');
         }
       }
     });
