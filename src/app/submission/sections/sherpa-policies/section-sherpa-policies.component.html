@@ -8,7 +8,7 @@
 </div>
 
 <ng-container *ngVar="(sherpaPoliciesData$ | async)?.sherpaResponse as sherpaData">
-    <ng-container *ngIf="!hasNoData() && !sherpaData.error">
+    <ng-container *ngIf="!hasNoData() && (!!sherpaData && !sherpaData.error)">
         <ng-container *ngFor="let journal of sherpaData.journals;let j=index;">
             <div class="mb-3 border-bottom" data-test="collapse">
                 <div class="w-100 d-flex justify-content-between collapse-toggle" (click)="collapse.toggle()">
@@ -59,7 +59,7 @@
         </div>
     </ng-container>
 
-    <ng-container *ngIf="sherpaData.error">
+    <ng-container *ngIf="!!sherpaData && sherpaData.error">
         <ds-alert [type]="AlertTypeEnum.Error"
             [content]="!!sherpaData.message ? sherpaData.message : 'submission.sections.sherpa.error.message'| translate">
         </ds-alert>
