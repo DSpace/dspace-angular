@@ -1,7 +1,7 @@
-import { AlertType } from './../../../shared/alert/aletr-type';
-import { Component, Inject, QueryList, ViewChildren } from '@angular/core';
+import { AlertType } from '../../../shared/alert/aletr-type';
+import { Component, Inject } from '@angular/core';
 
-import { BehaviorSubject, interval, Observable, of, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
