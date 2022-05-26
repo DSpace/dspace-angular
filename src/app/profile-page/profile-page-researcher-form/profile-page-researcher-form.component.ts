@@ -80,6 +80,7 @@ export class ProfilePageResearcherFormComponent implements OnInit {
     this.processingCreate$.next(true);
 
     this.authService.getAuthenticatedUserFromStore().pipe(
+      take(1),
       switchMap((currentUser) => this.profileClaimService.hasProfilesToSuggest(currentUser)))
       .subscribe((hasProfilesToSuggest) => {
 
