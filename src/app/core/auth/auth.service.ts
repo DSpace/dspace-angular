@@ -44,13 +44,18 @@ import {
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { RouteService } from '../services/route.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
-import { getAllSucceededRemoteDataPayload } from '../shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../shared/operators';
 import { AuthMethod } from './models/auth.method';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { RemoteData } from '../data/remote-data';
 import { environment } from '../../../environments/environment';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { buildPaginatedList, PaginatedList } from '../data/paginated-list.model';
+import { Group } from '../eperson/models/group.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { PageInfo } from '../shared/page-info.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -209,6 +214,22 @@ export class AuthService {
    */
   public checkAuthenticationToken() {
     this.store.dispatch(new CheckAuthenticationTokenAction());
+  }
+
+  /**
+   * Return the special groups list embedded in the AuthStatus model
+   */
+  public getSpecialGroupsFromAuthStatus(): Observable<RemoteData<PaginatedList<Group>>> {
+    return this.authRequestService.getRequest('status', null, followLink('specialGroups')).pipe(
+      getFirstCompletedRemoteData(),
+      switchMap((status: RemoteData<AuthStatus>) => {
+        if (status.hasSucceeded) {
+          return status.payload.specialGroups;
+        } else {
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(),[]));
+        }
+      })
+    );
   }
 
   /**

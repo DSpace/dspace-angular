@@ -20,6 +20,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { By } from '@angular/platform-browser';
+import { EmptySpecialGroupDataMock$, SpecialGroupDataMock$ } from '../shared/testing/special-group.mock';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 
@@ -68,7 +69,8 @@ describe('ProfilePageComponent', () => {
     };
     authorizationService = jasmine.createSpyObj('authorizationService', { isAuthorized: canChangePassword });
     authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: observableOf(user)
+      getAuthenticatedUserFromStore: observableOf(user),
+      getSpecialGroupsFromAuthStatus: SpecialGroupDataMock$
     });
     epersonService = jasmine.createSpyObj('epersonService', {
       findById: createSuccessfulRemoteDataObject$(user),
@@ -259,6 +261,27 @@ describe('ProfilePageComponent', () => {
         });
       });
     });
+
+  describe('check for specialGroups', () => {
+    it('should contains specialGroups list', () => {
+      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+      expect(specialGroupsEle).toBeTruthy();
+    });
+
+    it('should not contains specialGroups list', () => {
+      component.specialGroupsRD$ = null;
+      fixture.detectChanges();
+      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+      expect(specialGroupsEle).toBeFalsy();
+    });
+
+    it('should not contains specialGroups list', () => {
+      component.specialGroupsRD$ = EmptySpecialGroupDataMock$;
+      fixture.detectChanges();
+      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+      expect(specialGroupsEle).toBeFalsy();
+    });
+  });
   });
 
   describe('isResearcherProfileEnabled', () => {

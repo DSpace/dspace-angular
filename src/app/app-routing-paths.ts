@@ -70,6 +70,12 @@ export function getWorkflowItemModuleRoute() {
   return `/${WORKFLOW_ITEM_MODULE_PATH}`;
 }
 
+export const WORKSPACE_ITEM_MODULE_PATH = 'workspaceitems';
+
+export function getWorkspaceItemModuleRoute() {
+  return `/${WORKSPACE_ITEM_MODULE_PATH}`;
+}
+
 export function getDSORoute(dso: DSpaceObject): string {
   if (hasValue(dso)) {
     switch ((dso as any).type) {
