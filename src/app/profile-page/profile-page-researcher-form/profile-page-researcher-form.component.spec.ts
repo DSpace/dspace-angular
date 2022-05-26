@@ -156,9 +156,15 @@ describe('ProfilePageResearcherFormComponent', () => {
   });
 
   describe('deleteProfile', () => {
+    beforeEach(() => {
+      const modalService = (component as any).modalService;
+      spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: observableOf(true) }) }));
+      component.deleteProfile(profile);
+      fixture.detectChanges();
+    });
 
     it('should delete the profile', () => {
-      component.deleteProfile(profile);
+
       expect(researcherProfileService.delete).toHaveBeenCalledWith(profile);
     });
 

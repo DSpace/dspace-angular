@@ -17,6 +17,7 @@ import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { isNotEmpty } from '../../shared/empty.util';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'ds-profile-page-researcher-form',
@@ -113,15 +114,26 @@ export class ProfilePageResearcherFormComponent implements OnInit {
    * @param researcherProfile the profile to delete
    */
   deleteProfile(researcherProfile: ResearcherProfile): void {
-    this.processingDelete$.next(true);
-    this.researcherProfileService.delete(researcherProfile)
-      .subscribe((deleted) => {
-        if (deleted) {
-          this.researcherProfile$.next(null);
-          this.researcherProfileItemId = null;
-        }
-        this.processingDelete$.next(false);
-      });
+    const modalRef = this.modalService.open(ConfirmationModalComponent);
+    modalRef.componentInstance.headerLabel = 'confirmation-modal.delete-profile.header';
+    modalRef.componentInstance.infoLabel = 'confirmation-modal.delete-profile.info';
+    modalRef.componentInstance.cancelLabel = 'confirmation-modal.delete-profile.cancel';
+    modalRef.componentInstance.confirmLabel = 'confirmation-modal.delete-profile.confirm';
+    modalRef.componentInstance.brandColor = 'danger';
+    modalRef.componentInstance.confirmIcon = 'fas fa-trash';
+    modalRef.componentInstance.response.pipe(take(1)).subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.processingDelete$.next(true);
+        this.researcherProfileService.delete(researcherProfile)
+          .subscribe((deleted) => {
+            if (deleted) {
+              this.researcherProfile$.next(null);
+              this.researcherProfileItemId = null;
+            }
+            this.processingDelete$.next(false);
+          });
+      }
+    });
   }
 
   /**
