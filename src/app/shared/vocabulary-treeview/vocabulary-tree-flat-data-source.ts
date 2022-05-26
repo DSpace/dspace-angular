@@ -38,7 +38,7 @@ export class VocabularyTreeFlatDataSource<T, F> extends DataSource<F> {
       this._treeControl.expansionModel.changed,
       this._flattenedData
     ];
-    return merge(...changes).pipe(map(() => {
+    return merge<any>(...changes).pipe(map((): F[] => {
       this._expandedData.next(
         this._treeFlattener.expandFlattenedNodes(this._flattenedData.value, this._treeControl));
       return this._expandedData.value;

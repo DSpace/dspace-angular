@@ -27,6 +27,16 @@
 
   "404.page-not-found": "page not found",
 
+  "access-status.embargo.listelement.badge": "Embargo",
+
+  "access-status.metadata.only.listelement.badge": "Metadata only",
+
+  "access-status.open.access.listelement.badge": "Open Access",
+
+  "access-status.restricted.listelement.badge": "Restricted",
+
+  "access-status.unknown.listelement.badge": "Unknown",
+
   "admin.curation-tasks.breadcrumbs": "System curation tasks",
 
   "admin.curation-tasks.title": "System curation tasks",
@@ -538,6 +548,10 @@
 
   "admin.metadata-import.page.error.addFile": "Select file first!",
 
+  "admin.metadata-import.page.validateOnly": "Validate Only",
+
+  "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
+
 
 
 
@@ -650,6 +664,8 @@
 
 
 
+  "browse.back.all-results": "All browse results",
+
   "browse.comcol.by.author": "By Author",
 
   "browse.comcol.by.dateissued": "By Issue Date",
@@ -682,13 +698,17 @@
 
   "pagination.previous.button": "Previous",
 
+  "pagination.next.button.disabled.tooltip": "No more pages of results",
+
+  "browse.startsWith": ", starting with {{ startsWith }}",
+
   "browse.startsWith.choose_start": "(Choose start)",
 
   "browse.startsWith.choose_year": "(Choose year)",
 
   "browse.startsWith.choose_year.label": "Choose the issue year",
 
-  "browse.startsWith.jump": "Jump to a point in the index:",
+  "browse.startsWith.jump": "Filter results by year or month",
 
   "browse.startsWith.months.april": "April",
 
@@ -720,13 +740,15 @@
 
   "browse.startsWith.submit": "Browse",
 
-  "browse.startsWith.type_date": "Or type in a date (year-month) and click 'Browse'",
+  "browse.startsWith.type_date": "Filter results by date",
 
   "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
 
-  "browse.startsWith.type_text": "Type the first few letters and click on the Browse button",
+  "browse.startsWith.type_text": "Filter results by typing the first few letters",
 
-  "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+  "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
+
+  "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
 
 
   "chips.remove": "Remove chip",
@@ -1083,9 +1105,13 @@
 
   "comcol-role.edit.create": "Create",
 
+  "comcol-role.edit.create.error.title": "Failed to create a group for the '{{ role }}' role",
+
   "comcol-role.edit.restrict": "Restrict",
 
   "comcol-role.edit.delete": "Delete",
+
+  "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
 
 
   "comcol-role.edit.community-admin.name": "Administrators",
@@ -1379,6 +1405,9 @@
   "error.validation.groupExists": "This group already exists",
 
 
+  "feed.description": "Syndication feed",
+
+
   "file-section.error.header": "Error obtaining files for this item",
 
 
@@ -1643,7 +1672,7 @@
 
   "item.bitstreams.upload.bundle": "Bundle",
 
-  "item.bitstreams.upload.bundle.placeholder": "Select a bundle",
+  "item.bitstreams.upload.bundle.placeholder": "Select a bundle or input new bundle name",
 
   "item.bitstreams.upload.bundle.new": "Create bundle",
 
@@ -2139,6 +2168,22 @@
   "item.preview.dc.subject": "Subjects:",
 
   "item.preview.dc.title": "Title:",
+
+  "item.preview.dc.type": "Type:",
+
+  "item.preview.oaire.citation.issue" : "Issue",
+
+  "item.preview.oaire.citation.volume" : "Volume",
+
+  "item.preview.dc.relation.issn" : "ISSN",
+
+  "item.preview.dc.identifier.isbn" : "ISBN",
+
+  "item.preview.dc.identifier": "Identifier:",
+
+  "item.preview.dc.relation.ispartof" : "Journal or Serie",
+
+  "item.preview.dc.identifier.doi" : "DOI",
 
   "item.preview.person.familyName": "Surname:",
 
@@ -2861,6 +2906,8 @@
 
   "profile.groups.head": "Authorization groups you belong to",
 
+  "profile.special.groups.head": "Authorization special groups you belong to",
+
   "profile.head": "Update Profile",
 
   "profile.metadata.form.error.firstname.required": "First Name is required",
@@ -3114,6 +3161,10 @@
 
   "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
 
+  "resource-policies.edit.page.target-failure.content": "An error occurred while editing the target (ePerson or group) of the resource policy.",
+
+  "resource-policies.edit.page.other-failure.content": "An error occurred while editing the resource policy. The target (ePerson or group) has been successfully updated.",
+
   "resource-policies.edit.page.success.content": "Operation successful",
 
   "resource-policies.edit.page.title": "Edit resource policy",
@@ -3135,6 +3186,16 @@
   "resource-policies.form.eperson-group-list.table.headers.id": "ID",
 
   "resource-policies.form.eperson-group-list.table.headers.name": "Name",
+
+  "resource-policies.form.eperson-group-list.modal.header": "Cannot change type",
+
+  "resource-policies.form.eperson-group-list.modal.text1.toGroup": "It is not possible to replace an ePerson with a group.",
+
+  "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "It is not possible to replace a group with an ePerson.",
+
+  "resource-policies.form.eperson-group-list.modal.text2": "Delete the current resource policy and create a new one with the desired type.",
+
+  "resource-policies.form.eperson-group-list.modal.close": "Ok",
 
   "resource-policies.form.date.end.label": "End Date",
 
@@ -3550,6 +3611,22 @@
 
   "submission.import-external.source.arxiv": "arXiv",
 
+  "submission.import-external.source.ads": "NASA/ADS",
+
+  "submission.import-external.source.cinii": "CiNii",
+
+  "submission.import-external.source.crossref": "CrossRef",
+
+  "submission.import-external.source.scielo": "SciELO",
+
+  "submission.import-external.source.scopus": "Scopus",
+
+  "submission.import-external.source.vufind": "VuFind",
+
+  "submission.import-external.source.wos": "Web Of Science",
+
+  "submission.import-external.source.epo": "European Patent Office (EPO)",
+
   "submission.import-external.source.loading": "Loading ...",
 
   "submission.import-external.source.sherpaJournal": "SHERPA Journals",
@@ -3564,9 +3641,23 @@
 
   "submission.import-external.source.pubmed": "Pubmed",
 
+  "submission.import-external.source.pubmedeu": "Pubmed Europe",
+
   "submission.import-external.source.lcname": "Library of Congress Names",
 
   "submission.import-external.preview.title": "Item Preview",
+
+  "submission.import-external.preview.title.Publication": "Publication Preview",
+
+  "submission.import-external.preview.title.none": "Item Preview",
+
+  "submission.import-external.preview.title.Journal": "Journal Preview",
+
+  "submission.import-external.preview.title.OrgUnit": "Organizational Unit Preview",
+
+  "submission.import-external.preview.title.Person": "Person Preview",
+  
+  "submission.import-external.preview.title.Project": "Project Preview",
 
   "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
 
@@ -3589,6 +3680,26 @@
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Import remote item",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Import remote event",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Import remote product",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Import remote organizational unit",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Import remote fund",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Import remote person",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Import remote patent",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Import remote project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
 
@@ -3805,6 +3916,18 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
 
@@ -4115,6 +4238,10 @@
   "submission.workflow.tasks.pool.show-detail": "Show detail",
 
 
+  "submission.workspace.generic.view": "View",
+
+  "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+
 
   "thumbnail.default.alt": "Thumbnail Image",
 
@@ -4221,6 +4348,9 @@
 
   "workflow-item.view.breadcrumbs": "Workflow View",
 
+  "workspace-item.view.breadcrumbs": "Workspace View",
+
+  "workspace-item.view.title": "Workspace View",
 
   "idle-modal.header": "Session will expire soon",
 

@@ -9,11 +9,7 @@ import { RemoteData } from '../core/data/remote-data';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-  getFirstCompletedRemoteData
-} from '../core/shared/operators';
+import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getRemoteDataPayload } from '../core/shared/operators';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { AuthService } from '../core/auth/auth.service';
@@ -44,6 +40,11 @@ export class ProfilePageComponent implements OnInit {
    * The groups the user belongs to
    */
   groupsRD$: Observable<RemoteData<PaginatedList<Group>>>;
+
+  /**
+   * The special groups the user belongs to
+   */
+  specialGroupsRD$: Observable<RemoteData<PaginatedList<Group>>>;
 
   /**
    * Prefix for the notification messages of this component
@@ -88,6 +89,7 @@ export class ProfilePageComponent implements OnInit {
     );
     this.groupsRD$ = this.user$.pipe(switchMap((user: EPerson) => user.groups));
     this.canChangePassword$ = this.user$.pipe(switchMap((user: EPerson) => this.authorizationService.isAuthorized(FeatureID.CanChangePassword, user._links.self.href)));
+    this.specialGroupsRD$ = this.authService.getSpecialGroupsFromAuthStatus();
   }
 
   /**

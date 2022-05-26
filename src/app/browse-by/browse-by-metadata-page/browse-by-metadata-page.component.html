@@ -24,7 +24,13 @@
     <section class="comcol-page-browse-section">
     <div class="browse-by-metadata w-100">
     <ds-browse-by *ngIf="startsWithOptions" class="col-xs-12 w-100"
-      title="{{'browse.title' | translate:{collection: (parent$ | async)?.payload?.name || '', field: 'browse.metadata.' + browseId | translate, value: (value)? '&quot;' + value + '&quot;': ''} }}"
+      title="{{'browse.title' | translate:
+      {
+        collection: (parent$ | async)?.payload?.name || '',
+        field: 'browse.metadata.' + browseId | translate,
+        startsWith: (startsWith)? ('browse.startsWith' | translate: { startsWith: '&quot;' + startsWith + '&quot;' }) : '',
+        value: (value)? '&quot;' + value + '&quot;': ''
+      } }}"
       parentname="{{(parent$ | async)?.payload?.name || ''}}"
       [objects$]="(items$ !== undefined)? items$ : browseEntries$"
       [paginationConfig]="(currentPagination$ |async)"
