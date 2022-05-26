@@ -17,6 +17,10 @@ export class SearchConfigurationServiceStub {
     return observableOf('test-id');
   }
 
+  getCurrentQuery(a) {
+    return observableOf(a);
+  }
+
   getCurrentConfiguration(a) {
     return observableOf(a);
   }

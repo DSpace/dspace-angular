@@ -36,6 +36,21 @@
   // "404.page-not-found": "page not found",
   "404.page-not-found": "Page introuvable",
 
+  // "access-status.embargo.listelement.badge": "Embargo",
+  "access-status.embargo.listelement.badge": "Restriction temporaire",
+
+  // "access-status.metadata.only.listelement.badge": "Metadata only",
+  "access-status.metadata.only.listelement.badge": "Métadonnées seulement",
+
+  // "access-status.open.access.listelement.badge": "Open Access",
+  "access-status.open.access.listelement.badge": "Accès libre",
+
+  // "access-status.restricted.listelement.badge": "Restricted",
+  "access-status.restricted.listelement.badge": "Restreint",
+
+  // "access-status.unknown.listelement.badge": "Unknown",
+  "access-status.unknown.listelement.badge": "Inconnu",
+
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
   "admin.curation-tasks.breadcrumbs": "Tâches de conservation système",
 

@@ -132,6 +132,12 @@ describe('WorkspaceitemActionsComponent', () => {
     expect(btn).toBeDefined();
   });
 
+  it('should display view button', () => {
+    const btn = fixture.debugElement.query(By.css('button [data-test="view-btn"]'));
+
+    expect(btn).toBeDefined();
+  });
+
   describe('on discard confirmation', () => {
     beforeEach((done) => {
       mockDataService.delete.and.returnValue(observableOf(true));

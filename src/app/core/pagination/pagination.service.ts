@@ -7,8 +7,8 @@ import { filter, map, take } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { difference } from '../../shared/object.util';
-import { isNumeric } from 'rxjs/internal-compatibility';
 import { FindListOptions } from '../data/find-list-options.model';
+import { isNumeric } from '../../shared/numeric.util';
 
 @Injectable({
   providedIn: 'root',
