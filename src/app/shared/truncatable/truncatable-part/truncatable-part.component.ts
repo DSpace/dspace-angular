@@ -1,8 +1,6 @@
-import { AfterContentChecked, Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { AfterContentChecked, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { TruncatableService } from '../truncatable.service';
 import { hasValue } from '../../empty.util';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
 
 @Component({
   selector: 'ds-truncatable-part',
@@ -43,6 +41,11 @@ export class TruncatablePartComponent implements AfterContentChecked, OnInit, On
   @Input() background = 'default';
 
   /**
+   * The view on the truncatable part
+   */
+  @ViewChild('content', {static: true}) content: ElementRef;
+
+  /**
    * Current amount of lines shown of this part
    */
   lines: string;
@@ -59,27 +62,8 @@ export class TruncatablePartComponent implements AfterContentChecked, OnInit, On
    * variable to check if expandable
    */
   expandable = false;
-  /**
-   * variable to check if it is a browser
-   */
-  isBrowser: boolean;
-  /**
-   * variable which save get observer
-   */
-  observer;
-  /**
-   * variable to save content to be observed
-   */
-  observedContent;
 
-  public constructor(
-    private service: TruncatableService,
-    @Inject(DOCUMENT) private document: any,
-    @Inject(NativeWindowService) private _window: NativeWindowRef,
-    @Inject(PLATFORM_ID) platformId: object
-    ) {
-      this.isBrowser = isPlatformBrowser(platformId);
-  }
+  public constructor(private service: TruncatableService) {}
 
   /**
    * Initialize lines variable
@@ -104,49 +88,8 @@ export class TruncatablePartComponent implements AfterContentChecked, OnInit, On
   }
 
   ngAfterContentChecked() {
-    if (this.isBrowser) {
-      if (this.observer && this.observedContent) {
-        this.toUnobserve();
-      }
-      this.toObserve();
-    }
+    this.truncateElement();
   }
-
-  /**
-   * Function to get data to be observed
-   */
-  toObserve() {
-    this.observedContent = this.document.querySelectorAll('.content:not(.notruncatable)');
-    this.observer = new (this._window.nativeWindow as any).ResizeObserver((entries) => {
-       for (let entry of entries) {
-        if (entry.target.scrollHeight > entry.contentRect.height) {
-          if (entry.target.children.length > 0) {
-            if (entry.target.children[entry.target.children.length - 1].offsetHeight > entry.contentRect.height) {
-              entry.target.classList.add('truncated');
-            } else {
-              entry.target.classList.remove('truncated');
-            }
-          } else {
-            entry.target.classList.add('truncated');
-          }
-        } else {
-          entry.target.classList.remove('truncated');
-        }
-      }
-    });
-    this.observedContent.forEach(p => {
-      this.observer.observe(p);
-    });
-  }
-
-  /**
-   * Function to remove data which is observed
-   */
-   toUnobserve() {
-    this.observedContent.forEach(p => {
-      this.observer.unobserve(p);
-    });
-   }
 
   /**
    * Expands the truncatable when it's collapsed, collapses it when it's expanded
@@ -154,6 +97,29 @@ export class TruncatablePartComponent implements AfterContentChecked, OnInit, On
   public toggle() {
     this.service.toggle(this.id);
     this.expandable = !this.expandable;
+    setTimeout(() => {
+      this.truncateElement();
+    }, 0);
+  }
+
+  /**
+   * check for the truncate element
+   */
+  public truncateElement() {
+    const entry = this.content.nativeElement;
+    if (entry.scrollHeight > entry.offsetHeight) {
+      if (entry.children.length > 0) {
+        if (entry.children[entry.children.length - 1].offsetHeight > entry.offsetHeight) {
+          entry.classList.add('truncated');
+        } else {
+          entry.classList.remove('truncated');
+        }
+      } else {
+        entry.classList.add('truncated');
+      }
+    } else {
+      entry.classList.remove('truncated');
+    }
   }
 
   /**
@@ -162,9 +128,6 @@ export class TruncatablePartComponent implements AfterContentChecked, OnInit, On
   ngOnDestroy(): void {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();
-    }
-    if (this.isBrowser) {
-      this.toUnobserve();
     }
   }
 }
