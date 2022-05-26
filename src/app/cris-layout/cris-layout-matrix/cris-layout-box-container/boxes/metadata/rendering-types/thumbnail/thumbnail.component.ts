@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
-import { hasValue } from '../../../../../../../shared/empty.util';
+import { hasValue, isEmpty, isNull, isUndefined } from '../../../../../../../shared/empty.util';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
 import { Item } from '../../../../../../../core/shared/item.model';
@@ -44,6 +44,24 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
   ngOnInit(): void {
     this.setDefaultImage();
     this.getBitstreams()
+      .pipe(
+        map((bitstreams: Bitstream[]) => {
+
+          if (isUndefined(this.field.bitstream.metadataValue) || isNull(this.field.bitstream.metadataValue) || isEmpty(this.field.bitstream.metadataValue)) {
+            return bitstreams;
+          }
+
+          return bitstreams.filter((bitstream) => {
+            const metadataValue = bitstream.firstMetadataValue(
+              this.field.bitstream.metadataField
+            );
+            return (
+              hasValue(metadataValue) &&
+              metadataValue.toLowerCase() === this.field.bitstream.metadataValue.toLowerCase()
+            );
+          });
+        })
+      )
       .subscribe((bitstreams: Bitstream[]) => {
         if (bitstreams.length > 0) {
           this.bitstream$.next(bitstreams[0]);

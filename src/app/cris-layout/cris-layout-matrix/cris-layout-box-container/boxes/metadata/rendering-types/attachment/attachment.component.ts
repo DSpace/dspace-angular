@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
@@ -9,6 +9,10 @@ import { BitstreamDataService } from '../../../../../../../core/data/bitstream-d
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { map } from 'rxjs/operators';
+import { hasValue, isEmpty, isNull } from 'src/app/shared/empty.util';
+import { isUndefined } from 'lodash';
+
 
 @Component({
   selector: 'ds-attachment',
@@ -31,7 +35,38 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
   }
 
   ngOnInit() {
-    this.bitstreams$ = this.getBitstreams();
+    this.bitstreams$ = this.getBitstreams()
+      .pipe(
+        map((bitstreams: Bitstream[]) => {
+          // if metadata value is not specified show first attachment
+          if (isUndefined(this.field.bitstream.metadataValue) || isNull(this.field.bitstream.metadataValue) || isEmpty(this.field.bitstream.metadataValue)) {
+            if (!isEmpty(bitstreams)) {
+              return [bitstreams[0]];
+            }
+          }
+
+          // if metadata value is specified filter attachment from its metadat value
+          let filteredBitstreams: Bitstream[] = bitstreams.filter((bitstream) => {
+            const metadataValue = bitstream.firstMetadataValue(
+              this.field.bitstream.metadataField
+            );
+            return (
+              hasValue(metadataValue) &&
+              metadataValue.toLowerCase() === this.field.bitstream.metadataValue.toLowerCase()
+            );
+          });
+
+          // if there are bitsterams after filtering show them if not show the first attachment
+          if (hasValue(filteredBitstreams) && !isEmpty(filteredBitstreams)) {
+            return filteredBitstreams;
+          } else if (hasValue(filteredBitstreams) && !isEmpty(bitstreams)) {
+            return [bitstreams[0]];
+          } else {
+            return [];
+          }
+
+        })
+      );
   }
 
 }
