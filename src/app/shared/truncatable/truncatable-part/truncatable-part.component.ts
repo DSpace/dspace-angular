@@ -1,4 +1,4 @@
-import { AfterContentChecked, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { TruncatableService } from '../truncatable.service';
 import { hasValue } from '../../empty.util';
 
@@ -12,7 +12,7 @@ import { hasValue } from '../../empty.util';
  * Component that truncates/clamps a piece of text
  * It needs a TruncatableComponent parent to identify it's current state
  */
-export class TruncatablePartComponent implements AfterContentChecked, OnInit, OnDestroy {
+export class TruncatablePartComponent implements AfterViewChecked, OnInit, OnDestroy {
   /**
    * Number of lines shown when the part is collapsed
    */
@@ -87,7 +87,7 @@ export class TruncatablePartComponent implements AfterContentChecked, OnInit, On
     });
   }
 
-  ngAfterContentChecked() {
+  ngAfterViewChecked() {
     this.truncateElement();
   }
 
@@ -97,9 +97,6 @@ export class TruncatablePartComponent implements AfterContentChecked, OnInit, On
   public toggle() {
     this.service.toggle(this.id);
     this.expandable = !this.expandable;
-    setTimeout(() => {
-      this.truncateElement();
-    }, 0);
   }
 
   /**
