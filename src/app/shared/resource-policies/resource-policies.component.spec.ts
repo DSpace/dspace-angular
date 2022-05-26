@@ -343,6 +343,16 @@ describe('ResourcePoliciesComponent test suite', () => {
         fixture.detectChanges();
       });
 
+      it('should call ResourcePolicyService.delete for the checked policies', () => {
+        resourcePolicyService.delete.and.returnValue(observableOf(true));
+        scheduler = getTestScheduler();
+        scheduler.schedule(() => comp.deleteSelectedResourcePolicies());
+        scheduler.flush();
+
+        // only the first one is checked
+        expect(resourcePolicyService.delete).toHaveBeenCalledWith(resourcePolicy.id);
+      });
+
       it('should notify success when delete is successful', () => {
 
         resourcePolicyService.delete.and.returnValue(observableOf(true));
