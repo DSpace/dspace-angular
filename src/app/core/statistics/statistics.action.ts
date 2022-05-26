@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 import { Action } from '@ngrx/store';
 import { type } from '../../shared/ngrx/type';
 
@@ -13,8 +15,6 @@ export const StatisticsActionTypes = {
   CLEAN_CATEGORY_REPORT: type('dspace/statistics/CLEAN_CATEGORY_REPORT'),
   SET_CATEGORY_REPORT: type('dspace/statistics/SET_CATEGORY_REPORT'),
 };
-
-/* tslint:disable:max-classes-per-file */
 
 /**
  * Used to set the select report id
@@ -45,8 +45,6 @@ export class SetCategoryReportAction implements Action {
 export class CleanCategoryReportAction implements Action {
   readonly type = StatisticsActionTypes.CLEAN_CATEGORY_REPORT;
 }
-
-/* tslint:enable:max-classes-per-file */
 
 /**
  * Export a type alias of all actions in this action group

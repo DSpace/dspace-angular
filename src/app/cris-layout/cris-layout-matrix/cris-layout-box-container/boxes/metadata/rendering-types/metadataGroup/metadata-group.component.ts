@@ -51,7 +51,7 @@ export abstract class MetadataGroupComponent extends RenderingTypeStructuredMode
   ngOnInit() {
     this.field.metadataGroup.elements.forEach((entry: LayoutField) => {
       if (this.item.metadata[entry.metadata]) {
-        const styleValue = !entry.styleValue ? this.field.styleValue :(entry.styleValue + this.field.styleValue);
+        const styleValue = !entry.styleValue ? this.field.styleValue : (entry.styleValue + this.field.styleValue);
         this.metadataGroup.push(Object.assign({}, entry, {styleValue: styleValue}) );
       }
     });

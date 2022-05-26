@@ -172,7 +172,8 @@ export class JsonPatchOperationsBuilder {
           if (typeof value[key] === 'object') {
             if (securityLevel != null) {
             operationValue[key] = this.prepareObjectValue(value[key], securityLevel);
-            } else { operationValue[key] = this.prepareObjectValue(value[key]);
+            } else {
+ operationValue[key] = this.prepareObjectValue(value[key]);
 
             }
           } else {

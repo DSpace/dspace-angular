@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
@@ -12,7 +13,6 @@ export const IndexActionTypes = {
   REMOVE_BY_SUBSTRING: type('dspace/core/index/REMOVE_BY_SUBSTRING')
 };
 
-/* tslint:disable:max-classes-per-file */
 /**
  * An ngrx action to add a value to the index
  */
@@ -86,7 +86,6 @@ export class RemoveFromIndexBySubstringAction implements Action {
   }
 
 }
-/* tslint:enable:max-classes-per-file */
 
 /**
  * A type to encompass all HrefIndexActions

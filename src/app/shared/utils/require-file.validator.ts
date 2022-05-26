@@ -2,7 +2,7 @@ import {Directive} from '@angular/core';
 import {NG_VALIDATORS, Validator, FormControl} from '@angular/forms';
 
 @Directive({
-  // tslint:disable-next-line:directive-selector
+  // eslint-disable-next-line @angular-eslint/directive-selector
     selector: '[requireFile]',
     providers: [
         { provide: NG_VALIDATORS, useExisting: FileValidator, multi: true },

@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer.component';
 import { ExploreModule } from '../shared/explore/explore.module';
 import { SharedModule } from '../shared/shared.module';
+import { ThemedFooterComponent } from './themed-footer.component';
 
 const COMPONENTS = [
-  FooterComponent
+  FooterComponent,
+  ThemedFooterComponent,
 ];
 
 @NgModule({

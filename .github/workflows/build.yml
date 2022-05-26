@@ -70,7 +70,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Run lint
-        run: yarn run lint
+        run: yarn run lint --quiet
 
       - name: Run build
         run: yarn run build:prod
@@ -127,6 +127,14 @@ jobs:
         with:
           name: e2e-test-screenshots
           path: cypress/screenshots
+
+      - name: Stop app (in case it stays up after e2e tests)
+        run: |
+          app_pid=$(lsof -t -i:4000)
+          if [[ ! -z $app_pid ]]; then
+            echo "App was still up! (PID: $app_pid)"
+            kill -9 $app_pid
+          fi
 
       # Start up the app with SSR enabled (run in background)
       - name: Start app in SSR (server-side rendering) mode

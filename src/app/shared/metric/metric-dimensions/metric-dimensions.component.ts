@@ -3,7 +3,7 @@ import { BaseEmbeddedMetricComponent } from '../metric-loader/base-embedded-metr
 import { DomSanitizer } from '@angular/platform-browser';
 import { hasValue } from '../../empty.util';
 
-declare var __dimensions_embed: any;
+declare let __dimensions_embed: any;
 
 @Component({
   selector: 'ds-metric-dimensions',

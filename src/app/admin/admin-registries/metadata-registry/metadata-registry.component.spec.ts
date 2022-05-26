@@ -52,7 +52,7 @@ describe('MetadataRegistryComponent', () => {
     }
   ];
   const mockSchemas = createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockSchemasList));
-  /* tslint:disable:no-empty */
+  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   const registryServiceStub = {
     getMetadataSchemas: () => mockSchemas,
     getActiveMetadataSchema: () => observableOf(undefined),
@@ -66,7 +66,7 @@ describe('MetadataRegistryComponent', () => {
     },
     clearMetadataSchemaRequests: () => observableOf(undefined)
   };
-  /* tslint:enable:no-empty */
+  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   paginationService = new PaginationServiceStub();
 

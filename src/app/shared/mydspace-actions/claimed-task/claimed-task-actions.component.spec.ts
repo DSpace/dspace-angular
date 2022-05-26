@@ -170,7 +170,7 @@ describe('ClaimedTaskActionsComponent', () => {
       fixture.whenStable().then(() => {
         const debugElement = fixture.debugElement.query(By.css('.workflow-view'));
         expect(debugElement).toBeTruthy();
-        expect(debugElement.nativeElement.innerText).toBe('submission.workflow.generic.view');
+        expect(debugElement.nativeElement.innerText.trim()).toBe('submission.workflow.generic.view');
       });
 
     }));

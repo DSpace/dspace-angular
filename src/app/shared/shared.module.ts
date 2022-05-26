@@ -20,7 +20,6 @@ import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core'
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FileUploadModule } from 'ng2-file-upload';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { TextMaskModule } from 'angular2-text-mask';
 import { MomentModule } from 'ngx-moment';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import { ExportMetadataSelectorComponent } from './dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
@@ -228,7 +227,6 @@ const MODULES = [
   RouterModule,
   NouisliderModule,
   MomentModule,
-  TextMaskModule,
   DragDropModule,
   CdkTreeModule,
   MetricsModule
@@ -323,8 +321,6 @@ const COMPONENTS = [
   ClaimItemSelectorComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
-  BrowseByComponent,
-
   CollectionSearchResultGridElementComponent,
   CommunitySearchResultGridElementComponent,
   PageSizeSelectorComponent,
@@ -333,13 +329,10 @@ const COMPONENTS = [
   CommunityListElementComponent,
   CollectionGridElementComponent,
   CommunityGridElementComponent,
-  BrowseByComponent,
   AbstractTrackableComponent,
   ComcolMetadataComponent,
   TypeBadgeComponent,
-  BrowseByComponent,
   AbstractTrackableComponent,
-
   ItemSelectComponent,
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,

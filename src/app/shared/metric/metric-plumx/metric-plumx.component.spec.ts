@@ -5,6 +5,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
 import { ListMetricPropsPipe } from '../pipes/list-metric-props/list-metric-props.pipe';
+import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
 
 describe('MetricPlumxComponent', () => {
   let component: MetricPlumxComponent;
@@ -34,7 +35,8 @@ describe('MetricPlumxComponent', () => {
         }
       })],
       providers: [
-        {provide: Injector, useValue: Injector}
+        { provide: Injector, useValue: Injector },
+        { provide: NativeWindowService, useValue: new NativeWindowRef() },
       ],
     })
       .compileComponents();

@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 import { Action } from '@ngrx/store';
 import { type } from '../../../shared/ngrx/type';
 import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
@@ -19,8 +21,6 @@ export const SuggestionTargetActionTypes = {
   REFRESH_USER_SUGGESTIONS: type('dspace/integration/openaire/suggestions/target/REFRESH_USER_SUGGESTIONS'),
   MARK_USER_SUGGESTIONS_AS_VISITED: type('dspace/integration/openaire/suggestions/target/MARK_USER_SUGGESTIONS_AS_VISITED')
 };
-
-/* tslint:disable:max-classes-per-file */
 
 /**
  * An ngrx action to retrieve all the Suggestion Targets.
@@ -138,8 +138,6 @@ export class MarkUserSuggestionsAsVisitedAction implements Action {
 export class ClearSuggestionTargetsAction implements Action {
   type = SuggestionTargetActionTypes.CLEAR_TARGETS;
 }
-
-/* tslint:enable:max-classes-per-file */
 
 /**
  * Export a type alias of all actions in this action group

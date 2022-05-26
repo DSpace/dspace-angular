@@ -1,8 +1,9 @@
-import { Component, Injector, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 import { hasValue } from '../../empty.util';
 import { MetricLoadScriptService } from '../metric-loader/metric-load-script.service';
+import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
+
 @Component({
   selector: 'ds-metric-plumx',
   templateUrl: './metric-plumx.component.html',
@@ -12,7 +13,9 @@ export class MetricPlumxComponent extends BaseMetricComponent implements OnInit 
   remark: JSON;
   private metricLoaderService: MetricLoadScriptService;
 
-  constructor(protected sr: DomSanitizer, protected injector: Injector) {
+  constructor(
+    @Inject(NativeWindowService) protected _window: NativeWindowRef,
+    protected injector: Injector) {
     super();
   }
 
@@ -26,7 +29,7 @@ export class MetricPlumxComponent extends BaseMetricComponent implements OnInit 
       this.metricLoaderService = this.injector.get(MetricLoadScriptService);
       await this.metricLoaderService.loadScript('plumX', script);
       // use the method to find and render all placeholders that haven't already been initialized
-      window[`__plumX`].widgets.init();
+      this._window.nativeWindow.__plumX.widgets.init();
     }
   }
 }

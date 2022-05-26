@@ -1,7 +1,7 @@
 <ul class="navbar-nav" [ngClass]="{'mr-auto': (isXsOrSm$ | async)}">
   <li *ngIf="!(isAuthenticated | async) && !(isXsOrSm$ | async) && (showAuth | async)" class="nav-item"
       (click)="$event.stopPropagation();">
-    <div ngbDropdown #loginDrop display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
+    <div ngbDropdown #loginDrop display="dynamic" placement="bottom-right" class="d-inline-block" data-test="login-menu" @fadeInOut>
       <a href="javascript:void(0);" class="dropdownLogin px-1 " [attr.aria-label]="'nav.login' |translate" (click)="$event.preventDefault()" ngbDropdownToggle>
         {{ 'nav.login' | translate }}
       </a>
@@ -17,7 +17,7 @@
       {{ 'nav.login' | translate }}<span class="sr-only">(current)</span>
     </a>
   </li>
-  <li *ngIf="(isAuthenticated | async) && !(isXsOrSm$ | async) && (showAuth | async)" class="nav-item">
+  <li *ngIf="(isAuthenticated | async) && !(isXsOrSm$ | async) && (showAuth | async)" class="nav-item" data-test="user-menu">
     <div ngbDropdown display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
       <a href="javascript:void(0);" role="button" [attr.aria-label]="'nav.logout' |translate" (click)="$event.preventDefault()" [title]="'nav.logout' | translate" class="px-1" ngbDropdownToggle>
         <i class="fas fa-user-circle fa-lg fa-fw"></i></a>

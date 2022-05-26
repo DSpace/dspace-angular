@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { LinkMenuItemComponent } from './link-menu-item.component';
 import { RouterLinkDirectiveStub } from '../../testing/router-link-directive.stub';
 import { environment } from '../../../../environments/environment';
+import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { Router } from '@angular/router';
 
@@ -14,19 +15,21 @@ describe('LinkMenuItemComponent', () => {
   let debugElement: DebugElement;
   let text;
   let link;
+  let queryParams;
 
   function init() {
     text = 'HELLO';
     link = 'http://google.com';
+    queryParams = {params: true};
   }
 
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [LinkMenuItemComponent, RouterLinkDirectiveStub],
+      declarations: [LinkMenuItemComponent, RouterLinkDirectiveStub, QueryParamsDirectiveStub],
       providers: [
-        { provide: 'itemModelProvider', useValue: { text: text, link: link } },
+        { provide: 'itemModelProvider', useValue: { text: text, link: link, queryParams: queryParams } },
         { provide: Router, useValue: RouterStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -56,5 +59,13 @@ describe('LinkMenuItemComponent', () => {
 
     expect(routerLinkQuery.length).toBe(1);
     expect(routerLinkQuery[0].routerLink).toBe(environment.ui.nameSpace + link);
+  });
+
+  it('should have the right queryParams attribute', () => {
+    const queryDes = fixture.debugElement.queryAll(By.directive(QueryParamsDirectiveStub));
+    const routerParamsQuery = queryDes.map((de) => de.injector.get(QueryParamsDirectiveStub));
+
+    expect(routerParamsQuery.length).toBe(1);
+    expect(routerParamsQuery[0].queryParams).toBe(queryParams);
   });
 });

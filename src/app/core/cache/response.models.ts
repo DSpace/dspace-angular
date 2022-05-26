@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { RequestError } from '../data/request.models';
 import { PageInfo } from '../shared/page-info.model';
 import { ConfigObject } from '../config/models/config.model';
@@ -5,7 +6,6 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALLink } from '../shared/hal-link.model';
 import { UnCacheableObject } from '../shared/uncacheable-object.model';
 
-/* tslint:disable:max-classes-per-file */
 export class RestResponse {
   public toCache = true;
   public timeCompleted: number;
@@ -140,5 +140,3 @@ export class FilteredDiscoveryQueryResponse extends RestResponse {
     super(true, statusCode, statusText);
   }
 }
-
-/* tslint:enable:max-classes-per-file */

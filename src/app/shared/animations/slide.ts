@@ -33,8 +33,7 @@ const options = { params: { sidebarWidth: '*' } };
 export const slideSidebar = trigger('slideSidebar', [
 
   transition('expanded => collapsed',
-    group
-    (
+    group(
       [
         query('@*', animateChild()),
         query('.sidebar-collapsible', expandedStyle, options),
@@ -43,8 +42,7 @@ export const slideSidebar = trigger('slideSidebar', [
     )),
 
   transition('collapsed => expanded',
-    group
-    (
+    group(
       [
         query('@*', animateChild()),
         query('.sidebar-collapsible', collapsedStyle),
