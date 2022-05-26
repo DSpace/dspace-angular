@@ -11,6 +11,7 @@ import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
+import { createNoContentRemoteDataObject } from '../../shared/remote-data.utils';
 
 /**
  * Service that handle profiles claim.
@@ -28,6 +29,7 @@ export class ProfileClaimService {
    */
   hasProfilesToSuggest(eperson: EPerson): Observable<boolean> {
     return this.searchForSuggestions(eperson).pipe(
+      getFirstCompletedRemoteData(),
       map((rd: RemoteData<SearchObjects<DSpaceObject>>) => {
         return isNotEmpty(rd) && rd.hasSucceeded && rd.payload?.page?.length > 0;
       })
@@ -42,7 +44,7 @@ export class ProfileClaimService {
   searchForSuggestions(eperson: EPerson): Observable<RemoteData<SearchObjects<DSpaceObject>>> {
     const query = this.personQueryData(eperson);
     if (isEmpty(query)) {
-      return of(null);
+      return of(createNoContentRemoteDataObject() as RemoteData<SearchObjects<DSpaceObject>>);
     }
     return this.lookup(query);
   }
@@ -54,14 +56,12 @@ export class ProfileClaimService {
    */
   private lookup(query: string): Observable<RemoteData<SearchObjects<DSpaceObject>>> {
     if (isEmpty(query)) {
-      return of(null);
+      return of(createNoContentRemoteDataObject() as RemoteData<SearchObjects<DSpaceObject>>);
     }
     return this.searchService.search(new PaginatedSearchOptions({
       configuration: 'eperson_claims',
       query: query
-    })).pipe(
-      getFirstCompletedRemoteData()
-    );
+    }));
   }
 
   /**

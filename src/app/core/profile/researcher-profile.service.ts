@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { Operation, ReplaceOperation } from 'fast-json-patch';
-import { Observable, of as observableOf } from 'rxjs';
-import { catchError, find, map, tap } from 'rxjs/operators';
+import { ReplaceOperation } from 'fast-json-patch';
+import { Observable } from 'rxjs';
+import { find, map, tap } from 'rxjs/operators';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
@@ -19,11 +19,7 @@ import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
-import {
-  getAllCompletedRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload
-} from '../shared/operators';
+import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../shared/operators';
 import { ResearcherProfile } from './model/researcher-profile.model';
 import { RESEARCHER_PROFILE } from './model/researcher-profile.resource-type';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
@@ -31,6 +27,7 @@ import { PostRequest } from '../data/request.models';
 import { hasValue } from '../../shared/empty.util';
 import { CoreState } from '../core-state.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { Item } from '../shared/item.model';
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -126,14 +123,10 @@ export class ResearcherProfileService {
    * @param researcherProfile the profile to find for
    */
   public findRelatedItemId(researcherProfile: ResearcherProfile): Observable<string> {
-    return this.itemService.findByHref(researcherProfile._links.item.href, false)
-      .pipe(getFirstSucceededRemoteDataPayload(),
-        catchError((error) => {
-          console.debug(error);
-          return observableOf(null);
-        }),
-        map((item) => item?.id)
-      );
+    return this.itemService.findByHref(researcherProfile._links.item.href, false).pipe(
+      getFirstCompletedRemoteData(),
+      map((itemRD: RemoteData<Item>) => (itemRD.hasSucceeded && itemRD.payload) ? itemRD.payload.id : null)
+    );
   }
 
   /**
@@ -149,7 +142,7 @@ export class ResearcherProfileService {
       value: visible
     };
 
-    return this.patch(researcherProfile, [replaceOperation]);
+    return this.dataService.patch(researcherProfile, [replaceOperation]);
   }
 
   /**
@@ -166,19 +159,12 @@ export class ResearcherProfileService {
     const href$ = this.halService.getEndpoint(this.dataService.getLinkPath());
 
     href$.pipe(
-      find((href: string) => hasValue(href)),
-      map((href: string) => {
-        const request = new PostRequest(requestId, href, sourceUri, options);
-        this.requestService.send(request);
-      })
-    ).subscribe();
+      find((href: string) => hasValue(href))
+    ).subscribe((endpoint: string) => {
+      const request = new PostRequest(requestId, endpoint, sourceUri, options);
+      this.requestService.send(request);
+    });
 
     return this.rdbService.buildFromRequestUUID(requestId);
-  }
-
-  private patch(researcherProfile: ResearcherProfile, operations: Operation[]): Observable<RemoteData<ResearcherProfile>> {
-    return this.dataService.patch(researcherProfile, operations).pipe(
-      getFirstCompletedRemoteData()
-    );
   }
 }

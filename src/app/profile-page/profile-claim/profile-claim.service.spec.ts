@@ -8,7 +8,7 @@ import { SearchService } from '../../core/shared/search/search.service';
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { Item } from '../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { createNoContentRemoteDataObject, createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 
 describe('ProfileClaimService', () => {
@@ -204,7 +204,7 @@ describe('ProfileClaimService', () => {
       it('should return null', () => {
         const result = service.searchForSuggestions(null);
         const expected = cold('(a|)', {
-          a: null
+          a: createNoContentRemoteDataObject()
         });
         expect(result).toBeObservable(expected);
       });

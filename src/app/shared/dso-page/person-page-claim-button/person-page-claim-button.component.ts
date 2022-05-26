@@ -55,7 +55,6 @@ export class PersonPageClaimButtonComponent implements OnInit {
     this.researcherProfileService.createFromExternalSource(this.object._links.self.href).pipe(
       getFirstCompletedRemoteData(),
       mergeMap((rd: RemoteData<ResearcherProfile>) => {
-        console.log(rd);
         if (rd.hasSucceeded) {
           return this.researcherProfileService.findRelatedItemId(rd.payload);
         } else {

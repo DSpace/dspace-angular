@@ -15,6 +15,7 @@ import { ResearcherProfile } from '../../core/profile/model/researcher-profile.m
 import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { RemoteData } from '../../core/data/remote-data';
+import { isNotEmpty } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-profile-page-researcher-form',
@@ -128,14 +129,15 @@ export class ProfilePageResearcherFormComponent implements OnInit {
    * @param researcherProfile the profile to update
    */
   toggleProfileVisibility(researcherProfile: ResearcherProfile): void {
-    this.researcherProfileService.setVisibility(researcherProfile, !researcherProfile.visible)
-      .subscribe((rd: RemoteData<ResearcherProfile>) => {
-        if (rd.hasSucceeded) {
-          this.researcherProfile$.next(rd.payload);
-        } else {
-          this.notificationService.error(null, this.translationService.get('researcher.profile.change-visibility.fail'));
-        }
-      });
+    this.researcherProfileService.setVisibility(researcherProfile, !researcherProfile.visible).pipe(
+      getFirstCompletedRemoteData()
+    ).subscribe((rd: RemoteData<ResearcherProfile>) => {
+      if (rd.hasSucceeded) {
+        this.researcherProfile$.next(rd.payload);
+      } else {
+        this.notificationService.error(null, this.translationService.get('researcher.profile.change-visibility.fail'));
+      }
+    });
   }
 
   /**
@@ -183,7 +185,9 @@ export class ProfilePageResearcherFormComponent implements OnInit {
       tap((researcherProfile) => this.researcherProfile$.next(researcherProfile)),
       mergeMap((researcherProfile) => this.researcherProfileService.findRelatedItemId(researcherProfile)),
     ).subscribe((itemId: string) => {
-      this.researcherProfileItemId = itemId;
+      if (isNotEmpty(itemId)) {
+        this.researcherProfileItemId = itemId;
+      }
     });
   }
 

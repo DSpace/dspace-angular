@@ -11,7 +11,11 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { PageInfo } from '../shared/page-info.model';
 import { buildPaginatedList } from '../data/paginated-list.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/remote-data.utils';
 import { RestResponse } from '../cache/response.models';
 import { RequestEntry } from '../data/request-entry.model';
 import { ResearcherProfileService } from './researcher-profile.service';
@@ -223,7 +227,7 @@ describe('ResearcherProfileService', () => {
     describe('without a related item', () => {
 
       beforeEach(() => {
-        (service as any).itemService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(null));
+        (service as any).itemService.findByHref.and.returnValue(createNoContentRemoteDataObject$());
       });
 
       it('should proxy the call to dataservice.findById with eperson UUID', () => {
@@ -233,10 +237,10 @@ describe('ResearcherProfileService', () => {
         expect((service as any).itemService.findByHref).toHaveBeenCalledWith(researcherProfile._links.item.href, false);
       });
 
-      it('should return a ResearcherProfile object with the given id', () => {
+      it('should not return a ResearcherProfile object with the given id', () => {
         const result = service.findRelatedItemId(researcherProfile);
         const expected = cold('(a|)', {
-          a: undefined
+          a: null
         });
         expect(result).toBeObservable(expected);
       });
@@ -246,7 +250,7 @@ describe('ResearcherProfileService', () => {
   describe('setVisibility', () => {
     let patchSpy;
     beforeEach(() => {
-      spyOn((service as any), 'patch').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
+      spyOn((service as any).dataService, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
       spyOn((service as any), 'findById').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
     });
 
@@ -260,14 +264,14 @@ describe('ResearcherProfileService', () => {
       scheduler.schedule(() => service.setVisibility(researcherProfile, true));
       scheduler.flush();
 
-      expect((service as any).patch).toHaveBeenCalledWith(researcherProfile, [replaceOperation]);
+      expect((service as any).dataService.patch).toHaveBeenCalledWith(researcherProfile, [replaceOperation]);
     });
   });
 
   describe('createFromExternalSource', () => {
     let patchSpy;
     beforeEach(() => {
-      spyOn((service as any), 'patch').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
+      spyOn((service as any).dataService, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
       spyOn((service as any), 'findById').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
     });
 

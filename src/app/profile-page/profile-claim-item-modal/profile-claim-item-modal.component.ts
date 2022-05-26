@@ -14,6 +14,7 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { CollectionElementLinkType } from '../../shared/object-collection/collection-element-link.type';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 
 /**
  * Component representing a modal that show a list of suggested profile item to claim
@@ -63,7 +64,9 @@ export class ProfileClaimItemModalComponent extends DSOSelectorModalWrapperCompo
    * Retrieve suggested profiles, if any
    */
   ngOnInit(): void {
-    this.profileClaimService.searchForSuggestions(this.dso as EPerson).subscribe(
+    this.profileClaimService.searchForSuggestions(this.dso as EPerson).pipe(
+      getFirstCompletedRemoteData(),
+    ).subscribe(
       (result: RemoteData<SearchObjects<DSpaceObject>>) => this.listEntries$.next(result)
     );
   }
