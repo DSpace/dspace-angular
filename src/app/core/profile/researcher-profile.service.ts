@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ReplaceOperation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
-import { find, map, tap } from 'rxjs/operators';
+import { find, map } from 'rxjs/operators';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
@@ -108,11 +108,6 @@ export class ResearcherProfileService {
   public delete(researcherProfile: ResearcherProfile): Observable<boolean> {
     return this.dataService.delete(researcherProfile.id).pipe(
       getFirstCompletedRemoteData(),
-      tap((response: RemoteData<NoContent>) => {
-        if (response.isSuccess) {
-          this.requestService.setStaleByHrefSubstring(researcherProfile._links.self.href);
-        }
-      }),
       map((response: RemoteData<NoContent>) => response.isSuccess)
     );
   }
