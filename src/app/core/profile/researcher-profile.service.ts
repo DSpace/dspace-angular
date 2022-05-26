@@ -26,7 +26,7 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { PostRequest } from '../data/request.models';
 import { hasValue } from '../../shared/empty.util';
 import { CoreState } from '../core-state.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Item } from '../shared/item.model';
 
 /**
@@ -123,7 +123,8 @@ export class ResearcherProfileService {
    * @param researcherProfile the profile to find for
    */
   public findRelatedItemId(researcherProfile: ResearcherProfile): Observable<string> {
-    return this.itemService.findByHref(researcherProfile._links.item.href, false).pipe(
+    const relatedItem$ = researcherProfile.item ? researcherProfile.item : this.itemService.findByHref(researcherProfile._links.item.href, false);
+    return relatedItem$.pipe(
       getFirstCompletedRemoteData(),
       map((itemRD: RemoteData<Item>) => (itemRD.hasSucceeded && itemRD.payload) ? itemRD.payload.id : null)
     );
@@ -159,12 +160,13 @@ export class ResearcherProfileService {
     const href$ = this.halService.getEndpoint(this.dataService.getLinkPath());
 
     href$.pipe(
-      find((href: string) => hasValue(href))
+      find((href: string) => hasValue(href)),
+      map((href: string) => this.dataService.buildHrefWithParams(href, [], followLink('item')))
     ).subscribe((endpoint: string) => {
       const request = new PostRequest(requestId, endpoint, sourceUri, options);
       this.requestService.send(request);
     });
 
-    return this.rdbService.buildFromRequestUUID(requestId);
+    return this.rdbService.buildFromRequestUUID(requestId, followLink('item'));
   }
 }

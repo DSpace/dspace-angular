@@ -25,6 +25,7 @@ import { Item } from '../shared/item.model';
 import { ReplaceOperation } from 'fast-json-patch';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { PostRequest } from '../data/request.models';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 describe('ResearcherProfileService', () => {
   let scheduler: TestScheduler;
@@ -86,6 +87,7 @@ describe('ResearcherProfileService', () => {
     }
   });
   const endpointURL = `https://rest.api/rest/api/profiles`;
+  const endpointURLWithEmbed = 'https://rest.api/rest/api/profiles?embed=item';
   const sourceUri = `https://rest.api/rest/api/external-source/profile`;
   const requestURL = `https://rest.api/rest/api/profiles/${researcherProfileId}`;
   const requestUUID = '8b3c613a-5a4b-438b-9686-be1d5b4a1c5a';
@@ -280,13 +282,13 @@ describe('ResearcherProfileService', () => {
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'text/uri-list');
       options.headers = headers;
-      const request = new PostRequest(requestUUID, endpointURL, sourceUri, options);
+      const request = new PostRequest(requestUUID, endpointURLWithEmbed, sourceUri, options);
 
       scheduler.schedule(() => service.createFromExternalSource(sourceUri));
       scheduler.flush();
 
       expect((service as any).requestService.send).toHaveBeenCalledWith(request);
-      expect((service as any).rdbService.buildFromRequestUUID).toHaveBeenCalledWith(requestUUID);
+      expect((service as any).rdbService.buildFromRequestUUID).toHaveBeenCalledWith(requestUUID, followLink('item'));
 
     });
   });

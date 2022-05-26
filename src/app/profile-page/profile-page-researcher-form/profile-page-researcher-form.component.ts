@@ -16,6 +16,7 @@ import { ResearcherProfileService } from '../../core/profile/researcher-profile.
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { isNotEmpty } from '../../shared/empty.util';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-profile-page-researcher-form',
@@ -180,7 +181,7 @@ export class ProfilePageResearcherFormComponent implements OnInit {
    * Initializes the researcherProfile and researcherProfileItemId attributes using the profile of the current user.
    */
   private initResearchProfile(): void {
-    this.researcherProfileService.findById(this.user.id, false).pipe(
+    this.researcherProfileService.findById(this.user.id, false, true, followLink('item')).pipe(
       getFirstSucceededRemoteDataPayload(),
       tap((researcherProfile) => this.researcherProfile$.next(researcherProfile)),
       mergeMap((researcherProfile) => this.researcherProfileService.findRelatedItemId(researcherProfile)),

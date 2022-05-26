@@ -17,6 +17,7 @@ import { ProfilePageResearcherFormComponent } from './profile-page-researcher-fo
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 describe('ProfilePageResearcherFormComponent', () => {
 
@@ -92,7 +93,7 @@ describe('ProfilePageResearcherFormComponent', () => {
   });
 
   it('should search the researcher profile for the current user', () => {
-    expect(researcherProfileService.findById).toHaveBeenCalledWith(user.id, false);
+    expect(researcherProfileService.findById).toHaveBeenCalledWith(user.id, false, true, followLink('item'));
   });
 
   describe('createProfile', () => {
