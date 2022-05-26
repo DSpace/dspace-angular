@@ -41,7 +41,7 @@ describe('objectCacheReducer', () => {
       alternativeLinks: [altLink1, altLink2],
       timeCompleted: new Date().getTime(),
       msToLive: 900000,
-      requestUUID: requestUUID1,
+      requestUUIDs: [requestUUID1],
       patches: [],
       isDirty: false,
     },
@@ -55,7 +55,7 @@ describe('objectCacheReducer', () => {
       alternativeLinks: [altLink3, altLink4],
       timeCompleted: new Date().getTime(),
       msToLive: 900000,
-      requestUUID: selfLink2,
+      requestUUIDs: [selfLink2],
       patches: [],
       isDirty: false
     }

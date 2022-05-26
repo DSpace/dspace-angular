@@ -12,7 +12,6 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { Item } from '../../../core/shared/item.model';
 import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
 import { Collection } from '../../../core/shared/collection.model';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
@@ -49,9 +48,6 @@ describe('CollectionMetadataComponent', () => {
     success: {},
     error: {}
   });
-  const objectCache = jasmine.createSpyObj('objectCache', {
-    remove: {}
-  });
   const requestService = jasmine.createSpyObj('requestService', {
     setStaleByHrefSubstring: {}
   });
@@ -65,8 +61,7 @@ describe('CollectionMetadataComponent', () => {
         { provide: ItemTemplateDataService, useValue: itemTemplateServiceStub },
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
         { provide: NotificationsService, useValue: notificationsService },
-        { provide: ObjectCacheService, useValue: objectCache },
-        { provide: RequestService, useValue: requestService }
+        { provide: RequestService, useValue: requestService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -95,20 +90,18 @@ describe('CollectionMetadataComponent', () => {
   });
 
   describe('deleteItemTemplate', () => {
-    describe('when delete returns a success', () => {
-      beforeEach(() => {
-        (itemTemplateService.deleteByCollectionID as jasmine.Spy).and.returnValue(observableOf(true));
-        comp.deleteItemTemplate();
-      });
+    beforeEach(() => {
+      (itemTemplateService.deleteByCollectionID as jasmine.Spy).and.returnValue(observableOf(true));
+      comp.deleteItemTemplate();
+    });
 
+    it('should call ItemTemplateService.deleteByCollectionID', () => {
+      expect(itemTemplateService.deleteByCollectionID).toHaveBeenCalledWith(template, 'collection-id');
+    });
+
+    describe('when delete returns a success', () => {
       it('should display a success notification', () => {
         expect(notificationsService.success).toHaveBeenCalled();
-      });
-
-      it('should reset related object and request cache', () => {
-        expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(collectionTemplateHref);
-        expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(template.self);
-        expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(collection.self);
       });
     });
 
