@@ -13,6 +13,7 @@ import { LayoutField } from '../../../../../../core/layout/models/box.model';
 import { RenderingTypeStructuredModelComponent } from './rendering-type-structured.model';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
+import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 
 /**
  * This class defines the basic model to extends for create a new
@@ -86,6 +87,21 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
         return of(thumbnailRes);
       })
     );
+  }
+
+
+  /**
+   * Returns the list of original bitstreams
+   */
+  getOriginalBitstreams(): Observable<Bitstream[]> {
+    return this.bitstreamDataService
+      .findAllByItemAndBundleName(this.item, this.field.bitstream.bundle, {}, false, false, followLink('thumbnail'))
+      .pipe(
+        getFirstCompletedRemoteData(),
+        map((response: RemoteData<PaginatedList<Bitstream>>) => {
+          return response.hasSucceeded ? response.payload.page : [];
+        })
+      );
   }
 
   /**

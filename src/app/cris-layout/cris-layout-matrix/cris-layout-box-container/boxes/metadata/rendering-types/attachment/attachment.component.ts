@@ -50,10 +50,15 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
             const metadataValue = bitstream.firstMetadataValue(
               this.field.bitstream.metadataField
             );
-            return (
-              hasValue(metadataValue) &&
-              metadataValue.toLowerCase() === this.field.bitstream.metadataValue.toLowerCase()
-            );
+
+            // if metadata value of the configuration has open and close clauses it is regex pattern
+            if (this.field.bitstream.metadataValue.startsWith('(') && this.field.bitstream.metadataValue.endsWith(')')) {
+              const pattern = new RegExp(this.field.bitstream.metadataValue);
+              return !!metadataValue.match(pattern);
+            } else {
+              return metadataValue.toLowerCase() === this.field.bitstream.metadataValue.toLowerCase();
+            }
+
           });
 
           // if there are bitsterams after filtering show them if not show the first attachment
