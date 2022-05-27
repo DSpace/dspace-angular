@@ -1,5 +1,5 @@
 <div class="d-inline-block">
-  <div class="lead item-list-title dont-break-out">{{object.display}}</div>
+  <div class="lead item-list-title dont-break-out text-info">{{object.display}}</div>
   <div *ngIf="uri"><a target="_blank" [href]="uri.value">{{uri.value}}</a></div>
   <div *ngIf="issued || contributors?.length" data-test="issued-contributor" class="d-flex align-items-center text-muted">
     <span *ngIf="issued" data-test="issued" class="item-list-date">({{issued.value | date: 'YYYY-MM-dd'}})&nbsp;</span>
