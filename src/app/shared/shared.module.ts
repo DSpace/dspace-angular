@@ -177,6 +177,7 @@ import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
+import { ThemedMetadataRepresentationListComponent } from '../item-page/simple/metadata-representation-list/themed-metadata-representation-list.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -412,6 +413,7 @@ const SHARED_ITEM_PAGE_COMPONENTS = [
   ItemAlertsComponent,
   GenericItemPageFieldComponent,
   MetadataRepresentationListComponent,
+  ThemedMetadataRepresentationListComponent,
   RelatedItemsComponent,
 
 ];
