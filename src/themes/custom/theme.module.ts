@@ -103,6 +103,7 @@ import {
   JournalVolumeComponent
 } from './app/entity-groups/journal-entities/item-pages/journal-volume/journal-volume.component';
 import { ItemSharedModule } from '../../app/item-page/item-shared.module';
+import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -150,6 +151,7 @@ const DECLARATIONS = [
   JournalComponent,
   JournalIssueComponent,
   JournalVolumeComponent,
+  AdminSidebarComponent,
 ];
 
 @NgModule({
