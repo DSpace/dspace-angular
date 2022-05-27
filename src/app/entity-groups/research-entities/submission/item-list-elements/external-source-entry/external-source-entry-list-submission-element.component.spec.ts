@@ -103,18 +103,18 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
   });
 
   it('should display the entry\'s issued', () => {
-    expect(fixture.debugElement.query(By.css('#issued'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('[data-test="issued"]'))).toBeTruthy();
   });
 
   it('should display the entry\'s contributors', () => {
-    expect(fixture.debugElement.query(By.css('#contributors'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('[data-test="contributors"]'))).toBeTruthy();
   });
 
   it('should display the entry\'s abstract', () => {
-    expect(fixture.debugElement.query(By.css('#abstract'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('[data-test="abstract"]'))).toBeTruthy();
   });
 
   it('should display the entry\'s identifiers', () => {
-    expect(fixture.debugElement.query(By.css('#identifiers'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('[data-test="identifiers"]'))).toBeTruthy();
   });
 });
