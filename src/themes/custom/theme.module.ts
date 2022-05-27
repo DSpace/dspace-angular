@@ -98,6 +98,9 @@ import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import {
   JournalIssueComponent
 } from './app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
+import {
+  JournalVolumeComponent
+} from './app/entity-groups/journal-entities/item-pages/journal-volume/journal-volume.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -143,6 +146,7 @@ const DECLARATIONS = [
   BreadcrumbsComponent,
   FeedbackComponent,
   JournalIssueComponent,
+  JournalVolumeComponent,
 ];
 
 @NgModule({
