@@ -28,6 +28,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-dat
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { JournalComponent } from './journal.component';
+import { RouteService } from '../../../../core/services/route.service';
 
 let comp: JournalComponent;
 let fixture: ComponentFixture<JournalComponent>;
@@ -86,6 +87,7 @@ describe('JournalComponent', () => {
         { provide: NotificationsService, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: RouteService, useValue: {} }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Community } from '../../core/shared/community.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EditComColPageComponent } from '../../shared/comcol-forms/edit-comcol-page/edit-comcol-page.component';
+import { EditComColPageComponent } from '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component';
 import { getCommunityPageRoute } from '../community-page-routing-paths';
 
 /**
@@ -9,7 +9,7 @@ import { getCommunityPageRoute } from '../community-page-routing-paths';
  */
 @Component({
   selector: 'ds-edit-community',
-  templateUrl: '../../shared/comcol-forms/edit-comcol-page/edit-comcol-page.component.html'
+  templateUrl: '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component.html'
 })
 export class EditCommunityPageComponent extends EditComColPageComponent<Community> {
   type = 'community';

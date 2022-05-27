@@ -5,7 +5,7 @@ import { map, take } from 'rxjs/operators';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { hasValue } from '../../shared/empty.util';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 
 /**
  * Provides utility methods to save files on the client-side.

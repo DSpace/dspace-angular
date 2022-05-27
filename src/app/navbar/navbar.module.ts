@@ -24,32 +24,26 @@ const ENTRY_COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    MenuModule,
-    FormsModule,
-    EffectsModule.forFeature(effects),
-    CoreModule.forRoot()
-  ],
-  declarations: [
-    NavbarComponent,
-    ThemedNavbarComponent,
-    NavbarSectionComponent,
-    ExpandableNavbarSectionComponent
-  ],
-  providers: [
-
-  ],
-  entryComponents: [
-    NavbarSectionComponent,
-    ExpandableNavbarSectionComponent
-  ],
-  exports: [
-    ThemedNavbarComponent,
-    NavbarSectionComponent,
-    ExpandableNavbarSectionComponent
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        MenuModule,
+        FormsModule,
+        EffectsModule.forFeature(effects),
+        CoreModule.forRoot()
+    ],
+    declarations: [
+        NavbarComponent,
+        ThemedNavbarComponent,
+        NavbarSectionComponent,
+        ExpandableNavbarSectionComponent
+    ],
+    providers: [],
+    exports: [
+        ThemedNavbarComponent,
+        NavbarSectionComponent,
+        ExpandableNavbarSectionComponent
+    ]
 })
 
 /**
@@ -58,7 +52,7 @@ const ENTRY_COMPONENTS = [
 export class NavbarModule {
   /**
    * NOTE: this method allows to resolve issue with components that using a custom decorator
-   * which are not loaded during CSR otherwise
+   * which are not loaded during SSR otherwise
    */
   static withEntryComponents() {
     return {

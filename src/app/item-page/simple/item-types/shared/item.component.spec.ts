@@ -30,6 +30,26 @@ import { GenericItemPageFieldComponent } from '../../field-components/specific-f
 import { compareArraysUsing, compareArraysUsingIds } from './item-relationships-utils';
 import { ItemComponent } from './item.component';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { RouteService } from '../../../../core/services/route.service';
+import { MetadataValue } from '../../../../core/shared/metadata.models';
+
+export const iiifEnabled = Object.assign(new MetadataValue(),{
+  'value': 'true',
+  'language': null,
+  'authority': null,
+  'confidence': -1,
+  'place': 0
+});
+
+export const iiifSearchEnabled = Object.assign(new MetadataValue(), {
+  'value': 'true',
+  'language': null,
+  'authority': null,
+  'confidence': -1,
+  'place': 0
+});
+
+export const mockRouteService = jasmine.createSpyObj('RouteService', ['getPreviousUrl']);
 
 /**
  * Create a generic test for an item-page-fields component using a mockItem and the type of component
@@ -72,6 +92,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           { provide: NotificationsService, useValue: {} },
           { provide: DefaultChangeAnalyzer, useValue: {} },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+          { provide: RouteService, useValue: {} }
         ],
 
         schemas: [NO_ERRORS_SCHEMA]

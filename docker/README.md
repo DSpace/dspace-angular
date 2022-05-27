@@ -4,6 +4,20 @@
 :warning: **NOT PRODUCTION READY**  The below Docker Compose resources are not guaranteed "production ready" at this time. They have been built for development/testing only. Therefore, DSpace Docker images may not be fully secured or up-to-date. While you are welcome to base your own images on these DSpace images/resources, these should not be used "as is" in any production scenario.
 ***
 
+## 'Dockerfile' in root directory 
+This Dockerfile is used to build a *development* DSpace 7 Angular UI image, published as 'dspace/dspace-angular'
+
+```
+docker build -t dspace/dspace-angular:dspace-7_x .
+```
+
+This image is built *automatically* after each commit is made to the `main` branch.
+
+Admins to our DockerHub repo can manually publish with the following command.
+```
+docker push dspace/dspace-angular:dspace-7_x
+```
+
 ## docker directory
 - docker-compose.yml
   - Starts DSpace Angular with Docker Compose from the current branch.  This file assumes that a DSpace 7 REST instance will also be started in Docker.
@@ -15,10 +29,6 @@
   - Docker compose file that provides a DSpace CLI container to work with a running DSpace REST container.
 - cli.assetstore.yml
   - Docker compose file that will download and install data into a DSpace REST assetstore.  This script points to a default dataset that will be utilized for CI testing.
-- environment.dev.ts
-  - Environment file for running DSpace Angular in Docker
-- local.cfg
-  - Environment file for running the DSpace 7 REST API in Docker.
 
 
 ## To refresh / pull DSpace images from Dockerhub

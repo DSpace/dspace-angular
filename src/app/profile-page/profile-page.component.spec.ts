@@ -13,10 +13,14 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { authReducer } from '../core/auth/auth.reducer';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { createPaginatedList } from '../shared/testing/utils.test';
-import { of as observableOf } from 'rxjs';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
 import { AuthService } from '../core/auth/auth.service';
 import { RestResponse } from '../core/cache/response.models';
 import { provideMockStore } from '@ngrx/store/testing';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { getTestScheduler } from 'jasmine-marbles';
+import { By } from '@angular/platform-browser';
+import { EmptySpecialGroupDataMock$, SpecialGroupDataMock$ } from '../shared/testing/special-group.mock';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
@@ -28,10 +32,13 @@ describe('ProfilePageComponent', () => {
   let epersonService;
   let notificationsService;
 
+  const canChangePassword = new BehaviorSubject(true);
+
   function init() {
     user = Object.assign(new EPerson(), {
       id: 'userId',
-      groups: createSuccessfulRemoteDataObject$(createPaginatedList([]))
+      groups: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+      _links: {self: {href: 'test.com/uuid/1234567654321'}}
     });
     initialState = {
       core: {
@@ -48,7 +55,8 @@ describe('ProfilePageComponent', () => {
     };
 
     authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: observableOf(user)
+      getAuthenticatedUserFromStore: observableOf(user),
+      getSpecialGroupsFromAuthStatus: SpecialGroupDataMock$
     });
     epersonService = jasmine.createSpyObj('epersonService', {
       findById: createSuccessfulRemoteDataObject$(user),
@@ -74,6 +82,7 @@ describe('ProfilePageComponent', () => {
         { provide: EPersonDataService, useValue: epersonService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: AuthService, useValue: authService },
+        { provide: AuthorizationDataService, useValue: jasmine.createSpyObj('authorizationService', { isAuthorized: canChangePassword }) },
         provideMockStore({ initialState }),
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -183,7 +192,7 @@ describe('ProfilePageComponent', () => {
         component.setPasswordValue('testest');
         component.setInvalid(false);
 
-        operations = [{op: 'add', path: '/password', value: 'testest'}];
+        operations = [{ op: 'add', path: '/password', value: 'testest' }];
         result = component.updateSecurity();
       });
 
@@ -194,6 +203,59 @@ describe('ProfilePageComponent', () => {
       it('should return call epersonService.patch', () => {
         expect(epersonService.patch).toHaveBeenCalledWith(user, operations);
       });
+    });
+  });
+
+  describe('canChangePassword$', () => {
+    describe('when the user is allowed to change their password', () => {
+      beforeEach(() => {
+        canChangePassword.next(true);
+      });
+
+      it('should contain true', () => {
+        getTestScheduler().expectObservable(component.canChangePassword$).toBe('(a)', { a: true });
+      });
+
+      it('should show the security section on the page', () => {
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(By.css('.security-section'))).not.toBeNull();
+      });
+    });
+
+    describe('when the user is not allowed to change their password', () => {
+      beforeEach(() => {
+        canChangePassword.next(false);
+      });
+
+      it('should contain false', () => {
+        getTestScheduler().expectObservable(component.canChangePassword$).toBe('(a)', { a: false });
+      });
+
+      it('should not show the security section on the page', () => {
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(By.css('.security-section'))).toBeNull();
+      });
+    });
+  });
+
+  describe('check for specialGroups', () => {
+    it('should contains specialGroups list', () => {
+      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+      expect(specialGroupsEle).toBeTruthy();
+    });
+
+    it('should not contains specialGroups list', () => {
+      component.specialGroupsRD$ = null;
+      fixture.detectChanges();
+      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+      expect(specialGroupsEle).toBeFalsy();
+    });
+
+    it('should not contains specialGroups list', () => {
+      component.specialGroupsRD$ = EmptySpecialGroupDataMock$;
+      fixture.detectChanges();
+      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+      expect(specialGroupsEle).toBeFalsy();
     });
   });
 });

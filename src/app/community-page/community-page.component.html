@@ -20,14 +20,14 @@
             [title]="'community.page.news'">
           </ds-comcol-page-content>
         </header>
-        <div class="pl-2">
+        <div class="pl-2 space-children-mr">
           <ds-dso-page-edit-button *ngIf="isCommunityAdmin$ | async" [pageRoute]="communityPageRoute$ | async" [dso]="communityPayload" [tooltipMsg]="'community.page.edit'"></ds-dso-page-edit-button>
         </div>
       </div>
       <section class="comcol-page-browse-section">
         <!-- Browse-By Links -->
-        <ds-comcol-page-browse-by [id]="communityPayload.id" [contentType]="communityPayload.type">
-        </ds-comcol-page-browse-by>
+        <ds-themed-comcol-page-browse-by [id]="communityPayload.id" [contentType]="communityPayload.type">
+        </ds-themed-comcol-page-browse-by>
 
         <ds-community-page-sub-community-list [community]="communityPayload"></ds-community-page-sub-community-list>
         <ds-community-page-sub-collection-list [community]="communityPayload"></ds-community-page-sub-collection-list>

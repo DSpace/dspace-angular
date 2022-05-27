@@ -12,7 +12,7 @@
             </div>
           </div>
         </div>
-        <ds-form  [formId]="'edit-bitstream-form-id'"
+        <ds-form *ngIf="formGroup" [formId]="'edit-bitstream-form-id'"
                   [formGroup]="formGroup"
                   [formModel]="formModel"
                   [formLayout]="formLayout"

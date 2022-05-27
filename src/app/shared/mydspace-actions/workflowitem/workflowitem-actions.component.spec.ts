@@ -18,6 +18,7 @@ import { getMockRequestService } from '../../mocks/request.service.mock';
 import { RequestService } from '../../../core/data/request.service';
 import { getMockSearchService } from '../../mocks/search-service.mock';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { By } from '@angular/platform-browser';
 
 let component: WorkflowitemActionsComponent;
 let fixture: ComponentFixture<WorkflowitemActionsComponent>;
@@ -103,6 +104,12 @@ describe('WorkflowitemActionsComponent', () => {
     component.initObjects(mockObject);
 
     expect(component.object).toEqual(mockObject);
+  });
+
+  it('should display view button', () => {
+    const btn = fixture.debugElement.query(By.css('button [data-test="view-btn"]'));
+
+    expect(btn).toBeDefined();
   });
 
 });

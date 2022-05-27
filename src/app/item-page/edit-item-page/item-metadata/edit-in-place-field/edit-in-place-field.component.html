@@ -1,10 +1,10 @@
 <td>
     <div class="metadata-field">
         <div *ngIf="!(editable | async)">
-            <span>{{metadata?.key?.split('.').join('.&#8203;')}}</span>
+            <span >{{metadata?.key?.split('.').join('.&#8203;')}}</span>
         </div>
         <div *ngIf="(editable | async)" class="field-container">
-            <ds-validation-suggestions [suggestions]="(metadataFieldSuggestions | async)"
+            <ds-validation-suggestions [disable]="fieldUpdate.changeType != 1" [suggestions]="(metadataFieldSuggestions | async)"
                                          [(ngModel)]="metadata.key"
                                          [url]="this.url"
                                          [metadata]="this.metadata"
@@ -26,7 +26,7 @@
 <td class="w-100">
     <div class="value-field">
         <div *ngIf="!(editable | async)">
-            <span>{{metadata?.value}}</span>
+            <span class="dont-break-out">{{metadata?.value}}</span>
         </div>
         <div *ngIf="(editable | async)" class="field-container">
             <textarea class="form-control" type="textarea" attr.aria-labelledby="fieldValue" [(ngModel)]="metadata.value" [dsDebounce]

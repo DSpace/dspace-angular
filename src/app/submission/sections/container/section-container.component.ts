@@ -64,9 +64,9 @@ export class SubmissionSectionContainerComponent implements OnInit {
   ngOnInit() {
     this.objectInjector = Injector.create({
       providers: [
-        {provide: 'collectionIdProvider', useFactory: () => (this.collectionId), deps: []},
-        {provide: 'sectionDataProvider', useFactory: () => (this.sectionData), deps: []},
-        {provide: 'submissionIdProvider', useFactory: () => (this.submissionId), deps: []},
+        { provide: 'collectionIdProvider', useFactory: () => (this.collectionId), deps: [] },
+        { provide: 'sectionDataProvider', useFactory: () => (this.sectionData), deps: [] },
+        { provide: 'submissionIdProvider', useFactory: () => (this.submissionId), deps: [] },
       ],
       parent: this.injector
     });

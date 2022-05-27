@@ -36,7 +36,7 @@ describe('ErrorComponent (inline template)', () => {
     comp = fixture.componentInstance; // ErrorComponent test instance
 
     // query for the message <label> by CSS element selector
-    de = fixture.debugElement.query(By.css('label'));
+    de = fixture.debugElement.query(By.css('ds-alert'));
     el = de.nativeElement;
   });
 

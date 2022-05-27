@@ -10,56 +10,14 @@ import {
   ShowMenuSectionAction,
   ToggleActiveMenuSectionAction
 } from './menu.actions';
-import { initialMenusState, MenuID } from './initial-menus-state';
+import { initialMenusState} from './initial-menus-state';
 import { hasValue } from '../empty.util';
-import { MenuItemModel } from './menu-item/models/menu-item.model';
-
-/**
- * Represents the state of all menus in the store
- */
-export type MenusState = {
-  [id in MenuID]: MenuState;
-};
-
-/**
- * Represents the state of a single menu in the store
- */
-export interface MenuState {
-  id: MenuID;
-  collapsed: boolean;
-  previewCollapsed: boolean;
-  visible: boolean;
-  sections: MenuSections;
-  sectionToSubsectionIndex: MenuSectionIndex;
-}
-
-/**
- * Represents the a mapping of all sections to their subsections for a menu in the store
- */
-export interface MenuSectionIndex {
-  [id: string]: string[];
-}
-
-/**
- * Represents the state of all menu sections in the store
- */
-export interface MenuSections {
-  [id: string]: MenuSection;
-}
-
-/**
- * Represents the state of a single menu section in the store
- */
-export class MenuSection {
-  id: string;
-  parentID?: string;
-  visible: boolean;
-  active: boolean;
-  model: MenuItemModel;
-  index?: number;
-  icon?: string;
-  shouldPersistOnRouteChange? = false;
-}
+import { MenusState } from './menus-state.model';
+import { MenuState } from './menu-state.model';
+import { MenuSectionIndex } from './menu-section-Index.model';
+import { MenuSections } from './menu-sections.model';
+import { MenuSection } from './menu-section.model';
+import { MenuID } from './menu-id.model';
 
 /**
  * Reducer that handles MenuActions to update the MenusState

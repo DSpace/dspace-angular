@@ -1,7 +1,7 @@
 import {of as observableOf,  Observable } from 'rxjs';
 import { RequestService } from '../../core/data/request.service';
-import { RequestEntry } from '../../core/data/request.reducer';
 import SpyObj = jasmine.SpyObj;
+import { RequestEntry } from '../../core/data/request-entry.model';
 
 export function getMockRequestService(requestEntry$: Observable<RequestEntry> = observableOf(new RequestEntry())): SpyObj<RequestService> {
   return jasmine.createSpyObj('requestService', {
@@ -13,6 +13,7 @@ export function getMockRequestService(requestEntry$: Observable<RequestEntry> = 
     isCachedOrPending: false,
     removeByHrefSubstring: observableOf(true),
     setStaleByHrefSubstring: observableOf(true),
+    setStaleByUUID: observableOf(true),
     hasByHref$: observableOf(false)
   });
 }

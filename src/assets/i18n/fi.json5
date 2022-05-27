@@ -4120,7 +4120,7 @@
   "search.filters.filter.dateSubmitted.placeholder": "Tallennnusajankohta",
 
   // "search.filters.filter.discoverable.head": "Private",
-  "search.filters.filter.discoverable.head": "Ykstyinen",
+  "search.filters.filter.discoverable.head": "Yksityinen",
 
   // "search.filters.filter.withdrawn.head": "Withdrawn",
   "search.filters.filter.withdrawn.head": "Poistettu käytöstä",

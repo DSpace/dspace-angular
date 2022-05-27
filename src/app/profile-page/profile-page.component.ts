@@ -9,15 +9,13 @@ import { RemoteData } from '../core/data/remote-data';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-  getFirstCompletedRemoteData
-} from '../core/shared/operators';
+import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getRemoteDataPayload } from '../core/shared/operators';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { AuthService } from '../core/auth/auth.service';
 import { Operation } from 'fast-json-patch';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
 
 @Component({
   selector: 'ds-profile-page',
@@ -44,6 +42,11 @@ export class ProfilePageComponent implements OnInit {
   groupsRD$: Observable<RemoteData<PaginatedList<Group>>>;
 
   /**
+   * The special groups the user belongs to
+   */
+  specialGroupsRD$: Observable<RemoteData<PaginatedList<Group>>>;
+
+  /**
    * Prefix for the notification messages of this component
    */
   NOTIFICATIONS_PREFIX = 'profile.notifications.';
@@ -67,11 +70,13 @@ export class ProfilePageComponent implements OnInit {
    * The authenticated user
    */
   private currentUser: EPerson;
+  canChangePassword$: Observable<boolean>;
 
   constructor(private authService: AuthService,
               private notificationsService: NotificationsService,
               private translate: TranslateService,
-              private epersonService: EPersonDataService) {
+              private epersonService: EPersonDataService,
+              private authorizationService: AuthorizationDataService) {
   }
 
   ngOnInit(): void {
@@ -83,6 +88,8 @@ export class ProfilePageComponent implements OnInit {
       tap((user: EPerson) => this.currentUser = user)
     );
     this.groupsRD$ = this.user$.pipe(switchMap((user: EPerson) => user.groups));
+    this.canChangePassword$ = this.user$.pipe(switchMap((user: EPerson) => this.authorizationService.isAuthorized(FeatureID.CanChangePassword, user._links.self.href)));
+    this.specialGroupsRD$ = this.authService.getSpecialGroupsFromAuthStatus();
   }
 
   /**

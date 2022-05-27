@@ -2,11 +2,12 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angul
 import { Injectable } from '@angular/core';
 import { DSpaceObjectDataService } from '../core/data/dspace-object-data.service';
 import { hasNoValue, hasValue } from '../shared/empty.util';
-import { map } from 'rxjs/operators';
-import { getFirstSucceededRemoteData } from '../core/shared/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { Observable, of as observableOf } from 'rxjs';
+import { BrowseDefinitionDataService } from '../core/browse/browse-definition-data.service';
+import { BrowseDefinition } from '../core/shared/browse-definition.model';
 
 @Injectable()
 /**
@@ -15,42 +16,46 @@ import { environment } from '../../environments/environment';
 export class BrowseByGuard implements CanActivate {
 
   constructor(protected dsoService: DSpaceObjectDataService,
-              protected translate: TranslateService) {
+              protected translate: TranslateService,
+              protected browseDefinitionService: BrowseDefinitionDataService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const title = route.data.title;
     const id = route.params.id || route.queryParams.id || route.data.id;
-    let metadataField = route.data.metadataField;
-    if (hasNoValue(metadataField) && hasValue(id)) {
-      const config = environment.browseBy.types.find((conf) => conf.id === id);
-      if (hasValue(config) && hasValue(config.metadataField)) {
-        metadataField = config.metadataField;
-      }
+    let browseDefinition$: Observable<BrowseDefinition>;
+    if (hasNoValue(route.data.browseDefinition) && hasValue(id)) {
+      browseDefinition$ = this.browseDefinitionService.findById(id).pipe(getFirstSucceededRemoteDataPayload());
+    } else {
+      browseDefinition$ = observableOf(route.data.browseDefinition);
     }
     const scope = route.queryParams.scope;
     const value = route.queryParams.value;
     const metadataTranslated = this.translate.instant('browse.metadata.' + id);
-    if (hasValue(scope)) {
-      const dsoAndMetadata$ = this.dsoService.findById(scope).pipe(getFirstSucceededRemoteData());
-      return dsoAndMetadata$.pipe(
-        map((dsoRD) => {
-          const name = dsoRD.payload.name;
-          route.data = this.createData(title, id, metadataField, name, metadataTranslated, value, route);
-          return true;
-        })
-      );
-    } else {
-      route.data = this.createData(title, id, metadataField, '', metadataTranslated, value, route);
-      return observableOf(true);
-    }
+    return browseDefinition$.pipe(
+      switchMap((browseDefinition) => {
+        if (hasValue(scope)) {
+          const dsoAndMetadata$ = this.dsoService.findById(scope).pipe(getFirstSucceededRemoteData());
+          return dsoAndMetadata$.pipe(
+            map((dsoRD) => {
+              const name = dsoRD.payload.name;
+              route.data = this.createData(title, id, browseDefinition, name, metadataTranslated, value, route);
+              return true;
+            })
+          );
+        } else {
+          route.data = this.createData(title, id, browseDefinition, '', metadataTranslated, value, route);
+          return observableOf(true);
+        }
+      })
+    );
   }
 
-  private createData(title, id, metadataField, collection, field, value, route) {
+  private createData(title, id, browseDefinition, collection, field, value, route) {
     return Object.assign({}, route.data, {
       title: title,
       id: id,
-      metadataField: metadataField,
+      browseDefinition: browseDefinition,
       collection: collection,
       field: field,
       value: hasValue(value) ? `"${value}"` : ''

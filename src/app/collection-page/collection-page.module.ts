@@ -14,6 +14,7 @@ import { SearchService } from '../core/shared/search/search.service';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { CollectionFormModule } from './collection-form/collection-form.module';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
+import { ComcolModule } from '../shared/comcol/comcol.module';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
     CollectionPageRoutingModule,
     StatisticsModule.forRoot(),
     EditItemPageModule,
-    CollectionFormModule
+    CollectionFormModule,
+    ComcolModule
   ],
   declarations: [
     CollectionPageComponent,

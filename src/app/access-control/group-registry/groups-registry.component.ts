@@ -9,7 +9,7 @@ import {
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
@@ -35,6 +35,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-groups-registry',
@@ -132,8 +133,8 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
         }
         return this.groupService.searchGroups(this.currentSearchQuery.trim(), {
           currentPage: paginationOptions.currentPage,
-          elementsPerPage: paginationOptions.pageSize
-        });
+          elementsPerPage: paginationOptions.pageSize,
+        }, true, true, followLink('object'));
       }),
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
@@ -198,7 +199,6 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
           if (rd.hasSucceeded) {
             this.deletedGroupsIds = [...this.deletedGroupsIds, group.group.id];
             this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: group.group.name }));
-            this.reset();
           } else {
             this.notificationsService.error(
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: group.group.name }),
@@ -206,17 +206,6 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
           }
       });
     }
-  }
-
-  /**
-   * This method will set everything to stale, which will cause the lists on this page to update.
-   */
-  reset() {
-    this.groupService.getBrowseEndpoint().pipe(
-      take(1)
-    ).subscribe((href: string) => {
-      this.requestService.setStaleByHrefSubstring(href);
-    });
   }
 
   /**

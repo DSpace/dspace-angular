@@ -3,7 +3,15 @@
 :host {
   display: block;
 }
-
+.drag-disable {
+  visibility: hidden !important;
+  &:hover, &:focus {
+    cursor: default;
+    .drag-icon {
+      visibility: hidden !important;
+    }
+  }
+}
 .cdk-drag {
   margin-left: calc(-2.3 * var(--bs-spacer));
   margin-right: calc(-0.5 * var(--bs-spacer));

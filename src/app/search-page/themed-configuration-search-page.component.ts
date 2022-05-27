@@ -55,7 +55,7 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
   context: Context;
 
   protected inAndOutputNames: (keyof ConfigurationSearchPageComponent & keyof this)[] =
-    ['configuration', 'fixedFilterQuery', 'inPlaceSearch', 'searchEnabled', 'sideBarWidth', 'configuration$', 'context'];
+    ['context', 'configuration', 'fixedFilterQuery', 'inPlaceSearch', 'searchEnabled', 'sideBarWidth'];
 
   protected getComponentName(): string {
     return 'ConfigurationSearchPageComponent';

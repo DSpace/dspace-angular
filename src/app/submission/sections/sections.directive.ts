@@ -6,10 +6,10 @@ import { uniq } from 'lodash';
 
 import { SectionsService } from './sections.service';
 import { hasValue, isNotEmpty, isNotNull } from '../../shared/empty.util';
-import { SubmissionSectionError } from '../objects/submission-objects.reducer';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { SubmissionService } from '../submission.service';
 import { SectionsType } from './sections-type';
+import { SubmissionSectionError } from '../objects/submission-section-error.model';
 
 /**
  * Directive for handling generic section functionality

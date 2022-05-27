@@ -87,4 +87,15 @@ describe('ProcessFormComponent', () => {
     component.submitForm({ controls: {} } as any);
     expect(scriptService.invoke).toHaveBeenCalled();
   });
+
+  describe('when undefined parameters are provided', () => {
+    beforeEach(() => {
+      component.parameters = undefined;
+    });
+
+    it('should invoke the script with an empty array of parameters', () => {
+      component.submitForm({ controls: {} } as any);
+      expect(scriptService.invoke).toHaveBeenCalledWith(script.id, [], jasmine.anything());
+    });
+  });
 });

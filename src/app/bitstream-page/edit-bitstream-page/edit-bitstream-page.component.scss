@@ -6,3 +6,7 @@
     }
   }
 }
+:host ::ng-deep ds-dynamic-form-control-container > div > label {
+  margin-top: 1.75rem;
+}
+

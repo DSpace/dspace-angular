@@ -1,5 +1,5 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { getTestScheduler } from 'jasmine-marbles';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,7 +17,7 @@ import { createPaginatedList, createTestComponent } from '../../shared/testing/u
 import { RouterStub } from '../../shared/testing/router.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
@@ -102,17 +102,19 @@ describe('SubmissionImportExternalComponent test suite', () => {
 
     it('Should init component properly (without route data)', () => {
       const expectedEntries = createSuccessfulRemoteDataObject(createPaginatedList([]));
+      comp.routeData = {entity: '', sourceId: '', query: '' };
       spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValue(observableOf(''));
       fixture.detectChanges();
 
-      expect(comp.routeData).toEqual({ sourceId: '', query: '' });
+      expect(comp.routeData).toEqual({entity: '', sourceId: '', query: '' });
       expect(comp.isLoading$.value).toBe(false);
       expect(comp.entriesRD$.value).toEqual(expectedEntries);
     });
 
     it('Should init component properly (with route data)', () => {
+      comp.routeData = {entity: '', sourceId: '', query: '' };
       spyOn(compAsAny, 'retrieveExternalSources');
-      spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValues(observableOf('source'), observableOf('dummy'));
+      spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValues(observableOf('entity'), observableOf('source'), observableOf('dummy'));
       fixture.detectChanges();
 
       expect(compAsAny.retrieveExternalSources).toHaveBeenCalled();
@@ -120,7 +122,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
 
     it('Should call \'getExternalSourceEntries\' properly', () => {
       spyOn(routeServiceStub, 'getQueryParameterValue').and.callFake((param) => {
-        if (param === 'source') {
+        if (param === 'sourceId') {
           return observableOf('orcidV2');
         } else if (param === 'query') {
           return observableOf('test');
@@ -136,15 +138,15 @@ describe('SubmissionImportExternalComponent test suite', () => {
     });
 
     it('Should call \'router.navigate\'', () => {
-      comp.routeData = { sourceId: '', query: '' };
+      comp.routeData = {entity: 'Person', sourceId: '', query: '' };
       spyOn(compAsAny, 'retrieveExternalSources').and.callFake(() => null);
       compAsAny.router.navigate.and.returnValue( new Promise(() => {return;}));
-      const event = { sourceId: 'orcidV2', query: 'dummy' };
+      const event = {entity: 'Person', sourceId: 'orcidV2', query: 'dummy' };
 
       scheduler.schedule(() => comp.getExternalSourceData(event));
       scheduler.flush();
 
-      expect(compAsAny.router.navigate).toHaveBeenCalledWith([], { queryParams: { source: event.sourceId, query: event.query }, replaceUrl: true });
+      expect(compAsAny.router.navigate).toHaveBeenCalledWith([], { queryParams: { entity: event.entity, sourceId: event.sourceId, query: event.query }, replaceUrl: true });
     });
 
     it('Entry should be passed to the component loaded inside the modal', () => {
@@ -165,6 +167,13 @@ describe('SubmissionImportExternalComponent test suite', () => {
 
       expect(compAsAny.modalService.open).toHaveBeenCalledWith(SubmissionImportExternalPreviewComponent, { size: 'lg' });
       expect(comp.modalRef.componentInstance.externalSourceEntry).toEqual(entry);
+    });
+
+    it('Should set the correct label', () => {
+      const label = 'Person';
+      compAsAny.selectLabel(label);
+
+      expect(comp.label).toEqual(label);
     });
   });
 
