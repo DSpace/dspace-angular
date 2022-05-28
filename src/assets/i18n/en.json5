@@ -3656,7 +3656,7 @@
   "submission.import-external.preview.title.OrgUnit": "Organizational Unit Preview",
 
   "submission.import-external.preview.title.Person": "Person Preview",
-  
+
   "submission.import-external.preview.title.Project": "Project Preview",
 
   "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
@@ -4111,6 +4111,163 @@
 
   "submission.sections.accesses.form.until-placeholder": "Until",
 
+  // Traditional / publication inputs
+  "submission.section.describe.dc_contributor_author.label": "Author",
+  "submission.section.describe.dc_contributor_author.hint": "Enter the author's name (Family name, Given names).",
+  "submission.section.describe.dc_contributor_author.required": "At least one author (plain text or relationship) is required",
+  "submission.section.describe.dc_title.label": "Title",
+  "submission.section.describe.dc_title.hint": "Enter the main title of the item.",
+  "submission.section.describe.dc_title.required": "You must enter a main title for this item.",
+  "submission.section.describe.dc_title_alternative.label": "Other Titles",
+  "submission.section.describe.dc_title_alternative.hint": "If the item has any alternative titles, please enter them here.",
+  "submission.section.describe.dc_date_issued.label": "Date of Issue",
+  "submission.section.describe.dc_date_issued.hint": "Please give the date of previous publication or public distribution. You can leave out the day and/or month if they aren't applicable.",
+  "submission.section.describe.dc_date_issued.required": "You must enter at least the year.",
+  "submission.section.describe.dc_publisher.label": "Publisher",
+  "submission.section.describe.dc_publisher.hint": "Enter the name of the publisher of the previously issued instance of this item.",
+  "submission.section.describe.dc_identifier_citation.label": "Citation",
+  "submission.section.describe.dc_identifier_citation.hint": "Enter the standard citation for the previously issued instance of this item.",
+  "submission.section.describe.dc_relation_ispartofseries.label": "Series/Report No.",
+  "submission.section.describe.dc_relation_ispartofseries.hint": "Enter the series and number assigned to this item by your community.",
+  "submission.section.describe.dc_identifier.label": "Identifiers",
+  "submission.section.describe.dc_identifier.hint": "If the item has any identification numbers or codes associated with it, please enter the types and the actual numbers or codes.",
+  "submission.section.describe.dc_type.label": "Type",
+  "submission.section.describe.dc_type.hint": "Select the type of content of the item.",
+  "submission.section.describe.dc_language_iso.label": "Language",
+  "submission.section.describe.dc_language_iso.hint": "Select the language of the main content of the item. If the language does not appear in the list, please select 'Other'. If the content does not really have a language (for example, if it is a dataset or an image) please select 'N/A'.",
+  "submission.section.describe.dc_subject.label": "Subject Keywords",
+  "submission.section.describe.dc_subject.hint": "Enter appropriate subject keywords or phrases.",
+  "submission.section.describe.dc_description_abstract.label": "Abstract",
+  "submission.section.describe.dc_description_abstract.hint": "Enter the abstract of the item.",
+  "submission.section.describe.dc_description_sponsorship.label": "Sponsors",
+  "submission.section.describe.dc_description_sponsorship.hint": "Enter the names of any sponsors and/or funding codes in the box.",
+  "submission.section.describe.dc_description.label": "Description",
+  "submission.section.describe.dc_description.hint": "Enter any other description or comments in this box.",
+
+  // Author relationship
+  "submission.section.describe.authorRelationship.label": "Author",
+  "submission.section.describe.authorRelationship.hint": "Add an author",
+  "submission.section.describe.authorRelationship.required": "At least one author (plain text or relationship) is required",
+
+  // Bitstream specific inputs
+  "submission.section.describe.bitstream.dc_title.label": "Title",
+  "submission.section.describe.bitstream.dc_title.hint": "Enter the name of the file.",
+  "submission.section.describe.bitstream.dc_title.required": "You must enter a name for this file",
+  "submission.section.describe.bitstream.dc_description.label": "Description",
+  "submission.section.describe.bitstream.dc_description.hint": "Enter a description for the file",
+
+  // Inputs used in person form (no conflict with other field names, so no .person. qual before field name)
+  "submission.section.describe.isPublicationOfAuthor.label": "Publication",
+  "submission.section.describe.isPublicationOfAuthor.hint": "import a publication",
+  "submission.section.describe.person_familyName.label": "Last name",
+  "submission.section.describe.person_familyName.hint": "Enter the last name of the person",
+  "submission.section.describe.person_givenName.label": "First name",
+  "submission.section.describe.person_givenName.hint": "Enter the first name of the person",
+  "submission.section.describe.person_email.label": "Email",
+  "submission.section.describe.person_email.hint": "Enter the email of the person",
+  "submission.section.describe.person_identifier_orcid.label": "Orcid",
+  "submission.section.describe.person_identifier_orcid.hint": "Enter the orcid of the person",
+  "submission.section.describe.person_birthDate.label": "Birth date",
+  "submission.section.describe.person_birthDate.hint": "Enter the birth date of the person",
+  "submission.section.describe.person_identifier_staffid.label": "Staff ID",
+  "submission.section.describe.person_identifier_staffid.hint": "Enter the staff id of the person",
+  "submission.section.describe.person_jobTitle.label": "Job title",
+  "submission.section.describe.person_jobTitle.hint": "Enter the job title of the person",
+
+  // Project specific inputs
+  "submission.section.describe.project.dc_title.label": "Name",
+  "submission.section.describe.project.dc_title.hint": "Enter the name of the project",
+  "submission.section.describe.project.dc_identifier.label": "ID",
+  "submission.section.describe.project.dc_identifier.hint": "Enter the id of the project",
+  "submission.section.describe.project.dc_identifier_status.label": "Status",
+  "submission.section.describe.project.dc_identifier_status.hint": "Enter the status of the project",
+  "submission.section.describe.project.dc_identifier_startdate.label": "Start date",
+  "submission.section.describe.project.dc_identifier_startdate.hint": "Enter the start date of the project",
+  "submission.section.describe.project.dc_identifier_expectedcompletion.label": "Expected Completion",
+  "submission.section.describe.project.dc_identifier_expectedcompletion.hint": "Enter the expected completion date of the project",
+  "submission.section.describe.project.dc_subject.label": "Keywords",
+  "submission.section.describe.project.dc_subject.hint": "Enter the keywords of the project",
+  "submission.section.describe.project.dc_description.label": "Description",
+  "submission.section.describe.project.dc_description.hint": "Enter the description of the project",
+
+  // Org unit specific inputs
+  "submission.section.describe.orgUnit.organization_legalName.label": "Name",
+  "submission.section.describe.orgUnit.organization_legalName.hint": "Enter the name of the orgunit",
+  "submission.section.describe.orgUnit.dc_identifier.label": "ID",
+  "submission.section.describe.orgUnit.dc_identifier.hint": "Enter the id of the orgunit",
+  "submission.section.describe.orgUnit.organization_foundingDate.label": "Date established",
+  "submission.section.describe.orgUnit.organization_foundingDate.hint": "Enter the established date of the orgunit",
+  "submission.section.describe.orgUnit.organization_address_addressLocality.label": "City",
+  "submission.section.describe.orgUnit.organization_address_addressLocailty.hint": "Enter the city of the orgunit",
+  "submission.section.describe.orgUnit.organization_address_addressCountry.label": "Country",
+  "submission.section.describe.orgUnit.organization_address_addressCountry.hint": "Enter the country of the orgunit",
+  "submission.section.describe.orgUnit.dc_description.label": "Description",
+  "submission.section.describe.orgUnit.dc_description.hint": "Enter the description of the orgunit",
+
+  // Journal specific inputs
+  "submission.section.describe.journal.dc_title.label": "Name",
+  "submission.section.describe.journal.dc_title.hint": "Enter the name of the journal",
+  "submission.section.describe.journal.creativework_editor.label": "Editor",
+  "submission.section.describe.journal.creativework_editor.hint": "Enter the editor of the journal",
+  "submission.section.describe.journal.creativework_issn.label": "ISSN",
+  "submission.section.describe.journal.creativework_issn.hint": "Enter the issn of the journal",
+  "submission.section.describe.journal.dc_description.label": "Description",
+  "submission.section.describe.journal.dc_description.hint": "Enter the description of the journal",
+  "submission.section.describe.journal.creativework_publisher.label": "Publisher",
+  "submission.section.describe.journal.creativework_publisher.hint": "Enter the publisher of the journal",
+
+  // Journal volume
+  "submission.section.describe.journalvolume.isJournalOfVolume.label": "Journal",
+  "submission.section.describe.journalvolume.isJournalOfVolume.hint": "Select the journal related to this volume.",
+  "submission.section.describe.journalvolume.dc_title.label": "Name",
+  "submission.section.describe.journalvolume.dc_title.hint": "Enter the name of the journal volume",
+  "submission.section.describe.journalvolume.publicationvolume_volumeNumber.label": "Volume",
+  "submission.section.describe.journalvolume.publicationvolume_volumeNumber.hint": "Enter the volume of the journal volume",
+  "submission.section.describe.journalvolume.creativework_datePublished.label": "Issue date",
+  "submission.section.describe.journalvolume.creativework_datePublished.hint": "Enter the issue date of the journal volume",
+  "submission.section.describe.journalvolume.dc_description.label": "Description",
+  "submission.section.describe.journalvolume.dc_description.hint": "Enter the description of the journal",
+
+  // Journal issue
+  "submission.section.describe.journalissue.isJournalVolumeOfIssue.label": "Journal Volume",
+  "submission.section.describe.journalissue.isJournalVolumeOfIssue.hint": "Select the journal volume related to this issue.",
+  "submission.section.describe.journalissue.dc_title.label": "Name",
+  "submission.section.describe.journalissue.dc_title.hint": "Enter the name of the journal volume",
+  "submission.section.describe.journalissue.publicationissue_issueNumber.label": "Number",
+  "submission.section.describe.journalissue.publicationissue_issueNumber.hint": "Enter the number of the journal issue",
+  "submission.section.describe.journalissue.creativework_datePublished.label": "Issue date",
+  "submission.section.describe.journalissue.creativework_datePublished.hint": "Enter the issue date of the journal issue",
+  "submission.section.describe.journalissue.dc_description.label": "Description",
+  "submission.section.describe.journalissue.dc_description.hint": "Enter the name of the journal issue",
+  "submission.section.describe.journalissue.creativework_keywords.label": "Keywords",
+  "submission.section.describe.journalissue.creativework_keywords.hint": "Enter the keywords of the journal issue",
+
+  // Openaire (other fields reuse publication otherwise)
+  "submission.section.describe.openairepub.dc_relation_hasversion.label": "Editor Version",
+  "submission.section.describe.openairepub.dc_relation_hasversion.hint": "Enter the URL/DOI of the editor version of this item.",
+  "submission.section.describe.openairepub.dc_dcterms_references.label": "Related Dataset",
+  "submission.section.describe.openairepub.dc_dcterms_references.hint": "Enter the URL/DOI of the editor version of this item.",
+  "submission.section.describe.openairepub.oaire.citation.title.label": "Title of Journal, Book or Event",
+  "submission.section.describe.openairepub.oaire.citation.title.hint": "Include the name of related item like the journal name, book title or event name.",
+  "submission.section.describe.openairepub.oaire.citation.conferencePlace.label": "Event/Conference Place",
+  "submission.section.describe.openairepub.oaire.citation.conferencePlace.hint": "Enter the event location.",
+  "submission.section.describe.openairepub.oaire.citation.conferenceDate.label": "Conference Date",
+  "submission.section.describe.openairepub.oaire.citation.conferenceDate.hint": "Enter the date of the event.",
+  "submission.section.describe.openairepub.oaire.citation.volume.label": "Enter the volume of the item.",
+  "submission.section.describe.openairepub.oaire.citation.volume.hint": "Volume",
+  "submission.section.describe.openairepub.oaire.citation.issue.label": "Issue",
+  "submission.section.describe.openairepub.oaire.citation.issue.hint": "Enter the issue number of the item.",
+  "submission.section.describe.openairepub.oaire.citation.edition.label": "Edition",
+  "submission.section.describe.openairepub.oaire.citation.edition.hint": "Enter the edition of the item.",
+  "submission.section.describe.openairepub.oaire.citation.startPage.label": "First Page",
+  "submission.section.describe.openairepub.oaire.citation.startPage.hint": "Enter the start page number.",
+  "submission.section.describe.openairepub.oaire.citation.endPage.label": "Last Page",
+  "submission.section.describe.openairepub.oaire.version.endPage.hint": "Enter the last page number.",
+  "submission.section.describe.openairepub.oaire.version.false.label": "Last Page",
+  "submission.section.describe.openairepub.oaire.version.false.hint": "Enter the last page number.",
+  "submission.section.describe.openairepub.datacite.subject.fos.label": "Subject Keywords (Fields of Science and Technology - OECD)",
+  "submission.section.describe.openairepub.datacite.subject.fos.hint": "Enter appropriate subject keywords or phrases based on the defined taxonomy.",
+
 
   "submission.submit.breadcrumbs": "New submission",
 
@@ -4129,8 +4286,6 @@
   "submission.workflow.generic.view": "View",
 
   "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
-
-
 
   "submission.workflow.tasks.claimed.approve": "Approve",
 
@@ -4180,7 +4335,6 @@
   "submission.workspace.generic.view": "View",
 
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
-
 
   "thumbnail.default.alt": "Thumbnail Image",
 
