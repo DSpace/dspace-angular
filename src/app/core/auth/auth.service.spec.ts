@@ -32,6 +32,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { SetUserAsIdleAction, UnsetUserAsIdleAction } from './auth.actions';
+import { SpecialGroupDataMock, SpecialGroupDataMock$ } from '../../shared/testing/special-group.mock';
+import { cold } from 'jasmine-marbles';
 
 describe('AuthService test', () => {
 
@@ -55,6 +57,13 @@ describe('AuthService test', () => {
   let idleState;
   let linkService;
   let hardRedirectService;
+
+  const AuthStatusWithSpecialGroups = Object.assign(new AuthStatus(), {
+    uuid: 'test',
+    authenticated: true,
+    okay: true,
+    specialGroups: SpecialGroupDataMock$
+  });
 
   function init() {
     mockStore = jasmine.createSpyObj('store', {
@@ -509,6 +518,19 @@ describe('AuthService test', () => {
         spyOn(authService as any, 'navigateToRedirectUrl').and.stub();
         authService.refreshAfterLogout();
         expect((authService as any).navigateToRedirectUrl).toHaveBeenCalled();
+      });
+    });
+
+    describe('getSpecialGroupsFromAuthStatus', () => {
+      beforeEach(() => {
+        spyOn(authRequest, 'getRequest').and.returnValue(createSuccessfulRemoteDataObject$(AuthStatusWithSpecialGroups));
+      });
+
+      it('should call navigateToRedirectUrl with no url', () => {
+        const expectRes = cold('(a|)', {
+          a: SpecialGroupDataMock
+        });
+        expect(authService.getSpecialGroupsFromAuthStatus()).toBeObservable(expectRes);
       });
     });
   });
