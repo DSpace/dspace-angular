@@ -95,12 +95,14 @@ import { SearchModule } from '../../app/shared/search/search.module';
 import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
+import { JournalComponent } from './app/entity-groups/journal-entities/item-pages/journal/journal.component';
 import {
   JournalIssueComponent
 } from './app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
 import {
   JournalVolumeComponent
 } from './app/entity-groups/journal-entities/item-pages/journal-volume/journal-volume.component';
+import { ItemSharedModule } from '../../app/item-page/item-shared.module';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -145,6 +147,7 @@ const DECLARATIONS = [
   HeaderNavbarWrapperComponent,
   BreadcrumbsComponent,
   FeedbackComponent,
+  JournalComponent,
   JournalIssueComponent,
   JournalVolumeComponent,
 ];
@@ -196,7 +199,8 @@ const DECLARATIONS = [
     SearchModule,
     FormsModule,
     ResourcePoliciesModule,
-    ComcolModule
+    ComcolModule,
+    ItemSharedModule,
   ],
   declarations: DECLARATIONS
 })
