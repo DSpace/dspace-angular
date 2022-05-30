@@ -108,14 +108,23 @@ export class TruncatablePartComponent implements AfterViewChecked, OnInit, OnDes
       if (entry.children.length > 0) {
         if (entry.children[entry.children.length - 1].offsetHeight > entry.offsetHeight) {
           entry.classList.add('truncated');
+          entry.classList.remove('removeFaded');
         } else {
           entry.classList.remove('truncated');
+          entry.classList.add('removeFaded');
         }
       } else {
-        entry.classList.add('truncated');
+        if (entry.innerText.length > 0) {
+          entry.classList.add('truncated');
+          entry.classList.remove('removeFaded');
+        } else {
+          entry.classList.remove('truncated');
+          entry.classList.add('removeFaded');
+        }
       }
     } else {
       entry.classList.remove('truncated');
+      entry.classList.add('removeFaded');
     }
   }
 
