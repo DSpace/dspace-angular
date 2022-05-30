@@ -64,6 +64,9 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
           });
         }),
         concatMap((bitstreams: Bitstream[]) => {
+          if (isEmpty(bitstreams)) {
+            return observableOf([]);
+          }
           this.originalBitstreams = bitstreams;
           // get thumbnails observables if available if not return observable of null
           const observables = bitstreams.map((bitstream: Bitstream) => bitstream.thumbnail.pipe(

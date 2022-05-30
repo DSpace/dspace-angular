@@ -40,6 +40,7 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
         map((bitstreams: Bitstream[]) => {
           // if metadata value is not specified show first attachment
           if (isUndefined(this.field.bitstream.metadataValue) || isNull(this.field.bitstream.metadataValue) || isEmpty(this.field.bitstream.metadataValue)) {
+            console.log(this.field.bitstream.metadataValue);
             if (!isEmpty(bitstreams)) {
               return [bitstreams[0]];
             }
@@ -53,7 +54,8 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
 
             // if metadata value of the configuration has open and close clauses it is regex pattern
             if (this.field.bitstream.metadataValue.startsWith('(') && this.field.bitstream.metadataValue.endsWith(')')) {
-              const pattern = new RegExp(this.field.bitstream.metadataValue);
+              let patternValueArr = this.field.bitstream.metadataValue.slice(1, -1).split('/');
+              const pattern = new RegExp(patternValueArr[1], patternValueArr[3]);
               return !!metadataValue.match(pattern);
             } else {
               return metadataValue.toLowerCase() === this.field.bitstream.metadataValue.toLowerCase();
