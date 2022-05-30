@@ -12,7 +12,7 @@
             <li ngbNavItem>
                 <a ngbNavLink>{{'submission.sections.describe.relationship-lookup.search-tab.tab-title.' + relationshipOptions.relationshipType | translate  : { count: (totalInternal$ | async)} }}</a>
                 <ng-template ngbNavContent>
-                    <ds-dynamic-lookup-relation-search-tab
+                    <ds-themed-dynamic-lookup-relation-search-tab
                             [selection$]="selection$"
                             [listId]="listId"
                             [relationship]="relationshipOptions"
@@ -28,13 +28,13 @@
                             (deselectObject)="deselect($event)"
                             (resultFound)="setTotalInternals($event.pageInfo.totalElements)"
                             class="d-block pt-3">
-                    </ds-dynamic-lookup-relation-search-tab>
+                    </ds-themed-dynamic-lookup-relation-search-tab>
                 </ng-template>
             </li>
             <li ngbNavItem *ngFor="let source of (externalSourcesRD$ | async); let idx = index">
                 <a ngbNavLink>{{'submission.sections.describe.relationship-lookup.search-tab.tab-title.' + source.id | translate  : { count: (totalExternal$ | async)[idx] } }}</a>
                 <ng-template ngbNavContent>
-                    <ds-dynamic-lookup-relation-external-source-tab
+                    <ds-themed-dynamic-lookup-relation-external-source-tab
                             [label]="label"
                             [listId]="listId"
                             [repeatable]="repeatable"
@@ -45,7 +45,7 @@
                             [externalSource]="source"
                             (importedObject)="imported($event)"
                             class="d-block pt-3">
-                    </ds-dynamic-lookup-relation-external-source-tab>
+                    </ds-themed-dynamic-lookup-relation-external-source-tab>
                 </ng-template>
             </li>
             <li ngbNavItem *ngIf="!isEditRelationship">
