@@ -86,6 +86,7 @@ import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { MetadataRepresentationListComponent } from './app/item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { DsDynamicLookupRelationSearchTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
+import { DsDynamicLookupRelationExternalSourceTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -131,6 +132,7 @@ const DECLARATIONS = [
   FeedbackComponent,
   MetadataRepresentationListComponent,
   DsDynamicLookupRelationSearchTabComponent,
+  DsDynamicLookupRelationExternalSourceTabComponent,
 ];
 
 @NgModule({
