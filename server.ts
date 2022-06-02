@@ -163,7 +163,7 @@ export function app() {
    * Serve static resources (images, i18n messages, …)
    * Handle pre-compressed files with [express-static-gzip](https://github.com/tkoenig89/express-static-gzip)
    */
-  server.get('*.*', cacheControl, expressStaticGzip(DIST_FOLDER, {
+  router.get('*.*', cacheControl, expressStaticGzip(DIST_FOLDER, {
     index: false,
     enableBrotli: true,
     orderPreference: ['br', 'gzip'],
