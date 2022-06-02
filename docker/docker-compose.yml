@@ -21,10 +21,10 @@ services:
       DSPACE_UI_PORT: '4000'
       DSPACE_UI_NAMESPACE: /
       DSPACE_REST_SSL: 'false'
-      DSPACE_REST_HOST: localhost
+      DSPACE_REST_HOST: ${DSPACE_REST_HOST:-localhost}
       DSPACE_REST_PORT: 8080
       DSPACE_REST_NAMESPACE: /server
-    image: dspace/dspace-angular:dspace-7_x
+    image: ${DSPACE_UI_IMAGE:-dataquest/dspace-angular:dspace-7_x}
     build:
       context: ..
       dockerfile: Dockerfile

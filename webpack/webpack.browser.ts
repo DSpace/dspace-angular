@@ -9,8 +9,15 @@ module.exports = Object.assign({}, commonExports, {
     module: 'empty'
   },
   devServer: {
+    disableHostCheck: true,
     before(app, server) {
       buildAppConfig(join(process.cwd(), 'src/assets/config.json'));
+
+      app.use('/', function (req, res,next) {
+        console.log(`from ${req.ip} - ${req.method} - ${req.originalUrl}`);
+        next();
+      });
+
     }
  }
 });

@@ -32,7 +32,7 @@ services:
       solr__P__server: http://dspacesolr:8983/solr
     depends_on:
     - dspacedb
-    image: dataquest/dspace:dspace-7_x-test
+    image: ${DSPACE_CI_IMAGE:-dataquest/dspace:dspace-7_x-test}
     networks:
       dspacenet:
     ports:

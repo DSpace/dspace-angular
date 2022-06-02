@@ -1,0 +1,31 @@
+# DSpace Docker deploy on dataquest servers
+name: Deploy DSpace
+
+on:
+  workflow_run:
+    workflows: ["Docker images"]
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: dspace-dep-1
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: deploy
+        run: |
+          cd $GITHUB_WORKSPACE/build-scripts/run/
+          pwd
+
+          touch .env.dev-5 || true
+          echo DSPACE_REST_HOST=dev-5.pc > .env.dev-5
+          echo REST_URL=http://dev-5.pc:8080/server >> .env.dev-5
+          echo UI_URL=http://dev-5.pc >> .env.dev-5
+          echo DSPACE_REST_IMAGE=dataquest/dspace:dspace-7_x >> .env.dev-5
+          echo DOCKER_OWNER=dataquest >> .env.dev-5
+          echo NODE_ENV="development" >> .env.dev-5
+
+          export ENVFILE=$pwd/.env.dev-5
+          ./start.sh
