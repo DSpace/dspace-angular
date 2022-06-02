@@ -4,7 +4,7 @@ REM set UI_URL=http://dev-5.pc/
 set DSPACE_REST_IMAGE=dataquest/dspace:dspace-7_x
 set DOCKER_OWNER=dataquest
 
-IF "%ENVFILE%"=="" set ENVFILE=%cd%/envs/.env
+IF "%ENVFILE%"=="" set ENVFILE=%cd%/envs/.default
 
 call start.backend.bat nopause
 call start.frontend.bat nopause

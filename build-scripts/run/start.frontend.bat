@@ -1,4 +1,7 @@
-IF "%ENVFILE%"=="" set ENVFILE=%cd%/envs/.env
+IF "%ENVFILE%"=="" set ENVFILE=%cd%/envs/.default
+
+REM TODO: hardcoded!
+docker pull dataquest/dspace-angular:dspace-7_x
 
 pushd ..\..
 docker-compose --env-file %ENVFILE% -p dq-d7 -f docker/docker-compose.yml pull dspace-angular

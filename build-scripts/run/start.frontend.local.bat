@@ -1,4 +1,4 @@
-IF "%ENVFILE%"=="" set ENVFILE=%cd%/envs/.env.local
+IF "%ENVFILE%"=="" set ENVFILE=%cd%/envs/.local
 
 start.frontend.bat nopause
 

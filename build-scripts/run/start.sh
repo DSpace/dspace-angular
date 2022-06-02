@@ -1,8 +1,13 @@
 #!/bin/bash
 
 if [[ "x$ENVFILE" == "x" ]]; then
-    export ENVFILE=$pwd/envs/.env
+    export ENVFILE=$(pwd)/envs/.default
 fi 
+
+source $ENVFILE
+
+# docker-compose does not pull those that have `build` section?!
+docker pull $DSPACE_UI_IMAGE
 
 pushd ../..
 docker-compose --env-file $ENVFILE -f docker/docker-compose.yml -f docker/docker-compose-rest.yml pull
