@@ -10,7 +10,7 @@
             <div>
                 <span *ngIf="!!version?.embargo && !!version?.embargo.amount;else noEmbargoTitle"> <i
                         class="fas fa-hourglass-half"></i> {{version.embargo.amount}}
-                    {{version.embargo.units[1]}}</span>
+                    {{version.embargo?.units[0]}}</span>
                 <ng-template #noEmbargoTitle>
                     <span><i class="fas fa-hourglass-half"></i> {{
                         'submission.sections.sherpa.publisher.policy.noembargo' | translate }}</span>
