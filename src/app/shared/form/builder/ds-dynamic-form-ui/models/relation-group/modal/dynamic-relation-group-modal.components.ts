@@ -24,13 +24,17 @@ import { SubmissionFormsModel } from '../../../../../../../core/config/models/co
 import { hasValue, isNotEmpty, isNotNull } from '../../../../../../empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../../ds-dynamic-form-constants';
 import { SubmissionScopeType } from '../../../../../../../core/submission/submission-scope-type';
-import { VocabularyExternalSourceComponent } from '../../../../../../vocabulary-external-source/vocabulary-external-source.component';
+import {
+  VocabularyExternalSourceComponent
+} from '../../../../../../vocabulary-external-source/vocabulary-external-source.component';
 import { FormFieldMetadataValueObject } from '../../../../models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { DsDynamicInputModel } from '../../ds-dynamic-input.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../../core/shared/operators';
 import { VocabularyOptions } from '../../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { MetadataSecurityConfiguration } from '../../../../../../../core/submission/models/metadata-security-configuration';
+import {
+  MetadataSecurityConfiguration
+} from '../../../../../../../core/submission/models/metadata-security-configuration';
 
 /**
  * Component representing a group input field
@@ -106,7 +110,9 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
             : this.item[model.name];
           const nextValue = (this.formBuilderService.isInputModel(model) && isNotNull(value) && (typeof value !== 'string')) ?
             value.value : value;
-          model.value = nextValue;
+          if (isNotEmpty(nextValue)) {
+            model.value = nextValue;
+          }
           // as the value doesn't support the security level, add into the big model
           if (value && typeof value !== 'string') {
             (model as any).securityLevel = value.securityLevel;
@@ -280,11 +286,9 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     this.formModel.forEach((row) => {
       const modelRow = row as DynamicFormGroupModel;
       modelRow.group.forEach((control: DynamicInputModel) => {
-        if (typeof control.value === 'string' && (control as any).securityLevel !== undefined) {
-          item[control.name] = new FormFieldMetadataValueObject(control.value || PLACEHOLDER_PARENT_METADATA, null, (control as any).securityLevel);
-        } else {
-          item[control.name] = control.value || PLACEHOLDER_PARENT_METADATA;
-        }
+        const controlValue: any = (control?.value as any)?.value || control?.value || PLACEHOLDER_PARENT_METADATA;
+        const controlAuthority: any = (control?.value as any)?.authority || null;
+        item[control.name] = new FormFieldMetadataValueObject(controlValue, (control as any)?.language, (control as any)?.securityLevel, controlAuthority);
       });
     });
     return item;

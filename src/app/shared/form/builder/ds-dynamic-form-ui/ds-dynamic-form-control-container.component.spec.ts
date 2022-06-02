@@ -5,7 +5,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { By } from '@angular/platform-browser';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TextMaskModule } from 'angular2-text-mask';
+
 import {
   DynamicCheckboxGroupModel,
   DynamicCheckboxModel,
@@ -78,6 +78,7 @@ import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { FormService } from '../../form.service';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { FormBuilderService } from '../form-builder.service';
+import { NgxMaskModule } from 'ngx-mask';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
@@ -219,7 +220,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         DynamicFormsCoreModule.forRoot(),
         SharedModule,
         TranslateModule.forRoot(),
-        TextMaskModule,
+        NgxMaskModule.forRoot(),
       ],
       providers: [
         DsDynamicFormControlContainerComponent,
@@ -249,7 +250,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
       const ngZone = TestBed.inject(NgZone);
 
-      // tslint:disable-next-line:ban-types
+      // eslint-disable-next-line @typescript-eslint/ban-types
       spyOn(ngZone, 'runOutsideAngular').and.callFake((fn: Function) => fn());
       component = fixture.componentInstance;
       debugElement = fixture.debugElement;

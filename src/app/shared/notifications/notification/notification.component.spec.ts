@@ -28,7 +28,7 @@ describe('NotificationComponent', () => {
 
   beforeEach(waitForAsync(() => {
     const store: Store<Notification> = jasmine.createSpyObj('store', {
-      /* tslint:disable:no-empty */
+      /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
       notifications: []
     });
 

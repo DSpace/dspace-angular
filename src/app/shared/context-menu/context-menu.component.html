@@ -1,4 +1,4 @@
-<ng-container *ngIf="((isAuthenticated | async) || isItem()) && contextMenuObject">
+<div class="d-flex space-children-mr justify-content-end" *ngIf="((isAuthenticated | async) || isItem()) && contextMenuObject">
   <ng-container *ngFor="let entry of (getStandAloneMenuEntries() | async)">
     <ng-container *ngComponentOutlet="entry; injector: objectInjector;"></ng-container>
   </ng-container>
@@ -14,5 +14,4 @@
       </ng-container>
     </div>
   </div>
-
-</ng-container>
+</div>

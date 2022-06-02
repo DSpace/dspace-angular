@@ -27,8 +27,8 @@ describe('EditItemRelationshipsMenuComponent', () => {
 
   let editItemDataService: any;
   let dso: DSpaceObject;
-  // tslint:disable-next-line:prefer-const
-  let notificationService = new NotificationsServiceStub();
+
+  const notificationService = new NotificationsServiceStub();
   const editItemMode: EditItemMode = Object.assign(new EditItemMode(), {
     name: 'test',
     label: 'test'

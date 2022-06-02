@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, filter, map, mergeMap, take } from 'rxjs/operators';
 
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -24,7 +24,7 @@ import { ParsedResponse } from '../cache/response.models';
 @Injectable()
 export class RequestEffects {
 
-  @Effect() execute = this.actions$.pipe(
+   execute = createEffect(() => this.actions$.pipe(
     ofType(RequestActionTypes.EXECUTE),
     mergeMap((action: RequestExecuteAction) => {
       return this.requestService.getByUUID(action.payload).pipe(
@@ -53,7 +53,7 @@ export class RequestEffects {
         })
       );
     })
-  );
+  ));
 
   /**
    * When the store is rehydrated in the browser, set all cache
@@ -63,10 +63,10 @@ export class RequestEffects {
    * This assumes that the server cached everything a negligible
    * time ago, and will likely need to be revisited later
    */
-  @Effect() fixTimestampsOnRehydrate = this.actions$
+   fixTimestampsOnRehydrate = createEffect(() => this.actions$
     .pipe(ofType(StoreActionTypes.REHYDRATE),
       map(() => new ResetResponseTimestampsAction(new Date().getTime()))
-    );
+    ));
 
   constructor(
     private actions$: Actions,

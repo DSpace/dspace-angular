@@ -49,7 +49,7 @@ class TestService extends ComColDataService<any> {
   }
 }
 
-// tslint:disable:no-shadowed-variable
+/* eslint-disable @typescript-eslint/no-shadow */
 describe('ComColDataService', () => {
   let service: TestService;
   let requestService: RequestService;

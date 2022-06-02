@@ -5,6 +5,7 @@ import { IProcessNotification } from './models/process-notification.model';
 /**
  * The notification state.
  */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface NotificationsState extends Array<INotification|IProcessNotification> {
 
 }

@@ -78,6 +78,7 @@ import { SubmissionModule } from '../../app/submission/submission.module';
 import { MyDSpacePageModule } from '../../app/my-dspace-page/my-dspace-page.module';
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { HeaderComponent } from './app/header/header.component';
+import { FooterComponent } from './app/footer/footer.component';
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
 import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
@@ -129,6 +130,7 @@ const DECLARATIONS = [
   SubmissionSubmitComponent,
   WorkflowItemDeleteComponent,
   WorkflowItemSendBackComponent,
+  FooterComponent,
   HeaderComponent,
   NavbarComponent,
   HeaderNavbarWrapperComponent,

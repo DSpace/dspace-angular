@@ -92,10 +92,12 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     let values;
     let tempValue: string;
 
-    if (typeof value === 'string') {
-      tempValue = value;
-    } else {
-      tempValue = value.value;
+    if (isNotEmpty(value)) {
+      if (typeof value === 'string') {
+        tempValue = value;
+      } else {
+        tempValue = value?.value;
+      }
     }
     if (hasNoValue(tempValue)) {
       tempValue = '';

@@ -115,10 +115,11 @@ xdescribe('SearchChartHorizontalComponent', () => {
             isFilterActiveWithValue: (paramName: string, filterValue: string) =>
               true,
             getPage: (paramName: string) => page,
-            /* tslint:disable:no-empty */
+
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             incrementPage: (filterName: string) => {},
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             resetPage: (filterName: string) => {},
-            /* tslint:enable:no-empty */
           },
         },
       ],

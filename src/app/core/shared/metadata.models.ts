@@ -1,7 +1,7 @@
-import { v4 as uuidv4, validate as uuidValidate } from 'uuid';
+/* eslint-disable max-classes-per-file */
+import { v4 as uuidv4 } from 'uuid';
 import { autoserialize, Deserialize, Serialize } from 'cerialize';
 import { hasValue } from '../../shared/empty.util';
-/* tslint:disable:max-classes-per-file */
 
 export const VIRTUAL_METADATA_PREFIX = 'virtual::';
 
@@ -151,4 +151,3 @@ export const MetadataMapSerializer = {
     return metadataMap;
   }
 };
-/* tslint:enable:max-classes-per-file */

@@ -10,7 +10,6 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { shrinkInOut } from '../../animations/shrink';
-import { HostWindowService } from '../../host-window.service';
 
 @Component({
   selector: 'ds-search-charts',
@@ -66,8 +65,7 @@ export class SearchChartsComponent implements OnInit {
     private searchService: SearchService,
     @Inject(SEARCH_CONFIG_SERVICE)
     @Inject(SEARCH_CONFIG_SERVICE)
-    private searchConfigService: SearchConfigurationService,
-    protected windowService: HostWindowService,
+    private searchConfigService: SearchConfigurationService
   ) {}
 
   ngOnInit(): void {

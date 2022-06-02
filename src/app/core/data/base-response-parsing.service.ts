@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -10,7 +11,6 @@ import { getClassForType } from '../cache/builders/build-decorators';
 import { RestRequest } from './request.models';
 import { environment } from '../../../environments/environment';
 
-/* tslint:disable:max-classes-per-file */
 
 /**
  * Return true if halObj has a value for `_links.self`
@@ -180,4 +180,3 @@ export abstract class BaseResponseParsingService {
     return statusCode >= 200 && statusCode < 300;
   }
 }
-/* tslint:enable:max-classes-per-file */

@@ -16,7 +16,11 @@ import { Registration } from '../../core/shared/registration.model';
 import { ForgotPasswordFormComponent } from './forgot-password-form.component';
 import { By } from '@angular/platform-browser';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/remote-data.utils';
 import {AuthService} from '../../core/auth/auth.service';
 
 describe('ForgotPasswordFormComponent', () => {
@@ -38,7 +42,7 @@ describe('ForgotPasswordFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
 
-    route = {data: observableOf({registration: registration})};
+    route = {data: observableOf({registration: createSuccessfulRemoteDataObject(registration)})};
     router = new RouterStub();
     notificationsService = new NotificationsServiceStub();
 

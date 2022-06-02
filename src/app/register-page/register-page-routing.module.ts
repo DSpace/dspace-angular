@@ -4,6 +4,7 @@ import { RegisterEmailComponent } from './register-email/register-email.componen
 import { ItemPageResolver } from '../item-page/item-page.resolver';
 import { RegistrationResolver } from '../register-email-form/registration.resolver';
 import { ThemedCreateProfileComponent } from './create-profile/themed-create-profile.component';
+import { RegistrationGuard } from './registration.guard';
 
 @NgModule({
   imports: [
@@ -16,12 +17,14 @@ import { ThemedCreateProfileComponent } from './create-profile/themed-create-pro
       {
         path: ':token',
         component: ThemedCreateProfileComponent,
-        resolve: {registration: RegistrationResolver}
+        resolve: {registration: RegistrationResolver},
+        canActivate: [
+          RegistrationGuard
+        ],
       }
     ])
   ],
   providers: [
-    RegistrationResolver,
     ItemPageResolver
   ]
 })

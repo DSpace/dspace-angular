@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
@@ -21,8 +23,6 @@ import { OpenaireBrokerTopicObject } from '../models/openaire-broker-topic.model
 import { OPENAIRE_BROKER_TOPIC_OBJECT } from '../models/openaire-broker-topic-object.resource-type';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../../data/paginated-list.model';
-
-/* tslint:disable:max-classes-per-file */
 
 /**
  * A private DataService implementation to delegate specific methods to.
