@@ -44,10 +44,6 @@ export class PageWithSidebarComponent implements OnInit {
 
   sidebarClasses: Observable<string>;
 
-  sidebarClassesXL: Observable<string>;
-
-  searchbarClasses: Observable<string>;
-
   constructor(protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
   ) {
@@ -59,12 +55,6 @@ export class PageWithSidebarComponent implements OnInit {
     this.isSidebarCollapsedXL$ = this.isSidebarCollapsedXL();
     this.sidebarClasses = this.isSidebarCollapsed$.pipe(
       map((isCollapsed) => isCollapsed ? '' : 'active')
-    );
-    this.sidebarClassesXL = this.isSidebarCollapsedXL$.pipe(
-      map((isCollapsed) => isCollapsed ? 'd-none' : 'col-md-' + this.sideBarWidth)
-    );
-    this.searchbarClasses = this.isSidebarCollapsedXL$.pipe(
-      map((isCollapsed) => isCollapsed ? 'col-md-12' : 'col-md-' + (12 - this.sideBarWidth))
     );
   }
 

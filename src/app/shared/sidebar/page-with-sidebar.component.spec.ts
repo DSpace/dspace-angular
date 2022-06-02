@@ -69,4 +69,41 @@ describe('PageWithSidebarComponent', () => {
       expect(menu.classList).toContain('active');
     });
   });
+
+  describe('when sidebarCollapsed is true in desktop view', () => {
+    let menu: HTMLElement;
+    let secMenu: HTMLElement;
+
+    beforeEach(() => {
+      menu = fixture.debugElement.query(By.css('#mock-id-sidebar-content')).nativeElement;
+      secMenu = fixture.debugElement.query(By.css('#mock-id-sidebar-content-xl')).nativeElement;
+      (comp as any).sidebarService.isCollapsedInXL = observableOf(true);
+      comp.ngOnInit();
+      fixture.detectChanges();
+    });
+
+    it('should close the sidebar', () => {
+      expect(menu.classList).toContain('d-none');
+      expect(secMenu.classList).toContain('col-md-12');
+    });
+
+  });
+
+  describe('when sidebarCollapsed is false in desktop view', () => {
+    let menu: HTMLElement;
+    let secMenu: HTMLElement;
+
+    beforeEach(() => {
+      menu = fixture.debugElement.query(By.css('#mock-id-sidebar-content')).nativeElement;
+      secMenu = fixture.debugElement.query(By.css('#mock-id-sidebar-content-xl')).nativeElement;
+      (comp as any).sidebarService.isCollapsedInXL = observableOf(false);
+      comp.ngOnInit();
+      fixture.detectChanges();
+    });
+
+    it('should open the menu', () => {
+      expect(menu.classList).not.toContain('d-none');
+      expect(secMenu.classList).not.toContain('col-md-12');
+    });
+  });
 });
