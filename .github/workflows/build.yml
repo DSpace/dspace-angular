@@ -24,14 +24,7 @@ jobs:
       DSPACE_REST_PORT: 8080
       DSPACE_REST_NAMESPACE: '/server'
       DSPACE_REST_SSL: false
-      # Spin up UI on 127.0.0.1 to avoid host resolution issues in e2e tests with Node 18+
-      DSPACE_UI_HOST: 127.0.0.1
-      DSPACE_UI_PORT: 4000
-      # Ensure all SSR caching is disabled in test environment
-      DSPACE_CACHE_SERVERSIDE_BOTCACHE_MAX: 0
-      DSPACE_CACHE_SERVERSIDE_ANONYMOUSCACHE_MAX: 0
-      # Tell Cypress to run e2e tests using the same UI URL
-      CYPRESS_BASE_URL: http://127.0.0.1:4000
+      DSPACE_CI_IMAGE: 'dataquest/dspace:dspace-7_x-test'
       # When Chrome version is specified, we pin to a specific version of Chrome
       # Comment this out to use the latest release
       #CHROME_VERSION: "90.0.4430.212-1"

@@ -31,9 +31,15 @@ module.exports = Object.assign({}, commonExports, {
     }),
   ],
   devServer: {
-    setupMiddlewares(middlewares, server) {
+    disableHostCheck: true,
+    before(app, server) {
       buildAppConfig(join(process.cwd(), 'src/assets/config.json'));
-      return middlewares;
+
+      app.use('/', function (req, res,next) {
+        console.log(`from ${req.ip} - ${req.method} - ${req.originalUrl}`);
+        next();
+      });
+
     }
   }
 });
