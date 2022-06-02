@@ -98,7 +98,7 @@ describe('NotificationComponent', () => {
   it('should have html content', () => {
     fixture = TestBed.createComponent(NotificationComponent);
     comp = fixture.componentInstance;
-    const htmlContent = '<a class="btn btn-link p-0 m-0 pb-1" href="/test"><strong>test</strong></a>';
+    const htmlContent = '<a class="btn btn-link p-0 m-0 pb-1" href="test"><strong>test</strong></a>';
     comp.notification = {
       id: '1',
       type: NotificationType.Info,
