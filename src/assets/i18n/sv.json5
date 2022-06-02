@@ -1335,7 +1335,7 @@
 
   // "browse.startsWith.choose_start": "(Choose start)",
   // TODO New key - Add a translation
-  "browse.startsWith.choose_start": "(Choose start)",
+  "browse.startsWith.choose_start": "(Välj startdatum)",
 
   // "browse.startsWith.choose_year": "(Välj årtal)",
   // TODO New key - Add a translation
@@ -1343,7 +1343,7 @@
 
   // "browse.startsWith.choose_year.label": "Choose the issue year",
   // TODO New key - Add a translation
-  "browse.startsWith.choose_year.label": "Choose the issue year",
+  "browse.startsWith.choose_year.label": "Välj år",
 
   // "browse.startsWith.jump": "Jump to a point in the index:",
   // TODO New key - Add a translation
@@ -2042,7 +2042,7 @@
 
   // "community.edit.logo.notifications.delete.success.content": "Successfully deleted the community's logo",
   // TODO New key - Add a translation
-  "community.edit.logo.notifications.delete.success.content": ""Loggan har raderats",
+  "community.edit.logo.notifications.delete.success.content": "Loggan har raderats",
 
   // "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
   // TODO New key - Add a translation
@@ -2818,7 +2818,6 @@
   // "forgot-password.form.submit": "Submit password",
   // TODO New key - Add a translation
   "forgot-password.form.submit": "Spara lösenord",
-
 
 
   // "form.add": "Add more",
