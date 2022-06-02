@@ -22,15 +22,34 @@ import { getFirstCompletedRemoteData, getRemoteDataPayload } from 'src/app/core/
   styleUrls: ['./thumbnail.component.scss'],
 })
 @MetadataBoxFieldRendering(FieldRenderingType.THUMBNAIL, true)
+/**
+ * The component for displaying a thumbnail rendered metadata box
+ */
 export class ThumbnailComponent extends BitstreamRenderingModelComponent implements OnInit {
+
+  /**
+  * The bitstream to be rendered
+  */
   bitstream$: BehaviorSubject<Bitstream> = new BehaviorSubject<Bitstream>(null);
 
+  /**
+  * Default image to be shown in the thumbnail
+  */
   default: string;
 
+  /**
+  * Item rendering initialization state
+  */
   initialized: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  /**
+   * Original bitstreams of the item
+   */
   originalBitstreams: Bitstream[] = [];
 
+  /**
+  * Maximum size of the thumbnail allowed to be shown
+  */
   maxSize: number;
 
   constructor(
@@ -50,6 +69,9 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
     );
   }
 
+  /**
+  * On Initialization get thumbnail default & configuration and get the thumbnail infromation from api for this item
+  */
   ngOnInit(): void {
     this.setDefaultImage();
     this.thumbnailService.getConfig().pipe(
@@ -92,10 +114,8 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
         })
       )
       .subscribe((bitstreams: Bitstream[]) => {
-        console.log(bitstreams, this.field);
         //remove null values from array & filter byteSize
         let thumbnails = this.getFilteredBySize(bitstreams.filter(n => n));
-
         if (thumbnails.length > 0) {
           this.bitstream$.next(thumbnails[0]);
         } else if (isEmpty(thumbnails) && !isEmpty(this.originalBitstreams)) {
@@ -108,6 +128,10 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
       });
   }
 
+
+  /**
+  * Filter bistreams by size
+  */
   getFilteredBySize(bitstreams: Bitstream[]) {
     if (!isEmpty(this.maxSize)) {
       const filteredBitstreams = bitstreams.filter((bitstream: Bitstream) => {
@@ -121,7 +145,9 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
   }
 
 
-
+  /**
+  * Set the default image src depending on item entity type
+  */
   setDefaultImage(): void {
     const eType = this.item.firstMetadataValue('dspace.entity.type');
     this.default = 'assets/images/person-placeholder.svg';

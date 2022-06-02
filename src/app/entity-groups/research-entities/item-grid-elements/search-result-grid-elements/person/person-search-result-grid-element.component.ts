@@ -3,8 +3,8 @@ import { listableObjectComponent } from '../../../../../shared/object-collection
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { focusShadow } from '../../../../../shared/animations/focus';
 import { ItemSearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
-import { isEmpty, isNotEmpty } from '../../../../../shared/empty.util';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { isEmpty, isNotEmpty, isNull } from '../../../../../shared/empty.util';
+import { map, switchMap } from 'rxjs/operators';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { ThumbnailService } from '../../../../../shared/thumbnail/thumbnail.service';
@@ -39,10 +39,9 @@ export class PersonSearchResultGridElementComponent extends ItemSearchResultGrid
       getRemoteDataPayload(),
       switchMap((thumbnail: Bitstream) => this.thumbnailService.getConfig().pipe(
         map((remoteData: RemoteData<ConfigurationProperty>) => {
-
           // make sure we got a success response from the backend
-          if (!remoteData.hasSucceeded) { return; }
-
+          if (!remoteData.hasSucceeded || isNull(thumbnail)) { return; }
+          console.log(thumbnail);
           const maxSize = parseInt(remoteData.payload.values[0], 10);
           if (!isEmpty(maxSize) && !isEmpty(thumbnail)) {
             // max size is in KB so we need to multiply with 1000
@@ -52,13 +51,10 @@ export class PersonSearchResultGridElementComponent extends ItemSearchResultGrid
               return null;
             }
           }
-
           return thumbnail;
-
         }))
       )
     );
-
   }
 
   getPersonName(): string {

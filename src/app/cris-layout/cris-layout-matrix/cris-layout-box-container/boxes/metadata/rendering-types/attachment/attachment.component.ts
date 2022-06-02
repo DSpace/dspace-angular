@@ -20,8 +20,13 @@ import { isUndefined } from 'lodash';
   styleUrls: ['./attachment.component.scss']
 })
 @MetadataBoxFieldRendering(FieldRenderingType.ATTACHMENT, true)
+/**
+ * The component for displaying a thumbnail rendered metadata box
+ */
 export class AttachmentComponent extends BitstreamRenderingModelComponent implements OnInit {
-
+  /**
+  * The bitstream to be rendered
+  */
   bitstreams$: Observable<Bitstream[]>;
 
   constructor(
@@ -34,6 +39,9 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
     super(fieldProvider, itemProvider, renderingSubTypeProvider, bitstreamDataService, translateService);
   }
 
+  /**
+  * On Initialization get attachemnt bitstream to be rendered
+  */
   ngOnInit() {
     this.bitstreams$ = this.getBitstreams()
       .pipe(
