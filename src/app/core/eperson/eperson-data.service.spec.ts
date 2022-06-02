@@ -21,7 +21,7 @@ import { EPersonDataService } from './eperson-data.service';
 import { EPerson } from './models/eperson.model';
 import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
@@ -287,13 +287,12 @@ describe('EPersonDataService', () => {
 
   describe('deleteEPerson', () => {
     beforeEach(() => {
-      spyOn(service, 'findById').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMock));
+      spyOn(service, 'delete').and.returnValue(createNoContentRemoteDataObject$());
       service.deleteEPerson(EPersonMock).subscribe();
     });
 
-    it('should send DeleteRequest', () => {
-      const expected = new DeleteRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid);
-      expect(requestService.send).toHaveBeenCalledWith(expected);
+    it('should call DataService.delete with the EPerson\'s UUID', () => {
+      expect(service.delete).toHaveBeenCalledWith(EPersonMock.id);
     });
   });
 

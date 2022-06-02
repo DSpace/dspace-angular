@@ -8,7 +8,7 @@ import { defaultUUID, getMockUUIDService } from '../../shared/mocks/uuid.service
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { coreReducers} from '../core.reducers';
 import { UUIDService } from '../shared/uuid.service';
-import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
+import { RequestConfigureAction, RequestExecuteAction, RequestStaleAction } from './request.actions';
 import {
   DeleteRequest,
   GetRequest,
@@ -19,7 +19,7 @@ import {
   PutRequest
 } from './request.models';
 import { RequestService } from './request.service';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { storeModuleConfig } from '../../app.reducer';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { RequestEntryState } from './request-entry-state.model';
@@ -426,7 +426,7 @@ describe('RequestService', () => {
           describe('and it is cached', () => {
             describe('in the ObjectCache', () => {
               beforeEach(() => {
-                (objectCache.getByHref as any).and.returnValue(observableOf({ requestUUID: 'some-uuid' }));
+                (objectCache.getByHref as any).and.returnValue(observableOf({ requestUUIDs: ['some-uuid'] }));
                 spyOn(serviceAsAny, 'hasByHref').and.returnValue(false);
                 spyOn(serviceAsAny, 'hasByUUID').and.returnValue(true);
               });
@@ -596,4 +596,33 @@ describe('RequestService', () => {
     });
   });
 
+  describe('setStaleByUUID', () => {
+    let dispatchSpy: jasmine.Spy;
+    let getByUUIDSpy: jasmine.Spy;
+
+    beforeEach(() => {
+      dispatchSpy = spyOn(store, 'dispatch');
+      getByUUIDSpy = spyOn(service, 'getByUUID').and.callThrough();
+    });
+
+    it('should dispatch a RequestStaleAction', () => {
+      service.setStaleByUUID('something');
+      const firstAction = dispatchSpy.calls.argsFor(0)[0];
+      expect(firstAction).toBeInstanceOf(RequestStaleAction);
+      expect(firstAction.payload).toEqual({ uuid: 'something' });
+    });
+
+    it('should return an Observable that emits true as soon as the request is stale', fakeAsync(() => {
+      dispatchSpy.and.callFake(() => { /* empty */ });   // don't actually set as stale
+      getByUUIDSpy.and.returnValue(cold('a-b--c--d-', {  // but fake the state in the cache
+        a: { state: RequestEntryState.ResponsePending },
+        b: { state: RequestEntryState.Success },
+        c: { state: RequestEntryState.SuccessStale },
+        d: { state: RequestEntryState.Error },
+      }));
+
+      const done$ = service.setStaleByUUID('something');
+      expect(done$).toBeObservable(cold('-----(t|)', { t: true }));
+    }));
+  });
 });

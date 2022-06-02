@@ -147,7 +147,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     // Perform the setup actions from above in order and display notifications
     removedResponses$.pipe(take(1)).subscribe((responses: RemoteData<NoContent>[]) => {
       this.displayNotifications('item.edit.bitstreams.notifications.remove', responses);
-      this.reset();
       this.submitting = false;
     });
   }
@@ -240,27 +239,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
       switchMap((bundles: Bundle[]) => observableZip(...bundles.map((bundle: Bundle) => this.objectUpdatesService.hasUpdates(bundle.self)))),
       map((hasChanges: boolean[]) => hasChanges.includes(true))
     );
-  }
-
-  /**
-   * De-cache the current item (it should automatically reload due to itemUpdateSubscription)
-   */
-  reset() {
-    this.refreshItemCache();
-  }
-
-  /**
-   * Remove the current item's cache from object- and request-cache
-   */
-  refreshItemCache() {
-    this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
-      bundles.forEach((bundle: Bundle) => {
-        this.objectCache.remove(bundle.self);
-        this.requestService.removeByHrefSubstring(bundle.self);
-      });
-      this.objectCache.remove(this.item.self);
-      this.requestService.removeByHrefSubstring(this.item.self);
-    });
   }
 
   /**

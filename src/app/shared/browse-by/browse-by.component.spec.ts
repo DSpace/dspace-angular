@@ -17,7 +17,6 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { FindListOptions } from '../../core/data/find-list-options.model';
 import {
   ListableObjectComponentLoaderComponent
 } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
@@ -37,7 +36,13 @@ import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { HostWindowService } from '../host-window.service';
 import { RouteService } from '../../core/services/route.service';
 import { routeServiceStub } from '../testing/route-service.stub';
-import SpyObj = jasmine.SpyObj;
+import { GroupDataService } from '../../core/eperson/group-data.service';
+import { createPaginatedList } from '../testing/utils.test';
+import { LinkHeadService } from '../../core/services/link-head.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 
 @listableObjectComponent(BrowseEntry, ViewMode.ListElement, DEFAULT_CONTEXT, 'custom')
@@ -74,6 +79,25 @@ describe('BrowseByComponent', () => {
   ];
   const mockItemsRD$ = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockItems));
 
+  const groupDataService = jasmine.createSpyObj('groupsDataService', {
+    findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    getGroupRegistryRouterLink: '',
+    getUUIDFromString: '',
+  });
+
+  const linkHeadService = jasmine.createSpyObj('linkHeadService', {
+    addTag: ''
+  });
+
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'test',
+      values: [
+        'org.dspace.ctask.general.ProfileFormats = test'
+      ]
+    }))
+  });
+
   const paginationConfig = Object.assign(new PaginationComponentOptions(), {
     id: 'test-pagination',
     currentPage: 1,
@@ -101,6 +125,10 @@ describe('BrowseByComponent', () => {
       ],
       declarations: [],
       providers: [
+        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: LinkHeadService, useValue: linkHeadService },
+        { provide: GroupDataService, useValue: groupDataService },
         { provide: PaginationService, useValue: paginationService },
         { provide: MockThemedBrowseEntryListElementComponent },
         { provide: ThemeService, useValue: themeService },
