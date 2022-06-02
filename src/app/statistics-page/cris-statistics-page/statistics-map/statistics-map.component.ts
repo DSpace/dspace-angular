@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
 import { GoogleChartInterface } from 'ng2-google-charts';
+import { ExportImageType, ExportService } from '../../../core/export-service/export.service';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Component({
@@ -30,6 +32,23 @@ export class StatisticsMapComponent implements OnInit {
    * Chart Columns needed to be shown in the tooltip
    */
   chartColumns = [];
+  /**
+   * Loading utilized for export functions to disable buttons
+   */
+  isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  /**
+   * Loading utilized for export functions to disable buttons
+   */
+  isSecondLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  /**
+   * Chart ElementRef
+   */
+  @ViewChild('googleChartRef') googleChartRef: ElementRef;
+
+  constructor(
+    private exportService: ExportService
+  ) {
+  }
 
   ngOnInit(): void {
     if ( !!this.report && !!this.report.points && this.report.points.length > 0 ) {
@@ -64,6 +83,22 @@ export class StatisticsMapComponent implements OnInit {
 
   }
 
+  /**
+   * Download map as image in png version.
+   */
+  downloadPng() {
+    this.isLoading.next(false);
+    const node = this.googleChartRef.nativeElement;
+    this.exportService.exportAsImage(node, ExportImageType.png, this.report.reportType, this.isLoading);
+  }
 
+  /**
+   * Download map as image in jpeg version.
+   */
+  downloadJpeg() {
+    this.isSecondLoading.next(false);
+    const node = this.googleChartRef.nativeElement;
+    this.exportService.exportAsImage(node, ExportImageType.jpeg, this.report.reportType, this.isSecondLoading);
+  }
 
 }

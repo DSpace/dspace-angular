@@ -5,6 +5,9 @@ import { UsageReport } from '../../../core/statistics/models/usage-report.model'
 import { USAGE_REPORT } from '../../../core/statistics/models/usage-report.resource-type';
 
 import { GoogleChartInterface } from 'ng2-google-charts';
+import { ExportService, ExportImageType } from '../../../core/export-service/export.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { By } from '@angular/platform-browser';
 
 describe('StatisticsMapComponent', () => {
   let component: StatisticsMapComponent;
@@ -49,9 +52,17 @@ describe('StatisticsMapComponent', () => {
     options: { 'title': 'TopCountries' },
   };
 
+  const exportServiceMock: any = {
+    exportAsImage: jasmine.createSpy('exportAsImage'),
+    exportAsFile: jasmine.createSpy('exportAsFile')
+  };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StatisticsMapComponent ]
+      imports: [TranslateModule.forRoot()],
+      declarations: [ StatisticsMapComponent ],
+      providers: [
+        { provide: ExportService, useValue: exportServiceMock }
+      ],
     })
     .compileComponents();
   });
@@ -80,4 +91,20 @@ describe('StatisticsMapComponent', () => {
     expect(component.geoChart).toEqual(geoChartExpected);
   });
 
+  it('should download map as png and jpg', () => {
+    component.report = report;
+    fixture.detectChanges();
+    component.ngOnInit();
+    fixture.detectChanges();
+    const downloadPngMapBtn = fixture.debugElement.query(By.css('[data-test="download-png-map-btn"]'));
+    downloadPngMapBtn.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    const node = fixture.debugElement.query(By.css('[data-test="google-chart-ref"]')).nativeElement;
+    expect(exportServiceMock.exportAsImage).toHaveBeenCalledWith(node, ExportImageType.png, report.reportType, component.isLoading);
+
+    const downloadJpgMapBtn = fixture.debugElement.query(By.css('[data-test="download-jpg-map-btn"]'));
+    downloadJpgMapBtn.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    expect(exportServiceMock.exportAsImage).toHaveBeenCalledWith(node, ExportImageType.jpeg, report.reportType, component.isSecondLoading);
+  });
 });

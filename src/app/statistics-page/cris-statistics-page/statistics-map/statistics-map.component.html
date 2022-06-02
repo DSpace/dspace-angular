@@ -1,1 +1,13 @@
- <google-chart *ngIf="data.length > 0" [data]="geoChart"></google-chart>
+<div class="export-buttons-container mb-2 pt-2 d-flex justify-content-end" *ngIf="data.length > 0">
+  <button data-test="download-png-map-btn" class="btn btn-secondary mr-2" [disabled]="(isLoading | async) || (isSecondLoading | async)" (click)="downloadPng()">
+    <span *ngIf="(isLoading | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
+    <span *ngIf="!(isLoading | async)"><i class="fas fa-file-export fa-fw"></i> {{'statistics.export.png' | translate}}</span>
+  </button>
+  <button data-test="download-jpg-map-btn" class="btn btn-secondary mr-2" [disabled]="(isLoading | async) || (isSecondLoading | async)" (click)="downloadJpeg()">
+    <span *ngIf="(isSecondLoading | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
+    <span *ngIf="!(isSecondLoading | async)"><i class="fas fa-file-export fa-fw"></i> {{'statistics.export.jpg' | translate}}</span>
+  </button>
+</div>
+<div #googleChartRef *ngIf="data.length > 0" data-test="google-chart-ref">
+  <google-chart [data]="geoChart"></google-chart>
+</div>
