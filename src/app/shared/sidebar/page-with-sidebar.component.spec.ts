@@ -66,7 +66,7 @@ describe('PageWithSidebarComponent', () => {
     });
 
     it('should open the menu', () => {
-      expect(menu.classList).toContain('active');
+      expect(menu.classList).toContain('col-md-3');
     });
   });
 
