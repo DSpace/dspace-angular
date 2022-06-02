@@ -1,3 +1,6 @@
+import { ConfigurationProperty } from './../../../../../../../core/shared/configuration-property.model';
+import { RemoteData } from './../../../../../../../core/data/remote-data';
+import { ThumbnailService } from './../../../../../../../shared/thumbnail/thumbnail.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { concatMap, map, switchMap, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
@@ -28,12 +31,15 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
 
   originalBitstreams: Bitstream[] = [];
 
+  maxSize: number;
+
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     protected bitstreamDataService: BitstreamDataService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
+    protected thumbnailService: ThumbnailService
   ) {
     super(
       fieldProvider,
@@ -46,7 +52,16 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
 
   ngOnInit(): void {
     this.setDefaultImage();
-    this.getOriginalBitstreams()
+    this.thumbnailService.getConfig().pipe(
+      tap((remoteData: RemoteData<ConfigurationProperty>) => {
+        // make sure we got a success response from the backend
+        if (!remoteData.hasSucceeded) { return; }
+
+        this.maxSize = parseInt(remoteData.payload.values[0], 10);
+
+      }),
+      switchMap(() => this.getOriginalBitstreams())
+    )
       .pipe(
         map((bitstreams: Bitstream[]) => {
           if (isUndefined(this.field.bitstream.metadataValue) || isNull(this.field.bitstream.metadataValue) || isEmpty(this.field.bitstream.metadataValue)) {
@@ -77,16 +92,35 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
         })
       )
       .subscribe((bitstreams: Bitstream[]) => {
-        //remove null values from array
-        const thumbnails = bitstreams.filter(n => n);
+        console.log(bitstreams, this.field);
+        //remove null values from array & filter byteSize
+        let thumbnails = this.getFilteredBySize(bitstreams.filter(n => n));
+
         if (thumbnails.length > 0) {
-          this.bitstream$.next(bitstreams[0]);
+          this.bitstream$.next(thumbnails[0]);
         } else if (isEmpty(thumbnails) && !isEmpty(this.originalBitstreams)) {
-          this.bitstream$.next(this.originalBitstreams[0]);
+          const filteredBitstreams = this.getFilteredBySize(this.originalBitstreams);
+          if (filteredBitstreams.length > 0) {
+            this.bitstream$.next(filteredBitstreams[0]);
+          }
         }
         this.initialized.next(true);
       });
   }
+
+  getFilteredBySize(bitstreams: Bitstream[]) {
+    if (!isEmpty(this.maxSize)) {
+      const filteredBitstreams = bitstreams.filter((bitstream: Bitstream) => {
+        // max size is in KB so we need to multiply with 1000
+        return bitstream.sizeBytes <= this.maxSize * 1000;
+      });
+      return filteredBitstreams;
+    }
+
+    return bitstreams;
+  }
+
+
 
   setDefaultImage(): void {
     const eType = this.item.firstMetadataValue('dspace.entity.type');
