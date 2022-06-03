@@ -1,7 +1,18 @@
-<ds-alert [type]="'alert-info'" *ngIf="hasNoData()" [content]="'submission.sections.sherpa-policy.title-empty'">
-</ds-alert>
+<!-- <ds-alert [type]="'alert-info'" *ngIf="hasNoData()" [content]="'submission.sections.sherpa-policy.title-empty'">
+</ds-alert> -->
 
-<div *ngIf="!hasNoData()" class="d-flex justify-content-end mt-2 mb-2">
+<div>
+    <span>
+        {{'submission.sections.sherpa-policy.title-empty' | translate}}
+    </span>
+</div>
+
+<div *ngIf="!hasNoData()" class="d-flex justify-content-between mt-2 mb-2">
+    <div class="text-information-section mr-2">
+        <span>
+            {{'submission.sections.sherpa.publisher.policy.description' | translate}}
+        </span>
+    </div>
     <button type="button" class="btn btn-secondary pull-right" (click)="refresh()" data-test="refresh-btn">
         <span><i class="fas fa-sync"></i> {{'submission.sections.sherpa.publisher.policy.refresh' | translate}} </span>
     </button>

@@ -1,13 +1,4 @@
 <div class="ml-4">
-    <div class="row">
-        <div class="col-12">
-            <p class="m-1">
-                <ds-alert [type]="AlertTypeEnum.Info"
-                    [content]="'submission.sections.sherpa.publisher.policy.openaccess'| translate">
-                </ds-alert>
-            </p>
-        </div>
-    </div>
     <ds-content-accordion *ngFor="let permittedVersions of policy.permittedVersions" [version]="permittedVersions">
     </ds-content-accordion>
     <div class="row" *ngIf="!!policy?.urls">

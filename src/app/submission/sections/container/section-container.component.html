@@ -3,9 +3,10 @@
   [submissionId]="submissionId" [sectionType]="sectionData.sectionType" [sectionId]="sectionData.id">
   <ngb-accordion #acc="ngbAccordion" *ngIf="(sectionRef.isEnabled() | async)"
     (panelChange)="sectionRef.sectionChange($event)" activeIds="{{ sectionData.id }}" [destroyOnHide]="false">
-    <ngb-panel id="{{ sectionData.id }}">
+    <ngb-panel id="{{ sectionData.id }}" [type]="sectionRef.isInfo() ? 'alert-info' : ''">
       <ng-template ngbPanelTitle>
-        <span class="float-left section-title" tabindex="0">{{ 'submission.sections.'+sectionData.header | translate
+        <span [ngClass]="{ 'light' : sectionRef.isInfo()}" class="float-left section-title" tabindex="0">{{
+          'submission.sections.'+sectionData.header | translate
           }}</span>
         <div class="d-inline-block float-right">
           <i *ngIf="!(sectionRef.isValid() | async) && !(sectionRef.hasErrors()) && !(sectionRef.isInfo())"
@@ -20,7 +21,7 @@
             class="fas fa-check-circle text-success mr-3"
             title="{{'submission.sections.status.valid.title' | translate}}" role="img"
             [attr.aria-label]="'submission.sections.status.valid.aria' | translate"></i>
-          <i *ngIf="sectionRef.isInfo() " class="fas fa-info-circle text-info mr-3"
+          <i *ngIf="sectionRef.isInfo()" class="fas fa-info-circle text-info mr-3"
             title="{{'submission.sections.status.info.title' | translate}}" role="img"
             [attr.aria-label]="'submission.sections.status.info.aria' | translate"></i>
           <a class="close" tabindex="0" role="button"

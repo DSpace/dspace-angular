@@ -4001,9 +4001,10 @@
 
   "submission.sections.submit.progressbar.upload": "Upload files",
 
+  "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
 
 
-  "submission.sections.sherpa-policy.title-empty": "No information available",
+  "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
 
   "submission.sections.status.errors.title": "Errors",
 
@@ -4134,8 +4135,9 @@
 
   "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
 
-
   "submission.sections.sherpa.publisher.policy": "Publisher Policy",
+
+  "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
 
   "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
 
