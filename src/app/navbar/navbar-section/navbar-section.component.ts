@@ -10,8 +10,6 @@ import { MenuID } from '../../shared/menu/menu-id.model';
 @Component({
   /* eslint-disable @angular-eslint/component-selector */
   selector: 'li[ds-navbar-section]',
-  // To theme this element remove the surrounding li[] in this component but leave it in the new
-  // ThemedNavbarSectionComponent
   templateUrl: './navbar-section.component.html',
   styleUrls: ['./navbar-section.component.scss']
 })
