@@ -28,6 +28,7 @@ import { SearchConfigurationService } from '../../../core/shared/search/search-c
 import { SearchService } from '../../../core/shared/search/search.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getItemPageRoute } from '../../item-page-routing-paths';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 
 @Component({
   selector: 'ds-item-collection-mapper',
@@ -72,6 +73,12 @@ export class ItemCollectionMapperComponent implements OnInit {
    * Collections that are not mapped to the item
    */
   mappedCollectionsRD$: Observable<RemoteData<PaginatedList<Collection>>>;
+
+  /**
+   * Sort on title ASC by default
+   * @type {SortOptions}
+   */
+   defaultSortOptions: SortOptions = new SortOptions('dc.title', SortDirection.ASC);
 
   /**
    * Firing this observable (shouldUpdate$.next(true)) forces the two lists to reload themselves
@@ -149,7 +156,8 @@ export class ItemCollectionMapperComponent implements OnInit {
       switchMap(([itemCollectionsRD, owningCollectionRD, searchOptions]) => {
         return this.searchService.search(Object.assign(new PaginatedSearchOptions(searchOptions), {
           query: this.buildQuery([...itemCollectionsRD.payload.page, owningCollectionRD.payload], searchOptions.query),
-          dsoTypes: [DSpaceObjectType.COLLECTION]
+          dsoTypes: [DSpaceObjectType.COLLECTION],
+          sort: this.defaultSortOptions
         }), 10000).pipe(
           toDSpaceObjectListRD(),
           startWith(undefined)
