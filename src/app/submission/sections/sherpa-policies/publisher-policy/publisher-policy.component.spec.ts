@@ -43,7 +43,7 @@ describe('PublisherPolicyComponent', () => {
     expect(de.query(By.css('ds-content-accordion'))).toBeTruthy();
   });
 
-  it('should show 2 rows', () => {
-    expect(de.queryAll(By.css('.row')).length).toEqual(2);
+  it('should show 1 row', () => {
+    expect(de.queryAll(By.css('.row')).length).toEqual(1);
   });
 });
