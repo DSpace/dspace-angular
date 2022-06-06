@@ -17,6 +17,7 @@ import { SubmissionService } from '../../submission.service';
 import { DebugElement } from '@angular/core';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { of as observableOf } from 'rxjs';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('SubmissionSectionSherpaPoliciesComponent', () => {
   let component: SubmissionSectionSherpaPoliciesComponent;
@@ -53,6 +54,7 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
       await TestBed.configureTestingModule({
         imports: [
           BrowserModule,
+          NoopAnimationsModule,
           TranslateModule.forRoot({
             loader: {
               provide: TranslateLoader,
