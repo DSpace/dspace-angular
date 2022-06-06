@@ -26,3 +26,6 @@
 
   </div>
 </ng-container>
+<ng-container *ngIf="!healthComponent?.details && !healthComponent?.components">
+  <ds-alert [content]="'health-page.section.no-issues'" [type]="AlertTypeEnum.Info"></ds-alert>
+</ng-container>

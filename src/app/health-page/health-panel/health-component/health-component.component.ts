@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import { HealthComponent } from '../../models/health-component.model';
 import { TranslateService } from '@ngx-translate/core';
+import { AlertType } from '../../../shared/alert/aletr-type';
 
 @Component({
   selector: 'ds-health-component',
@@ -19,6 +20,8 @@ export class HealthComponentComponent {
    * The HealthComponent object name
    */
   @Input() healthComponentName: string;
+
+  public AlertTypeEnum = AlertType;
 
   /**
    * A boolean representing if div should start collapsed
