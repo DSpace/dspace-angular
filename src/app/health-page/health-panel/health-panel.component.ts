@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HealthResponse } from '../models/health-component.model';
 import { TranslateService } from '@ngx-translate/core';
-import { isNotEmpty } from '../../shared/empty.util';
+import {isNotEmpty} from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-health-panel',
