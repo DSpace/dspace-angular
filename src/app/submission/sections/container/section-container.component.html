@@ -3,9 +3,9 @@
   [submissionId]="submissionId" [sectionType]="sectionData.sectionType" [sectionId]="sectionData.id">
   <ngb-accordion #acc="ngbAccordion" *ngIf="(sectionRef.isEnabled() | async)"
     (panelChange)="sectionRef.sectionChange($event)" activeIds="{{ sectionData.id }}" [destroyOnHide]="false">
-    <ngb-panel id="{{ sectionData.id }}" [type]="sectionRef.isInfo() ? 'alert-info' : ''">
+    <ngb-panel id="{{ sectionData.id }}" [type]="sectionRef.isInfo() ? 'info' : ''">
       <ng-template ngbPanelTitle>
-        <span [ngClass]="{ 'light' : sectionRef.isInfo()}" class="float-left section-title" tabindex="0">{{
+        <span [ngClass]="{ 'text-white' : sectionRef.isInfo()}" class="float-left section-title" tabindex="0">{{
           'submission.sections.'+sectionData.header | translate
           }}</span>
         <div class="d-inline-block float-right">
@@ -21,13 +21,14 @@
             class="fas fa-check-circle text-success mr-3"
             title="{{'submission.sections.status.valid.title' | translate}}" role="img"
             [attr.aria-label]="'submission.sections.status.valid.aria' | translate"></i>
-          <i *ngIf="sectionRef.isInfo()" class="fas fa-info-circle text-info mr-3"
+          <i *ngIf="sectionRef.isInfo()" class="fas fa-info-circle mr-3 text-white"
             title="{{'submission.sections.status.info.title' | translate}}" role="img"
             [attr.aria-label]="'submission.sections.status.info.aria' | translate"></i>
           <a class="close" tabindex="0" role="button"
             [attr.aria-label]="(sectionRef.isOpen() ? 'submission.sections.toggle.aria.close' : 'submission.sections.toggle.aria.open') | translate: {sectionHeader: ('submission.sections.'+sectionData.header | translate)}"
             [title]="(sectionRef.isOpen() ? 'submission.sections.toggle.close' : 'submission.sections.toggle.open') | translate">
-            <span *ngIf="sectionRef.isOpen()" class="fas fa-chevron-up fa-fw"></span>
+            <span *ngIf="sectionRef.isOpen()" [ngClass]="{ 'text-white' : sectionRef.isInfo()}"
+              class="fas fa-chevron-up fa-fw"></span>
             <span *ngIf="!sectionRef.isOpen()" class="fas fa-chevron-down fa-fw"></span>
           </a>
           <a href="javascript:void(0);" class="close mr-3" *ngIf="!sectionRef.isMandatory()"

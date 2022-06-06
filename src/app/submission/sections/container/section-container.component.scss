@@ -19,11 +19,3 @@
   box-shadow: none !important;
   width: 100%;
 }
-
-:host .light {
-  color: #113d4f;
-}
-
-:host ::ng-deep .bg-alert-info {
-  background-color: #d2e4ea;
-}
