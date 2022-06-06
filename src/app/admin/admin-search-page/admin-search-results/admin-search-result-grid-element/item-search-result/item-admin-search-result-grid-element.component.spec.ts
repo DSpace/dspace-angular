@@ -20,7 +20,6 @@ import { getMockThemeService } from '../../../../../shared/mocks/theme-service.m
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
 import { AccessStatusObject } from '../../../../../shared/object-list/access-status-badge/access-status.model';
-import { NativeWindowRef, NativeWindowService } from '../../../../../core/services/window.service';
 
 describe('ItemAdminSearchResultGridElementComponent', () => {
   let component: ItemAdminSearchResultGridElementComponent;
@@ -61,7 +60,6 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
           SharedModule
         ],
         providers: [
-          { provide: NativeWindowService, useValue: new NativeWindowRef() },
           { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
           { provide: ThemeService, useValue: mockThemeService },
