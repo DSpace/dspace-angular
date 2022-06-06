@@ -31,7 +31,6 @@ module.exports = Object.assign({}, commonExports, {
     }),
   ],
   devServer: {
-    disableHostCheck: true,
     before(app, server) {
       buildAppConfig(join(process.cwd(), 'src/assets/config.json'));
 
