@@ -8,6 +8,7 @@ import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
   BITSTREAM_MODULE_PATH,
+  ERROR_PAGE,
   FORBIDDEN_PATH,
   FORGOT_PASSWORD_PATH,
   INFO_MODULE_PATH,
@@ -31,11 +32,13 @@ import { GroupAdministratorGuard } from './core/data/feature-authorization/featu
 import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { MenuResolver } from './menu.resolver';
+import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 
 @NgModule({
   imports: [
     RouterModule.forRoot([
       { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
+      { path: ERROR_PAGE , component: ThemedPageErrorComponent },
       {
         path: '',
         canActivate: [AuthBlockingGuard],

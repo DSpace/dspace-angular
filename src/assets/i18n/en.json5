@@ -27,6 +27,16 @@
 
   "404.page-not-found": "page not found",
 
+  "error-page.description.401": "unauthorized",
+
+  "error-page.description.403": "forbidden",
+
+  "error-page.description.500": "Service Unavailable",
+
+  "error-page.description.404": "page not found",
+
+  "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
+
   "access-status.embargo.listelement.badge": "Embargo",
 
   "access-status.metadata.only.listelement.badge": "Metadata only",
