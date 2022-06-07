@@ -1,3 +1,4 @@
+import { Item } from './../../../core/shared/item.model';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -23,6 +24,7 @@ describe('ItemExportComponent', () => {
   let fixture: ComponentFixture<ItemExportComponent>;
   let configuration: ItemExportFormConfiguration;
   let exportForm: FormGroup;
+  let exportItemForm: FormGroup;
 
   const itemExportService: any = jasmine.createSpyObj('ItemExportFormatService', {
     initialItemExportFormConfiguration: jasmine.createSpy('initialItemExportFormConfiguration'),
@@ -32,6 +34,20 @@ describe('ItemExportComponent', () => {
 
   const modal: any = jasmine.createSpyObj('NgbActiveModal', {
     close: jasmine.createSpy('close').and.callFake(() => { /**/ })
+  });
+
+
+  const mockItem = Object.assign(new Item(), {
+    id: 'fake-id',
+    uuid: 'fake-id',
+    handle: 'fake/handle',
+    lastModified: '2018',
+    entityType: 'Person',
+    _links: {
+      self: {
+        href: 'https://localhost:8000/items/fake-id'
+      }
+    }
   });
 
   const router = new RouterMock();
@@ -79,7 +95,7 @@ describe('ItemExportComponent', () => {
       // inputs
       component.searchOptions = 'searchOptions' as any;
       component.molteplicity = 'molteplicity' as any;
-      component.item = 'item' as any;
+      component.item = mockItem;
       component.itemType = itemType;
 
       // data
@@ -87,6 +103,11 @@ describe('ItemExportComponent', () => {
       exportForm = new FormGroup({
         format: new FormControl(configuration.format, [Validators.required]),
         entityType: new FormControl(configuration.entityType, [Validators.required]),
+      });
+
+      exportItemForm = new FormGroup({
+        format: new FormControl(configuration.format, [Validators.required]),
+        entityType: new FormControl(mockItem.entityType, [Validators.required]),
       });
 
       // spies
@@ -103,10 +124,16 @@ describe('ItemExportComponent', () => {
     });
 
     it('should initialize the exportForm calling initialItemExportFormConfiguration', () => {
-      expect(itemExportService.initialItemExportFormConfiguration).toHaveBeenCalledWith('item');
+      expect(itemExportService.initialItemExportFormConfiguration).toHaveBeenCalledWith(mockItem);
       expect(component.configuration).toBe(configuration);
-      expect(component.initFormItemType).toHaveBeenCalledWith(configuration);
-      expect(component.exportForm).toBe(exportForm);
+    });
+
+    it('should initialize the exportForm calling initialItemExportFormConfiguration with null item', () => {
+      component.item = null;
+      component.ngOnInit();
+      fixture.detectChanges();
+      expect(itemExportService.initialItemExportFormConfiguration).toHaveBeenCalledWith(null);
+      expect(component.configuration).toBe(configuration);
     });
 
 
