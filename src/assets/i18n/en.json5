@@ -4787,6 +4787,8 @@
 
   "search.filters.filter.funding.placeholder": "Funding",
 
+  "search.filters.filter.funding.label": "Search funding",
+
   "search.filters.filter.has_content_in_original_bundle.head": "Has files",
 
   "search.filters.filter.itemtype.head": "Type",
@@ -4842,6 +4844,8 @@
   "search.filters.filter.organization.head": "Organization",
 
   "search.filters.filter.organization.placeholder": "Organization",
+
+  "search.filters.filter.organization.label": "Search organization",
 
   "search.filters.filter.organizationAddressCountry.head": "Country",
 
