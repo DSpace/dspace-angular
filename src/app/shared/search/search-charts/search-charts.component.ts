@@ -35,7 +35,7 @@ export class SearchChartsComponent implements OnInit {
   /**
    * Toggle button to Show/Hide chart
    */
-  @Input() showChartsToggle = true;
+  @Input() showChartsToggle = false;
 
   /**
    * An observable containing configuration about which filters are shown and how they are shown
