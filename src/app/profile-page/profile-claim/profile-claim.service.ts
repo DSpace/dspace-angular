@@ -61,7 +61,7 @@ export class ProfileClaimService {
     return this.searchService.search(new PaginatedSearchOptions({
       configuration: 'eperson_claims',
       query: query
-    }));
+    }), null, false, true);
   }
 
   /**
