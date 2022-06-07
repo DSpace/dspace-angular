@@ -20,7 +20,7 @@
     <div *ngFor="let metadata of metadataList" class="row">
       <div class="col-md-12">
         <strong>{{'item.preview.' + metadata.key | translate}}</strong>
-        <div *ngIf="metadata.key === 'dc.description.abstract'" id="truncatable" class="mb-2">
+        <div *ngIf="metadata.key === 'dc.description.abstract'" data-test="abstract" class="mb-2">
           <ds-truncatable [id]="metadata.key">
             <ds-truncatable-part [id]="metadata.key" [minLines]="3">
               <p>{{metadata.value.value}}</p>
