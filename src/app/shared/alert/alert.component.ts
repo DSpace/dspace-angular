@@ -33,7 +33,7 @@ export class AlertComponent {
   /**
    * The alert type
    */
-  @Input() type: AlertType|string;
+  @Input() type: AlertType;
 
   /**
    * An event fired when alert is dismissed.
