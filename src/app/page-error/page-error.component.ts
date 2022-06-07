@@ -20,8 +20,8 @@ export class PageErrorComponent {
    */
   constructor(private activatedRoute: ActivatedRoute) {
     this.activatedRoute.queryParams.subscribe((params) => {
-      this.status = params['status'];
-      this.code = params['code'];
+      this.status = params.status;
+      this.code = params.code;
     });
   }
 }
