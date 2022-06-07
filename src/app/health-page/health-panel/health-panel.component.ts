@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HealthResponse } from '../models/health-component.model';
 import { TranslateService } from '@ngx-translate/core';
 
+/**
+ * Show the health panel
+ */
 @Component({
   selector: 'ds-health-panel',
   templateUrl: './health-panel.component.html',

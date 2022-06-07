@@ -3,6 +3,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HealthInfoResponse } from '../models/health-component.model';
 import { TranslateService } from '@ngx-translate/core';
 
+/**
+ * Show the health info
+ */
 @Component({
   selector: 'ds-health-info',
   templateUrl: './health-info.component.html',

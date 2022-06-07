@@ -4,6 +4,9 @@ import { HealthComponent } from '../../models/health-component.model';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertType } from '../../../shared/alert/aletr-type';
 
+/**
+ * Show a health component object
+ */
 @Component({
   selector: 'ds-health-component',
   templateUrl: './health-component.component.html',

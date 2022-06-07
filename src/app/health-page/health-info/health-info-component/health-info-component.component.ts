@@ -3,6 +3,9 @@ import { Component, Input } from '@angular/core';
 import { HealthInfoComponent } from '../../models/health-component.model';
 import { HealthComponentComponent } from '../../health-panel/health-component/health-component.component';
 
+/**
+ * Shows a health info object
+ */
 @Component({
   selector: 'ds-health-info-component',
   templateUrl: './health-info-component.component.html',
