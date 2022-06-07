@@ -45,7 +45,7 @@ describe('DsoPageOrcidButtonComponent', () => {
   });
 
   it('should check the authorization of the current user', () => {
-    expect(authorizationService.isAuthorized).toHaveBeenCalledWith(FeatureID.CanEditOrcid, dso.self);
+    expect(authorizationService.isAuthorized).toHaveBeenCalledWith(FeatureID.CanSynchronizeWithORCID, dso.self);
   });
 
   describe('when the user is authorized', () => {
