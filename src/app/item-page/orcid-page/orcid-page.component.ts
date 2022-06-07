@@ -1,8 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {ConfigurationDataService} from '../../core/data/configuration-data.service';
 import {ResearcherProfileService} from '../../core/profile/researcher-profile.service';
-import {TranslateService} from '@ngx-translate/core';
-import {NotificationsService} from '../../shared/notifications/notifications.service';
 import {ItemDataService} from '../../core/data/item-data.service';
 import {ActivatedRoute} from '@angular/router';
 import {NativeWindowRef, NativeWindowService} from '../../core/services/window.service';

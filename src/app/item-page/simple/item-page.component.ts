@@ -1,26 +1,21 @@
-import { map, mergeMap, take, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 
 import { Item } from '../../core/shared/item.model';
 
 import { fadeInOut } from '../../shared/animations/fade';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData } from '../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { AuthService } from '../../core/auth/auth.service';
 import { getItemPageRoute } from '../item-page-routing-paths';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { TranslateService } from '@ngx-translate/core';
-import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { isNotUndefined } from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 
 /**
