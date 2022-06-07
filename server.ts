@@ -67,6 +67,8 @@ extendEnvironmentWithAppConfig(environment, appConfig);
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
 
+  const router = express.Router();
+
   /*
    * Create a new express application
    */
@@ -138,7 +140,11 @@ export function app() {
   /**
    * Proxy the sitemaps
    */
-  server.use('/sitemap**', createProxyMiddleware({ target: `${environment.rest.baseUrl}/sitemaps`, changeOrigin: true }));
+  router.use('/sitemap**', createProxyMiddleware({
+    target: `${environment.rest.baseUrl}/sitemaps`,
+    pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
+    changeOrigin: true
+  }));
 
   /**
    * Checks if the rateLimiter property is present
@@ -157,7 +163,7 @@ export function app() {
    * Serve static resources (images, i18n messages, …)
    * Handle pre-compressed files with [express-static-gzip](https://github.com/tkoenig89/express-static-gzip)
    */
-  server.get('*.*', cacheControl, expressStaticGzip(DIST_FOLDER, {
+  router.get('*.*', cacheControl, expressStaticGzip(DIST_FOLDER, {
     index: false,
     enableBrotli: true,
     orderPreference: ['br', 'gzip'],
@@ -166,10 +172,12 @@ export function app() {
   /*
   * Fallthrough to the IIIF viewer (must be included in the build).
   */
-  server.use('/iiif', express.static(IIIF_VIEWER, {index:false}));
+  router.use('/iiif', express.static(IIIF_VIEWER, { index: false }));
 
   // Register the ngApp callback function to handle incoming requests
-  server.get('*', ngApp);
+  router.get('*', ngApp);
+
+  server.use(environment.ui.nameSpace, router);
 
   return server;
 }
@@ -203,13 +211,25 @@ function ngApp(req, res) {
         if (hasValue(err)) {
           console.warn('Error details : ', err);
         }
-        res.sendFile(DIST_FOLDER + '/index.html');
+        res.render(indexHtml, {
+          req,
+          providers: [{
+            provide: APP_BASE_HREF,
+            useValue: req.baseUrl
+          }]
+        });
       }
     });
   } else {
     // If preboot is disabled, just serve the client
     console.log('Universal off, serving for direct CSR');
-    res.sendFile(DIST_FOLDER + '/index.html');
+    res.render(indexHtml, {
+      req,
+      providers: [{
+        provide: APP_BASE_HREF,
+        useValue: req.baseUrl
+      }]
+    });
   }
 }
 
