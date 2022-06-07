@@ -7,13 +7,13 @@
       rel="noopener noreferrer" [routerLink]="[itemPageRoute]" class="card-img-top full-width"
       [attr.title]="'search.results.view-result' | translate">
       <div>
-        <ds-thumbnail [thumbnail]="getThumbnail() | async" [limitWidth]="false">
+        <ds-thumbnail [thumbnail]="thumbnail$ | async" [limitWidth]="false">
         </ds-thumbnail>
       </div>
     </a>
     <span *ngIf="linkType == linkTypes.None" class="card-img-top full-width">
       <div>
-        <ds-thumbnail [thumbnail]="getThumbnail() | async" [limitWidth]="false">
+        <ds-thumbnail [thumbnail]="thumbnail$ | async" [limitWidth]="false">
         </ds-thumbnail>
       </div>
     </span>

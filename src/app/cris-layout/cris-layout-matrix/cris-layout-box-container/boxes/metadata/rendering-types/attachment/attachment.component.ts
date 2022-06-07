@@ -10,7 +10,7 @@ import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { map } from 'rxjs/operators';
-import { hasValue, isEmpty, isNull } from 'src/app/shared/empty.util';
+import { hasValue, isEmpty, isNull } from '../../../../../../../shared/empty.util';
 import { isUndefined } from 'lodash';
 
 

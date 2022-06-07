@@ -7,13 +7,13 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
-import { hasValue, isEmpty, isNull, isUndefined } from '../../../../../../../shared/empty.util';
+import { hasValue, isEmpty, isNotNull, isNull, isUndefined } from '../../../../../../../shared/empty.util';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { BehaviorSubject, combineLatest, of as observableOf } from 'rxjs';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
+import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../../../../../core/shared/operators';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -79,7 +79,9 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
         // make sure we got a success response from the backend
         if (!remoteData.hasSucceeded) { return; }
 
-        this.maxSize = parseInt(remoteData.payload.values[0], 10);
+        if (!isUndefined(remoteData.payload) && isNotNull(remoteData.payload) && isNotNull(remoteData.payload.values)) {
+          this.maxSize = parseInt(remoteData.payload.values[0], 10);
+        }
 
       }),
       switchMap(() => this.getOriginalBitstreams())
