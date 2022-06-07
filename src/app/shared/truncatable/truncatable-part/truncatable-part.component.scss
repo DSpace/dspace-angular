@@ -6,6 +6,6 @@
   box-shadow: none !important;
 }
 
-.removeFaded {
-  position: inherit;
+.removeFaded.content::after {
+  display: none;
 }
