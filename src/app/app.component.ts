@@ -228,6 +228,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * Update the theme according to the current route, if applicable.
+   * @param urlAfterRedirects the current URL after redirects
+   * @param snapshot          the current route snapshot
+   * @private
+   */
   private updateTheme(urlAfterRedirects: string, snapshot: ActivatedRouteSnapshot): void {
     this.themeService.updateThemeOnRouteChange$(urlAfterRedirects, snapshot).pipe(
       switchMap((changed) => {
