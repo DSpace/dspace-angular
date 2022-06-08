@@ -6,7 +6,7 @@
     </div>
 </div>
 
-<ds-search-charts *ngIf="showCharts" [configuration]="currentConfiguration$" [inPlaceSearch]="inPlaceSearch"></ds-search-charts>
+<ds-search-charts *ngIf="showCharts" [configuration]="currentConfiguration$" [inPlaceSearch]="inPlaceSearch" [showChartsToggle]="showChartsToggle"></ds-search-charts>
 
 <div *ngIf="!showSidebar && (initialized$ | async)">
     <ng-template *ngTemplateOutlet="searchContent"></ng-template>
@@ -78,10 +78,10 @@
 
 <ng-template #searchForm>
     <div class="d-flex align-items-center my-1">
-        <button class="btn btn-outline-secondary mb-3 mr-3" (click)="toggleSidebar()" *ngIf="!(isXsOrSm$ | async) && showFilterToggle">
-            <div class="d-flex align-items-center">
+        <button class="btn btn-outline-secondary mb-3 mr-3" (click)="toggleSidebar()" *ngIf="!(isXsOrSm$ | async) && showFilterToggle && showSidebar">
+            <span class="d-flex align-items-center">
                 <i class="fa fa-filter mr-2"></i> 
-                {{"search.sidebar.show.hide" | translate}}</div>
+                {{"search.sidebar.show.hide" | translate}}</span>
         </button>
         <ds-search-form *ngIf="searchEnabled" id="search-form" class="flex-grow-1"
                         [query]="(searchOptions$ | async)?.query"
@@ -92,9 +92,7 @@
                         [searchPlaceholder]="searchFormPlaceholder | translate">
         </ds-search-form>
         <ng-content select="[additionalSearchFormOptions]"></ng-content>
-        <div class="mb-3" *ngIf="showExport">
-            <ds-item-export-modal-launcher [searchOptions$]="searchOptions$"></ds-item-export-modal-launcher>
-        </div>
+        <ds-item-export-modal-launcher [searchOptions$]="searchOptions$" *ngIf="showExport"></ds-item-export-modal-launcher>
     </div>
     <div class="row mb-3 mb-md-1">
         <div class="labels col-sm-9">

@@ -168,7 +168,12 @@ export class SearchComponent implements OnInit {
   /**
    * Toggle button to Show/Hide filter
    */
-  @Input() showFilterToggle = true;
+  @Input() showFilterToggle = false;
+
+  /**
+   * Toggle button to Show/Hide chart
+   */
+   @Input() showChartsToggle = false;
 
   /**
    * The current configuration used during the search
