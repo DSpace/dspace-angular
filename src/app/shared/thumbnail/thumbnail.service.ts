@@ -4,7 +4,6 @@ import { RemoteData } from '../../core/data/remote-data';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { isEmpty } from '../../shared/empty.util';
 
 /**
  * Set up Google Analytics on the client side.
@@ -26,14 +25,5 @@ export class ThumbnailService {
     return this.configService.findByPropertyName('cris.layout.thumbnail.maxsize').pipe(
       getFirstCompletedRemoteData(),
     );
-    // .subscribe((remoteData) => {
-    //   // make sure we got a success response from the backend
-    //   if (!remoteData.hasSucceeded) { return; }
-
-    //   const maxSize = remoteData.payload.values[0];
-
-    //   // make sure we received a tracking id
-    //   if (isEmpty(maxSize)) { return; }
-    // });
   }
 }

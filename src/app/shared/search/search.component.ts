@@ -397,8 +397,7 @@ export class SearchComponent implements OnInit {
       undefined,
       this.useCachedVersionIfAvailable,
       true,
-      followLink<Item>('thumbnail', { isOptional: true }),
-      followLink<Item>('bundles', { isOptional: true })
+      followLink<Item>('thumbnail', { isOptional: true })
     ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded && results.payload?.page?.length > 0) {

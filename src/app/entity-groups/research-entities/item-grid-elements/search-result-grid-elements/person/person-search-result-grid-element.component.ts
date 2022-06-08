@@ -27,6 +27,9 @@ import { PaginatedList } from '../../../../../core/data/paginated-list.model';
  */
 export class PersonSearchResultGridElementComponent extends ItemSearchResultGridElementComponent implements OnInit {
 
+  /**
+   * The thumbnail of item as an Observable due its dynamic property
+   */
   thumbnail$: Observable<Bitstream> = of(null);
 
   constructor(
@@ -37,11 +40,18 @@ export class PersonSearchResultGridElementComponent extends ItemSearchResultGrid
     super(truncatableService, bitstreamDataService);
   }
 
+  /**
+   * On init get the items thumbnail
+   */
   ngOnInit() {
     super.ngOnInit();
     this.thumbnail$ = this.getThumbnail();
   }
 
+
+  /**
+   * Returns the valid thumbnail or original bitstream depending on item and max size
+   */
   getThumbnail(): Observable<Bitstream> {
     return this.dso.thumbnail.pipe(
       getFirstCompletedRemoteData(),
@@ -60,10 +70,8 @@ export class PersonSearchResultGridElementComponent extends ItemSearchResultGrid
             // max size is in KB so we need to multiply with 1000
             if (!isEmpty(thumbnail) && thumbnail.sizeBytes <= maxSize * 1000) {
               return of(thumbnail);
-            } else if (!!this.dso.bundles) {
-              return this.getOriginalBitstreams(maxSize);
             } else {
-              return of(null);
+              return this.getOriginalBitstreams(maxSize);
             }
           }
           return of(thumbnail);
@@ -90,6 +98,9 @@ export class PersonSearchResultGridElementComponent extends ItemSearchResultGrid
       );
   }
 
+  /**
+   * Returns the person name
+   */
   getPersonName(): string {
     let personName = this.dso.name;
     if (isNotEmpty(this.firstMetadataValue('person.familyName')) && isNotEmpty(this.firstMetadataValue('person.givenName'))) {

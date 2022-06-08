@@ -171,11 +171,9 @@ const truncatableServiceStub: any = {
   isCollapsed: (id: number) => observableOf(true),
 };
 
-const mockBitstreamDataService = {
-  getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
-    return createSuccessfulRemoteDataObject$(new Bitstream());
-  }
-};
+const mockBitstreamDataService = jasmine.createSpyObj('BitstreamDataService', {
+  findAllByItemAndBundleName: jasmine.createSpy('findAllByItemAndBundleName')
+});
 
 const defaultThumbnailService = jasmine.createSpyObj('ThumbnailService', {
   getConfig: jasmine.createSpy('getConfig')
