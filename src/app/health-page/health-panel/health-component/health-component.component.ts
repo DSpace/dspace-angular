@@ -1,11 +1,16 @@
 import { Component, Input } from '@angular/core';
 
-import { HealthComponent } from '../../models/health-component.model';
 import { TranslateService } from '@ngx-translate/core';
+
+import { HealthComponent } from '../../models/health-component.model';
 import { AlertType } from '../../../shared/alert/aletr-type';
 
 /**
- * Show a health component object
+ * A component to render a "health component" object.
+ *
+ * Note that the word "component" in "health component" doesn't refer to Angular use of the term
+ * but rather to the components used in the response of the health endpoint of Spring's Actuator
+ * API.
  */
 @Component({
   selector: 'ds-health-component',

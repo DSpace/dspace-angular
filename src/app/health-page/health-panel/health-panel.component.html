@@ -4,7 +4,7 @@
     <ng-template ngbPanelHeader>
       <div class="w-100 d-flex justify-content-between collapse-toggle" ngbPanelToggle (click)="acc.toggle(entry.key)" data-test="component">
         <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()" [attr.aria-expanded]="!acc.isExpanded(entry.key)"
-                aria-controls="collapseExample">
+                aria-controls="collapsePanels">
           {{ getPanelLabel(entry.key) | titlecase }}
         </button>
         <div class="text-right d-flex">

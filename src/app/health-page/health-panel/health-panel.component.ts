@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HealthResponse } from '../models/health-component.model';
+
 import { TranslateService } from '@ngx-translate/core';
+
+import { HealthResponse } from '../models/health-component.model';
 
 /**
  * Show the health panel
@@ -32,7 +34,7 @@ export class HealthPanelComponent implements OnInit {
   /**
    * Return translated label if exist for the given property
    *
-   * @param property
+   * @param panelKey
    */
   public getPanelLabel(panelKey: string): string {
     const translationKey = `health-page.section.${panelKey}.title`;

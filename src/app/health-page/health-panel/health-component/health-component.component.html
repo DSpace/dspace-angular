@@ -23,7 +23,6 @@
 <ng-container *ngIf="healthComponent?.details">
   <div *ngFor="let item of healthComponent?.details | dsObjNgFor" data-test="details">
     <p data-test="property"><span class="font-weight-bold">{{ getPropertyLabel(item.key) | titlecase }}</span> : {{item.value}}</p>
-
   </div>
 </ng-container>
 <ng-container *ngIf="!healthComponent?.details && !healthComponent?.components">
