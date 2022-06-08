@@ -40,7 +40,7 @@ export class PersonPageClaimButtonComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authorizationService.isAuthorized(FeatureID.CanClaimItem, this.object._links.self.href).pipe(
+    this.authorizationService.isAuthorized(FeatureID.CanClaimItem, this.object._links.self.href, null, false).pipe(
       take(1)
     ).subscribe((isAuthorized: boolean) => {
       this.claimable$.next(isAuthorized);
