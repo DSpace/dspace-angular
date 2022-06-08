@@ -15,6 +15,7 @@ import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.model';
 import { UIServerConfig } from './ui-server-config.interface';
 import { BundleConfig } from './bundle-config.interface';
+import { ActuatorsConfig } from './actuators.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -46,6 +47,10 @@ export class DefaultAppConfig implements AppConfig {
     port: 8080,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/',
+  };
+
+  actuators: ActuatorsConfig = {
+    endpointPath: '/actuator/health'
   };
 
   // Caching settings

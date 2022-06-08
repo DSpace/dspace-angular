@@ -122,3 +122,5 @@ export const REQUEST_COPY_MODULE_PATH = 'request-a-copy';
 export function getRequestCopyModulePath() {
   return `/${REQUEST_COPY_MODULE_PATH}`;
 }
+
+export const HEALTH_PAGE_PATH = 'health';

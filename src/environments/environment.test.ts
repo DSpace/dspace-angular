@@ -38,6 +38,10 @@ export const environment: BuildConfig = {
     baseUrl: 'https://rest.com/api'
   },
 
+  actuators: {
+    endpointPath: '/actuator/health'
+  },
+
   // Caching settings
   cache: {
     // NOTE: how long should objects be cached for by default

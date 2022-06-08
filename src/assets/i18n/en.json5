@@ -1587,6 +1587,46 @@
   "grant-request-copy.success": "Successfully granted item request",
 
 
+  "health.breadcrumbs": "Health",
+
+  "health-page.heading" : "Health",
+
+  "health-page.info-tab" : "Info",
+
+  "health-page.status-tab" : "Status",
+
+  "health-page.error.msg": "The health check service is temporarily unavailable",
+
+  "health-page.property.status": "Status code",
+
+  "health-page.section.db.title": "Database",
+
+  "health-page.section.geoIp.title": "GeoIp",
+
+  "health-page.section.solrAuthorityCore.title": "Sor: authority core",
+
+  "health-page.section.solrOaiCore.title": "Sor: oai core",
+
+  "health-page.section.solrSearchCore.title": "Sor: search core",
+
+  "health-page.section.solrStatisticsCore.title": "Sor: statistics core",
+
+  "health-page.section-info.app.title": "Application Backend",
+
+  "health-page.section-info.java.title": "Java",
+
+  "health-page.status": "Status",
+
+  "health-page.status.ok.info": "Operational",
+
+  "health-page.status.error.info": "Problems detected",
+
+  "health-page.status.warning.info": "Possible issues detected",
+
+  "health-page.title": "Health",
+
+  "health-page.section.no-issues": "No issues detected",
+
 
   "home.description": "",
 
@@ -2540,13 +2580,15 @@
 
   "menu.section.icon.find": "Find menu section",
 
+  "menu.section.icon.health": "Health check menu section",
+
   "menu.section.icon.import": "Import menu section",
 
   "menu.section.icon.new": "New menu section",
 
   "menu.section.icon.pin": "Pin sidebar",
 
-  "menu.section.icon.processes": "Processes menu section",
+  "menu.section.icon.processes": "Processes Health",
 
   "menu.section.icon.registries": "Registries menu section",
 
@@ -2587,6 +2629,8 @@
 
 
   "menu.section.processes": "Processes",
+
+  "menu.section.health": "Health",
 
 
 
@@ -2953,8 +2997,6 @@
   "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
 
   "profile.title": "Update Profile",
-
-
 
   "project.listelement.badge": "Research Project",
 
