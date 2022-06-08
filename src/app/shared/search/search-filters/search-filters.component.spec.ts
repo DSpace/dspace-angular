@@ -10,6 +10,7 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { of as observableOf } from 'rxjs';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { By } from '@angular/platform-browser';
 
 describe('SearchFiltersComponent', () => {
   let comp: SearchFiltersComponent;
@@ -64,6 +65,20 @@ describe('SearchFiltersComponent', () => {
     it('should call getSearchLink on the searchService', () => {
       expect(searchService.getSearchLink).toHaveBeenCalled();
     });
+  });
+
+  describe('when there are no filters', () => {
+    beforeEach(() => {
+      (comp as any).ngOnInit();
+      fixture.detectChanges();
+    });
+
+    it('should not render component', () => {
+      const menu = fixture.debugElement.query(By.css('div.d-none'));
+      expect(menu).not.toBeNull();
+      expect(comp.searchFilterCount).toEqual(0);
+    });
+
   });
 
 });
