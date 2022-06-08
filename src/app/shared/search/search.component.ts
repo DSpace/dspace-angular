@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
@@ -44,7 +53,7 @@ import { SearchManager } from '../../core/browse/search-manager';
 /**
  * This component renders a sidebar, a search input bar and the search results.
  */
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
 
   /**
    * The list of available configuration options
@@ -308,7 +317,6 @@ export class SearchComponent implements OnInit {
     ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
       // Build the PaginatedSearchOptions object
       const searchOptionsConfiguration = searchOptions.configuration || configuration;
-      console.log(searchOptionsConfiguration, this.forcedEmbeddedKeys.get(searchOptionsConfiguration));
       const combinedOptions = Object.assign({}, searchOptions,
         {
           configuration: searchOptionsConfiguration,

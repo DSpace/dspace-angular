@@ -299,8 +299,12 @@ export class SearchConfigurationService implements OnDestroy {
       this.getFixedFilterPart(),
       this.getViewModePart(defaults.view)
     ).subscribe((update) => {
+      const scopeString = `scope=${update.scope}`;
       const currentValue: SearchOptions = this.searchOptions.getValue();
-      const updatedValue: SearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
+      const updatedValue: SearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, Object.assign({}, update, {
+        fixedFilter: (update.fixedFilter === scopeString) ? '' : update.fixedFilter
+      }));
+
       this.searchOptions.next(updatedValue);
     });
   }
@@ -323,8 +327,12 @@ export class SearchConfigurationService implements OnDestroy {
       this.getFixedFilterPart(),
       this.getViewModePart(defaults.view)
     ).subscribe((update) => {
+      const scopeString = `scope=${update.scope}`;
       const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
-      const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
+      const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, Object.assign({}, update, {
+        fixedFilter: (update.fixedFilter === scopeString) ? '' : update.fixedFilter
+      }));
+
       this.paginatedSearchOptions.next(updatedValue);
     });
   }

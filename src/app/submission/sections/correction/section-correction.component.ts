@@ -58,8 +58,8 @@ export class SubmissionSectionCorrectionComponent extends SectionModelComponent 
    * Retrieve correction bitstream list
    */
   getFileData(): WorkspaceitemSectionCorrectionBitstreamObject[] {
-    const correctionObject: WorkspaceitemSectionCorrectionObject = this.sectionData.data as WorkspaceitemSectionCorrectionObject;
-    return [...correctionObject?.bitstream].sort((obj1: WorkspaceitemSectionCorrectionBitstreamObject, obj2: WorkspaceitemSectionCorrectionBitstreamObject) => {
+    const correctionObjectBitstreams: WorkspaceitemSectionCorrectionBitstreamObject[] = (this.sectionData.data as WorkspaceitemSectionCorrectionObject)?.bitstream || [];
+    return [...correctionObjectBitstreams].sort((obj1: WorkspaceitemSectionCorrectionBitstreamObject, obj2: WorkspaceitemSectionCorrectionBitstreamObject) => {
         return obj1.filename > obj2.filename ? 1 : -1;
       }
     );
@@ -92,8 +92,8 @@ export class SubmissionSectionCorrectionComponent extends SectionModelComponent 
     return Object.values(this.sectionData.data).length > 0;
   }
 
-  /* tslint:disable:no-empty */
   protected onSectionDestroy() {
+    return;
   }
 
   protected onSectionInit(): void {
