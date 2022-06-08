@@ -18,7 +18,7 @@ import { SectionsService } from '../sections.service';
 import { OperationType } from '../../../core/submission/models/workspaceitem-section-correction.model';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SubmissionSectionCorrectionComponent } from './ section-correction.component';
+import { SubmissionSectionCorrectionComponent } from './section-correction.component';
 
 const sectionObject: SectionDataObject = {
   config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/license',
