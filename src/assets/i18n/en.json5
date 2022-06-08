@@ -4039,9 +4039,14 @@
 
   "submission.sections.submit.progressbar.license": "Deposit license",
 
+  "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
+
   "submission.sections.submit.progressbar.upload": "Upload files",
 
+  "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
 
+
+  "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
 
   "submission.sections.status.errors.title": "Errors",
 
@@ -4054,6 +4059,10 @@
   "submission.sections.status.valid.aria": "is valid",
 
   "submission.sections.status.warnings.aria": "has warnings",
+
+  "submission.sections.status.info.title": "Additional Information",
+
+  "submission.sections.status.info.aria": "Additional Information",
 
   "submission.sections.toggle.open": "Open section",
 
@@ -4152,6 +4161,60 @@
   "submission.sections.accesses.form.until-hint": "Select the date until which the related access condition is applied",
 
   "submission.sections.accesses.form.until-placeholder": "Until",
+
+
+  "submission.sections.sherpa.publication.information": "Publication information",
+
+  "submission.sections.sherpa.publication.information.title": "Title",
+
+  "submission.sections.sherpa.publication.information.issns": "ISSNs",
+
+  "submission.sections.sherpa.publication.information.url": "URL",
+
+  "submission.sections.sherpa.publication.information.publishers": "Publisher",
+
+  "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
+
+  "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
+
+  "submission.sections.sherpa.publisher.policy": "Publisher Policy",
+
+  "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+
+  "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
+
+  "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
+
+  "submission.sections.sherpa.publisher.policy.version": "Version",
+
+  "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
+
+  "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
+
+  "submission.sections.sherpa.publisher.policy.nolocation": "None",
+
+  "submission.sections.sherpa.publisher.policy.license": "License",
+
+  "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
+
+  "submission.sections.sherpa.publisher.policy.location": "Location",
+
+  "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
+
+  "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
+
+  "submission.sections.sherpa.record.information": "Record Information",
+
+  "submission.sections.sherpa.record.information.id": "ID",
+
+  "submission.sections.sherpa.record.information.date.created": "Date Created",
+
+  "submission.sections.sherpa.record.information.date.modified": "Last Modified",
+
+  "submission.sections.sherpa.record.information.uri": "URI",
+
+  "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
+
 
 
   "submission.submit.breadcrumbs": "New submission",
