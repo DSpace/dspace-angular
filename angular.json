@@ -47,7 +47,6 @@
             ],
             "styles": [
               "src/styles/startup.scss",
-              "./node_modules/ngx-ui-switch/ui-switch.component.css",
               {
                 "input": "src/styles/base-theme.scss",
                 "inject": false,

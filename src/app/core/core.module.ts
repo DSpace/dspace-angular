@@ -38,7 +38,7 @@ import { SubmissionSectionModel } from './config/models/config-submission-sectio
 import { SubmissionUploadsModel } from './config/models/config-submission-uploads.model';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { coreEffects } from './core.effects';
-import { coreReducers} from './core.reducers';
+import { coreReducers } from './core.reducers';
 import { BitstreamFormatDataService } from './data/bitstream-format-data.service';
 import { CollectionDataService } from './data/collection-data.service';
 import { CommunityDataService } from './data/community-data.service';
@@ -132,11 +132,15 @@ import { Feature } from './shared/feature.model';
 import { Authorization } from './shared/authorization.model';
 import { FeatureDataService } from './data/feature-authorization/feature-data.service';
 import { AuthorizationDataService } from './data/feature-authorization/authorization-data.service';
-import { SiteAdministratorGuard } from './data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import {
+  SiteAdministratorGuard
+} from './data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { Registration } from './shared/registration.model';
 import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
 import { MetadataFieldDataService } from './data/metadata-field-data.service';
-import { DsDynamicTypeBindRelationService } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import {
+  DsDynamicTypeBindRelationService
+} from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { TokenResponseParsingService } from './auth/token-response-parsing.service';
 import { SubmissionCcLicenseDataService } from './submission/submission-cc-license-data.service';
 import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
@@ -163,12 +167,12 @@ import { SequenceService } from './shared/sequence.service';
 import { CoreState } from './core-state.model';
 import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
-import { ResearcherProfileService } from './profile/researcher-profile.service';
-import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
-import { ResearcherProfile } from './profile/model/researcher-profile.model';
 import { AccessStatusObject } from '../shared/object-list/access-status-badge/access-status.model';
 import { AccessStatusDataService } from './data/access-status-data.service';
 import { LinkHeadService } from './services/link-head.service';
+import { ResearcherProfileService } from './profile/researcher-profile.service';
+import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
+import { ResearcherProfile } from './profile/model/researcher-profile.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -357,8 +361,8 @@ export const models =
     Root,
     SearchConfig,
     SubmissionAccessesModel,
-    ResearcherProfile,
-    AccessStatusObject
+    AccessStatusObject,
+    ResearcherProfile
   ];
 
 @NgModule({

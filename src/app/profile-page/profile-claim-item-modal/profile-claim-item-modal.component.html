@@ -14,7 +14,7 @@
         <button class="list-group-item list-group-item-action border-0 list-entry"
                 title="{{ listEntry.indexableObject.name }}"
                 (click)="selectItem(listEntry.indexableObject)" #listEntryElement>
-          <ds-listable-object-component-loader [object]="listEntry" [viewMode]="viewMode" 
+          <ds-listable-object-component-loader [object]="listEntry" [viewMode]="viewMode"
                                                [linkType]=linkTypes.None></ds-listable-object-component-loader>
         </button>
       </div>
@@ -26,7 +26,7 @@
   </div>
   <div class="modal-footer">
     <div class="mr-5">
-      <input type="checkbox" [checked]="false" (change)="toggleCheckbox()"/>
+      <input type="checkbox" [checked]="checked" (change)="toggleCheckbox()"/>
       {{ 'dso-selector.claim.item.not-mine-label' | translate }}
     </div>
     <button type="submit" class="btn btn-primary ml-5 mr-2" (click)="createFromScratch()" [disabled]="!checked">
