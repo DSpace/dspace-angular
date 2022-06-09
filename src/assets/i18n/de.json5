@@ -4477,8 +4477,10 @@
   // "search.form.search_mydspace": "Search MyDSpace",
   "search.form.search_mydspace": "Suche im persönlichen Arbeitsbereich",
   
-  
-  
+  // "search.form.scope.all": "All of DSpace",
+  "search.form.scope.all": "Alles durchsuchen",
+
+   
   // "search.results.head": "Search Results",
   "search.results.head": "Suchergebnisse",
   
@@ -4491,7 +4493,11 @@
   // "search.results.empty": "Your search returned no results.",
   "search.results.empty": "Ihre Suche führte zu keinem Ergebnis.",
   
-  
+  // "search.results.view-result": "View",
+  "search.results.view-result": "Anzeigen",
+
+  // "default.search.results.head": "Search Results",
+  "default.search.results.head": "Suchergebnisse",
   
   // "search.sidebar.close": "Back to results",
   "search.sidebar.close": "Zurück zu den Ergebnissen",
