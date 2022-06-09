@@ -5241,6 +5241,30 @@
   "submission.workflow.tasks.pool.show-detail": "Details anzeigen",
   
   
+  // "thumbnail.default.alt": "Thumbnail Image",
+  "thumbnail.default.alt": "Vorschaubild",
+
+  // "thumbnail.default.placeholder": "No Thumbnail Available",
+  "thumbnail.default.placeholder": "Vorschaubild nicht verfügbar",
+
+  // "thumbnail.project.alt": "Project Logo",
+  "thumbnail.project.alt": "Logo des Projekt",
+
+  // "thumbnail.project.placeholder": "Project Placeholder Image",
+  "thumbnail.project.placeholder": "Platzhalterbild des Projekts",
+
+  // "thumbnail.orgunit.alt": "OrgUnit Logo",
+  "thumbnail.orgunit.alt": "Logo der Organisationseinheit",
+
+  // "thumbnail.orgunit.placeholder": "OrgUnit Placeholder Image",
+  "thumbnail.orgunit.placeholder": "Platzhalterbild der Organisationseinheit",
+
+  // "thumbnail.person.alt": "Profile Picture",
+  "thumbnail.person.alt": "Profilbild",
+
+  // "thumbnail.person.placeholder": "No Profile Picture Available",
+  "thumbnail.person.placeholder": "Profilbild nicht verfügbar",
+  
   
   // "title": "DSpace",
   "title": "DSpace",
