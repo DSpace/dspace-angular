@@ -26,6 +26,8 @@ import { ReplaceOperation } from 'fast-json-patch';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { PostRequest } from '../data/request.models';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { ConfigurationProperty } from '../shared/configuration-property.model';
+import { ConfigurationDataService } from '../data/configuration-data.service';
 
 describe('ResearcherProfileService', () => {
   let scheduler: TestScheduler;
@@ -36,6 +38,7 @@ describe('ResearcherProfileService', () => {
   let objectCache: ObjectCacheService;
   let halService: HALEndpointService;
   let responseCacheEntry: RequestEntry;
+  let configurationDataService: ConfigurationDataService;
 
   const researcherProfileId = 'beef9946-rt56-479e-8f11-b90cbe9f7241';
   const itemId = 'beef9946-rt56-479e-8f11-b90cbe9f7241';
@@ -136,6 +139,14 @@ describe('ResearcherProfileService', () => {
     const itemService = jasmine.createSpyObj('ItemService', {
       findByHref: jasmine.createSpy('findByHref')
     });
+    configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'test',
+        values: [
+          'org.dspace.ctask.general.ProfileFormats = test'
+        ]
+      }))
+    });
 
     service = new ResearcherProfileService(
       requestService,
@@ -146,7 +157,8 @@ describe('ResearcherProfileService', () => {
       http,
       routerStub,
       comparator,
-      itemService
+      itemService,
+      configurationDataService
     );
     serviceAsAny = service;
 
