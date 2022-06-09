@@ -71,7 +71,7 @@ export class AuthorizationDataService extends DataService<Authorization> {
    *                                    requested after the response becomes stale
    */
   isAuthorized(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<boolean> {
-    return this.searchByObject(featureId, objectUrl, ePersonUuid, {}, useCachedVersionIfAvailable, useCachedVersionIfAvailable, followLink('feature')).pipe(
+    return this.searchByObject(featureId, objectUrl, ePersonUuid, {}, useCachedVersionIfAvailable, reRequestOnStale, followLink('feature')).pipe(
       getFirstCompletedRemoteData(),
       map((authorizationRD) => {
         if (authorizationRD.statusCode !== 401 && hasValue(authorizationRD.payload) && isNotEmpty(authorizationRD.payload.page)) {
