@@ -895,6 +895,8 @@
   "bitstream.edit.title": "Datei bearbeiten",
   
   
+  // "browse.back.all-results": "All browse results",
+  "browse.back.all-results": "Filter zurücksetzen",
   
   // "browse.comcol.by.author": "By Author",
   "browse.comcol.by.author": "Nach Autor:in",
