@@ -4293,6 +4293,9 @@
   // "search.filters.filter.author.placeholder": "Author name",
   "search.filters.filter.author.placeholder": "Autor:innenname",
   
+  // "search.filters.filter.author.label": "Search author name",
+  "search.filters.filter.author.label": "Autorensuche",
+  
   // "search.filters.filter.birthDate.head": "Birth Date",
   "search.filters.filter.birthDate.head": "Geburtsdatum",
   
