@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+
 import { TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
+import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+
 import { AuthService } from '../../../core/auth/auth.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
 import { Item } from '../../../core/shared/item.model';
-import { getFinishedRemoteData, getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 
 @Component({
   selector: 'ds-orcid-setting',
@@ -18,6 +20,11 @@ import { NotificationsService } from '../../../shared/notifications/notification
   styleUrls: ['./orcid-setting.component.scss']
 })
 export class OrcidSettingComponent implements OnInit {
+
+  /**
+   * The item for which showing the orcid settings
+   */
+  @Input() item: Item;
 
   messagePrefix = 'person.page.orcid';
 
@@ -35,18 +42,12 @@ export class OrcidSettingComponent implements OnInit {
 
   syncProfileOptions: { value: string, label: string, checked: boolean }[];
 
-  item: Item;
 
   constructor(private researcherProfileService: ResearcherProfileService,
     protected translateService: TranslateService,
     private notificationsService: NotificationsService,
-    public authService: AuthService,
-    private route: ActivatedRoute,
-    private itemService: ItemDataService
+    public authService: AuthService
   ) {
-     this.itemService.findById(this.route.snapshot.paramMap.get('id'), true, true).pipe(getFirstCompletedRemoteData()).subscribe((data: RemoteData<Item>) => {
-      this.item = data.payload;
-     });
   }
 
   ngOnInit() {
@@ -110,10 +111,18 @@ export class OrcidSettingComponent implements OnInit {
       return;
     }
 
-    this.researcherProfileService.findById(this.item.firstMetadata('dspace.object.owner').authority).pipe(
-      switchMap((profile) => this.researcherProfileService.patch(profile, operations)),
-      getFinishedRemoteData()
-    ).subscribe((remoteData) => {
+    this.researcherProfileService.findByRelatedItem(this.item).pipe(
+      getFirstCompletedRemoteData(),
+      switchMap((profileRD: RemoteData<ResearcherProfile>) => {
+        if (profileRD.hasSucceeded) {
+          return this.researcherProfileService.updateByOrcidOperations(profileRD.payload, operations).pipe(
+            getFirstCompletedRemoteData()
+          );
+        } else {
+          return of(profileRD);
+        }
+      }),
+    ).subscribe((remoteData: RemoteData<ResearcherProfile>) => {
       if (remoteData.isSuccess) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.synchronization-settings-update.success'));
       } else {
@@ -134,6 +143,5 @@ export class OrcidSettingComponent implements OnInit {
     const currentPreference = this.item.firstMetadataValue(metadataField);
     return (currentPreference && allowedValues.includes(currentPreference)) ? currentPreference : defaultValue;
   }
-
 
 }

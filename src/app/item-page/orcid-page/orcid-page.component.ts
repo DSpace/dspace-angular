@@ -1,37 +1,64 @@
-import {Component, Inject} from '@angular/core';
-import {ResearcherProfileService} from '../../core/profile/researcher-profile.service';
-import {ItemDataService} from '../../core/data/item-data.service';
-import {ActivatedRoute} from '@angular/router';
-import {NativeWindowRef, NativeWindowService} from '../../core/services/window.service';
-import {getFirstCompletedRemoteData} from '../../core/shared/operators';
-import {RemoteData} from '../../core/data/remote-data';
-import {Item} from '../../core/shared/item.model';
-import {getItemPageRoute} from '../item-page-routing-paths';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
+import { map } from 'rxjs/operators';
+
+import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
+import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { RemoteData } from '../../core/data/remote-data';
+import { Item } from '../../core/shared/item.model';
+import { getItemPageRoute } from '../item-page-routing-paths';
+import { AuthService } from '../../core/auth/auth.service';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
+
+/**
+ * A component that represents the orcid settings page
+ */
 @Component({
   selector: 'ds-orcid-page',
   templateUrl: './orcid-page.component.html',
   styleUrls: ['./orcid-page.component.scss']
 })
-export class OrcidPageComponent  {
+export class OrcidPageComponent implements OnInit {
 
+  /**
+   * The item for which showing the orcid settings
+   */
   item: Item;
 
   constructor(
-    private itemService: ItemDataService,
+    private authService: AuthService,
     private researcherProfileService: ResearcherProfileService,
     private route: ActivatedRoute,
-    @Inject(NativeWindowService) private _window: NativeWindowRef,
+    private router: Router
   ) {
-    this.itemService.findById(this.route.snapshot.paramMap.get('id'), true, true).pipe(getFirstCompletedRemoteData()).subscribe((data: RemoteData<Item>) => {
-      this.item = data.payload;
+  }
+
+  /**
+   * Retrieve the item for which showing the orcid settings
+   */
+  ngOnInit(): void {
+    this.route.data.pipe(
+      map((data) => data.dso as RemoteData<Item>),
+      redirectOn4xx(this.router, this.authService),
+      getFirstSucceededRemoteDataPayload()
+    ).subscribe((item) => {
+      this.item = item;
     });
   }
 
+  /**
+   * Check if the current item is linked to an ORCID profile.
+   *
+   * @returns the check result
+   */
   isLinkedToOrcid(): boolean {
     return this.researcherProfileService.isLinkedToOrcid(this.item);
   }
 
+  /**
+   * Get the route to an item's page
+   */
   getItemPage(): string {
     return getItemPageRoute(this.item);
   }

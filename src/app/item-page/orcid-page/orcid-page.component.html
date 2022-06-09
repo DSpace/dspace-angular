@@ -6,5 +6,5 @@
   </div>
 </div>
 
-<ds-orcid-auth></ds-orcid-auth>
-<ds-orcid-setting *ngIf="isLinkedToOrcid()"></ds-orcid-setting>
+<ds-orcid-auth *ngIf="item" [item]="item"></ds-orcid-auth>
+<ds-orcid-setting *ngIf="item && isLinkedToOrcid()" [item]="item"></ds-orcid-setting>

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -19,11 +19,14 @@ import { NotificationsService } from '../../../shared/notifications/notification
 })
 export class OrcidAuthComponent implements OnInit {
 
+  /**
+   * The item for which showing the orcid settings
+   */
+  @Input() item: Item;
+
   missingAuthorizations$ = new BehaviorSubject<string[]>([]);
 
   unlinkProcessing = false;
-
-  item: Item;
 
   constructor(
     private configurationService: ConfigurationDataService,
@@ -34,9 +37,6 @@ export class OrcidAuthComponent implements OnInit {
     private route: ActivatedRoute,
     @Inject(NativeWindowService) private _window: NativeWindowRef,
    ) {
-      this.itemService.findById(this.route.snapshot.paramMap.get('id'), true, true).pipe(getFirstCompletedRemoteData()).subscribe((data: RemoteData<Item>) => {
-        this.item = data.payload;
-      });
   }
 
   ngOnInit() {
