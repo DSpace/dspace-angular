@@ -1,5 +1,5 @@
 import { isEqual } from 'lodash';
-import { DSONameService } from './../../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -8,7 +8,8 @@ import { catchError, filter, first, map, mergeMap, take } from 'rxjs/operators';
 
 import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
 import {
-  getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteDataWithNotEmptyPayload,
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataWithNotEmptyPayload,
 } from '../../../core/shared/operators';
 import { Item } from '../../../core/shared/item.model';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -95,6 +96,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    *
    * @param {LinkService} linkService
    * @param {ActivatedRoute} route
+   * @param nameService
    */
   constructor(
     private linkService: LinkService,
@@ -187,14 +189,12 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
           allBitstreamsLoaded: false,
           bitstreams: null
         };
-        let bits = entry.bitstreams.pipe(
+        bitstreamMapValues.bitstreams = entry.bitstreams.pipe(
           map((b: PaginatedList<Bitstream>) => {
-            bitstreamMapValues.allBitstreamsLoaded = b?.page.length < this.bitstreamSize ;
-            let firstLoaded = [...b.page.slice(0, this.bitstreamSize)];
-            return firstLoaded;
+            bitstreamMapValues.allBitstreamsLoaded = b?.page.length < this.bitstreamSize;
+            return [...b.page.slice(0, this.bitstreamSize)];
           })
         );
-        bitstreamMapValues.bitstreams = bits;
         this.bundleBitstreamsMap.set(entry.id, bitstreamMapValues);
       })
     );
@@ -238,23 +238,21 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    * @returns Subscription
    */
   onBitstreamsLoad(bundle: Bundle) {
-   return this.getBundleBitstreams(bundle).pipe(
-      map((res: PaginatedList<Bitstream>) => {
-        let nextBitstreams = res?.page.slice(this.bitstreamPageSize, this.bitstreamPageSize + this.bitstreamSize);
-        let bitstreamsToShow = this.bundleBitstreamsMap.get(bundle.id).bitstreams.pipe(
-          map((existingBits: Bitstream[])=> {
-            return [... existingBits, ...nextBitstreams];
-          })
-        );
-        this.bitstreamPageSize = this.bitstreamPageSize + this.bitstreamSize;
-        let bitstreamMapValues: BitstreamMapValue = {
-          bitstreams: bitstreamsToShow ,
-          isCollapsed: this.bundleBitstreamsMap.get(bundle.id).isCollapsed,
-          allBitstreamsLoaded: res?.page.length <= this.bitstreamPageSize
-        };
-        this.bundleBitstreamsMap.set(bundle.id, bitstreamMapValues);
-      })
-    ).subscribe();
+    return this.getBundleBitstreams(bundle).subscribe((res: PaginatedList<Bitstream>) => {
+      let nextBitstreams = res?.page.slice(this.bitstreamPageSize, this.bitstreamPageSize + this.bitstreamSize);
+      let bitstreamsToShow = this.bundleBitstreamsMap.get(bundle.id).bitstreams.pipe(
+        map((existingBits: Bitstream[])=> {
+          return [... existingBits, ...nextBitstreams];
+        })
+      );
+      this.bitstreamPageSize = this.bitstreamPageSize + this.bitstreamSize;
+      let bitstreamMapValues: BitstreamMapValue = {
+        bitstreams: bitstreamsToShow ,
+        isCollapsed: this.bundleBitstreamsMap.get(bundle.id).isCollapsed,
+        allBitstreamsLoaded: res?.page.length <= this.bitstreamPageSize
+      };
+      this.bundleBitstreamsMap.set(bundle.id, bitstreamMapValues);
+    });
   }
 
   /**
