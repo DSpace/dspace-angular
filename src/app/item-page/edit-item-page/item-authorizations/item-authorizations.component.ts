@@ -63,13 +63,13 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    * The size of the bundles to be loaded on demand
    * @type {number}
    */
-  bunblesPerPage = 6;
+  bundlesPerPage = 6;
 
   /**
    * The number of current page
    * @type {number}
    */
-  bunblesPageSize = 1;
+  bundlesPageSize = 1;
 
   /**
    * The flag to show or not the 'Load more' button
@@ -149,7 +149,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
       getFirstSucceededRemoteDataWithNotEmptyPayload(),
       map((item: Item) => this.linkService.resolveLink(
         item,
-        followLink('bundles', {findListOptions: {currentPage : page, elementsPerPage: this.bunblesPerPage}}, followLink('bitstreams'))
+        followLink('bundles', {findListOptions: {currentPage : page, elementsPerPage: this.bundlesPerPage}}, followLink('bitstreams'))
       ))
     ) as Observable<Item>;
 
@@ -168,7 +168,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
         take(1),
         map((list: PaginatedList<Bundle>) => list.page)
       ).subscribe((bundles: Bundle[]) => {
-        if (isEqual(bundles.length,0) || bundles.length < this.bunblesPerPage) {
+        if (isEqual(bundles.length,0) || bundles.length < this.bundlesPerPage) {
           this.allBundlesLoaded = true;
         }
         if (isEqual(page, 1)) {
@@ -226,9 +226,9 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
   /**
    * Loads as much bundles as initial value of bundleSize to be displayed
    */
-  onBunbleLoad(){
-    this.bunblesPageSize ++;
-    this.getBundlesPerItem(this.bunblesPageSize);
+  onBundleLoad(){
+    this.bundlesPageSize ++;
+    this.getBundlesPerItem(this.bundlesPageSize);
   }
 
   /**
