@@ -369,4 +369,11 @@ export const environment: BuildConfig = {
       class: 'alert-danger',
     },
   ],
+  advancedAttachment: {
+    title: true,
+    size: true,
+    format: true,
+    type: true,
+    description: true,
+  }
 };

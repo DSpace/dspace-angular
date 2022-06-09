@@ -106,9 +106,12 @@ export class MetadataContainerComponent implements OnInit {
 
   ngOnInit() {
     const rendering = this.computeRendering(this.field);
-    if (this.field.fieldType === LayoutFieldType.BITSTREAM && rendering.toLocaleLowerCase() === FieldRenderingType.ATTACHMENT.toLocaleLowerCase()) {
+    if (this.field.fieldType === LayoutFieldType.BITSTREAM
+      && rendering.toLocaleLowerCase() === FieldRenderingType.ATTACHMENT.toLocaleLowerCase()
+      && rendering.toLocaleLowerCase() === FieldRenderingType.ADVANCEDATTACHMENT.toLocaleLowerCase()) {
       this.hasBitstream().pipe(take(1)).subscribe((hasBitstream: boolean) => {
         if (hasBitstream) {
+          console.log(rendering);
           this.initRenderOptions(rendering);
         }
       });
@@ -117,7 +120,7 @@ export class MetadataContainerComponent implements OnInit {
     }
   }
 
-  initRenderOptions(renderingType: string|FieldRenderingType): void {
+  initRenderOptions(renderingType: string | FieldRenderingType): void {
     this.metadataFieldRenderOptions = this.getMetadataBoxFieldRenderOptions(renderingType);
     this.isStructured = this.metadataFieldRenderOptions.structured;
     this.cd.detectChanges();
@@ -150,7 +153,9 @@ export class MetadataContainerComponent implements OnInit {
 
   computeRendering(field: LayoutField): string | FieldRenderingType {
     let rendering = hasValue(field.rendering) ? field.rendering : FieldRenderingType.TEXT;
-
+    if (rendering.toLowerCase() === FieldRenderingType.ATTACHMENT.toLowerCase()) {
+      rendering = FieldRenderingType.ADVANCEDATTACHMENT;
+    }
     if (rendering.indexOf('.') > -1) {
       const values = rendering.split('.');
       rendering = values[0];

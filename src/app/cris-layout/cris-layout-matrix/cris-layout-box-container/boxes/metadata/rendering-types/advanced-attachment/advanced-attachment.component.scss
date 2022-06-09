@@ -1,0 +1,18 @@
+.img-file {
+    margin: 0;
+    display: block;
+    min-width: 100%;
+    max-height: 160px;
+    object-fit: cover;
+    object-position: 0% 0%;
+}
+
+.thumbnail-placeholder {
+    border: var(--ds-thumbnail-placeholder-border);
+    color: var(--ds-thumbnail-placeholder-color);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

@@ -20,6 +20,7 @@ import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-confi
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
+import { AdvancedAttachment } from './advanced-attachment.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -507,4 +508,12 @@ export class DefaultAppConfig implements AppConfig {
       class: 'alert-danger',
     },
   ];
+
+  advancedAttachment: AdvancedAttachment = {
+    title: true,
+    size: true,
+    format: true,
+    type: true,
+    description: true,
+  };
 }

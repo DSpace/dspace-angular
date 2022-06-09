@@ -1,7 +1,9 @@
+import { followLink } from './../../../../../../shared/utils/follow-link-config.model';
+import { getRemoteDataPayload } from './../../../../../../core/shared/operators';
 import { Component, Inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Bitstream } from '../../../../../../core/shared/bitstream.model';
@@ -13,6 +15,7 @@ import { LayoutField } from '../../../../../../core/layout/models/box.model';
 import { RenderingTypeStructuredModelComponent } from './rendering-type-structured.model';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
+import { BitstreamFormat } from 'src/app/core/shared/bitstream-format.model';
 
 /**
  * This class defines the basic model to extends for create a new
@@ -26,6 +29,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   private TITLE_METADATA = 'dc.title';
   private SOURCE_METADATA = 'dc.source';
   private TYPE_METADATA = 'dc.type';
+  private DESC_METADATA = 'dc.description';
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
@@ -38,7 +42,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   }
 
   getBitstreams(): Observable<Bitstream[]> {
-    return this.bitstreamDataService.findAllByItemAndBundleName(this.item, this.field.bitstream.bundle).pipe(
+    return this.bitstreamDataService.findAllByItemAndBundleName(this.item, this.field.bitstream.bundle, {}, true, true, ...[followLink('thumbnail'), followLink('format')]).pipe(
       getFirstCompletedRemoteData(),
       map((response: RemoteData<PaginatedList<Bitstream>>) => {
         return response.hasSucceeded ? response.payload.page : [];
@@ -73,5 +77,25 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
 
   getLink(bitstream: Bitstream): string {
     return bitstream._links.content.href;
+  }
+
+  getFormat(bitstream: Bitstream): Observable<string> {
+    return bitstream.format?.pipe(
+      map((rd: RemoteData<BitstreamFormat>) => {
+        return rd.payload?.shortDescription;
+      })
+    );
+  }
+
+  getThumbnailSrc(bitstream: Bitstream): Observable<string> {
+    return bitstream.thumbnail?.pipe(
+      map((rd: RemoteData<Bitstream>) => {
+        return rd.payload?._links?.content?.href;
+      })
+    );
+  }
+
+  getDesc(bitstream: Bitstream): string {
+    return bitstream.firstMetadataValue(this.DESC_METADATA);
   }
 }
