@@ -5358,10 +5358,14 @@
   "virtual-metadata.delete-relationship.modal-head": "Wählen Sie die Items aus, deren virtuelle Metadaten Sie als echte Metadaten speichern möchten.",
   
   
-  
+  // "workspace.search.results.head": "Your submissions",
+  "workspace.search.results.head": "Deine Einreichungen",
+
   // "workflowAdmin.search.results.head": "Administer Workflow",
   "workflowAdmin.search.results.head": "Workflow verwalten",
-  
+
+  // "workflow.search.results.head": "Workflow tasks",
+  "workflow.search.results.head": "Workflow-Aufgaben",
   
   
   // "workflow-item.delete.notification.success.title": "Deleted",
