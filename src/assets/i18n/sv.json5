@@ -2,53 +2,53 @@
 
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   // TODO New key - Add a translation
-  "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
+  "401.help": "Du saknar behörighet att se denna sida. Använd knappen nedan för att återvända till startsidan.",
 
   // "401.link.home-page": "Take me to the home page",
   // TODO New key - Add a translation
-  "401.link.home-page": "Take me to the home page",
+  "401.link.home-page": "Ta mig till startsidan",
 
   // "401.unauthorized": "unauthorized",
   // TODO New key - Add a translation
-  "401.unauthorized": "unauthorized",
+  "401.unauthorized": "obehörig",
 
 
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
   // TODO New key - Add a translation
-  "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
+  "403.help": "Du saknar behörighet att nå denna sida. Använd knappen nedan för att återvända till startsidan.",
 
   // "403.link.home-page": "Take me to the home page",
   // TODO New key - Add a translation
-  "403.link.home-page": "Take me to the home page",
+  "403.link.home-page": "Ta mig till startsidan",
 
   // "403.forbidden": "forbidden",
   // TODO New key - Add a translation
-  "403.forbidden": "forbidden",
+  "403.forbidden": "förbjuden",
 
   // "500.page-internal-server-error": "Service Unavailable",
   // TODO New key - Add a translation
-  "500.page-internal-server-error": "Service Unavailable",
+  "500.page-internal-server-error": "Tjänsten kan inte nås",
 
   // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
   // TODO New key - Add a translation
-  "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
+  "500.help": "Tjänsten är tillfälligt nere. Försök senare.",
 
   // "500.link.home-page": "Take me to the home page",
   // TODO New key - Add a translation
-  "500.link.home-page": "Take me to the home page",
+  "500.link.home-page": "Till startsidan",
 
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   // TODO New key - Add a translation
-  "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
+  "404.help": "Sidan kan inte hittas. Den kan ha blivit flyttad eller raderad. Använd knappen nedan för att återvända till startsidan. ",
 
   // "404.link.home-page": "Take me to the home page",
   // TODO New key - Add a translation
-  "404.link.home-page": "Take me to the home page",
+  "404.link.home-page": "Till startsidan",
 
   // "404.page-not-found": "page not found",
   // TODO New key - Add a translation
-  "404.page-not-found": "page not found",
+  "404.page-not-found": "sidan hittas inte",
 
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
   // TODO New key - Add a translation
@@ -68,55 +68,55 @@
 
   // "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
+  "admin.registries.bitstream-formats.create.breadcrumbs": "Filformat",
 
   // "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
+  "admin.registries.bitstream-formats.create.failure.content": "Ett fel uppstod när nytt filformat skulle skapas.",
 
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.failure.head": "Failure",
+  "admin.registries.bitstream-formats.create.failure.head": "Misslyckades",
 
   // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
+  "admin.registries.bitstream-formats.create.head": "Skapa nytt filformat",
 
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
+  "admin.registries.bitstream-formats.create.new": "Lägg till nytt filformat",
 
   // "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
+  "admin.registries.bitstream-formats.create.success.content": "Nytt filformat har skapats.",
 
   // "admin.registries.bitstream-formats.create.success.head": "Success",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.success.head": "Success",
+  "admin.registries.bitstream-formats.create.success.head": "Lyckades",
 
   // "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
+  "admin.registries.bitstream-formats.delete.failure.amount": "Misslyckades med att radera {{ amount }} format",
 
   // "admin.registries.bitstream-formats.delete.failure.head": "Failure",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.failure.head": "Failure",
+  "admin.registries.bitstream-formats.delete.failure.head": "Misslyckades",
 
   // "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
+  "admin.registries.bitstream-formats.delete.success.amount": "Har raderat {{ amount }} format",
 
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.success.head": "Success",
+  "admin.registries.bitstream-formats.delete.success.head": "Lyckades",
 
   // "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
+  "admin.registries.bitstream-formats.description": "Listan innehåller information om kända filformat.",
 
   // "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
+  "admin.registries.bitstream-formats.edit.breadcrumbs": "Filformat",
 
   // "admin.registries.bitstream-formats.edit.description.hint": "",
   // TODO New key - Add a translation
@@ -132,35 +132,35 @@
 
   // "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
+  "admin.registries.bitstream-formats.edit.extensions.label": "Filtillägg",
 
   // "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
+  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Ange ett filtillägg (utan punkt)",
 
   // "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
+  "admin.registries.bitstream-formats.edit.failure.content": "Ett fel uppstod vid redigering av filformat.",
 
   // "admin.registries.bitstream-formats.edit.failure.head": "Failure",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.failure.head": "Failure",
+  "admin.registries.bitstream-formats.edit.failure.head": "Misslyckades",
 
   // "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
+  "admin.registries.bitstream-formats.edit.head": "Filformat: {{ format }}",
 
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "Format som har markerats som interna visas inte utåt och används enbart för administrativa syften.",
 
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.internal.label": "Internal",
+  "admin.registries.bitstream-formats.edit.internal.label": "Interna",
 
   // "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
+  "admin.registries.bitstream-formats.edit.mimetype.hint": "MIME typ som associeras med detta format, beöver inte vara unikt.",
 
   // "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
   // TODO New key - Add a translation
@@ -168,79 +168,79 @@
 
   // "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
+  "admin.registries.bitstream-formats.edit.shortDescription.hint": "Unikt namn för detta format, (t ex Microsoft Word XP eller Microsoft Word 2000)",
 
   // "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
+  "admin.registries.bitstream-formats.edit.shortDescription.label": "Namn",
 
   // "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
+  "admin.registries.bitstream-formats.edit.success.content": "Filformatet har ändrats.",
 
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.success.head": "Success",
+  "admin.registries.bitstream-formats.edit.success.head": "Lyckades",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
+  "admin.registries.bitstream-formats.edit.supportLevel.hint": "Nivån som din organisation stödjer detta format.",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
+  "admin.registries.bitstream-formats.edit.supportLevel.label": "Supportnivå",
 
   // "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
+  "admin.registries.bitstream-formats.head": "Filformat registry",
 
   // "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
+  "admin.registries.bitstream-formats.no-items": "Det finns inga filformat att visa.",
 
   // "admin.registries.bitstream-formats.table.delete": "Delete selected",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.delete": "Delete selected",
+  "admin.registries.bitstream-formats.table.delete": "Radera markerade",
 
   // "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
+  "admin.registries.bitstream-formats.table.deselect-all": "Avmarkera alla",
 
   // "admin.registries.bitstream-formats.table.internal": "internal",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.internal": "internal",
+  "admin.registries.bitstream-formats.table.internal": "interna",
 
   // "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
+  "admin.registries.bitstream-formats.table.mimetype": "MIME typ",
 
   // "admin.registries.bitstream-formats.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.name": "Name",
+  "admin.registries.bitstream-formats.table.name": "Namn",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.return": "Back",
+  "admin.registries.bitstream-formats.table.return": "Tillbaka",
 
   // "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
+  "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Känd",
 
   // "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supported",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supported",
+  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Stöds",
 
   // "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
+  "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Okänd",
 
   // "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
+  "admin.registries.bitstream-formats.table.supportLevel.head": "Support (nivå))",
 
   // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
+  "admin.registries.bitstream-formats.title": "Filformat registry",
 
 
 
@@ -250,19 +250,19 @@
 
   // "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
   // TODO New key - Add a translation
-  "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
+  "admin.registries.metadata.description": "Metadata registry inneåller en lista med samtliga fält som stöds av detta repository. Fälten kan förekomma i flera scheman. DSpace kräver dock det utökade Dublin Core (qdc) schemat.",
 
   // "admin.registries.metadata.form.create": "Create metadata schema",
   // TODO New key - Add a translation
-  "admin.registries.metadata.form.create": "Create metadata schema",
+  "admin.registries.metadata.form.create": "Skapa metadataschema",
 
   // "admin.registries.metadata.form.edit": "Edit metadata schema",
   // TODO New key - Add a translation
-  "admin.registries.metadata.form.edit": "Edit metadata schema",
+  "admin.registries.metadata.form.edit": "Redigera metadataschema",
 
   // "admin.registries.metadata.form.name": "Name",
   // TODO New key - Add a translation
-  "admin.registries.metadata.form.name": "Name",
+  "admin.registries.metadata.form.name": "Namn",
 
   // "admin.registries.metadata.form.namespace": "Namespace",
   // TODO New key - Add a translation
@@ -270,15 +270,15 @@
 
   // "admin.registries.metadata.head": "Metadata Registry",
   // TODO New key - Add a translation
-  "admin.registries.metadata.head": "Metadata Registry",
+  "admin.registries.metadata.head": "Metadata eegistry",
 
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
   // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
+  "admin.registries.metadata.schemas.no-items": "Det finns inga metadatascema att visa.",
 
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.delete": "Delete selected",
+  "admin.registries.metadata.schemas.table.delete": "Radera markerade",
 
   // "admin.registries.metadata.schemas.table.id": "ID",
   // TODO New key - Add a translation
@@ -286,7 +286,7 @@
 
   // "admin.registries.metadata.schemas.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.name": "Name",
+  "admin.registries.metadata.schemas.table.name": "Namn",
 
   // "admin.registries.metadata.schemas.table.namespace": "Namespace",
   // TODO New key - Add a translation
@@ -294,43 +294,43 @@
 
   // "admin.registries.metadata.title": "Metadata Registry",
   // TODO New key - Add a translation
-  "admin.registries.metadata.title": "Metadata Registry",
+  "admin.registries.metadata.title": "Metadata registry",
 
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
   // TODO New key - Add a translation
-  "admin.registries.schema.breadcrumbs": "Metadata schema",
+  "admin.registries.schema.breadcrumbs": "Metadataschema",
 
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   // TODO New key - Add a translation
-  "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
+  "admin.registries.schema.description": "Metadatascema för \"{{namespace}}\".",
 
   // "admin.registries.schema.fields.head": "Schema metadata fields",
   // TODO New key - Add a translation
-  "admin.registries.schema.fields.head": "Schema metadata fields",
+  "admin.registries.schema.fields.head": "Schema metadata fält",
 
   // "admin.registries.schema.fields.no-items": "No metadata fields to show.",
   // TODO New key - Add a translation
-  "admin.registries.schema.fields.no-items": "No metadata fields to show.",
+  "admin.registries.schema.fields.no-items": "Det finns inga metadatafält att visa.",
 
   // "admin.registries.schema.fields.table.delete": "Delete selected",
   // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.delete": "Delete selected",
+  "admin.registries.schema.fields.table.delete": "Radera markerade",
 
   // "admin.registries.schema.fields.table.field": "Field",
   // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.field": "Field",
+  "admin.registries.schema.fields.table.field": "Fält",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.scopenote": "Scope Note",
+  "admin.registries.schema.fields.table.scopenote": "Anmärkning (scope note)",
 
   // "admin.registries.schema.form.create": "Create metadata field",
   // TODO New key - Add a translation
-  "admin.registries.schema.form.create": "Create metadata field",
+  "admin.registries.schema.form.create": "Skapa metadatafält",
 
   // "admin.registries.schema.form.edit": "Edit metadata field",
   // TODO New key - Add a translation
-  "admin.registries.schema.form.edit": "Edit metadata field",
+  "admin.registries.schema.form.edit": "Redigera metadatafält",
 
   // "admin.registries.schema.form.element": "Element",
   // TODO New key - Add a translation
@@ -342,55 +342,55 @@
 
   // "admin.registries.schema.form.scopenote": "Scope Note",
   // TODO New key - Add a translation
-  "admin.registries.schema.form.scopenote": "Scope Note",
+  "admin.registries.schema.form.scopenote": "Anmärkning (scope note)",
 
   // "admin.registries.schema.head": "Metadata Schema",
   // TODO New key - Add a translation
-  "admin.registries.schema.head": "Metadata Schema",
+  "admin.registries.schema.head": "Metadataschema",
 
   // "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
   // TODO New key - Add a translation
-  "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
+  "admin.registries.schema.notification.created": "ar skapat metadataschemat \"{{prefix}}\"",
 
   // "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
   // TODO New key - Add a translation
-  "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
+  "admin.registries.schema.notification.deleted.failure": "Misslyckades med att radera {{amount}} metadatascheman",
 
   // "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
   // TODO New key - Add a translation
-  "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
+  "admin.registries.schema.notification.deleted.success": "Har raderat {{amount}} metadatascheman",
 
   // "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
   // TODO New key - Add a translation
-  "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
+  "admin.registries.schema.notification.edited": "Metadataschema \"{{prefix}}\" har redigerats",
 
   // "admin.registries.schema.notification.failure": "Error",
   // TODO New key - Add a translation
-  "admin.registries.schema.notification.failure": "Error",
+  "admin.registries.schema.notification.failure": "Fel",
 
   // "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
   // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
+  "admin.registries.schema.notification.field.created": "har skapat metadatafält \"{{field}}\"",
 
   // "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
   // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
+  "admin.registries.schema.notification.field.deleted.failure": "Misslyckades med att radera {{amount}} metadatafält",
 
   // "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
   // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
+  "admin.registries.schema.notification.field.deleted.success": "Har raderat {{amount}} metadatafält",
 
   // "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
   // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
+  "admin.registries.schema.notification.field.edited": "Har redigerat metadatafält \"{{field}}\"",
 
   // "admin.registries.schema.notification.success": "Success",
   // TODO New key - Add a translation
-  "admin.registries.schema.notification.success": "Success",
+  "admin.registries.schema.notification.success": "Lyckades",
 
   // "admin.registries.schema.return": "Back",
   // TODO New key - Add a translation
-  "admin.registries.schema.return": "Back",
+  "admin.registries.schema.return": "Tillbaka",
 
   // "admin.registries.schema.title": "Metadata Schema Registry",
   // TODO New key - Add a translation
@@ -400,39 +400,39 @@
 
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.delete": "Delete EPerson",
+  "admin.access-control.epeople.actions.delete": "Radera EPerson",
 
   // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
+  "admin.access-control.epeople.actions.impersonate": "Agera som EPerson",
 
   // "admin.access-control.epeople.actions.reset": "Reset password",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.reset": "Reset password",
+  "admin.access-control.epeople.actions.reset": "Återställ lösenord",
 
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
+  "admin.access-control.epeople.actions.stop-impersonating": "Sluta agera som EPerson",
 
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.breadcrumbs": "EPeople",
+  "admin.access-control.epeople.breadcrumbs": "EPersoner",
 
   // "admin.access-control.epeople.title": "EPeople",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.title": "EPeople",
+  "admin.access-control.epeople.title": "EPersoner",
 
   // "admin.access-control.epeople.head": "EPeople",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.head": "EPeople",
+  "admin.access-control.epeople.head": "EPersoner",
 
   // "admin.access-control.epeople.search.head": "Search",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.search.head": "Search",
+  "admin.access-control.epeople.search.head": "Sök",
 
   // "admin.access-control.epeople.button.see-all": "Browse All",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.button.see-all": "Browse All",
+  "admin.access-control.epeople.button.see-all": "Bläddra bland alla",
 
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
   // TODO New key - Add a translation
@@ -440,19 +440,19 @@
 
   // "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
+  "admin.access-control.epeople.search.scope.email": "E-post (exakt)",
 
   // "admin.access-control.epeople.search.button": "Search",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.search.button": "Search",
+  "admin.access-control.epeople.search.button": "Sök",
 
   // "admin.access-control.epeople.search.placeholder": "Search people...",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.search.placeholder": "Search people...",
+  "admin.access-control.epeople.search.placeholder": "Sök personer...",
 
   // "admin.access-control.epeople.button.add": "Add EPerson",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.button.add": "Add EPerson",
+  "admin.access-control.epeople.button.add": "Lägg till EPerson",
 
   // "admin.access-control.epeople.table.id": "ID",
   // TODO New key - Add a translation
@@ -460,103 +460,103 @@
 
   // "admin.access-control.epeople.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.table.name": "Name",
+  "admin.access-control.epeople.table.name": "Namn",
 
   // "admin.access-control.epeople.table.email": "E-mail (exact)",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.table.email": "E-mail (exact)",
+  "admin.access-control.epeople.table.email": "E-post (exakt)",
 
   // "admin.access-control.epeople.table.edit": "Edit",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit": "Edit",
+  "admin.access-control.epeople.table.edit": "Redigera",
 
   // "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.edit": "Redigera \"{{name}}\"",
 
   // "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
+  "admin.access-control.epeople.table.edit.buttons.edit-disabled": "Du har inte behöriget att redigera denna grupp",
 
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove": "Radera \"{{name}}\"",
 
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.no-items": "No EPeople to show.",
+  "admin.access-control.epeople.no-items": "Det finns inga Epersoner att visa.",
 
   // "admin.access-control.epeople.form.create": "Create EPerson",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.create": "Create EPerson",
+  "admin.access-control.epeople.form.create": "Skapa EPerson",
 
   // "admin.access-control.epeople.form.edit": "Edit EPerson",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.edit": "Edit EPerson",
+  "admin.access-control.epeople.form.edit": "Redigera EPerson",
 
   // "admin.access-control.epeople.form.firstName": "First name",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.firstName": "First name",
+  "admin.access-control.epeople.form.firstName": "Förnamn",
 
   // "admin.access-control.epeople.form.lastName": "Last name",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.lastName": "Last name",
+  "admin.access-control.epeople.form.lastName": "Efternamn",
 
   // "admin.access-control.epeople.form.email": "E-mail",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.email": "E-mail",
+  "admin.access-control.epeople.form.email": "E-post",
 
   // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+  "admin.access-control.epeople.form.emailHint": "Det måste vara en giltig e-postadress",
 
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.canLogIn": "Can log in",
+  "admin.access-control.epeople.form.canLogIn": "Kan logga in",
 
   // "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
+  "admin.access-control.epeople.form.requireCertificate": "Kräver certificate",
 
   // "admin.access-control.epeople.form.return": "Back",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.return": "Back",
+  "admin.access-control.epeople.form.return": "Tillbaka",
 
   // "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.success": "EPerson \"{{name}}\" har skapats",
 
   // "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.failure": "Misslyckades med att skapa EPerson \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Misslyckades med att skapa EPerson \"{{name}}\", e-postadressen \"{{email}}\" används redan.",
 
   // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Misslyckades med att redigera EPerson \"{{name}}\", e-postadressen \"{{email}}\" används redan.",
 
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.success": "EPerson \"{{name}}\" hhar redigerats",
 
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.failure": "Misslyckades med att redigera EPerson \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.success": "EPerson \"{{name}}\" har raderats",
 
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.failure": "Misslyckades med att radera EPerson \"{{name}}\"",
 
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
+  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Medlem i följande grupper:",
 
   // "admin.access-control.epeople.form.table.id": "ID",
   // TODO New key - Add a translation
@@ -564,77 +564,77 @@
 
   // "admin.access-control.epeople.form.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.table.name": "Name",
+  "admin.access-control.epeople.form.table.name": "Namn",
 
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
+  "admin.access-control.epeople.form.table.collectionOrCommunity": "Samling/Enhet",
 
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
+  "admin.access-control.epeople.form.memberOfNoGroups": "Denna EPerson är inte medlem i någon grupp",
 
   // "admin.access-control.epeople.form.goToGroups": "Add to groups",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.goToGroups": "Add to groups",
+  "admin.access-control.epeople.form.goToGroups": "Lägg till i grupper",
 
   // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "Misslyckades med att radera EPerson: \"{{name}}\"",
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.success": "EPerson: \"{{name}}\" har raderats",
 
 
 
   // "admin.access-control.groups.title": "Groups",
   // TODO New key - Add a translation
-  "admin.access-control.groups.title": "Groups",
+  "admin.access-control.groups.title": "Grupper",
 
   // "admin.access-control.groups.breadcrumbs": "Groups",
   // TODO New key - Add a translation
-  "admin.access-control.groups.breadcrumbs": "Groups",
+  "admin.access-control.groups.breadcrumbs": "Grupper",
 
   // "admin.access-control.groups.singleGroup.breadcrumbs": "Edit Group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.singleGroup.breadcrumbs": "Edit Group",
+  "admin.access-control.groups.singleGroup.breadcrumbs": "Redigera grupp",
 
   // "admin.access-control.groups.title.singleGroup": "Edit Group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.title.singleGroup": "Edit Group",
+  "admin.access-control.groups.title.singleGroup": "Redigera grupp",
 
   // "admin.access-control.groups.title.addGroup": "New Group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.title.addGroup": "New Group",
+  "admin.access-control.groups.title.addGroup": "Ny grupp",
 
   // "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
+  "admin.access-control.groups.addGroup.breadcrumbs": "Ny grupp",
 
   // "admin.access-control.groups.head": "Groups",
   // TODO New key - Add a translation
-  "admin.access-control.groups.head": "Groups",
+  "admin.access-control.groups.head": "Grupper",
 
   // "admin.access-control.groups.button.add": "Add group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.button.add": "Add group",
+  "admin.access-control.groups.button.add": "Lägg till grupp",
 
   // "admin.access-control.groups.search.head": "Search groups",
   // TODO New key - Add a translation
-  "admin.access-control.groups.search.head": "Search groups",
+  "admin.access-control.groups.search.head": "Sök grupper",
 
   // "admin.access-control.groups.button.see-all": "Browse all",
   // TODO New key - Add a translation
-  "admin.access-control.groups.button.see-all": "Browse all",
+  "admin.access-control.groups.button.see-all": "Browsa alla",
 
   // "admin.access-control.groups.search.button": "Search",
   // TODO New key - Add a translation
-  "admin.access-control.groups.search.button": "Search",
+  "admin.access-control.groups.search.button": "Sök",
 
   // "admin.access-control.groups.search.placeholder": "Search groups...",
   // TODO New key - Add a translation
-  "admin.access-control.groups.search.placeholder": "Search groups...",
+  "admin.access-control.groups.search.placeholder": "Sök grupper...",
 
   // "admin.access-control.groups.table.id": "ID",
   // TODO New key - Add a translation
@@ -642,69 +642,69 @@
 
   // "admin.access-control.groups.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.name": "Name",
+  "admin.access-control.groups.table.name": "Namn",
 
   // "admin.access-control.groups.table.collectionOrCommunity": "Collection/Community",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.collectionOrCommunity": "Collection/Community",
+  "admin.access-control.groups.table.collectionOrCommunity": "Samling/Enhet",
 
   // "admin.access-control.groups.table.members": "Members",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.members": "Members",
+  "admin.access-control.groups.table.members": "Medlemmar",
 
   // "admin.access-control.groups.table.edit": "Edit",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit": "Edit",
+  "admin.access-control.groups.table.edit": "Redigera",
 
   // "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.edit": "Redigera \"{{name}}\"",
 
   // "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.remove": "Radera \"{{name}}\"",
 
   // "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
   // TODO New key - Add a translation
-  "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
+  "admin.access-control.groups.no-items": "Ingan grupper kunde hittas",
 
   // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.success": "Grupp \"{{name}}\" hhar raderats",
 
   // "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.failure.title": "Misslyckades med att radera grupp \"{{name}}\"",
 
   // "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
+  "admin.access-control.groups.notification.deleted.failure.content": "Orsak: \"{{cause}}\"",
 
 
 
   // "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
+  "admin.access-control.groups.form.alert.permanent": "Denna grupp är permant och kan inte raderas eller redigeras. Du kan fortfarande lägga till eller ta bort medlemmar i gruppen här.",
 
   // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
+  "admin.access-control.groups.form.alert.workflowGroup": "Denna grupp kan inte raderas eller redigeras eftersom den används i submission eller workflow process i \"{{name}}\" {{comcol}}. Du kan radera den från fliken <a href='{{comcolEditRolesRoute}}'>\"tilldela roller\"</a> på sidan {{comcol}} för att redigera. Du kan fortfarande lägga till eller ta bort medlemmar i gruppen här.",
 
   // "admin.access-control.groups.form.head.create": "Create group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.head.create": "Create group",
+  "admin.access-control.groups.form.head.create": "Skapa grupp",
 
   // "admin.access-control.groups.form.head.edit": "Edit group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.head.edit": "Edit group",
+  "admin.access-control.groups.form.head.edit": "Redigera grupp",
 
   // "admin.access-control.groups.form.groupName": "Group name",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.groupName": "Group name",
+  "admin.access-control.groups.form.groupName": "Gruppens namn",
 
   // "admin.access-control.groups.form.groupCommunity": "Community or Collection",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.groupCommunity": "Community or Collection",
+  "admin.access-control.groups.form.groupCommunity": "Enhet eller samling",
 
   // "admin.access-control.groups.form.groupDescription": "Beskrivning",
   // TODO New key - Add a translation
@@ -712,75 +712,75 @@
 
   // "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.success": "Gruppen \"{{name}}\" ar skapats",
 
   // "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.failure": "Misslyckades med att skapa grupp \"{{name}}\"",
 
   // "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Misslyckades med att skapa grupp: \"{{name}}\", kontrollera om namnet redan används.",
 
   // "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.failure": "Misslyckades med att redigera grupp \"{{name}}\"",
 
   // "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Namnet \"{{name}}\" används redan!",
 
   // "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.success": "Gruppen \"{{name}}\" har redigerats",
 
   // "admin.access-control.groups.form.actions.delete": "Delete Group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.actions.delete": "Delete Group",
+  "admin.access-control.groups.form.actions.delete": "Radera grupp",
 
   // "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.header": "Radera grupp \"{{ dsoName }}\"",
 
   // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.info": "Är du säker på att du vill radera gruppen \"{{ dsoName }}\"",
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
+  "admin.access-control.groups.form.delete-group.modal.cancel": "Avbryt",
 
   // "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
+  "admin.access-control.groups.form.delete-group.modal.confirm": "Radera",
 
   // "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.success": "Gruppen \"{{ name }}\" har raderats",
 
   // "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.title": "Misslyckades med att radera grupp \"{{ name }}\"",
 
   // "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.content": "Orsak: \"{{ cause }}\"",
 
   // "admin.access-control.groups.form.members-list.head": "EPeople",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.head": "EPeople",
+  "admin.access-control.groups.form.members-list.head": "EPersoner",
 
   // "admin.access-control.groups.form.members-list.search.head": "Add EPeople",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.head": "Add EPeople",
+  "admin.access-control.groups.form.members-list.search.head": "Lägg till EPersoner",
 
   // "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
+  "admin.access-control.groups.form.members-list.button.see-all": "Browsa alla",
 
   // "admin.access-control.groups.form.members-list.headMembers": "Current Members",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.headMembers": "Current Members",
+  "admin.access-control.groups.form.members-list.headMembers": "Nuvarande medlemmar",
 
   // "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
   // TODO New key - Add a translation
@@ -788,11 +788,11 @@
 
   // "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
+  "admin.access-control.groups.form.members-list.search.scope.email": "E-post (exakt)",
 
   // "admin.access-control.groups.form.members-list.search.button": "Search",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.button": "Search",
+  "admin.access-control.groups.form.members-list.search.button": "Sök",
 
   // "admin.access-control.groups.form.members-list.table.id": "ID",
   // TODO New key - Add a translation
@@ -800,15 +800,15 @@
 
   // "admin.access-control.groups.form.members-list.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.name": "Name",
+  "admin.access-control.groups.form.members-list.table.name": "Namn",
 
   // "admin.access-control.groups.form.members-list.table.identity": "Identity",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.identity": "Identity",
+  "admin.access-control.groups.form.members-list.table.identity": "Identitet",
 
   // "admin.access-control.groups.form.members-list.table.email": "Email",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.email": "Email",
+  "admin.access-control.groups.form.members-list.table.email": "E-post",
 
   // "admin.access-control.groups.form.members-list.table.netid": "NetID",
   // TODO New key - Add a translation
@@ -816,67 +816,67 @@
 
   // "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
+  "admin.access-control.groups.form.members-list.table.edit": "Radera / Lägg till",
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Ta bort medlem \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.addMember": "Medlem: \"{{name}}\" har lagts till",
 
   // "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Misslyckades med att lägga till medlem: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Medlem: \"{{name}}\" har tagits bort",
 
   // "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Misslyckades med att ta bort medlem: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Lägg till medlem \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "Det finns ingen aktiv grupp, ange ett namn först.",
 
   // "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
+  "admin.access-control.groups.form.members-list.no-members-yet": "Det finns inga medlemmar i gruppen, sök och Lägg till.",
 
   // "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
+  "admin.access-control.groups.form.members-list.no-items": "Inga EPersoner hittades",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure": "Något gick fel: \"{{cause}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.head": "Groups",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.head": "Groups",
+  "admin.access-control.groups.form.subgroups-list.head": "Grupper",
 
   // "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
+  "admin.access-control.groups.form.subgroups-list.search.head": "Lägg till undergrupp",
 
   // "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
+  "admin.access-control.groups.form.subgroups-list.button.see-all": "Browsa alla",
 
   // "admin.access-control.groups.form.subgroups-list.headSubgroups": "Current Subgroups",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.headSubgroups": "Current Subgroups",
+  "admin.access-control.groups.form.subgroups-list.headSubgroups": "Nuvarande undergrupper",
 
   // "admin.access-control.groups.form.subgroups-list.search.button": "Search",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.search.button": "Search",
+  "admin.access-control.groups.form.subgroups-list.search.button": "Sök",
 
   // "admin.access-control.groups.form.subgroups-list.table.id": "ID",
   // TODO New key - Add a translation
@@ -884,63 +884,63 @@
 
   // "admin.access-control.groups.form.subgroups-list.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.name": "Name",
+  "admin.access-control.groups.form.subgroups-list.table.name": "Namn",
 
   // "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Collection/Community",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Collection/Community",
+  "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Samling/Enhet",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
+  "admin.access-control.groups.form.subgroups-list.table.edit": "Ta bort / Lägg till",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Ta bort undergrupp \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Lägg till undergrupp \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
+  "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Nuvarande grupp",
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Undergrupp: \"{{name}}\" har lagts till",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Misslyckades med artt lägga till undergrupp: \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Undergrupp: \"{{name}}\" har raderats",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Misslyckades med att radera undergrupp: \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "Det finns ingen aktiv grupp, ange ett namn först.",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "This is the current group, can't be added.",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "This is the current group, can't be added.",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "Detta är den aktiva gruppen, den kan inte läggas till.",
 
   // "admin.access-control.groups.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
+  "admin.access-control.groups.form.subgroups-list.no-items": "Inga grupper kunde hittas",
 
   // "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
+  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "Det finns inge undergrupper i denna grupp ännu.",
 
   // "admin.access-control.groups.form.return": "Back",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.return": "Back",
+  "admin.access-control.groups.form.return": "Tillbaka",
 
 
 
@@ -1287,11 +1287,11 @@
 
   // "browse.comcol.head": "Browse",
   // TODO New key - Add a translation
-  "browse.comcol.head": "Browse",
+  "browse.comcol.head": "Browsa",
 
   // "browse.empty": "No items to show.",
   // TODO New key - Add a translation
-  "browse.empty": "No items to show.",
+  "browse.empty": "Inga poster att visa.",
 
   // "browse.metadata.author": "Author",
   // TODO New key - Add a translation
@@ -1311,19 +1311,19 @@
 
   // "browse.metadata.author.breadcrumbs": "Browse by Author",
   // TODO New key - Add a translation
-  "browse.metadata.author.breadcrumbs": "Browse by Author",
+  "browse.metadata.author.breadcrumbs": "Författare",
 
   // "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
   // TODO New key - Add a translation
-  "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
+  "browse.metadata.dateissued.breadcrumbs": "Publiceringsdatum",
 
   // "browse.metadata.subject.breadcrumbs": "Browse by Subject",
   // TODO New key - Add a translation
-  "browse.metadata.subject.breadcrumbs": "Browse by Subject",
+  "browse.metadata.subject.breadcrumbs": "Ämnesord",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   // TODO New key - Add a translation
-  "browse.metadata.title.breadcrumbs": "Browse by Title",
+  "browse.metadata.title.breadcrumbs": "Titlar",
 
   // "pagination.next.button": "Next",
   // TODO New key - Add a translation
@@ -1411,19 +1411,19 @@
 
   // "browse.startsWith.type_date": "Or type in a date (year-month) and click 'Browse'",
   // TODO New key - Add a translation
-  "browse.startsWith.type_date": "Or type in a date (year-month) and click 'Browse'",
+  "browse.startsWith.type_date": "Eller skriv in ett datum (år-månad) och klicka på 'Browse'",
 
   // "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
   // TODO New key - Add a translation
-  "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
+  "browse.startsWith.type_date.label": "Eller skriv in ett datum (år-månad) och klicka på 'Browse'",
 
   // "browse.startsWith.type_text": "Type the first few letters and click on the Browse button",
   // TODO New key - Add a translation
-  "browse.startsWith.type_text": "Type the first few letters and click on the Browse button",
+  "browse.startsWith.type_text": "Ange de första bokstäverna och klicka på 'Browse'",
 
   // "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
   // TODO New key - Add a translation
-  "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+  "browse.title": "Browsar {{ collection }} efter {{ field }} {{ value }}",
 
 
   // "chips.remove": "Remove chip",
@@ -4666,43 +4666,43 @@
 
   // "menu.header.admin": "Management",
   // TODO New key - Add a translation
-  "menu.header.admin": "Management",
+  "menu.header.admin": "Administration",
 
   // "menu.header.image.logo": "Repository logo",
   // TODO New key - Add a translation
-  "menu.header.image.logo": "Repository logo",
+  "menu.header.image.logo": "Logga för arkivet",
 
   // "menu.header.admin.description": "Management menu",
   // TODO New key - Add a translation
-  "menu.header.admin.description": "Management menu",
+  "menu.header.admin.description": "Administration meny",
 
 
 
   // "menu.section.access_control": "Access Control",
   // TODO New key - Add a translation
-  "menu.section.access_control": "Access Control",
+  "menu.section.access_control": "Åtkomst",
 
   // "menu.section.access_control_authorizations": "Authorizations",
   // TODO New key - Add a translation
-  "menu.section.access_control_authorizations": "Authorizations",
+  "menu.section.access_control_authorizations": "Behörigheter",
 
   // "menu.section.access_control_groups": "Groups",
   // TODO New key - Add a translation
-  "menu.section.access_control_groups": "Groups",
+  "menu.section.access_control_groups": "Grupper",
 
   // "menu.section.access_control_people": "People",
   // TODO New key - Add a translation
-  "menu.section.access_control_people": "People",
+  "menu.section.access_control_people": "EPersoner",
 
 
 
   // "menu.section.admin_search": "Admin Search",
   // TODO New key - Add a translation
-  "menu.section.admin_search": "Admin Search",
+  "menu.section.admin_search": "Admin sök",
 
 
 
-  // "menu.section.browse_community": "This Community",
+ // "menu.section.browse_community": "This Community",
   // TODO New key - Add a translation
   "menu.section.browse_community": "Denna samling",
 
@@ -4740,53 +4740,53 @@
 
   // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
   // TODO New key - Add a translation
-  "menu.section.browse_global_communities_and_collections": "Samlingar",
+  "menu.section.browse_global_communities_and_collections": "Enhheter och samlingar",
 
 
 
   // "menu.section.control_panel": "Control Panel",
   // TODO New key - Add a translation
-  "menu.section.control_panel": "Control Panel",
+  "menu.section.control_panel": "Kontrollpanel",
 
   // "menu.section.curation_task": "Curation Task",
   // TODO New key - Add a translation
-  "menu.section.curation_task": "Curation Task",
+  "menu.section.curation_task": "Kurationsuppgift",
 
 
 
   // "menu.section.edit": "Edit",
   // TODO New key - Add a translation
-  "menu.section.edit": "Edit",
+  "menu.section.edit": "Redigera",
 
   // "menu.section.edit_collection": "Collection",
   // TODO New key - Add a translation
-  "menu.section.edit_collection": "Collection",
+  "menu.section.edit_collection": "Samling",
 
   // "menu.section.edit_community": "Community",
   // TODO New key - Add a translation
-  "menu.section.edit_community": "Community",
+  "menu.section.edit_community": "Enhet",
 
   // "menu.section.edit_item": "Item",
   // TODO New key - Add a translation
-  "menu.section.edit_item": "Item",
+  "menu.section.edit_item": "Post",
 
 
 
   // "menu.section.export": "Export",
   // TODO New key - Add a translation
-  "menu.section.export": "Export",
+  "menu.section.export": "Exportera",
 
   // "menu.section.export_collection": "Collection",
   // TODO New key - Add a translation
-  "menu.section.export_collection": "Collection",
+  "menu.section.export_collection": "Samling",
 
   // "menu.section.export_community": "Community",
   // TODO New key - Add a translation
-  "menu.section.export_community": "Community",
+  "menu.section.export_community": "Enhet",
 
   // "menu.section.export_item": "Item",
   // TODO New key - Add a translation
-  "menu.section.export_item": "Item",
+  "menu.section.export_item": "Post",
 
   // "menu.section.export_metadata": "Metadata",
   // TODO New key - Add a translation
@@ -5467,7 +5467,7 @@
 
   // "process.overview.table.finish" : "Finish time (UTC)",
   // TODO New key - Add a translation
-  "process.overview.table.finish" : "Finish time (UTC)",
+  "process.overview.table.finish" : "Sluttid (UTC)",
 
   // "process.overview.table.id" : "Process ID",
   // TODO New key - Add a translation
@@ -5475,11 +5475,11 @@
 
   // "process.overview.table.name" : "Name",
   // TODO New key - Add a translation
-  "process.overview.table.name" : "Name",
+  "process.overview.table.name" : "Namn",
 
   // "process.overview.table.start" : "Start time (UTC)",
   // TODO New key - Add a translation
-  "process.overview.table.start" : "Start time (UTC)",
+  "process.overview.table.start" : "Starttid (UTC)",
 
   // "process.overview.table.status" : "Status",
   // TODO New key - Add a translation
@@ -5487,19 +5487,19 @@
 
   // "process.overview.table.user" : "User",
   // TODO New key - Add a translation
-  "process.overview.table.user" : "User",
+  "process.overview.table.user" : "Användare",
 
   // "process.overview.title": "Processes Overview",
   // TODO New key - Add a translation
-  "process.overview.title": "Processes Overview",
+  "process.overview.title": "Processer översikt",
 
   // "process.overview.breadcrumbs": "Processes Overview",
   // TODO New key - Add a translation
-  "process.overview.breadcrumbs": "Processes Overview",
+  "process.overview.breadcrumbs": "Processer översikt",
 
   // "process.overview.new": "New",
   // TODO New key - Add a translation
-  "process.overview.new": "New",
+  "process.overview.new": "Ny",
 
 
   // "profile.breadcrumbs": "Update Profile",
@@ -5508,7 +5508,7 @@
 
   // "profile.card.identify": "Identify",
   // TODO New key - Add a translation
-  "profile.card.identify": "Identify",
+  "profile.card.identify": "Identifiera",
 
   // "profile.card.security": "Säkerhet",
   // TODO New key - Add a translation
@@ -5520,7 +5520,7 @@
 
   // "profile.groups.head": "Authorization groups you belong to",
   // TODO New key - Add a translation
-  "profile.groups.head": "Authorization groups you belong to",
+  "profile.groups.head": "Behörighetsgrupper som du är medlem i",
 
   // "profile.head": "Update Profile",
   // TODO New key - Add a translation
@@ -5528,11 +5528,11 @@
 
   // "profile.metadata.form.error.firstname.required": "First Name is required",
   // TODO New key - Add a translation
-  "profile.metadata.form.error.firstname.required": "First Name is required",
+  "profile.metadata.form.error.firstname.required": "Förnamn är obligatotiskt",
 
   // "profile.metadata.form.error.lastname.required": "Last Name is required",
   // TODO New key - Add a translation
-  "profile.metadata.form.error.lastname.required": "Last Name is required",
+  "profile.metadata.form.error.lastname.required": "Efternamn är obligatoriskt",
 
   // "profile.metadata.form.label.email": "E-post",
   // TODO New key - Add a translation
@@ -5556,19 +5556,19 @@
 
   // "profile.metadata.form.notifications.success.content": "Your changes to the profile were saved.",
   // TODO New key - Add a translation
-  "profile.metadata.form.notifications.success.content": "Your changes to the profile were saved.",
+  "profile.metadata.form.notifications.success.content": "Dina ändringar har sparats.",
 
   // "profile.metadata.form.notifications.success.title": "Profile saved",
   // TODO New key - Add a translation
-  "profile.metadata.form.notifications.success.title": "Profile saved",
+  "profile.metadata.form.notifications.success.title": "Profilen har sparats",
 
   // "profile.notifications.warning.no-changes.content": "No changes were made to the Profile.",
   // TODO New key - Add a translation
-  "profile.notifications.warning.no-changes.content": "No changes were made to the Profile.",
+  "profile.notifications.warning.no-changes.content": "Inga ändringar gjordes.",
 
   // "profile.notifications.warning.no-changes.title": "No changes",
   // TODO New key - Add a translation
-  "profile.notifications.warning.no-changes.title": "No changes",
+  "profile.notifications.warning.no-changes.title": "Inga ändringar",
 
   // "profile.security.form.error.matching-passwords": "Lösenorden överensstämmer inte.",
   // TODO New key - Add a translation
@@ -5576,7 +5576,7 @@
 
   // "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
   // TODO New key - Add a translation
-  "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
+  "profile.security.form.error.password-length": "Lösenordet måste bestå av minst 6 tecken.",
 
   // "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
   // TODO New key - Add a translation
@@ -5592,23 +5592,23 @@
 
   // "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
   // TODO New key - Add a translation
-  "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
+  "profile.security.form.notifications.success.content": "Det nya lösenordet har sparats.",
 
   // "profile.security.form.notifications.success.title": "Password saved",
   // TODO New key - Add a translation
-  "profile.security.form.notifications.success.title": "Password saved",
+  "profile.security.form.notifications.success.title": "Lösenordet har sparats",
 
   // "profile.security.form.notifications.error.title": "Error changing passwords",
   // TODO New key - Add a translation
-  "profile.security.form.notifications.error.title": "Error changing passwords",
+  "profile.security.form.notifications.error.title": "Ett del uppstod när lösenordet skulle sparas",
 
   // "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
   // TODO New key - Add a translation
-  "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
+  "profile.security.form.notifications.error.not-long-enough": "Lösenordet måste bestå av minst 6 tecken.",
 
   // "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
   // TODO New key - Add a translation
-  "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
+  "profile.security.form.notifications.error.not-same": "Lösenorden överensstämmer inte.",
 
   // "profile.title": "Update Profile",
   // TODO New key - Add a translation
@@ -5726,7 +5726,7 @@
 
   // "register-page.create-profile.identification.header": "Identify",
   // TODO New key - Add a translation
-  "register-page.create-profile.identification.header": "Identify",
+  "register-page.create-profile.identification.header": "Identifera",
 
   // "register-page.create-profile.identification.email": "E-post",
   // TODO New key - Add a translation
@@ -5738,7 +5738,7 @@
 
   // "register-page.create-profile.identification.first-name.error": "Please fill in a First Name",
   // TODO New key - Add a translation
-  "register-page.create-profile.identification.first-name.error": "Please fill in a First Name",
+  "register-page.create-profile.identification.first-name.error": "Ange förnamn",
 
   // "register-page.create-profile.identification.last-name": "Last Name *",
   // TODO New key - Add a translation
@@ -5746,7 +5746,7 @@
 
   // "register-page.create-profile.identification.last-name.error": "Please fill in a Last Name",
   // TODO New key - Add a translation
-  "register-page.create-profile.identification.last-name.error": "Please fill in a Last Name",
+  "register-page.create-profile.identification.last-name.error": "Ange efternamn",
 
   // "register-page.create-profile.identification.contact": "Telefonnummer",
   // TODO New key - Add a translation
@@ -5762,7 +5762,7 @@
 
   // "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
   // TODO New key - Add a translation
-  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "register-page.create-profile.security.info": "Ange och bekräfta ett lösenord nedan. Det måste bestå av minst 6 tecken.",
 
   // "register-page.create-profile.security.label.password": "Password *",
   // TODO New key - Add a translation
@@ -5774,7 +5774,7 @@
 
   // "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
   // TODO New key - Add a translation
-  "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
+  "register-page.create-profile.security.error.empty-password": "Ange ett lösnord nedan.",
 
   // "register-page.create-profile.security.error.matching-passwords": "Lösenorden överensstämmer inte.",
   // TODO New key - Add a translation
@@ -5782,27 +5782,27 @@
 
   // "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
   // TODO New key - Add a translation
-  "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
+  "register-page.create-profile.security.error.password-length": "Lösenordet måste bestå av minst 6 tecken.",
 
   // "register-page.create-profile.submit": "Complete Registration",
   // TODO New key - Add a translation
-  "register-page.create-profile.submit": "Complete Registration",
+  "register-page.create-profile.submit": "Slutför registrering",
 
   // "register-page.create-profile.submit.error.content": "Something went wrong while registering a new user.",
   // TODO New key - Add a translation
-  "register-page.create-profile.submit.error.content": "Something went wrong while registering a new user.",
+  "register-page.create-profile.submit.error.content": "Ett fel uppstod när ny användare registrerades.",
 
   // "register-page.create-profile.submit.error.head": "Registration failed",
   // TODO New key - Add a translation
-  "register-page.create-profile.submit.error.head": "Registration failed",
+  "register-page.create-profile.submit.error.head": "Registreringen misslyckades",
 
   // "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
   // TODO New key - Add a translation
-  "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
+  "register-page.create-profile.submit.success.content": "Regsitreringen är klar. Du är nu inloggad som den nya användaren.",
 
   // "register-page.create-profile.submit.success.head": "Registration completed",
   // TODO New key - Add a translation
-  "register-page.create-profile.submit.success.head": "Registration completed",
+  "register-page.create-profile.submit.success.head": "Registreringen är klar",
 
 
   // "register-page.registration.header": "Ny användare",
@@ -5811,7 +5811,7 @@
 
   // "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
   // TODO New key - Add a translation
-  "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
+  "register-page.registration.info": "Skapa ett konto för att få uppdateringar eller för att kunna registrera nya bidrag i arkivet.",
 
   // "register-page.registration.email": "E-post *",
   // TODO New key - Add a translation
@@ -5819,35 +5819,35 @@
 
   // "register-page.registration.email.error.required": "Please fill in an email address",
   // TODO New key - Add a translation
-  "register-page.registration.email.error.required": "Please fill in an email address",
+  "register-page.registration.email.error.required": "Ange e-post",
 
   // "register-page.registration.email.error.pattern": "Please fill in a valid email address",
   // TODO New key - Add a translation
-  "register-page.registration.email.error.pattern": "Please fill in a valid email address",
+  "register-page.registration.email.error.pattern": "Ange en giltig e-postadress",
 
   // "register-page.registration.email.hint": "This address will be verified and used as your login name.",
   // TODO New key - Add a translation
-  "register-page.registration.email.hint": "This address will be verified and used as your login name.",
+  "register-page.registration.email.hint": "Denna adress kommer att verifieras och användas när du loggar in.",
 
   // "register-page.registration.submit": "Register",
   // TODO New key - Add a translation
-  "register-page.registration.submit": "Register",
+  "register-page.registration.submit": "Skapa konto",
 
   // "register-page.registration.success.head": "Verification email sent",
   // TODO New key - Add a translation
-  "register-page.registration.success.head": "Verification email sent",
+  "register-page.registration.success.head": "Ett verifieringsmejl har skickats",
 
   // "register-page.registration.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
   // TODO New key - Add a translation
-  "register-page.registration.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
+  "register-page.registration.success.content": "Ett mejl med instruktioner har skickats till {{ email }}.",
 
   // "register-page.registration.error.head": "Error when trying to register email",
   // TODO New key - Add a translation
-  "register-page.registration.error.head": "Error when trying to register email",
+  "register-page.registration.error.head": "Ett fel uppstod när kontot skulle skapas",
 
   // "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
   // TODO New key - Add a translation
-  "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
+  "register-page.registration.error.content": "Ett fel uppstod när kontot skulle skapas för: {{ email }}",
 
 
 
@@ -5857,7 +5857,7 @@
 
   // "relationships.add.error.server.content": "The server returned an error",
   // TODO New key - Add a translation
-  "relationships.add.error.server.content": "The server returned an error",
+  "relationships.add.error.server.content": "Servern returnerade ett fel",
 
   // "relationships.add.error.title": "Unable to add relationship",
   // TODO New key - Add a translation
@@ -6312,7 +6312,7 @@
 
   // "search.filters.filter.dateIssued.head": "Date",
   // TODO New key - Add a translation
-  "search.filters.filter.dateIssued.head": "Date",
+  "search.filters.filter.dateIssued.head": "Datum",
 
   // "search.filters.filter.dateIssued.max.placeholder": "Maximum Date",
   // TODO New key - Add a translation
@@ -6320,15 +6320,16 @@
 
   // "search.filters.filter.dateIssued.max.label": "End",
   // TODO New key - Add a translation
-  "search.filters.filter.dateIssued.max.label": "End",
+  "search.filters.filter.dateIssued.max.label": "Till",
 
   // "search.filters.filter.dateIssued.min.placeholder": "Minimum Date",
   // TODO New key - Add a translation
   "search.filters.filter.dateIssued.min.placeholder": "Minimum Date",
 
   // "search.filters.filter.dateIssued.min.label": "Start",
+
   // TODO New key - Add a translation
-  "search.filters.filter.dateIssued.min.label": "Start",
+  "search.filters.filter.dateIssued.min.label": "Från",
 
   // "search.filters.filter.dateSubmitted.head": "Date submitted",
   // TODO New key - Add a translation
@@ -6479,6 +6480,7 @@
   "search.filters.filter.scope.label": "Search scope filter",
 
   // "search.filters.filter.show-less": "Collapse",
+  
   // TODO New key - Add a translation
   "search.filters.filter.show-less": "Collapse",
 
@@ -6591,59 +6593,59 @@
 
   // "search.results.empty": "Your search returned no results.",
   // TODO New key - Add a translation
-  "search.results.empty": "Your search returned no results.",
+  "search.results.empty": "Sökningen resulterade inte i några träffar.",
 
   // "search.results.view-result": "View",
   // TODO New key - Add a translation
-  "search.results.view-result": "View",
+  "search.results.view-result": "Visa",
 
 
   // "default.search.results.head": "Search Results",
   // TODO New key - Add a translation
-  "default.search.results.head": "Search Results",
+  "default.search.results.head": "Sökresultat",
 
 
   // "search.sidebar.close": "Back to results",
   // TODO New key - Add a translation
-  "search.sidebar.close": "Back to results",
+  "search.sidebar.close": "Tillbaka till sökresultaten",
 
   // "search.sidebar.filters.title": "Filters",
   // TODO New key - Add a translation
-  "search.sidebar.filters.title": "Filters",
+  "search.sidebar.filters.title": "Filtrera",
 
   // "search.sidebar.open": "Search Tools",
   // TODO New key - Add a translation
-  "search.sidebar.open": "Search Tools",
+  "search.sidebar.open": "Sökverktyg",
 
   // "search.sidebar.results": "results",
   // TODO New key - Add a translation
-  "search.sidebar.results": "results",
+  "search.sidebar.results": "resultat",
 
   // "search.sidebar.settings.rpp": "Results per page",
   // TODO New key - Add a translation
-  "search.sidebar.settings.rpp": "Results per page",
+  "search.sidebar.settings.rpp": "Träffar per sida",
 
   // "search.sidebar.settings.sort-by": "Sort By",
   // TODO New key - Add a translation
-  "search.sidebar.settings.sort-by": "Sort By",
+  "search.sidebar.settings.sort-by": "Sortera efter",
 
   // "search.sidebar.settings.title": "Settings",
   // TODO New key - Add a translation
-  "search.sidebar.settings.title": "Settings",
+  "search.sidebar.settings.title": "Inställningar",
 
 
 
   // "search.view-switch.show-detail": "Show detail",
   // TODO New key - Add a translation
-  "search.view-switch.show-detail": "Show detail",
+  "search.view-switch.show-detail": "Visa detaljer",
 
   // "search.view-switch.show-grid": "Show as grid",
   // TODO New key - Add a translation
-  "search.view-switch.show-grid": "Show as grid",
+  "search.view-switch.show-grid": "Visa som rutmönster",
 
   // "search.view-switch.show-list": "Show as list",
   // TODO New key - Add a translation
-  "search.view-switch.show-list": "Show as list",
+  "search.view-switch.show-list": "Visa som lista",
 
   // "sorting.ASC": "Ascending",
   // TODO New key - Add a translation
