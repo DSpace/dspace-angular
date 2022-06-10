@@ -75,10 +75,18 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
     return bitstream.firstMetadataValue(this.TYPE_METADATA);
   }
 
+  /**
+   * Returns link of given bistream
+   * @param bitstream
+   */
   getLink(bitstream: Bitstream): string {
     return bitstream._links.content.href;
   }
 
+  /**
+   * Returns format of given bistream
+   * @param bitstream
+   */
   getFormat(bitstream: Bitstream): Observable<string> {
     return bitstream.format?.pipe(
       map((rd: RemoteData<BitstreamFormat>) => {
@@ -87,6 +95,10 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
     );
   }
 
+  /**
+   * Returns thumbnail content of given bistream
+   * @param bitstream
+   */
   getThumbnailSrc(bitstream: Bitstream): Observable<string> {
     return bitstream.thumbnail?.pipe(
       map((rd: RemoteData<Bitstream>) => {
@@ -95,6 +107,10 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
     );
   }
 
+  /**
+   * Returns description of given bistream
+   * @param bitstream
+   */
   getDesc(bitstream: Bitstream): string {
     return bitstream.firstMetadataValue(this.DESC_METADATA);
   }

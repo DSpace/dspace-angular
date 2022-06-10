@@ -107,11 +107,10 @@ export class MetadataContainerComponent implements OnInit {
   ngOnInit() {
     const rendering = this.computeRendering(this.field);
     if (this.field.fieldType === LayoutFieldType.BITSTREAM
-      && rendering.toLocaleLowerCase() === FieldRenderingType.ATTACHMENT.toLocaleLowerCase()
-      && rendering.toLocaleLowerCase() === FieldRenderingType.ADVANCEDATTACHMENT.toLocaleLowerCase()) {
+      && (rendering.toLocaleLowerCase() === FieldRenderingType.ATTACHMENT.toLocaleLowerCase()
+        || rendering.toLocaleLowerCase() === FieldRenderingType.ADVANCEDATTACHMENT.toLocaleLowerCase())) {
       this.hasBitstream().pipe(take(1)).subscribe((hasBitstream: boolean) => {
         if (hasBitstream) {
-          console.log(rendering);
           this.initRenderOptions(rendering);
         }
       });
