@@ -3187,6 +3187,8 @@
 
   "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
 
+  "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
+
 
 
   "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",

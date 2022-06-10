@@ -178,6 +178,8 @@ import { OrcidHistoryDataService } from './orcid/orcid-history-data.service';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
 import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { OrcidAuthService } from './orcid/orcid-auth.service';
+import { GoogleRecaptchaService } from './data/google-recaptcha.service';
+import { RecaptchaV3Module, RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -193,6 +195,7 @@ export const restServiceFactory = (mocks: ResponseMapMock, http: HttpClient) => 
 
 const IMPORTS = [
   CommonModule,
+  RecaptchaV3Module,
   StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
   EffectsModule.forFeature(coreEffects)
 ];
@@ -309,6 +312,8 @@ const PROVIDERS = [
   OrcidAuthService,
   OrcidQueueService,
   OrcidHistoryDataService,
+  GoogleRecaptchaService,
+  { provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.recaptchaSiteKey }
 ];
 
 /**

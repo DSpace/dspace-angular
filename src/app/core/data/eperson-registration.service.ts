@@ -54,9 +54,12 @@ export class EpersonRegistrationService {
    * Register a new email address
    * @param email
    */
-  registerEmail(email: string): Observable<RemoteData<Registration>> {
+  registerEmail(email: string, captchaToken: string): Observable<RemoteData<Registration>> {
     const registration = new Registration();
     registration.email = email;
+    if (captchaToken) {
+      registration.captchaToken = captchaToken;
+    }
 
     const requestId = this.requestService.generateRequestId();
 

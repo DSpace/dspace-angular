@@ -6,6 +6,12 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Registration } from '../core/shared/registration.model';
 import { RemoteData } from '../core/data/remote-data';
+import { GoogleRecaptchaService } from '../core/data/google-recaptcha.service';
+import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { isNotEmpty } from '../shared/empty.util';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-register-email-form',
@@ -27,12 +33,19 @@ export class RegisterEmailFormComponent implements OnInit {
   @Input()
   MESSAGE_PREFIX: string;
 
+  /**
+   * registration verification configuration
+   */
+  registrationVerification = false;
+
   constructor(
     private epersonRegistrationService: EpersonRegistrationService,
     private notificationService: NotificationsService,
     private translateService: TranslateService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private configService: ConfigurationDataService,
+    private googleRecaptchaService: GoogleRecaptchaService
   ) {
 
   }
@@ -45,7 +58,14 @@ export class RegisterEmailFormComponent implements OnInit {
         ],
       })
     });
-
+    this.configService.findByPropertyName('registration.verification.enabled').pipe(
+      getFirstCompletedRemoteData(),
+      map((res: RemoteData<ConfigurationProperty>) => {
+        return res.hasSucceeded && res.payload && isNotEmpty(res.payload.values) && res.payload.values[0].toLowerCase() === 'true';
+      })
+    ).subscribe((res: boolean) => {
+      this.registrationVerification = res;
+    });
   }
 
   /**
@@ -53,19 +73,36 @@ export class RegisterEmailFormComponent implements OnInit {
    */
   register() {
     if (!this.form.invalid) {
-      this.epersonRegistrationService.registerEmail(this.email.value).subscribe((response: RemoteData<Registration>) => {
-          if (response.hasSucceeded) {
-            this.notificationService.success(this.translateService.get(`${this.MESSAGE_PREFIX}.success.head`),
-              this.translateService.get(`${this.MESSAGE_PREFIX}.success.content`, {email: this.email.value}));
-            this.router.navigate(['/home']);
+      if (this.registrationVerification) {
+        this.googleRecaptchaService.getRecaptchaToken('register_email').subscribe(res => {
+          if (isNotEmpty(res)) {
+            this.registeration(res);
           } else {
             this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`),
-              this.translateService.get(`${this.MESSAGE_PREFIX}.error.content`, {email: this.email.value}));
+            this.translateService.get(`${this.MESSAGE_PREFIX}.error.recaptcha`, {email: this.email.value}));
           }
-        }
-      );
+        });
+      } else {
+        this.registeration(null);
+      }
     }
   }
+
+  /**
+   * Register an email address
+   */
+   registeration(captchaToken) {
+    this.epersonRegistrationService.registerEmail(this.email.value, captchaToken).subscribe((response: RemoteData<Registration>) => {
+      if (response.hasSucceeded) {
+        this.notificationService.success(this.translateService.get(`${this.MESSAGE_PREFIX}.success.head`),
+          this.translateService.get(`${this.MESSAGE_PREFIX}.success.content`, {email: this.email.value}));
+        this.router.navigate(['/home']);
+      } else {
+        this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`),
+          this.translateService.get(`${this.MESSAGE_PREFIX}.error.content`, {email: this.email.value}));
+      }
+    });
+   }
 
   get email() {
     return this.form.get('email');

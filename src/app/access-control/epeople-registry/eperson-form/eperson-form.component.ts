@@ -491,7 +491,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   resetPassword() {
     if (hasValue(this.epersonInitial.email)) {
-      this.epersonRegistrationService.registerEmail(this.epersonInitial.email).pipe(getFirstCompletedRemoteData())
+      this.epersonRegistrationService.registerEmail(this.epersonInitial.email, null).pipe(getFirstCompletedRemoteData())
         .subscribe((response: RemoteData<Registration>) => {
             if (response.hasSucceeded) {
               this.notificationsService.success(this.translateService.get('admin.access-control.epeople.actions.reset'),

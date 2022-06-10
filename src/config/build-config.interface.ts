@@ -3,4 +3,5 @@ import { UniversalConfig } from './universal-config.interface';
 
 export interface BuildConfig extends AppConfig {
   universal: UniversalConfig;
+  recaptchaSiteKey: string;
 }

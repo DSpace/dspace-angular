@@ -2247,6 +2247,11 @@
   resolved "https://registry.yarnpkg.com/@types/file-saver/-/file-saver-2.0.5.tgz#9ee342a5d1314bb0928375424a2f162f97c310c7"
   integrity sha512-zv9kNf3keYegP5oThGLaPk8E081DFDuwfqjtiTzm6PoxChdJ1raSuADf2YGCVIyrSynLrgc8JWv296s7Q7pQSQ==
 
+"@types/grecaptcha@^3.0.3":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@types/grecaptcha/-/grecaptcha-3.0.4.tgz#3de601f3b0cd0298faf052dd5bd62aff64c2be2e"
+  integrity sha512-7l1Y8DTGXkx/r4pwU1nMVAR+yD/QC+MCHKXAyEX/7JZhwcN1IED09aZ9vCjjkcGdhSQiu/eJqcXInpl6eEEEwg==
+
 "@types/hoist-non-react-statics@^3.3.0", "@types/hoist-non-react-statics@^3.3.1":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
@@ -8857,6 +8862,14 @@ ng-mocks@^13.1.1:
   version "13.1.1"
   resolved "https://registry.yarnpkg.com/ng-mocks/-/ng-mocks-13.1.1.tgz#e967dacc420c2ecec71826c5f24e0120186fad0b"
   integrity sha512-LYi/1ccDwHKLwi4/hvUsmxBDeQ+n8BTdg5f1ujCDCO7OM9OVnqkQcRlBHHK+5iFtEn/aqa2QG3xU/qwIhnaL4w==
+
+ng-recaptcha@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/ng-recaptcha/-/ng-recaptcha-9.0.0.tgz#11b88f820cfca366d363fffd0f451490f2db2b04"
+  integrity sha512-39YfJh1+p6gvfsGUhC8cmjhFZ1TtQ1OJES5SUgnanPL2aQuwrSX4WyTFh2liFn1dQqtGUVd5O4EhbcexB7AECQ==
+  dependencies:
+    "@types/grecaptcha" "^3.0.3"
+    tslib "^2.2.0"
 
 ng2-file-upload@1.4.0:
   version "1.4.0"
