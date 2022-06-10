@@ -1,4 +1,4 @@
-<div *ngIf="item" class="container">
+<div *ngIf="(item | async)" class="container">
   <div class="button-row bottom mb-3">
     <div class="text-right">
       <a [routerLink]="getItemPage()" role="button" class="btn btn-outline-secondary" data-test="back-button">
@@ -8,5 +8,5 @@
   </div>
 </div>
 
-<ds-orcid-auth *ngIf="item" [item]="item"></ds-orcid-auth>
-<ds-orcid-setting *ngIf="item && isLinkedToOrcid()" [item]="item"></ds-orcid-setting>
+<ds-orcid-auth *ngIf="(item | async)" [item]="(item | async)" (unlink)="updateItem()"></ds-orcid-auth>
+<ds-orcid-setting *ngIf="(item | async) && isLinkedToOrcid()" [item]="(item | async)"></ds-orcid-setting>

@@ -1,59 +1,126 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
+
 import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
 import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
 import { Item } from '../../../core/shared/item.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 
 @Component({
   selector: 'ds-orcid-auth',
   templateUrl: './orcid-auth.component.html',
   styleUrls: ['./orcid-auth.component.scss']
 })
-export class OrcidAuthComponent implements OnInit {
+export class OrcidAuthComponent implements OnInit, OnChanges {
 
   /**
    * The item for which showing the orcid settings
    */
   @Input() item: Item;
 
-  missingAuthorizations$ = new BehaviorSubject<string[]>([]);
+  /**
+   * The list of exposed orcid authorization scopes for the orcid profile
+   */
+  profileAuthorizationScopes: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
-  unlinkProcessing = false;
+  /**
+   * The list of all orcid authorization scopes missing in the orcid profile
+   */
+  missingAuthorizationScopes: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+
+  /**
+   * The list of all orcid authorization scopes available
+   */
+  orcidAuthorizationScopes: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+
+  /**
+   * A boolean representing if unlink operation is processing
+   */
+  unlinkProcessing: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
+   * A boolean representing if orcid profile is linked
+   */
+  private isOrcidLinked$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
+   * A boolean representing if only admin can disconnect orcid profile
+   */
+  private onlyAdminCanDisconnectProfileFromOrcid$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
+   * A boolean representing if owner can disconnect orcid profile
+   */
+  private ownerCanDisconnectProfileFromOrcid$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
+   * An event emitted when orcid profile is unliked successfully
+   */
+  @Output() unlink: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
-    private configurationService: ConfigurationDataService,
     private researcherProfileService: ResearcherProfileService,
-    protected translateService: TranslateService,
+    private translateService: TranslateService,
     private notificationsService: NotificationsService,
-    private itemService: ItemDataService,
-    private route: ActivatedRoute,
     @Inject(NativeWindowService) private _window: NativeWindowRef,
-   ) {
+  ) {
   }
 
   ngOnInit() {
-    const scopes = this.getOrcidAuthorizations();
-    return this.configurationService.findByPropertyName('orcid.scope')
-      .pipe(getFirstSucceededRemoteDataPayload(),
-        map((configurationProperty) => configurationProperty.values),
-        map((allScopes) => allScopes.filter((scope) => !scopes.includes(scope))))
-      .subscribe((missingScopes) => this.missingAuthorizations$.next(missingScopes));
+    this.researcherProfileService.getOrcidAuthorizationScopes().subscribe((scopes: string[]) => {
+      this.orcidAuthorizationScopes.next(scopes);
+      this.initOrcidAuthSettings();
+    });
   }
 
-  getOrcidAuthorizations(): string[] {
-    return this.item.allMetadataValues('dspace.orcid.scope');
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!changes.item.isFirstChange() && changes.item.currentValue !== changes.item.previousValue) {
+      this.initOrcidAuthSettings();
+    }
   }
 
-  isLinkedToOrcid(): boolean {
-    return this.researcherProfileService.isLinkedToOrcid(this.item);
+  /**
+   * Check if the list of exposed orcid authorization scopes for the orcid profile has values
+   */
+  hasOrcidAuthorizations(): Observable<boolean> {
+    return this.profileAuthorizationScopes.asObservable().pipe(
+      map((scopes: string[]) => scopes.length > 0)
+    );
+  }
+
+  /**
+   * Return the list of exposed orcid authorization scopes for the orcid profile
+   */
+  getOrcidAuthorizations(): Observable<string[]> {
+    return this.profileAuthorizationScopes.asObservable();
+  }
+
+  /**
+   * Check if the list of exposed orcid authorization scopes for the orcid profile has values
+   */
+  hasMissingOrcidAuthorizations(): Observable<boolean> {
+    return this.missingAuthorizationScopes.asObservable().pipe(
+      map((scopes: string[]) => scopes.length > 0)
+    );
+  }
+
+  /**
+   * Return the list of exposed orcid authorization scopes for the orcid profile
+   */
+  getMissingOrcidAuthorizations(): Observable<string[]> {
+    return this.profileAuthorizationScopes.asObservable();
+  }
+
+  /**
+   * Return a boolean representing if orcid profile is linked
+   */
+  isLinkedToOrcid(): Observable<boolean> {
+    return this.isOrcidLinked$.asObservable();
   }
 
   getOrcidNotLinkedMessage(): Observable<string> {
@@ -65,34 +132,85 @@ export class OrcidAuthComponent implements OnInit {
     }
   }
 
+  /**
+   * Get label for a given orcid authorization scope
+   *
+   * @param scope
+   */
   getAuthorizationDescription(scope: string) {
     return 'person.page.orcid.scope.' + scope.substring(1).replace('/', '-');
   }
 
+  /**
+   * Return a boolean representing if only admin can disconnect orcid profile
+   */
   onlyAdminCanDisconnectProfileFromOrcid(): Observable<boolean> {
-    return this.researcherProfileService.onlyAdminCanDisconnectProfileFromOrcid();
+    return this.onlyAdminCanDisconnectProfileFromOrcid$.asObservable();
   }
 
+  /**
+   * Return a boolean representing if owner can disconnect orcid profile
+   */
   ownerCanDisconnectProfileFromOrcid(): Observable<boolean> {
-    return this.researcherProfileService.ownerCanDisconnectProfileFromOrcid();
+    return this.ownerCanDisconnectProfileFromOrcid$.asObservable();
   }
 
+  /**
+   * Link existing person profile with orcid
+   */
   linkOrcid(): void {
     this.researcherProfileService.getOrcidAuthorizeUrl(this.item).subscribe((authorizeUrl) => {
       this._window.nativeWindow.location.href = authorizeUrl;
     });
   }
 
+  /**
+   * Unlink existing person profile from orcid
+   */
   unlinkOrcid(): void {
-    this.unlinkProcessing = true;
-    this.researcherProfileService.unlinkOrcid(this.item).subscribe((remoteData) => {
-      this.unlinkProcessing = false;
+    this.unlinkProcessing.next(true);
+    this.researcherProfileService.unlinkOrcid(this.item).subscribe((remoteData: RemoteData<ResearcherProfile>) => {
+      this.unlinkProcessing.next(false);
       if (remoteData.isSuccess) {
         this.notificationsService.success(this.translateService.get('person.page.orcid.unlink.success'));
+        this.unlink.emit();
       } else {
         this.notificationsService.error(this.translateService.get('person.page.orcid.unlink.error'));
       }
     });
+  }
+
+  /**
+   * initialize all Orcid authentication settings
+   * @private
+   */
+  private initOrcidAuthSettings(): void {
+
+    this.setOrcidAuthorizationsFromItem();
+
+    this.setMissingOrcidAuthorizations();
+
+    this.researcherProfileService.onlyAdminCanDisconnectProfileFromOrcid().subscribe((result) => {
+      this.onlyAdminCanDisconnectProfileFromOrcid$.next(result);
+    });
+
+    this.researcherProfileService.ownerCanDisconnectProfileFromOrcid().subscribe((result) => {
+      this.ownerCanDisconnectProfileFromOrcid$.next(result);
+    });
+
+    this.isOrcidLinked$.next(this.researcherProfileService.isLinkedToOrcid(this.item));
+  }
+
+  private setMissingOrcidAuthorizations(): void {
+    const profileScopes = this.researcherProfileService.getOrcidAuthorizationScopesByItem(this.item);
+    const orcidScopes = this.orcidAuthorizationScopes.value;
+    const missingScopes = orcidScopes.filter((scope) => !profileScopes.includes(scope));
+
+    this.missingAuthorizationScopes.next(missingScopes);
+  }
+
+  private setOrcidAuthorizationsFromItem(): void {
+    this.profileAuthorizationScopes.next(this.researcherProfileService.getOrcidAuthorizationScopesByItem(this.item));
   }
 
 }

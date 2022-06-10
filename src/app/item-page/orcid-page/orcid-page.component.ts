@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { getItemPageRoute } from '../item-page-routing-paths';
 import { AuthService } from '../../core/auth/auth.service';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { ItemDataService } from '../../core/data/item-data.service';
 
 /**
  * A component that represents the orcid settings page
@@ -24,10 +26,11 @@ export class OrcidPageComponent implements OnInit {
   /**
    * The item for which showing the orcid settings
    */
-  item: Item;
+  item: BehaviorSubject<Item> = new BehaviorSubject<Item>(null);
 
   constructor(
     private authService: AuthService,
+    private itemService: ItemDataService,
     private researcherProfileService: ResearcherProfileService,
     private route: ActivatedRoute,
     private router: Router
@@ -43,7 +46,7 @@ export class OrcidPageComponent implements OnInit {
       redirectOn4xx(this.router, this.authService),
       getFirstSucceededRemoteDataPayload()
     ).subscribe((item) => {
-      this.item = item;
+      this.item.next(item);
     });
   }
 
@@ -53,14 +56,27 @@ export class OrcidPageComponent implements OnInit {
    * @returns the check result
    */
   isLinkedToOrcid(): boolean {
-    return this.researcherProfileService.isLinkedToOrcid(this.item);
+    return this.researcherProfileService.isLinkedToOrcid(this.item.value);
   }
 
   /**
    * Get the route to an item's page
    */
   getItemPage(): string {
-    return getItemPageRoute(this.item);
+    return getItemPageRoute(this.item.value);
+  }
+
+  /**
+   * Retrieve the updated profile item
+   */
+  updateItem(): void {
+    this.itemService.findById(this.item.value.id, false).pipe(
+      getFirstCompletedRemoteData()
+    ).subscribe((itemRD: RemoteData<Item>) => {
+      if (itemRD.hasSucceeded) {
+        this.item.next(itemRD.payload);
+      }
+    });
   }
 
 }

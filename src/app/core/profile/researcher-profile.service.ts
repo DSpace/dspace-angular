@@ -32,7 +32,7 @@ import { ResearcherProfile } from './model/researcher-profile.model';
 import { RESEARCHER_PROFILE } from './model/researcher-profile.resource-type';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { PostRequest } from '../data/request.models';
-import { hasValue, isEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CoreState } from '../core-state.model';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Item } from '../shared/item.model';
@@ -171,7 +171,7 @@ export class ResearcherProfileService {
    * @param item the item to check
    * @returns the check result
    */
-  isLinkedToOrcid(item: Item): boolean {
+  public isLinkedToOrcid(item: Item): boolean {
     return item.hasMetadata('dspace.orcid.authenticated');
   }
 
@@ -180,9 +180,11 @@ export class ResearcherProfileService {
    *
    * @returns the check result
    */
-  onlyAdminCanDisconnectProfileFromOrcid(): Observable<boolean> {
+  public onlyAdminCanDisconnectProfileFromOrcid(): Observable<boolean> {
     return this.getOrcidDisconnectionAllowedUsersConfiguration().pipe(
-      map((property) => property.values.map( (value) => value.toLowerCase()).includes('only_admin'))
+      map((propertyRD: RemoteData<ConfigurationProperty>) => {
+        return propertyRD.hasSucceeded && propertyRD.payload.values.map((value) => value.toLowerCase()).includes('only_admin');
+      })
     );
   }
 
@@ -191,25 +193,10 @@ export class ResearcherProfileService {
    *
    * @returns the check result
    */
-  ownerCanDisconnectProfileFromOrcid(): Observable<boolean> {
+  public ownerCanDisconnectProfileFromOrcid(): Observable<boolean> {
     return this.getOrcidDisconnectionAllowedUsersConfiguration().pipe(
-      map((property) => {
-        const values = property.values.map( (value) => value.toLowerCase());
-        return values.includes('only_owner') || values.includes('admin_and_owner');
-      })
-    );
-  }
-
-  /**
-   * Returns true if the admin users can disconnect a researcher profile from ORCID.
-   *
-   * @returns the check result
-   */
-  adminCanDisconnectProfileFromOrcid(): Observable<boolean> {
-    return this.getOrcidDisconnectionAllowedUsersConfiguration().pipe(
-      map((property) => {
-        const values = property.values.map( (value) => value.toLowerCase());
-        return values.includes('only_admin') || values.includes('admin_and_owner');
+      map((propertyRD: RemoteData<ConfigurationProperty>) => {
+        return propertyRD.hasSucceeded && propertyRD.payload.values.map( (value) => value.toLowerCase()).includes('admin_and_owner');
       })
     );
   }
@@ -217,8 +204,7 @@ export class ResearcherProfileService {
   /**
    * If the given item represents a profile unlink it from ORCID.
    */
-  unlinkOrcid(item: Item): Observable<RemoteData<ResearcherProfile>> {
-
+  public unlinkOrcid(item: Item): Observable<RemoteData<ResearcherProfile>> {
     const operations: RemoveOperation[] = [{
       path:'/orcid',
       op:'remove'
@@ -231,7 +217,12 @@ export class ResearcherProfileService {
     );
   }
 
-  getOrcidAuthorizeUrl(profile: Item): Observable<string> {
+  /**
+   * Build and return the url to authenticate with orcid
+   *
+   * @param profile
+   */
+  public getOrcidAuthorizeUrl(profile: Item): Observable<string> {
     return combineLatest([
       this.configurationService.findByPropertyName('orcid.authorize-url').pipe(getFirstSucceededRemoteDataPayload()),
       this.configurationService.findByPropertyName('orcid.application-client-id').pipe(getFirstSucceededRemoteDataPayload()),
@@ -278,9 +269,28 @@ export class ResearcherProfileService {
     return this.dataService.patch(researcherProfile, operations);
   }
 
-  private getOrcidDisconnectionAllowedUsersConfiguration(): Observable<ConfigurationProperty> {
+  /**
+   * Return all orcid authorization scopes saved in the given item
+   *
+   * @param item
+   */
+  public getOrcidAuthorizationScopesByItem(item: Item): string[] {
+    return isNotEmpty(item) ? item.allMetadataValues('dspace.orcid.scope') : [];
+  }
+
+  /**
+   * Return all orcid authorization scopes available by configuration
+   */
+  public getOrcidAuthorizationScopes(): Observable<string[]> {
+    return this.configurationService.findByPropertyName('orcid.scope').pipe(
+      getFirstCompletedRemoteData(),
+      map((propertyRD: RemoteData<ConfigurationProperty>) => propertyRD.hasSucceeded ? propertyRD.payload.values : [])
+    );
+  }
+
+  private getOrcidDisconnectionAllowedUsersConfiguration(): Observable<RemoteData<ConfigurationProperty>> {
     return this.configurationService.findByPropertyName('orcid.disconnection.allowed-users').pipe(
-      getFirstSucceededRemoteDataPayload()
+      getFirstCompletedRemoteData()
     );
   }
 

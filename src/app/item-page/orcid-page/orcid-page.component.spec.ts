@@ -1,11 +1,13 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TestScheduler } from 'rxjs/testing';
+import { getTestScheduler } from 'jasmine-marbles';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
@@ -15,14 +17,16 @@ import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } f
 import { Item } from '../../core/shared/item.model';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { ItemDataService } from '../../core/data/item-data.service';
 
-fdescribe('OrcidPageComponent test suite', () => {
+describe('OrcidPageComponent test suite', () => {
   let comp: OrcidPageComponent;
   let fixture: ComponentFixture<OrcidPageComponent>;
-
+  let scheduler: TestScheduler;
   let authService: jasmine.SpyObj<AuthService>;
   let routeStub: jasmine.SpyObj<ActivatedRouteStub>;
   let routeData: any;
+  let itemDataService: jasmine.SpyObj<ItemDataService>;
   let researcherProfileService: jasmine.SpyObj<ResearcherProfileService>;
 
   const mockItem: Item = Object.assign(new Item(), {
@@ -70,6 +74,10 @@ fdescribe('OrcidPageComponent test suite', () => {
       isLinkedToOrcid: jasmine.createSpy('isLinkedToOrcid')
     });
 
+    itemDataService = jasmine.createSpyObj('ItemDataService', {
+      findById: jasmine.createSpy('findById')
+    });
+
     void TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -85,6 +93,7 @@ fdescribe('OrcidPageComponent test suite', () => {
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: ResearcherProfileService, useValue: researcherProfileService },
         { provide: AuthService, useValue: authService },
+        { provide: ItemDataService, useValue: itemDataService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -92,6 +101,7 @@ fdescribe('OrcidPageComponent test suite', () => {
   }));
 
   beforeEach(waitForAsync(() => {
+    scheduler = getTestScheduler();
     fixture = TestBed.createComponent(OrcidPageComponent);
     comp = fixture.componentInstance;
     authService.isAuthenticated.and.returnValue(observableOf(true));
@@ -107,7 +117,15 @@ fdescribe('OrcidPageComponent test suite', () => {
   it('should call isLinkedToOrcid', () => {
     comp.isLinkedToOrcid();
 
-    expect(researcherProfileService.isLinkedToOrcid).toHaveBeenCalledWith(comp.item);
+    expect(researcherProfileService.isLinkedToOrcid).toHaveBeenCalledWith(comp.item.value);
   });
+
+  it('should update item', fakeAsync(() => {
+    itemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockItemLinkedToOrcid));
+    scheduler.schedule(() => comp.updateItem());
+    scheduler.flush();
+
+    expect(comp.item.value).toEqual(mockItemLinkedToOrcid);
+  }));
 
 });
