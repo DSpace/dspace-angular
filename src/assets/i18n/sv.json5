@@ -5672,7 +5672,7 @@
 
   // "publication.page.edit": "Edit this item",
   // TODO New key - Add a translation
-  "publication.page.edit": "Edit this item",
+  "publication.page.edit": "Redigera denna post",
 
   // "publication.page.journal-issn": "Journal ISSN",
   // TODO New key - Add a translation
@@ -5680,7 +5680,7 @@
 
   // "publication.page.journal-title": "Journal Title",
   // TODO New key - Add a translation
-  "publication.page.journal-title": "Journal Title",
+  "publication.page.journal-title": "Tidskriftstitel",
 
   // "publication.page.publisher": "Publisher",
   // TODO New key - Add a translation
@@ -5688,7 +5688,7 @@
 
   // "publication.page.titleprefix": "Publication: ",
   // TODO New key - Add a translation
-  "publication.page.titleprefix": "Publication: ",
+  "publication.page.titleprefix": "Publikation: ",
 
   // "publication.page.volume-title": "Volume Title",
   // TODO New key - Add a translation
