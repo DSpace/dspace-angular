@@ -20,12 +20,20 @@ import { getBitstreamDownloadRoute, getBitstreamRequestACopyRoute } from '../../
   templateUrl: './advanced-attachment.component.html',
   styleUrls: ['./advanced-attachment.component.scss']
 })
+/**
+ * This component renders the attachment with an advanced layout.
+ */
 @MetadataBoxFieldRendering(FieldRenderingType.ADVANCEDATTACHMENT, true)
 export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponent implements OnInit {
 
+  /**
+ * List of bitstreams to be viewed
+ */
   bitstreams$: Observable<Bitstream[]>;
 
-
+  /**
+   * Envoirment variables configuring the fields to be viewed
+   */
   envData = environment.advancedAttachment;
 
   constructor(
@@ -39,20 +47,33 @@ export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponen
     super(fieldProvider, itemProvider, renderingSubTypeProvider, bitstreamDataService, translateService);
   }
 
-
+  /**
+   * On init get bitstreams as observable to be subscribed by template
+   */
   ngOnInit() {
-    console.log(environment);
     this.bitstreams$ = this.getBitstreams();
   }
 
-  getCanDownload(bitstream) {
+
+  /**
+   * Get if bitstream can be downloaded
+   */
+  getCanDownload(bitstream): Observable<boolean> {
     return this.authorizationService.isAuthorized(FeatureID.CanDownload, bitstream.self);
   }
 
-  getCanRequestACopy(bitstream) {
+
+  /**
+   * Get if bitstream can be requested as copy
+   */
+  getCanRequestACopy(bitstream): Observable<boolean> {
     return this.authorizationService.isAuthorized(FeatureID.CanRequestACopy, bitstream.self);
   }
 
+
+  /**
+   * Get the download link
+   */
   downloadLink(bitstream: Bitstream) {
     return {
       routerLink: getBitstreamDownloadRoute(bitstream),
@@ -60,6 +81,10 @@ export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponen
     };
   }
 
+
+  /**
+   * Get the request a copy link
+   */
   requestACopyLink(bitstream: Bitstream) {
     return getBitstreamRequestACopyRoute(this.item, bitstream);
   }

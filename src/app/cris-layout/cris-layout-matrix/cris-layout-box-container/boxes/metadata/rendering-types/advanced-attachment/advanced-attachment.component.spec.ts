@@ -1,4 +1,5 @@
-import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
+import { BitstreamFormat } from './../../../../../../../core/shared/bitstream-format.model';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AdvancedAttachmentComponent } from './advanced-attachment.component';
 import { SharedModule } from '../../../../../../../shared/shared.module';
@@ -9,9 +10,6 @@ import { BitstreamDataService } from '../../../../../../../core/data/bitstream-d
 import { RemoteData } from '../../../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
-import { FindListOptions } from '../../../../../../../core/data/request.models';
-import { FollowLinkConfig } from '../../../../../../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
@@ -20,10 +18,14 @@ import { AuthorizationDataService } from '../../../../../../../core/data/feature
 import { RouterTestingModule } from '@angular/router/testing';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { FieldRenderingType } from '../metadata-box.decorator';
+import { StoreModule } from '@ngrx/store';
 
 describe('AdvancedAttachmentComponent', () => {
   let component: AdvancedAttachmentComponent;
   let fixture: ComponentFixture<AdvancedAttachmentComponent>;
+
+  let spyDownload;
+  let spyRequestACopy;
 
   const testItem = Object.assign(new Item(), {
     bundles: of({}),
@@ -60,19 +62,88 @@ describe('AdvancedAttachmentComponent', () => {
   const bitstream1 = Object.assign(new Bitstream(), {
     id: 'bitstream4',
     uuid: 'bitstream4',
+    description: 'test-description',
+    metadata: {
+      'dc.title': [
+        {
+          value: 'test-title',
+          language: null,
+          authority: null,
+          confidence: -1,
+          place: -1
+        } as any
+      ],
+      'dc.type': [
+        {
+          value: 'test-type',
+          language: null,
+          authority: null,
+          confidence: -1,
+          place: -1
+        } as any
+      ],
+      'dc.description': [
+        {
+          value: 'test-description',
+          language: null,
+          authority: null,
+          confidence: -1,
+          place: -1
+        } as any
+      ],
+    },
+    thumbnail: createSuccessfulRemoteDataObject$(Object.assign(new Bitstream(), {
+      id: 'thumbnail1',
+      uuid: 'thumbnail1',
+      sizeBytes: 7798,
+      _links: {
+        'content': {
+          'href': 'http://localhost:8080/server/api/core/bitstreams/thumbnail-6df9-40ef-9009-b3c90a4e6d5b/content'
+        },
+        'bundle': {
+          'href': 'http://localhost:8080/server/api/core/bitstreams/thumbnail-6df9-40ef-9009-b3c90a4e6d5b/bundle'
+        },
+        'format': {
+          'href': 'http://localhost:8080/server/api/core/bitstreams/thumbnail-6df9-40ef-9009-b3c90a4e6d5b/format'
+        },
+        'thumbnail': {
+          'href': 'http://localhost:8080/server/api/core/bitstreams/thumbnail-6df9-40ef-9009-b3c90a4e6d5b/thumbnail'
+        },
+        'self': {
+          'href': 'http://localhost:8080/server/api/core/bitstreams/thumbnail-6df9-40ef-9009-b3c90a4e6d5b'
+        }
+      }
+    })),
+    format: createSuccessfulRemoteDataObject$(Object.assign(new BitstreamFormat(), {
+      id: 'format',
+      uuid: 'format',
+      shortDescription: 'PDF',
+      _links: {
+        'self': {
+          'href': 'http://localhost:8080/server/api/core/bitstreams/thumbnail-6df9-40ef-9009-b3c90a4e6d5b'
+        }
+      }
+    })),
     _links: {
       self: { href: 'obj-selflink' }
     }
   });
 
-  const mockBitstreamDataService = {
+  const bitstream2 = Object.assign(new Bitstream(), {
+    id: 'bitstream4',
+    uuid: 'bitstream4',
+    thumbnail: createSuccessfulRemoteDataObject$(null),
+    _links: {
+      self: { href: 'obj-selflink' }
+    }
+  });
+
+  const mockBitstreamDataService = jasmine.createSpyObj('BitstreamDataService', {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
     },
-    findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
-      return createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1]));
-    },
-  };
+    findAllByItemAndBundleName: jasmine.createSpy('findAllByItemAndBundleName')
+  });
 
   const mockAuthorizedService = jasmine.createSpyObj('AuthorizationDataService', {
     isAuthorized: jasmine.createSpy('isAuthorized')
@@ -87,7 +158,8 @@ describe('AdvancedAttachmentComponent', () => {
         }
       }),
         RouterTestingModule,
-        SharedModule
+        SharedModule,
+      StoreModule.forRoot({}),
       ],
       declarations: [AdvancedAttachmentComponent],
       providers: [
@@ -105,7 +177,11 @@ describe('AdvancedAttachmentComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AdvancedAttachmentComponent);
     component = fixture.componentInstance;
-    mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
+    spyDownload = spyOn(component, 'getCanDownload');
+    spyDownload.and.returnValue(of(true));
+    spyRequestACopy = spyOn(component, 'getCanRequestACopy');
+    spyRequestACopy.and.returnValue(of(true));
+    mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
     component.item = testItem;
     fixture.detectChanges();
   });
@@ -114,15 +190,111 @@ describe('AdvancedAttachmentComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('check metadata rendering', fakeAsync(() => {
-    flush();
-    const valueFound = fixture.debugElement.queryAll(By.css('ds-file-download-link'));
-    expect(valueFound.length).toBe(1);
-  }));
-
-  it('check value style', (done) => {
-    const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-value'));
-    expect(spanValueFound.length).toBe(1);
-    done();
+  it('should show thumbnail', () => {
+    expect(fixture.debugElement.query(By.css('[data-test="thumbnail"]'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('[data-test="no-thumbnail-placeholder"]'))).toBeFalsy();
   });
+
+  it('should not show thumbnail', () => {
+    mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream2])));
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('[data-test="thumbnail"]'))).toBeFalsy();
+    expect(fixture.debugElement.query(By.css('[data-test="no-thumbnail-placeholder"]'))).toBeTruthy();
+  });
+
+
+  describe('When envoirment configuration are all true', () => {
+
+    beforeEach(() => {
+      component.envData = {
+        title: true,
+        size: true,
+        format: true,
+        type: true,
+        description: true,
+      };
+      fixture.detectChanges();
+    });
+
+    it('should show title', () => {
+      expect(fixture.debugElement.query(By.css('[data-test="title"]'))).toBeTruthy();
+    });
+
+    it('should show description', () => {
+      expect(fixture.debugElement.query(By.css('[data-test="description"]'))).toBeTruthy();
+    });
+
+    it('should show type', () => {
+      expect(fixture.debugElement.query(By.css('[data-test="type"]'))).toBeTruthy();
+    });
+
+    it('should show format', () => {
+      expect(fixture.debugElement.query(By.css('[data-test="format"]'))).toBeTruthy();
+    });
+
+    it('should show size', () => {
+      expect(fixture.debugElement.query(By.css('[data-test="size"]'))).toBeTruthy();
+    });
+  });
+
+  describe('When envoirment configuration are all false', () => {
+
+    beforeEach(() => {
+      component.envData = {
+        title: false,
+        size: false,
+        format: false,
+        type: false,
+        description: false,
+      };
+      fixture.detectChanges();
+    });
+
+    it('should show title', () => {
+      expect(fixture.debugElement.query(By.css('[data-test="title"]'))).toBeFalsy();
+    });
+
+    it('should show description', () => {
+      expect(fixture.debugElement.query(By.css('[data-test="description"]'))).toBeFalsy();
+    });
+
+    it('should show type', () => {
+      expect(fixture.debugElement.query(By.css('[data-test="type"]'))).toBeFalsy();
+    });
+
+    it('should show format', () => {
+      expect(fixture.debugElement.query(By.css('[data-test="format"]'))).toBeFalsy();
+    });
+
+    it('should show size', () => {
+      expect(fixture.debugElement.query(By.css('[data-test="size"]'))).toBeFalsy();
+    });
+  });
+
+  it('should show download button', () => {
+    spyDownload.and.returnValue(of(true));
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('[data-test="download"]'))).toBeTruthy();
+  });
+
+  it('should show can request a copy button', () => {
+    spyRequestACopy.and.returnValue(of(true));
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('[data-test="requestACopy"]'))).toBeTruthy();
+  });
+
+  it('should not show download button', () => {
+    spyDownload.and.returnValue(of(false));
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('[data-test="download"]'))).toBeFalsy();
+  });
+
+  it('should not show can request a copy button', () => {
+    spyRequestACopy.and.returnValue(of(false));
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('[data-test="requestACopy"]'))).toBeFalsy();
+  });
+
+
 });

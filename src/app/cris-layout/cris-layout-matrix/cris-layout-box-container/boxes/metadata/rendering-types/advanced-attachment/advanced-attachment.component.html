@@ -4,31 +4,31 @@
     <div class="row">
       <div class="col-3">
         <ng-container *ngVar="getThumbnailSrc(attachment) | async as thumbnailSrc">
-          <div class="inner" *ngIf="!thumbnailSrc">
+          <div class="inner" *ngIf="!thumbnailSrc" data-test="no-thumbnail-placeholder">
             <div class="thumbnail-placeholder w-100 h-100 p-5">{{ 'cris-layout.advanced-attachment.no_thumbnail' |
               translate }}</div>
           </div>
-          <img class="img-file" *ngIf="thumbnailSrc" src="{{ thumbnailSrc }}">
+          <img class="img-file" *ngIf="thumbnailSrc" data-test="thumbnail" src="{{ thumbnailSrc }}">
         </ng-container>
       </div>
-      <div class="col-4">
-        <div class="content" *ngIf="envData?.title">
+      <div class="col-5">
+        <div class="content" data-test="title" *ngIf="envData?.title">
           <strong>{{ 'cris-layout.advanced-attachment.title' | translate }}</strong>
           <p class="word-break m-0">{{fileName(attachment)}}</p>
         </div>
-        <div class="content" *ngIf="envData?.size">
+        <div class="content" data-test="size" *ngIf="envData?.size">
           <strong>{{ 'cris-layout.advanced-attachment.size' | translate }}</strong>
           <p class="word-break m-0">{{getSize(attachment) | dsFileSize}}</p>
         </div>
-        <div class="content" *ngIf="envData?.format">
+        <div class="content" data-test="format" *ngIf="envData?.format">
           <strong>{{ 'cris-layout.advanced-attachment.format' | translate }}</strong>
           <p class="word-break m-0">{{getFormat(attachment) | async}}</p>
         </div>
-        <div class="content" *ngIf="envData?.type">
+        <div class="content" data-test="type" *ngIf="envData?.type">
           <strong>{{ 'cris-layout.advanced-attachment.type' | translate }}</strong>
           <p class="word-break m-0">{{getType(attachment)}}</p>
         </div>
-        <div class="content" *ngIf="getDesc(attachment) && envData?.description">
+        <div class="content" data-test="description" *ngIf="getDesc(attachment) && envData?.description">
           <strong>{{ 'cris-layout.advanced-attachment.description' | translate }}</strong>
           <ds-truncatable [id]="attachment.id">
             <ds-truncatable-part [id]="attachment.id" [minLines]="1">
@@ -37,17 +37,18 @@
           </ds-truncatable>
         </div>
       </div>
-      <div class="col-5 justify-content-end">
+      <div class="col-4 text-right">
         <ng-container *ngIf="getCanDownload(attachment) | async">
           <ng-container *ngVar="downloadLink(attachment) as downloadLink">
-            <a [routerLink]="downloadLink?.routerLink" [queryParams]="downloadLink?.queryParams"
-              class="btn btn-primary">{{ 'cris-layout.advanced-attachment.download' | translate }}</a>
+            <a [routerLink]="downloadLink?.routerLink" [queryParams]="downloadLink?.queryParams" class="btn btn-primary"
+              data-test="download">{{ 'cris-layout.advanced-attachment.download' | translate }}</a>
           </ng-container>
         </ng-container>
         <ng-container *ngIf="getCanRequestACopy(attachment) | async">
           <ng-container *ngVar="requestACopyLink(attachment) as requestACopyLink">
             <a [routerLink]="requestACopyLink?.routerLink" [queryParams]="requestACopyLink?.queryParams"
-              class="btn btn-primary">{{ 'cris-layout.advanced-attachment.requestACopy' | translate }}</a>
+              class="btn btn-primary" data-test="requestACopy">{{ 'cris-layout.advanced-attachment.requestACopy' |
+              translate }}</a>
           </ng-container>
         </ng-container>
       </div>
