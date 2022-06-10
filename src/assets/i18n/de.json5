@@ -5279,6 +5279,13 @@
   // "submission.workflow.tasks.pool.show-detail": "Show detail",
   "submission.workflow.tasks.pool.show-detail": "Details anzeigen",
   
+  // "submission.workspace.generic.view": "View",
+  "submission.workspace.generic.view": "Anzeige",
+
+  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  "submission.workspace.generic.view-help": "Wählen Sie diese Option, um die Metadaten des Items anzuzeigen.",
+  
+  
   
   // "thumbnail.default.alt": "Thumbnail Image",
   "thumbnail.default.alt": "Vorschaubild",
