@@ -8,6 +8,15 @@ import { followLink, FollowLinkConfig } from '../shared/utils/follow-link-config
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 /**
+ * The self links defined in this list are expected to be requested somewhere in the near future
+ * Requesting them as embeds will limit the number of requests
+ */
+ export const BITSTREAM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
+  followLink('bundle', {}, followLink('item')),
+  followLink('format')
+];
+
+/**
  * This class represents a resolver that requests a specific bitstream before the route is activated
  */
 @Injectable()
@@ -34,9 +43,6 @@ export class BitstreamPageResolver implements Resolve<RemoteData<Bitstream>> {
      * Requesting them as embeds will limit the number of requests
      */
     get followLinks(): FollowLinkConfig<Bitstream>[] {
-        return [
-            followLink('bundle', {}, followLink('item')),
-            followLink('format')
-        ];
+      return BITSTREAM_PAGE_LINKS_TO_FOLLOW;
     }
 }

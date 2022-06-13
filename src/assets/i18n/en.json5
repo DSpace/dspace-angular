@@ -27,6 +27,16 @@
 
   "404.page-not-found": "page not found",
 
+  "access-status.embargo.listelement.badge": "Embargo",
+
+  "access-status.metadata.only.listelement.badge": "Metadata only",
+
+  "access-status.open.access.listelement.badge": "Open Access",
+
+  "access-status.restricted.listelement.badge": "Restricted",
+
+  "access-status.unknown.listelement.badge": "Unknown",
+
   "admin.curation-tasks.breadcrumbs": "System curation tasks",
 
   "admin.curation-tasks.title": "System curation tasks",
@@ -538,6 +548,10 @@
 
   "admin.metadata-import.page.error.addFile": "Select file first!",
 
+  "admin.metadata-import.page.validateOnly": "Validate Only",
+
+  "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
+
 
 
 
@@ -650,6 +664,8 @@
 
 
 
+  "browse.back.all-results": "All browse results",
+
   "browse.comcol.by.author": "By Author",
 
   "browse.comcol.by.dateissued": "By Issue Date",
@@ -682,13 +698,17 @@
 
   "pagination.previous.button": "Previous",
 
+  "pagination.next.button.disabled.tooltip": "No more pages of results",
+
+  "browse.startsWith": ", starting with {{ startsWith }}",
+
   "browse.startsWith.choose_start": "(Choose start)",
 
   "browse.startsWith.choose_year": "(Choose year)",
 
   "browse.startsWith.choose_year.label": "Choose the issue year",
 
-  "browse.startsWith.jump": "Jump to a point in the index:",
+  "browse.startsWith.jump": "Filter results by year or month",
 
   "browse.startsWith.months.april": "April",
 
@@ -720,13 +740,15 @@
 
   "browse.startsWith.submit": "Browse",
 
-  "browse.startsWith.type_date": "Or type in a date (year-month) and click 'Browse'",
+  "browse.startsWith.type_date": "Filter results by date",
 
   "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
 
-  "browse.startsWith.type_text": "Type the first few letters and click on the Browse button",
+  "browse.startsWith.type_text": "Filter results by typing the first few letters",
 
-  "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+  "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
+
+  "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
 
 
   "chips.remove": "Remove chip",
@@ -839,6 +861,12 @@
   "collection.edit.tabs.authorizations.head": "Authorizations",
 
   "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
+
+  "collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
+
+  "collection.edit.item.authorizations.load-more-button": "Load more",
+
+  "collection.edit.item.authorizations.show-bitstreams-button": "Show bitstream policies for bundle",
 
   "collection.edit.tabs.metadata.head": "Edit Metadata",
 
@@ -1083,9 +1111,13 @@
 
   "comcol-role.edit.create": "Create",
 
+  "comcol-role.edit.create.error.title": "Failed to create a group for the '{{ role }}' role",
+
   "comcol-role.edit.restrict": "Restrict",
 
   "comcol-role.edit.delete": "Delete",
+
+  "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
 
 
   "comcol-role.edit.community-admin.name": "Administrators",
@@ -1311,7 +1343,13 @@
 
   "dso-selector.set-scope.community.input-header": "Search for a community or collection",
 
+  "dso-selector.claim.item.head": "Profile tips",
 
+  "dso-selector.claim.item.body": "These are existing profiles that may be related to you. If you recognize yourself in one of these profiles, select it and on the detail page, among the options, choose to claim it. Otherwise you can create a new profile from scratch using the button below.",
+
+  "dso-selector.claim.item.not-mine-label": "None of these are mine",
+
+  "dso-selector.claim.item.create-from-scratch": "Create a new one",
 
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
 
@@ -1328,6 +1366,14 @@
   "confirmation-modal.delete-eperson.cancel": "Cancel",
 
   "confirmation-modal.delete-eperson.confirm": "Delete",
+
+  "confirmation-modal.delete-profile.header": "Delete Profile",
+
+  "confirmation-modal.delete-profile.info": "Are you sure you want to delete your profile",
+
+  "confirmation-modal.delete-profile.cancel": "Cancel",
+
+  "confirmation-modal.delete-profile.confirm": "Delete",
 
 
   "error.bitstream": "Error fetching bitstream",
@@ -1377,6 +1423,9 @@
   "error.validation.emailTaken": "This E-mail is already taken",
 
   "error.validation.groupExists": "This group already exists",
+
+
+  "feed.description": "Syndication feed",
 
 
   "file-section.error.header": "Error obtaining files for this item",
@@ -1557,6 +1606,46 @@
 
   "grant-request-copy.success": "Successfully granted item request",
 
+
+  "health.breadcrumbs": "Health",
+
+  "health-page.heading" : "Health",
+
+  "health-page.info-tab" : "Info",
+
+  "health-page.status-tab" : "Status",
+
+  "health-page.error.msg": "The health check service is temporarily unavailable",
+
+  "health-page.property.status": "Status code",
+
+  "health-page.section.db.title": "Database",
+
+  "health-page.section.geoIp.title": "GeoIp",
+
+  "health-page.section.solrAuthorityCore.title": "Sor: authority core",
+
+  "health-page.section.solrOaiCore.title": "Sor: oai core",
+
+  "health-page.section.solrSearchCore.title": "Sor: search core",
+
+  "health-page.section.solrStatisticsCore.title": "Sor: statistics core",
+
+  "health-page.section-info.app.title": "Application Backend",
+
+  "health-page.section-info.java.title": "Java",
+
+  "health-page.status": "Status",
+
+  "health-page.status.ok.info": "Operational",
+
+  "health-page.status.error.info": "Problems detected",
+
+  "health-page.status.warning.info": "Possible issues detected",
+
+  "health-page.title": "Health",
+
+  "health-page.section.no-issues": "No issues detected",
 
 
   "home.description": "",
@@ -2056,6 +2145,10 @@
 
   "item.search.title": "Item Search",
 
+  "item.truncatable-part.show-more": "Show more",
+
+  "item.truncatable-part.show-less": "Collapse",
+
 
 
   "item.page.abstract": "Abstract",
@@ -2124,6 +2217,8 @@
 
   "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
 
+  "item.page.claim.button": "Claim",
+
   "item.preview.dc.identifier.uri": "Identifier:",
 
   "item.preview.dc.contributor.author": "Authors:",
@@ -2139,6 +2234,22 @@
   "item.preview.dc.subject": "Subjects:",
 
   "item.preview.dc.title": "Title:",
+
+  "item.preview.dc.type": "Type:",
+
+  "item.preview.oaire.citation.issue" : "Issue",
+
+  "item.preview.oaire.citation.volume" : "Volume",
+
+  "item.preview.dc.relation.issn" : "ISSN",
+
+  "item.preview.dc.identifier.isbn" : "ISBN",
+
+  "item.preview.dc.identifier": "Identifier:",
+
+  "item.preview.dc.relation.ispartof" : "Journal or Serie",
+
+  "item.preview.dc.identifier.doi" : "DOI",
 
   "item.preview.person.familyName": "Surname:",
 
@@ -2501,13 +2612,15 @@
 
   "menu.section.icon.find": "Find menu section",
 
+  "menu.section.icon.health": "Health check menu section",
+
   "menu.section.icon.import": "Import menu section",
 
   "menu.section.icon.new": "New menu section",
 
   "menu.section.icon.pin": "Pin sidebar",
 
-  "menu.section.icon.processes": "Processes menu section",
+  "menu.section.icon.processes": "Processes Health",
 
   "menu.section.icon.registries": "Registries menu section",
 
@@ -2548,6 +2661,8 @@
 
 
   "menu.section.processes": "Processes",
+
+  "menu.section.health": "Health",
 
 
 
@@ -2752,6 +2867,8 @@
 
   "person.page.lastname": "Last Name",
 
+  "person.page.name": "Name",
+
   "person.page.link.full": "Show all metadata",
 
   "person.page.orcid": "ORCID",
@@ -2869,6 +2986,8 @@
 
   "profile.groups.head": "Authorization groups you belong to",
 
+  "profile.special.groups.head": "Authorization special groups you belong to",
+
   "profile.head": "Update Profile",
 
   "profile.metadata.form.error.firstname.required": "First Name is required",
@@ -2915,7 +3034,7 @@
 
   "profile.title": "Update Profile",
 
-
+  "profile.card.researcher": "Researcher Profile",
 
   "project.listelement.badge": "Research Project",
 
@@ -3126,6 +3245,10 @@
 
   "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
 
+  "resource-policies.edit.page.target-failure.content": "An error occurred while editing the target (ePerson or group) of the resource policy.",
+
+  "resource-policies.edit.page.other-failure.content": "An error occurred while editing the resource policy. The target (ePerson or group) has been successfully updated.",
+
   "resource-policies.edit.page.success.content": "Operation successful",
 
   "resource-policies.edit.page.title": "Edit resource policy",
@@ -3147,6 +3270,16 @@
   "resource-policies.form.eperson-group-list.table.headers.id": "ID",
 
   "resource-policies.form.eperson-group-list.table.headers.name": "Name",
+
+  "resource-policies.form.eperson-group-list.modal.header": "Cannot change type",
+
+  "resource-policies.form.eperson-group-list.modal.text1.toGroup": "It is not possible to replace an ePerson with a group.",
+
+  "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "It is not possible to replace a group with an ePerson.",
+
+  "resource-policies.form.eperson-group-list.modal.text2": "Delete the current resource policy and create a new one with the desired type.",
+
+  "resource-policies.form.eperson-group-list.modal.close": "Ok",
 
   "resource-policies.form.date.end.label": "End Date",
 
@@ -3564,6 +3697,22 @@
 
   "submission.import-external.source.arxiv": "arXiv",
 
+  "submission.import-external.source.ads": "NASA/ADS",
+
+  "submission.import-external.source.cinii": "CiNii",
+
+  "submission.import-external.source.crossref": "CrossRef",
+
+  "submission.import-external.source.scielo": "SciELO",
+
+  "submission.import-external.source.scopus": "Scopus",
+
+  "submission.import-external.source.vufind": "VuFind",
+
+  "submission.import-external.source.wos": "Web Of Science",
+
+  "submission.import-external.source.epo": "European Patent Office (EPO)",
+
   "submission.import-external.source.loading": "Loading ...",
 
   "submission.import-external.source.sherpaJournal": "SHERPA Journals",
@@ -3578,9 +3727,23 @@
 
   "submission.import-external.source.pubmed": "Pubmed",
 
+  "submission.import-external.source.pubmedeu": "Pubmed Europe",
+
   "submission.import-external.source.lcname": "Library of Congress Names",
 
   "submission.import-external.preview.title": "Item Preview",
+
+  "submission.import-external.preview.title.Publication": "Publication Preview",
+
+  "submission.import-external.preview.title.none": "Item Preview",
+
+  "submission.import-external.preview.title.Journal": "Journal Preview",
+
+  "submission.import-external.preview.title.OrgUnit": "Organizational Unit Preview",
+
+  "submission.import-external.preview.title.Person": "Person Preview",
+
+  "submission.import-external.preview.title.Project": "Project Preview",
 
   "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
 
@@ -3603,6 +3766,26 @@
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Import remote item",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Import remote event",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Import remote product",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Import remote organizational unit",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Import remote fund",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Import remote person",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Import remote patent",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Import remote project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
 
@@ -3820,6 +4003,18 @@
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
 
+  "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
+
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
 
   "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -3888,9 +4083,14 @@
 
   "submission.sections.submit.progressbar.license": "Deposit license",
 
+  "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
+
   "submission.sections.submit.progressbar.upload": "Upload files",
 
+  "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
 
+
+  "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
 
   "submission.sections.status.errors.title": "Errors",
 
@@ -3903,6 +4103,10 @@
   "submission.sections.status.valid.aria": "is valid",
 
   "submission.sections.status.warnings.aria": "has warnings",
+
+  "submission.sections.status.info.title": "Additional Information",
+
+  "submission.sections.status.info.aria": "Additional Information",
 
   "submission.sections.toggle.open": "Open section",
 
@@ -4003,6 +4207,60 @@
   "submission.sections.accesses.form.until-placeholder": "Until",
 
 
+  "submission.sections.sherpa.publication.information": "Publication information",
+
+  "submission.sections.sherpa.publication.information.title": "Title",
+
+  "submission.sections.sherpa.publication.information.issns": "ISSNs",
+
+  "submission.sections.sherpa.publication.information.url": "URL",
+
+  "submission.sections.sherpa.publication.information.publishers": "Publisher",
+
+  "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
+
+  "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
+
+  "submission.sections.sherpa.publisher.policy": "Publisher Policy",
+
+  "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+
+  "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
+
+  "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
+
+  "submission.sections.sherpa.publisher.policy.version": "Version",
+
+  "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
+
+  "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
+
+  "submission.sections.sherpa.publisher.policy.nolocation": "None",
+
+  "submission.sections.sherpa.publisher.policy.license": "License",
+
+  "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
+
+  "submission.sections.sherpa.publisher.policy.location": "Location",
+
+  "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
+
+  "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
+
+  "submission.sections.sherpa.record.information": "Record Information",
+
+  "submission.sections.sherpa.record.information.id": "ID",
+
+  "submission.sections.sherpa.record.information.date.created": "Date Created",
+
+  "submission.sections.sherpa.record.information.date.modified": "Last Modified",
+
+  "submission.sections.sherpa.record.information.uri": "URI",
+
+  "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
+
+
+
   "submission.submit.breadcrumbs": "New submission",
 
   "submission.submit.title": "New submission",
@@ -4067,6 +4325,10 @@
 
   "submission.workflow.tasks.pool.show-detail": "Show detail",
 
+
+  "submission.workspace.generic.view": "View",
+
+  "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
 
 
   "thumbnail.default.alt": "Thumbnail Image",
@@ -4174,6 +4436,9 @@
 
   "workflow-item.view.breadcrumbs": "Workflow View",
 
+  "workspace-item.view.breadcrumbs": "Workspace View",
+
+  "workspace-item.view.title": "Workspace View",
 
   "idle-modal.header": "Session will expire soon",
 
@@ -4181,5 +4446,43 @@
 
   "idle-modal.log-out": "Log out",
 
-  "idle-modal.extend-session": "Extend session"
+  "idle-modal.extend-session": "Extend session",
+
+  "researcher.profile.action.processing" : "Processing...",
+
+  "researcher.profile.associated": "Researcher profile associated",
+
+  "researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
+
+  "researcher.profile.create.new": "Create new",
+
+  "researcher.profile.create.success": "Researcher profile created successfully",
+
+  "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
+
+  "researcher.profile.delete": "Delete",
+
+  "researcher.profile.expose": "Expose",
+
+  "researcher.profile.hide": "Hide",
+
+  "researcher.profile.not.associated": "Researcher profile not yet associated",
+
+  "researcher.profile.view": "View",
+
+  "researcher.profile.private.visibility" : "PRIVATE",
+
+  "researcher.profile.public.visibility" : "PUBLIC",
+
+  "researcher.profile.status": "Status:",
+
+  "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
+
+  "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
+
+  "researcherprofile.error.claim.title" : "Error",
+
+  "researcherprofile.success.claim.body" : "Profile claimed with success",
+
+  "researcherprofile.success.claim.title" : "Success",
 }

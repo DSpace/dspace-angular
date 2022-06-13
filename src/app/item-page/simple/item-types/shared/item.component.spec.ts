@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -37,6 +37,8 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { VersionDataService } from '../../../../core/data/version-data.service';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { ResearcherProfileService } from '../../../../core/profile/researcher-profile.service';
 
 export const iiifEnabled = Object.assign(new MetadataValue(),{
   'value': 'true',
@@ -74,6 +76,11 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           return createSuccessfulRemoteDataObject$(new Bitstream());
         }
       };
+
+      const authorizationService = jasmine.createSpyObj('authorizationService', {
+        isAuthorized: observableOf(true)
+      });
+
       TestBed.configureTestingModule({
         imports: [
             TranslateModule.forRoot({
@@ -104,7 +111,9 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
           { provide: WorkspaceitemDataService, useValue: {} },
           { provide: SearchService, useValue: {} },
-          { provide: RouteService, useValue: {} }
+          { provide: RouteService, useValue: {} },
+          { provide: AuthorizationDataService, useValue: authorizationService },
+          { provide: ResearcherProfileService, useValue: {} }
         ],
 
         schemas: [NO_ERRORS_SCHEMA]

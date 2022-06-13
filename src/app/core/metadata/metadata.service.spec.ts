@@ -163,6 +163,22 @@ describe('MetadataService', () => {
     });
   }));
 
+  it('route titles should overwrite dso titles', fakeAsync(() => {
+    (translateService.get as jasmine.Spy).and.returnValues(of('DSpace :: '), of('Translated Route Title'));
+    (metadataService as any).processRouteChange({
+      data: {
+        value: {
+          dso: createSuccessfulRemoteDataObject(ItemMock),
+          title: 'route.title.key',
+        }
+      }
+    });
+    tick();
+    expect(title.setTitle).toHaveBeenCalledTimes(2);
+    expect((title.setTitle as jasmine.Spy).calls.argsFor(0)).toEqual(['Test PowerPoint Document']);
+    expect((title.setTitle as jasmine.Spy).calls.argsFor(1)).toEqual(['DSpace :: Translated Route Title']);
+  }));
+
   it('other navigation should add title and description', fakeAsync(() => {
     (translateService.get as jasmine.Spy).and.returnValues(of('DSpace :: '), of('Dummy Title'), of('This is a dummy item component for testing!'));
     (metadataService as any).processRouteChange({
