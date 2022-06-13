@@ -32,7 +32,7 @@ services:
       solr__P__server: http://dspacesolr:8983/solr
     depends_on:
     - dspacedb
-    image: dspace/dspace:dspace-7_x-test
+    image: docker.io/dspace/dspace:dspace-7_x-test
     networks:
       dspacenet:
     ports:
@@ -65,7 +65,7 @@ services:
       # This SQL is available from https://github.com/DSpace-Labs/AIP-Files/releases/tag/demo-entities-data
       LOADSQL: https://github.com/DSpace-Labs/AIP-Files/releases/download/demo-entities-data/dspace7-entities-data.sql
       PGDATA: /pgdata
-    image: dspace/dspace-postgres-pgcrypto:loadsql
+    image: docker.io/dspace/dspace-postgres-pgcrypto:loadsql
     networks:
       dspacenet:
     stdin_open: true
@@ -76,7 +76,7 @@ services:
   dspacesolr:
     container_name: dspacesolr
     # Uses official Solr image at https://hub.docker.com/_/solr/
-    image: solr:8.11-slim
+    image: docker.io/solr:8.11-slim
     # Needs main 'dspace' container to start first to guarantee access to solr_configs
     depends_on:
     - dspace
