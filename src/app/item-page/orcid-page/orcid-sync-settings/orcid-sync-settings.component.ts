@@ -6,7 +6,6 @@ import { Operation } from 'fast-json-patch';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { AuthService } from '../../../core/auth/auth.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
 import { Item } from '../../../core/shared/item.model';
@@ -68,10 +67,8 @@ export class OrcidSyncSettingsComponent implements OnInit {
 
 
   constructor(private researcherProfileService: ResearcherProfileService,
-              protected translateService: TranslateService,
               private notificationsService: NotificationsService,
-              public authService: AuthService
-  ) {
+              private translateService: TranslateService) {
   }
 
   /**
