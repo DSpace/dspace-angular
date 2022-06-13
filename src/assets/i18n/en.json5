@@ -2232,6 +2232,10 @@
 
   "item.version.create.modal.form.summary.placeholder": "Insert the summary for the new version",
 
+  "item.version.create.modal.submitted.header": "Creating new version...",
+
+  "item.version.create.modal.submitted.text": "The new version is being created. This may take some time if the item has a lot of relationships.",
+
   "item.version.create.notification.success" : "New version has been created with version number {{version}}",
 
   "item.version.create.notification.failure" : "New version has not been created",

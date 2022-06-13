@@ -21,7 +21,7 @@ import {
 import { isEqual } from 'lodash';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
@@ -48,6 +48,7 @@ import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { getDefaultThemeConfig } from '../config/config.util';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { ModalBeforeDismiss } from './shared/interfaces/modal-before-dismiss.interface';
 
 @Component({
   selector: 'ds-app',
@@ -105,6 +106,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private localeService: LocaleService,
     private breadcrumbsService: BreadcrumbsService,
     private modalService: NgbModal,
+    private modalConfig: NgbModalConfig,
     @Optional() private cookiesService: KlaroService,
     @Optional() private googleAnalyticsService: GoogleAnalyticsService,
   ) {
@@ -165,6 +167,16 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    /** Implement behavior for interface {@link ModalBeforeDismiss} */
+    this.modalConfig.beforeDismiss = async function () {
+      if (typeof this?.componentInstance?.beforeDismiss === 'function') {
+        return this.componentInstance.beforeDismiss()
+      }
+
+      // fall back to default behavior
+      return true;
+    }
+
     this.isAuthBlocking$ = this.store.pipe(select(isAuthenticationBlocking)).pipe(
       distinctUntilChanged()
     );

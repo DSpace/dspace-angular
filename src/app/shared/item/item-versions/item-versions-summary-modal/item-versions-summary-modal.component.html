@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="!(this.submitted$ | async); else waiting">
   <div class="modal-header">{{'item.version.create.modal.header' | translate}}
     <button type="button" class="close" (click)="onModalClose()" aria-label="Close">
       <span aria-hidden="true">×</span>
@@ -34,3 +34,13 @@
     </button>
   </div>
 </div>
+
+<ng-template #waiting>
+  <div class="modal-header">{{'item.version.create.modal.submitted.header' | translate}}</div>
+  <div class="modal-body">
+    <p>{{'item.version.create.modal.submitted.text' | translate}}</p>
+    <div class="d-flex justify-content-center">
+      <ds-loading [showMessage]="false"></ds-loading>
+    </div>
+  </div>
+</ng-template>
