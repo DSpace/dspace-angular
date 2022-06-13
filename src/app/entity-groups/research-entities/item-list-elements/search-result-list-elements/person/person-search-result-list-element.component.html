@@ -5,7 +5,7 @@
        [innerHTML]="name"></a>
     <span *ngIf="linkType == linkTypes.None"
           class="lead"
-          [innerHTML]="firstMetadataValue('person.familyName') + ', ' + firstMetadataValue('person.givenName')"></span>
+          [innerHTML]="name"></span>
     <span class="text-muted">
     <ds-truncatable-part [id]="dso.id" [minLines]="1">
             <span *ngIf="dso.allMetadata(['person.jobTitle']).length > 0"

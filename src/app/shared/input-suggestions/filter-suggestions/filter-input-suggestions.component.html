@@ -4,7 +4,7 @@
       (keydown.arrowup)="shiftFocusUp($event)" (keydown.esc)="close()"
       (dsClickOutside)="close();">
   <div class="form-group mb-0">
-    <label *ngIf="label; else searchInput">
+    <label *ngIf="label; else searchInput" class="mb-0">
       <span class="font-weight-bold">
         {{label}}
       </span>

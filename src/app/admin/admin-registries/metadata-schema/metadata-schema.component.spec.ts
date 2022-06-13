@@ -25,9 +25,9 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../core/data/request.models';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 describe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;
@@ -106,7 +106,7 @@ describe('MetadataSchemaComponent', () => {
     }
   ];
   const mockSchemas = createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockSchemasList));
-  /* tslint:disable:no-empty */
+  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   const registryServiceStub = {
     getMetadataSchemas: () => mockSchemas,
     getMetadataFieldsBySchema: (schema: MetadataSchema) => createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockFieldsList.filter((value) => value.id === 3 || value.id === 4))),
@@ -122,7 +122,7 @@ describe('MetadataSchemaComponent', () => {
     },
     clearMetadataFieldRequests: () => observableOf(undefined)
   };
-  /* tslint:enable:no-empty */
+  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   const schemaNameParam = 'mock';
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
     params: observableOf({

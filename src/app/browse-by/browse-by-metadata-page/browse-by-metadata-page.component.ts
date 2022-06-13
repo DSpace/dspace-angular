@@ -127,10 +127,10 @@ export class BrowseByMetadataPageComponent implements OnInit {
           return [Object.assign({}, routeParams, queryParams),currentPage,currentSort];
         })
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
-          this.browseId = params.id || this.defaultBrowseId;
+          this.browseId = params.id || this.defaultBrowseId;
           this.authority = params.authority;
-          this.value = +params.value || params.value || '';
-          this.startsWith = +params.startsWith || params.startsWith;
+          this.value = +params.value || params.value || '';
+          this.startsWith = +params.startsWith || params.startsWith;
           const searchOptions = browseParamsToOptions(params, currentPage, currentSort, this.browseId);
           if (isNotEmpty(this.value)) {
             this.updatePageWithItems(searchOptions, this.value, this.authority);

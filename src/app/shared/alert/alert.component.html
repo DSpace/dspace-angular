@@ -1,4 +1,4 @@
-<div *ngIf="!dismissed" class="alert {{type}} alert-dismissible fade show w-100" role="alert" [@enterLeave]="animate">
+<div *ngIf="!dismissed" class="alert {{type}} alert-dismissible fade show w-100 p-3" role="alert" [@enterLeave]="animate">
   <span *ngIf="content" [innerHTML]="content | translate"></span>
 
   <ng-content></ng-content>

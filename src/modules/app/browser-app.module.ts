@@ -2,11 +2,10 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule, makeStateKey, TransferState } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, NoPreloading } from '@angular/router';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateJson5HttpLoader } from '../../ngx-translate-loaders/translate-json5-http.loader';
+import { TranslateBrowserLoader } from '../../ngx-translate-loaders/translate-browser.loader';
 
 import { IdlePreloadModule } from 'angular-idle-preload';
 
@@ -18,7 +17,7 @@ import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.ser
 import { ClientCookieService } from '../../app/core/services/client-cookie.service';
 import { CookieService } from '../../app/core/services/cookie.service';
 import { AuthService } from '../../app/core/auth/auth.service';
-import { Angulartics2RouterlessModule } from 'angulartics2/routerlessmodule';
+import { Angulartics2RouterlessModule } from 'angulartics2';
 import { SubmissionService } from '../../app/submission/submission.service';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { BrowserKlaroService } from '../../app/shared/cookies/browser-klaro.service';
@@ -42,8 +41,8 @@ import { environment } from '../../environments/environment';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateJson5HttpLoader(http, 'assets/i18n/', '.json5');
+export function createTranslateLoader(transferState: TransferState, http: HttpClient) {
+  return new TranslateBrowserLoader(transferState, http, 'assets/i18n/', '.json5');
 }
 
 export function getRequest(transferState: TransferState): any {
@@ -59,13 +58,6 @@ export function getRequest(transferState: TransferState): any {
     HttpClientModule,
     // forRoot ensures the providers are only created once
     IdlePreloadModule.forRoot(),
-    RouterModule.forRoot([], {
-      // enableTracing: true,
-      useHash: false,
-      scrollPositionRestoration: 'enabled',
-      anchorScrolling: 'enabled',
-      preloadingStrategy: NoPreloading
-    }),
     StatisticsModule.forRoot(),
     Angulartics2RouterlessModule.forRoot(),
     BrowserAnimationsModule,
@@ -74,7 +66,7 @@ export function getRequest(transferState: TransferState): any {
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
-        deps: [HttpClient]
+        deps: [TransferState, HttpClient]
       }
     }),
     AppModule
@@ -92,9 +84,11 @@ export function getRequest(transferState: TransferState): any {
           // extend environment with app config for browser
           extendEnvironmentWithAppConfig(environment, appConfig);
         }
-        dspaceTransferState.transfer();
-        correlationIdService.initCorrelationId();
-        return () => true;
+        return () =>
+          dspaceTransferState.transfer().then((b: boolean) => {
+            correlationIdService.initCorrelationId();
+            return b;
+          });
       },
       deps: [TransferState, DSpaceTransferState, CorrelationIdService],
       multi: true

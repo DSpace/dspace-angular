@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
+  ActivationEnd,
   NavigationCancel,
   NavigationEnd,
   NavigationStart, ResolveEnd,
@@ -23,7 +24,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
@@ -72,7 +73,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   /**
    * Whether or not the app is in the process of rerouting
    */
-  isRouteLoading$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  isRouteLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
    * Whether or not the theme is in the process of being swapped
@@ -121,7 +122,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.themeService.getThemeName$().subscribe((themeName: string) => {
       if (isPlatformBrowser(this.platformId)) {
         // the theme css will never download server side, so this should only happen on the browser
-        this.isThemeCSSLoading$.next(true);
+        this.distinctNext(this.isThemeCSSLoading$, true);
       }
       if (hasValue(themeName)) {
         this.loadGlobalThemeConfig(themeName);
@@ -196,35 +197,54 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    let resolveEndFound = false;
+    let updatingTheme = false;
+    let snapshot: ActivatedRouteSnapshot;
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        resolveEndFound = false;
-        this.isRouteLoading$.next(true);
-        this.isThemeLoading$.next(true);
-      } else  if (event instanceof ResolveEnd) {
-        resolveEndFound = true;
-        const activatedRouteSnapShot: ActivatedRouteSnapshot = event.state.root;
-        this.themeService.updateThemeOnRouteChange$(event.urlAfterRedirects, activatedRouteSnapShot).pipe(
-          switchMap((changed) => {
-            if (changed) {
-              return this.isThemeCSSLoading$;
-            } else {
-              return [false];
-            }
-          })
-        ).subscribe((changed) => {
-          this.isThemeLoading$.next(changed);
-        });
-      } else if (
-        event instanceof NavigationEnd ||
-        event instanceof NavigationCancel
-      ) {
-        if (!resolveEndFound) {
-          this.isThemeLoading$.next(false);
+        updatingTheme = false;
+        this.distinctNext(this.isRouteLoading$, true);
+      } else if (event instanceof ResolveEnd) {
+        // this is the earliest point where we have all the information we need
+        // to update the theme, but this event is not emitted on first load
+        this.updateTheme(event.urlAfterRedirects, event.state.root);
+        updatingTheme = true;
+      } else if (!updatingTheme && event instanceof ActivationEnd) {
+        // if there was no ResolveEnd, keep track of the snapshot...
+        snapshot = event.snapshot;
+      } else if (event instanceof NavigationEnd) {
+        if (!updatingTheme) {
+          // ...and use it to update the theme on NavigationEnd instead
+          this.updateTheme(event.urlAfterRedirects, snapshot);
+          updatingTheme = true;
         }
-        this.isRouteLoading$.next(false);
+        this.distinctNext(this.isRouteLoading$, false);
+      } else if (event instanceof NavigationCancel) {
+        if (!updatingTheme) {
+          this.distinctNext(this.isThemeLoading$, false);
+        }
+        this.distinctNext(this.isRouteLoading$, false);
       }
+    });
+  }
+
+  /**
+   * Update the theme according to the current route, if applicable.
+   * @param urlAfterRedirects the current URL after redirects
+   * @param snapshot          the current route snapshot
+   * @private
+   */
+  private updateTheme(urlAfterRedirects: string, snapshot: ActivatedRouteSnapshot): void {
+    this.themeService.updateThemeOnRouteChange$(urlAfterRedirects, snapshot).pipe(
+      switchMap((changed) => {
+        if (changed) {
+          return this.isThemeCSSLoading$;
+        } else {
+          return [false];
+        }
+      })
+    ).subscribe((changed) => {
+      this.distinctNext(this.isThemeLoading$, changed);
     });
   }
 
@@ -269,7 +289,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('type', 'text/css');
     link.setAttribute('class', 'theme-css');
-    link.setAttribute('href', `/${encodeURIComponent(themeName)}-theme.css`);
+    link.setAttribute('href', `${encodeURIComponent(themeName)}-theme.css`);
     // wait for the new css to download before removing the old one to prevent a
     // flash of unstyled content
     link.onload = () => {
@@ -281,7 +301,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         });
       }
       // the fact that this callback is used, proves we're on the browser.
-      this.isThemeCSSLoading$.next(false);
+      this.distinctNext(this.isThemeCSSLoading$, false);
     };
     head.appendChild(link);
   }
@@ -375,5 +395,18 @@ export class AppComponent implements OnInit, AfterViewInit {
           }
         }
       });
+  }
+
+  /**
+   * Use nextValue to update a given BehaviorSubject, only if it differs from its current value
+   *
+   * @param bs a BehaviorSubject
+   * @param nextValue the next value for that BehaviorSubject
+   * @protected
+   */
+  protected distinctNext<T>(bs: BehaviorSubject<T>, nextValue: T): void {
+    if (bs.getValue() !== nextValue) {
+      bs.next(nextValue);
+    }
   }
 }

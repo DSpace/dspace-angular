@@ -1,7 +1,7 @@
 import { BrowseDefinitionDataService } from './browse-definition-data.service';
-import { FindListOptions } from '../data/request.models';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { EMPTY } from 'rxjs';
+import { FindListOptions } from '../data/find-list-options.model';
 
 describe(`BrowseDefinitionDataService`, () => {
   let service: BrowseDefinitionDataService;
