@@ -236,22 +236,21 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   onSubmit(data: any) {
     if (data.match(new RegExp(`^.+,(equals|query|authority)$`))) {
       this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
-          if (isNotEmpty(data)) {
-            this.router.navigate(this.getSearchLinkParts(), {
-              queryParams:
-                {
-                  [this.filterConfig.paramName]: [
-                    ...selectedValues.map((facet) => this.getFacetValue(facet)),
-                    data
-                  ]
-                },
-              queryParamsHandling: 'merge'
-            });
-            this.filter = '';
-          }
-          this.filterSearchResults = observableOf([]);
+        if (isNotEmpty(data)) {
+          this.router.navigate(this.getSearchLinkParts(), {
+            queryParams:
+              {
+                [this.filterConfig.paramName]: [
+                  ...selectedValues.map((facet) => this.getFacetValue(facet)),
+                  data
+                ]
+              },
+            queryParamsHandling: 'merge'
+          });
+          this.filter = '';
         }
-      );
+        this.filterSearchResults = observableOf([]);
+      });
     }
   }
 
