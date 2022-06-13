@@ -37,7 +37,7 @@ export class ItemPageResolver extends ItemResolver {
         if (rd.hasSucceeded && hasValue(rd.payload)) {
           const itemRoute = getItemPageRoute(rd.payload);
           // Check if custom url not empty and if the current id parameter is different from the custom url redirect to custom url
-          if (hasValue(rd.payload.metadata) && isNotEmpty(rd.payload.metadata['cris.customurl'])) {
+          if (hasValue(rd.payload.metadata) && isNotEmpty(rd.payload.metadata['cris.customurl']) && !state.url.includes('edit')) {
             if (route.params.id !== rd.payload.metadata['cris.customurl'][0].value) {
               this.router.navigateByUrl(getItemPageRoute(rd.payload));
             }
