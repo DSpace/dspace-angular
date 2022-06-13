@@ -2,10 +2,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { Store } from '@ngrx/store';
 import { Operation, RemoveOperation, ReplaceOperation } from 'fast-json-patch';
-import { combineLatest, Observable, of as observableOf } from 'rxjs';
-import { catchError, find, map, switchMap, tap } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { find, map, switchMap } from 'rxjs/operators';
+
 import { environment } from '../../../environments/environment';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
@@ -19,9 +21,9 @@ import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
 import { NoContent } from '../shared/NoContent.model';
 import {
+  getAllCompletedRemoteData,
   getFinishedRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload
@@ -30,8 +32,11 @@ import { ResearcherProfile } from './model/researcher-profile.model';
 import { RESEARCHER_PROFILE } from './model/researcher-profile.resource-type';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { PostRequest } from '../data/request.models';
-import { hasValue } from '../../shared/empty.util';
-import {CoreState} from '../core-state.model';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { CoreState } from '../core-state.model';
+import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { Item } from '../shared/item.model';
+import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -60,14 +65,13 @@ class ResearcherProfileServiceImpl extends DataService<ResearcherProfile> {
 @dataService(RESEARCHER_PROFILE)
 export class ResearcherProfileService {
 
-  dataService: ResearcherProfileServiceImpl;
+  protected dataService: ResearcherProfileServiceImpl;
 
-  responseMsToLive: number = 10 * 1000;
+  protected responseMsToLive: number = 10 * 1000;
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
@@ -75,9 +79,9 @@ export class ResearcherProfileService {
     protected router: Router,
     protected comparator: DefaultChangeAnalyzer<ResearcherProfile>,
     protected itemService: ItemDataService,
-    protected configurationService: ConfigurationDataService ) {
+    protected configurationService: ConfigurationDataService) {
 
-    this.dataService = new ResearcherProfileServiceImpl(requestService, rdbService, store, objectCache, halService,
+    this.dataService = new ResearcherProfileServiceImpl(requestService, rdbService, null, objectCache, halService,
       notificationsService, http, comparator);
 
   }
@@ -86,18 +90,24 @@ export class ResearcherProfileService {
    * Find the researcher profile with the given uuid.
    *
    * @param uuid the profile uuid
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  findById(uuid: string): Observable<ResearcherProfile> {
-    return this.dataService.findById(uuid, false)
-      .pipe ( getFinishedRemoteData(),
-        map((remoteData) => remoteData.payload));
+  public findById(uuid: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ResearcherProfile>[]): Observable<RemoteData<ResearcherProfile>> {
+    return this.dataService.findById(uuid, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
+      getAllCompletedRemoteData(),
+    );
   }
 
   /**
    * Create a new researcher profile for the current user.
    */
-  create(): Observable<RemoteData<ResearcherProfile>> {
-    return this.dataService.create( new ResearcherProfile());
+  public create(): Observable<RemoteData<ResearcherProfile>> {
+    return this.dataService.create(new ResearcherProfile());
   }
 
   /**
@@ -105,16 +115,25 @@ export class ResearcherProfileService {
    *
    * @param researcherProfile the profile to delete
    */
-  delete(researcherProfile: ResearcherProfile): Observable<boolean> {
+  public delete(researcherProfile: ResearcherProfile): Observable<boolean> {
     return this.dataService.delete(researcherProfile.id).pipe(
       getFirstCompletedRemoteData(),
-      tap((response: RemoteData<NoContent>) => {
-        if (response.isSuccess) {
-          this.requestService.setStaleByHrefSubstring(researcherProfile._links.self.href);
-        }
-      }),
       map((response: RemoteData<NoContent>) => response.isSuccess)
     );
+  }
+
+  /**
+   * Find a researcher profile by its own related item
+   *
+   * @param item
+   */
+  public findByRelatedItem(item: Item): Observable<RemoteData<ResearcherProfile>> {
+    const profileId = item.firstMetadata('dspace.object.owner')?.authority;
+    if (isEmpty(profileId)) {
+      return createFailedRemoteDataObject$();
+    } else {
+      return this.findById(profileId);
+    }
   }
 
   /**
@@ -122,14 +141,12 @@ export class ResearcherProfileService {
    *
    * @param researcherProfile the profile to find for
    */
-  findRelatedItemId( researcherProfile: ResearcherProfile ): Observable<string> {
-    return this.itemService.findByHref(researcherProfile._links.item.href, false)
-      .pipe (getFirstSucceededRemoteDataPayload(),
-        catchError((error) => {
-          console.debug(error);
-          return observableOf(null);
-        }),
-        map((item) => item != null ? item.id : null ));
+  public findRelatedItemId(researcherProfile: ResearcherProfile): Observable<string> {
+    const relatedItem$ = researcherProfile.item ? researcherProfile.item : this.itemService.findByHref(researcherProfile._links.item.href, false);
+    return relatedItem$.pipe(
+      getFirstCompletedRemoteData(),
+      map((itemRD: RemoteData<Item>) => (itemRD.hasSucceeded && itemRD.payload) ? itemRD.payload.id : null)
+    );
   }
 
   /**
@@ -138,21 +155,14 @@ export class ResearcherProfileService {
    * @param researcherProfile the profile to update
    * @param visible the visibility value to set
    */
-  setVisibility(researcherProfile: ResearcherProfile, visible: boolean): Observable<ResearcherProfile> {
-
+  public setVisibility(researcherProfile: ResearcherProfile, visible: boolean): Observable<RemoteData<ResearcherProfile>> {
     const replaceOperation: ReplaceOperation<boolean> = {
       path: '/visible',
       op: 'replace',
       value: visible
     };
 
-    return this.patch(researcherProfile, [replaceOperation]).pipe (
-      switchMap( ( ) => this.findById(researcherProfile.id))
-    );
-  }
-
-  patch(researcherProfile: ResearcherProfile, operations: Operation[]): Observable<RemoteData<ResearcherProfile>> {
-    return this.dataService.patch(researcherProfile, operations);
+    return this.dataService.patch(researcherProfile, [replaceOperation]);
   }
 
   /**
@@ -161,7 +171,7 @@ export class ResearcherProfileService {
    * @param item the item to check
    * @returns the check result
    */
-  isLinkedToOrcid(item: Item): boolean {
+  public isLinkedToOrcid(item: Item): boolean {
     return item.hasMetadata('dspace.orcid.authenticated');
   }
 
@@ -170,9 +180,11 @@ export class ResearcherProfileService {
    *
    * @returns the check result
    */
-  onlyAdminCanDisconnectProfileFromOrcid(): Observable<boolean> {
+  public onlyAdminCanDisconnectProfileFromOrcid(): Observable<boolean> {
     return this.getOrcidDisconnectionAllowedUsersConfiguration().pipe(
-      map((property) => property.values.map( (value) => value.toLowerCase()).includes('only_admin'))
+      map((propertyRD: RemoteData<ConfigurationProperty>) => {
+        return propertyRD.hasSucceeded && propertyRD.payload.values.map((value) => value.toLowerCase()).includes('only_admin');
+      })
     );
   }
 
@@ -181,25 +193,10 @@ export class ResearcherProfileService {
    *
    * @returns the check result
    */
-  ownerCanDisconnectProfileFromOrcid(): Observable<boolean> {
+  public ownerCanDisconnectProfileFromOrcid(): Observable<boolean> {
     return this.getOrcidDisconnectionAllowedUsersConfiguration().pipe(
-      map((property) => {
-        const values = property.values.map( (value) => value.toLowerCase());
-        return values.includes('only_owner') || values.includes('admin_and_owner');
-      })
-    );
-  }
-
-  /**
-   * Returns true if the admin users can disconnect a researcher profile from ORCID.
-   *
-   * @returns the check result
-   */
-  adminCanDisconnectProfileFromOrcid(): Observable<boolean> {
-    return this.getOrcidDisconnectionAllowedUsersConfiguration().pipe(
-      map((property) => {
-        const values = property.values.map( (value) => value.toLowerCase());
-        return values.includes('only_admin') || values.includes('admin_and_owner');
+      map((propertyRD: RemoteData<ConfigurationProperty>) => {
+        return propertyRD.hasSucceeded && propertyRD.payload.values.map( (value) => value.toLowerCase()).includes('admin_and_owner');
       })
     );
   }
@@ -207,20 +204,25 @@ export class ResearcherProfileService {
   /**
    * If the given item represents a profile unlink it from ORCID.
    */
-  unlinkOrcid(item: Item): Observable<RemoteData<ResearcherProfile>> {
-
+  public unlinkOrcid(item: Item): Observable<RemoteData<ResearcherProfile>> {
     const operations: RemoveOperation[] = [{
       path:'/orcid',
       op:'remove'
     }];
 
     return this.findById(item.firstMetadata('dspace.object.owner').authority).pipe(
-      switchMap((profile) => this.patch(profile, operations)),
+      getFirstCompletedRemoteData(),
+      switchMap((profileRD) => this.dataService.patch(profileRD.payload, operations)),
       getFinishedRemoteData()
     );
   }
 
-  getOrcidAuthorizeUrl(profile: Item): Observable<string> {
+  /**
+   * Build and return the url to authenticate with orcid
+   *
+   * @param profile
+   */
+  public getOrcidAuthorizeUrl(profile: Item): Observable<string> {
     return combineLatest([
       this.configurationService.findByPropertyName('orcid.authorize-url').pipe(getFirstSucceededRemoteDataPayload()),
       this.configurationService.findByPropertyName('orcid.application-client-id').pipe(getFirstSucceededRemoteDataPayload()),
@@ -248,18 +250,47 @@ export class ResearcherProfileService {
 
     href$.pipe(
       find((href: string) => hasValue(href)),
-      map((href: string) => {
-        const request = new PostRequest(requestId, href, sourceUri, options);
-        this.requestService.send(request);
-      })
-    ).subscribe();
+      map((href: string) => this.dataService.buildHrefWithParams(href, [], followLink('item')))
+    ).subscribe((endpoint: string) => {
+      const request = new PostRequest(requestId, endpoint, sourceUri, options);
+      this.requestService.send(request);
+    });
 
-    return this.rdbService.buildFromRequestUUID(requestId);
+    return this.rdbService.buildFromRequestUUID(requestId, followLink('item'));
   }
 
-  private getOrcidDisconnectionAllowedUsersConfiguration(): Observable<ConfigurationProperty> {
+  /**
+   * Update researcher profile by patch orcid operation
+   *
+   * @param researcherProfile
+   * @param operations
+   */
+  public updateByOrcidOperations(researcherProfile: ResearcherProfile, operations: Operation[]): Observable<RemoteData<ResearcherProfile>> {
+    return this.dataService.patch(researcherProfile, operations);
+  }
+
+  /**
+   * Return all orcid authorization scopes saved in the given item
+   *
+   * @param item
+   */
+  public getOrcidAuthorizationScopesByItem(item: Item): string[] {
+    return isNotEmpty(item) ? item.allMetadataValues('dspace.orcid.scope') : [];
+  }
+
+  /**
+   * Return all orcid authorization scopes available by configuration
+   */
+  public getOrcidAuthorizationScopes(): Observable<string[]> {
+    return this.configurationService.findByPropertyName('orcid.scope').pipe(
+      getFirstCompletedRemoteData(),
+      map((propertyRD: RemoteData<ConfigurationProperty>) => propertyRD.hasSucceeded ? propertyRD.payload.values : [])
+    );
+  }
+
+  private getOrcidDisconnectionAllowedUsersConfiguration(): Observable<RemoteData<ConfigurationProperty>> {
     return this.configurationService.findByPropertyName('orcid.disconnection.allowed-users').pipe(
-      getFirstSucceededRemoteDataPayload()
+      getFirstCompletedRemoteData()
     );
   }
 

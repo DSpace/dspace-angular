@@ -133,3 +133,8 @@ ds-dynamic-form-control-container.d-none {
    */
   visibility: collapse;
 }
+
+/* Used for dso administrative functionality */
+.btn-dark {
+  background-color: var(--ds-admin-sidebar-bg);
+}
