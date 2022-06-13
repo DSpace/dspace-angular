@@ -14,6 +14,8 @@ import { RouterStub } from '../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { RegisterEmailFormComponent } from './register-email-form.component';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { GoogleRecaptchaService } from '../core/data/google-recaptcha.service';
 
 describe('RegisterEmailComponent', () => {
 
@@ -23,6 +25,17 @@ describe('RegisterEmailComponent', () => {
   let router;
   let epersonRegistrationService: EpersonRegistrationService;
   let notificationsService;
+
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: jasmine.createSpy('findByPropertyName')
+  });
+
+  const googleRecaptchaService = jasmine.createSpyObj('googleRecaptchaService', {
+    getRecaptchaToken: jasmine.createSpy('getRecaptchaToken')
+  });
+
+  const confResponse$ = createSuccessfulRemoteDataObject$({ values: ['true'] });
+  const confResponseDisabled$ = createSuccessfulRemoteDataObject$({ values: ['false'] });
 
   beforeEach(waitForAsync(() => {
 
@@ -39,8 +52,10 @@ describe('RegisterEmailComponent', () => {
       providers: [
         {provide: Router, useValue: router},
         {provide: EpersonRegistrationService, useValue: epersonRegistrationService},
+        {provide: ConfigurationDataService, useValue: configurationDataService},
         {provide: FormBuilder, useValue: new FormBuilder()},
         {provide: NotificationsService, useValue: notificationsService},
+        {provide: GoogleRecaptchaService, useValue: googleRecaptchaService},
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -48,6 +63,8 @@ describe('RegisterEmailComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RegisterEmailFormComponent);
     comp = fixture.componentInstance;
+    configurationDataService.findByPropertyName.and.returnValues(confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$);
+    googleRecaptchaService.getRecaptchaToken.and.returnValue(observableOf('googleRecaptchaToken'));
 
     fixture.detectChanges();
   });
@@ -71,21 +88,47 @@ describe('RegisterEmailComponent', () => {
     });
   });
   describe('register', () => {
-    it('should send a registration to the service and on success display a message and return to home', () => {
+    it('should send a registration to the service with google recaptcha and on success display a message and return to home', () => {
       comp.form.patchValue({email: 'valid@email.org'});
 
       comp.register();
-      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org');
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', 'googleRecaptchaToken');
       expect(notificationsService.success).toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
     });
-    it('should send a registration to the service and on error display a message', () => {
+    it('should send a registration to the service with google recaptcha and on error display a message', () => {
       (epersonRegistrationService.registerEmail as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 400, 'Bad Request')));
 
       comp.form.patchValue({email: 'valid@email.org'});
 
       comp.register();
-      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org');
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', 'googleRecaptchaToken');
+      expect(notificationsService.error).toHaveBeenCalled();
+      expect(router.navigate).not.toHaveBeenCalled();
+    });
+  });
+  describe('register', () => {
+    beforeEach(waitForAsync(() => {
+      configurationDataService.findByPropertyName.and.returnValues(confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$);
+      comp.ngOnInit();
+      fixture.detectChanges();
+    }));
+
+    it('should send a registration to the service without google recaptcha and on success display a message and return to home', () => {
+      comp.form.patchValue({email: 'valid@email.org'});
+
+      comp.register();
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', null);
+      expect(notificationsService.success).toHaveBeenCalled();
+      expect(router.navigate).toHaveBeenCalledWith(['/home']);
+    });
+    it('should send a registration to the service without google recaptcha and on error display a message', () => {
+      (epersonRegistrationService.registerEmail as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 400, 'Bad Request')));
+
+      comp.form.patchValue({email: 'valid@email.org'});
+
+      comp.register();
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', null);
       expect(notificationsService.error).toHaveBeenCalled();
       expect(router.navigate).not.toHaveBeenCalled();
     });
