@@ -26,30 +26,57 @@ export class OrcidSettingComponent implements OnInit {
    */
   @Input() item: Item;
 
+  /**
+   * The prefix used for i18n keys
+   */
   messagePrefix = 'person.page.orcid';
 
+  /**
+   * The current synchronization mode
+   */
   currentSyncMode: string;
 
+  /**
+   * The current synchronization mode for publications
+   */
   currentSyncPublications: string;
 
-  currentSyncFundings: string;
+  /**
+   * The current synchronization mode for funding
+   */
+  currentSyncFunding: string;
 
+  /**
+   * The synchronization options
+   */
   syncModes: { value: string, label: string }[];
 
+  /**
+   * The synchronization options for publications
+   */
   syncPublicationOptions: { value: string, label: string }[];
 
-  syncFundingOptions: {value: string, label: string}[];
+  /**
+   * The synchronization options for funding
+   */
+  syncFundingOptions: { value: string, label: string }[];
 
+  /**
+   * The profile synchronization options
+   */
   syncProfileOptions: { value: string, label: string, checked: boolean }[];
 
 
   constructor(private researcherProfileService: ResearcherProfileService,
-    protected translateService: TranslateService,
-    private notificationsService: NotificationsService,
-    public authService: AuthService
+              protected translateService: TranslateService,
+              private notificationsService: NotificationsService,
+              public authService: AuthService
   ) {
   }
 
+  /**
+   * Init orcid settings form
+   */
   ngOnInit() {
     this.syncModes = [
       {
@@ -91,10 +118,15 @@ export class OrcidSettingComponent implements OnInit {
 
     this.currentSyncMode = this.getCurrentPreference('dspace.orcid.sync-mode', ['BATCH', 'MANUAL'], 'MANUAL');
     this.currentSyncPublications = this.getCurrentPreference('dspace.orcid.sync-publications', ['DISABLED', 'ALL'], 'DISABLED');
-    this.currentSyncFundings = this.getCurrentPreference('dspace.orcid.sync-fundings', ['DISABLED', 'ALL'], 'DISABLED');
+    this.currentSyncFunding = this.getCurrentPreference('dspace.orcid.sync-fundings', ['DISABLED', 'ALL'], 'DISABLED');
   }
 
-  onSubmit(form: FormGroup) {
+  /**
+   * Generate path operations to save orcid synchronization preferences
+   *
+   * @param form The form group
+   */
+  onSubmit(form: FormGroup): void {
     const operations: Operation[] = [];
     this.fillOperationsFor(operations, '/orcid/mode', form.value.syncMode);
     this.fillOperationsFor(operations, '/orcid/publications', form.value.syncPublications);
@@ -131,17 +163,32 @@ export class OrcidSettingComponent implements OnInit {
     });
   }
 
-  fillOperationsFor(operations: Operation[], path: string, currentValue: string) {
+  /**
+   * Retrieve setting saved in the item's metadata
+   *
+   * @param metadataField The metadata name that contains setting
+   * @param allowedValues The allowed values
+   * @param defaultValue  The default value
+   * @private
+   */
+  private getCurrentPreference(metadataField: string, allowedValues: string[], defaultValue: string): string {
+    const currentPreference = this.item.firstMetadataValue(metadataField);
+    return (currentPreference && allowedValues.includes(currentPreference)) ? currentPreference : defaultValue;
+  }
+
+  /**
+   * Generate a replace patch operation
+   *
+   * @param operations
+   * @param path
+   * @param currentValue
+   */
+  private fillOperationsFor(operations: Operation[], path: string, currentValue: string): void {
     operations.push({
       path: path,
       op: 'replace',
       value: currentValue
     });
-  }
-
-  getCurrentPreference(metadataField: string, allowedValues: string[], defaultValue: string): string {
-    const currentPreference = this.item.firstMetadataValue(metadataField);
-    return (currentPreference && allowedValues.includes(currentPreference)) ? currentPreference : defaultValue;
   }
 
 }
