@@ -9,4 +9,4 @@
 </div>
 
 <ds-orcid-auth *ngIf="(item | async)" [item]="(item | async)" (unlink)="updateItem()"></ds-orcid-auth>
-<ds-orcid-setting *ngIf="(item | async) && isLinkedToOrcid()" [item]="(item | async)"></ds-orcid-setting>
+<ds-orcid-sync-setting *ngIf="(item | async) && isLinkedToOrcid()" [item]="(item | async)"></ds-orcid-sync-setting>

@@ -15,11 +15,11 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 
 @Component({
-  selector: 'ds-orcid-setting',
-  templateUrl: './orcid-setting.component.html',
-  styleUrls: ['./orcid-setting.component.scss']
+  selector: 'ds-orcid-sync-setting',
+  templateUrl: './orcid-sync-settings.component.html',
+  styleUrls: ['./orcid-sync-settings.component.scss']
 })
-export class OrcidSettingComponent implements OnInit {
+export class OrcidSyncSettingsComponent implements OnInit {
 
   /**
    * The item for which showing the orcid settings
