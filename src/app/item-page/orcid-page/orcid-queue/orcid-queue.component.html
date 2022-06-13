@@ -5,10 +5,10 @@
             <div class="container">
                 <ds-loading *ngIf="(processing$ | async)"></ds-loading>
 
-                <div *ngIf="!(processing$ | async) && (getList() | async)?.payload?.totalElements == 0"
-                    class="row alert alert-info">
+                <ds-alert *ngIf="!(processing$ | async) && (getList() | async)?.payload?.totalElements == 0"
+                    [type]="'alert-info'">
                     {{ 'person.page.orcid.sync-queue.empty-message' | translate}}
-                </div>
+                </ds-alert>
                 <ds-pagination *ngIf="!(processing$ | async) && (getList() | async)?.payload?.totalElements > 0"
                     [paginationOptions]="paginationOptions" [collectionSize]="(getList() | async)?.payload?.totalElements"
                     [retainScrollPosition]="false" [hideGear]="true" (paginationChange)="updateList()">
@@ -55,5 +55,5 @@
             </div>
         </ng-template>
         </ngb-panel>
-    </ngb-accordion>  
+    </ngb-accordion>
 </div>
