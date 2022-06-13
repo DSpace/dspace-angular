@@ -4,15 +4,17 @@
       <ng-template ngbPanelContent>
         <div class="container">
           <form #f="ngForm" (ngSubmit)="onSubmit(f.form)">
-            <ds-alert [type]="'alert-info'">
-              {{ 'person.page.orcid.synchronization-mode-message' | translate}}
-            </ds-alert>
             <div class="row mb-3">
               <div class="col-md">
                 <div class="card" data-test="sync-mode">
                   <div class="card-header">{{ 'person.page.orcid.synchronization-mode'| translate }}</div>
                   <div class="card-body">
                     <div class="container">
+                      <div class="row">
+                        <ds-alert [type]="'alert-info'">
+                          {{ 'person.page.orcid.synchronization-mode-message' | translate}}
+                        </ds-alert>
+                      </div>
                       <div class="form-group row">
                         <label for="syncMode">{{ 'person.page.orcid.synchronization-mode.label'| translate }}</label>
                         <select class="form-control" [(ngModel)]="currentSyncMode" name="syncMode" id="syncMode"
