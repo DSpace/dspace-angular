@@ -1,15 +1,15 @@
 #!/bin/bash
 
 if [[ "x$ENVFILE" == "x" ]]; then
-    export ENVFILE=$(pwd)/envs/.default
+    export ENVFILE=$(pwd)/../run/envs/.default
 fi
 
 source $ENVFILE
 
 # wiki: https://wiki.lyrasis.org/display/DSDOC7x/OAI#OAI-HarvestingfromanotherDSpace
 pushd ../..
-:: import community with collection
-docker-compose --env-file $ENVFILE -p dq-d7 -f docker/cli.yml -v build-scripts/import/assets:/assets run --rm dspace-cli structure-builder -f /assets/test_community_collection.xml -o /assets/test_import_output.xml -e test@test.edu
+# import community with collection
+docker-compose --env-file $ENVFILE -p dq-d7 -f docker/cli.yml -v $(pwd)/build-scripts/import/assets:/assets run --rm dspace-cli structure-builder -f /assets/test_community_collection.xml -o /assets/test_import_output.xml -e test@test.edu
 # test connection
 docker-compose --env-file $ENVFILE -p dq-d7 -f docker/cli.yml run --rm dspace-cli harvest -g -a http://lindat.mff.cuni.cz/repository/oai/request -i hdl_11234_3430
 # set up collection for harvesting
