@@ -27,6 +27,12 @@ export class TruncatableComponent implements OnInit, AfterViewChecked {
    */
   @Input() onHover = false;
 
+  /**
+   * A boolean representing if to show or not the show/collapse toggle
+   * This value must have the same value as the children TruncatablePartComponent
+   */
+  @Input() showToggle = true;
+
   public constructor(private service: TruncatableService, private el: ElementRef,) {
   }
 
@@ -60,14 +66,16 @@ export class TruncatableComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    const truncatedElements = this.el.nativeElement.querySelectorAll('.truncated');
-    if (truncatedElements?.length > 0) {
-      const truncateElements = this.el.nativeElement.querySelectorAll('.dont-break-out');
-      for (let i = 0; i < (truncateElements.length - 1); i++) {
-        truncateElements[i].classList.remove('truncated');
-        truncateElements[i].classList.add('notruncatable');
+    if (this.showToggle) {
+      const truncatedElements = this.el.nativeElement.querySelectorAll('.truncated');
+      if (truncatedElements?.length > 0) {
+        const truncateElements = this.el.nativeElement.querySelectorAll('.dont-break-out');
+        for (let i = 0; i < (truncateElements.length - 1); i++) {
+          truncateElements[i].classList.remove('truncated');
+          truncateElements[i].classList.add('notruncatable');
+        }
+        truncateElements[truncateElements.length - 1].classList.add('truncated');
       }
-      truncateElements[truncateElements.length - 1].classList.add('truncated');
     }
   }
 

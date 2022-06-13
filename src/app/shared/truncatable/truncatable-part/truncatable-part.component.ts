@@ -41,6 +41,12 @@ export class TruncatablePartComponent implements AfterViewChecked, OnInit, OnDes
   @Input() background = 'default';
 
   /**
+   * A boolean representing if to show or not the show/collapse toggle.
+   * This value must have the same value as the parent TruncatableComponent
+   */
+  @Input() showToggle = true;
+
+  /**
    * The view on the truncatable part
    */
   @ViewChild('content', {static: true}) content: ElementRef;
@@ -103,28 +109,30 @@ export class TruncatablePartComponent implements AfterViewChecked, OnInit, OnDes
    * check for the truncate element
    */
   public truncateElement() {
-    const entry = this.content.nativeElement;
-    if (entry.scrollHeight > entry.offsetHeight) {
-      if (entry.children.length > 0) {
-        if (entry.children[entry.children.length - 1].offsetHeight > entry.offsetHeight) {
-          entry.classList.add('truncated');
-          entry.classList.remove('removeFaded');
+    if (this.showToggle) {
+      const entry = this.content.nativeElement;
+      if (entry.scrollHeight > entry.offsetHeight) {
+        if (entry.children.length > 0) {
+          if (entry.children[entry.children.length - 1].offsetHeight > entry.offsetHeight) {
+            entry.classList.add('truncated');
+            entry.classList.remove('removeFaded');
+          } else {
+            entry.classList.remove('truncated');
+            entry.classList.add('removeFaded');
+          }
         } else {
-          entry.classList.remove('truncated');
-          entry.classList.add('removeFaded');
+          if (entry.innerText.length > 0) {
+            entry.classList.add('truncated');
+            entry.classList.remove('removeFaded');
+          } else {
+            entry.classList.remove('truncated');
+            entry.classList.add('removeFaded');
+          }
         }
       } else {
-        if (entry.innerText.length > 0) {
-          entry.classList.add('truncated');
-          entry.classList.remove('removeFaded');
-        } else {
-          entry.classList.remove('truncated');
-          entry.classList.add('removeFaded');
-        }
+        entry.classList.remove('truncated');
+        entry.classList.add('removeFaded');
       }
-    } else {
-      entry.classList.remove('truncated');
-      entry.classList.add('removeFaded');
     }
   }
 
