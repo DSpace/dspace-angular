@@ -1,2 +1,3 @@
 DSPACE_UI_IMAGE=dataquest/dspace-angular:dspace-7_x
 DSPACE_REST_IMAGE=dataquest/dspace:dspace-7_x
+DOCKER_OWNER=dataquest
