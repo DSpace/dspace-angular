@@ -119,7 +119,7 @@ describe('OrcidAuthComponent test suite', () => {
       isLinkedToOrcid: jasmine.createSpy('isLinkedToOrcid'),
       onlyAdminCanDisconnectProfileFromOrcid: jasmine.createSpy('onlyAdminCanDisconnectProfileFromOrcid'),
       ownerCanDisconnectProfileFromOrcid: jasmine.createSpy('ownerCanDisconnectProfileFromOrcid'),
-      unlinkOrcid: jasmine.createSpy('unlinkOrcid')
+      unlinkOrcidByItem: jasmine.createSpy('unlinkOrcidByItem')
     });
 
     void TestBed.configureTestingModule({
@@ -200,7 +200,7 @@ describe('OrcidAuthComponent test suite', () => {
       describe('and unlink is successfully', () => {
         beforeEach(waitForAsync(() => {
           comp.item = mockItemLinkedToOrcid;
-          researcherProfileService.unlinkOrcid.and.returnValue(createSuccessfulRemoteDataObject$(new ResearcherProfile()));
+          researcherProfileService.unlinkOrcidByItem.and.returnValue(createSuccessfulRemoteDataObject$(new ResearcherProfile()));
           spyOn(comp.unlink, 'emit');
           fixture.detectChanges();
         }));
@@ -217,7 +217,7 @@ describe('OrcidAuthComponent test suite', () => {
       describe('and unlink is failed', () => {
         beforeEach(waitForAsync(() => {
           comp.item = mockItemLinkedToOrcid;
-          researcherProfileService.unlinkOrcid.and.returnValue(createFailedRemoteDataObject$());
+          researcherProfileService.unlinkOrcidByItem.and.returnValue(createFailedRemoteDataObject$());
           fixture.detectChanges();
         }));
 

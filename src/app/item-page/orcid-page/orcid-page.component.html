@@ -1,4 +1,4 @@
-<div *ngIf="(item | async)" class="container">
+<div *ngIf="!(processingConnection | async) && (item | async)" class="container">
   <div class="button-row bottom mb-3">
     <div class="text-right">
       <a [routerLink]="getItemPage()" role="button" class="btn btn-outline-secondary" data-test="back-button">
@@ -8,5 +8,11 @@
   </div>
 </div>
 
-<ds-orcid-auth *ngIf="(item | async)" [item]="(item | async)" (unlink)="updateItem()"></ds-orcid-auth>
-<ds-orcid-sync-setting *ngIf="(item | async) && isLinkedToOrcid()" [item]="(item | async)"></ds-orcid-sync-setting>
+<ds-loading *ngIf="(processingConnection | async)" [message]="'person.page.orcid.link.processing' | translate"></ds-loading>
+<div class="container" *ngIf="!(processingConnection | async) && !(connectionStatus | async)" data-test="error-box">
+  <ds-alert [type]="'alert-danger'">{{'person.page.orcid.link.error.message' | translate}}</ds-alert>
+</div>
+<ng-container *ngIf="!(processingConnection | async) && (item | async) && (connectionStatus | async)" >
+  <ds-orcid-auth [item]="(item | async)" (unlink)="updateItem()" data-test="orcid-auth"></ds-orcid-auth>
+  <ds-orcid-sync-setting *ngIf="isLinkedToOrcid()" [item]="(item | async)" data-test="orcid-sync-setting"></ds-orcid-sync-setting>
+</ng-container>

@@ -4491,6 +4491,10 @@
 
   "person.page.orcid.link": "Connect to ORCID ID",
 
+  "person.page.orcid.link.processing": "Linking profile to ORCID...",
+
+  "person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
+
   "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
 
   "person.page.orcid.unlink": "Disconnect from ORCID",
