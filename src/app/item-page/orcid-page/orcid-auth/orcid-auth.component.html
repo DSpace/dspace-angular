@@ -1,13 +1,6 @@
-<div class="container custom-accordion mb-4">
-  <ngb-accordion activeIds="auth">
-    <ngb-panel title="{{'person.orcid.registry.auth' | translate}}" id="auth">
-      <ng-template ngbPanelContent>
-        <div class="container">
-          <ng-container *ngIf="(isLinkedToOrcid() | async); then orcidLinked; else orcidNotLinked"></ng-container>
-        </div>
-      </ng-template>
-    </ngb-panel>
-  </ngb-accordion>
+<div class="container">
+  <h2>{{'person.orcid.registry.auth' | translate}}</h2>
+  <ng-container *ngIf="(isLinkedToOrcid() | async); then orcidLinked; else orcidNotLinked"></ng-container>
 </div>
 
 <ng-template #orcidLinked>
