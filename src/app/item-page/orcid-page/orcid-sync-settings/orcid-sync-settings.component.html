@@ -30,10 +30,15 @@
             </div>
             <div class="row mb-3">
               <div class="col-md">
-                <div class="card" data-test="sync-mode-publication">
+                <div class="card h-100" data-test="sync-mode-publication">
                   <div class="card-header">{{ 'person.page.orcid.publications-preferences'| translate }}</div>
                   <div class="card-body">
                     <div class="m-3">
+                      <div class="row">
+                        <ds-alert [type]="'alert-info'">
+                          {{ 'person.page.orcid.synchronization-mode-publication-message' | translate}}
+                        </ds-alert>
+                      </div>
                       <div class="form-group">
                         <div *ngFor="let option of syncPublicationOptions" class="row form-check">
                           <input type="radio" [(ngModel)]="currentSyncPublications"
@@ -48,10 +53,15 @@
                 </div>
               </div>
               <div class="col-md">
-                <div class="card" data-test="sync-mode-funding">
+                <div class="card h-100" data-test="sync-mode-funding">
                   <div class="card-header">{{ 'person.page.orcid.funding-preferences'| translate }}</div>
                   <div class="card-body">
                     <div class="m-3">
+                      <div class="row">
+                        <ds-alert [type]="'alert-info'">
+                          {{ 'person.page.orcid.synchronization-mode-funding-message' | translate}}
+                        </ds-alert>
+                      </div>
                       <div class="form-group">
                         <div *ngFor="let option of syncFundingOptions" class="row form-check">
                           <input type="radio" [(ngModel)]="currentSyncFunding"
@@ -65,10 +75,15 @@
                 </div>
               </div>
               <div class="col-md">
-                <div class="card" data-test="profile-preferences">
+                <div class="card h-100" data-test="profile-preferences">
                   <div class="card-header">{{ 'person.page.orcid.profile-preferences'| translate }}</div>
                   <div class="card-body">
                     <div class="m-3">
+                      <div class="row">
+                        <ds-alert [type]="'alert-info'">
+                          {{ 'person.page.orcid.synchronization-mode-profile-message' | translate}}
+                        </ds-alert>
+                      </div>
                       <div class="form-group">
                         <div *ngFor="let option of syncProfileOptions" class="row form-check">
                           <input type="checkbox" [(ngModel)]="option.checked"
