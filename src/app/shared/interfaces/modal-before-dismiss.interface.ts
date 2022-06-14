@@ -20,6 +20,6 @@ export interface ModalBeforeDismiss {
    * then the modal won't be dismissed.
    * Docs: https://ng-bootstrap.github.io/#/components/modal/api#NgbModalOptions
    */
-  beforeDismiss(): boolean | Promise<boolean>
+  beforeDismiss(): boolean | Promise<boolean>;
 
 }

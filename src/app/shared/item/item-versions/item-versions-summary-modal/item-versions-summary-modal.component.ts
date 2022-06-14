@@ -13,7 +13,7 @@ export class ItemVersionsSummaryModalComponent implements OnInit, ModalBeforeDis
   versionNumber: number;
   newVersionSummary: string;
   firstVersion = true;
-  submitted$: BehaviorSubject<boolean>
+  submitted$: BehaviorSubject<boolean>;
 
   @Output() createVersionEvent: EventEmitter<string> = new EventEmitter<string>();
 
@@ -32,7 +32,7 @@ export class ItemVersionsSummaryModalComponent implements OnInit, ModalBeforeDis
 
   beforeDismiss(): boolean | Promise<boolean> {
     // prevent the modal from being dismissed after version creation is initiated
-    return !this.submitted$.getValue()
+    return !this.submitted$.getValue();
   }
 
   onModalSubmit() {
