@@ -1,17 +1,13 @@
-/* tslint:disable:max-classes-per-file */
-
+// eslint-disable-next-line max-classes-per-file
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { catchError, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
-import { isNotEmpty } from '../../shared/empty.util';
+import { map, switchMap } from 'rxjs/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { RestResponse } from '../cache/response.models';
 import { DataService } from '../data/data.service';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { ItemDataService } from '../data/item-data.service';
@@ -23,9 +19,9 @@ import { OrcidHistory } from './model/orcid-history.model';
 import { ORCID_HISTORY } from './model/orcid-history.resource-type';
 import { OrcidQueue } from './model/orcid-queue.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import {CoreState} from "../core-state.model";
-import {RestRequest} from "../data/rest-request.model";
-import {sendRequest} from "../shared/request.operators";
+import { CoreState } from '../core-state.model';
+import { RestRequest } from '../data/rest-request.model';
+import { sendRequest } from '../shared/request.operators';
 
 /**
  * A private DataService implementation to delegate specific methods to.

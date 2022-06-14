@@ -230,7 +230,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     }
     combineLatest(translations).subscribe((messages) => {
       const title = messages.shift();
-      const content = '<ul>' + messages.map((message) => '<li>' + message + '</li>').join('') + '</ul>';
+      const content = '<ul>' + messages.map((message) => `<li>${message}</li>`).join('') + '</ul>';
       this.notificationsService.error(title, content, { timeOut: -1 }, true);
     });
   }
