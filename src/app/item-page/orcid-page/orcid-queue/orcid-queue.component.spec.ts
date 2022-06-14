@@ -18,7 +18,7 @@ import { By } from '@angular/platform-browser';
 import { Item } from '../../../core/shared/item.model';
 
 
-fdescribe('OrcidQueueComponent test suite', () => {
+describe('OrcidQueueComponent test suite', () => {
   let component: OrcidQueueComponent;
   let fixture: ComponentFixture<OrcidQueueComponent>;
   let debugElement: DebugElement;
