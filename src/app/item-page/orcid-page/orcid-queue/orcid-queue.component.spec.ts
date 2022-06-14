@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { OrcidQueueService } from '../../../core/orcid/orcid-queue.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
@@ -16,10 +16,13 @@ import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { By } from '@angular/platform-browser';
+
 
 fdescribe('OrcidQueueComponent test suite', () => {
-  let comp: OrcidQueueComponent;
+  let component: OrcidQueueComponent;
   let fixture: ComponentFixture<OrcidQueueComponent>;
+  let debugElement: DebugElement;
   let orcidQueueService: OrcidQueueService;
 
   const testOwnerId = 'test-owner-id';
@@ -76,14 +79,20 @@ fdescribe('OrcidQueueComponent test suite', () => {
     orcidQueueService = TestBed.inject(OrcidQueueService);
   }));
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     fixture = TestBed.createComponent(OrcidQueueComponent);
-    comp = fixture.componentInstance;
+    component = fixture.componentInstance;
+    debugElement = fixture.debugElement;
     fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
-    expect(comp).toBeTruthy();
+    expect(component).toBeTruthy();
+  });
+
+  it('should ...', () => {
+    const table = debugElement.queryAll(By.css('table'));
+    expect(table.length).toBe(1);
   });
 
 });
