@@ -10,13 +10,12 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { OrcidHistoryService } from '../../../core/orcid/orcid-history.service';
-import { ActivatedRoute, Params } from '@angular/router';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { By } from '@angular/platform-browser';
+import { Item } from '../../../core/shared/item.model';
 
 
 fdescribe('OrcidQueueComponent test suite', () => {
@@ -27,9 +26,63 @@ fdescribe('OrcidQueueComponent test suite', () => {
 
   const testOwnerId = 'test-owner-id';
 
-  const routeParams: Params = {'id': testOwnerId};
-
-  const activatedRouteStub = new ActivatedRouteStub(routeParams);
+  const mockItemLinkedToOrcid: Item = Object.assign(new Item(), {
+    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    metadata: {
+      'dc.title': [{
+        value: 'test person'
+      }],
+      'dspace.entity.type': [{
+        'value': 'Person'
+      }],
+      'dspace.object.owner': [{
+        'value': 'test person',
+        'language': null,
+        'authority': 'deced3e7-68e2-495d-bf98-7c44fc33b8ff',
+        'confidence': 600,
+        'place': 0
+      }],
+      'dspace.orcid.authenticated': [{
+        'value': '2022-06-10T15:15:12.952872',
+        'language': null,
+        'authority': null,
+        'confidence': -1,
+        'place': 0
+      }],
+      'dspace.orcid.scope': [{
+        'value': '/authenticate',
+        'language': null,
+        'authority': null,
+        'confidence': -1,
+        'place': 0
+      }, {
+        'value': '/read-limited',
+        'language': null,
+        'authority': null,
+        'confidence': -1,
+        'place': 1
+      }, {
+        'value': '/activities/update',
+        'language': null,
+        'authority': null,
+        'confidence': -1,
+        'place': 2
+      }, {
+        'value': '/person/update',
+        'language': null,
+        'authority': null,
+        'confidence': -1,
+        'place': 3
+      }],
+      'person.identifier.orcid': [{
+        'value': 'orcid-id',
+        'language': null,
+        'authority': null,
+        'confidence': -1,
+        'place': 0
+      }]
+    }
+  });
 
   function orcidQueueElement(id: number) {
     return Object.assign(new OrcidQueue(), {
@@ -45,14 +98,8 @@ fdescribe('OrcidQueueComponent test suite', () => {
 
   const orcidQueueElements = [orcidQueueElement(1), orcidQueueElement(2)];
 
-  const orcidQueueServiceMock = {
-    searchByOwnerId(id) {
-      return createSuccessfulRemoteDataObject$<PaginatedList<OrcidQueue>>(createPaginatedList<OrcidQueue>(orcidQueueElements));
-    },
-    clearFindByOwnerRequests() {
-      return null;
-    }
-  };
+  const orcidQueueServiceSpy = jasmine.createSpyObj('orcidQueueService', ['searchByOwnerId', 'clearFindByOwnerRequests']);
+  orcidQueueServiceSpy.searchByOwnerId.and.returnValue(createSuccessfulRemoteDataObject$<PaginatedList<OrcidQueue>>(createPaginatedList<OrcidQueue>(orcidQueueElements)));
 
   beforeEach(waitForAsync(() => {
     void TestBed.configureTestingModule({
@@ -67,11 +114,10 @@ fdescribe('OrcidQueueComponent test suite', () => {
       ],
       declarations: [OrcidQueueComponent],
       providers: [
-        { provide: OrcidQueueService, useValue: orcidQueueServiceMock },
+        { provide: OrcidQueueService, useValue: orcidQueueServiceSpy },
         { provide: OrcidHistoryService, useValue: {} },
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -82,6 +128,7 @@ fdescribe('OrcidQueueComponent test suite', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(OrcidQueueComponent);
     component = fixture.componentInstance;
+    component.item = mockItemLinkedToOrcid;
     debugElement = fixture.debugElement;
     fixture.detectChanges();
   });
@@ -90,9 +137,9 @@ fdescribe('OrcidQueueComponent test suite', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should ...', () => {
-    const table = debugElement.queryAll(By.css('table'));
-    expect(table.length).toBe(1);
+  it('should show the ORCID queue elements', () => {
+    const table = debugElement.queryAll(By.css('[data-test="orcidQueueElementRow"]'));
+    expect(table.length).toBe(2);
   });
 
 });

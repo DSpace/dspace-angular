@@ -1,60 +1,55 @@
-<div class="container custom-accordion mb-4">
-  <ngb-accordion activeIds="queue">
-    <ngb-panel title="{{'person.orcid.registry.queue' | translate}}" id="queue">
-      <ng-template ngbPanelContent>
-        <div class="container">
-          <ds-loading *ngIf="(processing$ | async)"></ds-loading>
+<div>
+  <ds-loading *ngIf="(processing$ | async)"></ds-loading>
+  <div class="container">
+    <h2>{{ 'person.orcid.registry.queue' | translate }}</h2>
 
-          <ds-alert *ngIf="!(processing$ | async) && (getList() | async)?.payload?.totalElements == 0"
-                    [type]="AlertTypeEnum.Info">
-            {{ 'person.page.orcid.sync-queue.empty-message' | translate}}
-          </ds-alert>
-          <ds-pagination *ngIf="!(processing$ | async) && (getList() | async)?.payload?.totalElements > 0"
-                         [paginationOptions]="paginationOptions"
-                         [collectionSize]="(getList() | async)?.payload?.totalElements"
-                         [retainScrollPosition]="false" [hideGear]="true" (paginationChange)="updateList()">
+    <ds-alert *ngIf="!(processing$ | async) && (getList() | async)?.payload?.totalElements == 0"
+              [type]="AlertTypeEnum.Info">
+      {{ 'person.page.orcid.sync-queue.empty-message' | translate}}
+    </ds-alert>
+    <ds-pagination *ngIf="!(processing$ | async) && (getList() | async)?.payload?.totalElements > 0"
+                   [paginationOptions]="paginationOptions"
+                   [collectionSize]="(getList() | async)?.payload?.totalElements"
+                   [retainScrollPosition]="false" [hideGear]="true" (paginationChange)="updateList()">
 
-            <div class="table-responsive">
-              <table id="groups" class="table table-sm table-striped table-hover table-bordered">
-                <thead>
-                <tr class="text-center align-middle">
-                  <th>{{'person.page.orcid.sync-queue.table.header.type' | translate}}</th>
-                  <th>{{'person.page.orcid.sync-queue.table.header.description' | translate}}</th>
-                  <th>{{'person.page.orcid.sync-queue.table.header.action' | translate}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let entry of (getList() | async)?.payload?.page">
-                  <td class="text-center align-middle">
-                    <i [ngClass]="getIconClass(entry)" [ngbTooltip]="getIconTooltip(entry) | translate"
-                       class="fa-2x" aria-hidden="true"></i>
-                  </td>
-                  <td class="text-center align-middle">
-                    {{ entry.description }}
-                  </td>
-                  <td style="width: 20%" class="text-center">
-                    <div class="btn-group edit-field">
-                      <!--<button [ngbTooltip]="getOperationTooltip(entry) | translate" container="body"
-                              class="btn btn-outline-success my-1 col-md">
-                        <i [ngClass]="getOperationClass(entry)"></i>
-                      </button>-->
-                      <button [ngbTooltip]="'person.page.orcid.sync-queue.send' | translate" container="body"
-                              class="btn btn-outline-success my-1 col-md" (click)="send(entry)">
-                        <i [ngClass]="getOperationClass(entry)"></i>
-                      </button>
-                      <button [ngbTooltip]="'person.page.orcid.sync-queue.discard' | translate" container="body"
-                              class="btn btn-outline-danger my-1 col-md" (click)="discardEntry(entry)">
-                        <i class="fas fa-unlink"></i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </ds-pagination>
-        </div>
-      </ng-template>
-    </ngb-panel>
-  </ngb-accordion>
+      <div class="table-responsive">
+        <table id="groups" class="table table-sm table-striped table-hover table-bordered">
+          <thead>
+          <tr class="text-center align-middle">
+            <th>{{'person.page.orcid.sync-queue.table.header.type' | translate}}</th>
+            <th>{{'person.page.orcid.sync-queue.table.header.description' | translate}}</th>
+            <th>{{'person.page.orcid.sync-queue.table.header.action' | translate}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let entry of (getList() | async)?.payload?.page" data-test="orcidQueueElementRow">
+            <td class="text-center align-middle">
+              <i [ngClass]="getIconClass(entry)" [ngbTooltip]="getIconTooltip(entry) | translate"
+                 class="fa-2x" aria-hidden="true"></i>
+            </td>
+            <td class="text-center align-middle">
+              {{ entry.description }}
+            </td>
+            <td style="width: 20%" class="text-center">
+              <div class="btn-group edit-field">
+                <!--<button [ngbTooltip]="getOperationTooltip(entry) | translate" container="body"
+                        class="btn btn-outline-success my-1 col-md">
+                  <i [ngClass]="getOperationClass(entry)"></i>
+                </button>-->
+                <button [ngbTooltip]="'person.page.orcid.sync-queue.send' | translate" container="body"
+                        class="btn btn-outline-success my-1 col-md" (click)="send(entry)">
+                  <i [ngClass]="getOperationClass(entry)"></i>
+                </button>
+                <button [ngbTooltip]="'person.page.orcid.sync-queue.discard' | translate" container="body"
+                        class="btn btn-outline-danger my-1 col-md" (click)="discardEntry(entry)">
+                  <i class="fas fa-unlink"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </ds-pagination>
+  </div>
 </div>

@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
@@ -15,6 +14,7 @@ import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { AlertType } from '../../../shared/alert/aletr-type';
+import { Item } from '../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-orcid-queue',
@@ -22,6 +22,12 @@ import { AlertType } from '../../../shared/alert/aletr-type';
   styleUrls: ['./orcid-queue.component.scss']
 })
 export class OrcidQueueComponent implements OnInit, OnDestroy {
+
+  /**
+   * The item for which showing the orcid settings
+   */
+  @Input() item: Item;
+
   /**
    * Pagination config used to display the list
    */
@@ -54,7 +60,6 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   constructor(private orcidQueueService: OrcidQueueService,
               protected translateService: TranslateService,
               private paginationService: PaginationService,
-              private route: ActivatedRoute,
               private notificationsService: NotificationsService,
               private orcidHistoryService: OrcidHistoryService,
   ) { }
@@ -67,7 +72,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.paginationService.getCurrentPagination(this.paginationOptions.id, this.paginationOptions).pipe(
         tap(() => this.processing$.next(true)),
-        switchMap((config: PaginationComponentOptions) => this.orcidQueueService.searchByOwnerId(this.route.snapshot.paramMap.get('id'), config)),
+        switchMap((config: PaginationComponentOptions) => this.orcidQueueService.searchByOwnerId(this.item.id, config)),
         getFirstCompletedRemoteData()
       ).subscribe((result: RemoteData<PaginatedList<OrcidQueue>>) => {
         this.processing$.next(false);
@@ -236,7 +241,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   }
 
   private getUnauthorizedErrorContent(): Observable<string> {
-    return this.orcidQueueService.getOrcidAuthorizeUrl(this.route.snapshot.paramMap.get('id')).pipe(
+    return this.orcidQueueService.getOrcidAuthorizeUrl(this.item.id).pipe(
       switchMap((authorizeUrl) => this.translateService.get('person.page.orcid.sync-queue.send.unauthorized-error.content', { orcid : authorizeUrl}))
     );
   }
