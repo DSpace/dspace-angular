@@ -170,12 +170,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     /** Implement behavior for interface {@link ModalBeforeDismiss} */
     this.modalConfig.beforeDismiss = async function () {
       if (typeof this?.componentInstance?.beforeDismiss === 'function') {
-        return this.componentInstance.beforeDismiss()
+        return this.componentInstance.beforeDismiss();
       }
 
       // fall back to default behavior
       return true;
-    }
+    };
 
     this.isAuthBlocking$ = this.store.pipe(select(isAuthenticationBlocking)).pipe(
       distinctUntilChanged()
