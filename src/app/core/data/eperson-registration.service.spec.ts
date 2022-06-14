@@ -78,7 +78,7 @@ describe('EpersonRegistrationService', () => {
   describe('registerEmail', () => {
     it('should send an email registration', () => {
 
-      const expected = service.registerEmail('test@mail.org', null);
+      const expected = service.registerEmail('test@mail.org');
 
       expect(requestService.send).toHaveBeenCalledWith(new PostRequest('request-id', 'rest-url/registrations', registration));
       expect(expected).toBeObservable(cold('(a|)', { a: rd }));

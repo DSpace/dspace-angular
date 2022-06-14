@@ -63,7 +63,7 @@ describe('RegisterEmailComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RegisterEmailFormComponent);
     comp = fixture.componentInstance;
-    configurationDataService.findByPropertyName.and.returnValues(confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$);
+    configurationDataService.findByPropertyName.and.returnValues(confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$);
     googleRecaptchaService.getRecaptchaToken.and.returnValue(observableOf('googleRecaptchaToken'));
 
     fixture.detectChanges();
@@ -88,47 +88,47 @@ describe('RegisterEmailComponent', () => {
     });
   });
   describe('register', () => {
-    it('should send a registration to the service with google recaptcha and on success display a message and return to home', () => {
+    it('should send a registration to the service and on success display a message and return to home', () => {
       comp.form.patchValue({email: 'valid@email.org'});
 
       comp.register();
-      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', 'googleRecaptchaToken');
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org');
       expect(notificationsService.success).toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
     });
-    it('should send a registration to the service with google recaptcha and on error display a message', () => {
+    it('should send a registration to the service and on error display a message', () => {
       (epersonRegistrationService.registerEmail as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 400, 'Bad Request')));
 
       comp.form.patchValue({email: 'valid@email.org'});
 
       comp.register();
-      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', 'googleRecaptchaToken');
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org');
       expect(notificationsService.error).toHaveBeenCalled();
       expect(router.navigate).not.toHaveBeenCalled();
     });
   });
-  describe('register', () => {
+  describe('register with google recaptcha', () => {
     beforeEach(waitForAsync(() => {
-      configurationDataService.findByPropertyName.and.returnValues(confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$);
+      configurationDataService.findByPropertyName.and.returnValues(confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$);
       comp.ngOnInit();
       fixture.detectChanges();
     }));
 
-    it('should send a registration to the service without google recaptcha and on success display a message and return to home', () => {
+    it('should send a registration to the service and on success display a message and return to home', () => {
       comp.form.patchValue({email: 'valid@email.org'});
 
       comp.register();
-      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', null);
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', 'googleRecaptchaToken');
       expect(notificationsService.success).toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
     });
-    it('should send a registration to the service without google recaptcha and on error display a message', () => {
+    it('should send a registration to the service and on error display a message', () => {
       (epersonRegistrationService.registerEmail as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 400, 'Bad Request')));
 
       comp.form.patchValue({email: 'valid@email.org'});
 
       comp.register();
-      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', null);
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', 'googleRecaptchaToken');
       expect(notificationsService.error).toHaveBeenCalled();
       expect(router.navigate).not.toHaveBeenCalled();
     });
