@@ -25,7 +25,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   /**
    * Pagination config used to display the list
    */
-   public paginationOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+  public paginationOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'oqp',
     pageSize: 5
   });
@@ -57,7 +57,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private notificationsService: NotificationsService,
               private orcidHistoryService: OrcidHistoryService,
-              ) { }
+  ) { }
 
   ngOnInit(): void {
     this.updateList();
@@ -81,7 +81,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   /**
    * Return the list of orcid queue records
    */
-   getList(): Observable<RemoteData<PaginatedList<OrcidQueue>>> {
+  getList(): Observable<RemoteData<PaginatedList<OrcidQueue>>> {
     return this.list$.asObservable();
   }
 
