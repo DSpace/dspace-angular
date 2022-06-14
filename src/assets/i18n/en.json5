@@ -4481,8 +4481,6 @@
 
   "researcherprofile.success.claim.title" : "Success",
 
-  "person.page.orcid": "ORCID",
-
   "person.page.orcid.create": "Create an ORCID ID",
 
   "person.page.orcid.granted-authorizations": "Granted authorizations",
@@ -4547,7 +4545,11 @@
 
   "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
 
-  "person.page.orcid.sync-queue.description" : "Description",
+  "person.page.orcid.sync-queue.table.header.type" : "Type",
+
+  "person.page.orcid.sync-queue.table.header.description" : "Description",
+
+  "person.page.orcid.sync-queue.table.header.action" : "Action",
 
   "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
 

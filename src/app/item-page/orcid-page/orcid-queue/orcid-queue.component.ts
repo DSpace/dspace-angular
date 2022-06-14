@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
@@ -14,13 +14,14 @@ import { getFinishedRemoteData, getFirstCompletedRemoteData } from '../../../cor
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { AlertType } from '../../../shared/alert/aletr-type';
 
 @Component({
   selector: 'ds-orcid-queue',
   templateUrl: './orcid-queue.component.html',
   styleUrls: ['./orcid-queue.component.scss']
 })
-export class OrcidQueueComponent implements OnInit {
+export class OrcidQueueComponent implements OnInit, OnDestroy {
   /**
    * Pagination config used to display the list
    */
@@ -38,6 +39,12 @@ export class OrcidQueueComponent implements OnInit {
    * A list of orcid queue records
    */
   private list$: BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>> = new BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>>({} as any);
+
+  /**
+   * The AlertType enumeration
+   * @type {AlertType}
+   */
+  AlertTypeEnum = AlertType;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -84,13 +91,13 @@ export class OrcidQueueComponent implements OnInit {
     }
     switch (orcidQueue.recordType.toLowerCase()) {
       case 'publication':
-        return 'fa fa-book';
+        return 'fas fa-book';
       case 'funding':
-        return 'fa fa-wallet';
+        return 'fas fa-wallet';
       case 'education':
-        return 'fa fa-school';
+        return 'fas fa-school';
       case 'affiliation':
-        return 'fa fa-university';
+        return 'fas fa-university';
       case 'country':
         return 'fas fa-globe-europe';
       case 'external_ids':
