@@ -1,5 +1,4 @@
-/* tslint:disable:max-classes-per-file */
-
+// eslint-disable-next-line max-classes-per-file
 import { DataService } from '../data/data.service';
 import { OrcidQueue } from './model/orcid-queue.model';
 import { RequestService } from '../data/request.service';
@@ -25,7 +24,7 @@ import { map } from 'rxjs/operators';
 import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
-import {CoreState} from "../core-state.model";
+import { CoreState } from '../core-state.model';
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -95,7 +94,7 @@ export class OrcidQueueService {
    * @returns { NoContent }
    */
   deleteById(orcidQueueId: number): Observable<RemoteData<NoContent>> {
-    return this.dataService.delete(orcidQueueId + '');
+    return this.dataService.delete(orcidQueueId.toString());
   }
 
   /**
