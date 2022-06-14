@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mb-5">
   <h2>{{'person.orcid.sync.setting' | translate}}</h2>
   <form #f="ngForm" (ngSubmit)="onSubmit(f.form)">
     <div class="row mb-3">
@@ -25,8 +25,8 @@
         </div>
       </div>
     </div>
-    <div class="row mb-3">
-      <div class="col-md">
+    <div class="row">
+      <div class="col-md mb-3">
         <div class="card h-100" data-test="sync-mode-publication">
           <div class="card-header">{{ 'person.page.orcid.publications-preferences'| translate }}</div>
           <div class="card-body">
@@ -49,7 +49,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md">
+      <div class="col-md mb-3">
         <div class="card h-100" data-test="sync-mode-funding">
           <div class="card-header">{{ 'person.page.orcid.funding-preferences'| translate }}</div>
           <div class="card-body">
@@ -71,7 +71,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md">
+      <div class="col-md mb-3">
         <div class="card h-100" data-test="profile-preferences">
           <div class="card-header">{{ 'person.page.orcid.profile-preferences'| translate }}</div>
           <div class="card-body">
