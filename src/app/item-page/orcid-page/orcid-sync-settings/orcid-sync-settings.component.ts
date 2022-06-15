@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { TranslateService } from '@ngx-translate/core';
@@ -65,6 +65,10 @@ export class OrcidSyncSettingsComponent implements OnInit {
    */
   syncProfileOptions: { value: string, label: string, checked: boolean }[];
 
+  /**
+   * An event emitted when settings are updated
+   */
+  @Output() settingsUpdated: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(private researcherProfileService: ResearcherProfileService,
               private notificationsService: NotificationsService,
@@ -154,6 +158,7 @@ export class OrcidSyncSettingsComponent implements OnInit {
     ).subscribe((remoteData: RemoteData<ResearcherProfile>) => {
       if (remoteData.isSuccess) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.synchronization-settings-update.success'));
+        this.settingsUpdated.emit();
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.synchronization-settings-update.error'));
       }

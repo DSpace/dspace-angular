@@ -193,6 +193,7 @@ describe('OrcidAuthComponent test suite', () => {
         syncProfile_BIOGRAPHICAL: new FormControl(true),
         syncProfile_IDENTIFIERS: new FormControl(true),
       });
+      spyOn(comp.settingsUpdated, 'emit');
     });
 
     it('should call updateByOrcidOperations properly', () => {
@@ -232,6 +233,7 @@ describe('OrcidAuthComponent test suite', () => {
       scheduler.flush();
 
       expect(notificationsService.success).toHaveBeenCalled();
+      expect(comp.settingsUpdated.emit).toHaveBeenCalled();
     });
 
     it('should show notification on error', () => {
@@ -241,6 +243,7 @@ describe('OrcidAuthComponent test suite', () => {
       scheduler.flush();
 
       expect(notificationsService.error).toHaveBeenCalled();
+      expect(comp.settingsUpdated.emit).not.toHaveBeenCalled();
     });
 
     it('should show notification on error', () => {
@@ -251,6 +254,7 @@ describe('OrcidAuthComponent test suite', () => {
       scheduler.flush();
 
       expect(notificationsService.error).toHaveBeenCalled();
+      expect(comp.settingsUpdated.emit).not.toHaveBeenCalled();
     });
   });
 
