@@ -79,7 +79,9 @@
 <ng-template #searchForm>
     <div class="d-flex justify-content-between">
         <div *ngIf="!(isXsOrSm$ | async) && showFilterToggle && showSidebar">
-            <button class="btn btn-outline-secondary mr-3" (click)="toggleSidebar()" >
+            <button class="btn btn-outline-secondary mr-3"
+                    ngbTooltip="{{'search.sidebar.show.hide.filters.tooltip' | translate}}"
+                    (click)="toggleSidebar()">
                 <span class="d-flex align-items-center">
                     <i class="fa fa-filter mr-2"></i>
                     {{"search.sidebar.show.hide" | translate}}</span>

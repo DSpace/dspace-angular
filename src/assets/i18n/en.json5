@@ -4966,6 +4966,10 @@
 
   "search.sidebar.show.hide": "Show/Hide",
 
+  "search.sidebar.show.hide.filters.tooltip": "Show/Hide filters sidebar",
+
+  "search.sidebar.show.hide.charts.tooltip": "Show/Hide charts",
+
 
 
   "search.view-switch.show-detail": "Show detail",
