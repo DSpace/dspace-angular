@@ -29,7 +29,7 @@ import { InputSuggestion } from '../../../../input-suggestions/input-suggestions
 import { SearchOptions } from '../../../models/search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../../../utils/route.utils';
-import { getFacetValueForType, stripOperatorFromFilterValue } from '../../../search.utils';
+import { addOperatorToFilterValue, getFacetValueForType, stripOperatorFromFilterValue } from '../../../search.utils';
 import { createPendingRemoteDataObject } from '../../../../remote-data.utils';
 
 @Component({
@@ -234,32 +234,16 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    * @param data The string from the input field
    */
   onSubmit(data: any) {
-    if (data.match(new RegExp(`^.+,(equals|query|authority)$`))) {
-      this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
-        if (isNotEmpty(data)) {
-          this.router.navigate(this.getSearchLinkParts(), {
-            queryParams:
-              {
-                [this.filterConfig.paramName]: [
-                  ...selectedValues.map((facet) => this.getFacetValue(facet)),
-                  data
-                ]
-              },
-            queryParamsHandling: 'merge'
-          });
-          this.filter = '';
-        }
-        this.filterSearchResults = observableOf([]);
-      });
-    }
+    this.applyFilterValue(data);
   }
 
   /**
-   * On click, set the input's value to the clicked data
-   * @param data The value of the option that was clicked
+   * Submits a selected filter value to the filter
+   * Adds the "equals" operator to the received data before passing it on
+   * @param data The string selected from input suggestions
    */
   onClick(data: any) {
-    this.filter = data;
+    this.applyFilterValue(addOperatorToFilterValue(data, 'equals'));
   }
 
   /**
@@ -304,6 +288,31 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       );
     } else {
       this.filterSearchResults = observableOf([]);
+    }
+  }
+
+  /**
+   * Build the filter query using the value given and apply to the search.
+   * @param data The string from the input field
+   */
+  protected applyFilterValue(data) {
+    if (data.match(new RegExp(`^.+,(equals|query|authority)$`))) {
+      this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
+        if (isNotEmpty(data)) {
+          this.router.navigate(this.getSearchLinkParts(), {
+            queryParams:
+              {
+                [this.filterConfig.paramName]: [
+                  ...selectedValues.map((facet) => this.getFacetValue(facet)),
+                  data
+                ]
+              },
+            queryParamsHandling: 'merge'
+          });
+          this.filter = '';
+        }
+        this.filterSearchResults = observableOf([]);
+      });
     }
   }
 

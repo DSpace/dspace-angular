@@ -3,7 +3,6 @@ import { FilterType } from '../../../models/filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
 import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { addOperatorToFilterValue } from '../../../search.utils';
-import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',
@@ -23,8 +22,6 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
    * @param data The string from the input field
    */
   onSubmit(data: any) {
-    this.filterSearchResults.subscribe((filterSearchResults: InputSuggestion[]) => {
-      super.onSubmit(addOperatorToFilterValue(data, filterSearchResults.length ? 'equals' : 'query'));
-    });
+    super.onSubmit(addOperatorToFilterValue(data, 'query'));
   }
 }
