@@ -1,18 +1,11 @@
 .img-file {
-    margin: 0;
-    display: block;
-    min-width: 100%;
-    max-height: 160px;
-    object-fit: cover;
-    object-position: 0% 0%;
+    max-height: var(--ds-advanced-attachment-image-max-height);
+    object-fit: var(--ds-advanced-attachment-image-object-fit);
+    object-position: var(--ds-advanced-attachment-image-object-position);
 }
 
 .thumbnail-placeholder {
     border: var(--ds-thumbnail-placeholder-border);
     color: var(--ds-thumbnail-placeholder-color);
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    font-weight: var(--ds-advanced-attachment-thumbnail-placeholder-font-weight);
 }

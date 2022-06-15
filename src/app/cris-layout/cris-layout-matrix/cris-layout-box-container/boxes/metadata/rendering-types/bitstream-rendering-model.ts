@@ -42,7 +42,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   }
 
   getBitstreams(): Observable<Bitstream[]> {
-    return this.bitstreamDataService.findAllByItemAndBundleName(this.item, this.field.bitstream.bundle, {}, true, true, ...[followLink('thumbnail'), followLink('format')]).pipe(
+    return this.bitstreamDataService.findAllByItemAndBundleName(this.item, this.field.bitstream.bundle, {}, true, true, followLink('thumbnail'), followLink('format')).pipe(
       getFirstCompletedRemoteData(),
       map((response: RemoteData<PaginatedList<Bitstream>>) => {
         return response.hasSucceeded ? response.payload.page : [];

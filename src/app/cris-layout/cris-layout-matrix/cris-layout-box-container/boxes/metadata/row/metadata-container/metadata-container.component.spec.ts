@@ -270,7 +270,7 @@ describe('MetadataContainerComponent', () => {
         expect(component).toBeTruthy();
       });
 
-      xit('should not render metadata ', (done) => {
+      it('should not render metadata ', (done) => {
         const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-label'));
         expect(spanValueFound.length).toBe(0);
 

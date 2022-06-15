@@ -1,3 +1,6 @@
+/**
+ * Interface configuration to show/hide advnaced attachment informations
+ */
 export interface AdvancedAttachment {
     title: boolean;
     size: boolean;
