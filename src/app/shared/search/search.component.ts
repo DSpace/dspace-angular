@@ -175,6 +175,16 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showScopeSelector = true;
 
   /**
+   * Toggle button to Show/Hide filter
+   */
+  @Input() showFilterToggle = false;
+
+  /**
+   * Toggle button to Show/Hide chart
+   */
+   @Input() showChartsToggle = false;
+
+  /**
    * The current configuration used during the search
    */
   currentConfiguration$: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -431,6 +441,13 @@ export class SearchComponent implements OnInit, OnDestroy {
       return currentPath(this.router);
     }
     return this.service.getSearchLink();
+  }
+
+  /**
+   * To Toggle the Sidebar
+   */
+  toggleSidebar() {
+    this.sidebarService.toggle();
   }
 
 
