@@ -4767,6 +4767,8 @@
 
   "search.filters.filter.editor.placeholder": "Editor",
 
+  "search.filters.filter.editor.label": "Search editor",
+
   "search.filters.filter.withdrawn.head": "Withdrawn",
 
   "search.filters.filter.entityType.head": "Item Type",
