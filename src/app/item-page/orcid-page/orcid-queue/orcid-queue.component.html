@@ -23,7 +23,7 @@
           </thead>
           <tbody>
           <tr *ngFor="let entry of (getList() | async)?.payload?.page" data-test="orcidQueueElementRow">
-            <td class="text-center align-middle">
+            <td style="width: 15%" class="text-center align-middle">
               <i [ngClass]="getIconClass(entry)" [ngbTooltip]="getIconTooltip(entry) | translate"
                  class="fa-2x" aria-hidden="true"></i>
             </td>
@@ -32,11 +32,7 @@
             </td>
             <td style="width: 20%" class="text-center">
               <div class="btn-group edit-field">
-                <!--<button [ngbTooltip]="getOperationTooltip(entry) | translate" container="body"
-                        class="btn btn-outline-success my-1 col-md">
-                  <i [ngClass]="getOperationClass(entry)"></i>
-                </button>-->
-                <button [ngbTooltip]="'person.page.orcid.sync-queue.send' | translate" container="body"
+                <button [ngbTooltip]="getOperationTooltip(entry) | translate" container="body"
                         class="btn btn-outline-success my-1 col-md" (click)="send(entry)">
                   <i [ngClass]="getOperationClass(entry)"></i>
                 </button>

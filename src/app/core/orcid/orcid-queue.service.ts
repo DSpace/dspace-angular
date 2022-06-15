@@ -76,17 +76,23 @@ export class OrcidQueueService {
   }
 
   /**
-   * @param itemId It represent a Id of owner
-   * @param paginationOptions
+   * @param itemId                      It represent an Id of owner
+   * @param paginationOptions           The pagination options object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
    * @returns { OrcidQueue }
    */
-  searchByOwnerId(itemId: string, paginationOptions: PaginationComponentOptions): Observable<RemoteData<PaginatedList<OrcidQueue>>> {
+  searchByOwnerId(itemId: string, paginationOptions: PaginationComponentOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<RemoteData<PaginatedList<OrcidQueue>>> {
     return this.dataService.searchBy('findByOwner', {
-      searchParams: [new RequestParam('ownerId', itemId)],
-      elementsPerPage: paginationOptions.pageSize,
-      currentPage: paginationOptions.currentPage
-    },false,
-      true);
+        searchParams: [new RequestParam('ownerId', itemId)],
+        elementsPerPage: paginationOptions.pageSize,
+        currentPage: paginationOptions.currentPage
+      },
+      useCachedVersionIfAvailable,
+      reRequestOnStale
+    );
   }
 
   /**

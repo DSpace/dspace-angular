@@ -109,6 +109,7 @@ export class OrcidPageComponent implements OnInit {
    * Retrieve the updated profile item
    */
   updateItem(): void {
+    this.clearRouteParams();
     this.itemService.findById(this.itemId, false).pipe(
       getFirstCompletedRemoteData()
     ).subscribe((itemRD: RemoteData<Item>) => {
@@ -135,11 +136,18 @@ export class OrcidPageComponent implements OnInit {
       } else {
         this.item.next(person);
         this.connectionStatus.next(false);
+        this.clearRouteParams();
       }
-
-      // update route removing the code from query params
-      const redirectUrl = this.router.url.split('?')[0];
-      this.router.navigate([redirectUrl]);
     });
+  }
+
+  /**
+   * Update route removing the code from query params
+   * @private
+   */
+  private clearRouteParams(): void {
+    // update route removing the code from query params
+    const redirectUrl = this.router.url.split('?')[0];
+    this.router.navigate([redirectUrl]);
   }
 }

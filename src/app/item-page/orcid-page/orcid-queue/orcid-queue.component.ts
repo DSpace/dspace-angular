@@ -1,7 +1,9 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { OrcidHistory } from '../../../core/orcid/model/orcid-history.model';
@@ -9,7 +11,7 @@ import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
 import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.service';
 import { OrcidQueueService } from '../../../core/orcid/orcid-queue.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { getFinishedRemoteData, getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
@@ -57,22 +59,35 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
    * @type {Array}
    */
   private subs: Subscription[] = [];
+
   constructor(private orcidQueueService: OrcidQueueService,
               protected translateService: TranslateService,
               private paginationService: PaginationService,
               private notificationsService: NotificationsService,
               private orcidHistoryService: OrcidHistoryDataService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.updateList();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!changes.item.isFirstChange() && changes.item.currentValue !== changes.item.previousValue) {
+      this.updateList();
+    }
+  }
+
+  /**
+   * Retrieve queue list
+   */
   updateList() {
     this.subs.push(
       this.paginationService.getCurrentPagination(this.paginationOptions.id, this.paginationOptions).pipe(
+        debounceTime(100),
+        distinctUntilChanged(),
         tap(() => this.processing$.next(true)),
-        switchMap((config: PaginationComponentOptions) => this.orcidQueueService.searchByOwnerId(this.item.id, config)),
+        switchMap((config: PaginationComponentOptions) => this.orcidQueueService.searchByOwnerId(this.item.id, config, false)),
         getFirstCompletedRemoteData()
       ).subscribe((result: RemoteData<PaginatedList<OrcidQueue>>) => {
         this.processing$.next(false);
@@ -82,7 +97,6 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     );
   }
 
-
   /**
    * Return the list of orcid queue records
    */
@@ -90,6 +104,11 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     return this.list$.asObservable();
   }
 
+  /**
+   * Return the icon class for the queue object type
+   *
+   * @param orcidQueue The OrcidQueue object
+   */
   getIconClass(orcidQueue: OrcidQueue): string {
     if (!orcidQueue.recordType) {
       return 'fa fa-user';
@@ -113,6 +132,11 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Return the icon tooltip message for the queue object type
+   *
+   * @param orcidQueue The OrcidQueue object
+   */
   getIconTooltip(orcidQueue: OrcidQueue): string {
     if (!orcidQueue.recordType) {
       return '';
@@ -121,24 +145,11 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     return 'person.page.orcid.sync-queue.tooltip.' + orcidQueue.recordType.toLowerCase();
   }
 
-  getOperationBadgeClass(orcidQueue: OrcidQueue): string {
-
-    if (!orcidQueue.operation) {
-      return '';
-    }
-
-    switch (orcidQueue.operation.toLowerCase()) {
-      case 'insert':
-        return 'badge badge-pill badge-success';
-      case 'update':
-        return 'badge badge-pill badge-primary';
-      case 'delete':
-        return 'badge badge-pill badge-danger';
-      default:
-        return '';
-    }
-  }
-
+  /**
+   * Return the icon tooltip message for the queue object operation
+   *
+   * @param orcidQueue The OrcidQueue object
+   */
   getOperationTooltip(orcidQueue: OrcidQueue): string {
     if (!orcidQueue.operation) {
       return '';
@@ -147,6 +158,11 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     return 'person.page.orcid.sync-queue.tooltip.' + orcidQueue.operation.toLowerCase();
   }
 
+  /**
+   * Return the icon class for the queue object operation
+   *
+   * @param orcidQueue The OrcidQueue object
+   */
   getOperationClass(orcidQueue: OrcidQueue): string {
 
     if (!orcidQueue.operation) {
@@ -165,10 +181,15 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Discard a queue entry from the synchronization
+   *
+   * @param orcidQueue The OrcidQueue object to discard
+   */
   discardEntry(orcidQueue: OrcidQueue) {
     this.processing$.next(true);
     this.subs.push(this.orcidQueueService.deleteById(orcidQueue.id).pipe(
-      getFinishedRemoteData()
+      getFirstCompletedRemoteData()
     ).subscribe((remoteData) => {
       this.processing$.next(false);
       if (remoteData.isSuccess) {
@@ -180,10 +201,15 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     }));
   }
 
-  send( orcidQueue: OrcidQueue ) {
+  /**
+   * Send a queue entry to orcid for the synchronization
+   *
+   * @param orcidQueue The OrcidQueue object to synchronize
+   */
+  send(orcidQueue: OrcidQueue) {
     this.processing$.next(true);
     this.subs.push(this.orcidHistoryService.sendToORCID(orcidQueue).pipe(
-      getFinishedRemoteData()
+      getFirstCompletedRemoteData()
     ).subscribe((remoteData) => {
       this.processing$.next(false);
       if (remoteData.isSuccess) {
@@ -196,7 +222,22 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     }));
   }
 
-  handleOrcidHistoryRecordCreation(orcidHistory: OrcidHistory) {
+
+  /**
+   * Return the error message for Unauthorized response
+   * @private
+   */
+  private getUnauthorizedErrorContent(): Observable<string> {
+    return this.orcidQueueService.getOrcidAuthorizeUrl(this.item.id).pipe(
+      switchMap((authorizeUrl) => this.translateService.get('person.page.orcid.sync-queue.send.unauthorized-error.content', { orcid: authorizeUrl }))
+    );
+  }
+
+  /**
+   * Manage notification by response
+   * @private
+   */
+  private handleOrcidHistoryRecordCreation(orcidHistory: OrcidHistory) {
     switch (orcidHistory.status) {
       case 200:
       case 201:
@@ -212,7 +253,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
           this.translateService.get('person.page.orcid.sync-queue.send.unauthorized-error.title'),
           this.getUnauthorizedErrorContent()],
         ).subscribe(([title, content]) => {
-          this.notificationsService.error(title, content, { timeOut: -1}, true);
+          this.notificationsService.error(title, content, { timeOut: -1 }, true);
         });
         break;
       case 404:
@@ -226,7 +267,11 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     }
   }
 
-  handleValidationErrors(remoteData: RemoteData<OrcidHistory>) {
+  /**
+   * Manage validation errors
+   * @private
+   */
+  private handleValidationErrors(remoteData: RemoteData<OrcidHistory>) {
     const translations = [this.translateService.get('person.page.orcid.sync-queue.send.validation-error')];
     const errorMessage = remoteData.errorMessage;
     if (errorMessage && errorMessage.indexOf('Error codes:') > 0) {
@@ -240,11 +285,6 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getUnauthorizedErrorContent(): Observable<string> {
-    return this.orcidQueueService.getOrcidAuthorizeUrl(this.item.id).pipe(
-      switchMap((authorizeUrl) => this.translateService.get('person.page.orcid.sync-queue.send.unauthorized-error.content', { orcid : authorizeUrl}))
-    );
-  }
 
   /**
    * Unsubscribe from all subscriptions
@@ -253,10 +293,6 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     this.list$ = null;
     this.subs.filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
-  }
-
-  isProfileRecord(orcidQueue: OrcidQueue): boolean {
-    return orcidQueue.recordType !== 'Publication' && orcidQueue.recordType !== 'Project';
   }
 
 }
