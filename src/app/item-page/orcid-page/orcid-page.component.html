@@ -14,6 +14,6 @@
 </div>
 <ng-container *ngIf="!(processingConnection | async) && (item | async) && (connectionStatus | async)" >
   <ds-orcid-auth [item]="(item | async)" (unlink)="updateItem()" data-test="orcid-auth"></ds-orcid-auth>
-  <ds-orcid-sync-setting *ngIf="isLinkedToOrcid()" [item]="(item | async)" data-test="orcid-sync-setting"></ds-orcid-sync-setting>
+  <ds-orcid-sync-setting *ngIf="isLinkedToOrcid()" [item]="(item | async)" (settingsUpdated)="updateItem()" data-test="orcid-sync-setting"></ds-orcid-sync-setting>
   <ds-orcid-queue *ngIf="isLinkedToOrcid()" [item]="(item | async)"></ds-orcid-queue>
 </ng-container>
