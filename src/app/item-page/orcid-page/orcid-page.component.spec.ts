@@ -1,4 +1,4 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -13,11 +13,16 @@ import { AuthService } from '../../core/auth/auth.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
 import { OrcidPageComponent } from './orcid-page.component';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/remote-data.utils';
 import { Item } from '../../core/shared/item.model';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ItemDataService } from '../../core/data/item-data.service';
+import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
 
 describe('OrcidPageComponent test suite', () => {
   let comp: OrcidPageComponent;
@@ -29,7 +34,21 @@ describe('OrcidPageComponent test suite', () => {
   let itemDataService: jasmine.SpyObj<ItemDataService>;
   let researcherProfileService: jasmine.SpyObj<ResearcherProfileService>;
 
+  const mockResearcherProfile: ResearcherProfile = Object.assign(new ResearcherProfile(), {
+    id: 'test-id',
+    visible: true,
+    type: 'profile',
+    _links: {
+      item: {
+        href: 'https://rest.api/rest/api/profiles/test-id/item'
+      },
+      self: {
+        href: 'https://rest.api/rest/api/profiles/test-id'
+      },
+    }
+  });
   const mockItem: Item = Object.assign(new Item(), {
+    id: 'test-id',
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     metadata: {
       'dc.title': [
@@ -41,6 +60,7 @@ describe('OrcidPageComponent test suite', () => {
     }
   });
   const mockItemLinkedToOrcid: Item = Object.assign(new Item(), {
+    id: 'test-id',
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     metadata: {
       'dc.title': [
@@ -66,12 +86,11 @@ describe('OrcidPageComponent test suite', () => {
       dso: createSuccessfulRemoteDataObject(mockItem),
     };
 
-    routeStub = Object.assign(new ActivatedRouteStub(), {
-      data: observableOf(routeData)
-    });
+    routeStub = new ActivatedRouteStub({}, routeData);
 
     researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
-      isLinkedToOrcid: jasmine.createSpy('isLinkedToOrcid')
+      isLinkedToOrcid: jasmine.createSpy('isLinkedToOrcid'),
+      linkOrcidByItem: jasmine.createSpy('linkOrcidByItem'),
     });
 
     itemDataService = jasmine.createSpyObj('ItemDataService', {
@@ -94,6 +113,7 @@ describe('OrcidPageComponent test suite', () => {
         { provide: ResearcherProfileService, useValue: researcherProfileService },
         { provide: AuthService, useValue: authService },
         { provide: ItemDataService, useValue: itemDataService },
+        { provide: PLATFORM_ID, useValue: 'browser' },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -105,27 +125,96 @@ describe('OrcidPageComponent test suite', () => {
     fixture = TestBed.createComponent(OrcidPageComponent);
     comp = fixture.componentInstance;
     authService.isAuthenticated.and.returnValue(observableOf(true));
-    fixture.detectChanges();
   }));
 
-  it('should create', () => {
-    const btn = fixture.debugElement.queryAll(By.css('[data-test="back-button"]'));
-    expect(comp).toBeTruthy();
-    expect(btn.length).toBe(1);
+  describe('whn has no query param', () => {
+    beforeEach(waitForAsync(() => {
+      fixture.detectChanges();
+    }));
+
+    it('should create', () => {
+      const btn = fixture.debugElement.queryAll(By.css('[data-test="back-button"]'));
+      const auth = fixture.debugElement.query(By.css('[data-test="orcid-auth"]'));
+      const settings = fixture.debugElement.query(By.css('[data-test="orcid-sync-setting"]'));
+      expect(comp).toBeTruthy();
+      expect(btn.length).toBe(1);
+      expect(auth).toBeTruthy();
+      expect(settings).toBeTruthy();
+      expect(comp.itemId).toBe('test-id');
+    });
+
+    it('should call isLinkedToOrcid', () => {
+      comp.isLinkedToOrcid();
+
+      expect(researcherProfileService.isLinkedToOrcid).toHaveBeenCalledWith(comp.item.value);
+    });
+
+    it('should update item', fakeAsync(() => {
+      itemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockItemLinkedToOrcid));
+      scheduler.schedule(() => comp.updateItem());
+      scheduler.flush();
+
+      expect(comp.item.value).toEqual(mockItemLinkedToOrcid);
+    }));
   });
 
-  it('should call isLinkedToOrcid', () => {
-    comp.isLinkedToOrcid();
+  describe('when query param contains orcid code', () => {
+    beforeEach(waitForAsync(() => {
+      spyOn(comp, 'updateItem').and.callThrough();
+      routeStub.testParams = {
+        code: 'orcid-code'
+      };
+    }));
 
-    expect(researcherProfileService.isLinkedToOrcid).toHaveBeenCalledWith(comp.item.value);
+    describe('and linking to orcid profile is successfully', () => {
+      beforeEach(waitForAsync(() => {
+        researcherProfileService.linkOrcidByItem.and.returnValue(createSuccessfulRemoteDataObject$(mockResearcherProfile));
+        itemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockItemLinkedToOrcid));
+        fixture.detectChanges();
+      }));
+
+      it('should call linkOrcidByItem', () => {
+        expect(researcherProfileService.linkOrcidByItem).toHaveBeenCalledWith(mockItem, 'orcid-code');
+        expect(comp.updateItem).toHaveBeenCalled();
+      });
+
+      it('should create', () => {
+        const btn = fixture.debugElement.queryAll(By.css('[data-test="back-button"]'));
+        const auth = fixture.debugElement.query(By.css('[data-test="orcid-auth"]'));
+        const settings = fixture.debugElement.query(By.css('[data-test="orcid-sync-setting"]'));
+        expect(comp).toBeTruthy();
+        expect(btn.length).toBe(1);
+        expect(auth).toBeTruthy();
+        expect(settings).toBeTruthy();
+        expect(comp.itemId).toBe('test-id');
+      });
+
+    });
+
+    describe('and linking to orcid profile is failed', () => {
+      beforeEach(waitForAsync(() => {
+        researcherProfileService.linkOrcidByItem.and.returnValue(createFailedRemoteDataObject$());
+        itemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockItemLinkedToOrcid));
+        fixture.detectChanges();
+      }));
+
+      it('should call linkOrcidByItem', () => {
+        expect(researcherProfileService.linkOrcidByItem).toHaveBeenCalledWith(mockItem, 'orcid-code');
+        expect(comp.updateItem).not.toHaveBeenCalled();
+      });
+
+      it('should create', () => {
+        const btn = fixture.debugElement.queryAll(By.css('[data-test="back-button"]'));
+        const auth = fixture.debugElement.query(By.css('[data-test="orcid-auth"]'));
+        const settings = fixture.debugElement.query(By.css('[data-test="orcid-sync-setting"]'));
+        const error = fixture.debugElement.query(By.css('[data-test="error-box"]'));
+        expect(comp).toBeTruthy();
+        expect(btn.length).toBe(1);
+        expect(error).toBeTruthy();
+        expect(auth).toBeFalsy();
+        expect(settings).toBeFalsy();
+      });
+
+    });
   });
-
-  it('should update item', fakeAsync(() => {
-    itemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockItemLinkedToOrcid));
-    scheduler.schedule(() => comp.updateItem());
-    scheduler.flush();
-
-    expect(comp.item.value).toEqual(mockItemLinkedToOrcid);
-  }));
-
 });

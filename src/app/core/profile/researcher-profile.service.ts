@@ -1,14 +1,12 @@
 /* eslint-disable max-classes-per-file */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { Operation, RemoveOperation, ReplaceOperation } from 'fast-json-patch';
+import { AddOperation, Operation, RemoveOperation, ReplaceOperation } from 'fast-json-patch';
 import { combineLatest, Observable } from 'rxjs';
 import { find, map, switchMap } from 'rxjs/operators';
-
-import { environment } from '../../../environments/environment';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -24,7 +22,6 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import {
   getAllCompletedRemoteData,
-  getFinishedRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload
 } from '../shared/operators';
@@ -37,6 +34,8 @@ import { CoreState } from '../core-state.model';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Item } from '../shared/item.model';
 import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { NativeWindowRef, NativeWindowService } from '../services/window.service';
+import { URLCombiner } from '../url-combiner/url-combiner';
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -70,6 +69,7 @@ export class ResearcherProfileService {
   protected responseMsToLive: number = 10 * 1000;
 
   constructor(
+    @Inject(NativeWindowService) protected _window: NativeWindowRef,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
@@ -202,18 +202,38 @@ export class ResearcherProfileService {
   }
 
   /**
-   * If the given item represents a profile unlink it from ORCID.
+   * Perform a link operation to ORCID profile.
+   *
+   * @param person The person item related to the researcher profile
+   * @param code The auth-code received from orcid
    */
-  public unlinkOrcid(item: Item): Observable<RemoteData<ResearcherProfile>> {
+  public linkOrcidByItem(person: Item, code: string): Observable<RemoteData<ResearcherProfile>> {
+    const operations: AddOperation<string>[] = [{
+      path: '/orcid',
+      op: 'add',
+      value: code
+    }];
+
+    return this.findById(person.firstMetadata('dspace.object.owner').authority).pipe(
+      getFirstCompletedRemoteData(),
+      switchMap((profileRD) => this.updateByOrcidOperations(profileRD.payload, operations))
+    );
+  }
+
+  /**
+   * Perform unlink operation from ORCID profile.
+   *
+   * @param person The person item related to the researcher profile
+   */
+  public unlinkOrcidByItem(person: Item): Observable<RemoteData<ResearcherProfile>> {
     const operations: RemoveOperation[] = [{
       path:'/orcid',
       op:'remove'
     }];
 
-    return this.findById(item.firstMetadata('dspace.object.owner').authority).pipe(
+    return this.findById(person.firstMetadata('dspace.object.owner').authority).pipe(
       getFirstCompletedRemoteData(),
-      switchMap((profileRD) => this.dataService.patch(profileRD.payload, operations)),
-      getFinishedRemoteData()
+      switchMap((profileRD) => this.updateByOrcidOperations(profileRD.payload, operations))
     );
   }
 
@@ -229,7 +249,9 @@ export class ResearcherProfileService {
       this.configurationService.findByPropertyName('orcid.scope').pipe(getFirstSucceededRemoteDataPayload())]
     ).pipe(
       map(([authorizeUrl, clientId, scopes]) => {
-        const redirectUri = environment.rest.baseUrl + '/api/eperson/orcid/' + profile.id + '/?url=' + encodeURIComponent(this.router.url);
+        console.log(this._window.nativeWindow.origin, this.router.url);
+        const redirectUri = new URLCombiner(this._window.nativeWindow.origin, encodeURIComponent(this.router.url.split('?')[0]));
+        console.log(redirectUri.toString());
         return authorizeUrl.values[0] + '?client_id=' + clientId.values[0]   + '&redirect_uri=' + redirectUri + '&response_type=code&scope='
           + scopes.values.join(' ');
       }));

@@ -23,14 +23,15 @@ import { ResearcherProfileService } from './researcher-profile.service';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { ResearcherProfile } from './model/researcher-profile.model';
 import { Item } from '../shared/item.model';
-import { RemoveOperation, ReplaceOperation } from 'fast-json-patch';
+import { AddOperation, RemoveOperation, ReplaceOperation } from 'fast-json-patch';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { PostRequest } from '../data/request.models';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { ConfigurationDataService } from '../data/configuration-data.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { environment } from '../../../environments/environment';
+import { NativeWindowRefMock } from '../../shared/mocks/mock-native-window-ref';
+import { URLCombiner } from '../url-combiner/url-combiner';
 
 describe('ResearcherProfileService', () => {
   let scheduler: TestScheduler;
@@ -42,6 +43,8 @@ describe('ResearcherProfileService', () => {
   let halService: HALEndpointService;
   let responseCacheEntry: RequestEntry;
   let configurationDataService: ConfigurationDataService;
+  let nativeWindowService: NativeWindowRefMock;
+  let routerStub: any;
 
   const researcherProfileId = 'beef9946-rt56-479e-8f11-b90cbe9f7241';
   const itemId = 'beef9946-rt56-479e-8f11-b90cbe9f7241';
@@ -102,7 +105,14 @@ describe('ResearcherProfileService', () => {
       }],
       'dspace.entity.type': [{
         'value': 'Person'
-      }]
+      }],
+      'dspace.object.owner': [{
+        'value': 'test person',
+        'language': null,
+        'authority': 'researcher-profile-id',
+        'confidence': 600,
+        'place': 0
+      }],
     }
   });
 
@@ -238,15 +248,17 @@ describe('ResearcherProfileService', () => {
     const notificationsService = {} as NotificationsService;
     const http = {} as HttpClient;
     const comparator = {} as any;
-    const routerStub: any = new RouterMock();
+    routerStub = new RouterMock();
     const itemService = jasmine.createSpyObj('ItemService', {
       findByHref: jasmine.createSpy('findByHref')
     });
     configurationDataService = jasmine.createSpyObj('configurationDataService', {
       findByPropertyName: jasmine.createSpy('findByPropertyName')
     });
+    nativeWindowService = new NativeWindowRefMock();
 
     service = new ResearcherProfileService(
+      nativeWindowService,
       requestService,
       rdbService,
       objectCache,
@@ -455,7 +467,28 @@ describe('ResearcherProfileService', () => {
     });
   });
 
-  describe('unlinkOrcid', () => {
+  describe('linkOrcidByItem', () => {
+    beforeEach(() => {
+      scheduler = getTestScheduler();
+      spyOn((service as any).dataService, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
+      spyOn((service as any), 'findById').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfile));
+    });
+
+    it('should call patch method properly', () => {
+      const operations: AddOperation<string>[] = [{
+        path: '/orcid',
+        op: 'add',
+        value: 'test-code'
+      }];
+
+      scheduler.schedule(() => service.linkOrcidByItem(mockItemUnlinkedToOrcid, 'test-code').subscribe());
+      scheduler.flush();
+
+      expect((service as any).dataService.patch).toHaveBeenCalledWith(researcherProfile, operations);
+    });
+  });
+
+  describe('unlinkOrcidByItem', () => {
     beforeEach(() => {
       scheduler = getTestScheduler();
       spyOn((service as any).dataService, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
@@ -468,7 +501,7 @@ describe('ResearcherProfileService', () => {
         op: 'remove'
       }];
 
-      scheduler.schedule(() => service.unlinkOrcid(mockItemLinkedToOrcid).subscribe());
+      scheduler.schedule(() => service.unlinkOrcidByItem(mockItemLinkedToOrcid).subscribe());
       scheduler.flush();
 
       expect((service as any).dataService.patch).toHaveBeenCalledWith(researcherProfile, operations);
@@ -477,6 +510,7 @@ describe('ResearcherProfileService', () => {
 
   describe('getOrcidAuthorizeUrl', () => {
     beforeEach(() => {
+      routerStub.setRoute('/entities/person/uuid/orcid');
       (service as any).configurationService.findByPropertyName.and.returnValues(
         createSuccessfulRemoteDataObject$(authorizeUrl),
         createSuccessfulRemoteDataObject$(appClientId),
@@ -486,7 +520,7 @@ describe('ResearcherProfileService', () => {
 
     it('should build the url properly', () => {
       const result = service.getOrcidAuthorizeUrl(mockItemUnlinkedToOrcid);
-      const redirectUri = environment.rest.baseUrl + '/api/eperson/orcid/' + mockItemUnlinkedToOrcid.id + '/?url=undefined';
+      const redirectUri: string = new URLCombiner(nativeWindowService.nativeWindow.origin, encodeURIComponent(routerStub.url.split('?')[0])).toString();
       const url = 'orcid.authorize-url?client_id=orcid.application-client-id&redirect_uri=' + redirectUri + '&response_type=code&scope=/authenticate /read-limited';
 
       const expected = cold('(a|)', {

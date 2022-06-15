@@ -4499,6 +4499,10 @@
 
   "person.page.orcid.link": "Connect to ORCID ID",
 
+  "person.page.orcid.link.processing": "Linking profile to ORCID...",
+
+  "person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
+
   "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
 
   "person.page.orcid.unlink": "Disconnect from ORCID",
@@ -4657,7 +4661,13 @@
 
   "person.page.orcid.synchronization-mode.label": "Synchronization mode",
 
-  "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization with orcid to occur. It can be set as 'Manual' so you must send your data to ORCID Registry manually, or as 'Batch' so the synchronization on ORCID will be done by the system with a scheduled script",
+  "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
+
+  "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
+
+  "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
+
+  "person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
 
   "person.page.orcid.synchronization-settings-update.success": "The synchronization settings have been updated successfully",
 

@@ -10,6 +10,7 @@ import { Item } from '../../../core/shared/item.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-orcid-auth',
@@ -169,7 +170,9 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
    */
   unlinkOrcid(): void {
     this.unlinkProcessing.next(true);
-    this.researcherProfileService.unlinkOrcid(this.item).subscribe((remoteData: RemoteData<ResearcherProfile>) => {
+    this.researcherProfileService.unlinkOrcidByItem(this.item).pipe(
+      getFirstCompletedRemoteData()
+    ).subscribe((remoteData: RemoteData<ResearcherProfile>) => {
       this.unlinkProcessing.next(false);
       if (remoteData.isSuccess) {
         this.notificationsService.success(this.translateService.get('person.page.orcid.unlink.success'));
