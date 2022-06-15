@@ -6,7 +6,7 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { OrcidHistory } from '../../../core/orcid/model/orcid-history.model';
 import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
-import { OrcidHistoryService } from '../../../core/orcid/orcid-history.service';
+import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.service';
 import { OrcidQueueService } from '../../../core/orcid/orcid-queue.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { getFinishedRemoteData, getFirstCompletedRemoteData } from '../../../core/shared/operators';
@@ -61,7 +61,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
               protected translateService: TranslateService,
               private paginationService: PaginationService,
               private notificationsService: NotificationsService,
-              private orcidHistoryService: OrcidHistoryService,
+              private orcidHistoryService: OrcidHistoryDataService,
   ) { }
 
   ngOnInit(): void {

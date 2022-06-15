@@ -9,7 +9,7 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { OrcidHistoryService } from '../../../core/orcid/orcid-history.service';
+import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.service';
 import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
@@ -115,7 +115,7 @@ describe('OrcidQueueComponent test suite', () => {
       declarations: [OrcidQueueComponent],
       providers: [
         { provide: OrcidQueueService, useValue: orcidQueueServiceSpy },
-        { provide: OrcidHistoryService, useValue: {} },
+        { provide: OrcidHistoryDataService, useValue: {} },
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
       ],

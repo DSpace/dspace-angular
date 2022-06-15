@@ -22,6 +22,9 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { CoreState } from '../core-state.model';
 import { RestRequest } from '../data/rest-request.model';
 import { sendRequest } from '../shared/request.operators';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { FindListOptions } from '../data/find-list-options.model';
+import { PaginatedList } from '../data/paginated-list.model';
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -48,7 +51,7 @@ class OrcidHistoryServiceImpl extends DataService<OrcidHistory> {
  */
 @Injectable()
 @dataService(ORCID_HISTORY)
-export class OrcidHistoryService {
+export class OrcidHistoryDataService {
 
   dataService: OrcidHistoryServiceImpl;
 
@@ -87,6 +90,37 @@ export class OrcidHistoryService {
 
   getEndpoint(): Observable<string> {
     return this.halService.getEndpoint(this.dataService.linkPath);
+  }
+
+  /**
+   * Returns an observable of {@link RemoteData} of an object, based on its ID, with a list of
+   * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
+   * @param id                          ID of object we want to retrieve
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  findById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<OrcidHistory>[]): Observable<RemoteData<OrcidHistory>> {
+    return this.dataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Returns a list of observables of {@link RemoteData} of {@link OrcidHistory}s, based on an href, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the {@link OrcidHistory}
+   * @param href                        The url of object we want to retrieve
+   * @param findListOptions             Find list options object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  findAllByHref(href: string, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<OrcidHistory>[]): Observable<RemoteData<PaginatedList<OrcidHistory>>> {
+    return this.dataService.findAllByHref(href, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
 }

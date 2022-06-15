@@ -174,7 +174,7 @@ import { ResearcherProfileService } from './profile/researcher-profile.service';
 import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
 import { ResearcherProfile } from './profile/model/researcher-profile.model';
 import { OrcidQueueService } from './orcid/orcid-queue.service';
-import { OrcidHistoryService } from './orcid/orcid-history.service';
+import { OrcidHistoryDataService } from './orcid/orcid-history-data.service';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
 import { OrcidHistory } from './orcid/model/orcid-history.model';
 
@@ -306,7 +306,7 @@ const PROVIDERS = [
   ResearcherProfileService,
   ProfileClaimService,
   OrcidQueueService,
-  OrcidHistoryService,
+  OrcidHistoryDataService,
 ];
 
 /**
