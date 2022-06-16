@@ -166,6 +166,9 @@ import { SubmissionAccessesModel } from './config/models/config-submission-acces
 import { AccessStatusObject } from '../shared/object-list/access-status-badge/access-status.model';
 import { AccessStatusDataService } from './data/access-status-data.service';
 import { LinkHeadService } from './services/link-head.service';
+import { ResearcherProfileService } from './profile/researcher-profile.service';
+import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
+import { ResearcherProfile } from './profile/model/researcher-profile.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -292,6 +295,8 @@ const PROVIDERS = [
   SequenceService,
   GroupDataService,
   FeedbackDataService,
+  ResearcherProfileService,
+  ProfileClaimService
 ];
 
 /**
@@ -352,7 +357,8 @@ export const models =
     Root,
     SearchConfig,
     SubmissionAccessesModel,
-    AccessStatusObject
+    AccessStatusObject,
+    ResearcherProfile
   ];
 
 @NgModule({
