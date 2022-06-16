@@ -6,12 +6,12 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Registration } from '../core/shared/registration.model';
 import { RemoteData } from '../core/data/remote-data';
-import { GoogleRecaptchaService } from '../core/data/google-recaptcha.service';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { isNotEmpty } from '../shared/empty.util';
 import { map } from 'rxjs/operators';
+import { GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptcha.service';
 
 @Component({
   selector: 'ds-register-email-form',
@@ -71,19 +71,18 @@ export class RegisterEmailFormComponent implements OnInit {
   /**
    * Register an email address
    */
-  register() {
+  async register() {
     if (!this.form.invalid) {
       if (this.registrationVerification) {
-        this.googleRecaptchaService.getRecaptchaToken('register_email').subscribe(captcha => {
-          if (isNotEmpty(captcha)) {
-            this.registeration(captcha);
-          } else {
-            this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`),
-            this.translateService.get(`${this.MESSAGE_PREFIX}.error.recaptcha`, {email: this.email.value}));
-          }
-        });
+        const token = await this.googleRecaptchaService.getRecaptchaToken('register_email');
+        if (isNotEmpty(token)) {
+          this.registeration(token);
+        } else {
+          this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`),
+          this.translateService.get(`${this.MESSAGE_PREFIX}.error.recaptcha`, {email: this.email.value}));
+        }
       } else {
-        this.registeration(null);
+        this.registeration();
       }
     }
   }
@@ -91,12 +90,14 @@ export class RegisterEmailFormComponent implements OnInit {
   /**
    * Register an email address
    */
-  registeration(captchaToken) {
-    let a = this.epersonRegistrationService.registerEmail(this.email.value);
+  registeration(captchaToken = null) {
+    let registerEmail$;
     if (captchaToken) {
-      a = this.epersonRegistrationService.registerEmail(this.email.value, captchaToken);
+      registerEmail$ = this.epersonRegistrationService.registerEmail(this.email.value, captchaToken);
+    } else {
+      registerEmail$ = this.epersonRegistrationService.registerEmail(this.email.value);
     }
-    a.subscribe((response: RemoteData<Registration>) => {
+    registerEmail$.subscribe((response: RemoteData<Registration>) => {
       if (response.hasSucceeded) {
         this.notificationService.success(this.translateService.get(`${this.MESSAGE_PREFIX}.success.head`),
           this.translateService.get(`${this.MESSAGE_PREFIX}.success.content`, {email: this.email.value}));
