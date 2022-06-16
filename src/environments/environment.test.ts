@@ -375,5 +375,11 @@ export const environment: BuildConfig = {
     format: true,
     type: true,
     description: true,
+  },
+  attachmentPagination: {
+    pagination: true,
+    perPage: 2
   }
+
+
 };

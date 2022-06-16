@@ -21,6 +21,7 @@ import { MetadataSecurityConfig } from './metadata-security-config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
 import { AdvancedAttachment } from './advanced-attachment.config';
+import { AttachmentPagination } from './attachment-pagination.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -515,5 +516,10 @@ export class DefaultAppConfig implements AppConfig {
     format: true,
     type: true,
     description: true,
+  };
+
+  attachmentPagination: AttachmentPagination = {
+    pagination: true,
+    perPage: 2
   };
 }

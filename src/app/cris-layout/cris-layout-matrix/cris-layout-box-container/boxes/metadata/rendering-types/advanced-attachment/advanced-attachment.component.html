@@ -57,4 +57,9 @@
     </div>
     <hr *ngIf="last">
   </ng-container>
+  <div *ngIf="canViewMore" class="w-100 text-center">
+    <button class="btn btn-link" (click)="viewMore()">{{'cris-layout.advanced-attachment.viewMore' |
+      translate}}</button>
+    <hr>
+  </div>
 </div>
