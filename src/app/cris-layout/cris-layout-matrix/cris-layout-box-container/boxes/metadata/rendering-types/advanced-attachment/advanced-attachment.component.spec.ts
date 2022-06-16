@@ -191,18 +191,8 @@ describe('AdvancedAttachmentComponent', () => {
   });
 
   it('should show thumbnail', () => {
-    expect(fixture.debugElement.query(By.css('[data-test="thumbnail"]'))).toBeTruthy();
-    expect(fixture.debugElement.query(By.css('[data-test="no-thumbnail-placeholder"]'))).toBeFalsy();
+    expect(fixture.debugElement.query(By.css('ds-thumbnail'))).toBeTruthy();
   });
-
-  it('should not show thumbnail', () => {
-    mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream2])));
-    component.ngOnInit();
-    fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('[data-test="thumbnail"]'))).toBeFalsy();
-    expect(fixture.debugElement.query(By.css('[data-test="no-thumbnail-placeholder"]'))).toBeTruthy();
-  });
-
 
   describe('When envoirment configuration are all true', () => {
 
