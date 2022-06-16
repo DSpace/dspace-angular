@@ -4,13 +4,7 @@
     <div class="row">
       <div class="col-3">
         <ng-container *ngVar="getThumbnailSrc(attachment) | async as thumbnailSrc">
-          <div class="inner" *ngIf="!thumbnailSrc" data-test="no-thumbnail-placeholder">
-            <div
-              class="thumbnail-placeholder d-flex justify-content-center align-items-center text-center w-100 h-100 p-5">
-              {{ 'cris-layout.advanced-attachment.no_thumbnail' |
-              translate }}</div>
-          </div>
-          <img class="img-file m-0 d-block w-100" *ngIf="thumbnailSrc" data-test="thumbnail" src="{{ thumbnailSrc }}">
+          <ds-thumbnail [thumbnail]="thumbnailSrc"></ds-thumbnail>
         </ng-container>
       </div>
       <div class="col-5">
