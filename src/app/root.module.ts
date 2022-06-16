@@ -40,6 +40,8 @@ import {
 import {
   PageInternalServerErrorComponent
 } from './page-internal-server-error/page-internal-server-error.component';
+import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+import { PageErrorComponent } from './page-error/page-error.component';
 
 const IMPORTS = [
   CommonModule,
@@ -74,7 +76,9 @@ const DECLARATIONS = [
   ThemedForbiddenComponent,
   IdleModalComponent,
   ThemedPageInternalServerErrorComponent,
-  PageInternalServerErrorComponent
+  PageInternalServerErrorComponent,
+  ThemedPageErrorComponent,
+  PageErrorComponent
 ];
 
 const EXPORTS = [

@@ -5,16 +5,16 @@ import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { LogInExternalProviderComponent } from '../log-in-external-provider.component';
 
 @Component({
-  selector: 'ds-log-in-oidc',
-  templateUrl: './log-in-oidc.component.html',
+  selector: 'ds-log-in-orcid',
+  templateUrl: './log-in-orcid.component.html',
 })
-@renderAuthMethodFor(AuthMethodType.Oidc)
-export class LogInOidcComponent extends LogInExternalProviderComponent {
+@renderAuthMethodFor(AuthMethodType.Orcid)
+export class LogInOrcidComponent extends LogInExternalProviderComponent {
 
   /**
    * Redirect to orcid authentication url
    */
-  redirectToOidc() {
+  redirectToOrcid() {
     this.redirectToExternalProvider();
   }
 
