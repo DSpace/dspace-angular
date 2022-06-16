@@ -35,7 +35,7 @@ describe('AttachmentComponent', () => {
       ]
     },
     _links: {
-      self: {href: 'obj-selflink'}
+      self: { href: 'obj-selflink' }
     },
     uuid: 'item-uuid',
   });
@@ -61,7 +61,7 @@ describe('AttachmentComponent', () => {
     id: 'bitstream4',
     uuid: 'bitstream4',
     _links: {
-      self: {href: 'obj-selflink'}
+      self: { href: 'obj-selflink' }
     }
   });
 
@@ -69,9 +69,7 @@ describe('AttachmentComponent', () => {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
     },
-    findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
-      return createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1]));
-    },
+    findAllByItemAndBundleName: jasmine.createSpy('findAllByItemAndBundleName')
   };
 
   const mockAuthorizedService = jasmine.createSpyObj('AuthorizationDataService', {
@@ -106,6 +104,8 @@ describe('AttachmentComponent', () => {
     fixture = TestBed.createComponent(AttachmentComponent);
     component = fixture.componentInstance;
     mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
+    component.envPagination.pagination = true;
+    mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
     component.item = testItem;
     fixture.detectChanges();
   });
@@ -125,4 +125,53 @@ describe('AttachmentComponent', () => {
     expect(spanValueFound.length).toBe(1);
     done();
   });
+
+  it('should call startWithPagination', () => {
+    const spy = spyOn(component, 'startWithPagination');
+    spyOn(component, 'getBitstreams').and.returnValue(of([]));
+    mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
+    fixture.detectChanges();
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should call startWithAll when environment pagination is false', () => {
+    component.envPagination.pagination = false;
+    const spy = spyOn(component, 'startWithAll');
+    spyOn(component, 'getBitstreams').and.returnValue(of([]));
+    mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
+    fixture.detectChanges();
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  describe('When there are 4 attachments with pagination', () => {
+
+    beforeEach(() => {
+      mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream1, bitstream1, bitstream1])));
+      component.canViewMore = true;
+      fixture.detectChanges();
+      component.ngOnInit();
+      fixture.detectChanges();
+    });
+
+    it('should show view more button', () => {
+      expect(fixture.debugElement.query(By.css('button[data-test="view-more"]'))).toBeTruthy();
+    });
+
+    it('should show 2 elements', () => {
+      expect(fixture.debugElement.queryAll(By.css('ds-file-download-link')).length).toEqual(2);
+    });
+
+    it('when view more button is clicked it should show 4 elements', () => {
+      const btn = fixture.debugElement.query(By.css('button[data-test="view-more"]'));
+      btn.nativeElement.click();
+      fixture.detectChanges();
+      expect(fixture.debugElement.queryAll(By.css('ds-file-download-link')).length).toEqual(4);
+    });
+
+  });
+
 });

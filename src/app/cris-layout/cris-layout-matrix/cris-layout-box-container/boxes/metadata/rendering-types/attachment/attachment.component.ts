@@ -1,7 +1,6 @@
-import { FindListOptions } from './../../../../../../../core/data/request.models';
 import { Component, Inject, OnInit } from '@angular/core';
 
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
@@ -10,7 +9,6 @@ import { BitstreamDataService } from '../../../../../../../core/data/bitstream-d
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
-import { distinctUntilChanged, first, map, take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../../../../environments/environment';
 
 @Component({
@@ -26,6 +24,10 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
    */
   bitstreams$: Observable<Bitstream[]>;
 
+  /**
+   * Envoirment variables configuring pagination
+   */
+  envPagination = environment.attachmentPagination;
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
@@ -42,7 +44,7 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
   * On init check if we want to show the attachment list with pagination or show all attachments
   */
   ngOnInit() {
-    if (environment.attachmentPagination.pagination) {
+    if (this.envPagination.pagination) {
       this.startWithPagination();
       this.getVisibleBitstreams();
     } else {

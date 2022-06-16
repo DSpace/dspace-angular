@@ -1,11 +1,10 @@
 import { environment } from './../../../../../../../environments/environment';
 import { FindListOptions } from './../../../../../../core/data/request.models';
 import { followLink } from './../../../../../../shared/utils/follow-link-config.model';
-import { getRemoteDataPayload } from './../../../../../../core/shared/operators';
 import { Component, Inject } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Bitstream } from '../../../../../../core/shared/bitstream.model';
@@ -68,11 +67,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   }
 
   getBitstreams(): Observable<Bitstream[]> {
-    const config: FindListOptions = Object.assign(new FindListOptions(), {
-      elementsPerPage: 5
-    });
-
-    return this.bitstreamDataService.findAllByItemAndBundleName(this.item, this.field.bitstream.bundle, config, true, true, followLink('thumbnail'), followLink('format')).pipe(
+    return this.bitstreamDataService.findAllByItemAndBundleName(this.item, this.field.bitstream.bundle, {}, true, true, followLink('thumbnail'), followLink('format')).pipe(
       getFirstCompletedRemoteData(),
       map((response: RemoteData<PaginatedList<Bitstream>>) => {
         return response.hasSucceeded ? response.payload.page : [];

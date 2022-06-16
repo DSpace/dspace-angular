@@ -4,6 +4,7 @@
       <span>{{fileName(attachment)}} ({{getSize(attachment) | dsFileSize}})</span>
     </ds-file-download-link>
   </ng-container>
-  <button *ngIf="canViewMore" class="btn btn-link" (click)="viewMore()">{{'cris-layout.attachment.viewMore' |
-    translate}}</button>
+  <button *ngIf="canViewMore" class="btn btn-link" data-test="view-more" (click)="viewMore()">
+    {{'cris-layout.attachment.viewMore' | translate}}
+  </button>
 </div>

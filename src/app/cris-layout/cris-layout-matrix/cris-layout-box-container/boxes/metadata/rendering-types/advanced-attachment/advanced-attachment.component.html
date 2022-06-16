@@ -1,7 +1,7 @@
 <div class="{{valueStyle}}">
   <ng-container *ngFor="let attachment of (bitstreams$ | async); let last =last;">
     <hr>
-    <div class="row">
+    <div class="row" data-test="attachment-info">
       <div class="col-3">
         <ng-container *ngVar="getThumbnailSrc(attachment) | async as thumbnailSrc">
           <ds-thumbnail [thumbnail]="thumbnailSrc"></ds-thumbnail>
@@ -52,8 +52,9 @@
     <hr *ngIf="last">
   </ng-container>
   <div *ngIf="canViewMore" class="w-100 text-center">
-    <button class="btn btn-link" (click)="viewMore()">{{'cris-layout.advanced-attachment.viewMore' |
-      translate}}</button>
+    <button class="btn btn-link" data-test="view-more" (click)="viewMore()">
+      {{'cris-layout.advanced-attachment.viewMore' | translate}}
+    </button>
     <hr>
   </div>
 </div>
