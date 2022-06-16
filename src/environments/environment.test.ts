@@ -13,8 +13,6 @@ export const environment: BuildConfig = {
     time: false
   },
 
-  recaptchaSiteKey: '6LfmfEsgAAAAACNqQ0aHqJa0HOHcUsvv2OCiEbV4',
-
   // Angular Universal server settings.
   ui: {
     ssl: false,

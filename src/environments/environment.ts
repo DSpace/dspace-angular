@@ -13,8 +13,7 @@ export const environment: Partial<BuildConfig> = {
     preboot: false,
     async: true,
     time: false
-  },
-  recaptchaSiteKey: '6LfmfEsgAAAAACNqQ0aHqJa0HOHcUsvv2OCiEbV4'
+  }
 };
 
 /*
