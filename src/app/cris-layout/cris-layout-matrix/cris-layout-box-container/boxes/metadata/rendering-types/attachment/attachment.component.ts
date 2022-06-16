@@ -26,28 +26,6 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
    */
   bitstreams$: Observable<Bitstream[]>;
 
-  /**
-   * List of all bitstreams that belong to the item
-   */
-  allBitstreams$: BehaviorSubject<Bitstream[]> = new BehaviorSubject<Bitstream[]>([]);
-
-  /**
-   * Pagination configuration as FindOptionList for future api pagination implementation
-   */
-  config: FindListOptions = Object.assign(new FindListOptions(), {
-    elementsPerPage: environment.attachmentPagination.perPage,
-    currentPage: 1
-  });
-
-  /**
-   * If the list should show view more button
-   */
-  canViewMore = false;
-
-  /**
-  * Total number of pages available
-  */
-  totalPages: number = null;
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
@@ -59,29 +37,17 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
     super(fieldProvider, itemProvider, renderingSubTypeProvider, bitstreamDataService, translateService);
   }
 
+
   /**
   * On init check if we want to show the attachment list with pagination or show all attachments
   */
   ngOnInit() {
     if (environment.attachmentPagination.pagination) {
       this.startWithPagination();
+      this.getVisibleBitstreams();
     } else {
       this.startWithAll();
     }
-  }
-
-  /**
-   * Start the list with pagination configuration
-   */
-  startWithPagination() {
-    this.getOtherBitstreams();
-    this.getBitstreams().subscribe((bitstreams: Bitstream[]) => {
-      this.allBitstreams$.next(bitstreams);
-      this.totalPages = Math.ceil((bitstreams.length - 1) / this.config.elementsPerPage);
-      if (this.totalPages > 1) {
-        this.canViewMore = true;
-      }
-    });
   }
 
   /**
@@ -92,27 +58,11 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
   }
 
   /**
-   * When view more is clicked show the next page and check if shold show view more button
-   */
-  viewMore() {
-    this.config.currentPage++;
-    this.getOtherBitstreams();
-    if (this.config.currentPage === this.totalPages) {
-      this.canViewMore = false;
-    }
-  }
-
-  /**
    * Get the bitstreams until a specific page
    */
-  getOtherBitstreams() {
-    this.bitstreams$ = this.allBitstreams$.pipe(
-      map((bitstreams: Bitstream[]) => {
-        return bitstreams.filter((bitstream: Bitstream, index) => {
-          return index < this.config.elementsPerPage * this.config.currentPage;
-        });
-      })
-    );
+  getVisibleBitstreams() {
+    this.bitstreams$ = this.getPaginatedBitstreams();
   }
+
 
 }
