@@ -17,6 +17,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { AlertType } from '../../../shared/alert/aletr-type';
 import { Item } from '../../../core/shared/item.model';
+import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 
 @Component({
   selector: 'ds-orcid-queue',
@@ -60,7 +61,8 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
    */
   private subs: Subscription[] = [];
 
-  constructor(private orcidQueueService: OrcidQueueService,
+  constructor(private orcidAuthService: OrcidAuthService,
+              private orcidQueueService: OrcidQueueService,
               protected translateService: TranslateService,
               private paginationService: PaginationService,
               private notificationsService: NotificationsService,
@@ -228,8 +230,11 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
    * @private
    */
   private getUnauthorizedErrorContent(): Observable<string> {
-    return this.orcidQueueService.getOrcidAuthorizeUrl(this.item.id).pipe(
-      switchMap((authorizeUrl) => this.translateService.get('person.page.orcid.sync-queue.send.unauthorized-error.content', { orcid: authorizeUrl }))
+    return this.orcidAuthService.getOrcidAuthorizeUrl(this.item).pipe(
+      switchMap((authorizeUrl) => this.translateService.get(
+        'person.page.orcid.sync-queue.send.unauthorized-error.content',
+        { orcid: authorizeUrl }
+      ))
     );
   }
 
@@ -246,24 +251,24 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
         this.updateList();
         break;
       case 400:
-        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.bad-request-error'), null, { timeOut: -1 });
+        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.bad-request-error'), null, { timeOut: 0 });
         break;
       case 401:
         combineLatest([
           this.translateService.get('person.page.orcid.sync-queue.send.unauthorized-error.title'),
           this.getUnauthorizedErrorContent()],
         ).subscribe(([title, content]) => {
-          this.notificationsService.error(title, content, { timeOut: -1 }, true);
+          this.notificationsService.error(title, content, { timeOut: 0 }, true);
         });
         break;
       case 404:
         this.notificationsService.warning(this.translateService.get('person.page.orcid.sync-queue.send.not-found-warning'));
         break;
       case 409:
-        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.conflict-error'), null, { timeOut: -1 });
+        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.conflict-error'), null, { timeOut: 0 });
         break;
       default:
-        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'), null, { timeOut: -1 });
+        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'), null, { timeOut: 0 });
     }
   }
 
@@ -281,10 +286,9 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     combineLatest(translations).subscribe((messages) => {
       const title = messages.shift();
       const content = '<ul>' + messages.map((message) => `<li>${message}</li>`).join('') + '</ul>';
-      this.notificationsService.error(title, content, { timeOut: -1 }, true);
+      this.notificationsService.error(title, content, { timeOut: 0 }, true);
     });
   }
-
 
   /**
    * Unsubscribe from all subscriptions

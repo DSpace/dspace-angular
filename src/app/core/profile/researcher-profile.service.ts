@@ -1,41 +1,33 @@
 /* eslint-disable max-classes-per-file */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { AddOperation, Operation, RemoveOperation, ReplaceOperation } from 'fast-json-patch';
-import { combineLatest, Observable } from 'rxjs';
-import { find, map, switchMap } from 'rxjs/operators';
+import { Operation, ReplaceOperation } from 'fast-json-patch';
+import { Observable } from 'rxjs';
+import { find, map } from 'rxjs/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { ConfigurationDataService } from '../data/configuration-data.service';
 import { DataService } from '../data/data.service';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { ItemDataService } from '../data/item-data.service';
 import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
-import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
-import {
-  getAllCompletedRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload
-} from '../shared/operators';
+import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../shared/operators';
 import { ResearcherProfile } from './model/researcher-profile.model';
 import { RESEARCHER_PROFILE } from './model/researcher-profile.resource-type';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { PostRequest } from '../data/request.models';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty } from '../../shared/empty.util';
 import { CoreState } from '../core-state.model';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Item } from '../shared/item.model';
 import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { NativeWindowRef, NativeWindowService } from '../services/window.service';
-import { URLCombiner } from '../url-combiner/url-combiner';
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -69,7 +61,6 @@ export class ResearcherProfileService {
   protected responseMsToLive: number = 10 * 1000;
 
   constructor(
-    @Inject(NativeWindowService) protected _window: NativeWindowRef,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
@@ -78,8 +69,7 @@ export class ResearcherProfileService {
     protected http: HttpClient,
     protected router: Router,
     protected comparator: DefaultChangeAnalyzer<ResearcherProfile>,
-    protected itemService: ItemDataService,
-    protected configurationService: ConfigurationDataService) {
+    protected itemService: ItemDataService) {
 
     this.dataService = new ResearcherProfileServiceImpl(requestService, rdbService, null, objectCache, halService,
       notificationsService, http, comparator);
@@ -166,98 +156,6 @@ export class ResearcherProfileService {
   }
 
   /**
-   * Check if the given item is linked to an ORCID profile.
-   *
-   * @param item the item to check
-   * @returns the check result
-   */
-  public isLinkedToOrcid(item: Item): boolean {
-    return item.hasMetadata('dspace.orcid.authenticated');
-  }
-
-  /**
-   * Returns true if only the admin users can disconnect a researcher profile from ORCID.
-   *
-   * @returns the check result
-   */
-  public onlyAdminCanDisconnectProfileFromOrcid(): Observable<boolean> {
-    return this.getOrcidDisconnectionAllowedUsersConfiguration().pipe(
-      map((propertyRD: RemoteData<ConfigurationProperty>) => {
-        return propertyRD.hasSucceeded && propertyRD.payload.values.map((value) => value.toLowerCase()).includes('only_admin');
-      })
-    );
-  }
-
-  /**
-   * Returns true if the profile's owner can disconnect that profile from ORCID.
-   *
-   * @returns the check result
-   */
-  public ownerCanDisconnectProfileFromOrcid(): Observable<boolean> {
-    return this.getOrcidDisconnectionAllowedUsersConfiguration().pipe(
-      map((propertyRD: RemoteData<ConfigurationProperty>) => {
-        return propertyRD.hasSucceeded && propertyRD.payload.values.map( (value) => value.toLowerCase()).includes('admin_and_owner');
-      })
-    );
-  }
-
-  /**
-   * Perform a link operation to ORCID profile.
-   *
-   * @param person The person item related to the researcher profile
-   * @param code The auth-code received from orcid
-   */
-  public linkOrcidByItem(person: Item, code: string): Observable<RemoteData<ResearcherProfile>> {
-    const operations: AddOperation<string>[] = [{
-      path: '/orcid',
-      op: 'add',
-      value: code
-    }];
-
-    return this.findById(person.firstMetadata('dspace.object.owner').authority).pipe(
-      getFirstCompletedRemoteData(),
-      switchMap((profileRD) => this.updateByOrcidOperations(profileRD.payload, operations))
-    );
-  }
-
-  /**
-   * Perform unlink operation from ORCID profile.
-   *
-   * @param person The person item related to the researcher profile
-   */
-  public unlinkOrcidByItem(person: Item): Observable<RemoteData<ResearcherProfile>> {
-    const operations: RemoveOperation[] = [{
-      path:'/orcid',
-      op:'remove'
-    }];
-
-    return this.findById(person.firstMetadata('dspace.object.owner').authority).pipe(
-      getFirstCompletedRemoteData(),
-      switchMap((profileRD) => this.updateByOrcidOperations(profileRD.payload, operations))
-    );
-  }
-
-  /**
-   * Build and return the url to authenticate with orcid
-   *
-   * @param profile
-   */
-  public getOrcidAuthorizeUrl(profile: Item): Observable<string> {
-    return combineLatest([
-      this.configurationService.findByPropertyName('orcid.authorize-url').pipe(getFirstSucceededRemoteDataPayload()),
-      this.configurationService.findByPropertyName('orcid.application-client-id').pipe(getFirstSucceededRemoteDataPayload()),
-      this.configurationService.findByPropertyName('orcid.scope').pipe(getFirstSucceededRemoteDataPayload())]
-    ).pipe(
-      map(([authorizeUrl, clientId, scopes]) => {
-        console.log(this._window.nativeWindow.origin, this.router.url);
-        const redirectUri = new URLCombiner(this._window.nativeWindow.origin, encodeURIComponent(this.router.url.split('?')[0]));
-        console.log(redirectUri.toString());
-        return authorizeUrl.values[0] + '?client_id=' + clientId.values[0]   + '&redirect_uri=' + redirectUri + '&response_type=code&scope='
-          + scopes.values.join(' ');
-      }));
-  }
-
-  /**
    * Creates a researcher profile starting from an external source URI
    * @param sourceUri URI of source item of researcher profile.
    */
@@ -291,29 +189,6 @@ export class ResearcherProfileService {
     return this.dataService.patch(researcherProfile, operations);
   }
 
-  /**
-   * Return all orcid authorization scopes saved in the given item
-   *
-   * @param item
-   */
-  public getOrcidAuthorizationScopesByItem(item: Item): string[] {
-    return isNotEmpty(item) ? item.allMetadataValues('dspace.orcid.scope') : [];
-  }
 
-  /**
-   * Return all orcid authorization scopes available by configuration
-   */
-  public getOrcidAuthorizationScopes(): Observable<string[]> {
-    return this.configurationService.findByPropertyName('orcid.scope').pipe(
-      getFirstCompletedRemoteData(),
-      map((propertyRD: RemoteData<ConfigurationProperty>) => propertyRD.hasSucceeded ? propertyRD.payload.values : [])
-    );
-  }
-
-  private getOrcidDisconnectionAllowedUsersConfiguration(): Observable<RemoteData<ConfigurationProperty>> {
-    return this.configurationService.findByPropertyName('orcid.disconnection.allowed-users').pipe(
-      getFirstCompletedRemoteData()
-    );
-  }
 
 }

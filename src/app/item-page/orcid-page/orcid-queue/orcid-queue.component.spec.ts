@@ -16,13 +16,14 @@ import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { By } from '@angular/platform-browser';
 import { Item } from '../../../core/shared/item.model';
-
+import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 
 describe('OrcidQueueComponent test suite', () => {
   let component: OrcidQueueComponent;
   let fixture: ComponentFixture<OrcidQueueComponent>;
   let debugElement: DebugElement;
   let orcidQueueService: OrcidQueueService;
+  let orcidAuthService: jasmine.SpyObj<OrcidAuthService>;
 
   const testOwnerId = 'test-owner-id';
 
@@ -102,6 +103,10 @@ describe('OrcidQueueComponent test suite', () => {
   orcidQueueServiceSpy.searchByOwnerId.and.returnValue(createSuccessfulRemoteDataObject$<PaginatedList<OrcidQueue>>(createPaginatedList<OrcidQueue>(orcidQueueElements)));
 
   beforeEach(waitForAsync(() => {
+    orcidAuthService = jasmine.createSpyObj('OrcidAuthService', {
+      getOrcidAuthorizeUrl: jasmine.createSpy('getOrcidAuthorizeUrl')
+    });
+
     void TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -114,6 +119,7 @@ describe('OrcidQueueComponent test suite', () => {
       ],
       declarations: [OrcidQueueComponent],
       providers: [
+        { provide: OrcidAuthService, useValue: orcidAuthService },
         { provide: OrcidQueueService, useValue: orcidQueueServiceSpy },
         { provide: OrcidHistoryDataService, useValue: {} },
         { provide: PaginationService, useValue: new PaginationServiceStub() },

@@ -13,16 +13,13 @@ import { Injectable } from '@angular/core';
 import { dataService } from '../cache/builders/build-decorators';
 import { ORCID_QUEUE } from './model/orcid-queue.resource-type';
 import { ItemDataService } from '../data/item-data.service';
-import { combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { NoContent } from '../shared/NoContent.model';
 import { ConfigurationDataService } from '../data/configuration-data.service';
-import { map } from 'rxjs/operators';
-import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
-import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { CoreState } from '../core-state.model';
 
@@ -110,20 +107,4 @@ export class OrcidQueueService {
     this.requestService.setStaleByHrefSubstring(this.dataService.linkPath + '/search/findByOwner');
   }
 
-  /**
-   * @param profileId represent a uuid of that user
-   * @returns orcid authorized url of that user
-   */
-  getOrcidAuthorizeUrl(profileId: string): Observable<string> {
-    return combineLatest([
-      this.configurationService.findByPropertyName('orcid.authorize-url').pipe(getFirstSucceededRemoteDataPayload()),
-      this.configurationService.findByPropertyName('orcid.application-client-id').pipe(getFirstSucceededRemoteDataPayload()),
-      this.configurationService.findByPropertyName('orcid.scope').pipe(getFirstSucceededRemoteDataPayload())]
-    ).pipe(
-      map(([authorizeUrl, clientId, scopes]) => {
-        const redirectUri = environment.rest.baseUrl + '/api/cris/orcid/' + profileId + '/?url=' + encodeURIComponent(this.router.url);
-        return authorizeUrl.values[0] + '?client_id=' + clientId.values[0]   + '&redirect_uri=' + redirectUri + '&response_type=code&scope='
-        + scopes.values.join(' ');
-    }));
-  }
 }
