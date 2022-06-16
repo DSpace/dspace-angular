@@ -16,9 +16,7 @@ import { ResearcherProfile } from '../profile/model/researcher-profile.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class OrcidAuthService {
 
   constructor(
