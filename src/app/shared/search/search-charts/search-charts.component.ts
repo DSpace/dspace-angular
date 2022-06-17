@@ -28,6 +28,11 @@ export class SearchChartsComponent implements OnInit {
   @Input() configuration: Observable<string>;
 
   /**
+   * Defines whether to start as showing the charts collapsed
+   */
+  @Input() collapseChart = false;
+
+  /**
    * True when the search component should show results on the current page
    */
   @Input() inPlaceSearch;
@@ -45,11 +50,6 @@ export class SearchChartsComponent implements OnInit {
   selectedTypeIndex = 0;
 
   selectedFilter: any;
-
-  /**
-   * Emits true if chart is hidden
-   */
-  hideChart = false;
 
   /**
    * For chart regular expression
@@ -71,11 +71,13 @@ export class SearchChartsComponent implements OnInit {
   ngOnInit(): void {
     this.filters = this.searchConfigService.searchOptions
       .pipe(
+        tap((f) => console.log(f)),
         switchMap((options) =>
           this.searchService
             .getConfig(options.scope, options.configuration)
             .pipe(getFirstSucceededRemoteData())
         ),
+        tap((f) => console.log(f)),
         map((rd: RemoteData<SearchFilterConfig[]>) => Object.assign(rd, {
           payload: rd.payload.filter((filter: SearchFilterConfig) =>
             this.chartReg.test(filter.filterType)
@@ -85,7 +87,8 @@ export class SearchChartsComponent implements OnInit {
           this.selectedFilter = this.selectedFilter
             ? this.selectedFilter
             : rd.payload[0];
-        })
+        }),
+        tap((f) => console.log(f))
       );
   }
 
@@ -104,6 +107,6 @@ export class SearchChartsComponent implements OnInit {
    * To Toggle the Chart
    */
   toggleChart() {
-    this.hideChart = !this.hideChart;
+    this.collapseChart = !this.collapseChart;
   }
 }

@@ -18,6 +18,12 @@ import { map } from 'rxjs/operators';
  * the template outlet (inside the page-width-sidebar tags).
  */
 export class PageWithSidebarComponent implements OnInit {
+
+  /**
+   * Defines whether to start as showing the filter sidebar collapsed
+   */
+  @Input() collapseSidebar = false;
+
   @Input() id: string;
   @Input() sidebarContent: TemplateRef<any>;
 
@@ -52,7 +58,8 @@ export class PageWithSidebarComponent implements OnInit {
   ngOnInit(): void {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.isXsOrSm$.subscribe( isMobile => {
-      if (!isMobile) {
+      console.log(isMobile, this.collapseSidebar);
+      if (!isMobile && !this.collapseSidebar) {
         this.openSidebar();
       } else {
         this.closeSidebar();

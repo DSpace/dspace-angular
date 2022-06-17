@@ -6,13 +6,20 @@
     </div>
 </div>
 
-<ds-search-charts *ngIf="showCharts" [configuration]="currentConfiguration$" [inPlaceSearch]="inPlaceSearch" [showChartsToggle]="showChartsToggle"></ds-search-charts>
+<ds-search-charts *ngIf="showCharts"
+                  [configuration]="currentConfiguration$"
+                  [collapseChart]="collapseCharts"
+                  [inPlaceSearch]="inPlaceSearch"
+                  [showChartsToggle]="showChartsToggle"></ds-search-charts>
 
 <div *ngIf="!showSidebar && (initialized$ | async)">
     <ng-template *ngTemplateOutlet="searchContent"></ng-template>
 </div>
 
-<ds-page-with-sidebar *ngIf="showSidebar && (initialized$ | async)" [id]="'search-page'" [sidebarContent]="sidebarContent">
+<ds-page-with-sidebar *ngIf="showSidebar && (initialized$ | async)"
+                      [collapseSidebar]="collapseFilters"
+                      [id]="'search-page'"
+                      [sidebarContent]="sidebarContent">
     <ng-template *ngTemplateOutlet="searchContent"></ng-template>
 </ds-page-with-sidebar>
 
