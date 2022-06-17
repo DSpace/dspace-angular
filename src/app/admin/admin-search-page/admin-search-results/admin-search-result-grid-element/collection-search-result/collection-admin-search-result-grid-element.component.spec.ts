@@ -14,6 +14,12 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { AuthService } from '../../../../../core/auth/auth.service';
+import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
+import { FileService } from '../../../../../core/shared/file.service';
+import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
 
 describe('CollectionAdminSearchResultGridElementComponent', () => {
   let component: CollectionAdminSearchResultGridElementComponent;
@@ -45,7 +51,10 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },
-        { provide: LinkService, useValue: linkService }
+        { provide: LinkService, useValue: linkService },
+        { provide: AuthService, useClass: AuthServiceStub },
+        { provide: FileService, useClass: FileServiceStub },
+        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
       ]
     })
       .compileComponents();

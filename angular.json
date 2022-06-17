@@ -64,7 +64,8 @@
                 "bundleName": "dspace-theme"
               }
             ],
-            "scripts": []
+            "scripts": [],
+            "baseHref": "/"
           },
           "configurations": {
             "production": {

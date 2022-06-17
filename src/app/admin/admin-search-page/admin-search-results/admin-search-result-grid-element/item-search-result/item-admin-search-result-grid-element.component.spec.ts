@@ -18,6 +18,12 @@ import { ItemAdminSearchResultGridElementComponent } from './item-admin-search-r
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { AuthService } from '../../../../../core/auth/auth.service';
+import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
+import { FileService } from '../../../../../core/shared/file.service';
+import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
 
 describe('ItemAdminSearchResultGridElementComponent', () => {
   let component: ItemAdminSearchResultGridElementComponent;
@@ -55,6 +61,9 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
           { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
           { provide: ThemeService, useValue: mockThemeService },
+          { provide: AuthService, useClass: AuthServiceStub },
+          { provide: FileService, useClass: FileServiceStub },
+          { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         ],
         schemas: [NO_ERRORS_SCHEMA]
       })
