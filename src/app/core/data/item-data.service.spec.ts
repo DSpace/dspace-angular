@@ -8,13 +8,15 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { BrowseService } from '../browse/browse.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
-import { CoreState } from '../core.reducers';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { ItemDataService } from './item-data.service';
-import { DeleteRequest, FindListOptions, PostRequest } from './request.models';
-import { RequestEntry } from './request.reducer';
+import { DeleteRequest, GetRequest, PostRequest } from './request.models';
 import { RequestService } from './request.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { CoreState } from '../core-state.model';
+import { RequestEntry } from './request-entry.model';
+import { FindListOptions } from './find-list-options.model';
+import { HALEndpointServiceStub } from 'src/app/shared/testing/hal-endpoint-service.stub';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
@@ -35,13 +37,11 @@ describe('ItemDataService', () => {
   }) as RequestService;
   const rdbService = getMockRemoteDataBuildService();
 
-  const itemEndpoint = 'https://rest.api/core/items';
+  const itemEndpoint = 'https://rest.api/core';
 
   const store = {} as Store<CoreState>;
   const objectCache = {} as ObjectCacheService;
-  const halEndpointService = jasmine.createSpyObj('halService', {
-    getEndpoint: observableOf(itemEndpoint)
-  });
+  const halEndpointService: any = new HALEndpointServiceStub(itemEndpoint);
   const bundleService = jasmine.createSpyObj('bundleService', {
     findByHref: {}
   });

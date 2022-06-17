@@ -13,7 +13,7 @@ import { FileService } from '../core/shared/file.service';
 import { VarDirective } from '../shared/utils/var.directive';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 
-// tslint:disable-next-line:pipe-prefix
+// eslint-disable-next-line @angular-eslint/pipe-prefix
 @Pipe({ name: 'translate' })
 class MockTranslatePipe implements PipeTransform {
   transform(key: string): string {

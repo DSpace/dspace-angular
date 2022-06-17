@@ -17,8 +17,8 @@ import { Item } from '../../core/shared/item.model';
 import { getAllSucceededRemoteData } from '../../core/shared/operators';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import { SubmissionError } from '../objects/submission-objects.reducer';
 import parseSectionErrors from '../utils/parseSectionErrors';
+import { SubmissionError } from '../objects/submission-error.model';
 
 /**
  * This component allows to edit an existing workspaceitem/workflowitem.

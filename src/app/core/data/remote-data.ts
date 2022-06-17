@@ -1,17 +1,17 @@
 import {
-  RequestEntryState,
-  isStale,
   hasCompleted,
-  hasSucceeded,
   hasFailed,
-  isLoading,
-  isSuccessStale,
-  isErrorStale,
-  isSuccess,
+  hasSucceeded,
   isError,
+  isErrorStale,
+  isLoading,
+  isRequestPending,
   isResponsePending,
-  isRequestPending
-} from './request.reducer';
+  isStale,
+  isSuccess,
+  isSuccessStale,
+  RequestEntryState
+} from './request-entry-state.model';
 
 /**
  * A class to represent the state of a remote resource

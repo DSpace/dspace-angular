@@ -41,7 +41,7 @@ describe('objectCacheReducer', () => {
       alternativeLinks: [altLink1, altLink2],
       timeCompleted: new Date().getTime(),
       msToLive: 900000,
-      requestUUID: requestUUID1,
+      requestUUIDs: [requestUUID1],
       patches: [],
       isDirty: false,
     },
@@ -55,7 +55,7 @@ describe('objectCacheReducer', () => {
       alternativeLinks: [altLink3, altLink4],
       timeCompleted: new Date().getTime(),
       msToLive: 900000,
-      requestUUID: selfLink2,
+      requestUUIDs: [selfLink2],
       patches: [],
       isDirty: false
     }
@@ -105,10 +105,10 @@ describe('objectCacheReducer', () => {
     const action = new AddToObjectCacheAction(objectToCache, timeCompleted, msToLive, requestUUID, altLink1);
     const newState = objectCacheReducer(testState, action);
 
-    /* tslint:disable:no-string-literal */
+    /* eslint-disable @typescript-eslint/dot-notation */
     expect(newState[selfLink1].data['foo']).toBe('baz');
     expect(newState[selfLink1].data['somethingElse']).toBe(true);
-    /* tslint:enable:no-string-literal */
+    /* eslint-enable @typescript-eslint/dot-notation */
   });
 
   it('should perform the ADD action without affecting the previous state', () => {

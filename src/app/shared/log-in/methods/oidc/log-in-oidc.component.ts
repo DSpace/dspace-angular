@@ -7,7 +7,6 @@ import { renderAuthMethodFor } from '../log-in.methods-decorator';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 
-import { CoreState } from '../../../../core/core.reducers';
 import { isAuthenticated, isAuthenticationLoading } from '../../../../core/auth/selectors';
 import { NativeWindowRef, NativeWindowService } from '../../../../core/services/window.service';
 import { isNotNull, isEmpty } from '../../../empty.util';
@@ -15,6 +14,7 @@ import { AuthService } from '../../../../core/auth/auth.service';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { take } from 'rxjs/operators';
 import { URLCombiner } from '../../../../core/url-combiner/url-combiner';
+import { CoreState } from '../../../../core/core-state.model';
 
 @Component({
   selector: 'ds-log-in-oidc',

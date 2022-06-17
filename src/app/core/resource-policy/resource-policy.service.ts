@@ -1,5 +1,6 @@
+/* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -8,13 +9,11 @@ import { dataService } from '../cache/builders/build-decorators';
 
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
-import { FindListOptions } from '../data/request.models';
 import { Collection } from '../shared/collection.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ResourcePolicy } from './models/resource-policy.model';
 import { RemoteData } from '../data/remote-data';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RESOURCE_POLICY } from './models/resource-policy.resource-type';
@@ -24,11 +23,20 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { ActionType } from './models/action-type.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { isNotEmpty } from '../../shared/empty.util';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from '../data/find-list-options.model';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { PutRequest } from '../data/request.models';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { ResponseParsingService } from '../data/parsing.service';
+import { StatusCodeOnlyResponseParsingService } from '../data/status-code-only-response-parsing.service';
+import { HALLink } from '../shared/hal-link.model';
+import { EPersonDataService } from '../eperson/eperson-data.service';
+import { GroupDataService } from '../eperson/group-data.service';
 
-/* tslint:disable:max-classes-per-file */
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -44,7 +52,8 @@ class DataServiceImpl extends DataService<ResourcePolicy> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<ResourcePolicy>) {
+    protected comparator: ChangeAnalyzer<ResourcePolicy>,
+  ) {
     super();
   }
 
@@ -68,7 +77,10 @@ export class ResourcePolicyService {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<ResourcePolicy>) {
+    protected comparator: DefaultChangeAnalyzer<ResourcePolicy>,
+    protected ePersonService: EPersonDataService,
+    protected groupService: GroupDataService,
+  ) {
     this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
   }
 
@@ -221,5 +233,44 @@ export class ResourcePolicyService {
     return this.dataService.searchBy(this.searchByResourceMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
+  /**
+   * Update the target of the resource policy
+   * @param resourcePolicyId the ID of the resource policy
+   * @param resourcePolicyHref the link to the resource policy
+   * @param targetUUID the UUID of the target to which the permission is being granted
+   * @param targetType the type of the target (eperson or group) to which the permission is being granted
+   */
+  updateTarget(resourcePolicyId: string, resourcePolicyHref: string, targetUUID: string, targetType: string): Observable<RemoteData<any>> {
+
+    const targetService = targetType === 'eperson' ? this.ePersonService : this.groupService;
+
+    const targetEndpoint$ = targetService.getBrowseEndpoint().pipe(
+      take(1),
+      map((endpoint: string) =>`${endpoint}/${targetUUID}`),
+    );
+
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+
+    const requestId = this.requestService.generateRequestId();
+
+    this.requestService.setStaleByHrefSubstring(`${this.dataService.getLinkPath()}/${resourcePolicyId}/${targetType}`);
+
+    targetEndpoint$.subscribe((targetEndpoint) => {
+      const resourceEndpoint = resourcePolicyHref + '/' + targetType;
+      const request = new PutRequest(requestId, resourceEndpoint, targetEndpoint, options);
+      Object.assign(request, {
+        getResponseParser(): GenericConstructor<ResponseParsingService> {
+          return StatusCodeOnlyResponseParsingService;
+        }
+      });
+      this.requestService.send(request);
+    });
+
+    return this.rdbService.buildFromRequestUUID(requestId);
+
+  }
+
 }
-/* tslint:enable:max-classes-per-file */
