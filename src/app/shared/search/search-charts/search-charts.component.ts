@@ -8,7 +8,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { shrinkInOut } from '../../animations/shrink';
 
 @Component({
@@ -62,43 +62,46 @@ export class SearchChartsComponent implements OnInit {
    * @param {SearchConfigurationService} searchConfigService
    */
   constructor(
+    @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService,
     private searchService: SearchService,
-    @Inject(SEARCH_CONFIG_SERVICE)
-    @Inject(SEARCH_CONFIG_SERVICE)
-    private searchConfigService: SearchConfigurationService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
-    this.filters = this.searchConfigService.searchOptions
-      .pipe(
-        tap((f) => console.log(f)),
-        switchMap((options) =>
-          this.searchService
-            .getConfig(options.scope, options.configuration)
-            .pipe(getFirstSucceededRemoteData())
-        ),
-        tap((f) => console.log(f)),
-        map((rd: RemoteData<SearchFilterConfig[]>) => Object.assign(rd, {
-          payload: rd.payload.filter((filter: SearchFilterConfig) =>
-            this.chartReg.test(filter.filterType)
-          )})
-        ),
-        tap((rd: RemoteData<SearchFilterConfig[]>) => {
-          this.selectedFilter = this.selectedFilter
-            ? this.selectedFilter
-            : rd.payload[0];
-        }),
-        tap((f) => console.log(f))
-      );
+    this.filters = this.searchConfigService.searchOptions.pipe(
+      switchMap((options) => this.searchService.getConfig(options?.scope, options?.configuration)),
+      getFirstCompletedRemoteData(),
+      map((rd: RemoteData<SearchFilterConfig[]>) => {
+        if (rd.hasSucceeded) {
+          return Object.assign(rd, {
+            payload: rd.payload.filter((filter: SearchFilterConfig) =>
+              this.chartReg.test(filter.filterType)
+            )
+          });
+        } else {
+          return rd;
+        }
+      }),
+      tap((rd: RemoteData<SearchFilterConfig[]>) => {
+        this.selectedFilter = this.selectedFilter
+          ? this.selectedFilter
+          : rd.hasSucceeded ? rd.payload[0] : null;
+      })
+    );
   }
 
   /**
-   * Prevent unnecessary rerendering
+   * Prevent unnecessary rendering
    */
   trackUpdate(index, config: SearchFilterConfig) {
     return config ? config.name : undefined;
   }
 
+  /**
+   * Change the current chart filter selected
+   *
+   * @param filter
+   */
   changeChartType(filter) {
     this.selectedFilter = filter;
   }
