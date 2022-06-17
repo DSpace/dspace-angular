@@ -290,6 +290,7 @@ import { DsoPageOrcidButtonComponent } from './dso-page/dso-page-orcid-button/ds
 import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 import { BrowserOnlyPipe } from './utils/browser-only.pipe';
 import { PersonPageClaimButtonComponent } from './dso-page/person-page-claim-button/person-page-claim-button.component';
+import { SearchExportCsvComponent } from './search/search-export-csv/search-export-csv.component';
 
 const MODULES = [
   CommonModule,
@@ -401,6 +402,7 @@ const COMPONENTS = [
 
   CollectionSearchResultGridElementComponent,
   CommunitySearchResultGridElementComponent,
+  SearchExportCsvComponent,
   PageSizeSelectorComponent,
   ListableObjectComponentLoaderComponent,
   CollectionListElementComponent,

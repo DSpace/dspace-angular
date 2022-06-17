@@ -2,8 +2,11 @@
   <h2 class="item-page-title-field mr-auto">
     {{'person.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="getTitleMetadataValues()" [separator]="', '"></ds-metadata-values>
   </h2>
-  <div class="pl-2">
+  <div class="pl-2 space-children-mr">
     <ds-dso-page-orcid-button [pageRoute]="itemPageRoute" [dso]="object" class="mr-2"></ds-dso-page-orcid-button>
+    <ds-dso-page-version-button (newVersionEvent)="onCreateNewVersion()" [dso]="object"
+                                [tooltipMsgCreate]="'item.page.version.create'"
+                                [tooltipMsgHasDraft]="'item.page.version.hasDraft'"></ds-dso-page-version-button>
     <ds-dso-page-edit-button [pageRoute]="itemPageRoute" [dso]="object" [tooltipMsg]="'person.page.edit'"></ds-dso-page-edit-button>
     <ds-person-page-claim-button [object]="object"></ds-person-page-claim-button>
   </div>
@@ -63,7 +66,8 @@
     <ds-tabbed-related-entities-search  [item]="object"
                                         [relationTypes]="[{
                                           label: 'isAuthorOfPublication',
-                                          filter: 'isAuthorOfPublication'
+                                          filter: 'isAuthorOfPublication',
+                                          configuration: 'default-relationships'
                                         }]">
     </ds-tabbed-related-entities-search>
   </div>
