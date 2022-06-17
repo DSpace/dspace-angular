@@ -154,7 +154,9 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
     });
   }
 
-
+  /**
+   * Get the list of paginated bitstreams that will be shown
+   */
   getPaginatedBitstreams(): Observable<Bitstream[]> {
     return this.allBitstreams$.pipe(
       map((bitstreams: Bitstream[]) => {
