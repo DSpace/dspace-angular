@@ -426,7 +426,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
               .subscribe((rd: RemoteData<NoContent>) => {
                 if (rd.hasSucceeded) {
                   this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.deleted.success', { name: group.name }));
-                  this.reset();
+                  this.onCancel();
                 } else {
                   this.notificationsService.error(
                     this.translateService.get(this.messagePrefix + '.notification.deleted.failure.title', { name: group.name }),
@@ -437,16 +437,6 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         }
       });
     });
-  }
-
-  /**
-   * This method will ensure that the page gets reset and that the cache is cleared
-   */
-  reset() {
-    this.groupDataService.getBrowseEndpoint().pipe(take(1)).subscribe((href: string) => {
-      this.requestService.removeByHrefSubstring(href);
-    });
-    this.onCancel();
   }
 
   /**

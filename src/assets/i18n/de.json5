@@ -895,6 +895,8 @@
   "bitstream.edit.title": "Datei bearbeiten",
   
   
+  // "browse.back.all-results": "All browse results",
+  "browse.back.all-results": "Filter zurücksetzen",
   
   // "browse.comcol.by.author": "By Author",
   "browse.comcol.by.author": "Nach Autor:in",
@@ -1781,6 +1783,18 @@
   
   // "dso-selector.placeholder": "Search for a {{ type }}",
   "dso-selector.placeholder": "Suche nach {{ type }}",
+  
+  // "dso-selector.select.collection.head": "Select a collection",
+  "dso-selector.select.collection.head": "Sammlung auswählen",
+
+  // "dso-selector.set-scope.community.head": "Select a search scope",
+  "dso-selector.set-scope.community.head": "Suchbereich auswählen",
+
+  // "dso-selector.set-scope.community.button": "Search all of DSpace",
+  "dso-selector.set-scope.community.button": "Alles durchsuchen",
+
+  // "dso-selector.set-scope.community.input-header": "Search for a community or collection",
+  "dso-selector.set-scope.community.input-header": "Suche Bereich oder Sammlung",
   
   
   
@@ -4293,6 +4307,9 @@
   // "search.filters.filter.author.placeholder": "Author name",
   "search.filters.filter.author.placeholder": "Autor:innenname",
   
+  // "search.filters.filter.author.label": "Search author name",
+  "search.filters.filter.author.label": "Autorensuche",
+  
   // "search.filters.filter.birthDate.head": "Birth Date",
   "search.filters.filter.birthDate.head": "Geburtsdatum",
   
@@ -4472,8 +4489,10 @@
   // "search.form.search_mydspace": "Search MyDSpace",
   "search.form.search_mydspace": "Suche im persönlichen Arbeitsbereich",
   
-  
-  
+  // "search.form.scope.all": "All of DSpace",
+  "search.form.scope.all": "Alles durchsuchen",
+
+   
   // "search.results.head": "Search Results",
   "search.results.head": "Suchergebnisse",
   
@@ -4486,7 +4505,11 @@
   // "search.results.empty": "Your search returned no results.",
   "search.results.empty": "Ihre Suche führte zu keinem Ergebnis.",
   
-  
+  // "search.results.view-result": "View",
+  "search.results.view-result": "Anzeigen",
+
+  // "default.search.results.head": "Search Results",
+  "default.search.results.head": "Suchergebnisse",
   
   // "search.sidebar.close": "Back to results",
   "search.sidebar.close": "Zurück zu den Ergebnissen",
@@ -4534,10 +4557,29 @@
   // "sorting.dc.title.DESC": "Title Descending",
   "sorting.dc.title.DESC": "Titel absteigend",
   
-  // "sorting.score.DESC": "Relevance",
-  "sorting.score.DESC": "Relevanz",
+  // "sorting.score.ASC": "Least Relevant",
+  "sorting.score.ASC": "Relevanz aufsteigend",
+
+  // "sorting.score.DESC": "Most Relevant",
+  "sorting.score.DESC": "Relevanz absteigend",
+    
+  // "sorting.dc.date.issued.ASC": "Date Issued Ascending",
+  "sorting.dc.date.issued.ASC": "Erscheinungsdatum aufsteigend",
+
+  // "sorting.dc.date.issued.DESC": "Date Issued Descending",
+  "sorting.dc.date.issued.DESC": "Erscheinungsdatum absteigend",
   
-  
+  // "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
+  "sorting.dc.date.accessioned.ASC": "Freischaltungsdatum aufsteigend",
+
+  // "sorting.dc.date.accessioned.DESC": "Accessioned Date Descending",
+  "sorting.dc.date.accessioned.DESC": "Freischaltungsdatum absteigend",
+
+  // "sorting.lastModified.ASC": "Last modified Ascending",
+  "sorting.lastModified.ASC": "Änderungsdatum aufsteigend",
+
+  // "sorting.lastModified.DESC": "Last modified Descending",
+  "sorting.lastModified.DESC": "Änderungsdatum absteigend",
   
   // "statistics.title": "Statistics",
   "statistics.title": "Statistiken",
@@ -5237,6 +5279,30 @@
   // "submission.workflow.tasks.pool.show-detail": "Show detail",
   "submission.workflow.tasks.pool.show-detail": "Details anzeigen",
   
+  
+  // "thumbnail.default.alt": "Thumbnail Image",
+  "thumbnail.default.alt": "Vorschaubild",
+
+  // "thumbnail.default.placeholder": "No Thumbnail Available",
+  "thumbnail.default.placeholder": "Vorschaubild nicht verfügbar",
+
+  // "thumbnail.project.alt": "Project Logo",
+  "thumbnail.project.alt": "Logo des Projekt",
+
+  // "thumbnail.project.placeholder": "Project Placeholder Image",
+  "thumbnail.project.placeholder": "Platzhalterbild des Projekts",
+
+  // "thumbnail.orgunit.alt": "OrgUnit Logo",
+  "thumbnail.orgunit.alt": "Logo der Organisationseinheit",
+
+  // "thumbnail.orgunit.placeholder": "OrgUnit Placeholder Image",
+  "thumbnail.orgunit.placeholder": "Platzhalterbild der Organisationseinheit",
+
+  // "thumbnail.person.alt": "Profile Picture",
+  "thumbnail.person.alt": "Profilbild",
+
+  // "thumbnail.person.placeholder": "No Profile Picture Available",
+  "thumbnail.person.placeholder": "Profilbild nicht verfügbar",
   
   
   // "title": "DSpace",

@@ -25,6 +25,14 @@ import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { GroupDataService } from '../../core/eperson/group-data.service';
+import { LinkHeadService } from '../../core/services/link-head.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SearchServiceStub } from '../../shared/testing/search-service.stub';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service.stub';
 
 describe('CommunityPageSubCollectionList Component', () => {
   let comp: CommunityPageSubCollectionListComponent;
@@ -122,6 +130,25 @@ describe('CommunityPageSubCollectionList Component', () => {
 
   themeService = getMockThemeService();
 
+  const linkHeadService = jasmine.createSpyObj('linkHeadService', {
+    addTag: ''
+  });
+
+  const groupDataService = jasmine.createSpyObj('groupsDataService', {
+    findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    getGroupRegistryRouterLink: '',
+    getUUIDFromString: '',
+  });
+
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'test',
+      values: [
+        'org.dspace.ctask.general.ProfileFormats = test'
+      ]
+    }))
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -138,6 +165,10 @@ describe('CommunityPageSubCollectionList Component', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: SelectableListService, useValue: {} },
         { provide: ThemeService, useValue: themeService },
+        { provide: GroupDataService, useValue: groupDataService },
+        { provide: LinkHeadService, useValue: linkHeadService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

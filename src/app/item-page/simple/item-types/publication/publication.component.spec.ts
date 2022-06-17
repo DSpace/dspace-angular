@@ -31,6 +31,11 @@ import {
 import { PublicationComponent } from './publication.component';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { RouteService } from '../../../../core/services/route.service';
+import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
+import { VersionDataService } from '../../../../core/data/version-data.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
 
 const noMetadata = new MetadataMap();
 
@@ -53,29 +58,36 @@ describe('PublicationComponent', () => {
       }
     };
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }),
+        RouterTestingModule,
+      ],
       declarations: [PublicationComponent, GenericItemPageFieldComponent, TruncatePipe],
       providers: [
-        {provide: ItemDataService, useValue: {}},
-        {provide: TruncatableService, useValue: {}},
-        {provide: RelationshipService, useValue: {}},
-        {provide: ObjectCacheService, useValue: {}},
-        {provide: UUIDService, useValue: {}},
-        {provide: Store, useValue: {}},
-        {provide: RemoteDataBuildService, useValue: {}},
-        {provide: CommunityDataService, useValue: {}},
-        {provide: HALEndpointService, useValue: {}},
-        {provide: NotificationsService, useValue: {}},
-        {provide: HttpClient, useValue: {}},
-        {provide: DSOChangeAnalyzer, useValue: {}},
-        {provide: DefaultChangeAnalyzer, useValue: {}},
-        {provide: BitstreamDataService, useValue: mockBitstreamDataService},
-        {provide: RouteService, useValue: mockRouteService}
+        { provide: ItemDataService, useValue: {} },
+        { provide: TruncatableService, useValue: {} },
+        { provide: RelationshipService, useValue: {} },
+        { provide: ObjectCacheService, useValue: {} },
+        { provide: UUIDService, useValue: {} },
+        { provide: Store, useValue: {} },
+        { provide: RemoteDataBuildService, useValue: {} },
+        { provide: CommunityDataService, useValue: {} },
+        { provide: HALEndpointService, useValue: {} },
+        { provide: NotificationsService, useValue: {} },
+        { provide: HttpClient, useValue: {} },
+        { provide: DSOChangeAnalyzer, useValue: {} },
+        { provide: DefaultChangeAnalyzer, useValue: {} },
+        { provide: VersionHistoryDataService, useValue: {} },
+        { provide: VersionDataService, useValue: {} },
+        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: WorkspaceitemDataService, useValue: {} },
+        { provide: SearchService, useValue: {} },
+        { provide: RouteService, useValue: mockRouteService }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

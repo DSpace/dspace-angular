@@ -80,7 +80,7 @@ describe('SearchFiltersComponent', () => {
 
       expect(comp.initFilters).toHaveBeenCalledTimes(1);
 
-      refreshFiltersEmitter.next();
+      refreshFiltersEmitter.next(null);
 
       expect(comp.initFilters).toHaveBeenCalledTimes(2);
     });

@@ -6,7 +6,7 @@ import { BrowseByConfig } from './browse-by-config.interface';
 import { CacheConfig } from './cache-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { FormConfig } from './form-config.interfaces';
-import { ItemPageConfig } from './item-page-config.interface';
+import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
@@ -15,6 +15,7 @@ import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.model';
 import { UIServerConfig } from './ui-server-config.interface';
 import { BundleConfig } from './bundle-config.interface';
+import { ActuatorsConfig } from './actuators.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -46,6 +47,10 @@ export class DefaultAppConfig implements AppConfig {
     port: 8080,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/',
+  };
+
+  actuators: ActuatorsConfig = {
+    endpointPath: '/actuator/health'
   };
 
   // Caching settings
@@ -110,6 +115,9 @@ export class DefaultAppConfig implements AppConfig {
        * eg. timer: 5 * (1000 * 60); // 5 minutes
        */
       timer: 0
+    },
+    typeBind: {
+      field: 'dc.type'
     },
     icons: {
       metadata: [
@@ -198,11 +206,13 @@ export class DefaultAppConfig implements AppConfig {
     defaultLowerLimit: 1900
   };
 
-  // Item Page Config
-  item: ItemPageConfig = {
+  // Item Config
+  item: ItemConfig = {
     edit: {
       undoTimeout: 10000 // 10 seconds
-    }
+    },
+    // Show the item access status label in items lists
+    showAccessStatuses: false
   };
 
   // Collection Page Config

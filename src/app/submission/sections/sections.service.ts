@@ -60,11 +60,11 @@ export class SectionsService {
    * @param {TranslateService} translate
    */
   constructor(private formService: FormService,
-              private notificationsService: NotificationsService,
-              private scrollToService: ScrollToService,
-              private submissionService: SubmissionService,
-              private store: Store<SubmissionState>,
-              private translate: TranslateService) {
+    private notificationsService: NotificationsService,
+    private scrollToService: ScrollToService,
+    private submissionService: SubmissionService,
+    private store: Store<SubmissionState>,
+    private translate: TranslateService) {
   }
 
   /**
@@ -197,7 +197,7 @@ export class SectionsService {
                 path: pathCombiner.getPath(error.fieldId.replace(/\_/g, '.')).path,
                 message: error.message
               } as SubmissionSectionError))
-              .filter((sectionError: SubmissionSectionError) => findIndex(state.errorsToShow, {path: sectionError.path}) === -1);
+              .filter((sectionError: SubmissionSectionError) => findIndex(state.errorsToShow, { path: sectionError.path }) === -1);
             return [...state.errorsToShow, ...sectionErrors];
           })
         ))
@@ -262,7 +262,7 @@ export class SectionsService {
         }
       }),
       distinctUntilChanged()
-      );
+    );
   }
 
   /**
@@ -371,7 +371,7 @@ export class SectionsService {
     return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
       filter((submissionState: SubmissionObjectEntry) => isNotUndefined(submissionState)),
       map((submissionState: SubmissionObjectEntry) => {
-        return isNotUndefined(submissionState.sections) && isNotUndefined(findKey(submissionState.sections, {sectionType: sectionType}));
+        return isNotUndefined(submissionState.sections) && isNotUndefined(findKey(submissionState.sections, { sectionType: sectionType }));
       }),
       distinctUntilChanged());
   }
@@ -512,6 +512,18 @@ export class SectionsService {
       });
     }
     return metadata;
+  }
+
+  /**
+   * Return if the section is an informational type section.
+   * @param sectionType
+   */
+  public getIsInformational(sectionType: SectionsType): boolean {
+    if (sectionType === SectionsType.SherpaPolicies) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

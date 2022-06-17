@@ -13,6 +13,7 @@ import { FilterType } from '../../models/filter-type.model';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { SequenceService } from '../../../../core/shared/sequence.service';
+import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
 
 describe('SearchFilterComponent', () => {
   let comp: SearchFilterComponent;
@@ -62,7 +63,10 @@ describe('SearchFilterComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule],
-      declarations: [SearchFilterComponent],
+      declarations: [
+        SearchFilterComponent,
+        BrowserOnlyMockPipe,
+      ],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
         {

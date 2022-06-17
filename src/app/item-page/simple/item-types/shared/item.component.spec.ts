@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -32,6 +32,13 @@ import { ItemComponent } from './item.component';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { RouteService } from '../../../../core/services/route.service';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
+import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { VersionDataService } from '../../../../core/data/version-data.service';
+import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { ResearcherProfileService } from '../../../../core/profile/researcher-profile.service';
 
 export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
   return Object.assign(new MetadataValue(), {
@@ -73,13 +80,21 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           return createSuccessfulRemoteDataObject$(new Bitstream());
         }
       };
+
+      const authorizationService = jasmine.createSpyObj('authorizationService', {
+        isAuthorized: observableOf(true)
+      });
+
       TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })],
+        imports: [
+            TranslateModule.forRoot({
+              loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+              }
+            }),
+            RouterTestingModule,
+        ],
         declarations: [component, GenericItemPageFieldComponent, TruncatePipe],
         providers: [
           { provide: ItemDataService, useValue: {} },
@@ -93,10 +108,16 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           { provide: HALEndpointService, useValue: {} },
           { provide: HttpClient, useValue: {} },
           { provide: DSOChangeAnalyzer, useValue: {} },
+          { provide: VersionHistoryDataService, useValue: {} },
+          { provide: VersionDataService, useValue: {} },
           { provide: NotificationsService, useValue: {} },
           { provide: DefaultChangeAnalyzer, useValue: {} },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-          { provide: RouteService, useValue: {} }
+          { provide: WorkspaceitemDataService, useValue: {} },
+          { provide: SearchService, useValue: {} },
+          { provide: RouteService, useValue: {} },
+          { provide: AuthorizationDataService, useValue: authorizationService },
+          { provide: ResearcherProfileService, useValue: {} }
         ],
 
         schemas: [NO_ERRORS_SCHEMA]
