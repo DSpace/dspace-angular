@@ -4650,23 +4650,25 @@
 
   "person.page.orcid.sync-queue.send.validation-error.title.required": "The title is required",
 
-  "person.page.orcid.sync-queue.send.validation-error.type.required": "The type is required",
+  "person.page.orcid.sync-queue.send.validation-error.type.required": "The dc.type is required",
 
   "person.page.orcid.sync-queue.send.validation-error.start-date.required": "The start date is required",
 
   "person.page.orcid.sync-queue.send.validation-error.funder.required": "The funder is required",
 
-  "person.page.orcid.sync-queue.send.validation-error.country.invalid": "Invalid ISO 3611 country",
+  "person.page.orcid.sync-queue.send.validation-error.country.invalid": "Invalid 2 digits ISO 3166 country",
 
   "person.page.orcid.sync-queue.send.validation-error.organization.required": "The organization is required",
 
   "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
 
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
+
   "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
 
   "person.page.orcid.sync-queue.send.validation-error.organization.city-required": "The address of the organization to be sent requires a city",
 
-  "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "The address of the organization to be sent requires a valid ISO 3611 country",
+  "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "The address of the organization to be sent requires a valid 2 digits ISO 3166 country",
 
   "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "An identifier to disambiguate organizations is required. Supported ids are GRID, Ringgold, Legal Entity identifiers (LEIs) and Crossref Funder Registry identifiers",
 

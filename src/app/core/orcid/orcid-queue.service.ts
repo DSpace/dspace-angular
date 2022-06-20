@@ -73,7 +73,7 @@ export class OrcidQueueService {
   }
 
   /**
-   * @param itemId                      It represent an Id of owner
+   * @param itemId                      It represent an Id of profileItem
    * @param paginationOptions           The pagination options object
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
    *                                    no valid cached version. Defaults to true
@@ -81,9 +81,9 @@ export class OrcidQueueService {
    *                                    requested after the response becomes stale
    * @returns { OrcidQueue }
    */
-  searchByOwnerId(itemId: string, paginationOptions: PaginationComponentOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<RemoteData<PaginatedList<OrcidQueue>>> {
-    return this.dataService.searchBy('findByOwner', {
-        searchParams: [new RequestParam('ownerId', itemId)],
+  searchByProfileItemId(itemId: string, paginationOptions: PaginationComponentOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<RemoteData<PaginatedList<OrcidQueue>>> {
+    return this.dataService.searchBy('findByProfileItem', {
+        searchParams: [new RequestParam('profileItemId', itemId)],
         elementsPerPage: paginationOptions.pageSize,
         currentPage: paginationOptions.currentPage
       },
@@ -103,8 +103,8 @@ export class OrcidQueueService {
   /**
    * This method will set linkPath to stale
    */
-  clearFindByOwnerRequests() {
-    this.requestService.setStaleByHrefSubstring(this.dataService.linkPath + '/search/findByOwner');
+  clearFindByProfileItemRequests() {
+    this.requestService.setStaleByHrefSubstring(this.dataService.linkPath + '/search/findByProfileItem');
   }
 
 }

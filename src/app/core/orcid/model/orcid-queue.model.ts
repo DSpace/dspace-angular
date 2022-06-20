@@ -34,10 +34,10 @@ export class OrcidQueue extends CacheableObject {
   description: string;
 
   /**
-   * The identifier of the owner of this Orcid Queue record.
+   * The identifier of the profileItem of this Orcid Queue record.
    */
   @autoserialize
-  ownerId: string;
+  profileItemId: string;
 
   /**
    * The identifier of the entity related to this Orcid Queue record.

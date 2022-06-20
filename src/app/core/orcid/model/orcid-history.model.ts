@@ -34,10 +34,10 @@ export class OrcidHistory extends CacheableObject {
   entityName: string;
 
   /**
-   * The identifier of the owner of this Orcid History record.
+   * The identifier of the profileItem of this Orcid History record.
    */
   @autoserialize
-  ownerId: string;
+  profileItemId: string;
 
   /**
    * The identifier of the entity related to this Orcid History record.

@@ -25,7 +25,7 @@ describe('OrcidQueueComponent test suite', () => {
   let orcidQueueService: OrcidQueueService;
   let orcidAuthService: jasmine.SpyObj<OrcidAuthService>;
 
-  const testOwnerId = 'test-owner-id';
+  const testProfileItemId = 'test-owner-id';
 
   const mockItemLinkedToOrcid: Item = Object.assign(new Item(), {
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -88,7 +88,7 @@ describe('OrcidQueueComponent test suite', () => {
   function orcidQueueElement(id: number) {
     return Object.assign(new OrcidQueue(), {
       'id': id,
-      'ownerId': testOwnerId,
+      'profileItemId': testProfileItemId,
       'entityId': `test-entity-${id}`,
       'description': `test description ${id}`,
       'recordType': 'Publication',
@@ -99,8 +99,8 @@ describe('OrcidQueueComponent test suite', () => {
 
   const orcidQueueElements = [orcidQueueElement(1), orcidQueueElement(2)];
 
-  const orcidQueueServiceSpy = jasmine.createSpyObj('orcidQueueService', ['searchByOwnerId', 'clearFindByOwnerRequests']);
-  orcidQueueServiceSpy.searchByOwnerId.and.returnValue(createSuccessfulRemoteDataObject$<PaginatedList<OrcidQueue>>(createPaginatedList<OrcidQueue>(orcidQueueElements)));
+  const orcidQueueServiceSpy = jasmine.createSpyObj('orcidQueueService', ['searchByProfileItemId', 'clearFindByProfileItemRequests']);
+  orcidQueueServiceSpy.searchByProfileItemId.and.returnValue(createSuccessfulRemoteDataObject$<PaginatedList<OrcidQueue>>(createPaginatedList<OrcidQueue>(orcidQueueElements)));
 
   beforeEach(waitForAsync(() => {
     orcidAuthService = jasmine.createSpyObj('OrcidAuthService', {

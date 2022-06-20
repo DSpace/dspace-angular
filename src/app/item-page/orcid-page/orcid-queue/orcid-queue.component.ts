@@ -89,12 +89,12 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
         debounceTime(100),
         distinctUntilChanged(),
         tap(() => this.processing$.next(true)),
-        switchMap((config: PaginationComponentOptions) => this.orcidQueueService.searchByOwnerId(this.item.id, config, false)),
+        switchMap((config: PaginationComponentOptions) => this.orcidQueueService.searchByProfileItemId(this.item.id, config, false)),
         getFirstCompletedRemoteData()
       ).subscribe((result: RemoteData<PaginatedList<OrcidQueue>>) => {
         this.processing$.next(false);
         this.list$.next(result);
-        this.orcidQueueService.clearFindByOwnerRequests();
+        this.orcidQueueService.clearFindByProfileItemRequests();
       })
     );
   }
