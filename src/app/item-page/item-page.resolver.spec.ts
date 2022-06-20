@@ -8,11 +8,6 @@ import { ItemPageResolver } from './item-page.resolver';
 describe('ItemPageResolver', () => {
   describe('resolve', () => {
     let resolver: ItemPageResolver;
-
-    // const itemService: ItemDataService = jasmine.createSpyObj('ItemDataService', {
-    //   findById: jasmine.createSpy('findById')
-    // });
-
     let itemService: ItemDataService;
 
     let store;
@@ -137,7 +132,6 @@ describe('ItemPageResolver', () => {
           .pipe(first())
           .subscribe(
             (resolved) => {
-              console.log(resolved);
               expect(router.navigateByUrl).toHaveBeenCalledWith('/entities/person/1234-65487-12354-1235/edit');
               done();
             }
