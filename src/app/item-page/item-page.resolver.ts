@@ -34,6 +34,7 @@ export class ItemPageResolver extends ItemResolver {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Item>> {
     return super.resolve(route, state).pipe(
       map((rd: RemoteData<Item>) => {
+        console.log(state);
         if (rd.hasSucceeded && hasValue(rd.payload)) {
           const itemRoute = getItemPageRoute(rd.payload);
           // Check if custom url not empty and if the current id parameter is different from the custom url redirect to custom url
@@ -43,6 +44,7 @@ export class ItemPageResolver extends ItemResolver {
               this.router.navigateByUrl(newUrl);
             }
           } else {
+            console.log(state.url);
             const thisRoute = state.url;
             if (!thisRoute.startsWith(itemRoute)) {
               const itemId = rd.payload.uuid;
