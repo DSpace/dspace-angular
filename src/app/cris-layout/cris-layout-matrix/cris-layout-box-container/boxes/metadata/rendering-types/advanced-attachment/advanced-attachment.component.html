@@ -3,9 +3,7 @@
     <hr>
     <div class="row">
       <div class="col-3">
-        <ng-container *ngVar="getThumbnailSrc(attachment) | async as thumbnailSrc">
-          <ds-thumbnail [thumbnail]="thumbnailSrc"></ds-thumbnail>
-        </ng-container>
+        <ds-thumbnail [thumbnail]="attachment.thumbnail | async"></ds-thumbnail>
       </div>
       <div class="col-5">
         <div class="content" data-test="title" *ngIf="envData?.title">
@@ -37,7 +35,9 @@
         <ng-container *ngIf="getCanDownload(attachment) | async">
           <ng-container *ngVar="downloadLink(attachment) as downloadLink">
             <a [routerLink]="downloadLink?.routerLink" [queryParams]="downloadLink?.queryParams" class="btn btn-primary"
-              data-test="download">{{ 'cris-layout.advanced-attachment.download' | translate }}</a>
+              data-test="download">
+              <i class="fas fa-download"></i>
+              {{ 'cris-layout.advanced-attachment.download' | translate }}</a>
           </ng-container>
         </ng-container>
         <ng-container *ngIf="getCanRequestACopy(attachment) | async">

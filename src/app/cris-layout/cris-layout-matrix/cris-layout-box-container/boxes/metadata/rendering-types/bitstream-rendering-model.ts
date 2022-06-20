@@ -96,18 +96,6 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   }
 
   /**
-   * Returns thumbnail content of given bistream
-   * @param bitstream
-   */
-  getThumbnailSrc(bitstream: Bitstream): Observable<string> {
-    return bitstream.thumbnail?.pipe(
-      map((rd: RemoteData<Bitstream>) => {
-        return rd.payload?._links?.content?.href;
-      })
-    );
-  }
-
-  /**
    * Returns description of given bistream
    * @param bitstream
    */
