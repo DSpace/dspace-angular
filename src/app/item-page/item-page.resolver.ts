@@ -5,7 +5,7 @@ import { RemoteData } from '../core/data/remote-data';
 import { ItemDataService } from '../core/data/item-data.service';
 import { Item } from '../core/shared/item.model';
 import { Store } from '@ngrx/store';
-import { map, isEmpty } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { getItemPageRoute } from './item-page-routing-paths';
 import { ItemResolver } from './item.resolver';
@@ -39,7 +39,8 @@ export class ItemPageResolver extends ItemResolver {
           // Check if custom url not empty and if the current id parameter is different from the custom url redirect to custom url
           if (hasValue(rd.payload.metadata) && isNotEmpty(rd.payload.metadata['cris.customurl'])) {
             if (route.params.id !== rd.payload.metadata['cris.customurl'][0].value) {
-              this.router.navigateByUrl(getItemPageRoute(rd.payload));
+              const newUrl = state.url.replace(route.params.id, rd.payload.metadata['cris.customurl'][0].value);
+              this.router.navigateByUrl(newUrl);
             }
           } else {
             const thisRoute = state.url;
