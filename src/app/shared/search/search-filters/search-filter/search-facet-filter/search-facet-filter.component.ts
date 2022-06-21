@@ -29,7 +29,7 @@ import { InputSuggestion } from '../../../../input-suggestions/input-suggestions
 import { SearchOptions } from '../../../models/search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../../../utils/route.utils';
-import { addOperatorToFilterValue, getFacetValueForType, stripOperatorFromFilterValue } from '../../../search.utils';
+import { getFacetValueForType, stripOperatorFromFilterValue } from '../../../search.utils';
 import { createPendingRemoteDataObject } from '../../../../remote-data.utils';
 
 @Component({
@@ -239,11 +239,11 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
 
   /**
    * Submits a selected filter value to the filter
-   * Adds the "equals" operator to the received data before passing it on
-   * @param data The string selected from input suggestions
+   * Take the query from the InputSuggestion object
+   * @param data The input suggestion selected
    */
-  onClick(data: any) {
-    this.applyFilterValue(addOperatorToFilterValue(data, 'equals'));
+  onClick(data: InputSuggestion) {
+    this.applyFilterValue(data.query);
   }
 
   /**
@@ -279,6 +279,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
                   return rd.payload.page.map((facet) => {
                     return {
                       displayValue: this.getDisplayValue(facet, data),
+                      query: this.getFacetValue(facet),
                       value: stripOperatorFromFilterValue(this.getFacetValue(facet))
                     };
                   });
