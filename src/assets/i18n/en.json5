@@ -3735,6 +3735,8 @@
 
   "submission.import-external.source.wos": "Web Of Science",
 
+  "submission.import-external.source.orcidWorks": "ORCID",
+
   "submission.import-external.source.epo": "European Patent Office (EPO)",
 
   "submission.import-external.source.loading": "Loading ...",
