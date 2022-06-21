@@ -60,6 +60,12 @@ export class ProfilePageSecurityFormComponent implements OnInit {
    */
   @Input()
   FORM_PREFIX: string;
+
+  /**
+   * monitor to password is weak or not from server response
+   */
+  @Input()
+  isRobustPasswordError: boolean;
   private subs: Subscription[] = [];
 
   constructor(protected formService: DynamicFormService,

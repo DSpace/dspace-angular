@@ -9,6 +9,7 @@ import { FormBuilderService } from '../../shared/form/builder/form-builder.servi
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form.component';
 import { of as observableOf } from 'rxjs';
 import { RestResponse } from '../../core/cache/response.models';
+import { By } from '@angular/platform-browser';
 
 describe('ProfilePageSecurityFormComponent', () => {
   let component: ProfilePageSecurityFormComponent;
@@ -75,5 +76,17 @@ describe('ProfilePageSecurityFormComponent', () => {
         expect(component.passwordValue.emit).toHaveBeenCalledWith('new-password');
       }));
     });
+  });
+
+  describe('On robust password Error', () => {
+    it('should show/hide robust password error', () => {
+      component.isRobustPasswordError = true;
+      fixture.detectChanges();
+      expect(fixture.debugElement.query(By.css('[data-test="robust-password-error"]'))).toBeTruthy();
+
+      component.isRobustPasswordError = false;
+      fixture.detectChanges();
+      expect(fixture.debugElement.query(By.css('[data-test="robust-password-error"]'))).toBeFalsy();
+    })
   });
 });
