@@ -9,7 +9,7 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
+import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { Item } from '../../../core/shared/item.model';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
@@ -25,7 +25,7 @@ describe('OrcidAuthComponent test suite', () => {
   let comp: OrcidAuthComponent;
   let fixture: ComponentFixture<OrcidAuthComponent>;
   let scheduler: TestScheduler;
-  let researcherProfileService: jasmine.SpyObj<ResearcherProfileService>;
+  let orcidAuthService: jasmine.SpyObj<OrcidAuthService>;
   let nativeWindowRef;
   let notificationsService;
 
@@ -112,7 +112,7 @@ describe('OrcidAuthComponent test suite', () => {
   });
 
   beforeEach(waitForAsync(() => {
-    researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
+    orcidAuthService = jasmine.createSpyObj('researcherProfileService', {
       getOrcidAuthorizationScopes: jasmine.createSpy('getOrcidAuthorizationScopes'),
       getOrcidAuthorizationScopesByItem: jasmine.createSpy('getOrcidAuthorizationScopesByItem'),
       getOrcidAuthorizeUrl: jasmine.createSpy('getOrcidAuthorizeUrl'),
@@ -137,7 +137,7 @@ describe('OrcidAuthComponent test suite', () => {
       providers: [
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
-        { provide: ResearcherProfileService, useValue: researcherProfileService }
+        { provide: OrcidAuthService, useValue: orcidAuthService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(OrcidAuthComponent, {
@@ -149,17 +149,17 @@ describe('OrcidAuthComponent test suite', () => {
     scheduler = getTestScheduler();
     fixture = TestBed.createComponent(OrcidAuthComponent);
     comp = fixture.componentInstance;
-    researcherProfileService.getOrcidAuthorizationScopes.and.returnValue(of(orcidScopes));
+    orcidAuthService.getOrcidAuthorizationScopes.and.returnValue(of(orcidScopes));
   }));
 
   describe('when orcid profile is not linked', () => {
     beforeEach(waitForAsync(() => {
       comp.item = mockItemUnlinkedToOrcid;
-      researcherProfileService.getOrcidAuthorizationScopesByItem.and.returnValue([]);
-      researcherProfileService.isLinkedToOrcid.and.returnValue(false);
-      researcherProfileService.onlyAdminCanDisconnectProfileFromOrcid.and.returnValue(of(false));
-      researcherProfileService.ownerCanDisconnectProfileFromOrcid.and.returnValue(of(true));
-      researcherProfileService.getOrcidAuthorizeUrl.and.returnValue(of('oarcidUrl'));
+      orcidAuthService.getOrcidAuthorizationScopesByItem.and.returnValue([]);
+      orcidAuthService.isLinkedToOrcid.and.returnValue(false);
+      orcidAuthService.onlyAdminCanDisconnectProfileFromOrcid.and.returnValue(of(false));
+      orcidAuthService.ownerCanDisconnectProfileFromOrcid.and.returnValue(of(true));
+      orcidAuthService.getOrcidAuthorizeUrl.and.returnValue(of('oarcidUrl'));
       fixture.detectChanges();
     }));
 
@@ -183,7 +183,7 @@ describe('OrcidAuthComponent test suite', () => {
   describe('when orcid profile is linked', () => {
     beforeEach(waitForAsync(() => {
       comp.item = mockItemLinkedToOrcid;
-      researcherProfileService.isLinkedToOrcid.and.returnValue(true);
+      orcidAuthService.isLinkedToOrcid.and.returnValue(true);
     }));
 
     describe('', () => {
@@ -191,16 +191,16 @@ describe('OrcidAuthComponent test suite', () => {
       beforeEach(waitForAsync(() => {
         comp.item = mockItemLinkedToOrcid;
         notificationsService = (comp as any).notificationsService;
-        researcherProfileService.getOrcidAuthorizationScopesByItem.and.returnValue([...orcidScopes]);
-        researcherProfileService.isLinkedToOrcid.and.returnValue(true);
-        researcherProfileService.onlyAdminCanDisconnectProfileFromOrcid.and.returnValue(of(false));
-        researcherProfileService.ownerCanDisconnectProfileFromOrcid.and.returnValue(of(true));
+        orcidAuthService.getOrcidAuthorizationScopesByItem.and.returnValue([...orcidScopes]);
+        orcidAuthService.isLinkedToOrcid.and.returnValue(true);
+        orcidAuthService.onlyAdminCanDisconnectProfileFromOrcid.and.returnValue(of(false));
+        orcidAuthService.ownerCanDisconnectProfileFromOrcid.and.returnValue(of(true));
       }));
 
       describe('and unlink is successfully', () => {
         beforeEach(waitForAsync(() => {
           comp.item = mockItemLinkedToOrcid;
-          researcherProfileService.unlinkOrcidByItem.and.returnValue(createSuccessfulRemoteDataObject$(new ResearcherProfile()));
+          orcidAuthService.unlinkOrcidByItem.and.returnValue(createSuccessfulRemoteDataObject$(new ResearcherProfile()));
           spyOn(comp.unlink, 'emit');
           fixture.detectChanges();
         }));
@@ -217,7 +217,7 @@ describe('OrcidAuthComponent test suite', () => {
       describe('and unlink is failed', () => {
         beforeEach(waitForAsync(() => {
           comp.item = mockItemLinkedToOrcid;
-          researcherProfileService.unlinkOrcidByItem.and.returnValue(createFailedRemoteDataObject$());
+          orcidAuthService.unlinkOrcidByItem.and.returnValue(createFailedRemoteDataObject$());
           fixture.detectChanges();
         }));
 
@@ -234,10 +234,10 @@ describe('OrcidAuthComponent test suite', () => {
 
       beforeEach(waitForAsync(() => {
         comp.item = mockItemLinkedToOrcid;
-        researcherProfileService.getOrcidAuthorizationScopesByItem.and.returnValue([...orcidScopes]);
-        researcherProfileService.isLinkedToOrcid.and.returnValue(true);
-        researcherProfileService.onlyAdminCanDisconnectProfileFromOrcid.and.returnValue(of(false));
-        researcherProfileService.ownerCanDisconnectProfileFromOrcid.and.returnValue(of(true));
+        orcidAuthService.getOrcidAuthorizationScopesByItem.and.returnValue([...orcidScopes]);
+        orcidAuthService.isLinkedToOrcid.and.returnValue(true);
+        orcidAuthService.onlyAdminCanDisconnectProfileFromOrcid.and.returnValue(of(false));
+        orcidAuthService.ownerCanDisconnectProfileFromOrcid.and.returnValue(of(true));
         fixture.detectChanges();
       }));
 
@@ -263,10 +263,10 @@ describe('OrcidAuthComponent test suite', () => {
 
       beforeEach(waitForAsync(() => {
         comp.item = mockItemLinkedToOrcid;
-        researcherProfileService.getOrcidAuthorizationScopesByItem.and.returnValue([...partialOrcidScopes]);
-        researcherProfileService.isLinkedToOrcid.and.returnValue(true);
-        researcherProfileService.onlyAdminCanDisconnectProfileFromOrcid.and.returnValue(of(false));
-        researcherProfileService.ownerCanDisconnectProfileFromOrcid.and.returnValue(of(true));
+        orcidAuthService.getOrcidAuthorizationScopesByItem.and.returnValue([...partialOrcidScopes]);
+        orcidAuthService.isLinkedToOrcid.and.returnValue(true);
+        orcidAuthService.onlyAdminCanDisconnectProfileFromOrcid.and.returnValue(of(false));
+        orcidAuthService.ownerCanDisconnectProfileFromOrcid.and.returnValue(of(true));
         fixture.detectChanges();
       }));
 
@@ -294,10 +294,10 @@ describe('OrcidAuthComponent test suite', () => {
 
       beforeEach(waitForAsync(() => {
         comp.item = mockItemLinkedToOrcid;
-        researcherProfileService.getOrcidAuthorizationScopesByItem.and.returnValue([...orcidScopes]);
-        researcherProfileService.isLinkedToOrcid.and.returnValue(true);
-        researcherProfileService.onlyAdminCanDisconnectProfileFromOrcid.and.returnValue(of(true));
-        researcherProfileService.ownerCanDisconnectProfileFromOrcid.and.returnValue(of(false));
+        orcidAuthService.getOrcidAuthorizationScopesByItem.and.returnValue([...orcidScopes]);
+        orcidAuthService.isLinkedToOrcid.and.returnValue(true);
+        orcidAuthService.onlyAdminCanDisconnectProfileFromOrcid.and.returnValue(of(true));
+        orcidAuthService.ownerCanDisconnectProfileFromOrcid.and.returnValue(of(false));
         fixture.detectChanges();
       }));
 
@@ -314,10 +314,10 @@ describe('OrcidAuthComponent test suite', () => {
 
       beforeEach(waitForAsync(() => {
         comp.item = mockItemLinkedToOrcid;
-        researcherProfileService.getOrcidAuthorizationScopesByItem.and.returnValue([...orcidScopes]);
-        researcherProfileService.isLinkedToOrcid.and.returnValue(true);
-        researcherProfileService.onlyAdminCanDisconnectProfileFromOrcid.and.returnValue(of(true));
-        researcherProfileService.ownerCanDisconnectProfileFromOrcid.and.returnValue(of(true));
+        orcidAuthService.getOrcidAuthorizationScopesByItem.and.returnValue([...orcidScopes]);
+        orcidAuthService.isLinkedToOrcid.and.returnValue(true);
+        orcidAuthService.onlyAdminCanDisconnectProfileFromOrcid.and.returnValue(of(true));
+        orcidAuthService.ownerCanDisconnectProfileFromOrcid.and.returnValue(of(true));
         fixture.detectChanges();
       }));
 

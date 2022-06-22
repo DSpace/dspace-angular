@@ -11,7 +11,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
 import { OrcidPageComponent } from './orcid-page.component';
 import {
   createFailedRemoteDataObject$,
@@ -23,6 +22,7 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
+import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
 
 describe('OrcidPageComponent test suite', () => {
   let comp: OrcidPageComponent;
@@ -32,7 +32,7 @@ describe('OrcidPageComponent test suite', () => {
   let routeStub: jasmine.SpyObj<ActivatedRouteStub>;
   let routeData: any;
   let itemDataService: jasmine.SpyObj<ItemDataService>;
-  let researcherProfileService: jasmine.SpyObj<ResearcherProfileService>;
+  let orcidAuthService: jasmine.SpyObj<OrcidAuthService>;
 
   const mockResearcherProfile: ResearcherProfile = Object.assign(new ResearcherProfile(), {
     id: 'test-id',
@@ -88,7 +88,7 @@ describe('OrcidPageComponent test suite', () => {
 
     routeStub = new ActivatedRouteStub({}, routeData);
 
-    researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
+    orcidAuthService = jasmine.createSpyObj('OrcidAuthService', {
       isLinkedToOrcid: jasmine.createSpy('isLinkedToOrcid'),
       linkOrcidByItem: jasmine.createSpy('linkOrcidByItem'),
     });
@@ -110,7 +110,7 @@ describe('OrcidPageComponent test suite', () => {
       declarations: [OrcidPageComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
-        { provide: ResearcherProfileService, useValue: researcherProfileService },
+        { provide: OrcidAuthService, useValue: orcidAuthService },
         { provide: AuthService, useValue: authService },
         { provide: ItemDataService, useValue: itemDataService },
         { provide: PLATFORM_ID, useValue: 'browser' },
@@ -146,7 +146,7 @@ describe('OrcidPageComponent test suite', () => {
     it('should call isLinkedToOrcid', () => {
       comp.isLinkedToOrcid();
 
-      expect(researcherProfileService.isLinkedToOrcid).toHaveBeenCalledWith(comp.item.value);
+      expect(orcidAuthService.isLinkedToOrcid).toHaveBeenCalledWith(comp.item.value);
     });
 
     it('should update item', fakeAsync(() => {
@@ -168,13 +168,13 @@ describe('OrcidPageComponent test suite', () => {
 
     describe('and linking to orcid profile is successfully', () => {
       beforeEach(waitForAsync(() => {
-        researcherProfileService.linkOrcidByItem.and.returnValue(createSuccessfulRemoteDataObject$(mockResearcherProfile));
+        orcidAuthService.linkOrcidByItem.and.returnValue(createSuccessfulRemoteDataObject$(mockResearcherProfile));
         itemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockItemLinkedToOrcid));
         fixture.detectChanges();
       }));
 
       it('should call linkOrcidByItem', () => {
-        expect(researcherProfileService.linkOrcidByItem).toHaveBeenCalledWith(mockItem, 'orcid-code');
+        expect(orcidAuthService.linkOrcidByItem).toHaveBeenCalledWith(mockItem, 'orcid-code');
         expect(comp.updateItem).toHaveBeenCalled();
       });
 
@@ -193,13 +193,13 @@ describe('OrcidPageComponent test suite', () => {
 
     describe('and linking to orcid profile is failed', () => {
       beforeEach(waitForAsync(() => {
-        researcherProfileService.linkOrcidByItem.and.returnValue(createFailedRemoteDataObject$());
+        orcidAuthService.linkOrcidByItem.and.returnValue(createFailedRemoteDataObject$());
         itemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockItemLinkedToOrcid));
         fixture.detectChanges();
       }));
 
       it('should call linkOrcidByItem', () => {
-        expect(researcherProfileService.linkOrcidByItem).toHaveBeenCalledWith(mockItem, 'orcid-code');
+        expect(orcidAuthService.linkOrcidByItem).toHaveBeenCalledWith(mockItem, 'orcid-code');
         expect(comp.updateItem).not.toHaveBeenCalled();
       });
 

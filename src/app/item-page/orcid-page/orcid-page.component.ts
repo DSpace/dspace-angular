@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
-import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
+import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
@@ -14,7 +15,6 @@ import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { isNotEmpty } from '../../shared/empty.util';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { isPlatformBrowser } from '@angular/common';
 
 /**
  * A component that represents the orcid settings page
@@ -50,7 +50,7 @@ export class OrcidPageComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: any,
     private authService: AuthService,
     private itemService: ItemDataService,
-    private researcherProfileService: ResearcherProfileService,
+    private orcidAuthService: OrcidAuthService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -95,7 +95,7 @@ export class OrcidPageComponent implements OnInit {
    * @returns the check result
    */
   isLinkedToOrcid(): boolean {
-    return this.researcherProfileService.isLinkedToOrcid(this.item.value);
+    return this.orcidAuthService.isLinkedToOrcid(this.item.value);
   }
 
   /**
@@ -109,6 +109,7 @@ export class OrcidPageComponent implements OnInit {
    * Retrieve the updated profile item
    */
   updateItem(): void {
+    this.clearRouteParams();
     this.itemService.findById(this.itemId, false).pipe(
       getFirstCompletedRemoteData()
     ).subscribe((itemRD: RemoteData<Item>) => {
@@ -125,7 +126,7 @@ export class OrcidPageComponent implements OnInit {
    * @param code The auth-code received from ORCID
    */
   private linkProfileToOrcid(person: Item, code: string) {
-    this.researcherProfileService.linkOrcidByItem(person, code).pipe(
+    this.orcidAuthService.linkOrcidByItem(person, code).pipe(
       getFirstCompletedRemoteData()
     ).subscribe((profileRD: RemoteData<ResearcherProfile>) => {
       this.processingConnection.next(false);
@@ -135,11 +136,18 @@ export class OrcidPageComponent implements OnInit {
       } else {
         this.item.next(person);
         this.connectionStatus.next(false);
+        this.clearRouteParams();
       }
-
-      // update route removing the code from query params
-      const redirectUrl = this.router.url.split('?')[0];
-      this.router.navigate([redirectUrl]);
     });
+  }
+
+  /**
+   * Update route removing the code from query params
+   * @private
+   */
+  private clearRouteParams(): void {
+    // update route removing the code from query params
+    const redirectUrl = this.router.url.split('?')[0];
+    this.router.navigate([redirectUrl]);
   }
 }

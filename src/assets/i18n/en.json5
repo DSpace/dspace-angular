@@ -3735,6 +3735,8 @@
 
   "submission.import-external.source.wos": "Web Of Science",
 
+  "submission.import-external.source.orcidWorks": "ORCID",
+
   "submission.import-external.source.epo": "European Patent Office (EPO)",
 
   "submission.import-external.source.loading": "Loading ...",
@@ -4510,8 +4512,6 @@
 
   "researcherprofile.success.claim.title" : "Success",
 
-  "person.page.orcid": "ORCID",
-
   "person.page.orcid.create": "Create an ORCID ID",
 
   "person.page.orcid.granted-authorizations": "Granted authorizations",
@@ -4580,7 +4580,11 @@
 
   "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
 
-  "person.page.orcid.sync-queue.description" : "Description",
+  "person.page.orcid.sync-queue.table.header.type" : "Type",
+
+  "person.page.orcid.sync-queue.table.header.description" : "Description",
+
+  "person.page.orcid.sync-queue.table.header.action" : "Action",
 
   "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
 
@@ -4606,7 +4610,7 @@
 
   "person.page.orcid.sync-queue.tooltip.publication": "Publication",
 
-  "person.page.orcid.sync-queue.tooltip.funding": "Funding",
+  "person.page.orcid.sync-queue.tooltip.project": "Project",
 
   "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
 
@@ -4648,21 +4652,25 @@
 
   "person.page.orcid.sync-queue.send.validation-error.title.required": "The title is required",
 
-  "person.page.orcid.sync-queue.send.validation-error.type.required": "The type is required",
+  "person.page.orcid.sync-queue.send.validation-error.type.required": "The dc.type is required",
 
   "person.page.orcid.sync-queue.send.validation-error.start-date.required": "The start date is required",
 
   "person.page.orcid.sync-queue.send.validation-error.funder.required": "The funder is required",
 
+  "person.page.orcid.sync-queue.send.validation-error.country.invalid": "Invalid 2 digits ISO 3166 country",
+
   "person.page.orcid.sync-queue.send.validation-error.organization.required": "The organization is required",
 
   "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
 
   "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
 
   "person.page.orcid.sync-queue.send.validation-error.organization.city-required": "The address of the organization to be sent requires a city",
 
-  "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "The address of the organization to be sent requires a country",
+  "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "The address of the organization to be sent requires a valid 2 digits ISO 3166 country",
 
   "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "An identifier to disambiguate organizations is required. Supported ids are GRID, Ringgold, Legal Entity identifiers (LEIs) and Crossref Funder Registry identifiers",
 
