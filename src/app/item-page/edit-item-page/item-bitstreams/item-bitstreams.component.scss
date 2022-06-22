@@ -50,3 +50,7 @@
     cursor: grabbing;
   }
 }
+
+:host ::ng-deep .larger-tooltip .tooltip-inner {
+  max-width: 500px;
+}
