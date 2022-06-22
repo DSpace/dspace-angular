@@ -1,4 +1,4 @@
-<ng-container *ngIf="(canDownload$ |async)">
+<ng-container *ngIf="(canDownload$ | async)">
     <ng-container *ngVar="bitstreamPath$ | async as downloadLink">
         <a [routerLink]="downloadLink?.routerLink" [queryParams]="downloadLink?.queryParams" class="btn btn-primary"
             data-test="download">
@@ -6,7 +6,7 @@
             {{ 'cris-layout.advanced-attachment.download' | translate }}</a>
     </ng-container>
 </ng-container>
-<ng-container *ngIf="!(canDownload$ |async)">
+<ng-container *ngIf="!(canDownload$ | async)">
     <ng-container *ngVar="bitstreamPath$ | async as requestACopyLink">
         <a [routerLink]="requestACopyLink?.routerLink" [queryParams]="requestACopyLink?.queryParams"
             class="btn btn-primary" data-test="requestACopy">{{ 'cris-layout.advanced-attachment.requestACopy' |

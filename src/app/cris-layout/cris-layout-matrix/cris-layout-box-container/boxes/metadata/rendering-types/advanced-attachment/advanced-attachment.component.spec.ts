@@ -177,10 +177,6 @@ describe('AdvancedAttachmentComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AdvancedAttachmentComponent);
     component = fixture.componentInstance;
-    spyDownload = spyOn(component, 'getCanDownload');
-    spyDownload.and.returnValue(of(true));
-    spyRequestACopy = spyOn(component, 'getCanRequestACopy');
-    spyRequestACopy.and.returnValue(of(true));
     mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
     component.item = testItem;
     fixture.detectChanges();
@@ -260,30 +256,6 @@ describe('AdvancedAttachmentComponent', () => {
     it('should show size', () => {
       expect(fixture.debugElement.query(By.css('[data-test="size"]'))).toBeFalsy();
     });
-  });
-
-  it('should show download button', () => {
-    spyDownload.and.returnValue(of(true));
-    fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('[data-test="download"]'))).toBeTruthy();
-  });
-
-  it('should show can request a copy button', () => {
-    spyRequestACopy.and.returnValue(of(true));
-    fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('[data-test="requestACopy"]'))).toBeTruthy();
-  });
-
-  it('should not show download button', () => {
-    spyDownload.and.returnValue(of(false));
-    fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('[data-test="download"]'))).toBeFalsy();
-  });
-
-  it('should not show can request a copy button', () => {
-    spyRequestACopy.and.returnValue(of(false));
-    fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('[data-test="requestACopy"]'))).toBeFalsy();
   });
 
 
