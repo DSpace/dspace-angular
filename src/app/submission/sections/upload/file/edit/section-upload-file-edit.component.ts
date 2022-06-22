@@ -15,7 +15,9 @@ import {
   OR_OPERATOR
 } from '@ng-dynamic-forms/core';
 
-import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
+import {
+  WorkspaceitemSectionUploadFileObject
+} from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import {
   BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG,
@@ -43,10 +45,16 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { filter, mergeMap, take } from 'rxjs/operators';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
-import { WorkspaceitemSectionUploadObject } from '../../../../../core/submission/models/workspaceitem-section-upload.model';
+import {
+  WorkspaceitemSectionUploadObject
+} from '../../../../../core/submission/models/workspaceitem-section-upload.model';
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
-import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import {
+  SubmissionJsonPatchOperationsService
+} from '../../../../../core/submission/submission-json-patch-operations.service';
+import {
+  JsonPatchOperationPathCombiner
+} from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SectionUploadService } from '../../section-upload.service';
 import { Subscription } from 'rxjs';
 
@@ -251,7 +259,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
       endDateControl?.setValue(null);
 
       if (showGroups) {
-        if (accessCondition.hasStartDate) {
+        if (accessCondition.hasStartDate && accessCondition.maxStartDate) {
           const startDateModel = this.formBuilderService.findById(
             'startDate',
             (model.parent as DynamicFormArrayGroupModel).group) as DynamicDateControlModel;
@@ -263,7 +271,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
             day: min.getUTCDate()
           };
         }
-        if (accessCondition.hasEndDate) {
+        if (accessCondition.hasEndDate && accessCondition.maxEndDate) {
           const endDateModel = this.formBuilderService.findById(
             'endDate',
             (model.parent as DynamicFormArrayGroupModel).group) as DynamicDateControlModel;
@@ -274,6 +282,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
             month: max.getUTCMonth() + 1,
             day: max.getUTCDate()
           };
+
         }
       }
     }
