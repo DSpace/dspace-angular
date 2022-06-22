@@ -32,21 +32,8 @@
         </div>
       </div>
       <div class="col-4 text-right">
-        <ng-container *ngIf="getCanDownload(attachment) | async">
-          <ng-container *ngVar="downloadLink(attachment) as downloadLink">
-            <a [routerLink]="downloadLink?.routerLink" [queryParams]="downloadLink?.queryParams" class="btn btn-primary"
-              data-test="download">
-              <i class="fas fa-download"></i>
-              {{ 'cris-layout.advanced-attachment.download' | translate }}</a>
-          </ng-container>
-        </ng-container>
-        <ng-container *ngIf="getCanRequestACopy(attachment) | async">
-          <ng-container *ngVar="requestACopyLink(attachment) as requestACopyLink">
-            <a [routerLink]="requestACopyLink?.routerLink" [queryParams]="requestACopyLink?.queryParams"
-              class="btn btn-primary" data-test="requestACopy">{{ 'cris-layout.advanced-attachment.requestACopy' |
-              translate }}</a>
-          </ng-container>
-        </ng-container>
+        <ds-file-download-button [bitstream]="attachment" [enableRequestACopy]="true" [item]="item">
+        </ds-file-download-button>
       </div>
     </div>
     <hr *ngIf="last">

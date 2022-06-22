@@ -47,6 +47,7 @@ import { MiradorViewerModule } from '../item-page/mirador-viewer/mirador-viewer.
 import { ComcolModule } from '../shared/comcol/comcol.module';
 import { SearchModule } from '../shared/search/search.module';
 import { AdvancedAttachmentComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/advanced-attachment.component';
+import { FileDownloadButtonComponent } from '../shared/file-download-button/file-download-button.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -96,7 +97,8 @@ const ENTRY_COMPONENTS = [
     DsDatePipe,
     RowComponent,
     MetadataContainerComponent,
-    MetadataRenderComponent
+    MetadataRenderComponent,
+    FileDownloadButtonComponent,
   ],
   imports: [
     CommonModule,

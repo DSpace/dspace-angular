@@ -54,39 +54,4 @@ export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponen
     this.bitstreams$ = this.getBitstreams();
   }
 
-
-  /**
-   * Get if bitstream can be downloaded
-   */
-  getCanDownload(bitstream): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.CanDownload, bitstream.self);
-  }
-
-
-  /**
-   * Get if bitstream can be requested as copy
-   */
-  getCanRequestACopy(bitstream): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.CanRequestACopy, bitstream.self);
-  }
-
-
-  /**
-   * Get the download link
-   */
-  downloadLink(bitstream: Bitstream) {
-    return {
-      routerLink: getBitstreamDownloadRoute(bitstream),
-      queryParams: {}
-    };
-  }
-
-
-  /**
-   * Get the request a copy link
-   */
-  requestACopyLink(bitstream: Bitstream) {
-    return getBitstreamRequestACopyRoute(this.item, bitstream);
-  }
-
 }
