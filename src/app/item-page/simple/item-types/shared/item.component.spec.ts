@@ -40,21 +40,25 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { ResearcherProfileService } from '../../../../core/profile/researcher-profile.service';
 
-export const iiifEnabled = Object.assign(new MetadataValue(),{
-  'value': 'true',
-  'language': null,
-  'authority': null,
-  'confidence': -1,
-  'place': 0
-});
+export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
+  return Object.assign(new MetadataValue(), {
+    'value': enabled,
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0
+  });
+}
 
-export const iiifSearchEnabled = Object.assign(new MetadataValue(), {
-  'value': 'true',
-  'language': null,
-  'authority': null,
-  'confidence': -1,
-  'place': 0
-});
+export function getIIIFEnabled(enabled: boolean): MetadataValue {
+  return Object.assign(new MetadataValue(), {
+    'value': enabled,
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0
+  });
+}
 
 export const mockRouteService = jasmine.createSpyObj('RouteService', ['getPreviousUrl']);
 
