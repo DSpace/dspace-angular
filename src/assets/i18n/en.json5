@@ -3056,7 +3056,7 @@
 
   "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
 
-  "profile.security.form.notifications.error.robust-password": "Please select a more robust password.",
+  "profile.security.form.error.robust-password": "Please select a more robust password.",
 
   "profile.title": "Update Profile",
 

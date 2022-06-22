@@ -228,6 +228,23 @@ describe('ProfilePageComponent', () => {
           expect(epersonService.patch).toHaveBeenCalledWith(user, operations);
         });
       });
+
+      describe('when password is filled in, and is weak', () => {
+        let result;
+        let operations;
+
+        it('should return call epersonService.patch', () => {
+          (epersonService.patch as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Error', 422));
+          component.setPasswordValue('testest');
+
+          component.setInvalid(false);
+          operations = [{ op: 'add', path: '/password', value: 'testest' }];
+          result = component.updateSecurity();
+          expect(result).toEqual(true);
+          expect(epersonService.patch).toHaveBeenCalledWith(user, operations);
+          expect(component.isRobustPasswordError.value).toBeTrue();
+        });
+      });
     });
 
     describe('canChangePassword$', () => {
