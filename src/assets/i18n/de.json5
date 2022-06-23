@@ -252,7 +252,7 @@
   "admin.registries.schema.fields.no-items": "Es gibt keine Metadatenfelder in diesem Schema.",
   
   // "admin.registries.schema.fields.table.delete": "Delete selected",
-  "admin.registries.schema.fields.table.delete": "Ausgewähltes löschen",
+  "admin.registries.schema.fields.table.delete": "Auswahl löschen",
   
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Feld",
