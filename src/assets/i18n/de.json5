@@ -1375,7 +1375,7 @@
   "community.create.notifications.success": "Bereich erfolgreich angelegt",
   
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
-  "community.create.sub-head": "Teilbeirech im Bereich {{ parent }} anlegen",
+  "community.create.sub-head": "Teilbereich im Bereich {{ parent }} anlegen",
   
   // "community.curate.header": "Curate Community: {{community}}",
   "community.curate.header": "Bereich: {{community}} pflegen",
