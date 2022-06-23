@@ -1008,9 +1008,12 @@
   
   // "browse.startsWith.type_text": "Or enter first few letters:",
   "browse.startsWith.type_text": "Oder geben Sie die ersten Buchstaben ein:",
-  
-  // "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
-  "browse.title": "Auflistung von {{ collection }} nach {{ field }} {{ value }}",
+    
+  // "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
+  "browse.title": "Auflistung {{ collection }} nach {{ field }}{{ startsWith }} {{ value }}",
+
+  // "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
+  "browse.title.page": "Auflistung {{ collection }} nach {{ field }} {{ value }}",
   
   
   // "chips.remove": "Remove chip",
