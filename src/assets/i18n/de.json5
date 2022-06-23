@@ -1562,7 +1562,7 @@
   "community.form.errors.title.required": "Bitte geben Sie einen Namen für den Bereich ein.",
   
   // "community.form.rights": "Copyright text (HTML)",
-  "community.form.rights": "Copyrighterklärung (HTML)",
+  "community.form.rights": "Copyright Text (HTML)",
   
   // "community.form.tableofcontents": "News (HTML)",
   "community.form.tableofcontents": "Neuigkeiten (HTML)",
