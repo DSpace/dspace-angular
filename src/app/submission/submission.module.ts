@@ -50,7 +50,7 @@ import { ThemedSubmissionEditComponent } from './edit/themed-submission-edit.com
 import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
 import { ThemedSubmissionImportExternalComponent } from './import-external/themed-submission-import-external.component';
 import { FormModule } from '../shared/form/form.module';
-import { NgbCollapseModule, NgbModalModule, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule, NgbCollapseModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionSectionAccessesComponent } from './sections/accesses/section-accesses.component';
 import { SubmissionAccessesConfigService } from '../core/config/submission-accesses-config.service';
 import { SectionAccessesService } from './sections/accesses/section-accesses.service';
@@ -71,7 +71,6 @@ const ENTRY_COMPONENTS = [
   SubmissionSectionLicenseComponent,
   SubmissionSectionCcLicensesComponent,
   SubmissionSectionAccessesComponent,
-  SubmissionSectionUploadFileEditComponent,
   SubmissionSectionSherpaPoliciesComponent,
 ];
 
