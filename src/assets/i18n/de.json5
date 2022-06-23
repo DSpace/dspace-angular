@@ -1356,9 +1356,12 @@
 
   // "community.edit.logo.delete.title": "Delete logo",
   "community.edit.logo.delete.title": "Logo löschen",
+  
+  // "communityList.breadcrumbs": "Community List",
+  "communityList.breadcrumbs": "Bereichsliste",
 
-  // "communityList.tabTitle": "DSpace - Community List",
-  "communityList.tabTitle": "DSpace - Bereichsliste",
+  // "communityList.tabTitle": "Community List",
+  "communityList.tabTitle": "Bereichsliste",
   
   // "communityList.title": "List of Communities",
   "communityList.title": "Liste der Bereiche",
