@@ -4642,6 +4642,12 @@
   // "submission.general.discard.submit": "Discard",
   "submission.general.discard.submit": "Verwerfen",
   
+  // "submission.general.info.saved": "Saved",
+  "submission.general.info.saved": "Gespeichert",
+
+  // "submission.general.info.pending-changes": "Unsaved changes",
+  "submission.general.info.pending-changes": "Ungespeicherte Änderungen",
+  
   // "submission.general.save": "Save",
   "submission.general.save": "Speichern",
   
