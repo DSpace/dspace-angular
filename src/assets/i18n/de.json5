@@ -5231,7 +5231,7 @@
   "submission.workflow.generic.delete": "Löschen",
   
   // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
-  "submission.workflow.generic.delete-help": "Wenn Sie dieses Item möchten, wählen Sie bitte \"Löschen\". Sie werden danach um Bestätigung gebeten.",
+  "submission.workflow.generic.delete-help": "Wenn Sie dieses Item verwerfen möchten, wählen Sie bitte \"Löschen\". Sie werden danach um Bestätigung gebeten.",
   
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Bearbeiten",
