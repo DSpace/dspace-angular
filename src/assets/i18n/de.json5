@@ -193,8 +193,8 @@
   // "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
   "admin.registries.bitstream-formats.table.supportLevel.head": "Unterstützungsgrad",
   
-  // "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
-  "admin.registries.bitstream-formats.title": "DSpace Angular :: Referenzliste der Dateiformate",
+  // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
+  "admin.registries.bitstream-formats.title": "Referenzliste der Dateiformate",
   
   
   
@@ -234,8 +234,8 @@
   // "admin.registries.metadata.schemas.table.namespace": "Namespace",
   "admin.registries.metadata.schemas.table.namespace": "Namensraum",
   
-  // "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
-  "admin.registries.metadata.title": "DSpace Angular :: Metadatenreferenzliste",
+  // "admin.registries.metadata.title": "Metadata Registry",
+  "admin.registries.metadata.title": "Metadatenreferenzliste",
   
   
   
@@ -311,8 +311,8 @@
   // "admin.registries.schema.return": "Return",
   "admin.registries.schema.return": "Zurück",
   
-  // "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
-  "admin.registries.schema.title": "DSpace Angular :: Referenzliste der Metadatenschemata",
+  // "admin.registries.schema.title": "Metadata Schema Registry",
+  "admin.registries.schema.title": "Referenzliste der Metadatenschemata",
   
   
   
@@ -328,8 +328,8 @@
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
   "admin.access-control.epeople.actions.stop-impersonating": "Von Person ausloggen",
   
-  // "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
-  "admin.access-control.epeople.title": "DSpace Angular :: Personen",
+  // "admin.access-control.epeople.title": "EPeople",
+  "admin.access-control.epeople.title": "Personen",
   
   // "admin.access-control.epeople.head": "EPeople",
   "admin.access-control.epeople.head": "Personen",
@@ -444,14 +444,14 @@
   
   
   
-  // "admin.access-control.groups.title": "DSpace Angular :: Groups",
-  "admin.access-control.groups.title": "DSpace Angular :: Gruppen",
+  // "admin.access-control.groups.title": "Groups",
+  "admin.access-control.groups.title": "Gruppen",
   
-  // "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
-  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Gruppe bearbeiten",
+  // "admin.access-control.groups.title.singleGroup": "Edit Group",
+  "admin.access-control.groups.title.singleGroup": "Gruppe bearbeiten",
   
-  // "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
-  "admin.access-control.groups.title.addGroup": "DSpace Angular :: Neue Gruppe",
+  // "admin.access-control.groups.title.addGroup": "New Group",
+  "admin.access-control.groups.title.addGroup": "Neue Gruppe",
   
   // "admin.access-control.groups.head": "Groups",
   "admin.access-control.groups.head": "Gruppen",
@@ -2144,8 +2144,8 @@
   // "home.search-form.placeholder": "Search the repository ...",
   "home.search-form.placeholder": "Durchsuche Repositorium",
   
-  // "home.title": "DSpace Angular :: Home",
-  "home.title": "DSpace Angular :: Startseite",
+  // "home.title": "Home",
+  "home.title": "Startseite",
   
   // "home.top-level-communities.head": "Communities in DSpace",
   "home.top-level-communities.head": "Hauptbereiche in DSpace",
@@ -2806,8 +2806,8 @@
   // "item.search.results.head": "Item Search Results",
   "item.search.results.head": "Item-Suchergebnisse",
   
-  // "item.search.title": "DSpace Angular :: Item Search",
-  "item.search.title": "DSpace Angular :: Item-Suche",
+  // "item.search.title": "Item Search",
+  "item.search.title": "Item-Suche",
   
   
   
@@ -3003,8 +3003,8 @@
   // "journal.search.results.head": "Journal Search Results",
   "journal.search.results.head": "Suchergebnisse für Zeitschriften",
   
-  // "journal.search.title": "DSpace Angular :: Journal Search",
-  "journal.search.title": "DSpace Angular :: Zeitschriftensuche",
+  // "journal.search.title": "Journal Search",
+  "journal.search.title": "Zeitschriftensuche",
   
   
   
@@ -3632,8 +3632,8 @@
   // "person.search.results.head": "Person Search Results",
   "person.search.results.head": "Ergebnisse der Personensuche",
   
-  // "person.search.title": "DSpace Angular :: Person Search",
-  "person.search.title": "DSpace Angular :: Personensuche",
+  // "person.search.title": "Person Search",
+  "person.search.title": "Personensuche",
   
   
   
@@ -3925,8 +3925,8 @@
   // "publication.search.results.head": "Publication Search Results",
   "publication.search.results.head": "Suchergebnisse Publikationen",
   
-  // "publication.search.title": "DSpace Angular :: Publication Search",
-  "publication.search.title": "DSpace Angular :: Publikationssuche",
+  // "publication.search.title": "Publication Search",
+  "publication.search.title": "Publikationssuche",
   
   
   // "register-email.title": "New user registration",
@@ -4084,9 +4084,27 @@
   
   // "relationships.isContributorOf": "Contributors",
   "relationships.isContributorOf": "Beteiligte",
-  
-  
-  
+
+  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+  "relationships.isContributorOf.OrgUnit": "Beteiligte (Organisationseinheit)",
+
+  // "relationships.isContributorOf.Person": "Contributor",
+  "relationships.isContributorOf.Person": "Beteiligte (Person)",
+
+  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  "relationships.isFundingAgencyOf.OrgUnit": "Förderer",
+
+
+  // "repository.image.logo": "Repository logo",
+  "repository.image.logo": "Repository Logo",
+
+  // "repository.title.prefix": "DSpace Angular :: ",
+  "repository.title.prefix": "DSpace Angular :: ",
+
+  // "repository.title.prefixDSpace": "DSpace Angular ::",
+  "repository.title.prefixDSpace": "DSpace Angular ::",
+
+
   // "resource-policies.add.button": "Add",
   "resource-policies.add.button": "Hinzufügen",
   
@@ -4248,8 +4266,8 @@
   // "search.switch-configuration.title": "Show",
   "search.switch-configuration.title": "Zeige",
   
-  // "search.title": "DSpace Angular :: Search",
-  "search.title": "DSpace Angular :: Suche",
+  // "search.title": "Search",
+  "search.title": "Suche",
   
   // "search.breadcrumbs": "Search",
   "search.breadcrumbs": "Suche",
