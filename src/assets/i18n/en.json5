@@ -1291,6 +1291,8 @@
 
   "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
 
+  "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
+
   "curation.form.handle.label": "Handle:",
 
   "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
