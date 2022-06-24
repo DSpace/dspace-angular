@@ -180,7 +180,7 @@ describe('ProfilePageComponent', () => {
 
         beforeEach(() => {
           component.setPasswordValue('');
-
+          component.setCurrentPasswordValue('current-password');
           result = component.updateSecurity();
         });
 
@@ -199,6 +199,7 @@ describe('ProfilePageComponent', () => {
         beforeEach(() => {
           component.setPasswordValue('test');
           component.setInvalid(true);
+          component.setCurrentPasswordValue('current-password');
           result = component.updateSecurity();
         });
 
@@ -215,8 +216,12 @@ describe('ProfilePageComponent', () => {
         beforeEach(() => {
           component.setPasswordValue('testest');
           component.setInvalid(false);
+          component.setCurrentPasswordValue('current-password');
 
-          operations = [{ op: 'add', path: '/password', value: 'testest' }];
+          operations = [
+            { op: 'add', path: '/password', value: 'testest' },
+            { op: 'add', path: '/challenge', value: 'current-password' }
+          ];
           result = component.updateSecurity();
         });
 
