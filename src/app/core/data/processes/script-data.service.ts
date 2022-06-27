@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { DataService } from '../data.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../../core.reducers';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -13,12 +12,16 @@ import { ProcessParameter } from '../../../process-page/processes/process-parame
 import { map, take } from 'rxjs/operators';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { RemoteData } from '../remote-data';
-import { MultipartPostRequest, RestRequest } from '../request.models';
+import { MultipartPostRequest} from '../request.models';
 import { RequestService } from '../request.service';
 import { Observable } from 'rxjs';
 import { dataService } from '../../cache/builders/build-decorators';
 import { SCRIPT } from '../../../process-page/scripts/script.resource-type';
 import { Process } from '../../../process-page/processes/process.model';
+import { hasValue } from '../../../shared/empty.util';
+import { getFirstCompletedRemoteData } from '../../shared/operators';
+import { RestRequest } from '../rest-request.model';
+import { CoreState } from '../../core-state.model';
 
 export const METADATA_IMPORT_SCRIPT_NAME = 'metadata-import';
 export const METADATA_EXPORT_SCRIPT_NAME = 'metadata-export';
@@ -61,5 +64,17 @@ export class ScriptDataService extends DataService<Script> {
       form.append('file', file);
     });
     return form;
+  }
+
+  /**
+   * Check whether a script with given name exist; user needs to be allowed to execute script for this to to not throw a 401 Unauthorized
+   * @param scriptName    script we want to check exists (and we can execute)
+   */
+  public scriptWithNameExistsAndCanExecute(scriptName: string): Observable<boolean> {
+    return this.findById(scriptName).pipe(
+      getFirstCompletedRemoteData(),
+      map((rd: RemoteData<Script>) => {
+        return hasValue(rd.payload);
+      }));
   }
 }

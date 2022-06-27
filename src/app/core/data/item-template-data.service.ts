@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
 import { ItemDataService } from './item-data.service';
 import { UpdateDataService } from './update-data.service';
@@ -9,7 +10,6 @@ import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -23,8 +23,8 @@ import { NoContent } from '../shared/NoContent.model';
 import { hasValue } from '../../shared/empty.util';
 import { Operation } from 'fast-json-patch';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { CoreState } from '../core-state.model';
 
-/* tslint:disable:max-classes-per-file */
 /**
  * A custom implementation of the ItemDataService, but for collection item templates
  * Makes sure to change the endpoint before sending out CRUD requests for the item template
@@ -228,4 +228,3 @@ export class ItemTemplateDataService implements UpdateDataService<Item> {
     return this.dataService.getCollectionEndpoint(collectionID);
   }
 }
-/* tslint:enable:max-classes-per-file */

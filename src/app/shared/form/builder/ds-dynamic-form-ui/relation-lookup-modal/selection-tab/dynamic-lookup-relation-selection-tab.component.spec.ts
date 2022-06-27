@@ -4,7 +4,7 @@ import { SearchConfigurationService } from '../../../../../../core/shared/search
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { Observable, of as observableOf } from 'rxjs';
-import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { Item } from '../../../../../../core/shared/item.model';
 import { DsDynamicLookupRelationSelectionTabComponent } from './dynamic-lookup-relation-selection-tab.component';

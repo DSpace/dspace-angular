@@ -9,10 +9,11 @@ import { Collection } from '../../core/shared/collection.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { map, startWith, switchMap, take } from 'rxjs/operators';
 import {
-    getRemoteDataPayload,
-    getFirstSucceededRemoteData,
-    toDSpaceObjectListRD,
-    getFirstCompletedRemoteData, getAllSucceededRemoteData
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  toDSpaceObjectListRD
 } from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
@@ -24,7 +25,7 @@ import { CollectionDataService } from '../../core/data/collection-data.service';
 import { isNotEmpty } from '../../shared/empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { NoContent } from '../../core/shared/NoContent.model';

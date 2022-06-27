@@ -1,26 +1,34 @@
 <ng-template #bitstreamView>
   <div class="{{columnSizes.columns[0].buildClasses()}} row-element d-flex">
     <ng-content select="[slot=drag-handle]"></ng-content>
-    <div class="float-left d-flex align-items-center">
-      {{ bitstreamName }}
+    <div class="float-left d-flex align-items-center overflow-hidden">
+      <span class="text-truncate">
+        {{ bitstreamName }}
+      </span>
     </div>
   </div>
   <div class="{{columnSizes.columns[1].buildClasses()}} row-element d-flex align-items-center">
     <div class="w-100">
-      {{ bitstream?.firstMetadataValue('dc.description') }}
+      <div class="text-truncate" [tooltipClass]="'larger-tooltip'" placement="bottom"
+           [ngbTooltip]="bitstream?.firstMetadataValue('dc.description')">
+        {{ bitstream?.firstMetadataValue('dc.description') }}
+      </div>
     </div>
   </div>
   <div class="{{columnSizes.columns[2].buildClasses()}} row-element d-flex align-items-center">
     <div class="text-center w-100">
-      {{ (format$ | async)?.shortDescription }}
+        <span class="text-truncate">
+            {{ (format$ | async)?.shortDescription }}
+        </span>
     </div>
   </div>
   <div class="{{columnSizes.columns[3].buildClasses()}} row-element d-flex align-items-center">
     <div class="text-center w-100">
       <div class="btn-group relationship-action-buttons">
-        <a [href]="bitstream?._links?.content?.href"
+        <a *ngIf="bitstreamDownloadUrl != null" [href]="bitstreamDownloadUrl"
                 class="btn btn-outline-primary btn-sm"
-                title="{{'item.edit.bitstreams.edit.buttons.download' | translate}}">
+                title="{{'item.edit.bitstreams.edit.buttons.download' | translate}}"
+                [attr.data-test]="'download-button' | dsBrowserOnly">
           <i class="fas fa-download fa-fw"></i>
         </a>
         <button [routerLink]="['/bitstreams/', bitstream.id, 'edit']" class="btn btn-outline-primary btn-sm"

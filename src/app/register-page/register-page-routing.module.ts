@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { RegisterEmailComponent } from './register-email/register-email.component';
 import { ItemPageResolver } from '../item-page/item-page.resolver';
-import { RegistrationResolver } from '../register-email-form/registration.resolver';
 import { EndUserAgreementCookieGuard } from '../core/end-user-agreement/end-user-agreement-cookie.guard';
 import { ThemedCreateProfileComponent } from './create-profile/themed-create-profile.component';
+import { RegistrationGuard } from './registration.guard';
 
 @NgModule({
   imports: [
@@ -17,13 +17,14 @@ import { ThemedCreateProfileComponent } from './create-profile/themed-create-pro
       {
         path: ':token',
         component: ThemedCreateProfileComponent,
-        resolve: {registration: RegistrationResolver},
-        canActivate: [EndUserAgreementCookieGuard]
+        canActivate: [
+          RegistrationGuard,
+          EndUserAgreementCookieGuard,
+        ],
       }
     ])
   ],
   providers: [
-    RegistrationResolver,
     ItemPageResolver
   ]
 })

@@ -9,11 +9,12 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-  getFirstSucceededRemoteData,
-  toDSpaceObjectListRD,
-  getAllSucceededRemoteData, getFirstCompletedRemoteData
+  toDSpaceObjectListRD
 } from '../../../core/shared/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
@@ -22,7 +23,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { NoContent } from '../../../core/shared/NoContent.model';

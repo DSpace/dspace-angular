@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ComcolMetadataComponent } from '../../../shared/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
+import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { Collection } from '../../../core/shared/collection.model';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,10 +8,9 @@ import { combineLatest as combineLatestObservable, Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
 
@@ -38,8 +37,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
     protected route: ActivatedRoute,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
-    protected objectCache: ObjectCacheService,
-    protected requestService: RequestService
+    protected requestService: RequestService,
   ) {
     super(collectionDataService, router, route, notificationsService, translate);
   }
@@ -93,23 +91,9 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
         getFirstSucceededRemoteDataPayload(),
       )),
     );
-    const templateHref$ = collection$.pipe(
-      switchMap((collection) => this.itemTemplateService.getCollectionEndpoint(collection.id)),
-    );
-
-    combineLatestObservable(collection$, template$, templateHref$).pipe(
-      switchMap(([collection, template, templateHref]) => {
-        return this.itemTemplateService.deleteByCollectionID(template, collection.uuid).pipe(
-          tap((success: boolean) => {
-            if (success) {
-              this.objectCache.remove(templateHref);
-              this.objectCache.remove(template.self);
-              this.requestService.setStaleByHrefSubstring(template.self);
-              this.requestService.setStaleByHrefSubstring(templateHref);
-              this.requestService.setStaleByHrefSubstring(collection.self);
-            }
-          })
-        );
+    combineLatestObservable(collection$, template$).pipe(
+      switchMap(([collection, template]) => {
+        return this.itemTemplateService.deleteByCollectionID(template, collection.uuid);
       })
     ).subscribe((success: boolean) => {
       if (success) {

@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { returnEndUserAgreementUrlTreeOnFalse } from '../shared/operators';
+import { returnEndUserAgreementUrlTreeOnFalse } from '../shared/authorized.operators';
 
 /**
  * An abstract guard for redirecting users to the user agreement page if a certain condition is met

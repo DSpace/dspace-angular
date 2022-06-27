@@ -86,7 +86,6 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
     component.externalSourceEntry = entry;
     component.label = label;
     component.relationship = relationship;
-    component.collection = submissionCollection;
     component.item = submissionItem;
     fixture.detectChanges();
   });

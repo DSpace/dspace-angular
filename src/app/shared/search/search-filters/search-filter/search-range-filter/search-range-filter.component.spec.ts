@@ -7,9 +7,9 @@ import {
   IN_PLACE_SEARCH,
   SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
-import { SearchFilterConfig } from '../../../search-filter-config.model';
-import { FilterType } from '../../../filter-type.model';
-import { FacetValue } from '../../../facet-value.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { FilterType } from '../../../models/filter-type.model';
+import { FacetValue } from '../../../models/facet-value.model';
 import { FormsModule } from '@angular/forms';
 import { of as observableOf } from 'rxjs';
 import { SearchService } from '../../../../../core/shared/search/search.service';
@@ -109,12 +109,12 @@ describe('SearchRangeFilterComponent', () => {
             getSelectedValuesForFilter: () => selectedValues,
             isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
             getPage: (paramName: string) => page,
-            /* tslint:disable:no-empty */
+            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             incrementPage: (filterName: string) => {
             },
             resetPage: (filterName: string) => {
             }
-            /* tslint:enable:no-empty */
+            /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
           }
         }
       ],

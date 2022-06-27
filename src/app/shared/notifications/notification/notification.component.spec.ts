@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { ChangeDetectorRef, DebugElement } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,12 +10,11 @@ import { NotificationsService } from '../notifications.service';
 import { NotificationType } from '../models/notification-type';
 import { notificationsReducer } from '../notifications.reducers';
 import { NotificationOptions } from '../models/notification-options.model';
-import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
-import { GlobalConfig } from '../../../../config/global-config.interface';
 import { Notification } from '../models/notification.model';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { storeModuleConfig } from '../../../app.reducer';
+import { BehaviorSubject } from 'rxjs';
 
 describe('NotificationComponent', () => {
 
@@ -29,19 +28,9 @@ describe('NotificationComponent', () => {
 
   beforeEach(waitForAsync(() => {
     const store: Store<Notification> = jasmine.createSpyObj('store', {
-      /* tslint:disable:no-empty */
+      /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
       notifications: []
     });
-    const envConfig: GlobalConfig = {
-      notifications: {
-        rtl: false,
-        position: ['top', 'right'],
-        maxStack: 8,
-        timeOut: 5000,
-        clickToClose: true,
-        animate: 'scale'
-      } as INotificationBoardOptions,
-    } as any;
 
     TestBed.configureTestingModule({
       imports: [
@@ -83,6 +72,8 @@ describe('NotificationComponent', () => {
     deContent = fixture.debugElement.query(By.css('.notification-content'));
     elContent = deContent.nativeElement;
     elType = fixture.debugElement.query(By.css('.notification-icon')).nativeElement;
+
+    spyOn(comp, 'remove');
   });
 
   it('should create component', () => {
@@ -107,7 +98,7 @@ describe('NotificationComponent', () => {
   it('should have html content', () => {
     fixture = TestBed.createComponent(NotificationComponent);
     comp = fixture.componentInstance;
-    const htmlContent = '<a class="btn btn-link p-0 m-0 pb-1" href="/test"><strong>test</strong></a>';
+    const htmlContent = '<a class="btn btn-link p-0 m-0 pb-1" href="test"><strong>test</strong></a>';
     comp.notification = {
       id: '1',
       type: NotificationType.Info,
@@ -122,6 +113,53 @@ describe('NotificationComponent', () => {
     deContent = fixture.debugElement.query(By.css('.notification-html'));
     elContent = deContent.nativeElement;
     expect(elContent.innerHTML).toEqual(htmlContent);
+  });
+
+  describe('dismiss countdown', () => {
+    const TIMEOUT = 5000;
+    let isPaused$: BehaviorSubject<boolean>;
+
+    beforeEach(() => {
+      isPaused$ = new BehaviorSubject<boolean>(false);
+      comp.isPaused$ = isPaused$;
+      comp.notification = {
+        id: '1',
+        type: NotificationType.Info,
+        title: 'Notif. title',
+        content: 'test',
+        options: Object.assign(
+          new NotificationOptions(),
+          { timeout: TIMEOUT }
+        ),
+        html: true
+      };
+    });
+
+    it('should remove notification after timeout', fakeAsync(() => {
+      comp.ngOnInit();
+      tick(TIMEOUT);
+      expect(comp.remove).toHaveBeenCalled();
+    }));
+
+    describe('isPaused$', () => {
+      it('should pause countdown on true', fakeAsync(() => {
+        comp.ngOnInit();
+        tick(TIMEOUT / 2);
+        isPaused$.next(true);
+        tick(TIMEOUT);
+        expect(comp.remove).not.toHaveBeenCalled();
+      }));
+
+      it('should resume paused countdown on false', fakeAsync(() => {
+        comp.ngOnInit();
+        tick(TIMEOUT / 4);
+        isPaused$.next(true);
+        tick(TIMEOUT / 4);
+        isPaused$.next(false);
+        tick(TIMEOUT);
+        expect(comp.remove).toHaveBeenCalled();
+      }));
+    });
   });
 
 });

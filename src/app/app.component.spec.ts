@@ -4,7 +4,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 // Load the implementations that should be tested
 import { AppComponent } from './app.component';
@@ -36,6 +36,8 @@ import { GoogleAnalyticsService } from './statistics/google-analytics.service';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { getMockThemeService } from './shared/mocks/theme-service.mock';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
+import { APP_CONFIG } from '../config/app-config.interface';
+import { environment } from '../environments/environment';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -83,6 +85,7 @@ describe('App component', () => {
         { provide: LocaleService, useValue: getMockLocaleService() },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: BreadcrumbsService, useValue: breadcrumbsServiceSpy },
+        { provide: APP_CONFIG, useValue: environment },
         provideMockStore({ initialState }),
         AppComponent,
         RouteService
@@ -171,7 +174,8 @@ describe('App component', () => {
       TestBed.configureTestingModule(getDefaultTestBedConf());
       TestBed.overrideProvider(ThemeService, {useValue: getMockThemeService('custom')});
       document = TestBed.inject(DOCUMENT);
-      headSpy = jasmine.createSpyObj('head', ['appendChild']);
+      headSpy = jasmine.createSpyObj('head', ['appendChild', 'getElementsByClassName']);
+      headSpy.getElementsByClassName.and.returnValue([]);
       spyOn(document, 'getElementsByTagName').and.returnValue([headSpy]);
       fixture = TestBed.createComponent(AppComponent);
       comp = fixture.componentInstance;
@@ -183,7 +187,7 @@ describe('App component', () => {
       link.setAttribute('rel', 'stylesheet');
       link.setAttribute('type', 'text/css');
       link.setAttribute('class', 'theme-css');
-      link.setAttribute('href', '/custom-theme.css');
+      link.setAttribute('href', 'custom-theme.css');
 
       expect(headSpy.appendChild).toHaveBeenCalledWith(link);
     });

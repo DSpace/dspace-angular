@@ -38,17 +38,22 @@
       <table id="epersonsSearch" class="table table-striped table-hover table-bordered">
         <thead>
         <tr>
-          <th scope="col">{{messagePrefix + '.table.id' | translate}}</th>
-          <th scope="col">{{messagePrefix + '.table.name' | translate}}</th>
-          <th>{{messagePrefix + '.table.edit' | translate}}</th>
+          <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
+          <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
+          <th scope="col" class="align-middle">{{messagePrefix + '.table.identity' | translate}}</th>
+          <th class="align-middle">{{messagePrefix + '.table.edit' | translate}}</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let ePerson of (ePeopleSearchDtos | async)?.page">
-          <td>{{ePerson.eperson.id}}</td>
-          <td><a (click)="ePersonDataService.startEditingNewEPerson(ePerson.eperson)"
+          <td class="align-middle">{{ePerson.eperson.id}}</td>
+          <td class="align-middle"><a (click)="ePersonDataService.startEditingNewEPerson(ePerson.eperson)"
                  [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">{{ePerson.eperson.name}}</a></td>
-          <td>
+          <td class="align-middle">
+            {{messagePrefix + '.table.email' | translate}}: {{ ePerson.eperson.email ? ePerson.eperson.email : '-' }}<br/>
+            {{messagePrefix + '.table.netid' | translate}}: {{ ePerson.eperson.netid ? ePerson.eperson.netid : '-' }}
+          </td>
+          <td class="align-middle">
             <div class="btn-group edit-field">
               <button *ngIf="(ePerson.memberOfGroup)"
                       (click)="deleteMemberFromGroup(ePerson)"
@@ -91,17 +96,22 @@
       <table id="ePeopleMembersOfGroup" class="table table-striped table-hover table-bordered">
         <thead>
         <tr>
-          <th scope="col">{{messagePrefix + '.table.id' | translate}}</th>
-          <th scope="col">{{messagePrefix + '.table.name' | translate}}</th>
-          <th>{{messagePrefix + '.table.edit' | translate}}</th>
+          <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
+          <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
+          <th scope="col" class="align-middle">{{messagePrefix + '.table.identity' | translate}}</th>
+          <th class="align-middle">{{messagePrefix + '.table.edit' | translate}}</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let ePerson of (ePeopleMembersOfGroupDtos | async)?.page">
-          <td>{{ePerson.eperson.id}}</td>
-          <td><a (click)="ePersonDataService.startEditingNewEPerson(ePerson.eperson)"
+          <td class="align-middle">{{ePerson.eperson.id}}</td>
+          <td class="align-middle"><a (click)="ePersonDataService.startEditingNewEPerson(ePerson.eperson)"
                  [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">{{ePerson.eperson.name}}</a></td>
-          <td>
+          <td class="align-middle">
+            {{messagePrefix + '.table.email' | translate}}: {{ ePerson.eperson.email ? ePerson.eperson.email : '-' }}<br/>
+            {{messagePrefix + '.table.netid' | translate}}: {{ ePerson.eperson.netid ? ePerson.eperson.netid : '-' }}
+          </td>
+          <td class="align-middle">
             <div class="btn-group edit-field">
               <button (click)="deleteMemberFromGroup(ePerson)"
                       class="btn btn-outline-danger btn-sm"

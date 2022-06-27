@@ -10,8 +10,7 @@ import {
   LinkDefinition
 } from './build-decorators';
 import { RemoteData } from '../../data/remote-data';
-import { Observable } from 'rxjs/internal/Observable';
-import { EMPTY } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { ResourceType } from '../../shared/resource-type';
 
 /**

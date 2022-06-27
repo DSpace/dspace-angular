@@ -12,6 +12,7 @@ import { DeleteCommunityPageComponent } from './delete-community-page/delete-com
 import { StatisticsModule } from '../statistics/statistics.module';
 import { CommunityFormModule } from './community-form/community-form.module';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
+import { ComcolModule } from '../shared/comcol/comcol.module';
 
 const DECLARATIONS = [CommunityPageComponent,
   ThemedCommunityPageComponent,
@@ -26,7 +27,8 @@ const DECLARATIONS = [CommunityPageComponent,
     SharedModule,
     CommunityPageRoutingModule,
     StatisticsModule.forRoot(),
-    CommunityFormModule
+    CommunityFormModule,
+    ComcolModule
   ],
   declarations: [
     ...DECLARATIONS

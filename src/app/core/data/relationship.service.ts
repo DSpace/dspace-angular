@@ -21,7 +21,6 @@ import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
@@ -29,7 +28,6 @@ import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RELATIONSHIP } from '../shared/item-relationships/relationship.resource-type';
 import { Item } from '../shared/item.model';
 import {
-  sendRequest,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -40,10 +38,14 @@ import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { ItemDataService } from './item-data.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
+import { DeleteRequest, PostRequest} from './request.models';
 import { RequestService } from './request.service';
-import { RequestEntryState } from './request.reducer';
 import { NoContent } from '../shared/NoContent.model';
+import { RequestEntryState } from './request-entry-state.model';
+import { sendRequest } from '../shared/request.operators';
+import { RestRequest } from './rest-request.model';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 
@@ -468,5 +470,59 @@ export class RelationshipService extends DataService<Relationship> {
    */
   update(object: Relationship): Observable<RemoteData<Relationship>> {
     return this.put(object);
+  }
+
+  /**
+   * Patch isn't supported on the relationship endpoint, so use put instead.
+   *
+   * @param typeId the relationship type id to apply as a filter to the returned relationships
+   * @param itemUuid The uuid of the item to be checked on the side defined by relationshipLabel
+   * @param relationshipLabel the name of the relation as defined from the side of the itemUuid
+   * @param arrayOfItemIds The uuid of the items to be found on the other side of returned relationships
+   */
+  searchByItemsAndType(typeId: string,itemUuid: string,relationshipLabel: string, arrayOfItemIds: string[] ): Observable<RemoteData<PaginatedList<Relationship>>> {
+
+    const searchParams = [
+          {
+            fieldName: 'typeId',
+            fieldValue: typeId
+          },
+          {
+            fieldName: 'focusItem',
+            fieldValue: itemUuid
+          },
+          {
+            fieldName: 'relationshipLabel',
+            fieldValue: relationshipLabel
+          },
+          {
+            fieldName: 'size',
+            fieldValue: arrayOfItemIds.length
+          },
+          {
+            fieldName: 'embed',
+            fieldValue: 'leftItem'
+          },
+          {
+            fieldName: 'embed',
+            fieldValue: 'rightItem'
+          },
+        ];
+
+    arrayOfItemIds.forEach( (itemId) => {
+      searchParams.push(
+        {
+          fieldName: 'relatedItem',
+          fieldValue: itemId
+        },
+      );
+    });
+
+    return this.searchBy(
+      'byItemsAndType',
+      {
+        searchParams: searchParams
+      }) as Observable<RemoteData<PaginatedList<Relationship>>>;
+
   }
 }

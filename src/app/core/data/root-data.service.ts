@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { DataService } from './data.service';
 import { Root } from './root.model';
 import { Injectable } from '@angular/core';
@@ -6,19 +7,21 @@ import { dataService } from '../cache/builders/build-decorators';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { FindListOptions } from './request.models';
 import { PaginatedList } from './paginated-list.model';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
+import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { catchError, map } from 'rxjs/operators';
 
-/* tslint:disable:max-classes-per-file */
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -59,8 +62,22 @@ export class RootDataService {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<Root>) {
+    protected comparator: DefaultChangeAnalyzer<Root>,
+    protected restService: DspaceRestService) {
     this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
+  }
+
+  /**
+   * Check if root endpoint is available
+   */
+  checkServerAvailability(): Observable<boolean> {
+    return this.restService.get(this.halService.getRootHref()).pipe(
+      catchError((err ) => {
+        console.error(err);
+        return observableOf(false);
+      }),
+      map((res: RawRestResponse) => res.statusCode === 200)
+    );
   }
 
   /**
@@ -106,5 +123,11 @@ export class RootDataService {
   findAllByHref(href: string | Observable<string>, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Root>[]): Observable<RemoteData<PaginatedList<Root>>> {
     return this.dataService.findAllByHref(href, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
+
+  /**
+   * Set to sale the root endpoint cache hit
+   */
+  invalidateRootCache() {
+    this.requestService.setStaleByHrefSubstring(this.halService.getRootHref());
+  }
 }
-/* tslint:enable:max-classes-per-file */

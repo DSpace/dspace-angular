@@ -48,6 +48,7 @@
             <tr>
               <th scope="col">{{messagePrefix + 'table.id' | translate}}</th>
               <th scope="col">{{messagePrefix + 'table.name' | translate}}</th>
+              <th scope="col">{{messagePrefix + 'table.collectionOrCommunity' | translate}}</th>
               <th scope="col">{{messagePrefix + 'table.members' | translate}}</th>
               <th>{{messagePrefix + 'table.edit' | translate}}</th>
             </tr>
@@ -56,6 +57,7 @@
             <tr *ngFor="let groupDto of (groupsDto$ | async)?.page">
               <td>{{groupDto.group.id}}</td>
               <td>{{groupDto.group.name}}</td>
+              <td>{{(groupDto.group.object | async)?.payload?.name}}</td>
               <td>{{groupDto.epersons?.totalElements + groupDto.subgroups?.totalElements}}</td>
               <td>
                 <div class="btn-group edit-field">
@@ -77,7 +79,7 @@
                     </button>
                   </ng-container>
                   <button *ngIf="!groupDto.group?.permanent && groupDto.ableToDelete"
-                          (click)="deleteGroup(groupDto)" class="btn btn-outline-danger btn-sm"
+                          (click)="deleteGroup(groupDto)" class="btn btn-outline-danger btn-sm btn-delete"
                           title="{{messagePrefix + 'table.edit.buttons.remove' | translate: {name: groupDto.group.name} }}">
                     <i class="fas fa-trash-alt fa-fw"></i>
                   </button>

@@ -8,6 +8,11 @@ import { PrivacyComponent } from './privacy/privacy.component';
 import { PrivacyContentComponent } from './privacy/privacy-content/privacy-content.component';
 import { ThemedEndUserAgreementComponent } from './end-user-agreement/themed-end-user-agreement.component';
 import { ThemedPrivacyComponent } from './privacy/themed-privacy.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { FeedbackFormComponent } from './feedback/feedback-form/feedback-form.component';
+import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
+import { FeedbackGuard } from '../core/feedback/feedback.guard';
+
 
 const DECLARATIONS = [
   EndUserAgreementComponent,
@@ -15,21 +20,25 @@ const DECLARATIONS = [
   EndUserAgreementContentComponent,
   PrivacyComponent,
   PrivacyContentComponent,
-  ThemedPrivacyComponent
+  ThemedPrivacyComponent,
+  FeedbackComponent,
+  FeedbackFormComponent,
+  ThemedFeedbackComponent
 ];
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    InfoRoutingModule
+    InfoRoutingModule,
   ],
   declarations: [
     ...DECLARATIONS
   ],
   exports: [
     ...DECLARATIONS
-  ]
+  ],
+  providers: [FeedbackGuard]
 })
 export class InfoModule {
 }
