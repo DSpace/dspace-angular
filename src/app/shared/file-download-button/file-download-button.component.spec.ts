@@ -64,30 +64,29 @@ describe('FileDownloadButtonComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FileDownloadButtonComponent);
     component = fixture.componentInstance;
-    component.canDownload$ = of(true);
+    component.bitstream = bitstream;
+    component.item = item;
+    (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(true));
     component.bitstreamPath$ = of({
       routerLink: 'test',
       queryParams: {}
     });
-    component.bitstream = bitstream;
-    component.item = item;
     component.ngOnInit();
     fixture.detectChanges();
   });
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('should show download button', () => {
-    component.canDownload$ = of(true);
-    fixture.detectChanges();
+  it('should show download button', () => {
     expect(fixture.debugElement.query(By.css('[data-test="download"]'))).toBeTruthy();
     expect(fixture.debugElement.query(By.css('[data-test="requestACopy"]'))).toBeFalsy();
   });
 
-  xit('should show can request a copy button', () => {
-    component.canDownload$ = of(false);
+  it('should show can request a copy button', () => {
+    (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
+    component.ngOnInit();
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('[data-test="download"]'))).toBeFalsy();
     expect(fixture.debugElement.query(By.css('[data-test="requestACopy"]'))).toBeTruthy();
