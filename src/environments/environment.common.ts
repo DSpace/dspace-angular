@@ -285,4 +285,8 @@ export const environment: GlobalConfig = {
     image: false,
     video: false,
   },
+  info: {
+    enableEndUserAgreement: false,
+    enablePrivacyStatement: false
+  },
 };

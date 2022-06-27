@@ -13,6 +13,7 @@ import { ThemeConfig } from './theme.model';
 import { AuthConfig } from './auth-config.interfaces';
 import { UIServerConfig } from './ui-server-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
+import { InfoConfig } from './info-config.interface';
 
 export interface GlobalConfig extends Config {
   ui: UIServerConfig;
@@ -32,4 +33,5 @@ export interface GlobalConfig extends Config {
   collection: CollectionPageConfig;
   themes: ThemeConfig[];
   mediaViewer: MediaViewerConfig;
+  info: InfoConfig;
 }

@@ -235,4 +235,8 @@ export const environment: Partial<GlobalConfig> = {
     image: true,
     video: true
   },
+  info: {
+    enableEndUserAgreement: true,
+    enablePrivacyStatement: true,
+  }
 };
