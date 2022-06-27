@@ -16,6 +16,7 @@ import { ThemeConfig } from './theme.model';
 import { UIServerConfig } from './ui-server-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
+import { InfoConfig } from './info-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -324,8 +325,8 @@ export class DefaultAppConfig implements AppConfig {
     image: false,
     video: false
   };
-  info: {
-    enableEndUserAgreement: false,
-    enablePrivacyStatement: false
+  info: InfoConfig = {
+    enableEndUserAgreement: true,
+    enablePrivacyStatement: true
   };
 }
