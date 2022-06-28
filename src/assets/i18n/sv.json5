@@ -946,158 +946,158 @@
 
   // "admin.search.breadcrumbs": "Administrative Search",
   // TODO New key - Add a translation
-  "admin.search.breadcrumbs": "Administrative Search",
+  "admin.search.breadcrumbs": "Admin sökning",
 
   // "admin.search.collection.edit": "Edit",
   // TODO New key - Add a translation
-  "admin.search.collection.edit": "Edit",
+  "admin.search.collection.edit": "Redigera",
 
   // "admin.search.community.edit": "Edit",
   // TODO New key - Add a translation
-  "admin.search.community.edit": "Edit",
+  "admin.search.community.edit": "Redigera",
 
   // "admin.search.item.delete": "Delete",
   // TODO New key - Add a translation
-  "admin.search.item.delete": "Delete",
+  "admin.search.item.delete": "Radera",
 
   // "admin.search.item.edit": "Edit",
   // TODO New key - Add a translation
-  "admin.search.item.edit": "Edit",
+  "admin.search.item.edit": "Redigera",
 
   // "admin.search.item.make-private": "Make non-discoverable",
   // TODO New key - Add a translation
-  "admin.search.item.make-private": "Make non-discoverable",
+  "admin.search.item.make-private": "Undanta från sökning",
 
   // "admin.search.item.make-public": "Make discoverable",
   // TODO New key - Add a translation
-  "admin.search.item.make-public": "Make discoverable",
+  "admin.search.item.make-public": "Gör sökbar",
 
   // "admin.search.item.move": "Move",
   // TODO New key - Add a translation
-  "admin.search.item.move": "Move",
+  "admin.search.item.move": "Flytta",
 
   // "admin.search.item.reinstate": "Reinstate",
   // TODO New key - Add a translation
-  "admin.search.item.reinstate": "Reinstate",
+  "admin.search.item.reinstate": "Återställ",
 
   // "admin.search.item.withdraw": "Withdraw",
   // TODO New key - Add a translation
-  "admin.search.item.withdraw": "Withdraw",
+  "admin.search.item.withdraw": "Återkalla",
 
   // "admin.search.title": "Administrative Search",
   // TODO New key - Add a translation
-  "admin.search.title": "Administrative Search",
+  "admin.search.title": "Admin sökning",
 
   // "administrativeView.search.results.head": "Administrative Search",
   // TODO New key - Add a translation
-  "administrativeView.search.results.head": "Administrative Search",
+  "administrativeView.search.results.head": "Admin sökning",
 
 
 
 
   // "admin.workflow.breadcrumbs": "Administer Workflow",
   // TODO New key - Add a translation
-  "admin.workflow.breadcrumbs": "Administer Workflow",
+  "admin.workflow.breadcrumbs": "Administrera arbetsflöde",
 
   // "admin.workflow.title": "Administer Workflow",
   // TODO New key - Add a translation
-  "admin.workflow.title": "Administer Workflow",
+  "admin.workflow.title": "Administrera arbetsflöde",
 
   // "admin.workflow.item.workflow": "Workflow",
   // TODO New key - Add a translation
-  "admin.workflow.item.workflow": "Workflow",
+  "admin.workflow.item.workflow": "Arbetsflöde",
 
   // "admin.workflow.item.delete": "Delete",
   // TODO New key - Add a translation
-  "admin.workflow.item.delete": "Delete",
+  "admin.workflow.item.delete": "Radera",
 
   // "admin.workflow.item.send-back": "Send back",
   // TODO New key - Add a translation
-  "admin.workflow.item.send-back": "Send back",
+  "admin.workflow.item.send-back": "Skicka tillbaka",
 
 
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
   // TODO New key - Add a translation
-  "admin.metadata-import.breadcrumbs": "Import Metadata",
+  "admin.metadata-import.breadcrumbs": "Importera metadata",
 
   // "admin.metadata-import.title": "Import Metadata",
   // TODO New key - Add a translation
-  "admin.metadata-import.title": "Import Metadata",
+  "admin.metadata-import.title": "Importera metadata",
 
   // "admin.metadata-import.page.header": "Import Metadata",
   // TODO New key - Add a translation
-  "admin.metadata-import.page.header": "Import Metadata",
+  "admin.metadata-import.page.header": "Importera metadata",
 
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
   // TODO New key - Add a translation
-  "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
+  "admin.metadata-import.page.help": "Du kan öppna eller dra och släppa CSV-filer som innehåller batchvisa metadaåtgärder på filer här",
 
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
   // TODO New key - Add a translation
-  "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
+  "admin.metadata-import.page.dropMsg": "Dra och släpp CSV-fil för att importera",
 
   // "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
   // TODO New key - Add a translation
-  "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
+  "admin.metadata-import.page.dropMsgReplace": "Dra och släpp för att ersätta CSV-fil att importera",
 
   // "admin.metadata-import.page.button.return": "Back",
   // TODO New key - Add a translation
-  "admin.metadata-import.page.button.return": "Back",
+  "admin.metadata-import.page.button.return": "Tillbaka",
 
   // "admin.metadata-import.page.button.proceed": "Proceed",
   // TODO New key - Add a translation
-  "admin.metadata-import.page.button.proceed": "Proceed",
+  "admin.metadata-import.page.button.proceed": "Fortsätt",
 
   // "admin.metadata-import.page.error.addFile": "Select file first!",
   // TODO New key - Add a translation
-  "admin.metadata-import.page.error.addFile": "Select file first!",
+  "admin.metadata-import.page.error.addFile": "Välj fil först!",
 
 
 
 
   // "auth.errors.invalid-user": "Invalid email address or password.",
   // TODO New key - Add a translation
-  "auth.errors.invalid-user": "Invalid email address or password.",
+  "auth.errors.invalid-user": "Ogiltig e-postadress eller lösenord.",
 
   // "auth.messages.expired": "Your session has expired. Please log in again.",
   // TODO New key - Add a translation
-  "auth.messages.expired": "Your session has expired. Please log in again.",
+  "auth.messages.expired": "Din session har upphört. Logga in igen.",
 
   // "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
   // TODO New key - Add a translation
-  "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
+  "auth.messages.token-refresh-failed": "Misslyckades med att förnya session token. Logga in igen.",
 
 
 
   // "bitstream.download.page": "Now downloading {{bitstream}}..." ,
   // TODO New key - Add a translation
-  "bitstream.download.page": "Now downloading {{bitstream}}..." ,
+  "bitstream.download.page": "Laddar ner {{bitstream}}..." ,
 
   // "bitstream.download.page.back": "Back" ,
   // TODO New key - Add a translation
-  "bitstream.download.page.back": "Back" ,
+  "bitstream.download.page.back": "Tillbaka" ,
 
 
   // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
   // TODO New key - Add a translation
-  "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
+  "bitstream.edit.authorizations.link": "Redigera policy för fil",
 
   // "bitstream.edit.authorizations.title": "Edit bitstream's Policies",
   // TODO New key - Add a translation
-  "bitstream.edit.authorizations.title": "Edit bitstream's Policies",
+  "bitstream.edit.authorizations.title": "Redigera policy för fil",
 
   // "bitstream.edit.return": "Back",
   // TODO New key - Add a translation
-  "bitstream.edit.return": "Back",
+  "bitstream.edit.return": "Tillbaka",
 
   // "bitstream.edit.bitstream": "Bitstream: ",
   // TODO New key - Add a translation
-  "bitstream.edit.bitstream": "Bitstream: ",
+  "bitstream.edit.bitstream": "Fil: ",
 
   // "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
   // TODO New key - Add a translation
-  "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
+  "bitstream.edit.form.description.hint": "Du kan ange en kort beskrivning av innehållet, t ex \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
 
   // "bitstream.edit.form.description.label": "Beskrivning",
   // TODO New key - Add a translation
@@ -1105,47 +1105,47 @@
 
   // "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
   // TODO New key - Add a translation
-  "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
+  "bitstream.edit.form.embargo.hint": "Tidigaste datum när filen skall vara åtkomplig. <b>Detta datum kan inte ändras här.</b> För att ange embargodatum för en post, gå till fliken <i>Poststatus</i>, klicka <i>Behörigheter...</i>, skapa eller redigera filens <i>READ</i> policy, och ange <i>startdatum</i>.",
 
   // "bitstream.edit.form.embargo.label": "Embargo until specific date",
   // TODO New key - Add a translation
-  "bitstream.edit.form.embargo.label": "Embargo until specific date",
+  "bitstream.edit.form.embargo.label": "Skall vara under embrgo till angivet datum",
 
   // "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
   // TODO New key - Add a translation
-  "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
+  "bitstream.edit.form.fileName.hint": "Ändra filnamnet. Detta kommer att förändra den publika URL:en, men tidigare länkar kommer att fortätta fungera som vanligt.",
 
   // "bitstream.edit.form.fileName.label": "Filename",
   // TODO New key - Add a translation
-  "bitstream.edit.form.fileName.label": "Filename",
+  "bitstream.edit.form.fileName.label": "Filnamn",
 
   // "bitstream.edit.form.newFormat.label": "Describe new format",
   // TODO New key - Add a translation
-  "bitstream.edit.form.newFormat.label": "Describe new format",
+  "bitstream.edit.form.newFormat.label": "Beskriv nytt format",
 
   // "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
   // TODO New key - Add a translation
-  "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
+  "bitstream.edit.form.newFormat.hint": "Programmet som använts för att skapa filen, samt versionsnummer (t ex, \"<i>ACMESoft SuperApp version 1.5</i>\").",
 
   // "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
   // TODO New key - Add a translation
-  "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
+  "bitstream.edit.form.primaryBitstream.label": "Primär fil",
 
   // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
   // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
+  "bitstream.edit.form.selectedFormat.hint": "Om formatet inte visas i listan ovan, <b>välj \"formatet saknas\"</b> och lägg till beskrivning under \"Beskriv nytt format\".",
 
   // "bitstream.edit.form.selectedFormat.label": "Selected Format",
   // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.label": "Selected Format",
+  "bitstream.edit.form.selectedFormat.label": "Välj format",
 
   // "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
   // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
+  "bitstream.edit.form.selectedFormat.unknown": "Formatet saknas",
 
   // "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
   // TODO New key - Add a translation
-  "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
+  "bitstream.edit.notifications.error.format.title": "Det uppstod ett fel när formatet skulle sparas",
 
   // "bitstream.edit.form.iiifLabel.label": "IIIF Label",
   // TODO New key - Add a translation
@@ -1182,90 +1182,90 @@
 
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
   // TODO New key - Add a translation
-  "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
+  "bitstream.edit.notifications.saved.content": "Ändringarna sparades.",
 
   // "bitstream.edit.notifications.saved.title": "Bitstream saved",
   // TODO New key - Add a translation
-  "bitstream.edit.notifications.saved.title": "Bitstream saved",
+  "bitstream.edit.notifications.saved.title": "Filen har sparats",
 
   // "bitstream.edit.title": "Edit bitstream",
   // TODO New key - Add a translation
-  "bitstream.edit.title": "Edit bitstream",
+  "bitstream.edit.title": "Redigera fil",
 
   // "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
+  "bitstream-request-a-copy.alert.canDownload1": "Du har redan åtkomst till denna, för att ladda ner den, klicka ",
 
   // "bitstream-request-a-copy.alert.canDownload2": "here",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.alert.canDownload2": "here",
+  "bitstream-request-a-copy.alert.canDownload2": "här",
 
   // "bitstream-request-a-copy.header": "Request a copy of the file",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.header": "Request a copy of the file",
+  "bitstream-request-a-copy.header": "Begär en kopia av filen",
 
   // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
+  "bitstream-request-a-copy.intro": "Ange följande information för att begära en kopia: ",
 
   // "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
+  "bitstream-request-a-copy.intro.bitstream.one": "Önskar följande fil: ",
   // "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
+  "bitstream-request-a-copy.intro.bitstream.all": "Önskar samtliga filer. ",
 
   // "bitstream-request-a-copy.name.label": "Name *",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.name.label": "Name *",
+  "bitstream-request-a-copy.name.label": "Namn *",
 
   // "bitstream-request-a-copy.name.error": "The name is required",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.name.error": "The name is required",
+  "bitstream-request-a-copy.name.error": "Namn måste anges",
 
   // "bitstream-request-a-copy.email.label": "Your e-mail address *",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.email.label": "Your e-mail address *",
+  "bitstream-request-a-copy.email.label": "E-post *",
 
   // "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
+  "bitstream-request-a-copy.email.hint": "Filen kommer skickas till denna e-postadress.",
 
   // "bitstream-request-a-copy.email.error": "Please enter a valid email address.",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.email.error": "Please enter a valid email address.",
+  "bitstream-request-a-copy.email.error": "Ange en giltig e-postadress.",
 
   // "bitstream-request-a-copy.allfiles.label": "Files",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.allfiles.label": "Files",
+  "bitstream-request-a-copy.allfiles.label": "Filer",
 
   // "bitstream-request-a-copy.files-all-false.label": "Only the requested file",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.files-all-false.label": "Only the requested file",
+  "bitstream-request-a-copy.files-all-false.label": "Endast den begärda filen",
 
   // "bitstream-request-a-copy.files-all-true.label": "All files (of this item) in restricted access",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.files-all-true.label": "All files (of this item) in restricted access",
+  "bitstream-request-a-copy.files-all-true.label": "Alla filer (i denna post) som har begränsad åtkomst",
 
   // "bitstream-request-a-copy.message.label": "Message",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.message.label": "Message",
+  "bitstream-request-a-copy.message.label": "Meddelande",
 
   // "bitstream-request-a-copy.return": "Back",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.return": "Back",
+  "bitstream-request-a-copy.return": "Tillbaka",
 
   // "bitstream-request-a-copy.submit": "Request copy",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.submit": "Request copy",
+  "bitstream-request-a-copy.submit": "Begär kopia",
 
   // "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
+  "bitstream-request-a-copy.submit.success": "Begäran har skickats.",
 
   // "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
+  "bitstream-request-a-copy.submit.error": "Ett fel uppstod när begäran skulle skickas.",
 
 
 
@@ -1347,7 +1347,7 @@
 
   // "browse.startsWith.jump": "Jump to a point in the index:",
   // TODO New key - Add a translation
-  "browse.startsWith.jump": "Jump to a point in the index:",
+  "browse.startsWith.jump": "Gå direkt till:",
 
   // "browse.startsWith.months.april": "April",
   // TODO New key - Add a translation
@@ -1391,7 +1391,7 @@
 
   // "browse.startsWith.months.none.label": "Choose the issue month",
   // TODO New key - Add a translation
-  "browse.startsWith.months.none.label": "Choose the issue month",
+  "browse.startsWith.months.none.label": "Välj utgivningsmånad",
 
   // "browse.startsWith.months.november": "November",
   // TODO New key - Add a translation
@@ -1428,7 +1428,7 @@
 
   // "chips.remove": "Remove chip",
   // TODO New key - Add a translation
-  "chips.remove": "Remove chip",
+  "chips.remove": "Radera chip",
 
 
 
@@ -1494,11 +1494,11 @@
 
   // "collection.edit.tabs.mapper.head": "Item Mapper",
   // TODO New key - Add a translation
-  "collection.edit.tabs.mapper.head": "Item Mapper",
+  "collection.edit.tabs.mapper.head": "Mappa poster",
 
   // "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
   // TODO New key - Add a translation
-  "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
+  "collection.edit.tabs.item-mapper.title": "Redigera samling - Mappa poster",
 
   // "collection.edit.item-mapper.cancel": "Cancel",
   // TODO New key - Add a translation
@@ -1506,19 +1506,19 @@
 
   // "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
   // TODO New key - Add a translation
-  "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
+  "collection.edit.item-mapper.collection": "Samling: \"<b>{{name}}</b>\"",
 
   // "collection.edit.item-mapper.confirm": "Map selected items",
   // TODO New key - Add a translation
-  "collection.edit.item-mapper.confirm": "Map selected items",
+  "collection.edit.item-mapper.confirm": "Mappa markerade poster",
 
   // "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
   // TODO New key - Add a translation
-  "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
+  "collection.edit.item-mapper.description": "Detta är ett verktyg som möjliggör för administratörer att mappa poster från andra samlingar till denna. Sök efter poster för att mappa, eller lista redan mappade poster.",
 
   // "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
   // TODO New key - Add a translation
-  "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
+  "collection.edit.item-mapper.head": "Mappa poster - Mappa poster från andra samlingar",
 
   // "collection.edit.item-mapper.no-search": "Please enter a query to search",
   // TODO New key - Add a translation
@@ -1526,39 +1526,39 @@
 
   // "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
   // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
+  "collection.edit.item-mapper.notifications.map.error.content": "Ett fel uppstod vid mappningen för {{amount}} poster.",
 
   // "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
   // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
+  "collection.edit.item-mapper.notifications.map.error.head": "Mappningsfel",
 
   // "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
   // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
+  "collection.edit.item-mapper.notifications.map.success.content": "{{amount}} poster har mappats.",
 
   // "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
   // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
+  "collection.edit.item-mapper.notifications.map.success.head": "Mappningen har slutförts",
 
   // "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
   // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
+  "collection.edit.item-mapper.notifications.unmap.error.content": "Fel vid mappningen uppstod för {{amount}} poster.",
 
   // "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
   // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
+  "collection.edit.item-mapper.notifications.unmap.error.head": "Ta bort mappningsfel",
 
   // "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
   // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
+  "collection.edit.item-mapper.notifications.unmap.success.content": "Mappningen för {{amount}} poster har tagits bort.",
 
   // "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
   // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
+  "collection.edit.item-mapper.notifications.unmap.success.head": "Mappning har tagits bort",
 
   // "collection.edit.item-mapper.remove": "Remove selected item mappings",
   // TODO New key - Add a translation
-  "collection.edit.item-mapper.remove": "Remove selected item mappings",
+  "collection.edit.item-mapper.remove": "Ta bort markerade mappningar",
 
   // "collection.edit.item-mapper.search-form.placeholder": "Search items...",
   // TODO New key - Add a translation
@@ -1566,54 +1566,54 @@
 
   // "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
   // TODO New key - Add a translation
-  "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
+  "collection.edit.item-mapper.tabs.browse": "Browsa mappade poster",
 
   // "collection.edit.item-mapper.tabs.map": "Map new items",
   // TODO New key - Add a translation
-  "collection.edit.item-mapper.tabs.map": "Map new items",
+  "collection.edit.item-mapper.tabs.map": "Mappa nya poster",
 
 
   // "collection.edit.logo.delete.title": "Delete logo",
   // TODO New key - Add a translation
-  "collection.edit.logo.delete.title": "Delete logo",
+  "collection.edit.logo.delete.title": "Radera logga",
 
   // "collection.edit.logo.delete-undo.title": "Undo delete",
   // TODO New key - Add a translation
-  "collection.edit.logo.delete-undo.title": "Undo delete",
+  "collection.edit.logo.delete-undo.title": "Ångra radera",
 
   // "collection.edit.logo.label": "Collection logo",
   // TODO New key - Add a translation
-  "collection.edit.logo.label": "Collection logo",
+  "collection.edit.logo.label": "Logga för samlingen",
 
   // "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
   // TODO New key - Add a translation
-  "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
+  "collection.edit.logo.notifications.add.error": "Uppladdning av logga för samlingen misslyckades. Kontrollera filen och försök igen.",
 
   // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
   // TODO New key - Add a translation
-  "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
+  "collection.edit.logo.notifications.add.success": "Logga för samlingen har laddats upp.",
 
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
   // TODO New key - Add a translation
-  "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
+  "collection.edit.logo.notifications.delete.success.title": "Logga har raderats",
 
   // "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
   // TODO New key - Add a translation
-  "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
+  "collection.edit.logo.notifications.delete.success.content": "Samlingens logga har raderats",
 
   // "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
   // TODO New key - Add a translation
-  "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
+  "collection.edit.logo.notifications.delete.error.title": "Ett fel uppstod när logga skulle raderas",
 
   // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
   // TODO New key - Add a translation
-  "collection.edit.logo.upload": "Drop a Collection Logo to upload",
+  "collection.edit.logo.upload": "Släpp en logga här för att ladda upp",
 
 
 
   // "collection.edit.notifications.success": "Successfully edited the Collection",
   // TODO New key - Add a translation
-  "collection.edit.notifications.success": "Samlingen ar redigerats",
+  "collection.edit.notifications.success": "Samlingen har redigerats",
 
   // "collection.edit.return": "Back",
   // TODO New key - Add a translation
@@ -1623,11 +1623,11 @@
 
   // "collection.edit.tabs.curate.head": "Curate",
   // TODO New key - Add a translation
-  "collection.edit.tabs.curate.head": "Curate",
+  "collection.edit.tabs.curate.head": "Kurera",
 
   // "collection.edit.tabs.curate.title": "Collection Edit - Curate",
   // TODO New key - Add a translation
-  "collection.edit.tabs.curate.title": "Collection Edit - Curate",
+  "collection.edit.tabs.curate.title": "Redigera samling - kurera",
 
   // "collection.edit.tabs.authorizations.head": "Authorizations",
   // TODO New key - Add a translation
@@ -1655,19 +1655,19 @@
 
   // "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
   // TODO New key - Add a translation
-  "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
+  "collection.edit.tabs.source.external": "Denna samling höstar in sitt innehåll från en extern källa",
 
   // "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
   // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
+  "collection.edit.tabs.source.form.errors.oaiSource.required": "Du måste ange set id för målsamlingen.",
 
   // "collection.edit.tabs.source.form.harvestType": "Content being harvested",
   // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.harvestType": "Content being harvested",
+  "collection.edit.tabs.source.form.harvestType": "Innehåll höstas in",
 
   // "collection.edit.tabs.source.form.head": "Configure an external source",
   // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.head": "Configure an external source",
+  "collection.edit.tabs.source.form.head": "Konfigurera en extern källa",
 
   // "collection.edit.tabs.source.form.metadataConfigId": "Metadata Format",
   // TODO New key - Add a translation
@@ -1675,7 +1675,7 @@
 
   // "collection.edit.tabs.source.form.oaiSetId": "OAI specific set id",
   // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.oaiSetId": "OAI specific set id",
+  "collection.edit.tabs.source.form.oaiSetId": "OAI specifikt set id",
 
   // "collection.edit.tabs.source.form.oaiSource": "OAI Provider",
   // TODO New key - Add a translation
@@ -1683,23 +1683,23 @@
 
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest metadata and bitstreams (requires ORE support)",
   // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest metadata and bitstreams (requires ORE support)",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Hösta både metadata och filer (kräver stöd för ORE)",
 
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest metadata and references to bitstreams (requires ORE support)",
   // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest metadata and references to bitstreams (requires ORE support)",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Hösta både metadata och referenser till filer (kräver stöd för ORE)",
 
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
   // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Hösta enbart metadata",
 
   // "collection.edit.tabs.source.head": "Content Source",
   // TODO New key - Add a translation
-  "collection.edit.tabs.source.head": "Content Source",
+  "collection.edit.tabs.source.head": "Källa för innehåll",
 
   // "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
   // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+  "collection.edit.tabs.source.notifications.discarded.content": "Ändringarna sparades inte. För att återkalla dina förändringar, klicka 'Ångra'",
 
   // "collection.edit.tabs.source.notifications.discarded.title": "Changed discarded",
   // TODO New key - Add a translation
@@ -1707,23 +1707,23 @@
 
   // "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
   // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
+  "collection.edit.tabs.source.notifications.invalid.content": "Ändringarna sparades inte. Kontrollera att alla fält är giltiga och försök att spara igen.",
 
   // "collection.edit.tabs.source.notifications.invalid.title": "Metadata invalid",
   // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.invalid.title": "Metadata invalid",
+  "collection.edit.tabs.source.notifications.invalid.title": "Metadatan är ogiltig",
 
   // "collection.edit.tabs.source.notifications.saved.content": "Your changes to this collection's content source were saved.",
   // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.saved.content": "Your changes to this collection's content source were saved.",
+  "collection.edit.tabs.source.notifications.saved.content": "Ändringarna har sparats.",
 
   // "collection.edit.tabs.source.notifications.saved.title": "Content Source saved",
   // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.saved.title": "Content Source saved",
+  "collection.edit.tabs.source.notifications.saved.title": "Källa sparades.",
 
   // "collection.edit.tabs.source.title": "Collection Edit - Content Source",
   // TODO New key - Add a translation
-  "collection.edit.tabs.source.title": "Collection Edit - Content Source",
+  "collection.edit.tabs.source.title": "Redigera samling - Källa för innehåll",
 
 
 
@@ -1733,7 +1733,7 @@
 
   // "collection.edit.template.breadcrumbs": "Item template",
   // TODO New key - Add a translation
-  "collection.edit.template.breadcrumbs": "Item template",
+  "collection.edit.template.breadcrumbs": "postmall",
 
   // "collection.edit.template.cancel": "Cancel",
   // TODO New key - Add a translation
@@ -1749,37 +1749,37 @@
 
   // "collection.edit.template.error": "An error occurred retrieving the template item",
   // TODO New key - Add a translation
-  "collection.edit.template.error": "An error occurred retrieving the template item",
+  "collection.edit.template.error": "Ett fel uppstod när mallen hämtades",
 
   // "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
   // TODO New key - Add a translation
-  "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
+  "collection.edit.template.head": "Redigera postmall för samlingen \"{{ collection }}\"",
 
   // "collection.edit.template.label": "Template item",
   // TODO New key - Add a translation
-  "collection.edit.template.label": "Template item",
+  "collection.edit.template.label": "Postmall",
 
   // "collection.edit.template.loading": "Loading template item...",
   // TODO New key - Add a translation
-  "collection.edit.template.loading": "Laddar template item...",
+  "collection.edit.template.loading": "Laddar postmall...",
 
   // "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
   // TODO New key - Add a translation
-  "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
+  "collection.edit.template.notifications.delete.error": "Misslickades med att radera postmall",
 
   // "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
   // TODO New key - Add a translation
-  "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
+  "collection.edit.template.notifications.delete.success": "Postmall har raderats",
 
   // "collection.edit.template.title": "Edit Template Item",
   // TODO New key - Add a translation
-  "collection.edit.template.title": "Redigera Template Item",
+  "collection.edit.template.title": "Redigera postmall",
 
 
 
   // "collection.form.abstract": "Short Beskrivning",
   // TODO New key - Add a translation
-  "collection.form.abstract": "Short Beskrivning",
+  "collection.form.abstract": "Kort beskrivning",
 
   // "collection.form.description": "Introductory text (HTML)",
   // TODO New key - Add a translation
@@ -1811,7 +1811,7 @@
 
   // "collection.form.entityType": "Entity Type",
   // TODO New key - Add a translation
-  "collection.form.entityType": "Entity Type",
+  "collection.form.entityType": "Entitetstyp",
 
 
 
@@ -1860,84 +1860,84 @@
   "collection.select.table.title": "Titel",
 
 
-  // "collection.source.controls.head": "Harvest Controls",
+ // "collection.source.controls.head": "Harvest Controls",
   // TODO New key - Add a translation
-  "collection.source.controls.head": "Harvest Controls",
+  "collection.source.controls.head": "Inställningar för höstning",
   // "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
   // TODO New key - Add a translation
-  "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
+  "collection.source.controls.test.submit.error": "Något gick fel när testet av inställningarna initierades",
   // "collection.source.controls.test.failed": "The script to test the settings has failed",
   // TODO New key - Add a translation
-  "collection.source.controls.test.failed": "The script to test the settings has failed",
+  "collection.source.controls.test.failed": "Skriptet som testar inställningarna kunde inte köras",
   // "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
   // TODO New key - Add a translation
-  "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
+  "collection.source.controls.test.completed": "Skriptet som testar inställningarna har körts med lyckat resultat",
   // "collection.source.controls.test.submit": "Test configuration",
   // TODO New key - Add a translation
-  "collection.source.controls.test.submit": "Test configuration",
+  "collection.source.controls.test.submit": "Testa konfigurationen",
   // "collection.source.controls.test.running": "Testing configuration...",
   // TODO New key - Add a translation
-  "collection.source.controls.test.running": "Testing configuration...",
+  "collection.source.controls.test.running": "Testar konfigurationen...",
   // "collection.source.controls.import.submit.success": "The import has been successfully initiated",
   // TODO New key - Add a translation
-  "collection.source.controls.import.submit.success": "The import has been successfully initiated",
+  "collection.source.controls.import.submit.success": "Importen har initierats",
   // "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
   // TODO New key - Add a translation
-  "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
+  "collection.source.controls.import.submit.error": "Något gick fel när importen skulle initieras",
   // "collection.source.controls.import.submit": "Import now",
   // TODO New key - Add a translation
-  "collection.source.controls.import.submit": "Import now",
+  "collection.source.controls.import.submit": "Importera nu",
   // "collection.source.controls.import.running": "Importing...",
   // TODO New key - Add a translation
-  "collection.source.controls.import.running": "Importing...",
+  "collection.source.controls.import.running": "Importerar...",
   // "collection.source.controls.import.failed": "An error occurred during the import",
   // TODO New key - Add a translation
-  "collection.source.controls.import.failed": "An error occurred during the import",
+  "collection.source.controls.import.failed": "Ett fel uppstod under importen",
   // "collection.source.controls.import.completed": "The import completed",
   // TODO New key - Add a translation
-  "collection.source.controls.import.completed": "The import completed",
+  "collection.source.controls.import.completed": "Importen har slutförts",
   // "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
   // TODO New key - Add a translation
-  "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
+  "collection.source.controls.reset.submit.success": "Återställning och omimport har initierats",
   // "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
   // TODO New key - Add a translation
-  "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
+  "collection.source.controls.reset.submit.error": "Något gick fel vid initiering av återställning och omimport",
   // "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
   // TODO New key - Add a translation
-  "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
+  "collection.source.controls.reset.failed": "Ett fel uppstod under återställning och omimport",
   // "collection.source.controls.reset.completed": "The reset and reimport completed",
   // TODO New key - Add a translation
-  "collection.source.controls.reset.completed": "The reset and reimport completed",
+  "collection.source.controls.reset.completed": "Återställningen och omimporten har slutförts",
   // "collection.source.controls.reset.submit": "Reset and reimport",
   // TODO New key - Add a translation
-  "collection.source.controls.reset.submit": "Reset and reimport",
+  "collection.source.controls.reset.submit": "Återställ och importera om",
   // "collection.source.controls.reset.running": "Resetting and reimporting...",
   // TODO New key - Add a translation
-  "collection.source.controls.reset.running": "Resetting and reimporting...",
+  "collection.source.controls.reset.running": "Återställer och importerar om...",
   // "collection.source.controls.harvest.status": "Harvest status:",
   // TODO New key - Add a translation
-  "collection.source.controls.harvest.status": "Harvest status:",
+  "collection.source.controls.harvest.status": "Status:",
   // "collection.source.controls.harvest.start": "Harvest start time:",
   // TODO New key - Add a translation
-  "collection.source.controls.harvest.start": "Harvest start time:",
+  "collection.source.controls.harvest.start": "Starttid:",
   // "collection.source.controls.harvest.last": "Last time harvested:",
   // TODO New key - Add a translation
-  "collection.source.controls.harvest.last": "Last time harvested:",
+  "collection.source.controls.harvest.last": "Senaste höstning:",
   // "collection.source.controls.harvest.message": "Harvest info:",
   // TODO New key - Add a translation
-  "collection.source.controls.harvest.message": "Harvest info:",
+  "collection.source.controls.harvest.message": "Info om höstning:",
   // "collection.source.controls.harvest.no-information": "N/A",
   // TODO New key - Add a translation
-  "collection.source.controls.harvest.no-information": "N/A",
+  "collection.source.controls.harvest.no-information": "saknas",
 
 
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
   // TODO New key - Add a translation
-  "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
+  "collection.source.update.notifications.error.content": "Inställningarna har testats och fungerade inte.",
 
   // "collection.source.update.notifications.error.title": "Server Error",
   // TODO New key - Add a translation
-  "collection.source.update.notifications.error.title": "Server Error",
+  "collection.source.update.notifications.error.title": "Serverfel",
 
 
 
@@ -2140,11 +2140,11 @@
 
   // "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
   // TODO New key - Add a translation
-  "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+  "comcol-role.edit.community-admin.description": "Administratörer för enheter kan skapa underenheter eller samlingar och administrera dessa. De kan också avgöra vem skall ha behörighet till dessa, redigera metadata (på befintliga poster), och mappa existerande poster från andra samlingar (beroende på behörighet till dessa).",
 
   // "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
   // TODO New key - Add a translation
-  "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
+  "comcol-role.edit.collection-admin.description": "Administratörer för samlingar avgör vem som kan skapa nya poster i dessa, redigera metadata (på befintliga poster) och mappa existerande poster från andra samlingar till denna (beroende på behörighet).",
 
 
   // "comcol-role.edit.submitters.name": "Submitters",
@@ -2153,33 +2153,33 @@
 
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
   // TODO New key - Add a translation
-  "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
+  "comcol-role.edit.submitters.description": "EPersoner och grupper som har behörighet att skapa nya poster i denna samling.",
 
 
   // "comcol-role.edit.item_read.name": "Default item read access",
   // TODO New key - Add a translation
-  "comcol-role.edit.item_read.name": "Default item read access",
+  "comcol-role.edit.item_read.name": "Default läsåtkomst till post",
 
   // "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
   // TODO New key - Add a translation
-  "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
+  "comcol-role.edit.item_read.description": "EPersoner och grupper som kan läsa nya poster som skapats i denna samling. Förändringar i rollen är inte retroaktiva. Existerande poster kommer fortfarande att vara synliga för dem som hade läsåtkomst när de skapades.",
 
   // "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
   // TODO New key - Add a translation
-  "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
+  "comcol-role.edit.item_read.anonymous-group": "Default läsåtkomst till nyskapade poster är för närvarande satt till Anonymous.",
 
 
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
   // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
+  "comcol-role.edit.bitstream_read.name": "Default läsåtkomst till filer",
 
   // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
   // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+  "comcol-role.edit.bitstream_read.description": "Administratörer för enheter kan skapa underenheter eller samlingar och administrera dessa. De kan också avgöra vem skall ha behörighet till dessa, redigera metadata (på befintliga poster), och mappa existerande poster från andra samlingar (beroende på behörighet till dessa).",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
   // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
+  "comcol-role.edit.bitstream_read.anonymous-group": "Default läsåtkomst till nyuppladdade filer är för närvarande satt till Anonymous.",
 
 
   // "comcol-role.edit.editor.name": "Editors",
@@ -2188,7 +2188,7 @@
 
   // "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
   // TODO New key - Add a translation
-  "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
+  "comcol-role.edit.editor.description": "Dessa kan redigera metadata på inkommande bidrag, samt acceptera eller neka dessa.",
 
 
   // "comcol-role.edit.finaleditor.name": "Final editors",
@@ -2197,7 +2197,7 @@
 
   // "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
   // TODO New key - Add a translation
-  "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
+  "comcol-role.edit.finaleditor.description": "Dessa kan redigera metadata på inkommande bidrag, men har inte möjlighet att neka dem.",
 
 
   // "comcol-role.edit.reviewer.name": "Reviewers",
@@ -2206,7 +2206,7 @@
 
   // "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
   // TODO New key - Add a translation
-  "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
+  "comcol-role.edit.reviewer.description": "Reviewers kan acceptera eller neka inkommande bidrag. Men de kan inte redigera metadata.",
 
 
 
@@ -2274,7 +2274,7 @@
 
   // "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
   // TODO New key - Add a translation
-  "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
+  "cookies.consent.app.opt-out.description": "Denna app har laddats per default (men du kan välja opt out)",
 
   // "cookies.consent.app.opt-out.title": "(opt-out)",
   // TODO New key - Add a translation
@@ -2282,19 +2282,19 @@
 
   // "cookies.consent.app.purpose": "purpose",
   // TODO New key - Add a translation
-  "cookies.consent.app.purpose": "purpose",
+  "cookies.consent.app.purpose": "syfte",
 
   // "cookies.consent.app.required.description": "This application is always required",
   // TODO New key - Add a translation
-  "cookies.consent.app.required.description": "This application is always required",
+  "cookies.consent.app.required.description": "Denna applikation krävs alltid",
 
   // "cookies.consent.app.required.title": "(always required)",
   // TODO New key - Add a translation
-  "cookies.consent.app.required.title": "(always required)",
+  "cookies.consent.app.required.title": "(krävs alltid)",
 
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   // TODO New key - Add a translation
-  "cookies.consent.update": "There were changes since your last visit, please update your consent.",
+  "cookies.consent.update": "Ändringar har gjorts sedan ditt senaste besök, vänligen uppdatera ditt medgivande.",
 
   // "cookies.consent.close": "Close",
   // TODO New key - Add a translation
@@ -2306,27 +2306,27 @@
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   // TODO New key - Add a translation
-  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Vi samlar in och hanterar dina persondata för följande syften: <strong>Autenticering, inställningar, godkännanden och statistik</strong>. <br/> För mer information, läs {privacyPolicy}.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   // TODO New key - Add a translation
-  "cookies.consent.content-notice.learnMore": "Customize",
+  "cookies.consent.content-notice.learnMore": "Anpassa",
 
   // "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
   // TODO New key - Add a translation
-  "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
+  "cookies.consent.content-modal.description": "Se och anpassa den information som vi samlar in.",
 
   // "cookies.consent.content-modal.privacy-policy.name": "privacy policy",
   // TODO New key - Add a translation
-  "cookies.consent.content-modal.privacy-policy.name": "privacy policy",
+  "cookies.consent.content-modal.privacy-policy.name": "personuppgifter och cookies",
 
   // "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
   // TODO New key - Add a translation
-  "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
+  "cookies.consent.content-modal.privacy-policy.text": "För mer information, läs {privacyPolicy}.",
 
   // "cookies.consent.content-modal.title": "Information that we collect",
   // TODO New key - Add a translation
-  "cookies.consent.content-modal.title": "Information that we collect",
+  "cookies.consent.content-modal.title": "Information som vi samlar in",
 
 
 
@@ -2351,11 +2351,11 @@
 
   // "cookies.consent.app.title.acknowledgement": "Acknowledgement",
   // TODO New key - Add a translation
-  "cookies.consent.app.title.acknowledgement": "Acknowledgement",
+  "cookies.consent.app.title.acknowledgement": "Godkännande",
 
   // "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
   // TODO New key - Add a translation
-  "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
+  "cookies.consent.app.description.acknowledgement": "Behövs för att spara dina godkännanden och medgivanden",
 
 
 
@@ -2365,22 +2365,22 @@
 
   // "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
   // TODO New key - Add a translation
-  "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
+  "cookies.consent.app.description.google-analytics": "Tillåt oss att spåra statistiska data",
 
 
 
   // "cookies.consent.purpose.functional": "Functional",
   // TODO New key - Add a translation
-  "cookies.consent.purpose.functional": "Functional",
+  "cookies.consent.purpose.functional": "Funktionella",
 
   // "cookies.consent.purpose.statistical": "Statistical",
   // TODO New key - Add a translation
-  "cookies.consent.purpose.statistical": "Statistical",
+  "cookies.consent.purpose.statistical": "Statistiska",
 
 
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
   // TODO New key - Add a translation
-  "curation-task.task.checklinks.label":  "Check Links in Metadata",
+  "curation-task.task.checklinks.label":  "Kontrollera länkar i metadata",
 
   // "curation-task.task.noop.label": "NOOP",
   // TODO New key - Add a translation
@@ -2392,7 +2392,7 @@
 
   // "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
   // TODO New key - Add a translation
-  "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
+  "curation-task.task.requiredmetadata.label": "Kontrollera obligatoriska metadata",
 
   // "curation-task.task.translate.label": "Microsoft Translator",
   // TODO New key - Add a translation
@@ -2406,11 +2406,11 @@
 
   // "curation.form.task-select.label": "Task:",
   // TODO New key - Add a translation
-  "curation.form.task-select.label": "Task:",
+  "curation.form.task-select.label": "Uppgift:",
 
   // "curation.form.submit": "Start",
   // TODO New key - Add a translation
-  "curation.form.submit": "Start",
+  "curation.form.submit": "Starta",
 
   // "curation.form.submit.success.head": "The curation task has been started successfully",
   // TODO New key - Add a translation
@@ -4532,81 +4532,81 @@
 
   // "loading.bitstream": "Loading bitstream...",
   // TODO New key - Add a translation
-  "loading.bitstream": "Loading bitstream...",
+  "loading.bitstream": "Hämtar fil...",
 
   // "loading.bitstreams": "Loading bitstreams...",
   // TODO New key - Add a translation
-  "loading.bitstreams": "Loading bitstreams...",
+  "loading.bitstreams": "Hämtar filer...",
 
   // "loading.browse-by": "Loading items...",
   // TODO New key - Add a translation
-  "loading.browse-by": "Loading items...",
+  "loading.browse-by": "Hämtar poster...",
 
   // "loading.browse-by-page": "Loading page...",
   // TODO New key - Add a translation
-  "loading.browse-by-page": "Loading page...",
+  "loading.browse-by-page": "Hämtar sida...",
 
   // "loading.collection": "Loading collection...",
   // TODO New key - Add a translation
-  "loading.collection": "Loading collection...",
+  "loading.collection": "Hämtar samling...",
 
   // "loading.collections": "Loading collections...",
   // TODO New key - Add a translation
-  "loading.collections": "Loading collections...",
+  "loading.collections": "Hämtar samlingar..",
 
   // "loading.content-source": "Loading content source...",
   // TODO New key - Add a translation
-  "loading.content-source": "Loading content source...",
+  "loading.content-source": "Hämtar källa...",
 
   // "loading.community": "Loading community...",
   // TODO New key - Add a translation
-  "loading.community": "Loading community...",
+  "loading.community": "Hämtar enhet...",
 
   // "loading.default": "Loading...",
   // TODO New key - Add a translation
-  "loading.default": "Loading...",
+  "loading.default": "Hämtar...",
 
   // "loading.item": "Loading item...",
   // TODO New key - Add a translation
-  "loading.item": "Loading item...",
+  "loading.item": "Hämtar post...",
 
   // "loading.items": "Loading items...",
   // TODO New key - Add a translation
-  "loading.items": "Loading items...",
+  "loading.items": "Hämtar poster...",
 
   // "loading.mydspace-results": "Loading items...",
   // TODO New key - Add a translation
-  "loading.mydspace-results": "Loading items...",
+  "loading.mydspace-results": "Hämtar poster...",
 
   // "loading.objects": "Loading...",
   // TODO New key - Add a translation
-  "loading.objects": "Loading...",
+  "loading.objects": "Hämtar...",
 
   // "loading.recent-submissions": "Loading recent submissions...",
   // TODO New key - Add a translation
-  "loading.recent-submissions": "Loading recent submissions...",
+  "loading.recent-submissions": "Hämtar de senaste bidragen...",
 
   // "loading.search-results": "Loading search results...",
   // TODO New key - Add a translation
-  "loading.search-results": "Loading search results...",
+  "loading.search-results": "Hämtar sökresultat...",
 
   // "loading.sub-collections": "Loading sub-collections...",
   // TODO New key - Add a translation
-  "loading.sub-collections": "Loading sub-collections...",
+  "loading.sub-collections": "Hämtar underavdelningar...",
 
   // "loading.sub-communities": "Loading sub-communities...",
   // TODO New key - Add a translation
-  "loading.sub-communities": "Loading sub-communities...",
+  "loading.sub-communities": "Hämtar underenheter...",
 
   // "loading.top-level-communities": "Loading top-level communities...",
   // TODO New key - Add a translation
-  "loading.top-level-communities": "Loading top-level communities...",
+  "loading.top-level-communities": "Hämtar enheter på toppnivå...",
 
 
 
   // "login.form.email": "Email address",
   // TODO New key - Add a translation
-  "login.form.email": "Email address",
+  "login.form.email": "E-postadress",
 
   // "login.form.forgot-password": "Have you forgotten your password?",
   // TODO New key - Add a translation
@@ -4614,7 +4614,7 @@
 
   // "login.form.header": "Please log in to DSpace",
   // TODO New key - Add a translation
-  "login.form.header": "Please log in to DSpace",
+  "login.form.header": "Logga in i ODR",
 
   // "login.form.new-user": "New user? Click here to register.",
   // TODO New key - Add a translation
@@ -4622,11 +4622,11 @@
 
   // "login.form.or-divider": "or",
   // TODO New key - Add a translation
-  "login.form.or-divider": "or",
+  "login.form.or-divider": "eller",
 
   // "login.form.oidc": "Log in with OIDC",
   // TODO New key - Add a translation
-  "login.form.oidc": "Log in with OIDC",
+  "login.form.oidc": "Logga in med OIDC",
 
   // "login.form.password": "Password",
   // TODO New key - Add a translation
@@ -4634,7 +4634,7 @@
 
   // "login.form.shibboleth": "Log in with Shibboleth",
   // TODO New key - Add a translation
-  "login.form.shibboleth": "Log in with Shibboleth",
+  "login.form.shibboleth": "Logga in med Shibboleth",
 
   // "login.form.submit": "Log in",
   // TODO New key - Add a translation
@@ -7866,35 +7866,35 @@
 
   // "thumbnail.default.alt": "Thumbnail Image",
   // TODO New key - Add a translation
-  "thumbnail.default.alt": "Thumbnail Image",
+  "thumbnail.default.alt": "Bild (thumbnail)",
 
   // "thumbnail.default.placeholder": "No Thumbnail Available",
   // TODO New key - Add a translation
-  "thumbnail.default.placeholder": "No Thumbnail Available",
+  "thumbnail.default.placeholder": "Bild saknas",
 
   // "thumbnail.project.alt": "Project Logo",
   // TODO New key - Add a translation
-  "thumbnail.project.alt": "Project Logo",
+  "thumbnail.project.alt": "Projekt logotyp",
 
   // "thumbnail.project.placeholder": "Project Placeholder Image",
   // TODO New key - Add a translation
-  "thumbnail.project.placeholder": "Project Placeholder Image",
+  "thumbnail.project.placeholder": "Projekt bild (platshållare)",
 
   // "thumbnail.orgunit.alt": "OrgUnit Logo",
   // TODO New key - Add a translation
-  "thumbnail.orgunit.alt": "OrgUnit Logo",
+  "thumbnail.orgunit.alt": "Organisationens logotyp",
 
   // "thumbnail.orgunit.placeholder": "OrgUnit Placeholder Image",
   // TODO New key - Add a translation
-  "thumbnail.orgunit.placeholder": "OrgUnit Placeholder Image",
+  "thumbnail.orgunit.placeholder": "Organisationens bild (platshållare)",
 
   // "thumbnail.person.alt": "Profile Picture",
   // TODO New key - Add a translation
-  "thumbnail.person.alt": "Profile Picture",
+  "thumbnail.person.alt": "Profilbild",
 
   // "thumbnail.person.placeholder": "No Profile Picture Available",
   // TODO New key - Add a translation
-  "thumbnail.person.placeholder": "No Profile Picture Available",
+  "thumbnail.person.placeholder": "Profilbild saknas",
 
 
 
