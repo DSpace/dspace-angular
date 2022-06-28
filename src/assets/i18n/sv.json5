@@ -1287,7 +1287,7 @@
 
   // "browse.comcol.head": "Browse",
   // TODO New key - Add a translation
-  "browse.comcol.head": "Browsa",
+  "browse.comcol.head": "Browse",
 
   // "browse.empty": "No items to show.",
   // TODO New key - Add a translation
@@ -1319,7 +1319,7 @@
 
   // "browse.metadata.subject.breadcrumbs": "Browse by Subject",
   // TODO New key - Add a translation
-  "browse.metadata.subject.breadcrumbs": "Ämnesord",
+  "browse.metadata.subject.breadcrumbs": "Ämnen",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   // TODO New key - Add a translation
@@ -1333,7 +1333,7 @@
   // TODO New key - Add a translation
   "pagination.previous.button": "Föregående",
 
-  // "browse.startsWith.choose_start": "(Choose start)",
+ // "browse.startsWith.choose_start": "(Choose start)",
   // TODO New key - Add a translation
   "browse.startsWith.choose_start": "(Välj startdatum)",
 
@@ -1432,7 +1432,7 @@
 
 
 
-  // "collection.create.head": "Create a Collection",
+ // "collection.create.head": "Create a Collection",
   // TODO New key - Add a translation
   "collection.create.head": "Skapa samling",
 
@@ -2240,7 +2240,7 @@
 
   // "community.page.handle": "Permanent URI for this community",
   // TODO New key - Add a translation
-  "community.page.handle": "Använd denna länk för att länka till denna samling:",
+  "community.page.handle": "Använd denna länk för att länka till samlingen:",
 
   // "community.page.license": "License",
   // TODO New key - Add a translation
@@ -2248,11 +2248,11 @@
 
   // "community.page.news": "News",
   // TODO New key - Add a translation
-  "community.page.news": "Nyheter",
+  "community.page.news": "News",
 
   // "community.all-lists.head": "Subcommunities and Collections",
   // TODO New key - Add a translation
-  "community.all-lists.head": "Samlingar",
+  "community.all-lists.head": "Samling",
 
   // "community.sub-collection-list.head": "Samlingar Community",
   // TODO New key - Add a translation
@@ -2406,7 +2406,11 @@
 
   // "curation.form.task-select.label": "Task:",
   // TODO New key - Add a translation
+<<<<<<< HEAD
   "curation.form.task-select.label": "Uppgift:",
+=======
+  "curation.form.task-select.label": "Jobb:",
+>>>>>>> 394b655baebaf1a2199b57a18e4cd31fd5607f79
 
   // "curation.form.submit": "Start",
   // TODO New key - Add a translation
@@ -2414,19 +2418,19 @@
 
   // "curation.form.submit.success.head": "The curation task has been started successfully",
   // TODO New key - Add a translation
-  "curation.form.submit.success.head": "The curation task has been started successfully",
+  "curation.form.submit.success.head": "Kureringsjobbet har startats",
 
   // "curation.form.submit.success.content": "You will be redirected to the corresponding process page.",
   // TODO New key - Add a translation
-  "curation.form.submit.success.content": "You will be redirected to the corresponding process page.",
+  "curation.form.submit.success.content": "Du kommer att skickas till sidan för att övervaka processen.",
 
   // "curation.form.submit.error.head": "Running the curation task failed",
   // TODO New key - Add a translation
-  "curation.form.submit.error.head": "Running the curation task failed",
+  "curation.form.submit.error.head": "Kureringsjobbet misslyckades",
 
   // "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
   // TODO New key - Add a translation
-  "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+  "curation.form.submit.error.content": "Ett fel uppstod när kureringsjobbet skulle startas.",
 
   // "curation.form.handle.label": "Handle:",
   // TODO New key - Add a translation
@@ -2434,39 +2438,40 @@
 
   // "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
   // TODO New key - Add a translation
-  "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
+  "curation.form.handle.hint": "Tips: Ange [your-handle-prefix]/0 för att köra ett jobb för hela sajten (alla jobb kanske inte stöder detta)",
 
 
 
   // "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
   // TODO New key - Add a translation
-  "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+  "deny-request-copy.email.message": "Hej {{ recipientName }},\nDet är tyvärr inte möjligt att skicka den eller de filer som du har begärt. Angående: \"{{ itemUrl }}\" ({{ itemName }}), som jag har författat.\n\nMed vänliga hälsningar,\n{{ authorName }} <{{ authorEmail }}>",
 
   // "deny-request-copy.email.subject": "Request copy of document",
   // TODO New key - Add a translation
-  "deny-request-copy.email.subject": "Request copy of document",
+  "deny-request-copy.email.subject": "Begär en kopia av dokument",
 
   // "deny-request-copy.error": "An error occurred",
   // TODO New key - Add a translation
-  "deny-request-copy.error": "An error occurred",
+  "deny-request-copy.error": "Ett fel uppstod",
 
   // "deny-request-copy.header": "Deny document copy request",
   // TODO New key - Add a translation
-  "deny-request-copy.header": "Deny document copy request",
+  "deny-request-copy.header": "Neka begäran",
 
   // "deny-request-copy.intro": "This message will be sent to the applicant of the request",
   // TODO New key - Add a translation
-  "deny-request-copy.intro": "This message will be sent to the applicant of the request",
+  "deny-request-copy.intro": "Detta meddelande kommer att skickas till personen som har begärt kopian",
 
   // "deny-request-copy.success": "Successfully denied item request",
   // TODO New key - Add a translation
-  "deny-request-copy.success": "Successfully denied item request",
+  "deny-request-copy.success": "Begäran nekades",
 
 
 
   // "dso.name.untitled": "Untitled",
   // TODO New key - Add a translation
-  "dso.name.untitled": "Untitled",
+  "dso.name.untitled": "Utan titel",
+
 
 
   // "dso-selector.create.collection.head": "New collection",
@@ -2547,7 +2552,7 @@
 
 
 
-  // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
+ // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
   // TODO New key - Add a translation
   "confirmation-modal.export-metadata.header": "Exportera metadata från {{ dsoName }}",
 
@@ -2582,63 +2587,63 @@
 
   // "error.bitstream": "Error fetching bitstream",
   // TODO New key - Add a translation
-  "error.bitstream": "Error fetching bitstream",
+  "error.bitstream": "Ett fel uppstod när felen hämtades",
 
   // "error.browse-by": "Error fetching items",
   // TODO New key - Add a translation
-  "error.browse-by": "Error fetching items",
+  "error.browse-by": "Ett fel uppstod när posterna hämtades",
 
   // "error.collection": "Error fetching collection",
   // TODO New key - Add a translation
-  "error.collection": "Error fetching collection",
+  "error.collection": "Ett fel uppstod när samling hämtades",
 
   // "error.collections": "Error fetching collections",
   // TODO New key - Add a translation
-  "error.collections": "Error fetching collections",
+  "error.collections": "Ett fel uppstod när samlingar hämtades",
 
   // "error.community": "Error fetching community",
   // TODO New key - Add a translation
-  "error.community": "Error fetching community",
+  "error.community": "Ett fel uppstod när enhet hämtades",
 
   // "error.identifier": "No item found for the identifier",
   // TODO New key - Add a translation
-  "error.identifier": "No item found for the identifier",
+  "error.identifier": "Inga post med denna identifiererare kunde hittas",
 
   // "error.default": "Error",
   // TODO New key - Add a translation
-  "error.default": "Error",
+  "error.default": "Fel",
 
   // "error.item": "Error fetching item",
   // TODO New key - Add a translation
-  "error.item": "Error fetching item",
+  "error.item": "Ett fel uppstod när posten hämtades",
 
   // "error.items": "Error fetching items",
   // TODO New key - Add a translation
-  "error.items": "Error fetching items",
+  "error.items": "Ett fel uppstod när poster hämtades",
 
   // "error.objects": "Error fetching objects",
   // TODO New key - Add a translation
-  "error.objects": "Error fetching objects",
+  "error.objects": "Ett fel uppstod när objekt hämtades",
 
   // "error.recent-submissions": "Error fetching recent submissions",
   // TODO New key - Add a translation
-  "error.recent-submissions": "Error fetching recent submissions",
+  "error.recent-submissions": "Ett fel uppstod när senste bidrag hämtades",
 
   // "error.search-results": "Error fetching search results",
   // TODO New key - Add a translation
-  "error.search-results": "Error fetching search results",
+  "error.search-results": "Ett fel uppstod när sökresultaten hämtades",
 
   // "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
   // TODO New key - Add a translation
-  "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
+  "error.invalid-search-query": "Ogiltig sökfråga. Se <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> för hjälp och mer information.",
 
   // "error.sub-collections": "Error fetching sub-collections",
   // TODO New key - Add a translation
-  "error.sub-collections": "Error fetching sub-collections",
+  "error.sub-collections": "Ett fel uppstod när undersamlingar hämtades",
 
   // "error.sub-communities": "Error fetching sub-communities",
   // TODO New key - Add a translation
-  "error.sub-communities": "Error fetching sub-communities",
+  "error.sub-communities": "Ett fel uppstod när underenheter hämtades",
 
   // "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
   // TODO New key - Add a translation
@@ -2646,11 +2651,11 @@
 
   // "error.top-level-communities": "Error fetching top-level communities",
   // TODO New key - Add a translation
-  "error.top-level-communities": "Error fetching top-level communities",
+  "error.top-level-communities": "Ett fel uppstod när enheter på toppnivå hämtades",
 
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
   // TODO New key - Add a translation
-  "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  "error.validation.license.notgranted": "Du måste godkänna dessa villkor för att skutföra registreringen. Om detta inte är möjligt så kan du spara nu och återvända hit senare, eller radera bidraget.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   // TODO New key - Add a translation
@@ -2658,28 +2663,28 @@
 
   // "error.validation.filerequired": "The file upload is mandatory",
   // TODO New key - Add a translation
-  "error.validation.filerequired": "The file upload is mandatory",
+  "error.validation.filerequired": "Filuppladdning är obligatorisk",
 
   // "error.validation.required": "This field is required",
   // TODO New key - Add a translation
-  "error.validation.required": "This field is required",
+  "error.validation.required": "Detta fält är obligatoriskt",
 
   // "error.validation.NotValidEmail": "This E-mail is not a valid email",
   // TODO New key - Add a translation
-  "error.validation.NotValidEmail": "This E-mail is not a valid email",
+  "error.validation.NotValidEmail": "Ogiltig e-postadress",
 
   // "error.validation.emailTaken": "This E-mail is already taken",
   // TODO New key - Add a translation
-  "error.validation.emailTaken": "This E-mail is already taken",
+  "error.validation.emailTaken": "E-postadressen finns redan",
 
   // "error.validation.groupExists": "This group already exists",
   // TODO New key - Add a translation
-  "error.validation.groupExists": "This group already exists",
+  "error.validation.groupExists": "Denna grupp existerar redan",
 
 
   // "file-section.error.header": "Error obtaining files for this item",
   // TODO New key - Add a translation
-  "file-section.error.header": "Error obtaining files for this item",
+  "file-section.error.header": "Det gick inte att hämta filerna till denna post",
 
 
 
@@ -2719,7 +2724,7 @@
 
   // "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
   // TODO New key - Add a translation
-  "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
+  "forgot-email.form.info": "Välj Nytt konto för att prenumerera på nya poster och ladda upp filer till arkivet.",
 
   // "forgot-email.form.email": "E-post *",
   // TODO New key - Add a translation
@@ -2727,15 +2732,15 @@
 
   // "forgot-email.form.email.error.required": "Please fill in an email address",
   // TODO New key - Add a translation
-  "forgot-email.form.email.error.required": "Please fill in an email address",
+  "forgot-email.form.email.error.required": "Ange en e-postadress",
 
   // "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
   // TODO New key - Add a translation
-  "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
+  "forgot-email.form.email.error.pattern": "Ange en giltig e-postadress",
 
   // "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
   // TODO New key - Add a translation
-  "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
+  "forgot-email.form.email.hint": "E-postadressen kommer att verifieras och användas som ditt användarnamn.",
 
   // "forgot-email.form.submit": "Save",
   // TODO New key - Add a translation
@@ -2743,19 +2748,19 @@
 
   // "forgot-email.form.success.head": "Verification email sent",
   // TODO New key - Add a translation
-  "forgot-email.form.success.head": "Verification email sent",
+  "forgot-email.form.success.head": "Ett verifieringsmejl har skickats",
 
   // "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
   // TODO New key - Add a translation
-  "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
+  "forgot-email.form.success.content": "Ett mejl har skickats till {{ email }} med länk och mer instruktioners.",
 
   // "forgot-email.form.error.head": "Error when trying to register email",
   // TODO New key - Add a translation
-  "forgot-email.form.error.head": "Error when trying to register email",
+  "forgot-email.form.error.head": "Ett fel uppstod vid registreringen",
 
   // "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
   // TODO New key - Add a translation
-  "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
+  "forgot-email.form.error.content": "Ett fel uppstod vid registreringen av e-postadress: {{ email }}",
 
 
 
@@ -2809,7 +2814,7 @@
 
   // "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
   // TODO New key - Add a translation
-  "forgot-password.form.notification.success.content": "Lösenordet ar återställts. Du är nu inloggad.",
+  "forgot-password.form.notification.success.content": "Lösenordet har återställts. Du är nu inloggad.",
 
   // "forgot-password.form.notification.success.title": "Password reset completed",
   // TODO New key - Add a translation
@@ -2826,7 +2831,7 @@
 
   // "form.add-help": "Click here to add the current entry and to add another one",
   // TODO New key - Add a translation
-  "form.add-help": "Click here to add the current entry and to add another one",
+  "form.add-help": "Klicka här för att spara nuvarande post och lägga till en ny",
 
   // "form.cancel": "Cancel",
   // TODO New key - Add a translation
@@ -2838,67 +2843,67 @@
 
   // "form.clear-help": "Click here to remove the selected value",
   // TODO New key - Add a translation
-  "form.clear-help": "Click here to remove the selected value",
+  "form.clear-help": "Klicka för att avmarkera",
 
   // "form.discard": "Discard",
   // TODO New key - Add a translation
-  "form.discard": "Discard",
+  "form.discard": "Dra tillbaka",
 
   // "form.drag": "Drag",
   // TODO New key - Add a translation
-  "form.drag": "Drag",
+  "form.drag": "Dra",
 
   // "form.edit": "Edit",
   // TODO New key - Add a translation
-  "form.edit": "Edit",
+  "form.edit": "Redigera",
 
   // "form.edit-help": "Click here to edit the selected value",
   // TODO New key - Add a translation
-  "form.edit-help": "Click here to edit the selected value",
+  "form.edit-help": "Klicka för att redigera det markerade",
 
   // "form.first-name": "First name",
   // TODO New key - Add a translation
-  "form.first-name": "First name",
+  "form.first-name": "Förnamn",
 
   // "form.group-collapse": "Collapse",
   // TODO New key - Add a translation
-  "form.group-collapse": "Collapse",
+  "form.group-collapse": "Fäll ihop",
 
   // "form.group-collapse-help": "Click here to collapse",
   // TODO New key - Add a translation
-  "form.group-collapse-help": "Click here to collapse",
+  "form.group-collapse-help": "Klicka här för att fälla ihop",
 
   // "form.group-expand": "Expand",
   // TODO New key - Add a translation
-  "form.group-expand": "Expand",
+  "form.group-expand": "Expandera",
 
   // "form.group-expand-help": "Click here to expand and add more elements",
   // TODO New key - Add a translation
-  "form.group-expand-help": "Click here to expand and add more elements",
+  "form.group-expand-help": "Klicka här för att expandera och lägga till fler element",
 
   // "form.last-name": "Last name",
   // TODO New key - Add a translation
-  "form.last-name": "Last name",
+  "form.last-name": "Efternamn",
 
   // "form.loading": "Loading...",
   // TODO New key - Add a translation
-  "form.loading": "Loading...",
+  "form.loading": "Laddar...",
 
   // "form.lookup": "Lookup",
   // TODO New key - Add a translation
-  "form.lookup": "Lookup",
+  "form.lookup": "Slå upp",
 
   // "form.lookup-help": "Click here to look up an existing relation",
   // TODO New key - Add a translation
-  "form.lookup-help": "Click here to look up an existing relation",
+  "form.lookup-help": "Klicka för att leta upp en befintlig relation",
 
   // "form.no-results": "No results found",
   // TODO New key - Add a translation
-  "form.no-results": "No results found",
+  "form.no-results": "Inga resultat",
 
   // "form.no-value": "No value entered",
   // TODO New key - Add a translation
-  "form.no-value": "No value entered",
+  "form.no-value": "Inget värde har angivits",
 
   // "form.other-information": {},
   // TODO New key - Add a translation
@@ -2906,7 +2911,7 @@
 
   // "form.remove": "Remove",
   // TODO New key - Add a translation
-  "form.remove": "Remove",
+  "form.remove": "Ta bort",
 
   // "form.save": "Save",
   // TODO New key - Add a translation
@@ -2918,11 +2923,11 @@
 
   // "form.search": "Search",
   // TODO New key - Add a translation
-  "form.search": "Search",
+  "form.search": "Sök",
 
   // "form.search-help": "Click here to look for an existing correspondence",
   // TODO New key - Add a translation
-  "form.search-help": "Click here to look for an existing correspondence",
+  "form.search-help": "Klicka här för att leta efter en befintlig korrespondens",
 
   // "form.submit": "Save",
   // TODO New key - Add a translation
@@ -2930,25 +2935,25 @@
 
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   // TODO New key - Add a translation
-  "form.repeatable.sort.tip": "Drop the item in the new position",
+  "form.repeatable.sort.tip": "Släp posten i ny position",
 
 
 
   // "grant-deny-request-copy.deny": "Don't send copy",
   // TODO New key - Add a translation
-  "grant-deny-request-copy.deny": "Don't send copy",
+  "grant-deny-request-copy.deny": "Skicka inte kopia",
 
   // "grant-deny-request-copy.email.back": "Back",
   // TODO New key - Add a translation
-  "grant-deny-request-copy.email.back": "Back",
+  "grant-deny-request-copy.email.back": "Tillbaka",
 
   // "grant-deny-request-copy.email.message": "Message",
   // TODO New key - Add a translation
-  "grant-deny-request-copy.email.message": "Message",
+  "grant-deny-request-copy.email.message": "Meddelande",
 
   // "grant-deny-request-copy.email.message.empty": "Please enter a message",
   // TODO New key - Add a translation
-  "grant-deny-request-copy.email.message.empty": "Please enter a message",
+  "grant-deny-request-copy.email.message.empty": "Skriv ett meddelande",
 
   // "grant-deny-request-copy.email.permissions.info": "You may use this occasion to reconsider the access restrictions on the document, to avoid having to respond to these requests. If you’d like to ask the repository administrators to remove these restrictions, please check the box below.",
   // TODO New key - Add a translation
@@ -2956,69 +2961,69 @@
 
   // "grant-deny-request-copy.email.permissions.label": "Change to open access",
   // TODO New key - Add a translation
-  "grant-deny-request-copy.email.permissions.label": "Change to open access",
+  "grant-deny-request-copy.email.permissions.label": "Ändra till öppen tillgång",
 
   // "grant-deny-request-copy.email.send": "Send",
   // TODO New key - Add a translation
-  "grant-deny-request-copy.email.send": "Send",
+  "grant-deny-request-copy.email.send": "Skicka",
 
   // "grant-deny-request-copy.email.subject": "Subject",
   // TODO New key - Add a translation
-  "grant-deny-request-copy.email.subject": "Subject",
+  "grant-deny-request-copy.email.subject": "Ämne",
 
   // "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
   // TODO New key - Add a translation
-  "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
+  "grant-deny-request-copy.email.subject.empty": "Ange ett ämne",
 
   // "grant-deny-request-copy.grant": "Send copy",
   // TODO New key - Add a translation
-  "grant-deny-request-copy.grant": "Send copy",
+  "grant-deny-request-copy.grant": "Skicka kopia",
 
   // "grant-deny-request-copy.header": "Document copy request",
   // TODO New key - Add a translation
-  "grant-deny-request-copy.header": "Document copy request",
+  "grant-deny-request-copy.header": "Begäran om kopia",
 
   // "grant-deny-request-copy.home-page": "Take me to the home page",
   // TODO New key - Add a translation
-  "grant-deny-request-copy.home-page": "Take me to the home page",
+  "grant-deny-request-copy.home-page": "Till startsidan",
 
   // "grant-deny-request-copy.intro1": "If you are one of the Författare of the document <a href='{{ url }}'>{{ name }}</a>, then please use one of the options below to respond to the user's request.",
   // TODO New key - Add a translation
-  "grant-deny-request-copy.intro1": "If you are one of the författare of the document <a href='{{ url }}'>{{ name }}</a>, then please use one of the options below to respond to the user's request.",
+  "grant-deny-request-copy.intro1": "Om du är en av författarna av <a href='{{ url }}'>{{ name }}</a>, välj svar på användarens förfrågan nedan.",
 
   // "grant-deny-request-copy.intro2": "After choosing an option, you will be presented with a suggested email reply which you may edit.",
   // TODO New key - Add a translation
-  "grant-deny-request-copy.intro2": "After choosing an option, you will be presented with a suggested email reply which you may edit.",
+  "grant-deny-request-copy.intro2": "När du har gjort ditt val kommer du att se det mejl som skall skickas till användaren. Du kan redigera innehållet i detta.",
 
   // "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
   // TODO New key - Add a translation
-  "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
+  "grant-deny-request-copy.processed": "Denna begäran har redan behandlats. Använd knappen nedan för att komma till startsidan.",
 
 
 
   // "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
   // TODO New key - Add a translation
-  "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+  "grant-request-copy.email.message": "Hej {{ recipientName }},\nDet dokument du har begärt, och som jag är författare till, bifogas i detta mejl: \"{{ itemUrl }}\" ({{ itemName }}).\n\nMed vänliga hälsningar,\n{{ authorName }} <{{ authorEmail }}>",
 
   // "grant-request-copy.email.subject": "Request copy of document",
   // TODO New key - Add a translation
-  "grant-request-copy.email.subject": "Request copy of document",
+  "grant-request-copy.email.subject": "Begär kopia av dokument",
 
   // "grant-request-copy.error": "An error occurred",
   // TODO New key - Add a translation
-  "grant-request-copy.error": "An error occurred",
+  "grant-request-copy.error": "Ett fel uppstod",
 
   // "grant-request-copy.header": "Grant document copy request",
   // TODO New key - Add a translation
-  "grant-request-copy.header": "Grant document copy request",
+  "grant-request-copy.header": "Bevilja begäran av kopia",
 
   // "grant-request-copy.intro": "This message will be sent to the applicant of the request. The requested document(s) will be attached.",
   // TODO New key - Add a translation
-  "grant-request-copy.intro": "This message will be sent to the applicant of the request. The requested document(s) will be attached.",
+  "grant-request-copy.intro": "Detta meddelande kommer att skickas till personen som begärt detta. Filer kommer att bifogas.",
 
   // "grant-request-copy.success": "Successfully granted item request",
   // TODO New key - Add a translation
-  "grant-request-copy.success": "Successfully granted item request",
+  "grant-request-copy.success": "Begäran beviljades.",
 
 
 
@@ -3040,7 +3045,7 @@
 
   // "home.top-level-communities.head": "Enheter i ODR",
   // TODO New key - Add a translation
-  "home.top-level-communities.head": "Enheter i ODR",
+  "home.top-level-communities.head": "Enheter i DSpace",
 
   // "home.top-level-communities.help": "Select a community to browse its collections.",
   // TODO New key - Add a translation
@@ -4191,7 +4196,7 @@
 
   // "item.select.empty": "No items to show",
   // TODO New key - Add a translation
-  "item.select.empty": "No items to show",
+  "item.select.empty": "Inga poster att visa. ",
 
   // "item.select.table.author": "Author",
   // TODO New key - Add a translation
@@ -4702,7 +4707,7 @@
 
 
 
- // "menu.section.browse_community": "This Community",
+  // "menu.section.browse_community": "This Community",
   // TODO New key - Add a translation
   "menu.section.browse_community": "Denna samling",
 
@@ -5060,7 +5065,7 @@
 
   // "mydspace.results.head": "Your submissions",
   // TODO New key - Add a translation
-  "mydspace.results.head": "Your submissions",
+  "mydspace.results.head": "Dina registreringar",
 
   // "mydspace.results.no-abstract": "No Abstract",
   // TODO New key - Add a translation
@@ -5104,7 +5109,7 @@
 
   // "mydspace.show.workspace": "Your Submissions",
   // TODO New key - Add a translation
-  "mydspace.show.workspace": "Your Submissions",
+  "mydspace.show.workspace": "Dina registreringar",
 
   // "mydspace.status.archived": "Archived",
   // TODO New key - Add a translation
@@ -5672,7 +5677,7 @@
 
   // "publication.page.edit": "Edit this item",
   // TODO New key - Add a translation
-  "publication.page.edit": "Redigera denna post",
+  "publication.page.edit": "Edit this item",
 
   // "publication.page.journal-issn": "Journal ISSN",
   // TODO New key - Add a translation
@@ -5680,7 +5685,7 @@
 
   // "publication.page.journal-title": "Journal Title",
   // TODO New key - Add a translation
-  "publication.page.journal-title": "Tidskriftstitel",
+  "publication.page.journal-title": "Journal Title",
 
   // "publication.page.publisher": "Publisher",
   // TODO New key - Add a translation
@@ -5688,7 +5693,7 @@
 
   // "publication.page.titleprefix": "Publication: ",
   // TODO New key - Add a translation
-  "publication.page.titleprefix": "Publikation: ",
+  "publication.page.titleprefix": "Publication: ",
 
   // "publication.page.volume-title": "Volume Title",
   // TODO New key - Add a translation
@@ -5857,7 +5862,7 @@
 
   // "relationships.add.error.server.content": "The server returned an error",
   // TODO New key - Add a translation
-  "relationships.add.error.server.content": "Servern returnerade ett fel",
+  "relationships.add.error.server.content": "The server returned an error",
 
   // "relationships.add.error.title": "Unable to add relationship",
   // TODO New key - Add a translation
@@ -6327,7 +6332,6 @@
   "search.filters.filter.dateIssued.min.placeholder": "Minimum Date",
 
   // "search.filters.filter.dateIssued.min.label": "Start",
-
   // TODO New key - Add a translation
   "search.filters.filter.dateIssued.min.label": "Från",
 
@@ -6480,7 +6484,6 @@
   "search.filters.filter.scope.label": "Search scope filter",
 
   // "search.filters.filter.show-less": "Collapse",
-  
   // TODO New key - Add a translation
   "search.filters.filter.show-less": "Collapse",
 
@@ -6553,11 +6556,11 @@
 
   // "search.filters.head": "Filters",
   // TODO New key - Add a translation
-  "search.filters.head": "Filters",
+  "search.filters.head": "Filtrera",
 
   // "search.filters.reset": "Reset filters",
   // TODO New key - Add a translation
-  "search.filters.reset": "Reset filters",
+  "search.filters.reset": "Rensa filter",
 
   // "search.filters.search.submit": "Submit",
   // TODO New key - Add a translation
@@ -6669,7 +6672,7 @@
 
   // "sorting.score.DESC": "Most Relevant",
   // TODO New key - Add a translation
-  "sorting.score.DESC": "Most Relevant",
+  "sorting.score.DESC": "Relevans",
 
   // "sorting.dc.date.issued.ASC": "Date Issued Ascending",
   // TODO New key - Add a translation
@@ -7864,7 +7867,7 @@
 
 
 
-  // "thumbnail.default.alt": "Thumbnail Image",
+ // "thumbnail.default.alt": "Thumbnail Image",
   // TODO New key - Add a translation
   "thumbnail.default.alt": "Bild (thumbnail)",
 
@@ -7900,7 +7903,7 @@
 
   // "title": "DSpace",
   // TODO New key - Add a translation
-  "title": "DSpace",
+  "title": "Chalmers ODR",
 
 
 
@@ -7974,7 +7977,7 @@
 
   // "workspace.search.results.head": "Your submissions",
   // TODO New key - Add a translation
-  "workspace.search.results.head": "Your submissions",
+  "workspace.search.results.head": "Dina registreringar",
 
   // "workflowAdmin.search.results.head": "Administer Workflow",
   // TODO New key - Add a translation
