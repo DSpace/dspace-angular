@@ -22,7 +22,7 @@ export class StatisticsTableComponent extends StatisticsChartDataComponent imple
   /**
    * The table headers
    */
-  headers: string[];
+  headers: string[] = [];
 
   /**
    * Array to store entity types that need to be converted to link,
@@ -43,10 +43,12 @@ export class StatisticsTableComponent extends StatisticsChartDataComponent imple
   ngOnInit() {
     this.hasData = !!this.report && this.report.points.length > 0;
     if (this.hasData) {
-      this.headers = [
-        this.report.points[0].type,
-        Object.keys(this.report.points[0].values)[0],
-      ];
+      const point = this.report.points[0];
+      this.headers.push(point.type);
+      const pointValues = point.values;
+      for (const valueKey of Object.keys(pointValues)) {
+        this.headers.push(valueKey);
+      }
     }
   }
 }
