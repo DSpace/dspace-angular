@@ -86,7 +86,7 @@ describe('ProfilePageSecurityFormComponent', () => {
 
         expect(component.passwordValue.emit).toHaveBeenCalledWith('new-password');
         expect(component.currentPasswordValue.emit).toHaveBeenCalledWith('current-password');
-      }))
+      }));
     });
   });
 });
