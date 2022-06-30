@@ -24,7 +24,11 @@ import { isNumeric } from '../../shared/numeric.util';
  */
 export class PaginationService {
 
-  private defaultSortOptions = new SortOptions('id', SortDirection.ASC);
+  /**
+   * Sort on title ASC by default
+   * @type {SortOptions}
+   */
+  private defaultSortOptions = new SortOptions('dc.title', SortDirection.ASC);
 
   private clearParams = {};
 
