@@ -899,6 +899,9 @@
 
   // "bitstream-request-a-copy.header": "Request a copy of the file",
   "bitstream-request-a-copy.header": "Demander une copie du fichier",
+  
+  //  "bitstream-request-a-copy.legal.warning": "You are about to request a document whose distribution is restricted for legal reasons. Its use is exclusively reserved for personal, private study or research purposes.",
+   "bitstream-request-a-copy.legal.warning": "Vous êtes sur le point de demander un document dont la diffusion est restreinte pour des raisons légales. Son utilisation est exclusivement réservée à des fins personnelles, d’étude privée ou de recherche.",
 
   // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
   "bitstream-request-a-copy.intro": "Entrer les informations suivantes pour demander une copie de l'élément suivant : ",
@@ -943,7 +946,7 @@
   "bitstream-request-a-copy.submit": "Demander une copie",
 
   // "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
-  "bitstream-request-a-copy.submit.success": "La demande d'Item a été soumise avec succès.",
+  "bitstream-request-a-copy.submit.success": "Votre demande de copie a été envoyée avec succès.",
 
   // "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
   "bitstream-request-a-copy.submit.error": "Un problème est survenu lors de la soumission de la demande d'Item",
@@ -1795,7 +1798,7 @@
   "curation.form.handle.hint": "Aide : Saisir [votre-préfixe-handle]/0 afin de lancer une tâche de conservation sur l'entièreté du site (ceci peut ne pas être supporté pour toutes les tâches)",
 
   // "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
-  "deny-request-copy.email.message": "Cher {{ recipientName }},\NEn réponse à votre demande, j'ai le regret de vous informer qu'il n'est pas possible de vous envoyer une copie du ou des fichiers que vous avez demandés, concernant le document : \"{{ itemUrl }}\" ({{ itemName }}), dont je suis l'auteur(e).\n\nCordialement,\n{{ authorName }} <{{ auteurEmail }}>",
+  "deny-request-copy.email.message": "Bonjour {{ recipientName }},\nEn réponse à votre demande, j'ai le regret de vous informer qu'il nous est impossible de vous envoyer une copie du document que vous avez demandé: ({{ itemName }})  \"{{ itemUrl }}\".\n\nCordialement,\n{{ authorName }} <{{ auteurEmail }}>",
 
   // "deny-request-copy.email.subject": "Request copy of document",
   "deny-request-copy.email.subject": "Demander une copie du document",
