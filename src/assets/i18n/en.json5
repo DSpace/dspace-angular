@@ -5061,33 +5061,33 @@
 
   "statistics.table.no-data": "No data available",
 
-  "statistics.table.mainReports.title.TotalVisits": "Total Visits",
+  "statistics.table.mainReports.title.TotalVisits": "Total visits",
 
-  "statistics.table.mainReports.title.TopItems": "Most Viewed",
+  "statistics.table.mainReports.title.TopItems": "Most viewed",
 
-  "statistics.table.mainReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
+  "statistics.table.mainReports.title.TotalVisitsPerMonth": "Total visits per month",
 
-  "statistics.table.mainReports.title.TotalDownloads": "File Visits",
+  "statistics.table.mainReports.title.TotalDownloads": "File visits",
 
-  "statistics.table.mainReports.title.TotalVisitsAndDownloads": "Items and file Visits",
+  "statistics.table.mainReports.title.TotalVisitsAndDownloads": "Items and file visits",
 
-  "statistics.table.mainReports.title.TopCountries": "Top Country Views",
+  "statistics.table.mainReports.title.TopCountries": "Top country views",
 
-  "statistics.table.mainReports.title.TopContinents": "Top Region Views",
+  "statistics.table.mainReports.title.TopContinents": "Top region views",
 
   "statistics.table.mainReports.title.TopCategories": "Categories",
 
-  "statistics.table.mainReports.title.TopCities": "Top City Views",
+  "statistics.table.mainReports.title.TopCities": "Top city views",
 
   "statistics.table.downloadReports.title.TotalVisits": "Most downloaded",
 
   "statistics.table.downloadReports.title.TopItems": "Most downloaded",
 
-  "statistics.table.downloadReports.title.TotalVisitsPerMonth": "Total Downloads Per Month",
+  "statistics.table.downloadReports.title.TotalVisitsPerMonth": "Total downloads per month",
 
-  "statistics.table.downloadReports.title.TotalDownloads": "Most Downloaded",
+  "statistics.table.downloadReports.title.TotalDownloads": "Most downloaded",
 
-  "statistics.table.downloadReports.title.TotalDownloadsPerMonth": "Total Downloads Per Month",
+  "statistics.table.downloadReports.title.TotalDownloadsPerMonth": "Total downloads per month",
 
   "statistics.table.downloadReports.title.TopCountries": "Top country downloads",
 
@@ -5097,80 +5097,97 @@
 
   "statistics.table.downloadReports.title.TopCities": "Top city downloads",
 
-  "statistics.table.header.views": "Views",
+  "statistics.table.mainReports.header.views": "Views",
 
-  "statistics.table.publicationsReports.title.TotalVisits": "Total Visits",
+  "statistics.table.mainReports.header.continent": "Continent",
 
-  "statistics.table.publicationsReports.title.TopItems": "Most Viewed",
+  "statistics.table.mainReports.header.country": "Country",
 
-  "statistics.table.publicationsReports.title.TopCities": "Top Cities",
+  "statistics.table.mainReports.header.city": "City",
 
-  "statistics.table.publicationsReports.title.TopCountries": "Top Countries",
+  "statistics.table.mainReports.header.item": "Item",
 
-  "statistics.table.publicationsReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
+  "statistics.table.downloadReports.header.views": "Downloads",
+
+  "statistics.table.downloadReports.header.continent": "Continent",
+
+  "statistics.table.downloadReports.header.country": "Country",
+
+  "statistics.table.downloadReports.header.city": "City",
+
+  "statistics.table.downloadReports.header.item": "Item",
+
+  "statistics.table.publicationsReports.title.TotalVisits": "Total visits",
+
+  "statistics.table.publicationsReports.title.TopItems": "Most viewed",
+
+  "statistics.table.publicationsReports.title.TopCities": "Top cities",
+
+  "statistics.table.publicationsReports.title.TopCountries": "Top countries",
+
+  "statistics.table.publicationsReports.title.TotalVisitsPerMonth": "Total visits per month",
 
   "statistics.table.publicationsReports.title.TotalDownloads": "Downloads",
 
-  "statistics.table.publicationsReports.title.TotalVisitsAndDownloads": "Items and file Visits",
+  "statistics.table.publicationsReports.title.TotalVisitsAndDownloads": "Items and file visits",
 
-  "statistics.table.projectsReports.title.TotalVisits": "Total Visits",
+  "statistics.table.projectsReports.title.TotalVisits": "Total visits",
 
-  "statistics.table.projectsReports.title.TopItems": "Most Viewed",
+  "statistics.table.projectsReports.title.TopItems": "Most viewed",
 
-  "statistics.table.projectsReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
+  "statistics.table.projectsReports.title.TotalVisitsPerMonth": "Total visits per month",
 
-  "statistics.table.projectsReports.title.TopCities": "Top Cities",
+  "statistics.table.projectsReports.title.TopCities": "Top cities",
 
-  "statistics.table.projectsReports.title.TopCountries": "Top Countries",
+  "statistics.table.projectsReports.title.TopCountries": "Top countries",
 
   "statistics.table.projectsReports.title.TotalDownloads": "Downloads",
 
-  "statistics.table.projectsReports.title.TotalVisitsAndDownloads": "Items and file Visits",
+  "statistics.table.projectsReports.title.TotalVisitsAndDownloads": "Items and file visits",
 
-  "statistics.table.rppublicationsReports.title.TotalVisits": "Total Visits",
+  "statistics.table.rppublicationsReports.title.TotalVisits": "Total visits",
 
-  "statistics.table.rppublicationsReports.title.TopItems": "Most Viewed",
+  "statistics.table.rppublicationsReports.title.TopItems": "Most viewed",
 
-  "statistics.table.rppublicationsReports.title.TopCities": "Top Cities",
+  "statistics.table.rppublicationsReports.title.TopCities": "Top cities",
 
-  "statistics.table.rppublicationsReports.title.TopCountries": "Top Countries",
+  "statistics.table.rppublicationsReports.title.TopCountries": "Top countries",
 
-  "statistics.table.rppublicationsReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
+  "statistics.table.rppublicationsReports.title.TotalVisitsPerMonth": "Total visits per month",
 
   "statistics.table.rppublicationsReports.title.TotalDownloads": "Downloads",
 
-  "statistics.table.rppublicationsReports.title.TotalVisitsAndDownloads": "Items and file Visits",
+  "statistics.table.rppublicationsReports.title.TotalVisitsAndDownloads": "Items and file visits",
 
-  "statistics.table.rpprojectsReports.title.TotalVisits": "Total Visits",
+  "statistics.table.rpprojectsReports.title.TotalVisits": "Total visits",
 
-  "statistics.table.rpprojectsReports.title.TopItems": "Most Viewed",
+  "statistics.table.rpprojectsReports.title.TopItems": "Most viewed",
 
-  "statistics.table.rpprojectsReports.title.TopCities": "Top Cities",
+  "statistics.table.rpprojectsReports.title.TopCities": "Top cities",
 
-  "statistics.table.rpprojectsReports.title.TopCountries": "Top Countries",
+  "statistics.table.rpprojectsReports.title.TopCountries": "Top countries",
 
-  "statistics.table.rpprojectsReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
+  "statistics.table.rpprojectsReports.title.TotalVisitsPerMonth": "Total visits per month",
 
   "statistics.table.rpprojectsReports.title.TotalDownloads": "Downloads",
 
   "statistics.table.rpprojectsReports.title.TotalVisitsAndDownloads": "Items and file Visits",
 
-  "statistics.categories.title": "Statistics by Category",
+  "statistics.categories.title": "Statistics by category",
 
-  "statistics.categories.mainReports.tab": "Views Reports",
+  "statistics.categories.mainReports.tab": "Views reports",
 
-  "statistics.categories.projectsReports.tab": "Project Reports",
+  "statistics.categories.projectsReports.tab": "Project reports",
 
-  "statistics.categories.rpprojectsReports.tab": "Researchers Projects Reports",
+  "statistics.categories.rpprojectsReports.tab": "Researchers projects reports",
 
-  "statistics.categories.publicationsReports.tab": "Publications Reports",
+  "statistics.categories.publicationsReports.tab": "Publications reports",
 
-  "statistics.categories.rppublicationsReports.tab": "Researchers Publication Reports",
+  "statistics.categories.rppublicationsReports.tab": "Researchers publication reports",
 
-  "statistics.categories.downloadReports.tab": "Downloads Reports",
+  "statistics.categories.downloadReports.tab": "Downloads reports",
 
   "statistics.reports.title": "Reports",
-
 
   "submission.edit.breadcrumbs": "Edit Submission",
 
