@@ -1462,7 +1462,7 @@
 
   "forgot-email.form.header": "Forgot Password",
 
-  "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
+  "forgot-email.form.info": "Enter the email address associated with the account.",
 
   "forgot-email.form.email": "Email Address *",
 
@@ -1470,17 +1470,17 @@
 
   "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
 
-  "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
+  "forgot-email.form.email.hint": "An email will be sent to this address with a further instructions.",
 
-  "forgot-email.form.submit": "Save",
+  "forgot-email.form.submit": "Reset password",
 
-  "forgot-email.form.success.head": "Verification email sent",
+  "forgot-email.form.success.head": "Password reset email sent",
 
   "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
 
-  "forgot-email.form.error.head": "Error when trying to register email",
+  "forgot-email.form.error.head": "Error when trying to reset password",
 
-  "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
+  "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
 
 
 
