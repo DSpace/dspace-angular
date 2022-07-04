@@ -641,8 +641,6 @@
 
   "bitstream-request-a-copy.header": "Request a copy of the file",
   
-  "bitstream-request-a-copy.legal.warning": "You are about to request a document whose distribution is restricted for legal reasons. Its use is exclusively reserved for personal, private study or research purposes.",
-
   "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
 
   "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
