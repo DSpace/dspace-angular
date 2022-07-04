@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -26,13 +26,10 @@ import { TruncatableService } from '../../../../shared/truncatable/truncatable.s
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import {
-  createRelationshipsObservable,
-  iiifEnabled,
-  iiifSearchEnabled, mockRouteService
+  createRelationshipsObservable, getIIIFEnabled, getIIIFSearchEnabled, mockRouteService
 } from '../shared/item.component.spec';
 import { UntypedItemComponent } from './untyped-item.component';
 import { RouteService } from '../../../../core/services/route.service';
-import { of } from 'rxjs';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
 import { VersionDataService } from '../../../../core/data/version-data.service';
@@ -40,16 +37,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { ItemVersionsSharedService } from '../../../../shared/item/item-versions/item-versions-shared.service';
-
-
-const iiifEnabledMap: MetadataMap = {
-  'dspace.iiif.enabled': [iiifEnabled],
-};
-
-const iiifEnabledWithSearchMap: MetadataMap = {
-  'dspace.iiif.enabled': [iiifEnabled],
-  'iiif.search.enabled': [iiifSearchEnabled],
-};
 
 const noMetadata = new MetadataMap();
 
@@ -108,11 +95,12 @@ describe('UntypedItemComponent', () => {
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(UntypedItemComponent, {
       set: {changeDetection: ChangeDetectionStrategy.Default}
-    }).compileComponents();
+    });
   }));
 
   describe('default view', () => {
     beforeEach(waitForAsync(() => {
+      TestBed.compileComponents();
       fixture = TestBed.createComponent(UntypedItemComponent);
       comp = fixture.componentInstance;
       comp.object = getItem(noMetadata);
@@ -159,6 +147,41 @@ describe('UntypedItemComponent', () => {
   describe('with IIIF viewer', () => {
 
     beforeEach(waitForAsync(() => {
+      const iiifEnabledMap: MetadataMap = {
+        'dspace.iiif.enabled': [getIIIFEnabled(true)],
+        'iiif.search.enabled': [getIIIFSearchEnabled(false)],
+      };
+      TestBed.compileComponents();
+      fixture = TestBed.createComponent(UntypedItemComponent);
+      comp = fixture.componentInstance;
+      comp.object = getItem(iiifEnabledMap);
+      fixture.detectChanges();
+    }));
+
+    it('should contain an iiif viewer component', () => {
+      const fields = fixture.debugElement.queryAll(By.css('ds-mirador-viewer'));
+      expect(fields.length).toBeGreaterThanOrEqual(1);
+    });
+    it('should not retrieve the query term for previous route', (): void => {
+      expect(comp.iiifQuery$).toBeFalsy();
+    });
+
+  });
+
+  describe('with IIIF viewer and search', () => {
+
+    beforeEach(waitForAsync(() => {
+      const localMockRouteService = {
+        getPreviousUrl(): Observable<string> {
+          return of('/search?query=test%20query&fakeParam=true');
+        }
+      };
+      const iiifEnabledMap: MetadataMap = {
+        'dspace.iiif.enabled': [getIIIFEnabled(true)],
+        'iiif.search.enabled': [getIIIFSearchEnabled(true)],
+      };
+      TestBed.overrideProvider(RouteService, {useValue: localMockRouteService});
+      TestBed.compileComponents();
       fixture = TestBed.createComponent(UntypedItemComponent);
       comp = fixture.componentInstance;
       comp.object = getItem(iiifEnabledMap);
@@ -170,15 +193,29 @@ describe('UntypedItemComponent', () => {
       expect(fields.length).toBeGreaterThanOrEqual(1);
     });
 
+    it('should retrieve the query term for previous route', (): void => {
+      expect(comp.iiifQuery$.subscribe(result => expect(result).toEqual('test query')));
+    });
+
   });
 
-  describe('with IIIF viewer and search', () => {
+  describe('with IIIF viewer and search but no previous search query', () => {
 
     beforeEach(waitForAsync(() => {
-      mockRouteService.getPreviousUrl.and.returnValue(of(['/search?q=bird&motivation=painting','/item']));
+      const localMockRouteService = {
+        getPreviousUrl(): Observable<string> {
+          return of('/item');
+        }
+      };
+      const iiifEnabledMap: MetadataMap = {
+        'dspace.iiif.enabled': [getIIIFEnabled(true)],
+        'iiif.search.enabled': [getIIIFSearchEnabled(true)],
+      };
+      TestBed.overrideProvider(RouteService, {useValue: localMockRouteService});
+      TestBed.compileComponents();
       fixture = TestBed.createComponent(UntypedItemComponent);
       comp = fixture.componentInstance;
-      comp.object = getItem(iiifEnabledWithSearchMap);
+      comp.object = getItem(iiifEnabledMap);
       fixture.detectChanges();
     }));
 
@@ -187,9 +224,12 @@ describe('UntypedItemComponent', () => {
       expect(fields.length).toBeGreaterThanOrEqual(1);
     });
 
-    it('should call the RouteService getHistory method', () => {
-      expect(mockRouteService.getPreviousUrl).toHaveBeenCalled();
-    });
+    it('should not retrieve the query term for previous route', fakeAsync( () => {
+      let emitted;
+      comp.iiifQuery$.subscribe(result => emitted = result);
+      tick(10);
+      expect(emitted).toBeUndefined();
+    }));
 
   });
 

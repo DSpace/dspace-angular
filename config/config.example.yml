@@ -2,7 +2,8 @@
 debug: false
 
 # Angular Universal server settings
-# NOTE: these must be 'synced' with the 'dspace.ui.url' setting in your backend's local.cfg.
+# NOTE: these settings define where Node.js will start your UI application. Therefore, these
+# "ui" settings usually specify a localhost port/URL which is later proxied to a public URL (using Apache or similar)
 ui:
   ssl: false
   host: localhost
@@ -15,7 +16,8 @@ ui:
     max: 500 # limit each IP to 500 requests per windowMs
 
 # The REST API server settings
-# NOTE: these must be 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
+# NOTE: these settings define which (publicly available) REST API to use. They are usually
+# 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
 rest:
   ssl: true
   host: api7.dspace.org

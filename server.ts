@@ -19,6 +19,7 @@ import 'zone.js/node';
 import 'reflect-metadata';
 import 'rxjs';
 
+import axios from 'axios';
 import * as pem from 'pem';
 import * as https from 'https';
 import * as morgan from 'morgan';
@@ -38,14 +39,14 @@ import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { hasValue, hasNoValue } from './src/app/shared/empty.util';
+import { hasNoValue, hasValue } from './src/app/shared/empty.util';
 
 import { UIServerConfig } from './src/config/ui-server-config.interface';
 
 import { ServerAppModule } from './src/main.server';
 
 import { buildAppConfig } from './src/config/config.server';
-import { AppConfig, APP_CONFIG } from './src/config/app-config.interface';
+import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 
 /*
@@ -66,6 +67,8 @@ extendEnvironmentWithAppConfig(environment, appConfig);
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
+
+  const router = express.Router();
 
   /*
    * Create a new express application
@@ -138,7 +141,11 @@ export function app() {
   /**
    * Proxy the sitemaps
    */
-  server.use('/sitemap**', createProxyMiddleware({ target: `${environment.rest.baseUrl}/sitemaps`, changeOrigin: true }));
+  router.use('/sitemap**', createProxyMiddleware({
+    target: `${environment.rest.baseUrl}/sitemaps`,
+    pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
+    changeOrigin: true
+  }));
 
   /**
    * Checks if the rateLimiter property is present
@@ -157,7 +164,7 @@ export function app() {
    * Serve static resources (images, i18n messages, …)
    * Handle pre-compressed files with [express-static-gzip](https://github.com/tkoenig89/express-static-gzip)
    */
-  server.get('*.*', cacheControl, expressStaticGzip(DIST_FOLDER, {
+  router.get('*.*', cacheControl, expressStaticGzip(DIST_FOLDER, {
     index: false,
     enableBrotli: true,
     orderPreference: ['br', 'gzip'],
@@ -166,10 +173,17 @@ export function app() {
   /*
   * Fallthrough to the IIIF viewer (must be included in the build).
   */
-  server.use('/iiif', express.static(IIIF_VIEWER, {index:false}));
+  router.use('/iiif', express.static(IIIF_VIEWER, { index: false }));
+
+  /**
+   * Checking server status
+   */
+  server.get('/app/health', healthCheck);
 
   // Register the ngApp callback function to handle incoming requests
-  server.get('*', ngApp);
+  router.get('*', ngApp);
+
+  server.use(environment.ui.nameSpace, router);
 
   return server;
 }
@@ -203,13 +217,25 @@ function ngApp(req, res) {
         if (hasValue(err)) {
           console.warn('Error details : ', err);
         }
-        res.sendFile(DIST_FOLDER + '/index.html');
+        res.render(indexHtml, {
+          req,
+          providers: [{
+            provide: APP_BASE_HREF,
+            useValue: req.baseUrl
+          }]
+        });
       }
     });
   } else {
     // If preboot is disabled, just serve the client
     console.log('Universal off, serving for direct CSR');
-    res.sendFile(DIST_FOLDER + '/index.html');
+    res.render(indexHtml, {
+      req,
+      providers: [{
+        provide: APP_BASE_HREF,
+        useValue: req.baseUrl
+      }]
+    });
   }
 }
 
@@ -299,6 +325,21 @@ function start() {
   }
 }
 
+/*
+ * The callback function to serve health check requests
+ */
+function healthCheck(req, res) {
+  const baseUrl = `${environment.rest.baseUrl}${environment.actuators.endpointPath}`;
+  axios.get(baseUrl)
+    .then((response) => {
+      res.status(response.status).send(response.data);
+    })
+    .catch((error) => {
+      res.status(error.response.status).send({
+        error: error.message
+      });
+    });
+}
 // Webpack will replace 'require' with '__webpack_require__'
 // '__non_webpack_require__' is a proxy to Node 'require'
 // The below code is to ensure that the server is run only when not requiring the bundle.
