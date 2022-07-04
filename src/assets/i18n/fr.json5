@@ -3625,7 +3625,7 @@
   "menu.section.workflow": "Workflow Administrateur",
 
   // "mydspace.breadcrumbs": "MyDSpace",
-  "mydspace.breadcrumbs": "Mes dépôts",
+  "mydspace.breadcrumbs": "Mon compte DSpace",
 
   // "mydspace.description": "",
   "mydspace.description": "",
@@ -3733,7 +3733,7 @@
   "mydspace.status.workspace": "Dépôts en cours",
 
   // "mydspace.title": "MyDSpace",
-  "mydspace.title": "Mes dépôts",
+  "mydspace.title": "Mon compte DSpace",
 
   // "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
   "mydspace.upload.upload-failed": "Erreur à la création de l'espace de travail. Veuillez vérifier le contenu téléchargé avant de réessayer.",
@@ -3772,7 +3772,7 @@
   "nav.main.description": "Barre de navigation principale",
 
   // "nav.mydspace": "MyDSpace",
-  "nav.mydspace": "Mes dépôts",
+  "nav.mydspace": "Mon compte DSpace",
 
   // "nav.profile": "Profile",
   "nav.profile": "Profil",
@@ -4987,7 +4987,7 @@
   "submission.import-external.page.hint": "Entrer votre recherche ci-dessus pour rechercher des éléments du web à importer dans DSpace",
 
   // "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
-  "submission.import-external.back-to-my-dspace": "Retour à Mes dépôts",
+  "submission.import-external.back-to-my-dspace": "Retour à mon compte DSpace",
 
   // "submission.import-external.search.placeholder": "Search the external source",
   "submission.import-external.search.placeholder": "Recherche de la source externe",
