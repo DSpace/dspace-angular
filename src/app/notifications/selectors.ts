@@ -1,4 +1,4 @@
-import { createSelector, MemoizedSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import { subStateSelector } from '../shared/selector.util';
 import { notificationsSelector, NotificationsState } from './notifications.reducer';
 import { QualityAssuranceTopicObject } from '../core/notifications/qa/models/quality-assurance-topic.model';
@@ -12,7 +12,7 @@ import { QualityAssuranceSourceObject } from '../core/notifications/qa/models/qu
  * @param {AppState} state Top level state.
  * @return {NotificationsState}
  */
-const _getNotificationsState = (state: any) => state.notifications;
+const _getNotificationsState = createFeatureSelector<NotificationsState>('notifications');
 
 // Quality Assurance topics
 // ----------------------------------------------------------------------------
