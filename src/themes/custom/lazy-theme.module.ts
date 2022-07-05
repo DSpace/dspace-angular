@@ -88,6 +88,8 @@ import {
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
+
+import { ComcolPageHandleComponent } from './app/shared/comcol-page-handle/comcol-page-handle.component';
 import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.component';
 import {
   ExpandableNavbarSectionComponent
@@ -146,6 +148,7 @@ const DECLARATIONS = [
   BreadcrumbsComponent,
   FeedbackComponent,
   CommunityListComponent,
+  ComcolPageHandleComponent,
   AuthNavMenuComponent,
   ExpandableNavbarSectionComponent,
   ItemMetadataComponent,
