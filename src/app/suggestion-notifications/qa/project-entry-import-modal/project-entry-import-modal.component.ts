@@ -16,7 +16,7 @@ import {
   QualityAssuranceEventObject,
   QualityAssuranceEventMessageObject,
   OpenaireQualityAssuranceEventMessageObject,
-} from '../../../core/notifications/qa/models/quality-assurance-event.model';
+} from '../../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { Item } from '../../../core/shared/item.model';
 

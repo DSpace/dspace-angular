@@ -8,25 +8,25 @@ import { SharedModule } from '../shared/shared.module';
 import { storeModuleConfig } from '../app.reducer';
 import { QualityAssuranceTopicsComponent } from './qa/topics/quality-assurance-topics.component';
 import { QualityAssuranceEventsComponent } from './qa/events/quality-assurance-events.component';
-import { NotificationsStateService } from './notifications-state.service';
-import { notificationsReducers, NotificationsState } from './notifications.reducer';
-import { notificationsEffects } from './notifications.effects';
+import { SuggestionNotificationsStateService } from './suggestion-notifications-state.service';
+import { suggestionNotificationsReducers, SuggestionNotificationsState } from './suggestion-notifications.reducer';
+import { suggestionNotificationsEffects } from './suggestion-notifications-effects';
 import { QualityAssuranceTopicsService } from './qa/topics/quality-assurance-topics.service';
-import { QualityAssuranceTopicRestService } from '../core/notifications/qa/topics/quality-assurance-topic-rest.service';
-import { QualityAssuranceEventRestService } from '../core/notifications/qa/events/quality-assurance-event-rest.service';
+import { QualityAssuranceTopicRestService } from '../core/suggestion-notifications/qa/topics/quality-assurance-topic-rest.service';
+import { QualityAssuranceEventRestService } from '../core/suggestion-notifications/qa/events/quality-assurance-event-rest.service';
 import { ProjectEntryImportModalComponent } from './qa/project-entry-import-modal/project-entry-import-modal.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchModule } from '../shared/search/search.module';
 import { QualityAssuranceSourceComponent } from './qa/source/quality-assurance-source.component';
 import { QualityAssuranceSourceService } from './qa/source/quality-assurance-source.service';
-import { QualityAssuranceSourceRestService } from '../core/notifications/qa/source/quality-assurance-source-rest.service';
+import { QualityAssuranceSourceRestService } from '../core/suggestion-notifications/qa/source/quality-assurance-source-rest.service';
 
 const MODULES = [
   CommonModule,
   SharedModule,
   CoreModule.forRoot(),
-  StoreModule.forFeature('notifications', notificationsReducers, storeModuleConfig as StoreConfig<NotificationsState, Action>),
-  EffectsModule.forFeature(notificationsEffects),
+  StoreModule.forFeature('notifications', suggestionNotificationsReducers, storeModuleConfig as StoreConfig<SuggestionNotificationsState, Action>),
+  EffectsModule.forFeature(suggestionNotificationsEffects),
   TranslateModule
 ];
 
@@ -43,7 +43,7 @@ const ENTRY_COMPONENTS = [
 ];
 
 const PROVIDERS = [
-  NotificationsStateService,
+  SuggestionNotificationsStateService,
   QualityAssuranceTopicsService,
   QualityAssuranceSourceService,
   QualityAssuranceTopicRestService,
@@ -76,5 +76,5 @@ const PROVIDERS = [
 /**
  * This module handles all components that are necessary for the OpenAIRE components
  */
-export class NotificationsModule {
+export class SuggestionNotificationsModule {
 }

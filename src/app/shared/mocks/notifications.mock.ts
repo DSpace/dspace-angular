@@ -1,9 +1,9 @@
 import { of as observableOf } from 'rxjs';
 import { ResourceType } from '../../core/shared/resource-type';
-import { QualityAssuranceTopicObject } from '../../core/notifications/qa/models/quality-assurance-topic.model';
-import { QualityAssuranceEventObject } from '../../core/notifications/qa/models/quality-assurance-event.model';
-import { QualityAssuranceTopicRestService } from '../../core/notifications/qa/topics/quality-assurance-topic-rest.service';
-import { QualityAssuranceEventRestService } from '../../core/notifications/qa/events/quality-assurance-event-rest.service';
+import { QualityAssuranceTopicObject } from '../../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceEventObject } from '../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
+import { QualityAssuranceTopicRestService } from '../../core/suggestion-notifications/qa/topics/quality-assurance-topic-rest.service';
+import { QualityAssuranceEventRestService } from '../../core/suggestion-notifications/qa/events/quality-assurance-event-rest.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NotificationsStateService } from '../../notifications/notifications-state.service';
 import { Item } from '../../core/shared/item.model';
@@ -13,7 +13,7 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../remote-data.utils';
 import { SearchResult } from '../search/models/search-result.model';
-import { QualityAssuranceSourceObject } from '../../core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceObject } from '../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
@@ -1781,7 +1781,7 @@ export const qualityAssuranceEventObjectMissingProjectNotFound: QualityAssurance
 // -------------------------------------------------------------------------------
 
 /**
- * Mock for [[NotificationsStateService]]
+ * Mock for [[SuggestionNotificationsStateService]]
  */
 export function getMockNotificationsStateService(): any {
   return jasmine.createSpyObj('NotificationsStateService', {

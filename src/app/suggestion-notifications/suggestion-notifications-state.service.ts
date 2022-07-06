@@ -16,23 +16,23 @@ import {
   getQualityAssuranceSourceCurrentPageSelector,
   getQualityAssuranceSourceTotalsSelector
 } from './selectors';
-import { QualityAssuranceTopicObject } from '../core/notifications/qa/models/quality-assurance-topic.model';
-import { NotificationsState } from './notifications.reducer';
+import { QualityAssuranceTopicObject } from '../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
+import { SuggestionNotificationsState } from './suggestion-notifications.reducer';
 import { RetrieveAllTopicsAction } from './qa/topics/quality-assurance-topics.actions';
-import { QualityAssuranceSourceObject } from '../core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceObject } from '../core/suggestion-notifications/qa/models/quality-assurance-source.model';
 import { RetrieveAllSourceAction } from './qa/source/quality-assurance-source.actions';
 
 /**
  * The service handling the Notifications State.
  */
 @Injectable()
-export class NotificationsStateService {
+export class SuggestionNotificationsStateService {
 
   /**
    * Initialize the service variables.
-   * @param {Store<NotificationsState>} store
+   * @param {Store<SuggestionNotificationsState>} store
    */
-  constructor(private store: Store<NotificationsState>) { }
+  constructor(private store: Store<SuggestionNotificationsState>) { }
 
   // Quality Assurance topics
   // --------------------------------------------------------------------------

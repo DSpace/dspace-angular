@@ -11,7 +11,7 @@ import {
   qualityAssuranceTopicObjectMorePid
 } from '../../../shared/mocks/notifications.mock';
 import { QualityAssuranceTopicsComponent } from './quality-assurance-topics.component';
-import { NotificationsStateService } from '../../notifications-state.service';
+import { SuggestionNotificationsStateService } from '../../notifications-state.service';
 import { cold } from 'jasmine-marbles';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { PaginationService } from '../../../core/pagination/pagination.service';
@@ -41,7 +41,7 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
         TestComponent,
       ],
       providers: [
-        { provide: NotificationsStateService, useValue: mockNotificationsStateService },
+        { provide: SuggestionNotificationsStateService, useValue: mockNotificationsStateService },
         { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), snapshot: {
           paramMap: {
             get: () => 'openaire',

@@ -11,11 +11,11 @@ import {
   RetrieveAllTopicsErrorAction,
 } from './quality-assurance-topics.actions';
 
-import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceTopicObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { QualityAssuranceTopicRestService } from '../../../core/notifications/qa/topics/quality-assurance-topic-rest.service';
+import { QualityAssuranceTopicRestService } from '../../../core/suggestion-notifications/qa/topics/quality-assurance-topic-rest.service';
 
 /**
  * Provides effect methods for the Quality Assurance topics actions.

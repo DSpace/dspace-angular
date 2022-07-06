@@ -5,7 +5,7 @@ import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/t
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { of as observableOf } from 'rxjs';
-import { QualityAssuranceEventRestService } from '../../../core/notifications/qa/events/quality-assurance-event-rest.service';
+import { QualityAssuranceEventRestService } from '../../../core/suggestion-notifications/qa/events/quality-assurance-event-rest.service';
 import { QualityAssuranceEventsComponent } from './quality-assurance-events.component';
 import {
   getMockQualityAssuranceEventRestService,
@@ -22,7 +22,7 @@ import { getMockTranslateService } from '../../../shared/mocks/translate.service
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { QualityAssuranceEventObject } from '../../../core/notifications/qa/models/quality-assurance-event.model';
+import { QualityAssuranceEventObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
 import { QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { TestScheduler } from 'rxjs/testing';
 import { getTestScheduler } from 'jasmine-marbles';

@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { QualityAssuranceTopicRestService } from '../../../core/notifications/qa/topics/quality-assurance-topic-rest.service';
+import { QualityAssuranceTopicRestService } from '../../../core/suggestion-notifications/qa/topics/quality-assurance-topic-rest.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import {
   getMockQualityAssuranceTopicRestService,

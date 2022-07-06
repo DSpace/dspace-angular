@@ -5,8 +5,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { AdminNotificationsRoutingModule } from './admin-notifications-routing.module';
 import { AdminQualityAssuranceTopicsPageComponent } from './admin-quality-assurance-topics-page/admin-quality-assurance-topics-page.component';
 import { AdminQualityAssuranceEventsPageComponent } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.component';
-import { NotificationsModule } from '../../notifications/notifications.module';
 import { AdminQualityAssuranceSourcePageComponent } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page.component';
+import {SuggestionNotificationsModule} from '../../suggestion-notifications/suggestion-notifications.module';
 
 @NgModule({
   imports: [
@@ -14,7 +14,7 @@ import { AdminQualityAssuranceSourcePageComponent } from './admin-quality-assura
     SharedModule,
     CoreModule.forRoot(),
     AdminNotificationsRoutingModule,
-    NotificationsModule
+    SuggestionNotificationsModule
   ],
   declarations: [
     AdminQualityAssuranceTopicsPageComponent,

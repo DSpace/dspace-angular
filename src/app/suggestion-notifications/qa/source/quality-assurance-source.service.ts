@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { find, map } from 'rxjs/operators';
-import { QualityAssuranceSourceRestService } from '../../../core/notifications/qa/source/quality-assurance-source-rest.service';
+import { QualityAssuranceSourceRestService } from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-rest.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
 import {FindListOptions} from '../../../core/data/find-list-options.model';
 
 /**

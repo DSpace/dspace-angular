@@ -1,18 +1,18 @@
 import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import { subStateSelector } from '../shared/selector.util';
-import { notificationsSelector, NotificationsState } from './notifications.reducer';
-import { QualityAssuranceTopicObject } from '../core/notifications/qa/models/quality-assurance-topic.model';
+import { suggestionNotificationsSelector, SuggestionNotificationsState } from './suggestion-notifications.reducer';
+import { QualityAssuranceTopicObject } from '../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
 import { QualityAssuranceTopicState } from './qa/topics/quality-assurance-topics.reducer';
 import { QualityAssuranceSourceState } from './qa/source/quality-assurance-source.reducer';
-import { QualityAssuranceSourceObject } from '../core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceObject } from '../core/suggestion-notifications/qa/models/quality-assurance-source.model';
 
 /**
  * Returns the Notifications state.
  * @function _getNotificationsState
  * @param {AppState} state Top level state.
- * @return {NotificationsState}
+ * @return {SuggestionNotificationsState}
  */
-const _getNotificationsState = createFeatureSelector<NotificationsState>('notifications');
+const _getNotificationsState = createFeatureSelector<SuggestionNotificationsState>('notifications');
 
 // Quality Assurance topics
 // ----------------------------------------------------------------------------
@@ -22,8 +22,8 @@ const _getNotificationsState = createFeatureSelector<NotificationsState>('notifi
  * @function qualityAssuranceTopicsStateSelector
  * @return {QualityAssuranceTopicState}
  */
-export function qualityAssuranceTopicsStateSelector(): MemoizedSelector<NotificationsState, QualityAssuranceTopicState> {
-  return subStateSelector<NotificationsState,QualityAssuranceTopicState>(notificationsSelector, 'qaTopic');
+export function qualityAssuranceTopicsStateSelector(): MemoizedSelector<SuggestionNotificationsState, QualityAssuranceTopicState> {
+  return subStateSelector<SuggestionNotificationsState,QualityAssuranceTopicState>(suggestionNotificationsSelector, 'qaTopic');
 }
 
 /**
@@ -31,8 +31,8 @@ export function qualityAssuranceTopicsStateSelector(): MemoizedSelector<Notifica
  * @function qualityAssuranceTopicsObjectSelector
  * @return {QualityAssuranceTopicObject[]}
  */
-export function qualityAssuranceTopicsObjectSelector(): MemoizedSelector<NotificationsState, QualityAssuranceTopicObject[]> {
-  return subStateSelector<NotificationsState, QualityAssuranceTopicObject[]>(qualityAssuranceTopicsStateSelector(), 'topics');
+export function qualityAssuranceTopicsObjectSelector(): MemoizedSelector<SuggestionNotificationsState, QualityAssuranceTopicObject[]> {
+  return subStateSelector<SuggestionNotificationsState, QualityAssuranceTopicObject[]>(qualityAssuranceTopicsStateSelector(), 'topics');
 }
 
 /**
@@ -41,7 +41,7 @@ export function qualityAssuranceTopicsObjectSelector(): MemoizedSelector<Notific
  * @return {boolean}
  */
 export const isQualityAssuranceTopicsLoadedSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.qaTopic.loaded
+  (state: SuggestionNotificationsState) => state.qaTopic.loaded
 );
 
 /**
@@ -50,7 +50,7 @@ export const isQualityAssuranceTopicsLoadedSelector = createSelector(_getNotific
  * @return {boolean}
  */
 export const isQualityAssuranceTopicsProcessingSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.qaTopic.processing
+  (state: SuggestionNotificationsState) => state.qaTopic.processing
 );
 
 /**
@@ -59,7 +59,7 @@ export const isQualityAssuranceTopicsProcessingSelector = createSelector(_getNot
  * @return {number}
  */
 export const getQualityAssuranceTopicsTotalPagesSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.qaTopic.totalPages
+  (state: SuggestionNotificationsState) => state.qaTopic.totalPages
 );
 
 /**
@@ -68,7 +68,7 @@ export const getQualityAssuranceTopicsTotalPagesSelector = createSelector(_getNo
  * @return {number}
  */
 export const getQualityAssuranceTopicsCurrentPageSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.qaTopic.currentPage
+  (state: SuggestionNotificationsState) => state.qaTopic.currentPage
 );
 
 /**
@@ -77,7 +77,7 @@ export const getQualityAssuranceTopicsCurrentPageSelector = createSelector(_getN
  * @return {number}
  */
 export const getQualityAssuranceTopicsTotalsSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.qaTopic.totalElements
+  (state: SuggestionNotificationsState) => state.qaTopic.totalElements
 );
 
 // Quality Assurance source
@@ -88,8 +88,8 @@ export const getQualityAssuranceTopicsTotalsSelector = createSelector(_getNotifi
  * @function qualityAssuranceSourceStateSelector
  * @return {QualityAssuranceSourceState}
  */
- export function qualityAssuranceSourceStateSelector(): MemoizedSelector<NotificationsState, QualityAssuranceSourceState> {
-  return subStateSelector<NotificationsState,QualityAssuranceSourceState>(notificationsSelector, 'qaSource');
+ export function qualityAssuranceSourceStateSelector(): MemoizedSelector<SuggestionNotificationsState, QualityAssuranceSourceState> {
+  return subStateSelector<SuggestionNotificationsState,QualityAssuranceSourceState>(suggestionNotificationsSelector, 'qaSource');
 }
 
 /**
@@ -97,8 +97,8 @@ export const getQualityAssuranceTopicsTotalsSelector = createSelector(_getNotifi
  * @function qualityAssuranceSourceObjectSelector
  * @return {QualityAssuranceSourceObject[]}
  */
-export function qualityAssuranceSourceObjectSelector(): MemoizedSelector<NotificationsState, QualityAssuranceSourceObject[]> {
-  return subStateSelector<NotificationsState, QualityAssuranceSourceObject[]>(qualityAssuranceSourceStateSelector(), 'source');
+export function qualityAssuranceSourceObjectSelector(): MemoizedSelector<SuggestionNotificationsState, QualityAssuranceSourceObject[]> {
+  return subStateSelector<SuggestionNotificationsState, QualityAssuranceSourceObject[]>(qualityAssuranceSourceStateSelector(), 'source');
 }
 
 /**
@@ -107,7 +107,7 @@ export function qualityAssuranceSourceObjectSelector(): MemoizedSelector<Notific
  * @return {boolean}
  */
 export const isQualityAssuranceSourceLoadedSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.qaSource.loaded
+  (state: SuggestionNotificationsState) => state.qaSource.loaded
 );
 
 /**
@@ -116,7 +116,7 @@ export const isQualityAssuranceSourceLoadedSelector = createSelector(_getNotific
  * @return {boolean}
  */
 export const isQualityAssuranceSourceProcessingSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.qaSource.processing
+  (state: SuggestionNotificationsState) => state.qaSource.processing
 );
 
 /**
@@ -125,7 +125,7 @@ export const isQualityAssuranceSourceProcessingSelector = createSelector(_getNot
  * @return {number}
  */
 export const getQualityAssuranceSourceTotalPagesSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.qaSource.totalPages
+  (state: SuggestionNotificationsState) => state.qaSource.totalPages
 );
 
 /**
@@ -134,7 +134,7 @@ export const getQualityAssuranceSourceTotalPagesSelector = createSelector(_getNo
  * @return {number}
  */
 export const getQualityAssuranceSourceCurrentPageSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.qaSource.currentPage
+  (state: SuggestionNotificationsState) => state.qaSource.currentPage
 );
 
 /**
@@ -143,5 +143,5 @@ export const getQualityAssuranceSourceCurrentPageSelector = createSelector(_getN
  * @return {number}
  */
 export const getQualityAssuranceSourceTotalsSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.qaSource.totalElements
+  (state: SuggestionNotificationsState) => state.qaSource.totalElements
 );

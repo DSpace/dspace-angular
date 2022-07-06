@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
-import { notificationsReducers } from './notifications.reducer';
-import { NotificationsStateService } from './notifications-state.service';
+import { suggestionNotificationsReducers } from './suggestion-notifications.reducer';
+import { SuggestionNotificationsStateService } from './suggestion-notifications-state.service';
 import {
   qualityAssuranceSourceObjectMissingPid,
   qualityAssuranceSourceObjectMoreAbstract,
@@ -16,7 +16,7 @@ import { RetrieveAllTopicsAction } from './qa/topics/quality-assurance-topics.ac
 import { RetrieveAllSourceAction } from './qa/source/quality-assurance-source.actions';
 
 describe('NotificationsStateService', () => {
-  let service: NotificationsStateService;
+  let service: SuggestionNotificationsStateService;
   let serviceAsAny: any;
   let store: any;
   let initialState: any;
@@ -63,18 +63,18 @@ describe('NotificationsStateService', () => {
         init('empty');
         TestBed.configureTestingModule({
           imports: [
-            StoreModule.forRoot({ notifications: notificationsReducers } as any),
+            StoreModule.forRoot({ notifications: suggestionNotificationsReducers } as any),
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: NotificationsStateService, useValue: service }
+            { provide: SuggestionNotificationsStateService, useValue: service }
           ]
         }).compileComponents();
       });
 
       beforeEach(() => {
         store = TestBed.get(Store);
-        service = new NotificationsStateService(store);
+        service = new SuggestionNotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
       });
@@ -155,18 +155,18 @@ describe('NotificationsStateService', () => {
         init('full');
         TestBed.configureTestingModule({
           imports: [
-            StoreModule.forRoot({ notifications: notificationsReducers } as any),
+            StoreModule.forRoot({ notifications: suggestionNotificationsReducers } as any),
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: NotificationsStateService, useValue: service }
+            { provide: SuggestionNotificationsStateService, useValue: service }
           ]
         }).compileComponents();
       });
 
       beforeEach(() => {
         store = TestBed.get(Store);
-        service = new NotificationsStateService(store);
+        service = new SuggestionNotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
       });
@@ -251,18 +251,18 @@ describe('NotificationsStateService', () => {
         init('full');
         TestBed.configureTestingModule({
           imports: [
-            StoreModule.forRoot({ notifications: notificationsReducers } as any),
+            StoreModule.forRoot({ notifications: suggestionNotificationsReducers } as any),
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: NotificationsStateService, useValue: service }
+            { provide: SuggestionNotificationsStateService, useValue: service }
           ]
         }).compileComponents();
       });
 
       beforeEach(() => {
         store = TestBed.get(Store);
-        service = new NotificationsStateService(store);
+        service = new SuggestionNotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
       });
@@ -321,18 +321,18 @@ describe('NotificationsStateService', () => {
         init('empty');
         TestBed.configureTestingModule({
           imports: [
-            StoreModule.forRoot({ notifications: notificationsReducers } as any),
+            StoreModule.forRoot({ notifications: suggestionNotificationsReducers } as any),
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: NotificationsStateService, useValue: service }
+            { provide: SuggestionNotificationsStateService, useValue: service }
           ]
         }).compileComponents();
       });
 
       beforeEach(() => {
         store = TestBed.get(Store);
-        service = new NotificationsStateService(store);
+        service = new SuggestionNotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
       });
@@ -413,18 +413,18 @@ describe('NotificationsStateService', () => {
         init('full');
         TestBed.configureTestingModule({
           imports: [
-            StoreModule.forRoot({ notifications: notificationsReducers } as any),
+            StoreModule.forRoot({ notifications: suggestionNotificationsReducers } as any),
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: NotificationsStateService, useValue: service }
+            { provide: SuggestionNotificationsStateService, useValue: service }
           ]
         }).compileComponents();
       });
 
       beforeEach(() => {
         store = TestBed.get(Store);
-        service = new NotificationsStateService(store);
+        service = new SuggestionNotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
       });
@@ -509,18 +509,18 @@ describe('NotificationsStateService', () => {
         init('full');
         TestBed.configureTestingModule({
           imports: [
-            StoreModule.forRoot({ notifications: notificationsReducers } as any),
+            StoreModule.forRoot({ notifications: suggestionNotificationsReducers } as any),
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: NotificationsStateService, useValue: service }
+            { provide: SuggestionNotificationsStateService, useValue: service }
           ]
         }).compileComponents();
       });
 
       beforeEach(() => {
         store = TestBed.get(Store);
-        service = new NotificationsStateService(store);
+        service = new SuggestionNotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
       });

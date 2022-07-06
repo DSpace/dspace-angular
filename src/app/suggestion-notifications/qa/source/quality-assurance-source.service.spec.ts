@@ -11,7 +11,7 @@ import {
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { cold } from 'jasmine-marbles';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { QualityAssuranceSourceRestService } from '../../../core/notifications/qa/source/quality-assurance-source-rest.service';
+import { QualityAssuranceSourceRestService } from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-rest.service';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import {FindListOptions} from '../../../core/data/find-list-options.model';
 

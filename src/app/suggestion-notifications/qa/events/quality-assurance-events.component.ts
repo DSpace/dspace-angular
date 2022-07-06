@@ -12,8 +12,8 @@ import { RemoteData } from '../../../core/data/remote-data';
 import {
   QualityAssuranceEventObject,
   OpenaireQualityAssuranceEventMessageObject
-} from '../../../core/notifications/qa/models/quality-assurance-event.model';
-import { QualityAssuranceEventRestService } from '../../../core/notifications/qa/events/quality-assurance-event-rest.service';
+} from '../../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
+import { QualityAssuranceEventRestService } from '../../../core/suggestion-notifications/qa/events/quality-assurance-event-rest.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { followLink } from '../../../shared/utils/follow-link-config.model';

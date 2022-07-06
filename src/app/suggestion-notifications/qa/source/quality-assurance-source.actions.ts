@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { type } from '../../../shared/ngrx/type';
-import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -11,9 +11,9 @@ import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/mod
  * action types in the application are unique.
  */
 export const QualityAssuranceSourceActionTypes = {
-  ADD_SOURCE: type('dspace/integration/notifications/qa/ADD_SOURCE'),
-  RETRIEVE_ALL_SOURCE: type('dspace/integration/notifications/qa/RETRIEVE_ALL_SOURCE'),
-  RETRIEVE_ALL_SOURCE_ERROR: type('dspace/integration/notifications/qa/RETRIEVE_ALL_SOURCE_ERROR'),
+  ADD_SOURCE: type('dspace/integration/suggestion-notifications/qa/ADD_SOURCE'),
+  RETRIEVE_ALL_SOURCE: type('dspace/integration/suggestion-notifications/qa/RETRIEVE_ALL_SOURCE'),
+  RETRIEVE_ALL_SOURCE_ERROR: type('dspace/integration/suggestion-notifications/qa/RETRIEVE_ALL_SOURCE_ERROR'),
 };
 
 /* tslint:disable:max-classes-per-file */

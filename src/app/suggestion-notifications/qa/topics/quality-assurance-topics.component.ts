@@ -4,10 +4,10 @@ import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, map, take } from 'rxjs/operators';
 
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceTopicObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { NotificationsStateService } from '../../notifications-state.service';
+import { SuggestionNotificationsStateService } from '../../suggestion-notifications-state.service';
 import { AdminQualityAssuranceTopicsPageParams } from '../../../admin/admin-notifications/admin-quality-assurance-topics-page/admin-quality-assurance-topics-page-resolver.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { ActivatedRoute } from '@angular/router';
@@ -59,12 +59,12 @@ export class QualityAssuranceTopicsComponent implements OnInit {
   /**
    * Initialize the component variables.
    * @param {PaginationService} paginationService
-   * @param {NotificationsStateService} notificationsStateService
+   * @param {SuggestionNotificationsStateService} notificationsStateService
    */
   constructor(
     private paginationService: PaginationService,
     private activatedRoute: ActivatedRoute,
-    private notificationsStateService: NotificationsStateService,
+    private notificationsStateService: SuggestionNotificationsStateService,
     private qualityAssuranceTopicsService: QualityAssuranceTopicsService
   ) {
   }
