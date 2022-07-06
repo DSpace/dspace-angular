@@ -39,6 +39,7 @@ import {
   SearchResultListElementComponent
 } from './object-list/search-result-list-element/search-result-list-element.component';
 import { ObjectListComponent } from './object-list/object-list.component';
+import { ThemedObjectListComponent } from './object-list/themed-object-list.component';
 import {
   CollectionGridElementComponent
 } from './object-grid/collection-grid-element/collection-grid-element.component';
@@ -376,6 +377,7 @@ const COMPONENTS = [
   LogOutComponent,
   NumberPickerComponent,
   ObjectListComponent,
+  ThemedObjectListComponent,
   ObjectDetailComponent,
   ObjectGridComponent,
   AbstractListableElementComponent,

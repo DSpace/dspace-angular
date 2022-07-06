@@ -109,6 +109,7 @@ import {
 import {
   CommunityPageSubCollectionListComponent
 } from './app/community-page/sub-collection-list/community-page-sub-collection-list.component';
+import { ObjectListComponent } from './app/shared/object-list/object-list.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -159,6 +160,7 @@ const DECLARATIONS = [
   AdminSidebarComponent,
   SearchSettingsComponent
   ComcolPageBrowseByComponent,
+  ObjectListComponent,
 ];
 
 @NgModule({
