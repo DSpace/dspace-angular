@@ -5,7 +5,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { TranslateService } from '@ngx-translate/core';
-import { RequestService } from '../../core/data/request.service';
 
 /**
  * Component that represents the page where a user can delete an existing Collection
@@ -24,8 +23,7 @@ export class DeleteCollectionPageComponent extends DeleteComColPageComponent<Col
     protected route: ActivatedRoute,
     protected notifications: NotificationsService,
     protected translate: TranslateService,
-    protected requestService: RequestService
   ) {
-    super(dsoDataService, router, route, notifications, translate, requestService);
+    super(dsoDataService, router, route, notifications, translate);
   }
 }

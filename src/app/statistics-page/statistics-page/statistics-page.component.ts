@@ -6,13 +6,13 @@ import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { RemoteData } from '../../core/data/remote-data';
 import {
   getRemoteDataPayload,
-  getFirstSucceededRemoteData,
-  redirectOn4xx
+  getFirstSucceededRemoteData
 } from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { AuthService } from '../../core/auth/auth.service';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
 
 /**
  * Class representing an abstract statistics page component.

@@ -89,6 +89,11 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() hidePaginationDetail = false;
 
   /**
+   * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
+   */
+  @Input() showPaginator = true;
+
+  /**
    * the page info of the list
    */
   pageInfo: Observable<PageInfo>;
@@ -121,6 +126,16 @@ export class ObjectCollectionComponent implements OnInit {
    * Event's payload equals to the newly selected sort field.
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
+
+  /**
+   * If showPaginator is set to true, emit when the previous button is clicked
+   */
+  @Output() prev = new EventEmitter<boolean>();
+
+  /**
+   * If showPaginator is set to true, emit when the next button is clicked
+   */
+  @Output() next = new EventEmitter<boolean>();
 
   /**
    * Emits the current view mode
@@ -190,6 +205,20 @@ export class ObjectCollectionComponent implements OnInit {
    */
   onPaginationChange(event) {
     this.paginationChange.emit(event);
+  }
+
+  /**
+   * Go to the previous page
+   */
+  goPrev() {
+      this.prev.emit(true);
+  }
+
+ /**
+  * Go to the next page
+  */
+  goNext() {
+      this.next.emit(true);
   }
 
 }

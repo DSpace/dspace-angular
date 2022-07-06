@@ -4,12 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { CoreState } from '../core.reducers';
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
 import { WorkflowItem } from './models/workflowitem.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DeleteByIDRequest, FindListOptions } from '../data/request.models';
+import { DeleteByIDRequest } from '../data/request.models';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
@@ -22,6 +21,8 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { WorkspaceItem } from './models/workspaceitem.model';
 import { RequestParam } from '../cache/models/request-param.model';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from '../data/find-list-options.model';
 
 /**
  * A service that provides methods to make REST requests with workflow items endpoint.

@@ -7,9 +7,9 @@ import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { Feedback } from './models/feedback.model';
+import { CoreState } from '../core-state.model';
 
 describe('FeedbackDataService', () => {
   let service: FeedbackDataService;

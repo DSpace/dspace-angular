@@ -12,7 +12,6 @@ import { RemoteData } from '../core/data/remote-data';
   selector: 'ds-thumbnail',
   styleUrls: ['./thumbnail.component.scss'],
   templateUrl: './thumbnail.component.html',
-  preserveWhitespaces: false,
 })
 export class ThumbnailComponent implements OnChanges {
   /**

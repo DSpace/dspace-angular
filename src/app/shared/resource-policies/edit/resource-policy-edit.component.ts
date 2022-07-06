@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of, combineLatest as observableCombineLatest, } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -88,16 +88,33 @@ export class ResourcePolicyEditComponent implements OnInit {
       type: RESOURCE_POLICY.value,
       _links: this.resourcePolicy._links
     });
-    this.resourcePolicyService.update(updatedObject).pipe(
+
+    const updateTargetSucceeded$ = event.updateTarget ? this.resourcePolicyService.updateTarget(
+      this.resourcePolicy.id, this.resourcePolicy._links.self.href, event.target.uuid, event.target.type
+    ).pipe(
       getFirstCompletedRemoteData(),
-    ).subscribe((responseRD: RemoteData<ResourcePolicy>) => {
-      this.processing$.next(false);
-      if (responseRD && responseRD.hasSucceeded) {
-        this.notificationsService.success(null, this.translate.get('resource-policies.edit.page.success.content'));
-        this.redirectToAuthorizationsPage();
-      } else {
-        this.notificationsService.error(null, this.translate.get('resource-policies.edit.page.failure.content'));
+      map((responseRD) => responseRD && responseRD.hasSucceeded)
+    ) : of(true);
+
+    const updateResourcePolicySucceeded$ = this.resourcePolicyService.update(updatedObject).pipe(
+      getFirstCompletedRemoteData(),
+      map((responseRD) => responseRD && responseRD.hasSucceeded)
+    );
+
+    observableCombineLatest([updateTargetSucceeded$, updateResourcePolicySucceeded$]).subscribe(
+      ([updateTargetSucceeded, updateResourcePolicySucceeded]) => {
+        this.processing$.next(false);
+        if (updateTargetSucceeded && updateResourcePolicySucceeded) {
+          this.notificationsService.success(null, this.translate.get('resource-policies.edit.page.success.content'));
+          this.redirectToAuthorizationsPage();
+        } else if (updateResourcePolicySucceeded) { // everything except target has been updated
+          this.notificationsService.error(null, this.translate.get('resource-policies.edit.page.target-failure.content'));
+        } else if (updateTargetSucceeded) { // only target has been updated
+          this.notificationsService.error(null, this.translate.get('resource-policies.edit.page.other-failure.content'));
+        } else { // nothing has been updated
+          this.notificationsService.error(null, this.translate.get('resource-policies.edit.page.failure.content'));
+        }
       }
-    });
+    );
   }
 }

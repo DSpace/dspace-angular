@@ -7,13 +7,11 @@
           class="lead"
           [innerHTML]="firstMetadataValue('organization.legalName')"></span>
     <span class="text-muted">
-    <ds-truncatable-part [id]="dso.id" [minLines]="3">
-            <span *ngIf="dso.allMetadata(['dc.description']).length > 0"
-                  class="item-list-org-unit-description">
-                <ds-truncatable-part [id]="dso.id" [minLines]="3"><span
-                        [innerHTML]="firstMetadataValue('dc.description')"></span>
-                </ds-truncatable-part>
-            </span>
-        </ds-truncatable-part>
+      <span *ngIf="dso.allMetadata(['dc.description']).length > 0"
+            class="item-list-org-unit-description">
+            <ds-truncatable-part [id]="dso.id" [minLines]="3"><span
+                  [innerHTML]="firstMetadataValue('dc.description')"></span>
+            </ds-truncatable-part>
+      </span>
   </span>
 </ds-truncatable>

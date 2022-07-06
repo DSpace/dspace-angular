@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { ThemedComponent } from './themed.component';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
@@ -7,7 +8,6 @@ import { getMockThemeService } from '../mocks/theme-service.mock';
 import { TestComponent } from './test/test.component.spec';
 import { ThemeConfig } from '../../../config/theme.model';
 
-/* tslint:disable:max-classes-per-file */
 @Component({
   selector: 'ds-test-themed-component',
   templateUrl: './themed.component.html'
@@ -197,4 +197,3 @@ describe('ThemedComponent', () => {
     });
   });
 });
-/* tslint:enable:max-classes-per-file */

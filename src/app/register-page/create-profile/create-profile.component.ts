@@ -9,7 +9,6 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { LangConfig } from '../../../config/lang-config.interface';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../../core/core.reducers';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { environment } from '../../../environments/environment';
@@ -20,6 +19,7 @@ import {
   EndUserAgreementService
 } from '../../core/end-user-agreement/end-user-agreement.service';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { CoreState } from '../../core/core-state.model';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token
