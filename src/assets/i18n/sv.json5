@@ -2402,15 +2402,9 @@
   // TODO New key - Add a translation
   "curation-task.task.vscan.label": "Virus Scan",
 
-
-
   // "curation.form.task-select.label": "Task:",
   // TODO New key - Add a translation
-<<<<<<< HEAD
   "curation.form.task-select.label": "Uppgift:",
-=======
-  "curation.form.task-select.label": "Jobb:",
->>>>>>> 394b655baebaf1a2199b57a18e4cd31fd5607f79
 
   // "curation.form.submit": "Start",
   // TODO New key - Add a translation
@@ -2935,7 +2929,7 @@
 
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   // TODO New key - Add a translation
-  "form.repeatable.sort.tip": "Släpp posten i ny position",
+  "form.repeatable.sort.tip": "Släpp posten i den nya positionen",
 
 
 
@@ -3055,19 +3049,19 @@
 
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
   // TODO New key - Add a translation
-  "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
+  "info.end-user-agreement.accept": "Jag har läst och förstått villkoren i användaravtalet",
 
   // "info.end-user-agreement.accept.error": "An error occurred accepting the End User Agreement",
   // TODO New key - Add a translation
-  "info.end-user-agreement.accept.error": "An error occurred accepting the End User Agreement",
+  "info.end-user-agreement.accept.error": "Ett fel uppstod när användaravtalet godkändes",
 
   // "info.end-user-agreement.accept.success": "Successfully updated the End User Agreement",
   // TODO New key - Add a translation
-  "info.end-user-agreement.accept.success": "Successfully updated the End User Agreement",
+  "info.end-user-agreement.accept.success": "Användaravtalet har uppdaterats",
 
   // "info.end-user-agreement.breadcrumbs": "End User Agreement",
   // TODO New key - Add a translation
-  "info.end-user-agreement.breadcrumbs": "End User Agreement",
+  "info.end-user-agreement.breadcrumbs": "Användaravtal",
 
   // "info.end-user-agreement.buttons.cancel": "Cancel",
   // TODO New key - Add a translation
@@ -3079,23 +3073,23 @@
 
   // "info.end-user-agreement.head": "End User Agreement",
   // TODO New key - Add a translation
-  "info.end-user-agreement.head": "End User Agreement",
+  "info.end-user-agreement.head": "Användaravtal",
 
   // "info.end-user-agreement.title": "End User Agreement",
   // TODO New key - Add a translation
-  "info.end-user-agreement.title": "End User Agreement",
+  "info.end-user-agreement.title": "Användaravtal",
 
   // "info.privacy.breadcrumbs": "Privacy Statement",
   // TODO New key - Add a translation
-  "info.privacy.breadcrumbs": "Privacy Statement",
+  "info.privacy.breadcrumbs": "Integritetspolicy",
 
   // "info.privacy.head": "Privacy Statement",
   // TODO New key - Add a translation
-  "info.privacy.head": "Privacy Statement",
+  "info.privacy.head": "Integritetspolicy",
 
   // "info.privacy.title": "Privacy Statement",
   // TODO New key - Add a translation
-  "info.privacy.title": "Privacy Statement",
+  "info.privacy.title": "Integritetspolicy",
 
   // "info.feedback.breadcrumbs": "Feedback",
   // TODO New key - Add a translation
@@ -3111,145 +3105,145 @@
 
   // "info.feedback.info": "Thanks for sharing your feedback about the DSpace system. Your comments are appreciated!",
   // TODO New key - Add a translation
-  "info.feedback.info": "Thanks for sharing your feedback about the DSpace system. Your comments are appreciated!",
+  "info.feedback.info": "Tack för att du har lämnat dina synpunkter på tjänsten. Dina åsikter betyder mycket för oss!",
 
   // "info.feedback.email_help": "This address will be used to follow up on your feedback.",
   // TODO New key - Add a translation
-  "info.feedback.email_help": "This address will be used to follow up on your feedback.",
+  "info.feedback.email_help": "Denna adress kommer att användas för att återkoppla till dig.",
 
   // "info.feedback.send": "Send Feedback",
   // TODO New key - Add a translation
-  "info.feedback.send": "Send Feedback",
+  "info.feedback.send": "Skicka feedback",
 
   // "info.feedback.comments": "Comments",
   // TODO New key - Add a translation
-  "info.feedback.comments": "Comments",
+  "info.feedback.comments": "Kommentarer",
 
   // "info.feedback.email-label": "Your Email",
   // TODO New key - Add a translation
-  "info.feedback.email-label": "Your Email",
+  "info.feedback.email-label": "Din e-postadress",
 
   // "info.feedback.create.success" : "Feedback Sent Successfully!",
   // TODO New key - Add a translation
-  "info.feedback.create.success" : "Feedback Sent Successfully!",
+  "info.feedback.create.success" : "Feedback har skickats!",
 
   // "info.feedback.error.email.required" : "A valid email address is required",
   // TODO New key - Add a translation
-  "info.feedback.error.email.required" : "A valid email address is required",
+  "info.feedback.error.email.required" : "Du måste ange en giltig e-postadress",
 
   // "info.feedback.error.message.required" : "A comment is required",
   // TODO New key - Add a translation
-  "info.feedback.error.message.required" : "A comment is required",
+  "info.feedback.error.message.required" : "Du måste skriva en kommentar",
 
   // "info.feedback.page-label" : "Page",
   // TODO New key - Add a translation
-  "info.feedback.page-label" : "Page",
+  "info.feedback.page-label" : "Sida",
 
   // "info.feedback.page_help" : "Tha page related to your feedback",
   // TODO New key - Add a translation
-  "info.feedback.page_help" : "Tha page related to your feedback",
+  "info.feedback.page_help" : "Den är sidan är relaterad till din feedback",
 
 
 
   // "item.alerts.private": "This item is non-discoverable",
   // TODO New key - Add a translation
-  "item.alerts.private": "This item is non-discoverable",
+  "item.alerts.private": "Denna post är dold vid sökning",
 
   // "item.alerts.withdrawn": "This item has been withdrawn",
   // TODO New key - Add a translation
-  "item.alerts.withdrawn": "This item has been withdrawn",
+  "item.alerts.withdrawn": "Denna post har återkallats",
 
 
 
   // "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
   // TODO New key - Add a translation
-  "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
+  "item.edit.authorizations.heading": "Här kan du se och ändra de villkor som gäller för en post och dess ingående komponenter: buntar (bundles) och filer. En post är en container som innehåller en eller flera buntar (bundles), som i sin tur är en container med en eller flera filer. Buntar har behörigheter för att LÄGGA TILL/RADERA/LÄSA/SKRIVA, medan filer bara har behörigheter för att LÄSA och SKRIVA.",
 
   // "item.edit.authorizations.title": "Edit item's Policies",
   // TODO New key - Add a translation
-  "item.edit.authorizations.title": "Edit item's Policies",
+  "item.edit.authorizations.title": "Redigera behörigheter för post",
 
 
 
   // "item.badge.private": "Non-discoverable",
   // TODO New key - Add a translation
-  "item.badge.private": "Non-discoverable",
+  "item.badge.private": "Dold vid sökning",
 
   // "item.badge.withdrawn": "Withdrawn",
   // TODO New key - Add a translation
-  "item.badge.withdrawn": "Withdrawn",
+  "item.badge.withdrawn": "Återkallad",
 
 
 
   // "item.bitstreams.upload.bundle": "Bundle",
   // TODO New key - Add a translation
-  "item.bitstreams.upload.bundle": "Bundle",
+  "item.bitstreams.upload.bundle": "Bunt",
 
   // "item.bitstreams.upload.bundle.placeholder": "Select a bundle",
   // TODO New key - Add a translation
-  "item.bitstreams.upload.bundle.placeholder": "Select a bundle",
+  "item.bitstreams.upload.bundle.placeholder": "Välj en bunt",
 
   // "item.bitstreams.upload.bundle.new": "Create bundle",
   // TODO New key - Add a translation
-  "item.bitstreams.upload.bundle.new": "Create bundle",
+  "item.bitstreams.upload.bundle.new": "Skapa bunt",
 
   // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
   // TODO New key - Add a translation
-  "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  "item.bitstreams.upload.bundles.empty": "Denna post innehåller inga buntar som man kan ladda upp filer i.",
 
   // "item.bitstreams.upload.cancel": "Cancel",
   // TODO New key - Add a translation
-  "item.bitstreams.upload.cancel": "Cancel",
+  "item.bitstreams.upload.cancel": "Avbryt",
 
   // "item.bitstreams.upload.drop-message": "Drop a file to upload",
   // TODO New key - Add a translation
-  "item.bitstreams.upload.drop-message": "Drop a file to upload",
+  "item.bitstreams.upload.drop-message": "Dra och släpp en fil här för att ladda upp",
 
   // "item.bitstreams.upload.item": "Item: ",
   // TODO New key - Add a translation
-  "item.bitstreams.upload.item": "Item: ",
+  "item.bitstreams.upload.item": "Post: ",
 
   // "item.bitstreams.upload.notifications.bundle.created.content": "Successfully created new bundle.",
   // TODO New key - Add a translation
-  "item.bitstreams.upload.notifications.bundle.created.content": "Successfully created new bundle.",
+  "item.bitstreams.upload.notifications.bundle.created.content": "En ny bunt har skapats.",
 
   // "item.bitstreams.upload.notifications.bundle.created.title": "Created bundle",
   // TODO New key - Add a translation
-  "item.bitstreams.upload.notifications.bundle.created.title": "Created bundle",
+  "item.bitstreams.upload.notifications.bundle.created.title": "Skapad bunt",
 
   // "item.bitstreams.upload.notifications.upload.failed": "Upload failed. Please verify the content before retrying.",
   // TODO New key - Add a translation
-  "item.bitstreams.upload.notifications.upload.failed": "Upload failed. Please verify the content before retrying.",
+  "item.bitstreams.upload.notifications.upload.failed": "Uppladdningen misslyckades. Kontrollera filen oc försök igen.",
 
   // "item.bitstreams.upload.title": "Upload bitstream",
   // TODO New key - Add a translation
-  "item.bitstreams.upload.title": "Upload bitstream",
+  "item.bitstreams.upload.title": "Ladda upp fil",
 
 
 
   // "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
+  "item.edit.bitstreams.bundle.edit.buttons.upload": "Ladda upp",
 
   // "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
+  "item.edit.bitstreams.bundle.displaying": "Visar {{ amount }} av {{ total }} filer.",
 
   // "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",
+  "item.edit.bitstreams.bundle.load.all": "Ladda alla ({{ total }})",
 
   // "item.edit.bitstreams.bundle.load.more": "Load more",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.load.more": "Load more",
+  "item.edit.bitstreams.bundle.load.more": "Ladda fler",
 
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
+  "item.edit.bitstreams.bundle.name": "BUNT: {{ name }}",
 
   // "item.edit.bitstreams.discard-button": "Discard",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.discard-button": "Discard",
+  "item.edit.bitstreams.discard-button": "Förkasta",
 
   // "item.edit.bitstreams.edit.buttons.download": "Download",
   // TODO New key - Add a translation
@@ -3257,31 +3251,31 @@
 
   // "item.edit.bitstreams.edit.buttons.drag": "Drag",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.buttons.drag": "Drag",
+  "item.edit.bitstreams.edit.buttons.drag": "Dra",
 
   // "item.edit.bitstreams.edit.buttons.edit": "Edit",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.buttons.edit": "Edit",
+  "item.edit.bitstreams.edit.buttons.edit": "Redigera",
 
   // "item.edit.bitstreams.edit.buttons.remove": "Remove",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.buttons.remove": "Remove",
+  "item.edit.bitstreams.edit.buttons.remove": "Radera",
 
   // "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
+  "item.edit.bitstreams.edit.buttons.undo": "Ångra ändringar",
 
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
+  "item.edit.bitstreams.empty": "Posten innehåller inga filer. Välj ladda upp.",
 
   // "item.edit.bitstreams.headers.actions": "Actions",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.headers.actions": "Actions",
+  "item.edit.bitstreams.headers.actions": "Händelser",
 
   // "item.edit.bitstreams.headers.bundle": "Bundle",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.headers.bundle": "Bundle",
+  "item.edit.bitstreams.headers.bundle": "Bunt",
 
   // "item.edit.bitstreams.headers.description": "Beskrivning",
   // TODO New key - Add a translation
@@ -3293,51 +3287,51 @@
 
   // "item.edit.bitstreams.headers.name": "Name",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.headers.name": "Name",
+  "item.edit.bitstreams.headers.name": "Namn",
 
   // "item.edit.bitstreams.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+  "item.edit.bitstreams.notifications.discarded.content": "Dina ändringar förkastades. Klicka på 'Ångra' för att göra om",
 
   // "item.edit.bitstreams.notifications.discarded.title": "Changes discarded",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.discarded.title": "Changes discarded",
+  "item.edit.bitstreams.notifications.discarded.title": "Ändringarna förkastades",
 
   // "item.edit.bitstreams.notifications.move.failed.title": "Error moving bitstreams",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.move.failed.title": "Error moving bitstreams",
+  "item.edit.bitstreams.notifications.move.failed.title": "Ett fel uppstod när fil skulle flyttas",
 
   // "item.edit.bitstreams.notifications.move.saved.content": "Your move changes to this item's bitstreams and bundles have been saved.",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.move.saved.content": "Your move changes to this item's bitstreams and bundles have been saved.",
+  "item.edit.bitstreams.notifications.move.saved.content": "Ändringarna har sparats.",
 
   // "item.edit.bitstreams.notifications.move.saved.title": "Move changes saved",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.move.saved.title": "Move changes saved",
+  "item.edit.bitstreams.notifications.move.saved.title": "Ändringarna har sparats",
 
   // "item.edit.bitstreams.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
+  "item.edit.bitstreams.notifications.outdated.content": "Den aktuella posten har ändrats av en annan användare. Dina ändringar har förkastats för att undvika konflikter",
 
   // "item.edit.bitstreams.notifications.outdated.title": "Changes outdated",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.outdated.title": "Changes outdated",
+  "item.edit.bitstreams.notifications.outdated.title": "Ändringarna är föråldrade",
 
   // "item.edit.bitstreams.notifications.remove.failed.title": "Error deleting bitstream",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.remove.failed.title": "Error deleting bitstream",
+  "item.edit.bitstreams.notifications.remove.failed.title": "Ett fel uppstod när filen skulle raderas",
 
   // "item.edit.bitstreams.notifications.remove.saved.content": "Your removal changes to this item's bitstreams have been saved.",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.remove.saved.content": "Your removal changes to this item's bitstreams have been saved.",
+  "item.edit.bitstreams.notifications.remove.saved.content": "Ändringarna har sparats.",
 
   // "item.edit.bitstreams.notifications.remove.saved.title": "Removal changes saved",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.remove.saved.title": "Removal changes saved",
+  "item.edit.bitstreams.notifications.remove.saved.title": "Ändringarna har sparats",
 
   // "item.edit.bitstreams.reinstate-button": "Undo",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.reinstate-button": "Undo",
+  "item.edit.bitstreams.reinstate-button": "Ångra",
 
   // "item.edit.bitstreams.save-button": "Save",
   // TODO New key - Add a translation
@@ -3345,216 +3339,216 @@
 
   // "item.edit.bitstreams.upload-button": "Upload",
   // TODO New key - Add a translation
-  "item.edit.bitstreams.upload-button": "Upload",
+  "item.edit.bitstreams.upload-button": "Ladda upp",
 
 
 
   // "item.edit.delete.cancel": "Cancel",
   // TODO New key - Add a translation
-  "item.edit.delete.cancel": "Cancel",
+  "item.edit.delete.cancel": "Avbryt",
 
   // "item.edit.delete.confirm": "Delete",
   // TODO New key - Add a translation
-  "item.edit.delete.confirm": "Delete",
+  "item.edit.delete.confirm": "Radera",
 
   // "item.edit.delete.description": "Are you sure this item should be completely deleted? Caution: At present, no tombstone would be left.",
   // TODO New key - Add a translation
-  "item.edit.delete.description": "Are you sure this item should be completely deleted? Caution: At present, no tombstone would be left.",
+  "item.edit.delete.description": "Är du säker på att du vill radera denna post? Notera: Posten kommer att raderas helt från systemet, utan historik.",
 
   // "item.edit.delete.error": "An error occurred while deleting the item",
   // TODO New key - Add a translation
-  "item.edit.delete.error": "An error occurred while deleting the item",
+  "item.edit.delete.error": "Ett fel uppstod när posten skulle raderas",
 
   // "item.edit.delete.header": "Delete item: {{ id }}",
   // TODO New key - Add a translation
-  "item.edit.delete.header": "Delete item: {{ id }}",
+  "item.edit.delete.header": "Radera post: {{ id }}",
 
   // "item.edit.delete.success": "The item has been deleted",
   // TODO New key - Add a translation
-  "item.edit.delete.success": "The item has been deleted",
+  "item.edit.delete.success": "Posten ar raderats",
 
   // "item.edit.head": "Edit Item",
   // TODO New key - Add a translation
-  "item.edit.head": "Edit Item",
+  "item.edit.head": "Redigera post",
 
   // "item.edit.breadcrumbs": "Edit Item",
   // TODO New key - Add a translation
-  "item.edit.breadcrumbs": "Edit Item",
+  "item.edit.breadcrumbs": "Redigera post",
 
   // "item.edit.tabs.disabled.tooltip": "You're not authorized to access this tab",
   // TODO New key - Add a translation
-  "item.edit.tabs.disabled.tooltip": "You're not authorized to access this tab",
+  "item.edit.tabs.disabled.tooltip": "Du har inte behöriget att använda denna flik",
 
 
   // "item.edit.tabs.mapper.head": "Collection Mapper",
   // TODO New key - Add a translation
-  "item.edit.tabs.mapper.head": "Collection Mapper",
+  "item.edit.tabs.mapper.head": "Mappa samlingar",
 
   // "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
   // TODO New key - Add a translation
-  "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
+  "item.edit.tabs.item-mapper.title": "Redigera post - mappa samlingar",
 
   // "item.edit.item-mapper.buttons.add": "Map item to selected collections",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.buttons.add": "Map item to selected collections",
+  "item.edit.item-mapper.buttons.add": "Mappa post till denna samling",
 
   // "item.edit.item-mapper.buttons.remove": "Remove item's mapping for selected collections",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.buttons.remove": "Remove item's mapping for selected collections",
+  "item.edit.item-mapper.buttons.remove": "Ta bort postens mappning till markerade samlingar",
 
   // "item.edit.item-mapper.cancel": "Cancel",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.cancel": "Cancel",
+  "item.edit.item-mapper.cancel": "Avbryt",
 
   // "item.edit.item-mapper.description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
+  "item.edit.item-mapper.description": "Detta är ett verktyg för att mappa poster till samlingar. Du kan söka efter samlingar eller bläddra i listan över samlingar som posten är mappad till nu.",
 
   // "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
+  "item.edit.item-mapper.head": "Mappa post till samling(ar)",
 
   // "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
+  "item.edit.item-mapper.item": "Post: \"<b>{{name}}</b>\"",
 
   // "item.edit.item-mapper.no-search": "Please enter a query to search",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.no-search": "Please enter a query to search",
+  "item.edit.item-mapper.no-search": "Ange en sökfråga",
 
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
+  "item.edit.item-mapper.notifications.add.error.content": "Ett fel uppstod när post skulle mappas till {{amount}} samling(ar).",
 
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
+  "item.edit.item-mapper.notifications.add.error.head": "Fel uppstod vid mappning",
 
   // "item.edit.item-mapper.notifications.add.success.content": "Successfully mapped item to {{amount}} collections.",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.success.content": "Successfully mapped item to {{amount}} collections.",
+  "item.edit.item-mapper.notifications.add.success.content": "Posten har mappats till {{amount}} samling(ar)s.",
 
   // "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
+  "item.edit.item-mapper.notifications.add.success.head": "Mappning har avslutats",
 
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
+  "item.edit.item-mapper.notifications.remove.error.content": "Det uppstod ett fel när posten skulle mappas till {{amount}} samling(ar).",
 
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
+  "item.edit.item-mapper.notifications.remove.error.head": "Ett fel uppstod när mappning skulle tas bort",
 
   // "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
+  "item.edit.item-mapper.notifications.remove.success.content": "Mappning till {{amount}} samling(ar) har tagits bort.",
 
   // "item.edit.item-mapper.notifications.remove.success.head": "Removal of mapping completed",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.success.head": "Removal of mapping completed",
+  "item.edit.item-mapper.notifications.remove.success.head": "Mappning borttagen",
 
   // "item.edit.item-mapper.search-form.placeholder": "Search collections...",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.search-form.placeholder": "Search collections...",
+  "item.edit.item-mapper.search-form.placeholder": "Sök samlingar...",
 
   // "item.edit.item-mapper.tabs.browse": "Browse mapped collections",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.tabs.browse": "Browse mapped collections",
+  "item.edit.item-mapper.tabs.browse": "Bläddra bland mappade samlingar",
 
   // "item.edit.item-mapper.tabs.map": "Map new collections",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.tabs.map": "Map new collections",
+  "item.edit.item-mapper.tabs.map": "Mappa en ny samling",
 
 
 
   // "item.edit.metadata.add-button": "Add",
   // TODO New key - Add a translation
-  "item.edit.metadata.add-button": "Add",
+  "item.edit.metadata.add-button": "Lägg till",
 
   // "item.edit.metadata.discard-button": "Discard",
   // TODO New key - Add a translation
-  "item.edit.metadata.discard-button": "Discard",
+  "item.edit.metadata.discard-button": "Förkasta",
 
   // "item.edit.metadata.edit.buttons.edit": "Edit",
   // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.edit": "Edit",
+  "item.edit.metadata.edit.buttons.edit": "Radera",
 
   // "item.edit.metadata.edit.buttons.remove": "Remove",
   // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.remove": "Remove",
+  "item.edit.metadata.edit.buttons.remove": "Ta bort",
 
   // "item.edit.metadata.edit.buttons.undo": "Undo changes",
   // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.undo": "Undo changes",
+  "item.edit.metadata.edit.buttons.undo": "Ängra ändringar",
 
   // "item.edit.metadata.edit.buttons.unedit": "Stop editing",
   // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.unedit": "Stop editing",
+  "item.edit.metadata.edit.buttons.unedit": "Avbryt redigering",
 
   // "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
   // TODO New key - Add a translation
-  "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
+  "item.edit.metadata.empty": "Denna post innehåller inga metadata. Klicka på Lägg till.",
 
   // "item.edit.metadata.headers.edit": "Edit",
   // TODO New key - Add a translation
-  "item.edit.metadata.headers.edit": "Edit",
+  "item.edit.metadata.headers.edit": "Redigera",
 
   // "item.edit.metadata.headers.field": "Field",
   // TODO New key - Add a translation
-  "item.edit.metadata.headers.field": "Field",
+  "item.edit.metadata.headers.field": "Fält",
 
   // "item.edit.metadata.headers.language": "Lang",
   // TODO New key - Add a translation
-  "item.edit.metadata.headers.language": "Lang",
+  "item.edit.metadata.headers.language": "Språk",
 
   // "item.edit.metadata.headers.value": "Value",
   // TODO New key - Add a translation
-  "item.edit.metadata.headers.value": "Value",
+  "item.edit.metadata.headers.value": "Värde",
 
   // "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
   // TODO New key - Add a translation
-  "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
+  "item.edit.metadata.metadatafield.invalid": "Välj ett giltigt metadatafält",
 
   // "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
   // TODO New key - Add a translation
-  "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+  "item.edit.metadata.notifications.discarded.content": "Dina ändringar förkastades. För att återställa, klicka på 'Ångra'",
 
   // "item.edit.metadata.notifications.discarded.title": "Changed discarded",
   // TODO New key - Add a translation
-  "item.edit.metadata.notifications.discarded.title": "Changed discarded",
+  "item.edit.metadata.notifications.discarded.title": "Ändringar förkastade",
 
   // "item.edit.metadata.notifications.error.title": "An error occurred",
   // TODO New key - Add a translation
-  "item.edit.metadata.notifications.error.title": "An error occurred",
+  "item.edit.metadata.notifications.error.title": "Ett fel ar uppstått",
 
   // "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
   // TODO New key - Add a translation
-  "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
+  "item.edit.metadata.notifications.invalid.content": "Dina ändringar sparades inte. Kontrollera att alla fält innehåller giltiga värden.",
 
   // "item.edit.metadata.notifications.invalid.title": "Metadata invalid",
   // TODO New key - Add a translation
-  "item.edit.metadata.notifications.invalid.title": "Metadata invalid",
+  "item.edit.metadata.notifications.invalid.title": "Ogiltiga metadata",
 
   // "item.edit.metadata.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
   // TODO New key - Add a translation
-  "item.edit.metadata.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
+  "item.edit.metadata.notifications.outdated.content": "Posten har ändrats av en annan användare. Dina ändringar har inte sparats",
 
   // "item.edit.metadata.notifications.outdated.title": "Changed outdated",
   // TODO New key - Add a translation
-  "item.edit.metadata.notifications.outdated.title": "Changed outdated",
+  "item.edit.metadata.notifications.outdated.title": "Ändring är föräldrad",
 
   // "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
   // TODO New key - Add a translation
-  "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
+  "item.edit.metadata.notifications.saved.content": "Dina ändringar har sparats.",
 
   // "item.edit.metadata.notifications.saved.title": "Metadata saved",
   // TODO New key - Add a translation
-  "item.edit.metadata.notifications.saved.title": "Metadata saved",
+  "item.edit.metadata.notifications.saved.title": "Metadata har sparats",
 
   // "item.edit.metadata.reinstate-button": "Undo",
   // TODO New key - Add a translation
-  "item.edit.metadata.reinstate-button": "Undo",
+  "item.edit.metadata.reinstate-button": "Ångra",
 
   // "item.edit.metadata.save-button": "Save",
   // TODO New key - Add a translation
@@ -3564,7 +3558,7 @@
 
   // "item.edit.modify.overview.field": "Field",
   // TODO New key - Add a translation
-  "item.edit.modify.overview.field": "Field",
+  "item.edit.modify.overview.field": "Fält",
 
   // "item.edit.modify.overview.language": "Språk",
   // TODO New key - Add a translation
@@ -3572,13 +3566,13 @@
 
   // "item.edit.modify.overview.value": "Value",
   // TODO New key - Add a translation
-  "item.edit.modify.overview.value": "Value",
+  "item.edit.modify.overview.value": "Värde",
 
 
 
   // "item.edit.move.cancel": "Back",
   // TODO New key - Add a translation
-  "item.edit.move.cancel": "Back",
+  "item.edit.move.cancel": "Tillbaka",
 
   // "item.edit.move.save-button": "Save",
   // TODO New key - Add a translation
@@ -3586,7 +3580,7 @@
 
   // "item.edit.move.discard-button": "Discard",
   // TODO New key - Add a translation
-  "item.edit.move.discard-button": "Discard",
+  "item.edit.move.discard-button": "Förkasta",
 
   // "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
   // TODO New key - Add a translation
@@ -6174,40 +6168,40 @@
 
   // "search.search-form.placeholder": "Search the repository ...",
   // TODO New key - Add a translation
-  "search.search-form.placeholder": "Sök i ODR ...",
+  "search.search-form.placeholder": "Sök i DSpace...",
 
 
   // "search.filters.applied.f.author": "Author",
   // TODO New key - Add a translation
-  "search.filters.applied.f.author": "Author",
+  "search.filters.applied.f.author": "Författare",
 
   // "search.filters.applied.f.dateIssued.max": "End date",
   // TODO New key - Add a translation
-  "search.filters.applied.f.dateIssued.max": "End date",
+  "search.filters.applied.f.dateIssued.max": "Slutdatum",
 
   // "search.filters.applied.f.dateIssued.min": "Start date",
   // TODO New key - Add a translation
-  "search.filters.applied.f.dateIssued.min": "Start date",
+  "search.filters.applied.f.dateIssued.min": "Startdatum",
 
   // "search.filters.applied.f.dateSubmitted": "Date submitted",
   // TODO New key - Add a translation
-  "search.filters.applied.f.dateSubmitted": "Date submitted",
+  "search.filters.applied.f.dateSubmitted": "Skapad",
 
   // "search.filters.applied.f.discoverable": "Non-discoverable",
   // TODO New key - Add a translation
-  "search.filters.applied.f.discoverable": "Non-discoverable",
+  "search.filters.applied.f.discoverable": "Ej sökbar",
 
   // "search.filters.applied.f.entityType": "Item Type",
   // TODO New key - Add a translation
-  "search.filters.applied.f.entityType": "Item Type",
+  "search.filters.applied.f.entityType": "Typ",
 
   // "search.filters.applied.f.has_content_in_original_bundle": "Has files",
   // TODO New key - Add a translation
-  "search.filters.applied.f.has_content_in_original_bundle": "Has files",
+  "search.filters.applied.f.has_content_in_original_bundle": "Innehåller filer",
 
   // "search.filters.applied.f.itemtype": "Type",
   // TODO New key - Add a translation
-  "search.filters.applied.f.itemtype": "Type",
+  "search.filters.applied.f.itemtype": "Typ",
 
   // "search.filters.applied.f.namedresourcetype": "Status",
   // TODO New key - Add a translation
@@ -6215,11 +6209,11 @@
 
   // "search.filters.applied.f.subject": "Subject",
   // TODO New key - Add a translation
-  "search.filters.applied.f.subject": "Subject",
+  "search.filters.applied.f.subject": "Ämne",
 
   // "search.filters.applied.f.submitter": "Submitter",
   // TODO New key - Add a translation
-  "search.filters.applied.f.submitter": "Submitter",
+  "search.filters.applied.f.submitter": "Skapad av",
 
   // "search.filters.applied.f.jobTitle": "Job Title",
   // TODO New key - Add a translation
@@ -6227,81 +6221,81 @@
 
   // "search.filters.applied.f.birthDate.max": "End birth date",
   // TODO New key - Add a translation
-  "search.filters.applied.f.birthDate.max": "End birth date",
+  "search.filters.applied.f.birthDate.max": "Födelsedatum (till)",
 
   // "search.filters.applied.f.birthDate.min": "Start birth date",
   // TODO New key - Add a translation
-  "search.filters.applied.f.birthDate.min": "Start birth date",
+  "search.filters.applied.f.birthDate.min": "Födelsedatum (från)",
 
   // "search.filters.applied.f.withdrawn": "Withdrawn",
   // TODO New key - Add a translation
-  "search.filters.applied.f.withdrawn": "Withdrawn",
+  "search.filters.applied.f.withdrawn": "Återkallad",
 
 
 
   // "search.filters.filter.author.head": "Author",
   // TODO New key - Add a translation
-  "search.filters.filter.author.head": "Author",
+  "search.filters.filter.author.head": "Författare",
 
   // "search.filters.filter.author.placeholder": "Author name",
   // TODO New key - Add a translation
-  "search.filters.filter.author.placeholder": "Author name",
+  "search.filters.filter.author.placeholder": "Författare (namn)",
 
   // "search.filters.filter.author.label": "Search author name",
   // TODO New key - Add a translation
-  "search.filters.filter.author.label": "Search author name",
+  "search.filters.filter.author.label": "Sök författare",
 
   // "search.filters.filter.birthDate.head": "Birth Date",
   // TODO New key - Add a translation
-  "search.filters.filter.birthDate.head": "Birth Date",
+  "search.filters.filter.birthDate.head": "Födelsedatum",
 
   // "search.filters.filter.birthDate.placeholder": "Birth Date",
   // TODO New key - Add a translation
-  "search.filters.filter.birthDate.placeholder": "Birth Date",
+  "search.filters.filter.birthDate.placeholder": "Födelsedatum",
 
   // "search.filters.filter.birthDate.label": "Search birth date",
   // TODO New key - Add a translation
-  "search.filters.filter.birthDate.label": "Search birth date",
+  "search.filters.filter.birthDate.label": "Sök födelsedatum",
 
   // "search.filters.filter.collapse": "Collapse filter",
   // TODO New key - Add a translation
-  "search.filters.filter.collapse": "Collapse filter",
+  "search.filters.filter.collapse": "Fäll ihop filter",
 
   // "search.filters.filter.creativeDatePublished.head": "Date Published",
   // TODO New key - Add a translation
-  "search.filters.filter.creativeDatePublished.head": "Date Published",
+  "search.filters.filter.creativeDatePublished.head": "Publicerad",
 
   // "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
   // TODO New key - Add a translation
-  "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
+  "search.filters.filter.creativeDatePublished.placeholder": "Publicerad",
 
   // "search.filters.filter.creativeDatePublished.label": "Search date published",
   // TODO New key - Add a translation
-  "search.filters.filter.creativeDatePublished.label": "Search date published",
+  "search.filters.filter.creativeDatePublished.label": "Sök på publiceringsdatum",
 
   // "search.filters.filter.creativeWorkEditor.head": "Editor",
   // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkEditor.head": "Editor",
+  "search.filters.filter.creativeWorkEditor.head": "Redaktör",
 
   // "search.filters.filter.creativeWorkEditor.placeholder": "Editor",
   // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkEditor.placeholder": "Editor",
+  "search.filters.filter.creativeWorkEditor.placeholder": "Redaktör",
 
   // "search.filters.filter.creativeWorkEditor.label": "Search editor",
   // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkEditor.label": "Search editor",
+  "search.filters.filter.creativeWorkEditor.label": "Sök redaktör",
 
   // "search.filters.filter.creativeWorkKeywords.head": "Subject",
   // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkKeywords.head": "Subject",
+  "search.filters.filter.creativeWorkKeywords.head": "Ämne",
 
   // "search.filters.filter.creativeWorkKeywords.placeholder": "Subject",
   // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkKeywords.placeholder": "Subject",
+  "search.filters.filter.creativeWorkKeywords.placeholder": "Ämne",
 
   // "search.filters.filter.creativeWorkKeywords.label": "Search subject",
   // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkKeywords.label": "Search subject",
+  "search.filters.filter.creativeWorkKeywords.label": "Sök ämne",
 
   // "search.filters.filter.creativeWorkPublisher.head": "Publisher",
   // TODO New key - Add a translation
@@ -6313,7 +6307,7 @@
 
   // "search.filters.filter.creativeWorkPublisher.label": "Search publisher",
   // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkPublisher.label": "Search publisher",
+  "search.filters.filter.creativeWorkPublisher.label": "Sök utgivare",
 
   // "search.filters.filter.dateIssued.head": "Date",
   // TODO New key - Add a translation
@@ -6321,7 +6315,7 @@
 
   // "search.filters.filter.dateIssued.max.placeholder": "Maximum Date",
   // TODO New key - Add a translation
-  "search.filters.filter.dateIssued.max.placeholder": "Maximum Date",
+  "search.filters.filter.dateIssued.max.placeholder": "Datum (max)",
 
   // "search.filters.filter.dateIssued.max.label": "End",
   // TODO New key - Add a translation
@@ -6329,7 +6323,7 @@
 
   // "search.filters.filter.dateIssued.min.placeholder": "Minimum Date",
   // TODO New key - Add a translation
-  "search.filters.filter.dateIssued.min.placeholder": "Minimum Date",
+  "search.filters.filter.dateIssued.min.placeholder": "Datum (min)",
 
   // "search.filters.filter.dateIssued.min.label": "Start",
   // TODO New key - Add a translation
@@ -6337,55 +6331,55 @@
 
   // "search.filters.filter.dateSubmitted.head": "Date submitted",
   // TODO New key - Add a translation
-  "search.filters.filter.dateSubmitted.head": "Date submitted",
+  "search.filters.filter.dateSubmitted.head": "Skapad",
 
   // "search.filters.filter.dateSubmitted.placeholder": "Date submitted",
   // TODO New key - Add a translation
-  "search.filters.filter.dateSubmitted.placeholder": "Date submitted",
+  "search.filters.filter.dateSubmitted.placeholder": "Skapad",
 
   // "search.filters.filter.dateSubmitted.label": "Search date submitted",
   // TODO New key - Add a translation
-  "search.filters.filter.dateSubmitted.label": "Search date submitted",
+  "search.filters.filter.dateSubmitted.label": "Sök skapad datum",
 
   // "search.filters.filter.discoverable.head": "Non-discoverable",
   // TODO New key - Add a translation
-  "search.filters.filter.discoverable.head": "Non-discoverable",
+  "search.filters.filter.discoverable.head": "Ej sökbar",
 
   // "search.filters.filter.withdrawn.head": "Withdrawn",
   // TODO New key - Add a translation
-  "search.filters.filter.withdrawn.head": "Withdrawn",
+  "search.filters.filter.withdrawn.head": "Återkallad",
 
   // "search.filters.filter.entityType.head": "Item Type",
   // TODO New key - Add a translation
-  "search.filters.filter.entityType.head": "Item Type",
+  "search.filters.filter.entityType.head": "Typ",
 
   // "search.filters.filter.entityType.placeholder": "Item Type",
   // TODO New key - Add a translation
-  "search.filters.filter.entityType.placeholder": "Item Type",
+  "search.filters.filter.entityType.placeholder": "Typ",
 
   // "search.filters.filter.entityType.label": "Search item type",
   // TODO New key - Add a translation
-  "search.filters.filter.entityType.label": "Search item type",
+  "search.filters.filter.entityType.label": "Sök typ av post",
 
   // "search.filters.filter.expand": "Expand filter",
   // TODO New key - Add a translation
-  "search.filters.filter.expand": "Expand filter",
+  "search.filters.filter.expand": "Expandera filter",
 
   // "search.filters.filter.has_content_in_original_bundle.head": "Has files",
   // TODO New key - Add a translation
-  "search.filters.filter.has_content_in_original_bundle.head": "Has files",
+  "search.filters.filter.has_content_in_original_bundle.head": "Innehåller filer",
 
   // "search.filters.filter.itemtype.head": "Type",
   // TODO New key - Add a translation
-  "search.filters.filter.itemtype.head": "Type",
+  "search.filters.filter.itemtype.head": "Typ",
 
   // "search.filters.filter.itemtype.placeholder": "Type",
   // TODO New key - Add a translation
-  "search.filters.filter.itemtype.placeholder": "Type",
+  "search.filters.filter.itemtype.placeholder": "Typ",
 
   // "search.filters.filter.itemtype.label": "Search type",
   // TODO New key - Add a translation
-  "search.filters.filter.itemtype.label": "Search type",
+  "search.filters.filter.itemtype.label": "Sök typ",
 
   // "search.filters.filter.jobTitle.head": "Job Title",
   // TODO New key - Add a translation
@@ -6397,19 +6391,19 @@
 
   // "search.filters.filter.jobTitle.label": "Search job title",
   // TODO New key - Add a translation
-  "search.filters.filter.jobTitle.label": "Search job title",
+  "search.filters.filter.jobTitle.label": "Sök job title",
 
   // "search.filters.filter.knowsLanguage.head": "Known language",
   // TODO New key - Add a translation
-  "search.filters.filter.knowsLanguage.head": "Known language",
+  "search.filters.filter.knowsLanguage.head": "Känt språk",
 
   // "search.filters.filter.knowsLanguage.placeholder": "Known language",
   // TODO New key - Add a translation
-  "search.filters.filter.knowsLanguage.placeholder": "Known language",
+  "search.filters.filter.knowsLanguage.placeholder": "Känt språk",
 
   // "search.filters.filter.knowsLanguage.label": "Search known language",
   // TODO New key - Add a translation
-  "search.filters.filter.knowsLanguage.label": "Search known language",
+  "search.filters.filter.knowsLanguage.label": "Sök språk",
 
   // "search.filters.filter.namedresourcetype.head": "Status",
   // TODO New key - Add a translation
@@ -6421,55 +6415,55 @@
 
   // "search.filters.filter.namedresourcetype.label": "Search status",
   // TODO New key - Add a translation
-  "search.filters.filter.namedresourcetype.label": "Search status",
+  "search.filters.filter.namedresourcetype.label": "Sök status",
 
   // "search.filters.filter.objectpeople.head": "People",
   // TODO New key - Add a translation
-  "search.filters.filter.objectpeople.head": "People",
+  "search.filters.filter.objectpeople.head": "Personer",
 
   // "search.filters.filter.objectpeople.placeholder": "People",
   // TODO New key - Add a translation
-  "search.filters.filter.objectpeople.placeholder": "People",
+  "search.filters.filter.objectpeople.placeholder": "Personer",
 
   // "search.filters.filter.objectpeople.label": "Search people",
   // TODO New key - Add a translation
-  "search.filters.filter.objectpeople.label": "Search people",
+  "search.filters.filter.objectpeople.label": "Sök personer",
 
   // "search.filters.filter.organizationAddressCountry.head": "Country",
   // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressCountry.head": "Country",
+  "search.filters.filter.organizationAddressCountry.head": "Land",
 
   // "search.filters.filter.organizationAddressCountry.placeholder": "Country",
   // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressCountry.placeholder": "Country",
+  "search.filters.filter.organizationAddressCountry.placeholder": "Land",
 
   // "search.filters.filter.organizationAddressCountry.label": "Search country",
   // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressCountry.label": "Search country",
+  "search.filters.filter.organizationAddressCountry.label": "Sök land",
 
   // "search.filters.filter.organizationAddressLocality.head": "City",
   // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressLocality.head": "City",
+  "search.filters.filter.organizationAddressLocality.head": "Stad",
 
   // "search.filters.filter.organizationAddressLocality.placeholder": "City",
   // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressLocality.placeholder": "City",
+  "search.filters.filter.organizationAddressLocality.placeholder": "Stad",
 
   // "search.filters.filter.organizationAddressLocality.label": "Search city",
   // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressLocality.label": "Search city",
+  "search.filters.filter.organizationAddressLocality.label": "Sök stad",
 
   // "search.filters.filter.organizationFoundingDate.head": "Date Founded",
   // TODO New key - Add a translation
-  "search.filters.filter.organizationFoundingDate.head": "Date Founded",
+  "search.filters.filter.organizationFoundingDate.head": "Grundad",
 
   // "search.filters.filter.organizationFoundingDate.placeholder": "Date Founded",
   // TODO New key - Add a translation
-  "search.filters.filter.organizationFoundingDate.placeholder": "Date Founded",
+  "search.filters.filter.organizationFoundingDate.placeholder": "Grundad",
 
   // "search.filters.filter.organizationFoundingDate.label": "Search date founded",
   // TODO New key - Add a translation
-  "search.filters.filter.organizationFoundingDate.label": "Search date founded",
+  "search.filters.filter.organizationFoundingDate.label": "Sök grundad (datum)",
 
   // "search.filters.filter.scope.head": "Scope",
   // TODO New key - Add a translation
@@ -6485,73 +6479,73 @@
 
   // "search.filters.filter.show-less": "Collapse",
   // TODO New key - Add a translation
-  "search.filters.filter.show-less": "Collapse",
+  "search.filters.filter.show-less": "Fäll iop",
 
   // "search.filters.filter.show-more": "Show more",
   // TODO New key - Add a translation
-  "search.filters.filter.show-more": "Show more",
+  "search.filters.filter.show-more": "Visa mer",
 
   // "search.filters.filter.subject.head": "Subject",
   // TODO New key - Add a translation
-  "search.filters.filter.subject.head": "Subject",
+  "search.filters.filter.subject.head": "Ämne",
 
   // "search.filters.filter.subject.placeholder": "Subject",
   // TODO New key - Add a translation
-  "search.filters.filter.subject.placeholder": "Subject",
+  "search.filters.filter.subject.placeholder": "Ämne",
 
   // "search.filters.filter.subject.label": "Search subject",
   // TODO New key - Add a translation
-  "search.filters.filter.subject.label": "Search subject",
+  "search.filters.filter.subject.label": "Sök ämne",
 
   // "search.filters.filter.submitter.head": "Submitter",
   // TODO New key - Add a translation
-  "search.filters.filter.submitter.head": "Submitter",
+  "search.filters.filter.submitter.head": "Skapad av",
 
   // "search.filters.filter.submitter.placeholder": "Submitter",
   // TODO New key - Add a translation
-  "search.filters.filter.submitter.placeholder": "Submitter",
+  "search.filters.filter.submitter.placeholder": "Skapad av",
 
   // "search.filters.filter.submitter.label": "Search submitter",
   // TODO New key - Add a translation
-  "search.filters.filter.submitter.label": "Search submitter",
+  "search.filters.filter.submitter.label": "Sök skapad av",
 
 
 
   // "search.filters.entityType.JournalIssue": "Journal Issue",
   // TODO New key - Add a translation
-  "search.filters.entityType.JournalIssue": "Journal Issue",
+  "search.filters.entityType.JournalIssue": "Utgåva",
 
   // "search.filters.entityType.JournalVolume": "Journal Volume",
   // TODO New key - Add a translation
-  "search.filters.entityType.JournalVolume": "Journal Volume",
+  "search.filters.entityType.JournalVolume": "Volym",
 
   // "search.filters.entityType.OrgUnit": "Organizational Unit",
   // TODO New key - Add a translation
-  "search.filters.entityType.OrgUnit": "Organizational Unit",
+  "search.filters.entityType.OrgUnit": "Organisatorisk enhet",
 
   // "search.filters.has_content_in_original_bundle.true": "Yes",
   // TODO New key - Add a translation
-  "search.filters.has_content_in_original_bundle.true": "Yes",
+  "search.filters.has_content_in_original_bundle.true": "Ja",
 
   // "search.filters.has_content_in_original_bundle.false": "No",
   // TODO New key - Add a translation
-  "search.filters.has_content_in_original_bundle.false": "No",
+  "search.filters.has_content_in_original_bundle.false": "Nej",
 
   // "search.filters.discoverable.true": "No",
   // TODO New key - Add a translation
-  "search.filters.discoverable.true": "No",
+  "search.filters.discoverable.true": "Nej",
 
   // "search.filters.discoverable.false": "Yes",
   // TODO New key - Add a translation
-  "search.filters.discoverable.false": "Yes",
+  "search.filters.discoverable.false": "Ja",
 
   // "search.filters.withdrawn.true": "Yes",
   // TODO New key - Add a translation
-  "search.filters.withdrawn.true": "Yes",
+  "search.filters.withdrawn.true": "Ja",
 
   // "search.filters.withdrawn.false": "No",
   // TODO New key - Add a translation
-  "search.filters.withdrawn.false": "No",
+  "search.filters.withdrawn.false": "Nej",
 
 
   // "search.filters.head": "Filters",
@@ -6588,11 +6582,11 @@
 
   // "search.results.no-results": "Your search returned no results. Having trouble finding what you're looking for? Try putting",
   // TODO New key - Add a translation
-  "search.results.no-results": "Your search returned no results. Having trouble finding what you're looking for? Try putting",
+  "search.results.no-results": "Sökningen resulterade inte i några träffar. Du kan testa att använda",
 
   // "search.results.no-results-link": "quotes around it",
   // TODO New key - Add a translation
-  "search.results.no-results-link": "quotes around it",
+  "search.results.no-results-link": "citationstecken före och efter sökfrågan",
 
   // "search.results.empty": "Your search returned no results.",
   // TODO New key - Add a translation
@@ -8082,4 +8076,5 @@
   // "idle-modal.extend-session": "Extend session"
   // TODO New key - Add a translation
   "idle-modal.extend-session": "Extend session"
+
 }
