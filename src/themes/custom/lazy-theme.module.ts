@@ -101,6 +101,7 @@ import {
 import { LoadingComponent } from './app/shared/loading/loading.component';
 import { SearchResultsComponent } from './app/shared/search/search-results/search-results.component';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
+import { ComcolPageBrowseByComponent } from './app/shared/comcol-page-browse-by/comcol-page-browse-by.component';
 import { SearchSettingsComponent } from './app/shared/search/search-settings/search-settings.component';
 import {
   CommunityPageSubCommunityListComponent
@@ -157,6 +158,7 @@ const DECLARATIONS = [
   SearchResultsComponent,
   AdminSidebarComponent,
   SearchSettingsComponent
+  ComcolPageBrowseByComponent,
 ];
 
 @NgModule({
