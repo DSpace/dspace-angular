@@ -2935,7 +2935,7 @@
 
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   // TODO New key - Add a translation
-  "form.repeatable.sort.tip": "Släp posten i ny position",
+  "form.repeatable.sort.tip": "Släpp posten i ny position",
 
 
 
@@ -4745,7 +4745,7 @@
 
   // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
   // TODO New key - Add a translation
-  "menu.section.browse_global_communities_and_collections": "Enhheter och samlingar",
+  "menu.section.browse_global_communities_and_collections": "Enheter och samlingar",
 
 
 
