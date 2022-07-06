@@ -507,6 +507,29 @@ export class MenuResolver implements Resolve<boolean> {
   createSiteAdministratorMenuSections() {
     this.authorizationService.isAuthorized(FeatureID.AdministratorOf).subscribe((authorized) => {
       const menuList = [
+        /* Notifications */
+        {
+          id: 'notifications',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.notifications'
+          } as TextMenuItemModel,
+          icon: 'bell',
+          index: 4
+        },
+        {
+          id: 'notifications_quality-assurance',
+          parentID: 'notifications',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.quality-assurance',
+            link: '/admin/notifications/quality-assurance'
+          } as LinkMenuItemModel,
+        },
         /*  Admin Search */
         {
           id: 'admin_search',

@@ -11,7 +11,7 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import {
   QualityAssuranceEventObject,
-  OpenaireBrokerEventMessageObject
+  OpenaireQualityAssuranceEventMessageObject
 } from '../../../core/notifications/qa/models/quality-assurance-event.model';
 import { QualityAssuranceEventRestService } from '../../../core/notifications/qa/events/quality-assurance-event-rest.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
@@ -242,12 +242,12 @@ export class QualityAssuranceEventsComponent implements OnInit {
         .subscribe((rd: RemoteData<QualityAssuranceEventObject>) => {
           if (rd.isSuccess && rd.statusCode === 200) {
             this.notificationsService.success(
-              this.translateService.instant('notifications.broker.event.action.saved')
+              this.translateService.instant('quality-assurance.event.action.saved')
             );
             this.getQualityAssuranceEvents();
           } else {
             this.notificationsService.error(
-              this.translateService.instant('notifications.broker.event.action.error')
+              this.translateService.instant('quality-assurance.event.action.error')
             );
           }
           eventData.isRunning = false;
@@ -274,7 +274,7 @@ export class QualityAssuranceEventsComponent implements OnInit {
         .subscribe((rd: RemoteData<QualityAssuranceEventObject>) => {
           if (rd.isSuccess) {
             this.notificationsService.success(
-              this.translateService.instant('notifications.broker.event.project.bounded')
+              this.translateService.instant('quality-assurance.event.project.bounded')
             );
             eventData.hasProject = true;
             eventData.projectTitle = projectTitle;
@@ -282,7 +282,7 @@ export class QualityAssuranceEventsComponent implements OnInit {
             eventData.projectId = projectId;
           } else {
             this.notificationsService.error(
-              this.translateService.instant('notifications.broker.event.project.error')
+              this.translateService.instant('quality-assurance.event.project.error')
             );
           }
           eventData.isRunning = false;
@@ -303,7 +303,7 @@ export class QualityAssuranceEventsComponent implements OnInit {
         .subscribe((rd: RemoteData<QualityAssuranceEventObject>) => {
           if (rd.isSuccess) {
             this.notificationsService.success(
-              this.translateService.instant('notifications.broker.event.project.removed')
+              this.translateService.instant('quality-assurance.event.project.removed')
             );
             eventData.hasProject = false;
             eventData.projectTitle = null;
@@ -311,7 +311,7 @@ export class QualityAssuranceEventsComponent implements OnInit {
             eventData.projectId = null;
           } else {
             this.notificationsService.error(
-              this.translateService.instant('notifications.broker.event.project.error')
+              this.translateService.instant('quality-assurance.event.project.error')
             );
           }
           eventData.isRunning = false;
@@ -323,7 +323,7 @@ export class QualityAssuranceEventsComponent implements OnInit {
    * Check if the event has a valid href.
    * @param event
    */
-  public hasPIDHref(event: OpenaireBrokerEventMessageObject): boolean {
+  public hasPIDHref(event: OpenaireQualityAssuranceEventMessageObject): boolean {
     return this.getPIDHref(event) !== null;
   }
 
@@ -331,7 +331,7 @@ export class QualityAssuranceEventsComponent implements OnInit {
    * Get the event pid href.
    * @param event
    */
-  public getPIDHref(event: OpenaireBrokerEventMessageObject): string {
+  public getPIDHref(event: OpenaireQualityAssuranceEventMessageObject): string {
     return this.computePIDHref(event);
   }
 
@@ -419,7 +419,7 @@ export class QualityAssuranceEventsComponent implements OnInit {
     );
   }
 
-  protected computePIDHref(event: OpenaireBrokerEventMessageObject) {
+  protected computePIDHref(event: OpenaireQualityAssuranceEventMessageObject) {
     const type = event.type.toLowerCase();
     const pid = event.value;
     let prefix = null;

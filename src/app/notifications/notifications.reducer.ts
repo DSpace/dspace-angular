@@ -6,13 +6,13 @@ import { qualityAssuranceTopicsReducer, QualityAssuranceTopicState, } from './qa
  * The OpenAIRE State
  */
 export interface NotificationsState {
-  'brokerTopic': QualityAssuranceTopicState;
-  'brokerSource': QualityAssuranceSourceState;
+  'qaTopic': QualityAssuranceTopicState;
+  'qaSource': QualityAssuranceSourceState;
 }
 
 export const notificationsReducers: ActionReducerMap<NotificationsState> = {
-  brokerTopic: qualityAssuranceTopicsReducer,
-  brokerSource: qualityAssuranceSourceReducer
+  qaTopic: qualityAssuranceTopicsReducer,
+  qaSource: qualityAssuranceSourceReducer
 };
 
 export const notificationsSelector = createFeatureSelector<NotificationsState>('notifications');

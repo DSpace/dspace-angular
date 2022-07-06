@@ -11,16 +11,16 @@ import { RemoteData } from '../../../data/remote-data';
 import {CacheableObject} from '../../../cache/cacheable-object.model';
 
 /**
- * The interface representing the Notifications  Broker event message
+ * The interface representing the Quality Assurance event message
  */
 export interface QualityAssuranceEventMessageObject {
 
 }
 
 /**
- * The interface representing the Notifications  Broker event message
+ * The interface representing the Quality Assurance event message
  */
-export interface OpenaireBrokerEventMessageObject {
+export interface OpenaireQualityAssuranceEventMessageObject {
   /**
    * The type of 'value'
    */
@@ -74,7 +74,7 @@ export interface OpenaireBrokerEventMessageObject {
 }
 
 /**
- * The interface representing the Notifications  Broker event model
+ * The interface representing the Quality Assurance event model
  */
 @typedObject
 export class QualityAssuranceEventObject implements CacheableObject {
@@ -84,19 +84,19 @@ export class QualityAssuranceEventObject implements CacheableObject {
   static type = QUALITY_ASSURANCE_EVENT_OBJECT;
 
   /**
-   * The Notifications  Broker event uuid inside DSpace
+   * The Quality Assurance event uuid inside DSpace
    */
   @autoserialize
   id: string;
 
   /**
-   * The universally unique identifier of this Notifications  Broker event
+   * The universally unique identifier of this Quality Assurance event
    */
   @autoserializeAs(String, 'id')
   uuid: string;
 
   /**
-   * The Notifications  Broker event original id (ex.: the source archive OAI-PMH identifier)
+   * The Quality Assurance event original id (ex.: the source archive OAI-PMH identifier)
    */
   @autoserialize
   originalId: string;
@@ -114,13 +114,13 @@ export class QualityAssuranceEventObject implements CacheableObject {
   trust: number;
 
   /**
-   * The timestamp Notifications  Broker event was saved in DSpace
+   * The timestamp Quality Assurance event was saved in DSpace
    */
   @autoserialize
   eventDate: string;
 
   /**
-   * The Notifications  Broker event status (ACCEPTED, REJECTED, DISCARDED, PENDING)
+   * The Quality Assurance event status (ACCEPTED, REJECTED, DISCARDED, PENDING)
    */
   @autoserialize
   status: string;
@@ -129,7 +129,7 @@ export class QualityAssuranceEventObject implements CacheableObject {
    * The suggestion data. Data may vary depending on the source
    */
   @autoserialize
-  message: OpenaireBrokerEventMessageObject;
+  message: OpenaireQualityAssuranceEventMessageObject;
 
   /**
    * The type of this ConfigObject

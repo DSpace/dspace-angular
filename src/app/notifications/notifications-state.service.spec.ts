@@ -26,7 +26,7 @@ describe('NotificationsStateService', () => {
       if (mode === 'empty') {
         initialState = {
           notifications: {
-            brokerTopic: {
+            qaTopic: {
               topics: [],
               processing: false,
               loaded: false,
@@ -40,7 +40,7 @@ describe('NotificationsStateService', () => {
       } else {
         initialState = {
           notifications: {
-            brokerTopic: {
+            qaTopic: {
               topics: [
                 qualityAssuranceTopicObjectMorePid,
                 qualityAssuranceTopicObjectMoreAbstract,
@@ -284,7 +284,7 @@ describe('NotificationsStateService', () => {
       if (mode === 'empty') {
         initialState = {
           notifications: {
-            brokerSource: {
+            qaSource: {
               source: [],
               processing: false,
               loaded: false,
@@ -298,7 +298,7 @@ describe('NotificationsStateService', () => {
       } else {
         initialState = {
           notifications: {
-            brokerSource: {
+            qaSource: {
               source: [
                 qualityAssuranceSourceObjectMorePid,
                 qualityAssuranceSourceObjectMoreAbstract,

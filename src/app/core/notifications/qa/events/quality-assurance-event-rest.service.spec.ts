@@ -38,15 +38,15 @@ describe('QualityAssuranceEventRestService', () => {
   let http: HttpClient;
   let comparator: any;
 
-  const endpointURL = 'https://rest.api/rest/api/integration/nbtopics';
+  const endpointURL = 'https://rest.api/rest/api/integration/qatopics';
   const requestUUID = '8b3c913a-5a4b-438b-9181-be1a5b4a1c8a';
   const topic = 'ENRICH!MORE!PID';
 
   const pageInfo = new PageInfo();
   const array = [ qualityAssuranceEventObjectMissingPid, qualityAssuranceEventObjectMissingPid2 ];
   const paginatedList = buildPaginatedList(pageInfo, array);
-  const brokerEventObjectRD = createSuccessfulRemoteDataObject(qualityAssuranceEventObjectMissingPid);
-  const brokerEventObjectMissingProjectRD = createSuccessfulRemoteDataObject(qualityAssuranceEventObjectMissingProjectFound);
+  const qaEventObjectRD = createSuccessfulRemoteDataObject(qualityAssuranceEventObjectMissingPid);
+  const qaEventObjectMissingProjectRD = createSuccessfulRemoteDataObject(qualityAssuranceEventObjectMissingProjectFound);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
   const status = 'ACCEPTED';
@@ -82,7 +82,7 @@ describe('QualityAssuranceEventRestService', () => {
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('(a)', {
-        a: brokerEventObjectRD
+        a: qaEventObjectRD
       }),
       buildList: cold('(a)', {
         a: paginatedListRD
@@ -122,7 +122,7 @@ describe('QualityAssuranceEventRestService', () => {
     beforeEach(() => {
       serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntry));
       serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntry));
-      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(brokerEventObjectRD));
+      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(qaEventObjectRD));
     });
 
     it('should proxy the call to dataservice.searchBy', () => {
@@ -151,7 +151,7 @@ describe('QualityAssuranceEventRestService', () => {
     beforeEach(() => {
       serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntry));
       serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntry));
-      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(brokerEventObjectRD));
+      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(qaEventObjectRD));
     });
 
     it('should proxy the call to dataservice.findById', () => {
@@ -165,7 +165,7 @@ describe('QualityAssuranceEventRestService', () => {
     it('should return a RemoteData<QualityAssuranceEventObject> for the object with the given URL', () => {
       const result = service.getEvent(qualityAssuranceEventObjectMissingPid.id);
       const expected = cold('(a)', {
-        a: brokerEventObjectRD
+        a: qaEventObjectRD
       });
       expect(result).toBeObservable(expected);
     });
@@ -175,7 +175,7 @@ describe('QualityAssuranceEventRestService', () => {
     beforeEach(() => {
       serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntry));
       serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntry));
-      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(brokerEventObjectRD));
+      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(qaEventObjectRD));
     });
 
     it('should proxy the call to dataservice.patch', () => {
@@ -199,7 +199,7 @@ describe('QualityAssuranceEventRestService', () => {
     beforeEach(() => {
       serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntryB));
       serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntryB));
-      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(brokerEventObjectMissingProjectRD));
+      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(qaEventObjectMissingProjectRD));
     });
 
     it('should proxy the call to dataservice.postOnRelated', () => {

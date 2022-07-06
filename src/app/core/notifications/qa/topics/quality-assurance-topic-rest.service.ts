@@ -31,7 +31,7 @@ class DataServiceImpl extends DataService<QualityAssuranceTopicObject> {
   /**
    * The REST endpoint.
    */
-  protected linkPath = 'nbtopics';
+  protected linkPath = 'qatopics';
 
   /**
    * Initialize service variables
@@ -100,7 +100,7 @@ export class QualityAssuranceTopicRestService {
    *    The list of Quality Assurance topics.
    */
   public getTopics(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>> {
-    return this.dataService.getBrowseEndpoint(options, 'nbtopics').pipe(
+    return this.dataService.getBrowseEndpoint(options, 'qatopics').pipe(
       take(1),
       mergeMap((href: string) => this.dataService.findAllByHref(href, options, true, true, ...linksToFollow)),
     );
@@ -110,7 +110,7 @@ export class QualityAssuranceTopicRestService {
    * Clear FindAll topics requests from cache
    */
   public clearFindAllTopicsRequests() {
-    this.requestService.setStaleByHrefSubstring('nbtopics');
+    this.requestService.setStaleByHrefSubstring('qatopics');
   }
 
   /**
@@ -125,7 +125,7 @@ export class QualityAssuranceTopicRestService {
    */
   public getTopic(id: string, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<QualityAssuranceTopicObject>> {
     const options = {};
-    return this.dataService.getBrowseEndpoint(options, 'nbtopics').pipe(
+    return this.dataService.getBrowseEndpoint(options, 'qatopics').pipe(
       take(1),
       mergeMap((href: string) => this.dataService.findByHref(href + '/' + id, true, true, ...linksToFollow))
     );

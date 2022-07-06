@@ -32,13 +32,13 @@ describe('QualityAssuranceSourceRestService', () => {
   let http: HttpClient;
   let comparator: any;
 
-  const endpointURL = 'https://rest.api/rest/api/integration/nbsources';
+  const endpointURL = 'https://rest.api/rest/api/integration/qasources';
   const requestUUID = '8b3c913a-5a4b-438b-9181-be1a5b4a1c8a';
 
   const pageInfo = new PageInfo();
   const array = [ qualityAssuranceSourceObjectMorePid, qualityAssuranceSourceObjectMoreAbstract ];
   const paginatedList = buildPaginatedList(pageInfo, array);
-  const brokerSourceObjectRD = createSuccessfulRemoteDataObject(qualityAssuranceSourceObjectMorePid);
+  const qaSourceObjectRD = createSuccessfulRemoteDataObject(qualityAssuranceSourceObjectMorePid);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
   beforeEach(() => {
@@ -56,7 +56,7 @@ describe('QualityAssuranceSourceRestService', () => {
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('(a)', {
-        a: brokerSourceObjectRD
+        a: qaSourceObjectRD
       }),
       buildList: cold('(a)', {
         a: paginatedListRD
@@ -118,7 +118,7 @@ describe('QualityAssuranceSourceRestService', () => {
     it('should return a RemoteData<QualityAssuranceSourceObject> for the object with the given URL', () => {
       const result = service.getSource(qualityAssuranceSourceObjectMorePid.id);
       const expected = cold('(a)', {
-        a: brokerSourceObjectRD
+        a: qaSourceObjectRD
       });
       expect(result).toBeObservable(expected);
     });

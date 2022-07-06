@@ -32,13 +32,13 @@ describe('QualityAssuranceTopicRestService', () => {
   let http: HttpClient;
   let comparator: any;
 
-  const endpointURL = 'https://rest.api/rest/api/integration/nbtopics';
+  const endpointURL = 'https://rest.api/rest/api/integration/qatopics';
   const requestUUID = '8b3c913a-5a4b-438b-9181-be1a5b4a1c8a';
 
   const pageInfo = new PageInfo();
   const array = [ qualityAssuranceTopicObjectMorePid, qualityAssuranceTopicObjectMoreAbstract ];
   const paginatedList = buildPaginatedList(pageInfo, array);
-  const brokerTopicObjectRD = createSuccessfulRemoteDataObject(qualityAssuranceTopicObjectMorePid);
+  const qaTopicObjectRD = createSuccessfulRemoteDataObject(qualityAssuranceTopicObjectMorePid);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
   beforeEach(() => {
@@ -56,7 +56,7 @@ describe('QualityAssuranceTopicRestService', () => {
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('(a)', {
-        a: brokerTopicObjectRD
+        a: qaTopicObjectRD
       }),
       buildList: cold('(a)', {
         a: paginatedListRD
@@ -118,7 +118,7 @@ describe('QualityAssuranceTopicRestService', () => {
     it('should return a RemoteData<QualityAssuranceTopicObject> for the object with the given URL', () => {
       const result = service.getTopic(qualityAssuranceTopicObjectMorePid.id);
       const expected = cold('(a)', {
-        a: brokerTopicObjectRD
+        a: qaTopicObjectRD
       });
       expect(result).toBeObservable(expected);
     });

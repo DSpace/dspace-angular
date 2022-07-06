@@ -23,11 +23,11 @@ import { SourceDataResolver } from './admin-quality-assurance-source-page-compon
         pathMatch: 'full',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
-          openaireBrokerTopicsParams: AdminQualityAssuranceTopicsPageResolver
+          openaireQualityAssuranceTopicsParams: AdminQualityAssuranceTopicsPageResolver
         },
         data: {
-          title: 'admin.notifications.broker.page.title',
-          breadcrumbKey: 'admin.notifications.broker',
+          title: 'admin.quality-assurance.page.title',
+          breadcrumbKey: 'admin.quality-assurance',
           showBreadcrumbsFluid: false
         }
       },
@@ -38,7 +38,7 @@ import { SourceDataResolver } from './admin-quality-assurance-source-page-compon
         pathMatch: 'full',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
-          openaireBrokerSourceParams: AdminQualityAssuranceSourcePageResolver,
+          openaireQualityAssuranceSourceParams: AdminQualityAssuranceSourcePageResolver,
           sourceData: SourceDataResolver
         },
         data: {
@@ -54,7 +54,7 @@ import { SourceDataResolver } from './admin-quality-assurance-source-page-compon
         pathMatch: 'full',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
-          openaireBrokerEventsParams: AdminQualityAssuranceEventsPageResolver
+          openaireQualityAssuranceEventsParams: AdminQualityAssuranceEventsPageResolver
         },
         data: {
           title: 'admin.notifications.event.page.title',

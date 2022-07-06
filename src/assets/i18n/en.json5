@@ -499,15 +499,15 @@
 
   "admin.access-control.groups.form.return": "Back",
 
-  "admin.notifications.broker.breadcrumbs": "Quality Assurance",
+  "admin.quality-assurance.breadcrumbs": "Quality Assurance",
 
-  "admin.notifications.event.breadcrumbs": "Broker Suggestions",
+  "admin.notifications.event.breadcrumbs": "Quality Assurance Suggestions",
 
-  "admin.notifications.event.page.title": "Broker Suggestions",
+  "admin.notifications.event.page.title": "Quality Assurance Suggestions",
 
-  "admin.notifications.broker.page.title": "Quality Assurance",
+  "admin.quality-assurance.page.title": "Quality Assurance",
 
-  "admin.notifications.source.breadcrumbs": "Notifications Source",
+  "admin.notifications.source.breadcrumbs": "Quality Assurance Source",
 
   "admin.search.breadcrumbs": "Administrative Search",
 
@@ -2687,7 +2687,7 @@
 
   "menu.section.notifications": "Notifications",
 
-  "menu.section.notifications_broker": "Quality Assurance",
+  "menu.section.quality-assurance": "Quality Assurance",
 
   "menu.section.notifications_reciter": "Publication Claim",
 
@@ -2863,135 +2863,135 @@
 
   "none.listelement.badge": "Item",
 
-  "notifications.broker.title": "Notifications",
+  "quality-assurance.title": "Quality Assurance",
 
-  "notifications.broker.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
+  "quality-assurance.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
 
-  "notifications.broker.source.description": "Below you can see all the notification's sources.",
+  "quality-assurance.source.description": "Below you can see all the notification's sources.",
 
-  "notifications.broker.topics": "Current Topics",
+  "quality-assurance.topics": "Current Topics",
 
-  "notifications.broker.source": "Current Sources",
+  "quality-assurance.source": "Current Sources",
 
-  "notifications.broker.table.topic": "Topic",
+  "quality-assurance.table.topic": "Topic",
 
-  "notifications.broker.table.source": "Source",
+  "quality-assurance.table.source": "Source",
 
-  "notifications.broker.table.last-event": "Last Event",
+  "quality-assurance.table.last-event": "Last Event",
 
-  "notifications.broker.table.actions": "Actions",
+  "quality-assurance.table.actions": "Actions",
 
-  "notifications.broker.button.detail": "Show details",
+  "quality-assurance.button.detail": "Show details",
 
-  "notifications.broker.noTopics": "No topics found.",
+  "quality-assurance.noTopics": "No topics found.",
 
-  "notifications.broker.noSource": "No sources found.",
+  "quality-assurance.noSource": "No sources found.",
 
-  "notifications.events.title": "Broker Suggestions",
+  "notifications.events.title": "Quality Assurance Suggestions",
 
-  "notifications.broker.topic.error.service.retrieve": "An error occurred while loading the Quality Assurance topics",
+  "quality-assurance.topic.error.service.retrieve": "An error occurred while loading the Quality Assurance topics",
 
-  "notifications.broker.source.error.service.retrieve": "An error occurred while loading the Quality Assurance source",
+  "quality-assurance.source.error.service.retrieve": "An error occurred while loading the Quality Assurance source",
 
-  "notifications.broker.events.description": "Below the list of all the suggestions for the selected topic.",
+  "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic.",
 
-  "notifications.broker.loading": "Loading ...",
+  "quality-assurance.loading": "Loading ...",
 
-  "notifications.broker.events.topic": "Topic:",
+  "quality-assurance.events.topic": "Topic:",
 
-  "notifications.broker.noEvents": "No suggestions found.",
+  "quality-assurance.noEvents": "No suggestions found.",
 
-  "notifications.broker.event.table.trust": "Trust",
+  "quality-assurance.event.table.trust": "Trust",
 
-  "notifications.broker.event.table.publication": "Publication",
+  "quality-assurance.event.table.publication": "Publication",
 
-  "notifications.broker.event.table.details": "Details",
+  "quality-assurance.event.table.details": "Details",
 
-  "notifications.broker.event.table.project-details": "Project details",
+  "quality-assurance.event.table.project-details": "Project details",
 
-  "notifications.broker.event.table.actions": "Actions",
+  "quality-assurance.event.table.actions": "Actions",
 
-  "notifications.broker.event.action.accept": "Accept suggestion",
+  "quality-assurance.event.action.accept": "Accept suggestion",
 
-  "notifications.broker.event.action.ignore": "Ignore suggestion",
+  "quality-assurance.event.action.ignore": "Ignore suggestion",
 
-  "notifications.broker.event.action.reject": "Reject suggestion",
+  "quality-assurance.event.action.reject": "Reject suggestion",
 
-  "notifications.broker.event.action.import": "Import project and accept suggestion",
+  "quality-assurance.event.action.import": "Import project and accept suggestion",
 
-  "notifications.broker.event.table.pidtype": "PID Type:",
+  "quality-assurance.event.table.pidtype": "PID Type:",
 
-  "notifications.broker.event.table.pidvalue": "PID Value:",
+  "quality-assurance.event.table.pidvalue": "PID Value:",
 
-  "notifications.broker.event.table.subjectValue": "Subject Value:",
+  "quality-assurance.event.table.subjectValue": "Subject Value:",
 
-  "notifications.broker.event.table.abstract": "Abstract:",
+  "quality-assurance.event.table.abstract": "Abstract:",
 
-  "notifications.broker.event.table.suggestedProject": "OpenAIRE Suggested Project data",
+  "quality-assurance.event.table.suggestedProject": "OpenAIRE Suggested Project data",
 
-  "notifications.broker.event.table.project": "Project title:",
+  "quality-assurance.event.table.project": "Project title:",
 
-  "notifications.broker.event.table.acronym": "Acronym:",
+  "quality-assurance.event.table.acronym": "Acronym:",
 
-  "notifications.broker.event.table.code": "Code:",
+  "quality-assurance.event.table.code": "Code:",
 
-  "notifications.broker.event.table.funder": "Funder:",
+  "quality-assurance.event.table.funder": "Funder:",
 
-  "notifications.broker.event.table.fundingProgram": "Funding program:",
+  "quality-assurance.event.table.fundingProgram": "Funding program:",
 
-  "notifications.broker.event.table.jurisdiction": "Jurisdiction:",
+  "quality-assurance.event.table.jurisdiction": "Jurisdiction:",
 
-  "notifications.broker.events.back": "Back to topics",
+  "quality-assurance.events.back": "Back to topics",
 
-  "notifications.broker.event.table.less": "Show less",
+  "quality-assurance.event.table.less": "Show less",
 
-  "notifications.broker.event.table.more": "Show more",
+  "quality-assurance.event.table.more": "Show more",
 
-  "notifications.broker.event.project.found": "Bound to the local record:",
+  "quality-assurance.event.project.found": "Bound to the local record:",
 
-  "notifications.broker.event.project.notFound": "No local record found",
+  "quality-assurance.event.project.notFound": "No local record found",
 
-  "notifications.broker.event.sure": "Are you sure?",
+  "quality-assurance.event.sure": "Are you sure?",
 
-  "notifications.broker.event.ignore.description": "This operation can't be undone. Ignore this suggestion?",
+  "quality-assurance.event.ignore.description": "This operation can't be undone. Ignore this suggestion?",
 
-  "notifications.broker.event.reject.description": "This operation can't be undone. Reject this suggestion?",
+  "quality-assurance.event.reject.description": "This operation can't be undone. Reject this suggestion?",
 
-  "notifications.broker.event.accept.description": "No DSpace project selected. A new project will be created based on the suggestion data.",
+  "quality-assurance.event.accept.description": "No DSpace project selected. A new project will be created based on the suggestion data.",
 
-  "notifications.broker.event.action.cancel": "Cancel",
+  "quality-assurance.event.action.cancel": "Cancel",
 
-  "notifications.broker.event.action.saved": "Your decision has been saved successfully.",
+  "quality-assurance.event.action.saved": "Your decision has been saved successfully.",
 
-  "notifications.broker.event.action.error": "An error has occurred. Your decision has not been saved.",
+  "quality-assurance.event.action.error": "An error has occurred. Your decision has not been saved.",
 
-  "notifications.broker.event.modal.project.title": "Choose a project to bound",
+  "quality-assurance.event.modal.project.title": "Choose a project to bound",
 
-  "notifications.broker.event.modal.project.publication": "Publication:",
+  "quality-assurance.event.modal.project.publication": "Publication:",
 
-  "notifications.broker.event.modal.project.bountToLocal": "Bound to the local record:",
+  "quality-assurance.event.modal.project.bountToLocal": "Bound to the local record:",
 
-  "notifications.broker.event.modal.project.select": "Project search",
+  "quality-assurance.event.modal.project.select": "Project search",
 
-  "notifications.broker.event.modal.project.search": "Search",
+  "quality-assurance.event.modal.project.search": "Search",
 
-  "notifications.broker.event.modal.project.clear": "Clear",
+  "quality-assurance.event.modal.project.clear": "Clear",
 
-  "notifications.broker.event.modal.project.cancel": "Cancel",
+  "quality-assurance.event.modal.project.cancel": "Cancel",
 
-  "notifications.broker.event.modal.project.bound": "Bound project",
+  "quality-assurance.event.modal.project.bound": "Bound project",
 
-  "notifications.broker.event.modal.project.placeholder": "Enter a project name",
+  "quality-assurance.event.modal.project.placeholder": "Enter a project name",
 
-  "notifications.broker.event.modal.project.notFound": "No project found.",
+  "quality-assurance.event.modal.project.notFound": "No project found.",
 
-  "notifications.broker.event.project.bounded": "The project has been linked successfully.",
+  "quality-assurance.event.project.bounded": "The project has been linked successfully.",
 
-  "notifications.broker.event.project.removed": "The project has been successfully unlinked.",
+  "quality-assurance.event.project.removed": "The project has been successfully unlinked.",
 
-  "notifications.broker.event.project.error": "An error has occurred. No operation performed.",
+  "quality-assurance.event.project.error": "An error has occurred. No operation performed.",
 
-  "notifications.broker.event.reason": "Reason",
+  "quality-assurance.event.reason": "Reason",
 
 
   "orgunit.listelement.badge": "Organizational Unit",

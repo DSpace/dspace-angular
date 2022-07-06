@@ -23,7 +23,7 @@ const _getNotificationsState = createFeatureSelector<NotificationsState>('notifi
  * @return {QualityAssuranceTopicState}
  */
 export function qualityAssuranceTopicsStateSelector(): MemoizedSelector<NotificationsState, QualityAssuranceTopicState> {
-  return subStateSelector<NotificationsState,QualityAssuranceTopicState>(notificationsSelector, 'brokerTopic');
+  return subStateSelector<NotificationsState,QualityAssuranceTopicState>(notificationsSelector, 'qaTopic');
 }
 
 /**
@@ -41,7 +41,7 @@ export function qualityAssuranceTopicsObjectSelector(): MemoizedSelector<Notific
  * @return {boolean}
  */
 export const isQualityAssuranceTopicsLoadedSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.brokerTopic.loaded
+  (state: NotificationsState) => state.qaTopic.loaded
 );
 
 /**
@@ -50,7 +50,7 @@ export const isQualityAssuranceTopicsLoadedSelector = createSelector(_getNotific
  * @return {boolean}
  */
 export const isQualityAssuranceTopicsProcessingSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.brokerTopic.processing
+  (state: NotificationsState) => state.qaTopic.processing
 );
 
 /**
@@ -59,7 +59,7 @@ export const isQualityAssuranceTopicsProcessingSelector = createSelector(_getNot
  * @return {number}
  */
 export const getQualityAssuranceTopicsTotalPagesSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.brokerTopic.totalPages
+  (state: NotificationsState) => state.qaTopic.totalPages
 );
 
 /**
@@ -68,7 +68,7 @@ export const getQualityAssuranceTopicsTotalPagesSelector = createSelector(_getNo
  * @return {number}
  */
 export const getQualityAssuranceTopicsCurrentPageSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.brokerTopic.currentPage
+  (state: NotificationsState) => state.qaTopic.currentPage
 );
 
 /**
@@ -77,7 +77,7 @@ export const getQualityAssuranceTopicsCurrentPageSelector = createSelector(_getN
  * @return {number}
  */
 export const getQualityAssuranceTopicsTotalsSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.brokerTopic.totalElements
+  (state: NotificationsState) => state.qaTopic.totalElements
 );
 
 // Quality Assurance source
@@ -89,7 +89,7 @@ export const getQualityAssuranceTopicsTotalsSelector = createSelector(_getNotifi
  * @return {QualityAssuranceSourceState}
  */
  export function qualityAssuranceSourceStateSelector(): MemoizedSelector<NotificationsState, QualityAssuranceSourceState> {
-  return subStateSelector<NotificationsState,QualityAssuranceSourceState>(notificationsSelector, 'brokerSource');
+  return subStateSelector<NotificationsState,QualityAssuranceSourceState>(notificationsSelector, 'qaSource');
 }
 
 /**
@@ -107,7 +107,7 @@ export function qualityAssuranceSourceObjectSelector(): MemoizedSelector<Notific
  * @return {boolean}
  */
 export const isQualityAssuranceSourceLoadedSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.brokerSource.loaded
+  (state: NotificationsState) => state.qaSource.loaded
 );
 
 /**
@@ -116,7 +116,7 @@ export const isQualityAssuranceSourceLoadedSelector = createSelector(_getNotific
  * @return {boolean}
  */
 export const isQualityAssuranceSourceProcessingSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.brokerSource.processing
+  (state: NotificationsState) => state.qaSource.processing
 );
 
 /**
@@ -125,7 +125,7 @@ export const isQualityAssuranceSourceProcessingSelector = createSelector(_getNot
  * @return {number}
  */
 export const getQualityAssuranceSourceTotalPagesSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.brokerSource.totalPages
+  (state: NotificationsState) => state.qaSource.totalPages
 );
 
 /**
@@ -134,7 +134,7 @@ export const getQualityAssuranceSourceTotalPagesSelector = createSelector(_getNo
  * @return {number}
  */
 export const getQualityAssuranceSourceCurrentPageSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.brokerSource.currentPage
+  (state: NotificationsState) => state.qaSource.currentPage
 );
 
 /**
@@ -143,5 +143,5 @@ export const getQualityAssuranceSourceCurrentPageSelector = createSelector(_getN
  * @return {number}
  */
 export const getQualityAssuranceSourceTotalsSelector = createSelector(_getNotificationsState,
-  (state: NotificationsState) => state.brokerSource.totalElements
+  (state: NotificationsState) => state.qaSource.totalElements
 );

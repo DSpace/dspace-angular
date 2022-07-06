@@ -53,7 +53,7 @@ export class QualityAssuranceTopicsEffects {
   @Effect({ dispatch: false }) retrieveAllTopicsErrorAction$ = this.actions$.pipe(
     ofType(QualityAssuranceTopicActionTypes.RETRIEVE_ALL_TOPICS_ERROR),
     tap(() => {
-      this.notificationsService.error(null, this.translate.get('notifications.broker.topic.error.service.retrieve'));
+      this.notificationsService.error(null, this.translate.get('quality-assurance.topic.error.service.retrieve'));
     })
   );
 

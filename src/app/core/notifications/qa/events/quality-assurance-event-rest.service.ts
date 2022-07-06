@@ -33,7 +33,7 @@ class DataServiceImpl extends DataService<QualityAssuranceEventObject> {
   /**
    * The REST endpoint.
    */
-  protected linkPath = 'nbevents';
+  protected linkPath = 'qaevents';
 
   /**
    * Initialize service variables

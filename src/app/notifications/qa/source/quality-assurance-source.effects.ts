@@ -53,7 +53,7 @@ export class QualityAssuranceSourceEffects {
   @Effect({ dispatch: false }) retrieveAllSourceErrorAction$ = this.actions$.pipe(
     ofType(QualityAssuranceSourceActionTypes.RETRIEVE_ALL_SOURCE_ERROR),
     tap(() => {
-      this.notificationsService.error(null, this.translate.get('notifications.broker.source.error.service.retrieve'));
+      this.notificationsService.error(null, this.translate.get('quality-assurance.source.error.service.retrieve'));
     })
   );
 

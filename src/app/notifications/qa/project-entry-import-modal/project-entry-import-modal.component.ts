@@ -15,7 +15,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   QualityAssuranceEventObject,
   QualityAssuranceEventMessageObject,
-  OpenaireBrokerEventMessageObject,
+  OpenaireQualityAssuranceEventMessageObject,
 } from '../../../core/notifications/qa/models/quality-assurance-event.model';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { Item } from '../../../core/shared/item.model';
@@ -98,7 +98,7 @@ export class ProjectEntryImportModalComponent implements OnInit {
   /**
    * The prefix for every i18n key within this modal
    */
-  labelPrefix = 'notifications.broker.event.modal.';
+  labelPrefix = 'quality-assurance.event.modal.';
   /**
    * The search configuration to retrieve project
    */
@@ -181,7 +181,7 @@ export class ProjectEntryImportModalComponent implements OnInit {
   public ngOnInit(): void {
     this.pagination = Object.assign(new PaginationComponentOptions(), { id: 'notifications-project-bound', pageSize: this.pageSize });
     this.projectTitle = (this.externalSourceEntry.projectTitle !== null) ? this.externalSourceEntry.projectTitle
-      : (this.externalSourceEntry.event.message as OpenaireBrokerEventMessageObject).title;
+      : (this.externalSourceEntry.event.message as OpenaireQualityAssuranceEventMessageObject).title;
     this.searchOptions = Object.assign(new PaginatedSearchOptions(
       {
         configuration: this.configuration,

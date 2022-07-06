@@ -1334,37 +1334,37 @@ export const NotificationsMockDspaceObject: SearchResult<DSpaceObject> = Object.
 // -------------------------------------------------------------------------------
 
 export const qualityAssuranceSourceObjectMorePid: QualityAssuranceSourceObject = {
-  type: new ResourceType('nbsource'),
+  type: new ResourceType('qasource'),
   id: 'ENRICH!MORE!PID',
   lastEvent: '2020/10/09 10:11 UTC',
   totalEvents: 33,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbsources/ENRICH!MORE!PID'
+      href: 'https://rest.api/rest/api/integration/qasources/ENRICH!MORE!PID'
     }
   }
 };
 
 export const qualityAssuranceSourceObjectMoreAbstract: QualityAssuranceSourceObject = {
-  type: new ResourceType('nbsource'),
+  type: new ResourceType('qasource'),
   id: 'ENRICH!MORE!ABSTRACT',
   lastEvent: '2020/09/08 21:14 UTC',
   totalEvents: 5,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbsources/ENRICH!MORE!ABSTRACT'
+      href: 'https://rest.api/rest/api/integration/qasources/ENRICH!MORE!ABSTRACT'
     }
   }
 };
 
 export const qualityAssuranceSourceObjectMissingPid: QualityAssuranceSourceObject = {
-  type: new ResourceType('nbsource'),
+  type: new ResourceType('qasource'),
   id: 'ENRICH!MISSING!PID',
   lastEvent: '2020/10/01 07:36 UTC',
   totalEvents: 4,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbsources/ENRICH!MISSING!PID'
+      href: 'https://rest.api/rest/api/integration/qasources/ENRICH!MISSING!PID'
     }
   }
 };
@@ -1373,79 +1373,79 @@ export const qualityAssuranceSourceObjectMissingPid: QualityAssuranceSourceObjec
 // -------------------------------------------------------------------------------
 
 export const qualityAssuranceTopicObjectMorePid: QualityAssuranceTopicObject = {
-  type: new ResourceType('nbtopic'),
+  type: new ResourceType('qatopic'),
   id: 'ENRICH!MORE!PID',
   name: 'ENRICH/MORE/PID',
   lastEvent: '2020/10/09 10:11 UTC',
   totalEvents: 33,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbtopics/ENRICH!MORE!PID'
+      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MORE!PID'
     }
   }
 };
 
 export const qualityAssuranceTopicObjectMoreAbstract: QualityAssuranceTopicObject = {
-  type: new ResourceType('nbtopic'),
+  type: new ResourceType('qatopic'),
   id: 'ENRICH!MORE!ABSTRACT',
   name: 'ENRICH/MORE/ABSTRACT',
   lastEvent: '2020/09/08 21:14 UTC',
   totalEvents: 5,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbtopics/ENRICH!MORE!ABSTRACT'
+      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MORE!ABSTRACT'
     }
   }
 };
 
 export const qualityAssuranceTopicObjectMissingPid: QualityAssuranceTopicObject = {
-  type: new ResourceType('nbtopic'),
+  type: new ResourceType('qatopic'),
   id: 'ENRICH!MISSING!PID',
   name: 'ENRICH/MISSING/PID',
   lastEvent: '2020/10/01 07:36 UTC',
   totalEvents: 4,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbtopics/ENRICH!MISSING!PID'
+      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MISSING!PID'
     }
   }
 };
 
 export const qualityAssuranceTopicObjectMissingAbstract: QualityAssuranceTopicObject = {
-  type: new ResourceType('nbtopic'),
+  type: new ResourceType('qatopic'),
   id: 'ENRICH!MISSING!ABSTRACT',
   name: 'ENRICH/MISSING/ABSTRACT',
   lastEvent: '2020/10/08 16:14 UTC',
   totalEvents: 71,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbtopics/ENRICH!MISSING!ABSTRACT'
+      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MISSING!ABSTRACT'
     }
   }
 };
 
 export const qualityAssuranceTopicObjectMissingAcm: QualityAssuranceTopicObject = {
-  type: new ResourceType('nbtopic'),
+  type: new ResourceType('qatopic'),
   id: 'ENRICH!MISSING!SUBJECT!ACM',
   name: 'ENRICH/MISSING/SUBJECT/ACM',
   lastEvent: '2020/09/21 17:51 UTC',
   totalEvents: 18,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbtopics/ENRICH!MISSING!SUBJECT!ACM'
+      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MISSING!SUBJECT!ACM'
     }
   }
 };
 
 export const qualityAssuranceTopicObjectMissingProject: QualityAssuranceTopicObject = {
-  type: new ResourceType('nbtopic'),
+  type: new ResourceType('qatopic'),
   id: 'ENRICH!MISSING!PROJECT',
   name: 'ENRICH/MISSING/PROJECT',
   lastEvent: '2020/09/17 10:28 UTC',
   totalEvents: 6,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbtopics/ENRICH!MISSING!PROJECT'
+      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MISSING!PROJECT'
     }
   }
 };
@@ -1456,7 +1456,7 @@ export const qualityAssuranceTopicObjectMissingProject: QualityAssuranceTopicObj
 export const qualityAssuranceEventObjectMissingPid: QualityAssuranceEventObject = {
   id: '123e4567-e89b-12d3-a456-426614174001',
   uuid: '123e4567-e89b-12d3-a456-426614174001',
-  type: new ResourceType('nbevent'),
+  type: new ResourceType('qaevent'),
   originalId: 'oai:www.openstarts.units.it:10077/21486',
   title: 'Index nominum et rerum',
   trust: 0.375,
@@ -1476,13 +1476,13 @@ export const qualityAssuranceEventObjectMissingPid: QualityAssuranceEventObject 
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174001',
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174001',
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174001/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174001/target'
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174001/related'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174001/related'
     }
   },
   target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid1)),
@@ -1512,13 +1512,13 @@ export const qualityAssuranceEventObjectMissingPid2: QualityAssuranceEventObject
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174004'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174004'
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174004/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174004/target'
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174004/related'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174004/related'
     }
   },
   target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid2)),
@@ -1548,13 +1548,13 @@ export const qualityAssuranceEventObjectMissingPid3: QualityAssuranceEventObject
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174005'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174005'
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174005/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174005/target'
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174005/related'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174005/related'
     }
   },
   target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid3)),
@@ -1584,13 +1584,13 @@ export const qualityAssuranceEventObjectMissingPid4: QualityAssuranceEventObject
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174006'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174006'
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174006/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174006/target'
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174006/related'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174006/related'
     }
   },
   target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid4)),
@@ -1620,13 +1620,13 @@ export const qualityAssuranceEventObjectMissingPid5: QualityAssuranceEventObject
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174007'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174007'
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174007/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174007/target'
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174007/related'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174007/related'
     }
   },
   target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid5)),
@@ -1656,13 +1656,13 @@ export const qualityAssuranceEventObjectMissingPid6: QualityAssuranceEventObject
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174008'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174008'
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174008/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174008/target'
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174008/related'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174008/related'
     }
   },
   target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid6)),
@@ -1692,13 +1692,13 @@ export const qualityAssuranceEventObjectMissingAbstract: QualityAssuranceEventOb
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174009'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174009'
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174009/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174009/target'
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174009/related'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174009/related'
     }
   },
   target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid7)),
@@ -1728,13 +1728,13 @@ export const qualityAssuranceEventObjectMissingProjectFound: QualityAssuranceEve
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174002'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174002'
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174002/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174002/target'
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174002/related'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174002/related'
     }
   },
   target: createSuccessfulRemoteDataObject$(ItemMockPid8),
@@ -1764,13 +1764,13 @@ export const qualityAssuranceEventObjectMissingProjectNotFound: QualityAssurance
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174003'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174003'
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174003/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174003/target'
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174003/related'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174003/related'
     }
   },
   target: createSuccessfulRemoteDataObject$(ItemMockPid9),
