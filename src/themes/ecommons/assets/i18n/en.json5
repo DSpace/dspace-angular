@@ -1,0 +1,7 @@
+{
+  "menu.section.browse_global": "Browse DSpace",
+
+  "repository.title.prefix": "Cornell eCommons :: ",
+  "repository.title.prefixDSpace": "Cornell eCommons ::",
+  "footer.copyright": "© {{ year }}"
+}

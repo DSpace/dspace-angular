@@ -1,0 +1,60 @@
+// Homepage Styles //
+
+p.lead {
+	border-bottom: 2px solid var(--cul-red);
+	margin-bottom: 20px;
+}
+.pagination-masked {
+	border-bottom: 1px solid #eee;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+li.mb-4 {
+	border-bottom: 1px solid #eee;
+	padding-bottom: 10px;
+	color: #000;
+	a {
+		color: var(--cul-red);
+		font-weight: bold;
+		&:hover {
+			color: var(--cul-red-darker);
+		}
+	}
+	.text-muted {
+		color: #000 !important;
+	}
+}
+.col-sm-6 {
+	border-bottom: 1px solid #eee;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+
+// Community Page Styles //
+
+.breadcrumb {
+	a {
+		color: var(--cul-red);
+		&:hover {
+			color: var(--cul-red-darker);
+		}
+	}
+}
+.badge-info {
+	background-color: var(--cul-gray);
+}
+a.dont-break-out {
+	color: var(--cul-red);
+	&:hover {
+		color: var(--cul-red-darker);
+	}
+}
+.btn-secondary {
+	background-color: var(--cul-gray);
+	border-color: var(--cul-gray);
+}
+.dropdown-header {
+	color: var(--cul-gray);
+	border-bottom: 1px solid #eee;
+}
