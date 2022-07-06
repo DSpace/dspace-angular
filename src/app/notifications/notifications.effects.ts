@@ -1,7 +1,7 @@
-import { NotificationsBrokerSourceEffects } from './broker/source/notifications-broker-source.effects';
-import { NotificationsBrokerTopicsEffects } from './broker/topics/notifications-broker-topics.effects';
+import { QualityAssuranceSourceEffects } from './qa/source/quality-assurance-source.effects';
+import { QualityAssuranceTopicsEffects } from './qa/topics/quality-assurance-topics.effects';
 
 export const notificationsEffects = [
-  NotificationsBrokerTopicsEffects,
-  NotificationsBrokerSourceEffects
+  QualityAssuranceTopicsEffects,
+  QualityAssuranceSourceEffects
 ];

@@ -1,10 +1,10 @@
 import { createSelector, MemoizedSelector } from '@ngrx/store';
 import { subStateSelector } from '../shared/selector.util';
 import { notificationsSelector, NotificationsState } from './notifications.reducer';
-import { NotificationsBrokerTopicObject } from '../core/notifications/broker/models/notifications-broker-topic.model';
-import { NotificationsBrokerTopicState } from './broker/topics/notifications-broker-topics.reducer';
-import { NotificationsBrokerSourceState } from './broker/source/notifications-broker-source.reducer';
-import { NotificationsBrokerSourceObject } from '../core/notifications/broker/models/notifications-broker-source.model';
+import { QualityAssuranceTopicObject } from '../core/notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceTopicState } from './qa/topics/quality-assurance-topics.reducer';
+import { QualityAssuranceSourceState } from './qa/source/quality-assurance-source.reducer';
+import { QualityAssuranceSourceObject } from '../core/notifications/qa/models/quality-assurance-source.model';
 
 /**
  * Returns the Notifications state.
@@ -14,33 +14,33 @@ import { NotificationsBrokerSourceObject } from '../core/notifications/broker/mo
  */
 const _getNotificationsState = (state: any) => state.notifications;
 
-// Notifications Broker topics
+// Quality Assurance topics
 // ----------------------------------------------------------------------------
 
 /**
- * Returns the Notifications Broker topics State.
- * @function notificationsBrokerTopicsStateSelector
- * @return {NotificationsBrokerTopicState}
+ * Returns the Quality Assurance topics State.
+ * @function qualityAssuranceTopicsStateSelector
+ * @return {QualityAssuranceTopicState}
  */
-export function notificationsBrokerTopicsStateSelector(): MemoizedSelector<NotificationsState, NotificationsBrokerTopicState> {
-  return subStateSelector<NotificationsState,NotificationsBrokerTopicState>(notificationsSelector, 'brokerTopic');
+export function qualityAssuranceTopicsStateSelector(): MemoizedSelector<NotificationsState, QualityAssuranceTopicState> {
+  return subStateSelector<NotificationsState,QualityAssuranceTopicState>(notificationsSelector, 'brokerTopic');
 }
 
 /**
- * Returns the Notifications Broker topics list.
- * @function notificationsBrokerTopicsObjectSelector
- * @return {NotificationsBrokerTopicObject[]}
+ * Returns the Quality Assurance topics list.
+ * @function qualityAssuranceTopicsObjectSelector
+ * @return {QualityAssuranceTopicObject[]}
  */
-export function notificationsBrokerTopicsObjectSelector(): MemoizedSelector<NotificationsState, NotificationsBrokerTopicObject[]> {
-  return subStateSelector<NotificationsState, NotificationsBrokerTopicObject[]>(notificationsBrokerTopicsStateSelector(), 'topics');
+export function qualityAssuranceTopicsObjectSelector(): MemoizedSelector<NotificationsState, QualityAssuranceTopicObject[]> {
+  return subStateSelector<NotificationsState, QualityAssuranceTopicObject[]>(qualityAssuranceTopicsStateSelector(), 'topics');
 }
 
 /**
- * Returns true if the Notifications Broker topics are loaded.
- * @function isNotificationsBrokerTopicsLoadedSelector
+ * Returns true if the Quality Assurance topics are loaded.
+ * @function isQualityAssuranceTopicsLoadedSelector
  * @return {boolean}
  */
-export const isNotificationsBrokerTopicsLoadedSelector = createSelector(_getNotificationsState,
+export const isQualityAssuranceTopicsLoadedSelector = createSelector(_getNotificationsState,
   (state: NotificationsState) => state.brokerTopic.loaded
 );
 
@@ -49,64 +49,64 @@ export const isNotificationsBrokerTopicsLoadedSelector = createSelector(_getNoti
  * @function isDeduplicationSetsProcessingSelector
  * @return {boolean}
  */
-export const isNotificationsBrokerTopicsProcessingSelector = createSelector(_getNotificationsState,
+export const isQualityAssuranceTopicsProcessingSelector = createSelector(_getNotificationsState,
   (state: NotificationsState) => state.brokerTopic.processing
 );
 
 /**
- * Returns the total available pages of Notifications Broker topics.
- * @function getNotificationsBrokerTopicsTotalPagesSelector
+ * Returns the total available pages of Quality Assurance topics.
+ * @function getQualityAssuranceTopicsTotalPagesSelector
  * @return {number}
  */
-export const getNotificationsBrokerTopicsTotalPagesSelector = createSelector(_getNotificationsState,
+export const getQualityAssuranceTopicsTotalPagesSelector = createSelector(_getNotificationsState,
   (state: NotificationsState) => state.brokerTopic.totalPages
 );
 
 /**
- * Returns the current page of Notifications Broker topics.
- * @function getNotificationsBrokerTopicsCurrentPageSelector
+ * Returns the current page of Quality Assurance topics.
+ * @function getQualityAssuranceTopicsCurrentPageSelector
  * @return {number}
  */
-export const getNotificationsBrokerTopicsCurrentPageSelector = createSelector(_getNotificationsState,
+export const getQualityAssuranceTopicsCurrentPageSelector = createSelector(_getNotificationsState,
   (state: NotificationsState) => state.brokerTopic.currentPage
 );
 
 /**
- * Returns the total number of Notifications Broker topics.
- * @function getNotificationsBrokerTopicsTotalsSelector
+ * Returns the total number of Quality Assurance topics.
+ * @function getQualityAssuranceTopicsTotalsSelector
  * @return {number}
  */
-export const getNotificationsBrokerTopicsTotalsSelector = createSelector(_getNotificationsState,
+export const getQualityAssuranceTopicsTotalsSelector = createSelector(_getNotificationsState,
   (state: NotificationsState) => state.brokerTopic.totalElements
 );
 
-// Notifications Broker source
+// Quality Assurance source
 // ----------------------------------------------------------------------------
 
 /**
- * Returns the Notifications Broker source State.
- * @function notificationsBrokerSourceStateSelector
- * @return {NotificationsBrokerSourceState}
+ * Returns the Quality Assurance source State.
+ * @function qualityAssuranceSourceStateSelector
+ * @return {QualityAssuranceSourceState}
  */
- export function notificationsBrokerSourceStateSelector(): MemoizedSelector<NotificationsState, NotificationsBrokerSourceState> {
-  return subStateSelector<NotificationsState,NotificationsBrokerSourceState>(notificationsSelector, 'brokerSource');
+ export function qualityAssuranceSourceStateSelector(): MemoizedSelector<NotificationsState, QualityAssuranceSourceState> {
+  return subStateSelector<NotificationsState,QualityAssuranceSourceState>(notificationsSelector, 'brokerSource');
 }
 
 /**
- * Returns the Notifications Broker source list.
- * @function notificationsBrokerSourceObjectSelector
- * @return {NotificationsBrokerSourceObject[]}
+ * Returns the Quality Assurance source list.
+ * @function qualityAssuranceSourceObjectSelector
+ * @return {QualityAssuranceSourceObject[]}
  */
-export function notificationsBrokerSourceObjectSelector(): MemoizedSelector<NotificationsState, NotificationsBrokerSourceObject[]> {
-  return subStateSelector<NotificationsState, NotificationsBrokerSourceObject[]>(notificationsBrokerSourceStateSelector(), 'source');
+export function qualityAssuranceSourceObjectSelector(): MemoizedSelector<NotificationsState, QualityAssuranceSourceObject[]> {
+  return subStateSelector<NotificationsState, QualityAssuranceSourceObject[]>(qualityAssuranceSourceStateSelector(), 'source');
 }
 
 /**
- * Returns true if the Notifications Broker source are loaded.
- * @function isNotificationsBrokerSourceLoadedSelector
+ * Returns true if the Quality Assurance source are loaded.
+ * @function isQualityAssuranceSourceLoadedSelector
  * @return {boolean}
  */
-export const isNotificationsBrokerSourceLoadedSelector = createSelector(_getNotificationsState,
+export const isQualityAssuranceSourceLoadedSelector = createSelector(_getNotificationsState,
   (state: NotificationsState) => state.brokerSource.loaded
 );
 
@@ -115,33 +115,33 @@ export const isNotificationsBrokerSourceLoadedSelector = createSelector(_getNoti
  * @function isDeduplicationSetsProcessingSelector
  * @return {boolean}
  */
-export const isNotificationsBrokerSourceProcessingSelector = createSelector(_getNotificationsState,
+export const isQualityAssuranceSourceProcessingSelector = createSelector(_getNotificationsState,
   (state: NotificationsState) => state.brokerSource.processing
 );
 
 /**
- * Returns the total available pages of Notifications Broker source.
- * @function getNotificationsBrokerSourceTotalPagesSelector
+ * Returns the total available pages of Quality Assurance source.
+ * @function getQualityAssuranceSourceTotalPagesSelector
  * @return {number}
  */
-export const getNotificationsBrokerSourceTotalPagesSelector = createSelector(_getNotificationsState,
+export const getQualityAssuranceSourceTotalPagesSelector = createSelector(_getNotificationsState,
   (state: NotificationsState) => state.brokerSource.totalPages
 );
 
 /**
- * Returns the current page of Notifications Broker source.
- * @function getNotificationsBrokerSourceCurrentPageSelector
+ * Returns the current page of Quality Assurance source.
+ * @function getQualityAssuranceSourceCurrentPageSelector
  * @return {number}
  */
-export const getNotificationsBrokerSourceCurrentPageSelector = createSelector(_getNotificationsState,
+export const getQualityAssuranceSourceCurrentPageSelector = createSelector(_getNotificationsState,
   (state: NotificationsState) => state.brokerSource.currentPage
 );
 
 /**
- * Returns the total number of Notifications Broker source.
- * @function getNotificationsBrokerSourceTotalsSelector
+ * Returns the total number of Quality Assurance source.
+ * @function getQualityAssuranceSourceTotalsSelector
  * @return {number}
  */
-export const getNotificationsBrokerSourceTotalsSelector = createSelector(_getNotificationsState,
+export const getQualityAssuranceSourceTotalsSelector = createSelector(_getNotificationsState,
   (state: NotificationsState) => state.brokerSource.totalElements
 );

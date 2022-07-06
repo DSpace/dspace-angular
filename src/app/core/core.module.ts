@@ -167,9 +167,9 @@ import { SequenceService } from './shared/sequence.service';
 import { CoreState } from './core-state.model';
 import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
-import { NotificationsBrokerTopicObject } from './notifications/broker/models/notifications-broker-topic.model';
-import { NotificationsBrokerEventObject } from './notifications/broker/models/notifications-broker-event.model';
-import { NotificationsBrokerSourceObject } from './notifications/broker/models/notifications-broker-source.model';
+import { QualityAssuranceTopicObject } from './notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceEventObject } from './notifications/qa/models/quality-assurance-event.model';
+import { QualityAssuranceSourceObject } from './notifications/qa/models/quality-assurance-source.model';
 import { AccessStatusObject } from '../shared/object-list/access-status-badge/access-status.model';
 import { AccessStatusDataService } from './data/access-status-data.service';
 import { LinkHeadService } from './services/link-head.service';
@@ -369,12 +369,12 @@ export const models =
     ShortLivedToken,
     Registration,
     UsageReport,
-    NotificationsBrokerTopicObject,
-    NotificationsBrokerEventObject,
+    QualityAssuranceTopicObject,
+    QualityAssuranceEventObject,
     Root,
     SearchConfig,
     SubmissionAccessesModel,
-    NotificationsBrokerSourceObject,
+    QualityAssuranceSourceObject,
     AccessStatusObject,
     ResearcherProfile,
     OrcidQueue,

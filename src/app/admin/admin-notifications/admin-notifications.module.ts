@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { CoreModule } from '../../core/core.module';
 import { SharedModule } from '../../shared/shared.module';
 import { AdminNotificationsRoutingModule } from './admin-notifications-routing.module';
-import { AdminNotificationsBrokerTopicsPageComponent } from './admin-notifications-broker-topics-page/admin-notifications-broker-topics-page.component';
-import { AdminNotificationsBrokerEventsPageComponent } from './admin-notifications-broker-events-page/admin-notifications-broker-events-page.component';
+import { AdminQualityAssuranceTopicsPageComponent } from './admin-quality-assurance-topics-page/admin-quality-assurance-topics-page.component';
+import { AdminQualityAssuranceEventsPageComponent } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.component';
 import { NotificationsModule } from '../../notifications/notifications.module';
-import { AdminNotificationsBrokerSourcePageComponent } from './admin-notifications-broker-source-page-component/admin-notifications-broker-source-page.component';
+import { AdminQualityAssuranceSourcePageComponent } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page.component';
 
 @NgModule({
   imports: [
@@ -17,9 +17,9 @@ import { AdminNotificationsBrokerSourcePageComponent } from './admin-notificatio
     NotificationsModule
   ],
   declarations: [
-    AdminNotificationsBrokerTopicsPageComponent,
-    AdminNotificationsBrokerEventsPageComponent,
-    AdminNotificationsBrokerSourcePageComponent
+    AdminQualityAssuranceTopicsPageComponent,
+    AdminQualityAssuranceEventsPageComponent,
+    AdminQualityAssuranceSourcePageComponent
   ],
   entryComponents: []
 })

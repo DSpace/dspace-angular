@@ -3,24 +3,24 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
-  getNotificationsBrokerTopicsCurrentPageSelector,
-  getNotificationsBrokerTopicsTotalPagesSelector,
-  getNotificationsBrokerTopicsTotalsSelector,
-  isNotificationsBrokerTopicsLoadedSelector,
-  notificationsBrokerTopicsObjectSelector,
-  isNotificationsBrokerTopicsProcessingSelector,
-  notificationsBrokerSourceObjectSelector,
-  isNotificationsBrokerSourceLoadedSelector,
-  isNotificationsBrokerSourceProcessingSelector,
-  getNotificationsBrokerSourceTotalPagesSelector,
-  getNotificationsBrokerSourceCurrentPageSelector,
-  getNotificationsBrokerSourceTotalsSelector
+  getQualityAssuranceTopicsCurrentPageSelector,
+  getQualityAssuranceTopicsTotalPagesSelector,
+  getQualityAssuranceTopicsTotalsSelector,
+  isQualityAssuranceTopicsLoadedSelector,
+  qualityAssuranceTopicsObjectSelector,
+  isQualityAssuranceTopicsProcessingSelector,
+  qualityAssuranceSourceObjectSelector,
+  isQualityAssuranceSourceLoadedSelector,
+  isQualityAssuranceSourceProcessingSelector,
+  getQualityAssuranceSourceTotalPagesSelector,
+  getQualityAssuranceSourceCurrentPageSelector,
+  getQualityAssuranceSourceTotalsSelector
 } from './selectors';
-import { NotificationsBrokerTopicObject } from '../core/notifications/broker/models/notifications-broker-topic.model';
+import { QualityAssuranceTopicObject } from '../core/notifications/qa/models/quality-assurance-topic.model';
 import { NotificationsState } from './notifications.reducer';
-import { RetrieveAllTopicsAction } from './broker/topics/notifications-broker-topics.actions';
-import { NotificationsBrokerSourceObject } from '../core/notifications/broker/models/notifications-broker-source.model';
-import { RetrieveAllSourceAction } from './broker/source/notifications-broker-source.actions';
+import { RetrieveAllTopicsAction } from './qa/topics/quality-assurance-topics.actions';
+import { QualityAssuranceSourceObject } from '../core/notifications/qa/models/quality-assurance-source.model';
+import { RetrieveAllSourceAction } from './qa/source/quality-assurance-source.actions';
 
 /**
  * The service handling the Notifications State.
@@ -34,179 +34,179 @@ export class NotificationsStateService {
    */
   constructor(private store: Store<NotificationsState>) { }
 
-  // Notifications Broker topics
+  // Quality Assurance topics
   // --------------------------------------------------------------------------
 
   /**
-   * Returns the list of Notifications Broker topics from the state.
+   * Returns the list of Quality Assurance topics from the state.
    *
-   * @return Observable<NotificationsBrokerTopicObject>
-   *    The list of Notifications Broker topics.
+   * @return Observable<QualityAssuranceTopicObject>
+   *    The list of Quality Assurance topics.
    */
-  public getNotificationsBrokerTopics(): Observable<NotificationsBrokerTopicObject[]> {
-    return this.store.pipe(select(notificationsBrokerTopicsObjectSelector()));
+  public getQualityAssuranceTopics(): Observable<QualityAssuranceTopicObject[]> {
+    return this.store.pipe(select(qualityAssuranceTopicsObjectSelector()));
   }
 
   /**
-   * Returns the information about the loading status of the Notifications Broker topics (if it's running or not).
+   * Returns the information about the loading status of the Quality Assurance topics (if it's running or not).
    *
    * @return Observable<boolean>
    *    'true' if the topics are loading, 'false' otherwise.
    */
-  public isNotificationsBrokerTopicsLoading(): Observable<boolean> {
+  public isQualityAssuranceTopicsLoading(): Observable<boolean> {
     return this.store.pipe(
-      select(isNotificationsBrokerTopicsLoadedSelector),
+      select(isQualityAssuranceTopicsLoadedSelector),
       map((loaded: boolean) => !loaded)
     );
   }
 
   /**
-   * Returns the information about the loading status of the Notifications Broker topics (whether or not they were loaded).
+   * Returns the information about the loading status of the Quality Assurance topics (whether or not they were loaded).
    *
    * @return Observable<boolean>
    *    'true' if the topics are loaded, 'false' otherwise.
    */
-  public isNotificationsBrokerTopicsLoaded(): Observable<boolean> {
-    return this.store.pipe(select(isNotificationsBrokerTopicsLoadedSelector));
+  public isQualityAssuranceTopicsLoaded(): Observable<boolean> {
+    return this.store.pipe(select(isQualityAssuranceTopicsLoadedSelector));
   }
 
   /**
-   * Returns the information about the processing status of the Notifications Broker topics (if it's running or not).
+   * Returns the information about the processing status of the Quality Assurance topics (if it's running or not).
    *
    * @return Observable<boolean>
    *    'true' if there are operations running on the topics (ex.: a REST call), 'false' otherwise.
    */
-  public isNotificationsBrokerTopicsProcessing(): Observable<boolean> {
-    return this.store.pipe(select(isNotificationsBrokerTopicsProcessingSelector));
+  public isQualityAssuranceTopicsProcessing(): Observable<boolean> {
+    return this.store.pipe(select(isQualityAssuranceTopicsProcessingSelector));
   }
 
   /**
-   * Returns, from the state, the total available pages of the Notifications Broker topics.
+   * Returns, from the state, the total available pages of the Quality Assurance topics.
    *
    * @return Observable<number>
-   *    The number of the Notifications Broker topics pages.
+   *    The number of the Quality Assurance topics pages.
    */
-  public getNotificationsBrokerTopicsTotalPages(): Observable<number> {
-    return this.store.pipe(select(getNotificationsBrokerTopicsTotalPagesSelector));
+  public getQualityAssuranceTopicsTotalPages(): Observable<number> {
+    return this.store.pipe(select(getQualityAssuranceTopicsTotalPagesSelector));
   }
 
   /**
-   * Returns the current page of the Notifications Broker topics, from the state.
+   * Returns the current page of the Quality Assurance topics, from the state.
    *
    * @return Observable<number>
-   *    The number of the current Notifications Broker topics page.
+   *    The number of the current Quality Assurance topics page.
    */
-  public getNotificationsBrokerTopicsCurrentPage(): Observable<number> {
-    return this.store.pipe(select(getNotificationsBrokerTopicsCurrentPageSelector));
+  public getQualityAssuranceTopicsCurrentPage(): Observable<number> {
+    return this.store.pipe(select(getQualityAssuranceTopicsCurrentPageSelector));
   }
 
   /**
-   * Returns the total number of the Notifications Broker topics.
+   * Returns the total number of the Quality Assurance topics.
    *
    * @return Observable<number>
-   *    The number of the Notifications Broker topics.
+   *    The number of the Quality Assurance topics.
    */
-  public getNotificationsBrokerTopicsTotals(): Observable<number> {
-    return this.store.pipe(select(getNotificationsBrokerTopicsTotalsSelector));
+  public getQualityAssuranceTopicsTotals(): Observable<number> {
+    return this.store.pipe(select(getQualityAssuranceTopicsTotalsSelector));
   }
 
   /**
-   * Dispatch a request to change the Notifications Broker topics state, retrieving the topics from the server.
+   * Dispatch a request to change the Quality Assurance topics state, retrieving the topics from the server.
    *
    * @param elementsPerPage
    *    The number of the topics per page.
    * @param currentPage
    *    The number of the current page.
    */
-  public dispatchRetrieveNotificationsBrokerTopics(elementsPerPage: number, currentPage: number): void {
+  public dispatchRetrieveQualityAssuranceTopics(elementsPerPage: number, currentPage: number): void {
     this.store.dispatch(new RetrieveAllTopicsAction(elementsPerPage, currentPage));
   }
 
-  // Notifications Broker source
+  // Quality Assurance source
   // --------------------------------------------------------------------------
 
   /**
-   * Returns the list of Notifications Broker source from the state.
+   * Returns the list of Quality Assurance source from the state.
    *
-   * @return Observable<NotificationsBrokerSourceObject>
-   *    The list of Notifications Broker source.
+   * @return Observable<QualityAssuranceSourceObject>
+   *    The list of Quality Assurance source.
    */
-   public getNotificationsBrokerSource(): Observable<NotificationsBrokerSourceObject[]> {
-    return this.store.pipe(select(notificationsBrokerSourceObjectSelector()));
+   public getQualityAssuranceSource(): Observable<QualityAssuranceSourceObject[]> {
+    return this.store.pipe(select(qualityAssuranceSourceObjectSelector()));
   }
 
   /**
-   * Returns the information about the loading status of the Notifications Broker source (if it's running or not).
+   * Returns the information about the loading status of the Quality Assurance source (if it's running or not).
    *
    * @return Observable<boolean>
    *    'true' if the source are loading, 'false' otherwise.
    */
-  public isNotificationsBrokerSourceLoading(): Observable<boolean> {
+  public isQualityAssuranceSourceLoading(): Observable<boolean> {
     return this.store.pipe(
-      select(isNotificationsBrokerSourceLoadedSelector),
+      select(isQualityAssuranceSourceLoadedSelector),
       map((loaded: boolean) => !loaded)
     );
   }
 
   /**
-   * Returns the information about the loading status of the Notifications Broker source (whether or not they were loaded).
+   * Returns the information about the loading status of the Quality Assurance source (whether or not they were loaded).
    *
    * @return Observable<boolean>
    *    'true' if the source are loaded, 'false' otherwise.
    */
-  public isNotificationsBrokerSourceLoaded(): Observable<boolean> {
-    return this.store.pipe(select(isNotificationsBrokerSourceLoadedSelector));
+  public isQualityAssuranceSourceLoaded(): Observable<boolean> {
+    return this.store.pipe(select(isQualityAssuranceSourceLoadedSelector));
   }
 
   /**
-   * Returns the information about the processing status of the Notifications Broker source (if it's running or not).
+   * Returns the information about the processing status of the Quality Assurance source (if it's running or not).
    *
    * @return Observable<boolean>
    *    'true' if there are operations running on the source (ex.: a REST call), 'false' otherwise.
    */
-  public isNotificationsBrokerSourceProcessing(): Observable<boolean> {
-    return this.store.pipe(select(isNotificationsBrokerSourceProcessingSelector));
+  public isQualityAssuranceSourceProcessing(): Observable<boolean> {
+    return this.store.pipe(select(isQualityAssuranceSourceProcessingSelector));
   }
 
   /**
-   * Returns, from the state, the total available pages of the Notifications Broker source.
+   * Returns, from the state, the total available pages of the Quality Assurance source.
    *
    * @return Observable<number>
-   *    The number of the Notifications Broker source pages.
+   *    The number of the Quality Assurance source pages.
    */
-  public getNotificationsBrokerSourceTotalPages(): Observable<number> {
-    return this.store.pipe(select(getNotificationsBrokerSourceTotalPagesSelector));
+  public getQualityAssuranceSourceTotalPages(): Observable<number> {
+    return this.store.pipe(select(getQualityAssuranceSourceTotalPagesSelector));
   }
 
   /**
-   * Returns the current page of the Notifications Broker source, from the state.
+   * Returns the current page of the Quality Assurance source, from the state.
    *
    * @return Observable<number>
-   *    The number of the current Notifications Broker source page.
+   *    The number of the current Quality Assurance source page.
    */
-  public getNotificationsBrokerSourceCurrentPage(): Observable<number> {
-    return this.store.pipe(select(getNotificationsBrokerSourceCurrentPageSelector));
+  public getQualityAssuranceSourceCurrentPage(): Observable<number> {
+    return this.store.pipe(select(getQualityAssuranceSourceCurrentPageSelector));
   }
 
   /**
-   * Returns the total number of the Notifications Broker source.
+   * Returns the total number of the Quality Assurance source.
    *
    * @return Observable<number>
-   *    The number of the Notifications Broker source.
+   *    The number of the Quality Assurance source.
    */
-  public getNotificationsBrokerSourceTotals(): Observable<number> {
-    return this.store.pipe(select(getNotificationsBrokerSourceTotalsSelector));
+  public getQualityAssuranceSourceTotals(): Observable<number> {
+    return this.store.pipe(select(getQualityAssuranceSourceTotalsSelector));
   }
 
   /**
-   * Dispatch a request to change the Notifications Broker source state, retrieving the source from the server.
+   * Dispatch a request to change the Quality Assurance source state, retrieving the source from the server.
    *
    * @param elementsPerPage
    *    The number of the source per page.
    * @param currentPage
    *    The number of the current page.
    */
-  public dispatchRetrieveNotificationsBrokerSource(elementsPerPage: number, currentPage: number): void {
+  public dispatchRetrieveQualityAssuranceSource(elementsPerPage: number, currentPage: number): void {
     this.store.dispatch(new RetrieveAllSourceAction(elementsPerPage, currentPage));
   }
 }

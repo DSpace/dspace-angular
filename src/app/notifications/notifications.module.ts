@@ -6,20 +6,20 @@ import { EffectsModule } from '@ngrx/effects';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { storeModuleConfig } from '../app.reducer';
-import { NotificationsBrokerTopicsComponent } from './broker/topics/notifications-broker-topics.component';
-import { NotificationsBrokerEventsComponent } from './broker/events/notifications-broker-events.component';
+import { QualityAssuranceTopicsComponent } from './qa/topics/quality-assurance-topics.component';
+import { QualityAssuranceEventsComponent } from './qa/events/quality-assurance-events.component';
 import { NotificationsStateService } from './notifications-state.service';
 import { notificationsReducers, NotificationsState } from './notifications.reducer';
 import { notificationsEffects } from './notifications.effects';
-import { NotificationsBrokerTopicsService } from './broker/topics/notifications-broker-topics.service';
-import { NotificationsBrokerTopicRestService } from '../core/notifications/broker/topics/notifications-broker-topic-rest.service';
-import { NotificationsBrokerEventRestService } from '../core/notifications/broker/events/notifications-broker-event-rest.service';
-import { ProjectEntryImportModalComponent } from './broker/project-entry-import-modal/project-entry-import-modal.component';
+import { QualityAssuranceTopicsService } from './qa/topics/quality-assurance-topics.service';
+import { QualityAssuranceTopicRestService } from '../core/notifications/qa/topics/quality-assurance-topic-rest.service';
+import { QualityAssuranceEventRestService } from '../core/notifications/qa/events/quality-assurance-event-rest.service';
+import { ProjectEntryImportModalComponent } from './qa/project-entry-import-modal/project-entry-import-modal.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchModule } from '../shared/search/search.module';
-import { NotificationsBrokerSourceComponent } from './broker/source/notifications-broker-source.component';
-import { NotificationsBrokerSourceService } from './broker/source/notifications-broker-source.service';
-import { NotificationsBrokerSourceRestService } from '../core/notifications/broker/source/notifications-broker-source-rest.service';
+import { QualityAssuranceSourceComponent } from './qa/source/quality-assurance-source.component';
+import { QualityAssuranceSourceService } from './qa/source/quality-assurance-source.service';
+import { QualityAssuranceSourceRestService } from '../core/notifications/qa/source/quality-assurance-source-rest.service';
 
 const MODULES = [
   CommonModule,
@@ -31,9 +31,9 @@ const MODULES = [
 ];
 
 const COMPONENTS = [
-  NotificationsBrokerTopicsComponent,
-  NotificationsBrokerEventsComponent,
-  NotificationsBrokerSourceComponent
+  QualityAssuranceTopicsComponent,
+  QualityAssuranceEventsComponent,
+  QualityAssuranceSourceComponent
 ];
 
 const DIRECTIVES = [ ];
@@ -44,11 +44,11 @@ const ENTRY_COMPONENTS = [
 
 const PROVIDERS = [
   NotificationsStateService,
-  NotificationsBrokerTopicsService,
-  NotificationsBrokerSourceService,
-  NotificationsBrokerTopicRestService,
-  NotificationsBrokerSourceRestService,
-  NotificationsBrokerEventRestService
+  QualityAssuranceTopicsService,
+  QualityAssuranceSourceService,
+  QualityAssuranceTopicRestService,
+  QualityAssuranceSourceRestService,
+  QualityAssuranceEventRestService
 ];
 
 @NgModule({

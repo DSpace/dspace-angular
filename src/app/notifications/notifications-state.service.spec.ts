@@ -5,15 +5,15 @@ import { cold } from 'jasmine-marbles';
 import { notificationsReducers } from './notifications.reducer';
 import { NotificationsStateService } from './notifications-state.service';
 import {
-  notificationsBrokerSourceObjectMissingPid,
-  notificationsBrokerSourceObjectMoreAbstract,
-  notificationsBrokerSourceObjectMorePid,
-  notificationsBrokerTopicObjectMissingPid,
-  notificationsBrokerTopicObjectMoreAbstract,
-  notificationsBrokerTopicObjectMorePid
+  qualityAssuranceSourceObjectMissingPid,
+  qualityAssuranceSourceObjectMoreAbstract,
+  qualityAssuranceSourceObjectMorePid,
+  qualityAssuranceTopicObjectMissingPid,
+  qualityAssuranceTopicObjectMoreAbstract,
+  qualityAssuranceTopicObjectMorePid
 } from '../shared/mocks/notifications.mock';
-import { RetrieveAllTopicsAction } from './broker/topics/notifications-broker-topics.actions';
-import { RetrieveAllSourceAction } from './broker/source/notifications-broker-source.actions';
+import { RetrieveAllTopicsAction } from './qa/topics/quality-assurance-topics.actions';
+import { RetrieveAllSourceAction } from './qa/source/quality-assurance-source.actions';
 
 describe('NotificationsStateService', () => {
   let service: NotificationsStateService;
@@ -42,9 +42,9 @@ describe('NotificationsStateService', () => {
           notifications: {
             brokerTopic: {
               topics: [
-                notificationsBrokerTopicObjectMorePid,
-                notificationsBrokerTopicObjectMoreAbstract,
-                notificationsBrokerTopicObjectMissingPid
+                qualityAssuranceTopicObjectMorePid,
+                qualityAssuranceTopicObjectMoreAbstract,
+                qualityAssuranceTopicObjectMissingPid
               ],
               processing: false,
               loaded: true,
@@ -79,9 +79,9 @@ describe('NotificationsStateService', () => {
         spyOn(store, 'dispatch');
       });
 
-      describe('getNotificationsBrokerTopics', () => {
+      describe('getQualityAssuranceTopics', () => {
         it('Should return an empty array', () => {
-          const result = service.getNotificationsBrokerTopics();
+          const result = service.getQualityAssuranceTopics();
           const expected = cold('(a)', {
             a: []
           });
@@ -89,9 +89,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('getNotificationsBrokerTopicsTotalPages', () => {
+      describe('getQualityAssuranceTopicsTotalPages', () => {
         it('Should return zero (0)', () => {
-          const result = service.getNotificationsBrokerTopicsTotalPages();
+          const result = service.getQualityAssuranceTopicsTotalPages();
           const expected = cold('(a)', {
             a: 0
           });
@@ -99,9 +99,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('getNotificationsBrokerTopicsCurrentPage', () => {
+      describe('getQualityAssuranceTopicsCurrentPage', () => {
         it('Should return minus one (0)', () => {
-          const result = service.getNotificationsBrokerTopicsCurrentPage();
+          const result = service.getQualityAssuranceTopicsCurrentPage();
           const expected = cold('(a)', {
             a: 0
           });
@@ -109,9 +109,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('getNotificationsBrokerTopicsTotals', () => {
+      describe('getQualityAssuranceTopicsTotals', () => {
         it('Should return zero (0)', () => {
-          const result = service.getNotificationsBrokerTopicsTotals();
+          const result = service.getQualityAssuranceTopicsTotals();
           const expected = cold('(a)', {
             a: 0
           });
@@ -119,9 +119,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('isNotificationsBrokerTopicsLoading', () => {
+      describe('isQualityAssuranceTopicsLoading', () => {
         it('Should return TRUE', () => {
-          const result = service.isNotificationsBrokerTopicsLoading();
+          const result = service.isQualityAssuranceTopicsLoading();
           const expected = cold('(a)', {
             a: true
           });
@@ -129,9 +129,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('isNotificationsBrokerTopicsLoaded', () => {
+      describe('isQualityAssuranceTopicsLoaded', () => {
         it('Should return FALSE', () => {
-          const result = service.isNotificationsBrokerTopicsLoaded();
+          const result = service.isQualityAssuranceTopicsLoaded();
           const expected = cold('(a)', {
             a: false
           });
@@ -139,9 +139,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('isNotificationsBrokerTopicsProcessing', () => {
+      describe('isQualityAssuranceTopicsProcessing', () => {
         it('Should return FALSE', () => {
-          const result = service.isNotificationsBrokerTopicsProcessing();
+          const result = service.isQualityAssuranceTopicsProcessing();
           const expected = cold('(a)', {
             a: false
           });
@@ -171,23 +171,23 @@ describe('NotificationsStateService', () => {
         spyOn(store, 'dispatch');
       });
 
-      describe('getNotificationsBrokerTopics', () => {
+      describe('getQualityAssuranceTopics', () => {
         it('Should return an array of topics', () => {
-          const result = service.getNotificationsBrokerTopics();
+          const result = service.getQualityAssuranceTopics();
           const expected = cold('(a)', {
             a: [
-              notificationsBrokerTopicObjectMorePid,
-              notificationsBrokerTopicObjectMoreAbstract,
-              notificationsBrokerTopicObjectMissingPid
+              qualityAssuranceTopicObjectMorePid,
+              qualityAssuranceTopicObjectMoreAbstract,
+              qualityAssuranceTopicObjectMissingPid
             ]
           });
           expect(result).toBeObservable(expected);
         });
       });
 
-      describe('getNotificationsBrokerTopicsTotalPages', () => {
+      describe('getQualityAssuranceTopicsTotalPages', () => {
         it('Should return one (1)', () => {
-          const result = service.getNotificationsBrokerTopicsTotalPages();
+          const result = service.getQualityAssuranceTopicsTotalPages();
           const expected = cold('(a)', {
             a: 1
           });
@@ -195,9 +195,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('getNotificationsBrokerTopicsCurrentPage', () => {
+      describe('getQualityAssuranceTopicsCurrentPage', () => {
         it('Should return minus zero (1)', () => {
-          const result = service.getNotificationsBrokerTopicsCurrentPage();
+          const result = service.getQualityAssuranceTopicsCurrentPage();
           const expected = cold('(a)', {
             a: 1
           });
@@ -205,9 +205,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('getNotificationsBrokerTopicsTotals', () => {
+      describe('getQualityAssuranceTopicsTotals', () => {
         it('Should return three (3)', () => {
-          const result = service.getNotificationsBrokerTopicsTotals();
+          const result = service.getQualityAssuranceTopicsTotals();
           const expected = cold('(a)', {
             a: 3
           });
@@ -215,9 +215,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('isNotificationsBrokerTopicsLoading', () => {
+      describe('isQualityAssuranceTopicsLoading', () => {
         it('Should return FALSE', () => {
-          const result = service.isNotificationsBrokerTopicsLoading();
+          const result = service.isQualityAssuranceTopicsLoading();
           const expected = cold('(a)', {
             a: false
           });
@@ -225,9 +225,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('isNotificationsBrokerTopicsLoaded', () => {
+      describe('isQualityAssuranceTopicsLoaded', () => {
         it('Should return TRUE', () => {
-          const result = service.isNotificationsBrokerTopicsLoaded();
+          const result = service.isQualityAssuranceTopicsLoaded();
           const expected = cold('(a)', {
             a: true
           });
@@ -235,9 +235,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('isNotificationsBrokerTopicsProcessing', () => {
+      describe('isQualityAssuranceTopicsProcessing', () => {
         it('Should return FALSE', () => {
-          const result = service.isNotificationsBrokerTopicsProcessing();
+          const result = service.isQualityAssuranceTopicsProcessing();
           const expected = cold('(a)', {
             a: false
           });
@@ -267,12 +267,12 @@ describe('NotificationsStateService', () => {
         spyOn(store, 'dispatch');
       });
 
-      describe('dispatchRetrieveNotificationsBrokerTopics', () => {
+      describe('dispatchRetrieveQualityAssuranceTopics', () => {
         it('Should call store.dispatch', () => {
           const elementsPerPage = 3;
           const currentPage = 1;
           const action = new RetrieveAllTopicsAction(elementsPerPage, currentPage);
-          service.dispatchRetrieveNotificationsBrokerTopics(elementsPerPage, currentPage);
+          service.dispatchRetrieveQualityAssuranceTopics(elementsPerPage, currentPage);
           expect(serviceAsAny.store.dispatch).toHaveBeenCalledWith(action);
         });
       });
@@ -300,9 +300,9 @@ describe('NotificationsStateService', () => {
           notifications: {
             brokerSource: {
               source: [
-                notificationsBrokerSourceObjectMorePid,
-                notificationsBrokerSourceObjectMoreAbstract,
-                notificationsBrokerSourceObjectMissingPid
+                qualityAssuranceSourceObjectMorePid,
+                qualityAssuranceSourceObjectMoreAbstract,
+                qualityAssuranceSourceObjectMissingPid
               ],
               processing: false,
               loaded: true,
@@ -337,9 +337,9 @@ describe('NotificationsStateService', () => {
         spyOn(store, 'dispatch');
       });
 
-      describe('getNotificationsBrokerSource', () => {
+      describe('getQualityAssuranceSource', () => {
         it('Should return an empty array', () => {
-          const result = service.getNotificationsBrokerSource();
+          const result = service.getQualityAssuranceSource();
           const expected = cold('(a)', {
             a: []
           });
@@ -347,9 +347,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('getNotificationsBrokerSourceTotalPages', () => {
+      describe('getQualityAssuranceSourceTotalPages', () => {
         it('Should return zero (0)', () => {
-          const result = service.getNotificationsBrokerSourceTotalPages();
+          const result = service.getQualityAssuranceSourceTotalPages();
           const expected = cold('(a)', {
             a: 0
           });
@@ -357,9 +357,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('getNotificationsBrokerSourcesCurrentPage', () => {
+      describe('getQualityAssuranceSourcesCurrentPage', () => {
         it('Should return minus one (0)', () => {
-          const result = service.getNotificationsBrokerSourceCurrentPage();
+          const result = service.getQualityAssuranceSourceCurrentPage();
           const expected = cold('(a)', {
             a: 0
           });
@@ -367,9 +367,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('getNotificationsBrokerSourceTotals', () => {
+      describe('getQualityAssuranceSourceTotals', () => {
         it('Should return zero (0)', () => {
-          const result = service.getNotificationsBrokerSourceTotals();
+          const result = service.getQualityAssuranceSourceTotals();
           const expected = cold('(a)', {
             a: 0
           });
@@ -377,9 +377,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('isNotificationsBrokerSourceLoading', () => {
+      describe('isQualityAssuranceSourceLoading', () => {
         it('Should return TRUE', () => {
-          const result = service.isNotificationsBrokerSourceLoading();
+          const result = service.isQualityAssuranceSourceLoading();
           const expected = cold('(a)', {
             a: true
           });
@@ -387,9 +387,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('isNotificationsBrokerSourceLoaded', () => {
+      describe('isQualityAssuranceSourceLoaded', () => {
         it('Should return FALSE', () => {
-          const result = service.isNotificationsBrokerSourceLoaded();
+          const result = service.isQualityAssuranceSourceLoaded();
           const expected = cold('(a)', {
             a: false
           });
@@ -397,9 +397,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('isNotificationsBrokerSourceProcessing', () => {
+      describe('isQualityAssuranceSourceProcessing', () => {
         it('Should return FALSE', () => {
-          const result = service.isNotificationsBrokerSourceProcessing();
+          const result = service.isQualityAssuranceSourceProcessing();
           const expected = cold('(a)', {
             a: false
           });
@@ -429,23 +429,23 @@ describe('NotificationsStateService', () => {
         spyOn(store, 'dispatch');
       });
 
-      describe('getNotificationsBrokerSource', () => {
+      describe('getQualityAssuranceSource', () => {
         it('Should return an array of Source', () => {
-          const result = service.getNotificationsBrokerSource();
+          const result = service.getQualityAssuranceSource();
           const expected = cold('(a)', {
             a: [
-              notificationsBrokerSourceObjectMorePid,
-              notificationsBrokerSourceObjectMoreAbstract,
-              notificationsBrokerSourceObjectMissingPid
+              qualityAssuranceSourceObjectMorePid,
+              qualityAssuranceSourceObjectMoreAbstract,
+              qualityAssuranceSourceObjectMissingPid
             ]
           });
           expect(result).toBeObservable(expected);
         });
       });
 
-      describe('getNotificationsBrokerSourceTotalPages', () => {
+      describe('getQualityAssuranceSourceTotalPages', () => {
         it('Should return one (1)', () => {
-          const result = service.getNotificationsBrokerSourceTotalPages();
+          const result = service.getQualityAssuranceSourceTotalPages();
           const expected = cold('(a)', {
             a: 1
           });
@@ -453,9 +453,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('getNotificationsBrokerSourceCurrentPage', () => {
+      describe('getQualityAssuranceSourceCurrentPage', () => {
         it('Should return minus zero (1)', () => {
-          const result = service.getNotificationsBrokerSourceCurrentPage();
+          const result = service.getQualityAssuranceSourceCurrentPage();
           const expected = cold('(a)', {
             a: 1
           });
@@ -463,9 +463,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('getNotificationsBrokerSourceTotals', () => {
+      describe('getQualityAssuranceSourceTotals', () => {
         it('Should return three (3)', () => {
-          const result = service.getNotificationsBrokerSourceTotals();
+          const result = service.getQualityAssuranceSourceTotals();
           const expected = cold('(a)', {
             a: 3
           });
@@ -473,9 +473,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('isNotificationsBrokerSourceLoading', () => {
+      describe('isQualityAssuranceSourceLoading', () => {
         it('Should return FALSE', () => {
-          const result = service.isNotificationsBrokerSourceLoading();
+          const result = service.isQualityAssuranceSourceLoading();
           const expected = cold('(a)', {
             a: false
           });
@@ -483,9 +483,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('isNotificationsBrokerSourceLoaded', () => {
+      describe('isQualityAssuranceSourceLoaded', () => {
         it('Should return TRUE', () => {
-          const result = service.isNotificationsBrokerSourceLoaded();
+          const result = service.isQualityAssuranceSourceLoaded();
           const expected = cold('(a)', {
             a: true
           });
@@ -493,9 +493,9 @@ describe('NotificationsStateService', () => {
         });
       });
 
-      describe('isNotificationsBrokerSourceProcessing', () => {
+      describe('isQualityAssuranceSourceProcessing', () => {
         it('Should return FALSE', () => {
-          const result = service.isNotificationsBrokerSourceProcessing();
+          const result = service.isQualityAssuranceSourceProcessing();
           const expected = cold('(a)', {
             a: false
           });
@@ -525,12 +525,12 @@ describe('NotificationsStateService', () => {
         spyOn(store, 'dispatch');
       });
 
-      describe('dispatchRetrieveNotificationsBrokerSource', () => {
+      describe('dispatchRetrieveQualityAssuranceSource', () => {
         it('Should call store.dispatch', () => {
           const elementsPerPage = 3;
           const currentPage = 1;
           const action = new RetrieveAllSourceAction(elementsPerPage, currentPage);
-          service.dispatchRetrieveNotificationsBrokerSource(elementsPerPage, currentPage);
+          service.dispatchRetrieveQualityAssuranceSource(elementsPerPage, currentPage);
           expect(serviceAsAny.store.dispatch).toHaveBeenCalledWith(action);
         });
       });

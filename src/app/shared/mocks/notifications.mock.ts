@@ -1,9 +1,9 @@
 import { of as observableOf } from 'rxjs';
 import { ResourceType } from '../../core/shared/resource-type';
-import { NotificationsBrokerTopicObject } from '../../core/notifications/broker/models/notifications-broker-topic.model';
-import { NotificationsBrokerEventObject } from '../../core/notifications/broker/models/notifications-broker-event.model';
-import { NotificationsBrokerTopicRestService } from '../../core/notifications/broker/topics/notifications-broker-topic-rest.service';
-import { NotificationsBrokerEventRestService } from '../../core/notifications/broker/events/notifications-broker-event-rest.service';
+import { QualityAssuranceTopicObject } from '../../core/notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceEventObject } from '../../core/notifications/qa/models/quality-assurance-event.model';
+import { QualityAssuranceTopicRestService } from '../../core/notifications/qa/topics/quality-assurance-topic-rest.service';
+import { QualityAssuranceEventRestService } from '../../core/notifications/qa/events/quality-assurance-event-rest.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NotificationsStateService } from '../../notifications/notifications-state.service';
 import { Item } from '../../core/shared/item.model';
@@ -13,7 +13,7 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../remote-data.utils';
 import { SearchResult } from '../search/models/search-result.model';
-import { NotificationsBrokerSourceObject } from '../../core/notifications/broker/models/notifications-broker-source.model';
+import { QualityAssuranceSourceObject } from '../../core/notifications/qa/models/quality-assurance-source.model';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
@@ -1333,7 +1333,7 @@ export const NotificationsMockDspaceObject: SearchResult<DSpaceObject> = Object.
 // Sources
 // -------------------------------------------------------------------------------
 
-export const notificationsBrokerSourceObjectMorePid: NotificationsBrokerSourceObject = {
+export const qualityAssuranceSourceObjectMorePid: QualityAssuranceSourceObject = {
   type: new ResourceType('nbsource'),
   id: 'ENRICH!MORE!PID',
   lastEvent: '2020/10/09 10:11 UTC',
@@ -1345,7 +1345,7 @@ export const notificationsBrokerSourceObjectMorePid: NotificationsBrokerSourceOb
   }
 };
 
-export const notificationsBrokerSourceObjectMoreAbstract: NotificationsBrokerSourceObject = {
+export const qualityAssuranceSourceObjectMoreAbstract: QualityAssuranceSourceObject = {
   type: new ResourceType('nbsource'),
   id: 'ENRICH!MORE!ABSTRACT',
   lastEvent: '2020/09/08 21:14 UTC',
@@ -1357,7 +1357,7 @@ export const notificationsBrokerSourceObjectMoreAbstract: NotificationsBrokerSou
   }
 };
 
-export const notificationsBrokerSourceObjectMissingPid: NotificationsBrokerSourceObject = {
+export const qualityAssuranceSourceObjectMissingPid: QualityAssuranceSourceObject = {
   type: new ResourceType('nbsource'),
   id: 'ENRICH!MISSING!PID',
   lastEvent: '2020/10/01 07:36 UTC',
@@ -1372,7 +1372,7 @@ export const notificationsBrokerSourceObjectMissingPid: NotificationsBrokerSourc
 // Topics
 // -------------------------------------------------------------------------------
 
-export const notificationsBrokerTopicObjectMorePid: NotificationsBrokerTopicObject = {
+export const qualityAssuranceTopicObjectMorePid: QualityAssuranceTopicObject = {
   type: new ResourceType('nbtopic'),
   id: 'ENRICH!MORE!PID',
   name: 'ENRICH/MORE/PID',
@@ -1385,7 +1385,7 @@ export const notificationsBrokerTopicObjectMorePid: NotificationsBrokerTopicObje
   }
 };
 
-export const notificationsBrokerTopicObjectMoreAbstract: NotificationsBrokerTopicObject = {
+export const qualityAssuranceTopicObjectMoreAbstract: QualityAssuranceTopicObject = {
   type: new ResourceType('nbtopic'),
   id: 'ENRICH!MORE!ABSTRACT',
   name: 'ENRICH/MORE/ABSTRACT',
@@ -1398,7 +1398,7 @@ export const notificationsBrokerTopicObjectMoreAbstract: NotificationsBrokerTopi
   }
 };
 
-export const notificationsBrokerTopicObjectMissingPid: NotificationsBrokerTopicObject = {
+export const qualityAssuranceTopicObjectMissingPid: QualityAssuranceTopicObject = {
   type: new ResourceType('nbtopic'),
   id: 'ENRICH!MISSING!PID',
   name: 'ENRICH/MISSING/PID',
@@ -1411,7 +1411,7 @@ export const notificationsBrokerTopicObjectMissingPid: NotificationsBrokerTopicO
   }
 };
 
-export const notificationsBrokerTopicObjectMissingAbstract: NotificationsBrokerTopicObject = {
+export const qualityAssuranceTopicObjectMissingAbstract: QualityAssuranceTopicObject = {
   type: new ResourceType('nbtopic'),
   id: 'ENRICH!MISSING!ABSTRACT',
   name: 'ENRICH/MISSING/ABSTRACT',
@@ -1424,7 +1424,7 @@ export const notificationsBrokerTopicObjectMissingAbstract: NotificationsBrokerT
   }
 };
 
-export const notificationsBrokerTopicObjectMissingAcm: NotificationsBrokerTopicObject = {
+export const qualityAssuranceTopicObjectMissingAcm: QualityAssuranceTopicObject = {
   type: new ResourceType('nbtopic'),
   id: 'ENRICH!MISSING!SUBJECT!ACM',
   name: 'ENRICH/MISSING/SUBJECT/ACM',
@@ -1437,7 +1437,7 @@ export const notificationsBrokerTopicObjectMissingAcm: NotificationsBrokerTopicO
   }
 };
 
-export const notificationsBrokerTopicObjectMissingProject: NotificationsBrokerTopicObject = {
+export const qualityAssuranceTopicObjectMissingProject: QualityAssuranceTopicObject = {
   type: new ResourceType('nbtopic'),
   id: 'ENRICH!MISSING!PROJECT',
   name: 'ENRICH/MISSING/PROJECT',
@@ -1453,7 +1453,7 @@ export const notificationsBrokerTopicObjectMissingProject: NotificationsBrokerTo
 // Events
 // -------------------------------------------------------------------------------
 
-export const notificationsBrokerEventObjectMissingPid: NotificationsBrokerEventObject = {
+export const qualityAssuranceEventObjectMissingPid: QualityAssuranceEventObject = {
   id: '123e4567-e89b-12d3-a456-426614174001',
   uuid: '123e4567-e89b-12d3-a456-426614174001',
   type: new ResourceType('nbevent'),
@@ -1489,10 +1489,10 @@ export const notificationsBrokerEventObjectMissingPid: NotificationsBrokerEventO
   related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
 };
 
-export const notificationsBrokerEventObjectMissingPid2: NotificationsBrokerEventObject = {
+export const qualityAssuranceEventObjectMissingPid2: QualityAssuranceEventObject = {
   id: '123e4567-e89b-12d3-a456-426614174004',
   uuid: '123e4567-e89b-12d3-a456-426614174004',
-  type: new ResourceType('notificationsBrokerEvent'),
+  type: new ResourceType('qualityAssuranceEvent'),
   originalId: 'oai:www.openstarts.units.it:10077/21486',
   title: 'UNA NUOVA RILETTURA DELL\u0027 ARISTOTELE DI FRANZ BRENTANO ALLA LUCE DI ALCUNI INEDITI',
   trust: 1.0,
@@ -1525,10 +1525,10 @@ export const notificationsBrokerEventObjectMissingPid2: NotificationsBrokerEvent
   related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
 };
 
-export const notificationsBrokerEventObjectMissingPid3: NotificationsBrokerEventObject = {
+export const qualityAssuranceEventObjectMissingPid3: QualityAssuranceEventObject = {
   id: '123e4567-e89b-12d3-a456-426614174005',
   uuid: '123e4567-e89b-12d3-a456-426614174005',
-  type: new ResourceType('notificationsBrokerEvent'),
+  type: new ResourceType('qualityAssuranceEvent'),
   originalId: 'oai:www.openstarts.units.it:10077/554',
   title: 'Sustainable development',
   trust: 0.375,
@@ -1561,10 +1561,10 @@ export const notificationsBrokerEventObjectMissingPid3: NotificationsBrokerEvent
   related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
 };
 
-export const notificationsBrokerEventObjectMissingPid4: NotificationsBrokerEventObject = {
+export const qualityAssuranceEventObjectMissingPid4: QualityAssuranceEventObject = {
   id: '123e4567-e89b-12d3-a456-426614174006',
   uuid: '123e4567-e89b-12d3-a456-426614174006',
-  type: new ResourceType('notificationsBrokerEvent'),
+  type: new ResourceType('qualityAssuranceEvent'),
   originalId: 'oai:www.openstarts.units.it:10077/10787',
   title: 'Reply to Critics',
   trust: 1.0,
@@ -1597,10 +1597,10 @@ export const notificationsBrokerEventObjectMissingPid4: NotificationsBrokerEvent
   related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
 };
 
-export const notificationsBrokerEventObjectMissingPid5: NotificationsBrokerEventObject = {
+export const qualityAssuranceEventObjectMissingPid5: QualityAssuranceEventObject = {
   id: '123e4567-e89b-12d3-a456-426614174007',
   uuid: '123e4567-e89b-12d3-a456-426614174007',
-  type: new ResourceType('notificationsBrokerEvent'),
+  type: new ResourceType('qualityAssuranceEvent'),
   originalId: 'oai:www.openstarts.units.it:10077/11339',
   title: 'PROGETTAZIONE, SINTESI E VALUTAZIONE DELL\u0027ATTIVITA\u0027 ANTIMICOBATTERICA ED ANTIFUNGINA DI NUOVI DERIVATI ETEROCICLICI',
   trust: 0.375,
@@ -1633,10 +1633,10 @@ export const notificationsBrokerEventObjectMissingPid5: NotificationsBrokerEvent
   related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
 };
 
-export const notificationsBrokerEventObjectMissingPid6: NotificationsBrokerEventObject = {
+export const qualityAssuranceEventObjectMissingPid6: QualityAssuranceEventObject = {
   id: '123e4567-e89b-12d3-a456-426614174008',
   uuid: '123e4567-e89b-12d3-a456-426614174008',
-  type: new ResourceType('notificationsBrokerEvent'),
+  type: new ResourceType('qualityAssuranceEvent'),
   originalId: 'oai:www.openstarts.units.it:10077/29860',
   title: 'Donald Davidson',
   trust: 0.375,
@@ -1669,10 +1669,10 @@ export const notificationsBrokerEventObjectMissingPid6: NotificationsBrokerEvent
   related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
 };
 
-export const notificationsBrokerEventObjectMissingAbstract: NotificationsBrokerEventObject = {
+export const qualityAssuranceEventObjectMissingAbstract: QualityAssuranceEventObject = {
   id: '123e4567-e89b-12d3-a456-426614174009',
   uuid: '123e4567-e89b-12d3-a456-426614174009',
-  type: new ResourceType('notificationsBrokerEvent'),
+  type: new ResourceType('qualityAssuranceEvent'),
   originalId: 'oai:www.openstarts.units.it:10077/21110',
   title: 'Missing abstract article',
   trust: 0.751,
@@ -1705,10 +1705,10 @@ export const notificationsBrokerEventObjectMissingAbstract: NotificationsBrokerE
   related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
 };
 
-export const notificationsBrokerEventObjectMissingProjectFound: NotificationsBrokerEventObject = {
+export const qualityAssuranceEventObjectMissingProjectFound: QualityAssuranceEventObject = {
   id: '123e4567-e89b-12d3-a456-426614174002',
   uuid: '123e4567-e89b-12d3-a456-426614174002',
-  type: new ResourceType('notificationsBrokerEvent'),
+  type: new ResourceType('qualityAssuranceEvent'),
   originalId: 'oai:www.openstarts.units.it:10077/21838',
   title: 'Egypt, crossroad of translations and literary interweavings (3rd-6th centuries). A reconsideration of earlier Coptic literature',
   trust: 1.0,
@@ -1741,10 +1741,10 @@ export const notificationsBrokerEventObjectMissingProjectFound: NotificationsBro
   related: createSuccessfulRemoteDataObject$(ItemMockPid10)
 };
 
-export const notificationsBrokerEventObjectMissingProjectNotFound: NotificationsBrokerEventObject = {
+export const qualityAssuranceEventObjectMissingProjectNotFound: QualityAssuranceEventObject = {
   id: '123e4567-e89b-12d3-a456-426614174003',
   uuid: '123e4567-e89b-12d3-a456-426614174003',
-  type: new ResourceType('notificationsBrokerEvent'),
+  type: new ResourceType('qualityAssuranceEvent'),
   originalId: 'oai:www.openstarts.units.it:10077/21838',
   title: 'Morocco, crossroad of translations and literary interweavings (3rd-6th centuries). A reconsideration of earlier Coptic literature',
   trust: 1.0,
@@ -1785,51 +1785,51 @@ export const notificationsBrokerEventObjectMissingProjectNotFound: Notifications
  */
 export function getMockNotificationsStateService(): any {
   return jasmine.createSpyObj('NotificationsStateService', {
-    getNotificationsBrokerTopics: jasmine.createSpy('getNotificationsBrokerTopics'),
-    isNotificationsBrokerTopicsLoading: jasmine.createSpy('isNotificationsBrokerTopicsLoading'),
-    isNotificationsBrokerTopicsLoaded: jasmine.createSpy('isNotificationsBrokerTopicsLoaded'),
-    isNotificationsBrokerTopicsProcessing: jasmine.createSpy('isNotificationsBrokerTopicsProcessing'),
-    getNotificationsBrokerTopicsTotalPages: jasmine.createSpy('getNotificationsBrokerTopicsTotalPages'),
-    getNotificationsBrokerTopicsCurrentPage: jasmine.createSpy('getNotificationsBrokerTopicsCurrentPage'),
-    getNotificationsBrokerTopicsTotals: jasmine.createSpy('getNotificationsBrokerTopicsTotals'),
-    dispatchRetrieveNotificationsBrokerTopics: jasmine.createSpy('dispatchRetrieveNotificationsBrokerTopics'),
-    getNotificationsBrokerSource: jasmine.createSpy('getNotificationsBrokerSource'),
-    isNotificationsBrokerSourceLoading: jasmine.createSpy('isNotificationsBrokerSourceLoading'),
-    isNotificationsBrokerSourceLoaded: jasmine.createSpy('isNotificationsBrokerSourceLoaded'),
-    isNotificationsBrokerSourceProcessing: jasmine.createSpy('isNotificationsBrokerSourceProcessing'),
-    getNotificationsBrokerSourceTotalPages: jasmine.createSpy('getNotificationsBrokerSourceTotalPages'),
-    getNotificationsBrokerSourceCurrentPage: jasmine.createSpy('getNotificationsBrokerSourceCurrentPage'),
-    getNotificationsBrokerSourceTotals: jasmine.createSpy('getNotificationsBrokerSourceTotals'),
-    dispatchRetrieveNotificationsBrokerSource: jasmine.createSpy('dispatchRetrieveNotificationsBrokerSource'),
+    getQualityAssuranceTopics: jasmine.createSpy('getQualityAssuranceTopics'),
+    isQualityAssuranceTopicsLoading: jasmine.createSpy('isQualityAssuranceTopicsLoading'),
+    isQualityAssuranceTopicsLoaded: jasmine.createSpy('isQualityAssuranceTopicsLoaded'),
+    isQualityAssuranceTopicsProcessing: jasmine.createSpy('isQualityAssuranceTopicsProcessing'),
+    getQualityAssuranceTopicsTotalPages: jasmine.createSpy('getQualityAssuranceTopicsTotalPages'),
+    getQualityAssuranceTopicsCurrentPage: jasmine.createSpy('getQualityAssuranceTopicsCurrentPage'),
+    getQualityAssuranceTopicsTotals: jasmine.createSpy('getQualityAssuranceTopicsTotals'),
+    dispatchRetrieveQualityAssuranceTopics: jasmine.createSpy('dispatchRetrieveQualityAssuranceTopics'),
+    getQualityAssuranceSource: jasmine.createSpy('getQualityAssuranceSource'),
+    isQualityAssuranceSourceLoading: jasmine.createSpy('isQualityAssuranceSourceLoading'),
+    isQualityAssuranceSourceLoaded: jasmine.createSpy('isQualityAssuranceSourceLoaded'),
+    isQualityAssuranceSourceProcessing: jasmine.createSpy('isQualityAssuranceSourceProcessing'),
+    getQualityAssuranceSourceTotalPages: jasmine.createSpy('getQualityAssuranceSourceTotalPages'),
+    getQualityAssuranceSourceCurrentPage: jasmine.createSpy('getQualityAssuranceSourceCurrentPage'),
+    getQualityAssuranceSourceTotals: jasmine.createSpy('getQualityAssuranceSourceTotals'),
+    dispatchRetrieveQualityAssuranceSource: jasmine.createSpy('dispatchRetrieveQualityAssuranceSource'),
     dispatchMarkUserSuggestionsAsVisitedAction: jasmine.createSpy('dispatchMarkUserSuggestionsAsVisitedAction')
   });
 }
 
 /**
- * Mock for [[NotificationsBrokerSourceRestService]]
+ * Mock for [[QualityAssuranceSourceRestService]]
  */
- export function getMockNotificationsBrokerSourceRestService(): NotificationsBrokerTopicRestService {
-  return jasmine.createSpyObj('NotificationsBrokerSourceRestService', {
+ export function getMockQualityAssuranceSourceRestService(): QualityAssuranceTopicRestService {
+  return jasmine.createSpyObj('QualityAssuranceSourceRestService', {
     getSources: jasmine.createSpy('getSources'),
     getSource: jasmine.createSpy('getSource'),
   });
 }
 
 /**
- * Mock for [[NotificationsBrokerTopicRestService]]
+ * Mock for [[QualityAssuranceTopicRestService]]
  */
-export function getMockNotificationsBrokerTopicRestService(): NotificationsBrokerTopicRestService {
-  return jasmine.createSpyObj('NotificationsBrokerTopicRestService', {
+export function getMockQualityAssuranceTopicRestService(): QualityAssuranceTopicRestService {
+  return jasmine.createSpyObj('QualityAssuranceTopicRestService', {
     getTopics: jasmine.createSpy('getTopics'),
     getTopic: jasmine.createSpy('getTopic'),
   });
 }
 
 /**
- * Mock for [[NotificationsBrokerEventRestService]]
+ * Mock for [[QualityAssuranceEventRestService]]
  */
-export function getMockNotificationsBrokerEventRestService(): NotificationsBrokerEventRestService {
-  return jasmine.createSpyObj('NotificationsBrokerEventRestService', {
+export function getMockQualityAssuranceEventRestService(): QualityAssuranceEventRestService {
+  return jasmine.createSpyObj('QualityAssuranceEventRestService', {
     getEventsByTopic: jasmine.createSpy('getEventsByTopic'),
     getEvent: jasmine.createSpy('getEvent'),
     patchEvent: jasmine.createSpy('patchEvent'),
@@ -1840,7 +1840,7 @@ export function getMockNotificationsBrokerEventRestService(): NotificationsBroke
 }
 
 /**
- * Mock for [[NotificationsBrokerEventRestService]]
+ * Mock for [[QualityAssuranceEventRestService]]
  */
 export function getMockSuggestionsService(): any {
   return jasmine.createSpyObj('SuggestionsService', {

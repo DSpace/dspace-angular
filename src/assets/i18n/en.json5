@@ -499,13 +499,13 @@
 
   "admin.access-control.groups.form.return": "Back",
 
-  "admin.notifications.broker.breadcrumbs": "Notifications Broker",
+  "admin.notifications.broker.breadcrumbs": "Quality Assurance",
 
   "admin.notifications.event.breadcrumbs": "Broker Suggestions",
 
   "admin.notifications.event.page.title": "Broker Suggestions",
 
-  "admin.notifications.broker.page.title": "Notifications Broker",
+  "admin.notifications.broker.page.title": "Quality Assurance",
 
   "admin.notifications.source.breadcrumbs": "Notifications Source",
 
@@ -2687,7 +2687,7 @@
 
   "menu.section.notifications": "Notifications",
 
-  "menu.section.notifications_broker": "Notifications Broker",
+  "menu.section.notifications_broker": "Quality Assurance",
 
   "menu.section.notifications_reciter": "Publication Claim",
 
@@ -2889,9 +2889,9 @@
 
   "notifications.events.title": "Broker Suggestions",
 
-  "notifications.broker.topic.error.service.retrieve": "An error occurred while loading the Notifications Broker topics",
+  "notifications.broker.topic.error.service.retrieve": "An error occurred while loading the Quality Assurance topics",
 
-  "notifications.broker.source.error.service.retrieve": "An error occurred while loading the Notifications Broker source",
+  "notifications.broker.source.error.service.retrieve": "An error occurred while loading the Quality Assurance source",
 
   "notifications.broker.events.description": "Below the list of all the suggestions for the selected topic.",
 

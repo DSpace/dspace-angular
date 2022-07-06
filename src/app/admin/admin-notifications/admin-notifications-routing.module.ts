@@ -4,26 +4,26 @@ import { RouterModule } from '@angular/router';
 import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
-import { NOTIFICATIONS_EDIT_PATH } from './admin-notifications-routing-paths';
-import { AdminNotificationsBrokerTopicsPageComponent } from './admin-notifications-broker-topics-page/admin-notifications-broker-topics-page.component';
-import { AdminNotificationsBrokerEventsPageComponent } from './admin-notifications-broker-events-page/admin-notifications-broker-events-page.component';
-import { AdminNotificationsBrokerTopicsPageResolver } from './admin-notifications-broker-topics-page/admin-notifications-broker-topics-page-resolver.service';
-import { AdminNotificationsBrokerEventsPageResolver } from './admin-notifications-broker-events-page/admin-notifications-broker-events-page.resolver';
-import { AdminNotificationsBrokerSourcePageComponent } from './admin-notifications-broker-source-page-component/admin-notifications-broker-source-page.component';
-import { AdminNotificationsBrokerSourcePageResolver } from './admin-notifications-broker-source-page-component/admin-notifications-broker-source-page-resolver.service';
-import { SourceDataResolver } from './admin-notifications-broker-source-page-component/admin-notifications-broker-source-data.reslover';
+import { QUALITY_ASSURANCE_EDIT_PATH } from './admin-notifications-routing-paths';
+import { AdminQualityAssuranceTopicsPageComponent } from './admin-quality-assurance-topics-page/admin-quality-assurance-topics-page.component';
+import { AdminQualityAssuranceEventsPageComponent } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.component';
+import { AdminQualityAssuranceTopicsPageResolver } from './admin-quality-assurance-topics-page/admin-quality-assurance-topics-page-resolver.service';
+import { AdminQualityAssuranceEventsPageResolver } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.resolver';
+import { AdminQualityAssuranceSourcePageComponent } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page.component';
+import { AdminQualityAssuranceSourcePageResolver } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page-resolver.service';
+import { SourceDataResolver } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-data.reslover';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         canActivate: [ AuthenticatedGuard ],
-        path: `${NOTIFICATIONS_EDIT_PATH}/:sourceId`,
-        component: AdminNotificationsBrokerTopicsPageComponent,
+        path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId`,
+        component: AdminQualityAssuranceTopicsPageComponent,
         pathMatch: 'full',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
-          openaireBrokerTopicsParams: AdminNotificationsBrokerTopicsPageResolver
+          openaireBrokerTopicsParams: AdminQualityAssuranceTopicsPageResolver
         },
         data: {
           title: 'admin.notifications.broker.page.title',
@@ -33,12 +33,12 @@ import { SourceDataResolver } from './admin-notifications-broker-source-page-com
       },
       {
         canActivate: [ AuthenticatedGuard ],
-        path: `${NOTIFICATIONS_EDIT_PATH}`,
-        component: AdminNotificationsBrokerSourcePageComponent,
+        path: `${QUALITY_ASSURANCE_EDIT_PATH}`,
+        component: AdminQualityAssuranceSourcePageComponent,
         pathMatch: 'full',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
-          openaireBrokerSourceParams: AdminNotificationsBrokerSourcePageResolver,
+          openaireBrokerSourceParams: AdminQualityAssuranceSourcePageResolver,
           sourceData: SourceDataResolver
         },
         data: {
@@ -49,12 +49,12 @@ import { SourceDataResolver } from './admin-notifications-broker-source-page-com
       },
       {
         canActivate: [ AuthenticatedGuard ],
-        path: `${NOTIFICATIONS_EDIT_PATH}/:sourceId/:topicId`,
-        component: AdminNotificationsBrokerEventsPageComponent,
+        path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId/:topicId`,
+        component: AdminQualityAssuranceEventsPageComponent,
         pathMatch: 'full',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
-          openaireBrokerEventsParams: AdminNotificationsBrokerEventsPageResolver
+          openaireBrokerEventsParams: AdminQualityAssuranceEventsPageResolver
         },
         data: {
           title: 'admin.notifications.event.page.title',
@@ -68,9 +68,9 @@ import { SourceDataResolver } from './admin-notifications-broker-source-page-com
     I18nBreadcrumbResolver,
     I18nBreadcrumbsService,
     SourceDataResolver,
-    AdminNotificationsBrokerTopicsPageResolver,
-    AdminNotificationsBrokerEventsPageResolver,
-    AdminNotificationsBrokerSourcePageResolver
+    AdminQualityAssuranceTopicsPageResolver,
+    AdminQualityAssuranceEventsPageResolver,
+    AdminQualityAssuranceSourcePageResolver
   ]
 })
 /**

@@ -1,8 +1,8 @@
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { getNotificationsModuleRoute } from '../admin-routing-paths';
 
-export const NOTIFICATIONS_EDIT_PATH = 'notifications-broker';
+export const QUALITY_ASSURANCE_EDIT_PATH = 'quality-assurance';
 
-export function getNotificationsBrokerbrokerRoute(id: string) {
-  return new URLCombiner(getNotificationsModuleRoute(), NOTIFICATIONS_EDIT_PATH, id).toString();
+export function getQualityAssuranceRoute(id: string) {
+  return new URLCombiner(getNotificationsModuleRoute(), QUALITY_ASSURANCE_EDIT_PATH, id).toString();
 }
