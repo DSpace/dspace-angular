@@ -1,3 +1,4 @@
+/* eslint-disable no-empty, @typescript-eslint/no-empty-function */
 import { CommonModule } from '@angular/common';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,7 +12,7 @@ import {
   qualityAssuranceTopicObjectMorePid
 } from '../../../shared/mocks/notifications.mock';
 import { QualityAssuranceTopicsComponent } from './quality-assurance-topics.component';
-import { SuggestionNotificationsStateService } from '../../notifications-state.service';
+import { SuggestionNotificationsStateService } from '../../suggestion-notifications-state.service';
 import { cold } from 'jasmine-marbles';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { PaginationService } from '../../../core/pagination/pagination.service';

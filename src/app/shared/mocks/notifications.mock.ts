@@ -5,7 +5,6 @@ import { QualityAssuranceEventObject } from '../../core/suggestion-notifications
 import { QualityAssuranceTopicRestService } from '../../core/suggestion-notifications/qa/topics/quality-assurance-topic-rest.service';
 import { QualityAssuranceEventRestService } from '../../core/suggestion-notifications/qa/events/quality-assurance-event-rest.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { NotificationsStateService } from '../../notifications/notifications-state.service';
 import { Item } from '../../core/shared/item.model';
 import {
   createNoContentRemoteDataObject$,

@@ -11,7 +11,7 @@ import {
   qualityAssuranceSourceObjectMorePid
 } from '../../../shared/mocks/notifications.mock';
 import { QualityAssuranceSourceComponent } from './quality-assurance-source.component';
-import { SuggestionNotificationsStateService } from '../../notifications-state.service';
+import { SuggestionNotificationsStateService } from '../../suggestion-notifications-state.service';
 import { cold } from 'jasmine-marbles';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { PaginationService } from '../../../core/pagination/pagination.service';

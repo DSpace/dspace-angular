@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Observable } from 'rxjs';
 import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
 import { QUALITY_ASSURANCE_EVENT_OBJECT } from './quality-assurance-event-object.resource-type';

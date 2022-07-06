@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 import { type } from '../../../shared/ngrx/type';
 import { QualityAssuranceTopicObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
@@ -15,8 +16,6 @@ export const QualityAssuranceTopicActionTypes = {
   RETRIEVE_ALL_TOPICS: type('dspace/integration/suggestion-notifications/qa/topic/RETRIEVE_ALL_TOPICS'),
   RETRIEVE_ALL_TOPICS_ERROR: type('dspace/integration/suggestion-notifications/qa/topic/RETRIEVE_ALL_TOPICS_ERROR'),
 };
-
-/* tslint:disable:max-classes-per-file */
 
 /**
  * An ngrx action to retrieve all the Quality Assurance topics.

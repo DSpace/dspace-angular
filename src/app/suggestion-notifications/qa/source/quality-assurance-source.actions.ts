@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 import { type } from '../../../shared/ngrx/type';
 import { QualityAssuranceSourceObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
@@ -15,8 +16,6 @@ export const QualityAssuranceSourceActionTypes = {
   RETRIEVE_ALL_SOURCE: type('dspace/integration/suggestion-notifications/qa/RETRIEVE_ALL_SOURCE'),
   RETRIEVE_ALL_SOURCE_ERROR: type('dspace/integration/suggestion-notifications/qa/RETRIEVE_ALL_SOURCE_ERROR'),
 };
-
-/* tslint:disable:max-classes-per-file */
 
 /**
  * An ngrx action to retrieve all the Quality Assurance source.
