@@ -14,6 +14,7 @@ import {CacheableObject} from '../../../cache/cacheable-object.model';
 /**
  * The interface representing the Quality Assurance event message
  */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface QualityAssuranceEventMessageObject {
 
 }
