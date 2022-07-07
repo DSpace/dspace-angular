@@ -3237,10 +3237,10 @@
   "pagination.results-per-page": "Әр беттегі нәтижелер",
 
   // "pagination.showing.detail": "{{ range }} of {{ total }}",
-  "pagination.showing.detail": "{{ жалпы }} ішінен {{ диапазон }}",
+  "pagination.showing.detail": "{{ range }} ішінен {{ total }}",
 
   // "pagination.showing.label": "Now showing ",
-  "pagination.showing.label": "Қазір көрсету",
+  "pagination.showing.label": "Қазір көрсету ",
 
   // "pagination.sort-direction": "Sort Options",
   "pagination.sort-direction": "Сұрыптау опциялары",
@@ -3279,7 +3279,7 @@
   "person.page.staffid": "Қызметкерлердің жеке куәлігі",
 
   // "person.page.titleprefix": "Person: ",
-  "person.page.titleprefix":"Адам:",
+  "person.page.titleprefix":"Адам: ",
 
   // "person.search.results.head": "Person Search Results",
   "person.search.results.head": "Тұлға іздеу нәтижелері",
@@ -3375,7 +3375,7 @@
   "process.detail.script" : "Сценарий",
 
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  "process.detail.title" :"Процесс: {{ id }} - {{ аты }}",
+  "process.detail.title" :"Процесс: {{ id }} - {{ name }}",
 
   // "process.detail.start-time" : "Start time",
   "process.detail.start-time" : "Бастау уақыты",
@@ -3655,7 +3655,7 @@
   "register-page.registration.success.head": "Растау электрондық поштасы жіберілді",
 
   // "register-page.registration.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
-  "register-page.registration.success.content": "{{Email}} мекен-жайына арнайы URL мекен-жайы мен қосымша нұсқаулары бар электрондық пошта жіберіледі.",
+  "register-page.registration.success.content": "{{ email }} мекен-жайына арнайы URL мекен-жайы мен қосымша нұсқаулары бар электрондық пошта жіберіледі.",
 
   // "register-page.registration.error.head": "Error when trying to register email",
   "register-page.registration.error.head": "Электрондық поштаны тіркеу кезінде қате",
@@ -3871,7 +3871,7 @@
   "search.description": "",
 
   // "search.switch-configuration.title": "Show",
-  "search.switch-configuration.title": "Шоу",
+  "search.switch-configuration.title": "Көрсету",
 
   // "search.title": "DSpace Angular :: Search",
   "search.title": "DSpace Angular :: Іздеу",
@@ -3922,7 +3922,7 @@
   "search.filters.applied.f.birthDate.min":"Бастауыш туған күні",
 
   // "search.filters.applied.f.withdrawn": "Withdrawn",
-  "search.filters.applied.f.withdrawn": "Отозванный",
+  "search.filters.applied.f.withdrawn": "Алып тасталынды",
 
   // "search.filters.filter.author.head": "Author",
   "search.filters.filter.author.head": "Автор",
@@ -4167,7 +4167,7 @@
   "statistics.title":"Статистика",
 
   // "statistics.header": "Statistics for {{ scope }}",
-  "statistics.header": "{{ scope }} үшін Статистика",
+  "statistics.header": "{{ scope }} үшін статистика",
 
   // "statistics.breadcrumbs": "Statistics",
   "statistics.breadcrumbs": "Статистика",
@@ -4405,28 +4405,28 @@
   "submission.sections.describe.relationship-lookup.search-tab.select-page": "Бетті таңдау",
 
   // "submission.sections.describe.relationship-lookup.selected": "Selected {{ size }} items",
-  "submission.sections.describe.relationship-lookup.selected": "Таңдалған элементтер {{ өлшемі }}",
+  "submission.sections.describe.relationship-lookup.selected": "Таңдалған элементтер {{ size }}",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Local Authors ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Жергілікті авторлар ({{саны}})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Жергілікті авторлар ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Жергілікті журналдар ({{саны}})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Жергілікті журналдар ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Local Projects ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Жергілікті жобалар ({{ саны }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Жергілікті жобалар ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Local Publications ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Жергілікті басылымдар ({{ саны }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Жергілікті басылымдар ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Local Authors ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Жергілікті авторлар ({{ саны }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Жергілікті авторлар ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Local Organizational Units ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Жергілікті ұйымдастыру бөлімшелері ({{саны }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Жергілікті ұйымдастыру бөлімшелері ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Local Data Packages ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Жергілікті деректер пакеттері ({{ саны }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Жергілікті деректер пакеттері ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataFile": "Local Data Files ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataFile": "Жергілікті деректер файлдары ({{ count }})",
@@ -4651,10 +4651,10 @@
   "submission.sections.general.discard_success_notice": "Ұсыныс сәтті қабылданбады.",
 
   // "submission.sections.general.metadata-extracted": "New metadata have been extracted and added to the <strong>{{sectionId}}</strong> section.",
-  "submission.sections.general.metadata-extracted": "Жаңа метадеректер алынып, <strong>{{SectionID}}</strong > бөліміне қосылды.",
+  "submission.sections.general.metadata-extracted": "Жаңа метадеректер алынып, <strong>{{sectionId}}</strong > бөліміне қосылды.",
 
   // "submission.sections.general.metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission.",
-  "submission.sections.general.metadata-extracted-new-section": "Жіберу үшін жаңа бөлім <strong > {{SectionID}}< / strong > қосылды.",
+  "submission.sections.general.metadata-extracted-new-section": "Жіберу үшін жаңа бөлім <strong>{{sectionId}}</strong> қосылды.",
 
   // "submission.sections.general.no-collection": "No collection found",
   "submission.sections.general.no-collection": "Жинақ табылмады",
@@ -4741,13 +4741,13 @@
   "submission.sections.upload.form.until-placeholder":"Әзірге",
 
   // "submission.sections.upload.header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
-  "submission.sections.upload.header.policy.default.nolist": "{{Коллекция атауы}} жинағына жүктелген файлдар келесі топқа (топтарға) сәйкес қол жетімді болады:",
+  "submission.sections.upload.header.policy.default.nolist": "{{collectionName}} жинағына жүктелген файлдар келесі топқа (топтарға) сәйкес қол жетімді болады:",
 
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
-  "submission.sections.upload.header.policy.default.withlist": "{{Коллекция атауы}} жинағына жүктелген файлдар жеке файл үшін нақты анықталғаннан басқа, келесі топпен (топтармен) қол жетімді болатындығын ескеріңіз:",
+  "submission.sections.upload.header.policy.default.withlist": "{{collectionName}} жинағына жүктелген файлдар жеке файл үшін нақты анықталғаннан басқа, келесі топпен (топтармен) қол жетімді болатындығын ескеріңіз:",
 
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
-  "submission.sections.upload.info": "Мұнда сіз осы элементтегі барлық файлдарды таба аласыз. Файл метадеректерін және кіру шарттарын жаңартуға немесе <strong> қосымша файлдарды оларды</strong>бетінде сүйреп апару арқылы жүктеуге болады.",
+  "submission.sections.upload.info": "Мұнда сіз осы элементтегі барлық файлдарды таба аласыз. Файл метадеректерін және кіру шарттарын жаңартуға немесе <strong>қосымша файлдарды оларды</strong>бетінде сүйреп апару арқылы жүктеуге болады.",
 
   // "submission.sections.upload.no-entry": "No",
   "submission.sections.upload.no-entry":"Жоқ",
