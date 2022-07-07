@@ -5,6 +5,8 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { DOCUMENT } from '@angular/common';
 import { ConfigurationDataService } from '../data/configuration-data.service';
 import { RemoteData } from '../data/remote-data';
+import { map } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
 
 /**
  * A GoogleRecaptchaService used to send action and get a token from REST
@@ -13,6 +15,9 @@ import { RemoteData } from '../data/remote-data';
 export class GoogleRecaptchaService {
 
   private renderer: Renderer2;
+  /**
+   * A Google Recaptcha site key
+   */
   captchaSiteKey: string;
 
   constructor(
@@ -21,12 +26,21 @@ export class GoogleRecaptchaService {
     private configService: ConfigurationDataService,
   ) {
     this.renderer = rendererFactory.createRenderer(null, null);
-    this.configService.findByPropertyName('google.recaptcha.key').pipe(
+    const registrationVerification$ = this.configService.findByPropertyName('registration.verification.enabled').pipe(
       getFirstCompletedRemoteData(),
-    ).subscribe((res: RemoteData<ConfigurationProperty>) => {
-      if (res.hasSucceeded && isNotEmpty(res?.payload?.values[0])) {
-        this.captchaSiteKey = res?.payload?.values[0];
-        this.loadScript(this.buildCaptchaUrl(res?.payload?.values[0]));
+      map((res: RemoteData<ConfigurationProperty>) => {
+        return res.hasSucceeded && res.payload && isNotEmpty(res.payload.values) && res.payload.values[0].toLowerCase() === 'true';
+      })
+    );
+    const recaptchaKey$ = this.configService.findByPropertyName('google.recaptcha.key.site').pipe(
+      getFirstCompletedRemoteData(),
+    );
+    combineLatest(registrationVerification$, recaptchaKey$).subscribe(([registrationVerification, recaptchaKey]) => {
+      if (registrationVerification) {
+        if (recaptchaKey.hasSucceeded && isNotEmpty(recaptchaKey?.payload?.values[0])) {
+          this.captchaSiteKey = recaptchaKey?.payload?.values[0];
+          this.loadScript(this.buildCaptchaUrl(recaptchaKey?.payload?.values[0]));
+        }
       }
     });
   }
@@ -45,7 +59,7 @@ export class GoogleRecaptchaService {
    * @param key contains a secret key of a google captchas
    * @returns string which has google captcha url with google captchas key
    */
-   buildCaptchaUrl(key: string) {
+  buildCaptchaUrl(key: string) {
     return `https://www.google.com/recaptcha/api.js?render=${key}`;
   }
 
@@ -55,7 +69,7 @@ export class GoogleRecaptchaService {
    * @param url contains a script url which will be loaded into page
    * @returns A promise
    */
-   private loadScript(url) {
+  private loadScript(url) {
     return new Promise((resolve, reject) => {
       const script = this.renderer.createElement('script');
       script.type = 'text/javascript';

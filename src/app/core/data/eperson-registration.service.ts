@@ -12,6 +12,8 @@ import { GenericConstructor } from '../shared/generic-constructor';
 import { RegistrationResponseParsingService } from './registration-response-parsing.service';
 import { RemoteData } from './remote-data';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable(
   {
@@ -57,18 +59,22 @@ export class EpersonRegistrationService {
   registerEmail(email: string, captchaToken: string = null): Observable<RemoteData<Registration>> {
     const registration = new Registration();
     registration.email = email;
-    if (captchaToken) {
-      registration.captchaToken = captchaToken;
-    }
 
     const requestId = this.requestService.generateRequestId();
 
     const href$ = this.getRegistrationEndpoint();
 
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    if (captchaToken) {
+      headers = headers.append('X-Recaptcha-Token', captchaToken);
+    }
+    options.headers = headers;
+
     href$.pipe(
       find((href: string) => hasValue(href)),
       map((href: string) => {
-        const request = new PostRequest(requestId, href, registration);
+        const request = new PostRequest(requestId, href, registration, options);
         this.requestService.send(request);
       })
     ).subscribe();

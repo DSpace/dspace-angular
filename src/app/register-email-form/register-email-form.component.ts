@@ -76,21 +76,21 @@ export class RegisterEmailFormComponent implements OnInit {
       if (this.registrationVerification) {
         const token = await this.googleRecaptchaService.getRecaptchaToken('register_email');
         if (isNotEmpty(token)) {
-          this.registeration(token);
+          this.registration(token);
         } else {
           this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`),
           this.translateService.get(`${this.MESSAGE_PREFIX}.error.recaptcha`, {email: this.email.value}));
         }
       } else {
-        this.registeration();
+        this.registration();
       }
     }
   }
 
   /**
-   * Register an email address
+   * Registration of an email address
    */
-  registeration(captchaToken = null) {
+  registration(captchaToken = null) {
     let registerEmail$;
     if (captchaToken) {
       registerEmail$ = this.epersonRegistrationService.registerEmail(this.email.value, captchaToken);
