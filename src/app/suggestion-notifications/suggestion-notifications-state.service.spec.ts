@@ -25,7 +25,7 @@ describe('NotificationsStateService', () => {
     function init(mode: string) {
       if (mode === 'empty') {
         initialState = {
-          notifications: {
+          suggestionNotifications: {
             qaTopic: {
               topics: [],
               processing: false,
@@ -39,7 +39,7 @@ describe('NotificationsStateService', () => {
         };
       } else {
         initialState = {
-          notifications: {
+          suggestionNotifications: {
             qaTopic: {
               topics: [
                 qualityAssuranceTopicObjectMorePid,
@@ -63,7 +63,7 @@ describe('NotificationsStateService', () => {
         init('empty');
         TestBed.configureTestingModule({
           imports: [
-            StoreModule.forRoot({ notifications: suggestionNotificationsReducers } as any),
+            StoreModule.forRoot({ suggestionNotifications: suggestionNotificationsReducers } as any),
           ],
           providers: [
             provideMockStore({ initialState }),
@@ -155,7 +155,7 @@ describe('NotificationsStateService', () => {
         init('full');
         TestBed.configureTestingModule({
           imports: [
-            StoreModule.forRoot({ notifications: suggestionNotificationsReducers } as any),
+            StoreModule.forRoot({ suggestionNotifications: suggestionNotificationsReducers } as any),
           ],
           providers: [
             provideMockStore({ initialState }),
@@ -251,7 +251,7 @@ describe('NotificationsStateService', () => {
         init('full');
         TestBed.configureTestingModule({
           imports: [
-            StoreModule.forRoot({ notifications: suggestionNotificationsReducers } as any),
+            StoreModule.forRoot({ suggestionNotifications: suggestionNotificationsReducers } as any),
           ],
           providers: [
             provideMockStore({ initialState }),
@@ -283,7 +283,7 @@ describe('NotificationsStateService', () => {
     function init(mode: string) {
       if (mode === 'empty') {
         initialState = {
-          notifications: {
+          suggestionNotifications: {
             qaSource: {
               source: [],
               processing: false,
@@ -297,7 +297,7 @@ describe('NotificationsStateService', () => {
         };
       } else {
         initialState = {
-          notifications: {
+          suggestionNotifications: {
             qaSource: {
               source: [
                 qualityAssuranceSourceObjectMorePid,
@@ -321,7 +321,7 @@ describe('NotificationsStateService', () => {
         init('empty');
         TestBed.configureTestingModule({
           imports: [
-            StoreModule.forRoot({ notifications: suggestionNotificationsReducers } as any),
+            StoreModule.forRoot({ suggestionNotifications: suggestionNotificationsReducers } as any),
           ],
           providers: [
             provideMockStore({ initialState }),
@@ -413,7 +413,7 @@ describe('NotificationsStateService', () => {
         init('full');
         TestBed.configureTestingModule({
           imports: [
-            StoreModule.forRoot({ notifications: suggestionNotificationsReducers } as any),
+            StoreModule.forRoot({ suggestionNotifications: suggestionNotificationsReducers } as any),
           ],
           providers: [
             provideMockStore({ initialState }),
@@ -509,7 +509,7 @@ describe('NotificationsStateService', () => {
         init('full');
         TestBed.configureTestingModule({
           imports: [
-            StoreModule.forRoot({ notifications: suggestionNotificationsReducers } as any),
+            StoreModule.forRoot({ suggestionNotifications: suggestionNotificationsReducers } as any),
           ],
           providers: [
             provideMockStore({ initialState }),

@@ -10,7 +10,7 @@ import {subStateSelector} from '../../submission/selectors';
  * @param {AppState} state Top level state.
  * @return {SuggestionNotificationsState}
  */
-const _getReciterSuggestionTargetState = createFeatureSelector<SuggestionNotificationsState>('suggestion-notifications');
+const _getReciterSuggestionTargetState = createFeatureSelector<SuggestionNotificationsState>('suggestionNotifications');
 
 // Reciter Suggestion Targets
 // ----------------------------------------------------------------------------

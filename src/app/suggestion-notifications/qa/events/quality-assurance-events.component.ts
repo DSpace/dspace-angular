@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,25 +10,27 @@ import { SortDirection, SortOptions } from '../../../core/cache/models/sort-opti
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import {
-  QualityAssuranceEventObject,
-  OpenaireQualityAssuranceEventMessageObject
+  OpenaireQualityAssuranceEventMessageObject,
+  QualityAssuranceEventObject
 } from '../../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
-import { QualityAssuranceEventRestService } from '../../../core/suggestion-notifications/qa/events/quality-assurance-event-rest.service';
+import {
+  QualityAssuranceEventRestService
+} from '../../../core/suggestion-notifications/qa/events/quality-assurance-event-rest.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue, isEmpty } from '../../../shared/empty.util';
 import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
-  QualityAssuranceEventData,
-  ProjectEntryImportModalComponent
+  ProjectEntryImportModalComponent,
+  QualityAssuranceEventData
 } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 import { Item } from '../../../core/shared/item.model';
-import {FindListOptions} from '../../../core/data/find-list-options.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 /**
  * Component to display the Quality Assurance event list.
@@ -38,7 +40,7 @@ import {FindListOptions} from '../../../core/data/find-list-options.model';
   templateUrl: './quality-assurance-events.component.html',
   styleUrls: ['./quality-assurance-events.scomponent.scss'],
 })
-export class QualityAssuranceEventsComponent implements OnInit {
+export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   /**
    * The pagination system configuration for HTML listing.
    * @type {PaginationComponentOptions}
@@ -376,47 +378,50 @@ export class QualityAssuranceEventsComponent implements OnInit {
    *    the Quality Assurance event item
    */
   protected setEventUpdated(events: QualityAssuranceEventObject[]): void {
-    this.subs.push(
-      from(events).pipe(
-        mergeMap((event: QualityAssuranceEventObject) => {
-          const related$ = event.related.pipe(
-            getFirstCompletedRemoteData(),
-          );
-          const target$ = event.target.pipe(
-            getFirstCompletedRemoteData()
-          );
-          return combineLatest([related$, target$]).pipe(
-            map(([relatedItemRD, targetItemRD]: [RemoteData<Item>, RemoteData<Item>]) => {
-              const data: QualityAssuranceEventData = {
-                event: event,
-                id: event.id,
-                title: event.title,
-                hasProject: false,
-                projectTitle: null,
-                projectId: null,
-                handle: null,
-                reason: null,
-                isRunning: false,
-                target: (targetItemRD?.hasSucceeded) ? targetItemRD.payload : null,
-              };
-              if (relatedItemRD?.hasSucceeded && relatedItemRD?.payload?.id) {
-                data.hasProject = true;
-                data.projectTitle = event.message.title;
-                data.projectId = relatedItemRD?.payload?.id;
-                data.handle = relatedItemRD?.payload?.handle;
-              }
-              return data;
-            })
-          );
-        }),
-        scan((acc: any, value: any) => [...acc, value], []),
-        take(events.length)
-      ).subscribe(
-        (eventsReduced) => {
-          this.eventsUpdated$.next(eventsReduced);
-        }
-      )
-    );
+    if (isEmpty(events)) {
+      this.eventsUpdated$.next([]);
+    } else {
+      this.subs.push(
+        from(events).pipe(
+          mergeMap((event: QualityAssuranceEventObject) => {
+            const related$ = event.related.pipe(
+              getFirstCompletedRemoteData(),
+            );
+            const target$ = event.target.pipe(
+              getFirstCompletedRemoteData()
+            );
+            return combineLatest([related$, target$]).pipe(
+              map(([relatedItemRD, targetItemRD]: [RemoteData<Item>, RemoteData<Item>]) => {
+                const data: QualityAssuranceEventData = {
+                  event: event,
+                  id: event.id,
+                  title: event.title,
+                  hasProject: false,
+                  projectTitle: null,
+                  projectId: null,
+                  handle: null,
+                  reason: null,
+                  isRunning: false,
+                  target: (targetItemRD?.hasSucceeded) ? targetItemRD.payload : null,
+                };
+                if (relatedItemRD?.hasSucceeded && relatedItemRD?.payload?.id) {
+                  data.hasProject = true;
+                  data.projectTitle = event.message.title;
+                  data.projectId = relatedItemRD?.payload?.id;
+                  data.handle = relatedItemRD?.payload?.handle;
+                }
+                return data;
+              })
+            );
+          }),
+          scan((acc: any, value: any) => [...acc, value], []),
+          take(events.length)
+        ).subscribe((eventsReduced) => {
+            this.eventsUpdated$.next(eventsReduced);
+          }
+        )
+      );
+    }
   }
 
   protected computePIDHref(event: OpenaireQualityAssuranceEventMessageObject) {

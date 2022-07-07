@@ -12,8 +12,12 @@ import { SuggestionNotificationsStateService } from './suggestion-notifications-
 import { suggestionNotificationsReducers, SuggestionNotificationsState } from './suggestion-notifications.reducer';
 import { suggestionNotificationsEffects } from './suggestion-notifications-effects';
 import { QualityAssuranceTopicsService } from './qa/topics/quality-assurance-topics.service';
-import { QualityAssuranceTopicRestService } from '../core/suggestion-notifications/qa/topics/quality-assurance-topic-rest.service';
-import { QualityAssuranceEventRestService } from '../core/suggestion-notifications/qa/events/quality-assurance-event-rest.service';
+import {
+  QualityAssuranceTopicRestService
+} from '../core/suggestion-notifications/qa/topics/quality-assurance-topic-rest.service';
+import {
+  QualityAssuranceEventRestService
+} from '../core/suggestion-notifications/qa/events/quality-assurance-event-rest.service';
 import { ProjectEntryImportModalComponent } from './qa/project-entry-import-modal/project-entry-import-modal.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchModule } from '../shared/search/search.module';
@@ -40,7 +44,7 @@ const MODULES = [
   CommonModule,
   SharedModule,
   CoreModule.forRoot(),
-  StoreModule.forFeature('suggestion-notifications', suggestionNotificationsReducers, storeModuleConfig as StoreConfig<SuggestionNotificationsState, Action>),
+  StoreModule.forFeature('suggestionNotifications', suggestionNotificationsReducers, storeModuleConfig as StoreConfig<SuggestionNotificationsState, Action>),
   EffectsModule.forFeature(suggestionNotificationsEffects),
   TranslateModule
 ];
