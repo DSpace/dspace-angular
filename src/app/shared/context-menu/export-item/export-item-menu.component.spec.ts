@@ -13,7 +13,7 @@ import { Item } from '../../../core/shared/item.model';
 import { ExportItemMenuComponent } from './export-item-menu.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemExportFormConfiguration, ItemExportService } from '../../item-export/item-export.service';
-import { of, of as observableOf } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 describe('ExportItemMenuComponent', () => {
   let component: ExportItemMenuComponent;
@@ -78,6 +78,7 @@ describe('ExportItemMenuComponent', () => {
   });
 
   it('should render a button', () => {
+    fixture.detectChanges();
     component.configuration = configuration;
     component.configuration.formats = [{ type: null, id: '1', mimeType: '1', entityType: 'Patent', molteplicity: '1', _links: null }];
     fixture.detectChanges();
