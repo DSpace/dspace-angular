@@ -2,20 +2,22 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
 
 import { of as observableOf } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
 import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form.component';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { AuthService } from '../../core/auth/auth.service';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 describe('ProfilePageResearcherFormComponent', () => {
 
@@ -26,13 +28,13 @@ describe('ProfilePageResearcherFormComponent', () => {
   let user: EPerson;
   let profile: ResearcherProfile;
 
-  let researcherProfileService: ResearcherProfileService;
+  let researcherProfileService: jasmine.SpyObj<ResearcherProfileService>;
 
   let notificationsServiceStub: NotificationsServiceStub;
 
-  let profileClaimService: ProfileClaimService;
+  let profileClaimService: jasmine.SpyObj<ProfileClaimService>;
 
-  let authService: AuthService;
+  let authService: jasmine.SpyObj<AuthService>;
 
   function init() {
 
@@ -51,9 +53,9 @@ describe('ProfilePageResearcherFormComponent', () => {
     });
 
     researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
-      findById: observableOf(profile),
+      findById: createSuccessfulRemoteDataObject$(profile),
       create: observableOf(profile),
-      setVisibility: observableOf(profile),
+      setVisibility: jasmine.createSpy('setVisibility'),
       delete: observableOf(true),
       findRelatedItemId: observableOf('a42557ca-cbb8-4442-af9c-3bb5cad2d075')
     });
@@ -61,7 +63,7 @@ describe('ProfilePageResearcherFormComponent', () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
     profileClaimService = jasmine.createSpyObj('profileClaimService', {
-      canClaimProfiles: observableOf(false),
+      hasProfilesToSuggest: observableOf(false),
     });
 
   }
@@ -91,7 +93,7 @@ describe('ProfilePageResearcherFormComponent', () => {
   });
 
   it('should search the researcher profile for the current user', () => {
-    expect(researcherProfileService.findById).toHaveBeenCalledWith(user.id);
+    expect(researcherProfileService.findById).toHaveBeenCalledWith(user.id, false, true, followLink('item'));
   });
 
   describe('createProfile', () => {
@@ -105,24 +107,64 @@ describe('ProfilePageResearcherFormComponent', () => {
 
   describe('toggleProfileVisibility', () => {
 
-    it('should set the profile visibility to true', () => {
-      profile.visible = false;
-      component.toggleProfileVisibility(profile);
-      expect(researcherProfileService.setVisibility).toHaveBeenCalledWith(profile, true);
+    describe('', () => {
+
+      beforeEach(() => {
+        researcherProfileService.setVisibility.and.returnValue(createSuccessfulRemoteDataObject$(profile));
+      });
+
+      it('should set the profile visibility to true', () => {
+        profile.visible = false;
+        component.toggleProfileVisibility(profile);
+        expect(researcherProfileService.setVisibility).toHaveBeenCalledWith(profile, true);
+      });
+
+      it('should set the profile visibility to false', () => {
+        profile.visible = true;
+        component.toggleProfileVisibility(profile);
+        expect(researcherProfileService.setVisibility).toHaveBeenCalledWith(profile, false);
+      });
     });
 
-    it('should set the profile visibility to false', () => {
-      profile.visible = true;
-      component.toggleProfileVisibility(profile);
-      expect(researcherProfileService.setVisibility).toHaveBeenCalledWith(profile, false);
+    describe('on successful', () => {
+      beforeEach(() => {
+        researcherProfileService.setVisibility.and.returnValue(createSuccessfulRemoteDataObject$(profile));
+      });
+
+      it('should update the profile properly', () => {
+        profile.visible = true;
+        component.toggleProfileVisibility(profile);
+        expect(component.researcherProfile$.value).toEqual(profile);
+      });
+
     });
 
+    describe('on error', () => {
+      beforeEach(() => {
+        researcherProfileService.setVisibility.and.returnValue(createFailedRemoteDataObject$());
+      });
+
+      it('should update the profile properly', () => {
+        const unchangedProfile = profile;
+        profile.visible = true;
+        component.toggleProfileVisibility(profile);
+        expect(component.researcherProfile$.value).toEqual(unchangedProfile);
+        expect((component as any).notificationService.error).toHaveBeenCalled();
+      });
+
+    });
   });
 
   describe('deleteProfile', () => {
+    beforeEach(() => {
+      const modalService = (component as any).modalService;
+      spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: observableOf(true) }) }));
+      component.deleteProfile(profile);
+      fixture.detectChanges();
+    });
 
     it('should delete the profile', () => {
-      component.deleteProfile(profile);
+
       expect(researcherProfileService.delete).toHaveBeenCalledWith(profile);
     });
 

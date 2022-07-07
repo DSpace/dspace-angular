@@ -1,18 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
-import { Observable, of as observableOf } from 'rxjs';
+import { AsyncSubject, combineLatest, from as observableFrom, Observable, of as observableOf } from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
   find,
   map,
   mergeMap,
+  skipWhile,
+  switchMap,
   take,
   takeWhile,
-  switchMap,
   tap,
-  skipWhile,
+  toArray
 } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
@@ -21,21 +22,24 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getRemoteDataPayload, getFirstSucceededRemoteData, } from '../shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { ChangeAnalyzer } from './change-analyzer';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import {
   CreateRequest,
+  DeleteByIDRequest,
+  DeleteRequest,
   GetRequest,
   PatchRequest,
-  PutRequest,
-  DeleteRequest
+  PostRequest,
+  PutRequest
 } from './request.models';
 import { RequestService } from './request.service';
 import { RestRequestMethod } from './rest-request-method';
@@ -168,7 +172,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    * @return {Observable<string>}
    * Return an observable that emits created HREF
    */
-  protected buildHrefWithParams(href: string, params: RequestParam[], ...linksToFollow: FollowLinkConfig<T>[]): string {
+  buildHrefWithParams(href: string, params: RequestParam[], ...linksToFollow: FollowLinkConfig<T>[]): string {
 
     let  args = [];
     if (hasValue(params)) {
@@ -580,6 +584,86 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
   }
 
   /**
+<<<<<<< HEAD
+   * Perform a post on an endpoint related item with ID. Ex.: endpoint/<itemId>/related?item=<relatedItemId>
+   * @param itemId The item id
+   * @param relatedItemId The related item Id
+   * @param body The optional POST body
+   * @return the RestResponse as an Observable
+   */
+  public postOnRelated(itemId: string, relatedItemId: string, body?: any) {
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getIDHrefObs(itemId);
+
+    hrefObs.pipe(
+      take(1)
+    ).subscribe((href: string) => {
+      const request = new PostRequest(requestId, href + '/related?item=' + relatedItemId, body);
+      if (hasValue(this.responseMsToLive)) {
+        request.responseMsToLive = this.responseMsToLive;
+      }
+      this.requestService.send(request);
+    });
+
+    return this.rdbService.buildFromRequestUUID<T>(requestId);
+  }
+
+  /**
+   * Perform a delete on an endpoint related item. Ex.: endpoint/<itemId>/related
+   * @param itemId The item id
+   * @return the RestResponse as an Observable
+   */
+  public deleteOnRelated(itemId: string): Observable<RemoteData<NoContent>> {
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getIDHrefObs(itemId);
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new DeleteByIDRequest(requestId, href + '/related', itemId);
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
+        }
+        this.requestService.send(request);
+      })
+    ).subscribe();
+
+    return this.rdbService.buildFromRequestUUID(requestId);
+  }
+
+  /*
+   * Invalidate an existing DSpaceObject by marking all requests it is included in as stale
+   * @param   objectId The id of the object to be invalidated
+   * @return  An Observable that will emit `true` once all requests are stale
+   */
+  invalidate(objectId: string): Observable<boolean> {
+    return this.getIDHrefObs(objectId).pipe(
+      switchMap((href: string) => this.invalidateByHref(href))
+    );
+  }
+
+  /**
+   * Invalidate an existing DSpaceObject by marking all requests it is included in as stale
+   * @param   href The self link of the object to be invalidated
+   * @return  An Observable that will emit `true` once all requests are stale
+   */
+  invalidateByHref(href: string): Observable<boolean> {
+    const done$ = new AsyncSubject<boolean>();
+
+    this.objectCache.getByHref(href).pipe(
+      switchMap((oce: ObjectCacheEntry) => observableFrom(oce.requestUUIDs).pipe(
+        mergeMap((requestUUID: string) => this.requestService.setStaleByUUID(requestUUID)),
+        toArray(),
+      )),
+    ).subscribe(() => {
+      done$.next(true);
+      done$.complete();
+    });
+
+    return done$;
+  }
+
+  /**
    * Delete an existing DSpace Object on the server
    * @param   objectId The id of the object to be removed
    * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
@@ -600,6 +684,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    *                            metadata should be saved as real metadata
    * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
    *          errorMessage, timeCompleted, etc
+   *          Only emits once all request related to the DSO has been invalidated.
    */
   deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     const requestId = this.requestService.generateRequestId();
@@ -618,7 +703,27 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     }
     this.requestService.send(request);
 
-    return this.rdbService.buildFromRequestUUID(requestId);
+    const response$ = this.rdbService.buildFromRequestUUID(requestId);
+
+    const invalidated$ = new AsyncSubject<boolean>();
+    response$.pipe(
+      getFirstCompletedRemoteData(),
+      switchMap((rd: RemoteData<NoContent>) => {
+        if (rd.hasSucceeded) {
+          return this.invalidateByHref(href);
+        } else {
+          return [true];
+        }
+      })
+    ).subscribe(() => {
+      invalidated$.next(true);
+      invalidated$.complete();
+    });
+
+    return combineLatest([response$, invalidated$]).pipe(
+      filter(([_, invalidated]) => invalidated),
+      map(([response, _]) => response),
+    );
   }
 
   /**

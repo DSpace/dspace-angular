@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VersionedItemComponent } from './versioned-item.component';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { VersionDataService } from '../../../../core/data/version-data.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { ItemVersionsSharedService } from '../../../../shared/item/item-versions/item-versions-shared.service';
@@ -19,6 +19,7 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Version } from '../../../../core/shared/version.model';
 import { RouteService } from '../../../../core/services/route.service';
+import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
@@ -57,10 +58,17 @@ describe('VersionedItemComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [VersionedItemComponent, DummyComponent],
-      imports: [RouterTestingModule],
+      imports: [
+        RouterTestingModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          }
+        }),
+      ],
       providers: [
         { provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy },
-        { provide: TranslateService, useValue: {} },
         { provide: VersionDataService, useValue: versionServiceSpy },
         { provide: NotificationsService, useValue: {} },
         { provide: ItemVersionsSharedService, useValue: {} },

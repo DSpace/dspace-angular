@@ -6,8 +6,8 @@ import { find } from 'rxjs/operators';
 
 import { RemoteData } from '../core/data/remote-data';
 import { hasValue } from '../shared/empty.util';
-import { OpenaireSuggestionsDataService } from '../core/openaire/reciter-suggestions/openaire-suggestions-data.service';
-import { OpenaireSuggestionTarget } from '../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+import { OpenaireSuggestionsDataService } from '../core/suggestion-notifications/reciter-suggestions/openaire-suggestions-data.service';
+import { OpenaireSuggestionTarget } from '../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 
 /**
  * This class represents a resolver that requests a specific collection before the route is activated

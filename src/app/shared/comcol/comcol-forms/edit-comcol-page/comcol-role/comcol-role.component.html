@@ -4,7 +4,7 @@
        *ngVar="group$ | async as group">
 
     <h5 class="w-100">
-      {{'comcol-role.edit.' + (comcolRole$ | async)?.name + '.name' | translate}}
+      {{ roleName$ | async }}
     </h5>
 
     <div class="mt-2 mb-2">

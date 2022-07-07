@@ -1,7 +1,7 @@
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { SearchResult } from '../search/models/search-result.model';
-import { SuggestionsService } from '../../openaire/reciter-suggestions/suggestions.service';
+import { SuggestionsService } from '../../suggestion-notifications/reciter-suggestions/suggestions.service';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
@@ -1322,10 +1322,10 @@ export const OpenaireMockDspaceObject: SearchResult<DSpaceObject> = Object.assig
 // -------------------------------------------------------------------------------
 
 /**
- * Mock for [[OpenaireStateService]]
+ * Mock for [[SuggestionNotificationsStateService]]
  */
-export function getMockOpenaireStateService(): any {
-  return jasmine.createSpyObj('OpenaireStateService', {
+export function getMockSuggestionNotificationsStateService(): any {
+  return jasmine.createSpyObj('SuggestionNotificationsStateService', {
     getOpenaireBrokerTopics: jasmine.createSpy('getOpenaireBrokerTopics'),
     isOpenaireBrokerTopicsLoading: jasmine.createSpy('isOpenaireBrokerTopicsLoading'),
     isOpenaireBrokerTopicsLoaded: jasmine.createSpy('isOpenaireBrokerTopicsLoaded'),

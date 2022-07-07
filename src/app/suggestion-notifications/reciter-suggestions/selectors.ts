@@ -1,0 +1,97 @@
+import {createFeatureSelector, createSelector, MemoizedSelector} from '@ngrx/store';
+import { suggestionNotificationsSelector, SuggestionNotificationsState } from '../suggestion-notifications.reducer';
+import { OpenaireSuggestionTarget } from '../../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { SuggestionTargetState } from './suggestion-targets/suggestion-targets.reducer';
+import {subStateSelector} from '../../submission/selectors';
+
+/**
+ * Returns the Reciter Suggestion Target state.
+ * @function _getReciterSuggestionTargetState
+ * @param {AppState} state Top level state.
+ * @return {SuggestionNotificationsState}
+ */
+const _getReciterSuggestionTargetState = createFeatureSelector<SuggestionNotificationsState>('openaire');
+
+// Reciter Suggestion Targets
+// ----------------------------------------------------------------------------
+
+/**
+ * Returns the Reciter Suggestion Targets State.
+ * @function reciterSuggestionTargetStateSelector
+ * @return {SuggestionNotificationsState}
+ */
+export function reciterSuggestionTargetStateSelector(): MemoizedSelector<SuggestionNotificationsState, SuggestionTargetState> {
+  return subStateSelector<SuggestionNotificationsState, SuggestionTargetState>(suggestionNotificationsSelector, 'suggestionTarget');
+}
+
+/**
+ * Returns the Reciter Suggestion Targets list.
+ * @function reciterSuggestionTargetObjectSelector
+ * @return {OpenaireReciterSuggestionTarget[]}
+ */
+export function reciterSuggestionTargetObjectSelector(): MemoizedSelector<SuggestionNotificationsState, OpenaireSuggestionTarget[]> {
+  return subStateSelector<SuggestionNotificationsState, OpenaireSuggestionTarget[]>(reciterSuggestionTargetStateSelector(), 'targets');
+}
+
+/**
+ * Returns true if the Reciter Suggestion Targets are loaded.
+ * @function isReciterSuggestionTargetLoadedSelector
+ * @return {boolean}
+ */
+export const isReciterSuggestionTargetLoadedSelector = createSelector(_getReciterSuggestionTargetState,
+  (state: SuggestionNotificationsState) => state.suggestionTarget.loaded
+);
+
+/**
+ * Returns true if the deduplication sets are processing.
+ * @function isDeduplicationSetsProcessingSelector
+ * @return {boolean}
+ */
+export const isreciterSuggestionTargetProcessingSelector = createSelector(_getReciterSuggestionTargetState,
+  (state: SuggestionNotificationsState) => state.suggestionTarget.processing
+);
+
+/**
+ * Returns the total available pages of Reciter Suggestion Targets.
+ * @function getreciterSuggestionTargetTotalPagesSelector
+ * @return {number}
+ */
+export const getreciterSuggestionTargetTotalPagesSelector = createSelector(_getReciterSuggestionTargetState,
+  (state: SuggestionNotificationsState) => state.suggestionTarget.totalPages
+);
+
+/**
+ * Returns the current page of Reciter Suggestion Targets.
+ * @function getreciterSuggestionTargetCurrentPageSelector
+ * @return {number}
+ */
+export const getreciterSuggestionTargetCurrentPageSelector = createSelector(_getReciterSuggestionTargetState,
+  (state: SuggestionNotificationsState) => state.suggestionTarget.currentPage
+);
+
+/**
+ * Returns the total number of Reciter Suggestion Targets.
+ * @function getreciterSuggestionTargetTotalsSelector
+ * @return {number}
+ */
+export const getreciterSuggestionTargetTotalsSelector = createSelector(_getReciterSuggestionTargetState,
+  (state: SuggestionNotificationsState) => state.suggestionTarget.totalElements
+);
+
+/**
+ * Returns Suggestion Targets for the current user.
+ * @function getCurrentUserReciterSuggestionTargetSelector
+ * @return {OpenaireSuggestionTarget[]}
+ */
+export const getCurrentUserSuggestionTargetsSelector = createSelector(_getReciterSuggestionTargetState,
+  (state: SuggestionNotificationsState) => state.suggestionTarget.currentUserTargets
+);
+
+/**
+ * Returns whether or not the user has consulted their suggestions
+ * @function getCurrentUserReciterSuggestionTargetSelector
+ * @return {boolean}
+ */
+export const getCurrentUserSuggestionTargetsVisitedSelector = createSelector(_getReciterSuggestionTargetState,
+  (state: SuggestionNotificationsState) => state.suggestionTarget.currentUserTargetsVisited
+);

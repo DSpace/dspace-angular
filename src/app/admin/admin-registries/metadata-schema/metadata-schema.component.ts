@@ -174,15 +174,12 @@ export class MetadataSchemaComponent implements OnInit {
           const failedResponses = responses.filter((response: RemoteData<NoContent>) => response.hasFailed);
           if (successResponses.length > 0) {
             this.showNotification(true, successResponses.length);
-            this.registryService.clearMetadataFieldRequests();
-
           }
           if (failedResponses.length > 0) {
             this.showNotification(false, failedResponses.length);
           }
           this.registryService.deselectAllMetadataField();
           this.registryService.cancelEditMetadataField();
-          this.forceUpdateFields();
         });
       }
     );

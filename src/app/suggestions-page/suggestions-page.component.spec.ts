@@ -7,13 +7,13 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { SuggestionsPageComponent } from './suggestions-page.component';
-import { SuggestionListElementComponent } from '../openaire/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
-import { SuggestionsService } from '../openaire/reciter-suggestions/suggestions.service';
-import { getMockOpenaireStateService, getMockSuggestionsService } from '../shared/mocks/openaire.mock';
+import { SuggestionListElementComponent } from '../suggestion-notifications/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
+import { SuggestionsService } from '../suggestion-notifications/reciter-suggestions/suggestions.service';
+import { getMockSuggestionNotificationsStateService, getMockSuggestionsService } from '../shared/mocks/openaire.mock';
 import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
-import { OpenaireSuggestion } from '../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
+import { OpenaireSuggestion } from '../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion.model';
 import { mockSuggestionPublicationOne, mockSuggestionPublicationTwo } from '../shared/mocks/reciter-suggestion.mock';
-import { SuggestionEvidencesComponent } from '../openaire/reciter-suggestions/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
+import { SuggestionEvidencesComponent } from '../suggestion-notifications/reciter-suggestions/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
 import { ObjectKeysPipe } from '../shared/utils/object-keys-pipe';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,7 +23,7 @@ import { AuthService } from '../core/auth/auth.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
-import { SuggestionTargetsStateService } from '../openaire/reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
+import { SuggestionTargetsStateService } from '../suggestion-notifications/reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { PageInfo } from '../core/shared/page-info.model';
@@ -37,7 +37,7 @@ describe('SuggestionPageComponent', () => {
   let fixture: ComponentFixture<SuggestionsPageComponent>;
   let scheduler: TestScheduler;
   const mockSuggestionsService = getMockSuggestionsService();
-  const mockSuggestionsTargetStateService = getMockOpenaireStateService();
+  const mockSuggestionsTargetStateService = getMockSuggestionNotificationsStateService();
   const suggestionTargetsList: PaginatedList<OpenaireSuggestion> = buildPaginatedList(new PageInfo(), [mockSuggestionPublicationOne, mockSuggestionPublicationTwo]);
   const router = new RouterStub();
   const routeStub = {
