@@ -4,6 +4,7 @@ import { WorkspaceitemSectionLicenseObject } from './workspaceitem-section-licen
 import { WorkspaceitemSectionUploadObject } from './workspaceitem-section-upload.model';
 import { WorkspaceitemSectionCcLicenseObject } from './workspaceitem-section-cc-license.model';
 import { WorkspaceitemSectionDetectDuplicateObject } from './workspaceitem-section-deduplication.model';
+import { WorkspaceitemSectionCorrectionObject } from './workspaceitem-section-correction.model';
 
 /**
  * An interface to represent submission's section object.
@@ -23,4 +24,5 @@ export type WorkspaceitemSectionDataType
   | WorkspaceitemSectionCcLicenseObject
   | WorkspaceitemSectionAccessesObject
   | WorkspaceitemSectionDetectDuplicateObject
+  | WorkspaceitemSectionCorrectionObject
   | string;

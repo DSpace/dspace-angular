@@ -17,7 +17,7 @@ import { MetadataValue } from '../../../../../../../core/shared/metadata.models'
  * This component renders the text metadata fields
  */
 @Component({
-  // tslint:disable-next-line: component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'span[ds-orcid]',
   templateUrl: './orcid.component.html',
   styleUrls: ['./orcid.component.scss']

@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -26,8 +28,6 @@ import {
 
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-
-/* tslint:disable:max-classes-per-file */
 
 export const AUDIT_PERSON_NOT_AVAILABLE = 'n/a';
 

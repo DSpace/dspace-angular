@@ -1,9 +1,9 @@
 import { InjectionToken } from '@angular/core';
 import { makeStateKey } from '@angular/platform-browser';
+import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
 import { Config } from './config.interface';
 import { ServerConfig } from './server-config.interface';
 import { CacheConfig } from './cache-config.interface';
-import { UniversalConfig } from './universal-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { SubmissionConfig } from './submission-config.interface';
 import { FormConfig } from './form-config.interfaces';
@@ -30,7 +30,6 @@ interface AppConfig extends Config {
   form: FormConfig;
   notifications: INotificationBoardOptions;
   submission: SubmissionConfig;
-  universal: UniversalConfig;
   debug: boolean;
   defaultLanguage: string;
   languages: LangConfig[];
@@ -46,6 +45,7 @@ interface AppConfig extends Config {
   suggestion: SuggestionConfig[];
   addThisPlugin: AddThisPluginConfig;
   followAuthorityMetadata: FollowAuthorityMetadata[];
+  metricVisualizationConfig: MetricVisualizationConfig[];
 }
 
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');

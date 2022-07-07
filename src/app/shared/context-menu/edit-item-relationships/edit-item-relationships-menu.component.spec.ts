@@ -27,8 +27,8 @@ describe('EditItemRelationshipsMenuComponent', () => {
 
   let editItemDataService: any;
   let dso: DSpaceObject;
-  // tslint:disable-next-line:prefer-const
-  let notificationService = new NotificationsServiceStub();
+
+  const notificationService = new NotificationsServiceStub();
   const editItemMode: EditItemMode = Object.assign(new EditItemMode(), {
     name: 'test',
     label: 'test'
@@ -88,9 +88,9 @@ describe('EditItemRelationshipsMenuComponent', () => {
     entityType: 'Person',
     priority: 0,
     security: 0,
-    rows:[
+    rows: [
       {
-        cells:[
+        cells: [
           {
             boxes: boxesWithRelations,
             style: ''
@@ -115,9 +115,9 @@ describe('EditItemRelationshipsMenuComponent', () => {
     entityType: 'Person',
     priority: 0,
     security: 0,
-    rows:[
+    rows: [
       {
-        cells:[
+        cells: [
           {
             boxes: boxesWithoutRelations,
             style: ''
@@ -150,14 +150,6 @@ describe('EditItemRelationshipsMenuComponent', () => {
     })
   ];
 
-  const editItem: EditItem = Object.assign(new EditItem(), {
-    modes: createSuccessfulRemoteDataObject$(createPaginatedList([editItemMode]))
-  });
-
-  const noEditItem: EditItem = Object.assign(new EditItem(), {
-    modes: createSuccessfulRemoteDataObject$(createPaginatedList([]))
-  });
-
   const tabDataServiceMock: any = jasmine.createSpyObj('TabDataService', {
     findByItem: jasmine.createSpy('findByItem')
   });
@@ -170,7 +162,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
       }
     });
     editItemDataService = jasmine.createSpyObj('EditItemDataService', {
-      findById: jasmine.createSpy('findById')
+      searchEditModesById: jasmine.createSpy('searchEditModesById')
     });
 
     TestBed.configureTestingModule({
@@ -196,7 +188,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
 
   describe('when edit modes are available', () => {
     beforeEach(() => {
-      editItemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(editItem));
+      editItemDataService.searchEditModesById.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([editItemMode])));
       tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
         a: createSuccessfulRemoteDataObject(createPaginatedList([tabWithRelationBoxes]))
       }));
@@ -222,7 +214,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
 
   describe('when no edit modes are available', () => {
     beforeEach(() => {
-      editItemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(noEditItem));
+      editItemDataService.searchEditModesById.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([])));
       tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
         a: createSuccessfulRemoteDataObject(createPaginatedList([tabWithoutRelationBoxes]))
       }));

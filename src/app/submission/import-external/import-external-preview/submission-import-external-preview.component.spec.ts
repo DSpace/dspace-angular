@@ -16,20 +16,35 @@ import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.model';
-import { Metadata } from '../../../core/shared/metadata.utils';
-import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
+import {
+  SubmissionImportExternalCollectionComponent
+} from '../import-external-collection/submission-import-external-collection.component';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
+import { MetadataValue } from '../../../core/shared/metadata.models';
+import { By } from '@angular/platform-browser';
 
+const uriMetadata = Object.assign(new MetadataValue(), {
+  value: 'https://orcid.org/0001-0001-0001-0001'
+});
+const abstractMetadata = Object.assign(new MetadataValue(), {
+  value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet malesuada nulla. Mauris et tortor sit amet orci vehicula feugiat. Etiam ac libero a dolor pellentesque pellentesque. Nam auctor aliquam sapien, et aliquet sem dapibus nec. Fusce dapibus finibus massa. Aenean malesuada rutrum placerat. Suspendisse lectus dolor, vestibulum in orci vitae, convallis aliquam elit. Aliquam sit amet laoreet nunc, ut laoreet risus. Nulla tincidunt dapibus nibh sagittis molestie. Maecenas hendrerit, elit eget suscipit consectetur, enim quam porttitor tortor, in fermentum turpis mi sit amet odio. Praesent sed vehicula ante. Donec eget est in ligula convallis facilisis. '
+});
 const externalEntry = Object.assign(new ExternalSourceEntry(), {
   id: '0001-0001-0001-0001',
   display: 'John Doe',
   value: 'John, Doe',
   metadata: {
-    'dc.identifier.uri': [
-      {
-        value: 'https://orcid.org/0001-0001-0001-0001'
-      }
-    ]
+    'dc.identifier.uri': [uriMetadata],
+  },
+  _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } }
+});
+const externalEntryWithAbstract = Object.assign(new ExternalSourceEntry(), {
+  id: '0001-0001-0001-0001',
+  display: 'John Doe',
+  value: 'John, Doe',
+  metadata: {
+    'dc.identifier.uri': [uriMetadata],
+    'dc.description.abstract': [abstractMetadata],
   },
   _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } }
 });
@@ -105,7 +120,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
     it('Should init component properly', () => {
       comp.externalSourceEntry = externalEntry;
       const expected = [
-        { key: 'dc.identifier.uri', value: Metadata.first(comp.externalSourceEntry.metadata, 'dc.identifier.uri') }
+        { key: 'dc.identifier.uri', value: uriMetadata }
       ];
       fixture.detectChanges();
 
@@ -155,6 +170,18 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
       expect(compAsAny.submissionService.createSubmissionFromExternalSource).toHaveBeenCalledWith(externalEntry._links.self.href, emittedEvent.collection.id);
       expect(compAsAny.router.navigateByUrl).toHaveBeenCalledWith('/workspaceitems/' + submissionObjects[0].id + '/edit');
       done();
+    });
+
+    it('Should render truncatable part', () => {
+      comp.externalSourceEntry = externalEntryWithAbstract;
+      fixture.detectChanges();
+      expect(fixture.debugElement.query(By.css('[data-test="abstract"]'))).toBeTruthy();
+    });
+
+    it('Should not render truncatable part', () => {
+      comp.externalSourceEntry = externalEntry;
+      fixture.detectChanges();
+      expect(fixture.debugElement.query(By.css('[data-test="abstract"]'))).toBeFalsy();
     });
   });
 });

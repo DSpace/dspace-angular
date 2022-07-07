@@ -61,6 +61,8 @@
 
   "admin.edit-user-agreement.title": "Edit User Agreement",
 
+  "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+
   "admin.edit-cms-metadata.title": "Edit CMS Metadata",
 
   "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
@@ -628,9 +630,9 @@
 
   "admin.search.item.edit": "Edit",
 
-  "admin.search.item.make-private": "Make Private",
+  "admin.search.item.make-private": "Make non-discoverable",
 
-  "admin.search.item.make-public": "Make Public",
+  "admin.search.item.make-public": "Make discoverable",
 
   "admin.search.item.move": "Move",
 
@@ -695,7 +697,9 @@
 
   "bitstream.download.page": "Now downloading {{bitstream}}..." ,
 
-  "bitstream.download.page.back": "Back" ,
+  "bitstream.download.page.back": "Back",
+
+  "bitstream.download.page.close": "Close",
 
 
   "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
@@ -874,9 +878,9 @@
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
-  "browse.next.button": "Next",
+  "pagination.next.button": "Next",
 
-  "browse.previous.button": "Previous",
+  "pagination.previous.button": "Previous",
 
   "browse.startsWith.choose_start": "(Choose start)",
 
@@ -1176,6 +1180,8 @@
 
   "collection.form.submissionDefinition": "Submission definition",
 
+  "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
+
 
 
   "collection.listelement.badge": "Collection",
@@ -1418,6 +1424,8 @@
   "context-menu.actions.export-item.btn": "Export",
 
   "context-menu.actions.label": "Options",
+
+  "context-menu.actions.show-all-metadata": "Show all metadata (technical view)",
 
   "context-menu.actions.edit-item.btn.FULL": "Edit all the details",
 
@@ -2084,15 +2092,15 @@
 
   "form.no-value": "No value entered",
 
-  "form.other-information.data-oairecerif_author_affiliation": "Affiliation",
+  "form.other-information.oairecerif_author_affiliation": "Affiliation",
 
-  "form.other-information.data-oairecerif_editor_affiliation": "Affiliation",
+  "form.other-information.oairecerif_editor_affiliation": "Affiliation",
 
-  "form.other-information.data-person_identifier_orcid": "ORCID iD",
+  "form.other-information.person_identifier_orcid": "ORCID iD",
 
   "form.other-information.institution-affiliation-name": "Affiliation(s)",
 
-  "form.other-information.data-dc_relation_grantno": "Grant Number",
+  "form.other-information.dc_relation_grantno": "Grant Number",
 
   "form.other-information.not-available": "Not available",
 
@@ -2230,7 +2238,7 @@
 
 
 
-  "item.alerts.private": "This item is private",
+  "item.alerts.private": "This item is non-discoverable",
 
   "item.alerts.withdrawn": "This item has been withdrawn",
 
@@ -2242,7 +2250,7 @@
 
 
 
-  "item.badge.private": "Private",
+  "item.badge.private": "Non-discoverable",
 
   "item.badge.withdrawn": "Withdrawn",
 
@@ -2483,29 +2491,29 @@
 
   "item.edit.private.cancel": "Cancel",
 
-  "item.edit.private.confirm": "Make it Private",
+  "item.edit.private.confirm": "Make it non-discoverable",
 
-  "item.edit.private.description": "Are you sure this item should be made private in the archive?",
+  "item.edit.private.description": "Are you sure this item should be made non-discoverable in the archive?",
 
-  "item.edit.private.error": "An error occurred while making the item private",
+  "item.edit.private.error": "An error occurred while making the item non-discoverable",
 
-  "item.edit.private.header": "Make item private: {{ id }}",
+  "item.edit.private.header": "Make item non-discoverable: {{ id }}",
 
-  "item.edit.private.success": "The item is now private",
+  "item.edit.private.success": "The item is now non-discoverable",
 
 
 
   "item.edit.public.cancel": "Cancel",
 
-  "item.edit.public.confirm": "Make it Public",
+  "item.edit.public.confirm": "Make it discoverable",
 
-  "item.edit.public.description": "Are you sure this item should be made public in the archive?",
+  "item.edit.public.description": "Are you sure this item should be made discoverable in the archive?",
 
-  "item.edit.public.error": "An error occurred while making the item public",
+  "item.edit.public.error": "An error occurred while making the item discoverable",
 
-  "item.edit.public.header": "Make item public: {{ id }}",
+  "item.edit.public.header": "Make item discoverable: {{ id }}",
 
-  "item.edit.public.success": "The item is now public",
+  "item.edit.public.success": "The item is now discoverable",
 
 
 
@@ -2589,13 +2597,13 @@
 
   "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
 
-  "item.edit.tabs.status.buttons.private.button": "Make it private...",
+  "item.edit.tabs.status.buttons.private.button": "Make it non-discoverable...",
 
-  "item.edit.tabs.status.buttons.private.label": "Make item private",
+  "item.edit.tabs.status.buttons.private.label": "Make item non-discoverable",
 
-  "item.edit.tabs.status.buttons.public.button": "Make it public...",
+  "item.edit.tabs.status.buttons.public.button": "Make it discoverable...",
 
-  "item.edit.tabs.status.buttons.public.label": "Make item public",
+  "item.edit.tabs.status.buttons.public.label": "Make item discoverable",
 
   "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
 
@@ -2737,6 +2745,8 @@
   "item.page.metric.label.download": "Downloads",
 
   "item.page.metric.label.view": "Views",
+
+  "item.page.metric.label.view-detail-btn": "View Details",
 
   "item.page.metric.label.google-scholar": "Google Scholar",
 
@@ -3374,6 +3384,11 @@
 
   "menu.section.statistics_task": "Statistics Task",
 
+  "modal.item-detail-page.title" : "Item Page Detail",
+
+  "modal.item-detail-page.confirm.cancel" : "Close",
+
+
   "statistics": "Statistics",
 
   "statistics.workflow.breadcrumbs": "Workflow Statistics",
@@ -3577,6 +3592,8 @@
   "mydspace.results.no-title": "No title",
 
   "mydspace.results.no-uri": "No Uri",
+
+  "mydspace.results.is-correction": "Is a request of correction",
 
   "mydspace.search-form.placeholder": "Search in mydspace...",
 
@@ -4613,7 +4630,7 @@
 
   "search.filters.applied.f.dateSubmitted": "Date submitted",
 
-  "search.filters.applied.f.discoverable": "Private",
+  "search.filters.applied.f.discoverable": "Non-discoverable",
 
   "search.filters.applied.f.entityType": "Item Type",
 
@@ -4681,6 +4698,8 @@
 
   "search.filters.applied.charts.no.data.found": "No data found",
 
+  "search.filters.applied.charts.show.hide": "Show/Hide",
+
 
 
 
@@ -4693,6 +4712,10 @@
   "search.filters.filter.birthDate.head": "Birth Date",
 
   "search.filters.filter.birthDate.placeholder": "Birth Date",
+
+  "search.filters.filter.birthDate.min.label": "From",
+
+  "search.filters.filter.birthDate.max.label": "To",
 
   "search.filters.filter.birthDate.label": "Search birth date",
 
@@ -4738,11 +4761,13 @@
 
   "search.filters.filter.dateSubmitted.label": "Search date submitted",
 
-  "search.filters.filter.discoverable.head": "Private",
+  "search.filters.filter.discoverable.head": "Non-discoverable",
 
   "search.filters.filter.editor.head": "Editor",
 
   "search.filters.filter.editor.placeholder": "Editor",
+
+  "search.filters.filter.editor.label": "Search editor",
 
   "search.filters.filter.withdrawn.head": "Withdrawn",
 
@@ -4765,6 +4790,8 @@
   "search.filters.filter.funding.head": "Funding",
 
   "search.filters.filter.funding.placeholder": "Funding",
+
+  "search.filters.filter.funding.label": "Search funding",
 
   "search.filters.filter.has_content_in_original_bundle.head": "Has files",
 
@@ -4821,6 +4848,8 @@
   "search.filters.filter.organization.head": "Organization",
 
   "search.filters.filter.organization.placeholder": "Organization",
+
+  "search.filters.filter.organization.label": "Search organization",
 
   "search.filters.filter.organizationAddressCountry.head": "Country",
 
@@ -4924,6 +4953,8 @@
 
   "search.results.empty": "Your search returned no results.",
 
+  "search.results.view-result": "View",
+
 
   "search.sidebar.close": "Back to results",
 
@@ -4938,6 +4969,12 @@
   "search.sidebar.settings.sort-by": "Sort By",
 
   "search.sidebar.settings.title": "Settings",
+
+  "search.sidebar.show.hide": "Show/Hide",
+
+  "search.sidebar.show.hide.filters.tooltip": "Show/Hide filters sidebar",
+
+  "search.sidebar.show.hide.charts.tooltip": "Show/Hide charts",
 
 
 
@@ -4956,6 +4993,18 @@
   "sorting.dc.title.ASC": "Title Ascending",
 
   "sorting.dc.title.DESC": "Title Descending",
+
+  "sorting.metric.view.ASC" : "Views Ascending",
+
+  "sorting.metric.view.DESC" : "Views Descending",
+
+  "sorting.metric.download.ASC" : "Downloads Ascending",
+
+  "sorting.metric.download.DESC" : "Downloads Descending",
+
+  "sorting.metric.scopus.citation.ASC" : "Citations Ascending",
+
+  "sorting.metric.scopus.citation.DESC" : "Citations Descending",
 
   "sorting.score.ASC": "Least Relevant",
 
@@ -5012,33 +5061,33 @@
 
   "statistics.table.no-data": "No data available",
 
-  "statistics.table.mainReports.title.TotalVisits": "Total Visits",
+  "statistics.table.mainReports.title.TotalVisits": "Total visits",
 
-  "statistics.table.mainReports.title.TopItems": "Most Viewed",
+  "statistics.table.mainReports.title.TopItems": "Most viewed",
 
-  "statistics.table.mainReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
+  "statistics.table.mainReports.title.TotalVisitsPerMonth": "Total visits per month",
 
-  "statistics.table.mainReports.title.TotalDownloads": "File Visits",
+  "statistics.table.mainReports.title.TotalDownloads": "File visits",
 
-  "statistics.table.mainReports.title.TotalVisitsAndDownloads": "Items and file Visits",
+  "statistics.table.mainReports.title.TotalVisitsAndDownloads": "Items and file visits",
 
-  "statistics.table.mainReports.title.TopCountries": "Top Country Views",
+  "statistics.table.mainReports.title.TopCountries": "Top country views",
 
-  "statistics.table.mainReports.title.TopContinents": "Top Region Views",
+  "statistics.table.mainReports.title.TopContinents": "Top region views",
 
   "statistics.table.mainReports.title.TopCategories": "Categories",
 
-  "statistics.table.mainReports.title.TopCities": "Top City Views",
+  "statistics.table.mainReports.title.TopCities": "Top city views",
 
   "statistics.table.downloadReports.title.TotalVisits": "Most downloaded",
 
   "statistics.table.downloadReports.title.TopItems": "Most downloaded",
 
-  "statistics.table.downloadReports.title.TotalVisitsPerMonth": "Total Downloads Per Month",
+  "statistics.table.downloadReports.title.TotalVisitsPerMonth": "Total downloads per month",
 
-  "statistics.table.downloadReports.title.TotalDownloads": "Most Downloaded",
+  "statistics.table.downloadReports.title.TotalDownloads": "Most downloaded",
 
-  "statistics.table.downloadReports.title.TotalDownloadsPerMonth": "Total Downloads Per Month",
+  "statistics.table.downloadReports.title.TotalDownloadsPerMonth": "Total downloads per month",
 
   "statistics.table.downloadReports.title.TopCountries": "Top country downloads",
 
@@ -5048,80 +5097,97 @@
 
   "statistics.table.downloadReports.title.TopCities": "Top city downloads",
 
-  "statistics.table.header.views": "Views",
+  "statistics.table.mainReports.header.views": "Views",
 
-  "statistics.table.publicationsReports.title.TotalVisits": "Total Visits",
+  "statistics.table.mainReports.header.continent": "Continent",
 
-  "statistics.table.publicationsReports.title.TopItems": "Most Viewed",
+  "statistics.table.mainReports.header.country": "Country",
 
-  "statistics.table.publicationsReports.title.TopCities": "Top Cities",
+  "statistics.table.mainReports.header.city": "City",
 
-  "statistics.table.publicationsReports.title.TopCountries": "Top Countries",
+  "statistics.table.mainReports.header.item": "Item",
 
-  "statistics.table.publicationsReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
+  "statistics.table.downloadReports.header.views": "Downloads",
+
+  "statistics.table.downloadReports.header.continent": "Continent",
+
+  "statistics.table.downloadReports.header.country": "Country",
+
+  "statistics.table.downloadReports.header.city": "City",
+
+  "statistics.table.downloadReports.header.item": "Item",
+
+  "statistics.table.publicationsReports.title.TotalVisits": "Total visits",
+
+  "statistics.table.publicationsReports.title.TopItems": "Most viewed",
+
+  "statistics.table.publicationsReports.title.TopCities": "Top cities",
+
+  "statistics.table.publicationsReports.title.TopCountries": "Top countries",
+
+  "statistics.table.publicationsReports.title.TotalVisitsPerMonth": "Total visits per month",
 
   "statistics.table.publicationsReports.title.TotalDownloads": "Downloads",
 
-  "statistics.table.publicationsReports.title.TotalVisitsAndDownloads": "Items and file Visits",
+  "statistics.table.publicationsReports.title.TotalVisitsAndDownloads": "Items and file visits",
 
-  "statistics.table.projectsReports.title.TotalVisits": "Total Visits",
+  "statistics.table.projectsReports.title.TotalVisits": "Total visits",
 
-  "statistics.table.projectsReports.title.TopItems": "Most Viewed",
+  "statistics.table.projectsReports.title.TopItems": "Most viewed",
 
-  "statistics.table.projectsReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
+  "statistics.table.projectsReports.title.TotalVisitsPerMonth": "Total visits per month",
 
-  "statistics.table.projectsReports.title.TopCities": "Top Cities",
+  "statistics.table.projectsReports.title.TopCities": "Top cities",
 
-  "statistics.table.projectsReports.title.TopCountries": "Top Countries",
+  "statistics.table.projectsReports.title.TopCountries": "Top countries",
 
   "statistics.table.projectsReports.title.TotalDownloads": "Downloads",
 
-  "statistics.table.projectsReports.title.TotalVisitsAndDownloads": "Items and file Visits",
+  "statistics.table.projectsReports.title.TotalVisitsAndDownloads": "Items and file visits",
 
-  "statistics.table.rppublicationsReports.title.TotalVisits": "Total Visits",
+  "statistics.table.rppublicationsReports.title.TotalVisits": "Total visits",
 
-  "statistics.table.rppublicationsReports.title.TopItems": "Most Viewed",
+  "statistics.table.rppublicationsReports.title.TopItems": "Most viewed",
 
-  "statistics.table.rppublicationsReports.title.TopCities": "Top Cities",
+  "statistics.table.rppublicationsReports.title.TopCities": "Top cities",
 
-  "statistics.table.rppublicationsReports.title.TopCountries": "Top Countries",
+  "statistics.table.rppublicationsReports.title.TopCountries": "Top countries",
 
-  "statistics.table.rppublicationsReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
+  "statistics.table.rppublicationsReports.title.TotalVisitsPerMonth": "Total visits per month",
 
   "statistics.table.rppublicationsReports.title.TotalDownloads": "Downloads",
 
-  "statistics.table.rppublicationsReports.title.TotalVisitsAndDownloads": "Items and file Visits",
+  "statistics.table.rppublicationsReports.title.TotalVisitsAndDownloads": "Items and file visits",
 
-  "statistics.table.rpprojectsReports.title.TotalVisits": "Total Visits",
+  "statistics.table.rpprojectsReports.title.TotalVisits": "Total visits",
 
-  "statistics.table.rpprojectsReports.title.TopItems": "Most Viewed",
+  "statistics.table.rpprojectsReports.title.TopItems": "Most viewed",
 
-  "statistics.table.rpprojectsReports.title.TopCities": "Top Cities",
+  "statistics.table.rpprojectsReports.title.TopCities": "Top cities",
 
-  "statistics.table.rpprojectsReports.title.TopCountries": "Top Countries",
+  "statistics.table.rpprojectsReports.title.TopCountries": "Top countries",
 
-  "statistics.table.rpprojectsReports.title.TotalVisitsPerMonth": "Total Visits Per Month",
+  "statistics.table.rpprojectsReports.title.TotalVisitsPerMonth": "Total visits per month",
 
   "statistics.table.rpprojectsReports.title.TotalDownloads": "Downloads",
 
   "statistics.table.rpprojectsReports.title.TotalVisitsAndDownloads": "Items and file Visits",
 
-  "statistics.categories.title": "Statistics by Category",
+  "statistics.categories.title": "Statistics by category",
 
-  "statistics.categories.mainReports.tab": "Views Reports",
+  "statistics.categories.mainReports.tab": "Views reports",
 
-  "statistics.categories.projectsReports.tab": "Project Reports",
+  "statistics.categories.projectsReports.tab": "Project reports",
 
-  "statistics.categories.rpprojectsReports.tab": "Researchers Projects Reports",
+  "statistics.categories.rpprojectsReports.tab": "Researchers projects reports",
 
-  "statistics.categories.publicationsReports.tab": "Publications Reports",
+  "statistics.categories.publicationsReports.tab": "Publications reports",
 
-  "statistics.categories.rppublicationsReports.tab": "Researchers Publication Reports",
+  "statistics.categories.rppublicationsReports.tab": "Researchers publication reports",
 
-  "statistics.categories.downloadReports.tab": "Downloads Reports",
+  "statistics.categories.downloadReports.tab": "Downloads reports",
 
   "statistics.reports.title": "Reports",
-
 
   "submission.edit.breadcrumbs": "Edit Submission",
 
@@ -5268,6 +5334,32 @@
   "submission.import-external.preview.error.import.title": "Submission error",
 
   "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
+
+
+
+  "submission.sections.correction.bitstream.operation.add": "Bitstream added",
+
+  "submission.sections.correction.bitstream.operation.modify": "Bitstream modified",
+
+  "submission.sections.correction.bitstream.operation.remove": "Bitstream removed",
+
+  "submission.sections.correction.column.current-value": "Current value",
+
+  "submission.sections.correction.column.file": "File",
+
+  "submission.sections.correction.column.file.info": "Here are the changes related the item's bitstream",
+
+  "submission.sections.correction.column.metadata": "Metadata",
+
+  "submission.sections.correction.column.metadata.info": "Here are the changes related the item's metadata",
+
+  "submission.sections.correction.column.previous-value": "Previous value",
+
+  "submission.sections.correction.column.policy": "Policy",
+
+  "submission.sections.submit.progressbar.correction": "Correction details",
+
+
 
   "submission.sections.detect-duplicate.clear-decision": "Undo",
 
@@ -5688,6 +5780,8 @@
   "submission.sections.submit.progressbar.license": "Deposit license",
 
   "submission.sections.submit.progressbar.upload": "Upload files",
+
+  "submission.sections.submit.progressbar.correction-step": "Corrections",
 
 
 

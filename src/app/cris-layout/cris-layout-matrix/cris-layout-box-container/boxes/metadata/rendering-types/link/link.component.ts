@@ -23,7 +23,7 @@ enum TYPES {
  * The metadata value is used for href and text
  */
 @Component({
-  // tslint:disable-next-line: component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'span[ds-link]',
   templateUrl: './link.component.html',
   styleUrls: ['./link.component.scss']

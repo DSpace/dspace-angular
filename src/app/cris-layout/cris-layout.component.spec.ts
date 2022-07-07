@@ -43,9 +43,6 @@ const route = {
   data: observableOf({ tabs: createSuccessfulRemoteDataObject(createPaginatedList(leadingTabs)) })
 };
 
-
-// to FIX
-// tslint:disable-next-line:prefer-const
 describe('CrisLayoutComponent', () => {
   let component: CrisLayoutComponent;
   let fixture: ComponentFixture<CrisLayoutComponent>;

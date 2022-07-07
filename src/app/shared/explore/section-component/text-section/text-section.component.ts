@@ -1,8 +1,8 @@
-import { TextRowSection } from '../../../../core/layout/models/section.model';
 import { Component, Input, OnInit } from '@angular/core';
+
+import { TextRowSection } from '../../../../core/layout/models/section.model';
 import { Site } from '../../../../core/shared/site.model';
 import { LocaleService } from '../../../../core/locale/locale.service';
-
 
 @Component({
   selector: 'ds-text-section',

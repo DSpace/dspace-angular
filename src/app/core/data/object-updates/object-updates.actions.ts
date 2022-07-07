@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import {type} from '../../../shared/ngrx/type';
 import {Action} from '@ngrx/store';
 import {Identifiable} from './object-updates.reducer';
@@ -21,7 +22,6 @@ export const ObjectUpdatesActionTypes = {
   REMOVE_FIELD: type('dspace/core/cache/object-updates/REMOVE_FIELD')
 };
 
-/* tslint:disable:max-classes-per-file */
 
 /**
  * Enum that represents the different types of updates that can be performed on a field in the ObjectUpdates store
@@ -283,7 +283,6 @@ export class RemoveFieldUpdateAction implements Action {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * A type to encompass all ObjectUpdatesActions

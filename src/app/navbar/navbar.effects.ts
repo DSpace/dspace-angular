@@ -1,6 +1,6 @@
 import { first, map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as fromRouter from '@ngrx/router-store';
 
 import { HostWindowActionTypes } from '../shared/host-window.actions';
@@ -21,26 +21,26 @@ export class NavbarEffects {
    * Effect that collapses the public menu on window resize
    * @type {Observable<CollapseMenuAction>}
    */
-  @Effect() resize$ = this.actions$
+   resize$ = createEffect(() => this.actions$
     .pipe(
       ofType(HostWindowActionTypes.RESIZE),
       map(() => new CollapseMenuAction(this.menuID))
-    );
+    ));
 
   /**
    * Effect that collapses the public menu on reroute
    * @type {Observable<CollapseMenuAction>}
    */
-  @Effect() routeChange$ = this.actions$
+   routeChange$ = createEffect(() => this.actions$
     .pipe(
       ofType(fromRouter.ROUTER_NAVIGATION),
       map(() => new CollapseMenuAction(this.menuID))
-    );
+    ));
   /**
    * Effect that collapses the public menu when the admin sidebar opens
    * @type {Observable<CollapseMenuAction>}
    */
-  @Effect() openAdminSidebar$ = this.actions$
+   openAdminSidebar$ = createEffect(() => this.actions$
     .pipe(
       ofType(MenuActionTypes.EXPAND_MENU_PREVIEW),
       switchMap((action: ExpandMenuPreviewAction) => {
@@ -55,7 +55,7 @@ export class NavbarEffects {
             return new NoOpAction();
           }));
       })
-    );
+    ));
   constructor(private actions$: Actions, private menuService: MenuService) {
 
   }

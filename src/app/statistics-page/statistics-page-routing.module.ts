@@ -14,6 +14,8 @@ import { StatisticsAdministratorGuard } from '../core/data/feature-authorization
 import { DsoContextBreadcrumbResolver } from '../core/breadcrumbs/dso-context-breadcrumb.resolver';
 import { WorkflowStatisticsPageComponent } from './workflow-statistics-page/workflow-statistics-page.component';
 import { LoginStatisticsPageComponent } from './login-statistics-page/login-statistics-page.component';
+import { StatisticsLoginGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-login.guard';
+import { StatisticsWorkflowGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-workflow.guard';
 
 @NgModule({
   imports: [
@@ -35,7 +37,6 @@ import { LoginStatisticsPageComponent } from './login-statistics-page/login-stat
             component: ThemedSiteStatisticsPageComponent,
           },
         ],
-        canActivate: [StatisticsAdministratorGuard]
       },
       {
           path: 'login',
@@ -50,8 +51,9 @@ import { LoginStatisticsPageComponent } from './login-statistics-page/login-stat
             {
               path: '',
               component: LoginStatisticsPageComponent,
-           },
-          ]
+           }
+          ],
+          canActivate: [StatisticsLoginGuard]
         },
         {
           path: 'workflow',
@@ -66,8 +68,9 @@ import { LoginStatisticsPageComponent } from './login-statistics-page/login-stat
             {
               path: '',
               component: WorkflowStatisticsPageComponent,
-            },
-          ]
+            }
+          ],
+          canActivate: [StatisticsWorkflowGuard]
         },
         {
           path: `items/:id`,

@@ -15,7 +15,7 @@ import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  // tslint:disable-next-line:component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'ds-edit-relationship',
   styleUrls: ['./edit-relationship.component.scss'],
   templateUrl: './edit-relationship.component.html',

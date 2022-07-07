@@ -20,6 +20,7 @@ import { AuthService } from '../core/auth/auth.service';
 import { Operation } from 'fast-json-patch';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { AuthStatus } from '../core/auth/models/auth-status.model';
 
 @Component({
   selector: 'ds-profile-page',

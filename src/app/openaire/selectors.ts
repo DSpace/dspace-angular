@@ -1,4 +1,4 @@
-import { createSelector, MemoizedSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import { subStateSelector } from '../shared/selector.util';
 import { openaireSelector, OpenaireState } from './openaire.reducer';
 import { OpenaireBrokerTopicObject } from '../core/openaire/broker/models/openaire-broker-topic.model';
@@ -10,7 +10,7 @@ import { OpenaireBrokerTopicState } from './broker/topics/openaire-broker-topics
  * @param {AppState} state Top level state.
  * @return {OpenaireState}
  */
-const _getOpenaireState = (state: any) => state.openaire;
+const _getOpenaireState = createFeatureSelector<OpenaireState>('openaire');
 
 // OpenAIRE Broker topics
 // ----------------------------------------------------------------------------

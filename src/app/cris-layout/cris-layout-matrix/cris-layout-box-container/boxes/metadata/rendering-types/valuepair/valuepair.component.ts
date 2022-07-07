@@ -20,7 +20,7 @@ import { MetadataValue } from '../../../../../../../core/shared/metadata.models'
  * This component renders the valuepair (value + display) metadata fields.
  */
 @Component({
-  // tslint:disable-next-line: component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'span[ds-valuepair]',
   templateUrl: './valuepair.component.html',
   styleUrls: ['./valuepair.component.scss']

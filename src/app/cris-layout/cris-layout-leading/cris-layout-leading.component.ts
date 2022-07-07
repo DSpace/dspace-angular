@@ -20,4 +20,8 @@ export class CrisLayoutLeadingComponent {
    */
   @Input() item: Item;
 
+  /**
+   * A boolean representing if to show context menu or not
+   */
+  @Input() showContextMenu: boolean;
 }

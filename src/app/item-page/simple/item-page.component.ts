@@ -13,6 +13,8 @@ import { getAllSucceededRemoteDataPayload, redirectOn4xx } from '../../core/shar
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { AuthService } from '../../core/auth/auth.service';
 import { getItemPageRoute } from '../item-page-routing-paths';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 
@@ -51,6 +53,11 @@ export class ItemPageComponent implements OnInit {
   itemPageRoute$: Observable<string>;
 
   /**
+   * Whether the current user is an admin or not
+   */
+  isAdmin$: Observable<boolean>;
+
+  /**
    * The configured tabs for layout of current item
    */
   tabsRD$: Observable<RemoteData<PaginatedList<CrisLayoutTab>>>;
@@ -60,6 +67,7 @@ export class ItemPageComponent implements OnInit {
     private router: Router,
     private items: ItemDataService,
     private authService: AuthService,
+    private authorizationService: AuthorizationDataService
   ) { }
 
   /**
@@ -77,5 +85,7 @@ export class ItemPageComponent implements OnInit {
       getAllSucceededRemoteDataPayload(),
       map((item) => getItemPageRoute(item))
     );
+
+    this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
   }
 }

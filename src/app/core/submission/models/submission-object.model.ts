@@ -16,8 +16,7 @@ import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
 import { PathableObjectError } from '../../data/request.reducer';
 
-export interface SubmissionObjectError extends PathableObjectError {
-}
+export type SubmissionObjectError = PathableObjectError;
 
 /**
  * An abstract model class for a SubmissionObject.

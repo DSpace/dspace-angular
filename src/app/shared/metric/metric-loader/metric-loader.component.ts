@@ -1,4 +1,11 @@
-import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  Input,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { Metric } from '../../../core/shared/metric.model';
 import { BaseMetricComponent } from './base-metric.component';
 import { MetricLoaderService } from './metric-loader.service';
@@ -6,18 +13,23 @@ import { MetricLoaderService } from './metric-loader.service';
 @Component({
   selector: 'ds-metric-loader',
   templateUrl: './metric-loader.component.html',
-  styleUrls: ['./metric-loader.component.scss']
+  styleUrls: ['./metric-loader.component.scss'],
 })
 export class MetricLoaderComponent implements OnInit {
-
   @Input() metric: Metric;
 
   @Input() hideLabel = false;
 
   @ViewChild('container', { read: ViewContainerRef, static: false }) container: ViewContainerRef;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver,
-              private metricLoaderService: MetricLoaderService) { }
+  @Input() isListElement = false;
+
+  public componentType: any;
+
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private metricLoaderService: MetricLoaderService
+  ) { }
 
   ngOnInit() {
     this.loadComponent(this.metric);
@@ -33,12 +45,13 @@ export class MetricLoaderComponent implements OnInit {
   }
 
   instantiateComponent(component: any, metric: Metric) {
-    const factory =    this.componentFactoryResolver.resolveComponentFactory(component);
+    const factory = this.componentFactoryResolver.resolveComponentFactory(component);
+    this.componentType = component;
     const ref = this.container.createComponent(factory);
-    const componentInstance = (ref.instance as BaseMetricComponent);
+    const componentInstance = ref.instance as BaseMetricComponent;
     componentInstance.metric = metric;
     componentInstance.hideLabel = this.hideLabel;
+    componentInstance.isListElement = this.isListElement;
     ref.changeDetectorRef.detectChanges();
   }
-
 }

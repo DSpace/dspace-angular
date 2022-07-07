@@ -1,10 +1,19 @@
-<div class="font-weight-bold" *ngIf="!hideLabel">
-  {{metric.metricType | translate}}
-</div>
-<div #metricChild *ngIf="remark !== undefined">
-  <div class='altmetric-embed' [attr.data-badge-type]="$any(remark).badgeType"
-       [attr.data-badge-popover]="$any(remark).popover"
-       [attr.data-doi]="$any(remark).doiAttr"
-       [attr.data-pmid]="$any(remark).pmidAttr">
+<div class="row d-flex align-items-center mb-2" *ngIf="remark">
+  <div class="col text-left">
+    <div #metricChild>
+      <div
+        class="altmetric-embed"
+        [attr.data-hide-no-mentions]="isListElement"
+        [attr.data-badge-type]="remark | dsListMetricProps : 'badgeType' : isListElement"
+        [attr.data-badge-popover]="remark | dsListMetricProps : 'popover' : isListElement"
+        [attr.data-doi]="remark | dsListMetricProps : 'doiAttr' : isListElement"
+        [attr.data-pmid]="remark | dsListMetricProps : 'pmidAttr' : isListElement"
+      ></div>
+    </div>
+  </div>
+  <div class="col-7" *ngIf="!hideLabel">
+    <div class="font-weight-bold text-capitalize">
+      {{ metric.metricType | translate }}
+    </div>
   </div>
 </div>

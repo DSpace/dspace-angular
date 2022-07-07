@@ -12,7 +12,7 @@ import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  // tslint:disable-next-line: component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'span[ds-thumbnail].float-left',
   templateUrl: './thumbnail.component.html',
   styleUrls: ['./thumbnail.component.scss']
@@ -42,7 +42,7 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
       map((bitstreams: Bitstream[]) => {
         return bitstreams.filter((bitstream) => {
           const metadataValue = bitstream.firstMetadataValue(this.field.bitstream.metadataField);
-          return hasValue(metadataValue) && metadataValue === this.field.bitstream.metadataValue;
+          return hasValue(metadataValue) && metadataValue.toLowerCase() === this.field.bitstream.metadataValue.toLowerCase();
         });
       })
     ).subscribe((bitstreams: Bitstream[]) => {

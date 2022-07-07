@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { getForbiddenRoute } from '../../app-routing-paths';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
+import { NativeWindowRef, NativeWindowService } from '../../core/services/window.service';
 
 describe('BitstreamDownloadPageComponent', () => {
   let component: BitstreamDownloadPageComponent;
@@ -65,12 +66,13 @@ describe('BitstreamDownloadPageComponent', () => {
       imports: [CommonModule, TranslateModule.forRoot()],
       declarations: [BitstreamDownloadPageComponent],
       providers: [
-        {provide: ActivatedRoute, useValue: activatedRoute},
-        {provide: Router, useValue: router},
-        {provide: AuthorizationDataService, useValue: authorizationService},
-        {provide: AuthService, useValue: authService},
-        {provide: FileService, useValue: fileService},
-        {provide: HardRedirectService, useValue: hardRedirectService},
+        { provide: NativeWindowService, useValue: new NativeWindowRef() },
+        { provide: ActivatedRoute, useValue: activatedRoute },
+        { provide: Router, useValue: router },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: AuthService, useValue: authService },
+        { provide: FileService, useValue: fileService },
+        { provide: HardRedirectService, useValue: hardRedirectService },
       ]
     })
       .compileComponents();
