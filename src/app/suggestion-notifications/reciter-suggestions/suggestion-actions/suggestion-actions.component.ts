@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { OpenaireSuggestion } from '../../../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion.model';
+import { Suggestion } from '../../../core/suggestion-notifications/reciter-suggestions/models/suggestion.model';
 import { SuggestionApproveAndImport } from '../suggestion-list-element/suggestion-list-element.component';
 import { Collection } from '../../../core/shared/collection.model';
 import { take } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { CreateItemParentSelectorComponent } from '../../../shared/dso-selector/
 })
 export class SuggestionActionsComponent {
 
-  @Input() object: OpenaireSuggestion;
+  @Input() object: Suggestion;
 
   @Input() isBulk = false;
 

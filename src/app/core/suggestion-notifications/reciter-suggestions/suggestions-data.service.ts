@@ -15,12 +15,12 @@ import { DataService } from '../../data/data.service';
 import { ChangeAnalyzer } from '../../data/change-analyzer';
 import { DefaultChangeAnalyzer } from '../../data/default-change-analyzer.service';
 import { RemoteData } from '../../data/remote-data';
-import { SUGGESTION_TARGET } from './models/openaire-suggestion-objects.resource-type';
+import { SUGGESTION_TARGET } from './models/suggestion-objects.resource-type';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../data/paginated-list.model';
-import { OpenaireSuggestionSource } from './models/openaire-suggestion-source.model';
-import { OpenaireSuggestionTarget } from './models/openaire-suggestion-target.model';
-import { OpenaireSuggestion } from './models/openaire-suggestion.model';
+import { SuggestionSource } from './models/suggestion-source.model';
+import { SuggestionTarget } from './models/suggestion-target.model';
+import { Suggestion } from './models/suggestion.model';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { NoContent } from '../../shared/NoContent.model';
 import {CoreState} from '../../core-state.model';
@@ -31,7 +31,7 @@ import {FindListOptions} from '../../data/find-list-options.model';
 /**
  * A private DataService implementation to delegate specific methods to.
  */
-class SuggestionDataServiceImpl extends DataService<OpenaireSuggestion> {
+class SuggestionDataServiceImpl extends DataService<Suggestion> {
   /**
    * The REST endpoint.
    */
@@ -46,7 +46,7 @@ class SuggestionDataServiceImpl extends DataService<OpenaireSuggestion> {
    * @param {HALEndpointService} halService
    * @param {NotificationsService} notificationsService
    * @param {HttpClient} http
-   * @param {ChangeAnalyzer<OpenaireSuggestion>} comparator
+   * @param {ChangeAnalyzer<Suggestion>} comparator
    */
   constructor(
     protected requestService: RequestService,
@@ -56,7 +56,7 @@ class SuggestionDataServiceImpl extends DataService<OpenaireSuggestion> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<OpenaireSuggestion>) {
+    protected comparator: ChangeAnalyzer<Suggestion>) {
     super();
   }
 }
@@ -64,7 +64,7 @@ class SuggestionDataServiceImpl extends DataService<OpenaireSuggestion> {
 /**
  * A private DataService implementation to delegate specific methods to.
  */
-class SuggestionTargetsDataServiceImpl extends DataService<OpenaireSuggestionTarget> {
+class SuggestionTargetsDataServiceImpl extends DataService<SuggestionTarget> {
   /**
    * The REST endpoint.
    */
@@ -79,7 +79,7 @@ class SuggestionTargetsDataServiceImpl extends DataService<OpenaireSuggestionTar
    * @param {HALEndpointService} halService
    * @param {NotificationsService} notificationsService
    * @param {HttpClient} http
-   * @param {ChangeAnalyzer<OpenaireSuggestionTarget>} comparator
+   * @param {ChangeAnalyzer<SuggestionTarget>} comparator
    */
   constructor(
     protected requestService: RequestService,
@@ -89,7 +89,7 @@ class SuggestionTargetsDataServiceImpl extends DataService<OpenaireSuggestionTar
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<OpenaireSuggestionTarget>) {
+    protected comparator: ChangeAnalyzer<SuggestionTarget>) {
     super();
   }
 }
@@ -97,7 +97,7 @@ class SuggestionTargetsDataServiceImpl extends DataService<OpenaireSuggestionTar
 /**
  * A private DataService implementation to delegate specific methods to.
  */
-class SuggestionSourcesDataServiceImpl extends DataService<OpenaireSuggestionSource> {
+class SuggestionSourcesDataServiceImpl extends DataService<SuggestionSource> {
   /**
    * The REST endpoint.
    */
@@ -112,7 +112,7 @@ class SuggestionSourcesDataServiceImpl extends DataService<OpenaireSuggestionSou
    * @param {HALEndpointService} halService
    * @param {NotificationsService} notificationsService
    * @param {HttpClient} http
-   * @param {ChangeAnalyzer<OpenaireSuggestionSource>} comparator
+   * @param {ChangeAnalyzer<SuggestionSource>} comparator
    */
   constructor(
     protected requestService: RequestService,
@@ -122,7 +122,7 @@ class SuggestionSourcesDataServiceImpl extends DataService<OpenaireSuggestionSou
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<OpenaireSuggestionSource>) {
+    protected comparator: ChangeAnalyzer<SuggestionSource>) {
     super();
   }
 }
@@ -132,7 +132,7 @@ class SuggestionSourcesDataServiceImpl extends DataService<OpenaireSuggestionSou
  */
 @Injectable()
 @dataService(SUGGESTION_TARGET)
-export class OpenaireSuggestionsDataService {
+export class SuggestionsDataService {
   protected searchFindBySourceMethod = 'findBySource';
   protected searchFindByTargetMethod = 'findByTarget';
   protected searchFindByTargetAndSourceMethod = 'findByTargetAndSource';
@@ -160,9 +160,9 @@ export class OpenaireSuggestionsDataService {
    * @param {HALEndpointService} halService
    * @param {NotificationsService} notificationsService
    * @param {HttpClient} http
-   * @param {DefaultChangeAnalyzer<OpenaireSuggestion>} comparatorSuggestions
-   * @param {DefaultChangeAnalyzer<OpenaireSuggestionSource>} comparatorSources
-   * @param {DefaultChangeAnalyzer<OpenaireSuggestionTarget>} comparatorTargets
+   * @param {DefaultChangeAnalyzer<Suggestion>} comparatorSuggestions
+   * @param {DefaultChangeAnalyzer<SuggestionSource>} comparatorSources
+   * @param {DefaultChangeAnalyzer<SuggestionTarget>} comparatorTargets
    */
   constructor(
     protected requestService: RequestService,
@@ -171,9 +171,9 @@ export class OpenaireSuggestionsDataService {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparatorSuggestions: DefaultChangeAnalyzer<OpenaireSuggestion>,
-    protected comparatorSources: DefaultChangeAnalyzer<OpenaireSuggestionSource>,
-    protected comparatorTargets: DefaultChangeAnalyzer<OpenaireSuggestionTarget>,
+    protected comparatorSuggestions: DefaultChangeAnalyzer<Suggestion>,
+    protected comparatorSources: DefaultChangeAnalyzer<SuggestionSource>,
+    protected comparatorTargets: DefaultChangeAnalyzer<SuggestionTarget>,
   ) {
     this.suggestionsDataService = new SuggestionDataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparatorSuggestions);
     this.suggestionSourcesDataService = new SuggestionSourcesDataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparatorSources);
@@ -185,10 +185,10 @@ export class OpenaireSuggestionsDataService {
    *
    * @param options
    *    Find list options object.
-   * @return Observable<RemoteData<PaginatedList<OpenaireSuggestionSource>>>
+   * @return Observable<RemoteData<PaginatedList<SuggestionSource>>>
    *    The list of Suggestion Sources.
    */
-  public getSources(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<OpenaireSuggestionSource>>> {
+  public getSources(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<SuggestionSource>>> {
     return this.suggestionSourcesDataService.findAll(options);
   }
 
@@ -201,14 +201,14 @@ export class OpenaireSuggestionsDataService {
    *    Find list options object.
    * @param linksToFollow
    *    List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
-   * @return Observable<RemoteData<PaginatedList<OpenaireSuggestionTarget>>>
+   * @return Observable<RemoteData<PaginatedList<SuggestionTarget>>>
    *    The list of Suggestion Target.
    */
   public getTargets(
     source: string,
     options: FindListOptions = {},
-    ...linksToFollow: FollowLinkConfig<OpenaireSuggestionTarget>[]
-  ): Observable<RemoteData<PaginatedList<OpenaireSuggestionTarget>>> {
+    ...linksToFollow: FollowLinkConfig<SuggestionTarget>[]
+  ): Observable<RemoteData<PaginatedList<SuggestionTarget>>> {
     options.searchParams = [new RequestParam('source', source)];
 
     return this.suggestionTargetsDataService.searchBy(this.searchFindBySourceMethod, options, true, true, ...linksToFollow);
@@ -223,14 +223,14 @@ export class OpenaireSuggestionsDataService {
    *    Find list options object.
    * @param linksToFollow
    *    List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
-   * @return Observable<RemoteData<PaginatedList<OpenaireSuggestionTarget>>>
+   * @return Observable<RemoteData<PaginatedList<SuggestionTarget>>>
    *    The list of Suggestion Target.
    */
   public getTargetsByUser(
     userId: string,
     options: FindListOptions = {},
-    ...linksToFollow: FollowLinkConfig<OpenaireSuggestionTarget>[]
-  ): Observable<RemoteData<PaginatedList<OpenaireSuggestionTarget>>> {
+    ...linksToFollow: FollowLinkConfig<SuggestionTarget>[]
+  ): Observable<RemoteData<PaginatedList<SuggestionTarget>>> {
     options.searchParams = [new RequestParam('target', userId)];
 
     return this.suggestionTargetsDataService.searchBy(this.searchFindByTargetMethod, options, true, true, ...linksToFollow);
@@ -242,10 +242,10 @@ export class OpenaireSuggestionsDataService {
    * @param targetId
    *    The target id to retrieve.
    *
-   * @return Observable<RemoteData<OpenaireSuggestionTarget>>
+   * @return Observable<RemoteData<SuggestionTarget>>
    *    The list of Suggestion Target.
    */
-  public getTargetById(targetId: string): Observable<RemoteData<OpenaireSuggestionTarget>> {
+  public getTargetById(targetId: string): Observable<RemoteData<SuggestionTarget>> {
     return this.suggestionTargetsDataService.findById(targetId);
   }
 
@@ -261,7 +261,7 @@ export class OpenaireSuggestionsDataService {
    * Used to fetch Suggestion notification for user
    * @suggestionId
    */
-  public getSuggestion(suggestionId: string, ...linksToFollow: FollowLinkConfig<OpenaireSuggestion>[]): Observable<RemoteData<OpenaireSuggestion>> {
+  public getSuggestion(suggestionId: string, ...linksToFollow: FollowLinkConfig<Suggestion>[]): Observable<RemoteData<Suggestion>> {
     return this.suggestionsDataService.findById(suggestionId, true, true, ...linksToFollow);
   }
 
@@ -276,15 +276,15 @@ export class OpenaireSuggestionsDataService {
    *    Find list options object.
    * @param linksToFollow
    *    List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
-   * @return Observable<RemoteData<PaginatedList<OpenaireSuggestion>>>
+   * @return Observable<RemoteData<PaginatedList<Suggestion>>>
    *    The list of Suggestion.
    */
   public getSuggestionsByTargetAndSource(
     target: string,
     source: string,
     options: FindListOptions = {},
-    ...linksToFollow: FollowLinkConfig<OpenaireSuggestion>[]
-  ): Observable<RemoteData<PaginatedList<OpenaireSuggestion>>> {
+    ...linksToFollow: FollowLinkConfig<Suggestion>[]
+  ): Observable<RemoteData<PaginatedList<Suggestion>>> {
     options.searchParams = [
       new RequestParam('target', target),
       new RequestParam('source', source)

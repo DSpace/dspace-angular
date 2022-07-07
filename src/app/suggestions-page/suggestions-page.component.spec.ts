@@ -9,9 +9,9 @@ import { of as observableOf } from 'rxjs';
 import { SuggestionsPageComponent } from './suggestions-page.component';
 import { SuggestionListElementComponent } from '../suggestion-notifications/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
 import { SuggestionsService } from '../suggestion-notifications/reciter-suggestions/suggestions.service';
-import { getMockSuggestionNotificationsStateService, getMockSuggestionsService } from '../shared/mocks/openaire.mock';
+import { getMockSuggestionNotificationsStateService, getMockSuggestionsService } from '../shared/mocks/suggestion.mock';
 import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
-import { OpenaireSuggestion } from '../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion.model';
+import { Suggestion } from '../core/suggestion-notifications/reciter-suggestions/models/suggestion.model';
 import { mockSuggestionPublicationOne, mockSuggestionPublicationTwo } from '../shared/mocks/reciter-suggestion.mock';
 import { SuggestionEvidencesComponent } from '../suggestion-notifications/reciter-suggestions/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
 import { ObjectKeysPipe } from '../shared/utils/object-keys-pipe';
@@ -38,7 +38,7 @@ describe('SuggestionPageComponent', () => {
   let scheduler: TestScheduler;
   const mockSuggestionsService = getMockSuggestionsService();
   const mockSuggestionsTargetStateService = getMockSuggestionNotificationsStateService();
-  const suggestionTargetsList: PaginatedList<OpenaireSuggestion> = buildPaginatedList(new PageInfo(), [mockSuggestionPublicationOne, mockSuggestionPublicationTwo]);
+  const suggestionTargetsList: PaginatedList<Suggestion> = buildPaginatedList(new PageInfo(), [mockSuggestionPublicationOne, mockSuggestionPublicationTwo]);
   const router = new RouterStub();
   const routeStub = {
     data: observableOf({

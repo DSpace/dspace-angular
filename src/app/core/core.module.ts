@@ -166,9 +166,9 @@ import { SearchConfig } from './shared/search/search-filters/search-config.model
 import { SequenceService } from './shared/sequence.service';
 import { CoreState } from './core-state.model';
 import { GroupDataService } from './eperson/group-data.service';
-import { OpenaireSuggestionTarget } from './suggestion-notifications/reciter-suggestions/models/openaire-suggestion-target.model';
-import { OpenaireSuggestion } from './suggestion-notifications/reciter-suggestions/models/openaire-suggestion.model';
-import { OpenaireSuggestionSource } from './suggestion-notifications/reciter-suggestions/models/openaire-suggestion-source.model';
+import { SuggestionTarget } from './suggestion-notifications/reciter-suggestions/models/suggestion-target.model';
+import { Suggestion } from './suggestion-notifications/reciter-suggestions/models/suggestion.model';
+import { SuggestionSource } from './suggestion-notifications/reciter-suggestions/models/suggestion-source.model';
 import { ResearcherProfileService } from './profile/researcher-profile.service';
 import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
 import { ResearcherProfile } from './profile/model/researcher-profile.model';
@@ -372,9 +372,9 @@ export const models =
     ShortLivedToken,
     Registration,
     UsageReport,
-    OpenaireSuggestion,
-    OpenaireSuggestionTarget,
-    OpenaireSuggestionSource,
+    Suggestion,
+    SuggestionTarget,
+    SuggestionSource,
     QualityAssuranceTopicObject,
     QualityAssuranceEventObject,
     Root,

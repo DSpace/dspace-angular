@@ -34,13 +34,13 @@ import {SuggestionActionsComponent} from './reciter-suggestions/suggestion-actio
 import {SuggestionTargetsComponent} from './reciter-suggestions/suggestion-targets/suggestion-targets.component';
 import {SuggestionTargetsStateService} from './reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
 import {SuggestionsService} from './reciter-suggestions/suggestions.service';
-import {OpenaireSuggestionsDataService} from '../core/suggestion-notifications/reciter-suggestions/openaire-suggestions-data.service';
+import {SuggestionsDataService} from '../core/suggestion-notifications/reciter-suggestions/suggestions-data.service';
 
 const MODULES = [
   CommonModule,
   SharedModule,
   CoreModule.forRoot(),
-  StoreModule.forFeature('notifications', suggestionNotificationsReducers, storeModuleConfig as StoreConfig<SuggestionNotificationsState, Action>),
+  StoreModule.forFeature('suggestion-notifications', suggestionNotificationsReducers, storeModuleConfig as StoreConfig<SuggestionNotificationsState, Action>),
   EffectsModule.forFeature(suggestionNotificationsEffects),
   TranslateModule
 ];
@@ -72,7 +72,7 @@ const PROVIDERS = [
   QualityAssuranceEventRestService,
   SuggestionTargetsStateService,
   SuggestionsService,
-  OpenaireSuggestionsDataService
+  SuggestionsDataService
 ];
 
 @NgModule({

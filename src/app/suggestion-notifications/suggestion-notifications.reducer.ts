@@ -21,4 +21,4 @@ export const suggestionNotificationsReducers: ActionReducerMap<SuggestionNotific
   suggestionTarget: SuggestionTargetsReducer
 };
 
-export const suggestionNotificationsSelector = createFeatureSelector<SuggestionNotificationsState>('notifications');
+export const suggestionNotificationsSelector = createFeatureSelector<SuggestionNotificationsState>('suggestion-notifications');

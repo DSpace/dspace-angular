@@ -4,7 +4,7 @@ import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';
 import { takeUntil } from 'rxjs/operators';
-import { OpenaireSuggestionTarget } from '../../../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { SuggestionTarget } from '../../../core/suggestion-notifications/reciter-suggestions/models/suggestion-target.model';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { combineLatest, Subject } from 'rxjs';
 
@@ -38,7 +38,7 @@ export class SuggestionsPopupComponent implements OnInit, OnDestroy {
     ]).pipe(takeUntil(notifier)).subscribe(([suggestions, visited]) => {
       if (isNotEmpty(suggestions)) {
         if (!visited) {
-          suggestions.forEach((suggestionTarget: OpenaireSuggestionTarget) => this.showNotificationForNewSuggestions(suggestionTarget));
+          suggestions.forEach((suggestionTarget: SuggestionTarget) => this.showNotificationForNewSuggestions(suggestionTarget));
           this.reciterSuggestionStateService.dispatchMarkUserSuggestionsAsVisitedAction();
           notifier.next(null);
           notifier.complete();
@@ -52,7 +52,7 @@ export class SuggestionsPopupComponent implements OnInit, OnDestroy {
    * @param suggestionTarget
    * @private
    */
-  private showNotificationForNewSuggestions(suggestionTarget: OpenaireSuggestionTarget): void {
+  private showNotificationForNewSuggestions(suggestionTarget: SuggestionTarget): void {
     const content = this.translateService.instant(this.labelPrefix + 'notification.suggestion',
       this.suggestionsService.getNotificationSuggestionInterpolation(suggestionTarget));
     this.notificationsService.success('', content, {timeOut:0}, true);

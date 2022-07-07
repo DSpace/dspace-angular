@@ -1,6 +1,6 @@
 import {createFeatureSelector, createSelector, MemoizedSelector} from '@ngrx/store';
 import { suggestionNotificationsSelector, SuggestionNotificationsState } from '../suggestion-notifications.reducer';
-import { OpenaireSuggestionTarget } from '../../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { SuggestionTarget } from '../../core/suggestion-notifications/reciter-suggestions/models/suggestion-target.model';
 import { SuggestionTargetState } from './suggestion-targets/suggestion-targets.reducer';
 import {subStateSelector} from '../../submission/selectors';
 
@@ -10,7 +10,7 @@ import {subStateSelector} from '../../submission/selectors';
  * @param {AppState} state Top level state.
  * @return {SuggestionNotificationsState}
  */
-const _getReciterSuggestionTargetState = createFeatureSelector<SuggestionNotificationsState>('openaire');
+const _getReciterSuggestionTargetState = createFeatureSelector<SuggestionNotificationsState>('suggestion-notifications');
 
 // Reciter Suggestion Targets
 // ----------------------------------------------------------------------------
@@ -29,8 +29,8 @@ export function reciterSuggestionTargetStateSelector(): MemoizedSelector<Suggest
  * @function reciterSuggestionTargetObjectSelector
  * @return {OpenaireReciterSuggestionTarget[]}
  */
-export function reciterSuggestionTargetObjectSelector(): MemoizedSelector<SuggestionNotificationsState, OpenaireSuggestionTarget[]> {
-  return subStateSelector<SuggestionNotificationsState, OpenaireSuggestionTarget[]>(reciterSuggestionTargetStateSelector(), 'targets');
+export function reciterSuggestionTargetObjectSelector(): MemoizedSelector<SuggestionNotificationsState, SuggestionTarget[]> {
+  return subStateSelector<SuggestionNotificationsState, SuggestionTarget[]>(reciterSuggestionTargetStateSelector(), 'targets');
 }
 
 /**
@@ -81,7 +81,7 @@ export const getreciterSuggestionTargetTotalsSelector = createSelector(_getRecit
 /**
  * Returns Suggestion Targets for the current user.
  * @function getCurrentUserReciterSuggestionTargetSelector
- * @return {OpenaireSuggestionTarget[]}
+ * @return {SuggestionTarget[]}
  */
 export const getCurrentUserSuggestionTargetsSelector = createSelector(_getReciterSuggestionTargetState,
   (state: SuggestionNotificationsState) => state.suggestionTarget.currentUserTargets

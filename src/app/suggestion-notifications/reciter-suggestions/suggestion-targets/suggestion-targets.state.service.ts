@@ -13,7 +13,7 @@ import {
   isreciterSuggestionTargetProcessingSelector,
   reciterSuggestionTargetObjectSelector
 } from '../selectors';
-import { OpenaireSuggestionTarget } from '../../../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { SuggestionTarget } from '../../../core/suggestion-notifications/reciter-suggestions/models/suggestion-target.model';
 import {
   ClearSuggestionTargetsAction,
   MarkUserSuggestionsAsVisitedAction,
@@ -40,7 +40,7 @@ export class SuggestionTargetsStateService {
    * @return Observable<OpenaireReciterSuggestionTarget>
    *    The list of Reciter Suggestion Targets.
    */
-  public getReciterSuggestionTargets(): Observable<OpenaireSuggestionTarget[]> {
+  public getReciterSuggestionTargets(): Observable<SuggestionTarget[]> {
     return this.store.pipe(select(reciterSuggestionTargetObjectSelector()));
   }
 
@@ -127,7 +127,7 @@ export class SuggestionTargetsStateService {
    * @return Observable<OpenaireReciterSuggestionTarget>
    *    The Reciter Suggestion Targets object.
    */
-  public getCurrentUserSuggestionTargets(): Observable<OpenaireSuggestionTarget[]> {
+  public getCurrentUserSuggestionTargets(): Observable<SuggestionTarget[]> {
     return this.store.pipe(select(getCurrentUserSuggestionTargetsSelector));
   }
 

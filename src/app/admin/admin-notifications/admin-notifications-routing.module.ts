@@ -87,6 +87,7 @@ import { SourceDataResolver } from './admin-quality-assurance-source-page-compon
     I18nBreadcrumbsService,
     AdminNotificationsSuggestionTargetsPageResolver,
     SourceDataResolver,
+    AdminQualityAssuranceSourcePageResolver,
     AdminQualityAssuranceTopicsPageResolver,
     AdminQualityAssuranceEventsPageResolver,
   ]

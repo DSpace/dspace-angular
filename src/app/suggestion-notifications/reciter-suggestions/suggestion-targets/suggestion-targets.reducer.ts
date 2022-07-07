@@ -1,17 +1,17 @@
 import { SuggestionTargetActionTypes, SuggestionTargetsActions } from './suggestion-targets.actions';
-import { OpenaireSuggestionTarget } from '../../../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { SuggestionTarget } from '../../../core/suggestion-notifications/reciter-suggestions/models/suggestion-target.model';
 
 /**
  * The interface representing the OpenAIRE suggestion targets state.
  */
 export interface SuggestionTargetState {
-  targets: OpenaireSuggestionTarget[];
+  targets: SuggestionTarget[];
   processing: boolean;
   loaded: boolean;
   totalPages: number;
   currentPage: number;
   totalElements: number;
-  currentUserTargets: OpenaireSuggestionTarget[];
+  currentUserTargets: SuggestionTarget[];
   currentUserTargetsVisited: boolean;
 }
 

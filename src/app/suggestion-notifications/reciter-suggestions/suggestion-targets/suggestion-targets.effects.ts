@@ -18,7 +18,7 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { SuggestionsService } from '../suggestions.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AuthActionTypes, RetrieveAuthenticatedEpersonSuccessAction } from '../../../core/auth/auth.actions';
-import { OpenaireSuggestionTarget } from '../../../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { SuggestionTarget } from '../../../core/suggestion-notifications/reciter-suggestions/models/suggestion-target.model';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 
 /**
@@ -38,7 +38,7 @@ export class SuggestionTargetsEffects {
         action.payload.elementsPerPage,
         action.payload.currentPage
       ).pipe(
-        map((targets: PaginatedList<OpenaireSuggestionTarget>) =>
+        map((targets: PaginatedList<SuggestionTarget>) =>
           new AddTargetAction(targets.page, targets.totalPages, targets.currentPage, targets.totalElements)
         ),
         catchError((error: Error) => {
@@ -68,7 +68,7 @@ export class SuggestionTargetsEffects {
     ofType(AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS),
     switchMap((action: RetrieveAuthenticatedEpersonSuccessAction) => {
       return this.suggestionsService.retrieveCurrentUserSuggestions(action.payload).pipe(
-        map((suggestionTargets: OpenaireSuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets))
+        map((suggestionTargets: SuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets))
       );
     }));
 
@@ -83,7 +83,7 @@ export class SuggestionTargetsEffects {
           switchMap((userId: string) => {
             return this.suggestionsService.retrieveCurrentUserSuggestions(userId)
               .pipe(
-                map((suggestionTargets: OpenaireSuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
+                map((suggestionTargets: SuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
                 catchError((errors) => of(errors))
             );
           }),

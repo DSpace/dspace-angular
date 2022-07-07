@@ -3,12 +3,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { fadeIn } from '../../../shared/animations/fade';
-import { OpenaireSuggestion } from '../../../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion.model';
+import { Suggestion } from '../../../core/suggestion-notifications/reciter-suggestions/models/suggestion.model';
 import { Item } from '../../../core/shared/item.model';
 import { isNotEmpty } from '../../../shared/empty.util';
 
 export interface SuggestionApproveAndImport {
-  suggestion: OpenaireSuggestion;
+  suggestion: Suggestion;
   collectionId: string;
 }
 
@@ -20,7 +20,7 @@ export interface SuggestionApproveAndImport {
 })
 export class SuggestionListElementComponent implements OnInit {
 
-  @Input() object: OpenaireSuggestion;
+  @Input() object: Suggestion;
 
   @Input() isSelected = false;
 

@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { of, forkJoin, Observable } from 'rxjs';
 import { catchError, map, mergeMap, take } from 'rxjs/operators';
 
-import { OpenaireSuggestionsDataService } from '../../core/suggestion-notifications/reciter-suggestions/openaire-suggestions-data.service';
+import { SuggestionsDataService } from '../../core/suggestion-notifications/reciter-suggestions/suggestions-data.service';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
-import { OpenaireSuggestionTarget } from '../../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { SuggestionTarget } from '../../core/suggestion-notifications/reciter-suggestions/models/suggestion-target.model';
 import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -19,7 +19,7 @@ import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload
 } from '../../core/shared/operators';
-import { OpenaireSuggestion } from '../../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion.model';
+import { Suggestion } from '../../core/suggestion-notifications/reciter-suggestions/models/suggestion.model';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NoContent } from '../../core/shared/NoContent.model';
@@ -43,12 +43,12 @@ export class SuggestionsService {
    * Initialize the service variables.
    * @param {AuthService} authService
    * @param {ResearcherProfileService} researcherProfileService
-   * @param {OpenaireSuggestionsDataService} suggestionsDataService
+   * @param {SuggestionsDataService} suggestionsDataService
    */
   constructor(
     private authService: AuthService,
     private researcherProfileService: ResearcherProfileService,
-    private suggestionsDataService: OpenaireSuggestionsDataService,
+    private suggestionsDataService: SuggestionsDataService,
     private translateService: TranslateService
   ) {
   }
@@ -65,7 +65,7 @@ export class SuggestionsService {
    * @return Observable<PaginatedList<OpenaireReciterSuggestionTarget>>
    *    The list of Suggestion Targets.
    */
-  public getTargets(source, elementsPerPage, currentPage): Observable<PaginatedList<OpenaireSuggestionTarget>> {
+  public getTargets(source, elementsPerPage, currentPage): Observable<PaginatedList<SuggestionTarget>> {
     const sortOptions = new SortOptions('display', SortDirection.ASC);
 
     const findListOptions: FindListOptions = {
@@ -77,7 +77,7 @@ export class SuggestionsService {
     return this.suggestionsDataService.getTargets(source, findListOptions).pipe(
       getFinishedRemoteData(),
       take(1),
-      map((rd: RemoteData<PaginatedList<OpenaireSuggestionTarget>>) => {
+      map((rd: RemoteData<PaginatedList<SuggestionTarget>>) => {
         if (rd.hasSucceeded) {
           return rd.payload;
         } else {
@@ -98,10 +98,10 @@ export class SuggestionsService {
    *    The page number to retrieve
    * @param sortOptions
    *    The sort options
-   * @return Observable<RemoteData<PaginatedList<OpenaireSuggestion>>>
+   * @return Observable<RemoteData<PaginatedList<Suggestion>>>
    *    The list of Suggestion.
    */
-  public getSuggestions(targetId: string, elementsPerPage, currentPage, sortOptions: SortOptions): Observable<PaginatedList<OpenaireSuggestion>> {
+  public getSuggestions(targetId: string, elementsPerPage, currentPage, sortOptions: SortOptions): Observable<PaginatedList<Suggestion>> {
     const [source, target] = targetId.split(':');
 
     const findListOptions: FindListOptions = {
@@ -145,7 +145,7 @@ export class SuggestionsService {
    * @param userUuid
    *   The EPerson id for which to retrieve suggestion targets
    */
-  public retrieveCurrentUserSuggestions(userUuid: string): Observable<OpenaireSuggestionTarget[]> {
+  public retrieveCurrentUserSuggestions(userUuid: string): Observable<SuggestionTarget[]> {
     return this.researcherProfileService.findById(userUuid).pipe(
       getFirstSucceededRemoteDataPayload(),
       mergeMap((profile: ResearcherProfile) => {
@@ -173,7 +173,7 @@ export class SuggestionsService {
    * @private
    */
   public approveAndImport(workspaceitemService: WorkspaceitemDataService,
-                          suggestion: OpenaireSuggestion,
+                          suggestion: Suggestion,
                           collectionId: string): Observable<WorkspaceItem> {
 
     const resolvedCollectionId = this.resolveCollectionId(suggestion, collectionId);
@@ -201,10 +201,10 @@ export class SuggestionsService {
    * @param collectionId the collectionId
    */
   public approveAndImportMultiple(workspaceitemService: WorkspaceitemDataService,
-                                  suggestions: OpenaireSuggestion[],
+                                  suggestions: Suggestion[],
                                   collectionId: string): Observable<SuggestionBulkResult> {
 
-    return forkJoin(suggestions.map((suggestion: OpenaireSuggestion) =>
+    return forkJoin(suggestions.map((suggestion: Suggestion) =>
       this.approveAndImport(workspaceitemService, suggestion, collectionId)))
       .pipe(map((results: WorkspaceItem[]) => {
         return {
@@ -218,8 +218,8 @@ export class SuggestionsService {
    * Perform a bulk notMine operation.
    * @param suggestions the array containing the suggestions
    */
-  public notMineMultiple(suggestions: OpenaireSuggestion[]): Observable<SuggestionBulkResult> {
-    return forkJoin(suggestions.map((suggestion: OpenaireSuggestion) => this.notMine(suggestion.id)))
+  public notMineMultiple(suggestions: Suggestion[]): Observable<SuggestionBulkResult> {
+    return forkJoin(suggestions.map((suggestion: Suggestion) => this.notMine(suggestion.id)))
       .pipe(map((results: RemoteData<NoContent>[]) => {
         return {
           success: results.filter((result) => result != null).length,
@@ -234,7 +234,7 @@ export class SuggestionsService {
    * @param target
    * @return the researchUuid
    */
-  public getTargetUuid(target: OpenaireSuggestionTarget): string {
+  public getTargetUuid(target: SuggestionTarget): string {
     const tokens = target.id.split(':');
     return tokens.length === 2 ? tokens[1] : null;
   }
@@ -243,7 +243,7 @@ export class SuggestionsService {
    * Interpolated params to build the notification suggestions notification.
    * @param suggestionTarget
    */
-  public getNotificationSuggestionInterpolation(suggestionTarget: OpenaireSuggestionTarget): any {
+  public getNotificationSuggestionInterpolation(suggestionTarget: SuggestionTarget): any {
     return {
       count: suggestionTarget.total,
       source: this.translateService.instant(this.translateSuggestionSource(suggestionTarget.source)),
@@ -266,7 +266,7 @@ export class SuggestionsService {
    * @param suggestion
    * @param collectionId
    */
-  public resolveCollectionId(suggestion: OpenaireSuggestion, collectionId): string {
+  public resolveCollectionId(suggestion: Suggestion, collectionId): string {
     if (hasValue(collectionId)) {
       return collectionId;
     }
@@ -280,13 +280,13 @@ export class SuggestionsService {
    * in the configuration.
    * @param suggestions
    */
-  public isCollectionFixed(suggestions: OpenaireSuggestion[]): boolean {
+  public isCollectionFixed(suggestions: Suggestion[]): boolean {
     return this.getFixedCollectionIds(suggestions).length === 1;
   }
 
-  private getFixedCollectionIds(suggestions: OpenaireSuggestion[]): string[] {
+  private getFixedCollectionIds(suggestions: Suggestion[]): string[] {
     const collectionIds = {};
-    suggestions.forEach((suggestion: OpenaireSuggestion) => {
+    suggestions.forEach((suggestion: Suggestion) => {
       const conf = environment.suggestion.find((suggestionConf: SuggestionConfig) => suggestionConf.source === suggestion.source);
       if (hasValue(conf)) {
         collectionIds[conf.collectionId] = true;

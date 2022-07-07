@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OpenaireSuggestionTarget } from '../../../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { SuggestionTarget } from '../../../core/suggestion-notifications/reciter-suggestions/models/suggestion-target.model';
 import { TranslateService } from '@ngx-translate/core';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -18,7 +18,7 @@ export class SuggestionsNotificationComponent implements OnInit {
   /**
    * The user suggestion targets.
    */
-  suggestionsRD$: Observable<OpenaireSuggestionTarget[]>;
+  suggestionsRD$: Observable<SuggestionTarget[]>;
 
   constructor(
     private translateService: TranslateService,
@@ -35,7 +35,7 @@ export class SuggestionsNotificationComponent implements OnInit {
    * Interpolated params to build the notification suggestions notification.
    * @param suggestionTarget
    */
-  public getNotificationSuggestionInterpolation(suggestionTarget: OpenaireSuggestionTarget): any {
+  public getNotificationSuggestionInterpolation(suggestionTarget: SuggestionTarget): any {
     return this.suggestionsService.getNotificationSuggestionInterpolation(suggestionTarget);
   }
 

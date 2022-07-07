@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, take } from 'rxjs/operators';
 
-import { OpenaireSuggestionTarget } from '../../../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { SuggestionTarget } from '../../../core/suggestion-notifications/reciter-suggestions/models/suggestion-target.model';
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SuggestionTargetsStateService } from './suggestion-targets.state.service';
@@ -39,7 +39,7 @@ export class SuggestionTargetsComponent implements OnInit {
   /**
    * The Suggestion Target list.
    */
-  public targets$: Observable<OpenaireSuggestionTarget[]>;
+  public targets$: Observable<SuggestionTarget[]>;
   /**
    * The total number of Suggestion Targets.
    */
@@ -144,7 +144,7 @@ export class SuggestionTargetsComponent implements OnInit {
     });
   }
 
-  public getTargetUuid(target: OpenaireSuggestionTarget) {
+  public getTargetUuid(target: SuggestionTarget) {
     return this.suggestionService.getTargetUuid(target);
   }
 }

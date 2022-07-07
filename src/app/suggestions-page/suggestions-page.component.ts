@@ -11,8 +11,8 @@ import { RemoteData } from '../core/data/remote-data';
 import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { SuggestionBulkResult, SuggestionsService } from '../suggestion-notifications/reciter-suggestions/suggestions.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { OpenaireSuggestion } from '../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion.model';
-import { OpenaireSuggestionTarget } from '../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { Suggestion } from '../core/suggestion-notifications/reciter-suggestions/models/suggestion.model';
+import { SuggestionTarget } from '../core/suggestion-notifications/reciter-suggestions/models/suggestion-target.model';
 import { AuthService } from '../core/auth/auth.service';
 import { SuggestionApproveAndImport } from '../suggestion-notifications/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
@@ -56,18 +56,18 @@ export class SuggestionsPageComponent implements OnInit {
   /**
    * A list of remote data objects of suggestions
    */
-  suggestionsRD$: BehaviorSubject<PaginatedList<OpenaireSuggestion>> = new BehaviorSubject<PaginatedList<OpenaireSuggestion>>({} as any);
+  suggestionsRD$: BehaviorSubject<PaginatedList<Suggestion>> = new BehaviorSubject<PaginatedList<Suggestion>>({} as any);
 
-  targetRD$: Observable<RemoteData<OpenaireSuggestionTarget>>;
+  targetRD$: Observable<RemoteData<SuggestionTarget>>;
   targetId$: Observable<string>;
 
-  suggestionTarget: OpenaireSuggestionTarget;
+  suggestionTarget: SuggestionTarget;
   suggestionId: any;
   suggestionSource: any;
   researcherName: any;
   researcherUuid: any;
 
-  selectedSuggestions: { [id: string]: OpenaireSuggestion } = {};
+  selectedSuggestions: { [id: string]: Suggestion } = {};
   isBulkOperationPending = false;
 
   constructor(
@@ -85,17 +85,17 @@ export class SuggestionsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.targetRD$ = this.route.data.pipe(
-      map((data: Data) => data.suggestionTargets as RemoteData<OpenaireSuggestionTarget>),
+      map((data: Data) => data.suggestionTargets as RemoteData<SuggestionTarget>),
       redirectOn4xx(this.router, this.authService)
     );
 
     this.targetId$ = this.targetRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((target: OpenaireSuggestionTarget) => target.id)
+      map((target: SuggestionTarget) => target.id)
     );
     this.targetRD$.pipe(
       getFirstSucceededRemoteDataPayload()
-    ).subscribe((suggestionTarget: OpenaireSuggestionTarget) => {
+    ).subscribe((suggestionTarget: SuggestionTarget) => {
       this.suggestionTarget = suggestionTarget;
       this.suggestionId = suggestionTarget.id;
       this.researcherName = suggestionTarget.display;
@@ -135,7 +135,7 @@ export class SuggestionsPageComponent implements OnInit {
         );
       }),
       take(1)
-    ).subscribe((results: PaginatedList<OpenaireSuggestion>) => {
+    ).subscribe((results: PaginatedList<Suggestion>) => {
       this.processing$.next(false);
       this.suggestionsRD$.next(results);
       this.suggestionService.clearSuggestionRequests();
@@ -232,7 +232,7 @@ export class SuggestionsPageComponent implements OnInit {
    * @param object the suggestions
    * @param selected the new selected value for the suggestion
    */
-  onSelected(object: OpenaireSuggestion, selected: boolean) {
+  onSelected(object: Suggestion, selected: boolean) {
     if (selected) {
       this.selectedSuggestions[object.id] = object;
     } else {
@@ -244,7 +244,7 @@ export class SuggestionsPageComponent implements OnInit {
    * When Toggle Select All occurs.
    * @param suggestions all the visible suggestions inside the page
    */
-  onToggleSelectAll(suggestions: OpenaireSuggestion[]) {
+  onToggleSelectAll(suggestions: Suggestion[]) {
     if ( this.getSelectedSuggestionsCount() > 0) {
       this.selectedSuggestions = {};
     } else {
@@ -265,7 +265,7 @@ export class SuggestionsPageComponent implements OnInit {
    * Return true if all the suggestion are configured with the same fixed collection in the configuration.
    * @param suggestions
    */
-  isCollectionFixed(suggestions: OpenaireSuggestion[]): boolean {
+  isCollectionFixed(suggestions: Suggestion[]): boolean {
     return this.suggestionService.isCollectionFixed(suggestions);
   }
 

@@ -12,7 +12,7 @@ import { QualityAssuranceSourceObject } from '../core/suggestion-notifications/q
  * @param {AppState} state Top level state.
  * @return {SuggestionNotificationsState}
  */
-const _getNotificationsState = createFeatureSelector<SuggestionNotificationsState>('notifications');
+const _getNotificationsState = createFeatureSelector<SuggestionNotificationsState>('suggestion-notifications');
 
 // Quality Assurance topics
 // ----------------------------------------------------------------------------

@@ -5,7 +5,7 @@ import { SuggestionsPageComponent } from './suggestions-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { SuggestionsPageRoutingModule } from './suggestions-page-routing.module';
 import { SuggestionsService } from '../suggestion-notifications/reciter-suggestions/suggestions.service';
-import { OpenaireSuggestionsDataService } from '../core/suggestion-notifications/reciter-suggestions/openaire-suggestions-data.service';
+import { SuggestionsDataService } from '../core/suggestion-notifications/reciter-suggestions/suggestions-data.service';
 import {SuggestionNotificationsModule} from '../suggestion-notifications/suggestion-notifications.module';
 
 @NgModule({
@@ -17,7 +17,7 @@ import {SuggestionNotificationsModule} from '../suggestion-notifications/suggest
     SuggestionsPageRoutingModule
   ],
   providers: [
-    OpenaireSuggestionsDataService,
+    SuggestionsDataService,
     SuggestionsService
   ]
 })

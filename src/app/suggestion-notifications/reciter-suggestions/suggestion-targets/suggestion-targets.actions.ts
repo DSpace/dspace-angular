@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 import { type } from '../../../shared/ngrx/type';
-import { OpenaireSuggestionTarget } from '../../../core/suggestion-notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { SuggestionTarget } from '../../../core/suggestion-notifications/reciter-suggestions/models/suggestion-target.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -66,7 +66,7 @@ export class RetrieveAllTargetsErrorAction implements Action {
 export class AddTargetAction implements Action {
   type = SuggestionTargetActionTypes.ADD_TARGETS;
   payload: {
-    targets: OpenaireSuggestionTarget[];
+    targets: SuggestionTarget[];
     totalPages: number;
     currentPage: number;
     totalElements: number;
@@ -84,7 +84,7 @@ export class AddTargetAction implements Action {
    * @param totalElements
    *    the total available Suggestion Targets
    */
-  constructor(targets: OpenaireSuggestionTarget[], totalPages: number, currentPage: number, totalElements: number) {
+  constructor(targets: SuggestionTarget[], totalPages: number, currentPage: number, totalElements: number) {
     this.payload = {
       targets,
       totalPages,
@@ -102,7 +102,7 @@ export class AddTargetAction implements Action {
 export class AddUserSuggestionsAction implements Action {
   type = SuggestionTargetActionTypes.ADD_USER_SUGGESTIONS;
   payload: {
-    suggestionTargets: OpenaireSuggestionTarget[];
+    suggestionTargets: SuggestionTarget[];
   };
 
   /**
@@ -111,7 +111,7 @@ export class AddUserSuggestionsAction implements Action {
    * @param suggestionTargets
    *    the user suggestions target
    */
-  constructor(suggestionTargets: OpenaireSuggestionTarget[]) {
+  constructor(suggestionTargets: SuggestionTarget[]) {
     this.payload = { suggestionTargets };
   }
 

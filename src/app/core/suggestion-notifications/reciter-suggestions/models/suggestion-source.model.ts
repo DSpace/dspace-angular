@@ -1,6 +1,6 @@
 import { autoserialize, deserialize } from 'cerialize';
 
-import { SUGGESTION_SOURCE } from './openaire-suggestion-objects.resource-type';
+import { SUGGESTION_SOURCE } from './suggestion-objects.resource-type';
 import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { ResourceType } from '../../../shared/resource-type';
 import { HALLink } from '../../../shared/hal-link.model';
@@ -11,7 +11,7 @@ import {CacheableObject} from '../../../cache/cacheable-object.model';
  * The interface representing the Suggestion Source model
  */
 @typedObject
-export class OpenaireSuggestionSource implements CacheableObject {
+export class SuggestionSource implements CacheableObject {
   /**
    * A string representing the kind of object, e.g. community, item, …
    */
