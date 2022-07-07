@@ -4,7 +4,9 @@ import { suggestionNotificationsSelector, SuggestionNotificationsState } from '.
 import { QualityAssuranceTopicObject } from '../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
 import { QualityAssuranceTopicState } from './qa/topics/quality-assurance-topics.reducer';
 import { QualityAssuranceSourceState } from './qa/source/quality-assurance-source.reducer';
-import { QualityAssuranceSourceObject } from '../core/suggestion-notifications/qa/models/quality-assurance-source.model';
+import {
+  QualityAssuranceSourceObject
+} from '../core/suggestion-notifications/qa/models/quality-assurance-source.model';
 
 /**
  * Returns the Notifications state.
@@ -12,7 +14,7 @@ import { QualityAssuranceSourceObject } from '../core/suggestion-notifications/q
  * @param {AppState} state Top level state.
  * @return {SuggestionNotificationsState}
  */
-const _getNotificationsState = createFeatureSelector<SuggestionNotificationsState>('notifications');
+const _getNotificationsState = createFeatureSelector<SuggestionNotificationsState>('suggestionNotifications');
 
 // Quality Assurance topics
 // ----------------------------------------------------------------------------

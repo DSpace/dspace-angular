@@ -1,6 +1,12 @@
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
-import { qualityAssuranceSourceReducer, QualityAssuranceSourceState } from './qa/source/quality-assurance-source.reducer';
-import { qualityAssuranceTopicsReducer, QualityAssuranceTopicState, } from './qa/topics/quality-assurance-topics.reducer';
+import {
+  qualityAssuranceSourceReducer,
+  QualityAssuranceSourceState
+} from './qa/source/quality-assurance-source.reducer';
+import {
+  qualityAssuranceTopicsReducer,
+  QualityAssuranceTopicState,
+} from './qa/topics/quality-assurance-topics.reducer';
 
 /**
  * The OpenAIRE State
@@ -15,4 +21,4 @@ export const suggestionNotificationsReducers: ActionReducerMap<SuggestionNotific
   qaSource: qualityAssuranceSourceReducer
 };
 
-export const suggestionNotificationsSelector = createFeatureSelector<SuggestionNotificationsState>('notifications');
+export const suggestionNotificationsSelector = createFeatureSelector<SuggestionNotificationsState>('suggestionNotifications');
