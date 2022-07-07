@@ -91,7 +91,7 @@
                     <hr>
                     <div>
                       {{(eventElement.hasProject ? 'quality-assurance.event.project.found' : 'quality-assurance.event.project.notFound') | translate}}
-                      <a target="_blank" *ngIf="eventElement.hasProject" title="{{eventElement.projectTitle}}" [routerLink]="['/items', eventElement.projectId]">{{eventElement.handle}}</a>
+                      <a target="_blank" *ngIf="eventElement.hasProject" title="{{eventElement.projectTitle}}" [routerLink]="['/items', eventElement.projectId]">{{eventElement.handle}} </a>
                       <div class="btn-group">
                         <button class="btn btn-outline-primary btn-sm"
                                 [disabled]="eventElement.isRunning"
@@ -108,25 +108,36 @@
                     </div>
                   </td>
                   <td>
-                    <div class="btn-group-vertical button-width">
+                    <div class="btn-group button-width">
                       <button *ngIf="showTopic.indexOf('/PROJECT') !== -1"
                               class="btn btn-outline-success btn-sm button-width"
+                              ngbTooltip="{{'quality-assurance.event.action.import' | translate}}"
+                              container="body"
                               [disabled]="eventElement.isRunning"
                               (click)="modalChoice('ACCEPTED', eventElement, acceptModal)">
                         <i class="fas fa-check"></i>
-                        <span class="d-none d-sm-inline">{{'quality-assurance.event.action.import' | translate}}</span>
                       </button>
-                      <button *ngIf="showTopic.indexOf('/PROJECT') == -1" class="btn btn-outline-success btn-sm button-width" [disabled]="eventElement.isRunning" (click)="executeAction('ACCEPTED', eventElement)">
+                      <button *ngIf="showTopic.indexOf('/PROJECT') == -1"
+                              class="btn btn-outline-success btn-sm button-width"
+                              ngbTooltip="{{'quality-assurance.event.action.accept' | translate}}"
+                              container="body"
+                              [disabled]="eventElement.isRunning"
+                              (click)="executeAction('ACCEPTED', eventElement)">
                         <i class="fas fa-check"></i>
-                        <span class="d-none d-sm-inline">{{'quality-assurance.event.action.accept' | translate}}</span>
                       </button>
-                      <button class="btn btn-outline-dark btn-sm button-width" [disabled]="eventElement.isRunning" (click)="openModal('DISCARDED', eventElement, ignoreModal)">
-                        <i class="fas fa-trash-alt"></i>
-                        <span class="d-none d-sm-inline">{{'quality-assurance.event.action.ignore' | translate}}</span>
+                      <button class="btn btn-outline-dark btn-sm button-width"
+                              ngbTooltip="{{'quality-assurance.event.action.ignore' | translate}}"
+                              container="body"
+                              [disabled]="eventElement.isRunning"
+                              (click)="openModal('DISCARDED', eventElement, ignoreModal)">
+                        <i class="fas fa-ban"></i>
                       </button>
-                      <button class="btn btn-outline-danger btn-sm button-width" [disabled]="eventElement.isRunning" (click)="openModal('REJECTED', eventElement, rejectModal)">
+                      <button class="btn btn-outline-danger btn-sm button-width"
+                              ngbTooltip="{{'quality-assurance.event.action.reject' | translate}}"
+                              container="body"
+                              [disabled]="eventElement.isRunning"
+                              (click)="openModal('REJECTED', eventElement, rejectModal)">
                         <i class="fas fa-trash-alt"></i>
-                        <span class="d-none d-sm-inline">{{'quality-assurance.event.action.reject' | translate}}</span>
                       </button>
                     </div>
                   </td>
@@ -155,13 +166,13 @@
   <div class="modal-body">
     <p>{{'quality-assurance.event.accept.description' | translate}}</p>
 
-    <button class="btn btn-outline-success float-left" (click)="modal.close('do')">
+    <button class="btn btn-outline-success float-right" (click)="modal.close('do')">
       <i class="fas fa-check"></i>
-      <span class="d-none d-sm-inline">{{'quality-assurance.event.action.import' | translate}}</span>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.import' | translate}}</span>
     </button>
-    <button class="btn btn-outline-secondary float-right" (click)="modal.close('cancel')">
+    <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
       <i class="fas fa-close"></i>
-      <span class="d-none d-sm-inline">{{'quality-assurance.event.action.cancel' | translate}}</span>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
     </button>
   </div>
 </ng-template>
@@ -172,16 +183,13 @@
   </div>
   <div class="modal-body">
     <p>{{'quality-assurance.event.ignore.description' | translate}}</p>
-
-    <!-- textarea class="form-control mb-2" [(ngModel)]="selectedReason" placeholder="{{'quality-assurance.event.reason' |translate}}"></textarea -->
-
-    <button class="btn btn-outline-danger float-left" (click)="modal.close('do')">
+    <button class="btn btn-outline-danger float-right" (click)="modal.close('do')">
       <i class="fas fa-trash-alt"></i>
-      <span class="d-none d-sm-inline">{{'quality-assurance.event.action.ignore' | translate}}</span>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.ignore' | translate}}</span>
     </button>
-    <button class="btn btn-outline-secondary float-right" (click)="modal.close('cancel')">
+    <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
       <i class="fas fa-close"></i>
-      <span class="d-none d-sm-inline">{{'quality-assurance.event.action.cancel' | translate}}</span>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
     </button>
   </div>
 </ng-template>
@@ -192,16 +200,13 @@
   </div>
   <div class="modal-body">
     <p>{{'quality-assurance.event.reject.description' | translate}}</p>
-
-    <!-- textarea class="form-control mb-2" [(ngModel)]="selectedReason" placeholder="{{'quality-assurance.event.reason' |translate}}"></textarea -->
-
-    <button class="btn btn-outline-danger float-left" (click)="modal.close('do')">
+    <button class="btn btn-outline-danger float-right" (click)="modal.close('do')">
       <i class="fas fa-trash-alt"></i>
-      <span class="d-none d-sm-inline">{{'quality-assurance.event.action.reject' | translate}}</span>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.reject' | translate}}</span>
     </button>
-    <button class="btn btn-outline-secondary float-right" (click)="modal.close('cancel')">
+    <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
       <i class="fas fa-close"></i>
-      <span class="d-none d-sm-inline">{{'quality-assurance.event.action.cancel' | translate}}</span>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
     </button>
   </div>
 </ng-template>
