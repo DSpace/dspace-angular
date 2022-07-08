@@ -9,6 +9,9 @@ import { SuggestionNotificationsStateService } from '../../suggestion-notificati
 import { AdminQualityAssuranceSourcePageParams } from '../../../admin/admin-notifications/admin-quality-assurance-source-page-component/admin-quality-assurance-source-page-resolver.service';
 import { hasValue } from '../../../shared/empty.util';
 
+/**
+ * Component to display the Quality Assurance source list.
+ */
 @Component({
   selector: 'ds-quality-assurance-source',
   templateUrl: './quality-assurance-source.component.html',
