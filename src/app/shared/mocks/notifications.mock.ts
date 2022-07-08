@@ -1464,6 +1464,7 @@ export const qualityAssuranceEventObjectMissingPid: QualityAssuranceEventObject 
   message: {
     type: 'doi',
     value: '10.18848/1447-9494/cgp/v15i09/45934',
+    pidHref: 'https://doi.org/10.18848/1447-9494/cgp/v15i09/45934',
     abstract: null,
     openaireId: null,
     acronym: null,
@@ -1500,6 +1501,7 @@ export const qualityAssuranceEventObjectMissingPid2: QualityAssuranceEventObject
   message: {
     type: 'urn',
     value: 'http://thesis2.sba.units.it/store/handle/item/12238',
+    pidHref:'http://thesis2.sba.units.it/store/handle/item/12238',
     abstract: null,
     openaireId: null,
     acronym: null,
@@ -1536,6 +1538,7 @@ export const qualityAssuranceEventObjectMissingPid3: QualityAssuranceEventObject
   message: {
     type: 'doi',
     value: '10.4324/9780203408889',
+    pidHref: 'https://doi.org/10.4324/9780203408889',
     abstract: null,
     openaireId: null,
     acronym: null,
@@ -1572,6 +1575,7 @@ export const qualityAssuranceEventObjectMissingPid4: QualityAssuranceEventObject
   message: {
     type: 'doi',
     value: '10.1080/13698230.2018.1430104',
+    pidHref: 'https://doi.org/10.1080/13698230.2018.1430104',
     abstract: null,
     openaireId: null,
     acronym: null,
@@ -1608,6 +1612,7 @@ export const qualityAssuranceEventObjectMissingPid5: QualityAssuranceEventObject
   message: {
     type: 'urn',
     value: 'http://thesis2.sba.units.it/store/handle/item/12477',
+    pidHref:'http://thesis2.sba.units.it/store/handle/item/12477',
     abstract: null,
     openaireId: null,
     acronym: null,
@@ -1644,6 +1649,7 @@ export const qualityAssuranceEventObjectMissingPid6: QualityAssuranceEventObject
   message: {
     type: 'doi',
     value: '10.1111/j.1475-4975.2004.00098.x',
+    pidHref: 'https://doi.org/10.1111/j.1475-4975.2004.00098.x',
     abstract: null,
     openaireId: null,
     acronym: null,
@@ -1680,6 +1686,7 @@ export const qualityAssuranceEventObjectMissingAbstract: QualityAssuranceEventOb
   message: {
     type: null,
     value: null,
+    pidHref: null,
     abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla scelerisque vestibulum tellus sed lacinia. Aenean vitae sapien a quam congue ultrices. Sed vehicula sollicitudin ligula, vitae lacinia velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla scelerisque vestibulum tellus sed lacinia. Aenean vitae sapien a quam congue ultrices. Sed vehicula sollicitudin ligula, vitae lacinia velit.',
     openaireId: null,
     acronym: null,
@@ -1716,6 +1723,7 @@ export const qualityAssuranceEventObjectMissingProjectFound: QualityAssuranceEve
   message: {
     type: null,
     value: null,
+    pidHref: null,
     abstract: null,
     openaireId: null,
     acronym: 'PAThs',
@@ -1752,6 +1760,7 @@ export const qualityAssuranceEventObjectMissingProjectNotFound: QualityAssurance
   message: {
     type: null,
     value: null,
+    pidHref: null,
     abstract: null,
     openaireId: null,
     acronym: 'PAThs',

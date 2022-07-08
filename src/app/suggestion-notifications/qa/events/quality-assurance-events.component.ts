@@ -38,7 +38,7 @@ import { FindListOptions } from '../../../core/data/find-list-options.model';
 @Component({
   selector: 'ds-quality-assurance-events',
   templateUrl: './quality-assurance-events.component.html',
-  styleUrls: ['./quality-assurance-events.scomponent.scss'],
+  styleUrls: ['./quality-assurance-events.component.scss'],
 })
 export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   /**
@@ -334,7 +334,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    * @param event
    */
   public getPIDHref(event: OpenaireQualityAssuranceEventMessageObject): string {
-    return this.computePIDHref(event);
+    return event.pidHref;
   }
 
 
@@ -422,48 +422,5 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
         )
       );
     }
-  }
-
-  protected computePIDHref(event: OpenaireQualityAssuranceEventMessageObject) {
-    const type = event.type.toLowerCase();
-    const pid = event.value;
-    let prefix = null;
-    switch (type) {
-      case 'arxiv': {
-        prefix = 'https://arxiv.org/abs/';
-        break;
-      }
-      case 'handle': {
-        prefix = 'https://hdl.handle.net/';
-        break;
-      }
-      case 'urn': {
-        prefix = '';
-        break;
-      }
-      case 'doi': {
-        prefix = 'https://doi.org/';
-        break;
-      }
-      case 'pmc': {
-        prefix = 'https://www.ncbi.nlm.nih.gov/pmc/articles/';
-        break;
-      }
-      case 'pmid': {
-        prefix = 'https://pubmed.ncbi.nlm.nih.gov/';
-        break;
-      }
-      case 'ncid': {
-        prefix = 'https://ci.nii.ac.jp/ncid/';
-        break;
-      }
-      default: {
-        break;
-      }
-    }
-    if (prefix === null) {
-      return null;
-    }
-    return prefix + pid;
   }
 }
