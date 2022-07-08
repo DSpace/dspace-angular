@@ -51,6 +51,7 @@ export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponen
    * On init get bitstreams as observable to be subscribed by template
    */
   ngOnInit() {
+    console.log(this.envData);
     this.bitstreams$ = this.getBitstreams();
   }
 

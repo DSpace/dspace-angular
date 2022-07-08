@@ -6,30 +6,42 @@
         <ds-thumbnail [thumbnail]="attachment.thumbnail | async"></ds-thumbnail>
       </div>
       <div class="col-5">
-        <div class="content" data-test="title" *ngIf="envData?.title">
-          <strong>{{ 'cris-layout.advanced-attachment.title' | translate }}</strong>
-          <p class="word-break m-0">{{fileName(attachment)}}</p>
-        </div>
-        <div class="content" data-test="size" *ngIf="envData?.size">
-          <strong>{{ 'cris-layout.advanced-attachment.size' | translate }}</strong>
-          <p class="word-break m-0">{{getSize(attachment) | dsFileSize}}</p>
-        </div>
-        <div class="content" data-test="format" *ngIf="envData?.format">
-          <strong>{{ 'cris-layout.advanced-attachment.format' | translate }}</strong>
-          <p class="word-break m-0">{{getFormat(attachment) | async}}</p>
-        </div>
-        <div class="content" data-test="type" *ngIf="envData?.type">
-          <strong>{{ 'cris-layout.advanced-attachment.type' | translate }}</strong>
-          <p class="word-break m-0">{{getType(attachment)}}</p>
-        </div>
-        <div class="content" data-test="description" *ngIf="getDesc(attachment) && envData?.description">
-          <strong>{{ 'cris-layout.advanced-attachment.description' | translate }}</strong>
-          <ds-truncatable [id]="attachment.id">
-            <ds-truncatable-part [id]="attachment.id" [minLines]="1">
-              {{getDesc(attachment)}}
-            </ds-truncatable-part>
-          </ds-truncatable>
-        </div>
+
+
+        <ng-container *ngFor="let attachmentConf of envData">
+
+          <!-- data-test="{{attachmentConf.name}}" -->
+          <div class="content"
+            *ngIf="attachment.firstMetadataValue(attachmentConf.name) || attachmentConf.type == 'attribute'">
+            <strong>{{ 'cris-layout.advanced-attachment.'+attachmentConf.name | translate }}</strong>
+
+            <ng-container *ngIf="attachmentConf.type == 'metadata'">
+
+              <p class="word-break m-0" *ngIf="!attachmentConf.truncatable">
+                {{attachment.firstMetadataValue(attachmentConf.name)}}
+              </p>
+
+              <ds-truncatable *ngIf="attachmentConf.truncatable" [id]=" attachment.id">
+                <ds-truncatable-part [id]="attachment.id" [minLines]="1">
+                  {{attachment.firstMetadataValue(attachmentConf.name)}}
+                </ds-truncatable-part>
+              </ds-truncatable>
+
+            </ng-container>
+
+            <ng-container *ngIf="attachmentConf.type == 'attribute'">
+              <ng-container *ngIf="attachmentConf.name == 'format'">
+                <p class="word-break m-0">{{getFormat(attachment) | async}}</p>
+              </ng-container>
+
+              <ng-container *ngIf="attachmentConf.name == 'size'">
+                <p class="word-break m-0">{{getSize(attachment) | dsFileSize}}</p>
+              </ng-container>
+            </ng-container>
+
+          </div>
+        </ng-container>
+
       </div>
       <div class="col-4 text-right">
         <ds-file-download-button [bitstream]="attachment" [enableRequestACopy]="true" [item]="item">

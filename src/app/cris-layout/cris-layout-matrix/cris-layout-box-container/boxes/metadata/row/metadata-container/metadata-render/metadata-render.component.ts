@@ -70,6 +70,7 @@ export class MetadataRenderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.field.rendering = FieldRenderingType.ADVANCEDATTACHMENT.toLocaleLowerCase();
     this.metadataValueViewRef.clear();
     this.renderingSubType = this.computeSubType(this.field);
     this.generateComponentRef();
@@ -122,6 +123,10 @@ export class MetadataRenderComponent implements OnInit {
    */
   computeRendering(): string | FieldRenderingType {
     let rendering = hasValue(this.field.rendering) ? this.field.rendering : FieldRenderingType.TEXT;
+
+    if (rendering.toLowerCase() === FieldRenderingType.ATTACHMENT.toLowerCase()) {
+      rendering = FieldRenderingType.ADVANCEDATTACHMENT.toLocaleLowerCase();
+    }
 
     if (rendering.indexOf('.') > -1) {
       const values = rendering.split('.');

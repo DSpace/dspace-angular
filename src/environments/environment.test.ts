@@ -369,11 +369,30 @@ export const environment: BuildConfig = {
       class: 'alert-danger',
     },
   ],
-  advancedAttachment: {
-    title: true,
-    size: true,
-    format: true,
-    type: true,
-    description: true,
-  }
+
+  advancedAttachment: [
+    {
+      name: 'dc.title',
+      type: 'metadata',
+      truncatable: false
+    },
+    {
+      name: 'dc.type',
+      type: 'metadata',
+      truncatable: false
+    },
+    {
+      name: 'dc.description',
+      type: 'metadata',
+      truncatable: true
+    },
+    {
+      name: 'size',
+      type: 'attribute',
+    },
+    {
+      name: 'format',
+      type: 'attribute',
+    }
+  ]
 };
