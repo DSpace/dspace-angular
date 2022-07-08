@@ -40,6 +40,10 @@ import {
     EditItemSelectorComponent
 } from './app/shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 
+import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
+import { CollectionListElementComponent} from './app/shared/object-list/collection-list-element/collection-list-element.component';
+
+
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
  * This will ensure that decorator gets picked up when the app loads
@@ -50,6 +54,9 @@ const ENTRY_COMPONENTS = [
   JournalVolumeComponent,
   PublicationComponent,
   UntypedItemComponent,
+
+  CommunityListElementComponent,
+  CollectionListElementComponent,
 ];
 
 const DECLARATIONS = [
