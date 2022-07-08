@@ -73,6 +73,11 @@ export interface OpenaireQualityAssuranceEventMessageObject {
    */
   openaireId: string;
 
+  /**
+   * The PID href.
+   */
+  pidHref: string;
+
 }
 
 /**
