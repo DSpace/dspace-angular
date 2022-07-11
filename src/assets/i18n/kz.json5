@@ -1883,7 +1883,7 @@
   "home.breadcrumbs": "Басты",
 
   // "home.title": "DSpace Angular :: Home",
-  "home.title": "DSpace Angular :: Басты",
+  "home.title": "Басты",
 
   // "home.top-level-communities.head": "Communities in DSpace",
   "home.top-level-communities.head": "DSpace-тегі қауымдастықтар",
@@ -3716,6 +3716,19 @@
 
   // "relationships.isContributorOf": "Contributors",
   "relationships.isContributorOf": "Қатысушылар",
+
+  "relationships.isContributorOf.OrgUnit": "Қатысушылар (Мекемелер)",
+
+  "relationships.isContributorOf.Person": "Қатысушы",
+
+  "relationships.isFundingAgencyOf.OrgUnit": "Жасаушы",
+
+
+  "repository.image.logo": "Repository logo",
+
+  "repository.title.prefix": "Институционалдық Репозиторий :: ",
+
+  "repository.title.prefixDSpace": "Институционалдық Репозиторий ::",
 
   // "resource-policies.add.button": "Add",
   "resource-policies.add.button": "Қосу",
