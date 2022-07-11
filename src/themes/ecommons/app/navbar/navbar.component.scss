@@ -1,8 +1,8 @@
 nav.navbar {
   border-top: 1px var(--ds-header-navbar-border-top-color) solid;
-  border-bottom: 5px var(--cul-red) solid;
+  border-bottom: 5px var(--bs-green) solid;
   align-items: baseline;
-  color: var(--cul-blue);
+  color: var(--ds-header-icon-color);
 }
 
 /** Mobile menu styling **/
@@ -49,13 +49,13 @@ a.navbar-brand img {
 
 .navbar-nav {
   ::ng-deep a.nav-link {
-    color: var(--cul-blue);
+    color: var(--ds-navbar-link-color);
   }
   ::ng-deep a.nav-link:hover {
-    color: var(--cul-blue-darker);
-    text-decoration: underline;
+    color: var(--ds-navbar-link-color-hover);
   }
 }
+
 .cornell-logo-wrapper {
   position: relative;
   min-height: 1px;
@@ -84,9 +84,6 @@ a.navbar-brand img {
   text-indent: -99999em;
 }
 .library-brand {
-  font-family: "Montserrat", sans-serif;
-  text-transform: uppercase;
-  font-size: 18px;
   padding: 0 10px;
   margin: 0.8em 0;
 }

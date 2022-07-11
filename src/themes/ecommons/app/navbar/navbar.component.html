@@ -1,25 +1,26 @@
 <nav [ngClass]="{'open': !(menuCollapsed | async)}" [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : ((menuCollapsed | async) ? 'collapsed' : 'expanded')"
-     class="navbar navbar-expand-md navbar-light p-0 navbar-container" role="navigation" [attr.aria-label]="'nav.main.description' | translate">
-    <div class="container h-300 w-200">
-        <div class="cornell-logo-wrapper">
-            <div class="cornell-logo">
-                <a href="https://www.cornell.edu" class="insignia">Cornell University</a>
-                <div class="library-brand">
-                    <a href="https://library.cornell.edu">Library</a>
-                </div>
+  class="navbar navbar-expand-md navbar-light p-0 navbar-container" role="navigation" [attr.aria-label]="'nav.main.description' | translate">
+  <div class="container h-100">
+    <!-- hide on xs mobile menu -->
+    <div class="cornell-logo-wrapper d-none d-sm-block">
+        <div class="cornell-logo">
+            <a href="https://www.cornell.edu" class="insignia">Cornell University</a>
+            <div class="library-brand">
+                <a href="https://library.cornell.edu">Library</a>
             </div>
         </div>
-
-        <div id="collapsingNav" class="w-100 h-100">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 h-100">
-                <ng-container *ngFor="let section of (sections | async)">
-                    <ng-container *ngComponentOutlet="(sectionMap$ | async).get(section.id)?.component; injector: (sectionMap$ | async).get(section.id)?.injector;"></ng-container>
-                </ng-container>
-            </ul>
-        </div>
-        <ds-search-navbar class="navbar-collapsed"></ds-search-navbar>
-        <!-- <ds-lang-switch class="navbar-collapsed"></ds-lang-switch> -->
-        <ds-auth-nav-menu class="navbar-collapsed"></ds-auth-nav-menu>
-        <ds-impersonate-navbar class="navbar-collapsed"></ds-impersonate-navbar>
     </div>
+
+    <div id="collapsingNav" class="w-100 h-100">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 h-100">
+        <ng-container *ngFor="let section of (sections | async)">
+          <ng-container *ngComponentOutlet="(sectionMap$ | async).get(section.id)?.component; injector: (sectionMap$ | async).get(section.id)?.injector;"></ng-container>
+        </ng-container>
+      </ul>
+    </div>
+    <ds-search-navbar class="navbar-collapsed"></ds-search-navbar>
+    <!-- <ds-lang-switch class="navbar-collapsed"></ds-lang-switch> -->
+    <ds-auth-nav-menu class="navbar-collapsed"></ds-auth-nav-menu>
+    <ds-impersonate-navbar class="navbar-collapsed"></ds-impersonate-navbar>
+  </div>
 </nav>
