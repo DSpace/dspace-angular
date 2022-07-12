@@ -193,26 +193,44 @@ describe('AdvancedAttachmentComponent', () => {
   describe('When envoirment configuration are all true', () => {
 
     beforeEach(() => {
-      component.envData = {
-        title: true,
-        size: true,
-        format: true,
-        type: true,
-        description: true,
-      };
+      component.envData = [
+        {
+          name: 'dc.title',
+          type: 'metadata',
+          truncatable: false
+        },
+        {
+          name: 'dc.type',
+          type: 'metadata',
+          truncatable: false
+        },
+        {
+          name: 'dc.description',
+          type: 'metadata',
+          truncatable: true
+        },
+        {
+          name: 'size',
+          type: 'attribute',
+        },
+        {
+          name: 'format',
+          type: 'attribute',
+        }
+      ];
       fixture.detectChanges();
     });
 
     it('should show title', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="title"]'))).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('[data-test="dc.title"]'))).toBeTruthy();
     });
 
     it('should show description', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="description"]'))).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('[data-test="dc.description"]'))).toBeTruthy();
     });
 
     it('should show type', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="type"]'))).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('[data-test="dc.type"]'))).toBeTruthy();
     });
 
     it('should show format', () => {
@@ -227,26 +245,20 @@ describe('AdvancedAttachmentComponent', () => {
   describe('When envoirment configuration are all false', () => {
 
     beforeEach(() => {
-      component.envData = {
-        title: false,
-        size: false,
-        format: false,
-        type: false,
-        description: false,
-      };
+      component.envData = [];
       fixture.detectChanges();
     });
 
     it('should show title', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="title"]'))).toBeFalsy();
+      expect(fixture.debugElement.query(By.css('[data-test="dc.title"]'))).toBeFalsy();
     });
 
     it('should show description', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="description"]'))).toBeFalsy();
+      expect(fixture.debugElement.query(By.css('[data-test="dc.description"]'))).toBeFalsy();
     });
 
     it('should show type', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="type"]'))).toBeFalsy();
+      expect(fixture.debugElement.query(By.css('[data-test="dc.type"]'))).toBeFalsy();
     });
 
     it('should show format', () => {

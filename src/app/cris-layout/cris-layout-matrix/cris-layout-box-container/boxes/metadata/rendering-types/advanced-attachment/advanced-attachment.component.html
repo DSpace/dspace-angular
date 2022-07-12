@@ -10,8 +10,7 @@
 
         <ng-container *ngFor="let attachmentConf of envData">
 
-          <!-- data-test="{{attachmentConf.name}}" -->
-          <div class="content"
+          <div class="content" [attr.data-test]="attachmentConf.name"
             *ngIf="attachment.firstMetadataValue(attachmentConf.name) || attachmentConf.type == 'attribute'">
             <strong>{{ 'cris-layout.advanced-attachment.'+attachmentConf.name | translate }}</strong>
 
