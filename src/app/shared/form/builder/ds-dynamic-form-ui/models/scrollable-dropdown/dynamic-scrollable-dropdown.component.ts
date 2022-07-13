@@ -82,7 +82,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
 
     this.group.get(this.model.id).valueChanges.pipe(distinctUntilChanged())
       .subscribe((value) => {
-        this.setCurrentValue(value);
+        this.setCurrentValue(value, true);
       });
     this.initFilterSubscriber();
   }
