@@ -1,0 +1,82 @@
+<ds-item-list-preview
+  [item]="item"
+  [object]="object"
+  [metadataList]="metadataList"
+></ds-item-list-preview>
+
+<div *ngIf="isWorkFlow" class="mt-2">
+  <form>
+    <div class="form-group mb-2">
+      <label class="mb-1" for="submitterDecision"><strong> {{'submission.sections.detect-duplicate.submitter-decision' | translate}} </strong></label><br>
+      <span id="submitterDecision" class="badge badge-pill {{decisionLabelClass}}">
+        {{submitterDecision$ | async}}
+      </span>
+    </div>
+    <div class="form-group" *ngIf="submitterNote">
+      <label for="submitterNote"><strong>{{'submission.sections.detect-duplicate.submitter-note' | translate}}</strong></label>
+      <textarea class="form-control" id="submitterNote" rows="3" readonly>{{submitterNote}}</textarea>
+    </div>
+  </form>
+</div>
+
+<div class="mt-3 mb-2" *ngIf="!hasDecision && !readOnly">
+  <button type="button"
+          class="btn btn-warning"
+          ngbTooltip="{{'submission.sections.detect-duplicate.duplicate-help' | translate}}"
+          [disabled]="(processingVerify | async) || (processingReject | async)"
+          (click)="openModal(modal)">
+    <span *ngIf="(processingVerify | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+    <span *ngIf="!(processingVerify | async)">{{duplicateBtnLabel$ | async}}</span>
+  </button>
+
+  <button type="button"
+          class="btn btn-success"
+          ngbTooltip="{{'submission.sections.detect-duplicate.not-duplicate-help' | translate}}"
+          [disabled]="(processingReject | async) || (processingVerify | async)"
+          (click)="setAsNotDuplicate()">
+    <span *ngIf="(processingReject | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+    <span *ngIf="!(processingReject | async)">{{notDuplicateBtnLabel$ | async}}</span>
+  </button>
+
+</div>
+
+<div class="mt-3 mb-2" *ngIf="hasDecision && !readOnly">
+  <button type="button"
+          class="btn btn-danger"
+          ngbTooltip="{{'submission.sections.detect-duplicate.clear-decision-help' | translate}}"
+          (click)="clearDecision()">
+    <span> {{'submission.sections.detect-duplicate.clear-decision' | translate}}</span>
+  </button>
+</div>
+
+<ng-template #modal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{'submission.workflow.tasks.claimed.reject.reason.title' | translate}}</h4>
+    <button type="button"
+            class="close"
+            aria-label="Close"
+            (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-info" role="alert">
+      {{'submission.sections.detect-duplicate.note-help' | translate}}
+    </div>
+    <form (ngSubmit)="setAsDuplicate();" [formGroup]="rejectForm" >
+      <textarea class="w-100"
+                formControlName="reason"
+                rows="4"
+                placeholder="{{'submission.sections.detect-duplicate.note-placeholder' | translate}}"></textarea>
+      <button id="btn-chat"
+              class="btn btn-danger btn-lg btn-block mt-3"
+              [disabled]="!rejectForm.valid"
+              type="submit">
+        <span *ngIf="(processingReject | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+        <span *ngIf="!(processingReject | async)">{{'submission.sections.detect-duplicate.duplicate' | translate}}</span>
+      </button>
+    </form>
+  </div>
+</ng-template>
+
+
