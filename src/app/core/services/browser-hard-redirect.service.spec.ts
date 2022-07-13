@@ -63,6 +63,6 @@ describe('BrowserHardRedirectService', () => {
 
     afterEach(() => {
       (environment.ui as any).forceHTTPSInOrigin = originalValue;
-    })
+    });
   });
 });

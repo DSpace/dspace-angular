@@ -68,7 +68,7 @@ describe('ServerHardRedirectService', () => {
 
     afterEach(() => {
       (environment.ui as any).forceHTTPSInOrigin = originalValue;
-    })
+    });
   });
 
 });

@@ -70,7 +70,7 @@ export class ServerHardRedirectService extends HardRedirectService {
    * the origin would be https://demo7.dspace.org
    */
   getCurrentOrigin(): string {
-    if((environment.ui as UIServerConfig).forceHTTPSInOrigin) {
+    if ((environment.ui as UIServerConfig).forceHTTPSInOrigin) {
       return 'https://' + this.req.headers.host;
     } else {
       return this.req.protocol + '://' + this.req.headers.host;
