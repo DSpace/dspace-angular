@@ -6,6 +6,7 @@ import {
   MyDspaceItemStatusType
 } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { SearchResult } from '../../../search/models/search-result.model';
+import { DuplicateMatchMetadataDetailConfig } from '../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
@@ -39,6 +40,11 @@ export class ItemListPreviewComponent implements OnInit {
    * A boolean representing if to show submitter information
    */
   @Input() showSubmitter = false;
+
+  /**
+   * An object representing the duplicate match
+   */
+  @Input() metadataList: DuplicateMatchMetadataDetailConfig[] = [];
 
   /**
    * Display thumbnails if required by configuration

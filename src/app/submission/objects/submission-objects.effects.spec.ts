@@ -8,6 +8,7 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 
 import { SubmissionObjectEffects } from './submission-objects.effects';
 import {
+  CleanDetectDuplicateAction,
   CompleteInitSubmissionFormAction,
   DepositSubmissionAction,
   DepositSubmissionErrorAction,
@@ -21,6 +22,8 @@ import {
   SaveSubmissionFormSuccessAction,
   SaveSubmissionSectionFormErrorAction,
   SaveSubmissionSectionFormSuccessAction,
+  SetDuplicateDecisionErrorAction,
+  SetDuplicateDecisionSuccessAction,
   SubmissionObjectActionTypes,
   UpdateSectionDataAction
 } from './submission-objects.actions';
@@ -35,7 +38,8 @@ import {
   mockSubmissionId,
   mockSubmissionRestResponse,
   mockSubmissionSelfUrl,
-  mockSubmissionState
+  mockSubmissionState,
+  mockSubmissionStateWithDuplicate
 } from '../../shared/mocks/submission.mock';
 import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
@@ -605,6 +609,57 @@ describe('SubmissionObjectEffects test suite', () => {
       expect(submissionServiceStub.notifyNewSection).toHaveBeenCalled();
     });
 
+    it('should send CLEAN_DETECT_DUPLICATE when duplicate section is removed', () => {
+      store.nextState({
+        submission: {
+          objects: mockSubmissionStateWithDuplicate
+        }
+      } as any);
+
+      const response = [Object.assign({}, mockSubmissionRestResponse[0], {
+        sections: mockSectionsData
+      })];
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS,
+          payload: {
+            submissionId: submissionId,
+            submissionObject: response
+          }
+        }
+      });
+
+      const expected = cold('--(bcde)-', {
+        b: new UpdateSectionDataAction(
+          submissionId,
+          'traditionalpageone',
+          mockSectionsData.traditionalpageone as any,
+          [],
+          []
+        ),
+        c: new UpdateSectionDataAction(
+          submissionId,
+          'license',
+          mockSectionsData.license as any,
+          [],
+          []
+        ),
+        d: new UpdateSectionDataAction(
+          submissionId,
+          'upload',
+          mockSectionsData.upload as any,
+          [],
+          []
+        ),
+        e: new CleanDetectDuplicateAction(
+          submissionId
+        ),
+      });
+
+      expect(submissionObjectEffects.saveSubmissionSuccess$).toBeObservable(expected);
+      // expect(notificationsServiceStub.success).toHaveBeenCalled();
+    });
+
   });
 
   describe('saveSubmissionSectionSuccess$', () => {
@@ -1014,6 +1069,71 @@ describe('SubmissionObjectEffects test suite', () => {
       submissionObjectEffects.saveForLaterSubmissionSuccess$.subscribe(() => {
         expect(notificationsServiceStub.success).toHaveBeenCalled();
         expect(submissionServiceStub.redirectToMyDSpace).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('saveDuplicateDecision$', () => {
+    it('should return a SET_DUPLICATE_DECISION action on success', () => {
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SET_DUPLICATE_DECISION,
+          payload: {
+            submissionId: submissionId,
+            sectionId: 'detect-duplicate'
+          }
+        }
+      });
+
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceID.and.returnValue(observableOf(mockSubmissionRestResponse));
+      const expected = cold('--b-', {
+        b: new SetDuplicateDecisionSuccessAction(
+          submissionId,
+          'detect-duplicate',
+          mockSubmissionRestResponse as any,
+        )
+      });
+
+      expect(submissionObjectEffects.saveDuplicateDecision$).toBeObservable(expected);
+    });
+
+    it('should return a SET_DUPLICATE_DECISION_ERROR action on error', () => {
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SET_DUPLICATE_DECISION,
+          payload: {
+            submissionId: submissionId,
+            sectionId: 'detect-duplicate'
+          }
+        }
+      });
+
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceID.and.callFake(
+        () => observableThrowError('Error')
+      );
+      const expected = cold('--b-', {
+        b: new SetDuplicateDecisionErrorAction(
+          submissionId
+        )
+      });
+
+      expect(submissionObjectEffects.saveDuplicateDecision$).toBeObservable(expected);
+    });
+  });
+
+  describe('setDuplicateDecisionSuccess$', () => {
+    it('should display a dedup success notification', () => {
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_SUCCESS,
+          payload: {
+            submissionId: submissionId
+          }
+        }
+      });
+
+      submissionObjectEffects.setDuplicateDecisionSuccess$.subscribe(() => {
+        expect(notificationsServiceStub.success).toHaveBeenCalled();
       });
     });
   });

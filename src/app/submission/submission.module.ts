@@ -46,6 +46,9 @@ import {
 import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/submission-section-cc-licenses.component';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
+import { SubmissionSectionDetectDuplicateComponent } from './sections/detect-duplicate/section-detect-duplicate.component';
+import { DuplicateMatchComponent } from './sections/detect-duplicate/duplicate-match/duplicate-match.component';
+import { DetectDuplicateService } from './sections/detect-duplicate/detect-duplicate.service';
 import { ThemedSubmissionEditComponent } from './edit/themed-submission-edit.component';
 import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
 import { ThemedSubmissionImportExternalComponent } from './import-external/themed-submission-import-external.component';
@@ -74,6 +77,7 @@ const ENTRY_COMPONENTS = [
   SubmissionSectionCcLicensesComponent,
   SubmissionSectionAccessesComponent,
   SubmissionSectionSherpaPoliciesComponent,
+  SubmissionSectionDetectDuplicateComponent,
 ];
 
 const DECLARATIONS = [
@@ -102,6 +106,7 @@ const DECLARATIONS = [
   PublisherPolicyComponent,
   PublicationInformationComponent,
   MetadataInformationComponent,
+  DuplicateMatchComponent
 ];
 
 @NgModule({
@@ -130,6 +135,7 @@ const DECLARATIONS = [
     SubmissionUploadsConfigDataService,
     SubmissionAccessesConfigDataService,
     SectionAccessesService,
+    DetectDuplicateService
     SectionFormOperationsService,
   ]
 })

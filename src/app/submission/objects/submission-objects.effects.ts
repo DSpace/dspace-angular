@@ -14,7 +14,7 @@ import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/w
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import { isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SectionsType } from '../sections/sections-type';
 import { SectionsService } from '../sections/sections.service';
@@ -22,6 +22,7 @@ import { SubmissionState } from '../submission.reducers';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
 import {
+  CleanDetectDuplicateAction,
   CompleteInitSubmissionFormAction,
   DepositSubmissionAction,
   DepositSubmissionErrorAction,
@@ -40,6 +41,9 @@ import {
   SaveSubmissionSectionFormAction,
   SaveSubmissionSectionFormErrorAction,
   SaveSubmissionSectionFormSuccessAction,
+  SetDuplicateDecisionAction,
+  SetDuplicateDecisionErrorAction,
+  SetDuplicateDecisionSuccessAction,
   SubmissionObjectAction,
   SubmissionObjectActionTypes,
   UpdateSectionDataAction,
@@ -55,6 +59,9 @@ import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionE
 import { FormState } from '../../shared/form/form.reducer';
 import { SubmissionSectionObject } from './submission-section-object.model';
 import { SubmissionSectionError } from './submission-section-error.model';
+import {
+  WorkspaceitemSectionDetectDuplicateObject
+} from '../../core/submission/models/workspaceitem-section-deduplication.model';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -231,6 +238,29 @@ export class SubmissionObjectEffects {
         }),
         catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     })));
+
+    saveDuplicateDecision$ = createEffect(() => this.actions$.pipe(
+      ofType(SubmissionObjectActionTypes.SET_DUPLICATE_DECISION),
+      switchMap((action: SetDuplicateDecisionAction) => {
+        return this.operationsService.jsonPatchByResourceID(
+          this.submissionService.getSubmissionObjectLinkName(),
+          action.payload.submissionId,
+          'sections',
+          action.payload.sectionId).pipe(
+          map((response: SubmissionObject[]) => new SetDuplicateDecisionSuccessAction(
+            action.payload.submissionId,
+            action.payload.sectionId,
+            response)
+          ),
+          catchError(() => observableOf(new SetDuplicateDecisionErrorAction(action.payload.submissionId))));
+      }))
+    );
+
+  setDuplicateDecisionSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_SUCCESS),
+    tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.detect-duplicate.decision-success-notice')))),
+    { dispatch: false }
+  );
 
   /**
    * Dispatch a [DepositSubmissionSuccessAction] or a [DepositSubmissionErrorAction] on error
@@ -433,6 +463,10 @@ export class SubmissionObjectEffects {
         if (isNotUndefined(sherpaPoliciesSectionId) && isNotEmpty(currentState.sections[sherpaPoliciesSectionId]?.data)
           && isEmpty(sections[sherpaPoliciesSectionId])) {
           mappedActions.push(new UpdateSectionDataAction(submissionId, sherpaPoliciesSectionId, null, [], []));
+        }
+        if (isNotEmpty((currentState.sections['detect-duplicate']?.data as WorkspaceitemSectionDetectDuplicateObject)?.matches)
+          && isUndefined(sections['detect-duplicate'])) {
+          mappedActions.push(new CleanDetectDuplicateAction(submissionId));
         }
       });
 
