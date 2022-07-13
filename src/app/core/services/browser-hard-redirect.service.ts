@@ -1,5 +1,7 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { HardRedirectService } from './hard-redirect.service';
+import { environment } from '../../../environments/environment';
+import { UIServerConfig } from '../../../config/ui-server-config.interface';
 
 export const LocationToken = new InjectionToken('Location');
 
@@ -42,6 +44,10 @@ export class BrowserHardRedirectService extends HardRedirectService {
    * the origin would be https://demo7.dspace.org
    */
   getCurrentOrigin(): string {
-    return this.location.origin;
+    if((environment.ui as UIServerConfig).forceHTTPSInOrigin) {
+      return 'https://' + this.location.host;
+    } else {
+      return this.location.origin;
+    }
   }
 }

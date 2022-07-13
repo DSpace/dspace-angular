@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { ServerHardRedirectService } from './server-hard-redirect.service';
+import { environment } from '../../../environments/environment';
 
 describe('ServerHardRedirectService', () => {
 
@@ -7,10 +8,10 @@ describe('ServerHardRedirectService', () => {
   const mockResponse = jasmine.createSpyObj(['redirect', 'end']);
 
   const service: ServerHardRedirectService = new ServerHardRedirectService(mockRequest, mockResponse);
-  const origin = 'https://test-host.com:4000';
+  const origin = 'http://test-host.com:4000';
 
   beforeEach(() => {
-    mockRequest.protocol = 'https';
+    mockRequest.protocol = 'http';
     mockRequest.headers = {
       host: 'test-host.com:4000',
     };
@@ -52,6 +53,22 @@ describe('ServerHardRedirectService', () => {
     it('should return the location origin', () => {
       expect(service.getCurrentOrigin()).toEqual(origin);
     });
+  });
+
+  describe('when requesting the origin with forceHTTPSInOrigin set to true', () => {
+    let originalValue;
+    beforeEach(() => {
+      originalValue = (environment.ui as any).forceHTTPSInOrigin;
+      (environment.ui as any).forceHTTPSInOrigin = true;
+    });
+
+    it('should return the location origin with HTTPS', () => {
+      expect(service.getCurrentOrigin()).toEqual(origin.replace('http://', 'https://'));
+    });
+
+    afterEach(() => {
+      (environment.ui as any).forceHTTPSInOrigin = originalValue;
+    })
   });
 
 });

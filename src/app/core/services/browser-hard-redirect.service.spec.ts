@@ -1,13 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { BrowserHardRedirectService } from './browser-hard-redirect.service';
+import { environment } from '../../../environments/environment';
 
 describe('BrowserHardRedirectService', () => {
-  const origin = 'https://test-host.com:4000';
+  const origin = 'http://test-host.com:4000';
+  const host = 'test-host.com:4000';
   const mockLocation = {
     href: undefined,
     pathname: '/pathname',
     search: '/search',
-    origin
+    origin,
+    host
   } as Location;
 
   const service: BrowserHardRedirectService = new BrowserHardRedirectService(mockLocation);
@@ -47,4 +50,19 @@ describe('BrowserHardRedirectService', () => {
     });
   });
 
+  describe('when requesting the origin with forceHTTPSInOrigin set to true', () => {
+    let originalValue;
+    beforeEach(() => {
+      originalValue = (environment.ui as any).forceHTTPSInOrigin;
+      (environment.ui as any).forceHTTPSInOrigin = true;
+    });
+
+    it('should return the location origin', () => {
+      expect(service.getCurrentOrigin()).toEqual(origin.replace('http://', 'https://'));
+    });
+
+    afterEach(() => {
+      (environment.ui as any).forceHTTPSInOrigin = originalValue;
+    })
+  });
 });
