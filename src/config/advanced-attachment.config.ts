@@ -3,6 +3,11 @@
  */
 export interface AdvancedAttachmentConfig {
     name: string;
-    type: string;
+    type: Type;
     truncatable?: boolean;
+}
+
+export enum Type {
+    Metadata = 'metadata',
+    Attribute = 'attribute'
 }

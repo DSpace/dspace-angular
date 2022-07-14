@@ -1,5 +1,5 @@
+import { Type } from './../../../../../../../../config/advanced-attachment.config';
 import { environment } from './../../../../../../../../environments/environment';
-import { FeatureID } from './../../../../../../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from './../../../../../../../core/data/feature-authorization/authorization-data.service';
 import { Component, Inject, OnInit } from '@angular/core';
 
@@ -12,8 +12,6 @@ import { BitstreamDataService } from '../../../../../../../core/data/bitstream-d
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
-import { getBitstreamDownloadRoute, getBitstreamRequestACopyRoute } from '../../../../../../../app-routing-paths';
-
 
 @Component({
   selector: 'ds-advanced-attachment',
@@ -36,6 +34,11 @@ export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponen
    */
   envData = environment.advancedAttachment;
 
+  /**
+   * Configuration type enum
+   */
+  Type = Type;
+
   constructor(
     private authorizationService: AuthorizationDataService,
     @Inject('fieldProvider') public fieldProvider: LayoutField,
@@ -51,7 +54,6 @@ export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponen
    * On init get bitstreams as observable to be subscribed by template
    */
   ngOnInit() {
-    console.log(this.envData);
     this.bitstreams$ = this.getBitstreams();
   }
 
