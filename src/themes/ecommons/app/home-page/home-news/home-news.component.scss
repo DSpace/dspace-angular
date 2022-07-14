@@ -55,12 +55,7 @@
   }
 
   a {
-    color: var(--cul-red);
     text-decoration: underline;
-
-    @include hover {
-      color: var(--cul-red-darker);
-    }
   }
   .spotlight {
     margin-top: 1em;

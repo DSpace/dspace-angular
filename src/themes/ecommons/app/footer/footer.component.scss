@@ -5,16 +5,9 @@ footer {
   border-top: 2px solid var(--cul-red);
   padding: 20px 0;
 
-  a {
-    font-weight: bold;
-    color: var(--cul-red);
-    &:hover {
-      color: var(--cul-red-darker);
-    }
-  }
-
   p {
     margin: 0;
+    font-size: .9rem;
   }
 
   div > img {
