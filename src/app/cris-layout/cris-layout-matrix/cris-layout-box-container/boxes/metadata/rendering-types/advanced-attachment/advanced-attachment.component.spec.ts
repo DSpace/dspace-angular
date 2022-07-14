@@ -1,3 +1,4 @@
+import { Type } from './../../../../../../../../config/advanced-attachment.config';
 import { BitstreamFormat } from './../../../../../../../core/shared/bitstream-format.model';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
@@ -196,26 +197,26 @@ describe('AdvancedAttachmentComponent', () => {
       component.envData = [
         {
           name: 'dc.title',
-          type: 'metadata',
+          type: Type.Metadata,
           truncatable: false
         },
         {
           name: 'dc.type',
-          type: 'metadata',
+          type: Type.Metadata,
           truncatable: false
         },
         {
           name: 'dc.description',
-          type: 'metadata',
+          type: Type.Metadata,
           truncatable: true
         },
         {
           name: 'size',
-          type: 'attribute',
+          type: Type.Attribute,
         },
         {
           name: 'format',
-          type: 'attribute',
+          type: Type.Attribute,
         }
       ];
       fixture.detectChanges();
