@@ -1,10 +1,8 @@
 footer {
   background-color: #fff;
-  text-align: center;
   z-index: var(--ds-footer-z-index);
   border-top: 2px solid var(--cul-red);
-  padding: 20px 0;
-
+  padding: 2rem 0;
   p {
     margin: 0;
     font-size: .9rem;
@@ -19,6 +17,7 @@ footer {
     background-color: #fff;;
     padding: var(--ds-footer-padding);
     margin: calc(var(--ds-footer-padding) * -1);
+    margin-bottom: 1rem;
   }
 
   .bottom-footer {

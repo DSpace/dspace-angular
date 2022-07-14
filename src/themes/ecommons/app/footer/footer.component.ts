@@ -9,4 +9,6 @@ import { FooterComponent as BaseComponent } from '../../../../app/footer/footer.
   // templateUrl: '../../../../app/footer/footer.component.html'
 })
 export class FooterComponent extends BaseComponent {
+  // Enable the top footer in ecommons theme
+   showTopFooter = true;
 }
