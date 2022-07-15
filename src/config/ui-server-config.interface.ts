@@ -10,5 +10,6 @@ export class UIServerConfig extends ServerConfig {
     windowMs: number;
     max: number;
   };
-
+  // this sets the protocol to HTTPS when the complete URL is needed in the UI
+  forceHTTPSInOrigin?: boolean;
 }
