@@ -30,7 +30,7 @@ export class CollectionsComponent implements OnInit {
 
   label = 'item.page.collections';
 
-  separator = '<br/>';
+  @Input() separator = '<br/>';
 
   /**
    * Amount of mapped collections that should be fetched at once.
