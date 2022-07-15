@@ -1,5 +1,5 @@
 <div id="cris-layout-loader" class="horizontal-layout">
-  <ds-cris-layout-navbar [showNav]="(tabs.length - leadingTabs.length) > 0" [tabs]="tabs" [item]="item" (selectedTabChange)="selectedTabChanged($event)"></ds-cris-layout-navbar>
+  <ds-cris-layout-navbar [showNav]="(tabs.length - leadingTabs.length) >= 0" [tabs]="tabs" [item]="item" (selectedTabChange)="selectedTabChanged($event)"></ds-cris-layout-navbar>
   <div class="pt-4">
     <div class="d-flex flex-column">
       <div *ngIf="showContextMenu" class="container text-right mb-3">
