@@ -11,7 +11,7 @@ describe('BrowserHardRedirectService', () => {
     search: '/search',
     origin,
     host,
-    replace: (url) => {mockLocation.href = url}
+    replace: (url: string) => {mockLocation.href = url;}
   } as Location;
 
   const service: BrowserHardRedirectService = new BrowserHardRedirectService(mockLocation);
