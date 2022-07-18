@@ -11,6 +11,7 @@ on:
     tags:
       - 'dspace-**'
   pull_request:
+  workflow_dispatch:
 
 jobs:
   docker:
