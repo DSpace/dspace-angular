@@ -7,13 +7,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { MetaReducer, Store, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
+import { MetaReducer, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import {
-  DYNAMIC_ERROR_MESSAGES_MATCHER,
-  DYNAMIC_MATCHER_PROVIDERS,
-  DynamicErrorMessagesMatcher
-} from '@ng-dynamic-forms/core';
+import { DYNAMIC_ERROR_MESSAGES_MATCHER, DYNAMIC_MATCHER_PROVIDERS, DynamicErrorMessagesMatcher } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,7 +17,6 @@ import { AppComponent } from './app.component';
 import { appEffects } from './app.effects';
 import { appMetaReducers, debugMetaReducers } from './app.metareducers';
 import { appReducers, AppState, storeModuleConfig } from './app.reducer';
-import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { CoreModule } from './core/core.module';
 import { ClientCookieService } from './core/services/client-cookie.service';
 import { NavbarModule } from './navbar/navbar.module';
@@ -36,6 +31,7 @@ import { EagerThemesModule } from '../themes/eager-themes.module';
 
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 import { RootModule } from './root.module';
+import { InitService } from './init.service';
 
 export function getConfig() {
   return environment;
@@ -83,6 +79,12 @@ IMPORTS.push(
 
 const PROVIDERS = [
   {
+    provide: APP_INITIALIZER,
+    useFactory: (initService: InitService) => initService.init(),
+    deps: [ InitService ],
+    multi: true,
+  },
+  {
     provide: APP_CONFIG,
     useFactory: getConfig
   },
@@ -101,15 +103,6 @@ const PROVIDERS = [
     useClass: DSpaceRouterStateSerializer
   },
   ClientCookieService,
-  // Check the authentication token when the app initializes
-  {
-    provide: APP_INITIALIZER,
-    useFactory: (store: Store<AppState>,) => {
-      return () => store.dispatch(new CheckAuthenticationTokenAction());
-    },
-    deps: [Store],
-    multi: true
-  },
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
