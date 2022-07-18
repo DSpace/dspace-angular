@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DsMarkdownViewerComponent } from './ds-markdown-viewer.component';
+import { MarkdownViewerComponent } from './markdown-viewer.component';
 import { NuMarkdownModule } from '@ng-util/markdown';
 
 @NgModule({
-  declarations: [ DsMarkdownViewerComponent ],
-  exports: [ DsMarkdownViewerComponent ],
+  declarations: [ MarkdownViewerComponent ],
+  exports: [ MarkdownViewerComponent ],
   imports: [ CommonModule, NuMarkdownModule ]
 })
-export class DsMarkdownViewerModule { }
+export class MarkdownViewerModule { }
