@@ -27,8 +27,8 @@ import { LocaleService } from '../../app/core/locale/locale.service';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { BrowserAuthRequestService } from '../../app/core/auth/browser-auth-request.service';
-import { InitService } from 'src/app/init.service';
 import { BrowserInitService } from './browser-init.service';
+import { InitService } from '../../app/init.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -63,10 +63,7 @@ export function getRequest(transferState: TransferState): any {
     AppModule
   ],
   providers: [
-    {
-      provide: InitService,
-      useClass: BrowserInitService,
-    },
+    ...BrowserInitService.providers(),
     {
       provide: REQUEST,
       useFactory: getRequest,

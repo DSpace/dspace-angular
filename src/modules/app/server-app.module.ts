@@ -30,7 +30,6 @@ import { ServerHardRedirectService } from '../../app/core/services/server-hard-r
 import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { ServerAuthRequestService } from '../../app/core/auth/server-auth-request.service';
-import { InitService } from '../../app/init.service';
 import { ServerInitService } from './server-init.service';
 
 export function createTranslateLoader(transferState: TransferState) {
@@ -56,10 +55,7 @@ export function createTranslateLoader(transferState: TransferState) {
     AppModule
   ],
   providers: [
-    {
-      provide: InitService,
-      useClass: ServerInitService,
-    },
+    ...ServerInitService.providers(),
     {
       provide: Angulartics2,
       useClass: Angulartics2Mock

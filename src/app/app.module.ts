@@ -1,6 +1,6 @@
 import { APP_BASE_HREF, CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -28,14 +28,8 @@ import { LocaleInterceptor } from './core/locale/locale.interceptor';
 import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
 import { LogInterceptor } from './core/log/log.interceptor';
 import { EagerThemesModule } from '../themes/eager-themes.module';
-
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 import { RootModule } from './root.module';
-import { InitService } from './init.service';
-
-export function getConfig() {
-  return environment;
-}
 
 export function getBase(appConfig: AppConfig) {
   return appConfig.ui.nameSpace;
@@ -78,16 +72,6 @@ IMPORTS.push(
 );
 
 const PROVIDERS = [
-  {
-    provide: APP_INITIALIZER,
-    useFactory: (initService: InitService) => initService.init(),
-    deps: [ InitService ],
-    multi: true,
-  },
-  {
-    provide: APP_CONFIG,
-    useFactory: getConfig
-  },
   {
     provide: APP_BASE_HREF,
     useFactory: getBase,

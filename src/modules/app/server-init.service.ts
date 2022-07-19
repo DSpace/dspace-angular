@@ -29,7 +29,7 @@ export class ServerInitService extends InitService {
     super(store, correlationIdService, dspaceTransferState);
   }
 
-  public init(): () => Promise<boolean> {
+  protected init(): () => Promise<boolean> {
     return async () => {
       this.checkAuthenticationToken();
       this.saveAppConfigForCSR();

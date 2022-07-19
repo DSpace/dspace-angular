@@ -31,10 +31,17 @@ export class BrowserInitService extends InitService {
     super(store, correlationIdService, dspaceTransferState);
   }
 
-  public init(): () => Promise<boolean> {
-    // this method must be called before the callback because APP_BASE_HREF depends on it
-    this.loadAppConfigFromSSR();
+  protected static resolveAppConfig(
+    transferState: TransferState,
+  ) {
+    if (transferState.hasKey<AppConfig>(APP_CONFIG_STATE)) {
+      const appConfig = transferState.get<AppConfig>(APP_CONFIG_STATE, new DefaultAppConfig());
+      // extend environment with app config for browser
+      extendEnvironmentWithAppConfig(environment, appConfig);
+    }
+  }
 
+  protected init(): () => Promise<boolean> {
     return async () => {
       await this.transferAppState();
       this.checkAuthenticationToken();
@@ -42,13 +49,5 @@ export class BrowserInitService extends InitService {
 
       return true;
     };
-  }
-
-  private loadAppConfigFromSSR(): void {
-    if (this.transferState.hasKey<AppConfig>(APP_CONFIG_STATE)) {
-      const appConfig = this.transferState.get<AppConfig>(APP_CONFIG_STATE, new DefaultAppConfig());
-      // extend environment with app config for browser
-      extendEnvironmentWithAppConfig(environment, appConfig);
-    }
   }
 }
