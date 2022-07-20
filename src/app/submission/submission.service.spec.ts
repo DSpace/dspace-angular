@@ -43,6 +43,8 @@ import { environment } from '../../environments/environment';
 import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
 import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
 import {NotificationOptions} from '../shared/notifications/models/notification-options.model';
+import {getMockScrollToService} from '../shared/mocks/scroll-to-service.mock';
+import {ScrollToService} from '@nicky-lenaers/ngx-scroll-to';
 
 describe('SubmissionService test suite', () => {
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';
@@ -388,6 +390,7 @@ describe('SubmissionService test suite', () => {
         { provide: Router, useValue: router },
         { provide: SubmissionRestService, useValue: restService },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
+        { provide: ScrollToService, useValue: getMockScrollToService() },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsService },
@@ -879,7 +882,7 @@ describe('SubmissionService test suite', () => {
 
       expect((service as any).notificationsService.info).toHaveBeenCalledWith(null, 'submission.sections.general.metadata-extracted-new-section', null, true);
     }));
-    it('should use the correct message when the sectionId is equal to \'detect-duplicte\'', fakeAsync(() => {
+    it('should use the correct message when the sectionId is equal to \'detect-duplicate\'', fakeAsync(() => {
       const dtSetctionId = 'detect-duplicate';
       spyOn((service as any).translate, 'get').and.returnValue(observableOf(dtSetctionId));
       spyOn((service as any).notificationsService, 'warning');

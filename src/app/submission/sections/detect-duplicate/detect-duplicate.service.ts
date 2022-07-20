@@ -55,7 +55,7 @@ export class DetectDuplicateService {
    * @param {boolean} isWorkFlow
    *    If TRUE the submission scope is the 'workflow'; 'workspace' otherwise.
    * @return Observable<Object>
-   *    Returns the list of the possible duplications
+   *    Returns the list of the possible duplicates
    */
   getDuplicateMatchesByScope(submissionId: string, sectionId: string, isWorkFlow: boolean): Observable<WorkspaceitemSectionDetectDuplicateObject> {
     return this.getDuplicateMatches(submissionId, sectionId).pipe(

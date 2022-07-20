@@ -46,6 +46,8 @@ import { environment } from '../../environments/environment';
 import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
 import { SubmissionSectionObject } from './objects/submission-section-object.model';
 import { SubmissionError } from './objects/submission-error.model';
+import {ScrollToConfigOptions, ScrollToService} from '@nicky-lenaers/ngx-scroll-to';
+import {NotificationOptions} from '../shared/notifications/models/notification-options.model';
 
 /**
  * A service that provides methods used in submission process.
@@ -65,6 +67,7 @@ export class SubmissionService {
 
   private workspaceLinkPath = 'workspaceitems';
   private workflowLinkPath = 'workflowitems';
+
   /**
    * Initialize service variables
    * @param {NotificationsService} notificationsService
@@ -72,6 +75,7 @@ export class SubmissionService {
    * @param {Router} router
    * @param {RouteService} routeService
    * @param {Store<SubmissionState>} store
+   * @param {ScrollToService} scrollToService
    * @param {TranslateService} translate
    * @param {SearchService} searchService
    * @param {RequestService} requestService
@@ -82,6 +86,7 @@ export class SubmissionService {
               protected router: Router,
               protected routeService: RouteService,
               protected store: Store<SubmissionState>,
+              protected scrollToService: ScrollToService,
               protected translate: TranslateService,
               protected searchService: SearchService,
               protected requestService: RequestService,
@@ -498,8 +503,20 @@ export class SubmissionService {
    *    The section type
    */
   notifyNewSection(submissionId: string, sectionId: string, sectionType?: SectionsType) {
-    const m = this.translate.instant('submission.sections.general.metadata-extracted-new-section', { sectionId });
-    this.notificationsService.info(null, m, null, true);
+    if (sectionType === SectionsType.DetectDuplicate || sectionId === 'detect-duplicate') {
+      this.setActiveSection(submissionId, sectionId);
+      const msg = this.translate.instant('submission.sections.detect-duplicate.duplicate-detected', {sectionId});
+      this.notificationsService.warning(null, msg, new NotificationOptions(10000));
+      const config: ScrollToConfigOptions = {
+        target: sectionId,
+        offset: -70
+      };
+
+      this.scrollToService.scrollTo(config);
+    } else {
+      const m = this.translate.instant('submission.sections.general.metadata-extracted-new-section', {sectionId});
+      this.notificationsService.info(null, m, null, true);
+    }
   }
 
   /**

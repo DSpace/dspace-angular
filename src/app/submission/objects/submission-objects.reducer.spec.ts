@@ -69,6 +69,7 @@ describe('submissionReducer test suite', () => {
         sections: Object.create(null),
         isLoading: true,
         savePending: false,
+        saveDecisionPending: false,
         depositPending: false,
       }
     };
