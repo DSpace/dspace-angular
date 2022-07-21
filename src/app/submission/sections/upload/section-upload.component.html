@@ -29,6 +29,7 @@
 
   <ng-container *ngFor="let fileEntry of fileList">
     <ds-submission-upload-section-file
+                                       [singleAccessCondition]="singleAccessCondition"
                                        [availableAccessConditionOptions]="availableAccessConditionOptions"
                                        [collectionId]="collectionId"
                                        [collectionPolicyType]="collectionPolicyType"

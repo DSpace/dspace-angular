@@ -9,6 +9,7 @@
 
     <ds-form *ngIf="formModel"
              #formRef="formComponent"
+             [displayAdd]="singleAccessCondition"
              [formId]="formId"
              [formModel]="formModel"
              [displaySubmit]="!isSaving"

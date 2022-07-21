@@ -3377,6 +3377,7 @@ export const mockUploadConfigResponse = {
   required: true,
   maxSize: 536870912,
   name: 'upload',
+  singleAccessCondition: true,
   type: 'submissionupload',
   _links: {
     metadata: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload/metadata' },

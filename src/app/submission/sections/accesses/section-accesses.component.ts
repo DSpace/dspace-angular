@@ -75,6 +75,12 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
   public availableAccessConditionOptions: AccessesConditionOption[];  // List of accessConditions that an user can select
 
   /**
+   * add more access conditions link show or not
+   * @type {boolean}
+   */
+  public singleAccessCondition: boolean;
+
+  /**
    * The form id
    * @type {string}
    */
@@ -273,6 +279,7 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
 
     combineLatest([config$, accessData$]).subscribe(([config, accessData]) => {
       this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
+      this.singleAccessCondition = config.singleAccessCondition != undefined ? !config.singleAccessCondition : false;
       this.canChangeDiscoverable = !!config.canChangeDiscoverable;
       this.accessesData = accessData;
       this.formModel = this.buildFileEditForm();

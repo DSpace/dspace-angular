@@ -66,6 +66,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   const sectionId = 'upload';
   const collectionId = mockSubmissionCollectionId;
   const availableAccessConditionOptions = mockUploadConfigResponse.accessConditionOptions;
+  const singleAccessCondition = mockUploadConfigResponse.singleAccessCondition;
   const collectionPolicyType = POLICY_DEFAULT_WITH_LIST;
   const configMetadataForm: any = mockUploadConfigResponseMetadata;
   const fileIndex = '0';
@@ -112,6 +113,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
     beforeEach(() => {
       const html = `
       <ds-submission-section-upload-file-edit [availableAccessConditionGroups]="availableAccessConditionGroups"
+                                              [singleAccessCondition]="singleAccessCondition"
                                               [availableAccessConditionOptions]="availableAccessConditionOptions"
                                               [collectionId]="collectionId"
                                               [collectionPolicyType]="collectionPolicyType"
@@ -153,6 +155,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp.collectionId = collectionId;
       comp.sectionId = sectionId;
       comp.availableAccessConditionOptions = availableAccessConditionOptions;
+      comp.singleAccessCondition = singleAccessCondition;
       comp.collectionPolicyType = collectionPolicyType;
       comp.fileIndex = fileIndex;
       comp.fileId = fileId;
@@ -311,6 +314,7 @@ class TestComponent {
 
   availableGroups;
   availableAccessConditionOptions;
+  singleAccessCondition;
   collectionId = mockSubmissionCollectionId;
   collectionPolicyType;
   fileIndexes = [];

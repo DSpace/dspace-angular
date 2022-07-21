@@ -34,6 +34,11 @@ export class FormComponent implements OnDestroy, OnInit {
   private formValid: boolean;
 
   /**
+   * A boolean that indicate add more access conditions link show or not
+   */
+  @Input() displayAdd = true;
+
+  /**
    * A boolean that indicate if to display form's submit button
    */
   @Input() displaySubmit = true;

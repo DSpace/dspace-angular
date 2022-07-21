@@ -66,6 +66,12 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
   @ViewChild('formRef') public formRef: FormComponent;
 
   /**
+   * add more access conditions link show or not
+   * @type {boolean}
+   */
+  public singleAccessCondition: boolean;
+
+  /**
    * The list of available access condition
    * @type {Array}
    */

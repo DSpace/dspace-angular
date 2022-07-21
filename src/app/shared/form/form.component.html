@@ -39,7 +39,7 @@
           </div>
         </div>
 
-        <div *ngIf="(!context.notRepeatable) && (index === (group.context.groups.length - 1) )" class="clearfix w-100"
+        <div *ngIf="((!context.notRepeatable) && (index === (group.context.groups.length - 1))) && displayAdd" class="clearfix w-100"
              [class.pl-4]="!isInlineGroupForm"
              [class.white-background]="isInlineGroupForm">
           <div class="btn-group" role="group" aria-label="remove button">
