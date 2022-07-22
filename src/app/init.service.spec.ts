@@ -25,7 +25,6 @@ import { RouteService } from './core/services/route.service';
 import { getMockLocaleService } from './app.component.spec';
 import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
-import { DSpaceTransferState } from '../modules/transfer-state/dspace-transfer-state.service';
 import { KlaroService } from './shared/cookies/klaro.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from './shared/mocks/translate-loader.mock';
@@ -161,7 +160,6 @@ describe('InitService', () => {
         providers: [
           { provide: InitService, useClass: ConcreteInitServiceMock },
           { provide: CorrelationIdService, useValue: correlationIdServiceSpy },
-          { provide: DSpaceTransferState, useValue: dspaceTransferStateSpy },
           { provide: APP_CONFIG, useValue: environment },
           { provide: LocaleService, useValue: getMockLocaleService() },
           { provide: Angulartics2DSpace, useValue: new AngularticsProviderMock() },

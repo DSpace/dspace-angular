@@ -8,9 +8,8 @@
 import { select, Store } from '@ngrx/store';
 import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
-import { DSpaceTransferState } from '../modules/transfer-state/dspace-transfer-state.service';
 import { APP_INITIALIZER, Inject, Optional, Provider, Type } from '@angular/core';
-import { TransferState } from '@angular/platform-browser';
+import { makeStateKey, TransferState } from '@angular/platform-browser';
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
@@ -38,10 +37,15 @@ import { ThemeService } from './shared/theme-support/theme.service';
  * For example, NgbModal depends on ApplicationRef and can therefore not be used during initialization.
  */
 export abstract class InitService {
+  /**
+   * The state transfer key to use for the NgRx store state
+   * @protected
+   */
+  protected static NGRX_STATE = makeStateKey('NGRX_STATE');
+
   protected constructor(
     protected store: Store<AppState>,
     protected correlationIdService: CorrelationIdService,
-    protected dspaceTransferState: DSpaceTransferState,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected translate: TranslateService,
     protected localeService: LocaleService,
@@ -128,14 +132,6 @@ export abstract class InitService {
    */
   protected initCorrelationId(): void {
     this.correlationIdService.initCorrelationId();
-  }
-
-  /**
-   * Transfer the application's NgRx state between server-side and client-side
-   * @protected
-   */
-  protected async transferAppState(): Promise<unknown> {
-    return this.dspaceTransferState.transfer();
   }
 
   /**

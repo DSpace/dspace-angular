@@ -8,7 +8,6 @@
 import { InitService } from '../../app/init.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app/app.reducer';
-import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.service';
 import { TransferState } from '@angular/platform-browser';
 import { APP_CONFIG, APP_CONFIG_STATE, AppConfig } from '../../config/app-config.interface';
 import { DefaultAppConfig } from '../../config/default-app-config';
@@ -26,6 +25,10 @@ import { CSSVariableService } from '../../app/shared/sass-helper/sass-helper.ser
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
+import { StoreAction, StoreActionTypes } from '../../app/store.actions';
+import { coreSelector } from '../../app/core/core.selectors';
+import { find, map } from 'rxjs/operators';
+import { isNotEmpty } from '../../app/shared/empty.util';
 
 /**
  * Performs client-side initialization.
@@ -36,7 +39,6 @@ export class BrowserInitService extends InitService {
     protected store: Store<AppState>,
     protected correlationIdService: CorrelationIdService,
     protected transferState: TransferState,
-    protected dspaceTransferState: DSpaceTransferState,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected translate: TranslateService,
     protected localeService: LocaleService,
@@ -52,7 +54,6 @@ export class BrowserInitService extends InitService {
     super(
       store,
       correlationIdService,
-      dspaceTransferState,
       appConfig,
       translate,
       localeService,
@@ -77,7 +78,7 @@ export class BrowserInitService extends InitService {
 
   protected init(): () => Promise<boolean> {
     return async () => {
-      await this.transferAppState();
+      await this.loadAppState();
       this.checkAuthenticationToken();
       this.initCorrelationId();
 
@@ -96,6 +97,21 @@ export class BrowserInitService extends InitService {
   }
 
   // Browser-only initialization steps
+
+  /**
+   * Retrieve server-side application state from the {@link NGRX_STATE} key and rehydrate the store.
+   * Resolves once the store is no longer empty.
+   * @private
+   */
+  private async loadAppState(): Promise<boolean> {
+    const state = this.transferState.get<any>(InitService.NGRX_STATE, null);
+    this.transferState.remove(InitService.NGRX_STATE);
+    this.store.dispatch(new StoreAction(StoreActionTypes.REHYDRATE, state));
+    return this.store.select(coreSelector).pipe(
+      find((core: any) => isNotEmpty(core)),
+      map(() => true)
+    ).toPromise();
+  }
 
   private trackAuthTokenExpiration(): void {
     this.authService.trackTokenExpiration();

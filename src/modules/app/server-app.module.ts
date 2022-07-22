@@ -2,7 +2,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule, TransferState } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ServerModule } from '@angular/platform-server';
+import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
@@ -12,7 +12,6 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { AppComponent } from '../../app/app.component';
 
 import { AppModule } from '../../app/app.module';
-import { DSpaceServerTransferStateModule } from '../transfer-state/dspace-server-transfer-state.module';
 import { TranslateServerLoader } from '../../ngx-translate-loaders/translate-server.loader';
 import { CookieService } from '../../app/core/services/cookie.service';
 import { ServerCookieService } from '../../app/core/services/server-cookie.service';
@@ -43,7 +42,7 @@ export function createTranslateLoader(transferState: TransferState) {
       appId: 'dspace-angular'
     }),
     NoopAnimationsModule,
-    DSpaceServerTransferStateModule,
+    ServerTransferStateModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

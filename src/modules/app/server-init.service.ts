@@ -9,7 +9,6 @@ import { InitService } from '../../app/init.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app/app.reducer';
 import { TransferState } from '@angular/platform-browser';
-import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.service';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { APP_CONFIG, APP_CONFIG_STATE, AppConfig } from '../../config/app-config.interface';
 import { environment } from '../../environments/environment';
@@ -23,6 +22,7 @@ import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { CSSVariableService } from '../../app/shared/sass-helper/sass-helper.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
+import { take } from 'rxjs/operators';
 
 /**
  * Performs server-side initialization.
@@ -33,7 +33,6 @@ export class ServerInitService extends InitService {
     protected store: Store<AppState>,
     protected correlationIdService: CorrelationIdService,
     protected transferState: TransferState,
-    protected dspaceTransferState: DSpaceTransferState,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected translate: TranslateService,
     protected localeService: LocaleService,
@@ -48,7 +47,6 @@ export class ServerInitService extends InitService {
     super(
       store,
       correlationIdService,
-      dspaceTransferState,
       appConfig,
       translate,
       localeService,
@@ -65,7 +63,7 @@ export class ServerInitService extends InitService {
     return async () => {
       this.checkAuthenticationToken();
       this.saveAppConfigForCSR();
-      this.transferAppState();  // todo: SSR breaks if we await this (why?)
+      this.saveAppState();
       this.initCorrelationId();
 
       this.checkEnvironment();
@@ -81,6 +79,21 @@ export class ServerInitService extends InitService {
   }
 
   // Server-only initialization steps
+
+  /**
+   * Set the {@link NGRX_STATE} key when state is serialized to be transfered
+   * @private
+   */
+  private saveAppState() {
+    this.transferState.onSerialize(InitService.NGRX_STATE, () => {
+      let state;
+      this.store.pipe(take(1)).subscribe((saveState: any) => {
+        state = saveState;
+      });
+
+      return state;
+    });
+  }
 
   private saveAppConfigForCSR(): void {
     this.transferState.set<AppConfig>(APP_CONFIG_STATE, environment as AppConfig);

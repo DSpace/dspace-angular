@@ -1,6 +1,6 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule, makeStateKey, TransferState } from '@angular/platform-browser';
+import { BrowserModule, BrowserTransferStateModule, makeStateKey, TransferState } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 
@@ -12,7 +12,6 @@ import { IdlePreloadModule } from 'angular-idle-preload';
 import { AppComponent } from '../../app/app.component';
 
 import { AppModule } from '../../app/app.module';
-import { DSpaceBrowserTransferStateModule } from '../transfer-state/dspace-browser-transfer-state.module';
 import { ClientCookieService } from '../../app/core/services/client-cookie.service';
 import { CookieService } from '../../app/core/services/cookie.service';
 import { AuthService } from '../../app/core/auth/auth.service';
@@ -28,7 +27,6 @@ import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.se
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { BrowserAuthRequestService } from '../../app/core/auth/browser-auth-request.service';
 import { BrowserInitService } from './browser-init.service';
-import { InitService } from '../../app/init.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -52,7 +50,7 @@ export function getRequest(transferState: TransferState): any {
     StatisticsModule.forRoot(),
     Angulartics2RouterlessModule.forRoot(),
     BrowserAnimationsModule,
-    DSpaceBrowserTransferStateModule,
+    BrowserTransferStateModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
