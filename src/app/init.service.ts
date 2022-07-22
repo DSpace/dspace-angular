@@ -5,25 +5,50 @@
  *
  * http://www.dspace.org/license/
  */
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
 import { DSpaceTransferState } from '../modules/transfer-state/dspace-transfer-state.service';
-import { APP_INITIALIZER, Provider, Type } from '@angular/core';
+import { APP_INITIALIZER, Inject, Optional, Provider, Type } from '@angular/core';
 import { TransferState } from '@angular/platform-browser';
-import { APP_CONFIG } from '../config/app-config.interface';
+import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
+import { isEqual } from 'lodash';
+import { TranslateService } from '@ngx-translate/core';
+import { LocaleService } from './core/locale/locale.service';
+import { hasValue } from './shared/empty.util';
+import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
+import { GoogleAnalyticsService } from './statistics/google-analytics.service';
+import { MetadataService } from './core/metadata/metadata.service';
+import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
+import { distinctUntilChanged, filter, take, tap } from 'rxjs/operators';
+import { isAuthenticationBlocking } from './core/auth/selectors';
+import { KlaroService } from './shared/cookies/klaro.service';
 
 /**
  * Performs the initialization of the app.
+ *
  * Should be extended to implement server- & browser-specific functionality.
+ * Initialization steps shared between the server and brower implementations
+ * can be included in this class.
+ *
+ * Note that the service cannot (indirectly) depend on injection tokens that are only available _after_ APP_INITIALIZER.
+ * For example, NgbModal depends on ApplicationRef and can therefore not be used during initialization.
  */
 export abstract class InitService {
   protected constructor(
     protected store: Store<AppState>,
     protected correlationIdService: CorrelationIdService,
     protected dspaceTransferState: DSpaceTransferState,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    protected translate: TranslateService,
+    protected localeService: LocaleService,
+    protected angulartics2DSpace: Angulartics2DSpace,
+    @Optional() protected googleAnalyticsService: GoogleAnalyticsService,
+    protected metadata: MetadataService,
+    protected breadcrumbsService: BreadcrumbsService,
+    @Optional() protected klaroService: KlaroService,
   ) {
   }
 
@@ -86,15 +111,108 @@ export abstract class InitService {
 
   // Common initialization steps
 
+  /**
+   * Dispatch a {@link CheckAuthenticationTokenAction} to start off the chain of
+   * actions used to determine whether a user is already logged in.
+   * @protected
+   */
   protected checkAuthenticationToken(): void {
     this.store.dispatch(new CheckAuthenticationTokenAction());
   }
 
+  /**
+   * Initialize the correlation ID (from cookie, NgRx store or random)
+   * @protected
+   */
   protected initCorrelationId(): void {
     this.correlationIdService.initCorrelationId();
   }
 
+  /**
+   * Transfer the application's NgRx state between server-side and client-side
+   * @protected
+   */
   protected async transferAppState(): Promise<unknown> {
     return this.dspaceTransferState.transfer();
+  }
+
+  /**
+   * Make sure the {@link environment} matches {@link APP_CONFIG} and print
+   * some information about it to the console
+   * @protected
+   */
+  protected checkEnvironment(): void {
+    if (!isEqual(environment, this.appConfig)) {
+      throw new Error('environment does not match app config!');
+    }
+
+    if (environment.debug) {
+      console.info(environment);
+    }
+
+    const env: string = environment.production ? 'Production' : 'Development';
+    const color: string = environment.production ? 'red' : 'green';
+    console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);
+  }
+
+  /**
+   * Initialize internationalization services
+   * - Specify the active languages
+   * - Set the current locale
+   * @protected
+   */
+  protected initI18n(): void {
+    // Load all the languages that are defined as active from the config file
+    this.translate.addLangs(
+      environment.languages
+                 .filter((LangConfig) => LangConfig.active === true)
+                 .map((a) => a.code)
+    );
+
+    // Load the default language from the config file
+    // translate.setDefaultLang(environment.defaultLanguage);
+
+    this.localeService.setCurrentLanguageCode();
+  }
+
+  /**
+   * Initialize analytics services
+   * - Angulartics
+   * - Google Analytics (if enabled)
+   * @protected
+   */
+  protected initAnalytics(): void {
+    if (hasValue(this.googleAnalyticsService)) {
+      this.googleAnalyticsService.addTrackingIdToPage();
+    }
+    this.angulartics2DSpace.startTracking();
+  }
+
+  /**
+   * Start route-listening subscriptions
+   * - {@link MetadataService.listenForRouteChange}
+   * - {@link BreadcrumbsService.listenForRouteChanges}
+   * @protected
+   */
+  protected initRouteListeners(): void {
+    this.metadata.listenForRouteChange();
+    this.breadcrumbsService.listenForRouteChanges();
+  }
+
+  /**
+   * Initialize Klaro (if enabled)
+   * @protected
+   */
+  protected initKlaro() {
+    if (hasValue(this.klaroService)) {
+      this.store.pipe(
+        select(isAuthenticationBlocking),
+        distinctUntilChanged(),
+        filter((isBlocking: boolean) => isBlocking === false),
+        take(1)
+      ).subscribe(() => {
+        this.klaroService.initialize();
+      });
+    }
   }
 }

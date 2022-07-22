@@ -18,36 +18,24 @@ import {
   Router,
 } from '@angular/router';
 
-import { isEqual } from 'lodash';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
-
-import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowState } from './shared/search/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from './core/services/window.service';
 import { isAuthenticationBlocking } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
-import { MenuService } from './shared/menu/menu.service';
-import { HostWindowService } from './shared/host-window.service';
-import { HeadTagConfig, ThemeConfig } from '../config/theme.model';
-import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
+import { HeadTagConfig } from '../config/theme.model';
 import { environment } from '../environments/environment';
 import { models } from './core/core.module';
-import { LocaleService } from './core/locale/locale.service';
 import { hasNoValue, hasValue, isNotEmpty } from './shared/empty.util';
-import { KlaroService } from './shared/cookies/klaro.service';
-import { GoogleAnalyticsService } from './statistics/google-analytics.service';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { BASE_THEME_NAME } from './shared/theme-support/theme.constants';
-import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { getDefaultThemeConfig } from '../config/config.util';
-import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 
 @Component({
   selector: 'ds-app',
@@ -56,11 +44,6 @@ import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  sidebarVisible: Observable<boolean>;
-  slideSidebarOver: Observable<boolean>;
-  collapsedSidebarWidth: Observable<string>;
-  totalSidebarWidth: Observable<string>;
-  theme: Observable<ThemeConfig> = of({} as any);
   notificationOptions;
   models;
 
@@ -90,29 +73,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     @Inject(NativeWindowService) private _window: NativeWindowRef,
     @Inject(DOCUMENT) private document: any,
     @Inject(PLATFORM_ID) private platformId: any,
-    @Inject(APP_CONFIG) private appConfig: AppConfig,
     private themeService: ThemeService,
     private translate: TranslateService,
     private store: Store<HostWindowState>,
-    private metadata: MetadataService,
-    private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
-    private angulartics2DSpace: Angulartics2DSpace,
     private authService: AuthService,
     private router: Router,
     private cssService: CSSVariableService,
-    private menuService: MenuService,
-    private windowService: HostWindowService,
-    private localeService: LocaleService,
-    private breadcrumbsService: BreadcrumbsService,
     private modalService: NgbModal,
-    @Optional() private cookiesService: KlaroService,
-    @Optional() private googleAnalyticsService: GoogleAnalyticsService,
   ) {
-
-    if (!isEqual(environment, this.appConfig)) {
-      throw new Error('environment does not match app config!');
-    }
-
     this.notificationOptions = environment.notifications;
 
     /* Use models object so all decorators are actually called */
@@ -136,47 +104,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
 
     if (isPlatformBrowser(this.platformId)) {
-      this.authService.trackTokenExpiration();
       this.trackIdleModal();
     }
 
-    // Load all the languages that are defined as active from the config file
-    translate.addLangs(environment.languages.filter((LangConfig) => LangConfig.active === true).map((a) => a.code));
-
-    // Load the default language from the config file
-    // translate.setDefaultLang(environment.defaultLanguage);
-
-    // set the current language code
-    this.localeService.setCurrentLanguageCode();
-
-    // analytics
-    if (hasValue(googleAnalyticsService)) {
-      googleAnalyticsService.addTrackingIdToPage();
-    }
-    angulartics2DSpace.startTracking();
-
-    metadata.listenForRouteChange();
-    breadcrumbsService.listenForRouteChanges();
-
-    if (environment.debug) {
-      console.info(environment);
-    }
     this.storeCSSVariables();
   }
 
   ngOnInit() {
-    this.isAuthBlocking$ = this.store.pipe(select(isAuthenticationBlocking)).pipe(
+    this.isAuthBlocking$ = this.store.pipe(
+      select(isAuthenticationBlocking),
       distinctUntilChanged()
     );
-    this.isAuthBlocking$
-      .pipe(
-        filter((isBlocking: boolean) => isBlocking === false),
-        take(1)
-      ).subscribe(() => this.initializeKlaro());
 
-    const env: string = environment.production ? 'Production' : 'Development';
-    const color: string = environment.production ? 'red' : 'green';
-    console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
   }
 
@@ -237,12 +176,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.store.dispatch(
       new HostWindowResizeAction(width, height)
     );
-  }
-
-  private initializeKlaro() {
-    if (hasValue(this.cookiesService)) {
-      this.cookiesService.initialize();
-    }
   }
 
   private loadGlobalThemeConfig(themeName: string): void {

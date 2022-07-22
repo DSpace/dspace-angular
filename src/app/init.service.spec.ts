@@ -1,12 +1,42 @@
 import { InitService } from './init.service';
 import { APP_CONFIG } from 'src/config/app-config.interface';
-import { APP_INITIALIZER } from '@angular/core';
+import { APP_INITIALIZER, Injectable } from '@angular/core';
+import { inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { GoogleAnalyticsService } from './statistics/google-analytics.service';
+import { MetadataService } from './core/metadata/metadata.service';
+import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
+import { CommonModule } from '@angular/common';
+import { Store, StoreModule } from '@ngrx/store';
+import { authReducer } from './core/auth/auth.reducer';
+import { storeModuleConfig } from './app.reducer';
+import { AngularticsProviderMock } from './shared/mocks/angulartics-provider.service.mock';
+import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
+import { AuthService } from './core/auth/auth.service';
+import { AuthServiceMock } from './shared/mocks/auth.service.mock';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RouterMock } from './shared/mocks/router.mock';
+import { MockActivatedRoute } from './shared/mocks/active-router.mock';
+import { MenuService } from './shared/menu/menu.service';
+import { LocaleService } from './core/locale/locale.service';
+import { environment } from '../environments/environment';
+import { provideMockStore } from '@ngrx/store/testing';
+import { AppComponent } from './app.component';
+import { RouteService } from './core/services/route.service';
+import { getMockLocaleService } from './app.component.spec';
+import { MenuServiceStub } from './shared/testing/menu-service.stub';
+import { CorrelationIdService } from './correlation-id/correlation-id.service';
+import { DSpaceTransferState } from '../modules/transfer-state/dspace-transfer-state.service';
+import { KlaroService } from './shared/cookies/klaro.service';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoaderMock } from './shared/mocks/translate-loader.mock';
+import { getTestScheduler } from 'jasmine-marbles';
 import objectContaining = jasmine.objectContaining;
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 
 let spy: SpyObj<any>;
 
+@Injectable()
 export class ConcreteInitServiceMock extends InitService {
   protected static resolveAppConfig() {
     spy.resolveAppConfig();
@@ -17,6 +47,15 @@ export class ConcreteInitServiceMock extends InitService {
     return async () => true;
   }
 }
+
+const initialState = {
+  core: {
+    auth: {
+      loading: false,
+      blocking: true,
+    }
+  }
+};
 
 
 describe('InitService', () => {
@@ -77,6 +116,157 @@ describe('InitService', () => {
       factory(instance);
       expect(spy.resolveAppConfig).not.toHaveBeenCalled();
       expect(spy.init).toHaveBeenCalled();
+    });
+  });
+
+  describe('common initialization steps', () => {
+    let correlationIdServiceSpy;
+    let dspaceTransferStateSpy;
+    let transferStateSpy;
+    let metadataServiceSpy;
+    let breadcrumbsServiceSpy;
+
+    beforeEach(waitForAsync(() => {
+      correlationIdServiceSpy = jasmine.createSpyObj('correlationIdServiceSpy', [
+        'initCorrelationId',
+      ]);
+      dspaceTransferStateSpy = jasmine.createSpyObj('dspaceTransferStateSpy', [
+        'transfer',
+      ]);
+      transferStateSpy = jasmine.createSpyObj('dspaceTransferStateSpy', [
+        'get', 'hasKey'
+      ]);
+      breadcrumbsServiceSpy = jasmine.createSpyObj('breadcrumbsServiceSpy', [
+        'listenForRouteChanges',
+      ]);
+      metadataServiceSpy = jasmine.createSpyObj('metadataService', [
+        'listenForRouteChange',
+      ]);
+
+
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        imports: [
+          CommonModule,
+          StoreModule.forRoot(authReducer, storeModuleConfig),
+          TranslateModule.forRoot({
+            loader: {
+              provide: TranslateLoader,
+              useClass: TranslateLoaderMock
+            }
+          }),
+        ],
+        providers: [
+          { provide: InitService, useClass: ConcreteInitServiceMock },
+          { provide: CorrelationIdService, useValue: correlationIdServiceSpy },
+          { provide: DSpaceTransferState, useValue: dspaceTransferStateSpy },
+          { provide: APP_CONFIG, useValue: environment },
+          { provide: LocaleService, useValue: getMockLocaleService() },
+          { provide: Angulartics2DSpace, useValue: new AngularticsProviderMock() },
+          { provide: MetadataService, useValue: metadataServiceSpy },
+          { provide: BreadcrumbsService, useValue: breadcrumbsServiceSpy },
+          { provide: AuthService, useValue: new AuthServiceMock() },
+          { provide: Router, useValue: new RouterMock() },
+          { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
+          { provide: MenuService, useValue: new MenuServiceStub() },
+          { provide: KlaroService, useValue: undefined },
+          { provide: GoogleAnalyticsService, useValue: undefined },
+          provideMockStore({ initialState }),
+          AppComponent,
+          RouteService,
+        ]
+      });
+    }));
+
+    describe('initÀnalytics', () => {
+      describe('when GoogleAnalyticsService is provided', () => {
+        let googleAnalyticsSpy;
+
+        beforeEach(() => {
+          googleAnalyticsSpy = jasmine.createSpyObj('googleAnalyticsService', [
+            'addTrackingIdToPage',
+          ]);
+
+          TestBed.overrideProvider(GoogleAnalyticsService, { useValue: googleAnalyticsSpy });
+        });
+
+        it('should call googleAnalyticsService.addTrackingIdToPage()', inject([InitService], (service) => {
+          // @ts-ignore
+          service.initAnalytics();
+          expect(googleAnalyticsSpy.addTrackingIdToPage).toHaveBeenCalledTimes(1);
+        }));
+      });
+    });
+
+    describe('initRouteListeners', () => {
+      it('should call listenForRouteChanges', inject([InitService], (service) => {
+        // @ts-ignore
+        service.initRouteListeners();
+        expect(metadataServiceSpy.listenForRouteChange).toHaveBeenCalledTimes(1);
+        expect(breadcrumbsServiceSpy.listenForRouteChanges).toHaveBeenCalledTimes(1);
+      }));
+    });
+
+    describe('initKlaro', () => {
+      const BLOCKING = {
+        t: {  core: { auth: { blocking: true } } },
+        f: {  core: { auth: { blocking: false } } },
+      };
+
+      it('should not error out if KlaroService is not provided', inject([InitService], (service) => {
+        // @ts-ignore
+        service.initKlaro();
+      }));
+
+      describe('when KlaroService is provided', () => {
+        let klaroServiceSpy;
+
+        beforeEach(() => {
+          klaroServiceSpy = jasmine.createSpyObj('klaroServiceSpy', [
+            'initialize',
+          ]);
+
+          TestBed.overrideProvider(KlaroService, { useValue: klaroServiceSpy });
+        });
+
+        it('should not initialize Klaro while auth is blocking', () => {
+          getTestScheduler().run(({ cold, flush}) => {
+            TestBed.overrideProvider(Store, { useValue: cold('t--t--t--', BLOCKING) });
+            const service = TestBed.inject(InitService);
+
+            // @ts-ignore
+            service.initKlaro();
+            flush();
+            expect(klaroServiceSpy.initialize).not.toHaveBeenCalled();
+          });
+        });
+
+
+        it('should only initialize Klaro the first time auth is unblocked', () => {
+          getTestScheduler().run(({ cold, flush}) => {
+            TestBed.overrideProvider(Store, { useValue: cold('t--t--f--t--f--', BLOCKING) });
+            const service = TestBed.inject(InitService);
+
+            // @ts-ignore
+            service.initKlaro();
+            flush();
+            expect(klaroServiceSpy.initialize).toHaveBeenCalledTimes(1);
+          });
+        });
+      });
+
+      describe('when KlaroService is not provided', () => {
+        it('should not error out when auth is unblocked', () => {
+          getTestScheduler().run(({ cold, flush}) => {
+            TestBed.overrideProvider(Store, { useValue:  cold('t--t--f--t--f--', BLOCKING) });
+            const service = TestBed.inject(InitService);
+
+            // @ts-ignore
+            service.initKlaro();
+            flush();
+          });
+        });
+      });
     });
   });
 });

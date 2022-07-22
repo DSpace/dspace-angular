@@ -10,12 +10,21 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../app/app.reducer';
 import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.service';
 import { TransferState } from '@angular/platform-browser';
-import { APP_CONFIG_STATE, AppConfig } from '../../config/app-config.interface';
+import { APP_CONFIG, APP_CONFIG_STATE, AppConfig } from '../../config/app-config.interface';
 import { DefaultAppConfig } from '../../config/default-app-config';
 import { extendEnvironmentWithAppConfig } from '../../config/config.util';
 import { environment } from '../../environments/environment';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { LocaleService } from '../../app/core/locale/locale.service';
+import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
+import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
+import { MetadataService } from '../../app/core/metadata/metadata.service';
+import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
+import { CSSVariableService } from '../../app/shared/sass-helper/sass-helper.service';
+import { KlaroService } from '../../app/shared/cookies/klaro.service';
+import { AuthService } from '../../app/core/auth/auth.service';
 
 /**
  * Performs client-side initialization.
@@ -27,8 +36,30 @@ export class BrowserInitService extends InitService {
     protected correlationIdService: CorrelationIdService,
     protected transferState: TransferState,
     protected dspaceTransferState: DSpaceTransferState,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    protected translate: TranslateService,
+    protected localeService: LocaleService,
+    protected angulartics2DSpace: Angulartics2DSpace,
+    @Optional() protected googleAnalyticsService: GoogleAnalyticsService,
+    protected metadata: MetadataService,
+    protected breadcrumbsService: BreadcrumbsService,
+    protected cssService: CSSVariableService,
+    @Optional() protected klaroService: KlaroService,
+    protected authService: AuthService,
   ) {
-    super(store, correlationIdService, dspaceTransferState);
+    super(
+      store,
+      correlationIdService,
+      dspaceTransferState,
+      appConfig,
+      translate,
+      localeService,
+      angulartics2DSpace,
+      googleAnalyticsService,
+      metadata,
+      breadcrumbsService,
+      klaroService,
+    );
   }
 
   protected static resolveAppConfig(
@@ -47,7 +78,22 @@ export class BrowserInitService extends InitService {
       this.checkAuthenticationToken();
       this.initCorrelationId();
 
+      this.checkEnvironment();
+
+      this.initI18n();
+      this.initAnalytics();
+      this.initRouteListeners();
+      this.trackAuthTokenExpiration();
+
+      this.initKlaro();
+
       return true;
     };
+  }
+
+  // Browser-only initialization steps
+
+  private trackAuthTokenExpiration(): void {
+    this.authService.trackTokenExpiration();
   }
 }

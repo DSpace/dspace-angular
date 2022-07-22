@@ -32,7 +32,6 @@ import { storeModuleConfig } from './app.reducer';
 import { LocaleService } from './core/locale/locale.service';
 import { authReducer } from './core/auth/auth.reducer';
 import { provideMockStore } from '@ngrx/store/testing';
-import { GoogleAnalyticsService } from './statistics/google-analytics.service';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { getMockThemeService } from './shared/mocks/theme-service.mock';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
@@ -46,15 +45,15 @@ const initialState = {
   core: { auth: { loading: false } }
 };
 
+export function getMockLocaleService(): LocaleService {
+  return jasmine.createSpyObj('LocaleService', {
+    setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode')
+  });
+}
+
 describe('App component', () => {
 
   let breadcrumbsServiceSpy;
-
-  function getMockLocaleService(): LocaleService {
-    return jasmine.createSpyObj('LocaleService', {
-      setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode')
-    });
-  }
 
   const getDefaultTestBedConf = () => {
     breadcrumbsServiceSpy = jasmine.createSpyObj(['listenForRouteChanges']);
@@ -129,39 +128,6 @@ describe('App component', () => {
       expect(store.dispatch).toHaveBeenCalledWith(new HostWindowResizeAction(width, height));
     });
 
-  });
-
-  describe('the constructor', () => {
-    it('should call breadcrumbsService.listenForRouteChanges', () => {
-      expect(breadcrumbsServiceSpy.listenForRouteChanges).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('when GoogleAnalyticsService is provided', () => {
-    let googleAnalyticsSpy;
-
-    beforeEach(() => {
-      // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
-      TestBed.resetTestingModule();
-      TestBed.configureTestingModule(getDefaultTestBedConf());
-      googleAnalyticsSpy = jasmine.createSpyObj('googleAnalyticsService', [
-        'addTrackingIdToPage',
-      ]);
-      TestBed.overrideProvider(GoogleAnalyticsService, {useValue: googleAnalyticsSpy});
-      fixture = TestBed.createComponent(AppComponent);
-      comp = fixture.componentInstance;
-      fixture.detectChanges();
-    });
-
-    it('should create component', () => {
-      expect(comp).toBeTruthy();
-    });
-
-    describe('the constructor', () => {
-      it('should call googleAnalyticsService.addTrackingIdToPage()', () => {
-        expect(googleAnalyticsSpy.addTrackingIdToPage).toHaveBeenCalledTimes(1);
-      });
-    });
   });
 
   describe('when ThemeService returns a custom theme', () => {
