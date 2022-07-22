@@ -25,6 +25,7 @@ import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { distinctUntilChanged, filter, take, tap } from 'rxjs/operators';
 import { isAuthenticationBlocking } from './core/auth/selectors';
 import { KlaroService } from './shared/cookies/klaro.service';
+import { ThemeService } from './shared/theme-support/theme.service';
 
 /**
  * Performs the initialization of the app.
@@ -49,6 +50,7 @@ export abstract class InitService {
     protected metadata: MetadataService,
     protected breadcrumbsService: BreadcrumbsService,
     @Optional() protected klaroService: KlaroService,
+    protected themeService: ThemeService,
   ) {
   }
 
@@ -192,11 +194,13 @@ export abstract class InitService {
    * Start route-listening subscriptions
    * - {@link MetadataService.listenForRouteChange}
    * - {@link BreadcrumbsService.listenForRouteChanges}
+   * - {@link ThemeService.listenForRouteChanges}
    * @protected
    */
   protected initRouteListeners(): void {
     this.metadata.listenForRouteChange();
     this.breadcrumbsService.listenForRouteChanges();
+    this.themeService.listenForRouteChanges();
   }
 
   /**

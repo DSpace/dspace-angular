@@ -1,4 +1,4 @@
-import { distinctUntilChanged, filter, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, take, withLatestFrom } from 'rxjs/operators';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
@@ -7,14 +7,12 @@ import {
   HostListener,
   Inject,
   OnInit,
-  Optional,
   PLATFORM_ID,
 } from '@angular/core';
 import {
-  ActivatedRouteSnapshot,
   NavigationCancel,
   NavigationEnd,
-  NavigationStart, ResolveEnd,
+  NavigationStart,
   Router,
 } from '@angular/router';
 
@@ -28,14 +26,11 @@ import { NativeWindowRef, NativeWindowService } from './core/services/window.ser
 import { isAuthenticationBlocking } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
-import { HeadTagConfig } from '../config/theme.model';
 import { environment } from '../environments/environment';
 import { models } from './core/core.module';
-import { hasNoValue, hasValue, isNotEmpty } from './shared/empty.util';
 import { ThemeService } from './shared/theme-support/theme.service';
-import { BASE_THEME_NAME } from './shared/theme-support/theme.constants';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
-import { getDefaultThemeConfig } from '../config/config.util';
+import { distinctNext } from './core/shared/distinct-next';
 
 @Component({
   selector: 'ds-app',
@@ -60,9 +55,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   /**
    * Whether or not the theme is in the process of being swapped
    */
-  isThemeLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-
-  isThemeCSSLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isThemeLoading$: Observable<boolean>;
 
   /**
    * Whether or not the idle modal is is currently open
@@ -86,26 +79,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     /* Use models object so all decorators are actually called */
     this.models = models;
 
-    this.themeService.getThemeName$().subscribe((themeName: string) => {
-      if (isPlatformBrowser(this.platformId)) {
-        // the theme css will never download server side, so this should only happen on the browser
-        this.distinctNext(this.isThemeCSSLoading$, true);
-      }
-      if (hasValue(themeName)) {
-        this.loadGlobalThemeConfig(themeName);
-      } else {
-        const defaultThemeConfig = getDefaultThemeConfig();
-        if (hasValue(defaultThemeConfig)) {
-          this.loadGlobalThemeConfig(defaultThemeConfig.name);
-        } else {
-          this.loadGlobalThemeConfig(BASE_THEME_NAME);
-        }
-      }
-    });
-
     if (isPlatformBrowser(this.platformId)) {
       this.trackIdleModal();
     }
+
+    this.isThemeLoading$ = this.themeService.isThemeLoading$;
 
     this.storeCSSVariables();
   }
@@ -135,34 +113,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    let resolveEndFound = false;
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        resolveEndFound = false;
-        this.distinctNext(this.isRouteLoading$, true);
-        this.distinctNext(this.isThemeLoading$, true);
-      } else  if (event instanceof ResolveEnd) {
-        resolveEndFound = true;
-        const activatedRouteSnapShot: ActivatedRouteSnapshot = event.state.root;
-        this.themeService.updateThemeOnRouteChange$(event.urlAfterRedirects, activatedRouteSnapShot).pipe(
-          switchMap((changed) => {
-            if (changed) {
-              return this.isThemeCSSLoading$;
-            } else {
-              return [false];
-            }
-          })
-        ).subscribe((changed) => {
-          this.distinctNext(this.isThemeLoading$, changed);
-        });
+        distinctNext(this.isRouteLoading$, true);
       } else if (
         event instanceof NavigationEnd ||
         event instanceof NavigationCancel
       ) {
-        if (!resolveEndFound) {
-          this.distinctNext(this.isThemeLoading$, false);
-        }
-        this.distinctNext(this.isRouteLoading$, false);
+        distinctNext(this.isRouteLoading$, false);
       }
     });
   }
@@ -176,119 +134,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.store.dispatch(
       new HostWindowResizeAction(width, height)
     );
-  }
-
-  private loadGlobalThemeConfig(themeName: string): void {
-    this.setThemeCss(themeName);
-    this.setHeadTags(themeName);
-  }
-
-  /**
-   * Update the theme css file in <head>
-   *
-   * @param themeName The name of the new theme
-   * @private
-   */
-  private setThemeCss(themeName: string): void {
-    const head = this.document.getElementsByTagName('head')[0];
-    if (hasNoValue(head)) {
-      return;
-    }
-
-    // Array.from to ensure we end up with an array, not an HTMLCollection, which would be
-    // automatically updated if we add nodes later
-    const currentThemeLinks = Array.from(head.getElementsByClassName('theme-css'));
-    const link = this.document.createElement('link');
-    link.setAttribute('rel', 'stylesheet');
-    link.setAttribute('type', 'text/css');
-    link.setAttribute('class', 'theme-css');
-    link.setAttribute('href', `/${encodeURIComponent(themeName)}-theme.css`);
-    // wait for the new css to download before removing the old one to prevent a
-    // flash of unstyled content
-    link.onload = () => {
-      if (isNotEmpty(currentThemeLinks)) {
-        currentThemeLinks.forEach((currentThemeLink: any) => {
-          if (hasValue(currentThemeLink)) {
-            currentThemeLink.remove();
-          }
-        });
-      }
-      // the fact that this callback is used, proves we're on the browser.
-      this.distinctNext(this.isThemeCSSLoading$, false);
-    };
-    head.appendChild(link);
-  }
-
-  private setHeadTags(themeName: string): void {
-    const head = this.document.getElementsByTagName('head')[0];
-    if (hasNoValue(head)) {
-      return;
-    }
-
-    // clear head tags
-    const currentHeadTags = Array.from(head.getElementsByClassName('theme-head-tag'));
-    if (hasValue(currentHeadTags)) {
-      currentHeadTags.forEach((currentHeadTag: any) => currentHeadTag.remove());
-    }
-
-    // create new head tags (not yet added to DOM)
-    const headTagFragment = this.document.createDocumentFragment();
-    this.createHeadTags(themeName)
-      .forEach(newHeadTag => headTagFragment.appendChild(newHeadTag));
-
-    // add new head tags to DOM
-    head.appendChild(headTagFragment);
-  }
-
-  private createHeadTags(themeName: string): HTMLElement[] {
-    const themeConfig = this.themeService.getThemeConfigFor(themeName);
-    const headTagConfigs = themeConfig?.headTags;
-
-    if (hasNoValue(headTagConfigs)) {
-      const parentThemeName = themeConfig?.extends;
-      if (hasValue(parentThemeName)) {
-        // inherit the head tags of the parent theme
-        return this.createHeadTags(parentThemeName);
-      }
-      const defaultThemeConfig = getDefaultThemeConfig();
-      const defaultThemeName = defaultThemeConfig.name;
-      if (
-        hasNoValue(defaultThemeName) ||
-        themeName === defaultThemeName ||
-        themeName === BASE_THEME_NAME
-      ) {
-        // last resort, use fallback favicon.ico
-        return [
-          this.createHeadTag({
-            'tagName': 'link',
-            'attributes': {
-              'rel': 'icon',
-              'href': 'assets/images/favicon.ico',
-              'sizes': 'any',
-            }
-          })
-        ];
-      }
-
-      // inherit the head tags of the default theme
-      return this.createHeadTags(defaultThemeConfig.name);
-    }
-
-    return headTagConfigs.map(this.createHeadTag.bind(this));
-  }
-
-  private createHeadTag(headTagConfig: HeadTagConfig): HTMLElement {
-    const tag = this.document.createElement(headTagConfig.tagName);
-
-    if (hasValue(headTagConfig.attributes)) {
-      Object.entries(headTagConfig.attributes)
-        .forEach(([key, value]) => tag.setAttribute(key, value));
-    }
-
-    // 'class' attribute should always be 'theme-head-tag' for removal
-    tag.setAttribute('class', 'theme-head-tag');
-
-    return tag;
   }
 
   private trackIdleModal() {
@@ -310,16 +155,4 @@ export class AppComponent implements OnInit, AfterViewInit {
       });
   }
 
-  /**
-   * Use nextValue to update a given BehaviorSubject, only if it differs from its current value
-   *
-   * @param bs a BehaviorSubject
-   * @param nextValue the next value for that BehaviorSubject
-   * @protected
-   */
-  protected distinctNext<T>(bs: BehaviorSubject<T>, nextValue: T): void {
-    if (bs.getValue() !== nextValue) {
-      bs.next(nextValue);
-    }
-  }
 }

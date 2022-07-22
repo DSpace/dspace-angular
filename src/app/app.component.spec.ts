@@ -1,7 +1,7 @@
 import { Store, StoreModule } from '@ngrx/store';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
@@ -128,34 +128,5 @@ describe('App component', () => {
       expect(store.dispatch).toHaveBeenCalledWith(new HostWindowResizeAction(width, height));
     });
 
-  });
-
-  describe('when ThemeService returns a custom theme', () => {
-    let document;
-    let headSpy;
-
-    beforeEach(() => {
-      // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
-      TestBed.resetTestingModule();
-      TestBed.configureTestingModule(getDefaultTestBedConf());
-      TestBed.overrideProvider(ThemeService, {useValue: getMockThemeService('custom')});
-      document = TestBed.inject(DOCUMENT);
-      headSpy = jasmine.createSpyObj('head', ['appendChild', 'getElementsByClassName']);
-      headSpy.getElementsByClassName.and.returnValue([]);
-      spyOn(document, 'getElementsByTagName').and.returnValue([headSpy]);
-      fixture = TestBed.createComponent(AppComponent);
-      comp = fixture.componentInstance;
-      fixture.detectChanges();
-    });
-
-    it('should append a link element with the correct attributes to the head element', () => {
-      const link = document.createElement('link');
-      link.setAttribute('rel', 'stylesheet');
-      link.setAttribute('type', 'text/css');
-      link.setAttribute('class', 'theme-css');
-      link.setAttribute('href', '/custom-theme.css');
-
-      expect(headSpy.appendChild).toHaveBeenCalledWith(link);
-    });
   });
 });

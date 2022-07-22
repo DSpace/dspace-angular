@@ -33,6 +33,8 @@ import { getTestScheduler } from 'jasmine-marbles';
 import objectContaining = jasmine.objectContaining;
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
+import { ThemeService } from './shared/theme-support/theme.service';
+import { getMockThemeService } from './shared/mocks/theme-service.mock';
 
 let spy: SpyObj<any>;
 
@@ -171,6 +173,7 @@ describe('InitService', () => {
           { provide: MenuService, useValue: new MenuServiceStub() },
           { provide: KlaroService, useValue: undefined },
           { provide: GoogleAnalyticsService, useValue: undefined },
+          { provide: ThemeService, useValue: getMockThemeService() },
           provideMockStore({ initialState }),
           AppComponent,
           RouteService,

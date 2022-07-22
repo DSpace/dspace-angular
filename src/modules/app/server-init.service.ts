@@ -22,6 +22,7 @@ import { MetadataService } from '../../app/core/metadata/metadata.service';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { CSSVariableService } from '../../app/shared/sass-helper/sass-helper.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
+import { ThemeService } from '../../app/shared/theme-support/theme.service';
 
 /**
  * Performs server-side initialization.
@@ -42,6 +43,7 @@ export class ServerInitService extends InitService {
     protected breadcrumbsService: BreadcrumbsService,
     protected cssService: CSSVariableService,
     @Optional() protected klaroService: KlaroService,
+    protected themeService: ThemeService,
   ) {
     super(
       store,
@@ -55,6 +57,7 @@ export class ServerInitService extends InitService {
       metadata,
       breadcrumbsService,
       klaroService,
+      themeService,
     );
   }
 
@@ -69,6 +72,7 @@ export class ServerInitService extends InitService {
       this.initI18n();
       this.initAnalytics();
       this.initRouteListeners();
+      this.themeService.listenForThemeChanges(false);
 
       this.initKlaro();
 

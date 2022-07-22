@@ -25,6 +25,7 @@ import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { CSSVariableService } from '../../app/shared/sass-helper/sass-helper.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { AuthService } from '../../app/core/auth/auth.service';
+import { ThemeService } from '../../app/shared/theme-support/theme.service';
 
 /**
  * Performs client-side initialization.
@@ -46,6 +47,7 @@ export class BrowserInitService extends InitService {
     protected cssService: CSSVariableService,
     @Optional() protected klaroService: KlaroService,
     protected authService: AuthService,
+    protected themeService: ThemeService,
   ) {
     super(
       store,
@@ -59,6 +61,7 @@ export class BrowserInitService extends InitService {
       metadata,
       breadcrumbsService,
       klaroService,
+      themeService,
     );
   }
 
@@ -83,6 +86,7 @@ export class BrowserInitService extends InitService {
       this.initI18n();
       this.initAnalytics();
       this.initRouteListeners();
+      this.themeService.listenForThemeChanges(true);
       this.trackAuthTokenExpiration();
 
       this.initKlaro();
