@@ -10,11 +10,11 @@ import {
 } from '@ng-dynamic-forms/core';
 
 import {
-  mockInputWithTypeBindModel, MockRelationModel
+  mockInputWithTypeBindModel, MockRelationModel, mockDcTypeInputModel
 } from '../../../mocks/form-models.mock';
 import {DsDynamicTypeBindRelationService} from './ds-dynamic-type-bind-relation.service';
 import {FormFieldMetadataValueObject} from '../models/form-field-metadata-value.model';
-import {UntypedFormControl, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {FormBuilderService} from '../form-builder.service';
 import {getMockFormBuilderService} from '../../../mocks/form-builder-service.mock';
 import {Injector} from '@angular/core';
@@ -22,6 +22,7 @@ import {Injector} from '@angular/core';
 describe('DSDynamicTypeBindRelationService test suite', () => {
   let service: DsDynamicTypeBindRelationService;
   let dynamicFormRelationService: DynamicFormRelationService;
+  // tslint:disable-next-line:prefer-const
   let injector: Injector;
 
   beforeEach(() => {
@@ -87,16 +88,16 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
     it('Should receive one subscription to dc.type type binding"', () => {
       const testModel = mockInputWithTypeBindModel;
       testModel.typeBindRelations = getTypeBindRelations(['boundType']);
-      const dcTypeControl = new UntypedFormControl();
+      const dcTypeControl = new FormControl();
       dcTypeControl.setValue('boundType');
-      let subscriptions = service.subscribeRelations(testModel, dcTypeControl);
+      const subscriptions = service.subscribeRelations(testModel, dcTypeControl);
       expect(subscriptions).toHaveSize(1);
     });
 
     it('Expect hasMatch to be true (ie. this should be hidden)', () => {
       const testModel = mockInputWithTypeBindModel;
       testModel.typeBindRelations = getTypeBindRelations(['boundType']);
-      const dcTypeControl = new UntypedFormControl();
+      const dcTypeControl = new FormControl();
       dcTypeControl.setValue('boundType');
       testModel.typeBindRelations[0].when[0].value = 'anotherType';
       const relation = dynamicFormRelationService.findRelationByMatcher((testModel as any).typeBindRelations, HIDDEN_MATCHER);
@@ -111,7 +112,7 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
     it('Expect hasMatch to be false (ie. this should NOT be hidden)', () => {
       const testModel = mockInputWithTypeBindModel;
       testModel.typeBindRelations = getTypeBindRelations(['boundType']);
-      const dcTypeControl = new UntypedFormControl();
+      const dcTypeControl = new FormControl();
       dcTypeControl.setValue('boundType');
       testModel.typeBindRelations[0].when[0].value = 'boundType';
       const relation = dynamicFormRelationService.findRelationByMatcher((testModel as any).typeBindRelations, HIDDEN_MATCHER);

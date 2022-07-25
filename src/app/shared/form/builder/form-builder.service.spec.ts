@@ -81,6 +81,9 @@ describe('FormBuilderService test suite', () => {
 
   beforeEach(() => {
     configSpy = createConfigSuccessSpy(typeFieldTestValue);
+
+  beforeEach(() => {
+    configSpy = createConfigSuccessSpy(typeFieldTestValue);
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       providers: [

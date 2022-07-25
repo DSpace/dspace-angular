@@ -1,5 +1,5 @@
 import {Injectable, Optional} from '@angular/core';
-import { AbstractControl, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -59,7 +59,7 @@ export class FormBuilderService extends DynamicFormService {
   /**
    * This map contains the active forms control groups
    */
-  private formGroups: Map<string, UntypedFormGroup>;
+  private formGroups: Map<string, FormGroup>;
 
   /**
    * This is the field to use for type binding
@@ -83,7 +83,7 @@ export class FormBuilderService extends DynamicFormService {
 
   }
 
-  createDynamicFormControlEvent(control: UntypedFormControl, group: UntypedFormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {
+  createDynamicFormControlEvent(control: FormControl, group: FormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {
     const $event = {
       value: (model as any).value,
       autoSave: false
@@ -282,8 +282,8 @@ export class FormBuilderService extends DynamicFormService {
   modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {},
                          submissionScope?: string, readOnly = false, typeBindModel = null,
                          isInnerForm = false): DynamicFormControlModel[] | never {
-     let rows: DynamicFormControlModel[] = [];
-     const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
+    let rows: DynamicFormControlModel[] = [];
+    const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
         const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope,
@@ -294,6 +294,14 @@ export class FormBuilderService extends DynamicFormService {
           } else {
             rows.push(rowParsed);
           }
+        }
+
+        if (hasNoValue(typeBindModel)) {
+          typeBindModel = this.findById(this.typeField, rows);
+        }
+
+        if (hasValue(typeBindModel)) {
+          this.setTypeBindModel(typeBindModel);
         }
       });
     }
@@ -374,7 +382,7 @@ export class FormBuilderService extends DynamicFormService {
     return isNotEmpty(fieldModel) ? formGroup.get(this.getPath(fieldModel)) : null;
   }
 
-  getFormControlByModel(formGroup: UntypedFormGroup, fieldModel: DynamicFormControlModel): AbstractControl {
+  getFormControlByModel(formGroup: FormGroup, fieldModel: DynamicFormControlModel): AbstractControl {
     return isNotEmpty(fieldModel) ? formGroup.get(this.getPath(fieldModel)) : null;
   }
 
@@ -412,7 +420,7 @@ export class FormBuilderService extends DynamicFormService {
    * @param id id of model
    * @param formGroup FormGroup
    */
-  addFormGroups(id: string, formGroup: UntypedFormGroup): void {
+  addFormGroups(id: string, formGroup: FormGroup): void {
     this.formGroups.set(id, formGroup);
   }
 

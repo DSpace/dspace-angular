@@ -2,13 +2,8 @@ import { SectionVisibility } from './../../../../submission/objects/section-visi
 import { VisibilityType } from './../../../../submission/sections/visibility-type';
 import { Inject, InjectionToken } from '@angular/core';
 
-import uniqueId from 'lodash/uniqueId';
-import {
-  DynamicFormControlLayout,
-  DynamicFormControlRelation,
-  MATCH_VISIBLE,
-  OR_OPERATOR
-} from '@ng-dynamic-forms/core';
+import { uniqueId } from 'lodash';
+import {DynamicFormControlLayout, DynamicFormControlRelation, MATCH_VISIBLE, OR_OPERATOR} from '@ng-dynamic-forms/core';
 
 import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
@@ -323,35 +318,12 @@ export abstract class FieldParser {
   }
 
   /**
-   * Checks if a field is read-only with the given scope.
-   * The field is readonly when submissionScope is WORKSPACE and the main visibility is READONLY
-   * or when submissionScope is WORKFLOW and the other visibility is READONLY
-   * @param visibility
-   * @param submissionScope
-   */
-  private isFieldReadOnly(visibility: SectionVisibility, fieldScope: string, submissionScope: string) {
-    return isNotEmpty(submissionScope)
-      && isNotEmpty(fieldScope)
-      && isNotEmpty(visibility)
-      && ((
-          submissionScope === SubmissionScopeType.WorkspaceItem
-          && visibility.main === VisibilityType.READONLY
-          )
-        ||
-          (visibility.other === VisibilityType.READONLY
-          && submissionScope === SubmissionScopeType.WorkflowItem
-          )
-      );
-  }
-
-  /**
    * Get the type bind values from the REST data for a specific field
    * The return value is any[] in the method signature but in reality it's
    * returning the 'relation' that'll be used for a dynamic matcher when filtering
    * fields in type bind, made up of a 'match' outcome (make this field visible), an 'operator'
    * (OR) and a 'when' condition (the bindValues array).
    * @param configuredTypeBindValues  array of types from the submission definition (CONFIG_DATA)
-   * @param typeField
    * @private
    * @return DynamicFormControlRelation[] array with one relation in it, for type bind matching to show a field
    */

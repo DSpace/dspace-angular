@@ -1,5 +1,5 @@
 import { FormBuilderService } from '../form/builder/form-builder.service';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import {DsDynamicInputModel} from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 
 export function getMockFormBuilderService(): FormBuilderService {
@@ -19,7 +19,6 @@ export function getMockFormBuilderService(): FormBuilderService {
     isQualdropGroup: false,
     isModelInCustomGroup: true,
     isRelationGroup: true,
-    isConcatGroup: false,
     hasArrayGroupValue: true,
     getTypeBindModel: new DsDynamicInputModel({
         name: 'dc.type',

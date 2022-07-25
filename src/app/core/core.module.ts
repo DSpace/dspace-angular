@@ -132,6 +132,7 @@ import {
 import { Registration } from './shared/registration.model';
 import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
 import { MetadataFieldDataService } from './data/metadata-field-data.service';
+import { DsDynamicTypeBindRelationService } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { TokenResponseParsingService } from './auth/token-response-parsing.service';
 import { SubmissionCcLicenseDataService } from './submission/submission-cc-license-data.service';
 import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
@@ -261,7 +262,8 @@ const PROVIDERS = [
   ClaimedTaskDataService,
   PoolTaskDataService,
   BitstreamDataService,
-  EntityTypeDataService,
+  DsDynamicTypeBindRelationService,
+  EntityTypeService,
   ContentSourceResponseParsingService,
   ItemTemplateDataService,
   SearchService,
