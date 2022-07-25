@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { UsageReport,Point } from '../../../../core/statistics/models/usage-report.model';
+import { UsageReport } from '../../../../core/statistics/models/usage-report.model';
 import { USAGE_REPORT } from '../../../../core/statistics/models/usage-report.resource-type';
 import { StatisticsChartLineComponent } from './statistics-chart-line.component';
 import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
 import { ExportServiceStub } from '../../../../shared/testing/export-service.stub';
 import { ExportService } from '../../../../core/export-service/export.service';
+import { StatisticsType } from '../../statistics-type.model';
 
 describe('StatisticsChartLineComponent', () => {
   let comp: StatisticsChartLineComponent;
@@ -79,7 +79,7 @@ describe('StatisticsChartLineComponent', () => {
         ],
         'type': USAGE_REPORT,
         'reportType': 'TotalVisitsPerMonth',
-        'viewMode': 'chart.line',
+        'viewMode': StatisticsType['chart.line'],
         '_links': {
           'self': {
             'href': 'https://dspacecris7.4science.cloud/server/api/statistics/usagereports/0aa1fe0c-e173-4a36-a526-5c157dedfc07_TotalVisitsPerMonth'
@@ -188,6 +188,7 @@ describe('StatisticsChartLineComponent', () => {
       providers: [
         { provide: REPORT_DATA, useValue: selectedReport },
         { provide: ExportService, useValue: ExportServiceStub},
+        { provide: 'categoryType', useValue: 'mainReports' },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(StatisticsChartLineComponent, {

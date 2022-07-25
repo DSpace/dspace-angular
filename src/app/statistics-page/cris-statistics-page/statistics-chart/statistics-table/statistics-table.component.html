@@ -13,8 +13,8 @@
   <table *ngIf="hasData else noData" #dataTable id="dataTable" class="table table-striped">
     <tbody>
       <tr>
-        <th scope="col" *ngFor="let header of headers" class="{{header}}-header">
-          {{ header }}
+        <th scope="col" *ngFor="let header of headers" [ngClass]="{'text-right': header === 'views' || header === 'downloads'}" class="{{header}}-header">
+          {{ 'statistics.table.' + categoryType + '.header.' + header | translate }}
         </th>
       </tr>
 
@@ -29,8 +29,9 @@
               </span>
           </ng-template>
         </th>
-        <td class="{{point.id}}-{{headers[1]}}-data">
-          {{ point.values[headers[1]] }}
+        <td *ngFor="let header of headers | slice:1"
+            [ngClass]="{'text-right': header === 'views' || header === 'downloads'}" class="{{point.id}}-{{header}}-data">
+          {{ point.values[header] }}
         </td>
       </tr>
     </tbody>

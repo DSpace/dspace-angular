@@ -8,6 +8,7 @@ import { GoogleChartInterface } from 'ng2-google-charts';
 import { ExportService, ExportImageType } from '../../../core/export-service/export.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
+import { StatisticsType } from '../statistics-type.model';
 
 describe('StatisticsMapComponent', () => {
   let component: StatisticsMapComponent;
@@ -16,7 +17,7 @@ describe('StatisticsMapComponent', () => {
       'id': '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TopCountries',
       'type': USAGE_REPORT,
       'reportType': 'TopCountries',
-      'viewMode': 'map',
+      'viewMode': StatisticsType.map,
       'points': [
           {
               'label': 'United States',

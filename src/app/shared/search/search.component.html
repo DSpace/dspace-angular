@@ -6,14 +6,21 @@
     </div>
 </div>
 
-<ds-search-charts *ngIf="showCharts" [configuration]="currentConfiguration$" [inPlaceSearch]="inPlaceSearch"></ds-search-charts>
+<ds-search-charts *ngIf="showCharts"
+                  [configuration]="currentConfiguration$"
+                  [collapseChart]="collapseCharts"
+                  [inPlaceSearch]="inPlaceSearch"
+                  [showChartsToggle]="showChartsToggle"></ds-search-charts>
 
 <div *ngIf="!showSidebar && (initialized$ | async)">
-  <ng-template *ngTemplateOutlet="searchContent"></ng-template>
+    <ng-template *ngTemplateOutlet="searchContent"></ng-template>
 </div>
 
-<ds-page-with-sidebar *ngIf="showSidebar && (initialized$ | async)" [id]="'search-page'" [sidebarContent]="sidebarContent">
-  <ng-template *ngTemplateOutlet="searchContent"></ng-template>
+<ds-page-with-sidebar *ngIf="showSidebar && (initialized$ | async)"
+                      [collapseSidebar]="collapseFilters"
+                      [id]="'search-page'"
+                      [sidebarContent]="sidebarContent">
+    <ng-template *ngTemplateOutlet="searchContent"></ng-template>
 </ds-page-with-sidebar>
 
 <ng-template #searchContent>
@@ -77,7 +84,16 @@
 </ng-template>
 
 <ng-template #searchForm>
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-between">
+        <div *ngIf="!(isXsOrSm$ | async) && showFilterToggle && showSidebar">
+            <button class="btn btn-outline-secondary mr-3"
+                    ngbTooltip="{{'search.sidebar.show.hide.filters.tooltip' | translate}}"
+                    (click)="toggleSidebar()">
+                <span class="d-flex align-items-center">
+                    <i class="fa fa-filter mr-2"></i>
+                    {{"search.sidebar.show.hide" | translate}}</span>
+            </button>
+        </div>
         <ds-search-form *ngIf="searchEnabled" id="search-form" class="flex-grow-1"
                         [query]="(searchOptions$ | async)?.query"
                         [scope]="(searchOptions$ | async)?.scope"
@@ -87,7 +103,7 @@
                         [searchPlaceholder]="searchFormPlaceholder | translate">
         </ds-search-form>
         <ng-content select="[additionalSearchFormOptions]"></ng-content>
-        <ds-item-export-modal-launcher *ngIf="showExport" [searchOptions$]="searchOptions$"></ds-item-export-modal-launcher>
+        <ds-item-export-modal-launcher [searchOptions$]="searchOptions$" *ngIf="showExport"></ds-item-export-modal-launcher>
     </div>
     <div class="row mb-3 mb-md-1">
         <div class="labels col-sm-9">

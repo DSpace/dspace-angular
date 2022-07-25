@@ -11,6 +11,7 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { of } from 'rxjs';
 import { MetadataValue } from '../shared/metadata.models';
 import { v4 as uuidv4 } from 'uuid';
+import { AUTHORITY_REFERENCE } from '../shared/metadata.utils';
 
 describe('SearchManager', () => {
   let scheduler: TestScheduler;
@@ -78,7 +79,7 @@ describe('SearchManager', () => {
     metadata: {
       'dc.contributor.author': [
         Object.assign(new MetadataValue(),{
-          authority: 'invalid',
+          authority: AUTHORITY_REFERENCE + 'invalid',
           value: 'author4'
         })
 

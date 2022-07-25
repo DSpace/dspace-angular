@@ -1,4 +1,4 @@
-<button class="btn btn-primary"
+<button class="btn btn-primary" *ngIf="configuration?.formats?.length > 0"
         [innerHTML]="'context-menu.actions.export-item.btn' | translate"
         (click)="$event.preventDefault();openExportModal();">
 </button>

@@ -299,12 +299,12 @@ export class SearchConfigurationService implements OnDestroy {
       this.getFixedFilterPart(),
       this.getViewModePart(defaults.view)
     ).subscribe((update) => {
-      const scopeString = `scope=${update.scope}`;
       const currentValue: SearchOptions = this.searchOptions.getValue();
-      const updatedValue: SearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, Object.assign({}, update, {
-        fixedFilter: (update.fixedFilter === scopeString) ? '' : update.fixedFilter
-      }));
-
+      const updatedValue: SearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
+      const scopeString = `scope=${updatedValue.scope}`;
+      if (updatedValue.fixedFilter === scopeString) {
+        updatedValue.fixedFilter = undefined;
+      }
       this.searchOptions.next(updatedValue);
     });
   }
@@ -327,12 +327,12 @@ export class SearchConfigurationService implements OnDestroy {
       this.getFixedFilterPart(),
       this.getViewModePart(defaults.view)
     ).subscribe((update) => {
-      const scopeString = `scope=${update.scope}`;
       const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
-      const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, Object.assign({}, update, {
-        fixedFilter: (update.fixedFilter === scopeString) ? '' : update.fixedFilter
-      }));
-
+      const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
+      const scopeString = `scope=${updatedValue.scope}`;
+      if (updatedValue.fixedFilter === scopeString) {
+        updatedValue.fixedFilter = undefined;
+      }
       this.paginatedSearchOptions.next(updatedValue);
     });
   }
