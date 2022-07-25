@@ -168,6 +168,7 @@ export const isNotEmptyOperator = () =>
   <T>(source: Observable<T>): Observable<T> =>
     source.pipe(filter((obj: T) => isNotEmpty(obj)));
 
+
 /**
  * Tests each value emitted by the source Observable,
  * let's arrays pass through, turns other values in to
@@ -177,3 +178,28 @@ export const isNotEmptyOperator = () =>
 export const ensureArrayHasValue = () =>
   <T>(source: Observable<T[]>): Observable<T[]> =>
     source.pipe(map((arr: T[]): T[] => Array.isArray(arr) ? arr : []));
+
+/**
+ * Verifies that a object keys are all empty or not.
+ * isObjectEmpty();                // true
+ * isObjectEmpty(null);            // true
+ * isObjectEmpty(undefined);       // true
+ * isObjectEmpty('');              // true
+ * isObjectEmpty([]);              // true
+ * isObjectEmpty({});              // true
+ * isObjectEmpty({name: null});    // true
+ * isObjectEmpty({ name: 'Adam Hawkins', surname : null});  // false
+ */
+export function isObjectEmpty(obj?: any): boolean {
+
+  if (typeof(obj) !== 'object') {
+    return true;
+  }
+
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key) && isNotEmpty(obj[key])) {
+      return false;
+    }
+  }
+  return true;
+}

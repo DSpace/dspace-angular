@@ -1,6 +1,7 @@
 <ng-container [formGroup]="group">
     <div [id]="id"
          [formArrayName]="model.id"
+         [class.d-none]="model.hidden"
          [ngClass]="getClass('element', 'control')">
 
       <!-- Draggable Container -->
@@ -13,7 +14,8 @@
              cdkDrag
              cdkDragHandle
              [cdkDragDisabled]="dragDisabled"
-             [cdkDragPreviewClass]="'ds-submission-reorder-dragging'">
+             [cdkDragPreviewClass]="'ds-submission-reorder-dragging'"
+             [class.grey-background]="model.isInlineGroupArray">
           <!-- Item content -->
           <div class="drag-handle" [class.drag-disable]="dragDisabled" tabindex="0">
             <i class="drag-icon fas fa-grip-vertical fa-fw" [class.drag-disable]="dragDisabled" ></i>
@@ -22,9 +24,11 @@
           <ds-dynamic-form-control-container *ngFor="let _model of groupModel.group"
                                              [bindId]="false"
                                              [formGroup]="group"
+                                             [formModel]="formModel"
                                              [context]="groupModel"
                                              [group]="control.get([idx])"
                                              [hidden]="_model.hidden"
+                                             [class.d-none]="_model.hidden"
                                              [layout]="formLayout"
                                              [model]="_model"
                                              [templates]="templates"
@@ -37,9 +41,6 @@
           <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: groupModel"></ng-container>
         </div>
       </div>
-
-
-
     </div>
 
 </ng-container>

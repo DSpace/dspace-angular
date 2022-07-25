@@ -100,6 +100,9 @@ export const environment: AppConfig = {
       // NOTE: every how many minutes submission is saved automatically
       timer: 5
     },
+    typeBind: {
+      field: 'dc.type'
+    },
     icons: {
       metadata: [
         {

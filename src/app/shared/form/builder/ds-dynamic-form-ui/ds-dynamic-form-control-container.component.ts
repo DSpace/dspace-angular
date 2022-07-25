@@ -81,6 +81,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/
 import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
 import { find, map, startWith, switchMap, take } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import { SearchResult } from '../../../search/models/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -194,8 +195,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
   // tslint:disable-next-line:no-input-rename
   @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
-
+  @Input() hasMetadataModel: any;
   @Input() formId: string;
+  @Input() formGroup: FormGroup;
+  @Input() formModel: DynamicFormControlModel[];
   @Input() asBootstrapFormGroup = false;
   @Input() bindId = true;
   @Input() context: any | null = null;
@@ -237,6 +240,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     protected dynamicFormComponentService: DynamicFormComponentService,
     protected layoutService: DynamicFormLayoutService,
     protected validationService: DynamicFormValidationService,
+    protected typeBindRelationService: DsDynamicTypeBindRelationService,
     protected translateService: TranslateService,
     protected relationService: DynamicFormRelationService,
     private modalService: NgbModal,
@@ -343,6 +347,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       if (this.model && this.model.placeholder) {
         this.model.placeholder = this.translateService.instant(this.model.placeholder);
       }
+      if (this.model.typeBindRelations && this.model.typeBindRelations.length > 0) {
+        this.subscriptions.push(...this.typeBindRelationService.subscribeRelations(this.model, this.control));
+      }
     }
   }
 
@@ -355,6 +362,22 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   ngAfterViewInit() {
     this.showErrorMessagesPreviousStage = this.showErrorMessages;
+  }
+
+  protected createFormControlComponent(): void {
+    super.createFormControlComponent();
+    if (this.componentType !== null) {
+      let index;
+
+      if (this.context && this.context instanceof DynamicFormArrayGroupModel) {
+        index = this.context.index;
+      }
+      const instance = this.dynamicFormComponentService.getFormControlRef(this.model, index);
+      if (instance) {
+        (instance as any).formModel = this.formModel;
+        (instance as any).formGroup = this.formGroup;
+      }
+    }
   }
 
   /**
