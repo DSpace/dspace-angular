@@ -11,9 +11,6 @@ import { AlertType } from '../../../shared/alert/aletr-type';
 import { SectionsService } from '../sections.service';
 import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { SubmissionVisibility } from '../../utils/visibility.util';
-import {distinctUntilChanged, filter, map} from 'rxjs/operators';
-import {hasValue} from '../../../shared/empty.util';
 
 /**
  * This simple component displays DOI, handle and other identifiers that are already minted for the item in
@@ -101,10 +98,7 @@ export class SubmissionSectionIdentifiersComponent extends SectionModelComponent
    * Check if identifier section has read-only visibility
    */
   isReadOnly(): boolean {
-    return SubmissionVisibility.isReadOnly(
-      this.sectionData.sectionVisibility,
-      this.submissionService.getSubmissionScope()
-    );
+    return true;
   }
 
   /**
