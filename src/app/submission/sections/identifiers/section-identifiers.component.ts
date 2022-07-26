@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Inject, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,7 +10,6 @@ import { SubmissionService } from '../../submission.service';
 import { AlertType } from '../../../shared/alert/aletr-type';
 import { SectionsService } from '../sections.service';
 import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
 
 /**
  * This simple component displays DOI, handle and other identifiers that are already minted for the item in
@@ -73,16 +72,6 @@ export class SubmissionSectionIdentifiersComponent extends SectionModelComponent
   }
 
   ngOnInit() {
-      //this.identifierData$ = {} as Observable<WorkspaceitemSectionIdentifiersObject>;
-      /*
-      this.subs.push(
-        this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType).pipe(
-          filter((identiferData: WorkspaceitemSectionIdentifiersObject) => hasValue()),
-          distinctUntilChanged()).subscribe((identifierData: WorkspaceitemSectionIdentifiersObject) => {
-            this.subbedIdentifierData = identifierData;
-          }
-        )
-      )*/
       super.ngOnInit();
   }
 
