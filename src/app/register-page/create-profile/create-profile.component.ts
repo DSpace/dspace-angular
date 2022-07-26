@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, take } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { Registration } from '../../core/shared/registration.model';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -158,20 +158,24 @@ export class CreateProfileComponent implements OnInit {
       };
 
       // If the End User Agreement cookie is accepted, add end-user agreement metadata to the user
-      this.endUserAgreementService.isUserAgreementEnabled().subscribe((isUserAgreementEnabled) => {
-        if (isUserAgreementEnabled && this.userAgreementAccept) {
-          values.metadata[END_USER_AGREEMENT_METADATA_FIELD] = [
-            {
-              value: String(true)
-            }
-          ];
-          this.endUserAgreementService.removeCookieAccepted();
-        }
-      });
+      this.endUserAgreementService.isUserAgreementEnabled().pipe(
+        map((isUserAgreementEnabled: boolean) => {
+          if (isUserAgreementEnabled && this.userAgreementAccept) {
+            values.metadata[END_USER_AGREEMENT_METADATA_FIELD] = [
+              {
+                value: String(true)
+              }
+            ];
+            this.endUserAgreementService.removeCookieAccepted();
+          }
 
-      const eperson = Object.assign(new EPerson(), values);
-      this.ePersonDataService.createEPersonForToken(eperson, this.token).pipe(
-        getFirstCompletedRemoteData(),
+          return Object.assign(new EPerson(), values);
+        }),
+        switchMap((eperson: EPerson) => {
+          return this.ePersonDataService.createEPersonForToken(eperson, this.token).pipe(
+            getFirstCompletedRemoteData(),
+          );
+        })
       ).subscribe((rd: RemoteData<EPerson>) => {
         if (rd.hasSucceeded) {
           this.notificationsService.success(this.translateService.get('register-page.create-profile.submit.success.head'),
