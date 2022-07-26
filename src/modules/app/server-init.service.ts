@@ -12,15 +12,13 @@ import { TransferState } from '@angular/platform-browser';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { APP_CONFIG, APP_CONFIG_STATE, AppConfig } from '../../config/app-config.interface';
 import { environment } from '../../environments/environment';
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
-import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { MetadataService } from '../../app/core/metadata/metadata.service';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { CSSVariableService } from '../../app/shared/sass-helper/sass-helper.service';
-import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { take } from 'rxjs/operators';
 
@@ -37,11 +35,9 @@ export class ServerInitService extends InitService {
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
-    @Optional() protected googleAnalyticsService: GoogleAnalyticsService,
     protected metadata: MetadataService,
     protected breadcrumbsService: BreadcrumbsService,
     protected cssService: CSSVariableService,
-    @Optional() protected klaroService: KlaroService,
     protected themeService: ThemeService,
   ) {
     super(
@@ -51,10 +47,8 @@ export class ServerInitService extends InitService {
       translate,
       localeService,
       angulartics2DSpace,
-      googleAnalyticsService,
       metadata,
       breadcrumbsService,
-      klaroService,
       themeService,
     );
   }
@@ -68,11 +62,9 @@ export class ServerInitService extends InitService {
 
       this.checkEnvironment();
       this.initI18n();
-      this.initAnalytics();
+      this.initAngulartics();
       this.initRouteListeners();
       this.themeService.listenForThemeChanges(false);
-
-      this.initKlaro();
 
       return true;
     };

@@ -6,7 +6,7 @@
  * http://www.dspace.org/license/
  */
 import { InitService } from '../../app/init.service';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { AppState } from '../../app/app.reducer';
 import { TransferState } from '@angular/platform-browser';
 import { APP_CONFIG, APP_CONFIG_STATE, AppConfig } from '../../config/app-config.interface';
@@ -14,7 +14,7 @@ import { DefaultAppConfig } from '../../config/default-app-config';
 import { extendEnvironmentWithAppConfig } from '../../config/config.util';
 import { environment } from '../../environments/environment';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
@@ -27,8 +27,9 @@ import { AuthService } from '../../app/core/auth/auth.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { StoreAction, StoreActionTypes } from '../../app/store.actions';
 import { coreSelector } from '../../app/core/core.selectors';
-import { find, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, map, take } from 'rxjs/operators';
 import { isNotEmpty } from '../../app/shared/empty.util';
+import { isAuthenticationBlocking } from '../../app/core/auth/selectors';
 
 /**
  * Performs client-side initialization.
@@ -43,11 +44,11 @@ export class BrowserInitService extends InitService {
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
-    @Optional() protected googleAnalyticsService: GoogleAnalyticsService,
+    protected googleAnalyticsService: GoogleAnalyticsService,
     protected metadata: MetadataService,
     protected breadcrumbsService: BreadcrumbsService,
     protected cssService: CSSVariableService,
-    @Optional() protected klaroService: KlaroService,
+    protected klaroService: KlaroService,
     protected authService: AuthService,
     protected themeService: ThemeService,
   ) {
@@ -58,10 +59,8 @@ export class BrowserInitService extends InitService {
       translate,
       localeService,
       angulartics2DSpace,
-      googleAnalyticsService,
       metadata,
       breadcrumbsService,
-      klaroService,
       themeService,
     );
   }
@@ -85,7 +84,8 @@ export class BrowserInitService extends InitService {
       this.checkEnvironment();
 
       this.initI18n();
-      this.initAnalytics();
+      this.initAngulartics();
+      this.initGoogleAnalytics();
       this.initRouteListeners();
       this.themeService.listenForThemeChanges(true);
       this.trackAuthTokenExpiration();
@@ -115,5 +115,24 @@ export class BrowserInitService extends InitService {
 
   private trackAuthTokenExpiration(): void {
     this.authService.trackTokenExpiration();
+  }
+
+  /**
+   * Initialize Klaro
+   * @protected
+   */
+  protected initKlaro() {
+    this.store.pipe(
+      select(isAuthenticationBlocking),
+      distinctUntilChanged(),
+      filter((isBlocking: boolean) => isBlocking === false),
+      take(1)
+    ).subscribe(() => {
+      this.klaroService.initialize();
+    });
+  }
+
+  protected initGoogleAnalytics() {
+    this.googleAnalyticsService.addTrackingIdToPage();
   }
 }

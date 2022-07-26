@@ -16,14 +16,9 @@ import { AppState } from './app.reducer';
 import { isEqual } from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
 import { LocaleService } from './core/locale/locale.service';
-import { hasValue } from './shared/empty.util';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
-import { GoogleAnalyticsService } from './statistics/google-analytics.service';
 import { MetadataService } from './core/metadata/metadata.service';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { distinctUntilChanged, filter, take, tap } from 'rxjs/operators';
-import { isAuthenticationBlocking } from './core/auth/selectors';
-import { KlaroService } from './shared/cookies/klaro.service';
 import { ThemeService } from './shared/theme-support/theme.service';
 
 /**
@@ -50,10 +45,8 @@ export abstract class InitService {
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
-    @Optional() protected googleAnalyticsService: GoogleAnalyticsService,
     protected metadata: MetadataService,
     protected breadcrumbsService: BreadcrumbsService,
-    @Optional() protected klaroService: KlaroService,
     protected themeService: ThemeService,
   ) {
   }
@@ -174,15 +167,10 @@ export abstract class InitService {
   }
 
   /**
-   * Initialize analytics services
-   * - Angulartics
-   * - Google Analytics (if enabled)
+   * Initialize Angulartics
    * @protected
    */
-  protected initAnalytics(): void {
-    if (hasValue(this.googleAnalyticsService)) {
-      this.googleAnalyticsService.addTrackingIdToPage();
-    }
+  protected initAngulartics(): void {
     this.angulartics2DSpace.startTracking();
   }
 
@@ -197,22 +185,5 @@ export abstract class InitService {
     this.metadata.listenForRouteChange();
     this.breadcrumbsService.listenForRouteChanges();
     this.themeService.listenForRouteChanges();
-  }
-
-  /**
-   * Initialize Klaro (if enabled)
-   * @protected
-   */
-  protected initKlaro() {
-    if (hasValue(this.klaroService)) {
-      this.store.pipe(
-        select(isAuthenticationBlocking),
-        distinctUntilChanged(),
-        filter((isBlocking: boolean) => isBlocking === false),
-        take(1)
-      ).subscribe(() => {
-        this.klaroService.initialize();
-      });
-    }
   }
 }
