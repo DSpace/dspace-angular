@@ -18,7 +18,7 @@
             >
     </ds-viewable-collection>
 </div>
-<ds-loading *ngIf="isLoading()" message="{{'loading.search-results' | translate}}"></ds-loading>
+<ds-themed-loading *ngIf="isLoading()" message="{{'loading.search-results' | translate}}"></ds-themed-loading>
 <ds-error
         *ngIf="showError()"
         message="{{errorMessageLabel() | translate}}"></ds-error>

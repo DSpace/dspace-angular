@@ -40,7 +40,7 @@
       (prev)="goPrev()"
       (next)="goNext()">
     </ds-browse-by>
-    <ds-loading *ngIf="!startsWithOptions" message="{{'loading.browse-by-page' | translate}}"></ds-loading>
+    <ds-themed-loading *ngIf="!startsWithOptions" message="{{'loading.browse-by-page' | translate}}"></ds-themed-loading>
   </div>
   </section>
   <ng-container *ngVar="(parent$ | async) as parent">
