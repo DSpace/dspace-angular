@@ -6,8 +6,7 @@
 <ng-template style="display:flex;" #withAuthority let-metadata="metadata">
   <a rel="noopener noreferrer"
      [routerLink]="['/items/' + metadata.authority]">
-     <span>{{metadata.value}}</span>
-     <i class="{{metadata.icon}}"></i>
+     <span>{{metadata.value}}</span>&nbsp;<i class="{{metadata.icon}}"></i>
   </a>
   <img *ngIf="metadata.orcidAuthenticated"
        placement="top"
