@@ -13,7 +13,7 @@ You can find additional information on the DSpace 7 Angular UI on the [wiki](htt
 Quick start
 -----------
 
-**Ensure you're running [Node](https://nodejs.org) `v12.x`, `v14.x` or `v16.x`, [npm](https://www.npmjs.com/) >= `v5.x` and [yarn](https://yarnpkg.com) == `v1.x`**
+**Ensure you're running [Node](https://nodejs.org) `v14.x` or `v16.x`, [npm](https://www.npmjs.com/) >= `v5.x` and [yarn](https://yarnpkg.com) == `v1.x`**
 
 ```bash
 # clone the repo
@@ -68,7 +68,7 @@ Requirements
 ------------
 
 -	[Node.js](https://nodejs.org) and [yarn](https://yarnpkg.com)
--	Ensure you're running node `v12.x`, `v14.x` or `v16.x` and yarn == `v1.x`
+-	Ensure you're running node `v14.x` or `v16.x` and yarn == `v1.x`
 
 If you have [`nvm`](https://github.com/creationix/nvm#install-script) or [`nvm-windows`](https://github.com/coreybutler/nvm-windows) installed, which is highly recommended, you can run `nvm install --lts && nvm use` to install and start using the latest Node LTS.
 
@@ -308,8 +308,11 @@ All E2E tests must be created under the `./cypress/integration/` folder, and mus
 * In the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner), you'll Cypress automatically visit the page.  This first test will succeed, as all you are doing is making sure the _page exists_.
 * From here, you can use the [Selector Playground](https://docs.cypress.io/guides/core-concepts/test-runner#Selector-Playground) in the Cypress Test Runner window to determine how to tell Cypress to interact with a specific HTML element on that page.
     * Most commands start by telling Cypress to [get()](https://docs.cypress.io/api/commands/get) a specific element, using a CSS or jQuery style selector
+      * It's generally best not to rely on attributes like `class` and `id` in tests, as those are likely to change later on. Instead, you can add a `data-test` attribute to makes it clear that it's required for a test. 
     * Cypress can then do actions like [click()](https://docs.cypress.io/api/commands/click) an element, or [type()](https://docs.cypress.io/api/commands/type) text in an input field, etc.
-	* Cypress can also validate that something occurs, using [should()](https://docs.cypress.io/api/commands/should) assertions.
+      * When running with server-side rendering enabled, the client first receives HTML without the JS; only once the page is rendered client-side do some elements (e.g. a button that toggles a Bootstrap dropdown) become fully interactive. This can trip up Cypress in some cases as it may try to `click` or `type` in an element that's not fully loaded yet, causing tests to fail. 
+      * To work around this issue, define the attributes you use for Cypress selectors as `[attr.data-test]="'button' | ngBrowserOnly"`. This will only show the attribute in CSR HTML, forcing Cypress to wait until CSR is complete before interacting with the element.
+    * Cypress can also validate that something occurs, using [should()](https://docs.cypress.io/api/commands/should) assertions.
 * Any time you save your test file, the Cypress Test Runner will reload & rerun it. This allows you can see your results quickly as you write the tests & correct any broken tests rapidly.
 * Cypress also has a great guide on [writing your first test](https://on.cypress.io/writing-first-test) with much more info. Keep in mind, while the examples in the Cypress docs often involve Javascript files (.js), the same examples will work in our Typescript (.ts) e2e tests.
 

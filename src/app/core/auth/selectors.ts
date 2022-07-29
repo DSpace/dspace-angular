@@ -8,7 +8,7 @@ import { createSelector } from '@ngrx/store';
  */
 import { AuthState } from './auth.reducer';
 import { AppState } from '../../app.reducer';
-import { CoreState } from '../core.reducers';
+import { CoreState } from '../core-state.model';
 import { coreSelector } from '../core.selectors';
 
 /**

@@ -2,7 +2,6 @@ import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
 import { link, typedObject } from '../../cache/builders/build-decorators';
 
-import { CacheableObject } from '../../cache/object-cache.reducer';
 import { RemoteData } from '../../data/remote-data';
 import { EPerson } from '../../eperson/models/eperson.model';
 import { EPERSON } from '../../eperson/models/eperson.resource-type';
@@ -14,6 +13,7 @@ import { TASK_OBJECT } from './task-object.resource-type';
 import { WORKFLOWITEM } from '../../eperson/models/workflowitem.resource-type';
 import { WORKFLOW_ACTION } from './workflow-action-object.resource-type';
 import { WorkflowAction } from './workflow-action-object.model';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 
 /**
  * An abstract model class for a TaskObject.

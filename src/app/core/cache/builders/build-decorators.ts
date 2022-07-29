@@ -3,8 +3,12 @@ import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
-import { CacheableObject, getResourceTypeValueFor, TypedObject } from '../object-cache.reducer';
+import {
+  getResourceTypeValueFor
+} from '../object-cache.reducer';
 import { InjectionToken } from '@angular/core';
+import { CacheableObject } from '../cacheable-object.model';
+import { TypedObject } from '../typed-object.model';
 
 export const DATA_SERVICE_FACTORY = new InjectionToken<(resourceType: ResourceType) => GenericConstructor<any>>('getDataServiceFor', {
   providedIn: 'root',

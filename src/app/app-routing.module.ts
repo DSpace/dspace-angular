@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, NoPreloading } from '@angular/router';
 import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
-import { SiteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import {
+  SiteAdministratorGuard
+} from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
   BITSTREAM_MODULE_PATH,
+  ERROR_PAGE,
   BULK_IMPORT_PATH,
   EDIT_ITEM_PATH,
   FORBIDDEN_PATH,
   FORGOT_PASSWORD_PATH,
+  HEALTH_PAGE_PATH,
   INFO_MODULE_PATH,
   INTERNAL_SERVER_ERROR,
   LEGACY_BITSTREAM_MODULE_PATH,
@@ -29,9 +33,15 @@ import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
-import { GroupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
+import {
+  GroupAdministratorGuard
+} from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import {
+  ThemedPageInternalServerErrorComponent
+} from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
+import { MenuResolver } from './menu.resolver';
+import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 import { StatisticsAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
 
@@ -39,10 +49,12 @@ import { StatisticsAdministratorGuard } from './core/data/feature-authorization/
   imports: [
     RouterModule.forRoot([
       { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
+      { path: ERROR_PAGE , component: ThemedPageErrorComponent },
       {
         path: '',
         canActivate: [AuthBlockingGuard],
         canActivateChild: [ServerCheckGuard],
+        resolve: [MenuResolver],
         children: [
           { path: '', redirectTo: '/home', pathMatch: 'full' },
           {
@@ -240,6 +252,11 @@ import { StatisticsAdministratorGuard } from './core/data/feature-authorization/
               .then((m) => m.StatisticsPageRoutingModule),
           },
           {
+            path: HEALTH_PAGE_PATH,
+            loadChildren: () => import('./health-page/health-page.module')
+              .then((m) => m.HealthPageModule)
+          },
+          {
             path: ACCESS_CONTROL_MODULE_PATH,
             loadChildren: () => import('./access-control/access-control.module').then((m) => m.AccessControlModule),
             canActivate: [GroupAdministratorGuard],
@@ -269,6 +286,12 @@ import { StatisticsAdministratorGuard } from './core/data/feature-authorization/
         ]
       }
     ], {
+      // enableTracing: true,
+      useHash: false,
+      scrollPositionRestoration: 'enabled',
+      anchorScrolling: 'enabled',
+      initialNavigation: 'enabledBlocking',
+      preloadingStrategy: NoPreloading,
       onSameUrlNavigation: 'reload',
 })
   ],

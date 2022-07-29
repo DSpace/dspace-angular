@@ -20,8 +20,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
 import {
   getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getDownloadableBitstream
+  getFirstSucceededRemoteDataPayload
 } from '../shared/operators';
 import { RootDataService } from '../data/root-data.service';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
@@ -35,8 +34,9 @@ import { MetaTagState } from './meta-tag.reducer';
 import { createSelector, select, Store } from '@ngrx/store';
 import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
 import { coreSelector } from '../core.selectors';
-import { CoreState } from '../core.reducers';
+import { CoreState } from '../core-state.model';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { getDownloadableBitstream } from '../shared/bitstream.operators';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -109,6 +109,11 @@ export class MetadataService {
   private processRouteChange(routeInfo: any): void {
     this.clearMetaTags();
 
+    if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
+      this.currentObject.next(routeInfo.data.value.dso.payload);
+      this.setDSOMetaTags();
+    }
+
     if (routeInfo.data.value.title) {
       const titlePrefix = this.translate.get('repository.title.prefix');
       const title = this.translate.get(routeInfo.data.value.title, routeInfo.data.value);
@@ -121,11 +126,6 @@ export class MetadataService {
       this.translate.get(routeInfo.data.value.description).pipe(take(1)).subscribe((translatedDescription: string) => {
         this.addMetaTag('description', translatedDescription);
       });
-    }
-
-    if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
-      this.currentObject.next(routeInfo.data.value.dso.payload);
-      this.setDSOMetaTags();
     }
   }
 

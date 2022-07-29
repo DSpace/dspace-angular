@@ -42,6 +42,7 @@ xdescribe('New Submission page', () => {
         cy.get('button#deposit').click();
 
         // A warning alert should display.
+        cy.get('ds-notification div.alert-success').should('not.exist');
         cy.get('ds-notification div.alert-warning').should('be.visible');
 
         // First section should have an exclamation error in the header

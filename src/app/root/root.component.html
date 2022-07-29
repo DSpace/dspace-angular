@@ -1,4 +1,4 @@
-<div class="outer-wrapper" *ngIf="!shouldShowFullscreenLoader; else fullScreenLoader">
+<div class="outer-wrapper" [class.d-none]="shouldShowFullscreenLoader">
   <ds-themed-admin-sidebar></ds-themed-admin-sidebar>
   <div class="inner-wrapper" [@slideSidebarPadding]="{
      value: (!(sidebarVisible | async) ? 'hidden' : (slideSidebarOver | async) ? 'shown' : 'expanded'),
@@ -22,8 +22,7 @@
 
 <ds-notifications-board [options]="notificationOptions">
 </ds-notifications-board>
-<ng-template #fullScreenLoader>
-  <div class="ds-full-screen-loader">
-    <ds-loading [showMessage]="false"></ds-loading>
-  </div>
-</ng-template>
+
+<div class="ds-full-screen-loader" *ngIf="shouldShowFullscreenLoader">
+  <ds-loading [showMessage]="false"></ds-loading>
+</div>

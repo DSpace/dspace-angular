@@ -1,5 +1,6 @@
 import { FieldParser } from './field-parser';
 import {
+  DynamicDsDateControlModelConfig,
   DynamicDsDatePickerModel,
   DynamicDsDatePickerModelConfig
 } from '../ds-dynamic-form-ui/models/date-picker/date-picker.model';

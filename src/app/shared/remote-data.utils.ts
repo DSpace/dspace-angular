@@ -64,7 +64,7 @@ export function createFailedRemoteDataObject<T>(errorMessage?: string, statusCod
  * @param errors the list of pathable errors
  */
 export function createFailedRemoteDataObject$<T>(errorMessage?: string, statusCode?: number, timeCompleted?: number, errors?: PathableObjectError[]): Observable<RemoteData<T>> {
-  return observableOf(createFailedRemoteDataObject(errorMessage, statusCode, timeCompleted, errors));
+  return observableOf(createFailedRemoteDataObject<T>(errorMessage, statusCode, timeCompleted, errors));
 }
 
 /**
@@ -88,7 +88,7 @@ export function createPendingRemoteDataObject<T>(lastVerified = FIXED_TIMESTAMP)
  * @param lastVerified the moment when the remoteData was last verified
  */
 export function createPendingRemoteDataObject$<T>(lastVerified?: number): Observable<RemoteData<T>> {
-  return observableOf(createPendingRemoteDataObject(lastVerified));
+  return observableOf(createPendingRemoteDataObject<T>(lastVerified));
 }
 
 /**

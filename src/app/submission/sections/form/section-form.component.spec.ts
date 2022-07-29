@@ -33,7 +33,6 @@ import { FormFieldModel } from '../../../shared/form/builder/models/form-field.m
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { DynamicRowGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { SubmissionSectionError } from '../../objects/submission-objects.reducer';
 import { DynamicFormControlEvent, DynamicFormControlEventType } from '@ng-dynamic-forms/core';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
@@ -44,6 +43,7 @@ import { RequestService } from '../../../core/data/request.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { cold } from 'jasmine-marbles';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import {
   SubmissionVisibilityType,
   SubmissionVisibilityValue

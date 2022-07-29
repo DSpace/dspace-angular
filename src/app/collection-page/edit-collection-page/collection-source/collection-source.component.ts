@@ -24,7 +24,6 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
 import { first, map, switchMap, take, tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { cloneDeep } from 'lodash';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../../../core/shared/operators';
@@ -32,6 +31,8 @@ import { MetadataConfig } from '../../../core/shared/metadata-config.model';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import { RequestService } from '../../../core/data/request.service';
 import { environment } from '../../../../environments/environment';
+import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
 import { Operation } from 'fast-json-patch';
 
 /**

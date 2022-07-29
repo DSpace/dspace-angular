@@ -26,6 +26,11 @@ export class MetadataImportPageComponent {
    */
   fileObject: File;
 
+  /**
+   * The validate only flag
+   */
+  validateOnly = true;
+
   public constructor(private location: Location,
                      protected translate: TranslateService,
                      protected notificationsService: NotificationsService,
@@ -58,6 +63,9 @@ export class MetadataImportPageComponent {
       const parameterValues: ProcessParameter[] = [
         Object.assign(new ProcessParameter(), { name: '-f', value: this.fileObject.name }),
       ];
+      if (this.validateOnly) {
+        parameterValues.push(Object.assign(new ProcessParameter(), { name: '-v', value: true }));
+      }
 
       this.scriptDataService.invoke(METADATA_IMPORT_SCRIPT_NAME, parameterValues, [this.fileObject]).pipe(
         getFirstCompletedRemoteData(),

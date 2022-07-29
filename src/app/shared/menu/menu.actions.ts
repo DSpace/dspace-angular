@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
-import { MenuID } from './initial-menus-state';
 import { type } from '../ngrx/type';
-import { MenuSection } from './menu.reducer';
+import { MenuSection } from './menu-section.model';
+import { MenuID } from './menu-id.model';
 
 /**
  * For each action type in an action group, make a simple

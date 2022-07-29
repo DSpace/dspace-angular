@@ -12,7 +12,7 @@ import {
   isSuccessStale,
   PathableObjectError,
   RequestEntryState
-} from './request.reducer';
+} from './request-entry-state.model';
 
 /**
  * A class to represent the state of a remote resource

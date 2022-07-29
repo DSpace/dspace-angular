@@ -1,12 +1,9 @@
 import { ItemTemplateDataService } from './item-template-data.service';
-import { RestRequest } from './request.models';
-import { RequestEntry } from './request.reducer';
 import { RestResponse } from '../cache/response.models';
 import { RequestService } from './request.service';
 import { Observable, of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { BrowseService } from '../browse/browse.service';
 import { cold } from 'jasmine-marbles';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -15,6 +12,9 @@ import { HttpClient } from '@angular/common/http';
 import { CollectionDataService } from './collection-data.service';
 import { RestRequestMethod } from './rest-request-method';
 import { Item } from '../shared/item.model';
+import { RestRequest } from './rest-request.model';
+import { CoreState } from '../core-state.model';
+import { RequestEntry } from './request-entry.model';
 
 describe('ItemTemplateDataService', () => {
   let service: ItemTemplateDataService;

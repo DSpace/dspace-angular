@@ -5,7 +5,6 @@ import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-bu
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
@@ -13,6 +12,7 @@ import { BrowseService } from './browse.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList, getFirstUsedArgumentOfSpyMethod } from '../../shared/testing/utils.test';
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
+import { RequestEntry } from '../data/request-entry.model';
 
 describe('BrowseService', () => {
   let scheduler: TestScheduler;
