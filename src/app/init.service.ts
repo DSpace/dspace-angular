@@ -5,10 +5,10 @@
  *
  * http://www.dspace.org/license/
  */
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
-import { APP_INITIALIZER, Inject, Optional, Provider, Type } from '@angular/core';
+import { APP_INITIALIZER, Inject, Provider, Type } from '@angular/core';
 import { makeStateKey, TransferState } from '@angular/platform-browser';
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 import { environment } from '../environments/environment';

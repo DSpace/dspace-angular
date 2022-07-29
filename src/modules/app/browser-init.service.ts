@@ -21,7 +21,6 @@ import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-prov
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { MetadataService } from '../../app/core/metadata/metadata.service';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { CSSVariableService } from '../../app/shared/sass-helper/sass-helper.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
