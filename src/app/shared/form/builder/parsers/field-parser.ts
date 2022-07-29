@@ -1,7 +1,7 @@
 import {Inject, InjectionToken} from '@angular/core';
 
 import { uniqueId } from 'lodash';
-import {DynamicFormControlLayout, DynamicFormControlRelation, MATCH_VISIBLE, OR_OPERATOR} from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout, DynamicFormControlRelation, MATCH_VISIBLE, OR_OPERATOR } from '@ng-dynamic-forms/core';
 
 import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';

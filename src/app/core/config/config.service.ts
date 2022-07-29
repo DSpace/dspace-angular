@@ -15,7 +15,7 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { map } from 'rxjs/operators';
 import { CoreState } from '../core-state.model';
-import { FindListOptions } from '../data/request.models';
+import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
 
 class DataServiceImpl extends DataService<ConfigObject> {

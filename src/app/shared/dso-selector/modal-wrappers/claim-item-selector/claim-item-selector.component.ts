@@ -41,7 +41,7 @@ export class ClaimItemSelectorComponent extends DSOSelectorModalWrapperComponent
   }
 
   ngOnInit(): void {
-    this.profileClaimService.search(this.dso as EPerson).subscribe(
+    this.profileClaimService.searchForSuggestions(this.dso as EPerson).subscribe(
       (result) => this.listEntries$.next(result)
     );
   }

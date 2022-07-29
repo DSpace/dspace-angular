@@ -6,12 +6,7 @@ import {
   DynamicFormControlRelation,
   serializable
 } from '@ng-dynamic-forms/core';
-import {BehaviorSubject, Subject} from 'rxjs';
-import {isEmpty, isNotUndefined} from '../../../../../empty.util';
-import {MetadataValue} from '../../../../../../core/shared/metadata.models';
-
 import { BehaviorSubject, Subject } from 'rxjs';
-
 import { isEmpty, isNotEmpty, isNotUndefined } from '../../../../../empty.util';
 import { MetadataValue } from '../../../../../../core/shared/metadata.models';
 

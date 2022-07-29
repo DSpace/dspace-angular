@@ -9,7 +9,7 @@ import { BitstreamDataService } from '../../../../../../../core/data/bitstream-d
 import { RemoteData } from '../../../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
-import { FindListOptions } from '../../../../../../../core/data/request.models';
+import { FindListOptions } from '../../../../../../../core/data/find-list-options.model';
 import { FollowLinkConfig } from '../../../../../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';

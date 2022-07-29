@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { combineLatest as observableCombineLatest, combineLatest, Observable } from 'rxjs';
+import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { MenuID } from './shared/menu/menu-id.model';
 import { MenuState } from './shared/menu/menu-state.model';
 import { MenuItemType } from './shared/menu/menu-item-type.model';
@@ -12,7 +12,7 @@ import { RemoteData } from './core/data/remote-data';
 import { TextMenuItemModel } from './shared/menu/menu-item/models/text.model';
 import { BrowseService } from './core/browse/browse.service';
 import { MenuService } from './shared/menu/menu.service';
-import { filter, find, map, take } from 'rxjs/operators';
+import { filter, find, map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from './shared/empty.util';
 import { FeatureID } from './core/data/feature-authorization/feature-id';
 import {
@@ -44,6 +44,7 @@ import {
   METADATA_IMPORT_SCRIPT_NAME,
   ScriptDataService
 } from './core/data/processes/script-data.service';
+import { environment } from '../environments/environment';
 
 /**
  * Creates all of the app's menus
@@ -52,7 +53,11 @@ import {
   providedIn: 'root'
 })
 export class MenuResolver implements Resolve<boolean> {
+
+  private activatedRouteLastChild: ActivatedRoute;
+
   constructor(
+    protected route: ActivatedRoute,
     protected menuService: MenuService,
     protected browseService: BrowseService,
     protected authorizationService: AuthorizationDataService,
@@ -65,7 +70,7 @@ export class MenuResolver implements Resolve<boolean> {
    * Initialize all menus
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return combineLatest([
+    return observableCombineLatest([
       this.createPublicMenu$(),
       this.createAdminMenu$(),
     ]).pipe(
@@ -89,20 +94,25 @@ export class MenuResolver implements Resolve<boolean> {
    * Initialize all menu sections and items for {@link MenuID.PUBLIC}
    */
   createPublicMenu$(): Observable<boolean> {
-    const menuList: any[] = [
-      /* Communities & Collections tree */
-      {
-        id: `browse_global_communities_and_collections`,
-        active: false,
-        visible: true,
-        index: 0,
-        model: {
-          type: MenuItemType.LINK,
-          text: `menu.section.browse_global_communities_and_collections`,
-          link: `/community-list`
-        } as LinkMenuItemModel
-      }
-    ];
+    const menuList: any[] = [];
+
+    /* Communities & Collections tree */
+    const CommunityCollectionMenuItem = {
+      id: `browse_global_communities_and_collections`,
+      active: false,
+      visible: environment.layout.navbar.showCommunityCollection,
+      index: 0,
+      model: {
+        type: MenuItemType.LINK,
+        text: `menu.section.communities_and_collections`,
+        link: `/community-list`
+      } as LinkMenuItemModel
+    };
+
+    if (environment.layout.navbar.showCommunityCollection) {
+      menuList.push(CommunityCollectionMenuItem);
+    }
+
     // Read the different Browse-By types from config and add them to the browse menu
     this.browseService.getBrowseDefinitions()
       .pipe(getFirstCompletedRemoteData<PaginatedList<BrowseDefinition>>())
@@ -140,9 +150,79 @@ export class MenuResolver implements Resolve<boolean> {
         })));
       });
 
+    this.createStatisticsMenu();
     return this.waitForMenu$(MenuID.PUBLIC);
   }
 
+  createStatisticsMenu() {
+    this.activatedRouteLastChild = this.getActivatedRoute(this.route);
+    observableCombineLatest([
+      this.getAuthorizedUsageStatistics(),
+      this.getAuthorizedLoginStatistics(),
+      this.getAuthorizedWorkflowStatistics()
+    ]).pipe(take(1)).subscribe(([canViewUsage, canViewLogin, canViewWorkflow]) => {
+      const menuList = [];
+      if (canViewUsage || canViewLogin || canViewWorkflow) {
+        menuList.push(
+          {
+            id: 'statistics',
+            active: false,
+            visible: true,
+            index: 1,
+            model: {
+              type: MenuItemType.TEXT,
+              text: 'menu.section.statistics'
+            } as TextMenuItemModel,
+          }
+        );
+
+        if (canViewUsage) {
+          menuList.push({
+            id: 'statistics_site',
+            parentID: 'statistics',
+            active: false,
+            visible: true,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.statistics.site',
+              link: '/statistics'
+            } as LinkMenuItemModel
+          });
+        }
+
+        if (canViewLogin) {
+          menuList.push({
+            id: 'statistics_login',
+            parentID: 'statistics',
+            active: false,
+            visible: true,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.statistics.login',
+              link: '/statistics/login'
+            } as LinkMenuItemModel
+          });
+        }
+
+        if (canViewWorkflow) {
+          menuList.push({
+            id: 'statistics_workflow',
+            parentID: 'statistics',
+            active: false,
+            visible: true,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.statistics.workflow',
+              link: '/statistics/workflow'
+            } as LinkMenuItemModel
+          });
+        }
+      }
+      menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
+        shouldPersistOnRouteChange: true
+      })));
+    });
+  }
   /**
    * Initialize all menu sections and items for {@link MenuID.ADMIN}
    */
@@ -161,7 +241,7 @@ export class MenuResolver implements Resolve<boolean> {
    * edit_community / edit_collection is only included if the current user is a Community or Collection admin
    */
   createMainMenuSections() {
-    combineLatest([
+    observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
       this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf)
@@ -651,5 +731,66 @@ export class MenuResolver implements Resolve<boolean> {
         shouldPersistOnRouteChange: true,
       })));
     });
+  }
+
+  /**
+   *  Get activated route of the deepest activated route
+   */
+  getActivatedRoute(route) {
+    if (route.children.length > 0) {
+      return this.getActivatedRoute(route.firstChild);
+    } else {
+      return route;
+    }
+  }
+
+  /**
+   *  Checking authorization for Usage
+   */
+  getAuthorizedUsageStatistics() {
+    return this.activatedRouteLastChild.data.pipe(
+      switchMap((data) => {
+        return this.authorizationService.isAuthorized(FeatureID.CanViewUsageStatistics, this.getObjectUrl(data)).pipe(
+          map((canViewUsageStatistics: boolean) => {
+            return canViewUsageStatistics;
+          }));
+      })
+    );
+  }
+
+  /**
+   *  Checking authorization for Login
+   */
+  getAuthorizedLoginStatistics() {
+    return this.activatedRouteLastChild.data.pipe(
+      switchMap((data) => {
+        return this.authorizationService.isAuthorized(FeatureID.CanViewLoginStatistics, this.getObjectUrl(data)).pipe(
+          map((canViewLoginStatistics: boolean) => {
+            return canViewLoginStatistics;
+          }));
+      })
+    );
+  }
+
+  /**
+   *  Checking authorization for Workflow
+   */
+  getAuthorizedWorkflowStatistics() {
+    return this.activatedRouteLastChild.data.pipe(
+      switchMap((data) => {
+        return this.authorizationService.isAuthorized(FeatureID.CanViewWorkflowStatistics, this.getObjectUrl(data)).pipe(
+          map((canViewWorkflowStatistics: boolean) => {
+            return canViewWorkflowStatistics;
+          }));
+      })
+    );
+  }
+
+  /**
+   *  Get statistics route dso data
+   */
+  getObjectUrl(data) {
+    const object = data.site ? data.site : data.dso?.payload;
+    return object?._links?.self?.href;
   }
 }
