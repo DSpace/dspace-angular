@@ -8,9 +8,6 @@ const zlib = require('zlib');
 
 module.exports = Object.assign({}, commonExports, {
   target: 'web',
-  node: {
-    module: 'empty'
-  },
   plugins: [
     ...commonExports.plugins,
     new CompressionPlugin({
@@ -34,8 +31,9 @@ module.exports = Object.assign({}, commonExports, {
     }),
   ],
   devServer: {
-    before(app, server) {
+    setupMiddlewares(middlewares, server) {
       buildAppConfig(join(process.cwd(), 'src/assets/config.json'));
+      return middlewares;
     }
   }
 });

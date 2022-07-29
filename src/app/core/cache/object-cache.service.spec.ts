@@ -7,7 +7,7 @@ import { Operation } from 'fast-json-patch';
 import { empty, of as observableOf } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { coreReducers, CoreState } from '../core.reducers';
+import { coreReducers} from '../core.reducers';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { Item } from '../shared/item.model';
 import {
@@ -20,10 +20,11 @@ import { Patch } from './object-cache.reducer';
 import { ObjectCacheService } from './object-cache.service';
 import { AddToSSBAction } from './server-sync-buffer.actions';
 import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
-import { IndexName } from '../index/index.reducer';
 import { HALLink } from '../shared/hal-link.model';
 import { storeModuleConfig } from '../../app.reducer';
 import { TestColdObservable } from 'jasmine-marbles/src/test-observables';
+import { IndexName } from '../index/index-name.model';
+import { CoreState } from '../core-state.model';
 
 describe('ObjectCacheService', () => {
   let service: ObjectCacheService;
@@ -210,25 +211,69 @@ describe('ObjectCacheService', () => {
     });
   });
 
-  describe('has', () => {
+  describe('hasByHref', () => {
+    describe('with requestUUID not specified', () => {
+      describe('getByHref emits an object', () => {
+        beforeEach(() => {
+          spyOn(service, 'getByHref').and.returnValue(observableOf(cacheEntry));
+        });
 
-    describe('getByHref emits an object', () => {
-      beforeEach(() => {
-        spyOn(service, 'getByHref').and.returnValue(observableOf(cacheEntry));
+        it('should return true', () => {
+          expect(service.hasByHref(selfLink)).toBe(true);
+        });
       });
 
-      it('should return true', () => {
-        expect(service.hasByHref(selfLink)).toBe(true);
+      describe('getByHref emits nothing', () => {
+        beforeEach(() => {
+          spyOn(service, 'getByHref').and.returnValue(empty());
+        });
+
+        it('should return false', () => {
+          expect(service.hasByHref(selfLink)).toBe(false);
+        });
       });
     });
 
-    describe('getByHref emits nothing', () => {
-      beforeEach(() => {
-        spyOn(service, 'getByHref').and.returnValue(empty());
+    describe('with requestUUID specified', () => {
+      describe('getByHref emits an object that includes the specified requestUUID', () => {
+        beforeEach(() => {
+          spyOn(service, 'getByHref').and.returnValue(observableOf(Object.assign(cacheEntry, {
+            requestUUIDs: [
+              'something',
+              'something-else',
+              'specific-request',
+            ]
+          })));
+        });
+
+        it('should return true', () => {
+          expect(service.hasByHref(selfLink, 'specific-request')).toBe(true);
+        });
       });
 
-      it('should return false', () => {
-        expect(service.hasByHref(selfLink)).toBe(false);
+      describe('getByHref emits an object that doesn\'t include the specified requestUUID', () => {
+        beforeEach(() => {
+          spyOn(service, 'getByHref').and.returnValue(observableOf(Object.assign(cacheEntry, {
+            requestUUIDs: [
+              'something',
+              'something-else',
+            ]
+          })));
+        });
+
+        it('should return true', () => {
+          expect(service.hasByHref(selfLink, 'specific-request')).toBe(false);
+        });
+      });
+
+      describe('getByHref emits nothing', () => {
+        beforeEach(() => {
+          spyOn(service, 'getByHref').and.returnValue(empty());
+        });
+
+        it('should return false', () => {
+          expect(service.hasByHref(selfLink, 'specific-request')).toBe(false);
+        });
       });
     });
   });

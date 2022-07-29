@@ -2,9 +2,9 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { returnForbiddenUrlTreeOrLoginOnAllFalse } from '../../../shared/operators';
 import { switchMap } from 'rxjs/operators';
 import { AuthService } from '../../../auth/auth.service';
+import { returnForbiddenUrlTreeOrLoginOnAllFalse } from '../../../shared/authorized.operators';
 
 /**
  * Abstract Guard for preventing unauthorized activating and loading of routes when a user

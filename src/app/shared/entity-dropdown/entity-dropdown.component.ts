@@ -13,11 +13,11 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { hasValue } from '../empty.util';
 import { reduce, startWith, switchMap } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
-import { FindListOptions } from '../../core/data/request.models';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { EntityTypeService } from '../../core/data/entity-type.service';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { getFirstSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 
 @Component({
   selector: 'ds-entity-dropdown',

@@ -13,7 +13,6 @@ import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { Collection } from '../shared/collection.model';
@@ -27,9 +26,15 @@ import { CommunityDataService } from './community-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { ContentSourceRequest, FindListOptions, RestRequest, UpdateContentSourceRequest } from './request.models';
+import {
+  ContentSourceRequest,
+  UpdateContentSourceRequest
+} from './request.models';
 import { RequestService } from './request.service';
 import { BitstreamDataService } from './bitstream-data.service';
+import { RestRequest } from './rest-request.model';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 @Injectable()
 @dataService(COLLECTION)
@@ -282,4 +287,12 @@ export class CollectionDataService extends ComColDataService<Collection> {
     return this.findAllByHref(item._links.mappedCollections.href, findListOptions);
   }
 
+
+  protected getScopeCommunityHref(options: FindListOptions) {
+    return this.cds.getEndpoint().pipe(
+      map((endpoint: string) => this.cds.getIDHref(endpoint, options.scopeID)),
+      filter((href: string) => isNotEmpty(href)),
+      take(1)
+    );
+  }
 }

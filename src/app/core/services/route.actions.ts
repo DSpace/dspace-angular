@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 import { type } from '../../shared/ngrx/type';
 import { Params } from '@angular/router';
@@ -15,7 +16,6 @@ export const RouteActionTypes = {
   RESET: type('dspace/core/route/RESET'),
 };
 
-/* tslint:disable:max-classes-per-file */
 /**
  * An ngrx action to set the query parameters
  */
@@ -151,7 +151,6 @@ export class ResetRouteStateAction implements Action {
   type = RouteActionTypes.RESET;
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * A type to encompass all RouteActions
