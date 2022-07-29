@@ -47,7 +47,6 @@ export class BrowserInitService extends InitService {
     protected googleAnalyticsService: GoogleAnalyticsService,
     protected metadata: MetadataService,
     protected breadcrumbsService: BreadcrumbsService,
-    protected cssService: CSSVariableService,
     protected klaroService: KlaroService,
     protected authService: AuthService,
     protected themeService: ThemeService,
