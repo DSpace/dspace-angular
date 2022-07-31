@@ -19,6 +19,7 @@
               <span *ngIf="item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length === 0">{{'mydspace.results.no-authors' | translate}}</span>
               <span *ngFor="let author of item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
                 <span [innerHTML]="author"><span [innerHTML]="author"></span></span>
+                <span *ngIf="!last">; </span>
               </span>
           </span>
 
