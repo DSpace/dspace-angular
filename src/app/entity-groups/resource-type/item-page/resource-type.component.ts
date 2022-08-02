@@ -7,7 +7,7 @@ import { Context } from 'src/app/core/shared/context.model';
 /**
  * Component that represents a resource type Item page
  */
-@listableObjectComponent('ResourceType', ViewMode.StandalonePage, Context.Any, 'ul')
+@listableObjectComponent('ResourceType', ViewMode.StandalonePage)
 @Component({
   selector: 'ds-resource-type',
   styleUrls: ['./resource-type.component.scss'],
