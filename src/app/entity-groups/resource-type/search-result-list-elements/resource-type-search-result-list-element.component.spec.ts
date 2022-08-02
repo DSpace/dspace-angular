@@ -16,7 +16,7 @@ let resourceTypeSearchResultListElementComponent: ResourceTypeSearchResultListEl
 let fixture: ComponentFixture<ResourceTypeSearchResultListElementComponent>;
 
 const englishLabel = 'doctoral thesis';
-const frenchLabel = 'doctoral thesis';
+const frenchLabel = 'thèse de doctorat';
 const spanishLabel = 'tesis doctoral';
 const englishDefinition = 'A thesis reporting the research undertaken during a period of graduate study leading to a doctoral degree.';
 
