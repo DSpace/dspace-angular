@@ -53,7 +53,7 @@ const mockItem: ItemSearchResult = Object.assign(
       }
     })
   });
-  
+
 describe('ResourceTypeSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

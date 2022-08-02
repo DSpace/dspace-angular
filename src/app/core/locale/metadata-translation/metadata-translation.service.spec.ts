@@ -50,21 +50,21 @@ describe('MetadataTranslationService', () => {
 
     describe('currentLanguageValue', () => {
         it('should return metadata value for the current language code', () => {
-            let value = testedService.currentLanguageValue(dso, dcKey)
+            let value = testedService.currentLanguageValue(dso, dcKey);
             expect(value).toEqual(frenchTitle);
         });
     });
 
     describe('defaultLanguageValue', () => {
         it('should return metadata value for the default language code', () => {
-            let value = testedService.defaultLanguageValue(dso, dcKey)
+            let value = testedService.defaultLanguageValue(dso, dcKey);
             expect(value).toEqual(englishTitle);
         });
     });
 
     describe('emptyLanguageValue', () => {
         it('should return metadata value without language code', () => {
-            let value = testedService.emptyLanguageValue(dso, dcKey)
+            let value = testedService.emptyLanguageValue(dso, dcKey);
             expect(value).toEqual(emptyLanguageTitle);
         });
     });
@@ -72,20 +72,20 @@ describe('MetadataTranslationService', () => {
     describe('currentLanguageValueOrDefault', () => {
         it('should return english metadata value with english locale', () => {
             testedService = new MetadataTranslationService(localServiceStubEnglish);
-            let value = testedService.currentLanguageValueOrDefault(dso, dcKey)
+            let value = testedService.currentLanguageValueOrDefault(dso, dcKey);
             expect(value).toEqual(englishTitle);
         });
         it('should return french metadata value with french locale', () => {
-            let value = testedService.currentLanguageValueOrDefault(dso, dcKey)
+            let value = testedService.currentLanguageValueOrDefault(dso, dcKey);
             expect(value).toEqual(frenchTitle);
         });
         it('should display default language metadata value if locale is not available', () => {
             testedService = new MetadataTranslationService(localServiceStubGerman);
-            let value = testedService.currentLanguageValueOrDefault(dso, dcKey)
+            let value = testedService.currentLanguageValueOrDefault(dso, dcKey);
             expect(value).toEqual(englishTitle);
         });
         it('should display empty language metadata value if both locale and default language are not availables', () => {
-            let value = testedService.currentLanguageValueOrDefault(dsoNoEnglishNoFrench, dcKey)
+            let value = testedService.currentLanguageValueOrDefault(dsoNoEnglishNoFrench, dcKey);
             expect(value).toEqual(emptyLanguageTitle);
         });
 
