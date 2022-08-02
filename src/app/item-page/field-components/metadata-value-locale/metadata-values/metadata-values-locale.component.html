@@ -1,0 +1,5 @@
+<ds-metadata-field-wrapper [label]="label | translate">
+    <span class="dont-break-out" *ngFor="let mdValue of currentLanguageValueOrDefault(); let last=last;">
+        {{mdValue.value}}<span *ngIf="!last" [innerHTML]="separator"></span>
+    </span>
+</ds-metadata-field-wrapper>

@@ -10,6 +10,7 @@ import { CollectionAdminSearchResultGridElementComponent } from './admin-search-
 import { ItemAdminSearchResultActionsComponent } from './admin-search-results/item-admin-search-result-actions.component';
 import { JournalEntitiesModule } from '../../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../../entity-groups/research-entities/research-entities.module';
+import { ResourceTypeModule } from '../../entity-groups/resource-type/resource-type.module';
 import { SearchModule } from '../../shared/search/search.module';
 
 const ENTRY_COMPONENTS = [
@@ -28,7 +29,8 @@ const ENTRY_COMPONENTS = [
     SearchModule,
     SharedModule.withEntryComponents(),
     JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents()
+    ResearchEntitiesModule.withEntryComponents(),
+    ResourceTypeModule.withEntryComponents()
   ],
   declarations: [
     AdminSearchPageComponent,

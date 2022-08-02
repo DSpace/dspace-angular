@@ -1,0 +1,74 @@
+<div class="d-flex flex-row">
+  <h2 class="item-page-title-field mr-auto">
+    {{'resourcetype.page.titleprefix' | translate}}
+    <ds-metadata-values-locale [mdValues]="object?.allMetadata('resourcetypes.preferredLabels')"></ds-metadata-values-locale>
+  </h2>
+  <div class="pl-2">
+    <ds-dso-page-edit-button [pageRoute]="itemPageRoute" [dso]="object" [tooltipMsg]="'resourcetype.page.edit'"></ds-dso-page-edit-button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12 col-md-12">
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['resourcetypes.name']"
+      [label]="'resourcetypes.page.name'">
+    </ds-generic-item-page-field>
+    <!-- Example of traduced definition -->
+    <ds-item-page-field-locale [item]="object"
+      [fields]="['resourcetypes.definition']"
+      [label]="'resourcetypes.page.definition'">
+    </ds-item-page-field-locale>
+    <ds-item-page-uri-field [item]="object"
+      [fields]="['resourcetypes.uri']"
+      [label]="'resourcetypes.page.uri'">
+    </ds-item-page-uri-field>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['resourcetypes.preferredLabels']"
+      [label]="'resourcetypes.page.preferredLabels'">
+    </ds-generic-item-page-field>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['resourcetypes.alternateLabels']"
+      [label]="'resourcetypes.page.alternateLabels'">
+    </ds-generic-item-page-field>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['resourcetypes.narrowerConcepts']"
+      [label]="'resourcetypes.page.narrowerConcepts'">
+    </ds-generic-item-page-field>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['resourcetypes.broaderConcepts']"
+      [label]="'resourcetypes.page.broaderConcepts'">
+    </ds-generic-item-page-field>
+  </div>
+  <div class="col-xs-12 col-md-12">
+    <!--Unsafe?-->
+    <ds-metadata-field-wrapper [label]="'resourcetypes.page.relatedTerms' | translate">
+      <div class="dont-break-out" *ngFor="let mdValue of object?.allMetadata(['resourcetypes.relatedTerms']); let last=last;">
+        <div [innerHTML]="mdValue.value"></div>
+      </div>
+    </ds-metadata-field-wrapper>
+  </div>
+  <div class="col-xs-12 col-md-12">
+    <div>
+      <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']">
+        {{"item.page.link.full" | translate}}
+      </a>
+    </div>
+  </div>
+  <div class="mt-5 w-100">
+    <ds-tabbed-related-entities-search  [item]="object"
+                                        [relationTypes]="[{
+                                          label: 'isResourceTypeOfPublication',
+                                          filter: 'isResourceTypeOfPublication'
+                                        }]">
+    </ds-tabbed-related-entities-search>
+  </div>
+</div>

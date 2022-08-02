@@ -2302,10 +2302,15 @@
   "info.feedback.error.message.required": "Un contenu est requis",
 
   // "info.feedback.page-label": "Page",
- "info.feedback.page-label": "Page",
+  "info.feedback.page-label": "Page",
  
   // "info.feedback.page_help": "The page related to your feedback",
   "info.feedback.page_help": "La page relative à vos commentaires",
+
+
+  // "isResourceTypedAs": "Is Document Type of", 
+  "isResourceTypedAs": "Documents de ce type", 
+
 
   // "item.alerts.private": "This item is private",
   "item.alerts.private": "Cet Item est privé",
@@ -4320,6 +4325,12 @@
   // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
   "relationships.isFundingAgencyOf.OrgUnit": "Bailleur de fonds",
 
+  // "relationships.isResourceTypeOf": "Document Type",
+  "relationships.isResourceTypeOf": "Type de document",
+
+  // "relationships.isResourceTypedAs": "Publications",
+  "relationships.isResourceTypedAs": "Documents",
+
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Logo du dépôt",
 
@@ -4478,6 +4489,53 @@
 
   // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
   "resource-policies.table.headers.title.for.collection": "Règles de collection",
+
+
+  // "resourcetype.listelement.badge": "Document Type",
+  "resourcetype.listelement.badge": "Type de document",
+
+  // "resourcetype.listelement.no-title": "No document of this type found",
+  "resourcetype.listelement.no-title": "Aucun type de document trouvé",
+  
+  // "resourcetype.page.edit": "Edit this item",
+  "resourcetype.page.edit": "Éditer cet item",
+
+  // "resourcetype.page.link.full": "Show all metadata",
+  "resourcetype.page.link.full": "Afficher toutes les métadonnées",
+  
+  // "resourcetype.page.titleprefix": "Document Type : ",
+  "resourcetype.page.titleprefix": "Type de document : ",
+
+  // "resourcetype.search.results.head": "Document Types search results",
+  "resourcetype.search.results.head": "Résultats de recherche Type de document",
+  
+  // "resourcetype.search.title": "Document Type search",
+  "resourcetype.search.title": "Recherche Type de document",
+
+  // "resourcetypes.page.name": "Name",
+  "resourcetypes.page.name": "Nom",
+
+  // "resourcetypes.page.definition": "Definition",
+  "resourcetypes.page.definition": "Définition",
+
+  // "resourcetypes.page.uri": "URI",
+  "resourcetypes.page.uri": "URI du type de document",
+
+  // "resourcetypes.page.preferredLabels": "Preferred Labels",
+  "resourcetypes.page.preferredLabels": "Terme retenu",
+
+  // "resourcetypes.page.alternateLabels": "Alternate Labels",
+  "resourcetypes.page.alternateLabels": "Terme alternatif",
+
+  // "resourcetypes.page.narrowerConcepts": "Narrower Concepts",
+  "resourcetypes.page.narrowerConcepts": "Terme spécifique",
+
+  // "resourcetypes.page.broaderConcepts": "Broader Concepts",
+  "resourcetypes.page.broaderConcepts": "Terme générique",
+
+  // "resourcetypes.page.relatedTerms": "Related terms",
+  "resourcetypes.page.relatedTerms": "Terme relié",
+
 
   // "search.description": "",
   "search.description": "",
@@ -4781,6 +4839,28 @@
 
   // "search.filters.search.submit": "Submit",
   "search.filters.search.submit": "Soumettre",
+
+
+
+  // "search.filters.filter.resourceType.label": "Document Type",
+  "search.filters.filter.resourceType.label": "Type de document",
+
+  // "search.filters.filter.resourceType.head": "Document Type",
+  "search.filters.filter.resourceType.head": "Type de document",
+
+  // "search.filters.filter.resourceType.placeholder": "Document Type",
+  "search.filters.filter.resourceType.placeholder": "Type de document",
+
+  // "search.filters.filter.resourceTypeName.label": "Document Type",
+  "search.filters.filter.resourceTypeName.label": "Type de document",
+
+  // "search.filters.filter.resourceTypeName.head": "Document Type",
+  "search.filters.filter.resourceTypeName.head": "Type de document",
+
+  // "search.filters.filter.resourceTypeName.placeholder": "Document Type",
+  "search.filters.filter.resourceTypeName.placeholder": "Type de document",
+  
+  
 
   // "search.form.search": "Search",
   "search.form.search": "Recherche",
@@ -5315,6 +5395,10 @@
 
   // "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
   "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Structure organisationnelle mère",
+
+  // "submission.sections.describe.relationship-lookup.title.isResourceTypeOfPublication": "Document Type",
+  "submission.sections.describe.relationship-lookup.title.isResourceTypeOfPublication": "Type de document",
+
 
   // "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Dérouler le menu",

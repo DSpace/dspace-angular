@@ -293,6 +293,8 @@ import { BrowserOnlyPipe } from './utils/browser-only.pipe';
 import { ThemedLoadingComponent } from './loading/themed-loading.component';
 import { PersonPageClaimButtonComponent } from './dso-page/person-page-claim-button/person-page-claim-button.component';
 import { SearchExportCsvComponent } from './search/search-export-csv/search-export-csv.component';
+import { ItemPageUriFieldComponent } from '../item-page/simple/field-components/specific-field/uri/item-page-uri-field.component';
+import { MetadataUriValuesComponent } from '../item-page/field-components/metadata-uri-values/metadata-uri-values.component';
 
 const MODULES = [
   CommonModule,
@@ -538,8 +540,9 @@ const SHARED_ITEM_PAGE_COMPONENTS = [
   GenericItemPageFieldComponent,
   MetadataRepresentationListComponent,
   RelatedItemsComponent,
-  DsoPageOrcidButtonComponent
-
+  DsoPageOrcidButtonComponent,
+  ItemPageUriFieldComponent,
+  MetadataUriValuesComponent
 ];
 
 const PROVIDERS = [
