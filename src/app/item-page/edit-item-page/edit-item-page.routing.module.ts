@@ -41,6 +41,7 @@ import { ItemPageVersionHistoryGuard } from './item-page-version-history.guard';
 import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
 import { ItemUnlinkOrcidComponent } from './item-unlink-orcid/item-unlink-orcid.component';
 import { ItemPageUnlinkOrcidGuard } from './item-page-unlink-orcid.guard';
+import { EditItemResolver } from './../../core/shared/resolvers/edit-item.resolver';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -51,7 +52,8 @@ import { ItemPageUnlinkOrcidGuard } from './item-page-unlink-orcid.guard';
       {
         path: '',
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver
+          breadcrumb: I18nBreadcrumbResolver,
+          dso: EditItemResolver,
         },
         data: { breadcrumbKey: 'item.edit' },
         children: [
@@ -195,6 +197,7 @@ import { ItemPageUnlinkOrcidGuard } from './item-page-unlink-orcid.guard';
     ItemPageVersionHistoryGuard,
     ItemPageCollectionMapperGuard,
     ItemPageUnlinkOrcidGuard,
+    EditItemResolver
   ]
 })
 export class EditItemPageRoutingModule {

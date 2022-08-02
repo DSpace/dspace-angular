@@ -378,9 +378,20 @@ export class ItemDataService extends DataService<Item> {
       const href$ = this.getIDHrefObs(encodeURIComponent(id), ...linksToFollow);
       return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
     } else {
-      return this.findByCustomUrl(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+      return this.findByCustomUrl(id, useCachedVersionIfAvailable, reRequestOnStale, linksToFollow);
     }
   }
+
+
+  findByIdWithProjection(id: string, projections: string[], useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
+
+    if (uuidValidate(id)) {
+      return super.findByIdWithProjection(id, projections, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    } else {
+      return this.findByCustomUrl(id, useCachedVersionIfAvailable, reRequestOnStale, linksToFollow, projections);
+    }
+  }
+
 
   /**
    * Returns an observable of {@link RemoteData} of an object, based on its CustomURL or ID, with a list of
@@ -392,14 +403,19 @@ export class ItemDataService extends DataService<Item> {
    *                                    requested after the response becomes stale
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
    *                                    {@link HALLink}s should be automatically resolved
+   * @param projections                 List of {@link projections} used to pass as parameters
    */
-  private findByCustomUrl(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
+  private findByCustomUrl(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, linksToFollow: FollowLinkConfig<Item>[], projections: string[] = []): Observable<RemoteData<Item>> {
     const searchHref = 'findByCustomURL';
 
     const options = Object.assign({}, {
       searchParams: [
         new RequestParam('q', id),
       ]
+    });
+
+    projections.forEach((projection) => {
+      options.searchParams.push(new RequestParam('projection', projection));
     });
 
     const hrefObs = this.getSearchByHref(searchHref, options, ...linksToFollow);

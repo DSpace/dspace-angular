@@ -11,6 +11,7 @@ import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/cr
 import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
 import { CommunityAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/community-administrator.guard';
+import { EditCommunityResolver } from './../../core/shared/resolvers/edit-community.resolver';
 
 /**
  * Routing module that handles the routing for the Edit Community page administrator functionality
@@ -21,7 +22,8 @@ import { CommunityAdministratorGuard } from '../../core/data/feature-authorizati
       {
         path: '',
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver
+          breadcrumb: I18nBreadcrumbResolver,
+          dso: EditCommunityResolver
         },
         data: { breadcrumbKey: 'community.edit' },
         component: EditCommunityPageComponent,
@@ -89,7 +91,8 @@ import { CommunityAdministratorGuard } from '../../core/data/feature-authorizati
   ],
   providers: [
     ResourcePolicyResolver,
-    ResourcePolicyTargetResolver
+    ResourcePolicyTargetResolver,
+    EditCommunityResolver
   ]
 })
 export class EditCommunityPageRoutingModule {
