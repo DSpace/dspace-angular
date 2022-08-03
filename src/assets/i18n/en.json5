@@ -2656,6 +2656,8 @@
 
   "itemtemplate.edit.metadata.save-button": "Save",
 
+
+
   "journal.listelement.badge": "Journal",
 
   "journal.page.description": "Description",
@@ -2953,6 +2955,17 @@
   "metadata-export-search.submit.success": "The export was started successfully",
 
   "metadata-export-search.submit.error": "Starting the export has failed",
+
+
+  "autocomplete.suggestion.sponsor.funding-code": "Funding code",
+
+  "autocomplete.suggestion.sponsor.project-name": "Project name",
+
+  "autocomplete.suggestion.sponsor.empty": "N/A",
+
+  "autocomplete.suggestion.sponsor.eu": "EU",
+
+
 
   "mydspace.breadcrumbs": "MyDSpace",
 

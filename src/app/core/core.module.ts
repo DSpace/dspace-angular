@@ -57,6 +57,7 @@ import { RelationshipDataService } from './data/relationship-data.service';
 import { ResourcePolicyDataService } from './resource-policy/resource-policy-data.service';
 import { SearchResponseParsingService } from './data/search-response-parsing.service';
 import { SiteDataService } from './data/site-data.service';
+import { MetadataValueDataService } from './data/metadata-value-data.service';
 import { DspaceRestService } from './dspace-rest/dspace-rest.service';
 import { EPersonDataService } from './eperson/eperson-data.service';
 import { EPerson } from './eperson/models/eperson.model';
@@ -211,6 +212,7 @@ const PROVIDERS = [
   CommunityDataService,
   CollectionDataService,
   SiteDataService,
+  MetadataValueDataService,
   DSOResponseParsingService,
   { provide: MOCK_RESPONSE_MAP, useValue: mockResponseMap },
   { provide: DspaceRestService, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient] },

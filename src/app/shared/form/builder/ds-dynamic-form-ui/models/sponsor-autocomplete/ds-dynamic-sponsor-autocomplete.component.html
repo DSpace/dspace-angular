@@ -1,0 +1,29 @@
+<ng-template #rt let-r="result" let-t="term">
+  <ngb-highlight [innerHTML]="suggestionFormatter(r)"></ngb-highlight>
+</ng-template>
+<div *ngIf="model.hasAuthority" class="position-relative right-addon">
+  <label *ngIf="searching" class="fas fa-circle-notch fa-spin fa-2x fa-fw text-primary position-absolute mt-1 p-0" aria-hidden="true"></label>
+  <input class="form-control"
+         type="text"
+         [attr.aria-labelledby]="'label_' + model.id"
+         [(ngModel)]="currentValue"
+         [attr.autoComplete]="model.autoComplete"
+         [class.is-invalid]="showErrorMessages"
+         [id]="id"
+         [name]="model.name"
+         [ngbTypeahead]="search"
+         [inputFormatter]="formatter"
+         [resultTemplate]="rt"
+         [placeholder]="model.placeholder"
+         [readonly]="model.readOnly"
+         [type]="model.inputType"
+         (blur)="onBlur($event)"
+         (focus)="onFocus($event)"
+         (change)="$event.stopPropagation()"
+         (input)="onInput($event)"
+         (selectItem)="onSelectItem($event)"
+         (keypress)="preventEventsPropagation($event)"
+         (keydown)="preventEventsPropagation($event)"
+         (keyup)="onKeyUp($event)"
+         #instance="ngbTypeahead"/>
+</div>

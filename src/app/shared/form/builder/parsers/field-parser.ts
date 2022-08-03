@@ -135,6 +135,15 @@ export abstract class FieldParser {
     }
   }
 
+  public setVocabularyOptionsInComplexInput(controlModel, complexDefinitionInput) {
+    if (isNotEmpty(this.configData.selectableMetadata) && isNotEmpty(complexDefinitionInput['value-pairs-name'])) {
+      controlModel.vocabularyOptions = new VocabularyOptions(
+        complexDefinitionInput['value-pairs-name'],
+        true
+      );
+    }
+  }
+
   public setValues(modelConfig: DsDynamicInputModelConfig, fieldValue: any, forceValueAsObj: boolean = false, groupModel?: boolean) {
     if (isNotEmpty(fieldValue)) {
       if (groupModel) {
