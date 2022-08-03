@@ -6,6 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
+import { LocaleService } from 'src/app/core/locale/locale.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -98,6 +99,10 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
       }
     };
 
+    const localeServiceStub: any = {
+      getCurrentLanguageCode(): string { return 'en'; },
+    };
+
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [
@@ -118,6 +123,7 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
           { provide: NotificationsService, useValue: {} },
           { provide: DefaultChangeAnalyzer, useValue: {} },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+          { provide: LocaleService, useValue: localeServiceStub}
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).overrideComponent(component, {
