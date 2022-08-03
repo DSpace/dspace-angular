@@ -112,6 +112,7 @@
     "nouislider": "^14.6.3",
     "pem": "1.14.4",
     "postcss-cli": "^8.3.0",
+    "preboot": "^8.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.6.3",
     "sortablejs": "1.13.0",

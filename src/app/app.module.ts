@@ -36,6 +36,7 @@ import { EagerThemesModule } from '../themes/eager-themes.module';
 
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 import { RootModule } from './root.module';
+import { PrebootModule } from 'preboot';
 
 export function getConfig() {
   return environment;
@@ -72,6 +73,10 @@ const IMPORTS = [
   StoreRouterConnectingModule.forRoot(),
   EagerThemesModule,
   RootModule,
+  BrowserModule.withServerTransition({ appId: 'dspace-angular' }),
+  PrebootModule.withConfig({
+    appRoot: 'ds-app',
+  })
 ];
 
 IMPORTS.push(
@@ -150,7 +155,6 @@ const EXPORTS = [
 
 @NgModule({
   imports: [
-    BrowserModule.withServerTransition({ appId: 'dspace-angular' }),
     ...IMPORTS
   ],
   providers: [
