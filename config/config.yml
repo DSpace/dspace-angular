@@ -5,5 +5,5 @@ rest:
   nameSpace: /server
 
 info:
-  enableEndUserAgreement: true
-  enablePrivacyStatement: true
+  enableEndUserAgreement: false
+  enablePrivacyStatement: false

@@ -91,6 +91,10 @@ export class BrowserKlaroService extends KlaroService {
         Klaro.setup(this.klaroConfig);
       });
 
+    if (!environment.info.enablePrivacyStatement) {
+      delete this.klaroConfig.privacyPolicy;
+    }
+
   }
 
   /**
