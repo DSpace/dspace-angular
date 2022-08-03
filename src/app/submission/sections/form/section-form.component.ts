@@ -34,6 +34,7 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { environment } from '../../../../environments/environment';
 import { ConfigObject } from '../../../core/config/models/config.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { SPONSOR_METADATA_NAME } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-complex.model';
 
 /**
  * This component represents a section that contains a Form.
@@ -113,6 +114,13 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
   protected subs: Subscription[] = [];
 
   protected workspaceItem: WorkspaceItem;
+
+  /**
+   * The timeout for checking if the sponsor was uploaded in the database
+   * The timeout is set to 20 seconds by default.
+   */
+  public sponsorRefreshTimeout = 20;
+
   /**
    * The FormComponent reference
    */
@@ -369,6 +377,59 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
     if ((environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) || this.hasRelatedCustomError(metadata)) {
       this.submissionService.dispatchSave(this.submissionId);
     }
+
+    if (metadata === SPONSOR_METADATA_NAME) {
+      this.submissionService.dispatchSaveSection(this.submissionId, this.sectionData.id);
+      this.updateItemSponsor(value);
+    }
+  }
+
+  /**
+   * This method updates `local.sponsor` input field and check if the `local.sponsor` was updated in the DB. When
+   * the metadata is updated in the DB refresh this `local.sponsor` input field.
+   * @param newSponsorValue sponsor added to the `local.sponsor` complex input field
+   */
+  private updateItemSponsor(newSponsorValue) {
+    let sponsorFromDB = '';
+    // Counter to count update request timeout (20s)
+    let counter = 0;
+
+    this.isUpdating = true;
+    const interval = setInterval( () => {
+      // Load item from the DB
+      this.submissionObjectService.findById(this.submissionId, true, false, followLink('item')).pipe(
+          getFirstSucceededRemoteData(),
+          getRemoteDataPayload())
+          .subscribe((payload) => {
+            if (isNotEmpty(payload.item)) {
+              payload.item.subscribe( item => {
+                if (isNotEmpty(item.payload) && isNotEmpty(item.payload.metadata['local.sponsor'])) {
+                  sponsorFromDB = item.payload.metadata['local.sponsor'];
+                }
+              });
+            }
+          });
+      // Check if new value is refreshed in the DB
+      if (Array.isArray(sponsorFromDB) && isNotEmpty(sponsorFromDB)) {
+        sponsorFromDB.forEach((mv, index) => {
+          // @ts-ignore
+          if (sponsorFromDB[index].value === newSponsorValue.value) {
+            // update form
+            this.formModel = undefined;
+            this.cdr.detectChanges();
+            this.ngOnInit();
+            clearInterval(interval);
+            this.isUpdating = false;
+          }
+        });
+      }
+      // Clear interval after 20s timeout
+      if (counter === ( this.sponsorRefreshTimeout * 1000 ) / 250) {
+        clearInterval(interval);
+        this.isUpdating = false;
+      }
+      counter++;
+    }, 250 );
   }
 
   private hasRelatedCustomError(medatata): boolean {

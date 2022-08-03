@@ -15,6 +15,7 @@ import { Injectable } from '@angular/core';
 import { ExternalSource } from '../shared/external-source.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { RequestService } from './request.service';
+import { isNotEmpty } from '../../shared/empty.util';
 
 /**
  * A service for retrieving local and external entries information during a relation lookup
@@ -92,6 +93,20 @@ export class LookupRelationService {
       map((results: PaginatedList<ExternalSourceEntry>) => results.totalElements),
       startWith(0),
       distinctUntilChanged()
+    );
+  }
+
+  getExternalResults(externalSource: ExternalSource, searchOptions: PaginatedSearchOptions): Observable<PaginatedList<ExternalSourceEntry>> {
+    const pagination = isNotEmpty(searchOptions.pagination) ? searchOptions.pagination : { pagination: this.singleResultOptions };
+    return this.externalSourceService.getExternalSourceEntries(externalSource.id, Object.assign(new PaginatedSearchOptions({}), searchOptions, pagination)).pipe(
+      getAllSucceededRemoteData(),
+      getRemoteDataPayload(),
+      map((list: PaginatedList<ExternalSourceEntry>) => {
+        list.page.forEach(source => {
+          source.id = atob(source.id);
+        });
+        return list;
+      })
     );
   }
 

@@ -2262,6 +2262,8 @@
 
 
 
+
+
   "journal.listelement.badge": "Journal",
 
   "journal.page.description": "Description",
@@ -2580,6 +2582,17 @@
 
 
   "menu.section.workflow": "Administer Workflow",
+
+
+
+  "autocomplete.suggestion.sponsor.funding-code": "Funding code",
+
+  "autocomplete.suggestion.sponsor.project-name": "Project name",
+
+  "autocomplete.suggestion.sponsor.empty": "N/A",
+
+  "autocomplete.suggestion.sponsor.eu": "EU",
+
 
 
   "mydspace.breadcrumbs": "MyDSpace",
