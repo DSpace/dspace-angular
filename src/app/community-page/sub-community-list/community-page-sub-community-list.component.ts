@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { BehaviorSubject, combineLatest as observableCombineLatest } from 'rxjs';
 
@@ -14,7 +14,7 @@ import { switchMap } from 'rxjs/operators';
 import { PaginationService } from '../../core/pagination/pagination.service';
 
 @Component({
-  selector: ' ',
+  selector: 'ds-community-page-sub-community-list',
   styleUrls: ['./community-page-sub-community-list.component.scss'],
   templateUrl: './community-page-sub-community-list.component.html',
   animations: [fadeIn]
@@ -22,11 +22,11 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 /**
  * Component to render the sub-communities of a Community
  */
-export class CommunityPageSubCommunityListComponent implements OnInit {
+export class CommunityPageSubCommunityListComponent implements OnInit, OnDestroy {
   @Input() community: Community;
 
   /**
-   * Optional page size (defaults to 5)
+   * Optional page size (defaults to 5).
    */
   @Input() pageSize: number;
 

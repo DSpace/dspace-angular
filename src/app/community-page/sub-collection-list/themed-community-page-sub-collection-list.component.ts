@@ -9,13 +9,13 @@ import { Community } from '../../core/shared/community.model';
   templateUrl: '../../shared/theme-support/themed.component.html',
 })
 export class ThemedCollectionPageSubCollectionListComponent extends ThemedComponent<CommunityPageSubCollectionListComponent> {
-  protected getComponentName(): string {
-    return 'CommunityPageSubCollectionListComponent';
-  }
-
   @Input() community: Community;
   @Input() pageSize: number;
   protected inAndOutputNames: (keyof CommunityPageSubCollectionListComponent & keyof this)[] = ['community', 'pageSize'];
+
+  protected getComponentName(): string {
+    return 'CommunityPageSubCollectionListComponent';
+  }
 
   protected importThemedComponent(themeName: string): Promise<any> {
     return import(`../../../themes/${themeName}/app/community-page/sub-community-list/community-page-sub-collection-list.component`);

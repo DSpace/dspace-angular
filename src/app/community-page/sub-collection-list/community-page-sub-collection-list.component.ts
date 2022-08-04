@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { BehaviorSubject, combineLatest as observableCombineLatest } from 'rxjs';
 
@@ -19,7 +19,7 @@ import { switchMap } from 'rxjs/operators';
   templateUrl: './community-page-sub-collection-list.component.html',
   animations:[fadeIn]
 })
-export class CommunityPageSubCollectionListComponent implements OnInit {
+export class CommunityPageSubCollectionListComponent implements OnInit, OnDestroy {
   @Input() community: Community;
 
   /**
