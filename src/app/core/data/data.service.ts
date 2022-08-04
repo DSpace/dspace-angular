@@ -673,6 +673,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    * Returns an observable of {@link RemoteData} of an object, based on its ID, with a list of
    * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
    * @param id                          ID of object we want to retrieve
+   * @param projections                 Array of string of projections to be added to the parameters
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
    *                                    no valid cached version. Defaults to true
    * @param reRequestOnStale            Whether or not the request should automatically be re-
@@ -681,7 +682,6 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    *                                    {@link HALLink}s should be automatically resolved
    */
   findByIdWithProjection(id: string, projections: string[], useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<T>> {
-    console.log(id, projections);
     const options = new FindListOptions();
     options.searchParams = [];
 
@@ -699,6 +699,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    * Returns {@link RemoteData} of all object with a list of {@link FollowLinkConfig}, to indicate which embedded
    * info should be added to the objects
    *
+   * @param projections                 Array of string of projections to be added to the parameters
    * @param options                     Find list options object
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
    *                                    no valid cached version. Defaults to true
