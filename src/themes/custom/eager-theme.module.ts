@@ -40,7 +40,7 @@ const DECLARATIONS = [
   HeaderComponent,
   HeaderNavbarWrapperComponent,
   NavbarComponent,
-  FooterComponent,
+  FooterComponent
 ];
 
 @NgModule({

@@ -14,7 +14,7 @@ import { switchMap } from 'rxjs/operators';
 import { PaginationService } from '../../core/pagination/pagination.service';
 
 @Component({
-  selector: 'ds-community-page-sub-community-list',
+  selector: ' ',
   styleUrls: ['./community-page-sub-community-list.component.scss'],
   templateUrl: './community-page-sub-community-list.component.html',
   animations: [fadeIn]
@@ -24,6 +24,11 @@ import { PaginationService } from '../../core/pagination/pagination.service';
  */
 export class CommunityPageSubCommunityListComponent implements OnInit {
   @Input() community: Community;
+
+  /**
+   * Optional page size (defaults to 5)
+   */
+  @Input() pageSize: number;
 
   /**
    * The pagination configuration
@@ -53,7 +58,7 @@ export class CommunityPageSubCommunityListComponent implements OnInit {
   ngOnInit(): void {
     this.config = new PaginationComponentOptions();
     this.config.id = this.pageId;
-    this.config.pageSize = 5;
+    this.pageSize ? this.config.pageSize = this.pageSize : this.config.pageSize = 5;
     this.config.currentPage = 1;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
     this.initPage();

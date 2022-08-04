@@ -23,6 +23,11 @@ export class CommunityPageSubCollectionListComponent implements OnInit {
   @Input() community: Community;
 
   /**
+   * Optional page size (defaults to 5)
+   */
+  @Input() pageSize: number;
+
+  /**
    * The pagination configuration
    */
   config: PaginationComponentOptions;
@@ -50,7 +55,7 @@ export class CommunityPageSubCollectionListComponent implements OnInit {
   ngOnInit(): void {
     this.config = new PaginationComponentOptions();
     this.config.id = this.pageId;
-    this.config.pageSize = 5;
+    this.pageSize ? this.config.pageSize = this.pageSize : this.config.pageSize = 5;
     this.config.currentPage = 1;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
     this.initPage();
