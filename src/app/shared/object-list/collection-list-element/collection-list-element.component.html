@@ -1,4 +1,4 @@
-<a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/collections/' + object.id]" class="lead">
+<a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/collections/' + object.id]" [id]="'collection-link-' + object.id" class="lead">
     {{object.name}}
 </a>
 <span *ngIf="linkType == linkTypes.None" class="lead">
