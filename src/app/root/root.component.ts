@@ -1,4 +1,4 @@
-import { map } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -71,7 +71,8 @@ export class RootComponent implements OnInit {
     const sidebarCollapsed = this.menuService.isMenuCollapsed(MenuID.ADMIN);
     this.slideSidebarOver = combineLatestObservable([sidebarCollapsed, this.windowService.isXsOrSm()])
       .pipe(
-        map(([collapsed, mobile]) => collapsed || mobile)
+        map(([collapsed, mobile]) => collapsed || mobile),
+        startWith(true),
       );
 
     if (this.router.url === getPageInternalServerErrorRoute()) {
