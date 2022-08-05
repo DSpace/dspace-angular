@@ -14,6 +14,7 @@ networks:
   dspacenet:
 services:
   dspace-angular:
+    restart: unless-stopped
     container_name: dspace-angular
     environment:
       DSPACE_UI_SSL: 'false'
