@@ -3,7 +3,3 @@ rest:
   host: api7.dspace.org
   port: 443
   nameSpace: /server
-
-info:
-  enableEndUserAgreement: false
-  enablePrivacyStatement: false
