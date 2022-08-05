@@ -4,7 +4,7 @@
       <input #searchInput [@toggleAnimation]="isExpanded" [attr.aria-label]="('nav.search' | translate)" name="query"
              formControlName="query" type="text" placeholder="{{searchExpanded ? ('nav.search' | translate) : ''}}"
              class="d-inline-block bg-transparent position-absolute form-control dropdown-menu-right p-1">
-      <a class="submit-icon" [routerLink]="" (click)="searchExpanded ? onSubmit(searchForm.value) : expand()">
+      <a class="submit-icon" href="javascript:void(0);" (click)="searchExpanded ? onSubmit(searchForm.value) : expand()">
         <em class="fas fa-search fa-lg fa-fw"></em>
       </a>
     </form>
