@@ -5314,7 +5314,14 @@
 	// "submission.sections.upload.upload-successful": "Upload successful",
 	"submission.sections.upload.upload-successful": "Subida exitosa",
 
+  // "submission.sections.license.granted-label": "I confirm the license above",
+  "submission.sections.license.granted-label": "Confirmo la licencia",
 
+  // "submission.sections.license.required": "You must accept the license",
+  "submission.sections.license.required": "Debe aceptar la licencia",
+
+  // "submission.sections.license.notgranted":  "You must accept the license",
+  "submission.sections.license.notgranted":  "Debe aceptar la licencia",
 
 	// "submission.submit.breadcrumbs": "New submission",
 	"submission.submit.breadcrumbs": "Nuevo envío",
