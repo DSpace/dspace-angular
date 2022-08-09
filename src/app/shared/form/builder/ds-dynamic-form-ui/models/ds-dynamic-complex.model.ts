@@ -5,7 +5,7 @@ import { DsDynamicInputModel } from './ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { DynamicConcatModel, DynamicConcatModelConfig } from './ds-dynamic-concat.model';
 import { AUTOCOMPLETE_COMPLEX_PREFIX } from './autocomplete/ds-dynamic-autocomplete.model';
-import { DsDynamicAutocompleteService } from './autocomplete/ds-dynamic-autocomplete.service';
+import { DEFAULT_EU_FUNDING_TYPES } from './sponsor-autocomplete/ds-dynamic-sponsor-autocomplete.model';
 
 export const COMPLEX_GROUP_SUFFIX = '_COMPLEX_GROUP';
 export const COMPLEX_INPUT_SUFFIX = '_COMPLEX_INPUT_';
@@ -55,7 +55,7 @@ export class DynamicComplexModel extends DynamicConcatModel {
         if (isNotEmpty(formValue) && isNotEmpty(formValue.value) &&
           formValue.value.startsWith(AUTOCOMPLETE_COMPLEX_PREFIX)) {
           // remove AUTOCOMPLETE_COMPLEX_PREFIX from the value because it cannot be in the metadata value
-          value = DsDynamicAutocompleteService.removeAutocompletePrefix(formValue);
+          value = formValue.value.replace(AUTOCOMPLETE_COMPLEX_PREFIX + SEPARATOR, '');
         }
       });
     }
@@ -89,15 +89,28 @@ export class DynamicComplexModel extends DynamicConcatModel {
     // remove undefined values
     values = values.filter(v => v);
 
+    // Complex input type `local.sponsor` has `openaire_id` input field hidden if the funding type is not EU.
+    // This `opeanaire_id` input field is on the index 4.
+    // Funding type input field is on the index 0.
+    const EU_IDENTIFIER_INDEX = 4;
+    const FUNDING_TYPE_INDEX = 0;
+
+    // if funding type is `EU`
+    let isEUFund = false;
     values.forEach((val, index) =>  {
       if (val.value) {
         (this.get(index) as DsDynamicInputModel).value = val;
-        // local.sponsor input type on the 4 index should be hidden if is empty or without EU_PROJECT_PREFIX
-        if (this.name === SPONSOR_METADATA_NAME && index === 4) {
-          if (val.value.includes(EU_PROJECT_PREFIX)) {
-            (this.get(index) as DsDynamicInputModel).hidden = false;
+        // for `local.sponsor` input field
+        if (this.name === SPONSOR_METADATA_NAME) {
+          // if funding type is `EU`
+          if (index === FUNDING_TYPE_INDEX && DEFAULT_EU_FUNDING_TYPES.includes(val.value)) {
+            isEUFund = true;
+          }
+          // if funding type is `EU` and input field is `openaire_id` -> show `openaire_id` readonly input field
+          if (index === EU_IDENTIFIER_INDEX && isEUFund && val.value.includes(EU_PROJECT_PREFIX)) {
+            (this.get(EU_IDENTIFIER_INDEX) as DsDynamicInputModel).hidden = false;
           } else {
-            (this.get(index) as DsDynamicInputModel).hidden = true;
+            (this.get(EU_IDENTIFIER_INDEX) as DsDynamicInputModel).hidden = true;
           }
         }
       } else if (hasValue((this.get(index) as DsDynamicInputModel))) {
