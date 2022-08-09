@@ -107,7 +107,7 @@
     "mirador": "^3.3.0",
     "mirador-dl-plugin": "^0.13.0",
     "mirador-share-plugin": "^0.11.0",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "morgan": "^1.10.0",
     "ng-mocks": "^13.1.1",
     "ng2-file-upload": "1.4.0",
