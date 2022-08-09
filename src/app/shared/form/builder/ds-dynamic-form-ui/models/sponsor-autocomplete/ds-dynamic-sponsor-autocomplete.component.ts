@@ -70,7 +70,8 @@ export class DsDynamicSponsorAutocompleteComponent extends DsDynamicAutocomplete
       const fundingName = suggestion.metadata?.['project.funder.name']?.[0]?.value;
       return DsDynamicAutocompleteService.pretifySuggestion(fundingProjectCode, fundingName, this.translateService);
     } else {
-      return super.suggestionFormatter(suggestion);
+      // @ts-ignore
+      return suggestion.display;
     }
   }
 
@@ -160,10 +161,13 @@ export class DsDynamicSponsorAutocompleteComponent extends DsDynamicAutocomplete
    * @private
    */
   private loadEUFundingType() {
+    let euFundingType = null;
     this.translateService.get('autocomplete.suggestion.sponsor.eu')
       .pipe(take(1))
-      .subscribe( ft => { return ft; });
-    return null;
+      .subscribe( ft => {
+        euFundingType = ft;
+      });
+    return euFundingType;
   }
 
   /**
@@ -171,10 +175,13 @@ export class DsDynamicSponsorAutocompleteComponent extends DsDynamicAutocomplete
    * @private
    */
   private loadNoneSponsorFundingType() {
+    let noneFundingType = null;
     this.translateService.get('autocomplete.suggestion.sponsor.empty')
       .pipe(take(1))
-      .subscribe( ft => { return ft; });
-    return null;
+      .subscribe( ft => {
+        noneFundingType = ft;
+      });
+    return noneFundingType;
   }
 
   /**

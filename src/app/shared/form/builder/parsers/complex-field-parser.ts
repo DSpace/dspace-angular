@@ -141,7 +141,6 @@ export class ComplexFieldParser extends FieldParser {
         case ParserType.Autocomplete:
           if (id === SPONSOR_METADATA_NAME) {
             inputModel = new DsDynamicSponsorAutocompleteModel(inputConfig, clsInput);
-            inputModel.hidden = complexDefinitionInput.name === OPENAIRE_INPUT_NAME;
           } else {
             inputModel = new DsDynamicAutocompleteModel(inputConfig, clsInput);
           }
@@ -151,6 +150,8 @@ export class ComplexFieldParser extends FieldParser {
           break;
       }
 
+      // for non-EU funds hide EU identifier read only input field
+      inputModel.hidden = complexDefinitionInput.name === OPENAIRE_INPUT_NAME;
       concatGroup.group.push(inputModel);
     });
 
