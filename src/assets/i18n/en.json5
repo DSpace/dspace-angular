@@ -1225,6 +1225,8 @@
 
   "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
 
+  "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
+
   "cookies.consent.content-notice.learnMore": "Customize",
 
   "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
