@@ -43,6 +43,10 @@ import { CONCAT_GROUP_SUFFIX, DynamicConcatModel } from './ds-dynamic-form-ui/mo
 import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import {
+  COMPLEX_GROUP_SUFFIX,
+  DynamicComplexModel
+} from './ds-dynamic-form-ui/models/ds-dynamic-complex.model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -118,6 +122,14 @@ export class FormBuilderService extends DynamicFormService {
         if (this.isConcatGroup(controlModel)) {
           if (controlModel.id.match(new RegExp(findId + CONCAT_GROUP_SUFFIX + `_\\d+$`))) {
             result = (controlModel as DynamicConcatModel).group[0];
+            break;
+          }
+        }
+
+        if (this.isComplexGroup(controlModel)) {
+          const regex = new RegExp(findId + COMPLEX_GROUP_SUFFIX);
+          if (controlModel.id.match(regex)) {
+            result = (controlModel as DynamicComplexModel);
             break;
           }
         }
@@ -334,6 +346,10 @@ export class FormBuilderService extends DynamicFormService {
 
   isConcatGroup(model: DynamicFormControlModel): boolean {
     return this.isCustomGroup(model) && (model.id.indexOf(CONCAT_GROUP_SUFFIX) !== -1);
+  }
+
+  public isComplexGroup(model: DynamicFormControlModel): boolean {
+    return this.isCustomGroup(model) && model.id.indexOf(COMPLEX_GROUP_SUFFIX) !== -1;
   }
 
   isRowGroup(model: DynamicFormControlModel): boolean {
