@@ -177,6 +177,7 @@ import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
+import { LoadingCsrComponent } from './loading-csr/loading-csr.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -234,6 +235,7 @@ const COMPONENTS = [
   FileSectionComponent,
   LangSwitchComponent,
   LoadingComponent,
+  LoadingCsrComponent,
   LogInComponent,
   LogOutComponent,
   NumberPickerComponent,
@@ -454,6 +456,7 @@ const DIRECTIVES = [
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ItemVersionsSummaryModalComponent,
     ItemVersionsDeleteModalComponent,
+    LoadingCsrComponent,
   ],
   providers: [
     ...PROVIDERS

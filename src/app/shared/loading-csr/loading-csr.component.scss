@@ -1,0 +1,20 @@
+.csr-progress-bar {
+  background: linear-gradient(to left, transparent 50%, var(--ds-csr-loading-color) 50%);
+  background-size: var(--ds-csr-loading-dash);
+  height: var(--ds-csr-loading-height);
+  width: 100%;
+
+  // make sure it stays above the navbar but below the admin sidebar
+  z-index: calc(var(--ds-sidebar-z-index) - 1);
+
+  animation: csr-loading-animation 0.5s linear infinite;
+}
+
+@keyframes csr-loading-animation {
+  0% {
+    background-position-x: 0
+  }
+  100% {
+    background-position-x: var(--ds-csr-loading-dash)
+  }
+}
