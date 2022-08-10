@@ -4,13 +4,13 @@ import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-da
 import { ClaimedTaskDataService } from '../../core/tasks/claimed-task-data.service';
 import { PoolTaskDataService } from '../../core/tasks/pool-task-data.service';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { CacheableObject } from '../../core/cache/object-cache.reducer';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { Item } from '../../core/shared/item.model';
 import { PoolTask } from '../../core/tasks/models/pool-task-object.model';
 import { ClaimedTask } from '../../core/tasks/models/claimed-task-object.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
+import { CacheableObject } from '../../core/cache/cacheable-object.model';
 
 /**
  * Class to return DataService for given ResourceType

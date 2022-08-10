@@ -9,7 +9,7 @@ import {
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
@@ -199,7 +199,6 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
           if (rd.hasSucceeded) {
             this.deletedGroupsIds = [...this.deletedGroupsIds, group.group.id];
             this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: group.group.name }));
-            this.reset();
           } else {
             this.notificationsService.error(
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: group.group.name }),
@@ -207,17 +206,6 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
           }
       });
     }
-  }
-
-  /**
-   * This method will set everything to stale, which will cause the lists on this page to update.
-   */
-  reset() {
-    this.groupService.getBrowseEndpoint().pipe(
-      take(1)
-    ).subscribe((href: string) => {
-      this.requestService.setStaleByHrefSubstring(href);
-    });
   }
 
   /**

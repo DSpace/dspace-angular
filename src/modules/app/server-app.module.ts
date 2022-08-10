@@ -3,12 +3,11 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule, TransferState } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ServerModule } from '@angular/platform-server';
-import { RouterModule } from '@angular/router';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { Angulartics2 } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { AppComponent } from '../../app/app.component';
 
@@ -56,8 +55,8 @@ export function createTranslateLoader(transferState: TransferState) {
         deps: [TransferState]
       }
     }),
+    AppModule,
     ServerModule,
-    AppModule
   ],
   providers: [
     // Initialize app config and extend environment

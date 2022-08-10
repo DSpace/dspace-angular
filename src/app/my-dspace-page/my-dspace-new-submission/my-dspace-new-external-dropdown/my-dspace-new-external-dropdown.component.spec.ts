@@ -13,6 +13,7 @@ import { ResourceType } from '../../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { RouterStub } from '../../../shared/testing/router.stub';
+import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
 
 export function getMockEntityTypeService(): EntityTypeService {
   const pageInfo = { elementsPerPage: 20, totalElements: 4, totalPages: 1, currentPage: 0 } as PageInfo;
@@ -83,7 +84,8 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
         ],
         declarations: [
           MyDSpaceNewExternalDropdownComponent,
-          TestComponent
+          TestComponent,
+          BrowserOnlyMockPipe
         ],
         providers: [
           { provide: EntityTypeService, useValue: getMockEmptyEntityTypeService() },
@@ -134,7 +136,8 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
         ],
         declarations: [
           MyDSpaceNewExternalDropdownComponent,
-          TestComponent
+          TestComponent,
+          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeService, useValue: getMockEntityTypeService() },
@@ -185,5 +188,5 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
 class TestComponent {
   reload = (event) => {
     return;
-  }
+  };
 }

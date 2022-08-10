@@ -4,12 +4,12 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { of as observableOf } from 'rxjs';
 import { RestResponse } from '../cache/response.models';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { FindListOptions } from './request.models';
 import { MetadataFieldDataService } from './metadata-field-data.service';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RequestParam } from '../cache/models/request-param.model';
+import { FindListOptions } from './find-list-options.model';
 
 describe('MetadataFieldDataService', () => {
   let metadataFieldService: MetadataFieldDataService;

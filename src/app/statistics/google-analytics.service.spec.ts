@@ -1,5 +1,5 @@
 import { GoogleAnalyticsService } from './google-analytics.service';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import {
   createFailedRemoteDataObject$,

@@ -18,7 +18,10 @@ import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload
+} from '../shared/operators';
 import { RootDataService } from '../data/root-data.service';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 import { BundleDataService } from '../data/bundle-data.service';
@@ -31,7 +34,9 @@ import { MetaTagState } from './meta-tag.reducer';
 import { createSelector, select, Store } from '@ngrx/store';
 import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
 import { coreSelector } from '../core.selectors';
-import { CoreState } from '../core.reducers';
+import { CoreState } from '../core-state.model';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { getDownloadableBitstream } from '../shared/bitstream.operators';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -82,6 +87,7 @@ export class MetadataService {
     private rootService: RootDataService,
     private store: Store<CoreState>,
     private hardRedirectService: HardRedirectService,
+    private authorizationService: AuthorizationDataService
   ) {
   }
 
@@ -103,6 +109,11 @@ export class MetadataService {
   private processRouteChange(routeInfo: any): void {
     this.clearMetaTags();
 
+    if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
+      this.currentObject.next(routeInfo.data.value.dso.payload);
+      this.setDSOMetaTags();
+    }
+
     if (routeInfo.data.value.title) {
       const titlePrefix = this.translate.get('repository.title.prefix');
       const title = this.translate.get(routeInfo.data.value.title, routeInfo.data.value);
@@ -115,11 +126,6 @@ export class MetadataService {
       this.translate.get(routeInfo.data.value.description).pipe(take(1)).subscribe((translatedDescription: string) => {
         this.addMetaTag('description', translatedDescription);
       });
-    }
-
-    if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
-      this.currentObject.next(routeInfo.data.value.dso.payload);
-      this.setDSOMetaTags();
     }
   }
 
@@ -296,7 +302,6 @@ export class MetadataService {
       ).pipe(
         getFirstSucceededRemoteDataPayload(),
         switchMap((bundle: Bundle) =>
-
           // First try the primary bitstream
           bundle.primaryBitstream.pipe(
             getFirstCompletedRemoteData(),
@@ -307,13 +312,14 @@ export class MetadataService {
                 return null;
               }
             }),
+            getDownloadableBitstream(this.authorizationService),
             // return the bundle as well so we can use it again if there's no primary bitstream
             map((bitstream: Bitstream) => [bundle, bitstream])
           )
         ),
         switchMap(([bundle, primaryBitstream]: [Bundle, Bitstream]) => {
           if (hasValue(primaryBitstream)) {
-            // If there was a primary bitstream, emit its link
+            // If there was a downloadable primary bitstream, emit its link
             return [getBitstreamDownloadRoute(primaryBitstream)];
           } else {
             // Otherwise consider the regular bitstreams in the bundle
@@ -321,8 +327,8 @@ export class MetadataService {
               getFirstCompletedRemoteData(),
               switchMap((bitstreamRd: RemoteData<PaginatedList<Bitstream>>) => {
                 if (hasValue(bitstreamRd.payload) && bitstreamRd.payload.totalElements === 1) {
-                  // If there's only one bitstream in the bundle, emit its link
-                  return [getBitstreamDownloadRoute(bitstreamRd.payload.page[0])];
+                  // If there's only one bitstream in the bundle, emit its link if its downloadable
+                  return this.getBitLinkIfDownloadable(bitstreamRd.payload.page[0], bitstreamRd);
                 } else {
                   // Otherwise check all bitstreams to see if one matches the format whitelist
                   return this.getFirstAllowedFormatBitstreamLink(bitstreamRd);
@@ -340,6 +346,20 @@ export class MetadataService {
         );
       });
     }
+  }
+
+  getBitLinkIfDownloadable(bitstream: Bitstream, bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
+    return observableOf(bitstream).pipe(
+      getDownloadableBitstream(this.authorizationService),
+      switchMap((bit: Bitstream) => {
+        if (hasValue(bit)) {
+          return [getBitstreamDownloadRoute(bit)];
+        } else {
+          // Otherwise check all bitstreams to see if one matches the format whitelist
+          return this.getFirstAllowedFormatBitstreamLink(bitstreamRd);
+        }
+      })
+    );
   }
 
   /**
@@ -388,9 +408,14 @@ export class MetadataService {
         // for the link at the end
         map((format: BitstreamFormat) => [bitstream, format])
       )),
-      // Filter out only pairs with whitelisted formats
-      filter(([, format]: [Bitstream, BitstreamFormat]) =>
-        hasValue(format) && this.CITATION_PDF_URL_MIMETYPES.includes(format.mimetype)),
+      // Check if bitstream downloadable
+      switchMap(([bitstream, format]: [Bitstream, BitstreamFormat]) => observableOf(bitstream).pipe(
+        getDownloadableBitstream(this.authorizationService),
+        map((bit: Bitstream) => [bit, format])
+      )),
+      // Filter out only pairs with whitelisted formats and non-null bitstreams, null from download check
+      filter(([bitstream, format]: [Bitstream, BitstreamFormat]) =>
+        hasValue(format) && hasValue(bitstream) && this.CITATION_PDF_URL_MIMETYPES.includes(format.mimetype)),
       // We only need 1
       take(1),
       // Emit the link of the match

@@ -1,8 +1,8 @@
 import { HrefOnlyDataService } from './href-only-data.service';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { FindListOptions } from './request.models';
 import { DataService } from './data.service';
+import { FindListOptions } from './find-list-options.model';
 
 describe(`HrefOnlyDataService`, () => {
   let service: HrefOnlyDataService;

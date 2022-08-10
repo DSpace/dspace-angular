@@ -2,11 +2,12 @@ import { Component, Injector } from '@angular/core';
 import { slideMobileNav } from '../shared/animations/slide';
 import { MenuComponent } from '../shared/menu/menu.component';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '../shared/menu/initial-menus-state';
 import { HostWindowService } from '../shared/host-window.service';
 import { BrowseService } from '../core/browse/browse.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { MenuID } from '../shared/menu/menu-id.model';
+import { ThemeService } from '../shared/theme-support/theme.service';
 
 /**
  * Component representing the public navbar
@@ -29,9 +30,10 @@ export class NavbarComponent extends MenuComponent {
               public windowService: HostWindowService,
               public browseService: BrowseService,
               public authorizationService: AuthorizationDataService,
-              public route: ActivatedRoute
+              public route: ActivatedRoute,
+              protected themeService: ThemeService
   ) {
-    super(menuService, injector, authorizationService, route);
+    super(menuService, injector, authorizationService, route, themeService);
   }
 
   ngOnInit(): void {

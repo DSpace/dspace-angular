@@ -9,7 +9,6 @@ import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../core/cache/response.models';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { RequestService } from '../../../core/data/request.service';
@@ -25,8 +24,11 @@ import { RouterStub } from '../../../shared/testing/router.stub';
 import { ItemRelationshipsComponent } from './item-relationships.component';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 import { RelationshipTypeService } from '../../../core/data/relationship-type.service';
 import { relationshipTypes } from '../../../shared/testing/relationship-types.mock';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 
 let comp: any;
 let fixture: ComponentFixture<ItemRelationshipsComponent>;
@@ -211,6 +213,7 @@ describe('ItemRelationshipsComponent', () => {
       imports: [SharedModule, TranslateModule.forRoot()],
       declarations: [ItemRelationshipsComponent],
       providers: [
+        { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ItemDataService, useValue: itemService },
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: Router, useValue: router },

@@ -1,18 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
-import { Observable, of as observableOf } from 'rxjs';
+import { AsyncSubject, combineLatest, from as observableFrom, Observable, of as observableOf } from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
   find,
   map,
   mergeMap,
+  skipWhile,
+  switchMap,
   take,
   takeWhile,
-  switchMap,
   tap,
-  skipWhile,
+  toArray
 } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
@@ -21,30 +22,25 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
-import { CacheableObject } from '../cache/object-cache.reducer';
+import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getRemoteDataPayload, getFirstSucceededRemoteData, } from '../shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { ChangeAnalyzer } from './change-analyzer';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import {
-  CreateRequest,
-  GetRequest,
-  FindListOptions,
-  PatchRequest,
-  PutRequest,
-  DeleteRequest
-} from './request.models';
+import { CreateRequest, DeleteRequest, GetRequest, PatchRequest, PutRequest } from './request.models';
 import { RequestService } from './request.service';
 import { RestRequestMethod } from './rest-request-method';
 import { UpdateDataService } from './update-data.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { NoContent } from '../shared/NoContent.model';
+import { CacheableObject } from '../cache/cacheable-object.model';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 export abstract class DataService<T extends CacheableObject> implements UpdateDataService<T> {
   protected abstract requestService: RequestService;
@@ -168,7 +164,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    * @return {Observable<string>}
    * Return an observable that emits created HREF
    */
-  protected buildHrefWithParams(href: string, params: RequestParam[], ...linksToFollow: FollowLinkConfig<T>[]): string {
+  buildHrefWithParams(href: string, params: RequestParam[], ...linksToFollow: FollowLinkConfig<T>[]): string {
 
     let  args = [];
     if (hasValue(params)) {
@@ -580,6 +576,39 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
   }
 
   /**
+   * Invalidate an existing DSpaceObject by marking all requests it is included in as stale
+   * @param   objectId The id of the object to be invalidated
+   * @return  An Observable that will emit `true` once all requests are stale
+   */
+  invalidate(objectId: string): Observable<boolean> {
+    return this.getIDHrefObs(objectId).pipe(
+      switchMap((href: string) => this.invalidateByHref(href))
+    );
+  }
+
+  /**
+   * Invalidate an existing DSpaceObject by marking all requests it is included in as stale
+   * @param   href The self link of the object to be invalidated
+   * @return  An Observable that will emit `true` once all requests are stale
+   */
+  invalidateByHref(href: string): Observable<boolean> {
+    const done$ = new AsyncSubject<boolean>();
+
+    this.objectCache.getByHref(href).pipe(
+      take(1),
+      switchMap((oce: ObjectCacheEntry) => observableFrom(oce.requestUUIDs).pipe(
+        mergeMap((requestUUID: string) => this.requestService.setStaleByUUID(requestUUID)),
+        toArray(),
+      )),
+    ).subscribe(() => {
+      done$.next(true);
+      done$.complete();
+    });
+
+    return done$;
+  }
+
+  /**
    * Delete an existing DSpace Object on the server
    * @param   objectId The id of the object to be removed
    * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
@@ -600,6 +629,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    *                            metadata should be saved as real metadata
    * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
    *          errorMessage, timeCompleted, etc
+   *          Only emits once all request related to the DSO has been invalidated.
    */
   deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     const requestId = this.requestService.generateRequestId();
@@ -618,7 +648,27 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     }
     this.requestService.send(request);
 
-    return this.rdbService.buildFromRequestUUID(requestId);
+    const response$ = this.rdbService.buildFromRequestUUID(requestId);
+
+    const invalidated$ = new AsyncSubject<boolean>();
+    response$.pipe(
+      getFirstCompletedRemoteData(),
+      switchMap((rd: RemoteData<NoContent>) => {
+        if (rd.hasSucceeded) {
+          return this.invalidateByHref(href);
+        } else {
+          return [true];
+        }
+      })
+    ).subscribe(() => {
+      invalidated$.next(true);
+      invalidated$.complete();
+    });
+
+    return combineLatest([response$, invalidated$]).pipe(
+      filter(([_, invalidated]) => invalidated),
+      map(([response, _]) => response),
+    );
   }
 
   /**

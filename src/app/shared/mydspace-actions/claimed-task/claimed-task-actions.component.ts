@@ -103,14 +103,6 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
   }
 
   /**
-   * Check if claimed task actions should display a view item button.
-   * @param workflowAction
-   */
-  hasViewAction(workflowAction: WorkflowAction) {
-    return !workflowAction?.options.includes('submit_edit_metadata');
-  }
-
-  /**
    * Get the workflowitem view route.
    */
   getWorkflowItemViewRoute(workflowitem: WorkflowItem): string {

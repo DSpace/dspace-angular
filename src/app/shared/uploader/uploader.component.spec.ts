@@ -77,12 +77,12 @@ class TestComponent {
     itemAlias: null
   });
 
-  /* tslint:disable:no-empty */
+  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   public onBeforeUpload = () => {
-  }
+  };
 
   onCompleteItem(event) {
   }
 
-  /* tslint:enable:no-empty */
+  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 }

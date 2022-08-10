@@ -11,13 +11,27 @@ import { RootModule } from '../../app/root.module';
 import { NavbarModule } from '../../app/navbar/navbar.module';
 import { PublicationComponent } from './app/item-page/simple/item-types/publication/publication.component';
 import { ItemPageModule } from '../../app/item-page/item-page.module';
+import { FooterComponent } from './app/footer/footer.component';
+import { JournalComponent } from './app/entity-groups/journal-entities/item-pages/journal/journal.component';
+import {
+  JournalIssueComponent
+} from './app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
+import {
+  JournalVolumeComponent
+} from './app/entity-groups/journal-entities/item-pages/journal-volume/journal-volume.component';
+import { UntypedItemComponent } from './app/item-page/simple/item-types/untyped-item/untyped-item.component';
+import { ItemSharedModule } from '../../app/item-page/item-shared.module';
 
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
  * This will ensure that decorator gets picked up when the app loads
  */
 const ENTRY_COMPONENTS = [
+  JournalComponent,
+  JournalIssueComponent,
+  JournalVolumeComponent,
   PublicationComponent,
+  UntypedItemComponent,
 ];
 
 const DECLARATIONS = [
@@ -26,6 +40,7 @@ const DECLARATIONS = [
   HeaderComponent,
   HeaderNavbarWrapperComponent,
   NavbarComponent,
+  FooterComponent,
 ];
 
 @NgModule({
@@ -37,6 +52,7 @@ const DECLARATIONS = [
     RootModule,
     NavbarModule,
     ItemPageModule,
+    ItemSharedModule,
   ],
   declarations: DECLARATIONS,
   providers: [

@@ -5,7 +5,7 @@ import { combineLatest as observableCombineLatest, Observable, of as observableO
 
 import { distinctUntilChanged, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isEmpty } from '../../shared/empty.util';
-import { CoreState } from '../core.reducers';
+import { CoreState } from '../core-state.model';
 import { coreSelector } from '../core.selectors';
 import { RestRequestMethod } from '../data/rest-request-method';
 import {
@@ -22,11 +22,12 @@ import {
   RemoveFromObjectCacheAction
 } from './object-cache.actions';
 
-import { CacheableObject, ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
+import { ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
 import { AddToSSBAction } from './server-sync-buffer.actions';
 import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
-import { IndexName } from '../index/index.reducer';
 import { HALLink } from '../shared/hal-link.model';
+import { CacheableObject } from './cacheable-object.model';
+import { IndexName } from '../index/index-name.model';
 
 /**
  * The base selector function to select the object cache in the store
@@ -196,7 +197,7 @@ export class ObjectCacheService {
    */
   getRequestUUIDBySelfLink(selfLink: string): Observable<string> {
     return this.getByHref(selfLink).pipe(
-      map((entry: ObjectCacheEntry) => entry.requestUUID),
+      map((entry: ObjectCacheEntry) => entry.requestUUIDs[0]),
       distinctUntilChanged());
   }
 
@@ -281,7 +282,7 @@ export class ObjectCacheService {
     let result = false;
     this.getByHref(href).subscribe((entry: ObjectCacheEntry) => {
       if (isNotEmpty(requestUUID)) {
-        result = entry.requestUUID === requestUUID;
+        result = entry.requestUUIDs.includes(requestUUID);
       } else {
         result = true;
       }

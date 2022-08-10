@@ -2,7 +2,8 @@
 debug: false
 
 # Angular Universal server settings
-# NOTE: these must be 'synced' with the 'dspace.ui.url' setting in your backend's local.cfg.
+# NOTE: these settings define where Node.js will start your UI application. Therefore, these
+# "ui" settings usually specify a localhost port/URL which is later proxied to a public URL (using Apache or similar)
 ui:
   ssl: false
   host: localhost
@@ -15,7 +16,8 @@ ui:
     max: 500 # limit each IP to 500 requests per windowMs
 
 # The REST API server settings
-# NOTE: these must be 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
+# NOTE: these settings define which (publicly available) REST API to use. They are usually
+# 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
 rest:
   ssl: true
   host: api7.dspace.org
@@ -148,6 +150,12 @@ languages:
   - code: fi
     label: Suomi
     active: true
+  - code: tr
+    label: Türkçe
+    active: true
+  - code: bn
+    label: বাংলা
+    active: true
 
 # Browse-By Pages
 browseBy:
@@ -158,10 +166,12 @@ browseBy:
   # The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
   defaultLowerLimit: 1900
 
-# Item Page Config
+# Item Config
 item:
   edit:
     undoTimeout: 10000 # 10 seconds
+  # Show the item access status label in items lists
+  showAccessStatuses: false
 
 # Collection Page Config
 collection:
@@ -228,9 +238,20 @@ themes:
         rel: manifest
         href: assets/dspace/images/favicons/manifest.webmanifest
 
+# The default bundles that should always be displayed as suggestions when you upload a new bundle
+bundle:
+  - standardBundles: [ ORIGINAL, THUMBNAIL, LICENSE ]
+
 # Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with 'image' or 'video').
 # For images, this enables a gallery viewer where you can zoom or page through images.
 # For videos, this enables embedded video streaming
 mediaViewer:
   image: false
   video: false
+
+# Whether the end user agreement is required before users use the repository.
+# If enabled, the user will be required to accept the agreement before they can use the repository.
+# And whether the privacy statement should exist or not.
+info:
+  enableEndUserAgreement: true
+  enablePrivacyStatement: true

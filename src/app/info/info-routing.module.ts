@@ -6,35 +6,47 @@ import { ThemedEndUserAgreementComponent } from './end-user-agreement/themed-end
 import { ThemedPrivacyComponent } from './privacy/themed-privacy.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import { FeedbackGuard } from '../core/feedback/feedback.guard';
+import { environment } from '../../environments/environment';
 
+
+const imports = [
+  RouterModule.forChild([
+    {
+      path: FEEDBACK_PATH,
+      component: ThemedFeedbackComponent,
+      resolve: { breadcrumb: I18nBreadcrumbResolver },
+      data: { title: 'info.feedback.title', breadcrumbKey: 'info.feedback' },
+      canActivate: [FeedbackGuard]
+    }
+  ])
+];
+
+  if (environment.info.enableEndUserAgreement) {
+    imports.push(
+      RouterModule.forChild([
+        {
+          path: END_USER_AGREEMENT_PATH,
+          component: ThemedEndUserAgreementComponent,
+          resolve: { breadcrumb: I18nBreadcrumbResolver },
+          data: { title: 'info.end-user-agreement.title', breadcrumbKey: 'info.end-user-agreement' }
+        }
+      ]));
+  }
+  if (environment.info.enablePrivacyStatement) {
+    imports.push(
+      RouterModule.forChild([
+        {
+          path: PRIVACY_PATH,
+          component: ThemedPrivacyComponent,
+          resolve: { breadcrumb: I18nBreadcrumbResolver },
+          data: { title: 'info.privacy.title', breadcrumbKey: 'info.privacy' }
+        }
+      ]));
+  }
 
 @NgModule({
   imports: [
-    RouterModule.forChild([
-      {
-        path: END_USER_AGREEMENT_PATH,
-        component: ThemedEndUserAgreementComponent,
-        resolve: { breadcrumb: I18nBreadcrumbResolver },
-        data: { title: 'info.end-user-agreement.title', breadcrumbKey: 'info.end-user-agreement' }
-      }
-    ]),
-    RouterModule.forChild([
-      {
-        path: PRIVACY_PATH,
-        component: ThemedPrivacyComponent,
-        resolve: { breadcrumb: I18nBreadcrumbResolver },
-        data: { title: 'info.privacy.title', breadcrumbKey: 'info.privacy' }
-      }
-    ]),
-    RouterModule.forChild([
-      {
-        path: FEEDBACK_PATH,
-        component: ThemedFeedbackComponent,
-        resolve: { breadcrumb: I18nBreadcrumbResolver },
-        data: { title: 'info.feedback.title', breadcrumbKey: 'info.feedback' },
-        canActivate: [FeedbackGuard]
-      }
-    ])
+    ...imports
   ]
 })
 /**

@@ -1,5 +1,5 @@
 <div *ngVar="(contentSource$ |async) as contentSource">
-    <div class="container-fluid" *ngIf="shouldShow">
+    <div class="container-fluid space-children-mr" *ngIf="shouldShow">
         <h4>{{ 'collection.source.controls.head' | translate }}</h4>
         <div>
             <span class="font-weight-bold">{{'collection.source.controls.harvest.status' | translate}}</span>

@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
@@ -61,7 +61,7 @@ export class RelationshipEffects {
   /**
    * Effect that makes sure all last fired RelationshipActions' types are stored in the map of this service, with the object uuid as their key
    */
-  @Effect({ dispatch: false }) mapLastActions$ = this.actions$
+   mapLastActions$ = createEffect(() => this.actions$
     .pipe(
       ofType(RelationshipActionTypes.ADD_RELATIONSHIP, RelationshipActionTypes.REMOVE_RELATIONSHIP),
       map((action: RelationshipAction) => {
@@ -97,14 +97,14 @@ export class RelationshipEffects {
           }
         }
       )
-    );
+    ), { dispatch: false });
 
   /**
    * Updates the namevariant in a relationship
    * If the relationship is currently being added or removed, it will add the name variant to an update map so it will be sent with the next add request instead
    * Otherwise the update is done immediately
    */
-  @Effect({ dispatch: false }) updateNameVariantsActions$ = this.actions$
+   updateNameVariantsActions$ = createEffect(() => this.actions$
     .pipe(
       ofType(RelationshipActionTypes.UPDATE_NAME_VARIANT),
       map((action: UpdateRelationshipNameVariantAction) => {
@@ -125,29 +125,29 @@ export class RelationshipEffects {
           }
         }
       )
-    );
+    ), { dispatch: false });
 
   /**
    * Save the latest submission ID, to make sure it's updated when the patch is finished
    */
-  @Effect({ dispatch: false }) updateRelationshipActions$ = this.actions$
+   updateRelationshipActions$ = createEffect(() => this.actions$
     .pipe(
       ofType(RelationshipActionTypes.UPDATE_RELATIONSHIP),
       map((action: UpdateRelationshipAction) => {
         this.updateAfterPatchSubmissionId = action.payload.submissionId;
       })
-    );
+    ), { dispatch: false });
 
   /**
    * Save the submission object with ID updateAfterPatchSubmissionId
    */
-  @Effect() saveSubmissionSection = this.actions$
+   saveSubmissionSection = createEffect(() => this.actions$
     .pipe(
       ofType(ServerSyncBufferActionTypes.EMPTY, JsonPatchOperationsActionTypes.COMMIT_JSON_PATCH_OPERATIONS),
       filter(() => hasValue(this.updateAfterPatchSubmissionId)),
       switchMap(() => this.refreshWorkspaceItemInCache(this.updateAfterPatchSubmissionId)),
       map((submissionObject) => new SaveSubmissionSectionFormSuccessAction(this.updateAfterPatchSubmissionId, [submissionObject], false))
-    );
+    ));
 
   constructor(private actions$: Actions,
               private relationshipService: RelationshipService,

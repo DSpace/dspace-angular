@@ -1,9 +1,9 @@
 // This configuration is only used for unit tests, end-to-end tests use environment.production.ts
+import { BuildConfig } from 'src/config/build-config.interface';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
-import { AppConfig } from '../config/app-config.interface';
 
-export const environment: AppConfig = {
+export const environment: BuildConfig = {
   production: false,
 
   // Angular Universal settings
@@ -36,6 +36,10 @@ export const environment: AppConfig = {
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/api',
     baseUrl: 'https://rest.com/api'
+  },
+
+  actuators: {
+    endpointPath: '/actuator/health'
   },
 
   // Caching settings
@@ -99,6 +103,9 @@ export const environment: AppConfig = {
       metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv'],
       // NOTE: every how many minutes submission is saved automatically
       timer: 5
+    },
+    typeBind: {
+      field: 'dc.type'
     },
     icons: {
       metadata: [
@@ -178,6 +185,10 @@ export const environment: AppConfig = {
     code: 'lv',
     label: 'Latviešu',
     active: true,
+  }, {
+    code: 'bn',
+    label: 'বাংলা',
+    active: true,
   }],
 
   // Browse-By Pages
@@ -192,7 +203,9 @@ export const environment: AppConfig = {
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds
-    }
+    },
+    // Show the item access status label in items lists
+    showAccessStatuses: false
   },
   collection: {
     edit: {
@@ -224,8 +237,15 @@ export const environment: AppConfig = {
       name: 'base',
     },
   ],
+  bundle: {
+    standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE'],
+  },
   mediaViewer: {
     image: true,
     video: true
+  },
+  info: {
+    enableEndUserAgreement: true,
+    enablePrivacyStatement: true,
   }
 };

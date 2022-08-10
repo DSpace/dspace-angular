@@ -7,6 +7,7 @@ import {
   AdminSidebarSectionComponent
 } from './admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
 import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
+import { ThemedAdminSidebarComponent } from './admin/admin-sidebar/themed-admin-sidebar.component';
 import {
   ExpandableAdminSidebarSectionComponent
 } from './admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
@@ -39,6 +40,8 @@ import {
 import {
   PageInternalServerErrorComponent
 } from './page-internal-server-error/page-internal-server-error.component';
+import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+import { PageErrorComponent } from './page-error/page-error.component';
 
 const IMPORTS = [
   CommonModule,
@@ -58,6 +61,7 @@ const DECLARATIONS = [
   HeaderNavbarWrapperComponent,
   ThemedHeaderNavbarWrapperComponent,
   AdminSidebarComponent,
+  ThemedAdminSidebarComponent,
   AdminSidebarSectionComponent,
   ExpandableAdminSidebarSectionComponent,
   FooterComponent,
@@ -72,7 +76,9 @@ const DECLARATIONS = [
   ThemedForbiddenComponent,
   IdleModalComponent,
   ThemedPageInternalServerErrorComponent,
-  PageInternalServerErrorComponent
+  PageInternalServerErrorComponent,
+  ThemedPageErrorComponent,
+  PageErrorComponent
 ];
 
 const EXPORTS = [

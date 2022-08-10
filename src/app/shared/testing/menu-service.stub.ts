@@ -1,6 +1,7 @@
-import { MenuID } from '../menu/initial-menus-state';
 import { Observable, of as observableOf } from 'rxjs';
-import { MenuSection, MenuState } from '../menu/menu.reducer';
+import { MenuSection } from '../menu/menu-section.model';
+import { MenuState } from '../menu/menu-state.model';
+import { MenuID } from '../menu/menu-id.model';
 
 export class MenuServiceStub {
   visibleSection1 = {
@@ -77,7 +78,7 @@ export class MenuServiceStub {
     return observableOf(true);
   }
 
-  getMenu(id: MenuID): Observable<MenuState> {
+  getMenu(id: MenuID): Observable<MenuState> {  // todo: resolve import
     return observableOf({} as MenuState);
   }
 
