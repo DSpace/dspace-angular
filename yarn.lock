@@ -1956,6 +1956,13 @@
   resolved "https://registry.yarnpkg.com/@researchgate/react-intersection-observer/-/react-intersection-observer-1.3.5.tgz#0321d2dd609aaacdb9bace8004d99c72824fb142"
   integrity sha512-aYlsex5Dd6BAHMJvJrUoFp8gzgMSL27xFvrxkVYW0bV1RMAapVsO+QeYLtTaSF/QCflktODodvv+wJm49oMnnQ==
 
+"@rezonant/preboot@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@rezonant/preboot/-/preboot-8.0.0.tgz#dc201887c4cfe8e20f58feefbfef7851921dcf86"
+  integrity sha512-t3ViT5ns3EYezQ5pnMvwqVe1ki6E0jqa6y2QFFFCaEADKoYZO6tyb+dDknhPQ0LiegftcG3DG1igoA5crNzlLQ==
+  dependencies:
+    tslib "^2.0.0"
+
 "@scarf/scarf@^1.1.0":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@scarf/scarf/-/scarf-1.1.1.tgz#d8b9f20037b3a37dbf8dcdc4b3b72f9285bfce35"
@@ -10317,13 +10324,6 @@ postcss@^8.2.14:
     nanoid "^3.3.1"
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
-
-preboot@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/preboot/-/preboot-8.0.0.tgz#cfba7787cd3366e7f05842e6868d09f0f1500d54"
-  integrity sha512-unyVkACJDK9Y1Y2gJpKef9z+d/w0XRbVRU493Nbc38E5QaTCJuZUmsosVjXxILHVq0r/HLJzHxIDRj7omKJeZA==
-  dependencies:
-    tslib "^2.0.0"
 
 prelude-ls@^1.2.1:
   version "1.2.1"

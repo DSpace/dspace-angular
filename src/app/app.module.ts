@@ -37,7 +37,7 @@ import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 import { NgxMaskModule } from 'ngx-mask';
 import { StoreDevModules } from '../config/store/devtools';
 import { RootModule } from './root.module';
-import { PrebootModule } from 'preboot';
+import { PrebootModule } from '@rezonant/preboot';
 
 export function getConfig() {
   return environment;
