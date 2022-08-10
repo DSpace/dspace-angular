@@ -483,8 +483,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
       mockExternalSourceService.getExternalSourceEntries.and.returnValue(createFailedRemoteDataObject$(
         errorObj.errorMessage,
         errorObj.statusCode,
-        errorObj.timeCompleted,
-        errorObj.errors
+        errorObj.timeCompleted
       ));
       spyOn(routeServiceStub, 'getQueryParameterValue').and.callFake((param) => {
         if (param === 'entity') {
