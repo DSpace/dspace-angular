@@ -13,11 +13,11 @@
       </div>
     </a>
     <span *ngIf="linkType == linkTypes.None" class="card-img-top full-width">
-            <div>
-                <ds-thumbnail *ngIf="dso?.thumbnail" [defaultImage]="'assets/images/orgunit-placeholder.svg'" [thumbnail]="dso?.thumbnail | async" [limitWidth]="false">
-                </ds-thumbnail>
-            </div>
-        </span>
+      <div>
+        <ds-thumbnail *ngIf="dso?.thumbnail" [defaultImage]="'assets/images/orgunit-placeholder.svg'" [thumbnail]="dso?.thumbnail | async" [limitWidth]="false">
+        </ds-thumbnail>
+      </div>
+    </span>
     <div class="card-body">
       <ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
       <ds-truncatable-part [id]="dso.id" [minLines]="3" type="h4">

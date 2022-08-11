@@ -160,14 +160,15 @@ export class ObjectGridComponent implements OnInit {
    * Initialize the instance variables
    */
   ngOnInit(): void {
-    this.results$ = observableCombineLatest(this._objects$)
-    .pipe(map(([objects]) => {
-      if (hasValue(objects) && hasValue(objects.payload) && hasValue(objects.payload.page)) {
-        return objects.payload.page;
-      } else {
-        return [];
-      }
-    }));
+    this.results$ = observableCombineLatest([this._objects$]).pipe(
+      map(([objects]) => {
+        if (hasValue(objects) && hasValue(objects.payload) && hasValue(objects.payload.page)) {
+          return objects.payload.page;
+        } else {
+          return [];
+        }
+      })
+    );
   }
 
   /**
