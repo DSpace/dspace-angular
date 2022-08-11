@@ -90,7 +90,6 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
         if (isAdmin) {
           parameterValues.push(Object.assign(new ProcessParameter(), {name: '-a'}));
         }
-        console.log(isAdmin, parameterValues);
         return this.scriptDataService.invoke(METADATA_EXPORT_SCRIPT_NAME, parameterValues, []);
       }),
       getFirstCompletedRemoteData(),
