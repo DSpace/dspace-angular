@@ -266,11 +266,11 @@
 
   // "admin.registries.metadata.form.namespace": "Namespace",
   // TODO New key - Add a translation
-  "admin.registries.metadata.form.namespace": "Namespace",
+  "admin.registries.metadata.form.namespace": "Namnrymd",
 
   // "admin.registries.metadata.head": "Metadata Registry",
   // TODO New key - Add a translation
-  "admin.registries.metadata.head": "Metadata eegistry",
+  "admin.registries.metadata.head": "Metadata registry",
 
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
   // TODO New key - Add a translation
@@ -540,7 +540,7 @@
 
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.success": "EPerson \"{{name}}\" hhar redigerats",
+  "admin.access-control.epeople.form.notification.edited.success": "EPerson \"{{name}}\" har redigerats",
 
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
   // TODO New key - Add a translation
@@ -670,7 +670,7 @@
 
   // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.success": "Grupp \"{{name}}\" hhar raderats",
+  "admin.access-control.groups.notification.deleted.success": "Grupp \"{{name}}\" har raderats",
 
   // "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
   // TODO New key - Add a translation
@@ -936,7 +936,7 @@
 
   // "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "Det finns inge undergrupper i denna grupp ännu.",
+  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "Det finns inga undergrupper i denna grupp ännu.",
 
   // "admin.access-control.groups.form.return": "Back",
   // TODO New key - Add a translation
@@ -1961,7 +1961,7 @@
 
   // "community.create.head": "Create a Community",
   // TODO New key - Add a translation
-  "community.create.head": "Skapa en ny enhhet",
+  "community.create.head": "Skapa en ny enhet",
 
   // "community.create.notifications.success": "Successfully created the Community",
   // TODO New key - Add a translation
@@ -1969,7 +1969,7 @@
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
   // TODO New key - Add a translation
-  "community.create.sub-head": "Skapa en underenhhet till enheten {{ parent }}",
+  "community.create.sub-head": "Skapa en underenhet till enheten {{ parent }}",
 
   // "community.curate.header": "Curate Community: {{community}}",
   // TODO New key - Add a translation
@@ -2056,7 +2056,7 @@
 
   // "community.edit.notifications.success": "Successfully edited the Community",
   // TODO New key - Add a translation
-  "community.edit.notifications.success": "Enhheten har redigerats",
+  "community.edit.notifications.success": "Enheten har redigerats",
 
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
   // TODO New key - Add a translation
@@ -2078,7 +2078,7 @@
 
   // "community.edit.tabs.curate.title": "Community Edit - Curate",
   // TODO New key - Add a translation
-  "community.edit.tabs.curate.title": "Redigera enhhet - Kurera",
+  "community.edit.tabs.curate.title": "Redigera enhet - Kurera",
 
   // "community.edit.tabs.metadata.head": "Edit Metadata",
   // TODO New key - Add a translation
@@ -2718,7 +2718,7 @@
 
   // "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
   // TODO New key - Add a translation
-  "forgot-email.form.info": "Välj Nytt konto för att prenumerera på nya poster och ladda upp filer till arkivet.",
+  "forgot-email.form.info": "Registrera dig som användare för att prenumerera på nyheter eller ladda upp nya filer till arkivet.",
 
   // "forgot-email.form.email": "E-post *",
   // TODO New key - Add a translation
@@ -2726,7 +2726,7 @@
 
   // "forgot-email.form.email.error.required": "Please fill in an email address",
   // TODO New key - Add a translation
-  "forgot-email.form.email.error.required": "Ange en e-postadress",
+  "forgot-email.form.email.error.required": "Ange en giltig e-postadress",
 
   // "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
   // TODO New key - Add a translation
@@ -2746,15 +2746,15 @@
 
   // "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
   // TODO New key - Add a translation
-  "forgot-email.form.success.content": "Ett mejl har skickats till {{ email }} med länk och mer instruktioners.",
+  "forgot-email.form.success.content": "Ett mejl med vidare instruktioner har skickats till {{ email }}.",
 
   // "forgot-email.form.error.head": "Error when trying to register email",
   // TODO New key - Add a translation
-  "forgot-email.form.error.head": "Ett fel uppstod vid registreringen",
+  "forgot-email.form.error.head": "Ett fel har uppstått",
 
   // "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
   // TODO New key - Add a translation
-  "forgot-email.form.error.content": "Ett fel uppstod vid registreringen av e-postadress: {{ email }}",
+  "forgot-email.form.error.content": "Ett fel uppstod när följande e-postadress skulle registreras: {{ email }}",
 
 
 
@@ -3520,7 +3520,7 @@
 
   // "item.edit.metadata.notifications.error.title": "An error occurred",
   // TODO New key - Add a translation
-  "item.edit.metadata.notifications.error.title": "Ett fel ar uppstått",
+  "item.edit.metadata.notifications.error.title": "Ett fel har uppstått",
 
   // "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
   // TODO New key - Add a translation
@@ -3704,51 +3704,51 @@
 
   // "item.edit.relationships.discard-button": "Discard",
   // TODO New key - Add a translation
-  "item.edit.relationships.discard-button": "Discard",
+  "item.edit.relationships.discard-button": "Kasta bort",
 
   // "item.edit.relationships.edit.buttons.add": "Add",
   // TODO New key - Add a translation
-  "item.edit.relationships.edit.buttons.add": "Add",
+  "item.edit.relationships.edit.buttons.add": "Lägg till",
 
   // "item.edit.relationships.edit.buttons.remove": "Remove",
   // TODO New key - Add a translation
-  "item.edit.relationships.edit.buttons.remove": "Remove",
+  "item.edit.relationships.edit.buttons.remove": "Ta bort",
 
   // "item.edit.relationships.edit.buttons.undo": "Undo changes",
   // TODO New key - Add a translation
-  "item.edit.relationships.edit.buttons.undo": "Undo changes",
+  "item.edit.relationships.edit.buttons.undo": "Ångra ändringar",
 
   // "item.edit.relationships.no-relationships": "No relationships",
   // TODO New key - Add a translation
-  "item.edit.relationships.no-relationships": "No relationships",
+  "item.edit.relationships.no-relationships": "Relationer saknas",
 
   // "item.edit.relationships.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
   // TODO New key - Add a translation
-  "item.edit.relationships.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+  "item.edit.relationships.notifications.discarded.content": "Dina ändringar sparades inte. Klicka på 'Ångra' för att göra om",
 
   // "item.edit.relationships.notifications.discarded.title": "Changes discarded",
   // TODO New key - Add a translation
-  "item.edit.relationships.notifications.discarded.title": "Changes discarded",
+  "item.edit.relationships.notifications.discarded.title": "Ändringarna sparades inte",
 
   // "item.edit.relationships.notifications.failed.title": "Error editing relationships",
   // TODO New key - Add a translation
-  "item.edit.relationships.notifications.failed.title": "Error editing relationships",
+  "item.edit.relationships.notifications.failed.title": "Ett fel uppstod när relationer redigerades",
 
   // "item.edit.relationships.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
   // TODO New key - Add a translation
-  "item.edit.relationships.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
+  "item.edit.relationships.notifications.outdated.content": "Denna post har nyligen ändrats av en annan användare. Dina ändringar har inte sparats, för att undvika konflikterer",
 
   // "item.edit.relationships.notifications.outdated.title": "Changes outdated",
   // TODO New key - Add a translation
-  "item.edit.relationships.notifications.outdated.title": "Changes outdated",
+  "item.edit.relationships.notifications.outdated.title": "Ändringarna är föråldrade",
 
   // "item.edit.relationships.notifications.saved.content": "Your changes to this item's relationships were saved.",
   // TODO New key - Add a translation
-  "item.edit.relationships.notifications.saved.content": "Your changes to this item's relationships were saved.",
+  "item.edit.relationships.notifications.saved.content": "Ändringarna har sparats.",
 
   // "item.edit.relationships.notifications.saved.title": "Relationships saved",
   // TODO New key - Add a translation
-  "item.edit.relationships.notifications.saved.title": "Relationships saved",
+  "item.edit.relationships.notifications.saved.title": "Relationerna har sparats",
 
   // "item.edit.relationships.reinstate-button": "Undo",
   // TODO New key - Add a translation
@@ -3760,9 +3760,7 @@
 
   // "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
   // TODO New key - Add a translation
-  "item.edit.relationships.no-entity-type": "Lägg till 'dspace.entity.type' metadata för att möjliggöra relationer för denna post",
-
-
+  "item.edit.relationships.no-entity-type": "Lägg till 'dspace.entity.type' metadata för att möjliggöra relationer till denna post",
   // "item.edit.return": "Back",
   // TODO New key - Add a translation
   "item.edit.return": "Tillbaka",
@@ -4000,11 +3998,11 @@
 
   // "item.page.collections.loading": "Loading...",
   // TODO New key - Add a translation
-  "item.page.collections.loading": "Loading...",
+  "item.page.collections.loading": "Laddar..",
 
   // "item.page.collections.load-more": "Load more",
   // TODO New key - Add a translation
-  "item.page.collections.load-more": "Load more",
+  "item.page.collections.load-more": "Ladda fler",
 
   // "item.page.date": "Date",
   // TODO New key - Add a translation
@@ -4012,7 +4010,7 @@
 
   // "item.page.edit": "Edit this item",
   // TODO New key - Add a translation
-  "item.page.edit": "Edit this item",
+  "item.page.edit": "Redigera denna post",
 
   // "item.page.files": "Files",
   // TODO New key - Add a translation
@@ -4040,7 +4038,7 @@
 
   // "item.page.journal.search.title": "Articles in this journal",
   // TODO New key - Add a translation
-  "item.page.journal.search.title": "Articles in this journal",
+  "item.page.journal.search.title": "Artiklar i denna tidskrift",
 
   // "item.page.link.full": "Full item page",
   // TODO New key - Add a translation
@@ -4052,23 +4050,23 @@
 
   // "item.page.person.search.title": "Articles by this author",
   // TODO New key - Add a translation
-  "item.page.person.search.title": "Articles by this author",
+  "item.page.person.search.title": "Artiklar av denna författare",
 
   // "item.page.related-items.view-more": "Show {{ amount }} more",
   // TODO New key - Add a translation
-  "item.page.related-items.view-more": "Show {{ amount }} more",
+  "item.page.related-items.view-more": "Visa {{ amount }} fler",
 
   // "item.page.related-items.view-less": "Hide last {{ amount }}",
   // TODO New key - Add a translation
-  "item.page.related-items.view-less": "Hide last {{ amount }}",
+  "item.page.related-items.view-less": "Göm senaste {{ amount }}",
 
   // "item.page.relationships.isAuthorOfPublication": "Publications",
   // TODO New key - Add a translation
-  "item.page.relationships.isAuthorOfPublication": "Publications",
+  "item.page.relationships.isAuthorOfPublication": "Publikationer",
 
   // "item.page.relationships.isJournalOfPublication": "Publications",
   // TODO New key - Add a translation
-  "item.page.relationships.isJournalOfPublication": "Publications",
+  "item.page.relationships.isJournalOfPublication": "Publikationer",
 
   // "item.page.relationships.isOrgUnitOfPerson": "Författare",
   // TODO New key - Add a translation
@@ -4076,7 +4074,7 @@
 
   // "item.page.relationships.isOrgUnitOfProject": "Research Projects",
   // TODO New key - Add a translation
-  "item.page.relationships.isOrgUnitOfProject": "Research Projects",
+  "item.page.relationships.isOrgUnitOfProject": "Forskningsprojekt",
 
   // "item.page.subject": "Keywords",
   // TODO New key - Add a translation
@@ -4088,11 +4086,11 @@
 
   // "item.page.bitstreams.view-more": "Show more",
   // TODO New key - Add a translation
-  "item.page.bitstreams.view-more": "Show more",
+  "item.page.bitstreams.view-more": "Visa mer",
 
   // "item.page.bitstreams.collapse": "Collapse",
   // TODO New key - Add a translation
-  "item.page.bitstreams.collapse": "Collapse",
+  "item.page.bitstreams.collapse": "Fäll ihop",
 
   // "item.page.filesection.original.bundle" : "Original bundle",
   // TODO New key - Add a translation
@@ -4104,19 +4102,19 @@
 
   // "item.page.return": "Back",
   // TODO New key - Add a translation
-  "item.page.return": "Back",
+  "item.page.return": "Tillbaka",
 
   // "item.page.version.create": "Create new version",
   // TODO New key - Add a translation
-  "item.page.version.create": "Create new version",
+  "item.page.version.create": "Skapa ny version",
 
   // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
   // TODO New key - Add a translation
-  "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  "item.page.version.hasDraft": "Ny version kan inte skapas pga pågående uppladdning i versionshistoriken",
 
   // "item.preview.dc.identifier.uri": "Identifier:",
   // TODO New key - Add a translation
-  "item.preview.dc.identifier.uri": "Identifier:",
+  "item.preview.dc.identifier.uri": "Identifierare:",
 
   // "item.preview.dc.contributor.author": "Författare:",
   // TODO New key - Add a translation
@@ -4124,7 +4122,7 @@
 
   // "item.preview.dc.date.issued": "Published date:",
   // TODO New key - Add a translation
-  "item.preview.dc.date.issued": "Published date:",
+  "item.preview.dc.date.issued": "Publicerad:",
 
   // "item.preview.dc.description.abstract": "Abstract:",
   // TODO New key - Add a translation
@@ -4132,7 +4130,7 @@
 
   // "item.preview.dc.identifier.other": "Other identifier:",
   // TODO New key - Add a translation
-  "item.preview.dc.identifier.other": "Other identifier:",
+  "item.preview.dc.identifier.other": "Annan identifierare:",
 
   // "item.preview.dc.language.iso": "Språk:",
   // TODO New key - Add a translation
@@ -4140,19 +4138,19 @@
 
   // "item.preview.dc.subject": "Subjects:",
   // TODO New key - Add a translation
-  "item.preview.dc.subject": "Subjects:",
+  "item.preview.dc.subject": "Ämnen:",
 
   // "item.preview.dc.title": "Title:",
   // TODO New key - Add a translation
-  "item.preview.dc.title": "Title:",
+  "item.preview.dc.title": "Titel:",
 
   // "item.preview.person.familyName": "Surname:",
   // TODO New key - Add a translation
-  "item.preview.person.familyName": "Surname:",
+  "item.preview.person.familyName": "Förnamn:",
 
   // "item.preview.person.givenName": "Name:",
   // TODO New key - Add a translation
-  "item.preview.person.givenName": "Name:",
+  "item.preview.person.givenName": "Namn:",
 
   // "item.preview.person.identifier.orcid": "ORCID:",
   // TODO New key - Add a translation
@@ -4160,23 +4158,23 @@
 
   // "item.preview.project.funder.name": "Funder:",
   // TODO New key - Add a translation
-  "item.preview.project.funder.name": "Funder:",
+  "item.preview.project.funder.name": "Finansiär:",
 
   // "item.preview.project.funder.identifier": "Funder Identifier:",
   // TODO New key - Add a translation
-  "item.preview.project.funder.identifier": "Funder Identifier:",
+  "item.preview.project.funder.identifier": "Finansiär ID:",
 
   // "item.preview.oaire.awardNumber": "Funding ID:",
   // TODO New key - Add a translation
-  "item.preview.oaire.awardNumber": "Funding ID:",
+  "item.preview.oaire.awardNumber": "Finansiering ID:",
 
   // "item.preview.dc.title.alternative": "Acronym:",
   // TODO New key - Add a translation
-  "item.preview.dc.title.alternative": "Acronym:",
+  "item.preview.dc.title.alternative": "Akronym:",
 
   // "item.preview.dc.coverage.spatial": "Jurisdiction:",
   // TODO New key - Add a translation
-  "item.preview.dc.coverage.spatial": "Jurisdiction:",
+  "item.preview.dc.coverage.spatial": "Jurisdiktion:",
 
   // "item.preview.oaire.fundingStream": "Funding Stream:",
   // TODO New key - Add a translation
@@ -4186,7 +4184,7 @@
 
   // "item.select.confirm": "Confirm selected",
   // TODO New key - Add a translation
-  "item.select.confirm": "Confirm selected",
+  "item.select.confirm": "Bekräfta valda",
 
   // "item.select.empty": "No items to show",
   // TODO New key - Add a translation
@@ -4194,36 +4192,36 @@
 
   // "item.select.table.author": "Author",
   // TODO New key - Add a translation
-  "item.select.table.author": "Author",
+  "item.select.table.author": "Författare",
 
   // "item.select.table.collection": "Collection",
   // TODO New key - Add a translation
-  "item.select.table.collection": "Collection",
+  "item.select.table.collection": "Samling",
 
   // "item.select.table.title": "Title",
   // TODO New key - Add a translation
-  "item.select.table.title": "Title",
+  "item.select.table.title": "Titel",
 
 
   // "item.version.history.empty": "There are no other versions for this item yet.",
   // TODO New key - Add a translation
-  "item.version.history.empty": "There are no other versions for this item yet.",
+  "item.version.history.empty": "Det finns inga andra versioner av denna post.",
 
   // "item.version.history.head": "Version History",
   // TODO New key - Add a translation
-  "item.version.history.head": "Version History",
+  "item.version.history.head": "Versionshistorik",
 
   // "item.version.history.return": "Back",
   // TODO New key - Add a translation
-  "item.version.history.return": "Back",
+  "item.version.history.return": "Tillbaka",
 
   // "item.version.history.selected": "Selected version",
   // TODO New key - Add a translation
-  "item.version.history.selected": "Selected version",
+  "item.version.history.selected": "Vald version",
 
   // "item.version.history.selected.alert": "You are currently viewing version {{version}} of the item.",
   // TODO New key - Add a translation
-  "item.version.history.selected.alert": "You are currently viewing version {{version}} of the item.",
+  "item.version.history.selected.alert": "Du tittat på version {{version}} av denna post.",
 
   // "item.version.history.table.version": "Version",
   // TODO New key - Add a translation
@@ -4231,19 +4229,19 @@
 
   // "item.version.history.table.item": "Item",
   // TODO New key - Add a translation
-  "item.version.history.table.item": "Item",
+  "item.version.history.table.item": "Post",
 
   // "item.version.history.table.editor": "Editor",
   // TODO New key - Add a translation
-  "item.version.history.table.editor": "Editor",
+  "item.version.history.table.editor": "Redaktör",
 
   // "item.version.history.table.date": "Date",
   // TODO New key - Add a translation
-  "item.version.history.table.date": "Date",
+  "item.version.history.table.date": "Datum",
 
   // "item.version.history.table.summary": "Summary",
   // TODO New key - Add a translation
-  "item.version.history.table.summary": "Summary",
+  "item.version.history.table.summary": "Sammanfattning",
 
   // "item.version.history.table.workspaceItem": "Workspace item",
   // TODO New key - Add a translation
@@ -4251,35 +4249,35 @@
 
   // "item.version.history.table.workflowItem": "Workflow item",
   // TODO New key - Add a translation
-  "item.version.history.table.workflowItem": "Workflow item",
+  "item.version.history.table.workflowItem": "Post i arbetsflöde",
 
   // "item.version.history.table.actions": "Action",
   // TODO New key - Add a translation
-  "item.version.history.table.actions": "Action",
+  "item.version.history.table.actions": "Åtgärd",
 
   // "item.version.history.table.action.editWorkspaceItem": "Edit workspace item",
   // TODO New key - Add a translation
-  "item.version.history.table.action.editWorkspaceItem": "Edit workspace item",
+  "item.version.history.table.action.editWorkspaceItem": "Redigera post",
 
   // "item.version.history.table.action.editSummary": "Edit summary",
   // TODO New key - Add a translation
-  "item.version.history.table.action.editSummary": "Edit summary",
+  "item.version.history.table.action.editSummary": "Redigera sammanfattning",
 
   // "item.version.history.table.action.saveSummary": "Save summary edits",
   // TODO New key - Add a translation
-  "item.version.history.table.action.saveSummary": "Save summary edits",
+  "item.version.history.table.action.saveSummary": "Spara ändringar",
 
   // "item.version.history.table.action.discardSummary": "Discard summary edits",
   // TODO New key - Add a translation
-  "item.version.history.table.action.discardSummary": "Discard summary edits",
+  "item.version.history.table.action.discardSummary": "Förkasta ändringar",
 
   // "item.version.history.table.action.newVersion": "Create new version from this one",
   // TODO New key - Add a translation
-  "item.version.history.table.action.newVersion": "Create new version from this one",
+  "item.version.history.table.action.newVersion": "Skapa ny version av denna",
 
   // "item.version.history.table.action.deleteVersion": "Delete version",
   // TODO New key - Add a translation
-  "item.version.history.table.action.deleteVersion": "Delete version",
+  "item.version.history.table.action.deleteVersion": "Radera version",
 
   // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
   // TODO New key - Add a translation
@@ -4288,52 +4286,52 @@
 
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
   // TODO New key - Add a translation
-  "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
+  "item.version.notice": "Detta är inte den senaste versionen. Senaste versionen finns <a href='{{destination}}'>här</a>.",
 
 
   // "item.version.create.modal.header": "New version",
   // TODO New key - Add a translation
-  "item.version.create.modal.header": "New version",
+  "item.version.create.modal.header": "Ny version",
 
   // "item.version.create.modal.text": "Create a new version for this item",
   // TODO New key - Add a translation
-  "item.version.create.modal.text": "Create a new version for this item",
+  "item.version.create.modal.text": "Skapa ny version av denna post",
 
   // "item.version.create.modal.text.startingFrom": "starting from version {{version}}",
   // TODO New key - Add a translation
-  "item.version.create.modal.text.startingFrom": "starting from version {{version}}",
+  "item.version.create.modal.text.startingFrom": "med början från version {{version}}",
 
   // "item.version.create.modal.button.confirm": "Create",
   // TODO New key - Add a translation
-  "item.version.create.modal.button.confirm": "Create",
+  "item.version.create.modal.button.confirm": "Skapa",
 
   // "item.version.create.modal.button.confirm.tooltip": "Create new version",
   // TODO New key - Add a translation
-  "item.version.create.modal.button.confirm.tooltip": "Create new version",
+  "item.version.create.modal.button.confirm.tooltip": "Skapa ny version",
 
   // "item.version.create.modal.button.cancel": "Cancel",
   // TODO New key - Add a translation
-  "item.version.create.modal.button.cancel": "Cancel",
+  "item.version.create.modal.button.cancel": "Avbryt",
 
   // "item.version.create.modal.button.cancel.tooltip": "Do not create new version",
   // TODO New key - Add a translation
-  "item.version.create.modal.button.cancel.tooltip": "Do not create new version",
+  "item.version.create.modal.button.cancel.tooltip": "Skapa inte ny version",
 
   // "item.version.create.modal.form.summary.label": "Summary",
   // TODO New key - Add a translation
-  "item.version.create.modal.form.summary.label": "Summary",
+  "item.version.create.modal.form.summary.label": "Sammanfattning",
 
   // "item.version.create.modal.form.summary.placeholder": "Insert the summary for the new version",
   // TODO New key - Add a translation
-  "item.version.create.modal.form.summary.placeholder": "Insert the summary for the new version",
+  "item.version.create.modal.form.summary.placeholder": "Lägg till sammanfattning av den nya versionen",
 
   // "item.version.create.notification.success" : "New version has been created with version number {{version}}",
   // TODO New key - Add a translation
-  "item.version.create.notification.success" : "New version has been created with version number {{version}}",
+  "item.version.create.notification.success" : "En ny version med nummer {{version}} har skapats",
 
   // "item.version.create.notification.failure" : "New version has not been created",
   // TODO New key - Add a translation
-  "item.version.create.notification.failure" : "New version has not been created",
+  "item.version.create.notification.failure" : "Ny version har inte skapats",
 
   // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
   // TODO New key - Add a translation
@@ -4342,50 +4340,50 @@
 
   // "item.version.delete.modal.header": "Delete version",
   // TODO New key - Add a translation
-  "item.version.delete.modal.header": "Delete version",
+  "item.version.delete.modal.header": "Radera version",
 
   // "item.version.delete.modal.text": "Do you want to delete version {{version}}?",
   // TODO New key - Add a translation
-  "item.version.delete.modal.text": "Do you want to delete version {{version}}?",
+  "item.version.delete.modal.text": "Vill du radera version {{version}}?",
 
   // "item.version.delete.modal.button.confirm": "Delete",
   // TODO New key - Add a translation
-  "item.version.delete.modal.button.confirm": "Delete",
+  "item.version.delete.modal.button.confirm": "Radera",
 
   // "item.version.delete.modal.button.confirm.tooltip": "Delete this version",
   // TODO New key - Add a translation
-  "item.version.delete.modal.button.confirm.tooltip": "Delete this version",
+  "item.version.delete.modal.button.confirm.tooltip": "Radera denna version",
 
   // "item.version.delete.modal.button.cancel": "Cancel",
   // TODO New key - Add a translation
-  "item.version.delete.modal.button.cancel": "Cancel",
+  "item.version.delete.modal.button.cancel": "Avbryt",
 
   // "item.version.delete.modal.button.cancel.tooltip": "Do not delete this version",
   // TODO New key - Add a translation
-  "item.version.delete.modal.button.cancel.tooltip": "Do not delete this version",
+  "item.version.delete.modal.button.cancel.tooltip": "Radera inte denna version",
 
   // "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
   // TODO New key - Add a translation
-  "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
+  "item.version.delete.notification.success" : "Version {{version}} har raderats",
 
   // "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
   // TODO New key - Add a translation
-  "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
+  "item.version.delete.notification.failure" : "Version {{version}} har inte raderats",
 
 
   // "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
   // TODO New key - Add a translation
-  "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
+  "item.version.edit.notification.success" : "Sammanfattningen av version {{version}} har ändrats",
 
   // "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
   // TODO New key - Add a translation
-  "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
+  "item.version.edit.notification.failure" : "Sammanfattningen av version {{version}} har inte ändrats",
 
 
 
   // "journal.listelement.badge": "Journal",
   // TODO New key - Add a translation
-  "journal.listelement.badge": "Journal",
+  "journal.listelement.badge": "Tidskrift",
 
   // "journal.page.description": "Beskrivning",
   // TODO New key - Add a translation
@@ -4393,7 +4391,7 @@
 
   // "journal.page.edit": "Edit this item",
   // TODO New key - Add a translation
-  "journal.page.edit": "Edit this item",
+  "journal.page.edit": "Redigera denna",
 
   // "journal.page.editor": "Editor-in-Chief",
   // TODO New key - Add a translation
@@ -4409,15 +4407,15 @@
 
   // "journal.page.titleprefix": "Journal: ",
   // TODO New key - Add a translation
-  "journal.page.titleprefix": "Journal: ",
+  "journal.page.titleprefix": "Tidskrift: ",
 
   // "journal.search.results.head": "Journal Search Results",
   // TODO New key - Add a translation
-  "journal.search.results.head": "Journal Search Results",
+  "journal.search.results.head": "Sökresultat",
 
   // "journal.search.title": "Journal Search",
   // TODO New key - Add a translation
-  "journal.search.title": "Journal Search",
+  "journal.search.title": "Sök tidskrift",
 
 
 
@@ -4795,73 +4793,73 @@
 
   // "menu.section.icon.access_control": "Access Control menu section",
   // TODO New key - Add a translation
-  "menu.section.icon.access_control": "Access Control menu section",
+  "menu.section.icon.access_control": "Åtkomstkontroll - meny",
 
   // "menu.section.icon.admin_search": "Admin search menu section",
   // TODO New key - Add a translation
-  "menu.section.icon.admin_search": "Admin search menu section",
+  "menu.section.icon.admin_search": "Admin sök - meny",
 
   // "menu.section.icon.control_panel": "Control Panel menu section",
   // TODO New key - Add a translation
-  "menu.section.icon.control_panel": "Control Panel menu section",
+  "menu.section.icon.control_panel": "Kontrollpanel - meny",
 
   // "menu.section.icon.curation_tasks": "Curation Task menu section",
   // TODO New key - Add a translation
-  "menu.section.icon.curation_tasks": "Curation Task menu section",
+  "menu.section.icon.curation_tasks": "Kureringsuppgift - meny",
 
   // "menu.section.icon.edit": "Edit menu section",
   // TODO New key - Add a translation
-  "menu.section.icon.edit": "Edit menu section",
+  "menu.section.icon.edit": "Redigera - meny",
 
   // "menu.section.icon.export": "Export menu section",
   // TODO New key - Add a translation
-  "menu.section.icon.export": "Export menu section",
+  "menu.section.icon.export": "Exportera - meny",
 
   // "menu.section.icon.find": "Find menu section",
   // TODO New key - Add a translation
-  "menu.section.icon.find": "Find menu section",
+  "menu.section.icon.find": "Sök - meny",
 
   // "menu.section.icon.import": "Import menu section",
   // TODO New key - Add a translation
-  "menu.section.icon.import": "Import menu section",
+  "menu.section.icon.import": "Importera - meny",
 
   // "menu.section.icon.new": "New menu section",
   // TODO New key - Add a translation
-  "menu.section.icon.new": "New menu section",
+  "menu.section.icon.new": "Ny - meny",
 
   // "menu.section.icon.pin": "Pin sidebar",
   // TODO New key - Add a translation
-  "menu.section.icon.pin": "Pin sidebar",
+  "menu.section.icon.pin": "Fäst sidomenyn",
 
   // "menu.section.icon.processes": "Processes menu section",
   // TODO New key - Add a translation
-  "menu.section.icon.processes": "Processes menu section",
+  "menu.section.icon.processes": "Processer - meny",
 
   // "menu.section.icon.registries": "Registries menu section",
   // TODO New key - Add a translation
-  "menu.section.icon.registries": "Registries menu section",
+  "menu.section.icon.registries": "Registries- meny",
 
   // "menu.section.icon.statistics_task": "Statistics Task menu section",
   // TODO New key - Add a translation
-  "menu.section.icon.statistics_task": "Statistics Task menu section",
+  "menu.section.icon.statistics_task": "Statistik - meny",
 
   // "menu.section.icon.workflow": "Administer workflow menu section",
   // TODO New key - Add a translation
-  "menu.section.icon.workflow": "Administer workflow menu section",
+  "menu.section.icon.workflow": "Administrera arbetsflöde - meny",
 
   // "menu.section.icon.unpin": "Unpin sidebar",
   // TODO New key - Add a translation
-  "menu.section.icon.unpin": "Unpin sidebar",
+  "menu.section.icon.unpin": "Koppla loss sidomenyn",
 
 
 
   // "menu.section.import": "Import",
   // TODO New key - Add a translation
-  "menu.section.import": "Import",
+  "menu.section.import": "Importera",
 
   // "menu.section.import_batch": "Batch Import (ZIP)",
   // TODO New key - Add a translation
-  "menu.section.import_batch": "Batch Import (ZIP)",
+  "menu.section.import_batch": "Importera batch (ZIP)",
 
   // "menu.section.import_metadata": "Metadata",
   // TODO New key - Add a translation
@@ -4869,25 +4867,25 @@
 
 
 
-  // "menu.section.new": "New",
+ // "menu.section.new": "New",
   // TODO New key - Add a translation
-  "menu.section.new": "New",
+  "menu.section.new": "Ny",
 
   // "menu.section.new_collection": "Collection",
   // TODO New key - Add a translation
-  "menu.section.new_collection": "Collection",
+  "menu.section.new_collection": "Samling",
 
   // "menu.section.new_community": "Community",
   // TODO New key - Add a translation
-  "menu.section.new_community": "Community",
+  "menu.section.new_community": "Enhet",
 
   // "menu.section.new_item": "Item",
   // TODO New key - Add a translation
-  "menu.section.new_item": "Item",
+  "menu.section.new_item": "Post",
 
   // "menu.section.new_item_version": "Item Version",
   // TODO New key - Add a translation
-  "menu.section.new_item_version": "Item Version",
+  "menu.section.new_item_version": "Post version",
 
   // "menu.section.new_process": "Process",
   // TODO New key - Add a translation
@@ -4897,17 +4895,17 @@
 
   // "menu.section.pin": "Pin sidebar",
   // TODO New key - Add a translation
-  "menu.section.pin": "Pin sidebar",
+  "menu.section.pin": "Fäst sidomenyn",
 
   // "menu.section.unpin": "Unpin sidebar",
   // TODO New key - Add a translation
-  "menu.section.unpin": "Unpin sidebar",
+  "menu.section.unpin": "Koppla loss sidomenyn",
 
 
 
   // "menu.section.processes": "Processes",
   // TODO New key - Add a translation
-  "menu.section.processes": "Processes",
+  "menu.section.processes": "Processer",
 
 
 
@@ -4931,59 +4929,59 @@
 
   // "menu.section.statistics_task": "Statistics Task",
   // TODO New key - Add a translation
-  "menu.section.statistics_task": "Statistics Task",
+  "menu.section.statistics_task": "Statistik uppgift",
 
 
 
   // "menu.section.toggle.access_control": "Toggle Access Control section",
   // TODO New key - Add a translation
-  "menu.section.toggle.access_control": "Toggle Access Control section",
+  "menu.section.toggle.access_control": "Växla till åtkomstkontroll",
 
   // "menu.section.toggle.control_panel": "Toggle Control Panel section",
   // TODO New key - Add a translation
-  "menu.section.toggle.control_panel": "Toggle Control Panel section",
+  "menu.section.toggle.control_panel": "Växla till kontrollpanel",
 
   // "menu.section.toggle.curation_task": "Toggle Curation Task section",
   // TODO New key - Add a translation
-  "menu.section.toggle.curation_task": "Toggle Curation Task section",
+  "menu.section.toggle.curation_task": "Växla till kureringsuppgift",
 
   // "menu.section.toggle.edit": "Toggle Edit section",
   // TODO New key - Add a translation
-  "menu.section.toggle.edit": "Toggle Edit section",
+  "menu.section.toggle.edit": "Växla till redigera",
 
   // "menu.section.toggle.export": "Toggle Export section",
   // TODO New key - Add a translation
-  "menu.section.toggle.export": "Toggle Export section",
+  "menu.section.toggle.export": "Växla till exportera",
 
   // "menu.section.toggle.find": "Toggle Find section",
   // TODO New key - Add a translation
-  "menu.section.toggle.find": "Toggle Find section",
+  "menu.section.toggle.find": "Växla till sök",
 
   // "menu.section.toggle.import": "Toggle Import section",
   // TODO New key - Add a translation
-  "menu.section.toggle.import": "Toggle Import section",
+  "menu.section.toggle.import": "Växla till importera",
 
   // "menu.section.toggle.new": "Toggle New section",
   // TODO New key - Add a translation
-  "menu.section.toggle.new": "Toggle New section",
+  "menu.section.toggle.new": "Växla till ny",
 
   // "menu.section.toggle.registries": "Toggle Registries section",
   // TODO New key - Add a translation
-  "menu.section.toggle.registries": "Toggle Registries section",
+  "menu.section.toggle.registries": "Växla till registries",
 
   // "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
   // TODO New key - Add a translation
-  "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
+  "menu.section.toggle.statistics_task": "Växla till statistik",
 
 
   // "menu.section.workflow": "Administer Workflow",
   // TODO New key - Add a translation
-  "menu.section.workflow": "Administer Workflow",
+  "menu.section.workflow": "Administrera arbetsflöde",
 
 
   // "mydspace.breadcrumbs": "MyDSpace",
   // TODO New key - Add a translation
-  "mydspace.breadcrumbs": "MyDSpace",
+  "mydspace.breadcrumbs": "Mitt DSpace",
 
   // "mydspace.description": "",
   // TODO New key - Add a translation
@@ -4991,71 +4989,71 @@
 
   // "mydspace.general.text-here": "here",
   // TODO New key - Add a translation
-  "mydspace.general.text-here": "here",
+  "mydspace.general.text-here": "här",
 
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
   // TODO New key - Add a translation
-  "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
+  "mydspace.messages.controller-help": "Välj detta för att skicka ett meddelande till uppladdare.",
 
   // "mydspace.messages.description-placeholder": "Insert your message here...",
   // TODO New key - Add a translation
-  "mydspace.messages.description-placeholder": "Insert your message here...",
+  "mydspace.messages.description-placeholder": "Skriv meddelande här...",
 
   // "mydspace.messages.hide-msg": "Hide message",
   // TODO New key - Add a translation
-  "mydspace.messages.hide-msg": "Hide message",
+  "mydspace.messages.hide-msg": "Göm meddelande",
 
   // "mydspace.messages.mark-as-read": "Mark as read",
   // TODO New key - Add a translation
-  "mydspace.messages.mark-as-read": "Mark as read",
+  "mydspace.messages.mark-as-read": "Markera som läst",
 
   // "mydspace.messages.mark-as-unread": "Mark as unread",
   // TODO New key - Add a translation
-  "mydspace.messages.mark-as-unread": "Mark as unread",
+  "mydspace.messages.mark-as-unread": "Markera som oläst",
 
   // "mydspace.messages.no-content": "No content.",
   // TODO New key - Add a translation
-  "mydspace.messages.no-content": "No content.",
+  "mydspace.messages.no-content": "Innehåll saknas.",
 
   // "mydspace.messages.no-messages": "No messages yet.",
   // TODO New key - Add a translation
-  "mydspace.messages.no-messages": "No messages yet.",
+  "mydspace.messages.no-messages": "Inga meddelanden finns.",
 
   // "mydspace.messages.send-btn": "Send",
   // TODO New key - Add a translation
-  "mydspace.messages.send-btn": "Send",
+  "mydspace.messages.send-btn": "Skicka",
 
   // "mydspace.messages.show-msg": "Show message",
   // TODO New key - Add a translation
-  "mydspace.messages.show-msg": "Show message",
+  "mydspace.messages.show-msg": "Visa meddelande",
 
   // "mydspace.messages.subject-placeholder": "Subject...",
   // TODO New key - Add a translation
-  "mydspace.messages.subject-placeholder": "Subject...",
+  "mydspace.messages.subject-placeholder": "Ämne...",
 
   // "mydspace.messages.submitter-help": "Select this option to send a message to controller.",
   // TODO New key - Add a translation
-  "mydspace.messages.submitter-help": "Select this option to send a message to controller.",
+  "mydspace.messages.submitter-help": "Välj detta för att skicka ett meddelande till kontrollant.",
 
   // "mydspace.messages.title": "Messages",
   // TODO New key - Add a translation
-  "mydspace.messages.title": "Messages",
+  "mydspace.messages.title": "Meddelanden",
 
   // "mydspace.messages.to": "To",
   // TODO New key - Add a translation
-  "mydspace.messages.to": "To",
+  "mydspace.messages.to": "Till",
 
   // "mydspace.new-submission": "New submission",
   // TODO New key - Add a translation
-  "mydspace.new-submission": "New submission",
+  "mydspace.new-submission": "Nytt bidrag",
 
   // "mydspace.new-submission-external": "Import metadata from external source",
   // TODO New key - Add a translation
-  "mydspace.new-submission-external": "Import metadata from external source",
+  "mydspace.new-submission-external": "Importera metadada från extern källa",
 
   // "mydspace.new-submission-external-short": "Import metadata",
   // TODO New key - Add a translation
-  "mydspace.new-submission-external-short": "Import metadata",
+  "mydspace.new-submission-external-short": "Importera metadata",
 
   // "mydspace.results.head": "Your submissions",
   // TODO New key - Add a translation
@@ -5063,43 +5061,43 @@
 
   // "mydspace.results.no-abstract": "No Abstract",
   // TODO New key - Add a translation
-  "mydspace.results.no-abstract": "No Abstract",
+  "mydspace.results.no-abstract": "Ingen sammanfattning",
 
   // "mydspace.results.no-Författare": "No Författare",
   // TODO New key - Add a translation
-  "mydspace.results.no-Författare": "No författare",
+  "mydspace.results.no-Författare": "Inga författare",
 
   // "mydspace.results.no-collections": "No Collections",
   // TODO New key - Add a translation
-  "mydspace.results.no-collections": "No Collections",
+  "mydspace.results.no-collections": "Inga samlingar",
 
   // "mydspace.results.no-date": "No Date",
   // TODO New key - Add a translation
-  "mydspace.results.no-date": "No Date",
+  "mydspace.results.no-date": "Inget datum",
 
   // "mydspace.results.no-files": "No Files",
   // TODO New key - Add a translation
-  "mydspace.results.no-files": "No Files",
+  "mydspace.results.no-files": "Inga filer",
 
   // "mydspace.results.no-results": "There were no items to show",
   // TODO New key - Add a translation
-  "mydspace.results.no-results": "There were no items to show",
+  "mydspace.results.no-results": "Det finns inga poster att visa",
 
   // "mydspace.results.no-title": "No title",
   // TODO New key - Add a translation
-  "mydspace.results.no-title": "No title",
+  "mydspace.results.no-title": "Ingen titel",
 
   // "mydspace.results.no-uri": "No Uri",
   // TODO New key - Add a translation
-  "mydspace.results.no-uri": "No Uri",
+  "mydspace.results.no-uri": "Ingen Uri",
 
   // "mydspace.search-form.placeholder": "Search in mydspace...",
   // TODO New key - Add a translation
-  "mydspace.search-form.placeholder": "Search in mydspace...",
+  "mydspace.search-form.placeholder": "Sök i mydspace...",
 
   // "mydspace.show.workflow": "Workflow tasks",
   // TODO New key - Add a translation
-  "mydspace.show.workflow": "Workflow tasks",
+  "mydspace.show.workflow": "Arbetsflöde uppgifter",
 
   // "mydspace.show.workspace": "Your Submissions",
   // TODO New key - Add a translation
@@ -5107,19 +5105,19 @@
 
   // "mydspace.status.archived": "Archived",
   // TODO New key - Add a translation
-  "mydspace.status.archived": "Archived",
+  "mydspace.status.archived": "Arkiverat",
 
   // "mydspace.status.validation": "Validation",
   // TODO New key - Add a translation
-  "mydspace.status.validation": "Validation",
+  "mydspace.status.validation": "Validering",
 
   // "mydspace.status.waiting-for-controller": "Waiting for controller",
   // TODO New key - Add a translation
-  "mydspace.status.waiting-for-controller": "Waiting for controller",
+  "mydspace.status.waiting-for-controller": "Väntar på kontrollant",
 
   // "mydspace.status.workflow": "Workflow",
   // TODO New key - Add a translation
-  "mydspace.status.workflow": "Workflow",
+  "mydspace.status.workflow": "Arbetsflöde",
 
   // "mydspace.status.workspace": "Workspace",
   // TODO New key - Add a translation
@@ -5131,23 +5129,23 @@
 
   // "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
   // TODO New key - Add a translation
-  "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
+  "mydspace.upload.upload-failed": "Ett fel uppstod när arbertsyta skulle skapas. Verifiera inneållet i det som skall laddas upp och försök igen.",
 
   // "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
   // TODO New key - Add a translation
-  "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
+  "mydspace.upload.upload-failed-manyentries": "Fil kan inte processes. Detected too many entries but allowed only one for file.",
 
   // "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
   // TODO New key - Add a translation
-  "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
+  "mydspace.upload.upload-failed-moreonefile": "Begäran kunde inte bearbetas. Endast en fil är möjlig.",
 
   // "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
   // TODO New key - Add a translation
-  "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
+  "mydspace.upload.upload-multiple-successful": "{{qty}} nya poster har skapats i arbetsytan.",
 
   // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
   // TODO New key - Add a translation
-  "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
+  "mydspace.upload.upload-successful": "Ny post ar skapats i arbetsytan. Klicka {{here}} för att redigera den.",
 
   // "mydspace.view-btn": "View",
   // TODO New key - Add a translation
@@ -5157,7 +5155,7 @@
 
   // "nav.browse.header": "All of DSpace",
   // TODO New key - Add a translation
-  "nav.browse.header": "Hela ODR",
+  "nav.browse.header": "Hela DSpace",
 
   // "nav.community-browse.header": "By Community",
   // TODO New key - Add a translation
@@ -5850,17 +5848,17 @@
 
 
 
-  // "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
+   // "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
   // TODO New key - Add a translation
-  "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
+  "relationships.add.error.relationship-type.content": "Det gick inte att hitta något som matchade relationstyp {{ type }} mellan dessa poster",
 
   // "relationships.add.error.server.content": "The server returned an error",
   // TODO New key - Add a translation
-  "relationships.add.error.server.content": "The server returned an error",
+  "relationships.add.error.server.content": "Servern returnerade ett fel",
 
   // "relationships.add.error.title": "Unable to add relationship",
   // TODO New key - Add a translation
-  "relationships.add.error.title": "Unable to add relationship",
+  "relationships.add.error.title": "Det gick inte att skapa relation",
 
   // "relationships.isAuthorOf": "Författare",
   // TODO New key - Add a translation
@@ -5868,27 +5866,27 @@
 
   // "relationships.isAuthorOf.Person": "Författare (persons)",
   // TODO New key - Add a translation
-  "relationships.isAuthorOf.Person": "Författare (persons)",
+  "relationships.isAuthorOf.Person": "Författare (personer)",
 
   // "relationships.isAuthorOf.OrgUnit": "Författare (organizational units)",
   // TODO New key - Add a translation
-  "relationships.isAuthorOf.OrgUnit": "Författare (organizational units)",
+  "relationships.isAuthorOf.OrgUnit": "Författare (organisatoriska enheter)",
 
   // "relationships.isIssueOf": "Journal Issues",
   // TODO New key - Add a translation
-  "relationships.isIssueOf": "Journal Issues",
+  "relationships.isIssueOf": "Tidskriftsexemplar",
 
   // "relationships.isJournalIssueOf": "Journal Issue",
   // TODO New key - Add a translation
-  "relationships.isJournalIssueOf": "Journal Issue",
+  "relationships.isJournalIssueOf": "Tidskriftsexemplar",
 
   // "relationships.isJournalOf": "Journals",
   // TODO New key - Add a translation
-  "relationships.isJournalOf": "Journals",
+  "relationships.isJournalOf": "Tidskrifter",
 
   // "relationships.isOrgUnitOf": "Organizational Units",
   // TODO New key - Add a translation
-  "relationships.isOrgUnitOf": "Organizational Units",
+  "relationships.isOrgUnitOf": "Organisatoriska enheter",
 
   // "relationships.isPersonOf": "Författare",
   // TODO New key - Add a translation
@@ -5896,48 +5894,48 @@
 
   // "relationships.isProjectOf": "Research Projects",
   // TODO New key - Add a translation
-  "relationships.isProjectOf": "Research Projects",
+  "relationships.isProjectOf": "Forskningsprojekt",
 
   // "relationships.isPublicationOf": "Publications",
   // TODO New key - Add a translation
-  "relationships.isPublicationOf": "Publications",
+  "relationships.isPublicationOf": "Publikationer",
 
   // "relationships.isPublicationOfJournalIssue": "Articles",
   // TODO New key - Add a translation
-  "relationships.isPublicationOfJournalIssue": "Articles",
+  "relationships.isPublicationOfJournalIssue": "Artiklar",
 
   // "relationships.isSingleJournalOf": "Journal",
   // TODO New key - Add a translation
-  "relationships.isSingleJournalOf": "Journal",
+  "relationships.isSingleJournalOf": "Tidskrift",
 
   // "relationships.isSingleVolumeOf": "Journal Volume",
   // TODO New key - Add a translation
-  "relationships.isSingleVolumeOf": "Journal Volume",
+  "relationships.isSingleVolumeOf": "Tidskriftsexemplar",
 
   // "relationships.isVolumeOf": "Journal Volumes",
   // TODO New key - Add a translation
-  "relationships.isVolumeOf": "Journal Volumes",
+  "relationships.isVolumeOf": "Tidskriftsvolymer",
 
   // "relationships.isContributorOf": "Contributors",
   // TODO New key - Add a translation
-  "relationships.isContributorOf": "Contributors",
+  "relationships.isContributorOf": "Medverkande",
 
   // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
   // TODO New key - Add a translation
-  "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+  "relationships.isContributorOf.OrgUnit": "Medverkande (organisatorisk enhet)",
 
   // "relationships.isContributorOf.Person": "Contributor",
   // TODO New key - Add a translation
-  "relationships.isContributorOf.Person": "Contributor",
+  "relationships.isContributorOf.Person": "Medverkande",
 
   // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
   // TODO New key - Add a translation
-  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  "relationships.isFundingAgencyOf.OrgUnit": "Finansiär",
 
 
   // "repository.image.logo": "Repository logo",
   // TODO New key - Add a translation
-  "repository.image.logo": "Repository logo",
+  "repository.image.logo": "Repositoriets logga",
 
   // "repository.title.prefix": "DSpace Angular :: ",
   // TODO New key - Add a translation
@@ -5950,107 +5948,107 @@
 
   // "resource-policies.add.button": "Add",
   // TODO New key - Add a translation
-  "resource-policies.add.button": "Add",
+  "resource-policies.add.button": "Lägg till",
 
   // "resource-policies.add.for.": "Add a new policy",
   // TODO New key - Add a translation
-  "resource-policies.add.for.": "Add a new policy",
+  "resource-policies.add.for.": "Lägg till ny policy",
 
   // "resource-policies.add.for.bitstream": "Add a new Bitstream policy",
   // TODO New key - Add a translation
-  "resource-policies.add.for.bitstream": "Add a new Bitstream policy",
+  "resource-policies.add.for.bitstream": "Lägg till ny policy för fil",
 
   // "resource-policies.add.for.bundle": "Add a new Bundle policy",
   // TODO New key - Add a translation
-  "resource-policies.add.for.bundle": "Add a new Bundle policy",
+  "resource-policies.add.for.bundle": "Lägg till ny policy för bunt",
 
   // "resource-policies.add.for.item": "Add a new Item policy",
   // TODO New key - Add a translation
-  "resource-policies.add.for.item": "Add a new Item policy",
+  "resource-policies.add.for.item": "Lägg till ny policy för post",
 
   // "resource-policies.add.for.community": "Add a new Community policy",
   // TODO New key - Add a translation
-  "resource-policies.add.for.community": "Add a new Community policy",
+  "resource-policies.add.for.community": "Lägg till ny policy för enhet",
 
   // "resource-policies.add.for.collection": "Add a new Collection policy",
   // TODO New key - Add a translation
-  "resource-policies.add.for.collection": "Add a new Collection policy",
+  "resource-policies.add.for.collection": "Lägg till ny policy för samling",
 
   // "resource-policies.create.page.heading": "Create new resource policy for ",
   // TODO New key - Add a translation
-  "resource-policies.create.page.heading": "Create new resource policy for ",
+  "resource-policies.create.page.heading": "Lägg till ny policy för ",
 
   // "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
   // TODO New key - Add a translation
-  "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
+  "resource-policies.create.page.failure.content": "Ett fel har uppstått.",
 
   // "resource-policies.create.page.success.content": "Operation successful",
   // TODO New key - Add a translation
-  "resource-policies.create.page.success.content": "Operation successful",
+  "resource-policies.create.page.success.content": "Operationen lyckades",
 
   // "resource-policies.create.page.title": "Create new resource policy",
   // TODO New key - Add a translation
-  "resource-policies.create.page.title": "Create new resource policy",
+  "resource-policies.create.page.title": "Skapa ny policy för resurs",
 
   // "resource-policies.delete.btn": "Delete selected",
   // TODO New key - Add a translation
-  "resource-policies.delete.btn": "Delete selected",
+  "resource-policies.delete.btn": "Radera valda",
 
   // "resource-policies.delete.btn.title": "Delete selected resource policies",
   // TODO New key - Add a translation
-  "resource-policies.delete.btn.title": "Delete selected resource policies",
+  "resource-policies.delete.btn.title": "Radera valda policies",
 
   // "resource-policies.delete.failure.content": "An error occurred while deleting selected resource policies.",
   // TODO New key - Add a translation
-  "resource-policies.delete.failure.content": "An error occurred while deleting selected resource policies.",
+  "resource-policies.delete.failure.content": "Ett fel uppstod när policies skulle raderas.",
 
   // "resource-policies.delete.success.content": "Operation successful",
   // TODO New key - Add a translation
-  "resource-policies.delete.success.content": "Operation successful",
+  "resource-policies.delete.success.content": "Operationen lyckades",
 
   // "resource-policies.edit.page.heading": "Edit resource policy ",
   // TODO New key - Add a translation
-  "resource-policies.edit.page.heading": "Edit resource policy ",
+  "resource-policies.edit.page.heading": "Redigera policy för resurs ",
 
   // "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
   // TODO New key - Add a translation
-  "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
+  "resource-policies.edit.page.failure.content": "Ett fel uppstod när policy redigerades.",
 
   // "resource-policies.edit.page.success.content": "Operation successful",
   // TODO New key - Add a translation
-  "resource-policies.edit.page.success.content": "Operation successful",
+  "resource-policies.edit.page.success.content": "Operationen lyckades",
 
   // "resource-policies.edit.page.title": "Edit resource policy",
   // TODO New key - Add a translation
-  "resource-policies.edit.page.title": "Edit resource policy",
+  "resource-policies.edit.page.title": "Redigera policy för resurs",
 
   // "resource-policies.form.action-type.label": "Select the action type",
   // TODO New key - Add a translation
-  "resource-policies.form.action-type.label": "Select the action type",
+  "resource-policies.form.action-type.label": "Välj typ av åtgärd",
 
   // "resource-policies.form.action-type.required": "You must select the resource policy action.",
   // TODO New key - Add a translation
-  "resource-policies.form.action-type.required": "You must select the resource policy action.",
+  "resource-policies.form.action-type.required": "Du måste välja typ av åtgärd.",
 
   // "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
   // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
+  "resource-policies.form.eperson-group-list.label": "ePerson och/eller grupp som kommer att beviljas åtkomst",
 
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.select.btn": "Select",
+  "resource-policies.form.eperson-group-list.select.btn": "Välj",
 
   // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
   // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  "resource-policies.form.eperson-group-list.tab.eperson": "Sök ePerson",
 
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
   // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
+  "resource-policies.form.eperson-group-list.tab.group": "Sök grupp",
 
   // "resource-policies.form.eperson-group-list.table.headers.action": "Action",
   // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.table.headers.action": "Action",
+  "resource-policies.form.eperson-group-list.table.headers.action": "Åtgärd",
 
   // "resource-policies.form.eperson-group-list.table.headers.id": "ID",
   // TODO New key - Add a translation
@@ -6058,15 +6056,15 @@
 
   // "resource-policies.form.eperson-group-list.table.headers.name": "Name",
   // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.table.headers.name": "Name",
+  "resource-policies.form.eperson-group-list.table.headers.name": "Namn",
 
   // "resource-policies.form.date.end.label": "End Date",
   // TODO New key - Add a translation
-  "resource-policies.form.date.end.label": "End Date",
+  "resource-policies.form.date.end.label": "Slutdatum",
 
   // "resource-policies.form.date.start.label": "Start Date",
   // TODO New key - Add a translation
-  "resource-policies.form.date.start.label": "Start Date",
+  "resource-policies.form.date.start.label": "Startdatum",
 
   // "resource-policies.form.description.label": "Beskrivning",
   // TODO New key - Add a translation
@@ -6074,39 +6072,39 @@
 
   // "resource-policies.form.name.label": "Name",
   // TODO New key - Add a translation
-  "resource-policies.form.name.label": "Name",
+  "resource-policies.form.name.label": "Namn",
 
   // "resource-policies.form.policy-type.label": "Select the policy type",
   // TODO New key - Add a translation
-  "resource-policies.form.policy-type.label": "Select the policy type",
+  "resource-policies.form.policy-type.label": "Välj typ av policy",
 
   // "resource-policies.form.policy-type.required": "You must select the resource policy type.",
   // TODO New key - Add a translation
-  "resource-policies.form.policy-type.required": "You must select the resource policy type.",
+  "resource-policies.form.policy-type.required": "YDu måste välja typ av policy.",
 
   // "resource-policies.table.headers.action": "Action",
   // TODO New key - Add a translation
-  "resource-policies.table.headers.action": "Action",
+  "resource-policies.table.headers.action": "Åtgärd",
 
   // "resource-policies.table.headers.date.end": "End Date",
   // TODO New key - Add a translation
-  "resource-policies.table.headers.date.end": "End Date",
+  "resource-policies.table.headers.date.end": "Slutdatum",
 
   // "resource-policies.table.headers.date.start": "Start Date",
   // TODO New key - Add a translation
-  "resource-policies.table.headers.date.start": "Start Date",
+  "resource-policies.table.headers.date.start": "Startdatum",
 
   // "resource-policies.table.headers.edit": "Edit",
   // TODO New key - Add a translation
-  "resource-policies.table.headers.edit": "Edit",
+  "resource-policies.table.headers.edit": "Redigera",
 
   // "resource-policies.table.headers.edit.group": "Edit group",
   // TODO New key - Add a translation
-  "resource-policies.table.headers.edit.group": "Edit group",
+  "resource-policies.table.headers.edit.group": "Redigera grupp",
 
   // "resource-policies.table.headers.edit.policy": "Edit policy",
   // TODO New key - Add a translation
-  "resource-policies.table.headers.edit.policy": "Edit policy",
+  "resource-policies.table.headers.edit.policy": "Redigera policy",
 
   // "resource-policies.table.headers.eperson": "EPerson",
   // TODO New key - Add a translation
@@ -6114,7 +6112,7 @@
 
   // "resource-policies.table.headers.group": "Group",
   // TODO New key - Add a translation
-  "resource-policies.table.headers.group": "Group",
+  "resource-policies.table.headers.group": "Grupp",
 
   // "resource-policies.table.headers.id": "ID",
   // TODO New key - Add a translation
@@ -6122,32 +6120,31 @@
 
   // "resource-policies.table.headers.name": "Name",
   // TODO New key - Add a translation
-  "resource-policies.table.headers.name": "Name",
+  "resource-policies.table.headers.name": "Namn",
 
   // "resource-policies.table.headers.policyType": "type",
   // TODO New key - Add a translation
-  "resource-policies.table.headers.policyType": "type",
+  "resource-policies.table.headers.policyType": "typ",
 
   // "resource-policies.table.headers.title.for.bitstream": "Policies for Bitstream",
   // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.bitstream": "Policies for Bitstream",
+  "resource-policies.table.headers.title.for.bitstream": "Policies för fil",
 
   // "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
   // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
+  "resource-policies.table.headers.title.for.bundle": "Policies för bunt",
 
   // "resource-policies.table.headers.title.for.item": "Policies for Item",
   // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.item": "Policies for Item",
+  "resource-policies.table.headers.title.for.item": "Policies för post",
 
   // "resource-policies.table.headers.title.for.community": "Policies for Community",
   // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.community": "Policies for Community",
+  "resource-policies.table.headers.title.for.community": "Policies för enhet",
 
   // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
   // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.collection": "Policies for Collection",
-
+  "resource-policies.table.headers.title.for.collection": "Policies för samling",
 
 
   // "search.description": "",
@@ -6654,27 +6651,27 @@
 
   // "sorting.dc.title.ASC": "Title Ascending",
   // TODO New key - Add a translation
-  "sorting.dc.title.ASC": "Title Ascending",
+  "sorting.dc.title.ASC": "Titel",
 
   // "sorting.dc.title.DESC": "Title Descending",
   // TODO New key - Add a translation
-  "sorting.dc.title.DESC": "Title Descending",
+  "sorting.dc.title.DESC": "Titel",
 
   // "sorting.score.ASC": "Least Relevant",
   // TODO New key - Add a translation
-  "sorting.score.ASC": "Least Relevant",
+  "sorting.score.ASC": "Minst relevant",
 
   // "sorting.score.DESC": "Most Relevant",
   // TODO New key - Add a translation
-  "sorting.score.DESC": "Relevans",
+  "sorting.score.DESC": "Mest relevant",
 
   // "sorting.dc.date.issued.ASC": "Date Issued Ascending",
   // TODO New key - Add a translation
-  "sorting.dc.date.issued.ASC": "Date Issued Ascending",
+  "sorting.dc.date.issued.ASC": "Datum (stigande)",
 
   // "sorting.dc.date.issued.DESC": "Date Issued Descending",
   // TODO New key - Add a translation
-  "sorting.dc.date.issued.DESC": "Date Issued Descending",
+  "sorting.dc.date.issued.DESC": "Datum (fallande)",
 
   // "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
   // TODO New key - Add a translation
@@ -6686,32 +6683,32 @@
 
   // "sorting.lastModified.ASC": "Last modified Ascending",
   // TODO New key - Add a translation
-  "sorting.lastModified.ASC": "Last modified Ascending",
+  "sorting.lastModified.ASC": "Senast ändrad (stigande)",
 
   // "sorting.lastModified.DESC": "Last modified Descending",
   // TODO New key - Add a translation
-  "sorting.lastModified.DESC": "Last modified Descending",
+  "sorting.lastModified.DESC": "Senast ändrad (fallande)",
 
 
   // "statistics.title": "Statistics",
   // TODO New key - Add a translation
-  "statistics.title": "Statistics",
+  "statistics.title": "Statistik",
 
   // "statistics.header": "Statistics for {{ scope }}",
   // TODO New key - Add a translation
-  "statistics.header": "Statistics for {{ scope }}",
+  "statistics.header": "Statistik för {{ scope }}",
 
   // "statistics.breadcrumbs": "Statistics",
   // TODO New key - Add a translation
-  "statistics.breadcrumbs": "Statistics",
+  "statistics.breadcrumbs": "Statistik",
 
   // "statistics.page.no-data": "No data available",
   // TODO New key - Add a translation
-  "statistics.page.no-data": "No data available",
+  "statistics.page.no-data": "Data saknas",
 
   // "statistics.table.no-data": "No data available",
   // TODO New key - Add a translation
-  "statistics.table.no-data": "No data available",
+  "statistics.table.no-data": "Data saknas",
 
   // "statistics.table.title.TotalVisits": "Totalt antal besök",
   // TODO New key - Add a translation
@@ -6719,73 +6716,73 @@
 
   // "statistics.table.title.TotalVisitsPerMonth": "Totalt antal besök per month",
   // TODO New key - Add a translation
-  "statistics.table.title.TotalVisitsPerMonth": "Totalt antal besök per month",
+  "statistics.table.title.TotalVisitsPerMonth": "Totalt antal besök per månad",
 
   // "statistics.table.title.TotalDownloads": "File Visits",
   // TODO New key - Add a translation
-  "statistics.table.title.TotalDownloads": "File Visits",
+  "statistics.table.title.TotalDownloads": "Nedladdningar",
 
   // "statistics.table.title.TopCountries": "Top country views",
   // TODO New key - Add a translation
-  "statistics.table.title.TopCountries": "Top country views",
+  "statistics.table.title.TopCountries": "Visningar per land (topp)",
 
   // "statistics.table.title.TopCities": "Top city views",
   // TODO New key - Add a translation
-  "statistics.table.title.TopCities": "Top city views",
+  "statistics.table.title.TopCities": "Visningar per stad (topp)",
 
   // "statistics.table.header.views": "Views",
   // TODO New key - Add a translation
-  "statistics.table.header.views": "Views",
+  "statistics.table.header.views": "Visningar",
 
 
 
   // "submission.edit.breadcrumbs": "Edit Submission",
   // TODO New key - Add a translation
-  "submission.edit.breadcrumbs": "Edit Submission",
+  "submission.edit.breadcrumbs": "Redigera bidrag",
 
   // "submission.edit.title": "Edit Submission",
   // TODO New key - Add a translation
-  "submission.edit.title": "Edit Submission",
+  "submission.edit.title": "Redigera bidrag",
 
   // "submission.general.cancel": "Cancel",
   // TODO New key - Add a translation
-  "submission.general.cancel": "Cancel",
+  "submission.general.cancel": "Avbryt",
 
   // "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
   // TODO New key - Add a translation
-  "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
+  "submission.general.cannot_submit": "Du har inte behörighet att ladda upp nya bidrag.",
 
   // "submission.general.deposit": "Deposit",
   // TODO New key - Add a translation
-  "submission.general.deposit": "Deposit",
+  "submission.general.deposit": "Deponera",
 
   // "submission.general.discard.confirm.cancel": "Cancel",
   // TODO New key - Add a translation
-  "submission.general.discard.confirm.cancel": "Cancel",
+  "submission.general.discard.confirm.cancel": "Avbryt",
 
   // "submission.general.discard.confirm.info": "This operation can't be undone. Are you sure?",
   // TODO New key - Add a translation
-  "submission.general.discard.confirm.info": "This operation can't be undone. Are you sure?",
+  "submission.general.discard.confirm.info": "Är du säker? Denna åtgärd kan inte ångras.",
 
   // "submission.general.discard.confirm.submit": "Yes, I'm sure",
   // TODO New key - Add a translation
-  "submission.general.discard.confirm.submit": "Yes, I'm sure",
+  "submission.general.discard.confirm.submit": "Ja",
 
   // "submission.general.discard.confirm.title": "Discard submission",
   // TODO New key - Add a translation
-  "submission.general.discard.confirm.title": "Discard submission",
+  "submission.general.discard.confirm.title": "Återkalla bidrag",
 
   // "submission.general.discard.submit": "Discard",
   // TODO New key - Add a translation
-  "submission.general.discard.submit": "Discard",
+  "submission.general.discard.submit": "Återkalla",
 
   // "submission.general.info.saved": "Saved",
   // TODO New key - Add a translation
-  "submission.general.info.saved": "Saved",
+  "submission.general.info.saved": "Sparat",
 
   // "submission.general.info.pending-changes": "Unsaved changes",
   // TODO New key - Add a translation
-  "submission.general.info.pending-changes": "Unsaved changes",
+  "submission.general.info.pending-changes": "Ändringar som inte har sparats",
 
   // "submission.general.save": "Save",
   // TODO New key - Add a translation
@@ -6793,72 +6790,72 @@
 
   // "submission.general.save-later": "Save for later",
   // TODO New key - Add a translation
-  "submission.general.save-later": "Save for later",
+  "submission.general.save-later": "Spara till senare",
 
 
   // "submission.import-external.page.title": "Import metadata from an external source",
   // TODO New key - Add a translation
-  "submission.import-external.page.title": "Import metadata from an external source",
+  "submission.import-external.page.title": "Importera metadata från extern källa",
 
   // "submission.import-external.title": "Import metadata from an external source",
   // TODO New key - Add a translation
-  "submission.import-external.title": "Import metadata from an external source",
+  "submission.import-external.title": "Importera metadata från extern källa",
 
   // "submission.import-external.title.Journal": "Import a journal from an external source",
   // TODO New key - Add a translation
-  "submission.import-external.title.Journal": "Import a journal from an external source",
+  "submission.import-external.title.Journal": "Importera tidskrift från extern källa",
 
   // "submission.import-external.title.JournalIssue": "Import a journal issue from an external source",
   // TODO New key - Add a translation
-  "submission.import-external.title.JournalIssue": "Import a journal issue from an external source",
+  "submission.import-external.title.JournalIssue": "Importera tidskrift från extern källa",
 
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   // TODO New key - Add a translation
-  "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
+  "submission.import-external.title.JournalVolume": "Importera tidskriftsvolym från extern källa",
 
   // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
   // TODO New key - Add a translation
-  "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
+  "submission.import-external.title.OrgUnit": "Importera förlag från extern källa",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   // TODO New key - Add a translation
-  "submission.import-external.title.Person": "Import a person from an external source",
+  "submission.import-external.title.Person": "Importera person från extern källa",
 
   // "submission.import-external.title.Project": "Import a project from an external source",
   // TODO New key - Add a translation
-  "submission.import-external.title.Project": "Import a project from an external source",
+  "submission.import-external.title.Project": "Importera projekt från extern källa",
 
   // "submission.import-external.title.Publication": "Import a publication from an external source",
   // TODO New key - Add a translation
-  "submission.import-external.title.Publication": "Import a publication from an external source",
+  "submission.import-external.title.Publication": "Importera publikation från extern källa",
 
   // "submission.import-external.title.none": "Import metadata from an external source",
   // TODO New key - Add a translation
-  "submission.import-external.title.none": "Import metadata from an external source",
+  "submission.import-external.title.none": "Importera metadata från extern källa",
 
   // "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
   // TODO New key - Add a translation
-  "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
+  "submission.import-external.page.hint": "Ange en sökfråga för att hitta information på webben att importera.",
 
   // "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
   // TODO New key - Add a translation
-  "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
+  "submission.import-external.back-to-my-dspace": "Tillbaka till MyDSpace",
 
   // "submission.import-external.search.placeholder": "Search the external source",
   // TODO New key - Add a translation
-  "submission.import-external.search.placeholder": "Search the external source",
+  "submission.import-external.search.placeholder": "Sök i extern källa",
 
   // "submission.import-external.search.button": "Search",
   // TODO New key - Add a translation
-  "submission.import-external.search.button": "Search",
+  "submission.import-external.search.button": "Sök",
 
   // "submission.import-external.search.button.hint": "Write some words to search",
   // TODO New key - Add a translation
-  "submission.import-external.search.button.hint": "Write some words to search",
+  "submission.import-external.search.button.hint": "Ange sökord",
 
   // "submission.import-external.search.source.hint": "Pick an external source",
   // TODO New key - Add a translation
-  "submission.import-external.search.source.hint": "Pick an external source",
+  "submission.import-external.search.source.hint": "Välj extern källa",
 
   // "submission.import-external.source.arxiv": "arXiv",
   // TODO New key - Add a translation
@@ -6866,7 +6863,7 @@
 
   // "submission.import-external.source.loading": "Loading ...",
   // TODO New key - Add a translation
-  "submission.import-external.source.loading": "Loading ...",
+  "submission.import-external.source.loading": "Laddar ...",
 
   // "submission.import-external.source.sherpaJournal": "SHERPA Journals",
   // TODO New key - Add a translation
@@ -6898,27 +6895,27 @@
 
   // "submission.import-external.preview.title": "Item Preview",
   // TODO New key - Add a translation
-  "submission.import-external.preview.title": "Item Preview",
+  "submission.import-external.preview.title": "Förandsgranska post",
 
   // "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
   // TODO New key - Add a translation
-  "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
+  "submission.import-external.preview.subtitle": "Informationen nedan har importats från en extern källa. Den kommer att vara ifylld när du påbörjar ett nytt bidrag.",
 
   // "submission.import-external.preview.button.import": "Start submission",
   // TODO New key - Add a translation
-  "submission.import-external.preview.button.import": "Start submission",
+  "submission.import-external.preview.button.import": "Påbörja bidrag",
 
   // "submission.import-external.preview.error.import.title": "Submission error",
   // TODO New key - Add a translation
-  "submission.import-external.preview.error.import.title": "Submission error",
+  "submission.import-external.preview.error.import.title": "Fel",
 
   // "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
   // TODO New key - Add a translation
-  "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
+  "submission.import-external.preview.error.import.body": "Ett fel uppstod när externa data skulle importeras.",
 
   // "submission.sections.describe.relationship-lookup.close": "Close",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.close": "Close",
+  "submission.sections.describe.relationship-lookup.close": "Stäng",
 
   // "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
   // TODO New key - Add a translation
@@ -6926,31 +6923,31 @@
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Importera författare",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Import remote journal",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Import remote journal",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Importera tidskrift",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Importera tidskriftsexemplar",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Importera tidskriftsvolym",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Projekt",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "Ny information har lagts till!",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Projekt",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
   // TODO New key - Add a translation
@@ -6958,192 +6955,192 @@
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Importera författare",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Successfully added local author to the selection",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Successfully added local author to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Lokal författare har lagts till",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Extern författare har lagts till",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Auktoritet",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority.new": "Import as a new local authority entry",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.authority.new": "Import as a new local authority entry",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.authority.new": "Importera som ny lokal auktoritet",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Cancel",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Cancel",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Avbryt",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Select a collection to import new entries to",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Select a collection to import new entries to",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Välj samling att importera till",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.entities": "Entities",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.entities": "Entities",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.entities": "Beståndsdelar",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.entities.new": "Import as a new local entity",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.entities.new": "Import as a new local entity",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.entities.new": "Importera som ny lokal beståndsdel",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importing from LC Name",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importing from LC Name",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importera från LC Name",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importera från ORCID",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importera från Sherpa Journal",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importera från Sherpa Publisher",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importera från PubMed",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importing from arXiv",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importing from arXiv",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importera från arXiv",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Importera",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.title": "Import Remote Journal",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.title": "Import Remote Journal",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.title": "Importera tidskrift",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.local-entity": "Successfully added local journal to the selection",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.local-entity": "Successfully added local journal to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.local-entity": "Lokal tidskrift har lagts till",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.new-entity": "Successfully imported and added external journal to the selection",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.new-entity": "Successfully imported and added external journal to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.new-entity": "Extern tidskrift har importerats och lagts till",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.title": "Import Remote Journal Issue",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.title": "Import Remote Journal Issue",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.title": "Importera externt tidskriftsexemplar",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.local-entity": "Successfully added local journal issue to the selection",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.local-entity": "Successfully added local journal issue to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.local-entity": "Lokal tidskrift har lagts till",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.new-entity": "Successfully imported and added external journal issue to the selection",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.new-entity": "Successfully imported and added external journal issue to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.new-entity": "Externt tidskriftsexemplar har importerats och lagts till",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.title": "Import Remote Journal Volume",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.title": "Import Remote Journal Volume",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.title": "Importera tidskriftsvolym",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.local-entity": "Successfully added local journal volume to the selection",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.local-entity": "Successfully added local journal volume to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.local-entity": "Lokal tidskriftsvolym har lagts till",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.new-entity": "Successfully imported and added external journal volume to the selection",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.new-entity": "Successfully imported and added external journal volume to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.new-entity": "Extern tidskriftsvolym har importerats och lagts till",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Select a local match:",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Select a local match:",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Välj lokal träff:",
 
   // "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
+  "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Avmarkera alla",
 
   // "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Deselect page",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Deselect page",
+  "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Avmarkera sida",
 
   // "submission.sections.describe.relationship-lookup.search-tab.loading": "Loading...",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.loading": "Loading...",
+  "submission.sections.describe.relationship-lookup.search-tab.loading": "Laddar...",
 
   // "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
+  "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Sökfråga",
 
   // "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
+  "submission.sections.describe.relationship-lookup.search-tab.search": "Kör",
 
   // "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
+  "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Sök...",
 
   // "submission.sections.describe.relationship-lookup.search-tab.select-all": "Select all",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.select-all": "Select all",
+  "submission.sections.describe.relationship-lookup.search-tab.select-all": "Välj alla",
 
   // "submission.sections.describe.relationship-lookup.search-tab.select-page": "Select page",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.select-page": "Select page",
+  "submission.sections.describe.relationship-lookup.search-tab.select-page": "Välj sida",
 
   // "submission.sections.describe.relationship-lookup.selected": "Selected {{ size }} items",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selected": "Selected {{ size }} items",
+  "submission.sections.describe.relationship-lookup.selected": "Har markerat {{ size }} poster",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Local Författare ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Local författare ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Lokal författare ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Lokala tidskrifter ({{ count }})",
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Local Projects ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Local Projects ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Lokala projekt ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Local Publications ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Local Publications ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Lokala publikationer ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Local Författare ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Local författare ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Lokala författare ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Local Organizational Units ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Local Organizational Units ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Locala organisatoriska enheter ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Local Data Packages ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Local Data Packages ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Lokala datapaket ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataFile": "Local Data Files ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataFile": "Local Data Files ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataFile": "Lokala filer ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Local Journals ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Local Journals ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Lokala tidskrifter ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Lokala tidskriftsexemplar ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Lokala tidskriftsvolymer ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
   // TODO New key - Add a translation
@@ -7171,15 +7168,15 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Sök finansiärer",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Sök finansiering",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Sök organisatoriska enheter",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
   // TODO New key - Add a translation
@@ -7187,11 +7184,11 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projekt",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Finansiär",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
   // TODO New key - Add a translation
@@ -7199,44 +7196,44 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Projekt",
 
   // "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
+  "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projekt",
 
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
+  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Projektets finansiär",
 
 
 
 
   // "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
+  "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Sök...",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
+  "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Aktuellt urval ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
+  "submission.sections.describe.relationship-lookup.title.JournalIssue": "Tidskriftsexemplar",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
   // "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
+  "submission.sections.describe.relationship-lookup.title.JournalVolume": "Tidskriftsvolymer",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Journals",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Journals",
+  "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Tidskrifter",
 
   // "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Författare",
   // TODO New key - Add a translation
@@ -7244,14 +7241,14 @@
 
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
+  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Finansiär",
   // "submission.sections.describe.relationship-lookup.title.Project": "Projects",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.Project": "Projects",
+  "submission.sections.describe.relationship-lookup.title.Project": "Projekt",
 
   // "submission.sections.describe.relationship-lookup.title.Publication": "Publications",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.Publication": "Publications",
+  "submission.sections.describe.relationship-lookup.title.Publication": "Publikationer",
 
   // "submission.sections.describe.relationship-lookup.title.Person": "Författare",
   // TODO New key - Add a translation
@@ -7259,587 +7256,587 @@
 
   // "submission.sections.describe.relationship-lookup.title.OrgUnit": "Organizational Units",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.OrgUnit": "Organizational Units",
+  "submission.sections.describe.relationship-lookup.title.OrgUnit": "Organisatoriska enheter",
 
   // "submission.sections.describe.relationship-lookup.title.DataPackage": "Data Packages",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.DataPackage": "Data Packages",
+  "submission.sections.describe.relationship-lookup.title.DataPackage": "Datapaket",
 
   // "submission.sections.describe.relationship-lookup.title.DataFile": "Data Files",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.DataFile": "Data Files",
+  "submission.sections.describe.relationship-lookup.title.DataFile": "Filer",
 
   // "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
+  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Finansiär",
 
   // "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
+  "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Finansiering",
 
   // "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
+  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Organisatorisk förälder",
 
   // "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
+  "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Växla dropdown",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.settings": "Settings",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.settings": "Settings",
+  "submission.sections.describe.relationship-lookup.selection-tab.settings": "Inställningar",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "Your selection is currently empty.",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "Your selection is currently empty.",
+  "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "Inget har valts.",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Selected Författare",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Selected författare",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Valdra författare",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Valda tidskrifter",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Valda tidskriftsvolymer",
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Valda projekt",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Selected Publications",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Selected Publications",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Valda publikationer",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Selected Författare",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Selected författare",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Valda författare",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.OrgUnit": "Selected Organizational Units",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.OrgUnit": "Selected Organizational Units",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.OrgUnit": "Valda organisatoriska enheter",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.DataPackage": "Selected Data Packages",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.DataPackage": "Selected Data Packages",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.DataPackage": "Valda datapaket",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.DataFile": "Selected Data Files",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.DataFile": "Selected Data Files",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.DataFile": "Valda filer",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Selected Journals",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Selected Journals",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Valda tidskrifter",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Valt exemnplar",
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Vald volym",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Selected Funding Agency",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Selected Funding Agency",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Vald finansiär",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Vald finansiering",
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Selected Issue",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Selected Issue",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Valt exemplar ",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Vald organisatorisk enet",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Sökresultat",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Sökresultat",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Sökresultat",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Search Results",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Sökresultat",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Sökresultat",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Search Results",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Sökresultat",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Sökresultat",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Vill du spara \"{{ value }}\" som en namnvariation för denna person? Om inte så kan du fortfarande använda det i detta bidrag.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
+  "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Spara en ny namnvariation",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.decline": "Use only for this submission",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.name-variant.notification.decline": "Use only for this submission",
+  "submission.sections.describe.relationship-lookup.name-variant.notification.decline": "Använd bara i detta bidrag",
 
   // "submission.sections.ccLicense.type": "License Type",
   // TODO New key - Add a translation
-  "submission.sections.ccLicense.type": "License Type",
+  "submission.sections.ccLicense.type": "Typ av license",
 
   // "submission.sections.ccLicense.select": "Select a license type…",
   // TODO New key - Add a translation
-  "submission.sections.ccLicense.select": "Select a license type…",
+  "submission.sections.ccLicense.select": "Välj licenstyp…",
 
   // "submission.sections.ccLicense.change": "Change your license type…",
   // TODO New key - Add a translation
-  "submission.sections.ccLicense.change": "Change your license type…",
+  "submission.sections.ccLicense.change": "Ändra licenstyp…",
 
   // "submission.sections.ccLicense.none": "No licenses available",
   // TODO New key - Add a translation
-  "submission.sections.ccLicense.none": "No licenses available",
+  "submission.sections.ccLicense.none": "Det finns inga licenser",
 
   // "submission.sections.ccLicense.option.select": "Select an option…",
   // TODO New key - Add a translation
-  "submission.sections.ccLicense.option.select": "Select an option…",
+  "submission.sections.ccLicense.option.select": "Välj…",
 
   // "submission.sections.ccLicense.link": "You’ve selected the following license:",
   // TODO New key - Add a translation
-  "submission.sections.ccLicense.link": "You’ve selected the following license:",
+  "submission.sections.ccLicense.link": "Du har valt följande licens:",
 
   // "submission.sections.ccLicense.confirmation": "I grant the license above",
   // TODO New key - Add a translation
-  "submission.sections.ccLicense.confirmation": "I grant the license above",
+  "submission.sections.ccLicense.confirmation": "Jag beviljar licensen ovan",
 
   // "submission.sections.general.add-more": "Add more",
   // TODO New key - Add a translation
-  "submission.sections.general.add-more": "Add more",
+  "submission.sections.general.add-more": "Lägg till fler",
 
   // "submission.sections.general.collection": "Collection",
   // TODO New key - Add a translation
-  "submission.sections.general.collection": "Collection",
+  "submission.sections.general.collection": "Samling",
 
   // "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
   // TODO New key - Add a translation
-  "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
+  "submission.sections.general.deposit_error_notice": "Ett fel uppstod, försök igen senare.",
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
   // TODO New key - Add a translation
-  "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
+  "submission.sections.general.deposit_success_notice": "Bidraget har deponerats.",
 
   // "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
   // TODO New key - Add a translation
-  "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
+  "submission.sections.general.discard_error_notice": "Ett fel ar uppstått. Försök igen senare.",
 
   // "submission.sections.general.discard_success_notice": "Submission discarded successfully.",
   // TODO New key - Add a translation
-  "submission.sections.general.discard_success_notice": "Submission discarded successfully.",
+  "submission.sections.general.discard_success_notice": "Bidraget har dragits tillbaka.",
 
   // "submission.sections.general.metadata-extracted": "New metadata have been extracted and added to the <strong>{{sectionId}}</strong> section.",
   // TODO New key - Add a translation
-  "submission.sections.general.metadata-extracted": "New metadata have been extracted and added to the <strong>{{sectionId}}</strong> section.",
+  "submission.sections.general.metadata-extracted": "Nya metadata har extraherats oc lagts till i <strong>{{sectionId}}</strong>.",
 
   // "submission.sections.general.metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission.",
   // TODO New key - Add a translation
-  "submission.sections.general.metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission.",
+  "submission.sections.general.metadata-extracted-new-section": "Ny sektion <strong>{{sectionId}}</strong> har lagts till i bidraget.",
 
   // "submission.sections.general.no-collection": "No collection found",
   // TODO New key - Add a translation
-  "submission.sections.general.no-collection": "No collection found",
+  "submission.sections.general.no-collection": "Ingen samling kunde hittas",
 
   // "submission.sections.general.no-sections": "No options available",
   // TODO New key - Add a translation
-  "submission.sections.general.no-sections": "No options available",
+  "submission.sections.general.no-sections": "Det finns inga alternativ att välja",
 
   // "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
   // TODO New key - Add a translation
-  "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
+  "submission.sections.general.save_error_notice": "Ett fel uppstod när posten skulle sparas. Försök igen senare.",
 
   // "submission.sections.general.save_success_notice": "Submission saved successfully.",
   // TODO New key - Add a translation
-  "submission.sections.general.save_success_notice": "Submission saved successfully.",
+  "submission.sections.general.save_success_notice": "Bidraget har sparats.",
 
   // "submission.sections.general.search-collection": "Search for a collection",
   // TODO New key - Add a translation
-  "submission.sections.general.search-collection": "Search for a collection",
+  "submission.sections.general.search-collection": "Sök efter samling",
 
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
   // TODO New key - Add a translation
-  "submission.sections.general.sections_not_valid": "There are incomplete sections.",
+  "submission.sections.general.sections_not_valid": "Det saknas data i vissa delar.",
 
 
 
   // "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
   // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
+  "submission.sections.submit.progressbar.accessCondition": "Villkor för åtkomst till post",
 
   // "submission.sections.submit.progressbar.CClicense": "Creative commons license",
   // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.CClicense": "Creative commons license",
+  "submission.sections.submit.progressbar.CClicense": "Creative commons licens",
 
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
   // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.recycle": "Recycle",
+  "submission.sections.submit.progressbar.describe.recycle": "Återanvänd",
 
   // "submission.sections.submit.progressbar.describe.stepcustom": "Describe",
   // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.stepcustom": "Describe",
+  "submission.sections.submit.progressbar.describe.stepcustom": "Beskriv",
 
   // "submission.sections.submit.progressbar.describe.stepone": "Describe",
   // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.stepone": "Describe",
+  "submission.sections.submit.progressbar.describe.stepone": "Beskriv",
 
   // "submission.sections.submit.progressbar.describe.steptwo": "Describe",
   // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.steptwo": "Describe",
+  "submission.sections.submit.progressbar.describe.steptwo": "Beskriv",
 
   // "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
   // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
+  "submission.sections.submit.progressbar.detect-duplicate": "Potentiell dubblett",
 
   // "submission.sections.submit.progressbar.license": "Deposit license",
   // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.license": "Deposit license",
+  "submission.sections.submit.progressbar.license": "Deponera licens",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.upload": "Upload files",
+  "submission.sections.submit.progressbar.upload": "Ladda upp filer",
 
 
 
   // "submission.sections.status.errors.title": "Errors",
   // TODO New key - Add a translation
-  "submission.sections.status.errors.title": "Errors",
+  "submission.sections.status.errors.title": "Fel",
 
   // "submission.sections.status.valid.title": "Valid",
   // TODO New key - Add a translation
-  "submission.sections.status.valid.title": "Valid",
+  "submission.sections.status.valid.title": "Giltig",
 
   // "submission.sections.status.warnings.title": "Warnings",
   // TODO New key - Add a translation
-  "submission.sections.status.warnings.title": "Warnings",
+  "submission.sections.status.warnings.title": "Varningar",
 
   // "submission.sections.status.errors.aria": "has errors",
   // TODO New key - Add a translation
-  "submission.sections.status.errors.aria": "has errors",
+  "submission.sections.status.errors.aria": "inneåller fel",
 
   // "submission.sections.status.valid.aria": "is valid",
   // TODO New key - Add a translation
-  "submission.sections.status.valid.aria": "is valid",
+  "submission.sections.status.valid.aria": "är giltig",
 
   // "submission.sections.status.warnings.aria": "has warnings",
   // TODO New key - Add a translation
-  "submission.sections.status.warnings.aria": "has warnings",
+  "submission.sections.status.warnings.aria": "ger varningar",
 
   // "submission.sections.toggle.open": "Open section",
   // TODO New key - Add a translation
-  "submission.sections.toggle.open": "Open section",
+  "submission.sections.toggle.open": "Öppna sektion",
 
   // "submission.sections.toggle.close": "Close section",
   // TODO New key - Add a translation
-  "submission.sections.toggle.close": "Close section",
+  "submission.sections.toggle.close": "Stäng sektion",
 
   // "submission.sections.toggle.aria.open": "Expand {{sectionHeader}} section",
   // TODO New key - Add a translation
-  "submission.sections.toggle.aria.open": "Expand {{sectionHeader}} section",
+  "submission.sections.toggle.aria.open": "Expandera {{sectionHeader}} sektion",
 
   // "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
   // TODO New key - Add a translation
-  "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
+  "submission.sections.toggle.aria.close": "Fäll ihop {{sectionHeader}} sektion",
 
   // "submission.sections.upload.delete.confirm.cancel": "Cancel",
   // TODO New key - Add a translation
-  "submission.sections.upload.delete.confirm.cancel": "Cancel",
+  "submission.sections.upload.delete.confirm.cancel": "Avbryt",
 
   // "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
   // TODO New key - Add a translation
-  "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
+  "submission.sections.upload.delete.confirm.info": "Är du säker? Detta kan inte ångras.",
 
   // "submission.sections.upload.delete.confirm.submit": "Yes, I'm sure",
   // TODO New key - Add a translation
-  "submission.sections.upload.delete.confirm.submit": "Yes, I'm sure",
+  "submission.sections.upload.delete.confirm.submit": "Ja",
 
   // "submission.sections.upload.delete.confirm.title": "Delete bitstream",
   // TODO New key - Add a translation
-  "submission.sections.upload.delete.confirm.title": "Delete bitstream",
+  "submission.sections.upload.delete.confirm.title": "Radera fil",
 
   // "submission.sections.upload.delete.submit": "Delete",
   // TODO New key - Add a translation
-  "submission.sections.upload.delete.submit": "Delete",
+  "submission.sections.upload.delete.submit": "Radera",
 
   // "submission.sections.upload.download.title": "Download bitstream",
   // TODO New key - Add a translation
-  "submission.sections.upload.download.title": "Download bitstream",
+  "submission.sections.upload.download.title": "Ladda ner fil",
 
   // "submission.sections.upload.drop-message": "Drop files to attach them to the item",
   // TODO New key - Add a translation
-  "submission.sections.upload.drop-message": "Drop files to attach them to the item",
+  "submission.sections.upload.drop-message": "Släpp filer för att lägga till dem i posten",
 
   // "submission.sections.upload.edit.title": "Edit bitstream",
   // TODO New key - Add a translation
-  "submission.sections.upload.edit.title": "Edit bitstream",
+  "submission.sections.upload.edit.title": "Redigera fil",
 
   // "submission.sections.upload.form.access-condition-label": "Access condition type",
   // TODO New key - Add a translation
-  "submission.sections.upload.form.access-condition-label": "Access condition type",
+  "submission.sections.upload.form.access-condition-label": "Typ av villkor för åtkomst",
 
   // "submission.sections.upload.form.access-condition-hint": "Select an access condition to apply on the bitstream once the item is deposited",
   // TODO New key - Add a translation
-  "submission.sections.upload.form.access-condition-hint": "Select an access condition to apply on the bitstream once the item is deposited",
+  "submission.sections.upload.form.access-condition-hint": "Välj typ av villkor för åtkomst till filen när posten har sparats",
 
   // "submission.sections.upload.form.date-required": "Date is required.",
   // TODO New key - Add a translation
-  "submission.sections.upload.form.date-required": "Date is required.",
+  "submission.sections.upload.form.date-required": "Datum krävs.",
 
   // "submission.sections.upload.form.date-required-from": "Grant access from date is required.",
   // TODO New key - Add a translation
-  "submission.sections.upload.form.date-required-from": "Grant access from date is required.",
+  "submission.sections.upload.form.date-required-from": "Du måste ange från vilket datum den skall vara tillgänglig.",
 
   // "submission.sections.upload.form.date-required-until": "Grant access until date is required.",
   // TODO New key - Add a translation
-  "submission.sections.upload.form.date-required-until": "Grant access until date is required.",
+  "submission.sections.upload.form.date-required-until": "Du måste ange till vilket datum den skall vara tillgänglig.",
 
   // "submission.sections.upload.form.from-label": "Grant access from",
   // TODO New key - Add a translation
-  "submission.sections.upload.form.from-label": "Grant access from",
+  "submission.sections.upload.form.from-label": "Tillåt åtkomst från",
 
   // "submission.sections.upload.form.from-hint": "Select the date from which the related access condition is applied",
   // TODO New key - Add a translation
-  "submission.sections.upload.form.from-hint": "Select the date from which the related access condition is applied",
+  "submission.sections.upload.form.from-hint": "Välj datum från när villkoren för åtkomst skall gälla",
 
   // "submission.sections.upload.form.from-placeholder": "From",
   // TODO New key - Add a translation
-  "submission.sections.upload.form.from-placeholder": "From",
+  "submission.sections.upload.form.from-placeholder": "Från",
 
   // "submission.sections.upload.form.group-label": "Group",
   // TODO New key - Add a translation
-  "submission.sections.upload.form.group-label": "Group",
+  "submission.sections.upload.form.group-label": "Grupp",
 
   // "submission.sections.upload.form.group-required": "Group is required.",
   // TODO New key - Add a translation
-  "submission.sections.upload.form.group-required": "Group is required.",
+  "submission.sections.upload.form.group-required": "Du måste välja en grupp.",
 
   // "submission.sections.upload.form.until-label": "Grant access until",
   // TODO New key - Add a translation
-  "submission.sections.upload.form.until-label": "Grant access until",
+  "submission.sections.upload.form.until-label": "Bevilja åtkomst till",
 
   // "submission.sections.upload.form.until-hint": "Select the date until which the related access condition is applied",
   // TODO New key - Add a translation
-  "submission.sections.upload.form.until-hint": "Select the date until which the related access condition is applied",
+  "submission.sections.upload.form.until-hint": "Välj datum till när villkoren för åtkomst skall gälla",
 
   // "submission.sections.upload.form.until-placeholder": "Until",
   // TODO New key - Add a translation
-  "submission.sections.upload.form.until-placeholder": "Until",
+  "submission.sections.upload.form.until-placeholder": "Till",
 
   // "submission.sections.upload.header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
   // TODO New key - Add a translation
-  "submission.sections.upload.header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
+  "submission.sections.upload.header.policy.default.nolist": "Uppladdade filer i samlingen {{collectionName}} kommer att vara åtkomliga för följande grupp(er):",
 
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   // TODO New key - Add a translation
-  "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
+  "submission.sections.upload.header.policy.default.withlist": "Notera att uppladdade filer i samlingen {{collectionName}} också kommer att vara åtkompliga för följande grupp(er):",
 
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
   // TODO New key - Add a translation
-  "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  "submission.sections.upload.info": "Här visas samtliga filer som ingår i posten. Du kan uppdatera filernas metadata oc villkor för åtkomst, samt <strong>ladda upp nya filer genom att dra och släppa dem här</strong>",
 
   // "submission.sections.upload.no-entry": "No",
   // TODO New key - Add a translation
-  "submission.sections.upload.no-entry": "No",
+  "submission.sections.upload.no-entry": "Nej",
 
   // "submission.sections.upload.no-file-uploaded": "No file uploaded yet.",
   // TODO New key - Add a translation
-  "submission.sections.upload.no-file-uploaded": "No file uploaded yet.",
+  "submission.sections.upload.no-file-uploaded": "Inga filer har laddats upp.",
 
   // "submission.sections.upload.save-metadata": "Save metadata",
   // TODO New key - Add a translation
-  "submission.sections.upload.save-metadata": "Save metadata",
+  "submission.sections.upload.save-metadata": "Spara metadata",
 
   // "submission.sections.upload.undo": "Cancel",
   // TODO New key - Add a translation
-  "submission.sections.upload.undo": "Cancel",
+  "submission.sections.upload.undo": "Avbryt",
 
   // "submission.sections.upload.upload-failed": "Upload failed",
   // TODO New key - Add a translation
-  "submission.sections.upload.upload-failed": "Upload failed",
+  "submission.sections.upload.upload-failed": "Uppladdningen misslyckades",
 
   // "submission.sections.upload.upload-successful": "Upload successful",
   // TODO New key - Add a translation
-  "submission.sections.upload.upload-successful": "Upload successful",
+  "submission.sections.upload.upload-successful": "Uppladdningen lyckades",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   // TODO New key - Add a translation
-  "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
+  "submission.sections.accesses.form.discoverable-description": "När denna är markerad kommer posten att vara sökbar och visas i listor. I annat fall så kommer den bara att kunna nås med en direktlänk.",
 
   // "submission.sections.accesses.form.discoverable-label": "Discoverable",
   // TODO New key - Add a translation
-  "submission.sections.accesses.form.discoverable-label": "Discoverable",
+  "submission.sections.accesses.form.discoverable-label": "Synlig och sökbar",
 
   // "submission.sections.accesses.form.access-condition-label": "Access condition type",
   // TODO New key - Add a translation
-  "submission.sections.accesses.form.access-condition-label": "Access condition type",
+  "submission.sections.accesses.form.access-condition-label": "Typ av villkor för åtkomst",
 
   // "submission.sections.accesses.form.access-condition-hint": "Select an access condition to apply on the item once it is deposited",
   // TODO New key - Add a translation
-  "submission.sections.accesses.form.access-condition-hint": "Select an access condition to apply on the item once it is deposited",
+  "submission.sections.accesses.form.access-condition-hint": "Välj typ av åtkomst som skall gälla när posten har deponerats",
 
   // "submission.sections.accesses.form.date-required": "Date is required.",
   // TODO New key - Add a translation
-  "submission.sections.accesses.form.date-required": "Date is required.",
+  "submission.sections.accesses.form.date-required": "Du måste ange datum.",
 
   // "submission.sections.accesses.form.date-required-from": "Grant access from date is required.",
   // TODO New key - Add a translation
-  "submission.sections.accesses.form.date-required-from": "Grant access from date is required.",
+  "submission.sections.accesses.form.date-required-from": "Du måste ange datum från när villkoren skall gälla.",
 
   // "submission.sections.accesses.form.date-required-until": "Grant access until date is required.",
   // TODO New key - Add a translation
-  "submission.sections.accesses.form.date-required-until": "Grant access until date is required.",
+  "submission.sections.accesses.form.date-required-until": "Du måste ange datum till när villkoren skall gälla.",
 
   // "submission.sections.accesses.form.from-label": "Grant access from",
   // TODO New key - Add a translation
-  "submission.sections.accesses.form.from-label": "Grant access from",
+  "submission.sections.accesses.form.from-label": "Bevilja åtkomst från",
 
   // "submission.sections.accesses.form.from-hint": "Select the date from which the related access condition is applied",
   // TODO New key - Add a translation
-  "submission.sections.accesses.form.from-hint": "Select the date from which the related access condition is applied",
+  "submission.sections.accesses.form.from-hint": "Välj datum från när villkoren för åtkomst skall gälla",
 
   // "submission.sections.accesses.form.from-placeholder": "From",
   // TODO New key - Add a translation
-  "submission.sections.accesses.form.from-placeholder": "From",
+  "submission.sections.accesses.form.from-placeholder": "Från",
 
   // "submission.sections.accesses.form.group-label": "Group",
   // TODO New key - Add a translation
-  "submission.sections.accesses.form.group-label": "Group",
+  "submission.sections.accesses.form.group-label": "Grupp",
 
   // "submission.sections.accesses.form.group-required": "Group is required.",
   // TODO New key - Add a translation
-  "submission.sections.accesses.form.group-required": "Group is required.",
+  "submission.sections.accesses.form.group-required": "Du måste välja grupp.",
 
   // "submission.sections.accesses.form.until-label": "Grant access until",
   // TODO New key - Add a translation
-  "submission.sections.accesses.form.until-label": "Grant access until",
+  "submission.sections.accesses.form.until-label": "Bevilja åtkomst till",
 
   // "submission.sections.accesses.form.until-hint": "Select the date until which the related access condition is applied",
   // TODO New key - Add a translation
-  "submission.sections.accesses.form.until-hint": "Select the date until which the related access condition is applied",
+  "submission.sections.accesses.form.until-hint": "Välj datum till när villkoren för åtkomst skall gälla",
 
   // "submission.sections.accesses.form.until-placeholder": "Until",
   // TODO New key - Add a translation
-  "submission.sections.accesses.form.until-placeholder": "Until",
+  "submission.sections.accesses.form.until-placeholder": "Till",
 
 
   // "submission.submit.breadcrumbs": "New submission",
   // TODO New key - Add a translation
-  "submission.submit.breadcrumbs": "New submission",
+  "submission.submit.breadcrumbs": "Nytt bidrag",
 
   // "submission.submit.title": "New submission",
   // TODO New key - Add a translation
-  "submission.submit.title": "New submission",
+  "submission.submit.title": "Nytt bidrag",
 
 
 
   // "submission.workflow.generic.delete": "Delete",
   // TODO New key - Add a translation
-  "submission.workflow.generic.delete": "Delete",
+  "submission.workflow.generic.delete": "Radera",
 
   // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
   // TODO New key - Add a translation
-  "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
+  "submission.workflow.generic.delete-help": "Välj \"Radera\" om du vill ta bort detta bidrag.  Du kommer att få bekräfta detta.",
 
   // "submission.workflow.generic.edit": "Edit",
   // TODO New key - Add a translation
-  "submission.workflow.generic.edit": "Edit",
+  "submission.workflow.generic.edit": "Redigera",
 
   // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
   // TODO New key - Add a translation
-  "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
+  "submission.workflow.generic.edit-help": "Redigera postens metadata.",
 
   // "submission.workflow.generic.view": "View",
   // TODO New key - Add a translation
-  "submission.workflow.generic.view": "View",
+  "submission.workflow.generic.view": "Visa",
 
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
   // TODO New key - Add a translation
-  "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
+  "submission.workflow.generic.view-help": "Visa postens metadata.",
 
 
 
   // "submission.workflow.tasks.claimed.approve": "Approve",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.approve": "Approve",
+  "submission.workflow.tasks.claimed.approve": "Godkänn",
 
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
+  "submission.workflow.tasks.claimed.approve_help": "Om du har granskat posten oc funnit att den kan ingå i samlingen, välj \"Godkänn\".",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.edit": "Edit",
+  "submission.workflow.tasks.claimed.edit": "Redigera",
 
   // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
+  "submission.workflow.tasks.claimed.edit_help": "Redigera postens metadata.",
 
   // "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
+  "submission.workflow.tasks.claimed.reject.reason.info": "Ange orsaken till att du inte godkänner bidraget i rutan nedan, samt om uppladdaren skall ändra något och skicka in igen.",
 
   // "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describe the reason of reject",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describe the reason of reject",
+  "submission.workflow.tasks.claimed.reject.reason.placeholder": "Beskriv orsak",
 
   // "submission.workflow.tasks.claimed.reject.reason.submit": "Reject item",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject.reason.submit": "Reject item",
+  "submission.workflow.tasks.claimed.reject.reason.submit": "Godkänn inte bidrag",
 
   // "submission.workflow.tasks.claimed.reject.reason.title": "Reason",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject.reason.title": "Reason",
+  "submission.workflow.tasks.claimed.reject.reason.title": "Orsak",
 
   // "submission.workflow.tasks.claimed.reject.submit": "Reject",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject.submit": "Reject",
+  "submission.workflow.tasks.claimed.reject.submit": "Neka",
 
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  "submission.workflow.tasks.claimed.reject_help": "Om du har granskat posten och funnit att den <strong>inte</strong> uppfyller villkoren för att ingå i samlingen, välj \"Neka\".  Du kommer du att få ange orsaken till detta, samt om uppladdaren skall ändra något och försöka igen.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.return": "Return to pool",
+  "submission.workflow.tasks.claimed.return": "Returnera till uppladdningspoolen",
 
   // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
+  "submission.workflow.tasks.claimed.return_help": "Returnera till uppladdningspoolen så att den blir tillgänglig för andra användare.",
 
 
 
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.generic.error": "Error occurred during operation...",
+  "submission.workflow.tasks.generic.error": "Ett fel ar uppstått...",
 
   // "submission.workflow.tasks.generic.processing": "Processing...",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.generic.processing": "Processing...",
+  "submission.workflow.tasks.generic.processing": "Bearbetar...",
 
   // "submission.workflow.tasks.generic.submitter": "Submitter",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.generic.submitter": "Submitter",
+  "submission.workflow.tasks.generic.submitter": "Uppladdare",
 
   // "submission.workflow.tasks.generic.success": "Operation successful",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.generic.success": "Operation successful",
+  "submission.workflow.tasks.generic.success": "Operationen lyckades",
 
 
 
@@ -7849,15 +7846,15 @@
 
   // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
+  "submission.workflow.tasks.pool.claim_help": "Ta denna uppgift själv.",
 
   // "submission.workflow.tasks.pool.hide-detail": "Hide detail",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.pool.hide-detail": "Hide detail",
+  "submission.workflow.tasks.pool.hide-detail": "Göm detaljvy",
 
   // "submission.workflow.tasks.pool.show-detail": "Show detail",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.pool.show-detail": "Show detail",
+  "submission.workflow.tasks.pool.show-detail": "Visa detaljvy",
 
 
 
@@ -7897,29 +7894,29 @@
 
   // "title": "DSpace",
   // TODO New key - Add a translation
-  "title": "Chalmers ODR",
+  "title": "DSpace",
 
 
 
   // "vocabulary-treeview.header": "Hierarchical tree view",
   // TODO New key - Add a translation
-  "vocabulary-treeview.header": "Hierarchical tree view",
+  "vocabulary-treeview.header": "Hierarkisk trädvy",
 
   // "vocabulary-treeview.load-more": "Load more",
   // TODO New key - Add a translation
-  "vocabulary-treeview.load-more": "Load more",
+  "vocabulary-treeview.load-more": "Ladda fler",
 
   // "vocabulary-treeview.search.form.reset": "Reset",
   // TODO New key - Add a translation
-  "vocabulary-treeview.search.form.reset": "Reset",
+  "vocabulary-treeview.search.form.reset": "Återställ",
 
   // "vocabulary-treeview.search.form.search": "Search",
   // TODO New key - Add a translation
-  "vocabulary-treeview.search.form.search": "Search",
+  "vocabulary-treeview.search.form.search": "Sök",
 
   // "vocabulary-treeview.search.no-result": "There were no items to show",
   // TODO New key - Add a translation
-  "vocabulary-treeview.search.no-result": "There were no items to show",
+  "vocabulary-treeview.search.no-result": "Det finns inga poster att visa",
 
   // "vocabulary-treeview.tree.description.nsi": "The Norwegian Science Index",
   // TODO New key - Add a translation
@@ -7933,39 +7930,39 @@
 
   // "uploader.browse": "browse",
   // TODO New key - Add a translation
-  "uploader.browse": "browse",
+  "uploader.browse": "browsa",
 
   // "uploader.drag-message": "Drag & Drop your files here",
   // TODO New key - Add a translation
-  "uploader.drag-message": "Drag & Drop your files here",
+  "uploader.drag-message": "Dra och släpp filerna här",
 
   // "uploader.delete.btn-title": "Delete",
   // TODO New key - Add a translation
-  "uploader.delete.btn-title": "Delete",
+  "uploader.delete.btn-title": "Radera",
 
   // "uploader.or": ", or ",
   // TODO New key - Add a translation
-  "uploader.or": ", or ",
+  "uploader.or": ", eller ",
 
   // "uploader.processing": "Processing",
   // TODO New key - Add a translation
-  "uploader.processing": "Processing",
+  "uploader.processing": "Bearbetar",
 
   // "uploader.queue-length": "Queue length",
   // TODO New key - Add a translation
-  "uploader.queue-length": "Queue length",
+  "uploader.queue-length": "Kölängd",
 
   // "virtual-metadata.delete-item.info": "Select the types for which you want to save the virtual metadata as real metadata",
   // TODO New key - Add a translation
-  "virtual-metadata.delete-item.info": "Select the types for which you want to save the virtual metadata as real metadata",
+  "virtual-metadata.delete-item.info": "Välj vilka typer ",
 
   // "virtual-metadata.delete-item.modal-head": "The virtual metadata of this relation",
   // TODO New key - Add a translation
-  "virtual-metadata.delete-item.modal-head": "The virtual metadata of this relation",
+  "virtual-metadata.delete-item.modal-head": "Denna relations virtuella metadata",
 
   // "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
   // TODO New key - Add a translation
-  "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
+  "virtual-metadata.delete-relationship.modal-head": "Välj poster som dessa metadata skall sparas för",
 
 
 
@@ -7975,106 +7972,106 @@
 
   // "workflowAdmin.search.results.head": "Administer Workflow",
   // TODO New key - Add a translation
-  "workflowAdmin.search.results.head": "Administer Workflow",
+  "workflowAdmin.search.results.head": "Administrera arbetsflöde",
 
   // "workflow.search.results.head": "Workflow tasks",
   // TODO New key - Add a translation
-  "workflow.search.results.head": "Workflow tasks",
+  "workflow.search.results.head": "Uppgifter",
 
 
 
   // "workflow-item.edit.breadcrumbs": "Edit workflowitem",
   // TODO New key - Add a translation
-  "workflow-item.edit.breadcrumbs": "Edit workflowitem",
+  "workflow-item.edit.breadcrumbs": "Redigera post i arbetsflöde",
 
   // "workflow-item.edit.title": "Edit workflowitem",
   // TODO New key - Add a translation
-  "workflow-item.edit.title": "Edit workflowitem",
+  "workflow-item.edit.title": "Redigera post i arbetsflöde",
 
   // "workflow-item.delete.notification.success.title": "Deleted",
   // TODO New key - Add a translation
-  "workflow-item.delete.notification.success.title": "Deleted",
+  "workflow-item.delete.notification.success.title": "Raderad",
 
   // "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
   // TODO New key - Add a translation
-  "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
+  "workflow-item.delete.notification.success.content": "Posten har raderats",
 
   // "workflow-item.delete.notification.error.title": "Something went wrong",
   // TODO New key - Add a translation
-  "workflow-item.delete.notification.error.title": "Something went wrong",
+  "workflow-item.delete.notification.error.title": "Något gick fel",
 
   // "workflow-item.delete.notification.error.content": "The workflow item could not be deleted",
   // TODO New key - Add a translation
-  "workflow-item.delete.notification.error.content": "The workflow item could not be deleted",
+  "workflow-item.delete.notification.error.content": "Posten kunde inte raderas",
 
   // "workflow-item.delete.title": "Delete workflow item",
   // TODO New key - Add a translation
-  "workflow-item.delete.title": "Delete workflow item",
+  "workflow-item.delete.title": "Radera post i arbetsflöde",
 
   // "workflow-item.delete.header": "Delete workflow item",
   // TODO New key - Add a translation
-  "workflow-item.delete.header": "Delete workflow item",
+  "workflow-item.delete.header": "Radera post i arbetsflöde",
 
   // "workflow-item.delete.button.cancel": "Cancel",
   // TODO New key - Add a translation
-  "workflow-item.delete.button.cancel": "Cancel",
+  "workflow-item.delete.button.cancel": "Avbryt",
 
   // "workflow-item.delete.button.confirm": "Delete",
   // TODO New key - Add a translation
-  "workflow-item.delete.button.confirm": "Delete",
+  "workflow-item.delete.button.confirm": "Radera",
 
 
   // "workflow-item.send-back.notification.success.title": "Sent back to submitter",
   // TODO New key - Add a translation
-  "workflow-item.send-back.notification.success.title": "Sent back to submitter",
+  "workflow-item.send-back.notification.success.title": "Skicka tillbaka till uppladdare",
 
   // "workflow-item.send-back.notification.success.content": "This workflow item was successfully sent back to the submitter",
   // TODO New key - Add a translation
-  "workflow-item.send-back.notification.success.content": "This workflow item was successfully sent back to the submitter",
+  "workflow-item.send-back.notification.success.content": "Posten i arbetsflödet har skickats tillbaka till uppladdaren",
 
   // "workflow-item.send-back.notification.error.title": "Something went wrong",
   // TODO New key - Add a translation
-  "workflow-item.send-back.notification.error.title": "Something went wrong",
+  "workflow-item.send-back.notification.error.title": "Något gick fel",
 
   // "workflow-item.send-back.notification.error.content": "The workflow item could not be sent back to the submitter",
   // TODO New key - Add a translation
-  "workflow-item.send-back.notification.error.content": "The workflow item could not be sent back to the submitter",
+  "workflow-item.send-back.notification.error.content": "Posten i arbetsflödet kunde inte skickas tillbaka",
 
   // "workflow-item.send-back.title": "Send workflow item back to submitter",
   // TODO New key - Add a translation
-  "workflow-item.send-back.title": "Send workflow item back to submitter",
+  "workflow-item.send-back.title": "Skicka tillbaka post i arbetsflödet till uppladdare",
 
   // "workflow-item.send-back.header": "Send workflow item back to submitter",
   // TODO New key - Add a translation
-  "workflow-item.send-back.header": "Send workflow item back to submitter",
+  "workflow-item.send-back.header": "Skicka tillbaka post i arbetsflödet till uppladdare",
 
   // "workflow-item.send-back.button.cancel": "Cancel",
   // TODO New key - Add a translation
-  "workflow-item.send-back.button.cancel": "Cancel",
+  "workflow-item.send-back.button.cancel": "Avbryt",
 
   // "workflow-item.send-back.button.confirm": "Send back",
   // TODO New key - Add a translation
-  "workflow-item.send-back.button.confirm": "Send back",
+  "workflow-item.send-back.button.confirm": "Skicka tillbaka",
 
   // "workflow-item.view.breadcrumbs": "Workflow View",
   // TODO New key - Add a translation
-  "workflow-item.view.breadcrumbs": "Workflow View",
+  "workflow-item.view.breadcrumbs": "Arbetsflöde",
 
 
   // "idle-modal.header": "Session will expire soon",
   // TODO New key - Add a translation
-  "idle-modal.header": "Session will expire soon",
+  "idle-modal.header": "Sessionen kommer att upphöra snart",
 
   // "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
   // TODO New key - Add a translation
-  "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
+  "idle-modal.info": "Sessionen kommer att upphöra efter {{ timeToExpire }} minuters inaktivitet. Vill du fortsätta eller logga ut?",
 
   // "idle-modal.log-out": "Log out",
   // TODO New key - Add a translation
-  "idle-modal.log-out": "Log out",
+  "idle-modal.log-out": "Logga ut",
 
   // "idle-modal.extend-session": "Extend session"
   // TODO New key - Add a translation
-  "idle-modal.extend-session": "Extend session"
+  "idle-modal.extend-session": "Fortsätt"
 
 }
