@@ -78,7 +78,7 @@ export class DetectDuplicateService {
             });
         } else {
           // Item is undefined, we should clear / clean the whole section
-          this.store.dispatch(new CleanDetectDuplicateAction(submissionId))
+          this.store.dispatch(new CleanDetectDuplicateAction(submissionId));
         }
         return outputObject;
       })
