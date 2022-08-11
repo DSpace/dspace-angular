@@ -712,7 +712,7 @@
 
   // "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.success": "Gruppen \"{{name}}\" ar skapats",
+  "admin.access-control.groups.form.notification.created.success": "Gruppen \"{{name}}\" har skapats",
 
   // "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
   // TODO New key - Add a translation
@@ -912,7 +912,7 @@
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Misslyckades med artt lägga till undergrupp: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Misslyckades med att lägga till undergrupp: \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
   // TODO New key - Add a translation
@@ -3570,7 +3570,7 @@
 
 
 
-  // "item.edit.move.cancel": "Back",
+   // "item.edit.move.cancel": "Back",
   // TODO New key - Add a translation
   "item.edit.move.cancel": "Tillbaka",
 
@@ -3580,125 +3580,126 @@
 
   // "item.edit.move.discard-button": "Discard",
   // TODO New key - Add a translation
-  "item.edit.move.discard-button": "Förkasta",
+  "item.edit.move.discard-button": "Ta bort",
 
   // "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
   // TODO New key - Add a translation
-  "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
+  "item.edit.move.description": "Välj samling som du vill flytta denna post till. Du kan söka efter samling(ar) i fältet nedan.",
 
   // "item.edit.move.error": "An error occurred when attempting to move the item",
   // TODO New key - Add a translation
-  "item.edit.move.error": "An error occurred when attempting to move the item",
+  "item.edit.move.error": "Ett fel uppstod när posten skulle flyttas",
 
   // "item.edit.move.head": "Move item: {{id}}",
   // TODO New key - Add a translation
-  "item.edit.move.head": "Move item: {{id}}",
+  "item.edit.move.head": "Flytta post: {{id}}",
 
   // "item.edit.move.inheritpolicies.checkbox": "Inherit policies",
   // TODO New key - Add a translation
-  "item.edit.move.inheritpolicies.checkbox": "Inherit policies",
+  "item.edit.move.inheritpolicies.checkbox": "Ärv policies",
 
   // "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
   // TODO New key - Add a translation
-  "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
+  "item.edit.move.inheritpolicies.description": "Använd samma policies som i den mottagande samlingen",
 
   // "item.edit.move.move": "Move",
   // TODO New key - Add a translation
-  "item.edit.move.move": "Move",
+  "item.edit.move.move": "Flytta",
 
   // "item.edit.move.processing": "Moving...",
   // TODO New key - Add a translation
-  "item.edit.move.processing": "Moving...",
+  "item.edit.move.processing": "Flyttar...",
 
   // "item.edit.move.search.placeholder": "Enter a search query to look for collections",
   // TODO New key - Add a translation
-  "item.edit.move.search.placeholder": "Enter a search query to look for collections",
+  "item.edit.move.search.placeholder": "Ange sökord för att söka efter samling",
 
   // "item.edit.move.success": "The item has been moved successfully",
   // TODO New key - Add a translation
-  "item.edit.move.success": "The item has been moved successfully",
+  "item.edit.move.success": "Posten har flyttats",
 
   // "item.edit.move.title": "Move item",
   // TODO New key - Add a translation
-  "item.edit.move.title": "Move item",
+  "item.edit.move.title": "Flytta post",
 
 
 
   // "item.edit.private.cancel": "Cancel",
   // TODO New key - Add a translation
-  "item.edit.private.cancel": "Cancel",
+  "item.edit.private.cancel": "Avbryt",
 
   // "item.edit.private.confirm": "Make it non-discoverable",
   // TODO New key - Add a translation
-  "item.edit.private.confirm": "Make it non-discoverable",
+  "item.edit.private.confirm": "Gör posten ej sökbar",
 
   // "item.edit.private.description": "Are you sure this item should be made non-discoverable in the archive?",
   // TODO New key - Add a translation
-  "item.edit.private.description": "Are you sure this item should be made non-discoverable in the archive?",
+  "item.edit.private.description": "Är du säker på att posten inte skall vara sökbar i arkivet?",
 
   // "item.edit.private.error": "An error occurred while making the item non-discoverable",
   // TODO New key - Add a translation
-  "item.edit.private.error": "An error occurred while making the item non-discoverable",
+  "item.edit.private.error": "Ett fel uppstod",
 
   // "item.edit.private.header": "Make item non-discoverable: {{ id }}",
   // TODO New key - Add a translation
-  "item.edit.private.header": "Make item non-discoverable: {{ id }}",
+  "item.edit.private.header": "Gör denna post ej sökbar: {{ id }}",
 
   // "item.edit.private.success": "The item is now non-discoverable",
   // TODO New key - Add a translation
-  "item.edit.private.success": "The item is now non-discoverable",
+  "item.edit.private.success": "Denna post är nu inte längre sökbar",
 
 
 
   // "item.edit.public.cancel": "Cancel",
   // TODO New key - Add a translation
-  "item.edit.public.cancel": "Cancel",
+  "item.edit.public.cancel": "Avbryt",
 
   // "item.edit.public.confirm": "Make it discoverable",
   // TODO New key - Add a translation
-  "item.edit.public.confirm": "Make it discoverable",
+  "item.edit.public.confirm": "Gör denna sökbar",
 
   // "item.edit.public.description": "Are you sure this item should be made discoverable in the archive?",
   // TODO New key - Add a translation
-  "item.edit.public.description": "Are you sure this item should be made discoverable in the archive?",
+  "item.edit.public.description": "Är du säker på att denna post skall vara sökbar i arkivet?",
 
   // "item.edit.public.error": "An error occurred while making the item discoverable",
   // TODO New key - Add a translation
-  "item.edit.public.error": "An error occurred while making the item discoverable",
+  "item.edit.public.error": "Ett fel uppstod",
 
   // "item.edit.public.header": "Make item discoverable: {{ id }}",
   // TODO New key - Add a translation
-  "item.edit.public.header": "Make item discoverable: {{ id }}",
+  "item.edit.public.header": "Gör post sökbar: {{ id }}",
 
   // "item.edit.public.success": "The item is now discoverable",
   // TODO New key - Add a translation
-  "item.edit.public.success": "The item is now discoverable",
+  "item.edit.public.success": "Posten är nu sökbar",
 
 
 
   // "item.edit.reinstate.cancel": "Cancel",
   // TODO New key - Add a translation
-  "item.edit.reinstate.cancel": "Cancel",
+  "item.edit.reinstate.cancel": "Avbryt",
 
   // "item.edit.reinstate.confirm": "Reinstate",
   // TODO New key - Add a translation
-  "item.edit.reinstate.confirm": "Reinstate",
+  "item.edit.reinstate.confirm": "Återställ",
 
   // "item.edit.reinstate.description": "Are you sure this item should be reinstated to the archive?",
   // TODO New key - Add a translation
-  "item.edit.reinstate.description": "Are you sure this item should be reinstated to the archive?",
+  "item.edit.reinstate.description": "Är du säker på att denna post skall återställas?",
 
   // "item.edit.reinstate.error": "An error occurred while reinstating the item",
   // TODO New key - Add a translation
-  "item.edit.reinstate.error": "An error occurred while reinstating the item",
+  "item.edit.reinstate.error": "Ett fel uppstod",
 
   // "item.edit.reinstate.header": "Reinstate item: {{ id }}",
   // TODO New key - Add a translation
-  "item.edit.reinstate.header": "Reinstate item: {{ id }}",
+  "item.edit.reinstate.header": "Återställ post: {{ id }}",
 
   // "item.edit.reinstate.success": "The item was reinstated successfully",
   // TODO New key - Add a translation
-  "item.edit.reinstate.success": "The item was reinstated successfully",
+  "item.edit.reinstate.success": "Posten har nu återställts",
+
 
 
 
@@ -5129,7 +5130,7 @@
 
   // "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
   // TODO New key - Add a translation
-  "mydspace.upload.upload-failed": "Ett fel uppstod när arbertsyta skulle skapas. Verifiera inneållet i det som skall laddas upp och försök igen.",
+  "mydspace.upload.upload-failed": "Ett fel uppstod när arbetsyta skulle skapas. Verifiera inneållet i det som skall laddas upp och försök igen.",
 
   // "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
   // TODO New key - Add a translation
@@ -5145,7 +5146,7 @@
 
   // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
   // TODO New key - Add a translation
-  "mydspace.upload.upload-successful": "Ny post ar skapats i arbetsytan. Klicka {{here}} för att redigera den.",
+  "mydspace.upload.upload-successful": "Ny post har skapats i arbetsytan. Klicka {{here}} för att redigera den.",
 
   // "mydspace.view-btn": "View",
   // TODO New key - Add a translation
@@ -7437,7 +7438,7 @@
 
   // "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
   // TODO New key - Add a translation
-  "submission.sections.general.discard_error_notice": "Ett fel ar uppstått. Försök igen senare.",
+  "submission.sections.general.discard_error_notice": "Ett fel har uppstått. Försök igen senare.",
 
   // "submission.sections.general.discard_success_notice": "Submission discarded successfully.",
   // TODO New key - Add a translation
@@ -7824,7 +7825,7 @@
 
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.generic.error": "Ett fel ar uppstått...",
+  "submission.workflow.tasks.generic.error": "Ett fel har uppstått...",
 
   // "submission.workflow.tasks.generic.processing": "Processing...",
   // TODO New key - Add a translation
