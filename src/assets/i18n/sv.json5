@@ -2098,11 +2098,11 @@
 
   // "community.edit.tabs.authorizations.head": "Authorizations",
   // TODO New key - Add a translation
-  "community.edit.tabs.authorizations.head": "Behörigeter",
+  "community.edit.tabs.authorizations.head": "Behörigheter",
 
   // "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
   // TODO New key - Add a translation
-  "community.edit.tabs.authorizations.title": "Redigera enhet - Behörigeter",
+  "community.edit.tabs.authorizations.title": "Redigera enhet - Behörigheter",
 
 
 
@@ -3105,7 +3105,7 @@
 
   // "info.feedback.info": "Thanks for sharing your feedback about the DSpace system. Your comments are appreciated!",
   // TODO New key - Add a translation
-  "info.feedback.info": "Tack för att du har lämnat dina synpunkter på tjänsten. Dina åsikter betyder mycket för oss!",
+  "info.feedback.info": "Tack för att du lämnar dina synpunkter på tjänsten. Dina åsikter betyder mycket för oss!",
 
   // "info.feedback.email_help": "This address will be used to follow up on your feedback.",
   // TODO New key - Add a translation
