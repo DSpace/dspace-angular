@@ -3213,7 +3213,7 @@
 
   // "item.bitstreams.upload.notifications.upload.failed": "Upload failed. Please verify the content before retrying.",
   // TODO New key - Add a translation
-  "item.bitstreams.upload.notifications.upload.failed": "Uppladdningen misslyckades. Kontrollera filen oc försök igen.",
+  "item.bitstreams.upload.notifications.upload.failed": "Uppladdningen misslyckades. Kontrollera filen och försök igen.",
 
   // "item.bitstreams.upload.title": "Upload bitstream",
   // TODO New key - Add a translation
@@ -3927,7 +3927,7 @@
 
   // "item.edit.withdraw.description": "Are you sure this item should be withdrawn from the archive?",
   // TODO New key - Add a translation
-  "item.edit.withdraw.description": "Är du säker på att su vill återkalla denna post från arkivet?",
+  "item.edit.withdraw.description": "Är du säker på att du vill återkalla denna post från arkivet?",
 
   // "item.edit.withdraw.error": "An error occurred while withdrawing the item",
   // TODO New key - Add a translation
@@ -5106,7 +5106,7 @@
 
   // "mydspace.status.archived": "Archived",
   // TODO New key - Add a translation
-  "mydspace.status.archived": "Arkiverat",
+  "mydspace.status.archived": "I arkivet",
 
   // "mydspace.status.validation": "Validation",
   // TODO New key - Add a translation
@@ -5122,7 +5122,7 @@
 
   // "mydspace.status.workspace": "Workspace",
   // TODO New key - Add a translation
-  "mydspace.status.workspace": "Workspace",
+  "mydspace.status.workspace": "I arbetsflödet",
 
   // "mydspace.title": "MyDSpace",
   // TODO New key - Add a translation
@@ -6755,7 +6755,7 @@
 
   // "submission.general.deposit": "Deposit",
   // TODO New key - Add a translation
-  "submission.general.deposit": "Deponera",
+  "submission.general.deposit": "Spara och publicera",
 
   // "submission.general.discard.confirm.cancel": "Cancel",
   // TODO New key - Add a translation
@@ -7446,7 +7446,7 @@
 
   // "submission.sections.general.metadata-extracted": "New metadata have been extracted and added to the <strong>{{sectionId}}</strong> section.",
   // TODO New key - Add a translation
-  "submission.sections.general.metadata-extracted": "Nya metadata har extraherats oc lagts till i <strong>{{sectionId}}</strong>.",
+  "submission.sections.general.metadata-extracted": "Nya metadata har extraherats och lagts till i <strong>{{sectionId}}</strong>.",
 
   // "submission.sections.general.metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission.",
   // TODO New key - Add a translation
@@ -7508,7 +7508,7 @@
 
   // "submission.sections.submit.progressbar.license": "Deposit license",
   // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.license": "Deponera licens",
+  "submission.sections.submit.progressbar.license": "Licensvillkor",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   // TODO New key - Add a translation
@@ -7650,7 +7650,7 @@
 
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
   // TODO New key - Add a translation
-  "submission.sections.upload.info": "Här visas samtliga filer som ingår i posten. Du kan uppdatera filernas metadata oc villkor för åtkomst, samt <strong>ladda upp nya filer genom att dra och släppa dem här</strong>",
+  "submission.sections.upload.info": "Här visas samtliga filer som ingår i posten. Du kan uppdatera filernas metadata och villkor för åtkomst, samt <strong>ladda upp nya filer genom att dra och släppa dem här</strong>",
 
   // "submission.sections.upload.no-entry": "No",
   // TODO New key - Add a translation
@@ -7779,7 +7779,7 @@
 
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
   // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.approve_help": "Om du har granskat posten oc funnit att den kan ingå i samlingen, välj \"Godkänn\".",
+  "submission.workflow.tasks.claimed.approve_help": "Om du har granskat posten och funnit att den kan ingå i samlingen, välj \"Godkänn\".",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   // TODO New key - Add a translation
@@ -7931,7 +7931,7 @@
 
   // "uploader.browse": "browse",
   // TODO New key - Add a translation
-  "uploader.browse": "browsa",
+  "uploader.browse": "sök efter filen på din dator",
 
   // "uploader.drag-message": "Drag & Drop your files here",
   // TODO New key - Add a translation
