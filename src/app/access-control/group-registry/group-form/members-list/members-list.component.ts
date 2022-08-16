@@ -174,7 +174,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
           return this.ePersonDataService.findAllByHref(group._links.epersons.href, {
             currentPage: 1,
             elementsPerPage: 9999
-          }, false)
+          })
             .pipe(
               getFirstSucceededRemoteData(),
               getRemoteDataPayload(),
