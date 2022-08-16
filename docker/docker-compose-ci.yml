@@ -53,7 +53,7 @@ services:
     - '-c'
     - |
       while (!</dev/tcp/dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
-      /dspace/bin/dspace database migrate
+      /dspace/bin/dspace database migrate force
       catalina.sh run
   # DSpace database container
   # NOTE: This is customized to use our loadsql image, so that we are using a database with existing test data
@@ -63,7 +63,7 @@ services:
       # This LOADSQL should be kept in sync with the LOADSQL in
       # https://github.com/DSpace/DSpace/blob/main/dspace/src/main/docker-compose/db.entities.yml
       # This SQL is available from https://github.com/DSpace-Labs/AIP-Files/releases/tag/demo-entities-data
-      LOADSQL: https://github.com/DSpace-Labs/AIP-Files/releases/download/demo-entities-data/dspace7-entities-2021-04-14.sql
+      LOADSQL: https://github.com/dataquest-dev/DSpace/releases/download/data/dspace-test-database-dump.sql
       PGDATA: /pgdata
     image: dspace/dspace-postgres-pgcrypto:loadsql
     networks:
