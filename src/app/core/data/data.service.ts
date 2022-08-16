@@ -170,7 +170,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    */
   protected buildHrefWithParams(href: string, params: RequestParam[], ...linksToFollow: FollowLinkConfig<T>[]): string {
 
-    let  args = [];
+    let args = [];
     if (hasValue(params)) {
       params.forEach((param: RequestParam) => {
         args = this.addHrefArg(href, args, `${param.fieldName}=${param.fieldValue}`);
@@ -491,7 +491,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
   }
 
   createPatchFromCache(object: T): Observable<Operation[]> {
-    const oldVersion$ = this.findByHref(object._links.self.href, true,  false);
+    const oldVersion$ = this.findByHref(object._links.self.href, true, false);
     return oldVersion$.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
@@ -526,11 +526,11 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     return this.createPatchFromCache(object)
       .pipe(
         mergeMap((operations: Operation[]) => {
-            if (isNotEmpty(operations)) {
-              this.objectCache.addPatch(object._links.self.href, operations);
-            }
-            return this.findByHref(object._links.self.href, true, true);
+          if (isNotEmpty(operations)) {
+            this.objectCache.addPatch(object._links.self.href, operations);
           }
+          return this.findByHref(object._links.self.href, true, true);
+        }
         )
       );
   }
@@ -654,8 +654,8 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     if (copyVirtualMetadata) {
       copyVirtualMetadata.forEach((id) =>
         href += (href.includes('?') ? '&' : '?')
-          + 'copyVirtualMetadata='
-          + id
+        + 'copyVirtualMetadata='
+        + id
       );
     }
 
@@ -667,6 +667,58 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
 
     return this.rdbService.buildFromRequestUUID(requestId);
   }
+
+
+  /**
+   * Returns an observable of {@link RemoteData} of an object, based on its ID, with a list of
+   * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
+   * @param id                          ID of object we want to retrieve
+   * @param projections                 Array of string of projections to be added to the parameters
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  findByIdWithProjection(id: string, projections: string[], useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<T>> {
+    const options = new FindListOptions();
+    options.searchParams = [];
+
+    projections.forEach((projection) => {
+      options.searchParams.push(new RequestParam('projection', projection));
+    });
+
+    const href$ = this.getEndpoint().pipe(
+      map((endpoint: string) => this.buildHrefFromFindOptions(endpoint + '/' + encodeURIComponent(id), options, [], ...linksToFollow)));
+
+    return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Returns {@link RemoteData} of all object with a list of {@link FollowLinkConfig}, to indicate which embedded
+   * info should be added to the objects
+   *
+   * @param projections                 Array of string of projections to be added to the parameters
+   * @param options                     Find list options object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>>}
+   *    Return an observable that emits object list
+   */
+  findAllWithProjection(projections: string[], options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
+
+    projections.forEach((projection) => {
+      options.searchParams.push(new RequestParam('projection', projection));
+    });
+
+    return this.findAllByHref(this.getFindAllHref(options), options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
 
   /**
    * Commit current object changes to the server

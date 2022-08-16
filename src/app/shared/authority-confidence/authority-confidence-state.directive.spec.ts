@@ -9,6 +9,7 @@ import { AuthorityConfidenceStateDirective } from './authority-confidence-state.
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { ConfidenceType } from '../../core/shared/confidence-type';
+import { AUTHORITY_GENERATE, AUTHORITY_REFERENCE } from '../../core/shared/metadata.utils';
 
 describe('AuthorityConfidenceStateDirective', () => {
   let component: TestComponent;
@@ -62,9 +63,21 @@ describe('AuthorityConfidenceStateDirective', () => {
     });
   });
 
-  describe('value with a fake authority', () => {
+  describe('value with a reference authority', () => {
     beforeEach(() => {
-      component.authorityValue = new FormFieldMetadataValueObject('test value', null, null, 'fake-authority');
+      component.authorityValue = new FormFieldMetadataValueObject('test value', null, null, AUTHORITY_REFERENCE + 'authority');
+      fixture.detectChanges();
+    });
+
+    it('should display a text-muted icon', () => {
+      const icon = fixture.debugElement.query(By.css('i.text-muted'));
+      expect(icon).toBeTruthy();
+    });
+  });
+
+  describe('value with a generate authority', () => {
+    beforeEach(() => {
+      component.authorityValue = new FormFieldMetadataValueObject('test value', null, null, AUTHORITY_GENERATE + 'authority');
       fixture.detectChanges();
     });
 

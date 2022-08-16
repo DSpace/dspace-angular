@@ -85,15 +85,15 @@ export class SubmissionService {
    * @param {SubmissionJsonPatchOperationsService} jsonPatchOperationService
    */
   constructor(protected notificationsService: NotificationsService,
-              protected restService: SubmissionRestService,
-              protected router: Router,
-              protected routeService: RouteService,
-              protected store: Store<SubmissionState>,
-              protected scrollToService: ScrollToService,
-              protected translate: TranslateService,
-              protected searchService: SearchService,
-              protected requestService: RequestService,
-              protected jsonPatchOperationService: SubmissionJsonPatchOperationsService) {
+    protected restService: SubmissionRestService,
+    protected router: Router,
+    protected routeService: RouteService,
+    protected store: Store<SubmissionState>,
+    protected scrollToService: ScrollToService,
+    protected translate: TranslateService,
+    protected searchService: SearchService,
+    protected requestService: RequestService,
+    protected jsonPatchOperationService: SubmissionJsonPatchOperationsService) {
   }
 
   /**
@@ -125,7 +125,7 @@ export class SubmissionService {
       paramsObj.entityType = entityType;
     }
 
-    const params = new HttpParams({fromObject: paramsObj});
+    const params = new HttpParams({ fromObject: paramsObj });
     const options: HttpOptions = Object.create({});
     options.params = params;
     return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, options, collectionId).pipe(
@@ -148,7 +148,7 @@ export class SubmissionService {
       paramsObj.collection = collectionId;
     }
 
-    const params = new HttpParams({fromObject: paramsObj});
+    const params = new HttpParams({ fromObject: paramsObj });
     const options: HttpOptions = Object.create({});
     options.params = params;
 
@@ -191,7 +191,7 @@ export class SubmissionService {
       paramsObj.relationship = relationshipName;
     }
 
-    const params = new HttpParams({fromObject: paramsObj});
+    const params = new HttpParams({ fromObject: paramsObj });
     const options: HttpOptions = Object.create({});
     options.params = params;
 
@@ -603,7 +603,7 @@ export class SubmissionService {
   notifyNewSection(submissionId: string, sectionId: string, sectionType?: SectionsType) {
     if (sectionType === SectionsType.DetectDuplicate || sectionId === 'detect-duplicate') {
       this.setActiveSection(submissionId, sectionId);
-      const msg = this.translate.instant('submission.sections.detect-duplicate.duplicate-detected', {sectionId});
+      const msg = this.translate.instant('submission.sections.detect-duplicate.duplicate-detected', { sectionId });
       this.notificationsService.warning(null, msg, new NotificationOptions(10000));
       const config: ScrollToConfigOptions = {
         target: sectionId,
@@ -612,7 +612,7 @@ export class SubmissionService {
 
       this.scrollToService.scrollTo(config);
     } else {
-      const m = this.translate.instant('submission.sections.general.metadata-extracted-new-section', {sectionId});
+      const m = this.translate.instant('submission.sections.general.metadata-extracted-new-section', { sectionId });
       this.notificationsService.info(null, m, null, true);
     }
   }
@@ -649,7 +649,7 @@ export class SubmissionService {
       // Now, do redirect.
       tap(() => {
         const itemUuid = submissionId.indexOf(':') > -1 ? submissionId.split(':')[0] : submissionId;
-        this.router.navigateByUrl('/items/' + itemUuid, {replaceUrl: true});
+        this.router.navigateByUrl('/items/' + itemUuid, { replaceUrl: true });
       })
     ).subscribe();
   }
@@ -695,8 +695,8 @@ export class SubmissionService {
    * @return Observable<RemoteData<SubmissionObject>>
    *    observable of RemoteData<SubmissionObject>
    */
-  retrieveSubmission(submissionId): Observable<RemoteData<SubmissionObject>> {
-    return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId).pipe(
+  retrieveSubmission(submissionId, projections: string[] = []): Observable<RemoteData<SubmissionObject>> {
+    return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId, projections).pipe(
       find((submissionObjects: SubmissionObject[]) => isNotUndefined(submissionObjects)),
       map((submissionObjects: SubmissionObject[]) => createSuccessfulRemoteDataObject(
         submissionObjects[0])),

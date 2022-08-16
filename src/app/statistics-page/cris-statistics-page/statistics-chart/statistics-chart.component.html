@@ -22,6 +22,7 @@
 
         <ng-container *ngIf="selectedReport">
           <ds-statistics-chart-wrapper [type]="selectedReport.viewMode"
+                                       [categoryType]="categoryType"
                                        [report]="selectedReport"></ds-statistics-chart-wrapper>
         </ng-container>
 

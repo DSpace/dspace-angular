@@ -16,6 +16,7 @@ import { CollectionFormModule } from './collection-form/collection-form.module';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 import { ComcolModule } from '../shared/comcol/comcol.module';
+import { EditCollectionResolver } from './../core/shared/resolvers/edit-collection.resolver';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { ComcolModule } from '../shared/comcol/comcol.module';
   ],
   providers: [
     SearchService,
+    EditCollectionResolver
   ]
 })
 export class CollectionPageModule {

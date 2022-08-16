@@ -37,6 +37,7 @@ import { ObjectValuesPipe } from '../../shared/utils/object-values-pipe';
 import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-policies.module';
 import { ItemUnlinkOrcidComponent } from './item-unlink-orcid/item-unlink-orcid.component';
 import { EditMetadataSecurityComponent } from './edit-metadata-security/edit-metadata-security.component';
+import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -83,7 +84,8 @@ import { EditMetadataSecurityComponent } from './edit-metadata-security/edit-met
   ],
   providers: [
     BundleDataService,
-    ObjectValuesPipe
+    ObjectValuesPipe,
+    EditItemResolver
   ],
   exports: [
     ItemMetadataComponent,

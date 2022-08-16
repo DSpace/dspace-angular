@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { StatisticsTableComponent } from './statistics-table.component';
 import { UsageReport } from '../../../../core/statistics/models/usage-report.model';
 import { USAGE_REPORT } from '../../../../core/statistics/models/usage-report.resource-type';
@@ -12,7 +12,7 @@ import { ExportServiceStub } from '../../../../shared/testing/export-service.stu
 import { TranslateModule } from '@ngx-translate/core';
 
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { StatisticsType } from '../../statistics-type.model';
 
 
 describe('StatisticsTableComponent', () => {
@@ -24,7 +24,7 @@ describe('StatisticsTableComponent', () => {
       'id': '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TopCountries',
       'type': USAGE_REPORT,
       'reportType': 'TopCountries',
-      'viewMode': 'table',
+      'viewMode': StatisticsType.table,
       'points': [
           {
               'label': 'United States',
@@ -53,7 +53,7 @@ describe('StatisticsTableComponent', () => {
       'id': '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TopCountries',
       'type': USAGE_REPORT,
       'reportType': 'TopCountries',
-      'viewMode': 'table',
+      'viewMode': StatisticsType.table,
       'points': [
           {
               'label': 'United States',
@@ -85,6 +85,7 @@ describe('StatisticsTableComponent', () => {
       providers: [
         { provide: REPORT_DATA, useValue: report},
         { provide: ExportService, useValue: ExportServiceStub},
+        { provide: 'categoryType', useValue: 'mainReports' },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(StatisticsTableComponent, {
@@ -100,7 +101,7 @@ describe('StatisticsTableComponent', () => {
       'id': '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TopCountries',
       type : USAGE_REPORT,
       reportType: 'TopCountries',
-      viewMode: 'table',
+      viewMode: StatisticsType.table,
       points: [],
       '_links' : {
         'self' : {
@@ -133,9 +134,9 @@ describe('StatisticsTableComponent', () => {
       expect(de.query(By.css('table'))).toBeTruthy();
 
       expect(de.query(By.css('th.country-header')).nativeElement.innerText)
-        .toEqual('country');
+        .toEqual('statistics.table.mainReports.header.country');
       expect(de.query(By.css('th.views-header')).nativeElement.innerText)
-        .toEqual('views');
+        .toEqual('statistics.table.mainReports.header.views');
 
       expect(de.query(By.css('td.US-views-data')).nativeElement.innerText)
         .toEqual('2');
