@@ -20,6 +20,9 @@ import { AuthorizationDataService } from '../../../../../../../core/data/feature
 import { RouterTestingModule } from '@angular/router/testing';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { FieldRenderingType } from '../metadata-box.decorator';
+import { Store, StoreModule } from '@ngrx/store';
+import { StoreMock } from '../../../../../../../shared/testing/store.mock';
+import { AppState } from 'src/app/app.reducer';
 
 describe('AttachmentComponent', () => {
   let component: AttachmentComponent;
@@ -35,7 +38,7 @@ describe('AttachmentComponent', () => {
       ]
     },
     _links: {
-      self: {href: 'obj-selflink'}
+      self: { href: 'obj-selflink' }
     },
     uuid: 'item-uuid',
   });
@@ -60,19 +63,53 @@ describe('AttachmentComponent', () => {
   const bitstream1 = Object.assign(new Bitstream(), {
     id: 'bitstream4',
     uuid: 'bitstream4',
+    metadata: {
+      'dc.title': [
+        {
+          value: 'test'
+        }
+      ],
+      'dc.type': [
+        {
+          value: 'test'
+        }
+      ],
+      'dc.description': [
+        {
+          value: 'test'
+        }
+      ]
+    },
     _links: {
-      self: {href: 'obj-selflink'}
+      self: { href: 'obj-selflink' }
+    }
+  });
+  const bitstream2 = Object.assign(new Bitstream(), {
+    id: 'bitstream4',
+    uuid: 'bitstream4',
+    metadata: {
+    },
+    _links: {
+      self: { href: 'obj-selflink' }
     }
   });
 
-  const mockBitstreamDataService = {
+  const mockBitstreamDataService: any = jasmine.createSpyObj('BitstreamDataService', {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
     },
-    findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
-      return createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1]));
-    },
-  };
+    findAllByItemAndBundleName: jasmine.createSpy('findAllByItemAndBundleName'),
+  });
+
+
+  // const mockBitstreamDataService = {
+  //   getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
+  //     return createSuccessfulRemoteDataObject$(new Bitstream());
+  //   },
+  //   findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
+  //     return createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1]));
+  //   },
+  // };
 
   const mockAuthorizedService = jasmine.createSpyObj('AuthorizationDataService', {
     isAuthorized: jasmine.createSpy('isAuthorized')
@@ -87,7 +124,8 @@ describe('AttachmentComponent', () => {
         }
       }),
         RouterTestingModule,
-        SharedModule
+        SharedModule,
+      StoreModule.forRoot({}),
       ],
       declarations: [AttachmentComponent],
       providers: [
@@ -106,6 +144,7 @@ describe('AttachmentComponent', () => {
     fixture = TestBed.createComponent(AttachmentComponent);
     component = fixture.componentInstance;
     mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
+    mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
     component.item = testItem;
     fixture.detectChanges();
   });
@@ -125,4 +164,40 @@ describe('AttachmentComponent', () => {
     expect(spanValueFound.length).toBe(1);
     done();
   });
+
+
+  describe('when attachment has no metadata', () => {
+
+    beforeEach(() => {
+      mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream2])));
+      component.item = testItem;
+      component.ngOnInit();
+      fixture.detectChanges();
+    });
+    it('Should not render title part', () => {
+      expect(fixture.debugElement.query(By.css('[data-test="title"]'))).toBeFalsy();
+    });
+    it('Should not render type part', () => {
+      expect(fixture.debugElement.query(By.css('[data-test="type"]'))).toBeFalsy();
+    });
+    it('Should not render description part', () => {
+      expect(fixture.debugElement.query(By.css('[data-test="description"]'))).toBeFalsy();
+    });
+
+  });
+
+
+  describe('when attachment has dc.title,dc.type & dc.description', () => {
+    it('Should render title part', () => {
+      expect(fixture.debugElement.query(By.css('[data-test="title"]'))).toBeTruthy();
+    });
+    it('Should render type part', () => {
+      expect(fixture.debugElement.query(By.css('[data-test="type"]'))).toBeTruthy();
+    });
+    it('Should render description part', () => {
+      expect(fixture.debugElement.query(By.css('[data-test="description"]'))).toBeTruthy();
+    });
+  });
+
+
 });

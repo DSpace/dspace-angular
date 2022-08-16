@@ -26,6 +26,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   private TITLE_METADATA = 'dc.title';
   private SOURCE_METADATA = 'dc.source';
   private TYPE_METADATA = 'dc.type';
+  private DESCRIPTION_METADATA = 'dc.description';
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
@@ -71,7 +72,19 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
     return bitstream.firstMetadataValue(this.TYPE_METADATA);
   }
 
+  /**
+   * Returns link of given bistream
+   * @param bitstream
+   */
   getLink(bitstream: Bitstream): string {
     return bitstream._links.content.href;
+  }
+
+  /**
+   * Returns description of given bistream
+   * @param bitstream
+   */
+  getDescription(bitstream: Bitstream): string {
+    return bitstream.firstMetadataValue(this.DESCRIPTION_METADATA);
   }
 }
