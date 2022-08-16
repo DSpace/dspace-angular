@@ -3,14 +3,13 @@ import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, Simp
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
 import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
 import { Item } from '../../../core/shared/item.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 
 @Component({
   selector: 'ds-orcid-auth',
@@ -65,7 +64,7 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
   @Output() unlink: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
-    private researcherProfileService: ResearcherProfileService,
+    private orcidAuthService: OrcidAuthService,
     private translateService: TranslateService,
     private notificationsService: NotificationsService,
     @Inject(NativeWindowService) private _window: NativeWindowRef,
@@ -73,7 +72,7 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.researcherProfileService.getOrcidAuthorizationScopes().subscribe((scopes: string[]) => {
+    this.orcidAuthService.getOrcidAuthorizationScopes().subscribe((scopes: string[]) => {
       this.orcidAuthorizationScopes.next(scopes);
       this.initOrcidAuthSettings();
     });
@@ -160,7 +159,7 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
    * Link existing person profile with orcid
    */
   linkOrcid(): void {
-    this.researcherProfileService.getOrcidAuthorizeUrl(this.item).subscribe((authorizeUrl) => {
+    this.orcidAuthService.getOrcidAuthorizeUrl(this.item).subscribe((authorizeUrl) => {
       this._window.nativeWindow.location.href = authorizeUrl;
     });
   }
@@ -170,7 +169,7 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
    */
   unlinkOrcid(): void {
     this.unlinkProcessing.next(true);
-    this.researcherProfileService.unlinkOrcidByItem(this.item).pipe(
+    this.orcidAuthService.unlinkOrcidByItem(this.item).pipe(
       getFirstCompletedRemoteData()
     ).subscribe((remoteData: RemoteData<ResearcherProfile>) => {
       this.unlinkProcessing.next(false);
@@ -193,19 +192,19 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
 
     this.setMissingOrcidAuthorizations();
 
-    this.researcherProfileService.onlyAdminCanDisconnectProfileFromOrcid().subscribe((result) => {
+    this.orcidAuthService.onlyAdminCanDisconnectProfileFromOrcid().subscribe((result) => {
       this.onlyAdminCanDisconnectProfileFromOrcid$.next(result);
     });
 
-    this.researcherProfileService.ownerCanDisconnectProfileFromOrcid().subscribe((result) => {
+    this.orcidAuthService.ownerCanDisconnectProfileFromOrcid().subscribe((result) => {
       this.ownerCanDisconnectProfileFromOrcid$.next(result);
     });
 
-    this.isOrcidLinked$.next(this.researcherProfileService.isLinkedToOrcid(this.item));
+    this.isOrcidLinked$.next(this.orcidAuthService.isLinkedToOrcid(this.item));
   }
 
   private setMissingOrcidAuthorizations(): void {
-    const profileScopes = this.researcherProfileService.getOrcidAuthorizationScopesByItem(this.item);
+    const profileScopes = this.orcidAuthService.getOrcidAuthorizationScopesByItem(this.item);
     const orcidScopes = this.orcidAuthorizationScopes.value;
     const missingScopes = orcidScopes.filter((scope) => !profileScopes.includes(scope));
 
@@ -213,7 +212,7 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
   }
 
   private setOrcidAuthorizationsFromItem(): void {
-    this.profileAuthorizationScopes.next(this.researcherProfileService.getOrcidAuthorizationScopesByItem(this.item));
+    this.profileAuthorizationScopes.next(this.orcidAuthService.getOrcidAuthorizationScopesByItem(this.item));
   }
 
 }

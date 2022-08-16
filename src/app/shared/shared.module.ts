@@ -59,6 +59,7 @@ import {
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { VarDirective } from './utils/var.directive';
 import { AuthNavMenuComponent } from './auth-nav-menu/auth-nav-menu.component';
+import { ThemedAuthNavMenuComponent } from './auth-nav-menu/themed-auth-nav-menu.component';
 import { LogOutComponent } from './log-out/log-out.component';
 import { DragClickDirective } from './utils/drag-click.directive';
 import { TruncatePipe } from './utils/truncate.pipe';
@@ -289,6 +290,7 @@ import { ExternalLinkMenuItemComponent } from './menu/menu-item/external-link-me
 import { DsoPageOrcidButtonComponent } from './dso-page/dso-page-orcid-button/dso-page-orcid-button.component';
 import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 import { BrowserOnlyPipe } from './utils/browser-only.pipe';
+import { ThemedLoadingComponent } from './loading/themed-loading.component';
 import { PersonPageClaimButtonComponent } from './dso-page/person-page-claim-button/person-page-claim-button.component';
 import { SearchExportCsvComponent } from './search/search-export-csv/search-export-csv.component';
 
@@ -340,6 +342,7 @@ const COMPONENTS = [
   // put shared components here
   AlertComponent,
   AuthNavMenuComponent,
+  ThemedAuthNavMenuComponent,
   UserMenuComponent,
   ChipsComponent,
   DsSelectComponent,
@@ -347,6 +350,7 @@ const COMPONENTS = [
   FileSectionComponent,
   LangSwitchComponent,
   LoadingComponent,
+  ThemedLoadingComponent,
   LogInComponent,
   LogOutComponent,
   NumberPickerComponent,

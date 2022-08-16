@@ -41,5 +41,5 @@
   </div>
 
   <ds-error *ngIf="communityRD?.hasFailed" message="{{'error.community' | translate}}"></ds-error>
-  <ds-loading *ngIf="communityRD?.isLoading" message="{{'loading.community' | translate}}"></ds-loading>
+  <ds-themed-loading *ngIf="communityRD?.isLoading" message="{{'loading.community' | translate}}"></ds-themed-loading>
 </div>
