@@ -293,6 +293,7 @@ import { BrowserOnlyPipe } from './utils/browser-only.pipe';
 import { ThemedLoadingComponent } from './loading/themed-loading.component';
 import { PersonPageClaimButtonComponent } from './dso-page/person-page-claim-button/person-page-claim-button.component';
 import { SearchExportCsvComponent } from './search/search-export-csv/search-export-csv.component';
+import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
 
 const MODULES = [
   CommonModule,
@@ -313,7 +314,8 @@ const MODULES = [
   NouisliderModule,
   MomentModule,
   DragDropModule,
-  CdkTreeModule
+  CdkTreeModule,
+  GoogleRecaptchaModule
 ];
 
 const ROOT_MODULES = [

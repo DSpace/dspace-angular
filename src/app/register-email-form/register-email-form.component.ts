@@ -7,11 +7,12 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Registration } from '../core/shared/registration.model';
 import { RemoteData } from '../core/data/remote-data';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { isNotEmpty } from '../shared/empty.util';
 import { map } from 'rxjs/operators';
 import { GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptcha.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-register-email-form',
@@ -38,6 +39,18 @@ export class RegisterEmailFormComponent implements OnInit {
    */
   registrationVerification = false;
 
+  /**
+   * captcha version
+   */
+  captchaVersion = 'v2';
+
+  /**
+   * captcha mode
+   */
+  captchaMode = 'checkbox';
+
+  recaptchaKey$: Observable<any>;
+
   constructor(
     private epersonRegistrationService: EpersonRegistrationService,
     private notificationService: NotificationsService,
@@ -45,7 +58,7 @@ export class RegisterEmailFormComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private configService: ConfigurationDataService,
-    private googleRecaptchaService: GoogleRecaptchaService
+    public googleRecaptchaService: GoogleRecaptchaService
   ) {
 
   }
@@ -58,6 +71,15 @@ export class RegisterEmailFormComponent implements OnInit {
         ],
       })
     });
+    this.recaptchaKey$ = this.configService.findByPropertyName('google.recaptcha.key.site').pipe(
+      getFirstSucceededRemoteDataPayload(),
+    );
+    this.googleRecaptchaService.captchaVersion$.subscribe(res => {
+      this.captchaVersion = res;
+    });
+    this.googleRecaptchaService.captchaMode$.subscribe(res => {
+      this.captchaMode = res;
+    });
     this.configService.findByPropertyName('registration.verification.enabled').pipe(
       getFirstCompletedRemoteData(),
       map((res: RemoteData<ConfigurationProperty>) => {
@@ -69,12 +91,26 @@ export class RegisterEmailFormComponent implements OnInit {
   }
 
   /**
+   * execute the captcha function for v2 invisible
+   */
+  async executeRecaptcha() {
+    await this.googleRecaptchaService.executeRecaptcha();
+  }
+
+  /**
    * Register an email address
    */
-  async register() {
+  async register(tokenV2 = null) {
     if (!this.form.invalid) {
       if (this.registrationVerification) {
-        const token = await this.googleRecaptchaService.getRecaptchaToken('register_email');
+        let token;
+        if (this.captchaVersion === 'v3') {
+          token = await this.googleRecaptchaService.getRecaptchaToken('register_email');
+        } else if (this.captchaMode === 'checkbox') {
+          token = await this.googleRecaptchaService.getRecaptchaTokenResponse();
+        } else {
+          token = tokenV2;
+        }
         if (isNotEmpty(token)) {
           this.registration(token);
         } else {

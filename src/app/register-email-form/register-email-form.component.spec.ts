@@ -1,5 +1,5 @@
 import { waitForAsync, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, of } from 'rxjs';
 import { RestResponse } from '../core/cache/response.models';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -31,9 +31,13 @@ describe('RegisterEmailComponent', () => {
   });
 
   const googleRecaptchaService = jasmine.createSpyObj('googleRecaptchaService', {
-    getRecaptchaToken: Promise.resolve('googleRecaptchaToken')
+    getRecaptchaToken: Promise.resolve('googleRecaptchaToken'),
+    executeRecaptcha: Promise.resolve('googleRecaptchaToken'),
+    getRecaptchaTokenResponse: Promise.resolve('googleRecaptchaToken')
   });
 
+  const captchaVersion$ = of('v3');
+  const captchaMode$ = of('invisible');
   const confResponse$ = createSuccessfulRemoteDataObject$({ values: ['true'] });
   const confResponseDisabled$ = createSuccessfulRemoteDataObject$({ values: ['false'] });
 
@@ -63,6 +67,8 @@ describe('RegisterEmailComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RegisterEmailFormComponent);
     comp = fixture.componentInstance;
+    googleRecaptchaService.captchaVersion$ = captchaVersion$;
+    googleRecaptchaService.captchaMode$ = captchaMode$;
     configurationDataService.findByPropertyName.and.returnValues(confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$, confResponseDisabled$);
 
     fixture.detectChanges();
@@ -109,6 +115,8 @@ describe('RegisterEmailComponent', () => {
   describe('register with google recaptcha', () => {
     beforeEach(fakeAsync(() => {
       configurationDataService.findByPropertyName.and.returnValues(confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$, confResponse$);
+      googleRecaptchaService.captchaVersion$ = captchaVersion$;
+      googleRecaptchaService.captchaMode$ = captchaMode$;
       comp.ngOnInit();
       fixture.detectChanges();
     }));

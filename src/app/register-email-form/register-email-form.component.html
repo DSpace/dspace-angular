@@ -24,6 +24,9 @@
                 <div class="col-12">
                     {{MESSAGE_PREFIX + '.email.hint' |translate}}
                 </div>
+                <div class="col-12" *ngIf="captchaVersion === 'v2'">
+                    <ds-google-recaptcha [captchaMode]="captchaMode" (executeRecaptcha)="register($event)"></ds-google-recaptcha>
+                </div>
 
             </div>
 
@@ -32,5 +35,6 @@
     
     <button class="btn btn-primary"
             [disabled]="form.invalid"
-            (click)="register()">{{MESSAGE_PREFIX + '.submit'| translate}}</button>
+            (click)="(captchaVersion === 'v2' && captchaMode === 'invisible') ? executeRecaptcha() : register()">
+            {{MESSAGE_PREFIX + '.submit'| translate}}</button>
 </div>

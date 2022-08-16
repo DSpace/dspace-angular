@@ -1,0 +1,4 @@
+<div class="g-recaptcha"
+     [attr.data-callback]="captchaMode === 'invisible' ? 'executeRecaptcha' : null"
+     [attr.data-sitekey]="(recaptchaKey$ | async)?.values[0]"
+     [attr.data-size]="captchaMode === 'invisible' ? 'invisible' : null"></div>

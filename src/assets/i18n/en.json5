@@ -1262,10 +1262,27 @@
 
 
 
+  "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
+
+  "cookies.consent.app.description.google-recaptcha": "Allows us to track registration and password recovery data",
+
+
+
   "cookies.consent.purpose.functional": "Functional",
 
   "cookies.consent.purpose.statistical": "Statistical",
 
+  "cookies.consent.purpose.registration-password-recovery": "Registration and Password recovery",
+
+  "cookies.consent.purpose.sharing": "Sharing",
+
+  "cris-layout.toggle.open": "Open section",
+
+  "cris-layout.toggle.close": "Close section",
+
+  "cris-layout.toggle.aria.open": "Expand {{sectionHeader}} section",
+
+  "cris-layout.toggle.aria.close": "Collapse {{sectionHeader}} section",
 
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
