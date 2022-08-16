@@ -192,6 +192,8 @@ export const environment: BuildConfig = {
     fiveYearLimit: 30,
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
     defaultLowerLimit: 1900,
+    // The number of entries in a paginated browse results list.
+    pageSize: 20,
   },
   item: {
     edit: {

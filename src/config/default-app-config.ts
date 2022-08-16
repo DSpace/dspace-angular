@@ -193,7 +193,9 @@ export class DefaultAppConfig implements AppConfig {
     // Limit for years to display using jumps of five years (current year - fiveYearLimit)
     fiveYearLimit: 30,
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
-    defaultLowerLimit: 1900
+    defaultLowerLimit: 1900,
+    // The number of entries in a paginated browse results list.
+    pageSize: 20
   };
 
   // Item Page Config

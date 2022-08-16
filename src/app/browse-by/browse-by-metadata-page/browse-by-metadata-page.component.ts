@@ -17,6 +17,7 @@ import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { BrowseByDataType, rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'ds-browse-by-metadata-page',
@@ -52,7 +53,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
   paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'bbm',
     currentPage: 1,
-    pageSize: 20
+    pageSize: environment.browseBy.pageSize,
   });
 
   /**
