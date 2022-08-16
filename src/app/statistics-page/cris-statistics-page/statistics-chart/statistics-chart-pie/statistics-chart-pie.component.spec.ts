@@ -1,17 +1,17 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { UsageReport,Point } from '../../../../core/statistics/models/usage-report.model';
+import { UsageReport } from '../../../../core/statistics/models/usage-report.model';
 import { USAGE_REPORT } from '../../../../core/statistics/models/usage-report.resource-type';
 import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
 
 import { ExportService } from '../../../../core/export-service/export.service';
 import { ExportServiceStub } from '../../../../shared/testing/export-service.stub';
 import { StatisticsChartPieComponent } from './statistics-chart-pie.component';
+import { StatisticsType } from '../../statistics-type.model';
 
 
 describe('StatisticsChartPieComponent', () => {
@@ -23,7 +23,7 @@ describe('StatisticsChartPieComponent', () => {
       'id': '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalDownloads',
       'type': USAGE_REPORT,
       'reportType': 'TotalDownloads',
-      'viewMode': 'chart.pie',
+      'viewMode': StatisticsType['chart.pie'],
       'points': [
           {
             'label': '8d33bdfb-e7ba-43e6-a93a-f445b7e8a1e2',
@@ -65,6 +65,7 @@ describe('StatisticsChartPieComponent', () => {
       providers: [
         { provide: REPORT_DATA, useValue: selectedReport },
         { provide: ExportService, useValue: ExportServiceStub },
+        { provide: 'categoryType', useValue: 'mainReports' },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(StatisticsChartPieComponent, {

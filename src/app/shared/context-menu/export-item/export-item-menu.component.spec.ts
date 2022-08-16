@@ -12,17 +12,26 @@ import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { Item } from '../../../core/shared/item.model';
 import { ExportItemMenuComponent } from './export-item-menu.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ItemExportFormConfiguration, ItemExportService } from '../../item-export/item-export.service';
+import { of as observableOf } from 'rxjs';
 
 describe('ExportItemMenuComponent', () => {
   let component: ExportItemMenuComponent;
   let componentAsAny: any;
   let fixture: ComponentFixture<ExportItemMenuComponent>;
   let scheduler: TestScheduler;
+  let configuration: ItemExportFormConfiguration;
 
   let dso: DSpaceObject;
   const ngbModal = jasmine.createSpyObj('modal', ['open']);
+  const itemExportService: any = jasmine.createSpyObj('ItemExportFormatService', {
+    initialItemExportFormConfiguration: jasmine.createSpy('initialItemExportFormConfiguration'),
+    onSelectEntityType: jasmine.createSpy('onSelectEntityType'),
+    submitForm: jasmine.createSpy('submitForm')
+  });
 
   beforeEach(async(() => {
+    itemExportService.initialItemExportFormConfiguration.and.returnValue(observableOf(configuration));
     dso = Object.assign(new Item(), {
       id: 'test-item',
       _links: {
@@ -42,6 +51,7 @@ describe('ExportItemMenuComponent', () => {
         })
       ],
       providers: [
+        { provide: ItemExportService, useValue: itemExportService },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
         { provide: NgbModal, useValue: ngbModal },
@@ -53,6 +63,7 @@ describe('ExportItemMenuComponent', () => {
     scheduler = getTestScheduler();
     fixture = TestBed.createComponent(ExportItemMenuComponent);
     component = fixture.componentInstance;
+    configuration = { format: 'format', entityType: 'entityType' } as any;
     componentAsAny = fixture.componentInstance;
     component.contextMenuObject = dso;
   });
@@ -61,7 +72,16 @@ describe('ExportItemMenuComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should not render a button', () => {
+    const link = fixture.debugElement.query(By.css('button'));
+    expect(link).toBeNull();
+  });
+
   it('should render a button', () => {
+    fixture.detectChanges();
+    component.configuration = configuration;
+    component.configuration.formats = [{ type: null, id: '1', mimeType: '1', entityType: 'Patent', molteplicity: '1', _links: null }];
+    fixture.detectChanges();
     const link = fixture.debugElement.query(By.css('button'));
     expect(link).not.toBeNull();
   });

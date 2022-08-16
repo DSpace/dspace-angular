@@ -45,6 +45,7 @@ export class StatisticsChartDataComponent implements OnInit {
 
   constructor(
     @Inject(REPORT_DATA) public report: UsageReport,
+    @Inject('categoryType') public categoryType: string,
     private exportService: ExportService
   ) {
   }

@@ -10,6 +10,7 @@ import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
 import { ExportService } from '../../../../core/export-service/export.service';
 import { ExportServiceStub } from '../../../../shared/testing/export-service.stub';
 import { CommonModule } from '@angular/common';
+import { StatisticsType } from '../../statistics-type.model';
 
 
 describe('StatisticsChartBarComponent', () => {
@@ -21,7 +22,7 @@ describe('StatisticsChartBarComponent', () => {
     'id': '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits',
     'type': USAGE_REPORT,
     'reportType': 'TotalVisits',
-    'viewMode': 'chart.bar',
+    'viewMode': StatisticsType['chart.bar'],
     'points': [
       {
         'label': '1911e8a4-6939-490c-b58b-a5d70f8d91fb',
@@ -64,6 +65,7 @@ describe('StatisticsChartBarComponent', () => {
       providers: [
         { provide: REPORT_DATA, useValue: selectedReport },
         { provide: ExportService, useValue: exportServiceStub },
+        { provide: 'categoryType', useValue: 'mainReports' },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

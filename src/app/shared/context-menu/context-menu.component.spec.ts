@@ -27,6 +27,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { NotificationsServiceStub } from '../testing/notifications-service.stub';
 import { AuthService } from '../../core/auth/auth.service';
 import { EPersonMock } from '../testing/eperson.mock';
+import { ItemExportFormConfiguration, ItemExportService } from '../item-export/item-export.service';
 
 describe('ContextMenuComponent', () => {
   let component: ContextMenuComponent;
@@ -34,6 +35,12 @@ describe('ContextMenuComponent', () => {
   let store: MockStore<AppState>;
   let initialState;
   let dso: DSpaceObject;
+  let configuration: ItemExportFormConfiguration;
+  const itemExportService: any = jasmine.createSpyObj('ItemExportFormatService', {
+    initialItemExportFormConfiguration: jasmine.createSpy('initialItemExportFormConfiguration'),
+    onSelectEntityType: jasmine.createSpy('onSelectEntityType'),
+    submitForm: jasmine.createSpy('submitForm')
+  });
   const authState: any = {
     core: {
       auth: {
@@ -72,6 +79,7 @@ describe('ContextMenuComponent', () => {
 
   function init() {
     initialState = authState;
+    itemExportService.initialItemExportFormConfiguration.and.returnValue(of(configuration));
 
     dso = Object.assign(new Item(), {
       id: 'test-item',
@@ -96,6 +104,7 @@ describe('ContextMenuComponent', () => {
       declarations: [ContextMenuComponent, TestComponent, ExportItemMenuComponent, StatisticsMenuComponent, SubscriptionMenuComponent],
       providers: [
         provideMockStore({ initialState }),
+        { provide: ItemExportService, useValue: itemExportService },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
         { provide: ConfigurationDataService, useValue: configurationDataService },

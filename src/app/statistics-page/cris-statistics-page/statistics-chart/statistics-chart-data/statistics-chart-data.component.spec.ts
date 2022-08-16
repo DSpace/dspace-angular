@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-import { Router } from '@angular/router';
 import { StatisticsChartDataComponent } from './statistics-chart-data.component';
 import { UsageReport } from '../../../../core/statistics/models/usage-report.model';
 import { USAGE_REPORT } from '../../../../core/statistics/models/usage-report.resource-type';
 import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
 import { ExportServiceStub } from '../../../../shared/testing/export-service.stub';
 import { ExportService } from '../../../../core/export-service/export.service';
+import { StatisticsType } from '../../statistics-type.model';
 
 describe('StatisticsChartDataComponent', () => {
   let comp: StatisticsChartDataComponent;
@@ -17,7 +16,7 @@ describe('StatisticsChartDataComponent', () => {
       'id': '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits',
       'type': USAGE_REPORT,
       'reportType': 'TotalVisits',
-      'viewMode': 'chart.bar',
+      'viewMode': StatisticsType['chart.bar'],
       'points': [
           {
               'label': '1911e8a4-6939-490c-b58b-a5d70f8d91fb',
@@ -57,6 +56,7 @@ describe('StatisticsChartDataComponent', () => {
       providers: [
         { provide: REPORT_DATA, useValue: report },
         { provide: ExportService, useValue: ExportServiceStub},
+        { provide: 'categoryType', useValue: 'mainReports' },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(StatisticsChartDataComponent, {

@@ -5,6 +5,7 @@ import { UsageReport } from '../../../core/statistics/models/usage-report.model'
 import { USAGE_REPORT } from '../../../core/statistics/models/usage-report.resource-type';
 
 import { GoogleChartInterface } from 'ng2-google-charts';
+import { StatisticsType } from '../statistics-type.model';
 
 describe('StatisticsMapComponent', () => {
   let component: StatisticsMapComponent;
@@ -13,7 +14,7 @@ describe('StatisticsMapComponent', () => {
       'id': '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TopCountries',
       'type': USAGE_REPORT,
       'reportType': 'TopCountries',
-      'viewMode': 'map',
+      'viewMode': StatisticsType.map,
       'points': [
           {
               'label': 'United States',

@@ -23,6 +23,12 @@ export class StatisticsChartWrapperComponent implements OnInit {
    * Report of this wrapper component
    */
   @Input() report: UsageReport;
+
+  /**
+   * Category of the statistics
+   */
+  @Input() categoryType: string;
+
   /**
    * The constructor of the report that should be rendered, based on the report view-mode type
    */
@@ -43,6 +49,7 @@ export class StatisticsChartWrapperComponent implements OnInit {
     this.objectInjector = Injector.create({
       providers: [
         { provide: REPORT_DATA, useFactory: () => (this.report), deps: [] },
+        { provide: 'categoryType', useValue: this.categoryType },
       ],
       parent: this.injector
     });
