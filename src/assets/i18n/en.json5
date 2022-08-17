@@ -1600,6 +1600,22 @@
 
   "cris-layout.toggle.aria.close": "Collapse {{sectionHeader}} section",
 
+  "cris-layout.advanced-attachment.dc.title": "Name",
+
+  "cris-layout.advanced-attachment.size": "Size",
+
+  "cris-layout.advanced-attachment.format": "Format",
+
+  "cris-layout.advanced-attachment.dc.type": "Type",
+
+  "cris-layout.advanced-attachment.dc.description": "Description",
+
+  "cris-layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
+
+  "cris-layout.advanced-attachment.download": "Download",
+
+  "cris-layout.advanced-attachment.requestACopy": "Request a copy",
+
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
   "curation-task.task.noop.label": "NOOP",

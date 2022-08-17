@@ -167,7 +167,7 @@ export class MetadataRenderComponent implements OnInit {
   private normalizeMetadataValue(metadataValue: MetadataValue): MetadataValue {
     const value = metadataValue.value;
     if (isNotEmpty(value) && value.includes(PLACEHOLDER_PARENT_METADATA)) {
-      return Object.assign( new MetadataValue(), metadataValue, {
+      return Object.assign(new MetadataValue(), metadataValue, {
         value: ''
       });
     } else {

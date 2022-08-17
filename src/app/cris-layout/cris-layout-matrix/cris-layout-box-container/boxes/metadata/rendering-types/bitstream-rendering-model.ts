@@ -1,7 +1,9 @@
+import { followLink } from './../../../../../../shared/utils/follow-link-config.model';
+import { getRemoteDataPayload } from './../../../../../../core/shared/operators';
 import { Component, Inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Bitstream } from '../../../../../../core/shared/bitstream.model';
@@ -13,6 +15,7 @@ import { LayoutField } from '../../../../../../core/layout/models/box.model';
 import { RenderingTypeStructuredModelComponent } from './rendering-type-structured.model';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
+import { BitstreamFormat } from 'src/app/core/shared/bitstream-format.model';
 
 /**
  * This class defines the basic model to extends for create a new
@@ -39,7 +42,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   }
 
   getBitstreams(): Observable<Bitstream[]> {
-    return this.bitstreamDataService.findAllByItemAndBundleName(this.item, this.field.bitstream.bundle).pipe(
+    return this.bitstreamDataService.findAllByItemAndBundleName(this.item, this.field.bitstream.bundle, {}, true, true, followLink('thumbnail'), followLink('format')).pipe(
       getFirstCompletedRemoteData(),
       map((response: RemoteData<PaginatedList<Bitstream>>) => {
         return response.hasSucceeded ? response.payload.page : [];
@@ -78,6 +81,18 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
    */
   getLink(bitstream: Bitstream): string {
     return bitstream._links.content.href;
+  }
+
+  /**
+   * Returns format of given bistream
+   * @param bitstream
+   */
+  getFormat(bitstream: Bitstream): Observable<string> {
+    return bitstream.format?.pipe(
+      map((rd: RemoteData<BitstreamFormat>) => {
+        return rd.payload?.shortDescription;
+      })
+    );
   }
 
   /**
