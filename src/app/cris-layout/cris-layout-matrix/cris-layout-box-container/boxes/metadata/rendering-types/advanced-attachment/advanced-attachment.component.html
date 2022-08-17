@@ -48,8 +48,8 @@
     <hr *ngIf="!last">
   </ng-container>
   <div *ngIf="canViewMore" class="w-100 text-center my-3">
-    <a href="" class="btn btn-outline-primary" data-test="view-more" (click)="viewMore()">
+    <button class="btn btn-outline-primary" data-test="view-more" (click)="viewMore()">
       {{'cris-layout.advanced-attachment.viewMore' | translate}}
-    </a>
+    </button>
   </div>
 </div>

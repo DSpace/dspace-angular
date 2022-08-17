@@ -9,9 +9,6 @@ import { BitstreamDataService } from '../../../../../../../core/data/bitstream-d
 import { RemoteData } from '../../../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
-import { FindListOptions } from '../../../../../../../core/data/request.models';
-import { FollowLinkConfig } from '../../../../../../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
@@ -20,9 +17,7 @@ import { AuthorizationDataService } from '../../../../../../../core/data/feature
 import { RouterTestingModule } from '@angular/router/testing';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { FieldRenderingType } from '../metadata-box.decorator';
-import { Store, StoreModule } from '@ngrx/store';
-import { StoreMock } from '../../../../../../../shared/testing/store.mock';
-import { AppState } from 'src/app/app.reducer';
+import { StoreModule } from '@ngrx/store';
 
 describe('AttachmentComponent', () => {
   let component: AttachmentComponent;
@@ -198,7 +193,7 @@ describe('AttachmentComponent', () => {
     });
 
     it('should show view more button', () => {
-      expect(fixture.debugElement.query(By.css('button[data-test="view-more"]'))).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('a[data-test="view-more"]'))).toBeTruthy();
     });
 
     it('should show 2 elements', () => {
@@ -206,7 +201,7 @@ describe('AttachmentComponent', () => {
     });
 
     it('when view more button is clicked it should show 4 elements', () => {
-      const btn = fixture.debugElement.query(By.css('button[data-test="view-more"]'));
+      const btn = fixture.debugElement.query(By.css('a[data-test="view-more"]'));
       btn.nativeElement.click();
       fixture.detectChanges();
       expect(fixture.debugElement.queryAll(By.css('ds-file-download-link')).length).toEqual(4);
