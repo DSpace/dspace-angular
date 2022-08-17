@@ -171,6 +171,7 @@ export class ProfilePageComponent implements OnInit {
    */
   setPasswordValue($event: string) {
     this.password = $event;
+    this.isRobustPasswordError.next(false);
   }
 
   /**

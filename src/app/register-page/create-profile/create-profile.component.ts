@@ -93,6 +93,7 @@ export class CreateProfileComponent implements OnInit {
   setPasswordValue($event: string) {
     this.password = $event;
     this.isInValidPassword = this.isInValidPassword || isEmpty(this.password);
+    this.isRobustPasswordError.next(false);
   }
 
   get firstName() {

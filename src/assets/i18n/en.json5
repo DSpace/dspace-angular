@@ -640,7 +640,7 @@
   "bitstream-request-a-copy.alert.canDownload2": "here",
 
   "bitstream-request-a-copy.header": "Request a copy of the file",
-  
+
   "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
 
   "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
@@ -1516,6 +1516,7 @@
 
   "forgot-password.form.submit": "Submit password",
 
+  "forgot-password.form.error.robust-password": "Selected password is invalid, it should be at least 8 and at most 15 characters long and must contain at least one uppercase and one lowercase character and a number.",
 
 
   "form.add": "Add more",
@@ -3060,7 +3061,7 @@
 
   "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
 
-  "profile.security.form.error.robust-password": "Please select a more robust password.",
+  "profile.security.form.error.robust-password": "Selected password is invalid, it should be at least 8 and at most 15 characters long and must contain at least one uppercase and one lowercase character and a number.",
 
   "profile.title": "Update Profile",
 
@@ -3152,7 +3153,7 @@
 
   "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
 
-  "register-page.create-profile.security.error.robust-password": "Please select a more robust password.",
+  "register-page.create-profile.security.error.robust-password": "Selected password is invalid, it should be at least 8 and at most 15 characters long and must contain at least one uppercase and one lowercase character and a number.",
 
   "register-page.create-profile.security.error.matching-passwords": "The passwords do not match.",
 

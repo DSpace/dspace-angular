@@ -108,6 +108,22 @@ describe('ForgotPasswordFormComponent', () => {
       expect(router.navigate).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();
     });
+
+    it('should submit a patch request for the user uuid and get robust password error stay on page', () => {
+
+      (ePersonDataService.patchPasswordWithToken as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Error', 422));
+
+      comp.password = 'password';
+      comp.isInValid = false;
+
+      comp.submit();
+
+      expect(ePersonDataService.patchPasswordWithToken).toHaveBeenCalledWith('test-uuid', 'test-token', 'password');
+      expect(store.dispatch).not.toHaveBeenCalled();
+      expect(router.navigate).not.toHaveBeenCalled();
+      expect(comp.isRobustPasswordError.value).toBeTrue();
+    });
+
     it('should submit a patch request for the user uuid when the form is invalid', () => {
 
       comp.password = 'password';
