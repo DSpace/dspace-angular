@@ -9,9 +9,6 @@ import { BitstreamDataService } from '../../../../../../../core/data/bitstream-d
 import { RemoteData } from '../../../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
-import { FindListOptions } from '../../../../../../../core/data/request.models';
-import { FollowLinkConfig } from '../../../../../../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
@@ -20,9 +17,7 @@ import { AuthorizationDataService } from '../../../../../../../core/data/feature
 import { RouterTestingModule } from '@angular/router/testing';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { FieldRenderingType } from '../metadata-box.decorator';
-import { Store, StoreModule } from '@ngrx/store';
-import { StoreMock } from '../../../../../../../shared/testing/store.mock';
-import { AppState } from 'src/app/app.reducer';
+import { StoreModule } from '@ngrx/store';
 
 describe('AttachmentComponent', () => {
   let component: AttachmentComponent;
@@ -144,6 +139,7 @@ describe('AttachmentComponent', () => {
     fixture = TestBed.createComponent(AttachmentComponent);
     component = fixture.componentInstance;
     mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
+    component.envPagination.pagination = true;
     mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
     component.item = testItem;
     fixture.detectChanges();
@@ -165,39 +161,86 @@ describe('AttachmentComponent', () => {
     done();
   });
 
+  it('should call startWithPagination', () => {
+    const spy = spyOn(component, 'startWithPagination');
+    spyOn(component, 'getBitstreams').and.returnValue(of([]));
+    mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
+    fixture.detectChanges();
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalled();
+  });
 
-  describe('when attachment has no metadata', () => {
+  it('should call startWithAll when environment pagination is false', () => {
+    component.envPagination.pagination = false;
+    const spy = spyOn(component, 'startWithAll');
+    spyOn(component, 'getBitstreams').and.returnValue(of([]));
+    mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
+    fixture.detectChanges();
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  describe('When there are 4 attachments with pagination', () => {
 
     beforeEach(() => {
-      mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream2])));
-      component.item = testItem;
+      mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream1, bitstream1, bitstream1])));
+      component.canViewMore = true;
+      fixture.detectChanges();
       component.ngOnInit();
       fixture.detectChanges();
     });
-    it('Should not render title part', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="title"]'))).toBeFalsy();
+
+    it('should show view more button', () => {
+      expect(fixture.debugElement.query(By.css('a[data-test="view-more"]'))).toBeTruthy();
     });
-    it('Should not render type part', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="type"]'))).toBeFalsy();
+
+    it('should show 2 elements', () => {
+      expect(fixture.debugElement.queryAll(By.css('ds-file-download-link')).length).toEqual(2);
     });
-    it('Should not render description part', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="description"]'))).toBeFalsy();
+
+    it('when view more button is clicked it should show 4 elements', () => {
+      const btn = fixture.debugElement.query(By.css('a[data-test="view-more"]'));
+      btn.nativeElement.click();
+      fixture.detectChanges();
+      expect(fixture.debugElement.queryAll(By.css('ds-file-download-link')).length).toEqual(4);
     });
+
+    describe('when attachment has no metadata', () => {
+
+      beforeEach(() => {
+        mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream2])));
+        component.item = testItem;
+        component.ngOnInit();
+        fixture.detectChanges();
+      });
+      it('Should not render title part', () => {
+        expect(fixture.debugElement.query(By.css('[data-test="title"]'))).toBeFalsy();
+      });
+      it('Should not render type part', () => {
+        expect(fixture.debugElement.query(By.css('[data-test="type"]'))).toBeFalsy();
+      });
+      it('Should not render description part', () => {
+        expect(fixture.debugElement.query(By.css('[data-test="description"]'))).toBeFalsy();
+      });
+
+    });
+
+
+    describe('when attachment has dc.title,dc.type & dc.description', () => {
+      it('Should render title part', () => {
+        expect(fixture.debugElement.query(By.css('[data-test="title"]'))).toBeTruthy();
+      });
+      it('Should render type part', () => {
+        expect(fixture.debugElement.query(By.css('[data-test="type"]'))).toBeTruthy();
+      });
+      it('Should render description part', () => {
+        expect(fixture.debugElement.query(By.css('[data-test="description"]'))).toBeTruthy();
+      });
+    });
+
 
   });
-
-
-  describe('when attachment has dc.title,dc.type & dc.description', () => {
-    it('Should render title part', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="title"]'))).toBeTruthy();
-    });
-    it('Should render type part', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="type"]'))).toBeTruthy();
-    });
-    it('Should render description part', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="description"]'))).toBeTruthy();
-    });
-  });
-
 
 });

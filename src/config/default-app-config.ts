@@ -20,6 +20,7 @@ import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-confi
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
+import { AttachmentPagination } from './attachment-pagination.config';
 import { AdvancedAttachmentConfig, Type } from './advanced-attachment.config';
 
 export class DefaultAppConfig implements AppConfig {
@@ -508,6 +509,11 @@ export class DefaultAppConfig implements AppConfig {
       class: 'alert-danger',
     },
   ];
+
+  attachmentPagination: AttachmentPagination = {
+    pagination: true,
+    perPage: 2
+  };
 
   advancedAttachment: AdvancedAttachmentConfig[] = [
     {

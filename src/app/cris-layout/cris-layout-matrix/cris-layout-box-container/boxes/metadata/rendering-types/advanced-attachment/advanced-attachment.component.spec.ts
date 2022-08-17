@@ -179,6 +179,7 @@ describe('AdvancedAttachmentComponent', () => {
     fixture = TestBed.createComponent(AdvancedAttachmentComponent);
     component = fixture.componentInstance;
     mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
+    component.envPagination.pagination = true;
     component.item = testItem;
     fixture.detectChanges();
   });
@@ -269,6 +270,54 @@ describe('AdvancedAttachmentComponent', () => {
     it('should show size', () => {
       expect(fixture.debugElement.query(By.css('[data-test="size"]'))).toBeFalsy();
     });
+  });
+
+  it('should call startWithPagination', () => {
+    const spy = spyOn(component, 'startWithPagination');
+    spyOn(component, 'getBitstreams').and.returnValue(of([]));
+    mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
+    fixture.detectChanges();
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should call startWithAll when environment pagination is false', () => {
+    component.envPagination.pagination = false;
+    const spy = spyOn(component, 'startWithAll');
+    spyOn(component, 'getBitstreams').and.returnValue(of([]));
+    mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
+    fixture.detectChanges();
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  describe('When there are 4 attachments with pagination', () => {
+
+    beforeEach(() => {
+      mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream1, bitstream2, bitstream2])));
+      component.canViewMore = true;
+      fixture.detectChanges();
+      component.ngOnInit();
+      fixture.detectChanges();
+    });
+
+    it('should show view more button', () => {
+      expect(fixture.debugElement.query(By.css('button[data-test="view-more"]'))).toBeTruthy();
+    });
+
+    it('should show 2 elements', () => {
+      expect(fixture.debugElement.queryAll(By.css('div[data-test="attachment-info"]')).length).toEqual(2);
+    });
+
+    it('when view more button is clicked it should show 4 elements', () => {
+      const btn = fixture.debugElement.query(By.css('button[data-test="view-more"]'));
+      btn.nativeElement.click();
+      fixture.detectChanges();
+      expect(fixture.debugElement.queryAll(By.css('div[data-test="attachment-info"]')).length).toEqual(4);
+    });
+
   });
 
 

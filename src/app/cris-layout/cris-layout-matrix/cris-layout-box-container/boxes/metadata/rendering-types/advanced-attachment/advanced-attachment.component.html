@@ -1,6 +1,6 @@
 <div class="{{valueStyle}}">
-  <ng-container *ngFor="let attachment of (bitstreams$ | async); let last = last;">
-    <div class="row mt-1 mb-2">
+  <ng-container *ngFor="let attachment of (bitstreams$ | async); let last =last;">
+    <div class="row mt-1 mb-2" data-test="attachment-info">
       <div class="col-3">
         <ds-thumbnail [thumbnail]="attachment.thumbnail | async"></ds-thumbnail>
       </div>
@@ -9,7 +9,7 @@
         <ng-container *ngFor="let attachmentConf of envData">
 
           <div class="content" [attr.data-test]="attachmentConf.name"
-               *ngIf="attachment.firstMetadataValue(attachmentConf.name) || attachmentConf.type == Type.Attribute">
+            *ngIf="attachment.firstMetadataValue(attachmentConf.name) || attachmentConf.type == Type.Attribute">
             <strong>{{ 'cris-layout.advanced-attachment.'+attachmentConf.name | translate }}</strong>
 
             <ng-container *ngIf="attachmentConf.type == Type.Metadata">
@@ -47,4 +47,9 @@
     </div>
     <hr *ngIf="!last">
   </ng-container>
+  <div *ngIf="canViewMore" class="w-100 text-center my-3">
+    <button class="btn btn-outline-primary" data-test="view-more" (click)="viewMore()">
+      {{'cris-layout.advanced-attachment.viewMore' | translate}}
+    </button>
+  </div>
 </div>

@@ -370,7 +370,10 @@ export const environment: BuildConfig = {
       class: 'alert-danger',
     },
   ],
-
+  attachmentPagination: {
+    pagination: true,
+    perPage: 2
+  },
   advancedAttachment: [
     {
       name: 'dc.title',

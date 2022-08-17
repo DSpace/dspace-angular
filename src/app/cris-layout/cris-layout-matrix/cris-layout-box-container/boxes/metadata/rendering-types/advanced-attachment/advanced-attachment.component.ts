@@ -3,7 +3,7 @@ import { environment } from './../../../../../../../../environments/environment'
 import { AuthorizationDataService } from './../../../../../../../core/data/feature-authorization/authorization-data.service';
 import { Component, Inject, OnInit } from '@angular/core';
 
-import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
@@ -24,9 +24,10 @@ import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 @MetadataBoxFieldRendering(FieldRenderingType.ADVANCEDATTACHMENT, true)
 export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponent implements OnInit {
 
+
   /**
- * List of bitstreams to be viewed
- */
+   * List of bitstreams to show in the list
+   */
   bitstreams$: Observable<Bitstream[]>;
 
   /**
@@ -34,6 +35,10 @@ export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponen
    */
   envData = environment.advancedAttachment;
 
+  /**
+   * Envoirment variables configuring pagination
+   */
+  envPagination = environment.attachmentPagination;
   /**
    * Configuration type enum
    */
@@ -50,11 +55,32 @@ export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponen
     super(fieldProvider, itemProvider, renderingSubTypeProvider, bitstreamDataService, translateService);
   }
 
+
   /**
-   * On init get bitstreams as observable to be subscribed by template
-   */
+  * On init check if we want to show the attachment list with pagination or show all attachments
+  */
   ngOnInit() {
+    if (this.envPagination.pagination) {
+      this.startWithPagination();
+      this.getVisibleBitstreams();
+    } else {
+      this.startWithAll();
+    }
+  }
+
+
+  /**
+   * Start the list with all the attachments
+   */
+  startWithAll() {
     this.bitstreams$ = this.getBitstreams();
+  }
+
+  /**
+   * Get the bitstreams until a specific page
+   */
+  getVisibleBitstreams() {
+    this.bitstreams$ = this.getPaginatedBitstreams();
   }
 
 }

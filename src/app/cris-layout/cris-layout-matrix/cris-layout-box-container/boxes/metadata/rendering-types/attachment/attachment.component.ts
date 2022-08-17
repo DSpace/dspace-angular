@@ -9,6 +9,7 @@ import { BitstreamDataService } from '../../../../../../../core/data/bitstream-d
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { environment } from '../../../../../../../../environments/environment';
 
 @Component({
   selector: 'ds-attachment',
@@ -18,7 +19,15 @@ import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 @MetadataBoxFieldRendering(FieldRenderingType.ATTACHMENT, true)
 export class AttachmentComponent extends BitstreamRenderingModelComponent implements OnInit {
 
+  /**
+   * List of bitstreams to show in the list
+   */
   bitstreams$: Observable<Bitstream[]>;
+
+  /**
+   * Envoirment variables configuring pagination
+   */
+  envPagination = environment.attachmentPagination;
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
@@ -30,8 +39,32 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
     super(fieldProvider, itemProvider, renderingSubTypeProvider, bitstreamDataService, translateService);
   }
 
+
+  /**
+  * On init check if we want to show the attachment list with pagination or show all attachments
+  */
   ngOnInit() {
+    if (this.envPagination.pagination) {
+      this.startWithPagination();
+      this.getVisibleBitstreams();
+    } else {
+      this.startWithAll();
+    }
+  }
+
+  /**
+   * Start the list with all the attachments
+   */
+  startWithAll() {
     this.bitstreams$ = this.getBitstreams();
   }
+
+  /**
+   * Get the bitstreams until a specific page
+   */
+  getVisibleBitstreams() {
+    this.bitstreams$ = this.getPaginatedBitstreams();
+  }
+
 
 }

@@ -1,9 +1,10 @@
+import { environment } from './../../../../../../../environments/environment';
+import { FindListOptions } from './../../../../../../core/data/request.models';
 import { followLink } from './../../../../../../shared/utils/follow-link-config.model';
-import { getRemoteDataPayload } from './../../../../../../core/shared/operators';
 import { Component, Inject } from '@angular/core';
 
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Bitstream } from '../../../../../../core/shared/bitstream.model';
@@ -30,6 +31,30 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   private SOURCE_METADATA = 'dc.source';
   private TYPE_METADATA = 'dc.type';
   private DESCRIPTION_METADATA = 'dc.description';
+
+
+  /**
+   * List of all bitstreams that belong to the item
+   */
+  allBitstreams$: BehaviorSubject<Bitstream[]> = new BehaviorSubject<Bitstream[]>([]);
+
+  /**
+   * Pagination configuration as FindOptionList for future api pagination implementation
+   */
+  config: FindListOptions = Object.assign(new FindListOptions(), {
+    elementsPerPage: environment.attachmentPagination.perPage,
+    currentPage: 1
+  });
+
+  /**
+   * If the list should show view more button
+   */
+  canViewMore = false;
+
+  /**
+  * Total number of pages available
+  */
+  totalPages: number = null;
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
@@ -102,4 +127,44 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   getDescription(bitstream: Bitstream): string {
     return bitstream.firstMetadataValue(this.DESCRIPTION_METADATA);
   }
+
+
+  /**
+   * Start the list with pagination configuration
+   */
+  startWithPagination() {
+    this.getBitstreams().subscribe((bitstreams: Bitstream[]) => {
+      this.allBitstreams$.next(bitstreams);
+      this.totalPages = Math.ceil((bitstreams.length - 1) / this.config.elementsPerPage);
+      if (this.totalPages > 1) {
+        this.canViewMore = true;
+      }
+    });
+  }
+
+  /**
+   * Get the list of paginated bitstreams that will be shown
+   */
+  getPaginatedBitstreams(): Observable<Bitstream[]> {
+    return this.allBitstreams$.pipe(
+      map((bitstreams: Bitstream[]) => {
+        return bitstreams.filter((bitstream: Bitstream, index) => {
+          return index < this.config.elementsPerPage * this.config.currentPage;
+        });
+      })
+    );
+  }
+
+  /**
+   * When view more is clicked show the next page and check if shold show view more button
+   */
+  viewMore() {
+    this.config.currentPage++;
+    this.allBitstreams$.next(this.allBitstreams$.getValue());
+    if (this.config.currentPage === this.totalPages) {
+      this.canViewMore = false;
+    }
+  }
+
+
 }

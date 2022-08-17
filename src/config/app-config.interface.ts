@@ -20,6 +20,7 @@ import { MetadataSecurityConfig } from './metadata-security-config';
 import { CmsMetadata } from './cms-metadata';
 import { AddThisPluginConfig } from './addThisPlugin-config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
+import { AttachmentPagination } from './attachment-pagination.config';
 import { AdvancedAttachmentConfig } from './advanced-attachment.config';
 
 interface AppConfig extends Config {
@@ -47,6 +48,7 @@ interface AppConfig extends Config {
   addThisPlugin: AddThisPluginConfig;
   followAuthorityMetadata: FollowAuthorityMetadata[];
   metricVisualizationConfig: MetricVisualizationConfig[];
+  attachmentPagination: AttachmentPagination;
   advancedAttachment: AdvancedAttachmentConfig[];
 }
 
