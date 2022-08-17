@@ -95,6 +95,16 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() useCachedVersionIfAvailable = true;
 
   /**
+   * Defines whether to start as showing the charts collapsed
+   */
+  @Input() collapseCharts = false;
+
+  /**
+   * Defines whether to start as showing the filter sidebar collapsed
+   */
+  @Input() collapseFilters = false;
+
+  /**
    * True when the search component should show results on the current page
    */
   @Input() inPlaceSearch = true;
@@ -170,9 +180,19 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() viewModeList: ViewMode[];
 
   /**
-   * Defines whether or not to show the scope selector
+   * Defines whether to show the scope selector
    */
   @Input() showScopeSelector = true;
+
+  /**
+   * Defines whether to show the toggle button to Show/Hide filter
+   */
+  @Input() showFilterToggle = false;
+
+  /**
+   * Defines whether to show the toggle button to Show/Hide chart
+   */
+   @Input() showChartsToggle = false;
 
   /**
    * The current configuration used during the search
@@ -431,6 +451,13 @@ export class SearchComponent implements OnInit, OnDestroy {
       return currentPath(this.router);
     }
     return this.service.getSearchLink();
+  }
+
+  /**
+   * To Toggle the Sidebar
+   */
+  toggleSidebar() {
+    this.sidebarService.toggle();
   }
 
 

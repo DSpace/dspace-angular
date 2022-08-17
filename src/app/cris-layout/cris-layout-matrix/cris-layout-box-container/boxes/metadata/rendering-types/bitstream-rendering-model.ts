@@ -30,7 +30,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   private TITLE_METADATA = 'dc.title';
   private SOURCE_METADATA = 'dc.source';
   private TYPE_METADATA = 'dc.type';
-  private DESC_METADATA = 'dc.description';
+  private DESCRIPTION_METADATA = 'dc.description';
 
 
   /**
@@ -121,23 +121,11 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   }
 
   /**
-   * Returns thumbnail content of given bistream
-   * @param bitstream
-   */
-  getThumbnailSrc(bitstream: Bitstream): Observable<string> {
-    return bitstream.thumbnail?.pipe(
-      map((rd: RemoteData<Bitstream>) => {
-        return rd.payload?._links?.content?.href;
-      })
-    );
-  }
-
-  /**
    * Returns description of given bistream
    * @param bitstream
    */
-  getDesc(bitstream: Bitstream): string {
-    return bitstream.firstMetadataValue(this.DESC_METADATA);
+  getDescription(bitstream: Bitstream): string {
+    return bitstream.firstMetadataValue(this.DESCRIPTION_METADATA);
   }
 
 

@@ -6,6 +6,7 @@ import { HALResource } from '../../shared/hal-resource.model';
 import { USAGE_REPORT } from './usage-report.resource-type';
 import { HALLink } from '../../shared/hal-link.model';
 import { deserialize, autoserializeAs } from 'cerialize';
+import { StatisticsType } from '../../../statistics-page/cris-statistics-page/statistics-type.model';
 
 /**
  * A usage report.
@@ -27,7 +28,7 @@ export class UsageReport extends HALResource {
   id: string;
 
   @autoserializeAs('view-mode')
-  viewMode: string;
+  viewMode: StatisticsType;
 
   @autoserializeAs('report-type')
   reportType: string;

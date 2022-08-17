@@ -52,7 +52,11 @@ export class MetadataLinkViewComponent implements OnInit {
     this.entity2icon = new Map();
     const confValue = environment.crisLayout.crisRef;
     confValue.forEach((config) => {
-      this.entity2icon.set(config.entityType.toUpperCase(), config.icon);
+      if (config.entityType && config.icon) {
+        this.entity2icon.set(config.entityType.toUpperCase(), config.icon);
+      } else {
+        console.warn(`Incomplete configuration found in 'environment.crisLayout.crisRef':\n{ entityType: ${config.entityType}, icon: ${config.icon} }`);
+      }
     });
   }
 

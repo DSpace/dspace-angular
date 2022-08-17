@@ -42,7 +42,7 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
       map((bitstreams: Bitstream[]) => {
         return bitstreams.filter((bitstream) => {
           const metadataValue = bitstream.firstMetadataValue(this.field.bitstream.metadataField);
-          return hasValue(metadataValue) && metadataValue === this.field.bitstream.metadataValue;
+          return hasValue(metadataValue) && metadataValue.toLowerCase() === this.field.bitstream.metadataValue.toLowerCase();
         });
       })
     ).subscribe((bitstreams: Bitstream[]) => {

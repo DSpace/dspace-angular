@@ -1,5 +1,5 @@
+import { Type } from './../../../../../../../../config/advanced-attachment.config';
 import { environment } from './../../../../../../../../environments/environment';
-import { FeatureID } from './../../../../../../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from './../../../../../../../core/data/feature-authorization/authorization-data.service';
 import { Component, Inject, OnInit } from '@angular/core';
 
@@ -12,8 +12,6 @@ import { BitstreamDataService } from '../../../../../../../core/data/bitstream-d
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
-import { getBitstreamDownloadRoute, getBitstreamRequestACopyRoute } from '../../../../../../../app-routing-paths';
-
 
 @Component({
   selector: 'ds-advanced-attachment',
@@ -41,6 +39,10 @@ export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponen
    * Envoirment variables configuring pagination
    */
   envPagination = environment.attachmentPagination;
+  /**
+   * Configuration type enum
+   */
+  Type = Type;
 
   constructor(
     private authorizationService: AuthorizationDataService,
@@ -79,41 +81,6 @@ export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponen
    */
   getVisibleBitstreams() {
     this.bitstreams$ = this.getPaginatedBitstreams();
-  }
-
-
-  /**
-   * Get if bitstream can be downloaded
-   */
-  getCanDownload(bitstream): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.CanDownload, bitstream.self);
-  }
-
-
-  /**
-   * Get if bitstream can be requested as copy
-   */
-  getCanRequestACopy(bitstream): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.CanRequestACopy, bitstream.self);
-  }
-
-
-  /**
-   * Get the download link
-   */
-  downloadLink(bitstream: Bitstream) {
-    return {
-      routerLink: getBitstreamDownloadRoute(bitstream),
-      queryParams: {}
-    };
-  }
-
-
-  /**
-   * Get the request a copy link
-   */
-  requestACopyLink(bitstream: Bitstream) {
-    return getBitstreamRequestACopyRoute(this.item, bitstream);
   }
 
 }

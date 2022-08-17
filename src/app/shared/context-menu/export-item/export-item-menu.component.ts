@@ -8,6 +8,9 @@ import { ItemExportComponent } from '../../item-export/item-export/item-export.c
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
+import { ItemExportFormConfiguration, ItemExportService } from '../../item-export/item-export.service';
+import { take } from 'rxjs/operators';
+import { Item } from '../../../core/shared/item.model';
 
 /**
  * This component renders a context menu option that provides to export an item.
@@ -25,13 +28,29 @@ export class ExportItemMenuComponent extends ContextMenuEntryComponent {
    * @param {DSpaceObject} injectedContextMenuObject
    * @param {DSpaceObjectType} injectedContextMenuObjectType
    * @param {modalService} modalService
+   * @param {itemExportService} itemExportService
    */
+
+  /**
+   * Type of configuration in current component
+   */
+  configuration: ItemExportFormConfiguration;
   constructor(
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     private modalService: NgbModal,
+    protected itemExportService: ItemExportService
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.ExportItem);
+  }
+
+  ngOnInit() {
+    if (this.contextMenuObject) {
+      this.itemExportService.initialItemExportFormConfiguration(this.contextMenuObject as Item).pipe(take(1))
+      .subscribe( configuration => {
+        this.configuration = configuration;
+      });
+    }
   }
 
   /**

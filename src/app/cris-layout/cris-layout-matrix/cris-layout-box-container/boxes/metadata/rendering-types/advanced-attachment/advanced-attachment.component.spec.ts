@@ -1,3 +1,4 @@
+import { Type } from './../../../../../../../../config/advanced-attachment.config';
 import { BitstreamFormat } from './../../../../../../../core/shared/bitstream-format.model';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
@@ -177,10 +178,6 @@ describe('AdvancedAttachmentComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AdvancedAttachmentComponent);
     component = fixture.componentInstance;
-    spyDownload = spyOn(component, 'getCanDownload');
-    spyDownload.and.returnValue(of(true));
-    spyRequestACopy = spyOn(component, 'getCanRequestACopy');
-    spyRequestACopy.and.returnValue(of(true));
     mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
     component.envPagination.pagination = true;
     component.item = testItem;
@@ -198,26 +195,44 @@ describe('AdvancedAttachmentComponent', () => {
   describe('When envoirment configuration are all true', () => {
 
     beforeEach(() => {
-      component.envData = {
-        title: true,
-        size: true,
-        format: true,
-        type: true,
-        description: true,
-      };
+      component.envData = [
+        {
+          name: 'dc.title',
+          type: Type.Metadata,
+          truncatable: false
+        },
+        {
+          name: 'dc.type',
+          type: Type.Metadata,
+          truncatable: false
+        },
+        {
+          name: 'dc.description',
+          type: Type.Metadata,
+          truncatable: true
+        },
+        {
+          name: 'size',
+          type: Type.Attribute,
+        },
+        {
+          name: 'format',
+          type: Type.Attribute,
+        }
+      ];
       fixture.detectChanges();
     });
 
     it('should show title', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="title"]'))).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('[data-test="dc.title"]'))).toBeTruthy();
     });
 
     it('should show description', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="description"]'))).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('[data-test="dc.description"]'))).toBeTruthy();
     });
 
     it('should show type', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="type"]'))).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('[data-test="dc.type"]'))).toBeTruthy();
     });
 
     it('should show format', () => {
@@ -232,26 +247,20 @@ describe('AdvancedAttachmentComponent', () => {
   describe('When envoirment configuration are all false', () => {
 
     beforeEach(() => {
-      component.envData = {
-        title: false,
-        size: false,
-        format: false,
-        type: false,
-        description: false,
-      };
+      component.envData = [];
       fixture.detectChanges();
     });
 
     it('should show title', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="title"]'))).toBeFalsy();
+      expect(fixture.debugElement.query(By.css('[data-test="dc.title"]'))).toBeFalsy();
     });
 
     it('should show description', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="description"]'))).toBeFalsy();
+      expect(fixture.debugElement.query(By.css('[data-test="dc.description"]'))).toBeFalsy();
     });
 
     it('should show type', () => {
-      expect(fixture.debugElement.query(By.css('[data-test="type"]'))).toBeFalsy();
+      expect(fixture.debugElement.query(By.css('[data-test="dc.type"]'))).toBeFalsy();
     });
 
     it('should show format', () => {
@@ -261,30 +270,6 @@ describe('AdvancedAttachmentComponent', () => {
     it('should show size', () => {
       expect(fixture.debugElement.query(By.css('[data-test="size"]'))).toBeFalsy();
     });
-  });
-
-  it('should show download button', () => {
-    spyDownload.and.returnValue(of(true));
-    fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('[data-test="download"]'))).toBeTruthy();
-  });
-
-  it('should show can request a copy button', () => {
-    spyRequestACopy.and.returnValue(of(true));
-    fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('[data-test="requestACopy"]'))).toBeTruthy();
-  });
-
-  it('should not show download button', () => {
-    spyDownload.and.returnValue(of(false));
-    fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('[data-test="download"]'))).toBeFalsy();
-  });
-
-  it('should not show can request a copy button', () => {
-    spyRequestACopy.and.returnValue(of(false));
-    fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('[data-test="requestACopy"]'))).toBeFalsy();
   });
 
   it('should call startWithPagination', () => {

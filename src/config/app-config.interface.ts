@@ -20,8 +20,8 @@ import { MetadataSecurityConfig } from './metadata-security-config';
 import { CmsMetadata } from './cms-metadata';
 import { AddThisPluginConfig } from './addThisPlugin-config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
-import { AdvancedAttachment } from './advanced-attachment.config';
 import { AttachmentPagination } from './attachment-pagination.config';
+import { AdvancedAttachmentConfig } from './advanced-attachment.config';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -48,8 +48,8 @@ interface AppConfig extends Config {
   addThisPlugin: AddThisPluginConfig;
   followAuthorityMetadata: FollowAuthorityMetadata[];
   metricVisualizationConfig: MetricVisualizationConfig[];
-  advancedAttachment: AdvancedAttachment;
   attachmentPagination: AttachmentPagination;
+  advancedAttachment: AdvancedAttachmentConfig[];
 }
 
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
