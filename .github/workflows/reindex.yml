@@ -11,3 +11,4 @@ jobs:
           cd $GITHUB_WORKSPACE/build-scripts/run/
           pwd
           ./reindex.sh
+          docker exec -it dspace /dspace/bin/dspace oai clean-cache
