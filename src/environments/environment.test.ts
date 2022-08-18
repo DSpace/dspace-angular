@@ -2,7 +2,7 @@
 import { BuildConfig } from 'src/config/build-config.interface';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
-import { Type } from './../config/advanced-attachment.config';
+import { AdvancedAttachmentElementType } from '../config/advanced-attachment.config';
 
 export const environment: BuildConfig = {
   production: false,
@@ -377,26 +377,26 @@ export const environment: BuildConfig = {
   advancedAttachment: [
     {
       name: 'dc.title',
-      type: Type.Metadata,
+      type: AdvancedAttachmentElementType.Metadata,
       truncatable: false
     },
     {
       name: 'dc.type',
-      type: Type.Metadata,
+      type: AdvancedAttachmentElementType.Metadata,
       truncatable: false
     },
     {
       name: 'dc.description',
-      type: Type.Metadata,
+      type: AdvancedAttachmentElementType.Metadata,
       truncatable: true
     },
     {
       name: 'size',
-      type: Type.Attribute,
+      type: AdvancedAttachmentElementType.Attribute,
     },
     {
       name: 'format',
-      type: Type.Attribute,
+      type: AdvancedAttachmentElementType.Attribute,
     }
   ]
 };

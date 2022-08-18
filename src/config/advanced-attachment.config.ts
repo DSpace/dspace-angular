@@ -1,13 +1,16 @@
 /**
- * Interface configuration to show/hide advnaced attachment informations
+ * Interface configuration to select which are the advanced attachment information to show
  */
 export interface AdvancedAttachmentConfig {
     name: string;
-    type: Type;
+    type: AdvancedAttachmentElementType;
     truncatable?: boolean;
 }
 
-export enum Type {
+/**
+ * Interface configuration to define the type for each element showed in the advanced attachment feature
+ */
+export enum AdvancedAttachmentElementType {
     Metadata = 'metadata',
     Attribute = 'attribute'
 }

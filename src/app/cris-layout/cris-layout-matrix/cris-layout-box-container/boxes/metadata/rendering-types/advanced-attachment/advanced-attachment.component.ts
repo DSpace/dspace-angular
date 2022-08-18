@@ -1,6 +1,3 @@
-import { Type } from './../../../../../../../../config/advanced-attachment.config';
-import { environment } from './../../../../../../../../environments/environment';
-import { AuthorizationDataService } from './../../../../../../../core/data/feature-authorization/authorization-data.service';
 import { Component, Inject, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -12,6 +9,8 @@ import { BitstreamDataService } from '../../../../../../../core/data/bitstream-d
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { AdvancedAttachmentElementType } from '../../../../../../../../config/advanced-attachment.config';
+import { environment } from '../../../../../../../../environments/environment';
 
 @Component({
   selector: 'ds-advanced-attachment',
@@ -31,21 +30,21 @@ export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponen
   bitstreams$: Observable<Bitstream[]>;
 
   /**
-   * Envoirment variables configuring the fields to be viewed
+   * Environment variables configuring the fields to be viewed
    */
   envData = environment.advancedAttachment;
 
   /**
-   * Envoirment variables configuring pagination
+   * Environment variables configuring pagination
    */
   envPagination = environment.attachmentPagination;
+
   /**
    * Configuration type enum
    */
-  Type = Type;
+  AdvancedAttachmentElementType = AdvancedAttachmentElementType;
 
   constructor(
-    private authorizationService: AuthorizationDataService,
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,

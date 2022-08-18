@@ -9,10 +9,10 @@
         <ng-container *ngFor="let attachmentConf of envData">
 
           <div class="content" [attr.data-test]="attachmentConf.name"
-            *ngIf="attachment.firstMetadataValue(attachmentConf.name) || attachmentConf.type == Type.Attribute">
+            *ngIf="attachment.firstMetadataValue(attachmentConf.name) || attachmentConf.type == AdvancedAttachmentElementType.Attribute">
             <strong>{{ 'cris-layout.advanced-attachment.'+attachmentConf.name | translate }}</strong>
 
-            <ng-container *ngIf="attachmentConf.type == Type.Metadata">
+            <ng-container *ngIf="attachmentConf.type == AdvancedAttachmentElementType.Metadata">
 
               <p class="word-break m-0" *ngIf="!attachmentConf.truncatable">
                 {{attachment.firstMetadataValue(attachmentConf.name)}}
@@ -26,7 +26,7 @@
 
             </ng-container>
 
-            <ng-container *ngIf="attachmentConf.type == Type.Attribute">
+            <ng-container *ngIf="attachmentConf.type == AdvancedAttachmentElementType.Attribute">
               <ng-container *ngIf="attachmentConf.name == 'format'">
                 <p class="word-break m-0">{{getFormat(attachment) | async}}</p>
               </ng-container>

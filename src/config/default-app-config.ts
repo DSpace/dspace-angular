@@ -21,7 +21,7 @@ import { MetadataSecurityConfig } from './metadata-security-config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
 import { AttachmentPagination } from './attachment-pagination.config';
-import { AdvancedAttachmentConfig, Type } from './advanced-attachment.config';
+import { AdvancedAttachmentConfig, AdvancedAttachmentElementType } from './advanced-attachment.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -518,26 +518,26 @@ export class DefaultAppConfig implements AppConfig {
   advancedAttachment: AdvancedAttachmentConfig[] = [
     {
       name: 'dc.title',
-      type: Type.Metadata,
+      type: AdvancedAttachmentElementType.Metadata,
       truncatable: false
     },
     {
       name: 'dc.type',
-      type: Type.Metadata,
+      type: AdvancedAttachmentElementType.Metadata,
       truncatable: false
     },
     {
       name: 'dc.description',
-      type: Type.Metadata,
+      type: AdvancedAttachmentElementType.Metadata,
       truncatable: true
     },
     {
       name: 'size',
-      type: Type.Attribute,
+      type: AdvancedAttachmentElementType.Attribute,
     },
     {
       name: 'format',
-      type: Type.Attribute,
+      type: AdvancedAttachmentElementType.Attribute,
     }
   ];
 }

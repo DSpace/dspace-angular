@@ -1,6 +1,3 @@
-import { environment } from './../../../../../../../environments/environment';
-import { FindListOptions } from './../../../../../../core/data/request.models';
-import { followLink } from './../../../../../../shared/utils/follow-link-config.model';
 import { Component, Inject } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -17,6 +14,9 @@ import { RenderingTypeStructuredModelComponent } from './rendering-type-structur
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { BitstreamFormat } from 'src/app/core/shared/bitstream-format.model';
+import { environment } from '../../../../../../../environments/environment';
+import { FindListOptions } from '../../../../../../core/data/request.models';
+import { followLink } from '../../../../../../shared/utils/follow-link-config.model';
 
 /**
  * This class defines the basic model to extends for create a new
@@ -39,9 +39,9 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   allBitstreams$: BehaviorSubject<Bitstream[]> = new BehaviorSubject<Bitstream[]>([]);
 
   /**
-   * Pagination configuration as FindOptionList for future api pagination implementation
+   * Pagination configuration object
    */
-  config: FindListOptions = Object.assign(new FindListOptions(), {
+  pageOptions: FindListOptions = Object.assign(new FindListOptions(), {
     elementsPerPage: environment.attachmentPagination.perPage,
     currentPage: 1
   });
@@ -135,7 +135,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   startWithPagination() {
     this.getBitstreams().subscribe((bitstreams: Bitstream[]) => {
       this.allBitstreams$.next(bitstreams);
-      this.totalPages = Math.ceil((bitstreams.length - 1) / this.config.elementsPerPage);
+      this.totalPages = Math.ceil((bitstreams.length - 1) / this.pageOptions.elementsPerPage);
       if (this.totalPages > 1) {
         this.canViewMore = true;
       }
@@ -149,7 +149,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
     return this.allBitstreams$.pipe(
       map((bitstreams: Bitstream[]) => {
         return bitstreams.filter((bitstream: Bitstream, index) => {
-          return index < this.config.elementsPerPage * this.config.currentPage;
+          return index < this.pageOptions.elementsPerPage * this.pageOptions.currentPage;
         });
       })
     );
@@ -159,9 +159,9 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
    * When view more is clicked show the next page and check if shold show view more button
    */
   viewMore() {
-    this.config.currentPage++;
+    this.pageOptions.currentPage++;
     this.allBitstreams$.next(this.allBitstreams$.getValue());
-    if (this.config.currentPage === this.totalPages) {
+    if (this.pageOptions.currentPage === this.totalPages) {
       this.canViewMore = false;
     }
   }
