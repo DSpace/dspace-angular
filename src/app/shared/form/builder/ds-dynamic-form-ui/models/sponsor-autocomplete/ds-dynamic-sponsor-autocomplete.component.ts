@@ -19,6 +19,7 @@ import { DsDynamicAutocompleteComponent } from '../autocomplete/ds-dynamic-autoc
 import { AUTOCOMPLETE_COMPLEX_PREFIX } from '../autocomplete/ds-dynamic-autocomplete.model';
 import { DsDynamicAutocompleteService } from '../autocomplete/ds-dynamic-autocomplete.service';
 import { DEFAULT_EU_FUNDING_TYPES } from './ds-dynamic-sponsor-autocomplete.model';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 
 /**
  * Component representing a sponsor autocomplete input field in the complex input type.
@@ -64,15 +65,19 @@ export class DsDynamicSponsorAutocompleteComponent extends DsDynamicAutocomplete
    * @param suggestion raw suggestion value
    */
   suggestionFormatter = (suggestion: TemplateRef<any>) => {
+    let fundingProjectCode = '';
+    let fundingName = '';
     if (suggestion instanceof ExternalSourceEntry) {
       // suggestion from the openAIRE
-      const fundingProjectCode = this.getProjectCodeFromId(suggestion.id);
-      const fundingName = suggestion.metadata?.['project.funder.name']?.[0]?.value;
-      return DsDynamicAutocompleteService.pretifySuggestion(fundingProjectCode, fundingName, this.translateService);
-    } else {
-      // @ts-ignore
-      return suggestion.display;
+      fundingProjectCode = this.getProjectCodeFromId(suggestion?.id);
+      fundingName = suggestion.metadata?.['project.funder.name']?.[0]?.value;
+    } else if (suggestion instanceof  VocabularyEntry) {
+      // the value is in the format: `<FUNDING_TYPE>;<PROJECT_CODE>;<FUND_ORGANIZATION>;<FUNDING_NAME>;`
+      const fundingFields = suggestion.value?.split(SEPARATOR);
+      fundingProjectCode = fundingFields?.[1];
+      fundingName = fundingFields?.[3];
     }
+    return DsDynamicAutocompleteService.pretifySuggestion(fundingProjectCode, fundingName, this.translateService);
   }
 
   /**
@@ -198,7 +203,7 @@ export class DsDynamicSponsorAutocompleteComponent extends DsDynamicAutocomplete
     const updatedId = id.match(regex);
 
     // updated value is in the updatedId[1]
-    return isNotEmpty(updatedId[1]) ? updatedId[1] : id;
+    return isNotEmpty(updatedId?.[1]) ? updatedId?.[1] : id;
   }
 
   /**

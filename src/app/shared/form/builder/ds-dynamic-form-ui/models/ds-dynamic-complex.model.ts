@@ -15,6 +15,14 @@ export const EU_PROJECT_PREFIX = 'info:eu-repo';
 export const OPENAIRE_INPUT_NAME = 'openaire_id';
 
 /**
+ * The complex input type `local.sponsor` has `openaire_id` input field hidden if the funding type is not EU.
+ * This `opeanaire_id` input field is on the index 4.
+ * Funding type input field is on the index 0.
+ */
+export const EU_IDENTIFIER_INDEX = 4;
+export const FUNDING_TYPE_INDEX = 0;
+
+/**
  * Configuration for the DynamicComplexModel.
  */
 export interface DynamicComplexModelConfig extends DynamicConcatModelConfig {}
@@ -88,12 +96,6 @@ export class DynamicComplexModel extends DynamicConcatModel {
 
     // remove undefined values
     values = values.filter(v => v);
-
-    // Complex input type `local.sponsor` has `openaire_id` input field hidden if the funding type is not EU.
-    // This `opeanaire_id` input field is on the index 4.
-    // Funding type input field is on the index 0.
-    const EU_IDENTIFIER_INDEX = 4;
-    const FUNDING_TYPE_INDEX = 0;
 
     // if funding type is `EU`
     let isEUFund = false;
