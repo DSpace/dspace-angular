@@ -1,0 +1,13 @@
+name: Reindex dev-5
+on:
+  workflow_dispatch:
+jobs:
+  reindex:
+    runs-on: dspace-dep-1
+    steps:
+      - uses: actions/checkout@v3
+      - name: reindex everything
+        run: |
+          cd $GITHUB_WORKSPACE/build-scripts/run/
+          pwd
+          ./reindex.sh
