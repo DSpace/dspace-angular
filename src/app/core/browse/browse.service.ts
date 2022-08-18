@@ -21,6 +21,15 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 import { BrowseDefinitionDataService } from './browse-definition-data.service';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
+import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+
+const BROWSE_ENTRY_LINKS_TO_FOLLOW: FollowLinkConfig<BrowseEntry>[] = [
+  followLink('thumbnail')
+];
+
+export const BROWSE_ITEM_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
+  followLink('thumbnail')
+];
 
 /**
  * The service handling all browse requests
@@ -96,6 +105,11 @@ export class BrowseService {
         return href;
       })
     );
+
+    if (options.metadataDefinition == 'title' || options.metadataDefinition == 'dateissued' ) {
+      return this.hrefOnlyDataService.findAllByHref<BrowseEntry>(href$, {}, null, null, ...BROWSE_ENTRY_LINKS_TO_FOLLOW);
+
+    }
     return this.hrefOnlyDataService.findAllByHref<BrowseEntry>(href$);
   }
 
@@ -141,6 +155,9 @@ export class BrowseService {
         return href;
       }),
     );
+    if (options.metadataDefinition == 'title' || options.metadataDefinition == 'dateissued' || hasValue(filterValue)) {
+      return this.hrefOnlyDataService.findAllByHref<Item>(href$, {}, null, null, ...BROWSE_ITEM_LINKS_TO_FOLLOW);
+    }
     return this.hrefOnlyDataService.findAllByHref<Item>(href$);
   }
 

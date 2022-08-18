@@ -51,6 +51,7 @@ export class BrowseEntry extends ListableObject implements TypedObject {
   _links: {
     self: HALLink;
     entries: HALLink;
+    thumbnail: HALLink;
   };
 
   /**
