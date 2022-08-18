@@ -1,4 +1,4 @@
-import { AttachmentType } from '../../../../../../../../config/advanced-attachment-rendering.config';
+import { AdvancedAttachmentElementType } from '../../../../../../../../config/advanced-attachment-rendering.config';
 import { BitstreamFormat } from '../../../../../../../core/shared/bitstream-format.model';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
@@ -24,9 +24,6 @@ import { StoreModule } from '@ngrx/store';
 describe('AdvancedAttachmentComponent', () => {
   let component: AdvancedAttachmentComponent;
   let fixture: ComponentFixture<AdvancedAttachmentComponent>;
-
-  let spyDownload;
-  let spyRequestACopy;
 
   const testItem = Object.assign(new Item(), {
     bundles: of({}),
@@ -198,26 +195,26 @@ describe('AdvancedAttachmentComponent', () => {
       component.envMetadata = [
         {
           name: 'dc.title',
-          type: AttachmentType.Metadata,
+          type: AdvancedAttachmentElementType.Metadata,
           truncatable: false
         },
         {
           name: 'dc.type',
-          type: AttachmentType.Metadata,
+          type: AdvancedAttachmentElementType.Metadata,
           truncatable: false
         },
         {
           name: 'dc.description',
-          type: AttachmentType.Metadata,
+          type: AdvancedAttachmentElementType.Metadata,
           truncatable: true
         },
         {
           name: 'size',
-          type: AttachmentType.Attribute,
+          type: AdvancedAttachmentElementType.Attribute,
         },
         {
           name: 'format',
-          type: AttachmentType.Attribute,
+          type: AdvancedAttachmentElementType.Attribute,
         }
       ];
       fixture.detectChanges();

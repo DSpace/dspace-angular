@@ -1,4 +1,4 @@
-import { AttachmentType } from '../../../../../../../../config/advanced-attachment-rendering.config';
+import { AdvancedAttachmentElementType } from '../../../../../../../../config/advanced-attachment-rendering.config';
 import { environment } from '../../../../../../../../environments/environment';
 import { Component, Inject, OnInit } from '@angular/core';
 
@@ -30,19 +30,19 @@ export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponen
   bitstreams$: Observable<Bitstream[]>;
 
   /**
-   * Envoirment variables configuring the fields to be viewed
+   * Environment variables configuring the fields to be viewed
    */
   envMetadata = environment.advancedAttachmentRendering.metadata;
 
   /**
-   * Envoirment variables configuring pagination
+   * Environment variables configuring pagination
    */
   envPagination = environment.advancedAttachmentRendering.pagination;
 
   /**
    * Configuration type enum
    */
-  Type = AttachmentType;
+  AdvancedAttachmentElementType = AdvancedAttachmentElementType;
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
@@ -58,7 +58,7 @@ export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponen
   * On init check if we want to show the attachment list with pagination or show all attachments
   */
   ngOnInit() {
-    this.config = Object.assign(new FindListOptions(), {
+    this.pageOptions = Object.assign(new FindListOptions(), {
       elementsPerPage: this.envPagination.elementsPerPage,
       currentPage: 1
     });

@@ -20,7 +20,7 @@ import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-confi
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
-import { AdvancedAttachmentRenderingConfig, AttachmentType } from './advanced-attachment-rendering.config';
+import { AdvancedAttachmentRenderingConfig, AdvancedAttachmentElementType } from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 
 export class DefaultAppConfig implements AppConfig {
@@ -525,26 +525,26 @@ export class DefaultAppConfig implements AppConfig {
     metadata: [
       {
         name: 'dc.title',
-        type: AttachmentType.Metadata,
+        type: AdvancedAttachmentElementType.Metadata,
         truncatable: false
       },
       {
         name: 'dc.type',
-        type: AttachmentType.Metadata,
+        type: AdvancedAttachmentElementType.Metadata,
         truncatable: false
       },
       {
         name: 'dc.description',
-        type: AttachmentType.Metadata,
+        type: AdvancedAttachmentElementType.Metadata,
         truncatable: true
       },
       {
         name: 'size',
-        type: AttachmentType.Attribute,
+        type: AdvancedAttachmentElementType.Attribute,
       },
       {
         name: 'format',
-        type: AttachmentType.Attribute,
+        type: AdvancedAttachmentElementType.Attribute,
       }
     ]
   };

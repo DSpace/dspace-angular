@@ -44,7 +44,7 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
   * On init check if we want to show the attachment list with pagination or show all attachments
   */
   ngOnInit() {
-    this.config = Object.assign(new FindListOptions(), {
+    this.pageOptions = Object.assign(new FindListOptions(), {
       elementsPerPage: this.envPagination.elementsPerPage,
       currentPage: 1
     });

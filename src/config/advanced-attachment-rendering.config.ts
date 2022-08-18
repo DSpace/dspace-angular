@@ -8,11 +8,11 @@ export interface AdvancedAttachmentRenderingConfig {
 
 export interface AttachmentMetadataConfig {
   name: string;
-  type: AttachmentType;
+  type: AdvancedAttachmentElementType;
   truncatable?: boolean;
 }
 
-export enum AttachmentType {
+export enum AdvancedAttachmentElementType {
   Metadata = 'metadata',
   Attribute = 'attribute'
 }

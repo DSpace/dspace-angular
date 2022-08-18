@@ -38,9 +38,9 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   allBitstreams$: BehaviorSubject<Bitstream[]> = new BehaviorSubject<Bitstream[]>([]);
 
   /**
-   * Pagination configuration as FindOptionList for future api pagination implementation
+   * Pagination configuration object
    */
-  config: FindListOptions;
+  pageOptions: FindListOptions;
 
   /**
    * If the list should show view more button
@@ -131,7 +131,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   startWithPagination() {
     this.getBitstreams().subscribe((bitstreams: Bitstream[]) => {
       this.allBitstreams$.next(bitstreams);
-      this.totalPages = Math.ceil((bitstreams.length - 1) / this.config.elementsPerPage);
+      this.totalPages = Math.ceil((bitstreams.length - 1) / this.pageOptions.elementsPerPage);
       if (this.totalPages > 1) {
         this.canViewMore = true;
       }
@@ -145,7 +145,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
     return this.allBitstreams$.pipe(
       map((bitstreams: Bitstream[]) => {
         return bitstreams.filter((bitstream: Bitstream, index) => {
-          return index < this.config.elementsPerPage * this.config.currentPage;
+          return index < this.pageOptions.elementsPerPage * this.pageOptions.currentPage;
         });
       })
     );
@@ -155,9 +155,9 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
    * When view more is clicked show the next page and check if shold show view more button
    */
   viewMore() {
-    this.config.currentPage++;
+    this.pageOptions.currentPage++;
     this.allBitstreams$.next(this.allBitstreams$.getValue());
-    if (this.config.currentPage === this.totalPages) {
+    if (this.pageOptions.currentPage === this.totalPages) {
       this.canViewMore = false;
     }
   }
