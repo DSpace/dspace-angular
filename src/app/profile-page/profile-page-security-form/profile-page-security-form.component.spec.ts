@@ -87,6 +87,6 @@ describe('ProfilePageSecurityFormComponent', () => {
       component.isRobustPasswordError = false;
       fixture.detectChanges();
       expect(fixture.debugElement.query(By.css('[data-test="robust-password-error"]'))).toBeFalsy();
-    })
+    });
   });
 });
