@@ -1,7 +1,16 @@
-<div class="{{valueStyle}}">
-  <ng-container *ngFor="let attachment of (bitstreams$ | async)">
-     <ds-file-download-link [bitstream]="attachment" [enableRequestACopy]="true" [item]="item">
-       <span>{{fileName(attachment)}} ({{getSize(attachment) | dsFileSize}})</span>
-     </ds-file-download-link>
-  </ng-container>
+<div [class]="valueStyle">
+  <div *ngFor="let attachment of (bitstreams$ | async)" class="mb-2">
+    <ds-truncatable [id]="attachment.id">
+      <ds-file-download-link [bitstream]="attachment" [enableRequestACopy]="true" [item]="item">
+        <span data-test="title" *ngIf="fileName(attachment)"><span data-test="type" *ngIf="getType(attachment)" class="font-weight-bold">{{getType(attachment)}}: </span>{{fileName(attachment)}} ({{getSize(attachment) | dsFileSize}})</span>
+      </ds-file-download-link>
+      <ds-truncatable-part [id]="attachment.id" [minLines]="1">
+        <span *ngIf="getDescription(attachment)" data-test="description">{{getDescription(attachment)}}</span>
+      </ds-truncatable-part>
+    </ds-truncatable>
+  </div>
+  <div *ngIf="canViewMore" class="my-2">
+    <i class="fas fa-chevron-down"></i>&nbsp;
+    <a href="javascript:void(0);" data-test="view-more" (click)="viewMore()">{{'cris-layout.attachment.viewMore' | translate}}</a>
+  </div>
 </div>

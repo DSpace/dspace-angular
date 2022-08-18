@@ -303,4 +303,4 @@ describe('MetadataContainerComponent', () => {
 
   });
 })
-;
+  ;

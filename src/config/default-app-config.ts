@@ -20,6 +20,8 @@ import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-confi
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
+import { AttachmentPagination } from './attachment-pagination.config';
+import { AdvancedAttachmentConfig, AdvancedAttachmentElementType } from './advanced-attachment.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -506,5 +508,36 @@ export class DefaultAppConfig implements AppConfig {
       icon: 'fa fa-cloud-download-alt',
       class: 'alert-danger',
     },
+  ];
+
+  attachmentPagination: AttachmentPagination = {
+    pagination: true,
+    perPage: 2
+  };
+
+  advancedAttachment: AdvancedAttachmentConfig[] = [
+    {
+      name: 'dc.title',
+      type: AdvancedAttachmentElementType.Metadata,
+      truncatable: false
+    },
+    {
+      name: 'dc.type',
+      type: AdvancedAttachmentElementType.Metadata,
+      truncatable: false
+    },
+    {
+      name: 'dc.description',
+      type: AdvancedAttachmentElementType.Metadata,
+      truncatable: true
+    },
+    {
+      name: 'size',
+      type: AdvancedAttachmentElementType.Attribute,
+    },
+    {
+      name: 'format',
+      type: AdvancedAttachmentElementType.Attribute,
+    }
   ];
 }

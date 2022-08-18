@@ -9,15 +9,20 @@ import { BitstreamDataService } from '../../../../../../../core/data/bitstream-d
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { AdvancedAttachmentElementType } from '../../../../../../../../config/advanced-attachment.config';
 import { environment } from '../../../../../../../../environments/environment';
 
 @Component({
-  selector: 'ds-attachment',
-  templateUrl: './attachment.component.html',
-  styleUrls: ['./attachment.component.scss']
+  selector: 'ds-advanced-attachment',
+  templateUrl: './advanced-attachment.component.html',
+  styleUrls: ['./advanced-attachment.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRenderingType.ATTACHMENT, true)
-export class AttachmentComponent extends BitstreamRenderingModelComponent implements OnInit {
+/**
+ * This component renders the attachment with an advanced layout.
+ */
+@MetadataBoxFieldRendering(FieldRenderingType.ADVANCEDATTACHMENT, true)
+export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponent implements OnInit {
+
 
   /**
    * List of bitstreams to show in the list
@@ -25,9 +30,19 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
   bitstreams$: Observable<Bitstream[]>;
 
   /**
-   * Envoirment variables configuring pagination
+   * Environment variables configuring the fields to be viewed
+   */
+  envData = environment.advancedAttachment;
+
+  /**
+   * Environment variables configuring pagination
    */
   envPagination = environment.attachmentPagination;
+
+  /**
+   * Configuration type enum
+   */
+  AdvancedAttachmentElementType = AdvancedAttachmentElementType;
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
@@ -52,6 +67,7 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
     }
   }
 
+
   /**
    * Start the list with all the attachments
    */
@@ -65,6 +81,5 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
   getVisibleBitstreams() {
     this.bitstreams$ = this.getPaginatedBitstreams();
   }
-
 
 }
