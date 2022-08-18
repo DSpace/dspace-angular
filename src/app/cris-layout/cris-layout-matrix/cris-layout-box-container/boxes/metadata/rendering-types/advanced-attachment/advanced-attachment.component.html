@@ -6,7 +6,7 @@
       </div>
       <div class="col-5">
 
-        <ng-container *ngFor="let attachmentConf of envData">
+        <ng-container *ngFor="let attachmentConf of envMetadata">
 
           <div class="content" [attr.data-test]="attachmentConf.name"
             *ngIf="attachment.firstMetadataValue(attachmentConf.name) || attachmentConf.type == AdvancedAttachmentElementType.Attribute">

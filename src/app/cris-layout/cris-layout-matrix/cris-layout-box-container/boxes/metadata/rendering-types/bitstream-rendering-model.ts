@@ -1,3 +1,5 @@
+import { FindListOptions } from '../../../../../../core/data/request.models';
+import { followLink } from '../../../../../../shared/utils/follow-link-config.model';
 import { Component, Inject } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -14,9 +16,6 @@ import { RenderingTypeStructuredModelComponent } from './rendering-type-structur
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { BitstreamFormat } from 'src/app/core/shared/bitstream-format.model';
-import { environment } from '../../../../../../../environments/environment';
-import { FindListOptions } from '../../../../../../core/data/request.models';
-import { followLink } from '../../../../../../shared/utils/follow-link-config.model';
 
 /**
  * This class defines the basic model to extends for create a new
@@ -41,10 +40,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   /**
    * Pagination configuration object
    */
-  pageOptions: FindListOptions = Object.assign(new FindListOptions(), {
-    elementsPerPage: environment.attachmentPagination.perPage,
-    currentPage: 1
-  });
+  pageOptions: FindListOptions;
 
   /**
    * If the list should show view more button

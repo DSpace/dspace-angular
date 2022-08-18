@@ -10,6 +10,7 @@ import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { environment } from '../../../../../../../../environments/environment';
+import { FindListOptions } from '../../../../../../../core/data/request.models';
 
 @Component({
   selector: 'ds-attachment',
@@ -27,7 +28,7 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
   /**
    * Envoirment variables configuring pagination
    */
-  envPagination = environment.attachmentPagination;
+  envPagination = environment.attachmentRendering.pagination;
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
@@ -39,12 +40,15 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
     super(fieldProvider, itemProvider, renderingSubTypeProvider, bitstreamDataService, translateService);
   }
 
-
   /**
   * On init check if we want to show the attachment list with pagination or show all attachments
   */
   ngOnInit() {
-    if (this.envPagination.pagination) {
+    this.pageOptions = Object.assign(new FindListOptions(), {
+      elementsPerPage: this.envPagination.elementsPerPage,
+      currentPage: 1
+    });
+    if (this.envPagination.enabled) {
       this.startWithPagination();
       this.getVisibleBitstreams();
     } else {
@@ -65,6 +69,5 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
   getVisibleBitstreams() {
     this.bitstreams$ = this.getPaginatedBitstreams();
   }
-
 
 }

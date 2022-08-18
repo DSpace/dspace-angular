@@ -1,4 +1,4 @@
-import { AdvancedAttachmentElementType } from '../../../../../../../../config/advanced-attachment.config';
+import { AdvancedAttachmentElementType } from '../../../../../../../../config/advanced-attachment-rendering.config';
 import { BitstreamFormat } from '../../../../../../../core/shared/bitstream-format.model';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
@@ -176,7 +176,7 @@ describe('AdvancedAttachmentComponent', () => {
     fixture = TestBed.createComponent(AdvancedAttachmentComponent);
     component = fixture.componentInstance;
     mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
-    component.envPagination.pagination = true;
+    component.envPagination.enabled = true;
     component.item = testItem;
     fixture.detectChanges();
   });
@@ -192,7 +192,7 @@ describe('AdvancedAttachmentComponent', () => {
   describe('When envoirment configuration are all true', () => {
 
     beforeEach(() => {
-      component.envData = [
+      component.envMetadata = [
         {
           name: 'dc.title',
           type: AdvancedAttachmentElementType.Metadata,
@@ -244,7 +244,7 @@ describe('AdvancedAttachmentComponent', () => {
   describe('When envoirment configuration are all false', () => {
 
     beforeEach(() => {
-      component.envData = [];
+      component.envMetadata = [];
       fixture.detectChanges();
     });
 
@@ -280,7 +280,7 @@ describe('AdvancedAttachmentComponent', () => {
   });
 
   it('should call startWithAll when environment pagination is false', () => {
-    component.envPagination.pagination = false;
+    component.envPagination.enabled = false;
     const spy = spyOn(component, 'startWithAll');
     spyOn(component, 'getBitstreams').and.returnValue(of([]));
     mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
