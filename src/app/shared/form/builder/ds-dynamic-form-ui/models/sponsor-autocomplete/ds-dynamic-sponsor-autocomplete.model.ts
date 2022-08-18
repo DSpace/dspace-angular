@@ -5,7 +5,10 @@ import { isEmpty } from '../../../../../empty.util';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_AUTOCOMPLETE = 'AUTOCOMPLETE';
 export const DEFAULT_MIN_CHARS_TO_AUTOCOMPLETE = 3;
-export const DEFAULT_EU_FUNDING_TYPES = ['euFunds', 'EU'];
+
+export const DEFAULT_EU_DISPLAY_VALUE = 'EU';
+export const DEFAULT_EU_STORAGE_VALUE = 'euFunds';
+export const DEFAULT_EU_FUNDING_TYPES = [DEFAULT_EU_DISPLAY_VALUE, DEFAULT_EU_STORAGE_VALUE];
 
 /**
  * Configuration for the DsDynamicSponsorAutocompleteModel.

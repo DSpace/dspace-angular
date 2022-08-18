@@ -122,6 +122,7 @@ import { DsDynamicAutocompleteComponent } from './models/autocomplete/ds-dynamic
 import { DYNAMIC_FORM_CONTROL_TYPE_AUTOCOMPLETE } from './models/autocomplete/ds-dynamic-autocomplete.model';
 import { DsDynamicSponsorAutocompleteComponent } from './models/sponsor-autocomplete/ds-dynamic-sponsor-autocomplete.component';
 import { SPONSOR_METADATA_NAME } from './models/ds-dynamic-complex.model';
+import { DsDynamicSponsorScrollableDropdownComponent } from './models/sponsor-scrollable-dropdown/dynamic-sponsor-scrollable-dropdown.component';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -161,7 +162,11 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
       return DsDynamicOneboxComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN:
-      return DsDynamicScrollableDropdownComponent;
+      if (isNotEmpty(model.name) && model.name.startsWith(SPONSOR_METADATA_NAME)) {
+        return DsDynamicSponsorScrollableDropdownComponent;
+      } else {
+        return DsDynamicScrollableDropdownComponent;
+      }
 
     case DYNAMIC_FORM_CONTROL_TYPE_TAG:
       return DsDynamicTagComponent;

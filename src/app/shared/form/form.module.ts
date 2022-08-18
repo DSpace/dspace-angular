@@ -32,6 +32,7 @@ import { CustomSwitchComponent } from './builder/ds-dynamic-form-ui/models/custo
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { DsDynamicAutocompleteComponent } from './builder/ds-dynamic-form-ui/models/autocomplete/ds-dynamic-autocomplete.component';
 import { DsDynamicSponsorAutocompleteComponent } from './builder/ds-dynamic-form-ui/models/sponsor-autocomplete/ds-dynamic-sponsor-autocomplete.component';
+import { DsDynamicSponsorScrollableDropdownComponent } from './builder/ds-dynamic-form-ui/models/sponsor-scrollable-dropdown/dynamic-sponsor-scrollable-dropdown.component';
 
 const COMPONENTS = [
   CustomSwitchComponent,
@@ -48,6 +49,7 @@ const COMPONENTS = [
   DsDynamicTagComponent,
   DsDynamicAutocompleteComponent,
   DsDynamicSponsorAutocompleteComponent,
+  DsDynamicSponsorScrollableDropdownComponent,
   DsDynamicOneboxComponent,
   DsDynamicRelationGroupComponent,
   DsDatePickerComponent,
