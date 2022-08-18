@@ -1,6 +1,5 @@
-import { Type } from './../../../../../../../../config/advanced-attachment.config';
-import { environment } from './../../../../../../../../environments/environment';
-import { AuthorizationDataService } from './../../../../../../../core/data/feature-authorization/authorization-data.service';
+import { AttachmentType } from '../../../../../../../../config/advanced-attachment-rendering.config';
+import { environment } from '../../../../../../../../environments/environment';
 import { Component, Inject, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -12,6 +11,7 @@ import { BitstreamDataService } from '../../../../../../../core/data/bitstream-d
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { FindListOptions } from '../../../../../../../core/data/request.models';
 
 @Component({
   selector: 'ds-advanced-attachment',
@@ -24,7 +24,6 @@ import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 @MetadataBoxFieldRendering(FieldRenderingType.ADVANCEDATTACHMENT, true)
 export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponent implements OnInit {
 
-
   /**
    * List of bitstreams to show in the list
    */
@@ -33,19 +32,19 @@ export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponen
   /**
    * Envoirment variables configuring the fields to be viewed
    */
-  envData = environment.advancedAttachment;
+  envMetadata = environment.advancedAttachmentRendering.metadata;
 
   /**
    * Envoirment variables configuring pagination
    */
-  envPagination = environment.attachmentPagination;
+  envPagination = environment.advancedAttachmentRendering.pagination;
+
   /**
    * Configuration type enum
    */
-  Type = Type;
+  Type = AttachmentType;
 
   constructor(
-    private authorizationService: AuthorizationDataService,
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
@@ -55,19 +54,21 @@ export class AdvancedAttachmentComponent extends BitstreamRenderingModelComponen
     super(fieldProvider, itemProvider, renderingSubTypeProvider, bitstreamDataService, translateService);
   }
 
-
   /**
   * On init check if we want to show the attachment list with pagination or show all attachments
   */
   ngOnInit() {
-    if (this.envPagination.pagination) {
+    this.config = Object.assign(new FindListOptions(), {
+      elementsPerPage: this.envPagination.elementsPerPage,
+      currentPage: 1
+    });
+    if (this.envPagination.enabled) {
       this.startWithPagination();
       this.getVisibleBitstreams();
     } else {
       this.startWithAll();
     }
   }
-
 
   /**
    * Start the list with all the attachments

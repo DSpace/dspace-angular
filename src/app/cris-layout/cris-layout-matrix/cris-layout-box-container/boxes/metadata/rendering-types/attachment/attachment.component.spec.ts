@@ -139,7 +139,7 @@ describe('AttachmentComponent', () => {
     fixture = TestBed.createComponent(AttachmentComponent);
     component = fixture.componentInstance;
     mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
-    component.envPagination.pagination = true;
+    component.envPagination.enabled = true;
     mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
     component.item = testItem;
     fixture.detectChanges();
@@ -172,7 +172,7 @@ describe('AttachmentComponent', () => {
   });
 
   it('should call startWithAll when environment pagination is false', () => {
-    component.envPagination.pagination = false;
+    component.envPagination.enabled = false;
     const spy = spyOn(component, 'startWithAll');
     spyOn(component, 'getBitstreams').and.returnValue(of([]));
     mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));

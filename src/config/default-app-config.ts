@@ -20,8 +20,8 @@ import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-confi
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
-import { AttachmentPagination } from './attachment-pagination.config';
-import { AdvancedAttachmentConfig, Type } from './advanced-attachment.config';
+import { AdvancedAttachmentRenderingConfig, AttachmentType } from './advanced-attachment-rendering.config';
+import { AttachmentRenderingConfig } from './attachment-rendering.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -510,34 +510,42 @@ export class DefaultAppConfig implements AppConfig {
     },
   ];
 
-  attachmentPagination: AttachmentPagination = {
-    pagination: true,
-    perPage: 2
+  attachmentRendering: AttachmentRenderingConfig = {
+    pagination: {
+      enabled: true,
+      elementsPerPage: 2,
+    },
   };
 
-  advancedAttachment: AdvancedAttachmentConfig[] = [
-    {
-      name: 'dc.title',
-      type: Type.Metadata,
-      truncatable: false
+  advancedAttachmentRendering: AdvancedAttachmentRenderingConfig = {
+    pagination: {
+      enabled: true,
+      elementsPerPage: 2,
     },
-    {
-      name: 'dc.type',
-      type: Type.Metadata,
-      truncatable: false
-    },
-    {
-      name: 'dc.description',
-      type: Type.Metadata,
-      truncatable: true
-    },
-    {
-      name: 'size',
-      type: Type.Attribute,
-    },
-    {
-      name: 'format',
-      type: Type.Attribute,
-    }
-  ];
+    metadata: [
+      {
+        name: 'dc.title',
+        type: AttachmentType.Metadata,
+        truncatable: false
+      },
+      {
+        name: 'dc.type',
+        type: AttachmentType.Metadata,
+        truncatable: false
+      },
+      {
+        name: 'dc.description',
+        type: AttachmentType.Metadata,
+        truncatable: true
+      },
+      {
+        name: 'size',
+        type: AttachmentType.Attribute,
+      },
+      {
+        name: 'format',
+        type: AttachmentType.Attribute,
+      }
+    ]
+  };
 }

@@ -1,6 +1,5 @@
-import { environment } from './../../../../../../../environments/environment';
-import { FindListOptions } from './../../../../../../core/data/request.models';
-import { followLink } from './../../../../../../shared/utils/follow-link-config.model';
+import { FindListOptions } from '../../../../../../core/data/request.models';
+import { followLink } from '../../../../../../shared/utils/follow-link-config.model';
 import { Component, Inject } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -41,10 +40,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   /**
    * Pagination configuration as FindOptionList for future api pagination implementation
    */
-  config: FindListOptions = Object.assign(new FindListOptions(), {
-    elementsPerPage: environment.attachmentPagination.perPage,
-    currentPage: 1
-  });
+  config: FindListOptions;
 
   /**
    * If the list should show view more button
