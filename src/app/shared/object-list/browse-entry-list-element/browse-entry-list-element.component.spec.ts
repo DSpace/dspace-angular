@@ -26,7 +26,7 @@ function init() {
 
   routeService = jasmine.createSpyObj('routeService', {
     getQueryParameterValue: observableOf('1')
-  })
+  });
 }
 describe('BrowseEntryListElementComponent', () => {
   beforeEach(waitForAsync(() => {
