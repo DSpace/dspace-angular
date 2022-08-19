@@ -1,6 +1,6 @@
-import {Component, Input} from "@angular/core";
-import {CreateItemParentSelectorComponent} from "./create-item-parent-selector.component";
-import {ThemedComponent} from "src/app/shared/theme-support/themed.component";
+import {Component, Input} from '@angular/core';
+import {CreateItemParentSelectorComponent} from './create-item-parent-selector.component';
+import {ThemedComponent} from 'src/app/shared/theme-support/themed.component';
 
 /**
  * Themed wrapper for CreateItemParentSelectorComponent
