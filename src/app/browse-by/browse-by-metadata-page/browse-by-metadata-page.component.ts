@@ -1,5 +1,5 @@
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
