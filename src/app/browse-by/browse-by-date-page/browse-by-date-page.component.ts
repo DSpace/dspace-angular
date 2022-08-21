@@ -50,7 +50,8 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
   ngOnInit(): void {
     const sortConfig = new SortOptions('default', SortDirection.ASC);
     this.startsWithType = StartsWithType.date;
-    this.updatePage(new BrowseEntrySearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig));
+    this.updatePage(new BrowseEntrySearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig, null,
+      null, this.embedThumbnail));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
     this.subs.push(
@@ -63,7 +64,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         const metadataKeys = params.browseDefinition ? params.browseDefinition.metadataKeys : this.defaultMetadataKeys;
         this.browseId = params.id || this.defaultBrowseId;
         this.startsWith = +params.startsWith || params.startsWith;
-        const searchOptions = browseParamsToOptions(params, currentPage, currentSort, this.browseId);
+        const searchOptions = browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.embedThumbnail);
         this.updatePageWithItems(searchOptions, this.value, undefined);
         this.updateParent(params.scope);
         this.updateStartsWithOptions(this.browseId, metadataKeys, params.scope);

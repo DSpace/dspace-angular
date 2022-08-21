@@ -105,10 +105,8 @@ export class BrowseService {
         return href;
       })
     );
-
-    if (options.metadataDefinition == 'title' || options.metadataDefinition == 'dateissued' ) {
+    if (options.embedThumbnail) {
       return this.hrefOnlyDataService.findAllByHref<BrowseEntry>(href$, {}, null, null, ...BROWSE_ENTRY_LINKS_TO_FOLLOW);
-
     }
     return this.hrefOnlyDataService.findAllByHref<BrowseEntry>(href$);
   }
@@ -155,7 +153,7 @@ export class BrowseService {
         return href;
       }),
     );
-    if (options.metadataDefinition == 'title' || options.metadataDefinition == 'dateissued' || hasValue(filterValue)) {
+    if (options.embedThumbnail) {
       return this.hrefOnlyDataService.findAllByHref<Item>(href$, {}, null, null, ...BROWSE_ITEM_LINKS_TO_FOLLOW);
     }
     return this.hrefOnlyDataService.findAllByHref<Item>(href$);

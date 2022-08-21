@@ -1,5 +1,5 @@
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -17,6 +17,8 @@ import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { BrowseByDataType, rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -111,16 +113,24 @@ export class BrowseByMetadataPageComponent implements OnInit {
    */
   startsWith: string;
 
+  /**
+   * Determines whether to request embedded thumbnail.
+   */
+  embedThumbnail: boolean;
+
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
                      protected router: Router) {
+    this.embedThumbnail = environment.showItemThumbnails;
   }
 
   ngOnInit(): void {
+
     const sortConfig = new SortOptions('default', SortDirection.ASC);
-    this.updatePage(new BrowseEntrySearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig));
+    this.updatePage(new BrowseEntrySearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig, null,
+      null, false));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
     this.subs.push(
@@ -133,15 +143,16 @@ export class BrowseByMetadataPageComponent implements OnInit {
           this.authority = params.authority;
           this.value = +params.value || params.value || '';
           this.startsWith = +params.startsWith || params.startsWith;
-          const searchOptions = browseParamsToOptions(params, currentPage, currentSort, this.browseId);
           if (isNotEmpty(this.value)) {
-            this.updatePageWithItems(searchOptions, this.value, this.authority);
+            this.updatePageWithItems(
+              browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.embedThumbnail), this.value, this.authority);
           } else {
-            this.updatePage(searchOptions);
+            this.updatePage(browseParamsToOptions(params, currentPage, currentSort, this.browseId, false));
           }
           this.updateParent(params.scope);
         }));
     this.updateStartsWithTextOptions();
+
   }
 
   /**
@@ -234,16 +245,19 @@ export class BrowseByMetadataPageComponent implements OnInit {
  * @param paginationConfig  Pagination configuration
  * @param sortConfig        Sorting configuration
  * @param metadata          Optional metadata definition to fetch browse entries/items for
+ * @param embedThumbnails   Optional parameter for requesting thumbnail images
  */
 export function browseParamsToOptions(params: any,
                                       paginationConfig: PaginationComponentOptions,
                                       sortConfig: SortOptions,
-                                      metadata?: string): BrowseEntrySearchOptions {
+                                      metadata?: string,
+                                      embedThumbnails?: boolean): BrowseEntrySearchOptions {
   return new BrowseEntrySearchOptions(
     metadata,
     paginationConfig,
     sortConfig,
     +params.startsWith || params.startsWith,
-    params.scope
+    params.scope,
+    embedThumbnails
   );
 }

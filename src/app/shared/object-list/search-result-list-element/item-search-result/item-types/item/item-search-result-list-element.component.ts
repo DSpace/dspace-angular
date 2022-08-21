@@ -5,6 +5,7 @@ import { ItemSearchResult } from '../../../../../object-collection/shared/item-s
 import { SearchResultListElementComponent } from '../../../search-result-list-element.component';
 import { Item } from '../../../../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
+import { environment } from '../../../../../../../environments/environment';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement)
@@ -22,8 +23,14 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
    */
   itemPageRoute: string;
 
+  /**
+   * Display thumbnails if required by configuration
+   */
+  showThumbnails: boolean;
+
   ngOnInit(): void {
     super.ngOnInit();
+    this.showThumbnails = environment.showItemThumbnails;
     this.itemPageRoute = getItemPageRoute(this.dso);
   }
 }

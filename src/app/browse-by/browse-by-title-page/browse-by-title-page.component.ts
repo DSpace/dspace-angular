@@ -30,13 +30,15 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
                      protected browseService: BrowseService,
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
-                     protected router: Router) {
+                     protected router: Router,
+                     ) {
     super(route, browseService, dsoService, paginationService, router);
   }
 
   ngOnInit(): void {
     const sortConfig = new SortOptions('dc.title', SortDirection.ASC);
-    this.updatePage(new BrowseEntrySearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig));
+    this.updatePage(new BrowseEntrySearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig, null,
+      null, this.embedThumbnail));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
     this.subs.push(
@@ -47,7 +49,7 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
         this.startsWith = +params.startsWith || params.startsWith;
         this.browseId = params.id || this.defaultBrowseId;
-        this.updatePageWithItems(browseParamsToOptions(params, currentPage, currentSort, this.browseId), undefined, undefined);
+        this.updatePageWithItems(browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.embedThumbnail), undefined, undefined);
         this.updateParent(params.scope);
       }));
     this.updateStartsWithTextOptions();

@@ -208,6 +208,9 @@ export class DefaultAppConfig implements AppConfig {
     defaultLowerLimit: 1900
   };
 
+  // Whether to add item thumbnail images to browse and search result lists.
+  showItemThumbnails: false;
+
   // Item Config
   item: ItemConfig = {
     edit: {
