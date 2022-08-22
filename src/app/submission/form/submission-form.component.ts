@@ -158,7 +158,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           }
         }));
       const isAvailable$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);
-      const isReadOnly$ = this.sectionsService.isSectionReadOnly(
+      const isReadOnly$ = this.sectionsService.isSectionReadOnlyByType(
         this.submissionId,
         SectionsType.Upload,
         this.submissionService.getSubmissionScope()
