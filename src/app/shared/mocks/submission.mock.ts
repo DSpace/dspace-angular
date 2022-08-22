@@ -3377,6 +3377,42 @@ export const mockUploadConfigResponse = {
   required: true,
   maxSize: 536870912,
   name: 'upload',
+  type: 'submissionupload',
+  _links: {
+    metadata: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload/metadata' },
+    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
+  },
+};
+
+export const mockUploadSingleAccessConfigResponse = {
+  accessConditionOptions: [
+    {
+      name: 'openaccess',
+      hasStartDate: false,
+      hasEndDate: false
+    },
+    {
+      name: 'lease',
+      hasStartDate: false,
+      hasEndDate: true,
+      maxEndDate: '2019-07-12T14:40:06.308+0000'
+    },
+    {
+      name: 'embargo',
+      hasStartDate: true,
+      hasEndDate: false,
+      maxStartDate: '2022-01-12T14:40:06.308+0000'
+    },
+    {
+      name: 'administrator',
+      hasStartDate: false,
+      hasEndDate: false
+    }
+  ],
+  metadata: createSuccessfulRemoteDataObject$(mockUploadConfigResponseMetadata),
+  required: true,
+  maxSize: 536870912,
+  name: 'upload',
   singleAccessCondition: true,
   type: 'submissionupload',
   _links: {

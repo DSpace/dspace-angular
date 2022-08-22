@@ -187,7 +187,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
       ).subscribe((config: SubmissionUploadsModel) => {
         this.required$.next(config.required);
         this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
-        this.singleAccessCondition = config.singleAccessCondition != undefined ? !config.singleAccessCondition : false;
+        this.singleAccessCondition = config?.singleAccessCondition || false;
         this.collectionPolicyType = this.availableAccessConditionOptions.length > 0
           ? POLICY_DEFAULT_WITH_LIST
           : POLICY_DEFAULT_NO_LIST;
