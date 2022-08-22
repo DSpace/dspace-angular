@@ -7,14 +7,14 @@ import { environment } from '../../../environments/environment';
 import { catchError, switchMap, take } from 'rxjs/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { KlaroService } from './klaro.service';
-import { hasValue, isNotEmpty } from '../empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
 import { CookieService } from '../../core/services/cookie.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { cloneDeep, debounce } from 'lodash';
 import { ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration } from './klaro-configuration';
 import { Operation } from 'fast-json-patch';
-import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
-import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 
 /**
  * Metadata field to store a user's cookie consent preferences in
@@ -71,7 +71,7 @@ export class BrowserKlaroService extends KlaroService {
       catchError(this.removeGoogleAnalytics())
     ).subscribe((remoteData) => {
       // make sure we got a success response from the backend
-      if (!remoteData.hasSucceeded) {
+      if (!remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) ) {
         this.removeGoogleAnalytics();
       }
     });
