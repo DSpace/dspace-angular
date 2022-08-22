@@ -4345,13 +4345,13 @@
   "statistics.table.title.TotalDownloads": "Tiedostokäyntejä",
 
   // "statistics.table.title.TopCountries": "Top country views",
-  "statistics.table.title.TopCountries": "Eniten latauksia maittain",
+  "statistics.table.title.TopCountries": "Eniten katseluita maittain",
 
   // "statistics.table.title.TopCities": "Top city views",
-  "statistics.table.title.TopCities": "Eniten latauksia kaupungeittain",
+  "statistics.table.title.TopCities": "Eniten katseluita kaupungeittain",
 
   // "statistics.table.header.views": "Views",
-  "statistics.table.header.views": "Latauksia",
+  "statistics.table.header.views": "Katseluita",
 
 
 
