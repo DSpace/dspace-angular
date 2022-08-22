@@ -420,8 +420,14 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
             this.operationsBuilder.remove(this.pathCombiner.getPath(path));
           });
         const accessConditionsToSave = [];
-        formData.accessConditions
-          .map((accessConditions) => accessConditions.accessConditionGroup)
+        let accessConditionsToIterate;
+        if (this.singleAccessCondition) {
+          accessConditionsToIterate = [formData[BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG.id]];
+        } else {
+          accessConditionsToIterate = formData.accessConditions
+            .map((accessConditions) => accessConditions.accessConditionGroup);
+        }
+        accessConditionsToIterate
           .filter((accessCondition) => isNotEmpty(accessCondition))
           .forEach((accessCondition) => {
             let accessConditionOpt;

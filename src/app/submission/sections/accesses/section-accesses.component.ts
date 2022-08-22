@@ -212,8 +212,14 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
         take(1)
       ).subscribe((formData: any) => {
         const accessConditionsToSave = [];
-        formData.accessCondition
-          .map((accessConditions) => accessConditions.accessConditionGroup)
+        let accessConditionsToIterate;
+        if (this.singleAccessCondition) {
+          accessConditionsToIterate = [formData[ACCESS_CONDITION_GROUP_CONFIG.id]];
+        } else {
+          accessConditionsToIterate = formData.accessCondition
+            .map((accessConditions) => accessConditions.accessConditionGroup);
+        }
+        accessConditionsToIterate
           .filter((accessCondition) => isNotEmpty(accessCondition))
           .forEach((accessCondition) => {
             let accessConditionOpt;
