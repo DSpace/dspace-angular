@@ -107,7 +107,7 @@ export class RegisterEmailFormComponent implements OnInit {
           this.registration(token);
         } else {
           this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`),
-          this.translateService.get(`${this.MESSAGE_PREFIX}.error.recaptcha`, {email: this.email.value}));
+          this.translateService.get(`${this.MESSAGE_PREFIX}.error.recaptcha`));
         }
       } else {
         this.registration();

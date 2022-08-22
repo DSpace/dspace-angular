@@ -74,10 +74,10 @@ export class BrowserKlaroService extends KlaroService {
 
     this.configService.findByPropertyName('registration.verification.enabled').pipe(
       getFirstCompletedRemoteData(),
-      catchError(this.removeGoogleRecaptcha())
     ).subscribe((remoteData) => {
+      this.klaroConfig = klaroConfiguration;
       // make sure we got a success response from the backend
-      if (!remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) || remoteData.payload.values[0].toLowerCase() === 'false' ) {
+      if (!remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) || remoteData.payload.values[0].toLowerCase() !== 'true') {
         this.removeGoogleRecaptcha();
       }
     });
@@ -275,7 +275,8 @@ export class BrowserKlaroService extends KlaroService {
    * remove the google recaptcha from the services
    */
   removeGoogleRecaptcha() {
-      this.klaroConfig.services = klaroConfiguration.services.filter(config => config.name !== CAPTCHA_NAME);
-      return this.klaroConfig.services;
-    }
+    this.klaroConfig.services = klaroConfiguration.services.filter(config => config.name !== CAPTCHA_NAME);
+    return this.klaroConfig.services;
+  }
+
 }
