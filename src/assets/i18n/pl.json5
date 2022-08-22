@@ -17,6 +17,7 @@
   // "403.link.home-page": "Take me to the home page",
   "403.link.home-page": "Zabierz mnie na stronę główną",
   
+  // "403.forbidden": "forbidden",
   "403.forbidden": "brak uprawnień",
   
   
@@ -381,20 +382,16 @@
   
   
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.delete": "Delete EPerson",
+  "admin.access-control.epeople.actions.delete": "Usuń E-Osobę",
   
   // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
+  "admin.access-control.epeople.actions.impersonate": "Zaloguj jako E-Osoba",
   
   // "admin.access-control.epeople.actions.reset": "Reset password",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.reset": "Reset password",
+  "admin.access-control.epeople.actions.reset": "Zresetuj hasło",
   
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
+  "admin.access-control.epeople.actions.stop-impersonating": "Zakończ wcielanie się w E-Osobę",
   
   // "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
   // TODO New key - Add a translation
