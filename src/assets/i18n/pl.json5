@@ -2507,16 +2507,13 @@
   "home.description": "",
   
   // "home.breadcrumbs": "Home",
-  // TODO New key - Add a translation
-  "home.breadcrumbs": "Home",
+  "home.breadcrumbs": "Strona główna",
   
   // "home.title": "DSpace Angular :: Home",
-  // TODO New key - Add a translation
-  "home.title": "DSpace Angular :: Home",
+  "home.title": "DSpace Angular :: Strona główna",
   
   // "home.top-level-communities.head": "Communities in DSpace",
-  // TODO New key - Add a translation
-  "home.top-level-communities.head": "Communities in DSpace",
+  "home.top-level-communities.head": "Społeczności w DSpace",
   
   // "home.top-level-communities.help": "Select a community to browse its collections.",
   // TODO New key - Add a translation
@@ -3892,28 +3889,22 @@
   "menu.section.browse_community_by_title": "By Title",
   
   // "menu.section.browse_global": "All of DSpace",
-  // TODO New key - Add a translation
-  "menu.section.browse_global": "All of DSpace",
+  "menu.section.browse_global": "Całe repozytorium",
   
   // "menu.section.browse_global_by_author": "By Author",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_author": "By Author",
+  "menu.section.browse_global_by_author": "Wg autora",
   
   // "menu.section.browse_global_by_dateissued": "By Issue Date",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_dateissued": "By Issue Date",
+  "menu.section.browse_global_by_dateissued": "Wg daty wydania",
   
   // "menu.section.browse_global_by_subject": "By Subject",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_subject": "By Subject",
+  "menu.section.browse_global_by_subject": "Wg tematu",
   
   // "menu.section.browse_global_by_title": "By Title",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_title": "By Title",
+  "menu.section.browse_global_by_title": "Wg tytułu",
   
   // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_communities_and_collections": "Communities & Collections",
+  "menu.section.browse_global_communities_and_collections": "Społeczności i zbiory",
   
   
   
@@ -4096,8 +4087,7 @@
   
   
   // "menu.section.statistics": "Statistics",
-  // TODO New key - Add a translation
-  "menu.section.statistics": "Statistics",
+  "menu.section.statistics": "Statystyki",
   
   // "menu.section.statistics_task": "Statistics Task",
   // TODO New key - Add a translation
@@ -4330,46 +4320,37 @@
   "nav.language": "Language switch",
   
   // "nav.login": "Log In",
-  // TODO New key - Add a translation
-  "nav.login": "Log In",
+  "nav.login": "Zaloguj się",
   
   // "nav.logout": "Log Out",
-  // TODO New key - Add a translation
-  "nav.logout": "Log Out",
+  "nav.logout": "Wyloguj się",
   
   // "nav.mydspace": "MyDSpace",
   // TODO New key - Add a translation
-  "nav.mydspace": "MyDSpace",
+  "nav.mydspace": "Mój DSpace",
   
   // "nav.profile": "Profile",
-  // TODO New key - Add a translation
-  "nav.profile": "Profile",
+  "nav.profile": "Profil",
   
   // "nav.search": "Search",
-  // TODO New key - Add a translation
-  "nav.search": "Search",
+  "nav.search": "Szukaj",
   
   // "nav.statistics.header": "Statistics",
-  // TODO New key - Add a translation
-  "nav.statistics.header": "Statistics",
+  "nav.statistics.header": "Statystyki",
   
   // "nav.stop-impersonating": "Stop impersonating EPerson",
-  // TODO New key - Add a translation
-  "nav.stop-impersonating": "Stop impersonating EPerson",
+  "nav.stop-impersonating": "Przestań wcielać się w E-Osobę",
   
   
   
   // "orgunit.listelement.badge": "Organizational Unit",
-  // TODO New key - Add a translation
-  "orgunit.listelement.badge": "Organizational Unit",
+  "orgunit.listelement.badge": "Jednostka organizacji",
   
   // "orgunit.page.city": "City",
-  // TODO New key - Add a translation
-  "orgunit.page.city": "City",
+  "orgunit.page.city": "Miasto",
   
   // "orgunit.page.country": "Country",
-  // TODO New key - Add a translation
-  "orgunit.page.country": "Country",
+  "orgunit.page.country": "Kraj",
   
   // "orgunit.page.dateestablished": "Date established",
   // TODO New key - Add a translation
