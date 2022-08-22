@@ -5,7 +5,9 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable, of as observableOf, of } from 'rxjs';
+import { ConfigurationDataService } from '../../../../../core/data/configuration-data.service';
+import { ThumbnailService } from '../../../../../shared/thumbnail/thumbnail.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -21,7 +23,7 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { UUIDService } from '../../../../../core/shared/uuid.service';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
@@ -83,7 +85,7 @@ describe('ItemGridElementComponent', getEntityGridElementTestComponent(ItemSearc
  *                                      For example: If one of the fields to check is labeled "authors", the html template should contain at least one element with class ".item-authors" that's
  *                                      present when the author metadata is available.
  */
-export function getEntityGridElementTestComponent(component, searchResultWithMetadata: ItemSearchResult, searchResultWithoutMetadata: ItemSearchResult, fieldsToCheck: string[]) {
+export function getEntityGridElementTestComponent(component, searchResultWithMetadata: ItemSearchResult, searchResultWithoutMetadata: ItemSearchResult, fieldsToCheck: string[], thumbnailServiceMock?: any) {
   return () => {
     let comp;
     let fixture;
@@ -97,6 +99,10 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
         return createSuccessfulRemoteDataObject$(new Bitstream());
       }
     };
+
+    const defaultThumbnailService = thumbnailServiceMock ?? jasmine.createSpyObj('ThumbnailService', {
+      getConfig: jasmine.createSpy('getConfig')
+    });
 
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
@@ -118,6 +124,8 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
           { provide: NotificationsService, useValue: {} },
           { provide: DefaultChangeAnalyzer, useValue: {} },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+          { provide: ConfigurationDataService, useValue: {} },
+          { provide: ThumbnailService, useValue: defaultThumbnailService },
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).overrideComponent(component, {
@@ -127,6 +135,7 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
 
     beforeEach(waitForAsync(() => {
       fixture = TestBed.createComponent(component);
+      defaultThumbnailService.getConfig.and.returnValue(of(createSuccessfulRemoteDataObject(null)));
       comp = fixture.componentInstance;
     }));
 
@@ -157,3 +166,43 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
     });
   };
 }
+
+const truncatableServiceStub: any = {
+  isCollapsed: (id: number) => observableOf(true),
+};
+
+const mockBitstreamDataService = jasmine.createSpyObj('BitstreamDataService', {
+  findAllByItemAndBundleName: jasmine.createSpy('findAllByItemAndBundleName')
+});
+
+const defaultThumbnailService = jasmine.createSpyObj('ThumbnailService', {
+  getConfig: jasmine.createSpy('getConfig')
+});
+
+
+export const getGridElementTestBet = (component) => {
+  return {
+    imports: [
+      NoopAnimationsModule,
+      TranslateModule.forRoot()
+    ],
+    declarations: [component, TruncatePipe],
+    providers: [
+      { provide: TruncatableService, useValue: truncatableServiceStub },
+      { provide: ObjectCacheService, useValue: {} },
+      { provide: UUIDService, useValue: {} },
+      { provide: Store, useValue: {} },
+      { provide: RemoteDataBuildService, useValue: {} },
+      { provide: CommunityDataService, useValue: {} },
+      { provide: HALEndpointService, useValue: {} },
+      { provide: HttpClient, useValue: {} },
+      { provide: DSOChangeAnalyzer, useValue: {} },
+      { provide: NotificationsService, useValue: {} },
+      { provide: DefaultChangeAnalyzer, useValue: {} },
+      { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+      { provide: ConfigurationDataService, useValue: {} },
+      { provide: ThumbnailService, useValue: defaultThumbnailService },
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+  };
+};

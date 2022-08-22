@@ -86,7 +86,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   /**
    * Embedded keys to force during the search
    */
-  @Input() forcedEmbeddedKeys: Map<string, string[]> = new Map([['default', ['metrics']]]) ;
+  @Input() forcedEmbeddedKeys: Map<string, string[]> = new Map([['default', ['metrics']]]);
 
   /**
    * If this is true, the request will only be sent if there's
@@ -275,12 +275,12 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Output() customEvent = new EventEmitter<any>();
 
   constructor(protected service: SearchService,
-              protected searchManager: SearchManager,
-              protected sidebarService: SidebarService,
-              protected windowService: HostWindowService,
-              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              protected routeService: RouteService,
-              protected router: Router) {
+    protected searchManager: SearchManager,
+    protected sidebarService: SidebarService,
+    protected windowService: HostWindowService,
+    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+    protected routeService: RouteService,
+    protected router: Router) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 

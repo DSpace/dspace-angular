@@ -1,9 +1,8 @@
 import { FindListOptions } from '../../../../../../core/data/request.models';
-import { followLink } from '../../../../../../shared/utils/follow-link-config.model';
 import { Component, Inject } from '@angular/core';
 
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Bitstream } from '../../../../../../core/shared/bitstream.model';
@@ -16,6 +15,8 @@ import { RenderingTypeStructuredModelComponent } from './rendering-type-structur
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { BitstreamFormat } from 'src/app/core/shared/bitstream-format.model';
+import { followLink } from 'src/app/shared/utils/follow-link-config.model';
+
 
 /**
  * This class defines the basic model to extends for create a new
@@ -62,13 +63,70 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
     super(fieldProvider, itemProvider, renderingSubTypeProvider, translateService);
   }
 
+  /** If there is available any THUMBNAIL/PREVIEW bundle use one of them,
+   *  otherwise the ORIGINAL bundle(the default value)
+   */
   getBitstreams(): Observable<Bitstream[]> {
-    return this.bitstreamDataService.findAllByItemAndBundleName(this.item, this.field.bitstream.bundle, {}, true, true, followLink('thumbnail'), followLink('format')).pipe(
-      getFirstCompletedRemoteData(),
-      map((response: RemoteData<PaginatedList<Bitstream>>) => {
-        return response.hasSucceeded ? response.payload.page : [];
+    const thumbnailRequest = this.bitstreamDataService
+      .findAllByItemAndBundleName(this.item, 'THUMBNAIL')
+      .pipe(
+        getFirstCompletedRemoteData(),
+        map((response: RemoteData<PaginatedList<Bitstream>>) => {
+          {
+            return response.hasSucceeded ? response.payload.page : [];
+          }
+        })
+      );
+
+    const previewRequest = this.bitstreamDataService
+      .findAllByItemAndBundleName(this.item, 'PREVIEW')
+      .pipe(
+        getFirstCompletedRemoteData(),
+        map((response: RemoteData<PaginatedList<Bitstream>>) => {
+          {
+            return response.hasSucceeded ? response.payload.page : [];
+          }
+        }),
+        switchMap((previewRes: Bitstream[]) => {
+          if (previewRes.length === 0) {
+            return originalRequest;
+          }
+          return of(previewRes);
+        })
+      );
+
+    const originalRequest = this.bitstreamDataService
+      .findAllByItemAndBundleName(this.item, this.field.bitstream.bundle)
+      .pipe(
+        getFirstCompletedRemoteData(),
+        map((response: RemoteData<PaginatedList<Bitstream>>) => {
+          return response.hasSucceeded ? response.payload.page : [];
+        })
+      );
+
+    return thumbnailRequest.pipe(
+      switchMap((thumbnailRes: Bitstream[]) => {
+        if (thumbnailRes.length === 0) {
+          return previewRequest;
+        }
+        return of(thumbnailRes);
       })
     );
+  }
+
+
+  /**
+   * Returns the list of original bitstreams
+   */
+  getOriginalBitstreams(): Observable<Bitstream[]> {
+    return this.bitstreamDataService
+      .findAllByItemAndBundleName(this.item, this.field.bitstream.bundle, {}, false, false, followLink('thumbnail'))
+      .pipe(
+        getFirstCompletedRemoteData(),
+        map((response: RemoteData<PaginatedList<Bitstream>>) => {
+          return response.hasSucceeded ? response.payload.page : [];
+        })
+      );
   }
 
   /**
