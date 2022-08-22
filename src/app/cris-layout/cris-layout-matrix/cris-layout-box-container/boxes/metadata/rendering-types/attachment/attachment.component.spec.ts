@@ -1,10 +1,11 @@
+import { attachmentsMock, attachmentWithUnspecified } from './../../../../../../../shared/mocks/attachments.mock';
 import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AttachmentComponent } from './attachment.component';
 import { SharedModule } from '../../../../../../../shared/shared.module';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { Observable, of } from 'rxjs';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
 import { RemoteData } from '../../../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
@@ -13,6 +14,9 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
 import { By } from '@angular/platform-browser';
+import { FindListOptions } from '../../../../../../../core/data/request.models';
+import { FollowLinkConfig } from '../../../../../../../shared/utils/follow-link-config.model';
+import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { AuthorizationDataService } from '../../../../../../../core/data/feature-authorization/authorization-data.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
@@ -22,6 +26,7 @@ import { StoreModule } from '@ngrx/store';
 describe('AttachmentComponent', () => {
   let component: AttachmentComponent;
   let fixture: ComponentFixture<AttachmentComponent>;
+  let de: DebugElement;
 
   const testItem = Object.assign(new Item(), {
     bundles: of({}),
@@ -52,6 +57,40 @@ describe('AttachmentComponent', () => {
       bundle: 'ORIGINAL',
       metadataField: 'dc.type',
       metadataValue: 'attachment'
+    }
+  };
+
+  const mockFieldWithMetadata: LayoutField = {
+    metadata: '',
+    label: 'Files',
+    rendering: FieldRenderingType.ATTACHMENT,
+    fieldType: 'BITSTREAM',
+    style: null,
+    styleLabel: 'test-style-label',
+    styleValue: 'test-style-value',
+    labelAsHeading: false,
+    valuesInline: true,
+    bitstream: {
+      bundle: 'ORIGINAL',
+      metadataField: 'dc.type',
+      metadataValue: 'main article'
+    }
+  };
+
+  const mockFieldWithRegexMetadata: LayoutField = {
+    metadata: '',
+    label: 'Files',
+    rendering: FieldRenderingType.ATTACHMENT,
+    fieldType: 'BITSTREAM',
+    style: null,
+    styleLabel: 'test-style-label',
+    styleValue: 'test-style-value',
+    labelAsHeading: false,
+    valuesInline: true,
+    bitstream: {
+      bundle: 'ORIGINAL',
+      metadataField: 'dc.type',
+      metadataValue: '(/^Test Article/i)'
     }
   };
 
@@ -96,19 +135,31 @@ describe('AttachmentComponent', () => {
     findAllByItemAndBundleName: jasmine.createSpy('findAllByItemAndBundleName'),
   });
 
-
-  // const mockBitstreamDataService = {
-  //   getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
-  //     return createSuccessfulRemoteDataObject$(new Bitstream());
-  //   },
-  //   findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
-  //     return createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1]));
-  //   },
-  // };
-
   const mockAuthorizedService = jasmine.createSpyObj('AuthorizationDataService', {
     isAuthorized: jasmine.createSpy('isAuthorized')
   });
+  const getDefaultTestBedConf = () => {
+    return {
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock
+        }
+      }),
+        RouterTestingModule,
+        SharedModule
+      ],
+      declarations: [AttachmentComponent],
+      providers: [
+        { provide: 'fieldProvider', useValue: mockField },
+        { provide: 'itemProvider', useValue: testItem },
+        { provide: 'renderingSubTypeProvider', useValue: '' },
+        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: AuthorizationDataService, useValue: mockAuthorizedService },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    };
+  };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -120,7 +171,7 @@ describe('AttachmentComponent', () => {
       }),
         RouterTestingModule,
         SharedModule,
-      StoreModule.forRoot({}),
+        StoreModule.forRoot({}),
       ],
       declarations: [AttachmentComponent],
       providers: [
@@ -138,9 +189,12 @@ describe('AttachmentComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AttachmentComponent);
     component = fixture.componentInstance;
+    de = fixture.debugElement;
     mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
     component.envPagination.enabled = true;
     mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
+    let spy = spyOn(component, 'getBitstreams');
+    spy.and.returnValue(of(attachmentsMock));
     component.item = testItem;
     fixture.detectChanges();
   });
@@ -171,6 +225,10 @@ describe('AttachmentComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
+  it('should show unspecified attachment', () => {
+    expect(de.query(By.css('[data-test="title"]')).nativeElement.innerHTML).toBe('test-unspecified.pdf (127.37 KB)');
+  });
+
   it('should call startWithAll when environment pagination is false', () => {
     component.envPagination.enabled = false;
     const spy = spyOn(component, 'startWithAll');
@@ -180,6 +238,48 @@ describe('AttachmentComponent', () => {
     component.ngOnInit();
     fixture.detectChanges();
     expect(spy).toHaveBeenCalled();
+  });
+
+  describe('when the field has metadata key and value set as value', () => {
+    beforeEach(() => {
+      // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule(getDefaultTestBedConf());
+      TestBed.overrideProvider('fieldProvider', { useValue: mockFieldWithMetadata });
+      fixture = TestBed.createComponent(AttachmentComponent);
+      component = fixture.componentInstance;
+      de = fixture.debugElement;
+      let spy = spyOn(component, 'getBitstreams');
+      spy.and.returnValue(of(attachmentsMock));
+      component.item = testItem;
+      fixture.detectChanges();
+    });
+
+    it('should show main article attachment', () => {
+      expect(de.query(By.css('[data-test="title"]')).nativeElement.innerHTML).toBe('main.pdf (127.37 KB)');
+    });
+
+  });
+
+  describe('when the field has metadata key and value set as regex', () => {
+    beforeEach(() => {
+      // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule(getDefaultTestBedConf());
+      TestBed.overrideProvider('fieldProvider', { useValue: mockFieldWithRegexMetadata });
+      fixture = TestBed.createComponent(AttachmentComponent);
+      component = fixture.componentInstance;
+      de = fixture.debugElement;
+      let spy = spyOn(component, 'getBitstreams');
+      spy.and.returnValue(of(attachmentsMock));
+      component.item = testItem;
+      fixture.detectChanges();
+    });
+
+    it('should show regex article attachment', () => {
+      expect(de.query(By.css('[data-test="title"]')).nativeElement.innerHTML).toBe('main-regex.pdf (127.37 KB)');
+    });
+
   });
 
   describe('When there are 4 attachments with pagination', () => {

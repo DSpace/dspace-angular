@@ -18,6 +18,9 @@ import { FindListOptions } from '../../../../../../../core/data/request.models';
   styleUrls: ['./attachment.component.scss']
 })
 @MetadataBoxFieldRendering(FieldRenderingType.ATTACHMENT, true)
+/**
+ * The component for displaying a thumbnail rendered metadata box
+ */
 export class AttachmentComponent extends BitstreamRenderingModelComponent implements OnInit {
 
   /**
@@ -29,7 +32,6 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
    * Envoirment variables configuring pagination
    */
   envPagination = environment.attachmentRendering.pagination;
-
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
@@ -55,19 +57,9 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
       this.startWithAll();
     }
   }
-
   /**
    * Start the list with all the attachments
    */
   startWithAll() {
     this.bitstreams$ = this.getBitstreams();
   }
-
-  /**
-   * Get the bitstreams until a specific page
-   */
-  getVisibleBitstreams() {
-    this.bitstreams$ = this.getPaginatedBitstreams();
-  }
-
-}
