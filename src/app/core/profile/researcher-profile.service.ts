@@ -4,10 +4,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { ReplaceOperation } from 'fast-json-patch';
+import { Operation, ReplaceOperation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import { find, map } from 'rxjs/operators';
-
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -24,10 +23,11 @@ import { ResearcherProfile } from './model/researcher-profile.model';
 import { RESEARCHER_PROFILE } from './model/researcher-profile.resource-type';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { PostRequest } from '../data/request.models';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isEmpty } from '../../shared/empty.util';
 import { CoreState } from '../core-state.model';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Item } from '../shared/item.model';
+import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -56,9 +56,9 @@ class ResearcherProfileServiceImpl extends DataService<ResearcherProfile> {
 @dataService(RESEARCHER_PROFILE)
 export class ResearcherProfileService {
 
-  dataService: ResearcherProfileServiceImpl;
+  protected dataService: ResearcherProfileServiceImpl;
 
-  responseMsToLive: number = 10 * 1000;
+  protected responseMsToLive: number = 10 * 1000;
 
   constructor(
     protected requestService: RequestService,
@@ -113,6 +113,20 @@ export class ResearcherProfileService {
   }
 
   /**
+   * Find a researcher profile by its own related item
+   *
+   * @param item
+   */
+  public findByRelatedItem(item: Item): Observable<RemoteData<ResearcherProfile>> {
+    const profileId = item.firstMetadata('dspace.object.owner')?.authority;
+    if (isEmpty(profileId)) {
+      return createFailedRemoteDataObject$();
+    } else {
+      return this.findById(profileId);
+    }
+  }
+
+  /**
    * Find the item id related to the given researcher profile.
    *
    * @param researcherProfile the profile to find for
@@ -164,4 +178,17 @@ export class ResearcherProfileService {
 
     return this.rdbService.buildFromRequestUUID(requestId, followLink('item'));
   }
+
+  /**
+   * Update researcher profile by patch orcid operation
+   *
+   * @param researcherProfile
+   * @param operations
+   */
+  public updateByOrcidOperations(researcherProfile: ResearcherProfile, operations: Operation[]): Observable<RemoteData<ResearcherProfile>> {
+    return this.dataService.patch(researcherProfile, operations);
+  }
+
+
+
 }

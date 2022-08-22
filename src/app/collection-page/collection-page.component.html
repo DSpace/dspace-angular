@@ -56,8 +56,8 @@
                 </div>
                 <ds-error *ngIf="itemRD?.hasFailed"
                           message="{{'error.recent-submissions' | translate}}"></ds-error>
-                <ds-loading *ngIf="!itemRD || itemRD.isLoading"
-                            message="{{'loading.recent-submissions' | translate}}"></ds-loading>
+                <ds-themed-loading *ngIf="!itemRD || itemRD.isLoading"
+                            message="{{'loading.recent-submissions' | translate}}"></ds-themed-loading>
                 <div *ngIf="!itemRD?.isLoading && itemRD?.payload?.page.length === 0" class="alert alert-info w-100" role="alert">
                         {{'collection.page.browse.recent.empty' | translate}}
                 </div>
@@ -74,7 +74,7 @@
     </div>
         <ds-error *ngIf="collectionRD?.hasFailed"
             message="{{'error.collection' | translate}}"></ds-error>
-        <ds-loading *ngIf="collectionRD?.isLoading"
-            message="{{'loading.collection' | translate}}"></ds-loading>
+        <ds-themed-loading *ngIf="collectionRD?.isLoading"
+            message="{{'loading.collection' | translate}}"></ds-themed-loading>
   </div>
 </div>

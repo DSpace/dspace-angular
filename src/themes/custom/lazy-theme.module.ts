@@ -55,8 +55,12 @@ import { PageNotFoundComponent } from './app/pagenotfound/pagenotfound.component
 import { ObjectNotFoundComponent } from './app/lookup-by-id/objectnotfound/objectnotfound.component';
 import { ForbiddenComponent } from './app/forbidden/forbidden.component';
 import { PrivacyComponent } from './app/info/privacy/privacy.component';
-import { CollectionStatisticsPageComponent } from './app/statistics-page/collection-statistics-page/collection-statistics-page.component';
-import { CommunityStatisticsPageComponent } from './app/statistics-page/community-statistics-page/community-statistics-page.component';
+import {
+  CollectionStatisticsPageComponent
+} from './app/statistics-page/collection-statistics-page/collection-statistics-page.component';
+import {
+  CommunityStatisticsPageComponent
+} from './app/statistics-page/community-statistics-page/community-statistics-page.component';
 import { ItemStatisticsPageComponent } from './app/statistics-page/item-statistics-page/item-statistics-page.component';
 import { SiteStatisticsPageComponent } from './app/statistics-page/site-statistics-page/site-statistics-page.component';
 import { CommunityPageComponent } from './app/community-page/community-page.component';
@@ -72,14 +76,29 @@ import { ProfilePageComponent } from './app/profile-page/profile-page.component'
 import { RegisterEmailComponent } from './app/register-page/register-email/register-email.component';
 import { MyDSpacePageComponent } from './app/my-dspace-page/my-dspace-page.component';
 import { SubmissionEditComponent } from './app/submission/edit/submission-edit.component';
-import { SubmissionImportExternalComponent } from './app/submission/import-external/submission-import-external.component';
+import {
+  SubmissionImportExternalComponent
+} from './app/submission/import-external/submission-import-external.component';
 import { SubmissionSubmitComponent } from './app/submission/submit/submission-submit.component';
-import { WorkflowItemDeleteComponent } from './app/workflowitems-edit-page/workflow-item-delete/workflow-item-delete.component';
-import { WorkflowItemSendBackComponent } from './app/workflowitems-edit-page/workflow-item-send-back/workflow-item-send-back.component';
+import { WorkflowItemDeleteComponent
+} from './app/workflowitems-edit-page/workflow-item-delete/workflow-item-delete.component';
+import {
+  WorkflowItemSendBackComponent
+} from './app/workflowitems-edit-page/workflow-item-send-back/workflow-item-send-back.component';
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
-
+import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.component';
+import {
+  ExpandableNavbarSectionComponent
+} from './app/navbar/expandable-navbar-section/expandable-navbar-section.component';
+import { ItemMetadataComponent } from './app/item-page/edit-item-page/item-metadata/item-metadata.component';
+import {
+  EditItemTemplatePageComponent
+} from './app/collection-page/edit-item-template-page/edit-item-template-page.component';
+import { LoadingComponent } from './app/shared/loading/loading.component';
+import { SearchResultsComponent } from './app/shared/search/search-results/search-results.component';
+import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -118,6 +137,13 @@ const DECLARATIONS = [
   BreadcrumbsComponent,
   FeedbackComponent,
   CommunityListComponent,
+  AuthNavMenuComponent,
+  ExpandableNavbarSectionComponent,
+  ItemMetadataComponent,
+  EditItemTemplatePageComponent,
+  LoadingComponent,
+  SearchResultsComponent,
+  AdminSidebarComponent,
 ];
 
 @NgModule({

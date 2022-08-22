@@ -6,7 +6,7 @@
     </a>
 
     <div id="collapsingNav" class="w-100 h-100">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 h-100">
+      <ul class="navbar-nav navbar-navigation me-auto mb-2 mb-lg-0 h-100 d-flex align-items-center">
         <ng-container *ngFor="let section of (sections | async)">
           <ng-container *ngComponentOutlet="(sectionMap$ | async).get(section.id)?.component; injector: (sectionMap$ | async).get(section.id)?.injector;"></ng-container>
         </ng-container>
@@ -14,7 +14,7 @@
     </div>
     <ds-search-navbar class="navbar-collapsed"></ds-search-navbar>
     <ds-lang-switch class="navbar-collapsed"></ds-lang-switch>
-    <ds-auth-nav-menu class="navbar-collapsed"></ds-auth-nav-menu>
+    <ds-themed-auth-nav-menu class="navbar-collapsed"></ds-themed-auth-nav-menu>
     <ds-impersonate-navbar class="navbar-collapsed"></ds-impersonate-navbar>
   </div>
 </nav>

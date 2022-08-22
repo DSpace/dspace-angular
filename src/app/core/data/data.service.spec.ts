@@ -894,6 +894,26 @@ describe('DataService', () => {
         expectObservable(done$).toBe('------(t|)', BOOLEAN);
       });
     });
+
+    it('should only fire for the current state of the object (instead of tracking it)', () => {
+      testScheduler.run(({ cold, flush }) => {
+        getByHrefSpy.and.returnValue(cold('a---b---c---', {
+          a: { requestUUIDs: ['request1'] },  // this is the state at the moment we're invalidating the cache
+          b: { requestUUIDs: ['request2'] },  // we shouldn't keep tracking the state
+          c: { requestUUIDs: ['request3'] },  // because we may invalidate when we shouldn't
+        }));
+
+        service.invalidateByHref('some-href');
+        flush();
+
+        // requests from the first state are marked as stale
+        expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request1');
+
+        // request from subsequent states are ignored
+        expect(requestService.setStaleByUUID).not.toHaveBeenCalledWith('request2');
+        expect(requestService.setStaleByUUID).not.toHaveBeenCalledWith('request3');
+      });
+    });
   });
 
   describe('delete', () => {
