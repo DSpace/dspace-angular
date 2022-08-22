@@ -15,7 +15,7 @@ export class SubmissionVisibility {
    * @param visibility The given visibility value to check
    * @param scope      The scope for which to check the visibility
    */
-  public static isHidden(visibility: SubmissionVisibilityType, scope: SubmissionScopeType) {
+  public static isHidden(visibility: SubmissionVisibilityType, scope: SubmissionScopeType): boolean {
     return isNotEmpty(visibility)
       && visibility.hasOwnProperty(scope)
       && visibility[scope] === SubmissionVisibilityValue.Hidden;
@@ -26,9 +26,18 @@ export class SubmissionVisibility {
    * @param visibility The given visibility value to check
    * @param scope      The scope for which to check the visibility
    */
-  public static isReadOnly(visibility: SubmissionVisibilityType, scope: SubmissionScopeType) {
+  public static isReadOnly(visibility: SubmissionVisibilityType, scope: SubmissionScopeType): boolean {
     return isNotEmpty(visibility)
       && visibility.hasOwnProperty(scope)
       && visibility[scope] === SubmissionVisibilityValue.ReadOnly;
+  }
+
+  /**
+   * By the given visibility and scope, return whether or not if it's visible
+   * @param visibility The given visibility value to check
+   * @param scope      The scope for which to check the visibility
+   */
+  public static isVisible(visibility: SubmissionVisibilityType, scope: SubmissionScopeType): boolean {
+    return !SubmissionVisibility.isHidden(visibility, scope);
   }
 }

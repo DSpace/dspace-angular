@@ -1,8 +1,7 @@
 <div *ngIf="metadataFieldRenderOptions" class="{{containerStyle}}">
   <div class="d-flex" [class.flex-column]="field.labelAsHeading">
   <span *ngIf="hasLabel"
-        class="{{labelStyle}}">
-    {{label}}
+        class="{{labelStyle}}" [innerHTML]="label">
   </span>
 
     <div *ngIf="!isStructured" class="d-flex col flex-wrap" [class.flex-column]="!field.valuesInline">
@@ -10,16 +9,14 @@
         <ds-metadata-render [field]="field"
                             [item]="item"
                             [box]="box"
-                            [metadataValue]="metadataValue"
-                            [renderingSubType]="renderingSubType"></ds-metadata-render>
+                            [metadataValue]="metadataValue"></ds-metadata-render>
         <p *ngIf="field.valuesInline && !last">;&nbsp;</p>
       </ng-container>
     </div>
     <div *ngIf="isStructured" class="col w-100" [class.flex-column]="!field.valuesInline">
       <ds-metadata-render [field]="field"
                           [item]="item"
-                          [box]="box"
-                          [renderingSubType]="renderingSubType"></ds-metadata-render>
+                          [box]="box"></ds-metadata-render>
     </div>
   </div>
 </div>

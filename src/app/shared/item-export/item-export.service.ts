@@ -76,7 +76,7 @@ export class ItemExportService {
     );
   }
 
-  protected  initialItemExportFormConfigurationMultiple(): Observable<ItemExportFormConfiguration> {
+  protected initialItemExportFormConfigurationMultiple(): Observable<ItemExportFormConfiguration> {
     return this.itemExportFormatService.byEntityTypeAndMolteplicity(null, ItemExportFormatMolteplicity.MULTIPLE).pipe(
       take(1),
       map(values => this.buildConfiguration(Object.keys(values), null, []))

@@ -27,6 +27,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { NotificationsServiceStub } from '../testing/notifications-service.stub';
 import { AuthService } from '../../core/auth/auth.service';
 import { EPersonMock } from '../testing/eperson.mock';
+import { ItemExportFormConfiguration, ItemExportService } from '../item-export/item-export.service';
 
 describe('ContextMenuComponent', () => {
   let component: ContextMenuComponent;
@@ -34,6 +35,12 @@ describe('ContextMenuComponent', () => {
   let store: MockStore<AppState>;
   let initialState;
   let dso: DSpaceObject;
+  let configuration: ItemExportFormConfiguration;
+  const itemExportService: any = jasmine.createSpyObj('ItemExportFormatService', {
+    initialItemExportFormConfiguration: jasmine.createSpy('initialItemExportFormConfiguration'),
+    onSelectEntityType: jasmine.createSpy('onSelectEntityType'),
+    submitForm: jasmine.createSpy('submitForm')
+  });
   const authState: any = {
     core: {
       auth: {
@@ -72,6 +79,7 @@ describe('ContextMenuComponent', () => {
 
   function init() {
     initialState = authState;
+    itemExportService.initialItemExportFormConfiguration.and.returnValue(of(configuration));
 
     dso = Object.assign(new Item(), {
       id: 'test-item',
@@ -96,6 +104,7 @@ describe('ContextMenuComponent', () => {
       declarations: [ContextMenuComponent, TestComponent, ExportItemMenuComponent, StatisticsMenuComponent, SubscriptionMenuComponent],
       providers: [
         provideMockStore({ initialState }),
+        { provide: ItemExportService, useValue: itemExportService },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
         { provide: ConfigurationDataService, useValue: configurationDataService },
@@ -143,6 +152,18 @@ describe('ContextMenuComponent', () => {
     it('should display context menu', (done) => {
       const menu = fixture.debugElement.query(By.css('button#context-menu'));
       expect(menu).not.toBeNull();
+      done();
+    });
+
+    it('should display d-none', (done) => {
+      const menu = fixture.debugElement.query(By.css('div.d-none'));
+      expect(menu).not.toBeNull();
+      done();
+    });
+
+    it('should not display d-inline-block', (done) => {
+      const menu = fixture.debugElement.query(By.css('div.d-inline-block'));
+      expect(menu).toBeNull();
       done();
     });
 
@@ -203,6 +224,18 @@ describe('ContextMenuComponent', () => {
         done();
       });
 
+      it('should display d-none', (done) => {
+        const menu = fixture.debugElement.query(By.css('div.d-none'));
+        expect(menu).not.toBeNull();
+        done();
+      });
+
+      it('should not display d-inline-block', (done) => {
+        const menu = fixture.debugElement.query(By.css('div.d-inline-block'));
+        expect(menu).toBeNull();
+        done();
+      });
+
       it('should not display stand alone buttons', (done) => {
         const menu = fixture.debugElement.query(By.css('button.btn-primary'));
         expect(menu).not.toBeNull();
@@ -228,6 +261,18 @@ describe('ContextMenuComponent', () => {
 
       it('should not display context menu', (done) => {
         const menu = fixture.debugElement.query(By.css('button#context-menu'));
+        expect(menu).toBeNull();
+        done();
+      });
+
+      it('should display d-inline-block', (done) => {
+        const menu = fixture.debugElement.query(By.css('div.d-inline-block'));
+        expect(menu).toBeNull();
+        done();
+      });
+
+      it('should not display d-none', (done) => {
+        const menu = fixture.debugElement.query(By.css('div.d-none'));
         expect(menu).toBeNull();
         done();
       });

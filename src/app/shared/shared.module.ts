@@ -20,7 +20,6 @@ import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core'
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FileUploadModule } from 'ng2-file-upload';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { TextMaskModule } from 'angular2-text-mask';
 import { MomentModule } from 'ngx-moment';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import { ExportMetadataSelectorComponent } from './dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
@@ -199,35 +198,15 @@ import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 import { ClaimItemSelectorComponent } from './dso-selector/modal-wrappers/claim-item-selector/claim-item-selector.component';
-import { MetricBadgesComponent } from './object-list/metric-badges/metric-badges.component';
-import { MetricLoaderComponent } from './metric/metric-loader/metric-loader.component';
-import { MetricAltmetricComponent } from './metric/metric-altmetric/metric-altmetric.component';
-import { MetricDimensionsComponent } from './metric/metric-dimensions/metric-dimensions.component';
-import { MetricDspacecrisComponent } from './metric/metric-dspacecris/metric-dspacecris.component';
-import { MetricGooglescholarComponent } from './metric/metric-googlescholar/metric-googlescholar.component';
-import { MetricEmbeddedViewComponent } from './metric/metric-embedded-view/metric-embedded-view.component';
-import { MetricEmbeddedDownloadComponent } from './metric/metric-embedded-download/metric-embedded-download.component';
-import { MetricDonutsComponent } from './object-list/metric-donuts/metric-donuts.component';
 import { BrowseMostElementsComponent } from './browse-most-elements/browse-most-elements.component';
-import { BrowseSectionComponent } from './explore/section-component/browse-section/browse-section.component';
-import { ThemedBrowseSectionComponent } from './explore/section-component/browse-section/themed-browse-section.component';
-import { TopSectionComponent } from './explore/section-component/top-section/top-section.component';
-import { ThemedTopSectionComponent } from './explore/section-component/top-section/themed-top-section.component';
-import { FacetSectionComponent } from './explore/section-component/facet-section/facet-section.component';
-import { SearchSectionComponent } from './explore/section-component/search-section/search-section.component';
-import { TextSectionComponent } from './explore/section-component/text-section/text-section.component';
-import { CountersSectionComponent } from './explore/section-component/counters-section/counters-section.component';
-import { ThemedCountersSectionComponent } from './explore/section-component/counters-section/themed-counters-section.component';
-import { MultiColumnTopSectionComponent } from './explore/section-component/multi-column-top-section/multi-column-top-section.component';
 import { EditMetadataSecurityComponent } from '../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 import { MetadataLinkViewComponent } from './metadata-link-view/metadata-link-view.component';
 import { ExportExcelSelectorComponent } from './dso-selector/modal-wrappers/export-excel-selector/export-excel-selector.component';
-import { MetricPlumxComponent } from './metric/metric-plumx/metric-plumx.component';
-import { ThemedFacetSectionComponent } from './explore/section-component/facet-section/themed-facet-section.component';
-import { ThemedMultiColumnTopSectionComponent } from './explore/section-component/multi-column-top-section/themed-multi-column-top-section.component';
-import { ThemedSearchSectionComponent } from './explore/section-component/search-section/themed-search-section.component';
-import { ThemedTextSectionComponent } from './explore/section-component/text-section/themed-text-section.component';
 import { ThemedBrowseMostElementsComponent } from './browse-most-elements/themed-browse-most-elements.component';
+import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
+import { ItemCorrectionComponent } from './object-collection/shared/mydspace-item-correction/item-correction.component';
+import { MetricsModule } from './metric/metrics.module';
+import { SearchChartBarHorizontalComponent } from './search/search-charts/search-chart/search-chart-bar-horizontal/search-chart-bar-horizontal.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -248,17 +227,20 @@ const MODULES = [
   RouterModule,
   NouisliderModule,
   MomentModule,
-  TextMaskModule,
   DragDropModule,
-  CdkTreeModule
+  CdkTreeModule,
+  MetricsModule
 ];
 
 const ROOT_MODULES = [
   TranslateModule.forChild({
-    missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
-    useDefaultLang: true
+    missingTranslationHandler: {
+      provide: MissingTranslationHandler,
+      useClass: MissingTranslationHelper,
+    },
+    useDefaultLang: true,
   }),
-  ChartsModule.withEntryComponents()
+  ChartsModule.withEntryComponents(),
 ];
 
 const PIPES = [
@@ -272,7 +254,7 @@ const PIPES = [
   ObjectKeysPipe,
   ObjectValuesPipe,
   ConsolePipe,
-  ObjNgFor
+  ObjNgFor,
 ];
 
 const COMPONENTS = [
@@ -304,7 +286,9 @@ const COMPONENTS = [
   UploaderComponent,
   FileDropzoneNoUploaderComponent,
   ItemListPreviewComponent,
+  ThemedItemListPreviewComponent,
   MyDSpaceItemStatusComponent,
+  ItemCorrectionComponent,
   ItemSubmitterComponent,
   ItemDetailPreviewComponent,
   ItemDetailPreviewFieldComponent,
@@ -337,8 +321,6 @@ const COMPONENTS = [
   ClaimItemSelectorComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
-  BrowseByComponent,
-
   CollectionSearchResultGridElementComponent,
   CommunitySearchResultGridElementComponent,
   PageSizeSelectorComponent,
@@ -347,15 +329,10 @@ const COMPONENTS = [
   CommunityListElementComponent,
   CollectionGridElementComponent,
   CommunityGridElementComponent,
-  BrowseByComponent,
   AbstractTrackableComponent,
   ComcolMetadataComponent,
   TypeBadgeComponent,
-  MetricBadgesComponent,
-  MetricDonutsComponent,
-  BrowseByComponent,
   AbstractTrackableComponent,
-
   ItemSelectComponent,
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,
@@ -421,32 +398,12 @@ const COMPONENTS = [
   RelationshipsListComponent,
   RelationshipsItemsActionsComponent,
   RelationshipsItemsListPreviewComponent,
-  MetricLoaderComponent,
-  MetricAltmetricComponent,
-  MetricDimensionsComponent,
-  MetricDspacecrisComponent,
-  MetricGooglescholarComponent,
-  MetricEmbeddedViewComponent,
-  MetricEmbeddedDownloadComponent,
   BrowseMostElementsComponent,
-  ThemedBrowseSectionComponent,
-  BrowseSectionComponent,
-  TopSectionComponent,
-  ThemedTopSectionComponent,
-  FacetSectionComponent,
-  ThemedFacetSectionComponent,
-  SearchSectionComponent,
-  TextSectionComponent,
-  CountersSectionComponent,
-  ThemedCountersSectionComponent,
-  MultiColumnTopSectionComponent,
   EditMetadataSecurityComponent,
   MetadataLinkViewComponent,
   ExportExcelSelectorComponent,
-  ThemedMultiColumnTopSectionComponent,
-  ThemedSearchSectionComponent,
-  ThemedTextSectionComponent,
   ThemedBrowseMostElementsComponent,
+  SearchChartBarHorizontalComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -506,26 +463,14 @@ const ENTRY_COMPONENTS = [
   OnClickMenuItemComponent,
   TextMenuItemComponent,
   ScopeSelectorModalComponent,
-  ThemedBrowseSectionComponent,
-  BrowseSectionComponent,
-  TopSectionComponent,
-  ThemedTopSectionComponent,
-  FacetSectionComponent,
-  ThemedFacetSectionComponent,
-  SearchSectionComponent,
-  TextSectionComponent,
-  CountersSectionComponent,
-  ThemedCountersSectionComponent,
-  MultiColumnTopSectionComponent,
   SearchChartBarComponent,
   SearchChartBarToLeftComponent,
   SearchChartBarToRightComponent,
   SearchChartPieComponent,
   SearchChartLineComponent,
-  ThemedMultiColumnTopSectionComponent,
-  ThemedSearchSectionComponent,
-  ThemedTextSectionComponent,
   ThemedBrowseMostElementsComponent,
+  SearchChartBarHorizontalComponent,
+  RelationshipsListComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -537,7 +482,6 @@ const SHARED_ITEM_PAGE_COMPONENTS = [
   GenericItemPageFieldComponent,
   MetadataRepresentationListComponent,
   RelatedItemsComponent,
-
 ];
 
 const PROVIDERS = [
@@ -563,15 +507,15 @@ const DIRECTIVES = [
   ClaimedTaskActionsDirective,
   NgForTrackByIdDirective,
   MetadataFieldValidator,
-  HoverClassDirective
+  HoverClassDirective,
 ];
 
 @NgModule({
-    imports: [
-        ...MODULES,
-        ...ROOT_MODULES,
-        NgbCollapseModule,
-    ],
+  imports: [
+    ...MODULES,
+    ...ROOT_MODULES,
+    NgbCollapseModule,
+  ],
   declarations: [
     ...PIPES,
     ...COMPONENTS,
@@ -580,7 +524,6 @@ const DIRECTIVES = [
     ItemVersionsSummaryModalComponent,
     ItemVersionsDeleteModalComponent,
     ItemExportAlertComponent,
-    MetricPlumxComponent,
   ],
   providers: [
     ...PROVIDERS

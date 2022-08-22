@@ -20,20 +20,23 @@
     <div *ngFor="let metadata of metadataList" class="row">
       <div class="col-md-12">
         <strong>{{'item.preview.' + metadata.key | translate}}</strong>
-        <p>{{metadata.value.value}}</p>
+        <div *ngIf="metadata.key === 'dc.description.abstract'" data-test="abstract" class="mb-2">
+          <ds-truncatable [id]="metadata.key">
+            <ds-truncatable-part [id]="metadata.key" [minLines]="3">
+              <p>{{metadata.value.value}}</p>
+            </ds-truncatable-part>
+          </ds-truncatable>
+        </div>
+        <p *ngIf="metadata.key !== 'dc.description.abstract'">{{metadata.value.value}}</p>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <hr>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 text-right">
-        <button class="btn btn-success" (click)="import()" role="button">
-          <i class="fa fa-file-import" aria-hidden="true"></i> {{'submission.import-external.preview.button.import' | translate}}
-        </button>
-      </div>
-    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="row"></div>
+  <div class="col-md-12 text-right">
+    <button class="btn btn-success" (click)="import()" role="button">
+      <i class="fa fa-file-import" aria-hidden="true"></i> {{'submission.import-external.preview.button.import' | translate}}
+    </button>
   </div>
 </div>

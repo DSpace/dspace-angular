@@ -3,7 +3,7 @@ import { compare } from 'fast-json-patch';
 import { Operation } from 'fast-json-patch';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { TypedObject } from '../cache/object-cache.reducer';
-import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
+import { DSpaceNotNullSerializer } from '../dspace-rest/dspace-not-null.serializer';
 import { ChangeAnalyzer } from './change-analyzer';
 
 /**
@@ -22,8 +22,8 @@ export class DefaultChangeAnalyzer<T extends TypedObject> implements ChangeAnaly
    *    The second object to compare
    */
   diff(object1: T, object2: T): Operation[] {
-    const serializer1 = new DSpaceSerializer(getClassForType(object1.type));
-    const serializer2 = new DSpaceSerializer(getClassForType(object2.type));
+    const serializer1 = new DSpaceNotNullSerializer(getClassForType(object1.type));
+    const serializer2 = new DSpaceNotNullSerializer(getClassForType(object2.type));
     return compare(serializer1.serialize(object1), serializer2.serialize(object2));
   }
 }

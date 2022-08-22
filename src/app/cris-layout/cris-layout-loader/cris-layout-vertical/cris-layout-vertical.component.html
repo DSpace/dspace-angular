@@ -9,7 +9,8 @@
   </div>
 
   <div *ngIf="(windowService.isXsOrSm() | async)" class="horizontal-layout">
-    <ds-cris-layout-navbar (selectedTabChange)="selectedTabChanged($event)" [tabs]="tabs" [item]="item"></ds-cris-layout-navbar>
+    <ds-cris-layout-navbar [showNav]="(tabs.length - leadingTabs.length) > 1" (selectedTabChange)="selectedTabChanged($event)"
+      [tabs]="tabs" [item]="item"></ds-cris-layout-navbar>
     <div class="container pt-4">
       <ds-cris-layout-matrix [tab]="(selectedTab$ | async)" [item]="item"></ds-cris-layout-matrix>
     </div>

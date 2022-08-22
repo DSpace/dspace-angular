@@ -301,6 +301,10 @@ export class SearchConfigurationService implements OnDestroy {
     ).subscribe((update) => {
       const currentValue: SearchOptions = this.searchOptions.getValue();
       const updatedValue: SearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
+      const scopeString = `scope=${updatedValue.scope}`;
+      if (updatedValue.fixedFilter === scopeString) {
+        updatedValue.fixedFilter = undefined;
+      }
       this.searchOptions.next(updatedValue);
     });
   }
@@ -325,6 +329,10 @@ export class SearchConfigurationService implements OnDestroy {
     ).subscribe((update) => {
       const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
       const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
+      const scopeString = `scope=${updatedValue.scope}`;
+      if (updatedValue.fixedFilter === scopeString) {
+        updatedValue.fixedFilter = undefined;
+      }
       this.paginatedSearchOptions.next(updatedValue);
     });
   }

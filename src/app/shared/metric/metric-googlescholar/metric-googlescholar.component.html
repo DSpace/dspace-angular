@@ -1,6 +1,17 @@
-<div class="text-center">
-  <div class="font-weight-bold">
-    {{metric.metricType | translate}}
+<a [href]="$any(remark).href ? $any(remark).href : ''">
+  <div class="row">
+    <div class="col-2 mr-2" *ngIf="metric && metric.icon">
+      <img class="icon-size" [src]="metric.icon" />
+    </div>
+    <div class="col">
+      <div class="d-flex justify-content-center">
+        <div class="font-weight-bold text-capitalize">
+          {{ metric.metricType | translate }}
+        </div>
+      </div>
+    </div>
   </div>
-  <a target="_blank" title="" [href]="$any(remark).href">{{'item.page.metric.label.check' | translate}}</a>
-</div>
+  <button type="button" class="btn btn-overlap-container">
+    {{ "item.page.metric.label.view-detail-btn" | translate }}
+  </button>
+</a>

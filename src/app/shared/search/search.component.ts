@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
@@ -44,7 +53,7 @@ import { SearchManager } from '../../core/browse/search-manager';
 /**
  * This component renders a sidebar, a search input bar and the search results.
  */
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
 
   /**
    * The list of available configuration options
@@ -77,13 +86,23 @@ export class SearchComponent implements OnInit {
   /**
    * Embedded keys to force during the search
    */
-  @Input() forcedEmbeddedKeys = ['metrics'];
+  @Input() forcedEmbeddedKeys: Map<string, string[]> = new Map([['default', ['metrics']]]) ;
 
   /**
    * If this is true, the request will only be sent if there's
    * no valid cached version. Defaults to true
    */
   @Input() useCachedVersionIfAvailable = true;
+
+  /**
+   * Defines whether to start as showing the charts collapsed
+   */
+  @Input() collapseCharts = false;
+
+  /**
+   * Defines whether to start as showing the filter sidebar collapsed
+   */
+  @Input() collapseFilters = false;
 
   /**
    * True when the search component should show results on the current page
@@ -131,6 +150,11 @@ export class SearchComponent implements OnInit {
   @Input() selectionConfig: SelectionConfig;
 
   /**
+   * A boolean representing if show search charts
+   */
+  @Input() showCharts = false;
+
+  /**
    * A boolean representing if show export button
    */
   @Input() showExport = true;
@@ -154,6 +178,21 @@ export class SearchComponent implements OnInit {
    * List of available view mode
    */
   @Input() viewModeList: ViewMode[];
+
+  /**
+   * Defines whether to show the scope selector
+   */
+  @Input() showScopeSelector = true;
+
+  /**
+   * Defines whether to show the toggle button to Show/Hide filter
+   */
+  @Input() showFilterToggle = false;
+
+  /**
+   * Defines whether to show the toggle button to Show/Hide chart
+   */
+   @Input() showChartsToggle = false;
 
   /**
    * The current configuration used during the search
@@ -297,11 +336,12 @@ export class SearchComponent implements OnInit {
       debounceTime(100)
     ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
       // Build the PaginatedSearchOptions object
+      const searchOptionsConfiguration = searchOptions.configuration || configuration;
       const combinedOptions = Object.assign({}, searchOptions,
         {
-          configuration: searchOptions.configuration || configuration,
+          configuration: searchOptionsConfiguration,
           sort: sortOption || searchOptions.sort,
-          forcedEmbeddedKeys: this.forcedEmbeddedKeys
+          forcedEmbeddedKeys: this.forcedEmbeddedKeys.get(searchOptionsConfiguration)
         });
       const newSearchOptions = new PaginatedSearchOptions(combinedOptions);
       // check if search options are changed
@@ -411,6 +451,13 @@ export class SearchComponent implements OnInit {
       return currentPath(this.router);
     }
     return this.service.getSearchLink();
+  }
+
+  /**
+   * To Toggle the Sidebar
+   */
+  toggleSidebar() {
+    this.sidebarService.toggle();
   }
 
 

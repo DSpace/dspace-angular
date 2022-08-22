@@ -97,6 +97,18 @@ export class ChartComponent implements OnInit {
   @Input()
   currentPage: Observable<number>;
 
+  /**
+   * Set horizontal chart label.
+   */
+  @Input()
+  xAxisLabel: string;
+
+  /**
+   * Set vertical chart label.
+   */
+  @Input()
+  yAxisLabel: string;
+
   constructor(private injector: Injector) {}
 
   ngOnInit(): void {
@@ -122,7 +134,9 @@ export class ChartComponent implements OnInit {
         { provide: 'showMore', useFactory: () => this.showMore, deps: [] },
         { provide: 'isLastPage', useFactory: () => this.isLastPage, deps: [] },
         { provide: 'currentPage', useFactory: () => this.currentPage, deps: [] },
-        { provide: 'type', useFactory: () => this.type, deps: [] }
+        { provide: 'type', useFactory: () => this.type, deps: [] },
+        { provide: 'xAxisLabel', useFactory: () => this.xAxisLabel, deps: [] },
+        { provide: 'yAxisLabel', useFactory: () => this.yAxisLabel, deps: [] }
       ],
       parent: this.injector,
     });

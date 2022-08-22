@@ -1,0 +1,30 @@
+<div class="container-fluid">
+
+    <div role="alert" class="alert alert-info fade show w-100 alert-dismissible">
+        {{'submission.sections.custom-url.alert.info' | translate}}
+    </div>
+
+    <div class="custom-url" style="display: flex;align-items: center;">
+        <span class="frontend-url"> {{frontendUrl}}/</span>
+        <ds-form *ngIf="formModel" #formRef="formComponent" [formId]="formId" [formModel]="formModel" [displaySubmit]="false" [displayCancel]="false"
+            (dfChange)="onChange($event)"></ds-form>
+    </div>
+
+    <div class="previous-urls" *ngIf="isEditItemScope && !!customSectionData && !!redirectedUrls">
+        <h4 *ngIf="redirectedUrls.length > 0">{{'submission.sections.custom-url.label.previous-urls' | translate}}</h4>
+        <ul class="list-group">
+            <li *ngFor="let redirectedUrl of redirectedUrls;let i = index" class="list-item mb-2">
+                <div class="list-group-item mr-2">
+                    <span>{{frontendUrl+'/'+redirectedUrl}}</span>
+                </div>
+
+                <button type="button" class="btn btn-secondary" role="button" title="{{'submission.sections.custom-url.label.remove' | translate}}"
+                    attr.aria-label="{{'submission.sections.custom-url.label.remove' | translate}}" (click)="remove(i)">
+                    <span>
+                        <i class="fas fa-trash" aria-hidden="true"></i>
+                    </span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import { ExportAsConfig, ExportAsService } from 'ngx-export-as';
-import * as htmlToImage from 'html-to-image';
+import { toJpeg, toPng } from 'html-to-image';
+import { Options } from 'html-to-image/es/options';
 import { saveAs } from 'file-saver';
 import { BehaviorSubject } from 'rxjs';
-import { Options } from 'html-to-image/es/options';
 
 export enum ExportImageType {
   png = 'png',
@@ -54,13 +54,13 @@ export class ExportService {
     const options: Options = { backgroundColor: '#ffffff' };
 
     if (type === ExportImageType.png) {
-      htmlToImage.toPng(domNode, options)
+      toPng(domNode, options)
       .then((dataUrl) => {
         saveAs(dataUrl, fileName + '.' + type);
         isLoading.next(false);
       });
     } else {
-      htmlToImage.toJpeg(domNode, options)
+      toJpeg(domNode, options)
       .then((dataUrl) => {
         saveAs(dataUrl, fileName + '.' + type);
         isLoading.next(false);

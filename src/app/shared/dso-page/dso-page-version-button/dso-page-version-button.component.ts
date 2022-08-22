@@ -33,6 +33,12 @@ export class DsoPageVersionButtonComponent implements OnInit {
   @Input() tooltipMsgHasDraft: string;
 
   /**
+   * A message for the tooltip on the button (when is disabled)
+   * Supports i18n keys
+   */
+  @Input() isContextMenu = false;
+
+  /**
    * Emits an event that triggers the creation of the new version
    */
   @Output() newVersionEvent = new EventEmitter();

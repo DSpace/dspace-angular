@@ -67,30 +67,30 @@ export class BrowseByComponent implements OnInit {
   /**
    * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
    */
-  @Input() enableArrows = false;
+  @Input() showPaginator = false;
 
   /**
-   * If enableArrows is set to true, should it hide the options gear?
+   * It is used to hide or show gear
    */
   @Input() hideGear = false;
 
   /**
-   * If enableArrows is set to true, emit when the previous button is clicked
+   * Emits event when prev button clicked
    */
   @Output() prev = new EventEmitter<boolean>();
 
   /**
-   * If enableArrows is set to true, emit when the next button is clicked
+   * Emits event when next button clicked
    */
   @Output() next = new EventEmitter<boolean>();
 
   /**
-   * If enableArrows is set to true, emit when the page size is changed
+   * Emits event when page size is changed
    */
   @Output() pageSizeChange = new EventEmitter<number>();
 
   /**
-   * If enableArrows is set to true, emit when the sort direction is changed
+   * Emits event when page sort direction is changed
    */
   @Output() sortDirectionChange = new EventEmitter<SortDirection>();
 

@@ -2,6 +2,7 @@ import { map } from 'rxjs/operators';
 import { convertToParamMap, Params } from '@angular/router';
 
 import { BehaviorSubject } from 'rxjs';
+import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 
 export class ActivatedRouteStub {
 
@@ -54,7 +55,12 @@ export class ActivatedRouteStub {
   get snapshot() {
     return {
       params: this.testParams,
-      queryParamMap: convertToParamMap(this.testParams)
+      queryParamMap: convertToParamMap(this.testParams),
+      paramMap: {
+        get(name) {
+          return new CrisLayoutTab();
+        }
+      }
     };
   }
 }

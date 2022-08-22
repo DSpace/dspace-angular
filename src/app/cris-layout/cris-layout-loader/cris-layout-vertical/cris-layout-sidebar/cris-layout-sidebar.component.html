@@ -3,7 +3,10 @@
   <nav id="sidebar" *ngIf="(hasSidebar() | async) && !(isSideBarHidden() | async) && showNav" [ngClass]="{'active': !(isSideBarHidden() | async)}">
     <div>
       <ul class="list-unstyled components mb-5">
-        <ds-cris-layout-sidebar-item *ngFor="let tab of tabs;" [tab]="tab" [layout]="'vertical'" (tabSelectedChange)="selectTabEv($event)"></ds-cris-layout-sidebar-item>
+        <ng-container *ngIf="!!(activeTab$ |async)">
+          <ds-cris-layout-sidebar-item *ngFor="let tab of tabs;" [tab]="tab" [layout]="'vertical'" [activeTab]="(activeTab$ |async)"
+            (tabSelectedChange)="setActiveTab($event)"></ds-cris-layout-sidebar-item>
+        </ng-container>
       </ul>
     </div>
   </nav>

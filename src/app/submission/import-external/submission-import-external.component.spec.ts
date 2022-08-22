@@ -165,7 +165,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
       ngbModal.open.and.returnValue({componentInstance: { externalSourceEntry: null}});
       comp.import(entry);
 
-      expect(compAsAny.modalService.open).toHaveBeenCalledWith(SubmissionImportExternalPreviewComponent, { size: 'lg' });
+      expect(compAsAny.modalService.open).toHaveBeenCalledWith(SubmissionImportExternalPreviewComponent, { size: 'lg',  scrollable: true  });
       expect(comp.modalRef.componentInstance.externalSourceEntry).toEqual(entry);
     });
 

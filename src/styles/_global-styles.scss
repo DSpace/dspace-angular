@@ -93,6 +93,22 @@ ngb-modal-backdrop {
 
 }
 
+/* Replicate default spacing look ~ preserveWhitespace=true
+   To be used e.g. on a div containing buttons that should have a bit of spacing in between
+ */
+.space-children-mr > :not(:last-child) {
+  margin-right: var(--ds-gap);
+}
+
+/* Complement .space-children-mr when spaced elements are not on the same level */
+.mr-gap {
+  margin-right: var(--ds-gap);
+}
+
+.ml-gap {
+  margin-left: var(--ds-gap);
+}
+
 button.switch {
   outline: none;
 }
@@ -107,4 +123,12 @@ button.switch {
 
 .authority-confidence-clickable {
   cursor: pointer;
+}
+
+// overrides @ng-util/markdown customizations
+.vditor-reset {
+  font-family: inherit !important;
+  h1, h2, h3, h4, h5, h6 {
+    border-bottom: inherit !important;
+  }
 }

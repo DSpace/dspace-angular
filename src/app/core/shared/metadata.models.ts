@@ -1,7 +1,7 @@
-import { v4 as uuidv4, validate as uuidValidate } from 'uuid';
+/* eslint-disable max-classes-per-file */
+import { v4 as uuidv4 } from 'uuid';
 import { autoserialize, Deserialize, Serialize } from 'cerialize';
 import { hasValue } from '../../shared/empty.util';
-/* tslint:disable:max-classes-per-file */
 
 export const VIRTUAL_METADATA_PREFIX = 'virtual::';
 
@@ -78,13 +78,6 @@ export class MetadataValue implements MetadataValueInterface {
       return undefined;
     }
   }
-
-  /**
-   * Returns true if this Metadatum's authority key is a valid UUID
-   */
-  get hasValidAuthority(): boolean {
-    return hasValue(this.authority) && uuidValidate(this.authority);
-  }
 }
 
 /** Constraints for matching metadata values. */
@@ -158,4 +151,3 @@ export const MetadataMapSerializer = {
     return metadataMap;
   }
 };
-/* tslint:enable:max-classes-per-file */

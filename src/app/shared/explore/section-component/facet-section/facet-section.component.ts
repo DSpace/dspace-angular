@@ -1,5 +1,7 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+
 import { BehaviorSubject } from 'rxjs';
+
 import { FacetSection } from '../../../../core/layout/models/section.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -7,8 +9,8 @@ import { SearchFilterConfig } from '../../../search/models/search-filter-config.
 import { FilterType } from '../../../search/models/filter-type.model';
 import { FacetValue } from '../../../search/models/facet-value.model';
 import { getFacetValueForTypeAndLabel } from '../../../search/search.utils';
-import {SEARCH_CONFIG_SERVICE} from '../../../../my-dspace-page/my-dspace-page.component';
-import {SearchConfigurationService} from '../../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 
 /**
  * Component representing the Facet component section.

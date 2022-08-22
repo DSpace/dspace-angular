@@ -46,6 +46,9 @@ import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-na
 import { SearchModule } from '../../app/shared/search/search.module';
 import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
+import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
+import { ExploreModule } from '../../app/shared/explore/explore.module';
+import { FooterModule } from '../../app/footer/footer.module';
 
 const DECLARATIONS = [
   HomeNewsComponent,
@@ -100,7 +103,10 @@ const DECLARATIONS = [
     SearchModule,
     FormsModule,
     ResourcePoliciesModule,
-    ComcolModule
+    ComcolModule,
+    MiradorViewerModule,
+    FooterModule,
+    ExploreModule
   ],
   declarations: DECLARATIONS
 })

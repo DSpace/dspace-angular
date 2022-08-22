@@ -1,15 +1,12 @@
-<div *ngVar="(metadata$ | async) as metadata">
-	<ng-container *ngIf="metadata" [ngTemplateOutlet]="!!metadata.authority ? withAuthority : withoutAuthority"
+<div class="d-inline-block" *ngVar="(metadata$ | async) as metadata">
+	<ng-container *ngIf="metadata" [ngTemplateOutlet]="metadata?.authority ? withAuthority : withoutAuthority"
                   [ngTemplateOutletContext]="{metadata:metadata}"></ng-container>
 </div>
-
-
 
 <ng-template style="display:flex;" #withAuthority let-metadata="metadata">
   <a rel="noopener noreferrer"
      [routerLink]="['/items/' + metadata.authority]">
-     <span>{{metadata.value}}</span>
-     <i class="{{metadata.icon}}"></i>
+     <span>{{metadata.value}}</span>&nbsp;<i class="{{metadata.icon}}"></i>
   </a>
   <img *ngIf="metadata.orcidAuthenticated"
        placement="top"
@@ -19,6 +16,6 @@
        src="assets/images/orcid.logo.icon.svg"/>
 </ng-template>
 
-<ng-template #withoutAuthority let-ref="metadata">
-  {{normalizeValue(metadata.value)}}
+<ng-template #withoutAuthority let-metadata="metadata">
+  <span>{{normalizeValue(metadata.value)}}</span>
 </ng-template>

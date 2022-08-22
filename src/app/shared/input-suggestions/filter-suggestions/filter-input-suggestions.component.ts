@@ -11,7 +11,7 @@ import { InputSuggestion } from '../input-suggestions.model';
     {
       provide: NG_VALUE_ACCESSOR,
       // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
-      // tslint:disable-next-line:no-forward-ref
+      // eslint-disable-next-line @angular-eslint/no-forward-ref
       useExisting: forwardRef(() => FilterInputSuggestionsComponent),
       multi: true
     }

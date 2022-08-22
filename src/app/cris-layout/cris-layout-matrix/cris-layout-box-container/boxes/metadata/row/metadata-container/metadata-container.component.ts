@@ -53,13 +53,6 @@ export class MetadataContainerComponent implements OnInit {
    */
   metadataFieldRenderOptions: MetadataBoxFieldRenderOptions;
 
-  /**
-   * The rendering sub-type, if exists
-   * e.g. for type identifier.doi this property
-   * contains the sub-type doi
-   */
-  renderingSubType: string;
-
   constructor(
     protected bitstreamDataService: BitstreamDataService,
     protected translateService: TranslateService,
@@ -113,7 +106,9 @@ export class MetadataContainerComponent implements OnInit {
 
   ngOnInit() {
     const rendering = this.computeRendering(this.field);
-    if (this.field.fieldType === LayoutFieldType.BITSTREAM && rendering.toLocaleLowerCase() === FieldRenderingType.ATTACHMENT.toLocaleLowerCase()) {
+    if (this.field.fieldType === LayoutFieldType.BITSTREAM
+      && (rendering.toLocaleLowerCase() === FieldRenderingType.ATTACHMENT.toLocaleLowerCase()
+        || rendering.toLocaleLowerCase() === FieldRenderingType.ADVANCEDATTACHMENT.toLocaleLowerCase())) {
       this.hasBitstream().pipe(take(1)).subscribe((hasBitstream: boolean) => {
         if (hasBitstream) {
           this.initRenderOptions(rendering);
@@ -124,8 +119,7 @@ export class MetadataContainerComponent implements OnInit {
     }
   }
 
-  initRenderOptions(renderingType: string|FieldRenderingType): void {
-    this.renderingSubType = this.computeSubType(this.field);
+  initRenderOptions(renderingType: string | FieldRenderingType): void {
     this.metadataFieldRenderOptions = this.getMetadataBoxFieldRenderOptions(renderingType);
     this.isStructured = this.metadataFieldRenderOptions.structured;
     this.cd.detectChanges();
@@ -154,17 +148,6 @@ export class MetadataContainerComponent implements OnInit {
     return (this.field.fieldType === LayoutFieldType.BITSTREAM) ||
       (field.fieldType === LayoutFieldType.METADATAGROUP && existOneMetadataWithValue) ||
       (field.fieldType === LayoutFieldType.METADATA && this.item.firstMetadataValue(field.metadata));
-  }
-
-  computeSubType(field: LayoutField): string | FieldRenderingType {
-    const rendering = field.rendering;
-    let subtype: string;
-
-    if (rendering?.indexOf('.') > -1) {
-      const values = rendering.split('.');
-      subtype = values[1];
-    }
-    return subtype;
   }
 
   computeRendering(field: LayoutField): string | FieldRenderingType {

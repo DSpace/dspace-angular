@@ -102,12 +102,12 @@ describe('SearchFacetFilterComponent', () => {
             getSelectedValuesForFilter: () => observableOf(selectedValues),
             isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
             getPage: (paramName: string) => page,
-            /* tslint:disable:no-empty */
+            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             incrementPage: (filterName: string) => {
             },
             resetPage: (filterName: string) => {
             }
-            /* tslint:enable:no-empty */
+            /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
           }
         }
       ],

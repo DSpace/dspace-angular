@@ -50,6 +50,11 @@ export class ObjectGridComponent implements OnInit {
   @Input() sortConfig: SortOptions;
 
   /**
+   * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
+   */
+  @Input() showPaginator = true;
+
+  /**
    * The whether or not the gear is hidden
    */
   @Input() hideGear = false;
@@ -134,6 +139,17 @@ export class ObjectGridComponent implements OnInit {
    * Event's payload equals to the newly selected sort field.
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
+
+  /**
+   * If showPaginator is set to true, emit when the previous button is clicked
+   */
+  @Output() prev = new EventEmitter<boolean>();
+
+  /**
+   * If showPaginator is set to true, emit when the next button is clicked
+   */
+  @Output() next = new EventEmitter<boolean>();
+
   data: any = {};
   columns$: Observable<ListableObject[]>;
 
@@ -223,6 +239,20 @@ export class ObjectGridComponent implements OnInit {
    */
   onPaginationChange(event) {
     this.paginationChange.emit(event);
+  }
+
+  /**
+   * Go to the previous page
+   */
+  goPrev() {
+      this.prev.emit(true);
+  }
+
+ /**
+  * Go to the next page
+  */
+  goNext() {
+      this.next.emit(true);
   }
 
 }

@@ -42,7 +42,7 @@
       </div>
 
       <div class="pl-2" *ngIf="(finished | async) && files && files?.length > 0">
-        <ds-file-download-link *ngFor="let file of files; let last=last;" [isBlank]="true" [bitstream]="file">
+        <ds-file-download-link *ngFor="let file of files; let last=last;" [bitstream]="file">
           <span>{{getFileName(file)}}</span>
           <span>({{(file?.sizeBytes) | dsFileSize }})</span>
         </ds-file-download-link>

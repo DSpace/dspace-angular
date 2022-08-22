@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { v4 as uuidv4 } from 'uuid';
 
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
@@ -119,6 +120,7 @@ const vocabularyExternal: any = Object.assign(new Vocabulary(), {
     },
   }
 });
+const validAuthority = uuidv4();
 describe('Dynamic Lookup component', () => {
   function init() {
     LOOKUP_TEST_MODEL_CONFIG = {
@@ -398,12 +400,12 @@ describe('Dynamic Lookup component', () => {
           lookupComp.group = LOOKUP_TEST_GROUP;
           lookupComp.model = new DynamicLookupModel(LOOKUP_TEST_MODEL_CONFIG);
           const entry = observableOf(Object.assign(new VocabularyEntry(), {
-            authority: 'test001',
+            authority: validAuthority,
             value: 'test',
             display: 'testDisplay'
           }));
           spyOn((lookupComp as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
-          lookupComp.model.value = new FormFieldMetadataValueObject('test', null, null,'test001', 'testDisplay');
+          lookupComp.model.value = new FormFieldMetadataValueObject('test', null, null,validAuthority, 'testDisplay');
           lookupFixture.detectChanges();
 
           // spyOn(store, 'dispatch');
@@ -608,14 +610,14 @@ describe('Dynamic Lookup component', () => {
           lookupComp = lookupFixture.componentInstance; // FormComponent test instance
           lookupComp.group = LOOKUP_TEST_GROUP;
           lookupComp.model = new DynamicLookupNameModel(LOOKUP_NAME_TEST_MODEL_CONFIG);
-          lookupComp.model.value = new FormFieldMetadataValueObject('Name, Lastname', null,null, 'test001');
+          lookupComp.model.value = new FormFieldMetadataValueObject('Name, Lastname', null,null, validAuthority);
           const entry = observableOf(Object.assign(new VocabularyEntry(), {
-            authority: 'test001',
+            authority: validAuthority,
             value: 'Name, Lastname',
             display: 'Name, Lastname'
           }));
           spyOn((lookupComp as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
-          lookupComp.model.value = new FormFieldMetadataValueObject('Name, Lastname', null,null, 'test001', 'Name, Lastname');
+          lookupComp.model.value = new FormFieldMetadataValueObject('Name, Lastname', null,null, validAuthority, 'Name, Lastname');
           lookupFixture.detectChanges();
 
         });

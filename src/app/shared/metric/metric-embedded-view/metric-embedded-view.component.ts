@@ -1,20 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import {BaseMetricComponent} from '../metric-loader/base-metric.component';
-import {DomSanitizer} from '@angular/platform-browser';
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 
 @Component({
   selector: 'ds-metric-embedded-view',
   templateUrl: './metric-embedded-view.component.html',
-  styleUrls: ['./metric-embedded-view.component.scss']
+  styleUrls: ['./metric-embedded-view.component.scss', '../metric-loader/base-metric.component.scss']
 })
-export class MetricEmbeddedViewComponent  extends BaseMetricComponent implements OnInit  {
-  sanitizedInnerHtml;
-  constructor(protected sr: DomSanitizer) {
+export class MetricEmbeddedViewComponent extends BaseMetricComponent implements OnInit {
+
+  href = '';
+
+  constructor(private render: Renderer2) {
     super();
   }
 
   ngOnInit(): void {
-    this.sanitizedInnerHtml = this.sr.bypassSecurityTrustHtml(this.metric.remark);
+    if (this.metric.remark) {
+      const element: HTMLElement = this.render.createElement('div');
+      element.innerHTML = this.metric.remark;
+      const hrefAttr = (element.childNodes[0] as any).href;
+      this.href = hrefAttr ? hrefAttr : '';
+    }
   }
-
 }

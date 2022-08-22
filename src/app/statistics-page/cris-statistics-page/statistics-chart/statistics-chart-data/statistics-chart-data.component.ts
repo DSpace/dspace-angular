@@ -45,6 +45,7 @@ export class StatisticsChartDataComponent implements OnInit {
 
   constructor(
     @Inject(REPORT_DATA) public report: UsageReport,
+    @Inject('categoryType') public categoryType: string,
     private exportService: ExportService
   ) {
   }
@@ -55,7 +56,6 @@ export class StatisticsChartDataComponent implements OnInit {
   }
 
   select(data) {
-    /* tslint:disable-next-line */
     // const queryParam = this.router['browserUrlTree'].queryParamMap.params;
     // const key = this.filterConfig.paramName;
     // let value = queryParam[this.filterConfig.paramName];

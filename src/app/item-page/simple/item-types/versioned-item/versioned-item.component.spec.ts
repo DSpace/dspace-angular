@@ -35,7 +35,7 @@ const mockItem: Item = Object.assign(new Item(), {
 });
 
 
-@Component({template: ''})
+@Component({ template: '' })
 class DummyComponent {
 }
 

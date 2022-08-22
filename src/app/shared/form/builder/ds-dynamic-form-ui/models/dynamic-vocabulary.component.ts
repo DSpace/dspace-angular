@@ -24,6 +24,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/o
 import { VocabularyExternalSourceComponent } from '../../../../vocabulary-external-source/vocabulary-external-source.component';
 import { SubmissionScopeType } from '../../../../../core/submission/submission-scope-type';
 import { SubmissionService } from '../../../../../submission/submission.service';
+import { Metadata } from '../../../../../core/shared/metadata.utils';
 
 /**
  * An abstract class to be extended by form components that handle vocabulary
@@ -37,10 +38,10 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
   @Input() abstract group: FormGroup;
   @Input() abstract model: DsDynamicInputModel;
 
-  @Output() abstract blur: EventEmitter<any> = new EventEmitter<any>();
-  @Output() abstract change: EventEmitter<any> = new EventEmitter<any>();
-  @Output() abstract focus: EventEmitter<any> = new EventEmitter<any>();
-  @Output() abstract customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
+  @Output() abstract blur: EventEmitter<any>;
+  @Output() abstract change: EventEmitter<any>;
+  @Output() abstract focus: EventEmitter<any>;
+  @Output() abstract customEvent: EventEmitter<DynamicFormControlCustomEvent>;
 
   /**
    * The vocabulary entry
@@ -245,7 +246,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       if (hasValue(otherInformation)) {
         const updatedModels = [];
         for (const key in otherInformation) {
-          if (otherInformation.hasOwnProperty(key)) {
+          if (otherInformation.hasOwnProperty(key) && key.startsWith('data-')) {
             const fieldId = key.replace('data-', '');
             const newValue: FormFieldMetadataValueObject = this.getOtherInformationValue(otherInformation[key]);
             if (isNotEmpty(newValue)) {
@@ -287,7 +288,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     return returnValue;
   }
 
-  private hasValidAuthority(value: FormFieldMetadataValueObject) {
-    return value.hasAuthority() && isNotEmpty(value.authority) && !value.authority.startsWith('will be');
+  private hasValidAuthority(formMetadataValue: FormFieldMetadataValueObject) {
+    return Metadata.hasValidAuthority(formMetadataValue?.authority);
   }
 }

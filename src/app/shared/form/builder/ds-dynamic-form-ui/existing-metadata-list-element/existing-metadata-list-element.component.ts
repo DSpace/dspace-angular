@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
@@ -22,7 +23,6 @@ import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
 
-// tslint:disable:max-classes-per-file
 /**
  * Abstract class that defines objects that can be reordered
  */
@@ -218,4 +218,3 @@ export class ExistingMetadataListElementComponent implements OnInit, OnChanges, 
 
 }
 
-// tslint:enable:max-classes-per-file

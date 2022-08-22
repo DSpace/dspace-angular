@@ -7,7 +7,7 @@ import { MenuComponent } from './menu.component';
 import { MenuServiceStub } from '../testing/menu-service.stub';
 import { of as observableOf } from 'rxjs';
 import { MenuSection } from './menu.reducer';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuID } from './initial-menus-state';
 import { Item } from '../../core/shared/item.model';
@@ -22,8 +22,6 @@ describe('MenuComponent', () => {
 
   const mockMenuID = 'mock-menuID' as MenuID;
 
-  const mockStatisticSection = { 'id': 'statistics_site', 'active': true, 'visible': true, 'index': 2, 'type': 'statistics', 'model': { 'type': 1, 'text': 'menu.section.statistics', 'link': 'statistics' } };
-
   let authorizationService: AuthorizationDataService;
 
   const mockItem = Object.assign(new Item(), {
@@ -37,7 +35,6 @@ describe('MenuComponent', () => {
       }
     }
   });
-
 
   const routeStub = {
     data: observableOf({
@@ -129,35 +126,4 @@ describe('MenuComponent', () => {
       expect(menuService.collapseMenuPreview).toHaveBeenCalledWith(comp.menuID);
     }));
   });
-
-  describe('when unauthorized statistics', () => {
-
-    beforeEach(() => {
-      (authorizationService as any).isAuthorized.and.returnValue(observableOf(false));
-      fixture.detectChanges();
-    });
-
-    it('should return observable of empty object', done => {
-      comp.getAuthorizedStatistics(mockStatisticSection).subscribe((res) => {
-        expect(res).toEqual({});
-        done();
-      });
-    });
-  });
-
-  describe('get authorized statistics', () => {
-
-    beforeEach(() => {
-      (authorizationService as any).isAuthorized.and.returnValue(observableOf(true));
-      fixture.detectChanges();
-    });
-
-    it('should return observable of statistics section menu', done => {
-      comp.getAuthorizedStatistics(mockStatisticSection).subscribe((res) => {
-        expect(res).toEqual(mockStatisticSection);
-        done();
-      });
-    });
-  });
-
 });

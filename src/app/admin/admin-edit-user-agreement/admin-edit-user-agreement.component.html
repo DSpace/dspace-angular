@@ -1,5 +1,6 @@
 <div class="container">
   <h2>{{'admin.edit-user-agreement.header' | translate}}</h2>
+  <ds-alert [type]="'alert-info'" [dismissible]="true" [content]="'admin.edit-user-agreement.markdown' | translate"></ds-alert>
   <div *ngFor="let userAgreementText of (userAgreementTexts | keyvalue)" class="form-group">
     <label>{{userAgreementText.value.languageLabel}}</label>
     <textarea class="col-md-12 m-2" [(ngModel)]="userAgreementText.value.text" rows="10"></textarea>
@@ -7,7 +8,7 @@
   <div class="col-md">
     <button class="btn btn-primary float-right m-2" (click)="$event.preventDefault();confirmEdit(content)" >
       <span>
-        <i class="fas fa-edit"></i> 
+        <i class="fas fa-edit"></i>
         &nbsp;{{ 'admin.edit-user-agreement.save-button' | translate }}
       </span>
     </button>

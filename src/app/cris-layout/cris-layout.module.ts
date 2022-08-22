@@ -33,6 +33,7 @@ import { OrcidSyncQueueComponent } from './cris-layout-matrix/cris-layout-box-co
 import { OrcidAuthorizationsComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/orcid-authorizations/orcid-authorizations.component';
 import { OrcidSyncSettingsComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/orcid-sync-settings/orcid-sync-settings.component';
 import { CrisLayoutMetricsBoxComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component';
+import { CrisLayoutIIIFViewerBoxComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/iiif-viewer/cris-layout-iiif-viewer-box.component';
 import { MetricRowComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metrics/metric-row/metric-row.component';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 import { TableComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/metadataGroup/table/table.component';
@@ -42,8 +43,11 @@ import { ValuepairComponent } from './cris-layout-matrix/cris-layout-box-contain
 import { TagComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/tag/tag.component';
 import { MetadataContainerComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/row/metadata-container/metadata-container.component';
 import { MetadataRenderComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/row/metadata-container/metadata-render/metadata-render.component';
+import { MiradorViewerModule } from '../item-page/mirador-viewer/mirador-viewer.module';
 import { ComcolModule } from '../shared/comcol/comcol.module';
 import { SearchModule } from '../shared/search/search.module';
+import { AdvancedAttachmentComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/advanced-attachment.component';
+import { FileDownloadButtonComponent } from '../shared/file-download-button/file-download-button.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -53,6 +57,7 @@ const ENTRY_COMPONENTS = [
   TextComponent,
   HeadingComponent,
   CrisLayoutRelationBoxComponent,
+  CrisLayoutIIIFViewerBoxComponent,
   LongtextComponent,
   DateComponent,
   LinkComponent,
@@ -69,6 +74,7 @@ const ENTRY_COMPONENTS = [
   OrcidComponent,
   ValuepairComponent,
   TagComponent,
+  AdvancedAttachmentComponent,
 ];
 @NgModule({
   declarations: [
@@ -83,10 +89,16 @@ const ENTRY_COMPONENTS = [
     CrisLayoutSidebarItemComponent,
     CrisLayoutBoxContainerComponent,
     MetricRowComponent,
+    TableComponent,
+    InlineComponent,
+    OrcidComponent,
+    ValuepairComponent,
+    TagComponent,
     DsDatePipe,
     RowComponent,
     MetadataContainerComponent,
-    MetadataRenderComponent
+    MetadataRenderComponent,
+    FileDownloadButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -95,7 +107,8 @@ const ENTRY_COMPONENTS = [
     MyDSpacePageModule,
     ContextMenuModule.withEntryComponents(),
     NgbAccordionModule,
-    ComcolModule
+    ComcolModule,
+    MiradorViewerModule,
   ],
   exports: [
     CrisLayoutComponent,

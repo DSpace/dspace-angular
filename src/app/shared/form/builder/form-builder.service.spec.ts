@@ -106,7 +106,7 @@ describe('FormBuilderService test suite', () => {
       new DynamicInputModel(
         {
           id: 'testInput',
-          mask: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
+          mask: '(000) 000-0000',
         }
       ),
 

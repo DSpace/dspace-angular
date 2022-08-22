@@ -1,9 +1,10 @@
 // This configuration is only used for unit tests, end-to-end tests use environment.production.ts
+import { BuildConfig } from 'src/config/build-config.interface';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
-import { AppConfig } from '../config/app-config.interface';
+import { AdvancedAttachmentElementType } from '../config/advanced-attachment-rendering.config';
 
-export const environment: AppConfig = {
+export const environment: BuildConfig = {
   production: false,
 
   // Angular Universal settings
@@ -184,6 +185,10 @@ export const environment: AppConfig = {
     code: 'lv',
     label: 'Latviešu',
     active: true,
+  }, {
+    code: 'bn',
+    label: 'বাংলা',
+    active: true,
   }],
 
   // Browse-By Pages
@@ -322,5 +327,86 @@ export const environment: AppConfig = {
     siteId: '',
     scriptUrl: 'http://s7.addthis.com/js/300/addthis_widget.js#pubid=',
     socialNetworksEnabled: false
+  },
+  metricVisualizationConfig: [
+    {
+      type: 'altmetric',
+      icon: null,
+      class: 'alert-light',
+    },
+    {
+      type: 'plumX',
+      icon: null,
+      class: null,
+    },
+    {
+      type: 'dimensions',
+      icon: 'fa fa-cubes',
+      class: 'alert-secondary',
+    },
+    {
+      type: 'google-scholar',
+      icon: '/assets/images/google-scholar.svg',
+      class: 'alert-info',
+    },
+    {
+      type: 'embedded-view',
+      icon: 'fa fa-eye',
+      class: 'alert-success'
+    },
+    {
+      type: 'embedded-download',
+      icon: 'fa fa-cloud-download-alt',
+      class: 'alert-danger',
+    },
+    {
+      type: 'view',
+      icon: 'fa fa-eye',
+      class: 'alert-success',
+    },
+    {
+      type: 'download',
+      icon: 'fa fa-cloud-download-alt',
+      class: 'alert-danger',
+    },
+  ],
+
+  attachmentRendering: {
+    pagination: {
+      enabled: true,
+      elementsPerPage: 2
+    },
+  },
+
+  advancedAttachmentRendering: {
+    pagination: {
+      enabled: true,
+      elementsPerPage: 2
+    },
+    metadata: [
+      {
+        name: 'dc.title',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: false
+      },
+      {
+        name: 'dc.type',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: false
+      },
+      {
+        name: 'dc.description',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: true
+      },
+      {
+        name: 'size',
+        type: AdvancedAttachmentElementType.Attribute,
+      },
+      {
+        name: 'format',
+        type: AdvancedAttachmentElementType.Attribute,
+      }
+    ]
   }
 };

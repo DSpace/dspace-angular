@@ -140,12 +140,11 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
     if (existingNode && existingNode.item.id !== LOAD_MORE && existingNode.item.id !== LOAD_MORE_ROOT) {
       return existingNode;
     }
-
     const newNode: TreeviewFlatNode = new TreeviewFlatNode(
       node.item,
       level,
       node.hasChildren,
-      (node.hasChildren && isNotEmpty(node.children)),
+      ((!node.isSearchNode && node.hasChildren) || (node.isSearchNode && node.hasChildren &&  isNotEmpty(node.children))),
       node.pageInfo,
       node.loadMoreParentItem,
       node.isSearchNode,
@@ -162,7 +161,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
       this.treeControl.expand(newNode);
     }
     return newNode;
-  }
+  };
 
   /**
    * Get tree level for a given node

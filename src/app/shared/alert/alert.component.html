@@ -1,4 +1,4 @@
-<div *ngIf="!isDismissed" class="alert {{type}} fade show w-100" role="alert" [class.alert-dismissible]="dismissible" [@enterLeave]="animate">
+<div *ngIf="!isDismissed" class="alert {{type}} fade show w-100 p-3" role="alert" [class.alert-dismissible]="dismissible" [@enterLeave]="animate">
   <button *ngIf="dismissible" type="button" class="close" data-dismiss="alert" attr.aria-label="{{'alert.close.aria' | translate}}" (click)="dismiss()">
     <span aria-hidden="true">&times;</span>
   </button>

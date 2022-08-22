@@ -1,19 +1,28 @@
-<ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
-<ds-truncatable [id]="dso.id">
-    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer"
-       [routerLink]="[itemPageRoute]" class="lead"
-       [innerHTML]="getPersonName()"></a>
-    <span *ngIf="linkType == linkTypes.None"
-          class="lead"
-          [innerHTML]="getPersonName()"></span>
-    <span class="text-muted">
-    <ds-truncatable-part [id]="dso.id" [minLines]="1">
-            <span *ngIf="dso.allMetadata(['person.jobTitle']).length > 0"
-                  class="item-list-job-title">
-                    <span *ngFor="let value of allMetadataValues(['person.jobTitle']); let last=last;">
-                        <span [innerHTML]="value"><span [innerHTML]="value"></span></span>
-                    </span>
-            </span>
-        </ds-truncatable-part>
-  </span>
-</ds-truncatable>
+<div class="d-flex">
+  <div class="truncatable-content">
+    <div>
+      <ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
+      <ds-truncatable [id]="dso.id">
+          <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer"
+            [routerLink]="[itemPageRoute]" class="lead"
+            [innerHTML]="getPersonName()"></a>
+          <span *ngIf="linkType == linkTypes.None"
+                class="lead"
+                [innerHTML]="getPersonName()"></span>
+          <span class="text-muted">
+          <ds-truncatable-part [id]="dso.id" [minLines]="1">
+                  <span *ngIf="dso.allMetadata(['person.jobTitle']).length > 0"
+                        class="item-list-job-title">
+                          <span *ngFor="let value of allMetadataValues(['person.jobTitle']); let last=last;">
+                              <span [innerHTML]="value"><span [innerHTML]="value"></span></span>
+                          </span>
+                  </span>
+              </ds-truncatable-part>
+        </span>
+      </ds-truncatable>
+    </div>
+  </div>
+  <div class="align-self-center">
+    <ds-metric-donuts *ngIf="!hideMetrics" [item]="dso"></ds-metric-donuts>
+  </div>
+</div>

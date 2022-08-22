@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map, take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Site } from '../core/shared/site.model';
 import { SectionComponent, TextRowSection } from '../core/layout/models/section.model';
 import { SectionDataService } from '../core/layout/section-data.service';
@@ -17,7 +17,7 @@ import { LocaleService } from '../core/locale/locale.service';
 })
 export class HomePageComponent implements OnInit {
 
-  site$: Observable<Site>;
+  site$: BehaviorSubject<Site> = new BehaviorSubject<Site>(null);
 
   sectionId = 'site';
 
@@ -44,9 +44,13 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.site$ = this.route.data.pipe(
+    this.route.data.pipe(
       map((data) => data.site as Site),
-    );
+      take(1)
+    ).subscribe((site: Site) => {
+      this.site$.next(site);
+    });
+
     this.sectionComponentRows = this.sectionDataService.findById('site').pipe(
       getFirstSucceededRemoteDataPayload(),
       map ( (section) => section.componentRows)

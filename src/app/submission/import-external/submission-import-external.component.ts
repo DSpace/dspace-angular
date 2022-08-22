@@ -157,6 +157,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
   public import(entry): void {
     this.modalRef = this.modalService.open(SubmissionImportExternalPreviewComponent, {
       size: 'lg',
+      scrollable: true
     });
     const modalComp = this.modalRef.componentInstance;
     modalComp.externalSourceEntry = entry;

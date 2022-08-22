@@ -9,6 +9,7 @@ import { ExportService } from '../../../../core/export-service/export.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StatisticsChartBarComponent } from '../statistics-chart-bar/statistics-chart-bar.component';
+import { StatisticsType } from '../../statistics-type.model';
 
 describe('StatisticsChartWrapperComponent', () => {
   let component: StatisticsChartWrapperComponent;
@@ -19,7 +20,7 @@ describe('StatisticsChartWrapperComponent', () => {
     'id': '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits',
     'type': USAGE_REPORT,
     'reportType': 'TotalVisits',
-    'viewMode': 'chart.bar',
+    'viewMode': StatisticsType['chart.bar'],
     'points': [
       {
         'label': '1911e8a4-6939-490c-b58b-a5d70f8d91fb',
@@ -51,6 +52,7 @@ describe('StatisticsChartWrapperComponent', () => {
       providers: [
         { provide: REPORT_DATA, useValue: report },
         { provide: ExportService, useValue: exportServiceStub },
+        { provide: 'categoryType', useValue: 'mainReports' },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { SiteDataService } from '../../../core/data/site-data.service';
 import { LocaleService } from '../../../core/locale/locale.service';
+import { MetadatumViewModel } from '../../../core/shared/metadata.models';
+import { isNotEmpty } from '../../../shared/empty.util';
 
 @Component({
   selector: 'ds-end-user-agreement-content',
@@ -17,30 +19,26 @@ export class EndUserAgreementContentComponent implements OnInit, OnDestroy {
 
   subs: Subscription[] = [];
 
-  userAgreementText$: BehaviorSubject<string[]> = new BehaviorSubject(['']);
+  userAgreementText$: BehaviorSubject<string> = new BehaviorSubject('');
 
   constructor(private siteService: SiteDataService,
               private localeService: LocaleService) {
 
   }
 
+  private filterMetadata(metadata: MetadatumViewModel, langCode: string) {
+    return metadata.key === this.USER_AGREEMENT_TEXT_METADATA && metadata.language === langCode && isNotEmpty(metadata.value);
+  }
+
   ngOnInit(): void {
     this.subs.push(this.siteService.find().subscribe((site) => {
       const langCode = this.localeService.getCurrentLanguageCode();
-      let languageFound = false;
-      for (const metadata of site.metadataAsList) {
-        if (metadata.key === this.USER_AGREEMENT_TEXT_METADATA && metadata.language === langCode && metadata.value !== '') {
-          this.userAgreementText$.next(metadata.value.split(/\r?\n/));
-          languageFound = true;
-        }
-      }
-      if (!languageFound) { // fallback to english if no text was found for the current language
-        for (const metadata of site.metadataAsList) {
-          if (metadata.key === this.USER_AGREEMENT_TEXT_METADATA && metadata.language === 'en') {
-            this.userAgreementText$.next(metadata.value.split(/\r?\n/));
-          }
-        }
-      }
+      const fallbackLangCode = 'en';
+
+      const textArray = site.metadataAsList.filter((metadata) => this.filterMetadata(metadata, langCode));
+      const fallbackTextArray = site.metadataAsList.filter((metadata) => this.filterMetadata(metadata, fallbackLangCode));
+
+      this.userAgreementText$.next(textArray.length ? textArray[0].value : fallbackTextArray[0].value);
     }));
   }
 

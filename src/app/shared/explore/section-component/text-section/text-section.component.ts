@@ -1,8 +1,8 @@
-import { TextRowSection } from '../../../../core/layout/models/section.model';
 import { Component, Input, OnInit } from '@angular/core';
+
+import { TextRowSection } from '../../../../core/layout/models/section.model';
 import { Site } from '../../../../core/shared/site.model';
 import { LocaleService } from '../../../../core/locale/locale.service';
-
 
 @Component({
   selector: 'ds-text-section',
@@ -27,7 +27,7 @@ export class TextSectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.site.metadata && this.textRowSection.content) {
+    if (this.site?.metadata && this.textRowSection.content) {
       const mdv = this.site.firstMetadataValue(this.textRowSection.content,
         { language: this.locale.getCurrentLanguageCode() });
       this.content = mdv ?? '';

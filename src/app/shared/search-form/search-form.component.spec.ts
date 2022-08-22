@@ -47,11 +47,23 @@ describe('SearchFormComponent', () => {
     el = de.nativeElement;
   });
 
-  it('should not display scopes when empty', () => {
+  it('should not display scopes when showScopeSelector is false', fakeAsync(() => {
+    comp.showScopeSelector = false;
+
     fixture.detectChanges();
-    const select = de.query(By.css('select'));
-    expect(select).toBeNull();
-  });
+    tick();
+
+    expect(de.query(By.css('.scope-button'))).toBeFalsy();
+  }));
+
+  it('should display scopes when showScopeSelector is true', fakeAsync(() => {
+    comp.showScopeSelector = true;
+
+    fixture.detectChanges();
+    tick();
+
+    expect(de.query(By.css('.scope-button'))).toBeTruthy();
+  }));
 
   it('should display set query value in input field', fakeAsync(() => {
     const testString = 'This is a test query';

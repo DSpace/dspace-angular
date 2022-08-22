@@ -86,9 +86,13 @@ import { SearchModule } from '../../app/shared/search/search.module';
 import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
+import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 import { CrisItemPageModule } from '../../app/cris-item-page/cris-item-page.module';
 import { CrisStatisticsPageModule } from '../../app/statistics-page/cris-statistics-page/cris-statistics-page.module';
 import { BrowseMostElementsComponent } from './app/browse-most-elements/browse-most-elements.component';
+import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
+import { ExploreModule } from '../../app/shared/explore/explore.module';
+import { FooterModule } from '../../app/footer/footer.module';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -132,6 +136,7 @@ const DECLARATIONS = [
   HeaderNavbarWrapperComponent,
   BreadcrumbsComponent,
   FeedbackComponent,
+  CommunityListComponent,
   BrowseMostElementsComponent
 ];
 
@@ -186,7 +191,10 @@ const DECLARATIONS = [
     ContextMenuModule,
     OpenaireModule,
     CrisItemPageModule,
-    CrisStatisticsPageModule
+    CrisStatisticsPageModule,
+    MiradorViewerModule,
+    FooterModule,
+    ExploreModule
   ],
   declarations: DECLARATIONS
 })

@@ -9,6 +9,7 @@ import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model'
 import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../../core/shared/operators';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
 
 @Component({
   selector: 'ds-item-edit-bitstream',
@@ -53,6 +54,11 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
   bitstreamName: string;
 
   /**
+   * The bitstream's download url
+   */
+  bitstreamDownloadUrl: string;
+
+  /**
    * The format of the bitstream
    */
   format$: Observable<BitstreamFormat>;
@@ -73,6 +79,7 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     this.bitstream = cloneDeep(this.fieldUpdate.field) as Bitstream;
     this.bitstreamName = this.dsoNameService.getName(this.bitstream);
+    this.bitstreamDownloadUrl = getBitstreamDownloadRoute(this.bitstream);
     this.format$ = this.bitstream.format.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload()

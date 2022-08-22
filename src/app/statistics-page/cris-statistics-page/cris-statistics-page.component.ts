@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { UsageReportService } from '../../core/statistics/usage-report-data.service';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { getFirstSucceededRemoteData, getRemoteDataPayload, redirectOn4xx } from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -16,15 +16,15 @@ import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng
 
 import { select, Store } from '@ngrx/store';
 import { getCategoryId, getReportId } from '../../core/statistics/statistics-selector';
-import { SetCategoryReportAction } from '../../core/statistics/statistics.action';
-import { take } from 'rxjs/operators';
+import { CleanCategoryReportAction, SetCategoryReportAction } from '../../core/statistics/statistics.action';
 import { AppState } from '../../app.reducer';
+
 @Component({
   selector: 'ds-cris-statistics-page',
   templateUrl: './cris-statistics-page.component.html',
   styleUrls: ['./cris-statistics-page.component.scss']
 })
-export class CrisStatisticsPageComponent implements OnInit {
+export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
 
   /**
    * The scope dso for this statistics page, as an Observable.
@@ -221,17 +221,17 @@ export class CrisStatisticsPageComponent implements OnInit {
    * @param categoryId
    */
   setStatisticsState(reportId: string ,categoryId: string) {
-    this.store.dispatch(new SetCategoryReportAction({reportId: reportId, categoryId: categoryId}));
+    this.store.dispatch(new SetCategoryReportAction(reportId, categoryId));
   }
 
   /**
    * This function called when the report is changed
-   * @param report_Id
+   * @param reportId
    */
-  changeReport(newReportId: string) {
+  changeReport(reportId: string) {
     this.getCategoryId().subscribe((categoryId) => {
-      this.setStatisticsState(newReportId,categoryId);
-      this.selectedReportId = newReportId;
+      this.setStatisticsState(reportId, categoryId);
+      this.selectedReportId = reportId;
     });
   }
 
@@ -255,5 +255,12 @@ export class CrisStatisticsPageComponent implements OnInit {
       select(getCategoryId),
       take(1)
     );
+  }
+
+  /**
+   * Clean the statistics state in component's destroy
+   */
+  ngOnDestroy(): void {
+    this.store.dispatch(new CleanCategoryReportAction());
   }
 }

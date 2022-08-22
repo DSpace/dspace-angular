@@ -3,9 +3,7 @@
     <table class='table table-borderless'>
       <tr>
         <td *ngFor="let field of metadataGroup" class="table-light {{field.styleLabel}}">
-          <span>
-            {{getLabel(field)}}
-          </span>
+          <span [innerHTML]="getLabel(field)"></span>
         </td>
       </tr>
       <tr *ngFor="let index of componentsToBeRenderedMap.keys();">

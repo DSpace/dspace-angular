@@ -11,7 +11,7 @@ import { hasValue } from '../../../../../shared/empty.util';
 import { MetricsComponentsDataService } from '../../../../../core/layout/metrics-components-data.service';
 import { Metric } from '../../../../../core/shared/metric.model';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
-import { CrisLayoutBox, MetricsBoxConfiguration } from '../../../../../core/layout/models/box.model';
+import { CrisLayoutBox, MetricsBoxConfiguration, } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 
 export interface MetricRow {

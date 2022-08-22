@@ -46,10 +46,6 @@ export class CrisLayoutNavbarComponent extends CrisLayoutTabsComponent implement
     this.init();
   }
 
-  getTabSelected(tab) {
-    this.selectFromTabName(tab.shortname);
-  }
-
   emitSelected(selectedTab) {
     this.selectedTabChange.emit(selectedTab);
   }

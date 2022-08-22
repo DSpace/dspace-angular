@@ -1,5 +1,6 @@
 <div class="d-flex align-items-stretch justify-content-around position-relative mr-3">
     <input
+      id="{{id}}"
       type="text"
       class="form-control d-inline-block text-center {{ widthClass }}"
       maxlength="{{size}}"
@@ -13,11 +14,11 @@
       [readonly]="disabled"
       [disabled]="disabled"
       [ngClass]="{'is-invalid': invalid}"
-      aria-label="name"
+      title="{{placeholder}}"
     >
     <div class="d-flex flex-column justify-content-between">
         <button
-                class="btn btn-link-focus btn-date"
+                class="btn btn-link-focus btn-date lp-button"
                 type="button"
                 tabindex="0"
                 [disabled]="disabled"
@@ -26,7 +27,7 @@
             <span class="sr-only">Increment</span>
         </button>
         <button
-                class="btn btn-link-focus btn-date"
+                class="btn btn-link-focus btn-date lp-button"
                 type="button"
                 tabindex="0"
                 [disabled]="disabled"

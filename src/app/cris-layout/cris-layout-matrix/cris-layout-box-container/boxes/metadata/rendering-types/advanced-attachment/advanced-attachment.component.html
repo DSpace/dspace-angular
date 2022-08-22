@@ -1,0 +1,55 @@
+<div class="{{valueStyle}}">
+  <ng-container *ngFor="let attachment of (bitstreams$ | async); let last =last;">
+    <div class="row mt-1 mb-2" data-test="attachment-info">
+      <div class="col-3">
+        <ds-thumbnail [thumbnail]="attachment.thumbnail | async"></ds-thumbnail>
+      </div>
+      <div class="col-5">
+
+        <ng-container *ngFor="let attachmentConf of envMetadata">
+
+          <div class="content" [attr.data-test]="attachmentConf.name"
+            *ngIf="attachment.firstMetadataValue(attachmentConf.name) || attachmentConf.type == AdvancedAttachmentElementType.Attribute">
+            <strong>{{ 'cris-layout.advanced-attachment.'+attachmentConf.name | translate }}</strong>
+
+            <ng-container *ngIf="attachmentConf.type == AdvancedAttachmentElementType.Metadata">
+
+              <p class="word-break m-0" *ngIf="!attachmentConf.truncatable">
+                {{attachment.firstMetadataValue(attachmentConf.name)}}
+              </p>
+
+              <ds-truncatable *ngIf="attachmentConf.truncatable" [id]=" attachment.id">
+                <ds-truncatable-part [id]="attachment.id" [minLines]="1">
+                  {{attachment.firstMetadataValue(attachmentConf.name)}}
+                </ds-truncatable-part>
+              </ds-truncatable>
+
+            </ng-container>
+
+            <ng-container *ngIf="attachmentConf.type == AdvancedAttachmentElementType.Attribute">
+              <ng-container *ngIf="attachmentConf.name == 'format'">
+                <p class="word-break m-0">{{getFormat(attachment) | async}}</p>
+              </ng-container>
+
+              <ng-container *ngIf="attachmentConf.name == 'size'">
+                <p class="word-break m-0">{{getSize(attachment) | dsFileSize}}</p>
+              </ng-container>
+            </ng-container>
+
+          </div>
+        </ng-container>
+
+      </div>
+      <div class="col-4 text-right">
+        <ds-file-download-button [bitstream]="attachment" [enableRequestACopy]="true" [item]="item">
+        </ds-file-download-button>
+      </div>
+    </div>
+    <hr *ngIf="!last">
+  </ng-container>
+  <div *ngIf="canViewMore" class="w-100 text-center my-3">
+    <button class="btn btn-outline-primary" data-test="view-more" (click)="viewMore()">
+      {{'cris-layout.advanced-attachment.viewMore' | translate}}
+    </button>
+  </div>
+</div>
