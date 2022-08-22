@@ -16,9 +16,7 @@ import { hasValue } from '../../shared/empty.util';
 import { AuthService } from '../../core/auth/auth.service';
 import { Location } from '@angular/common';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
+
 
 /**
  * This component renders a full item page.
@@ -45,19 +43,13 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
 
   subs = [];
 
-  constructor(
-    protected route: ActivatedRoute,
-    protected router: Router,
-    protected items: ItemDataService,
-    protected authService: AuthService,
-    protected authorizationService: AuthorizationDataService,
-    protected _location: Location,
-    protected responseService: ServerResponseService,
-    protected signpostingDataService: SignpostingDataService,
-    protected linkHeadService: LinkHeadService,
-    @Inject(PLATFORM_ID) protected platformId: string,
-  ) {
-    super(route, router, items, authService, authorizationService, responseService, signpostingDataService, linkHeadService, platformId);
+  constructor(protected route: ActivatedRoute,
+              router: Router,
+              items: ItemDataService,
+              authService: AuthService,
+              authorizationService: AuthorizationDataService,
+              private _location: Location) {
+    super(route, router, items, authService, authorizationService);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/

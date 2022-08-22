@@ -18,11 +18,6 @@ import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } f
 import { AuthService } from '../../core/auth/auth.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
-import { RemoteData } from '../../core/data/remote-data';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -57,10 +52,7 @@ describe('FullItemPageComponent', () => {
   let authService: AuthService;
   let routeStub: ActivatedRouteStub;
   let routeData;
-  let authorizationDataService: AuthorizationDataService;
-  let serverResponseService: jasmine.SpyObj<ServerResponseService>;
-  let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
-  let linkHeadService: jasmine.SpyObj<LinkHeadService>;
+  const authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
 
   const mocklink = {
     href: 'http://test.org',
@@ -118,11 +110,7 @@ describe('FullItemPageComponent', () => {
         { provide: ItemDataService, useValue: {} },
         { provide: MetadataService, useValue: metadataServiceStub },
         { provide: AuthService, useValue: authService },
-        { provide: AuthorizationDataService, useValue: authorizationDataService },
-        { provide: ServerResponseService, useValue: serverResponseService },
-        { provide: SignpostingDataService, useValue: signpostingDataService },
-        { provide: LinkHeadService, useValue: linkHeadService },
-        { provide: PLATFORM_ID, useValue: 'server' }
+        { provide: AuthorizationDataService, useValue: authorizationService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(FullItemPageComponent, {

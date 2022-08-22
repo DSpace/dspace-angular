@@ -302,13 +302,7 @@ const PROVIDERS = [
   VocabularyEntryDetailsDataService,
   SequenceService,
   GroupDataService,
-  FeedbackDataService,
-  ResearcherProfileDataService,
-  ProfileClaimService,
-  OrcidAuthService,
-  OrcidQueueDataService,
-  OrcidHistoryDataService,
-  SupervisionOrderDataService
+  FeedbackDataService
 ];
 
 /**

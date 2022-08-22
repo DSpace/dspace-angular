@@ -7,18 +7,16 @@ import { VersionResolver } from './version-page/version.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
-import { ITEM_EDIT_PATH, ORCID_PATH, UPLOAD_BITSTREAM_PATH } from './item-page-routing-paths';
+import {ITEM_EDIT_PATH, TOMBSTONE_ITEM_PATH, UPLOAD_BITSTREAM_PATH} from './item-page-routing-paths';
 import { ItemPageAdministratorGuard } from './item-page-administrator.guard';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
-import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
-import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
-import { OrcidPageComponent } from './orcid-page/orcid-page.component';
-import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
-import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import { BitstreamRequestACopyPageComponent } from '../shared/bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
+import {REQUEST_COPY_MODULE_PATH} from '../app-routing-paths';
+import {TombstoneComponent} from './tombstone/tombstone.component';
 
 @NgModule({
   imports: [
@@ -56,10 +54,10 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             component: BitstreamRequestACopyPageComponent,
           },
           {
-            path: ORCID_PATH,
-            component: OrcidPageComponent,
-            canActivate: [AuthenticatedGuard, OrcidPageGuard]
+            path: TOMBSTONE_ITEM_PATH,
+            component: TombstoneComponent
           }
+
         ],
         data: {
           menu: {

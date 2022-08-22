@@ -22,10 +22,6 @@ import {
 import { AuthService } from '../../core/auth/auth.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.service';
-import { SignpostingLink } from '../../core/data/signposting-links.model';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -58,10 +54,7 @@ describe('ItemPageComponent', () => {
   let comp: ItemPageComponent;
   let fixture: ComponentFixture<ItemPageComponent>;
   let authService: AuthService;
-  let authorizationDataService: AuthorizationDataService;
-  let serverResponseService: jasmine.SpyObj<ServerResponseService>;
-  let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
-  let linkHeadService: jasmine.SpyObj<LinkHeadService>;
+  const authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
 
   const mockMetadataService = {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -108,11 +101,7 @@ describe('ItemPageComponent', () => {
         { provide: MetadataService, useValue: mockMetadataService },
         { provide: Router, useValue: {} },
         { provide: AuthService, useValue: authService },
-        { provide: AuthorizationDataService, useValue: authorizationDataService },
-        { provide: ServerResponseService, useValue: serverResponseService },
-        { provide: SignpostingDataService, useValue: signpostingDataService },
-        { provide: LinkHeadService, useValue: linkHeadService },
-        { provide: PLATFORM_ID, useValue: 'server' },
+        { provide: AuthorizationDataService, useValue: authorizationService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
