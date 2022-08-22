@@ -85,15 +85,15 @@ export class SubmissionService {
    * @param {SubmissionJsonPatchOperationsService} jsonPatchOperationService
    */
   constructor(protected notificationsService: NotificationsService,
-    protected restService: SubmissionRestService,
-    protected router: Router,
-    protected routeService: RouteService,
-    protected store: Store<SubmissionState>,
-    protected scrollToService: ScrollToService,
-    protected translate: TranslateService,
-    protected searchService: SearchService,
-    protected requestService: RequestService,
-    protected jsonPatchOperationService: SubmissionJsonPatchOperationsService) {
+              protected restService: SubmissionRestService,
+              protected router: Router,
+              protected routeService: RouteService,
+              protected store: Store<SubmissionState>,
+              protected scrollToService: ScrollToService,
+              protected translate: TranslateService,
+              protected searchService: SearchService,
+              protected requestService: RequestService,
+              protected jsonPatchOperationService: SubmissionJsonPatchOperationsService) {
   }
 
   /**
@@ -649,6 +649,7 @@ export class SubmissionService {
       // Now, do redirect.
       tap(() => {
         const itemUuid = submissionId.indexOf(':') > -1 ? submissionId.split(':')[0] : submissionId;
+        this.requestService.setStaleByHrefSubstring(itemUuid);
         this.router.navigateByUrl('/items/' + itemUuid, { replaceUrl: true });
       })
     ).subscribe();
