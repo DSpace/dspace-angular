@@ -1,7 +1,7 @@
 <div [class]="valueStyle">
   <div *ngFor="let attachment of (bitstreams$ | async)" class="mb-2">
     <ds-truncatable [id]="attachment.id">
-      <ds-file-download-link [bitstream]="attachment" [enableRequestACopy]="true" [item]="item">
+      <ds-file-download-link [bitstream]="attachment" [enableRequestACopy]="true" [item]="item" [showIcon]="true">
         <span data-test="title" *ngIf="fileName(attachment)"><span data-test="type" *ngIf="getType(attachment)" class="font-weight-bold">{{getType(attachment)}}: </span>{{fileName(attachment)}} ({{getSize(attachment) | dsFileSize}})</span>
       </ds-file-download-link>
       <ds-truncatable-part [id]="attachment.id" [minLines]="1">
