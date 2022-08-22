@@ -68,7 +68,6 @@ export class BrowserKlaroService extends KlaroService {
   initialize() {
     this.configService.findByPropertyName('google.analytics.key').pipe(
       getFirstCompletedRemoteData(),
-      catchError(this.removeGoogleAnalytics())
     ).subscribe((remoteData) => {
       // make sure we got a success response from the backend
       if (!remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) ) {
