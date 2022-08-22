@@ -289,7 +289,7 @@ const PROVIDERS = [
   VocabularyTreeviewService,
   SequenceService,
   GroupDataService,
-  FeedbackDataService,
+  FeedbackDataService
 ];
 
 /**

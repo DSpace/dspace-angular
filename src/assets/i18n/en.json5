@@ -2261,6 +2261,23 @@
   "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
 
 
+  "item.tombstone.withdrawn.message": "This item is withdrawn",
+
+  "item.tombstone.no.available.message": "The selected item is withdrawn and is no longer available.",
+
+  "item.tombstone.withdrawal.reason.message": "The reason for withdrawal:",
+
+  "item.tombstone.withdrawal.reason.default.value": "The reason wasn't specified.",
+
+  "item.tombstone.restricted.contact.help": ["Your user account does not have the credentials to view this item. Please contact the", "Help Desk", "if you have any questions."],
+
+  "item.tombstone.replaced.another-repository.message": "This item is managed by another repository",
+
+  "item.tombstone.replaced.locations.message": "You will find this item at the following location(s):",
+
+  "item.tombstone.replaced.help-desk.message": ["The author(s) asked us to hide this submission.", "We still keep all the data and metadata of the original submission but the submission", "is now located at the above url(s). If you need the contents of the original submission, contact us at our", "Help Desk."],
+
+
 
 
 

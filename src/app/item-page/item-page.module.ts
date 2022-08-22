@@ -34,6 +34,9 @@ import { MiradorViewerComponent } from './mirador-viewer/mirador-viewer.componen
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 import { VersionedItemComponent } from './simple/item-types/versioned-item/versioned-item.component';
 import { ThemedFileSectionComponent } from './simple/field-components/file-section/themed-file-section.component';
+import { TombstoneComponent } from './tombstone/tombstone.component';
+import { ReplacedTombstoneComponent } from './tombstone/replaced-tombstone/replaced-tombstone.component';
+import { WithdrawnTombstoneComponent } from './tombstone/withdrawn-tombstone/withdrawn-tombstone.component';
 
 
 const ENTRY_COMPONENTS = [
@@ -67,6 +70,9 @@ const DECLARATIONS = [
   MediaViewerImageComponent,
   MiradorViewerComponent,
   VersionPageComponent,
+  TombstoneComponent,
+  ReplacedTombstoneComponent,
+  WithdrawnTombstoneComponent
 ];
 
 @NgModule({

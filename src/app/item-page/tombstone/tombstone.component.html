@@ -1,0 +1,14 @@
+<div class="container">
+  <ds-replaced-tombstone *ngIf="isReplaced != null"
+                         [itemName]="itemName"
+                         [isReplaced]="isReplaced"
+                         [authors]="authors">
+  </ds-replaced-tombstone>
+  <ds-withdrawn-tombstone *ngIf="isReplaced == null"
+                          [itemName]="itemName"
+                          [reasonOfWithdrawal]="reasonOfWithdrawal"
+                          [authors]="authors">
+  </ds-withdrawn-tombstone>
+
+</div>
+

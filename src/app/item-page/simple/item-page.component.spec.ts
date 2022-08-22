@@ -21,6 +21,7 @@ import {
 } from '../../shared/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -32,6 +33,7 @@ describe('ItemPageComponent', () => {
   let comp: ItemPageComponent;
   let fixture: ComponentFixture<ItemPageComponent>;
   let authService: AuthService;
+  const authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
 
   const mockMetadataService = {
     /* tslint:disable:no-empty */
@@ -63,6 +65,7 @@ describe('ItemPageComponent', () => {
         { provide: MetadataService, useValue: mockMetadataService },
         { provide: Router, useValue: {} },
         { provide: AuthService, useValue: authService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

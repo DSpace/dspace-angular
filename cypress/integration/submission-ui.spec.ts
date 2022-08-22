@@ -9,7 +9,7 @@ const CLARIN_DSPACE_EMAIL = 'dspacedemo+admin@gmail.com';
 const collectionName = 'Col';
 const communityName = 'Com';
 
-const loginProcess = {
+export const loginProcess = {
   clickOnLoginDropdown() {
     cy.get('.navbar-container .dropdownLogin ').click();
   },
@@ -249,17 +249,35 @@ describe('Create a new submission', () => {
   // });
 
   // Test type-bind
-  it('should be showed chosen type value', () => {
+  it('should be showed chosen type value', {
+      retries: {
+        runMode: 6,
+        openMode: 6,
+      },
+      defaultCommandTimeout: 10000
+    },() => {
     createItemProcess.clickOnSelectionInput('dc.type');
     createItemProcess.clickOnTypeSelection('Article');
   });
 
   // Test CMDI input field
-  it('should be visible Has CMDI file input field because user is admin', () => {
+  it('should be visible Has CMDI file input field because user is admin', {
+      retries: {
+        runMode: 6,
+        openMode: 6,
+      },
+      defaultCommandTimeout: 10000
+    },() => {
     createItemProcess.checkLocalHasCMDIVisibility();
   });
 
-  it('The local.hasCMDI value should be sent in the response after type change', () => {
+  it('The local.hasCMDI value should be sent in the response after type change', {
+      retries: {
+        runMode: 6,
+        openMode: 6,
+      },
+      defaultCommandTimeout: 10000
+    },() => {
     createItemProcess.clickOnSelectionInput('dc.type');
     createItemProcess.clickOnTypeSelection('Article');
     createItemProcess.checkCheckbox('local_hasCMDI');

@@ -17,6 +17,7 @@ import { By } from '@angular/platform-browser';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -44,6 +45,7 @@ describe('FullItemPageComponent', () => {
   let authService: AuthService;
   let routeStub: ActivatedRouteStub;
   let routeData;
+  const authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
 
 
 
@@ -74,6 +76,7 @@ describe('FullItemPageComponent', () => {
         { provide: ItemDataService, useValue: {} },
         { provide: MetadataService, useValue: metadataServiceStub },
         { provide: AuthService, useValue: authService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
