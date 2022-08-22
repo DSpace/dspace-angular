@@ -1,44 +1,34 @@
 {
   
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
-  // TODO New key - Add a translation
-  "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
+  "401.help": "Dostępu do tej strony wymaga zalogowania. Użyj przycisku poniżej aby powrócić na stronę główną.",
   
   // "401.link.home-page": "Take me to the home page",
-  // TODO New key - Add a translation
-  "401.link.home-page": "Take me to the home page",
+  "401.link.home-page": "Zabierz mnie na stronę główną",
   
   // "401.unauthorized": "unauthorized",
-  // TODO New key - Add a translation
-  "401.unauthorized": "unauthorized",
+  "401.unauthorized": "brak autoryzacji",
   
   
   
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
-  // TODO New key - Add a translation
-  "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
+  "403.help": "Nie masz uprawnień aby uzyskać dostęp do tej strony. Użyj przycisku poniżej aby powrócić na stonę główną.",
   
   // "403.link.home-page": "Take me to the home page",
-  // TODO New key - Add a translation
-  "403.link.home-page": "Take me to the home page",
+  "403.link.home-page": "Zabierz mnie na stronę główną",
   
-  // "403.forbidden": "forbidden",
-  // TODO New key - Add a translation
-  "403.forbidden": "forbidden",
+  "403.forbidden": "brak uprawnień",
   
   
   
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
-  // TODO New key - Add a translation
-  "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
+  "404.help": "Nie możemy znaleźć strony, której szukasz. Mogła być przesunięta lub skasowana. Użyj przycisku poniżej aby powrócić na stronę główną. ",
   
   // "404.link.home-page": "Take me to the home page",
-  // TODO New key - Add a translation
-  "404.link.home-page": "Take me to the home page",
+  "404.link.home-page": "Zabierz mnie na stronę główną",
   
   // "404.page-not-found": "page not found",
-  // TODO New key - Add a translation
-  "404.page-not-found": "page not found",
+  "404.page-not-found": "nie znaleziono takiej strony",
   
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
   // TODO New key - Add a translation
