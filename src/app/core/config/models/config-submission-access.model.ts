@@ -32,6 +32,12 @@ export class SubmissionAccessModel extends ConfigObject {
   canChangeDiscoverable: boolean;
 
   /**
+   * Boolean that indicates whether or not the user can see add more access condition options.
+   */
+  @autoserialize
+  singleAccessCondition: boolean;
+
+  /**
    * The links to all related resources returned by the rest api.
    */
   @deserialize

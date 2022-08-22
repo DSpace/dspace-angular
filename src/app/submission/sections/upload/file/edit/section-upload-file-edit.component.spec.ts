@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, inject, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,13 +17,13 @@ import { SubmissionService } from '../../../../submission.service';
 import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
 import {
+  mockFileFormData,
   mockSubmissionCollectionId,
   mockSubmissionId,
+  mockSubmissionObject,
   mockUploadConfigResponse,
   mockUploadConfigResponseMetadata,
   mockUploadFiles,
-  mockFileFormData,
-  mockSubmissionObject,
 } from '../../../../../shared/mocks/submission.mock';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from '../../../../../shared/form/form.component';
@@ -32,12 +32,20 @@ import { getMockFormService } from '../../../../../shared/mocks/form-service.moc
 import { createTestComponent } from '../../../../../shared/testing/utils.test';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
+import {
+  SubmissionJsonPatchOperationsServiceStub
+} from '../../../../../shared/testing/submission-json-patch-operations-service.stub';
+import {
+  SubmissionJsonPatchOperationsService
+} from '../../../../../core/submission/submission-json-patch-operations.service';
 import { SectionUploadService } from '../../section-upload.service';
 import { getMockSectionUploadService } from '../../../../../shared/mocks/section-upload.service.mock';
-import { FormFieldMetadataValueObject } from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
-import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import {
+  FormFieldMetadataValueObject
+} from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
+import {
+  JsonPatchOperationPathCombiner
+} from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import { of } from 'rxjs';
 
@@ -112,6 +120,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
     beforeEach(() => {
       const html = `
       <ds-submission-section-upload-file-edit [availableAccessConditionGroups]="availableAccessConditionGroups"
+                                              [singleAccessCondition]="singleAccessCondition"
                                               [availableAccessConditionOptions]="availableAccessConditionOptions"
                                               [collectionId]="collectionId"
                                               [collectionPolicyType]="collectionPolicyType"
@@ -153,6 +162,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp.collectionId = collectionId;
       comp.sectionId = sectionId;
       comp.availableAccessConditionOptions = availableAccessConditionOptions;
+      comp.singleAccessCondition = false;
       comp.collectionPolicyType = collectionPolicyType;
       comp.fileIndex = fileIndex;
       comp.fileId = fileId;
@@ -168,7 +178,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       compAsAny = null;
     });
 
-    it('should init form model properly', () => {
+    it('should init form model properly when singleAccessCondition is false', () => {
       comp.fileData = fileData;
       comp.formId = 'testFileForm';
 
@@ -179,6 +189,19 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       expect(comp.formModel[0] instanceof DynamicFormGroupModel).toBeTruthy();
       expect(comp.formModel[1] instanceof DynamicFormArrayModel).toBeTruthy();
       expect((comp.formModel[1] as DynamicFormArrayModel).groups.length).toBe(2);
+    });
+
+    it('should init form model properly when singleAccessCondition is true', () => {
+      comp.fileData = fileData;
+      comp.formId = 'testFileForm';
+      comp.singleAccessCondition = true;
+
+      comp.ngOnInit();
+
+      expect(comp.formModel).toBeDefined();
+      expect(comp.formModel.length).toBe(2);
+      expect(comp.formModel[0] instanceof DynamicFormGroupModel).toBeTruthy();
+      expect(comp.formModel[1] instanceof DynamicFormGroupModel).toBeTruthy();
     });
 
     it('should call setOptions method onChange', () => {
@@ -311,6 +334,7 @@ class TestComponent {
 
   availableGroups;
   availableAccessConditionOptions;
+  singleAccessCondition;
   collectionId = mockSubmissionCollectionId;
   collectionPolicyType;
   fileIndexes = [];
