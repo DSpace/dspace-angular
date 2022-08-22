@@ -7,8 +7,11 @@ import { ConfigurationDataService } from '../data/configuration-data.service';
 import { RemoteData } from '../data/remote-data';
 import { map, take } from 'rxjs/operators';
 import { combineLatest, Observable, of } from 'rxjs';
+import { CookieService } from '../services/cookie.service';
+import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 
 export const CAPTCHA_COOKIE = '_GRECAPTCHA';
+export const CAPTCHA_NAME = 'google-recaptcha';
 
 /**
  * A GoogleRecaptchaService used to send action and get a token from REST
@@ -35,13 +38,18 @@ export class GoogleRecaptchaService {
   /**
    * A Google Recaptcha version
    */
-  captchaVersion$: Observable<string>;
+  captchaVersion$: Observable<string> = of('');
 
   constructor(
+    private cookieService: CookieService,
     @Inject(DOCUMENT) private _document: Document,
+    @Inject(NativeWindowService) private _window: NativeWindowRef,
     rendererFactory: RendererFactory2,
     private configService: ConfigurationDataService,
   ) {
+    if (this._window.nativeWindow) {
+      this._window.nativeWindow.refreshCaptchaScript = this.refreshCaptchaScript;
+    }
     this.renderer = rendererFactory.createRenderer(null, null);
     const registrationVerification$ = this.configService.findByPropertyName('registration.verification.enabled').pipe(
       take(1),
@@ -50,6 +58,14 @@ export class GoogleRecaptchaService {
         return res.hasSucceeded && res.payload && isNotEmpty(res.payload.values) && res.payload.values[0].toLowerCase() === 'true';
       })
     );
+    registrationVerification$.subscribe(registrationVerification => {
+      if (registrationVerification) {
+        this.loadRecaptchaProperties();
+      }
+    });
+  }
+
+  loadRecaptchaProperties() {
     const recaptchaKey$ = this.configService.findByPropertyName('google.recaptcha.key.site').pipe(
       take(1),
       getFirstCompletedRemoteData(),
@@ -62,13 +78,12 @@ export class GoogleRecaptchaService {
       take(1),
       getFirstCompletedRemoteData(),
     );
-    combineLatest(registrationVerification$, recaptchaVersion$, recaptchaMode$, recaptchaKey$).subscribe(([registrationVerification, recaptchaVersion, recaptchaMode, recaptchaKey]) => {
-      if (registrationVerification) {
+    combineLatest(recaptchaVersion$, recaptchaMode$, recaptchaKey$).subscribe(([recaptchaVersion, recaptchaMode, recaptchaKey]) => {
+      if (this.cookieService.get('klaro-anonymous') && this.cookieService.get('klaro-anonymous')[CAPTCHA_NAME]) {
         if (recaptchaKey.hasSucceeded && isNotEmpty(recaptchaKey?.payload?.values[0])) {
           this.captchaSiteKeyStr = recaptchaKey?.payload?.values[0];
           this.captchaSiteKey$ = of(recaptchaKey?.payload?.values[0]);
         }
-
         if (recaptchaVersion.hasSucceeded && isNotEmpty(recaptchaVersion?.payload?.values[0]) && recaptchaVersion?.payload?.values[0] === 'v3') {
           this.captchaVersion$ = of('v3');
           if (recaptchaKey.hasSucceeded && isNotEmpty(recaptchaKey?.payload?.values[0])) {
@@ -136,5 +151,9 @@ export class GoogleRecaptchaService {
       this.renderer.appendChild(this._document.head, script);
     });
   }
+
+  refreshCaptchaScript = () => {
+    this.loadRecaptchaProperties();
+  };
 
 }

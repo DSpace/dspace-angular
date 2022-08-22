@@ -1,6 +1,7 @@
 import { GoogleRecaptchaService } from './google-recaptcha.service';
 import { of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { NativeWindowRef } from '../services/window.service';
 
 describe('GoogleRecaptchaService', () => {
   let service: GoogleRecaptchaService;
@@ -9,6 +10,8 @@ describe('GoogleRecaptchaService', () => {
   let configurationDataService;
   let spy: jasmine.Spy;
   let scriptElementMock: any;
+  let cookieService;
+  let window;
   const innerHTMLTestValue = 'mock-script-inner-html';
   const document = { documentElement: { lang: 'en' } } as Document;
   scriptElementMock = {
@@ -17,6 +20,7 @@ describe('GoogleRecaptchaService', () => {
   };
 
   function init() {
+    window = new NativeWindowRef();
     rendererFactory2 = jasmine.createSpyObj('rendererFactory2', {
       createRenderer: observableOf('googleRecaptchaToken'),
       createElement: scriptElementMock
@@ -24,7 +28,13 @@ describe('GoogleRecaptchaService', () => {
     configurationDataService = jasmine.createSpyObj('configurationDataService', {
       findByPropertyName: createSuccessfulRemoteDataObject$({ values: ['googleRecaptchaToken'] })
     });
-    service = new GoogleRecaptchaService(document, rendererFactory2, configurationDataService);
+    cookieService = jasmine.createSpyObj('cookieService', {
+      get: '{%22token_item%22:true%2C%22impersonation%22:true%2C%22redirect%22:true%2C%22language%22:true%2C%22klaro%22:true%2C%22has_agreed_end_user%22:true%2C%22google-analytics%22:true}',
+      set: () => {
+        /* empty */
+      }
+    });
+    service = new GoogleRecaptchaService(cookieService, document, window, rendererFactory2, configurationDataService);
   }
 
   beforeEach(() => {

@@ -39,16 +39,6 @@ export class RegisterEmailFormComponent implements OnInit {
    */
   registrationVerification = false;
 
-  /**
-   * captcha version
-   */
-  captchaVersion = 'v2';
-
-  /**
-   * captcha mode
-   */
-  captchaMode = 'checkbox';
-
   recaptchaKey$: Observable<any>;
 
   constructor(
@@ -74,12 +64,6 @@ export class RegisterEmailFormComponent implements OnInit {
     this.recaptchaKey$ = this.configService.findByPropertyName('google.recaptcha.key.site').pipe(
       getFirstSucceededRemoteDataPayload(),
     );
-    this.googleRecaptchaService.captchaVersion$.subscribe(res => {
-      this.captchaVersion = res;
-    });
-    this.googleRecaptchaService.captchaMode$.subscribe(res => {
-      this.captchaMode = res;
-    });
     this.configService.findByPropertyName('registration.verification.enabled').pipe(
       getFirstCompletedRemoteData(),
       map((res: RemoteData<ConfigurationProperty>) => {
@@ -104,9 +88,17 @@ export class RegisterEmailFormComponent implements OnInit {
     if (!this.form.invalid) {
       if (this.registrationVerification) {
         let token;
-        if (this.captchaVersion === 'v3') {
+        let captchaVersion;
+        let captchaMode;
+        this.googleRecaptchaService.captchaVersion$.subscribe(res => {
+          captchaVersion = res;
+        });
+        this.googleRecaptchaService.captchaMode$.subscribe(res => {
+          captchaMode = res;
+        });
+        if (captchaVersion === 'v3') {
           token = await this.googleRecaptchaService.getRecaptchaToken('register_email');
-        } else if (this.captchaMode === 'checkbox') {
+        } else if (captchaMode === 'checkbox') {
           token = await this.googleRecaptchaService.getRecaptchaTokenResponse();
         } else {
           token = tokenV2;

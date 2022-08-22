@@ -1,7 +1,7 @@
 import { TOKENITEM } from '../../core/auth/models/auth-token-info.model';
 import { IMPERSONATING_COOKIE, REDIRECT_COOKIE } from '../../core/auth/auth.service';
 import { LANG_COOKIE } from '../../core/locale/locale.service';
-import { CAPTCHA_COOKIE } from 'src/app/core/google-recaptcha/google-recaptcha.service';
+import { CAPTCHA_COOKIE, CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
 
 /**
  * Cookie for has_agreed_end_user
@@ -157,12 +157,15 @@ export const klaroConfiguration: any = {
       onlyOnce: true,
     },
     {
-      name: 'google-recaptcha',
+      name: CAPTCHA_NAME,
       purposes: ['registration-password-recovery'],
-      required: true,
+      required: false,
       cookies: [
         CAPTCHA_COOKIE
       ],
+      onAccept: `window.refreshCaptchaScript()`,
+      onDecline: `window.refreshCaptchaScript()`,
+      onInit: `window.refreshCaptchaScript()`,
       onlyOnce: true,
     }
   ],

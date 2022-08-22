@@ -1264,7 +1264,7 @@
 
   "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
 
-  "cookies.consent.app.description.google-recaptcha": "Allows us to track registration and password recovery data",
+  "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
 
 
 
