@@ -5119,6 +5119,8 @@
 
   "statistics.table.mainReports.header.views": "Views",
 
+  "statistics.table.mainReports.header.bitstream": "File Visits",
+
   "statistics.table.mainReports.header.continent": "Continent",
 
   "statistics.table.mainReports.header.country": "Country",
