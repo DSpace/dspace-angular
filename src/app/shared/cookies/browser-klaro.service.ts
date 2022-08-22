@@ -4,15 +4,18 @@ import { combineLatest as observableCombineLatest, Observable, of as observableO
 import { AuthService } from '../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../environments/environment';
-import { switchMap, take } from 'rxjs/operators';
+import { catchError, switchMap, take } from 'rxjs/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { KlaroService } from './klaro.service';
-import { hasValue, isNotEmpty } from '../empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
 import { CookieService } from '../../core/services/cookie.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { cloneDeep, debounce } from 'lodash';
 import { ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration } from './klaro-configuration';
 import { Operation } from 'fast-json-patch';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
 
 /**
  * Metadata field to store a user's cookie consent preferences in
@@ -52,6 +55,7 @@ export class BrowserKlaroService extends KlaroService {
     private translateService: TranslateService,
     private authService: AuthService,
     private ePersonService: EPersonDataService,
+    private configService: ConfigurationDataService,
     private cookieService: CookieService) {
     super();
   }
@@ -68,6 +72,15 @@ export class BrowserKlaroService extends KlaroService {
       this.klaroConfig.translations.en.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
     }
 
+    this.configService.findByPropertyName('registration.verification.enabled').pipe(
+      getFirstCompletedRemoteData(),
+      catchError(this.removeGoogleRecaptcha())
+    ).subscribe((remoteData) => {
+      // make sure we got a success response from the backend
+      if (!remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) || remoteData.payload.values[0].toLowerCase() === 'false' ) {
+        this.removeGoogleRecaptcha();
+      }
+    });
     this.translateService.setDefaultLang(environment.defaultLanguage);
 
     const user$: Observable<EPerson> = this.getUser$();
@@ -257,4 +270,12 @@ export class BrowserKlaroService extends KlaroService {
   getStorageName(identifier: string) {
     return 'klaro-' + identifier;
   }
+
+  /**
+   * remove the google recaptcha from the services
+   */
+  removeGoogleRecaptcha() {
+      this.klaroConfig.services = klaroConfiguration.services.filter(config => config.name !== CAPTCHA_NAME);
+      return this.klaroConfig.services;
+    }
 }

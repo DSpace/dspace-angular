@@ -11,8 +11,13 @@ import { CookieService } from '../../core/services/cookie.service';
 import { getTestScheduler } from 'jasmine-marbles';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { cloneDeep } from 'lodash';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 
 describe('BrowserKlaroService', () => {
+  const recaptchaProp = 'registration.verification.enabled';
+  const recaptchaValue = 'true';
   let translateService;
   let ePersonService;
   let authService;
@@ -20,6 +25,14 @@ describe('BrowserKlaroService', () => {
 
   let user;
   let service: BrowserKlaroService;
+  let configurationDataService: ConfigurationDataService;
+  const createConfigSuccessSpy = (...values: string[]) => jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$({
+      ... new ConfigurationProperty(),
+      name: recaptchaProp,
+      values: values,
+    }),
+  });
 
   let mockConfig;
   let appName;
@@ -38,6 +51,7 @@ describe('BrowserKlaroService', () => {
       isAuthenticated: observableOf(true),
       getAuthenticatedUserFromStore: observableOf(user)
     });
+    configurationDataService = createConfigSuccessSpy(recaptchaValue);
     cookieService = jasmine.createSpyObj('cookieService', {
       get: '{%22token_item%22:true%2C%22impersonation%22:true%2C%22redirect%22:true%2C%22language%22:true%2C%22klaro%22:true%2C%22has_agreed_end_user%22:true%2C%22google-analytics%22:true}',
       set: () => {
@@ -63,6 +77,10 @@ describe('BrowserKlaroService', () => {
         {
           provide: CookieService,
           useValue: cookieService
+        },
+        {
+          provide: ConfigurationDataService,
+          useValue: configurationDataService
         }
       ]
     });
