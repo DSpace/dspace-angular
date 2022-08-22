@@ -63,3 +63,11 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
   startWithAll() {
     this.bitstreams$ = this.getBitstreams();
   }
+
+  /**
+   * Get the bitstreams until a specific page
+   */
+  getVisibleBitstreams() {
+    this.bitstreams$ = this.getPaginatedBitstreams();
+  }
+}
