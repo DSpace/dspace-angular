@@ -3754,6 +3754,8 @@
 
   "mydspace.show.workspace": "Your Submissions",
 
+  "mydspace.show.otherworkspace": "Other Workspace Submissions",
+
   "mydspace.status.archived": "Archived",
 
   "mydspace.status.validation": "Validation",
@@ -6172,6 +6174,8 @@
   "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
 
 
+
+  "otherworkspace.search.results.head": "Workspace submissions",
 
   "workspace.search.results.head": "Your submissions",
 
