@@ -91,6 +91,13 @@ export class BrowserInitService extends InitService {
 
       this.initKlaro();
 
+      // wait for auth to be ready
+      await this.store.pipe(
+        select(isAuthenticationBlocking),
+        distinctUntilChanged(),
+        find((b: boolean) => b === false)
+      ).toPromise();
+
       return true;
     };
   }

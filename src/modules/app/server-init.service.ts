@@ -6,7 +6,7 @@
  * http://www.dspace.org/license/
  */
 import { InitService } from '../../app/init.service';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { AppState } from '../../app/app.reducer';
 import { TransferState } from '@angular/platform-browser';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
@@ -20,7 +20,8 @@ import { MetadataService } from '../../app/core/metadata/metadata.service';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { CSSVariableService } from '../../app/shared/sass-helper/sass-helper.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
-import { take } from 'rxjs/operators';
+import { take, distinctUntilChanged, find } from 'rxjs/operators';
+import { isAuthenticationBlocking } from '../../app/core/auth/selectors';
 
 /**
  * Performs server-side initialization.
@@ -65,6 +66,13 @@ export class ServerInitService extends InitService {
       this.initAngulartics();
       this.initRouteListeners();
       this.themeService.listenForThemeChanges(false);
+
+      // wait for auth to be ready
+      await this.store.pipe(
+        select(isAuthenticationBlocking),
+        distinctUntilChanged(),
+        find((b: boolean) => b === false)
+      ).toPromise();
 
       return true;
     };

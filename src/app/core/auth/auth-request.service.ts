@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap, take } from 'rxjs/operators';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { isNotEmpty } from '../../shared/empty.util';
@@ -26,8 +26,8 @@ export abstract class AuthRequestService {
               ) {
   }
 
-  protected fetchRequest(request: RestRequest): Observable<RemoteData<AuthStatus>> {
-    return this.rdbService.buildFromRequestUUID<AuthStatus>(request.uuid).pipe(
+  protected fetchRequest(requestId: string): Observable<RemoteData<AuthStatus>> {
+    return this.rdbService.buildFromRequestUUID<AuthStatus>(requestId).pipe(
       getFirstCompletedRemoteData(),
     );
   }
@@ -37,27 +37,36 @@ export abstract class AuthRequestService {
   }
 
   public postToEndpoint(method: string, body?: any, options?: HttpOptions): Observable<RemoteData<AuthStatus>> {
-    return this.halService.getEndpoint(this.linkName).pipe(
+    const requestId = this.requestService.generateRequestId();
+
+    this.halService.getEndpoint(this.linkName).pipe(
       filter((href: string) => isNotEmpty(href)),
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
       distinctUntilChanged(),
-      map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, body, options)),
-      tap((request: PostRequest) => this.requestService.send(request)),
-      mergeMap((request: PostRequest) => this.fetchRequest(request)),
-      distinctUntilChanged());
+      map((endpointURL: string) => new PostRequest(requestId, endpointURL, body, options)),
+      take(1)
+    ).subscribe((request: PostRequest) => {
+      this.requestService.send(request);
+    });
+
+    return this.fetchRequest(requestId);
   }
 
   public getRequest(method: string, options?: HttpOptions): Observable<RemoteData<AuthStatus>> {
-    return this.halService.getEndpoint(this.linkName).pipe(
+    const requestId = this.requestService.generateRequestId();
+
+    this.halService.getEndpoint(this.linkName).pipe(
       filter((href: string) => isNotEmpty(href)),
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
       distinctUntilChanged(),
-      map((endpointURL: string) => new GetRequest(this.requestService.generateRequestId(), endpointURL, undefined, options)),
-      tap((request: GetRequest) => this.requestService.send(request)),
-      mergeMap((request: GetRequest) => this.fetchRequest(request)),
-      distinctUntilChanged());
-  }
+      map((endpointURL: string) => new GetRequest(requestId, endpointURL, undefined, options)),
+      take(1)
+    ).subscribe((request: GetRequest) => {
+      this.requestService.send(request);
+    });
 
+    return this.fetchRequest(requestId);
+  }
   /**
    * Factory function to create the request object to send. This needs to be a POST client side and
    * a GET server side. Due to CSRF validation, the server isn't allowed to send a POST, so we allow
