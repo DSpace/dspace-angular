@@ -63,6 +63,7 @@ describe('FileDownloadLinkComponent', () => {
           component = fixture.componentInstance;
           component.bitstream = bitstream;
           component.item = item;
+          component.showIcon = true;
           fixture.detectChanges();
         });
         it('should return the bitstreamPath based on the input bitstream', () => {
@@ -96,6 +97,7 @@ describe('FileDownloadLinkComponent', () => {
           component = fixture.componentInstance;
           component.item = item;
           component.bitstream = bitstream;
+          component.showIcon = true;
           fixture.detectChanges();
         });
         it('should return the bitstreamPath based on the input bitstream', () => {
@@ -124,6 +126,7 @@ describe('FileDownloadLinkComponent', () => {
           component = fixture.componentInstance;
           component.bitstream = bitstream;
           component.item = item;
+          component.showIcon = true;
           fixture.detectChanges();
         });
         it('should return the bitstreamPath based on the input bitstream', () => {
