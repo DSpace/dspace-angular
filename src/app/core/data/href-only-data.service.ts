@@ -14,6 +14,7 @@ import { LICENSE } from '../shared/license.resource-type';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { FindListOptions } from './find-list-options.model';
 import { BaseDataService } from './base/base-data.service';
+import { HALDataService } from './base/hal-data-service.interface';
 
 /**
  * A DataService with only findByHref methods. Its purpose is to be used for resources that don't
@@ -21,6 +22,15 @@ import { BaseDataService } from './base/base-data.service';
  * for their links to be resolved by the LinkService.
  *
  * an @dataService annotation can be added for any number of these resource types
+ *
+ *
+ * Additionally, this service may be used to retrieve objects by `href` regardless of their type
+ * For example
+ * ```
+ * const items$: Observable<RemoteData<PaginatedList<Item>>> = hrefOnlyDataService.findAllByHref<Item>(href);
+ * const sites$: Observable<RemoteData<PaginatedList<Site>>> = hrefOnlyDataService.findAllByHref<Site>(href);
+ * ```
+ * This means we cannot extend from {@link BaseDataService} directly because the method signatures would not match.
  */
 @Injectable({
   providedIn: 'root',
@@ -28,9 +38,10 @@ import { BaseDataService } from './base/base-data.service';
 @dataService(VOCABULARY_ENTRY)
 @dataService(ITEM_TYPE)
 @dataService(LICENSE)
-export class HrefOnlyDataService {
+export class HrefOnlyDataService implements HALDataService<any> {
   /**
-   * Not all BaseDataService methods should be exposed, so
+   * Works with a {@link BaseDataService} internally, but only exposes two of its methods
+   * with altered signatures to (optionally) constrain the arbitrary return type.
    * @private
    */
   private dataService: BaseDataService<any>;

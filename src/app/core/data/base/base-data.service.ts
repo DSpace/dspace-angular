@@ -22,6 +22,7 @@ import { FindListOptions } from '../find-list-options.model';
 import { PaginatedList } from '../paginated-list.model';
 import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { HALDataService } from './hal-data-service.interface';
 
 /**
  * Common functionality for data services.
@@ -47,7 +48,7 @@ import { ObjectCacheService } from '../../cache/object-cache.service';
  * }
  * ```
  */
-export class BaseDataService<T extends CacheableObject> {
+export class BaseDataService<T extends CacheableObject> implements HALDataService<T> {
   constructor(
     protected linkPath: string,
     protected requestService: RequestService,

@@ -3,20 +3,19 @@ import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
-import {
-  getResourceTypeValueFor
-} from '../object-cache.reducer';
+import { getResourceTypeValueFor } from '../object-cache.reducer';
 import { InjectionToken } from '@angular/core';
 import { CacheableObject } from '../cacheable-object.model';
 import { TypedObject } from '../typed-object.model';
+import { HALDataService } from '../../data/base/hal-data-service.interface';
 
-export const DATA_SERVICE_FACTORY = new InjectionToken<(resourceType: ResourceType) => GenericConstructor<any>>('getDataServiceFor', {
+export const DATA_SERVICE_FACTORY = new InjectionToken<(resourceType: ResourceType) => GenericConstructor<HALDataService<any>>>('getDataServiceFor', {
   providedIn: 'root',
-  factory: () => getDataServiceFor
+  factory: () => getDataServiceFor,
 });
 export const LINK_DEFINITION_FACTORY = new InjectionToken<<T extends HALResource>(source: GenericConstructor<T>, linkName: keyof T['_links']) => LinkDefinition<T>>('getLinkDefinition', {
   providedIn: 'root',
-  factory: () => getLinkDefinition
+  factory: () => getLinkDefinition,
 });
 export const LINK_DEFINITION_MAP_FACTORY = new InjectionToken<<T extends HALResource>(source: GenericConstructor<T>) => Map<keyof T['_links'], LinkDefinition<T>>>('getLinkDefinitions', {
   providedIn: 'root',
@@ -47,16 +46,15 @@ export function getClassForType(type: string | ResourceType) {
 }
 
 /**
- * A class decorator to indicate that this class is a dataservice
- * for a given resource type.
+ * A class decorator to indicate that this class is a data service for a given HAL resource type.
  *
- * "dataservice" in this context means that it has findByHref and
- * findAllByHref methods.
+ * In most cases, a data service should extend {@link BaseDataService}.
+ * At the very least it must implement {@link HALDataService} in order for it to work with {@link LinkService}.
  *
  * @param resourceType the resource type the class is a dataservice for
  */
-export function dataService(resourceType: ResourceType): any {
-  return (target: any) => {
+export function dataService(resourceType: ResourceType) {
+  return (target: GenericConstructor<HALDataService<any>>): void => {
     if (hasNoValue(resourceType)) {
       throw new Error(`Invalid @dataService annotation on ${target}, resourceType needs to be defined`);
     }
@@ -75,7 +73,7 @@ export function dataService(resourceType: ResourceType): any {
  *
  * @param resourceType the resource type you want the matching dataservice for
  */
-export function getDataServiceFor<T extends CacheableObject>(resourceType: ResourceType) {
+export function getDataServiceFor<T extends CacheableObject>(resourceType: ResourceType): GenericConstructor<HALDataService<any>> {
   return dataServiceMap.get(resourceType.value);
 }
 

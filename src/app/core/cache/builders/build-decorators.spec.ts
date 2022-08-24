@@ -2,12 +2,21 @@
 import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
-import { dataService, getDataServiceFor, getLinkDefinition, link, } from './build-decorators';
+import { dataService, getDataServiceFor, getLinkDefinition, link } from './build-decorators';
+import { HALDataService } from '../../data/base/hal-data-service.interface';
+import { BaseDataService } from '../../data/base/base-data.service';
 
-class TestService {
+class TestService extends BaseDataService<any> {
 }
 
-class AnotherTestService {
+class AnotherTestService implements HALDataService<any> {
+  public findAllByHref(href$, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow): any {
+    return undefined;
+  }
+
+  public findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow): any {
+    return undefined;
+  }
 }
 
 class TestHALResource implements HALResource {
