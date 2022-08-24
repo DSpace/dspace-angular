@@ -11,14 +11,14 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { NativeWindowRefMock } from '../../shared/mocks/mock-native-window-ref';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { OrcidAuthService } from './orcid-auth.service';
-import { ResearcherProfileService } from '../profile/researcher-profile.service';
+import { ResearcherProfileDataService } from '../profile/researcher-profile-data.service';
 
 describe('OrcidAuthService', () => {
   let scheduler: TestScheduler;
   let service: OrcidAuthService;
   let serviceAsAny: any;
 
-  let researcherProfileService: jasmine.SpyObj<ResearcherProfileService>;
+  let researcherProfileService: jasmine.SpyObj<ResearcherProfileDataService>;
   let configurationDataService: ConfigurationDataService;
   let nativeWindowService: NativeWindowRefMock;
   let routerStub: any;

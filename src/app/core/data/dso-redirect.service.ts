@@ -25,7 +25,7 @@ import { getDSORoute } from '../../app-routing-paths';
 const ID_ENDPOINT = 'pid';
 const UUID_ENDPOINT = 'dso';
 
-class DsoByIdOrUUIDService extends IdentifiableDataService<DSpaceObject> {
+class DsoByIdOrUUIDDataService extends IdentifiableDataService<DSpaceObject> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
@@ -58,7 +58,7 @@ class DsoByIdOrUUIDService extends IdentifiableDataService<DSpaceObject> {
 
 @Injectable()
 export class DsoRedirectService {
-  private dataService: DsoByIdOrUUIDService;
+  private dataService: DsoByIdOrUUIDDataService;
 
   constructor(
     protected requestService: RequestService,
@@ -67,7 +67,7 @@ export class DsoRedirectService {
     protected halService: HALEndpointService,
     private router: Router,
   ) {
-    this.dataService = new DsoByIdOrUUIDService(requestService, rdbService, objectCache, halService);
+    this.dataService = new DsoByIdOrUUIDDataService(requestService, rdbService, objectCache, halService);
   }
 
   findByIdAndIDType(id: string, identifierType = IdentifierType.UUID): Observable<RemoteData<DSpaceObject>> {

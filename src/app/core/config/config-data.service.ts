@@ -6,7 +6,7 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
 import { map } from 'rxjs/operators';
 import { BaseDataService } from '../data/base/base-data.service';
 
-export abstract class ConfigService extends BaseDataService<ConfigObject> {
+export abstract class ConfigDataService extends BaseDataService<ConfigObject> {
   public findByHref(href: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ConfigObject>[]): Observable<RemoteData<ConfigObject>> {
     return super.findByHref(href, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
       getFirstCompletedRemoteData(),

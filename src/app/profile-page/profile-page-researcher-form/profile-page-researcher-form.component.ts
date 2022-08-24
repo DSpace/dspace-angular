@@ -12,7 +12,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { AuthService } from '../../core/auth/auth.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { isNotEmpty } from '../../shared/empty.util';
@@ -56,7 +56,7 @@ export class ProfilePageResearcherFormComponent implements OnInit {
    */
   researcherProfileItemId: string;
 
-  constructor(protected researcherProfileService: ResearcherProfileService,
+  constructor(protected researcherProfileService: ResearcherProfileDataService,
               protected profileClaimService: ProfileClaimService,
               protected translationService: TranslateService,
               protected notificationService: NotificationsService,

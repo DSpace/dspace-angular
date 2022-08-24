@@ -1,5 +1,3 @@
-import { HttpClient } from '@angular/common/http';
-
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
@@ -9,7 +7,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
-import { ResourcePolicyService } from './resource-policy.service';
+import { ResourcePolicyDataService } from './resource-policy-data.service';
 import { PolicyType } from './models/policy-type.model';
 import { ActionType } from './models/action-type.model';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -24,7 +22,7 @@ import { GroupDataService } from '../eperson/group-data.service';
 
 describe('ResourcePolicyService', () => {
   let scheduler: TestScheduler;
-  let service: ResourcePolicyService;
+  let service: ResourcePolicyDataService;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
   let objectCache: ObjectCacheService;
@@ -133,7 +131,7 @@ describe('ResourcePolicyService', () => {
     const notificationsService = {} as NotificationsService;
     const comparator = {} as any;
 
-    service = new ResourcePolicyService(
+    service = new ResourcePolicyDataService(
       requestService,
       rdbService,
       objectCache,

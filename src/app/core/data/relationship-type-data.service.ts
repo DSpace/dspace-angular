@@ -32,7 +32,7 @@ const checkSide = (typeRd: RemoteData<ItemType>, label: string): boolean =>
  */
 @Injectable()
 @dataService(RELATIONSHIP_TYPE)
-export class RelationshipTypeService extends BaseDataService<RelationshipType> {
+export class RelationshipTypeDataService extends BaseDataService<RelationshipType> {
   private searchData: SearchDataImpl<RelationshipType>;
   private findAllData: FindAllDataImpl<RelationshipType>;
 

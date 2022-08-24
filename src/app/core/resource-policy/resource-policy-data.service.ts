@@ -40,7 +40,7 @@ import { dataService } from '../data/base/data-service.decorator';
  */
 @Injectable()
 @dataService(RESOURCE_POLICY)
-export class ResourcePolicyService extends IdentifiableDataService<ResourcePolicy> {
+export class ResourcePolicyDataService extends IdentifiableDataService<ResourcePolicy> {
   protected searchByEPersonMethod = 'eperson';
   protected searchByGroupMethod = 'group';
   protected searchByResourceMethod = 'resource';

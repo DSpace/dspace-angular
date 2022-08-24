@@ -10,7 +10,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 
-import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
+import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { Item } from '../../../core/shared/item.model';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
@@ -24,7 +24,7 @@ describe('OrcidSyncSettingsComponent test suite', () => {
   let comp: OrcidSyncSettingsComponent;
   let fixture: ComponentFixture<OrcidSyncSettingsComponent>;
   let scheduler: TestScheduler;
-  let researcherProfileService: jasmine.SpyObj<ResearcherProfileService>;
+  let researcherProfileService: jasmine.SpyObj<ResearcherProfileDataService>;
   let notificationsService;
   let formGroup: FormGroup;
 
@@ -149,7 +149,7 @@ describe('OrcidSyncSettingsComponent test suite', () => {
       declarations: [OrcidSyncSettingsComponent],
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
-        { provide: ResearcherProfileService, useValue: researcherProfileService }
+        { provide: ResearcherProfileDataService, useValue: researcherProfileService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(OrcidSyncSettingsComponent, {

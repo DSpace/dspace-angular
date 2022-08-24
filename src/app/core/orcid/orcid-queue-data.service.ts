@@ -22,7 +22,7 @@ import { dataService } from '../data/base/data-service.decorator';
  */
 @Injectable()
 @dataService(ORCID_QUEUE)
-export class OrcidQueueService extends IdentifiableDataService<OrcidQueue> {
+export class OrcidQueueDataService extends IdentifiableDataService<OrcidQueue> {
   private searchData: SearchData<OrcidQueue>;
   private deleteData: DeleteData<OrcidQueue>;
 

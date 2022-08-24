@@ -39,7 +39,7 @@ import { dataService } from '../data/base/data-service.decorator';
  */
 @Injectable()
 @dataService(RESEARCHER_PROFILE)
-export class ResearcherProfileService extends IdentifiableDataService<ResearcherProfile> implements CreateData<ResearcherProfile>, SearchData<ResearcherProfile>, PatchData<ResearcherProfile>, DeleteData<ResearcherProfile> {
+export class ResearcherProfileDataService extends IdentifiableDataService<ResearcherProfile> implements CreateData<ResearcherProfile>, SearchData<ResearcherProfile>, PatchData<ResearcherProfile>, DeleteData<ResearcherProfile> {
   private createData: CreateDataImpl<ResearcherProfile>;
   private searchData: SearchDataImpl<ResearcherProfile>;
   private patchData: PatchDataImpl<ResearcherProfile>;

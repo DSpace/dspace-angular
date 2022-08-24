@@ -18,7 +18,7 @@ import {
 } from '../../shared/remote-data.utils';
 import { RestResponse } from '../cache/response.models';
 import { RequestEntry } from '../data/request-entry.model';
-import { ResearcherProfileService } from './researcher-profile.service';
+import { ResearcherProfileDataService } from './researcher-profile-data.service';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { ResearcherProfile } from './model/researcher-profile.model';
 import { Item } from '../shared/item.model';
@@ -31,7 +31,7 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 
 describe('ResearcherProfileService', () => {
   let scheduler: TestScheduler;
-  let service: ResearcherProfileService;
+  let service: ResearcherProfileDataService;
   let serviceAsAny: any;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
@@ -247,7 +247,7 @@ describe('ResearcherProfileService', () => {
       findByHref: jasmine.createSpy('findByHref')
     });
 
-    service = new ResearcherProfileService(
+    service = new ResearcherProfileDataService(
       requestService,
       rdbService,
       objectCache,

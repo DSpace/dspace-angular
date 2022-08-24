@@ -11,7 +11,7 @@ import { RelationshipType } from '../shared/item-relationships/relationship-type
 import { PaginatedList } from './paginated-list.model';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
-import { RelationshipTypeService } from './relationship-type.service';
+import { RelationshipTypeDataService } from './relationship-type-data.service';
 import { FindListOptions } from './find-list-options.model';
 import { BaseDataService } from './base/base-data.service';
 import { SearchData, SearchDataImpl } from './base/search-data';
@@ -21,7 +21,7 @@ import { FindAllData, FindAllDataImpl } from './base/find-all-data';
  * Service handling all ItemType requests
  */
 @Injectable()
-export class EntityTypeService extends BaseDataService<ItemType> implements FindAllData<ItemType>, SearchData<ItemType> {
+export class EntityTypeDataService extends BaseDataService<ItemType> implements FindAllData<ItemType>, SearchData<ItemType> {
   private findAllData: FindAllData<ItemType>;
   private searchData: SearchDataImpl<ItemType>;
 
@@ -30,7 +30,7 @@ export class EntityTypeService extends BaseDataService<ItemType> implements Find
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected relationshipTypeService: RelationshipTypeService,
+    protected relationshipTypeService: RelationshipTypeDataService,
   ) {
     super('entitytypes', requestService, rdbService, objectCache, halService);
 

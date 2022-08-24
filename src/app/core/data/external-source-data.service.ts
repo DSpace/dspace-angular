@@ -20,7 +20,7 @@ import { SearchData, SearchDataImpl } from './base/search-data';
  * A service handling all external source requests
  */
 @Injectable()
-export class ExternalSourceService extends IdentifiableDataService<ExternalSource> implements SearchData<ExternalSource> {
+export class ExternalSourceDataService extends IdentifiableDataService<ExternalSource> implements SearchData<ExternalSource> {
   private searchData: SearchData<ExternalSource>;
 
   constructor(

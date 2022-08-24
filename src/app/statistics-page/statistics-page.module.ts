@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { StatisticsModule } from '../statistics/statistics.module';
-import { UsageReportService } from '../core/statistics/usage-report-data.service';
+import { UsageReportDataService } from '../core/statistics/usage-report-data.service';
 import { SiteStatisticsPageComponent } from './site-statistics-page/site-statistics-page.component';
 import { StatisticsTableComponent } from './statistics-table/statistics-table.component';
 import { ItemStatisticsPageComponent } from './item-statistics-page/item-statistics-page.component';
@@ -36,7 +36,7 @@ const components = [
   ],
   declarations: components,
   providers: [
-    UsageReportService,
+    UsageReportDataService,
   ],
   exports: components
 })

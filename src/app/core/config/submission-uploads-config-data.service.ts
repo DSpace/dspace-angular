@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ConfigService } from './config.service';
+import { ConfigDataService } from './config-data.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -17,7 +17,7 @@ import { dataService } from '../data/base/data-service.decorator';
  */
 @Injectable()
 @dataService(SUBMISSION_UPLOADS_TYPE)
-export class SubmissionUploadsConfigService extends ConfigService {
+export class SubmissionUploadsConfigDataService extends ConfigDataService {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,

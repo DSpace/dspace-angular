@@ -21,7 +21,7 @@ import { dataService } from '../data/base/data-service.decorator';
  */
 @Injectable()
 @dataService(USAGE_REPORT)
-export class UsageReportService extends IdentifiableDataService<UsageReport> implements SearchData<UsageReport> {
+export class UsageReportDataService extends IdentifiableDataService<UsageReport> implements SearchData<UsageReport> {
   private searchData: SearchDataImpl<UsageReport>;
 
   constructor(

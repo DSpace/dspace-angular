@@ -85,7 +85,7 @@ import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relatio
 import { SearchResult } from '../../../search/models/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
@@ -244,7 +244,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     protected translateService: TranslateService,
     protected relationService: DynamicFormRelationService,
     private modalService: NgbModal,
-    private relationshipService: RelationshipService,
+    private relationshipService: RelationshipDataService,
     private selectableListService: SelectableListService,
     private itemService: ItemDataService,
     private zone: NgZone,

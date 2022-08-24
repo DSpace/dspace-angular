@@ -1,4 +1,4 @@
-import { ExternalSourceService } from './external-source.service';
+import { ExternalSourceDataService } from './external-source-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
@@ -6,7 +6,7 @@ import { of as observableOf } from 'rxjs';
 import { GetRequest } from './request.models';
 
 describe('ExternalSourceService', () => {
-  let service: ExternalSourceService;
+  let service: ExternalSourceDataService;
 
   let requestService;
   let rdbService;
@@ -50,7 +50,7 @@ describe('ExternalSourceService', () => {
     halService = jasmine.createSpyObj('halService', {
       getEndpoint: observableOf('external-sources-REST-endpoint'),
     });
-    service = new ExternalSourceService(requestService, rdbService, undefined, halService);
+    service = new ExternalSourceDataService(requestService, rdbService, undefined, halService);
   }
 
   beforeEach(() => {

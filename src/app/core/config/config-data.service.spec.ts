@@ -1,7 +1,7 @@
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { ConfigService } from './config.service';
+import { ConfigDataService } from './config-data.service';
 import { RequestService } from '../data/request.service';
 import { GetRequest } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -14,7 +14,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 const LINK_NAME = 'test';
 const BROWSE = 'search/findByCollection';
 
-class TestService extends ConfigService {
+class TestService extends ConfigDataService {
   protected linkPath = LINK_NAME;
   protected browseEndpoint = BROWSE;
 
@@ -28,7 +28,7 @@ class TestService extends ConfigService {
   }
 }
 
-describe('ConfigService', () => {
+describe('ConfigDataService', () => {
   let scheduler: TestScheduler;
   let service: TestService;
   let requestService: RequestService;

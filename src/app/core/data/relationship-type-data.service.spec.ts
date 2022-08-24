@@ -5,14 +5,14 @@ import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-servic
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { RelationshipTypeService } from './relationship-type.service';
+import { RelationshipTypeDataService } from './relationship-type-data.service';
 import { RequestService } from './request.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { hasValueOperator } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
 
-describe('RelationshipTypeService', () => {
-  let service: RelationshipTypeService;
+describe('RelationshipTypeDataService', () => {
+  let service: RelationshipTypeDataService;
   let requestService: RequestService;
   let restEndpointURL;
   let halService: any;
@@ -71,7 +71,7 @@ describe('RelationshipTypeService', () => {
   }
 
   function initTestService() {
-    return new RelationshipTypeService(
+    return new RelationshipTypeDataService(
       requestService,
       rdbService,
       objectCache,

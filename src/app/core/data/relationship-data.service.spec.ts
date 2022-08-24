@@ -7,7 +7,7 @@ import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';
 import { buildPaginatedList } from './paginated-list.model';
 import { DeleteRequest } from './request.models';
-import { RelationshipService } from './relationship.service';
+import { RelationshipDataService } from './relationship-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -17,8 +17,8 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RequestEntry } from './request-entry.model';
 import { FindListOptions } from './find-list-options.model';
 
-describe('RelationshipService', () => {
-  let service: RelationshipService;
+describe('RelationshipDataService', () => {
+  let service: RelationshipDataService;
   let requestService: RequestService;
 
   const restEndpointURL = 'https://rest.api/core';
@@ -122,7 +122,7 @@ describe('RelationshipService', () => {
   });
 
   function initTestService() {
-    return new RelationshipService(
+    return new RelationshipDataService(
       requestService,
       rdbService,
       halService,

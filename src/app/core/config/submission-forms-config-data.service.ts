@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-
-import { ConfigService } from './config.service';
+import { ConfigDataService } from './config-data.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -15,7 +14,7 @@ import { dataService } from '../data/base/data-service.decorator';
 
 @Injectable()
 @dataService(SUBMISSION_FORMS_TYPE)
-export class SubmissionFormsConfigService extends ConfigService {
+export class SubmissionFormsConfigDataService extends ConfigDataService {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
