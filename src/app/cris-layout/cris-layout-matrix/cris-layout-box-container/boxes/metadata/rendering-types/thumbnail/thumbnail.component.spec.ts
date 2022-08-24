@@ -1,7 +1,12 @@
-import { ThumbnailService } from './../../../../../../../shared/thumbnail/thumbnail.service';
-import { ConfigurationDataService } from './../../../../../../../core/data/configuration-data.service';
-import { bitstreamOrignialWithMetadata, bitstreamWithoutThumbnail, bitstreamWithThumbnail, bitstreamWithThumbnailWithMetadata } from './../../../../../../../shared/mocks/bitstreams.mock';
-import { async, ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
+import { ThumbnailService } from '../../../../../../../shared/thumbnail/thumbnail.service';
+import { ConfigurationDataService } from '../../../../../../../core/data/configuration-data.service';
+import {
+  bitstreamOrignialWithMetadata,
+  bitstreamWithoutThumbnail,
+  bitstreamWithThumbnail,
+  bitstreamWithThumbnailWithMetadata
+} from '../../../../../../../shared/mocks/bitstreams.mock';
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ThumbnailComponent } from './thumbnail.component';
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
@@ -12,9 +17,12 @@ import { SharedModule } from '../../../../../../../shared/shared.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../../../shared/testing/translate-loader.mock';
 import { FieldRenderingType } from '../metadata-box.decorator';
-import { AuthorizationDataService } from '../../../../../../../core/data/feature-authorization/authorization-data.service';
+import {
+  AuthorizationDataService
+} from '../../../../../../../core/data/feature-authorization/authorization-data.service';
 import { By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject } from './../../../../../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../../../../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
 
 describe('ThumbnailComponent', () => {
   let component: ThumbnailComponent;
@@ -65,37 +73,13 @@ describe('ThumbnailComponent', () => {
     }
   });
 
-  const thumbnailConfig = {
-    'name': 'cris.layout.thumbnail.maxsize',
-    'values': ['50'],
-    'type': 'property',
-    '_links': {
-      'self': {
-        'href': 'http://localhost:8080/server/api/config/properties/cris.layout.thumbnail.maxsize'
-      }
-    }
-  };
-
-  const thumbnailConfigLess = {
-    'name': 'cris.layout.thumbnail.maxsize',
-    'values': ['5'],
-    'type': 'property',
-    '_links': {
-      'self': {
-        'href': 'http://localhost:8080/server/api/config/properties/cris.layout.thumbnail.maxsize'
-      }
-    }
-  };
-
   const mockBitstreamDataService = jasmine.createSpyObj('BitstreamDataService', {
     findAllByItemAndBundleName: jasmine.createSpy('findAllByItemAndBundleName')
   });
 
-
   const mockAuthorizedService = jasmine.createSpyObj('AuthorizationDataService', {
     isAuthorized: jasmine.createSpy('isAuthorized')
   });
-
 
   const mockThumbnailService = jasmine.createSpyObj('ThumbnailService', {
     getConfig: jasmine.createSpy('getConfig')
@@ -153,8 +137,8 @@ describe('ThumbnailComponent', () => {
     describe('When bitstreams are empty', () => {
 
       beforeEach(() => {
-        const spy = spyOn(component, 'getOriginalBitstreams');
-        spy.and.returnValue(of([]));
+        const spy = spyOn(component, 'getBitstreams');
+        spy.and.returnValue(of(createPaginatedList([])));
         component.ngOnInit();
         fixture.detectChanges();
       });
@@ -174,8 +158,8 @@ describe('ThumbnailComponent', () => {
     describe('When bitstreams are only original', () => {
 
       beforeEach(() => {
-        const spy = spyOn(component, 'getOriginalBitstreams');
-        spy.and.returnValue(of([bitstreamWithoutThumbnail]));
+        const spy = spyOn(component, 'getBitstreams');
+        spy.and.returnValue(of(createPaginatedList([bitstreamWithoutThumbnail])));
         component.ngOnInit();
         fixture.detectChanges();
       });
@@ -185,8 +169,8 @@ describe('ThumbnailComponent', () => {
         expect(valueFound.length).toBe(1);
       }));
 
-      it('should show bitstream content image src', () => {
-        const image = fixture.debugElement.query(By.css('img[src="http://localhost:8080/server/api/core/bitstreams/bitstream-6df9-40ef-9009-b3c90a4e6d5b/content"]'));
+      it('should show default thumbnail', () => {
+        const image = fixture.debugElement.query(By.css('img[src="assets/images/person-placeholder.svg"]'));
         expect(image).toBeTruthy();
       });
 
@@ -195,8 +179,8 @@ describe('ThumbnailComponent', () => {
     describe('When bitstreams are only thumbnail', () => {
 
       beforeEach(() => {
-        const spy = spyOn(component, 'getOriginalBitstreams');
-        spy.and.returnValue(of([bitstreamWithThumbnail]));
+        const spy = spyOn(component, 'getBitstreams');
+        spy.and.returnValue(of(createPaginatedList([bitstreamWithThumbnail])));
         component.ngOnInit();
         fixture.detectChanges();
       });
@@ -243,8 +227,8 @@ describe('ThumbnailComponent', () => {
     describe('When bitstreams are empty', () => {
 
       beforeEach(() => {
-        const spy = spyOn(component, 'getOriginalBitstreams');
-        spy.and.returnValue(of([]));
+        const spy = spyOn(component, 'getBitstreams');
+        spy.and.returnValue(of(createPaginatedList([])));
         component.ngOnInit();
         fixture.detectChanges();
       });
@@ -264,8 +248,8 @@ describe('ThumbnailComponent', () => {
     describe('When bitstreams are only original without the right metadata information', () => {
 
       beforeEach(() => {
-        const spy = spyOn(component, 'getOriginalBitstreams');
-        spy.and.returnValue(of([bitstreamWithoutThumbnail]));
+        const spy = spyOn(component, 'getBitstreams');
+        spy.and.returnValue(of(createPaginatedList([bitstreamWithoutThumbnail])));
         component.ngOnInit();
         fixture.detectChanges();
       });
@@ -280,8 +264,8 @@ describe('ThumbnailComponent', () => {
     describe('When bitstreams are thumbnail of original without the right metadata information', () => {
 
       beforeEach(() => {
-        const spy = spyOn(component, 'getOriginalBitstreams');
-        spy.and.returnValue(of([bitstreamWithThumbnail]));
+        const spy = spyOn(component, 'getBitstreams');
+        spy.and.returnValue(of(createPaginatedList([bitstreamWithThumbnail])));
         component.ngOnInit();
         fixture.detectChanges();
       });
@@ -296,14 +280,14 @@ describe('ThumbnailComponent', () => {
     describe('When bitstreams are only original with the right metadata information', () => {
 
       beforeEach(() => {
-        const spy = spyOn(component, 'getOriginalBitstreams');
-        spy.and.returnValue(of([bitstreamOrignialWithMetadata]));
+        const spy = spyOn(component, 'getBitstreams');
+        spy.and.returnValue(of(createPaginatedList([bitstreamOrignialWithMetadata])));
         component.ngOnInit();
         fixture.detectChanges();
       });
 
-      it('should show bitstream content image src', () => {
-        const image = fixture.debugElement.query(By.css('img[src="http://localhost:8080/server/api/core/bitstreams/bitstream-6df9-40ef-9009-b3c90a4e6d5b/content"]'));
+      it('should not show thumbnail content image src but the default image', () => {
+        const image = fixture.debugElement.query(By.css('img[src="assets/images/person-placeholder.svg"]'));
         expect(image).toBeTruthy();
       });
 
@@ -312,8 +296,8 @@ describe('ThumbnailComponent', () => {
     describe('When bitstreams thumbnail of original bitsream with the right metadata information', () => {
 
       beforeEach(() => {
-        const spy = spyOn(component, 'getOriginalBitstreams');
-        spy.and.returnValue(of([bitstreamWithThumbnailWithMetadata]));
+        const spy = spyOn(component, 'getBitstreams');
+        spy.and.returnValue(of(createPaginatedList([bitstreamWithThumbnailWithMetadata])));
         component.ngOnInit();
         fixture.detectChanges();
       });
@@ -326,94 +310,5 @@ describe('ThumbnailComponent', () => {
     });
 
   });
-
-
-
-  describe('When there is no metadata field to check and when there is maxSize', () => {
-
-    // waitForAsync beforeEach
-    beforeEach(waitForAsync(() => {
-      return TestBed.configureTestingModule(getDefaultTestBedConf(mockField));
-    }));
-
-    beforeEach(() => {
-      fixture = TestBed.createComponent(ThumbnailComponent);
-      component = fixture.componentInstance;
-      de = fixture.debugElement;
-      mockBitstreamDataService.findAllByItemAndBundleName.and.returnValue(of([]));
-      mockThumbnailService.getConfig.and.returnValue(of(createSuccessfulRemoteDataObject(null)));
-      fixture.detectChanges();
-    });
-
-    describe('When max size is bigger than the size of the bitstream', () => {
-
-      beforeEach(() => {
-        mockThumbnailService.getConfig.and.returnValue(of(createSuccessfulRemoteDataObject(thumbnailConfig)));
-        const spy = spyOn(component, 'getOriginalBitstreams');
-        spy.and.returnValue(of([bitstreamWithoutThumbnail]));
-        component.ngOnInit();
-        fixture.detectChanges();
-      });
-
-      it('should show bitstream content image src', () => {
-        const image = fixture.debugElement.query(By.css('img[src="http://localhost:8080/server/api/core/bitstreams/bitstream-6df9-40ef-9009-b3c90a4e6d5b/content"]'));
-        expect(image).toBeTruthy();
-      });
-
-    });
-
-    describe('When max size is smaller than the size of the bitstream', () => {
-
-      beforeEach(() => {
-        mockThumbnailService.getConfig.and.returnValue(of(createSuccessfulRemoteDataObject(thumbnailConfigLess)));
-        const spy = spyOn(component, 'getOriginalBitstreams');
-        spy.and.returnValue(of([bitstreamWithoutThumbnail]));
-        component.ngOnInit();
-        fixture.detectChanges();
-      });
-
-      it('should not show bitstream content image src', () => {
-        const image = fixture.debugElement.query(By.css('img[src="http://localhost:8080/server/api/core/bitstreams/bitstream-6df9-40ef-9009-b3c90a4e6d5b/content"]'));
-        expect(image).toBeFalsy();
-      });
-
-    });
-
-    describe('When max size is bigger than the size of the thumbnail', () => {
-
-      beforeEach(() => {
-        mockThumbnailService.getConfig.and.returnValue(of(createSuccessfulRemoteDataObject(thumbnailConfig)));
-        const spy = spyOn(component, 'getOriginalBitstreams');
-        spy.and.returnValue(of([bitstreamWithThumbnail]));
-        component.ngOnInit();
-        fixture.detectChanges();
-      });
-
-      it('should show thumbnail content image src', () => {
-        const image = fixture.debugElement.query(By.css('img[src="http://localhost:8080/server/api/core/bitstreams/thumbnail-6df9-40ef-9009-b3c90a4e6d5b/content"]'));
-        expect(image).toBeTruthy();
-      });
-
-    });
-
-    describe('When max size is smaller than the size of the thumbnail', () => {
-
-      beforeEach(() => {
-        mockThumbnailService.getConfig.and.returnValue(of(createSuccessfulRemoteDataObject(thumbnailConfigLess)));
-        const spy = spyOn(component, 'getOriginalBitstreams');
-        spy.and.returnValue(of([bitstreamWithThumbnail]));
-        component.ngOnInit();
-        fixture.detectChanges();
-      });
-
-      it('should not show thumbnail content image src', () => {
-        const image = fixture.debugElement.query(By.css('img[src="http://localhost:8080/server/api/core/bitstreams/thumbnail-6df9-40ef-9009-b3c90a4e6d5b/content"]'));
-        expect(image).toBeFalsy();
-      });
-
-    });
-
-  });
-
 
 });

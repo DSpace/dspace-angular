@@ -1,5 +1,5 @@
 <div class="{{valueStyle}}">
-  <ng-container *ngFor="let attachment of (bitstreams$ | async); let last =last;">
+  <ng-container *ngFor="let attachment of (bitstreams$ | async); let last = last;">
     <div class="row mt-1 mb-2" data-test="attachment-info">
       <div class="col-3">
         <ds-thumbnail [thumbnail]="attachment.thumbnail | async"></ds-thumbnail>

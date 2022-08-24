@@ -1,8 +1,7 @@
-import { attachmentsMock, attachmentWithUnspecified } from './../../../../../../../shared/mocks/attachments.mock';
-import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
+import { attachmentsMock } from '../../../../../../../shared/mocks/attachments.mock';
+import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 
 import { AttachmentComponent } from './attachment.component';
-import { SharedModule } from '../../../../../../../shared/shared.module';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { Observable, of } from 'rxjs';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -14,14 +13,13 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
 import { By } from '@angular/platform-browser';
-import { FindListOptions } from '../../../../../../../core/data/request.models';
-import { FollowLinkConfig } from '../../../../../../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
-import { AuthorizationDataService } from '../../../../../../../core/data/feature-authorization/authorization-data.service';
+import {
+  AuthorizationDataService
+} from '../../../../../../../core/data/feature-authorization/authorization-data.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { FieldRenderingType } from '../metadata-box.decorator';
-import { StoreModule } from '@ngrx/store';
+import { FileSizePipe } from '../../../../../../../shared/utils/file-size-pipe';
 
 describe('AttachmentComponent', () => {
   let component: AttachmentComponent;
@@ -55,8 +53,8 @@ describe('AttachmentComponent', () => {
     valuesInline: true,
     bitstream: {
       bundle: 'ORIGINAL',
-      metadataField: 'dc.type',
-      metadataValue: 'attachment'
+      metadataField: null,
+      metadataValue: null
     }
   };
 
@@ -146,10 +144,9 @@ describe('AttachmentComponent', () => {
           useClass: TranslateLoaderMock
         }
       }),
-        RouterTestingModule,
-        SharedModule
+        RouterTestingModule
       ],
-      declarations: [AttachmentComponent],
+      declarations: [AttachmentComponent, FileSizePipe],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
@@ -161,160 +158,113 @@ describe('AttachmentComponent', () => {
     };
   };
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }),
-        RouterTestingModule,
-        SharedModule,
-        StoreModule.forRoot({}),
-      ],
-      declarations: [AttachmentComponent],
-      providers: [
-        { provide: 'fieldProvider', useValue: mockField },
-        { provide: 'itemProvider', useValue: testItem },
-        { provide: 'renderingSubTypeProvider', useValue: '' },
-        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: AuthorizationDataService, useValue: mockAuthorizedService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-      .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AttachmentComponent);
-    component = fixture.componentInstance;
-    de = fixture.debugElement;
-    mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
-    component.envPagination.enabled = true;
-    mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
-    let spy = spyOn(component, 'getBitstreams');
-    spy.and.returnValue(of(attachmentsMock));
-    component.item = testItem;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('check metadata rendering', fakeAsync(() => {
-    flush();
-    const valueFound = fixture.debugElement.queryAll(By.css('ds-file-download-link'));
-    expect(valueFound.length).toBe(1);
-  }));
-
-  it('check value style', (done) => {
-    const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-value'));
-    expect(spanValueFound.length).toBe(1);
-    done();
-  });
-
-  it('should call startWithPagination', () => {
-    const spy = spyOn(component, 'startWithPagination');
-    spyOn(component, 'getBitstreams').and.returnValue(of([]));
-    mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
-    fixture.detectChanges();
-    component.ngOnInit();
-    fixture.detectChanges();
-    expect(spy).toHaveBeenCalled();
-  });
-
-  it('should show unspecified attachment', () => {
-    expect(de.query(By.css('[data-test="title"]')).nativeElement.innerHTML).toBe('test-unspecified.pdf (127.37 KB)');
-  });
-
-  it('should call startWithAll when environment pagination is false', () => {
-    component.envPagination.enabled = false;
-    const spy = spyOn(component, 'startWithAll');
-    spyOn(component, 'getBitstreams').and.returnValue(of([]));
-    mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
-    fixture.detectChanges();
-    component.ngOnInit();
-    fixture.detectChanges();
-    expect(spy).toHaveBeenCalled();
-  });
-
-  describe('when the field has metadata key and value set as value', () => {
+  describe('when pagination is disabled', () => {
     beforeEach(() => {
-      // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
-      TestBed.resetTestingModule();
       TestBed.configureTestingModule(getDefaultTestBedConf());
-      TestBed.overrideProvider('fieldProvider', { useValue: mockFieldWithMetadata });
       fixture = TestBed.createComponent(AttachmentComponent);
       component = fixture.componentInstance;
       de = fixture.debugElement;
+      mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
+      component.envPagination.enabled = false;
+      mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
       let spy = spyOn(component, 'getBitstreams');
-      spy.and.returnValue(of(attachmentsMock));
+      spy.and.returnValue(of(createPaginatedList(attachmentsMock)));
       component.item = testItem;
       fixture.detectChanges();
     });
 
-    it('should show main article attachment', () => {
-      expect(de.query(By.css('[data-test="title"]')).nativeElement.innerHTML).toBe('main.pdf (127.37 KB)');
+    it('should create', () => {
+      expect(component).toBeTruthy();
     });
 
-  });
+    it('should retrieve bitstreams without pagination', fakeAsync(() => {
+      flush();
+      expect(component.getBitstreams).toHaveBeenCalledWith();
+    }));
 
-  describe('when the field has metadata key and value set as regex', () => {
-    beforeEach(() => {
-      // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
-      TestBed.resetTestingModule();
-      TestBed.configureTestingModule(getDefaultTestBedConf());
-      TestBed.overrideProvider('fieldProvider', { useValue: mockFieldWithRegexMetadata });
-      fixture = TestBed.createComponent(AttachmentComponent);
-      component = fixture.componentInstance;
-      de = fixture.debugElement;
-      let spy = spyOn(component, 'getBitstreams');
-      spy.and.returnValue(of(attachmentsMock));
-      component.item = testItem;
-      fixture.detectChanges();
+    it('should not show view more button', fakeAsync(() => {
+      flush();
+      expect(fixture.debugElement.query(By.css('a[data-test="view-more"]'))).toBeNull();
+    }));
+
+    it('check metadata rendering', fakeAsync(() => {
+      flush();
+      const valueFound = fixture.debugElement.queryAll(By.css('ds-file-download-link'));
+      expect(valueFound.length).toBe(3);
+    }));
+
+    it('check value style', (done) => {
+      const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-value'));
+      expect(spanValueFound.length).toBe(1);
+      done();
     });
 
-    it('should show regex article attachment', () => {
-      expect(de.query(By.css('[data-test="title"]')).nativeElement.innerHTML).toBe('main-regex.pdf (127.37 KB)');
+    it('should show information properly', () => {
+      const titles = de.queryAll(By.css('[data-test="title"]'));
+      expect(titles.length).toBe(3);
+      console.log(titles);
+      expect(titles[0].nativeElement.innerHTML).toContain('test-unspecified.pdf (127.37 KB)');
+      expect(titles[1].nativeElement.innerHTML).toContain('main.pdf (127.37 KB)');
+      expect(titles[2].nativeElement.innerHTML).toContain('main-regex.pdf (127.37 KB)');
     });
 
-  });
-
-  describe('When there are 4 attachments with pagination', () => {
-
-    beforeEach(() => {
-      mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream1, bitstream1, bitstream1])));
-      component.canViewMore = true;
-      fixture.detectChanges();
-      component.ngOnInit();
-      fixture.detectChanges();
-    });
-
-    it('should show view more button', () => {
-      expect(fixture.debugElement.query(By.css('a[data-test="view-more"]'))).toBeTruthy();
-    });
-
-    it('should show 2 elements', () => {
-      expect(fixture.debugElement.queryAll(By.css('ds-file-download-link')).length).toEqual(2);
-    });
-
-    it('when view more button is clicked it should show 4 elements', () => {
-      const btn = fixture.debugElement.query(By.css('a[data-test="view-more"]'));
-      btn.nativeElement.click();
-      fixture.detectChanges();
-      expect(fixture.debugElement.queryAll(By.css('ds-file-download-link')).length).toEqual(4);
-    });
-
-    describe('when attachment has no metadata', () => {
-
+    describe('and the field has metadata key and value set as value', () => {
       beforeEach(() => {
-        mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream2])));
+        // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
+        TestBed.resetTestingModule();
+        TestBed.configureTestingModule(getDefaultTestBedConf());
+        TestBed.overrideProvider('fieldProvider', { useValue: mockFieldWithMetadata });
+        fixture = TestBed.createComponent(AttachmentComponent);
+        component = fixture.componentInstance;
+        de = fixture.debugElement;
+        let spy = spyOn(component, 'getBitstreams');
+        spy.and.returnValue(of(createPaginatedList(attachmentsMock)));
         component.item = testItem;
-        component.ngOnInit();
         fixture.detectChanges();
       });
+
+      it('should show main article attachment', () => {
+        expect(de.query(By.css('[data-test="title"]')).nativeElement.innerHTML).toContain('main.pdf (127.37 KB)');
+      });
+
+    });
+
+    describe('when the field has metadata key and value set as regex', () => {
+      beforeEach(() => {
+        // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
+        TestBed.resetTestingModule();
+        TestBed.configureTestingModule(getDefaultTestBedConf());
+        TestBed.overrideProvider('fieldProvider', { useValue: mockFieldWithRegexMetadata });
+        fixture = TestBed.createComponent(AttachmentComponent);
+        component = fixture.componentInstance;
+        de = fixture.debugElement;
+        let spy = spyOn(component, 'getBitstreams');
+        spy.and.returnValue(of(createPaginatedList(attachmentsMock)));
+        component.item = testItem;
+        fixture.detectChanges();
+      });
+
+      it('should show regex article attachment', () => {
+        expect(de.query(By.css('[data-test="title"]')).nativeElement.innerHTML).toContain('main-regex.pdf (127.37 KB)');
+      });
+
+    });
+
+    describe('and attachment has no metadata', () => {
+
+      beforeEach(() => {
+        // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
+        TestBed.resetTestingModule();
+        TestBed.configureTestingModule(getDefaultTestBedConf());
+        fixture = TestBed.createComponent(AttachmentComponent);
+        component = fixture.componentInstance;
+        de = fixture.debugElement;
+        let spy = spyOn(component, 'getBitstreams');
+        spy.and.returnValue(of(createPaginatedList([bitstream2])));
+        component.item = testItem;
+        fixture.detectChanges();
+      });
+
       it('Should not render title part', () => {
         expect(fixture.debugElement.query(By.css('[data-test="title"]'))).toBeFalsy();
       });
@@ -327,8 +277,21 @@ describe('AttachmentComponent', () => {
 
     });
 
+    describe('and attachment has dc.title,dc.type and dc.description', () => {
 
-    describe('when attachment has dc.title,dc.type & dc.description', () => {
+      beforeEach(() => {
+        // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
+        TestBed.resetTestingModule();
+        TestBed.configureTestingModule(getDefaultTestBedConf());
+        fixture = TestBed.createComponent(AttachmentComponent);
+        component = fixture.componentInstance;
+        de = fixture.debugElement;
+        let spy = spyOn(component, 'getBitstreams');
+        spy.and.returnValue(of(createPaginatedList([bitstream1])));
+        component.item = testItem;
+        fixture.detectChanges();
+      });
+
       it('Should render title part', () => {
         expect(fixture.debugElement.query(By.css('[data-test="title"]'))).toBeTruthy();
       });
@@ -339,7 +302,36 @@ describe('AttachmentComponent', () => {
         expect(fixture.debugElement.query(By.css('[data-test="description"]'))).toBeTruthy();
       });
     });
+  });
 
+  describe('when pagination is enabled', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule(getDefaultTestBedConf());
+      fixture = TestBed.createComponent(AttachmentComponent);
+      component = fixture.componentInstance;
+      de = fixture.debugElement;
+      mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
+      component.envPagination.enabled = true;
+      let spy = spyOn(component, 'getBitstreams');
+      spy.and.returnValue(of(createPaginatedList([bitstream1, bitstream1, bitstream1, bitstream1])));
+      component.item = testItem;
+      fixture.detectChanges();
+    });
+
+    it('should show view more button', () => {
+      expect(fixture.debugElement.query(By.css('a[data-test="view-more"]'))).toBeTruthy();
+    });
+
+    it('should show 2 elements', () => {
+      expect(fixture.debugElement.queryAll(By.css('ds-file-download-link')).length).toEqual(2);
+    });
+
+    it('and view more button is clicked it should show 4 elements', () => {
+      const btn = fixture.debugElement.query(By.css('a[data-test="view-more"]'));
+      btn.nativeElement.click();
+      fixture.detectChanges();
+      expect(fixture.debugElement.queryAll(By.css('ds-file-download-link')).length).toEqual(4);
+    });
 
   });
 
