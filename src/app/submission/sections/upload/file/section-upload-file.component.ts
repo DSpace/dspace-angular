@@ -36,6 +36,12 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
   @Input() availableAccessConditionOptions: any[];
 
   /**
+   * add more access conditions link show or not
+   * @type {boolean}
+   */
+  @Input() singleAccessCondition: boolean;
+
+  /**
    * The submission id
    * @type {string}
    */
@@ -244,7 +250,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
     activeModal.componentInstance.formMetadata = this.formMetadata;
     activeModal.componentInstance.pathCombiner = this.pathCombiner;
     activeModal.componentInstance.submissionId = this.submissionId;
-
+    activeModal.componentInstance.singleAccessCondition = this.singleAccessCondition;
   }
 
   ngOnDestroy(): void {

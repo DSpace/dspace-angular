@@ -30,6 +30,12 @@ export class SubmissionUploadModel extends ConfigObject {
   @autoserialize
   maxSize: number;
 
+  /**
+   * Boolean that indicates whether or not the user can see add more access condition options.
+   */
+  @autoserialize
+  singleAccessCondition: boolean;
+
   @deserialize
   _links: {
     metadata: HALLink

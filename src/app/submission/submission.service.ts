@@ -85,15 +85,15 @@ export class SubmissionService {
    * @param {SubmissionJsonPatchOperationsService} jsonPatchOperationService
    */
   constructor(protected notificationsService: NotificationsService,
-    protected restService: SubmissionRestService,
-    protected router: Router,
-    protected routeService: RouteService,
-    protected store: Store<SubmissionState>,
-    protected scrollToService: ScrollToService,
-    protected translate: TranslateService,
-    protected searchService: SearchService,
-    protected requestService: RequestService,
-    protected jsonPatchOperationService: SubmissionJsonPatchOperationsService) {
+              protected restService: SubmissionRestService,
+              protected router: Router,
+              protected routeService: RouteService,
+              protected scrollToService: ScrollToService,
+              protected store: Store<SubmissionState>,
+              protected translate: TranslateService,
+              protected searchService: SearchService,
+              protected requestService: RequestService,
+              protected jsonPatchOperationService: SubmissionJsonPatchOperationsService) {
   }
 
   /**
@@ -640,18 +640,15 @@ export class SubmissionService {
     ).subscribe();
   }
 
+  /**
+   * Redirect to Item page
+   */
   redirectToItemPage(submissionId: string) {
-    // This assures that the cache is empty before redirecting to mydspace.
-    // See https://github.com/DSpace/dspace-angular/pull/468
-    this.searchService.getEndpoint().pipe(
-      take(1),
-      tap((url) => this.requestService.removeByHrefSubstring(url)),
-      // Now, do redirect.
-      tap(() => {
-        const itemUuid = submissionId.indexOf(':') > -1 ? submissionId.split(':')[0] : submissionId;
-        this.router.navigateByUrl('/items/' + itemUuid, { replaceUrl: true });
-      })
-    ).subscribe();
+    // This assures that the cache is empty before redirecting to item page.
+    const itemUuid = submissionId.indexOf(':') > -1 ? submissionId.split(':')[0] : submissionId;
+    this.requestService.setStaleByHrefSubstring(itemUuid);
+
+    this.router.navigateByUrl('/items/' + itemUuid, { replaceUrl: true });
   }
 
   /**

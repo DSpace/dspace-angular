@@ -1616,6 +1616,10 @@
 
   "cris-layout.advanced-attachment.requestACopy": "Request a copy",
 
+  "cris-layout.advanced-attachment.viewMore": "View More",
+
+  "cris-layout.attachment.viewMore": "View More",
+
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
   "curation-task.task.noop.label": "NOOP",
@@ -5114,6 +5118,8 @@
   "statistics.table.downloadReports.title.TopCities": "Top city downloads",
 
   "statistics.table.mainReports.header.views": "Views",
+
+  "statistics.table.mainReports.header.bitstream": "File Visits",
 
   "statistics.table.mainReports.header.continent": "Continent",
 

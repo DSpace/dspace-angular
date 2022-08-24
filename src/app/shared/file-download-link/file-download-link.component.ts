@@ -39,6 +39,8 @@ export class FileDownloadLinkComponent implements OnInit {
 
   @Input() enableRequestACopy = true;
 
+  @Input() showIcon = false;
+
   bitstreamPath$: Observable<{
     routerLink: string,
     queryParams: any,

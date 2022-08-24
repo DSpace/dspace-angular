@@ -2,7 +2,7 @@
 import { BuildConfig } from 'src/config/build-config.interface';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
-import { Type } from './../config/advanced-attachment.config';
+import { AdvancedAttachmentElementType } from '../config/advanced-attachment-rendering.config';
 
 export const environment: BuildConfig = {
   production: false,
@@ -371,29 +371,42 @@ export const environment: BuildConfig = {
     },
   ],
 
-  advancedAttachment: [
-    {
-      name: 'dc.title',
-      type: Type.Metadata,
-      truncatable: false
+  attachmentRendering: {
+    pagination: {
+      enabled: true,
+      elementsPerPage: 2
     },
-    {
-      name: 'dc.type',
-      type: Type.Metadata,
-      truncatable: false
+  },
+
+  advancedAttachmentRendering: {
+    pagination: {
+      enabled: true,
+      elementsPerPage: 2
     },
-    {
-      name: 'dc.description',
-      type: Type.Metadata,
-      truncatable: true
-    },
-    {
-      name: 'size',
-      type: Type.Attribute,
-    },
-    {
-      name: 'format',
-      type: Type.Attribute,
-    }
-  ]
+    metadata: [
+      {
+        name: 'dc.title',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: false
+      },
+      {
+        name: 'dc.type',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: false
+      },
+      {
+        name: 'dc.description',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: true
+      },
+      {
+        name: 'size',
+        type: AdvancedAttachmentElementType.Attribute,
+      },
+      {
+        name: 'format',
+        type: AdvancedAttachmentElementType.Attribute,
+      }
+    ]
+  }
 };
