@@ -145,7 +145,7 @@ export class EntityTypeService extends BaseDataService<ItemType> implements Find
    */
   getEntityTypeRelationships(entityTypeId: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<RelationshipType>[]): Observable<RemoteData<PaginatedList<RelationshipType>>> {
     const href$ = this.getRelationshipTypesEndpoint(entityTypeId);
-    return this.relationshipTypeService.findAllByHref(href$, undefined, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    return this.relationshipTypeService.findListByHref(href$, undefined, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**

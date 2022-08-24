@@ -370,7 +370,7 @@ describe('BaseDataService', () => {
 
   });
 
-  describe(`findAllByHref`, () => {
+  describe(`findListByHref`, () => {
     let findListOptions;
     beforeEach(() => {
       findListOptions = { currentPage: 5 };
@@ -383,7 +383,7 @@ describe('BaseDataService', () => {
         spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataMocks.Success }));
         spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataMocks.Success }));
 
-        service.findAllByHref(selfLink, findListOptions, true, true, ...linksToFollow);
+        service.findListByHref(selfLink, findListOptions, true, true, ...linksToFollow);
         expect(service.buildHrefFromFindOptions).toHaveBeenCalledWith(selfLink, findListOptions, [], ...linksToFollow);
       });
     });
@@ -394,11 +394,11 @@ describe('BaseDataService', () => {
         spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataMocks.Success }));
         spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataMocks.Success }));
 
-        service.findAllByHref(selfLink, findListOptions, true, true, ...linksToFollow);
+        service.findListByHref(selfLink, findListOptions, true, true, ...linksToFollow);
         expect((service as any).createAndSendGetRequest).toHaveBeenCalledWith(jasmine.anything(), true);
         expectObservable(rdbService.buildList.calls.argsFor(0)[0]).toBe('(a|)', { a: 'bingo!' });
 
-        service.findAllByHref(selfLink, findListOptions, false, true, ...linksToFollow);
+        service.findListByHref(selfLink, findListOptions, false, true, ...linksToFollow);
         expect((service as any).createAndSendGetRequest).toHaveBeenCalledWith(jasmine.anything(), false);
         expectObservable(rdbService.buildList.calls.argsFor(1)[0]).toBe('(a|)', { a: 'bingo!' });
       });
@@ -410,29 +410,29 @@ describe('BaseDataService', () => {
         spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataMocks.Success }));
         spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataMocks.Success }));
 
-        service.findAllByHref(selfLink, findListOptions, true, true, ...linksToFollow);
+        service.findListByHref(selfLink, findListOptions, true, true, ...linksToFollow);
         expect(rdbService.buildList).toHaveBeenCalledWith(jasmine.anything() as any, ...linksToFollow);
         expectObservable(rdbService.buildList.calls.argsFor(0)[0]).toBe('(a|)', { a: 'bingo!' });
       });
     });
 
-    it(`should call reRequestStaleRemoteData with reRequestOnStale and the exact same findAllByHref call as a callback`, () => {
+    it(`should call reRequestStaleRemoteData with reRequestOnStale and the exact same findListByHref call as a callback`, () => {
       testScheduler.run(({ cold, expectObservable }) => {
         spyOn(service, 'buildHrefFromFindOptions').and.returnValue('bingo!');
         spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataMocks.SuccessStale }));
         spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataMocks.SuccessStale }));
 
-        service.findAllByHref(selfLink, findListOptions, true, true, ...linksToFollow);
+        service.findListByHref(selfLink, findListOptions, true, true, ...linksToFollow);
         expect((service as any).reRequestStaleRemoteData.calls.argsFor(0)[0]).toBeTrue();
-        spyOn(service, 'findAllByHref').and.returnValue(cold('a', { a: remoteDataMocks.SuccessStale }));
+        spyOn(service, 'findListByHref').and.returnValue(cold('a', { a: remoteDataMocks.SuccessStale }));
         // prove that the spy we just added hasn't been called yet
-        expect(service.findAllByHref).not.toHaveBeenCalled();
+        expect(service.findListByHref).not.toHaveBeenCalled();
         // call the callback passed to reRequestStaleRemoteData
         (service as any).reRequestStaleRemoteData.calls.argsFor(0)[1]();
-        // verify that findAllByHref _has_ been called now, with the same params as the original call
-        expect(service.findAllByHref).toHaveBeenCalledWith(jasmine.anything(), findListOptions, true, true, ...linksToFollow);
+        // verify that findListByHref _has_ been called now, with the same params as the original call
+        expect(service.findListByHref).toHaveBeenCalledWith(jasmine.anything(), findListOptions, true, true, ...linksToFollow);
         // ... except for selflink, which will have been turned in to an observable.
-        expectObservable((service.findAllByHref as jasmine.Spy).calls.argsFor(0)[0]).toBe('(a|)', { a: selfLink });
+        expectObservable((service.findListByHref as jasmine.Spy).calls.argsFor(0)[0]).toBe('(a|)', { a: selfLink });
       });
     });
 
@@ -446,7 +446,7 @@ describe('BaseDataService', () => {
           a: 'bingo!',
         };
 
-        expectObservable(service.findAllByHref(selfLink, findListOptions, true, true, ...linksToFollow)).toBe(expected, values);
+        expectObservable(service.findListByHref(selfLink, findListOptions, true, true, ...linksToFollow)).toBe(expected, values);
       });
     });
 
@@ -474,7 +474,7 @@ describe('BaseDataService', () => {
             e: remoteDataMocks.SuccessStale,
           };
 
-          expectObservable(service.findAllByHref(selfLink, findListOptions, true, true, ...linksToFollow)).toBe(expected, values);
+          expectObservable(service.findListByHref(selfLink, findListOptions, true, true, ...linksToFollow)).toBe(expected, values);
         });
       });
 
@@ -495,7 +495,7 @@ describe('BaseDataService', () => {
             e: remoteDataMocks.SuccessStale,
           };
 
-          expectObservable(service.findAllByHref(selfLink, findListOptions, true, true, ...linksToFollow)).toBe(expected, values);
+          expectObservable(service.findListByHref(selfLink, findListOptions, true, true, ...linksToFollow)).toBe(expected, values);
         });
       });
 
@@ -525,7 +525,7 @@ describe('BaseDataService', () => {
             e: remoteDataMocks.SuccessStale,
           };
 
-          expectObservable(service.findAllByHref(selfLink, findListOptions, false, true, ...linksToFollow)).toBe(expected, values);
+          expectObservable(service.findListByHref(selfLink, findListOptions, false, true, ...linksToFollow)).toBe(expected, values);
         });
       });
 
@@ -546,7 +546,7 @@ describe('BaseDataService', () => {
             e: remoteDataMocks.SuccessStale,
           };
 
-          expectObservable(service.findAllByHref(selfLink, findListOptions, false, true, ...linksToFollow)).toBe(expected, values);
+          expectObservable(service.findListByHref(selfLink, findListOptions, false, true, ...linksToFollow)).toBe(expected, values);
         });
       });
 

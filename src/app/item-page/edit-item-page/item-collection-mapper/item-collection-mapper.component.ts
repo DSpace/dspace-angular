@@ -123,7 +123,7 @@ export class ItemCollectionMapperComponent implements OnInit {
         if (shouldUpdate === true) {
           this.shouldUpdate$.next(false);
         }
-        return this.collectionDataService.findAllByHref(
+        return this.collectionDataService.findListByHref(
           this.itemDataService.getMappedCollectionsEndpoint(item.id),
           undefined,
           !shouldUpdate,

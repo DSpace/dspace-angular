@@ -69,7 +69,7 @@ describe('GroupRegistryComponent', () => {
     mockGroups = [GroupMock, GroupMock2];
     mockEPeople = [EPersonMock, EPersonMock2];
     ePersonDataServiceStub = {
-      findAllByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
+      findListByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         switch (href) {
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/epersons':
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
@@ -97,7 +97,7 @@ describe('GroupRegistryComponent', () => {
     };
     groupsDataServiceStub = {
       allGroups: mockGroups,
-      findAllByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
+      findListByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
         switch (href) {
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/groups':
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({

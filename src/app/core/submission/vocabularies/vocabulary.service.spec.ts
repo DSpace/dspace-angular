@@ -419,7 +419,7 @@ describe('VocabularyService', () => {
       spyOn((service as any).vocabularyEntryDetailDataService, 'findById').and.callThrough();
       spyOn((service as any).vocabularyEntryDetailDataService, 'findAll').and.callThrough();
       spyOn((service as any).vocabularyEntryDetailDataService, 'findByHref').and.callThrough();
-      spyOn((service as any).vocabularyEntryDetailDataService, 'findAllByHref').and.callThrough();
+      spyOn((service as any).vocabularyEntryDetailDataService, 'findListByHref').and.callThrough();
       spyOn((service as any).vocabularyEntryDetailDataService, 'searchBy').and.callThrough();
       spyOn((service as any).vocabularyEntryDetailDataService, 'getSearchByHref').and.returnValue(observableOf(searchRequestURL));
       spyOn((service as any).vocabularyEntryDetailDataService, 'getFindAllHref').and.returnValue(observableOf(entryDetailChildrenRequestURL));
@@ -494,7 +494,7 @@ describe('VocabularyService', () => {
         scheduler.schedule(() => service.getEntryDetailChildren('testValue', hierarchicalVocabulary.id, pageInfo).subscribe());
         scheduler.flush();
 
-        expect((service as any).vocabularyEntryDetailDataService.findAllByHref).toHaveBeenCalledWith(entryDetailChildrenRequestURL, options, true, true);
+        expect((service as any).vocabularyEntryDetailDataService.findListByHref).toHaveBeenCalledWith(entryDetailChildrenRequestURL, options, true, true);
       });
 
       it('should return a RemoteData<PaginatedList<ResourcePolicy>> for the object with the given URL', () => {

@@ -106,7 +106,7 @@ describe('VersionHistoryDataService', () => {
     });
     versionService = jasmine.createSpyObj('objectCache', {
       findByHref: jasmine.createSpy('findByHref'),
-      findAllByHref: jasmine.createSpy('findAllByHref'),
+      findListByHref: jasmine.createSpy('findListByHref'),
       getHistoryFromVersion: jasmine.createSpy('getHistoryFromVersion'),
     });
     halService = new HALEndpointServiceStub(url);
@@ -132,8 +132,8 @@ describe('VersionHistoryDataService', () => {
       result = service.getVersions('1');
     });
 
-    it('should call versionService.findAllByHref', () => {
-      expect(versionService.findAllByHref).toHaveBeenCalled();
+    it('should call versionService.findListByHref', () => {
+      expect(versionService.findListByHref).toHaveBeenCalled();
     });
   });
 
@@ -141,8 +141,8 @@ describe('VersionHistoryDataService', () => {
     beforeEach(waitForAsync(() => {
       service.getVersions(versionHistoryId);
     }));
-    it('findAllByHref should have been called', () => {
-      expect(versionService.findAllByHref).toHaveBeenCalled();
+    it('findListByHref should have been called', () => {
+      expect(versionService.findListByHref).toHaveBeenCalled();
     });
   });
 

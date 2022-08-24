@@ -27,8 +27,8 @@ import { dataService } from './base/data-service.decorator';
  * Additionally, this service may be used to retrieve objects by `href` regardless of their type
  * For example
  * ```
- * const items$: Observable<RemoteData<PaginatedList<Item>>> = hrefOnlyDataService.findAllByHref<Item>(href);
- * const sites$: Observable<RemoteData<PaginatedList<Site>>> = hrefOnlyDataService.findAllByHref<Site>(href);
+ * const items$: Observable<RemoteData<PaginatedList<Item>>> = hrefOnlyDataService.findListByHref<Item>(href);
+ * const sites$: Observable<RemoteData<PaginatedList<Site>>> = hrefOnlyDataService.findListByHref<Site>(href);
  * ```
  * This means we cannot extend from {@link BaseDataService} directly because the method signatures would not match.
  */
@@ -82,7 +82,7 @@ export class HrefOnlyDataService implements HALDataService<any> {
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
    *                                    {@link HALLink}s should be automatically resolved
    */
-  findAllByHref<T extends CacheableObject>(href: string | Observable<string>, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
-    return this.dataService.findAllByHref(href, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  findListByHref<T extends CacheableObject>(href: string | Observable<string>, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
+    return this.dataService.findListByHref(href, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }

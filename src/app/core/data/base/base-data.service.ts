@@ -287,7 +287,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
    * @param reRequestOnStale            Whether or not the request should automatically be re-requested after the response becomes stale
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findAllByHref(href$: string | Observable<string>, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
+  findListByHref(href$: string | Observable<string>, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
     }
@@ -307,7 +307,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
       // cached completed object
       skipWhile((rd: RemoteData<PaginatedList<T>>) => useCachedVersionIfAvailable ? rd.isStale : rd.hasCompleted),
       this.reRequestStaleRemoteData(reRequestOnStale, () =>
-        this.findAllByHref(href$, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)),
+        this.findListByHref(href$, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)),
     );
   }
 

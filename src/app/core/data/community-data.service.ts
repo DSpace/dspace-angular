@@ -42,7 +42,7 @@ export class CommunityDataService extends ComColDataService<Community> {
 
   findTop(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Community>[]): Observable<RemoteData<PaginatedList<Community>>> {
     const hrefObs = this.getFindAllHref(options, this.topLinkPath);
-    return this.findAllByHref(hrefObs, undefined, true, true, ...linksToFollow);
+    return this.findListByHref(hrefObs, undefined, true, true, ...linksToFollow);
   }
 
   protected getFindByParentHref(parentUUID: string): Observable<string> {

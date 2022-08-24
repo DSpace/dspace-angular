@@ -50,7 +50,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
    */
   getFiles(processId: string): Observable<RemoteData<PaginatedList<Bitstream>>> {
     const href$ = this.getFilesEndpoint(processId);
-    return this.bitstreamDataService.findAllByHref(href$);
+    return this.bitstreamDataService.findListByHref(href$);
   }
 
   /**

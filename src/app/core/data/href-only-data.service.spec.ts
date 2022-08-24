@@ -48,33 +48,33 @@ describe(`HrefOnlyDataService`, () => {
       });
     });
 
-    describe(`findAllByHref`, () => {
+    describe(`findListByHref`, () => {
       beforeEach(() => {
-        spy = spyOn((service as any).dataService, 'findAllByHref').and.returnValue(createSuccessfulRemoteDataObject$(null));
+        spy = spyOn((service as any).dataService, 'findListByHref').and.returnValue(createSuccessfulRemoteDataObject$(null));
       });
 
-      it(`should delegate to findAllByHref on the internal DataService`, () => {
-        service.findAllByHref(href, findListOptions, false, false, ...followLinks);
+      it(`should delegate to findListByHref on the internal DataService`, () => {
+        service.findListByHref(href, findListOptions, false, false, ...followLinks);
         expect(spy).toHaveBeenCalledWith(href, findListOptions, false, false, ...followLinks);
       });
 
       describe(`when findListOptions is omitted`, () => {
-        it(`should call findAllByHref on the internal DataService with findListOptions = {}`, () => {
-            service.findAllByHref(href);
+        it(`should call findListByHref on the internal DataService with findListOptions = {}`, () => {
+            service.findListByHref(href);
             expect(spy).toHaveBeenCalledWith(jasmine.anything(), {}, jasmine.anything(), jasmine.anything());
         });
       });
 
       describe(`when useCachedVersionIfAvailable is omitted`, () => {
-        it(`should call findAllByHref on the internal DataService with useCachedVersionIfAvailable = true`, () => {
-            service.findAllByHref(href);
+        it(`should call findListByHref on the internal DataService with useCachedVersionIfAvailable = true`, () => {
+            service.findListByHref(href);
             expect(spy).toHaveBeenCalledWith(jasmine.anything(), jasmine.anything(), true, jasmine.anything());
         });
       });
 
       describe(`when reRequestOnStale is omitted`, () => {
-        it(`should call findAllByHref on the internal DataService with reRequestOnStale = true`, () => {
-            service.findAllByHref(href);
+        it(`should call findListByHref on the internal DataService with reRequestOnStale = true`, () => {
+            service.findListByHref(href);
             expect(spy).toHaveBeenCalledWith(jasmine.anything(), jasmine.anything(), jasmine.anything(), true);
         });
       });

@@ -37,5 +37,5 @@ export interface HALDataService<T extends HALResource> {
    * @param reRequestOnStale            Whether or not the request should automatically be re-requested after the response becomes stale
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findAllByHref(href$: string | Observable<string>, findListOptions?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>>;
+  findListByHref(href$: string | Observable<string>, findListOptions?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>>;
 }

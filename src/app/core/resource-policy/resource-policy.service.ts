@@ -121,7 +121,7 @@ export class ResourcePolicyService extends IdentifiableDataService<ResourcePolic
    * @param findListOptions the {@link FindListOptions} for the request
    */
   getDefaultAccessConditionsFor(collection: Collection, findListOptions?: FindListOptions): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
-    return this.findAllByHref(collection._links.defaultAccessConditions.href, findListOptions);
+    return this.findListByHref(collection._links.defaultAccessConditions.href, findListOptions);
   }
 
   /**

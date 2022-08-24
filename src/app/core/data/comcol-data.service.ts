@@ -98,7 +98,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
     const href$ = this.getFindByParentHref(parentUUID).pipe(
       map((href: string) => this.buildHrefFromFindOptions(href, options))
     );
-    return this.findAllByHref(href$, options, true, true, ...linksToFollow);
+    return this.findListByHref(href$, options, true, true, ...linksToFollow);
   }
 
   /**

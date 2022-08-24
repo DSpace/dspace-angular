@@ -129,7 +129,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
     this.subs.set(SubKey.MembersDTO,
       this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
         switchMap((currentPagination) => {
-          return this.ePersonDataService.findAllByHref(this.groupBeingEdited._links.epersons.href, {
+          return this.ePersonDataService.findListByHref(this.groupBeingEdited._links.epersons.href, {
               currentPage: currentPagination.currentPage,
               elementsPerPage: currentPagination.pageSize
             }
@@ -171,7 +171,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
     return this.groupDataService.getActiveGroup().pipe(take(1),
       mergeMap((group: Group) => {
         if (group != null) {
-          return this.ePersonDataService.findAllByHref(group._links.epersons.href, {
+          return this.ePersonDataService.findListByHref(group._links.epersons.href, {
             currentPage: 1,
             elementsPerPage: 9999
           }, false)

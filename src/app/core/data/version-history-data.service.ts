@@ -77,7 +77,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
       map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
     );
 
-    return this.versionDataService.findAllByHref(hrefObs, undefined, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    return this.versionDataService.findListByHref(hrefObs, undefined, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**

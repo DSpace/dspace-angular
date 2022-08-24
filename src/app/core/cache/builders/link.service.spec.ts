@@ -33,8 +33,8 @@ class TestModel implements HALResource {
 
 @Injectable()
 class TestDataService {
-  findAllByHref(href: string, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
-    return 'findAllByHref';
+  findListByHref(href: string, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
+    return 'findListByHref';
   }
 
   findByHref(href: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
@@ -65,7 +65,7 @@ describe('LinkService', () => {
       }
     });
     testDataService = new TestDataService();
-    spyOn(testDataService, 'findAllByHref').and.callThrough();
+    spyOn(testDataService, 'findListByHref').and.callThrough();
     spyOn(testDataService, 'findByHref').and.callThrough();
     TestBed.configureTestingModule({
       providers: [LinkService, {
@@ -119,8 +119,8 @@ describe('LinkService', () => {
         });
         service.resolveLink(testModel, followLink('predecessor', { findListOptions: { some: 'options ' } as any }, followLink('successor')));
       });
-      it('should call dataservice.findAllByHref with the correct href, findListOptions,  and nested links', () => {
-        expect(testDataService.findAllByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, { some: 'options ' } as any, true, true, followLink('successor'));
+      it('should call dataservice.findListByHref with the correct href, findListOptions,  and nested links', () => {
+        expect(testDataService.findListByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, { some: 'options ' } as any, true, true, followLink('successor'));
       });
     });
     describe('either way', () => {

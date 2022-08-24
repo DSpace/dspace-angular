@@ -73,12 +73,12 @@ describe('BundleDataService', () => {
 
   describe('findAllByItem', () => {
     beforeEach(() => {
-      spyOn(service, 'findAllByHref');
+      spyOn(service, 'findListByHref');
       service.findAllByItem(item);
     });
 
-    it('should call findAllByHref with the item\'s bundles link', () => {
-      expect(service.findAllByHref).toHaveBeenCalledWith(bundleLink, undefined, true, true);
+    it('should call findListByHref with the item\'s bundles link', () => {
+      expect(service.findListByHref).toHaveBeenCalledWith(bundleLink, undefined, true, true);
     });
   });
 

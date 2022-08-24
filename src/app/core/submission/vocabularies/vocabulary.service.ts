@@ -282,7 +282,7 @@ export class VocabularyService {
       pageInfo.currentPage
     );
     return this.vocabularyEntryDetailDataService.getFindAllHref(options, linkPath).pipe(
-      mergeMap((href) => this.vocabularyEntryDetailDataService.findAllByHref(href, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow))
+      mergeMap((href) => this.vocabularyEntryDetailDataService.findListByHref(href, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)),
     );
   }
 

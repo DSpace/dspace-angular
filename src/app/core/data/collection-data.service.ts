@@ -280,7 +280,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * @param findListOptions Pagination and search options.
    */
   findMappedCollectionsFor(item: Item, findListOptions?: FindListOptions): Observable<RemoteData<PaginatedList<Collection>>> {
-    return this.findAllByHref(item._links.mappedCollections.href, findListOptions);
+    return this.findListByHref(item._links.mappedCollections.href, findListOptions);
   }
 
 

@@ -196,7 +196,7 @@ export class RelationshipService extends IdentifiableDataService<Relationship> i
    *                        should be automatically resolved
    */
   getItemRelationshipsArray(item: Item, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<Relationship[]> {
-    return this.findAllByHref(item._links.relationships.href, undefined, true, false, ...linksToFollow).pipe(
+    return this.findListByHref(item._links.relationships.href, undefined, true, false, ...linksToFollow).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((rels: PaginatedList<Relationship>) => rels.page),
