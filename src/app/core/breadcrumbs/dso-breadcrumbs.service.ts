@@ -39,9 +39,11 @@ export class DSOBreadcrumbsService implements BreadcrumbsProviderService<ChildHA
     return this.linkService.resolveLink(key, followLink(propertyName))[propertyName].pipe(
       find((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => parentRD.hasSucceeded || parentRD.statusCode === 204),
       switchMap((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => {
-        if (hasValue(parentRD.payload)) {
-          const parent = parentRD.payload;
-          return this.getBreadcrumbs(parent, getDSORoute(parent));
+        if (parentRD) {
+          if (hasValue(parentRD.payload)) {
+            const parent = parentRD.payload;
+            return this.getBreadcrumbs(parent, getDSORoute(parent));
+          }
         }
         return observableOf([]);
 
