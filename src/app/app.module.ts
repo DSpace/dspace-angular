@@ -37,6 +37,7 @@ import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 import { NgxMaskModule } from 'ngx-mask';
 import { StoreDevModules } from '../config/store/devtools';
 import { RootModule } from './root.module';
+import { defaultOptions, PrebootModule } from '@rezonant/preboot';
 
 export function getConfig() {
   return environment;
@@ -77,6 +78,68 @@ const IMPORTS = [
   StoreDevModules,
   EagerThemesModule,
   RootModule,
+  BrowserModule.withServerTransition({ appId: 'dspace-angular' }),
+  PrebootModule.withConfig({
+    appRoot: 'ds-app',
+    eventSelectors: [
+      // Preboot defaults START
+
+      // for recording changes in form elements
+      {
+        selector: 'input,textarea',
+        events: ['keypress', 'keyup', 'keydown', 'input', 'change']
+      },
+      { selector: 'select,option', events: ['change'] },
+
+      // when user hits return button in an input box
+      {
+        selector: 'input',
+        events: ['keyup'],
+        preventDefault: true,
+        keyCodes: [13],
+        freeze: true
+      },
+
+      // when user submit form (press enter, click on button/input[type="submit"])
+      {
+        selector: 'form',
+        events: ['submit'],
+        preventDefault: true,
+        freeze: true
+      },
+
+      // for tracking focus (no need to replay)
+      {
+        selector: 'input,textarea',
+        events: ['focusin', 'focusout', 'mousedown', 'mouseup'],
+        replay: false
+      },
+
+      // // user clicks on a button
+      // {
+      //   selector: 'button',
+      //   events: ['click'],
+      //   preventDefault: true,
+      //   freeze: true
+      // },
+
+      // Preboot defaults END
+
+      // we have a lot of "link buttons"
+      // we probably don't want to freeze either (or maybe make the overlay transparent?)
+      {
+        selector: 'a.preboot-replay,a.dropdown-toggle,button',
+        events: ['click'],
+        preventDefault: true,
+      },
+      // router links can misbehave with event replay enabled
+      {
+        selector: 'a',
+        events: ['click'],
+        preventDefault: true,
+      }
+    ]
+  })
 ];
 
 const PROVIDERS = [
@@ -148,7 +211,6 @@ const EXPORTS = [
 
 @NgModule({
   imports: [
-    BrowserModule.withServerTransition({ appId: 'dspace-angular' }),
     ...IMPORTS
   ],
   providers: [

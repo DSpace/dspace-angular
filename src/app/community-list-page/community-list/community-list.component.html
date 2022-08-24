@@ -25,6 +25,7 @@
                  class="example-tree-node expandable-node">
     <div class="btn-group">
       <button type="button" class="btn btn-default" cdkTreeNodeToggle
+              [id]="'toggle-' + node.id"
               [title]="'toggle ' + node.name"
               [attr.aria-label]="'toggle ' + node.name"
               (click)="toggleExpanded(node)"

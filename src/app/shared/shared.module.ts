@@ -293,6 +293,7 @@ import { BrowserOnlyPipe } from './utils/browser-only.pipe';
 import { ThemedLoadingComponent } from './loading/themed-loading.component';
 import { PersonPageClaimButtonComponent } from './dso-page/person-page-claim-button/person-page-claim-button.component';
 import { SearchExportCsvComponent } from './search/search-export-csv/search-export-csv.component';
+import { LoadingCsrComponent } from './loading-csr/loading-csr.component';
 
 const MODULES = [
   CommonModule,
@@ -351,6 +352,7 @@ const COMPONENTS = [
   LangSwitchComponent,
   LoadingComponent,
   ThemedLoadingComponent,
+  LoadingCsrComponent,
   LogInComponent,
   LogOutComponent,
   NumberPickerComponent,
