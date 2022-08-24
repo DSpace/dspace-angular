@@ -1918,6 +1918,46 @@
 
   "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
 
+  "item.edit.identifiers.doi.status.1": "Queued for registration",
+
+  "item.edit.identifiers.doi.status.2": "Queued for reservation",
+
+  "item.edit.identifiers.doi.status.3": "Registered",
+
+  "item.edit.identifiers.doi.status.4": "Reserved",
+
+  "item.edit.identifiers.doi.status.5": "Reserved",
+
+  "item.edit.identifiers.doi.status.6": "Registered",
+
+  "item.edit.identifiers.doi.status.7": "Queued for registration",
+
+  "item.edit.identifiers.doi.status.8": "Queued for deletion",
+
+  "item.edit.identifiers.doi.status.9": "Deleted",
+
+  "item.edit.identifiers.doi.status.10": "Pending approval",
+
+  "item.edit.identifiers.doi.status.11": "Minted, not registered",
+
+  "item.edit.tabs.status.buttons.registerDOI.label": "Register a new or pending identifier",
+
+  "item.edit.tabs.status.buttons.registerDOI.button": "Register DOI...",
+
+  "item.edit.registerdoi.header": "Register a new or pending DOI",
+
+  "item.edit.registerdoi.description": "Review any pending identifiers and item metadata below and click Confirm to proceed with DOI registration, or Cancel to back out",
+
+  "item.edit.registerdoi.confirm": "Confirm",
+
+  "item.edit.registerdoi.cancel": "Cancel",
+
+  "item.edit.registerdoi.success": "DOI registered successfully. Refresh Item Status page to see new DOI details.",
+
+  "item.edit.registerdoi.error": "Error registering DOI",
+
+  "item.edit.registerdoi.to-update": "The following DOI has already been minted and will be queued for registration online",
+
   "item.edit.item-mapper.buttons.add": "Map item to selected collections",
 
   "item.edit.item-mapper.buttons.remove": "Remove item's mapping for selected collections",
