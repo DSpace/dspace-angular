@@ -15,18 +15,34 @@ import { MenuService } from './shared/menu/menu.service';
 import { filter, find, map, take } from 'rxjs/operators';
 import { hasValue } from './shared/empty.util';
 import { FeatureID } from './core/data/feature-authorization/feature-id';
-import { CreateCommunityParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
+import {
+  CreateCommunityParentSelectorComponent
+} from './shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
 import { OnClickMenuItemModel } from './shared/menu/menu-item/models/onclick.model';
-import { CreateCollectionParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
-import { CreateItemParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
-import { EditCommunitySelectorComponent } from './shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
-import { EditCollectionSelectorComponent } from './shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
-import { EditItemSelectorComponent } from './shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
-import { ExportMetadataSelectorComponent } from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
+import {
+  CreateCollectionParentSelectorComponent
+} from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
+import {
+  CreateItemParentSelectorComponent
+} from './shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import {
+  EditCommunitySelectorComponent
+} from './shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
+import {
+  EditCollectionSelectorComponent
+} from './shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
+import {
+  EditItemSelectorComponent
+} from './shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
+import {
+  ExportMetadataSelectorComponent
+} from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
-  METADATA_EXPORT_SCRIPT_NAME, METADATA_IMPORT_SCRIPT_NAME, ScriptDataService
+  METADATA_EXPORT_SCRIPT_NAME,
+  METADATA_IMPORT_SCRIPT_NAME,
+  ScriptDataService
 } from './core/data/processes/script-data.service';
 
 /**
@@ -320,6 +336,18 @@ export class MenuResolver implements Resolve<boolean> {
           } as LinkMenuItemModel,
           icon: 'terminal',
           index: 10
+        },
+        {
+          id: 'health',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.health',
+            link: '/health'
+          } as LinkMenuItemModel,
+          icon: 'heartbeat',
+          index: 11
         },
       ];
       menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {

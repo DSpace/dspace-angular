@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
+  ActivationEnd,
   NavigationCancel,
   NavigationEnd,
   NavigationStart, ResolveEnd,
@@ -21,7 +22,7 @@ import {
 import { isEqual } from 'lodash';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
@@ -48,6 +49,7 @@ import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { getDefaultThemeConfig } from '../config/config.util';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { ModalBeforeDismiss } from './shared/interfaces/modal-before-dismiss.interface';
 
 @Component({
   selector: 'ds-app',
@@ -105,6 +107,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private localeService: LocaleService,
     private breadcrumbsService: BreadcrumbsService,
     private modalService: NgbModal,
+    private modalConfig: NgbModalConfig,
     @Optional() private cookiesService: KlaroService,
     @Optional() private googleAnalyticsService: GoogleAnalyticsService,
   ) {
@@ -165,6 +168,16 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    /** Implement behavior for interface {@link ModalBeforeDismiss} */
+    this.modalConfig.beforeDismiss = async function () {
+      if (typeof this?.componentInstance?.beforeDismiss === 'function') {
+        return this.componentInstance.beforeDismiss();
+      }
+
+      // fall back to default behavior
+      return true;
+    };
+
     this.isAuthBlocking$ = this.store.pipe(select(isAuthenticationBlocking)).pipe(
       distinctUntilChanged()
     );
@@ -196,34 +209,54 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    let resolveEndFound = false;
+    let updatingTheme = false;
+    let snapshot: ActivatedRouteSnapshot;
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        resolveEndFound = false;
+        updatingTheme = false;
         this.distinctNext(this.isRouteLoading$, true);
-      } else  if (event instanceof ResolveEnd) {
-        resolveEndFound = true;
-        const activatedRouteSnapShot: ActivatedRouteSnapshot = event.state.root;
-        this.themeService.updateThemeOnRouteChange$(event.urlAfterRedirects, activatedRouteSnapShot).pipe(
-          switchMap((changed) => {
-            if (changed) {
-              return this.isThemeCSSLoading$;
-            } else {
-              return [false];
-            }
-          })
-        ).subscribe((changed) => {
-          this.distinctNext(this.isThemeLoading$, changed);
-        });
-      } else if (
-        event instanceof NavigationEnd ||
-        event instanceof NavigationCancel
-      ) {
-        if (!resolveEndFound) {
+      } else if (event instanceof ResolveEnd) {
+        // this is the earliest point where we have all the information we need
+        // to update the theme, but this event is not emitted on first load
+        this.updateTheme(event.urlAfterRedirects, event.state.root);
+        updatingTheme = true;
+      } else if (!updatingTheme && event instanceof ActivationEnd) {
+        // if there was no ResolveEnd, keep track of the snapshot...
+        snapshot = event.snapshot;
+      } else if (event instanceof NavigationEnd) {
+        if (!updatingTheme) {
+          // ...and use it to update the theme on NavigationEnd instead
+          this.updateTheme(event.urlAfterRedirects, snapshot);
+          updatingTheme = true;
+        }
+        this.distinctNext(this.isRouteLoading$, false);
+      } else if (event instanceof NavigationCancel) {
+        if (!updatingTheme) {
           this.distinctNext(this.isThemeLoading$, false);
         }
         this.distinctNext(this.isRouteLoading$, false);
       }
+    });
+  }
+
+  /**
+   * Update the theme according to the current route, if applicable.
+   * @param urlAfterRedirects the current URL after redirects
+   * @param snapshot          the current route snapshot
+   * @private
+   */
+  private updateTheme(urlAfterRedirects: string, snapshot: ActivatedRouteSnapshot): void {
+    this.themeService.updateThemeOnRouteChange$(urlAfterRedirects, snapshot).pipe(
+      switchMap((changed) => {
+        if (changed) {
+          return this.isThemeCSSLoading$;
+        } else {
+          return [false];
+        }
+      })
+    ).subscribe((changed) => {
+      this.distinctNext(this.isThemeLoading$, changed);
     });
   }
 
@@ -268,7 +301,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('type', 'text/css');
     link.setAttribute('class', 'theme-css');
-    link.setAttribute('href', `/${encodeURIComponent(themeName)}-theme.css`);
+    link.setAttribute('href', `${encodeURIComponent(themeName)}-theme.css`);
     // wait for the new css to download before removing the old one to prevent a
     // flash of unstyled content
     link.onload = () => {

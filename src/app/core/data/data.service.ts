@@ -8,11 +8,12 @@ import {
   find,
   map,
   mergeMap,
+  skipWhile,
+  switchMap,
   take,
   takeWhile,
-  switchMap,
   tap,
-  skipWhile, toArray
+  toArray
 } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
@@ -26,18 +27,12 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getRemoteDataPayload, getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { ChangeAnalyzer } from './change-analyzer';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import {
-  CreateRequest,
-  GetRequest,
-  PatchRequest,
-  PutRequest,
-  DeleteRequest
-} from './request.models';
+import { CreateRequest, DeleteRequest, GetRequest, PatchRequest, PutRequest } from './request.models';
 import { RequestService } from './request.service';
 import { RestRequestMethod } from './rest-request-method';
 import { UpdateDataService } from './update-data.service';
@@ -169,7 +164,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    * @return {Observable<string>}
    * Return an observable that emits created HREF
    */
-  protected buildHrefWithParams(href: string, params: RequestParam[], ...linksToFollow: FollowLinkConfig<T>[]): string {
+  buildHrefWithParams(href: string, params: RequestParam[], ...linksToFollow: FollowLinkConfig<T>[]): string {
 
     let  args = [];
     if (hasValue(params)) {
@@ -600,6 +595,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     const done$ = new AsyncSubject<boolean>();
 
     this.objectCache.getByHref(href).pipe(
+      take(1),
       switchMap((oce: ObjectCacheEntry) => observableFrom(oce.requestUUIDs).pipe(
         mergeMap((requestUUID: string) => this.requestService.setStaleByUUID(requestUUID)),
         toArray(),

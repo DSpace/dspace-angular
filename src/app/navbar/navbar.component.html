@@ -4,7 +4,7 @@
     <div class="container">
         <div class="reset-padding-md w-100">
             <div id="collapsingNav">
-                <ul class="navbar-nav mr-auto shadow-none">
+                <ul class="navbar-nav navbar-navigation mr-auto shadow-none">
                     <ng-container *ngFor="let section of (sections | async)">
                         <ng-container *ngComponentOutlet="(sectionMap$ | async).get(section.id)?.component; injector: (sectionMap$ | async).get(section.id)?.injector;"></ng-container>
                     </ng-container>

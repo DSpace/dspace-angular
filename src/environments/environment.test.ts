@@ -38,6 +38,10 @@ export const environment: BuildConfig = {
     baseUrl: 'https://rest.com/api'
   },
 
+  actuators: {
+    endpointPath: '/actuator/health'
+  },
+
   // Caching settings
   cache: {
     // NOTE: how long should objects be cached for by default
@@ -239,5 +243,9 @@ export const environment: BuildConfig = {
   mediaViewer: {
     image: true,
     video: true
+  },
+  info: {
+    enableEndUserAgreement: true,
+    enablePrivacyStatement: true,
   }
 };

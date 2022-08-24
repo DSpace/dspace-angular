@@ -15,6 +15,8 @@ import { UIServerConfig } from './ui-server-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
+import { ActuatorsConfig } from './actuators.config';
+import { InfoConfig } from './info-config.interface';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -34,6 +36,8 @@ interface AppConfig extends Config {
   themes: ThemeConfig[];
   mediaViewer: MediaViewerConfig;
   bundle: BundleConfig;
+  actuators: ActuatorsConfig
+  info: InfoConfig;
 }
 
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');

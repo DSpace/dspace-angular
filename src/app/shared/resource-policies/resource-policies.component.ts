@@ -63,6 +63,12 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
   @Input() public resourceType: string;
 
   /**
+   * The resource name
+   * @type {string}
+   */
+  @Input() public resourceName: string;
+
+  /**
    * A boolean representing if component is active
    * @type {boolean}
    */
