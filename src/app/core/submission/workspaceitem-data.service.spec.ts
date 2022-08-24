@@ -82,14 +82,11 @@ describe('WorkspaceitemDataService test', () => {
   function initTestService() {
     hrefOnlyDataService = getMockHrefOnlyDataService();
     return new WorkspaceitemDataService(
-      comparatorEntry,
-      halService,
-      http,
-      notificationsService,
       requestService,
       rdbService,
       objectCache,
-      store
+      halService,
+      notificationsService,
     );
   }
 

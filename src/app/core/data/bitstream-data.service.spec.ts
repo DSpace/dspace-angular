@@ -47,7 +47,7 @@ describe('BitstreamDataService', () => {
     });
     rdbService = getMockRemoteDataBuildService();
 
-    service = new BitstreamDataService(requestService, rdbService, null, objectCache, halService, null, null, null, null, bitstreamFormatService);
+    service = new BitstreamDataService(requestService, rdbService, objectCache, halService, null, bitstreamFormatService, null, null);
   });
 
   describe('when updating the bitstream\'s format', () => {

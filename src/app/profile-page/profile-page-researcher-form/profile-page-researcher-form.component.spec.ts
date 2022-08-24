@@ -165,7 +165,7 @@ describe('ProfilePageResearcherFormComponent', () => {
 
     it('should delete the profile', () => {
 
-      expect(researcherProfileService.delete).toHaveBeenCalledWith(profile);
+      expect(researcherProfileService.delete).toHaveBeenCalledWith(profile.id);
     });
 
   });

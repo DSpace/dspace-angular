@@ -47,7 +47,7 @@ class TestService extends ComColDataService<any> {
     protected comparator: DSOChangeAnalyzer<Community>,
     protected linkPath: string
   ) {
-    super();
+    super('something', requestService, rdbService, objectCache, halService, comparator, notificationsService, bitstreamDataService);
   }
 
   protected getFindByParentHref(parentUUID: string): Observable<string> {

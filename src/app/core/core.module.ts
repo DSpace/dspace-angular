@@ -178,6 +178,8 @@ import { OrcidHistoryDataService } from './orcid/orcid-history-data.service';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
 import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { OrcidAuthService } from './orcid/orcid-auth.service';
+import { VocabularyDataService } from './submission/vocabularies/vocabulary.data.service';
+import { VocabularyEntryDetailsDataService } from './submission/vocabularies/vocabulary-entry-details.data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -300,6 +302,8 @@ const PROVIDERS = [
   FilteredDiscoveryPageResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
   VocabularyService,
+  VocabularyDataService,
+  VocabularyEntryDetailsDataService,
   VocabularyTreeviewService,
   SequenceService,
   GroupDataService,

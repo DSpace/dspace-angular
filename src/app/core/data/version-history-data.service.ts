@@ -1,14 +1,10 @@
-import { DataService } from './data.service';
 import { VersionHistory } from '../shared/version-history.model';
 import { Injectable } from '@angular/core';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { Store } from '@ngrx/store';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { HttpHeaders } from '@angular/common/http';
 import { PostRequest } from './request.models';
 import { Observable, of } from 'rxjs';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
@@ -21,40 +17,31 @@ import { VERSION_HISTORY } from '../shared/version-history.resource-type';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { VersionDataService } from './version-data.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload
-} from '../shared/operators';
+import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, getRemoteDataPayload } from '../shared/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { hasValueOperator } from '../../shared/empty.util';
 import { Item } from '../shared/item.model';
-import { CoreState } from '../core-state.model';
 import { FindListOptions } from './find-list-options.model';
 import { sendRequest } from '../shared/request.operators';
 import { RestRequest } from './rest-request.model';
+import { IdentifiableDataService } from './base/identifiable-data.service';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object
  */
 @Injectable()
 @dataService(VERSION_HISTORY)
-export class VersionHistoryDataService extends DataService<VersionHistory> {
-  protected linkPath = 'versionhistories';
+export class VersionHistoryDataService extends IdentifiableDataService<VersionHistory> {
   protected versionsEndpoint = 'versions';
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
     protected versionDataService: VersionDataService,
-    protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<VersionHistory>) {
-    super();
+  ) {
+    super('versionhistories', requestService, rdbService, objectCache, halService);
   }
 
   /**

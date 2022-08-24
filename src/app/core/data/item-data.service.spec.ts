@@ -21,7 +21,7 @@ import { HALEndpointServiceStub } from 'src/app/shared/testing/hal-endpoint-serv
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
   let service: ItemDataService;
-  let bs: BrowseService;
+  let browseService: BrowseService;
   const requestService = Object.assign(getMockRequestService(), {
     generateRequestId(): string {
       return scopeID;
@@ -78,14 +78,12 @@ describe('ItemDataService', () => {
     return new ItemDataService(
       requestService,
       rdbService,
-      store,
-      bs,
       objectCache,
       halEndpointService,
       notificationsService,
-      http,
       comparator,
-      bundleService
+      browseService,
+      bundleService,
     );
   }
 
@@ -95,7 +93,7 @@ describe('ItemDataService', () => {
     });
 
     it('should return the endpoint to fetch Items within the given scope and starting with the given string', () => {
-      bs = initMockBrowseService(true);
+      browseService = initMockBrowseService(true);
       service = initTestService();
 
       const result = service.getBrowseEndpoint(options);
@@ -106,7 +104,7 @@ describe('ItemDataService', () => {
 
     describe('if the dc.date.issue browse isn\'t configured for items', () => {
       beforeEach(() => {
-        bs = initMockBrowseService(false);
+        browseService = initMockBrowseService(false);
         service = initTestService();
       });
       it('should throw an error', () => {

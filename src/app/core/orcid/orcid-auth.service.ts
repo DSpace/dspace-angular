@@ -77,7 +77,7 @@ export class OrcidAuthService {
 
     return this.researcherProfileService.findById(person.firstMetadata('dspace.object.owner').authority).pipe(
       getFirstCompletedRemoteData(),
-      switchMap((profileRD) => this.researcherProfileService.updateByOrcidOperations(profileRD.payload, operations))
+      switchMap((profileRD) => this.researcherProfileService.patch(profileRD.payload, operations)),
     );
   }
 
@@ -94,7 +94,7 @@ export class OrcidAuthService {
 
     return this.researcherProfileService.findById(person.firstMetadata('dspace.object.owner').authority).pipe(
       getFirstCompletedRemoteData(),
-      switchMap((profileRD) => this.researcherProfileService.updateByOrcidOperations(profileRD.payload, operations))
+      switchMap((profileRD) => this.researcherProfileService.patch(profileRD.payload, operations)),
     );
   }
 

@@ -10,6 +10,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RequestParam } from '../cache/models/request-param.model';
 import { FindListOptions } from './find-list-options.model';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 
 describe('MetadataFieldDataService', () => {
   let metadataFieldService: MetadataFieldDataService;
@@ -33,16 +34,19 @@ describe('MetadataFieldDataService', () => {
       generateRequestId: '34cfed7c-f597-49ef-9cbe-ea351f0023c2',
       send: {},
       getByUUID: observableOf({ response: new RestResponse(true, 200, 'OK') }),
-      setStaleByHrefSubstring: {}
+      setStaleByHrefSubstring: {},
     });
     halService = Object.assign(new HALEndpointServiceStub(endpoint));
     notificationsService = jasmine.createSpyObj('notificationsService', {
-      error: {}
+      error: {},
     });
     rdbService = jasmine.createSpyObj('rdbService', {
-      buildSingle: createSuccessfulRemoteDataObject$(undefined)
+      buildSingle: createSuccessfulRemoteDataObject$(undefined),
+      buildList: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     });
-    metadataFieldService = new MetadataFieldDataService(requestService, rdbService, undefined, halService, undefined, undefined, undefined, notificationsService);
+    metadataFieldService = new MetadataFieldDataService(
+      requestService, rdbService, undefined, halService, notificationsService,
+    );
   }
 
   beforeEach(() => {

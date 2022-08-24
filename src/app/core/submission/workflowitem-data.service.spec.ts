@@ -82,14 +82,11 @@ describe('WorkflowItemDataService test', () => {
   function initTestService() {
     hrefOnlyDataService = getMockHrefOnlyDataService();
     return new WorkflowItemDataService(
-      comparatorEntry,
-      halService,
-      http,
-      notificationsService,
       requestService,
       rdbService,
       objectCache,
-      store
+      halService,
+      notificationsService,
     );
   }
 

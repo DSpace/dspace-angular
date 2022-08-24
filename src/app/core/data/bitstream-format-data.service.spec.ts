@@ -50,8 +50,6 @@ describe('BitstreamFormatDataService', () => {
   } as HALEndpointService;
 
   const notificationsService = {} as NotificationsService;
-  const http = {} as HttpClient;
-  const comparator = {} as any;
 
   let rd;
   let rdbService: RemoteDataBuildService;
@@ -65,12 +63,10 @@ describe('BitstreamFormatDataService', () => {
     return new BitstreamFormatDataService(
       requestService,
       rdbService,
-      store,
       objectCache,
       halService,
       notificationsService,
-      http,
-      comparator
+      store,
     );
   }
 

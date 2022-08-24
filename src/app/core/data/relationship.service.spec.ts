@@ -6,7 +6,7 @@ import { Relationship } from '../shared/item-relationships/relationship.model';
 import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';
 import { buildPaginatedList } from './paginated-list.model';
-import { DeleteRequest} from './request.models';
+import { DeleteRequest } from './request.models';
 import { RelationshipService } from './relationship.service';
 import { RequestService } from './request.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
@@ -123,15 +123,11 @@ describe('RelationshipService', () => {
 
   function initTestService() {
     return new RelationshipService(
-      itemService,
       requestService,
       rdbService,
-      null,
       halService,
       objectCache,
-      null,
-      null,
-      null,
+      itemService,
       null,
       jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v),
     );

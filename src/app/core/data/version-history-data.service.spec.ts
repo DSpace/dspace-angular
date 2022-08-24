@@ -102,7 +102,7 @@ describe('VersionHistoryDataService', () => {
       buildFromRequestUUID: jasmine.createSpy('buildFromRequestUUID'),
     });
     objectCache = jasmine.createSpyObj('objectCache', {
-      remove: jasmine.createSpy('remove')
+      remove: jasmine.createSpy('remove'),
     });
     versionService = jasmine.createSpyObj('objectCache', {
       findByHref: jasmine.createSpy('findByHref'),
@@ -112,7 +112,13 @@ describe('VersionHistoryDataService', () => {
     halService = new HALEndpointServiceStub(url);
     notificationsService = new NotificationsServiceStub();
 
-    service = new VersionHistoryDataService(requestService, rdbService, null, objectCache, halService, notificationsService, versionService, null, null);
+    service = new VersionHistoryDataService(
+      requestService,
+      rdbService,
+      objectCache,
+      halService,
+      versionService,
+    );
   }
 
   beforeEach(() => {

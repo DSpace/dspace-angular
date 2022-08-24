@@ -24,14 +24,20 @@ describe('MetadataSchemaDataService', () => {
       generateRequestId: '34cfed7c-f597-49ef-9cbe-ea351f0023c2',
       send: {},
       getByUUID: observableOf({ response: new RestResponse(true, 200, 'OK') }),
-      removeByHrefSubstring: {}
+      removeByHrefSubstring: {},
     });
     halService = Object.assign(new HALEndpointServiceStub(endpoint));
     notificationsService = jasmine.createSpyObj('notificationsService', {
-      error: {}
+      error: {},
     });
     rdbService = getMockRemoteDataBuildService();
-    metadataSchemaService = new MetadataSchemaDataService(requestService, rdbService, undefined, halService, undefined, undefined, undefined, notificationsService);
+    metadataSchemaService = new MetadataSchemaDataService(
+      requestService,
+      rdbService,
+      null,
+      halService,
+      notificationsService,
+    );
   }
 
   beforeEach(() => {

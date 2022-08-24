@@ -201,7 +201,7 @@ describe('CollectionDataService', () => {
     notificationsService = new NotificationsServiceStub();
     translate = getMockTranslateService();
 
-    service = new CollectionDataService(requestService, rdbService, null, null, objectCache, halService, notificationsService, null, null, null, translate);
+    service = new CollectionDataService(requestService, rdbService, objectCache, halService, null, notificationsService, null, null, translate);
   }
 
 });

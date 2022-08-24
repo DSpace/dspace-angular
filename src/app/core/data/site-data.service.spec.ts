@@ -4,14 +4,10 @@ import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Site } from '../shared/site.model';
-import { Store } from '@ngrx/store';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { TestScheduler } from 'rxjs/testing';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { CoreState } from '../core-state.model';
 import { FindListOptions } from './find-list-options.model';
 
 describe('SiteDataService', () => {
@@ -47,21 +43,13 @@ describe('SiteDataService', () => {
       })
     });
 
-    const store = {} as Store<CoreState>;
     objectCache = {} as ObjectCacheService;
-    const notificationsService = {} as NotificationsService;
-    const http = {} as HttpClient;
-    const comparator = {} as any;
 
     service = new SiteDataService(
       requestService,
       rdbService,
-      store,
       objectCache,
       halService,
-      notificationsService,
-      http,
-      comparator
     );
   });
 

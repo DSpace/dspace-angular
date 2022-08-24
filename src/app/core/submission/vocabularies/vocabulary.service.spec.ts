@@ -1,10 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
@@ -26,6 +23,8 @@ import { HrefOnlyDataService } from '../../data/href-only-data.service';
 import { getMockHrefOnlyDataService } from '../../../shared/mocks/href-only-data.service.mock';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestEntry } from '../../data/request-entry.model';
+import { VocabularyDataService } from './vocabulary.data.service';
+import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
 
 describe('VocabularyService', () => {
   let scheduler: TestScheduler;
@@ -203,24 +202,14 @@ describe('VocabularyService', () => {
       response: { isSuccessful: successful, payload: arrayEntries } as any
     } as RequestEntry);
   };
-  objectCache = {} as ObjectCacheService;
-  const notificationsService = {} as NotificationsService;
-  const http = {} as HttpClient;
-  const comparator = {} as any;
-  const comparatorEntry = {} as any;
 
   function initTestService() {
     hrefOnlyDataService = getMockHrefOnlyDataService();
+
     return new VocabularyService(
       requestService,
-      rdbService,
-      objectCache,
-      halService,
-      notificationsService,
-      hrefOnlyDataService,
-      http,
-      comparator,
-      comparatorEntry
+      new VocabularyDataService(requestService, rdbService, objectCache, halService),
+      new VocabularyEntryDetailsDataService(requestService, rdbService, objectCache, halService),
     );
   }
 
@@ -229,7 +218,7 @@ describe('VocabularyService', () => {
       scheduler = getTestScheduler();
 
       halService = jasmine.createSpyObj('halService', {
-        getEndpoint: cold('a', { a: endpointURL })
+        getEndpoint: cold('a', { a: endpointURL }),
       });
     });
 
@@ -237,7 +226,7 @@ describe('VocabularyService', () => {
       service = null;
     });
 
-    describe('', () => {
+    describe('vocabularies', () => {
       beforeEach(() => {
         responseCacheEntry = new RequestEntry();
         responseCacheEntry.request = { href: 'https://rest.api/' } as any;
@@ -255,7 +244,7 @@ describe('VocabularyService', () => {
             a: vocabularyRD
           }),
           buildList: hot('a|', {
-            a: paginatedListRD
+            a: paginatedListRD,
           }),
         });
 
@@ -264,8 +253,6 @@ describe('VocabularyService', () => {
         spyOn((service as any).vocabularyDataService, 'findById').and.callThrough();
         spyOn((service as any).vocabularyDataService, 'findAll').and.callThrough();
         spyOn((service as any).vocabularyDataService, 'findByHref').and.callThrough();
-        spyOn((service as any).vocabularyDataService, 'searchBy').and.callThrough();
-        spyOn((service as any).vocabularyDataService, 'getSearchByHref').and.returnValue(observableOf(searchRequestURL));
         spyOn((service as any).vocabularyDataService, 'getFindAllHref').and.returnValue(observableOf(entriesRequestURL));
       });
 
@@ -274,7 +261,7 @@ describe('VocabularyService', () => {
       });
 
       describe('findVocabularyById', () => {
-        it('should proxy the call to vocabularyDataService.findVocabularyById', () => {
+        it('should proxy the call to vocabularyDataService.findById', () => {
           scheduler.schedule(() => service.findVocabularyById(vocabularyId));
           scheduler.flush();
 
@@ -325,7 +312,7 @@ describe('VocabularyService', () => {
       });
     });
 
-    describe('', () => {
+    describe('vocabulary entries', () => {
 
       beforeEach(() => {
         requestService = getMockRequestService(getRequestEntries$(true));

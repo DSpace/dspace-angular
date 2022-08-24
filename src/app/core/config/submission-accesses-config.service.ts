@@ -26,14 +26,10 @@ export class SubmissionAccessesConfigService extends ConfigService {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<SubmissionAccessesModel>
   ) {
-    super(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator, 'submissionaccessoptions');
+    super('submissionaccessoptions', requestService, rdbService, objectCache, halService);
   }
 
   findByHref(href: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow): Observable<RemoteData<SubmissionAccessesModel>> {

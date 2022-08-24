@@ -64,9 +64,6 @@ describe('BundleDataService', () => {
       store,
       objectCache,
       halService,
-      notificationsService,
-      http,
-      comparator,
     );
   }
 

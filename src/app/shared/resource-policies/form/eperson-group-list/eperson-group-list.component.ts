@@ -8,7 +8,6 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
-import { DataService } from '../../../../core/data/data.service';
 import { hasValue, isNotEmpty } from '../../../empty.util';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { getDataServiceFor } from '../../../../core/cache/builders/build-decorators';
@@ -75,7 +74,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
    * The data service used to make request.
    * It could be EPersonDataService or GroupDataService
    */
-  private dataService: DataService<DSpaceObject>;
+  private dataService: EPersonDataService | GroupDataService;
 
   /**
    * A list of eperson or group

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
@@ -15,7 +15,6 @@ import {
   SetNameVariantAction
 } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
 import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -33,19 +32,19 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload
 } from '../shared/operators';
-import { DataService } from './data.service';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { ItemDataService } from './item-data.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { DeleteRequest, PostRequest} from './request.models';
+import { DeleteRequest, PostRequest } from './request.models';
 import { RequestService } from './request.service';
 import { NoContent } from '../shared/NoContent.model';
 import { RequestEntryState } from './request-entry-state.model';
 import { sendRequest } from '../shared/request.operators';
 import { RestRequest } from './rest-request.model';
-import { CoreState } from '../core-state.model';
 import { FindListOptions } from './find-list-options.model';
+import { SearchData, SearchDataImpl } from './base/search-data';
+import { PutData, PutDataImpl } from './base/put-data';
+import { IdentifiableDataService } from './base/identifiable-data.service';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 
@@ -75,22 +74,23 @@ const compareItemsByUUID = (itemCheck: Item) =>
  */
 @Injectable()
 @dataService(RELATIONSHIP)
-export class RelationshipService extends DataService<Relationship> {
-  protected linkPath = 'relationships';
-  protected responseMsToLive = 15 * 60 * 1000;
+export class RelationshipService extends IdentifiableDataService<Relationship> implements SearchData<Relationship> {
+  private searchData: SearchData<Relationship>;
+  private putData: PutData<Relationship>;
 
-  constructor(protected itemService: ItemDataService,
-              protected requestService: RequestService,
-              protected rdbService: RemoteDataBuildService,
-              protected store: Store<CoreState>,
-              protected halService: HALEndpointService,
-              protected objectCache: ObjectCacheService,
-              protected notificationsService: NotificationsService,
-              protected http: HttpClient,
-              protected comparator: DefaultChangeAnalyzer<Relationship>,
-              protected appStore: Store<AppState>,
-              @Inject(PAGINATED_RELATIONS_TO_ITEMS_OPERATOR) private paginatedRelationsToItems: (thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>) {
-    super();
+  constructor(
+    protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
+    protected halService: HALEndpointService,
+    protected objectCache: ObjectCacheService,
+    protected itemService: ItemDataService,
+    protected appStore: Store<AppState>,
+    @Inject(PAGINATED_RELATIONS_TO_ITEMS_OPERATOR) private paginatedRelationsToItems: (thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>,
+  ) {
+    super('relationships', requestService, rdbService, objectCache, halService, 15 * 60 * 1000);
+
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.putData = new PutDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
@@ -99,13 +99,15 @@ export class RelationshipService extends DataService<Relationship> {
    */
   getRelationshipEndpoint(uuid: string) {
     return this.getBrowseEndpoint().pipe(
-      map((href: string) => `${href}/${uuid}`)
+      map((href: string) => `${href}/${uuid}`),
     );
   }
 
   /**
    * Send a delete request for a relationship by ID
-   * @param id
+   * @param id                    the ID of the relationship to delete
+   * @param copyVirtualMetadata   whether to copy this relationship's virtual metadata to the related Items
+   *                              accepted values: none, all, left, right, configured
    */
   deleteRelationship(id: string, copyVirtualMetadata: string): Observable<RemoteData<NoContent>> {
     return this.getRelationshipEndpoint(id).pipe(
@@ -469,7 +471,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param object the {@link Relationship} to update
    */
   update(object: Relationship): Observable<RemoteData<Relationship>> {
-    return this.put(object);
+    return this.putData.put(object);
   }
 
   /**
@@ -513,7 +515,7 @@ export class RelationshipService extends DataService<Relationship> {
       searchParams.push(
         {
           fieldName: 'relatedItem',
-          fieldValue: itemId
+          fieldValue: itemId,
         },
       );
     });
@@ -521,8 +523,31 @@ export class RelationshipService extends DataService<Relationship> {
     return this.searchBy(
       'byItemsAndType',
       {
-        searchParams: searchParams
-      }) as Observable<RemoteData<PaginatedList<Relationship>>>;
+        searchParams: searchParams,
+      },
+    ) as Observable<RemoteData<PaginatedList<Relationship>>>;
 
+  }
+
+  /**
+   * Make a new FindListRequest with given search method
+   *
+   * @param searchMethod                The search method for the object
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
+  searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<RemoteData<PaginatedList<Relationship>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  getSearchByHref(searchMethod: string, options: FindListOptions, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<string> {
+    return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
   }
 }

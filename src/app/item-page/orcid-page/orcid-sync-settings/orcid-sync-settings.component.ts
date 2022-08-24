@@ -148,8 +148,8 @@ export class OrcidSyncSettingsComponent implements OnInit {
       getFirstCompletedRemoteData(),
       switchMap((profileRD: RemoteData<ResearcherProfile>) => {
         if (profileRD.hasSucceeded) {
-          return this.researcherProfileService.updateByOrcidOperations(profileRD.payload, operations).pipe(
-            getFirstCompletedRemoteData()
+          return this.researcherProfileService.patch(profileRD.payload, operations).pipe(
+            getFirstCompletedRemoteData(),
           );
         } else {
           return of(profileRD);

@@ -1,40 +1,36 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
-import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { SubmissionCcLicenceUrl } from './models/submission-cc-license-url.model';
 import { SUBMISSION_CC_LICENSE_URL } from './models/submission-cc-licence-link.resource-type';
 import { Field, Option, SubmissionCcLicence } from './models/submission-cc-license.model';
 import { Observable } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../shared/operators';
-import { isNotEmpty } from '../../shared/empty.util';
-import { CoreState } from '../core-state.model';
+import { BaseDataService } from '../data/base/base-data.service';
+import { SearchData, SearchDataImpl } from '../data/base/search-data';
+import { FindListOptions } from '../data/find-list-options.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RemoteData } from '../data/remote-data';
+import { PaginatedList } from '../data/paginated-list.model';
 
 @Injectable()
 @dataService(SUBMISSION_CC_LICENSE_URL)
-export class SubmissionCcLicenseUrlDataService extends DataService<SubmissionCcLicenceUrl> {
-
-  protected linkPath = 'submissioncclicenseUrls-search';
+export class SubmissionCcLicenseUrlDataService extends BaseDataService<SubmissionCcLicenceUrl> implements SearchData<SubmissionCcLicenceUrl> {
+  private searchData: SearchData<SubmissionCcLicenceUrl>;
 
   constructor(
-    protected comparator: DefaultChangeAnalyzer<SubmissionCcLicenceUrl>,
-    protected halService: HALEndpointService,
-    protected http: HttpClient,
-    protected notificationsService: NotificationsService,
-    protected objectCache: ObjectCacheService,
-    protected rdbService: RemoteDataBuildService,
     protected requestService: RequestService,
-    protected store: Store<CoreState>,
+    protected rdbService: RemoteDataBuildService,
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
   ) {
-    super();
+    super('submissioncclicenseUrls-search', requestService, rdbService, objectCache, halService);
+
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive, (href, searchMethod) => `${href}/${searchMethod}`);
   }
 
   /**
@@ -68,9 +64,34 @@ export class SubmissionCcLicenseUrlDataService extends DataService<SubmissionCcL
     );
   }
 
-  protected getSearchEndpoint(searchMethod: string): Observable<string> {
-    return this.halService.getEndpoint(`${this.linkPath}`).pipe(
-      filter((href: string) => isNotEmpty(href)),
-      map((href: string) => `${href}/${searchMethod}`));
+  /**
+   * Create the HREF for a specific object's search method with given options object
+   *
+   * @param searchMethod The search method for the object
+   * @param options The [[FindListOptions]] object
+   * @return {Observable<string>}
+   *    Return an observable that emits created HREF
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  public getSearchByHref(searchMethod: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<SubmissionCcLicenceUrl>[]): Observable<string> {
+    return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
+  }
+
+  /**
+   * Make a new FindListRequest with given search method
+   *
+   * @param searchMethod                The search method for the object
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
+  public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<SubmissionCcLicenceUrl>[]): Observable<RemoteData<PaginatedList<SubmissionCcLicenceUrl>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }

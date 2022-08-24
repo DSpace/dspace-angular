@@ -13,7 +13,7 @@ import {
 } from '../../access-control/epeople-registry/epeople-registry.actions';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ChangeAnalyzer } from '../data/change-analyzer';
-import { DeleteRequest, PatchRequest, PostRequest } from '../data/request.models';
+import { PatchRequest, PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
@@ -47,12 +47,11 @@ describe('EPersonDataService', () => {
     return new EPersonDataService(
       requestService,
       rdbService,
-      store,
       null,
       halService,
+      new DummyChangeAnalyzer() as any,
       null,
-      null,
-      new DummyChangeAnalyzer() as any
+      store,
     );
   }
 

@@ -20,7 +20,7 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { OrcidSyncSettingsComponent } from './orcid-sync-settings.component';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 
-describe('OrcidAuthComponent test suite', () => {
+describe('OrcidSyncSettingsComponent test suite', () => {
   let comp: OrcidSyncSettingsComponent;
   let fixture: ComponentFixture<OrcidSyncSettingsComponent>;
   let scheduler: TestScheduler;
@@ -130,7 +130,7 @@ describe('OrcidAuthComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
       findByRelatedItem: jasmine.createSpy('findByRelatedItem'),
-      updateByOrcidOperations: jasmine.createSpy('updateByOrcidOperations')
+      patch: jasmine.createSpy('patch'),
     });
 
     void TestBed.configureTestingModule({
@@ -198,7 +198,7 @@ describe('OrcidAuthComponent test suite', () => {
 
     it('should call updateByOrcidOperations properly', () => {
       researcherProfileService.findByRelatedItem.and.returnValue(createSuccessfulRemoteDataObject$(mockResearcherProfile));
-      researcherProfileService.updateByOrcidOperations.and.returnValue(createSuccessfulRemoteDataObject$(mockResearcherProfile));
+      researcherProfileService.patch.and.returnValue(createSuccessfulRemoteDataObject$(mockResearcherProfile));
       const expectedOps: Operation[] = [
         {
           path: '/orcid/mode',
@@ -222,12 +222,12 @@ describe('OrcidAuthComponent test suite', () => {
       scheduler.schedule(() => comp.onSubmit(formGroup));
       scheduler.flush();
 
-      expect(researcherProfileService.updateByOrcidOperations).toHaveBeenCalledWith(mockResearcherProfile, expectedOps);
+      expect(researcherProfileService.patch).toHaveBeenCalledWith(mockResearcherProfile, expectedOps);
     });
 
     it('should show notification on success', () => {
       researcherProfileService.findByRelatedItem.and.returnValue(createSuccessfulRemoteDataObject$(mockResearcherProfile));
-      researcherProfileService.updateByOrcidOperations.and.returnValue(createSuccessfulRemoteDataObject$(mockResearcherProfile));
+      researcherProfileService.patch.and.returnValue(createSuccessfulRemoteDataObject$(mockResearcherProfile));
 
       scheduler.schedule(() => comp.onSubmit(formGroup));
       scheduler.flush();
@@ -248,7 +248,7 @@ describe('OrcidAuthComponent test suite', () => {
 
     it('should show notification on error', () => {
       researcherProfileService.findByRelatedItem.and.returnValue(createSuccessfulRemoteDataObject$(mockResearcherProfile));
-      researcherProfileService.updateByOrcidOperations.and.returnValue(createFailedRemoteDataObject$());
+      researcherProfileService.patch.and.returnValue(createFailedRemoteDataObject$());
 
       scheduler.schedule(() => comp.onSubmit(formGroup));
       scheduler.flush();

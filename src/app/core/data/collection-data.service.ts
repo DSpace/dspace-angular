@@ -1,6 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
@@ -33,30 +32,27 @@ import {
 import { RequestService } from './request.service';
 import { BitstreamDataService } from './bitstream-data.service';
 import { RestRequest } from './rest-request.model';
-import { CoreState } from '../core-state.model';
 import { FindListOptions } from './find-list-options.model';
+import { Community } from '../shared/community.model';
 
 @Injectable()
 @dataService(COLLECTION)
 export class CollectionDataService extends ComColDataService<Collection> {
-  protected linkPath = 'collections';
   protected errorTitle = 'collection.source.update.notifications.error.title';
   protected contentSourceError = 'collection.source.update.notifications.error.content';
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
-    protected cds: CommunityDataService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
+    protected comparator: DSOChangeAnalyzer<Community>,
     protected notificationsService: NotificationsService,
-    protected http: HttpClient,
     protected bitstreamDataService: BitstreamDataService,
-    protected comparator: DSOChangeAnalyzer<Collection>,
-    protected translate: TranslateService
+    protected communityDataService: CommunityDataService,
+    protected translate: TranslateService,
   ) {
-    super();
+    super('collections', requestService, rdbService, objectCache, halService, comparator, notificationsService, bitstreamDataService);
   }
 
   /**
@@ -289,10 +285,10 @@ export class CollectionDataService extends ComColDataService<Collection> {
 
 
   protected getScopeCommunityHref(options: FindListOptions) {
-    return this.cds.getEndpoint().pipe(
-      map((endpoint: string) => this.cds.getIDHref(endpoint, options.scopeID)),
+    return this.communityDataService.getEndpoint().pipe(
+      map((endpoint: string) => this.communityDataService.getIDHref(endpoint, options.scopeID)),
       filter((href: string) => isNotEmpty(href)),
-      take(1)
+      take(1),
     );
   }
 }

@@ -1,75 +1,42 @@
-// eslint-disable-next-line max-classes-per-file
-import { DataService } from '../data/data.service';
 import { OrcidQueue } from './model/orcid-queue.model';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { Store } from '@ngrx/store';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
-import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { Injectable } from '@angular/core';
 import { dataService } from '../cache/builders/build-decorators';
 import { ORCID_QUEUE } from './model/orcid-queue.resource-type';
-import { ItemDataService } from '../data/item-data.service';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { NoContent } from '../shared/NoContent.model';
-import { ConfigurationDataService } from '../data/configuration-data.service';
-import { Router } from '@angular/router';
-import { CoreState } from '../core-state.model';
-
-/**
- * A private DataService implementation to delegate specific methods to.
- */
-class OrcidQueueServiceImpl extends DataService<OrcidQueue> {
-  public linkPath = 'orcidqueues';
-
-  constructor(
-    protected requestService: RequestService,
-    protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
-    protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<OrcidQueue>) {
-    super();
-  }
-
-}
+import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
+import { SearchData, SearchDataImpl } from '../data/base/search-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 
 /**
  * A service that provides methods to make REST requests with Orcid Queue endpoint.
  */
 @Injectable()
 @dataService(ORCID_QUEUE)
-export class OrcidQueueService {
-
-  dataService: OrcidQueueServiceImpl;
-
-  responseMsToLive: number = 10 * 1000;
+export class OrcidQueueService extends IdentifiableDataService<OrcidQueue> {
+  private searchData: SearchData<OrcidQueue>;
+  private deleteData: DeleteData<OrcidQueue>;
 
   constructor(
-      protected requestService: RequestService,
-      protected rdbService: RemoteDataBuildService,
-      protected store: Store<CoreState>,
-      protected objectCache: ObjectCacheService,
-      protected halService: HALEndpointService,
-      protected notificationsService: NotificationsService,
-      protected http: HttpClient,
-      protected comparator: DefaultChangeAnalyzer<OrcidQueue>,
-      protected configurationService: ConfigurationDataService,
-      protected router: Router,
-      protected itemService: ItemDataService ) {
+    protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
+    protected notificationsService: NotificationsService,
+  ) {
+    super('orcidqueues', requestService, rdbService, objectCache, halService, 10 * 1000);
 
-          this.dataService = new OrcidQueueServiceImpl(requestService, rdbService, store, objectCache, halService,
-              notificationsService, http, comparator);
-
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
   }
 
   /**
@@ -82,13 +49,13 @@ export class OrcidQueueService {
    * @returns { OrcidQueue }
    */
   searchByProfileItemId(itemId: string, paginationOptions: PaginationComponentOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<RemoteData<PaginatedList<OrcidQueue>>> {
-    return this.dataService.searchBy('findByProfileItem', {
+    return this.searchData.searchBy('findByProfileItem', {
         searchParams: [new RequestParam('profileItemId', itemId)],
         elementsPerPage: paginationOptions.pageSize,
-        currentPage: paginationOptions.currentPage
+        currentPage: paginationOptions.currentPage,
       },
       useCachedVersionIfAvailable,
-      reRequestOnStale
+      reRequestOnStale,
     );
   }
 
@@ -97,14 +64,14 @@ export class OrcidQueueService {
    * @returns { NoContent }
    */
   deleteById(orcidQueueId: number): Observable<RemoteData<NoContent>> {
-    return this.dataService.delete(orcidQueueId.toString());
+    return this.deleteData.delete(orcidQueueId.toString());
   }
 
   /**
    * This method will set linkPath to stale
    */
   clearFindByProfileItemRequests() {
-    this.requestService.setStaleByHrefSubstring(this.dataService.linkPath + '/search/findByProfileItem');
+    this.requestService.setStaleByHrefSubstring(this.linkPath + '/search/findByProfileItem');
   }
 
 }

@@ -1,13 +1,7 @@
-/* eslint-disable max-classes-per-file */
-import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { Store } from '@ngrx/store';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { Injectable } from '@angular/core';
 import { VOCABULARY_ENTRY } from '../submission/vocabularies/models/vocabularies.resource-type';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -18,25 +12,8 @@ import { PaginatedList } from './paginated-list.model';
 import { ITEM_TYPE } from '../shared/item-relationships/item-type.resource-type';
 import { LICENSE } from '../shared/license.resource-type';
 import { CacheableObject } from '../cache/cacheable-object.model';
-import { CoreState } from '../core-state.model';
 import { FindListOptions } from './find-list-options.model';
-
-class DataServiceImpl extends DataService<any> {
-  // linkPath isn't used if we're only searching by href.
-  protected linkPath = undefined;
-
-  constructor(
-    protected requestService: RequestService,
-    protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
-    protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<any>) {
-    super();
-  }
-}
+import { BaseDataService } from './base/base-data.service';
 
 /**
  * A DataService with only findByHref methods. Its purpose is to be used for resources that don't
@@ -46,24 +23,25 @@ class DataServiceImpl extends DataService<any> {
  * an @dataService annotation can be added for any number of these resource types
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 @dataService(VOCABULARY_ENTRY)
 @dataService(ITEM_TYPE)
 @dataService(LICENSE)
 export class HrefOnlyDataService {
-  private dataService: DataServiceImpl;
+  /**
+   * Not all BaseDataService methods should be exposed, so
+   * @private
+   */
+  private dataService: BaseDataService<any>;
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<any>) {
-    this.dataService = new DataServiceImpl(requestService, rdbService, store, objectCache, halService, notificationsService, http, comparator);
+  ) {
+    this.dataService = new BaseDataService(undefined, requestService, rdbService, objectCache, halService);
   }
 
   /**
