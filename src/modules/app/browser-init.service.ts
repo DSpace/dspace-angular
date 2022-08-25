@@ -6,7 +6,7 @@
  * http://www.dspace.org/license/
  */
 import { InitService } from '../../app/init.service';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AppState } from '../../app/app.reducer';
 import { TransferState } from '@angular/platform-browser';
 import { APP_CONFIG, APP_CONFIG_STATE, AppConfig } from '../../config/app-config.interface';
@@ -21,15 +21,13 @@ import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-prov
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { MetadataService } from '../../app/core/metadata/metadata.service';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { CSSVariableService } from '../../app/shared/sass-helper/sass-helper.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { StoreAction, StoreActionTypes } from '../../app/store.actions';
 import { coreSelector } from '../../app/core/core.selectors';
-import { distinctUntilChanged, filter, find, map, take } from 'rxjs/operators';
+import { find, map } from 'rxjs/operators';
 import { isNotEmpty } from '../../app/shared/empty.util';
-import { isAuthenticationBlocking } from '../../app/core/auth/selectors';
 
 /**
  * Performs client-side initialization.
@@ -91,12 +89,7 @@ export class BrowserInitService extends InitService {
 
       this.initKlaro();
 
-      // wait for auth to be ready
-      await this.store.pipe(
-        select(isAuthenticationBlocking),
-        distinctUntilChanged(),
-        find((b: boolean) => b === false)
-      ).toPromise();
+      await this.authenticationReady$().toPromise();
 
       return true;
     };
@@ -124,16 +117,11 @@ export class BrowserInitService extends InitService {
   }
 
   /**
-   * Initialize Klaro
+   * Initialize Klaro (once authentication is resolved)
    * @protected
    */
   protected initKlaro() {
-    this.store.pipe(
-      select(isAuthenticationBlocking),
-      distinctUntilChanged(),
-      filter((isBlocking: boolean) => isBlocking === false),
-      take(1)
-    ).subscribe(() => {
+    this.authenticationReady$().subscribe(() => {
       this.klaroService.initialize();
     });
   }

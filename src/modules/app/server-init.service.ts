@@ -67,12 +67,7 @@ export class ServerInitService extends InitService {
       this.initRouteListeners();
       this.themeService.listenForThemeChanges(false);
 
-      // wait for auth to be ready
-      await this.store.pipe(
-        select(isAuthenticationBlocking),
-        distinctUntilChanged(),
-        find((b: boolean) => b === false)
-      ).toPromise();
+      await this.authenticationReady$().toPromise();
 
       return true;
     };
