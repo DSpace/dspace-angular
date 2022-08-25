@@ -35,5 +35,4 @@ export class ItemListPreviewComponent {
    * A boolean representing if to show submitter information
    */
   @Input() showSubmitter = false;
-
 }

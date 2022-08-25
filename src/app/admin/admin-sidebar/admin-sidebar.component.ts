@@ -1,14 +1,15 @@
 import { Component, HostListener, Injector, OnInit } from '@angular/core';
-import { combineLatest, Observable, BehaviorSubject } from 'rxjs';
-import { debounceTime, first, map, distinctUntilChanged, withLatestFrom } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, first, map, withLatestFrom } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { slideSidebar } from '../../shared/animations/slide';
-import { MenuID } from '../../shared/menu/initial-menus-state';
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { MenuService } from '../../shared/menu/menu.service';
 import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { MenuID } from '../../shared/menu/menu-id.model';
 import { ActivatedRoute } from '@angular/router';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 
 /**
  * Component representing the admin sidebar
@@ -50,14 +51,16 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
 
   inFocus$: BehaviorSubject<boolean>;
 
-  constructor(protected menuService: MenuService,
+  constructor(
+    protected menuService: MenuService,
     protected injector: Injector,
     private variableService: CSSVariableService,
     private authService: AuthService,
     public authorizationService: AuthorizationDataService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    protected themeService: ThemeService
   ) {
-    super(menuService, injector, authorizationService, route);
+    super(menuService, injector, authorizationService, route, themeService);
     this.inFocus$ = new BehaviorSubject(false);
   }
 

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { type } from '../ngrx/type';
 import { Action } from '@ngrx/store';
 
@@ -37,7 +38,6 @@ export class ObjectSelectionAction implements Action {
   }
 }
 
-/* tslint:disable:max-classes-per-file */
 /**
  * Used to set the initial state to deselected
  */
@@ -79,4 +79,3 @@ export class ObjectSelectionSwitchAction extends ObjectSelectionAction {
 export class ObjectSelectionResetAction extends ObjectSelectionAction {
   type = ObjectSelectionActionTypes.RESET;
 }
-/* tslint:enable:max-classes-per-file */

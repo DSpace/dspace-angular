@@ -11,7 +11,10 @@
   <h2 class="item-page-title-field mr-auto">
     {{'publication.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="object?.allMetadata(['dc.title'])"></ds-metadata-values>
   </h2>
-  <div class="pl-2">
+  <div class="pl-2 space-children-mr">
+    <ds-dso-page-version-button (newVersionEvent)="onCreateNewVersion()" [dso]="object"
+                                [tooltipMsgCreate]="'item.page.version.create'"
+                                [tooltipMsgHasDraft]="'item.page.version.hasDraft'"></ds-dso-page-version-button>
     <ds-dso-page-edit-button [pageRoute]="itemPageRoute" [dso]="object" [tooltipMsg]="'publication.page.edit'"></ds-dso-page-edit-button>
   </div>
 </div>

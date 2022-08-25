@@ -1,4 +1,4 @@
-<ds-search *ngIf="this.relationship.searchConfiguration && context"
+<ds-themed-search *ngIf="this.relationship.searchConfiguration && context"
            [configuration]="this.relationship.searchConfiguration"
            [context]="context"
            [fixedFilterQuery]="this.relationship.filter"
@@ -7,6 +7,7 @@
            [searchFormPlaceholder]="'submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder'"
            [selectable]="true"
            [selectionConfig]="{ repeatable: repeatable, listId: listId }"
+           [showScopeSelector]="false"
            [showViewModes]="false"
            (resultFound)="onResultFound($event)"
            (deselectObject)="deselectObject.emit($event)"
@@ -60,4 +61,4 @@
     </div>
   </div>
 
-</ds-search>
+</ds-themed-search>

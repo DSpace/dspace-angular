@@ -107,7 +107,7 @@
   "admin.registries.bitstream-formats.edit.head": "Tiedostoformaatti: {{ format }}",
 
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
-  "admin.registries.bitstream-formats.edit.internal.hint": "Sisäisiksi merkittyjä formaatteja käytetään hallinnollisiin tarkoituksiin, ja ne on piilotettu käyttäjiltä.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "Sisäisiksi merkittyjä formaatteja käytetään ylläpitotarkoituksiin, ja ne on piilotettu käyttäjiltä.",
 
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
   "admin.registries.bitstream-formats.edit.internal.label": "Sisäinen",
@@ -662,7 +662,7 @@
 
 
   // "admin.search.breadcrumbs": "Administrative Search",
-  "admin.search.breadcrumbs": "Hallinnollinen haku",
+  "admin.search.breadcrumbs": "Ylläpitäjän haku",
 
   // "admin.search.collection.edit": "Edit",
   "admin.search.collection.edit": "Muokkaa",
@@ -692,19 +692,19 @@
   "admin.search.item.withdraw": "Poista käytöstä",
 
   // "admin.search.title": "Administrative Search",
-  "admin.search.title": "Hallinnollinen haku",
+  "admin.search.title": "Ylläpitäjän haku",
 
   // "administrativeView.search.results.head": "Administrative Search",
-  "administrativeView.search.results.head": "Hallinnollinen haku",
+  "administrativeView.search.results.head": "Ylläpitäjän haku",
 
 
 
 
   // "admin.workflow.breadcrumbs": "Administer Workflow",
-  "admin.workflow.breadcrumbs": "Hallinnointityönkulku",
+  "admin.workflow.breadcrumbs": "Hallinnoi työnkulkua",
 
   // "admin.workflow.title": "Administer Workflow",
-  "admin.workflow.title": "Hallinnointityönkulku",
+  "admin.workflow.title": "Hallinnoi työnkulkua",
 
   // "admin.workflow.item.workflow": "Workflow",
   "admin.workflow.item.workflow": "Työnkulku",
@@ -2954,7 +2954,7 @@
 
 
   // "menu.section.admin_search": "Admin Search",
-  "menu.section.admin_search": "Admin-haku",
+  "menu.section.admin_search": "Ylläpitäjän haku",
 
 
 
@@ -3033,7 +3033,7 @@
   "menu.section.icon.access_control": "Pääsyoikeudet",
 
   // "menu.section.icon.admin_search": "Admin search menu section",
-  "menu.section.icon.admin_search": "Admin-haku",
+  "menu.section.icon.admin_search": "Ylläpitäjän haku",
 
   // "menu.section.icon.control_panel": "Control Panel menu section",
   "menu.section.icon.control_panel": "Hallintapaneeli",
@@ -3168,7 +3168,7 @@
 
 
   // "menu.section.workflow": "Administer Workflow",
-  "menu.section.workflow": "Hallinnointityönkulku",
+  "menu.section.workflow": "Hallinnoi työnkulkua",
 
 
   // "mydspace.description": "",
@@ -4120,7 +4120,7 @@
   "search.filters.filter.dateSubmitted.placeholder": "Tallennnusajankohta",
 
   // "search.filters.filter.discoverable.head": "Private",
-  "search.filters.filter.discoverable.head": "Ykstyinen",
+  "search.filters.filter.discoverable.head": "Yksityinen",
 
   // "search.filters.filter.withdrawn.head": "Withdrawn",
   "search.filters.filter.withdrawn.head": "Poistettu käytöstä",
@@ -5079,7 +5079,7 @@
 
 
   // "workflowAdmin.search.results.head": "Administer Workflow",
-  "workflowAdmin.search.results.head": "Hallinnointityönkulku",
+  "workflowAdmin.search.results.head": "Hallinnoi työnkulkua",
 
 
 

@@ -13,7 +13,7 @@ import { AuthorizationDataService } from './core/data/feature-authorization/auth
 import { ScriptDataService } from './core/data/processes/script-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MenuServiceStub } from './shared/testing/menu-service.stub';
-import { MenuID } from './shared/menu/initial-menus-state';
+import { MenuID } from './shared/menu/menu-id.model';
 import { BrowseService } from './core/browse/browse.service';
 import { cold } from 'jasmine-marbles';
 import createSpy = jasmine.createSpy;
@@ -203,7 +203,24 @@ describe('MenuResolver', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
           parentID: 'access_control', visible: false,
         }));
+      });
 
+      // We check that the menu section has not been called with visible set to true
+      // The reason why we don't check if it has been called with visible set to false
+      // Is because the function does not get called unless a user is authorised
+      it('should not show the import section', () => {
+        expect(menuService.addSection).not.toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'import', visible: true,
+        }));
+      });
+
+      // We check that the menu section has not been called with visible set to true
+      // The reason why we don't check if it has been called with visible set to false
+      // Is because the function does not get called unless a user is authorised
+      it('should not show the export section', () => {
+        expect(menuService.addSection).not.toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'export', visible: true,
+        }));
       });
     });
 
@@ -235,6 +252,15 @@ describe('MenuResolver', () => {
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
           id: 'workflow', visible: true,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'workflow', visible: true,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'import', visible: true,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'export', visible: true,
         }));
       });
     });

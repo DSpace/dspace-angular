@@ -13,9 +13,9 @@ import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
 import { RouterStub } from '../../testing/router.stub';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../core/data/request.models';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 describe('StartsWithDateComponent', () => {
   let comp: StartsWithDateComponent;
@@ -85,14 +85,9 @@ describe('StartsWithDateComponent', () => {
     let select;
     let input;
     let expectedValue;
-    let extras;
 
     beforeEach(() => {
       expectedValue = '' + options[0];
-      extras = {
-        queryParams: Object.assign({ startsWith: expectedValue }),
-        queryParamsHandling: 'merge'
-      };
 
       select = fixture.debugElement.query(By.css('select#year-select')).nativeElement;
       input = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -106,7 +101,7 @@ describe('StartsWithDateComponent', () => {
     });
 
     it('should add a startsWith query parameter', () => {
-      expect(router.navigate).toHaveBeenCalledWith([], extras);
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', {page: 1}, {startsWith: expectedValue});
     });
 
     it('should automatically fill in the input field', () => {
@@ -128,7 +123,7 @@ describe('StartsWithDateComponent', () => {
       });
 
       it('should add a startsWith query parameter', () => {
-        expect(router.navigate).toHaveBeenCalledWith([], extras);
+        expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', {page: 1}, {startsWith: expectedValue});
       });
 
       it('should automatically fill in the input field', () => {
@@ -141,11 +136,6 @@ describe('StartsWithDateComponent', () => {
 
       beforeEach(() => {
         expectedValue = `${options[0]}-01`;
-        extras = {
-          queryParams: Object.assign({ startsWith: expectedValue }),
-          queryParamsHandling: 'merge'
-        };
-
         monthSelect = fixture.debugElement.query(By.css('select#month-select')).nativeElement;
         monthSelect.value = monthSelect.options[1].value;
         monthSelect.dispatchEvent(new Event('change'));
@@ -157,7 +147,7 @@ describe('StartsWithDateComponent', () => {
       });
 
       it('should add a startsWith query parameter', () => {
-        expect(router.navigate).toHaveBeenCalledWith([], extras);
+        expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', {page: 1}, {startsWith: expectedValue});
       });
 
       it('should automatically fill in the input field', () => {
@@ -186,7 +176,7 @@ describe('StartsWithDateComponent', () => {
     });
 
     it('should add a startsWith query parameter', () => {
-      expect(router.navigate).toHaveBeenCalledWith([], extras);
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', {page: 1}, {startsWith: expectedValue});
     });
   });
 

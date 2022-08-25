@@ -1,14 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import {
-  BehaviorSubject,
-  combineLatest as observableCombineLatest,
-  merge as observableMerge,
-  Observable,
-  Subscription
-} from 'rxjs';
-import { filter, map, startWith } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest as observableCombineLatest, merge as observableMerge, Observable, Subscription } from 'rxjs';
+import { filter, map, startWith, take } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../../../shared/search/models/search-options.model';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
@@ -21,15 +15,35 @@ import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData } from '.
 import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { SearchConfig, SortConfig } from './search-filters/search-config.model';
-import { SearchService } from './search.service';
 import { PaginationService } from '../../pagination/pagination.service';
+import { LinkService } from '../../cache/builders/link.service';
+import { HALEndpointService } from '../hal-endpoint.service';
+import { RequestService } from '../../data/request.service';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { GetRequest } from '../../data/request.models';
+import { URLCombiner } from '../../url-combiner/url-combiner';
+import { GenericConstructor } from '../generic-constructor';
+import { ResponseParsingService } from '../../data/parsing.service';
+import { FacetConfigResponseParsingService } from '../../data/facet-config-response-parsing.service';
 import { ViewMode } from '../view-mode.model';
+import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
+import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
  */
 @Injectable()
 export class SearchConfigurationService implements OnDestroy {
+
+  /**
+   * Endpoint link path for retrieving search configurations
+   */
+  private configurationLinkPath = 'discover/search';
+
+  /**
+   * Endpoint link path for retrieving facet config incl values
+   */
+  private facetLinkPathPrefix = 'discover/facets/';
 
   /**
    * Default pagination id
@@ -80,10 +94,18 @@ export class SearchConfigurationService implements OnDestroy {
    * @param {RouteService} routeService
    * @param {PaginationService} paginationService
    * @param {ActivatedRoute} route
+   * @param linkService
+   * @param halService
+   * @param requestService
+   * @param rdb
    */
   constructor(protected routeService: RouteService,
               protected paginationService: PaginationService,
-              protected route: ActivatedRoute) {
+              protected route: ActivatedRoute,
+              protected linkService: LinkService,
+              protected halService: HALEndpointService,
+              protected requestService: RequestService,
+              protected rdb: RemoteDataBuildService,) {
 
     this.initDefaults();
   }
@@ -209,11 +231,10 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * Creates an observable of SearchConfig every time the configuration stream emits.
    * @param configuration The search configuration
-   * @param service The search service to use
    * @param scope The search scope if exists
    */
-  getConfigurationSearchConfig(configuration: string, service: SearchService, scope?: string): Observable<SearchConfig> {
-    return service.getSearchConfigurationFor(scope, configuration).pipe(
+  getConfigurationSearchConfig(configuration: string, scope?: string): Observable<SearchConfig> {
+    return this.getSearchConfigurationFor(scope, configuration).pipe(
       getAllSucceededRemoteDataPayload()
     );
   }
@@ -415,6 +436,95 @@ export class SearchConfigurationService implements OnDestroy {
       }),
     );
   }
+
+
+  /**
+   * Request the search configuration for a given scope or the whole repository
+   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
+   * @param {string} configurationName the name of the configuration
+   * @returns {Observable<RemoteData<SearchConfig[]>>} The found configuration
+   */
+  getSearchConfigurationFor(scope?: string, configurationName?: string): Observable<RemoteData<SearchConfig>> {
+    const href$ = this.halService.getEndpoint(this.configurationLinkPath).pipe(
+      map((url: string) => this.getConfigUrl(url, scope, configurationName)),
+    );
+
+    href$.pipe(take(1)).subscribe((url: string) => {
+      const request = new GetRequest(this.requestService.generateRequestId(), url);
+      this.requestService.send(request, true);
+    });
+
+    return this.rdb.buildFromHref(href$);
+  }
+
+  private getConfigUrl(url: string, scope?: string, configurationName?: string) {
+    const args: string[] = [];
+
+    if (isNotEmpty(scope)) {
+      args.push(`scope=${scope}`);
+    }
+
+    if (isNotEmpty(configurationName)) {
+      args.push(`configuration=${configurationName}`);
+    }
+
+    if (isNotEmpty(args)) {
+      url = new URLCombiner(url, `?${args.join('&')}`).toString();
+    }
+
+    return url;
+  }
+
+
+
+  /**
+   * Request the filter configuration for a given scope or the whole repository
+   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
+   * @param {string} configurationName the name of the configuration
+   * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
+   */
+  getConfig(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
+    const href$ = this.halService.getEndpoint(this.facetLinkPathPrefix).pipe(
+      map((url: string) => this.getConfigUrl(url, scope, configurationName)),
+    );
+
+    href$.pipe(take(1)).subscribe((url: string) => {
+      let request = new GetRequest(this.requestService.generateRequestId(), url);
+      request = Object.assign(request, {
+        getResponseParser(): GenericConstructor<ResponseParsingService> {
+          return FacetConfigResponseParsingService;
+        }
+      });
+      this.requestService.send(request, true);
+    });
+
+    return this.rdb.buildFromHref(href$).pipe(
+      map((rd: RemoteData<FacetConfigResponse>) => {
+        if (rd.hasSucceeded) {
+          let filters: SearchFilterConfig[];
+          if (isNotEmpty(rd.payload.filters)) {
+            filters = rd.payload.filters
+              .map((f: any) => Object.assign(new SearchFilterConfig(), f));
+          } else {
+            filters = [];
+          }
+
+          return new RemoteData(
+            rd.timeCompleted,
+            rd.msToLive,
+            rd.lastUpdated,
+            rd.state,
+            rd.errorMessage,
+            filters,
+            rd.statusCode,
+          );
+        } else {
+          return rd as any as RemoteData<SearchFilterConfig[]>;
+        }
+      })
+    );
+  }
+
 
   /**
    * @returns {Observable<Params>} Emits the current view mode as a partial SearchOptions object

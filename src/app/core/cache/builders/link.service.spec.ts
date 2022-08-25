@@ -1,18 +1,18 @@
+/* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { FindListOptions } from '../../data/request.models';
 import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
 import { LinkService } from './link.service';
 import { DATA_SERVICE_FACTORY, LINK_DEFINITION_FACTORY, LINK_DEFINITION_MAP_FACTORY } from './build-decorators';
 import { isEmpty } from 'rxjs/operators';
+import { FindListOptions } from '../../data/find-list-options.model';
 
 const TEST_MODEL = new ResourceType('testmodel');
 let result: any;
 
-/* tslint:disable:max-classes-per-file */
 class TestModel implements HALResource {
   static type = TEST_MODEL;
 
@@ -251,4 +251,3 @@ describe('LinkService', () => {
   });
 
 });
-/* tslint:enable:max-classes-per-file */

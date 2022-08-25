@@ -5,7 +5,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { By } from '@angular/platform-browser';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TextMaskModule } from 'angular2-text-mask';
+
 import {
   DynamicCheckboxGroupModel,
   DynamicCheckboxModel,
@@ -25,7 +25,7 @@ import {
   DynamicSliderModel,
   DynamicSwitchModel,
   DynamicTextAreaModel,
-  DynamicTimePickerModel
+  DynamicTimePickerModel, MATCH_VISIBLE, OR_OPERATOR
 } from '@ng-dynamic-forms/core';
 import {
   DynamicNGBootstrapCalendarComponent,
@@ -65,6 +65,7 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
+import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
@@ -77,6 +78,15 @@ import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { FormService } from '../../form.service';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { FormBuilderService } from '../form-builder.service';
+import { NgxMaskModule } from 'ngx-mask';
+
+function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
+  return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
+    getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
+    matchesCondition: jasmine.createSpy('matchesCondition'),
+    subscribeRelations: jasmine.createSpy('subscribeRelations')
+  });
+}
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
 
@@ -110,7 +120,12 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       metadataFields: [],
       repeatable: false,
       submissionId: '1234',
-      hasSelectableMetadata: false
+      hasSelectableMetadata: false,
+      typeBindRelations: [{
+        match: MATCH_VISIBLE,
+        operator: OR_OPERATOR,
+        when: [{id: 'dc.type', value: 'Book'}]
+      }]
     }),
     new DynamicScrollableDropdownModel({
       id: 'scrollableDropdown',
@@ -194,11 +209,12 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         DynamicFormsCoreModule.forRoot(),
         SharedModule,
         TranslateModule.forRoot(),
-        TextMaskModule,
+        NgxMaskModule.forRoot(),
       ],
       providers: [
         DsDynamicFormControlContainerComponent,
         DynamicFormService,
+        { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: RelationshipService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
@@ -223,14 +239,14 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
       const ngZone = TestBed.inject(NgZone);
 
-      // tslint:disable-next-line:ban-types
+      // eslint-disable-next-line @typescript-eslint/ban-types
       spyOn(ngZone, 'runOutsideAngular').and.callFake((fn: Function) => fn());
       component = fixture.componentInstance;
       debugElement = fixture.debugElement;
     });
   }));
 
-  beforeEach(inject([DynamicFormService], (service: DynamicFormService) => {
+  beforeEach(inject([DynamicFormService, FormBuilderService], (service: DynamicFormService, formBuilderService: FormBuilderService) => {
 
     formGroup = service.createFormGroup(formModel);
 

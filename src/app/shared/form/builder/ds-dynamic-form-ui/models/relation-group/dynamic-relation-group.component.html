@@ -57,7 +57,7 @@
   </div>
 
   <div class="d-flex">
-    <ds-loading *ngIf="!chips" [showMessage]="false"></ds-loading>
+    <ds-themed-loading *ngIf="!chips" [showMessage]="false"></ds-themed-loading>
     <div *ngIf="chips && !chips.hasItems()">
       <input type="text"
              class="border-0 form-control-plaintext tag-input mt-1 mb-1 pl-2 text-muted"
