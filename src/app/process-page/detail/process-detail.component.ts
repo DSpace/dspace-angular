@@ -196,6 +196,7 @@ export class ProcessDetailComponent implements OnInit {
     ).subscribe((rd) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get('process.detail.delete.success'));
+        this.closeModal();
         this.router.navigateByUrl(getProcessListRoute());
       } else {
         this.notificationsService.error(this.translateService.get('process.detail.delete.error'));
