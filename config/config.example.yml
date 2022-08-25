@@ -150,6 +150,9 @@ languages:
   - code: fi
     label: Suomi
     active: true
+  - code: sv
+    label: Svenska
+    active: true
   - code: tr
     label: Türkçe
     active: true
