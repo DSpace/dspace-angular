@@ -25,7 +25,7 @@ import { getMockStore } from '@ngrx/store/testing';
 import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 
-describe('MetadataService', () => {
+xdescribe('MetadataService', () => {
   let metadataService: MetadataService;
 
   let meta: Meta;
