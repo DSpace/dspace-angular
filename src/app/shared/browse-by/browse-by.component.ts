@@ -12,7 +12,6 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { RouteService } from '../../core/services/route.service';
 import { map } from 'rxjs/operators';
 import { hasValue } from '../empty.util';
-import { BBM_PAGINATION_ID } from '../../browse-by/browse-by-metadata-page/browse-by-metadata-page.component';
 
 @Component({
   selector: 'ds-browse-by',
