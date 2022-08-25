@@ -25,7 +25,6 @@ import { PutRequest } from '../data/request.models';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from '../data/parsing.service';
 import { StatusCodeOnlyResponseParsingService } from '../data/status-code-only-response-parsing.service';
-import { HALLink } from '../shared/hal-link.model';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { GroupDataService } from '../eperson/group-data.service';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';

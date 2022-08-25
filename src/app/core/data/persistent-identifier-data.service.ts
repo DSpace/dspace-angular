@@ -5,15 +5,11 @@
  *
  * http://www.dspace.org/license/
  */
-import { BaseDataService } from './base/base-data.service';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { IdentifiableDataService } from './base/identifiable-data.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { Observable } from 'rxjs';
-import { RemoteData } from './remote-data';
 import { DSpaceObject } from '../shared/dspace-object.model';
 
 export class PersistentIdentifierDataService extends IdentifiableDataService<DSpaceObject> {
