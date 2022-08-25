@@ -150,6 +150,9 @@ languages:
   - code: fi
     label: Suomi
     active: true
+  - code: sv
+    label: Svenska
+    active: true
   - code: tr
     label: Türkçe
     active: true
@@ -248,3 +251,10 @@ bundle:
 mediaViewer:
   image: false
   video: false
+
+# Whether the end user agreement is required before users use the repository.
+# If enabled, the user will be required to accept the agreement before they can use the repository.
+# And whether the privacy statement should exist or not.
+info:
+  enableEndUserAgreement: true
+  enablePrivacyStatement: true
