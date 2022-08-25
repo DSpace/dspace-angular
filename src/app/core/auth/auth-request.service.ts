@@ -26,6 +26,11 @@ export abstract class AuthRequestService {
               ) {
   }
 
+  /**
+   * Fetch the response to a request from the cache, once it's completed.
+   * @param requestId the UUID of the request for which to retrieve the response
+   * @protected
+   */
   protected fetchRequest(requestId: string): Observable<RemoteData<AuthStatus>> {
     return this.rdbService.buildFromRequestUUID<AuthStatus>(requestId).pipe(
       getFirstCompletedRemoteData(),
@@ -36,6 +41,12 @@ export abstract class AuthRequestService {
     return isNotEmpty(method) ? `${endpoint}/${method}` : `${endpoint}`;
   }
 
+  /**
+   * Send a POST request to an authentication endpoint
+   * @param method    the method to send to (e.g. 'status')
+   * @param body      the data to send (optional)
+   * @param options   the HTTP options for the request
+   */
   public postToEndpoint(method: string, body?: any, options?: HttpOptions): Observable<RemoteData<AuthStatus>> {
     const requestId = this.requestService.generateRequestId();
 
@@ -52,6 +63,11 @@ export abstract class AuthRequestService {
     return this.fetchRequest(requestId);
   }
 
+  /**
+   * Send a GET request to an authentication endpoint
+   * @param method    the method to send to (e.g. 'status')
+   * @param options   the HTTP options for the request
+   */
   public getRequest(method: string, options?: HttpOptions): Observable<RemoteData<AuthStatus>> {
     const requestId = this.requestService.generateRequestId();
 
