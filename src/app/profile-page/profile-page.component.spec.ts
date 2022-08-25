@@ -57,6 +57,7 @@ describe('ProfilePageComponent', () => {
       getAuthenticatedUserFromStore: observableOf(user)
     });
     epersonService = jasmine.createSpyObj('epersonService', {
+      clearLinkRequests: jasmine.createSpy('clearLinkRequests'),
       findById: createSuccessfulRemoteDataObject$(user),
       patch: observableOf(Object.assign(new RestResponse(true, 200, 'Success')))
     });
