@@ -25,7 +25,8 @@ import { RegistrationGuard } from './registration.guard';
     ])
   ],
   providers: [
-    ItemPageResolver
+    ItemPageResolver,
+    RegistrationResolver,
   ]
 })
 /**
