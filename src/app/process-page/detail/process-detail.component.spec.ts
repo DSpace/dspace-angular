@@ -243,18 +243,23 @@ describe('ProcessDetailComponent', () => {
 
   describe('deleteProcess', () => {
     it('should delete the process and navigate back to the overview page on success', () => {
+      spyOn(component, 'closeModal');
       component.deleteProcess(process);
 
       expect(processService.delete).toHaveBeenCalledWith(process.processId);
       expect(notificationsService.success).toHaveBeenCalled();
+      expect(component.closeModal).toHaveBeenCalled();
       expect(router.navigateByUrl).toHaveBeenCalledWith(getProcessListRoute());
     });
     it('should delete the process and not navigate on error', () => {
       (processService.delete as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$());
+      spyOn(component, 'closeModal');
+
       component.deleteProcess(process);
 
       expect(processService.delete).toHaveBeenCalledWith(process.processId);
       expect(notificationsService.error).toHaveBeenCalled();
+      expect(component.closeModal).not.toHaveBeenCalled();
       expect(router.navigateByUrl).not.toHaveBeenCalled();
     });
   });
