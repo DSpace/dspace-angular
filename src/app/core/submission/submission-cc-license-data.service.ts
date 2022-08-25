@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -13,6 +12,7 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
+import { dataService } from '../data/base/data-service.decorator';
 
 @Injectable()
 @dataService(SUBMISSION_CC_LICENSE)

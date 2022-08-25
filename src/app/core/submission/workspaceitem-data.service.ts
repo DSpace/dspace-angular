@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -16,6 +15,7 @@ import { SearchData, SearchDataImpl } from '../data/base/search-data';
 import { PaginatedList } from '../data/paginated-list.model';
 import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
 import { NoContent } from '../shared/NoContent.model';
+import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * A service that provides methods to make REST requests with workspaceitems endpoint.

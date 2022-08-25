@@ -3,8 +3,8 @@ import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
+import { DATA_SERVICE_FACTORY } from '../../data/base/data-service.decorator';
 import {
-  DATA_SERVICE_FACTORY,
   LINK_DEFINITION_FACTORY,
   LINK_DEFINITION_MAP_FACTORY,
   LinkDefinition,

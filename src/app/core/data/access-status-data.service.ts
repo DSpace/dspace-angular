@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -10,6 +9,7 @@ import { Observable } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { Item } from '../shared/item.model';
 import { BaseDataService } from './base/base-data.service';
+import { dataService } from './base/data-service.decorator';
 
 @Injectable()
 @dataService(ACCESS_STATUS)

@@ -6,12 +6,12 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ConfigObject } from './models/config.model';
-import { dataService } from '../cache/builders/build-decorators';
 import { SUBMISSION_FORMS_TYPE } from './models/config-type';
 import { SubmissionFormsModel } from './models/config-submission-forms.model';
 import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../data/base/data-service.decorator';
 
 @Injectable()
 @dataService(SUBMISSION_FORMS_TYPE)

@@ -10,7 +10,6 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { hasValue, isNotEmpty } from '../../../empty.util';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { getDataServiceFor } from '../../../../core/cache/builders/build-decorators';
 import { EPERSON } from '../../../../core/eperson/models/eperson.resource-type';
 import { GROUP } from '../../../../core/eperson/models/group.resource-type';
 import { ResourceType } from '../../../../core/shared/resource-type';
@@ -20,6 +19,7 @@ import { fadeInOut } from '../../../animations/fade';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import { getDataServiceFor } from '../../../../core/data/base/data-service.decorator';
 
 export interface SearchEvent {
   scope: string;

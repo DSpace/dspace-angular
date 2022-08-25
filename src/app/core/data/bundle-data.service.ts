@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Bundle } from '../shared/bundle.model';
@@ -23,6 +22,7 @@ import { PatchData, PatchDataImpl } from './base/patch-data';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { RestRequestMethod } from './rest-request-method';
 import { Operation } from 'fast-json-patch';
+import { dataService } from './base/data-service.decorator';
 
 /**
  * A service to retrieve {@link Bundle}s from the REST API

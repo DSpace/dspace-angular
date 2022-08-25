@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../cache/builders/build-decorators';
 import { RequestService } from '../data/request.service';
 import { Collection } from '../shared/collection.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -34,6 +33,7 @@ import { CreateDataImpl } from '../data/base/create-data';
 import { SearchDataImpl } from '../data/base/search-data';
 import { PatchDataImpl } from '../data/base/patch-data';
 import { DeleteDataImpl } from '../data/base/delete-data';
+import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the resourcepolicies endpoint

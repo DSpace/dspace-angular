@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestService } from '../data/request.service';
 import { WorkflowItem } from './models/workflowitem.model';
@@ -21,6 +20,7 @@ import { IdentifiableDataService } from '../data/base/identifiable-data.service'
 import { SearchData, SearchDataImpl } from '../data/base/search-data';
 import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
 import { PaginatedList } from '../data/paginated-list.model';
+import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * A service that provides methods to make REST requests with workflow items endpoint.

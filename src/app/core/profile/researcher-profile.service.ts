@@ -6,7 +6,6 @@ import { Operation, ReplaceOperation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import { find, map } from 'rxjs/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
@@ -33,6 +32,7 @@ import { RestRequestMethod } from '../data/rest-request-method';
 import { RequestParam } from '../cache/models/request-param.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
+import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * A service that provides methods to make REST requests with researcher profile endpoint.

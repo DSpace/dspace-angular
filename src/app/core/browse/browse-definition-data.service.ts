@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { dataService } from '../cache/builders/build-decorators';
 import { BROWSE_DEFINITION } from '../shared/browse-definition.resource-type';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { RequestService } from '../data/request.service';
@@ -13,6 +12,7 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { FindAllData, FindAllDataImpl } from '../data/base/find-all-data';
+import { dataService } from '../data/base/data-service.decorator';
 
 @Injectable({
   providedIn: 'root',

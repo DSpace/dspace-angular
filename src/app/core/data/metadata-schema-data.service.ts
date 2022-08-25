@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
@@ -20,6 +19,7 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { PaginatedList } from './paginated-list.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { DeleteData, DeleteDataImpl } from './base/delete-data';
+import { dataService } from './base/data-service.decorator';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the metadataschemas endpoint

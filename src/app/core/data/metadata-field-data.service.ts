@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { hasValue } from '../../shared/empty.util';
-import { dataService } from '../cache/builders/build-decorators';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
@@ -22,6 +21,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DeleteData, DeleteDataImpl } from './base/delete-data';
 import { IdentifiableDataService } from './base/identifiable-data.service';
+import { dataService } from './base/data-service.decorator';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the metadatafields endpoint

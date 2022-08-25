@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Community } from '../shared/community.model';
@@ -18,6 +17,7 @@ import { BitstreamDataService } from './bitstream-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { FindListOptions } from './find-list-options.model';
+import { dataService } from './base/data-service.decorator';
 
 @Injectable()
 @dataService(COMMUNITY)

@@ -16,7 +16,6 @@ import {
 } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
 import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -45,6 +44,7 @@ import { FindListOptions } from './find-list-options.model';
 import { SearchData, SearchDataImpl } from './base/search-data';
 import { PutData, PutDataImpl } from './base/put-data';
 import { IdentifiableDataService } from './base/identifiable-data.service';
+import { dataService } from './base/data-service.decorator';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 

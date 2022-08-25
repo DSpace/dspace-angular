@@ -2,7 +2,6 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RemoteData } from '../data/remote-data';
@@ -16,6 +15,7 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { RestRequest } from '../data/rest-request.model';
 import { sendRequest } from '../shared/request.operators';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * A service that provides methods to make REST requests with Orcid History endpoint.

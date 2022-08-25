@@ -6,9 +6,10 @@ import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
 import { LinkService } from './link.service';
-import { DATA_SERVICE_FACTORY, LINK_DEFINITION_FACTORY, LINK_DEFINITION_MAP_FACTORY } from './build-decorators';
+import { LINK_DEFINITION_FACTORY, LINK_DEFINITION_MAP_FACTORY } from './build-decorators';
 import { isEmpty } from 'rxjs/operators';
 import { FindListOptions } from '../../data/find-list-options.model';
+import { DATA_SERVICE_FACTORY } from '../../data/base/data-service.decorator';
 
 const TEST_MODEL = new ResourceType('testmodel');
 let result: any;

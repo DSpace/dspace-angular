@@ -3,7 +3,6 @@ import { ConfigService } from './config.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from '../cache/builders/build-decorators';
 import { SUBMISSION_UPLOADS_TYPE } from './models/config-type';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ConfigObject } from './models/config.model';
@@ -11,6 +10,7 @@ import { SubmissionUploadsModel } from './models/config-submission-uploads.model
 import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * Provides methods to retrieve, from REST server, bitstream access conditions configurations applicable during the submission process.

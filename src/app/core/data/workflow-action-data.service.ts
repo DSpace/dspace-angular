@@ -4,9 +4,9 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Injectable } from '@angular/core';
-import { dataService } from '../cache/builders/build-decorators';
 import { WORKFLOW_ACTION } from '../tasks/models/workflow-action-object.resource-type';
 import { BaseDataService } from './base/base-data.service';
+import { dataService } from './base/data-service.decorator';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the workflowactions endpoint

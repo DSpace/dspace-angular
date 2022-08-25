@@ -3,7 +3,6 @@ import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { map, mergeMap, switchMap, toArray } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
@@ -17,6 +16,7 @@ import { BaseDataService } from './base/base-data.service';
 import { FindAllDataImpl } from './base/find-all-data';
 import { SearchDataImpl } from './base/search-data';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { dataService } from './base/data-service.decorator';
 
 /**
  * Check if one side of a RelationshipType is the ItemType with the given label

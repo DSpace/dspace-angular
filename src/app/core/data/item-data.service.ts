@@ -13,7 +13,6 @@ import { distinctUntilChanged, filter, find, map, switchMap, take } from 'rxjs/o
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BrowseService } from '../browse/browse.service';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
@@ -46,6 +45,7 @@ import { DeleteData, DeleteDataImpl } from './base/delete-data';
 import { RestRequestMethod } from './rest-request-method';
 import { CreateData, CreateDataImpl } from './base/create-data';
 import { RequestParam } from '../cache/models/request-param.model';
+import { dataService } from './base/data-service.decorator';
 
 /**
  * An abstract service for CRUD operations on Items

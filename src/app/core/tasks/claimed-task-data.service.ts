@@ -1,7 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RequestService } from '../data/request.service';
@@ -15,6 +14,7 @@ import { RequestParam } from '../cache/models/request-param.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { getFirstSucceededRemoteData } from '../shared/operators';
 import { FindListOptions } from '../data/find-list-options.model';
+import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * The service handling all REST requests for ClaimedTask

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RequestService } from '../data/request.service';
@@ -13,6 +12,7 @@ import { RemoteData } from '../data/remote-data';
 import { RequestParam } from '../cache/models/request-param.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { FindListOptions } from '../data/find-list-options.model';
+import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * The service handling all REST requests for PoolTask

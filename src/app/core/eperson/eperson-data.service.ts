@@ -9,7 +9,6 @@ import { AppState } from '../../app.reducer';
 import { hasNoValue, hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -31,6 +30,7 @@ import { SearchData, SearchDataImpl } from '../data/base/search-data';
 import { PatchData, PatchDataImpl } from '../data/base/patch-data';
 import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { dataService } from '../data/base/data-service.decorator';
 
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
 const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);

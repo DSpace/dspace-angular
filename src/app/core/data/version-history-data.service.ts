@@ -12,7 +12,6 @@ import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list.model';
 import { Version } from '../shared/version.model';
 import { filter, map, switchMap, take } from 'rxjs/operators';
-import { dataService } from '../cache/builders/build-decorators';
 import { VERSION_HISTORY } from '../shared/version-history.resource-type';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { VersionDataService } from './version-data.service';
@@ -25,6 +24,7 @@ import { FindListOptions } from './find-list-options.model';
 import { sendRequest } from '../shared/request.operators';
 import { RestRequest } from './rest-request.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
+import { dataService } from './base/data-service.decorator';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object

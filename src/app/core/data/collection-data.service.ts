@@ -8,7 +8,6 @@ import { NotificationOptions } from '../../shared/notifications/models/notificat
 import { INotification } from '../../shared/notifications/models/notification.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -34,6 +33,7 @@ import { BitstreamDataService } from './bitstream-data.service';
 import { RestRequest } from './rest-request.model';
 import { FindListOptions } from './find-list-options.model';
 import { Community } from '../shared/community.model';
+import { dataService } from './base/data-service.decorator';
 
 @Injectable()
 @dataService(COLLECTION)

@@ -4,7 +4,6 @@ import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.s
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { Process } from '../../../process-page/processes/process.model';
-import { dataService } from '../../cache/builders/build-decorators';
 import { PROCESS } from '../../../process-page/processes/process.resource-type';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -16,6 +15,7 @@ import { IdentifiableDataService } from '../base/identifiable-data.service';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { FindAllData, FindAllDataImpl } from '../base/find-all-data';
 import { FindListOptions } from '../find-list-options.model';
+import { dataService } from '../base/data-service.decorator';
 
 @Injectable()
 @dataService(PROCESS)

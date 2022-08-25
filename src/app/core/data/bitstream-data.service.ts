@@ -4,7 +4,6 @@ import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Bitstream } from '../shared/bitstream.model';
@@ -33,6 +32,7 @@ import { DeleteData, DeleteDataImpl } from './base/delete-data';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NoContent } from '../shared/NoContent.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
+import { dataService } from './base/data-service.decorator';
 
 /**
  * A service to retrieve {@link Bitstream}s from the REST API

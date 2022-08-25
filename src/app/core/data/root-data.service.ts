@@ -1,7 +1,6 @@
 import { Root } from './root.model';
 import { Injectable } from '@angular/core';
 import { ROOT } from './root.resource-type';
-import { dataService } from '../cache/builders/build-decorators';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -13,6 +12,7 @@ import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { catchError, map } from 'rxjs/operators';
 import { BaseDataService } from './base/base-data.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { dataService } from './base/data-service.decorator';
 
 /**
  * A service to retrieve the {@link Root} object from the REST API.
