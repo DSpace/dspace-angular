@@ -29,7 +29,9 @@
 
   "404.page-not-found": "page not found",
 
+  "410.gone-handle": "This object is not longer available",
 
+  "410.link.home-page": "Take me to the home page",
 
   "admin.curation-tasks.breadcrumbs": "System curation tasks",
 
