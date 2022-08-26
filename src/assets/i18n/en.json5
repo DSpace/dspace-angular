@@ -4255,6 +4255,36 @@
 
   "profile.breadcrumbs": "Update Profile",
 
+  "profile.card.access-token": "Personal access token",
+
+  "profile.card.access-token.copy": "Copy token",
+
+  "profile.card.access-token.copy-info": "Make sure to copy your personal access token now. You won’t be able to see it again!",
+
+  "profile.card.access-token.info": "Tokens you have generated that can be used to access the DSpace-CRIS API.",
+
+  "profile.card.access-token.create.error": "An error occurred while generating the token, please try again later.",
+
+  "profile.card.access-token.create-warning.title": "Generate a new personal access token",
+
+  "profile.card.access-token.create-warning.msg": "Are you sure you want to generate a new personal access token?\nThis will revoke access for the existing personal access token. This action cannot be undone.",
+
+  "profile.card.access-token.delete-warning.title": "Revoke the new personal access token",
+
+  "profile.card.access-token.delete-warning.msg": "Are you sure you want to revoke access for the personal access token? This action cannot be undone.",
+
+  "profile.card.access-token.confirm": "Confirm",
+
+  "profile.card.access-token.cancel": "Cancel",
+
+  "profile.card.access-token.create": "Generate new token",
+
+  "profile.card.access-token.delete": "Revoke token",
+
+  "profile.card.access-token.no-token-generated": "You don't have personal access token. Generate a personal access token for quick access to the DSpace-CRIS API.",
+
+  "profile.card.access-token.token-generated": "You have already generated a personal access token.",
+
   "profile.card.identify": "Identify",
 
   "profile.card.security": "Security",

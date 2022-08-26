@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
@@ -9,18 +9,13 @@ import { RemoteData } from '../core/data/remote-data';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-  getFirstCompletedRemoteData
-} from '../core/shared/operators';
+import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../core/shared/operators';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { AuthService } from '../core/auth/auth.service';
 import { Operation } from 'fast-json-patch';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { AuthStatus } from '../core/auth/models/auth-status.model';
 
 @Component({
   selector: 'ds-profile-page',
@@ -30,7 +25,7 @@ import { AuthStatus } from '../core/auth/models/auth-status.model';
 /**
  * Component for a user to edit their profile information
  */
-export class ProfilePageComponent implements OnInit {
+export class ProfilePageComponent implements OnInit, OnDestroy {
   /**
    * A reference to the metadata form component
    */
@@ -83,7 +78,7 @@ export class ProfilePageComponent implements OnInit {
     this.user$ = this.authService.getAuthenticatedUserFromStore().pipe(
       filter((user: EPerson) => hasValue(user.id)),
       switchMap((user: EPerson) => this.epersonService.findById(user.id, true, true, followLink('groups'))),
-      getAllSucceededRemoteData(),
+      getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
       tap((user: EPerson) => this.currentUser = user)
     );
@@ -163,5 +158,9 @@ export class ProfilePageComponent implements OnInit {
    */
   submit() {
     this.updateProfile();
+  }
+
+  ngOnDestroy(): void {
+    this.epersonService.clearLinkRequests(this.currentUser._links.self.href);
   }
 }

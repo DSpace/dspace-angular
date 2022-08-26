@@ -43,6 +43,8 @@ import { RemoteData } from '../data/remote-data';
 import { environment } from '../../../environments/environment';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { MachineToken } from './models/machine-token.model';
+import { NoContent } from '../shared/NoContent.model';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -581,6 +583,20 @@ export class AuthService {
     } else {
       this.store.dispatch(new UnsetUserAsIdleAction());
     }
+  }
+
+  /**
+   * Create a new machine token for the current user
+   */
+  public createMachineToken(): Observable<RemoteData<MachineToken>> {
+    return this.authRequestService.postToMachineTokenEndpoint();
+  }
+
+  /**
+   * Delete the machine token for the current user
+   */
+  public deleteMachineToken(): Observable<RemoteData<NoContent>> {
+    return this.authRequestService.deleteToMachineTokenEndpoint();
   }
 
 }

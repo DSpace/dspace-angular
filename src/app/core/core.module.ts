@@ -134,11 +134,15 @@ import { Feature } from './shared/feature.model';
 import { Authorization } from './shared/authorization.model';
 import { FeatureDataService } from './data/feature-authorization/feature-data.service';
 import { AuthorizationDataService } from './data/feature-authorization/authorization-data.service';
-import { SiteAdministratorGuard } from './data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import {
+  SiteAdministratorGuard
+} from './data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { Registration } from './shared/registration.model';
 import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
 import { MetadataFieldDataService } from './data/metadata-field-data.service';
-import { DsDynamicTypeBindRelationService } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import {
+  DsDynamicTypeBindRelationService
+} from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { TabDataService } from './layout/tab-data.service';
 import { CrisLayoutTab } from './layout/models/tab.model';
 import { CrisLayoutBox } from './layout/models/box.model';
@@ -201,6 +205,7 @@ import { WorkflowOwnerStatisticsService } from './statistics/workflow-owner-stat
 import { WorkflowOwnerStatistics } from './statistics/models/workflow-owner-statistics.model';
 import { LoginStatisticsService } from './statistics/login-statistics.service';
 import { LoginStatistics } from './statistics/models/login-statistics.model';
+import { MachineToken } from './auth/models/machine-token.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -401,6 +406,7 @@ export const models =
     VocabularyEntry,
     VocabularyEntryDetail,
     ConfigurationProperty,
+    MachineToken,
     ShortLivedToken,
     Registration,
     UsageReport,
