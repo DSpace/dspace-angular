@@ -1626,13 +1626,13 @@
 
   "curation-task.task.profileformats.label": "Profile Bitstream Formats",
 
+   "curation-task.task.registerdoi.label": "Mint DOI",
+
   "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
 
   "curation-task.task.translate.label": "Microsoft Translator",
 
   "curation-task.task.vscan.label": "Virus Scan",
-
-
 
   "curation.form.task-select.label": "Task:",
 
@@ -3508,6 +3508,8 @@
   "statistics.login.page.startDate": "Start date",
 
   "statistics.login.page.no-data-found": "No data found",
+
+  "statistics.login.title statistics.workflow.title" : "Login Statistics",
 
   "manage.relations": "Manage Relations",
 
