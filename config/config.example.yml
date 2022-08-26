@@ -15,6 +15,10 @@ ui:
     windowMs: 60000 # 1 minute
     max: 500 # limit each IP to 500 requests per windowMs
 
+  # The forceHTTPSInOrigin forces the protocol to HTTPS when the complete URL is needed in the UI
+  # NOTE: Defaults to true when in production mode, defaults to false when not in production mode
+  # forceHTTPSInOrigin: true
+
 # The REST API server settings
 # NOTE: these settings define which (publicly available) REST API to use. They are usually
 # 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.

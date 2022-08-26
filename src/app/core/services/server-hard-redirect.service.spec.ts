@@ -71,4 +71,44 @@ describe('ServerHardRedirectService', () => {
     });
   });
 
+  describe('when requesting the origin with forceHTTPSInOrigin unset and production set to false', () => {
+    let originalValue;
+    let originalProdValue;
+    beforeEach(() => {
+      originalValue = (environment.ui as any).forceHTTPSInOrigin;
+      originalProdValue = (environment as any).production;
+      (environment.ui as any).forceHTTPSInOrigin = undefined;
+      (environment as any).production = false;
+    });
+
+    it('should return the location origin with the original protocol', () => {
+      expect(service.getCurrentOrigin()).toEqual(origin);
+    });
+
+    afterEach(() => {
+      (environment.ui as any).forceHTTPSInOrigin = originalValue;
+      (environment as any).production = originalProdValue;
+    });
+  });
+
+  describe('when requesting the origin with forceHTTPSInOrigin unset and production set to true', () => {
+    let originalValue;
+    let originalProdValue;
+    beforeEach(() => {
+      originalValue = (environment.ui as any).forceHTTPSInOrigin;
+      originalProdValue = (environment as any).production;
+      (environment.ui as any).forceHTTPSInOrigin = undefined;
+      (environment as any).production = true;
+    });
+
+    it('should return the location origin with https', () => {
+      expect(service.getCurrentOrigin()).toEqual(origin.replace('http://', 'https://'));
+    });
+
+    afterEach(() => {
+      (environment.ui as any).forceHTTPSInOrigin = originalValue;
+      (environment as any).production = originalProdValue;
+    });
+  });
+
 });

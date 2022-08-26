@@ -4,6 +4,7 @@ import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { HardRedirectService } from './hard-redirect.service';
 import { environment } from '../../../environments/environment';
 import { UIServerConfig } from '../../../config/ui-server-config.interface';
+import { hasValue } from '../../shared/empty.util';
 
 /**
  * Service for performing hard redirects within the server app module
@@ -70,7 +71,10 @@ export class ServerHardRedirectService extends HardRedirectService {
    * the origin would be https://demo7.dspace.org
    */
   getCurrentOrigin(): string {
-    if ((environment.ui as UIServerConfig).forceHTTPSInOrigin) {
+    const forceHTTPsConfig = (environment.ui as UIServerConfig).forceHTTPSInOrigin;
+    const forceHTTPs = hasValue(forceHTTPsConfig) ? forceHTTPsConfig : environment.production;
+
+    if (forceHTTPs) {
       return 'https://' + this.req.headers.host;
     } else {
       return this.req.protocol + '://' + this.req.headers.host;
