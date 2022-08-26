@@ -9,7 +9,7 @@ import { isEmpty, isNotEmpty } from '../../../shared/empty.util';
 
 @Injectable()
 export class SchemaJsonLDService {
-  static scriptType = 'application/json+ld';
+  static scriptType = 'application/ld+json';
 
   constructor(@Inject(DOCUMENT) private _document: Document) {}
 

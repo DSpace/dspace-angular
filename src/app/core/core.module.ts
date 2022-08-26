@@ -224,6 +224,11 @@ import {
 import {
   PublicationReportSchemaType
 } from './metadata/schema-json-ld/schema-types/publication/publication-report-schema-type';
+import {
+  ProductCreativeWorkSchemaType
+} from './metadata/schema-json-ld/schema-types/product/product-creative-work-schema-type';
+import { ProductDatasetSchemaType } from './metadata/schema-json-ld/schema-types/product/product-dataset-schema-type';
+import { PersonSchemaType } from './metadata/schema-json-ld/schema-types/Person/person-schema-type';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -369,6 +374,9 @@ const PROVIDERS = [
 ];
 
 const SCHEMA_PROVIDERS = [
+  PersonSchemaType,
+  ProductCreativeWorkSchemaType,
+  ProductDatasetSchemaType,
   PublicationBookSchemaType,
   PublicationChapterSchemaType,
   PublicationCreativeWorkSchemaType,
