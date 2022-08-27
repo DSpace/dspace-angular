@@ -93,6 +93,7 @@ export class DefaultAppConfig implements AppConfig {
 
   // Form settings
   form: FormConfig = {
+    spellCheck: true,
     // NOTE: Map server-side validators to comparative Angular form validators
     validatorMap: {
       required: 'required',
