@@ -16,11 +16,11 @@ export class ThemedObjectGoneComponent extends ThemedComponent<ObjectGoneCompone
   }
 
   protected importThemedComponent(themeName: string): Promise<any> {
-    return import(`../../../themes/${themeName}/app/lookup-by-id/objectnotfound/objectnotfound.component`);
+    return import(`../../../themes/${themeName}/app/lookup-by-id/objectgone/objectgone.component`);
   }
 
   protected importUnthemedComponent(): Promise<any> {
-    return import(`src/app/lookup-by-id/objectgone/objectgone.component`);
+    return import(`./objectgone.component`);
   }
 
 }
