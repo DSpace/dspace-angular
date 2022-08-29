@@ -427,7 +427,14 @@ export class AuthService {
    * Remove authentication token info
    */
   public removeToken() {
-    return this.storage.remove(TOKENITEM);
+    this.storage.remove(TOKENITEM);
+  }
+
+  /**
+   * Check authentication token info
+   */
+  public hasToken(): boolean {
+    return hasValue(this.storage.get(TOKENITEM));
   }
 
   /**

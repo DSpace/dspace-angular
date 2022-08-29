@@ -214,6 +214,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.RETRIEVE_AUTH_METHODS:
       return Object.assign({}, state, {
         loading: true,
+        error: undefined,
       });
 
     case AuthActionTypes.RETRIEVE_AUTH_METHODS_SUCCESS:

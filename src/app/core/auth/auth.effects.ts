@@ -119,7 +119,12 @@ export class AuthEffects {
   // It means "reacts to this action but don't send another"
   public authenticatedError$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATED_ERROR),
-    tap((action: LogOutSuccessAction) => this.authService.removeToken())
+    tap((action: LogOutSuccessAction) => {
+      if (this.authService.hasToken()) {
+        this.authService.removeToken();
+        this.authService.checkAuthenticationToken();
+      }
+    }),
   ), { dispatch: false });
 
   public retrieveAuthenticatedEperson$: Observable<Action> = createEffect(() => this.actions$.pipe(
