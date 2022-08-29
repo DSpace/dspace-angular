@@ -26,8 +26,17 @@
         ></ds-profile-page-security-form>
       </div>
     </div>
-    <div class="col-12 text-right pr-0">
+    <div class="col-12 text-right pr-0 mb-4">
       <button class="btn btn-primary" (click)="updateProfile()"><i class="fas fa-edit"></i> {{'profile.form.submit' | translate}}</button>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-header">{{'profile.card.access-token' | translate}}</div>
+      <div class="card-body">
+        <div class="mb-4">
+          <ds-profile-page-access-token *ngIf="user" [user]="user"></ds-profile-page-access-token>
+        </div>
+      </div>
     </div>
 
     <ng-container *ngVar="(groupsRD$ | async)?.payload?.page as groups">

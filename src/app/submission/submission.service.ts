@@ -644,9 +644,10 @@ export class SubmissionService {
    * Redirect to Item page
    */
   redirectToItemPage(submissionId: string) {
-    // This assures that the cache is empty before redirecting to item page.
     const itemUuid = submissionId.indexOf(':') > -1 ? submissionId.split(':')[0] : submissionId;
-    this.requestService.setStaleByHrefSubstring(itemUuid);
+    // TODO temporary disable because it causes an issue on item saving, check if it can be enable again after merge with 7.3
+    // This assures that the cache is empty before redirecting to item page.
+    // this.requestService.setStaleByHrefSubstring(`items/${itemUuid}`);
 
     this.router.navigateByUrl('/items/' + itemUuid, { replaceUrl: true });
   }

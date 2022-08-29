@@ -205,6 +205,7 @@ import { WorkflowOwnerStatisticsService } from './statistics/workflow-owner-stat
 import { WorkflowOwnerStatistics } from './statistics/models/workflow-owner-statistics.model';
 import { LoginStatisticsService } from './statistics/login-statistics.service';
 import { LoginStatistics } from './statistics/models/login-statistics.model';
+import { MachineToken } from './auth/models/machine-token.model';
 import { SchemaJsonLDService } from './metadata/schema-json-ld/schema-json-ld.service';
 import {
   PublicationScholarlyArticleSchemaType
@@ -442,6 +443,7 @@ export const models =
     VocabularyEntry,
     VocabularyEntryDetail,
     ConfigurationProperty,
+    MachineToken,
     ShortLivedToken,
     Registration,
     UsageReport,

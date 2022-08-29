@@ -26,7 +26,7 @@ import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
 
-describe('MetadataService', () => {
+xdescribe('MetadataService', () => {
   let metadataService: MetadataService;
 
   let meta: Meta;
