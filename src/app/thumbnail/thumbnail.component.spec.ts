@@ -59,12 +59,7 @@ describe('ThumbnailComponent', () => {
       it('should display the placeholder', () => {
         comp.src = 'http://default.img';
         comp.errorHandler();
-        expect(comp.src).toBe(null);
-
-        comp.ngOnChanges();
-        fixture.detectChanges();
-        const placeholder = fixture.debugElement.query(By.css('div.thumbnail-placeholder')).nativeElement;
-        expect(placeholder.innerHTML).toBe('TRANSLATED ' + comp.placeholder);
+        expect(comp.src).toBe('assets/images/project-placeholder.svg');
       });
     });
   };

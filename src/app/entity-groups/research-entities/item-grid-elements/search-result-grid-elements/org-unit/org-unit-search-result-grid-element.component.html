@@ -14,7 +14,7 @@
     </a>
     <span *ngIf="linkType == linkTypes.None" class="card-img-top full-width">
       <div>
-        <ds-thumbnail *ngIf="dso?.thumbnail" [defaultImage]="'assets/images/orgunit-placeholder.svg'" [thumbnail]="dso?.thumbnail | async" [limitWidth]="false">
+        <ds-thumbnail [defaultImage]="'assets/images/orgunit-placeholder.svg'" [thumbnail]="dso?.thumbnail | async" [limitWidth]="false">
         </ds-thumbnail>
       </div>
     </span>
