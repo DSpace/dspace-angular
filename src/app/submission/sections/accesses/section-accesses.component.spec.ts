@@ -118,7 +118,7 @@ describe('SubmissionSectionAccessesComponent', () => {
         formService.validateAllFormFields.and.callFake(() => null);
         formService.isValid.and.returnValue(observableOf(true));
         formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
-        submissionAccessesConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(accessConditionSectionConfigRes) as any)
+        submissionAccessesConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(accessConditionSectionConfigRes) as any);
         fixture.detectChanges();
       }));
 
@@ -170,7 +170,7 @@ describe('SubmissionSectionAccessesComponent', () => {
         formService.validateAllFormFields.and.callFake(() => null);
         formService.isValid.and.returnValue(observableOf(true));
         formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
-        submissionAccessesConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(accessConditionSectionSingleAccessConfigRes) as any)
+        submissionAccessesConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(accessConditionSectionSingleAccessConfigRes) as any);
         fixture.detectChanges();
       }));
 
