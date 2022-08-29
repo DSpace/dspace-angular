@@ -24,7 +24,6 @@ export class SchemaJsonLDService {
   insertSchema(item: Item, className = 'structured-data'): void {
     const schema = this.getSchemaByEntityType(item);
     if (isNotEmpty(schema)) {
-      console.log(schema);
       let script;
       let shouldAppend = false;
       if (this._document.head.getElementsByClassName(className).length) {
@@ -51,7 +50,6 @@ export class SchemaJsonLDService {
         dcType = parts[parts.length - 1];
       }
     }
-    console.log(dcType);
     let constructor: GenericConstructor<SchemaType> = getSchemaJsonLDProviderByType(entityType, dcType);
     // if schema related to type is not available search for entity generic one
     if (isEmpty(constructor)) {
