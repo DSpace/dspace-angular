@@ -88,7 +88,7 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
         this.currentPageInfo = new PageInfo({
             elementsPerPage: this.pageOptions.elementsPerPage,
             totalElements: bitstreams.length,
-            totalPages: Math.ceil((bitstreams.length - 1) / this.pageOptions.elementsPerPage),
+            totalPages: Math.ceil(bitstreams.length / this.pageOptions.elementsPerPage),
             currentPage: this.pageOptions.currentPage
           }
         );
