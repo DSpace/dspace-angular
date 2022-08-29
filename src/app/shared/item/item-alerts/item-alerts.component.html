@@ -4,10 +4,12 @@
     </div>
     <div *ngIf="item && item.isWithdrawn" class="withdrawn-warning">
         <ds-alert [type]="AlertTypeEnum.Warning">
-            <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex justify-content-between flex-wrap flex-column">
                 <span class="align-self-center">{{'item.alerts.withdrawn' | translate}}</span>
-                <a routerLink="/home" class="btn btn-primary btn-sm">{{"404.link.home-page" | translate}}</a>
             </div>
         </ds-alert>
+        <p class="text-center">
+          <a routerLink="/home" class="btn btn-primary">{{"410.link.home-page" | translate}}</a>
+        </p>
     </div>
 </div>
