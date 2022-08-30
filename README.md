@@ -179,7 +179,7 @@ If needing to update default configurations values for production, update local 
 
 -	Update `environment.production.ts` file in `src/environment/` for a `production` environment;
 
-The environment object is provided for use as import in code and is extended with he runtime configuration on bootstrap of the application.
+The environment object is provided for use as import in code and is extended with the runtime configuration on bootstrap of the application.
 
 > Take caution moving runtime configs into the buildtime configuration. They will be overwritten by what is defined in the runtime config on bootstrap.
 
