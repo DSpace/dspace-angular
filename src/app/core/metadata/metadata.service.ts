@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -39,6 +39,7 @@ import { CoreState } from '../core.reducers';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
 import { ITEM } from '../shared/item.resource-type';
+import { isPlatformServer } from '@angular/common';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -90,7 +91,8 @@ export class MetadataService {
     private store: Store<CoreState>,
     private hardRedirectService: HardRedirectService,
     private authorizationService: AuthorizationDataService,
-    private schemaJsonLDService: SchemaJsonLDService
+    private schemaJsonLDService: SchemaJsonLDService,
+    @Inject(PLATFORM_ID) private platformId: any,
   ) {
   }
 
@@ -129,7 +131,7 @@ export class MetadataService {
     if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
       this.currentObject.next(routeInfo.data.value.dso.payload);
       this.setDSOMetaTags();
-      if (routeInfo.data.value.dso.payload.type === ITEM.value) {
+      if (routeInfo.data.value.dso.payload.type === ITEM.value && isPlatformServer(this.platformId)) {
         this.schemaJsonLDService.insertSchema(routeInfo.data.value.dso.payload);
       }
     }

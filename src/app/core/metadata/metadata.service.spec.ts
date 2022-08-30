@@ -105,7 +105,8 @@ xdescribe('MetadataService', () => {
       store,
       hardRedirectService,
       authorizationService,
-      schemaJsonLDService
+      schemaJsonLDService,
+      'browser'
     );
   });
 
