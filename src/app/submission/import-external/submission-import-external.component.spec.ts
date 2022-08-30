@@ -184,7 +184,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
     });
   });
 
-  describe('handle BE response for search query', () => {
+  describe('handle backend response for search query', () => {
     const paginatedData: any = {
       'timeCompleted': 1657009282990,
       'msToLive': 900000,
@@ -203,20 +203,20 @@ describe('SubmissionImportExternalComponent test suite', () => {
         },
         '_links': {
           'first': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/integration/externalsources/scopus/entries?query=test&page=0&size=10&sort=id,asc'
+            'href': 'https://example.com/server/api/integration/externalsources/scopus/entries?query=test&page=0&size=10&sort=id,asc'
           },
           'self': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/integration/externalsources/scopus/entries?sort=id,ASC&page=0&size=10&query=test'
+            'href': 'https://example.com/server/api/integration/externalsources/scopus/entries?sort=id,ASC&page=0&size=10&query=test'
           },
           'next': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/integration/externalsources/scopus/entries?query=test&page=1&size=10&sort=id,asc'
+            'href': 'https://example.com/server/api/integration/externalsources/scopus/entries?query=test&page=1&size=10&sort=id,asc'
           },
           'last': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/integration/externalsources/scopus/entries?query=test&page=1197160&size=10&sort=id,asc'
+            'href': 'https://example.com/server/api/integration/externalsources/scopus/entries?query=test&page=1197160&size=10&sort=id,asc'
           },
           'page': [
             {
-              'href': 'https://dspacecris7.4science.cloud/server/api/integration/externalsources/scopus/entryValues/2-s2.0-85130258665'
+              'href': 'https://example.com/server/api/integration/externalsources/scopus/entryValues/2-s2.0-85130258665'
             }
           ]
         },
@@ -411,7 +411,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
             },
             '_links': {
               'self': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/integration/externalsources/scopus/entryValues/2-s2.0-85130258665'
+                'href': 'https://example.com/server/api/integration/externalsources/scopus/entryValues/2-s2.0-85130258665'
               }
             }
           }
@@ -421,7 +421,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
     };
     const errorObj = {
       errorMessage: 'Http failure response for ' +
-        'https://dspacecris7.4science.cloud/server/api/integration/externalsources/pubmed/entries?sort=id,ASC&page=0&size=10&query=test: 500 OK',
+        'https://example.com/server/api/integration/externalsources/pubmed/entries?sort=id,ASC&page=0&size=10&query=test: 500 OK',
       statusCode: 500,
       timeCompleted: 1656950434666,
       errors: [{
