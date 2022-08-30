@@ -31,6 +31,7 @@ interface AppConfig extends Config {
   defaultLanguage: string;
   languages: LangConfig[];
   browseBy: BrowseByConfig;
+  browseCommunities: BrowseCommunitiesConfig;
   item: ItemConfig;
   collection: CollectionPageConfig;
   themes: ThemeConfig[];

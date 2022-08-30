@@ -210,6 +210,11 @@ export class DefaultAppConfig implements AppConfig {
     defaultLowerLimit: 1900
   };
 
+  browseCommunities: BrowseCommunitiesConfig = {
+    communityListPageSize: 20,
+    topLevelPageSize: 5
+  }
+
   // Item Config
   item: ItemConfig = {
     edit: {

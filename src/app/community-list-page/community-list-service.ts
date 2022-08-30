@@ -23,6 +23,7 @@ import { followLink } from '../shared/utils/follow-link-config.model';
 import { FlatNode } from './flat-node.model';
 import { ShowMoreFlatNode } from './show-more-flat-node.model';
 import { FindListOptions } from '../core/data/find-list-options.model';
+import { environment } from 'src/environments/environment';
 
 // Helper method to combine an flatten an array of observables of flatNode arrays
 export const combineAndFlatten = (obsList: Observable<FlatNode[]>[]): Observable<FlatNode[]> =>
@@ -80,7 +81,7 @@ const communityListStateSelector = (state: AppState) => state.communityList;
 const expandedNodesSelector = createSelector(communityListStateSelector, (communityList: CommunityListState) => communityList.expandedNodes);
 const loadingNodeSelector = createSelector(communityListStateSelector, (communityList: CommunityListState) => communityList.loadingNode);
 
-export const MAX_COMCOLS_PER_PAGE = 20;
+export const MAX_COMCOLS_PER_PAGE = environment.browseCommunities.communityListPageSize;
 
 /**
  * Service class for the community list, responsible for the creating of the flat list used by communityList dataSource

@@ -175,6 +175,10 @@ browseBy:
   # The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
   defaultLowerLimit: 1900
 
+browseCommunities:
+  communityListPageSize: 20
+  topLevelPageSize: 5
+
 # Item Config
 item:
   edit:

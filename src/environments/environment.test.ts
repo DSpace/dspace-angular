@@ -204,6 +204,10 @@ export const environment: BuildConfig = {
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
     defaultLowerLimit: 1900,
   },
+  browseCommunities: {
+    communityListPageSize: 20,
+    topLevelPageSize: 5
+  },
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds

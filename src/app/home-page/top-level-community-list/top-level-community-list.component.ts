@@ -12,6 +12,7 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { hasValue } from '../../shared/empty.util';
 import { switchMap } from 'rxjs/operators';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { environment } from 'src/environments/environment';
 
 /**
  * this component renders the Top-Level Community list
@@ -54,7 +55,7 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
               private paginationService: PaginationService) {
     this.config = new PaginationComponentOptions();
     this.config.id = this.pageId;
-    this.config.pageSize = 5;
+    this.config.pageSize = environment.browseCommunities.topLevelPageSize;
     this.config.currentPage = 1;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
   }
