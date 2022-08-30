@@ -178,6 +178,37 @@ describe('AuthEffects', () => {
 
   });
 
+  describe('authenticatedError$', () => {
+
+    describe('when token is valid', () => {
+      it('should not call checkAuthenticationToken', () => {
+        const authService = (authEffects as any).authService;
+        spyOn(authService, 'checkAuthenticationToken');
+        actions = hot('--a-', { a: new AuthenticatedSuccessAction(true, token, EPersonMock._links.self.href) });
+
+        const expected = cold('--b-', { b: new AuthenticatedSuccessAction(true, token, EPersonMock._links.self.href) });
+
+        authEffects.authenticatedError$.subscribe((n) => {
+          expect(authService.checkAuthenticationToken).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('when token is not valid', () => {
+      it('should call checkAuthenticationToken', () => {
+        const authService = (authEffects as any).authService;
+        spyOn(authService, 'checkAuthenticationToken');
+        actions = hot('--a-', { a: new AuthenticatedErrorAction(new Error('Message Error test')) });
+
+        const expected = cold('--b-', { b: new AuthenticatedErrorAction(new Error('Message Error test')) });
+
+        authEffects.authenticatedError$.subscribe((n) => {
+          expect(authService.checkAuthenticationToken).toHaveBeenCalled();
+        });
+      });
+    });
+  });
+
   describe('checkToken$', () => {
 
     describe('when check token succeeded', () => {

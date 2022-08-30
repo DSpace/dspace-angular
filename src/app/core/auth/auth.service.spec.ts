@@ -374,6 +374,28 @@ describe('AuthService test', () => {
       expect(storage.remove).toHaveBeenCalled();
     });
 
+    describe('when the cookie contains a value', () => {
+      beforeEach(() => {
+        storage.get = jasmine.createSpy().and.returnValue(token);
+      });
+
+      it('should indicate token is present', () => {
+        const result = authService.hasToken();
+        expect(result).toBe(true);
+      });
+    });
+
+    describe('when the cookie contains no value', () => {
+      beforeEach(() => {
+        storage.get = jasmine.createSpy().and.returnValue(undefined);
+      });
+
+      it('should indicate token is not present', () => {
+        const result = authService.hasToken();
+        expect(result).toBe(false);
+      });
+    });
+
     it('should redirect to reload with redirect url', () => {
       authService.navigateToRedirectUrl('/collection/123');
       // Reload with redirect URL set to /collection/123

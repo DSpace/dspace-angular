@@ -123,6 +123,14 @@ export class AuthServiceStub {
     return;
   }
 
+  hasToken(): boolean {
+    return true;
+  }
+
+  checkAuthenticationToken() {
+    return;
+  }
+
   retrieveAuthMethodsFromAuthStatus(status: AuthStatus) {
     return observableOf(authMethodsMock);
   }
