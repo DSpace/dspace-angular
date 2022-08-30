@@ -120,12 +120,12 @@ export class SearchManager {
           if (isArray(followMetadata.metadata)) {
             followMetadata.metadata.forEach((metadata) => {
               item.allMetadata(metadata)
-                .filter((metadataValue: MetadataValue) => Metadata.hasValidAuthority(metadataValue.authority))
+                .filter((metadataValue: MetadataValue) => Metadata.hasValidItemAuthority(metadataValue.authority))
                 .forEach((metadataValue: MetadataValue) => uuidMap[metadataValue.authority] = metadataValue);
             });
           } else {
             item.allMetadata(followMetadata.metadata)
-              .filter((metadataValue: MetadataValue) => Metadata.hasValidAuthority(metadataValue.authority))
+              .filter((metadataValue: MetadataValue) => Metadata.hasValidItemAuthority(metadataValue.authority))
               .forEach((metadataValue: MetadataValue) => uuidMap[metadataValue.authority] = metadataValue);
           }
         }
