@@ -16,7 +16,7 @@ li.breadcrumb-item {
 
 .breadcrumb-item-limiter {
   display: inline-block;
-  max-width: var(--ds-breadcrumb-max-length);
+  max-width: fit-content; // var(--ds-breadcrumb-max-length);
   > * {
     max-width: 100%;
     display: block;
@@ -33,4 +33,8 @@ li.breadcrumb-item.active {
 .breadcrumb-item+ .breadcrumb-item::before {
   display: block;
   content: quote("•") !important;
+}
+
+.text-truncate {
+  white-space: normal;
 }
