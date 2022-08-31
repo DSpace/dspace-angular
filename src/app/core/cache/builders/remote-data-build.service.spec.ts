@@ -18,6 +18,7 @@ import { take } from 'rxjs/operators';
 import { HALLink } from '../../shared/hal-link.model';
 import { RequestEntryState } from '../../data/request-entry-state.model';
 import { RequestEntry } from '../../data/request-entry.model';
+import { cold } from 'jasmine-marbles';
 
 describe('RemoteDataBuildService', () => {
   let service: RemoteDataBuildService;
@@ -643,6 +644,23 @@ describe('RemoteDataBuildService', () => {
             expect(result).toEqual(paginatedList);
             done();
           });
+      });
+    });
+  });
+
+  describe('buildFromHref', () => {
+    beforeEach(() => {
+      (objectCache.getRequestUUIDBySelfLink as jasmine.Spy).and.returnValue(cold('a', { a: 'request/uuid' }));
+    });
+
+    describe('when both getRequestFromRequestHref and getRequestFromRequestUUID emit nothing', () => {
+      beforeEach(() => {
+        (requestService.getByHref as jasmine.Spy).and.returnValue(cold('a', { a: undefined }));
+        (requestService.getByUUID as jasmine.Spy).and.returnValue(cold('a', { a: undefined }));
+      });
+
+      it('should not emit anything', () => {
+        expect(service.buildFromHref(cold('a', { a: 'rest/api/endpoint' }))).toBeObservable(cold(''));
       });
     });
   });

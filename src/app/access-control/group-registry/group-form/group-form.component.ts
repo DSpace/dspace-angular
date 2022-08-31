@@ -377,9 +377,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    */
   setActiveGroup(groupId: string) {
     this.groupDataService.cancelEditGroup();
-    const nextGroup$ = this.groupDataService.findById(groupId);
-    this.subs.push(nextGroup$.subscribe());
-    nextGroup$
+    this.groupDataService.findById(groupId)
       .pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload())
