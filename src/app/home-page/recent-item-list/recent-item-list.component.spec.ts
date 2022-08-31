@@ -11,13 +11,12 @@ import { PaginatedSearchOptions } from '../../shared/search/models/paginated-sea
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ViewMode } from 'src/app/core/shared/view-mode.model';
-
+import { of as observableOf } from 'rxjs';
 describe('RecentItemListComponent', () => {
   let component: RecentItemListComponent;
   let fixture: ComponentFixture<RecentItemListComponent>;
   const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
   let paginationService;
-  let searchConfigService: SearchConfigurationService;
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
     search: () => observableOf(emptyList),
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -60,11 +59,8 @@ describe('RecentItemListComponent', () => {
 
   it('should call the navigate method on the Router with view mode list parameter as a parameter when setViewMode is called', () => {
     component.onLoadMore();
-    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], {page: 1},{ view: ViewMode.ListElement }
-    );
+    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(undefined, ['search'], Object({ sortField: 'dc.date.accessioned', sortDirection: 'DESC', page: 1 }));
   });
 });
-function observableOf(emptyList: any): any {
-  throw new Error('Function not implemented.');
-}
+
 
