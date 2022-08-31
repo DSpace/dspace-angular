@@ -113,7 +113,7 @@ export class ItemStatusComponent implements OnInit {
       // Observable for configuration determining whether the Register DOI feature is enabled
       let registerConfigEnabled$: Observable<boolean> = this.configurationService.findByPropertyName('identifiers.item-status.register').pipe(
         map((enabled: RemoteData<ConfigurationProperty>) => {
-          let show: boolean = false;
+          let show = false;
           if (enabled.hasSucceeded) {
             if (enabled.payload !== undefined && enabled.payload !== null) {
               if (enabled.payload.values !== undefined) {
@@ -154,14 +154,14 @@ export class ItemStatusComponent implements OnInit {
       let showRegister$: Observable<boolean> = combineLatest([this.identifiers$, registerConfigEnabled$]).pipe(
         distinctUntilChanged(),
         map(([identifiers, enabled]) => {
-          let no_doi: boolean = true;
-          let pending: boolean = false;
+          let no_doi = true;
+          let pending = false;
           if (identifiers !== undefined && identifiers !== null) {
             identifiers.forEach((identifier: Identifier) => {
-              if (hasValue(identifier) && identifier.identifierType == 'doi') {
+              if (hasValue(identifier) && identifier.identifierType === 'doi') {
                 // The item has some kind of DOI
                 no_doi = false;
-                if (identifier.identifierStatus == '10' || identifier.identifierStatus == '11'
+                if (identifier.identifierStatus === '10' || identifier.identifierStatus === '11'
                   || identifier.identifierStatus == null) {
                   // The item's DOI is pending, minted or null.
                   // It isn't registered, reserved, queued for registration or reservation or update, deleted
@@ -174,7 +174,7 @@ export class ItemStatusComponent implements OnInit {
           // If there is no DOI, or a pending/minted/null DOI, and the config is enabled, return true
           return ((pending || no_doi) && enabled);
         })
-      )
+      );
 
       // Subscribe to changes from the showRegister check and rebuild operations list accordingly
       this.subs.push(showRegister$.subscribe((show) => {

@@ -27,7 +27,7 @@ export class ItemRegisterDoiComponent extends AbstractSimpleItemActionComponent 
   protected messageKey = 'registerdoi';
   doiToUpdateMessage = 'item.edit.' + this.messageKey + '.to-update';
   identifiers$: Observable<Identifier[]>;
-  processing: boolean = false;
+  processing = false;
 
   constructor(protected route: ActivatedRoute,
               protected router: Router,
@@ -38,6 +38,9 @@ export class ItemRegisterDoiComponent extends AbstractSimpleItemActionComponent 
     super(route, router, notificationsService, itemDataService, translateService);
   }
 
+  /**
+   * Initialise component
+   */
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso),
@@ -74,6 +77,9 @@ export class ItemRegisterDoiComponent extends AbstractSimpleItemActionComponent 
     this.registerDoi();
   }
 
+  /**
+   * Request that a pending, minted or null DOI be queued for registration
+   */
   registerDoi() {
     this.processing = true;
     this.itemDataService.registerDOI(this.item.id).pipe(getFirstCompletedRemoteData()).subscribe(
