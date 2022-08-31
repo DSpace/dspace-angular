@@ -1,0 +1,74 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { SearchService } from 'src/app/core/shared/search/search.service';
+import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
+import { SearchServiceStub } from 'src/app/shared/testing/search-service.stub';
+import { createPaginatedList } from 'src/app/shared/testing/utils.test';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { RecentItemListComponent } from './recent-item-list.component';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service.stub';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { ViewMode } from 'src/app/core/shared/view-mode.model';
+
+describe('RecentItemListComponent', () => {
+  let component: RecentItemListComponent;
+  let fixture: ComponentFixture<RecentItemListComponent>;
+  const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
+  let paginationService;
+  let searchConfigService: SearchConfigurationService;
+  const searchServiceStub = Object.assign(new SearchServiceStub(), {
+    search: () => observableOf(emptyList),
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
+    clearDiscoveryRequests: () => {}
+    /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
+  });
+  paginationService = new PaginationServiceStub();
+  const mockSearchOptions = observableOf(new PaginatedSearchOptions({
+    pagination: Object.assign(new PaginationComponentOptions(), {
+      id: 'search-page-configuration',
+      pageSize: 10,
+      currentPage: 1
+    }),
+    sort: new SortOptions('dc.date.accessioned', SortDirection.DESC),
+   
+  }));
+  const searchConfigServiceStub = {
+    paginatedSearchOptions: mockSearchOptions
+  };
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ RecentItemListComponent],
+      providers: [
+        { provide: SearchService, useValue: searchServiceStub },
+        { provide: PaginationService, useValue: paginationService },
+        { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
+      ],
+    })
+    .compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(RecentItemListComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should call the navigate method on the Router with view mode list parameter as a parameter when setViewMode is called', () => {
+    component.onLoadMore();
+    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], {page: 1},{ view: ViewMode.ListElement }
+    );
+  });
+});
+function observableOf(emptyList: any): any {
+  throw new Error('Function not implemented.');
+}
+

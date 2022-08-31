@@ -17,7 +17,7 @@ import { UIServerConfig } from './ui-server-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
 import { InfoConfig } from './info-config.interface';
-
+import { HomeConfig } from './homepage-config.interface';
 export class DefaultAppConfig implements AppConfig {
   production = false;
 
@@ -337,5 +337,12 @@ export class DefaultAppConfig implements AppConfig {
   info: InfoConfig = {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true
+  };
+  // Home Pages
+  homePage: HomeConfig = {
+    //The number of item showing in recent submission components
+    recentSubmissionsRpp: 5,
+    //sort record of recent submission
+    recentSubmissionsSortField: 'dc.date.accessioned',
   };
 }
