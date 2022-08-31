@@ -9,7 +9,7 @@ import { SidebarService } from './sidebar.service';
 import { HostWindowService } from '../host-window.service';
 import { SidebarServiceStub } from '../testing/sidebar-service.stub';
 
-xdescribe('PageWithSidebarComponent', () => {
+describe('PageWithSidebarComponent', () => {
   let comp: PageWithSidebarComponent;
   let fixture: ComponentFixture<PageWithSidebarComponent>;
   let sidebarService: any;
