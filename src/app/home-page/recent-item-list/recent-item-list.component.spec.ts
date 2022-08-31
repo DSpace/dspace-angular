@@ -1,6 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-
 import { SearchService } from 'src/app/core/shared/search/search.service';
 import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
 import { SearchServiceStub } from 'src/app/shared/testing/search-service.stub';
@@ -9,7 +7,6 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { RecentItemListComponent } from './recent-item-list.component';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service.stub';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
@@ -35,7 +32,6 @@ describe('RecentItemListComponent', () => {
       currentPage: 1
     }),
     sort: new SortOptions('dc.date.accessioned', SortDirection.DESC),
-   
   }));
   const searchConfigServiceStub = {
     paginatedSearchOptions: mockSearchOptions
