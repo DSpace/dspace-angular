@@ -1,4 +1,4 @@
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Inject, Injectable, NgZone, Optional } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
@@ -90,7 +90,8 @@ export class AuthService {
               protected store: Store<AppState>,
               protected hardRedirectService: HardRedirectService,
               private notificationService: NotificationsService,
-              private translateService: TranslateService
+              private translateService: TranslateService,
+              private zone: NgZone,
   ) {
     this.store.pipe(
       select(isAuthenticated),
@@ -350,7 +351,11 @@ export class AuthService {
       if (currentlyRefreshingToken && token !== undefined && authTokenInfo === undefined) {
         // Token refresh failed => Error notification => 10 second wait => Page reloads & user logged out
         this.notificationService.error(this.translateService.get('auth.messages.token-refresh-failed'));
-        setTimeout(() => this.navigateToRedirectUrl(this.hardRedirectService.getCurrentRoute()), 10000);
+
+        this.zone.runOutsideAngular(() => {
+          setTimeout(() => this.navigateToRedirectUrl(this.hardRedirectService.getCurrentRoute()), 10000);
+        });
+
         currentlyRefreshingToken = false;
       }
       // If new token.expires is different => Refresh succeeded
@@ -368,10 +373,13 @@ export class AuthService {
           if (hasValue(this.tokenRefreshTimer)) {
             clearTimeout(this.tokenRefreshTimer);
           }
-          this.tokenRefreshTimer = setTimeout(() => {
-            this.store.dispatch(new RefreshTokenAction(token));
-            currentlyRefreshingToken = true;
-          }, timeLeftBeforeRefresh);
+
+          this.zone.runOutsideAngular(() => {
+            this.tokenRefreshTimer = setTimeout(() => {
+              this.store.dispatch(new RefreshTokenAction(token));
+              currentlyRefreshingToken = true;
+            }, timeLeftBeforeRefresh);
+          });
         }
       }
     });

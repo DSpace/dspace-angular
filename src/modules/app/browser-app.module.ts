@@ -38,6 +38,7 @@ import { extendEnvironmentWithAppConfig } from '../../config/config.util';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 
 import { environment } from '../../environments/environment';
+import { DOCUMENT } from '@angular/common';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -77,7 +78,8 @@ export function getRequest(transferState: TransferState): any {
       useFactory: (
         transferState: TransferState,
         dspaceTransferState: DSpaceTransferState,
-        correlationIdService: CorrelationIdService
+        correlationIdService: CorrelationIdService,
+        document: any,
       ) => {
         if (transferState.hasKey<AppConfig>(APP_CONFIG_STATE)) {
           const appConfig = transferState.get<AppConfig>(APP_CONFIG_STATE, new DefaultAppConfig());
@@ -87,10 +89,23 @@ export function getRequest(transferState: TransferState): any {
         return () =>
           dspaceTransferState.transfer().then((b: boolean) => {
             correlationIdService.initCorrelationId();
+
+            // Workaround for flash of unstyled content during preboot:
+            // Adapted from https://github.com/angular/preboot/issues/75#issuecomment-421266570
+            const styles: any[] = Array.prototype.slice.apply(document.querySelectorAll(`style[ng-transition]`));
+            styles.forEach(el => {
+              // Remove ng-transition attribute from SSR styles to prevent Angular appInitializerFactory
+              // from removing them before preboot has completed
+              el.removeAttribute('ng-transition');
+            });
+            document.addEventListener('PrebootComplete', () => {
+              // Once preboot is finished, remove SSR styles
+              styles.forEach(el => el.remove());
+            });
             return b;
           });
       },
-      deps: [TransferState, DSpaceTransferState, CorrelationIdService],
+      deps: [TransferState, DSpaceTransferState, CorrelationIdService, DOCUMENT],
       multi: true
     },
     {

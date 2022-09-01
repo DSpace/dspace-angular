@@ -34,6 +34,7 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { SetUserAsIdleAction, UnsetUserAsIdleAction } from './auth.actions';
 import { SpecialGroupDataMock, SpecialGroupDataMock$ } from '../../shared/testing/special-group.mock';
 import { cold } from 'jasmine-marbles';
+import { NgZone } from '@angular/core';
 
 describe('AuthService test', () => {
 
@@ -134,6 +135,7 @@ describe('AuthService test', () => {
           { provide: HardRedirectService, useValue: hardRedirectService },
           { provide: NotificationsService, useValue: NotificationsServiceStub },
           { provide: TranslateService, useValue: getMockTranslateService() },
+          { provide: NgZone, useValue: new NgZone({}) },
           CookieService,
           AuthService
         ],
@@ -254,13 +256,13 @@ describe('AuthService test', () => {
       }).compileComponents();
     }));
 
-    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
+    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService, zone: NgZone) => {
       store
         .subscribe((state) => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
+      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService, zone);
     }));
 
     it('should return true when user is logged in', () => {
@@ -330,7 +332,7 @@ describe('AuthService test', () => {
       }).compileComponents();
     }));
 
-    beforeEach(inject([ClientCookieService, AuthRequestService, Store, Router, RouteService], (cookieService: ClientCookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
+    beforeEach(inject([ClientCookieService, AuthRequestService, Store, Router, RouteService], (cookieService: ClientCookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService, zone: NgZone) => {
       const expiredToken: AuthTokenInfo = new AuthTokenInfo('test_token');
       expiredToken.expires = Date.now() - (1000 * 60 * 60);
       authenticatedState = {
@@ -345,7 +347,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
+      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService, zone);
       storage = (authService as any).storage;
       routeServiceMock = TestBed.inject(RouteService);
       routerStub = TestBed.inject(Router);
@@ -559,13 +561,13 @@ describe('AuthService test', () => {
       }).compileComponents();
     }));
 
-    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
+    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService, zone: NgZone) => {
       store
         .subscribe((state) => {
           (state as any).core = Object.create({});
           (state as any).core.auth = unAuthenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
+      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService, zone);
     }));
 
     it('should return null for the shortlived token', () => {
@@ -599,13 +601,13 @@ describe('AuthService test', () => {
       }).compileComponents();
     }));
 
-    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
+    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService, zone: NgZone) => {
       store
         .subscribe((state) => {
           (state as any).core = Object.create({});
           (state as any).core.auth = idleState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
+      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService, zone);
     }));
 
     it('isUserIdle should return true when user is not idle', () => {

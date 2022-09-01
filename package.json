@@ -78,6 +78,7 @@
     "@nguniversal/express-engine": "^13.0.2",
     "@ngx-translate/core": "^13.0.0",
     "@nicky-lenaers/ngx-scroll-to": "^9.0.0",
+    "@rezonant/preboot": "^8.0.0",
     "angular-idle-preload": "3.0.0",
     "angulartics2": "^12.0.0",
     "axios": "^0.27.2",
@@ -116,6 +117,7 @@
     "ngx-moment": "^5.0.0",
     "ngx-pagination": "5.0.0",
     "ngx-sortablejs": "^11.1.0",
+    "ngx-ui-switch": "^11.0.1",
     "nouislider": "^14.6.3",
     "pem": "1.14.4",
     "postcss-cli": "^9.1.0",
@@ -128,8 +130,7 @@
     "url-parse": "^1.5.6",
     "uuid": "^8.3.2",
     "webfontloader": "1.6.28",
-    "zone.js": "~0.11.5",
-    "ngx-ui-switch": "^11.0.1"
+    "zone.js": "~0.11.5"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "~13.1.0",

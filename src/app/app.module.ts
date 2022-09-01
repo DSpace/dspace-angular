@@ -37,6 +37,7 @@ import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 import { NgxMaskModule } from 'ngx-mask';
 import { StoreDevModules } from '../config/store/devtools';
 import { RootModule } from './root.module';
+import { PrebootModule } from '@rezonant/preboot';
 
 export function getConfig() {
   return environment;
@@ -77,6 +78,15 @@ const IMPORTS = [
   StoreDevModules,
   EagerThemesModule,
   RootModule,
+  BrowserModule.withServerTransition({ appId: 'dspace-angular' }),
+  PrebootModule.withConfig({
+    appRoot: 'ds-app',
+
+    // Event replay doesn't work well for most of our components because it requires elements to have a unique id.
+    // By not defining any selectors for event capture we can turn it off for now. (shouldn't set replay:false because that also affects the transition itself)
+    eventSelectors: [
+    ]
+  })
 ];
 
 const PROVIDERS = [
@@ -148,7 +158,6 @@ const EXPORTS = [
 
 @NgModule({
   imports: [
-    BrowserModule.withServerTransition({ appId: 'dspace-angular' }),
     ...IMPORTS
   ],
   providers: [

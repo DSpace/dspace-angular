@@ -6,6 +6,7 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../shared/remote-data.utils';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { NgZone } from '@angular/core';
 
 describe('GoogleAnalyticsService', () => {
   const trackingIdProp = 'google.analytics.key';
@@ -51,7 +52,7 @@ describe('GoogleAnalyticsService', () => {
       body: bodyElementSpy,
     });
 
-    service = new GoogleAnalyticsService(angularticsSpy, configSpy, documentSpy);
+    service = new GoogleAnalyticsService(angularticsSpy, configSpy, documentSpy, new NgZone({}));
   });
 
   it('should be created', () => {
@@ -71,7 +72,7 @@ describe('GoogleAnalyticsService', () => {
           findByPropertyName: createFailedRemoteDataObject$(),
         });
 
-        service = new GoogleAnalyticsService(angularticsSpy, configSpy, documentSpy);
+        service = new GoogleAnalyticsService(angularticsSpy, configSpy, documentSpy, new NgZone({}));
       });
 
       it('should NOT add a script to the body', () => {
@@ -89,7 +90,7 @@ describe('GoogleAnalyticsService', () => {
       describe('when the tracking id is empty', () => {
         beforeEach(() => {
           configSpy = createConfigSuccessSpy();
-          service = new GoogleAnalyticsService(angularticsSpy, configSpy, documentSpy);
+          service = new GoogleAnalyticsService(angularticsSpy, configSpy, documentSpy, new NgZone({}));
         });
 
         it('should NOT add a script to the body', () => {
