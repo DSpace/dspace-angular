@@ -1,8 +1,8 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule, TransferState } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ServerModule } from '@angular/platform-server';
+import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
@@ -12,8 +12,6 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { AppComponent } from '../../app/app.component';
 
 import { AppModule } from '../../app/app.module';
-import { DSpaceServerTransferStateModule } from '../transfer-state/dspace-server-transfer-state.module';
-import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.service';
 import { TranslateServerLoader } from '../../ngx-translate-loaders/translate-server.loader';
 import { CookieService } from '../../app/core/services/cookie.service';
 import { ServerCookieService } from '../../app/core/services/server-cookie.service';
@@ -31,10 +29,7 @@ import { ServerHardRedirectService } from '../../app/core/services/server-hard-r
 import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { ServerAuthRequestService } from '../../app/core/auth/server-auth-request.service';
-import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
-import { AppConfig, APP_CONFIG_STATE } from '../../config/app-config.interface';
-
-import { environment } from '../../environments/environment';
+import { ServerInitService } from './server-init.service';
 
 export function createTranslateLoader(transferState: TransferState) {
   return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json5');
@@ -47,7 +42,7 @@ export function createTranslateLoader(transferState: TransferState) {
       appId: 'dspace-angular'
     }),
     NoopAnimationsModule,
-    DSpaceServerTransferStateModule,
+    ServerTransferStateModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -59,22 +54,7 @@ export function createTranslateLoader(transferState: TransferState) {
     ServerModule,
   ],
   providers: [
-    // Initialize app config and extend environment
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (
-        transferState: TransferState,
-        dspaceTransferState: DSpaceTransferState,
-        correlationIdService: CorrelationIdService,
-      ) => {
-        transferState.set<AppConfig>(APP_CONFIG_STATE, environment as AppConfig);
-        dspaceTransferState.transfer();
-        correlationIdService.initCorrelationId();
-        return () => true;
-      },
-      deps: [TransferState, DSpaceTransferState, CorrelationIdService],
-      multi: true
-    },
+    ...ServerInitService.providers(),
     {
       provide: Angulartics2,
       useClass: Angulartics2Mock
