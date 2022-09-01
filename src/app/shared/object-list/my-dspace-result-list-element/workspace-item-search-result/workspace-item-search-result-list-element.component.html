@@ -1,11 +1,10 @@
-<ng-container *ngIf="item$ | async">
-  <ds-item-list-preview
-    [item]="item$ | async"
-    [object]="object"
-    [status]="status"></ds-item-list-preview>
-
-  <ds-workspaceitem-actions [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-workspaceitem-actions>
+<ng-container *ngIf="derivedSearchResult$ | async">
+    <ds-mydspace-item-status [status]="status"></ds-mydspace-item-status>
+    <ds-listable-object-component-loader
+            [viewMode]="ViewModes.ListElement"
+            [object]="derivedSearchResult$ | async" [linkType]="LinkTypes.None"></ds-listable-object-component-loader>
+    <ds-workspaceitem-actions [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-workspaceitem-actions>
 </ng-container>
 <ds-loading
-  *ngIf="!(item$ | async)"
-  [showMessage]="false"></ds-loading>
+        *ngIf="!(derivedSearchResult$ | async)"
+        [showMessage]="false"></ds-loading>
