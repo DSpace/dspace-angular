@@ -79,6 +79,8 @@ export class ItemExportComponent implements OnInit, OnDestroy {
 
   listId = 'export-list';
 
+  @Input() showListSelection: boolean;
+
   isMyDspace: boolean;
 
   constructor(
