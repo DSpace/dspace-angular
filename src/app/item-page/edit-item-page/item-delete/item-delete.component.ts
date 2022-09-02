@@ -8,7 +8,9 @@ import {
   combineLatest as observableCombineLatest,
   combineLatest,
   Observable,
-  of as observableOf, Subscription
+  of as observableOf,
+  Subscription,
+  BehaviorSubject,
 } from 'rxjs';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component';
@@ -34,7 +36,6 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { getItemEditRoute } from '../../item-page-routing-paths';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NoContent } from '../../../core/shared/NoContent.model';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'ds-item-delete',

@@ -7,7 +7,8 @@ import { Component } from '@angular/core';
   selector: 'ds-themed-community-list',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-})export class ThemedCommunityListComponent extends ThemedComponent<CommunityListComponent> {
+})
+export class ThemedCommunityListComponent extends ThemedComponent<CommunityListComponent> {
   protected getComponentName(): string {
     return 'CommunityListComponent';
   }

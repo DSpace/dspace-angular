@@ -7,7 +7,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -16,10 +15,11 @@ import { CLAIMED_TASK } from './models/claimed-task-object.resource-type';
 import { ProcessTaskResponse } from './models/process-task-response';
 import { TasksService } from './tasks.service';
 import { RemoteData } from '../data/remote-data';
-import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { getFirstSucceededRemoteData } from '../shared/operators';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from '../data/find-list-options.model';
 
 /**
  * The service handling all REST requests for ClaimedTask

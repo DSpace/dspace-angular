@@ -3,9 +3,7 @@ import { FormControl } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
-  DynamicDateControlModel,
   DynamicDatePickerModel,
-  DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
@@ -15,7 +13,9 @@ import {
   OR_OPERATOR
 } from '@ng-dynamic-forms/core';
 
-import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
+import {
+  WorkspaceitemSectionUploadFileObject
+} from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import {
   BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG,
@@ -43,12 +43,20 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { filter, mergeMap, take } from 'rxjs/operators';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
-import { WorkspaceitemSectionUploadObject } from '../../../../../core/submission/models/workspaceitem-section-upload.model';
+import {
+  WorkspaceitemSectionUploadObject
+} from '../../../../../core/submission/models/workspaceitem-section-upload.model';
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
-import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import {
+  SubmissionJsonPatchOperationsService
+} from '../../../../../core/submission/submission-json-patch-operations.service';
+import {
+  JsonPatchOperationPathCombiner
+} from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SectionUploadService } from '../../section-upload.service';
 import { Subscription } from 'rxjs';
+import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
+import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
 
 /**
  * This component represents the edit form for bitstream
@@ -237,8 +245,6 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
     this.availableAccessConditionOptions.filter((element) => element.name === control.value)
       .forEach((element) => accessCondition = element );
     if (isNotEmpty(accessCondition)) {
-      const showGroups: boolean = accessCondition.hasStartDate === true || accessCondition.hasEndDate === true;
-
       const startDateControl: FormControl = control.parent.get('startDate') as FormControl;
       const endDateControl: FormControl = control.parent.get('endDate') as FormControl;
 
@@ -249,33 +255,6 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
       startDateControl?.setValue(null);
       control.parent.markAsDirty();
       endDateControl?.setValue(null);
-
-      if (showGroups) {
-        if (accessCondition.hasStartDate) {
-          const startDateModel = this.formBuilderService.findById(
-            'startDate',
-            (model.parent as DynamicFormArrayGroupModel).group) as DynamicDateControlModel;
-
-          const min = new Date(accessCondition.maxStartDate);
-          startDateModel.max = {
-            year: min.getUTCFullYear(),
-            month: min.getUTCMonth() + 1,
-            day: min.getUTCDate()
-          };
-        }
-        if (accessCondition.hasEndDate) {
-          const endDateModel = this.formBuilderService.findById(
-            'endDate',
-            (model.parent as DynamicFormArrayGroupModel).group) as DynamicDateControlModel;
-
-          const max = new Date(accessCondition.maxEndDate);
-          endDateModel.max = {
-            year: max.getUTCFullYear(),
-            month: max.getUTCMonth() + 1,
-            day: max.getUTCDate()
-          };
-        }
-      }
     }
   }
 
@@ -335,38 +314,63 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
       }
       accessConditionTypeModelConfig.options = accessConditionTypeOptions;
 
-      // Dynamically assign of relation in config. For startdate, endDate, groups.
-      const hasStart = [];
-      const hasEnd = [];
-      const hasGroups = [];
+      // Dynamically assign of relation in config. For startDate and endDate.
+      const startDateCondition: DynamicFormControlCondition[] = [];
+      const endDateCondition: DynamicFormControlCondition[] = [];
+      let maxStartDate: DynamicDateControlValue;
+      let maxEndDate: DynamicDateControlValue;
       this.availableAccessConditionOptions.forEach((condition) => {
-        const showStart: boolean = condition.hasStartDate === true;
-        const showEnd: boolean = condition.hasEndDate === true;
-        const showGroups: boolean = showStart || showEnd;
-        if (showStart) {
-          hasStart.push({id: 'name', value: condition.name});
+
+        if (condition.hasStartDate) {
+          startDateCondition.push({ id: 'name', value: condition.name });
+          if (condition.maxStartDate) {
+            const min = new Date(condition.maxStartDate);
+            maxStartDate = {
+              year: min.getUTCFullYear(),
+              month: min.getUTCMonth() + 1,
+              day: min.getUTCDate()
+            };
+          }
         }
-        if (showEnd) {
-          hasEnd.push({id: 'name', value: condition.name});
-        }
-        if (showGroups) {
-          hasGroups.push({id: 'name', value: condition.name});
+        if (condition.hasEndDate) {
+          endDateCondition.push({ id: 'name', value: condition.name });
+          if (condition.maxEndDate) {
+            const max = new Date(condition.maxEndDate);
+            maxEndDate = {
+              year: max.getUTCFullYear(),
+              month: max.getUTCMonth() + 1,
+              day: max.getUTCDate()
+            };
+          }
         }
       });
-      const confStart = {relations: [{match: MATCH_ENABLED, operator: OR_OPERATOR, when: hasStart}]};
-      const confEnd = {relations: [{match: MATCH_ENABLED, operator: OR_OPERATOR, when: hasEnd}]};
+      const confStart = { relations: [{ match: MATCH_ENABLED, operator: OR_OPERATOR, when: startDateCondition }] };
+      const confEnd = { relations: [{ match: MATCH_ENABLED, operator: OR_OPERATOR, when: endDateCondition }] };
+      const hasStartDate = startDateCondition.length > 0;
+      const hasEndDate = endDateCondition.length > 0;
 
       accessConditionsArrayConfig.groupFactory = () => {
         const type = new DynamicSelectModel(accessConditionTypeModelConfig, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT);
         const startDateConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG, confStart);
+        if (maxStartDate) {
+          startDateConfig.max = maxStartDate;
+        }
+
         const endDateConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG, confEnd);
+        if (maxEndDate) {
+          endDateConfig.max = maxEndDate;
+        }
 
         const startDate = new DynamicDatePickerModel(startDateConfig, BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT);
         const endDate = new DynamicDatePickerModel(endDateConfig, BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT);
         const accessConditionGroupConfig = Object.assign({}, BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG);
         accessConditionGroupConfig.group = [type];
-        if (hasStart.length > 0) { accessConditionGroupConfig.group.push(startDate); }
-        if (hasEnd.length > 0) { accessConditionGroupConfig.group.push(endDate); }
+        if (hasStartDate) {
+          accessConditionGroupConfig.group.push(startDate);
+        }
+        if (hasEndDate) {
+          accessConditionGroupConfig.group.push(endDate);
+        }
         return [new DynamicFormGroupModel(accessConditionGroupConfig, BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT)];
       };
 

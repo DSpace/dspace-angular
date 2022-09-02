@@ -12,6 +12,7 @@ import { ItemType } from '../../../core/shared/item-relationships/item-type.mode
 import { ResourceType } from '../../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
 
 export function getMockEntityTypeService(): EntityTypeService {
   const type1: ItemType = {
@@ -87,7 +88,8 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         ],
         declarations: [
           MyDSpaceNewSubmissionDropdownComponent,
-          TestComponent
+          TestComponent,
+          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeService, useValue: getMockEmptyEntityTypeService() },
@@ -138,7 +140,8 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         ],
         declarations: [
           MyDSpaceNewSubmissionDropdownComponent,
-          TestComponent
+          TestComponent,
+          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeService, useValue: getMockEntityTypeService() },
@@ -190,5 +193,5 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
 class TestComponent {
   reload = (event) => {
     return;
-  }
+  };
 }

@@ -7,7 +7,6 @@ import { Authorization } from '../../shared/authorization.model';
 import { RequestService } from '../request.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../../core.reducers';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -15,7 +14,6 @@ import { HttpClient } from '@angular/common/http';
 import { DSOChangeAnalyzer } from '../dso-change-analyzer.service';
 import { AuthService } from '../../auth/auth.service';
 import { SiteDataService } from '../site-data.service';
-import { FindListOptions } from '../request.models';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteData } from '../remote-data';
 import { PaginatedList } from '../paginated-list.model';
@@ -26,6 +24,8 @@ import { AuthorizationSearchParams } from './authorization-search-params';
 import { addSiteObjectUrlIfEmpty, oneAuthorizationMatchesFeature } from './authorization-utils';
 import { FeatureID } from './feature-id';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
+import { CoreState } from '../../core-state.model';
+import { FindListOptions } from '../find-list-options.model';
 
 /**
  * A service to retrieve {@link Authorization}s from the REST API
@@ -60,14 +60,18 @@ export class AuthorizationDataService extends DataService<Authorization> {
 
   /**
    * Checks if an {@link EPerson} (or anonymous) has access to a specific object within a {@link Feature}
-   * @param objectUrl     URL to the object to search {@link Authorization}s for.
-   *                      If not provided, the repository's {@link Site} will be used.
-   * @param ePersonUuid   UUID of the {@link EPerson} to search {@link Authorization}s for.
-   *                      If not provided, the UUID of the currently authenticated {@link EPerson} will be used.
-   * @param featureId     ID of the {@link Feature} to check {@link Authorization} for
+   * @param objectUrl                   URL to the object to search {@link Authorization}s for.
+   *                                    If not provided, the repository's {@link Site} will be used.
+   * @param ePersonUuid                 UUID of the {@link EPerson} to search {@link Authorization}s for.
+   *                                    If not provided, the UUID of the currently authenticated {@link EPerson} will be used.
+   * @param featureId                   ID of the {@link Feature} to check {@link Authorization} for
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
    */
-  isAuthorized(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string): Observable<boolean> {
-    return this.searchByObject(featureId, objectUrl, ePersonUuid, {}, true, true, followLink('feature')).pipe(
+  isAuthorized(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<boolean> {
+    return this.searchByObject(featureId, objectUrl, ePersonUuid, {}, useCachedVersionIfAvailable, reRequestOnStale, followLink('feature')).pipe(
       getFirstCompletedRemoteData(),
       map((authorizationRD) => {
         if (authorizationRD.statusCode !== 401 && hasValue(authorizationRD.payload) && isNotEmpty(authorizationRD.payload.page)) {

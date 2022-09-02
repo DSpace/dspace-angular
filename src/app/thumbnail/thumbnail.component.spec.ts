@@ -10,7 +10,7 @@ import {
   createFailedRemoteDataObject, createPendingRemoteDataObject, createSuccessfulRemoteDataObject,
 } from '../shared/remote-data.utils';
 
-// tslint:disable-next-line:pipe-prefix
+// eslint-disable-next-line @angular-eslint/pipe-prefix
 @Pipe({ name: 'translate' })
 class MockTranslatePipe implements PipeTransform {
   transform(key: string): string {
@@ -115,7 +115,7 @@ describe('ThumbnailComponent', () => {
         comp.thumbnail = thumbnail;
         comp.ngOnChanges();
         fixture.detectChanges();
-        expect(de.query(By.css('ds-loading'))).toBeTruthy();
+        expect(de.query(By.css('ds-themed-loading'))).toBeTruthy();
       });
     });
 

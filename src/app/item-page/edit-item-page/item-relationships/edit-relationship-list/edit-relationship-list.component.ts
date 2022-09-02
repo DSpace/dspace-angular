@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LinkService } from '../../../../core/cache/builders/link.service';
-import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import {
   BehaviorSubject,
@@ -11,8 +10,6 @@ import {
   Subscription
 } from 'rxjs';
 import {
-  FieldUpdate,
-  FieldUpdates,
   RelationshipIdentifiable
 } from '../../../../core/data/object-updates/object-updates.reducer';
 import { RelationshipService } from '../../../../core/data/relationship.service';
@@ -39,6 +36,9 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { RelationshipTypeService } from '../../../../core/data/relationship-type.service';
+import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 
 @Component({
   selector: 'ds-edit-relationship-list',

@@ -4,13 +4,13 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Process } from '../processes/process.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { FindListOptions } from '../../core/data/request.models';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { map, switchMap } from 'rxjs/operators';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 
 @Component({
   selector: 'ds-process-overview',

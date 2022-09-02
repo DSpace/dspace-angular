@@ -17,7 +17,7 @@ describe('MetadataSchemaFormComponent', () => {
   let fixture: ComponentFixture<MetadataSchemaFormComponent>;
   let registryService: RegistryService;
 
-  /* tslint:disable:no-empty */
+  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   const registryServiceStub = {
     getActiveMetadataSchema: () => observableOf(undefined),
     createOrUpdateMetadataSchema: (schema: MetadataSchema) => observableOf(schema),
@@ -33,7 +33,7 @@ describe('MetadataSchemaFormComponent', () => {
       };
     }
   };
-  /* tslint:enable:no-empty */
+  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

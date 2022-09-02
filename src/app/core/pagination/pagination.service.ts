@@ -5,10 +5,10 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
-import { FindListOptions } from '../data/request.models';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { difference } from '../../shared/object.util';
-import { isNumeric } from 'rxjs/internal-compatibility';
+import { FindListOptions } from '../data/find-list-options.model';
+import { isNumeric } from '../../shared/numeric.util';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +24,11 @@ import { isNumeric } from 'rxjs/internal-compatibility';
  */
 export class PaginationService {
 
-  private defaultSortOptions = new SortOptions('id', SortDirection.ASC);
+  /**
+   * Sort on title ASC by default
+   * @type {SortOptions}
+   */
+  private defaultSortOptions = new SortOptions('dc.title', SortDirection.ASC);
 
   private clearParams = {};
 

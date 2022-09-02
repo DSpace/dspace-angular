@@ -27,6 +27,26 @@
 
   "404.page-not-found": "page not found",
 
+  "error-page.description.401": "unauthorized",
+
+  "error-page.description.403": "forbidden",
+
+  "error-page.description.500": "Service Unavailable",
+
+  "error-page.description.404": "page not found",
+
+  "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
+
+  "access-status.embargo.listelement.badge": "Embargo",
+
+  "access-status.metadata.only.listelement.badge": "Metadata only",
+
+  "access-status.open.access.listelement.badge": "Open Access",
+
+  "access-status.restricted.listelement.badge": "Restricted",
+
+  "access-status.unknown.listelement.badge": "Unknown",
+
   "admin.curation-tasks.breadcrumbs": "System curation tasks",
 
   "admin.curation-tasks.title": "System curation tasks",
@@ -538,6 +558,10 @@
 
   "admin.metadata-import.page.error.addFile": "Select file first!",
 
+  "admin.metadata-import.page.validateOnly": "Validate Only",
+
+  "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
+
 
 
 
@@ -616,7 +640,7 @@
   "bitstream-request-a-copy.alert.canDownload2": "here",
 
   "bitstream-request-a-copy.header": "Request a copy of the file",
-
+  
   "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
 
   "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
@@ -650,6 +674,8 @@
 
 
 
+  "browse.back.all-results": "All browse results",
+
   "browse.comcol.by.author": "By Author",
 
   "browse.comcol.by.dateissued": "By Issue Date",
@@ -682,13 +708,17 @@
 
   "pagination.previous.button": "Previous",
 
+  "pagination.next.button.disabled.tooltip": "No more pages of results",
+
+  "browse.startsWith": ", starting with {{ startsWith }}",
+
   "browse.startsWith.choose_start": "(Choose start)",
 
   "browse.startsWith.choose_year": "(Choose year)",
 
   "browse.startsWith.choose_year.label": "Choose the issue year",
 
-  "browse.startsWith.jump": "Jump to a point in the index:",
+  "browse.startsWith.jump": "Filter results by year or month",
 
   "browse.startsWith.months.april": "April",
 
@@ -720,13 +750,15 @@
 
   "browse.startsWith.submit": "Browse",
 
-  "browse.startsWith.type_date": "Or type in a date (year-month) and click 'Browse'",
+  "browse.startsWith.type_date": "Filter results by date",
 
   "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
 
-  "browse.startsWith.type_text": "Type the first few letters and click on the Browse button",
+  "browse.startsWith.type_text": "Filter results by typing the first few letters",
 
-  "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+  "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
+
+  "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
 
 
   "chips.remove": "Remove chip",
@@ -839,6 +871,12 @@
   "collection.edit.tabs.authorizations.head": "Authorizations",
 
   "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
+
+  "collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
+
+  "collection.edit.item.authorizations.load-more-button": "Load more",
+
+  "collection.edit.item.authorizations.show-bitstreams-button": "Show bitstream policies for bundle",
 
   "collection.edit.tabs.metadata.head": "Edit Metadata",
 
@@ -1083,9 +1121,13 @@
 
   "comcol-role.edit.create": "Create",
 
+  "comcol-role.edit.create.error.title": "Failed to create a group for the '{{ role }}' role",
+
   "comcol-role.edit.restrict": "Restrict",
 
   "comcol-role.edit.delete": "Delete",
+
+  "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
 
 
   "comcol-role.edit.community-admin.name": "Administrators",
@@ -1183,6 +1225,8 @@
 
   "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
 
+  "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
+
   "cookies.consent.content-notice.learnMore": "Customize",
 
   "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
@@ -1249,6 +1293,8 @@
 
   "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
 
+  "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
+
   "curation.form.handle.label": "Handle:",
 
   "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
@@ -1311,7 +1357,13 @@
 
   "dso-selector.set-scope.community.input-header": "Search for a community or collection",
 
+  "dso-selector.claim.item.head": "Profile tips",
 
+  "dso-selector.claim.item.body": "These are existing profiles that may be related to you. If you recognize yourself in one of these profiles, select it and on the detail page, among the options, choose to claim it. Otherwise you can create a new profile from scratch using the button below.",
+
+  "dso-selector.claim.item.not-mine-label": "None of these are mine",
+
+  "dso-selector.claim.item.create-from-scratch": "Create a new one",
 
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
 
@@ -1328,6 +1380,14 @@
   "confirmation-modal.delete-eperson.cancel": "Cancel",
 
   "confirmation-modal.delete-eperson.confirm": "Delete",
+
+  "confirmation-modal.delete-profile.header": "Delete Profile",
+
+  "confirmation-modal.delete-profile.info": "Are you sure you want to delete your profile",
+
+  "confirmation-modal.delete-profile.cancel": "Cancel",
+
+  "confirmation-modal.delete-profile.confirm": "Delete",
 
 
   "error.bitstream": "Error fetching bitstream",
@@ -1379,6 +1439,9 @@
   "error.validation.groupExists": "This group already exists",
 
 
+  "feed.description": "Syndication feed",
+
+
   "file-section.error.header": "Error obtaining files for this item",
 
 
@@ -1401,7 +1464,7 @@
 
   "forgot-email.form.header": "Forgot Password",
 
-  "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
+  "forgot-email.form.info": "Enter the email address associated with the account.",
 
   "forgot-email.form.email": "Email Address *",
 
@@ -1409,17 +1472,17 @@
 
   "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
 
-  "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
+  "forgot-email.form.email.hint": "An email will be sent to this address with a further instructions.",
 
-  "forgot-email.form.submit": "Save",
+  "forgot-email.form.submit": "Reset password",
 
-  "forgot-email.form.success.head": "Verification email sent",
+  "forgot-email.form.success.head": "Password reset email sent",
 
   "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
 
-  "forgot-email.form.error.head": "Error when trying to register email",
+  "forgot-email.form.error.head": "Error when trying to reset password",
 
-  "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
+  "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
 
 
 
@@ -1558,6 +1621,46 @@
   "grant-request-copy.success": "Successfully granted item request",
 
 
+  "health.breadcrumbs": "Health",
+
+  "health-page.heading" : "Health",
+
+  "health-page.info-tab" : "Info",
+
+  "health-page.status-tab" : "Status",
+
+  "health-page.error.msg": "The health check service is temporarily unavailable",
+
+  "health-page.property.status": "Status code",
+
+  "health-page.section.db.title": "Database",
+
+  "health-page.section.geoIp.title": "GeoIp",
+
+  "health-page.section.solrAuthorityCore.title": "Sor: authority core",
+
+  "health-page.section.solrOaiCore.title": "Sor: oai core",
+
+  "health-page.section.solrSearchCore.title": "Sor: search core",
+
+  "health-page.section.solrStatisticsCore.title": "Sor: statistics core",
+
+  "health-page.section-info.app.title": "Application Backend",
+
+  "health-page.section-info.java.title": "Java",
+
+  "health-page.status": "Status",
+
+  "health-page.status.ok.info": "Operational",
+
+  "health-page.status.error.info": "Problems detected",
+
+  "health-page.status.warning.info": "Possible issues detected",
+
+  "health-page.title": "Health",
+
+  "health-page.section.no-issues": "No issues detected",
+
 
   "home.description": "",
 
@@ -1643,7 +1746,7 @@
 
   "item.bitstreams.upload.bundle": "Bundle",
 
-  "item.bitstreams.upload.bundle.placeholder": "Select a bundle",
+  "item.bitstreams.upload.bundle.placeholder": "Select a bundle or input new bundle name",
 
   "item.bitstreams.upload.bundle.new": "Create bundle",
 
@@ -2036,6 +2139,7 @@
 
   "item.edit.withdraw.success": "The item was withdrawn successfully",
 
+  "item.orcid.return": "Back",
 
 
   "item.listelement.badge": "Item",
@@ -2055,6 +2159,10 @@
   "item.search.results.head": "Item Search Results",
 
   "item.search.title": "Item Search",
+
+  "item.truncatable-part.show-more": "Show more",
+
+  "item.truncatable-part.show-less": "Collapse",
 
 
 
@@ -2092,6 +2200,10 @@
 
   "item.page.link.simple": "Simple item page",
 
+  "item.page.orcid.title": "ORCID",
+
+  "item.page.orcid.tooltip": "Open ORCID setting page",
+
   "item.page.person.search.title": "Articles by this author",
 
   "item.page.related-items.view-more": "Show {{ amount }} more",
@@ -2124,6 +2236,10 @@
 
   "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
 
+  "item.page.claim.button": "Claim",
+
+  "item.page.claim.tooltip": "Claim this item as profile",
+
   "item.preview.dc.identifier.uri": "Identifier:",
 
   "item.preview.dc.contributor.author": "Authors:",
@@ -2139,6 +2255,22 @@
   "item.preview.dc.subject": "Subjects:",
 
   "item.preview.dc.title": "Title:",
+
+  "item.preview.dc.type": "Type:",
+
+  "item.preview.oaire.citation.issue" : "Issue",
+
+  "item.preview.oaire.citation.volume" : "Volume",
+
+  "item.preview.dc.relation.issn" : "ISSN",
+
+  "item.preview.dc.identifier.isbn" : "ISBN",
+
+  "item.preview.dc.identifier": "Identifier:",
+
+  "item.preview.dc.relation.ispartof" : "Journal or Serie",
+
+  "item.preview.dc.identifier.doi" : "DOI",
 
   "item.preview.person.familyName": "Surname:",
 
@@ -2233,6 +2365,10 @@
 
   "item.version.create.modal.form.summary.placeholder": "Insert the summary for the new version",
 
+  "item.version.create.modal.submitted.header": "Creating new version...",
+
+  "item.version.create.modal.submitted.text": "The new version is being created. This may take some time if the item has a lot of relationships.",
+
   "item.version.create.notification.success" : "New version has been created with version number {{version}}",
 
   "item.version.create.notification.failure" : "New version has not been created",
@@ -2278,6 +2414,8 @@
   "journal.page.titleprefix": "Journal: ",
 
   "journal.search.results.head": "Journal Search Results",
+
+  "journal-relationships.search.results.head": "Journal Search Results",
 
   "journal.search.title": "Journal Search",
 
@@ -2389,6 +2527,8 @@
 
   "login.form.oidc": "Log in with OIDC",
 
+  "login.form.orcid": "Log in with ORCID",
+
   "login.form.password": "Password",
 
   "login.form.shibboleth": "Log in with Shibboleth",
@@ -2495,13 +2635,15 @@
 
   "menu.section.icon.find": "Find menu section",
 
+  "menu.section.icon.health": "Health check menu section",
+
   "menu.section.icon.import": "Import menu section",
 
   "menu.section.icon.new": "New menu section",
 
   "menu.section.icon.pin": "Pin sidebar",
 
-  "menu.section.icon.processes": "Processes menu section",
+  "menu.section.icon.processes": "Processes Health",
 
   "menu.section.icon.registries": "Registries menu section",
 
@@ -2543,6 +2685,8 @@
 
   "menu.section.processes": "Processes",
 
+  "menu.section.health": "Health",
+
 
 
   "menu.section.registries": "Registries",
@@ -2581,6 +2725,11 @@
 
 
   "menu.section.workflow": "Administer Workflow",
+
+
+  "metadata-export-search.tooltip": "Export search results as CSV",
+  "metadata-export-search.submit.success": "The export was started successfully",
+  "metadata-export-search.submit.error": "Starting the export has failed",
 
 
   "mydspace.breadcrumbs": "MyDSpace",
@@ -2746,6 +2895,8 @@
 
   "person.page.lastname": "Last Name",
 
+  "person.page.name": "Name",
+
   "person.page.link.full": "Show all metadata",
 
   "person.page.orcid": "ORCID",
@@ -2755,6 +2906,8 @@
   "person.page.titleprefix": "Person: ",
 
   "person.search.results.head": "Person Search Results",
+
+  "person-relationships.search.results.head": "Person Search Results",
 
   "person.search.title": "Person Search",
 
@@ -2861,6 +3014,8 @@
 
   "profile.groups.head": "Authorization groups you belong to",
 
+  "profile.special.groups.head": "Authorization special groups you belong to",
+
   "profile.head": "Update Profile",
 
   "profile.metadata.form.error.firstname.required": "First Name is required",
@@ -2907,7 +3062,7 @@
 
   "profile.title": "Update Profile",
 
-
+  "profile.card.researcher": "Researcher Profile",
 
   "project.listelement.badge": "Research Project",
 
@@ -2931,6 +3086,8 @@
 
   "project.search.results.head": "Project Search Results",
 
+  "project-relationships.search.results.head": "Project Search Results",
+
 
 
   "publication.listelement.badge": "Publication",
@@ -2950,6 +3107,8 @@
   "publication.page.volume-title": "Volume Title",
 
   "publication.search.results.head": "Publication Search Results",
+
+  "publication-relationships.search.results.head": "Publication Search Results",
 
   "publication.search.title": "Publication Search",
 
@@ -3114,6 +3273,10 @@
 
   "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
 
+  "resource-policies.edit.page.target-failure.content": "An error occurred while editing the target (ePerson or group) of the resource policy.",
+
+  "resource-policies.edit.page.other-failure.content": "An error occurred while editing the resource policy. The target (ePerson or group) has been successfully updated.",
+
   "resource-policies.edit.page.success.content": "Operation successful",
 
   "resource-policies.edit.page.title": "Edit resource policy",
@@ -3135,6 +3298,16 @@
   "resource-policies.form.eperson-group-list.table.headers.id": "ID",
 
   "resource-policies.form.eperson-group-list.table.headers.name": "Name",
+
+  "resource-policies.form.eperson-group-list.modal.header": "Cannot change type",
+
+  "resource-policies.form.eperson-group-list.modal.text1.toGroup": "It is not possible to replace an ePerson with a group.",
+
+  "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "It is not possible to replace a group with an ePerson.",
+
+  "resource-policies.form.eperson-group-list.modal.text2": "Delete the current resource policy and create a new one with the desired type.",
+
+  "resource-policies.form.eperson-group-list.modal.close": "Ok",
 
   "resource-policies.form.date.end.label": "End Date",
 
@@ -3413,6 +3586,8 @@
 
   "default.search.results.head": "Search Results",
 
+  "default-relationships.search.results.head": "Search Results",
+
 
   "search.sidebar.close": "Back to results",
 
@@ -3550,6 +3725,24 @@
 
   "submission.import-external.source.arxiv": "arXiv",
 
+  "submission.import-external.source.ads": "NASA/ADS",
+
+  "submission.import-external.source.cinii": "CiNii",
+
+  "submission.import-external.source.crossref": "CrossRef",
+
+  "submission.import-external.source.scielo": "SciELO",
+
+  "submission.import-external.source.scopus": "Scopus",
+
+  "submission.import-external.source.vufind": "VuFind",
+
+  "submission.import-external.source.wos": "Web Of Science",
+
+  "submission.import-external.source.orcidWorks": "ORCID",
+
+  "submission.import-external.source.epo": "European Patent Office (EPO)",
+
   "submission.import-external.source.loading": "Loading ...",
 
   "submission.import-external.source.sherpaJournal": "SHERPA Journals",
@@ -3564,9 +3757,23 @@
 
   "submission.import-external.source.pubmed": "Pubmed",
 
+  "submission.import-external.source.pubmedeu": "Pubmed Europe",
+
   "submission.import-external.source.lcname": "Library of Congress Names",
 
   "submission.import-external.preview.title": "Item Preview",
+
+  "submission.import-external.preview.title.Publication": "Publication Preview",
+
+  "submission.import-external.preview.title.none": "Item Preview",
+
+  "submission.import-external.preview.title.Journal": "Journal Preview",
+
+  "submission.import-external.preview.title.OrgUnit": "Organizational Unit Preview",
+
+  "submission.import-external.preview.title.Person": "Person Preview",
+
+  "submission.import-external.preview.title.Project": "Project Preview",
 
   "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
 
@@ -3589,6 +3796,26 @@
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Import remote item",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Import remote event",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Import remote product",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Import remote organizational unit",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Import remote fund",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Import remote person",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Import remote patent",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Import remote project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
 
@@ -3806,6 +4033,18 @@
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
 
+  "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
+
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
 
   "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -3827,6 +4066,8 @@
   "submission.sections.ccLicense.confirmation": "I grant the license above",
 
   "submission.sections.general.add-more": "Add more",
+
+  "submission.sections.general.cannot_deposit": "Deposit cannot be completed due to errors in the form.<br>Please fill out all required fields to complete the deposit.",
 
   "submission.sections.general.collection": "Collection",
 
@@ -3872,9 +4113,14 @@
 
   "submission.sections.submit.progressbar.license": "Deposit license",
 
+  "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
+
   "submission.sections.submit.progressbar.upload": "Upload files",
 
+  "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
 
+
+  "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
 
   "submission.sections.status.errors.title": "Errors",
 
@@ -3887,6 +4133,10 @@
   "submission.sections.status.valid.aria": "is valid",
 
   "submission.sections.status.warnings.aria": "has warnings",
+
+  "submission.sections.status.info.title": "Additional Information",
+
+  "submission.sections.status.info.aria": "Additional Information",
 
   "submission.sections.toggle.open": "Open section",
 
@@ -3986,6 +4236,66 @@
 
   "submission.sections.accesses.form.until-placeholder": "Until",
 
+  "submission.sections.license.granted-label": "I confirm the license above",
+
+  "submission.sections.license.required": "You must accept the license",
+
+  "submission.sections.license.notgranted":  "You must accept the license",
+
+
+  "submission.sections.sherpa.publication.information": "Publication information",
+
+  "submission.sections.sherpa.publication.information.title": "Title",
+
+  "submission.sections.sherpa.publication.information.issns": "ISSNs",
+
+  "submission.sections.sherpa.publication.information.url": "URL",
+
+  "submission.sections.sherpa.publication.information.publishers": "Publisher",
+
+  "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
+
+  "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
+
+  "submission.sections.sherpa.publisher.policy": "Publisher Policy",
+
+  "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+
+  "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
+
+  "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
+
+  "submission.sections.sherpa.publisher.policy.version": "Version",
+
+  "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
+
+  "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
+
+  "submission.sections.sherpa.publisher.policy.nolocation": "None",
+
+  "submission.sections.sherpa.publisher.policy.license": "License",
+
+  "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
+
+  "submission.sections.sherpa.publisher.policy.location": "Location",
+
+  "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
+
+  "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
+
+  "submission.sections.sherpa.record.information": "Record Information",
+
+  "submission.sections.sherpa.record.information.id": "ID",
+
+  "submission.sections.sherpa.record.information.date.created": "Date Created",
+
+  "submission.sections.sherpa.record.information.date.modified": "Last Modified",
+
+  "submission.sections.sherpa.record.information.uri": "URI",
+
+  "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
+
+
 
   "submission.submit.breadcrumbs": "New submission",
 
@@ -4051,6 +4361,10 @@
 
   "submission.workflow.tasks.pool.show-detail": "Show detail",
 
+
+  "submission.workspace.generic.view": "View",
+
+  "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
 
 
   "thumbnail.default.alt": "Thumbnail Image",
@@ -4158,6 +4472,9 @@
 
   "workflow-item.view.breadcrumbs": "Workflow View",
 
+  "workspace-item.view.breadcrumbs": "Workspace View",
+
+  "workspace-item.view.title": "Workspace View",
 
   "idle-modal.header": "Session will expire soon",
 
@@ -4165,5 +4482,250 @@
 
   "idle-modal.log-out": "Log out",
 
-  "idle-modal.extend-session": "Extend session"
+  "idle-modal.extend-session": "Extend session",
+
+  "researcher.profile.action.processing" : "Processing...",
+
+  "researcher.profile.associated": "Researcher profile associated",
+
+  "researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
+
+  "researcher.profile.create.new": "Create new",
+
+  "researcher.profile.create.success": "Researcher profile created successfully",
+
+  "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
+
+  "researcher.profile.delete": "Delete",
+
+  "researcher.profile.expose": "Expose",
+
+  "researcher.profile.hide": "Hide",
+
+  "researcher.profile.not.associated": "Researcher profile not yet associated",
+
+  "researcher.profile.view": "View",
+
+  "researcher.profile.private.visibility" : "PRIVATE",
+
+  "researcher.profile.public.visibility" : "PUBLIC",
+
+  "researcher.profile.status": "Status:",
+
+  "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
+
+  "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
+
+  "researcherprofile.error.claim.title" : "Error",
+
+  "researcherprofile.success.claim.body" : "Profile claimed with success",
+
+  "researcherprofile.success.claim.title" : "Success",
+
+  "person.page.orcid.create": "Create an ORCID ID",
+
+  "person.page.orcid.granted-authorizations": "Granted authorizations",
+
+  "person.page.orcid.grant-authorizations" : "Grant authorizations",
+
+  "person.page.orcid.link": "Connect to ORCID ID",
+
+  "person.page.orcid.link.processing": "Linking profile to ORCID...",
+
+  "person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
+
+  "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
+
+  "person.page.orcid.unlink": "Disconnect from ORCID",
+
+  "person.page.orcid.unlink.processing": "Processing...",
+
+  "person.page.orcid.missing-authorizations": "Missing authorizations",
+
+  "person.page.orcid.missing-authorizations-message": "The following authorizations are missing:",
+
+  "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
+
+  "person.page.orcid.no-orcid-message": "No ORCID iD associated yet. By clicking on the button below it is possible to link this profile with an ORCID account.",
+
+  "person.page.orcid.profile-preferences": "Profile preferences",
+
+  "person.page.orcid.funding-preferences": "Funding preferences",
+
+  "person.page.orcid.publications-preferences": "Publication preferences",
+
+  "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
+
+  "person.page.orcid.save.preference.changes": "Update settings",
+
+  "person.page.orcid.sync-profile.affiliation" : "Affiliation",
+
+  "person.page.orcid.sync-profile.biographical" : "Biographical data",
+
+  "person.page.orcid.sync-profile.education" : "Education",
+
+  "person.page.orcid.sync-profile.identifiers" : "Identifiers",
+
+  "person.page.orcid.sync-fundings.all" : "All fundings",
+
+  "person.page.orcid.sync-fundings.mine" : "My fundings",
+
+  "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
+
+  "person.page.orcid.sync-fundings.disabled" : "Disabled",
+
+  "person.page.orcid.sync-publications.all" : "All publications",
+
+  "person.page.orcid.sync-publications.mine" : "My publications",
+
+  "person.page.orcid.sync-publications.my_selected" : "Selected publications",
+
+  "person.page.orcid.sync-publications.disabled" : "Disabled",
+
+  "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
+
+  "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
+
+  "person.page.orcid.sync-queue.discard.success": "The ORCID queue record have been discarded successfully",
+
+  "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
+
+  "person.page.orcid.sync-queue.table.header.type" : "Type",
+
+  "person.page.orcid.sync-queue.table.header.description" : "Description",
+
+  "person.page.orcid.sync-queue.table.header.action" : "Action",
+
+  "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
+
+  "person.page.orcid.sync-queue.description.country": "Country",
+
+  "person.page.orcid.sync-queue.description.education": "Educations",
+
+  "person.page.orcid.sync-queue.description.external_ids": "External ids",
+
+  "person.page.orcid.sync-queue.description.other_names": "Other names",
+
+  "person.page.orcid.sync-queue.description.qualification": "Qualifications",
+
+  "person.page.orcid.sync-queue.description.researcher_urls": "Researcher urls",
+
+  "person.page.orcid.sync-queue.description.keywords": "Keywords",
+
+  "person.page.orcid.sync-queue.tooltip.insert": "Add a new entry in the ORCID registry",
+
+  "person.page.orcid.sync-queue.tooltip.update": "Update this entry on the ORCID registry",
+
+  "person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
+
+  "person.page.orcid.sync-queue.tooltip.publication": "Publication",
+
+  "person.page.orcid.sync-queue.tooltip.project": "Project",
+
+  "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
+
+  "person.page.orcid.sync-queue.tooltip.education": "Education",
+
+  "person.page.orcid.sync-queue.tooltip.qualification": "Qualification",
+
+  "person.page.orcid.sync-queue.tooltip.other_names": "Other name",
+
+  "person.page.orcid.sync-queue.tooltip.country": "Country",
+
+  "person.page.orcid.sync-queue.tooltip.keywords": "Keyword",
+
+  "person.page.orcid.sync-queue.tooltip.external_ids": "External identifier",
+
+  "person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
+
+  "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
+
+  "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
+
+  "person.page.orcid.sync-queue.send.unauthorized-error.content": "Click <a href='{{orcid}}'>here</a> to grant again the required permissions. If the problem persists, contact the administrator",
+
+  "person.page.orcid.sync-queue.send.bad-request-error": "The submission to ORCID failed because the resource sent to ORCID registry is not valid",
+
+  "person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
+
+  "person.page.orcid.sync-queue.send.conflict-error": "The submission to ORCID failed because the resource is already present on the ORCID registry",
+
+  "person.page.orcid.sync-queue.send.not-found-warning": "The resource does not exists anymore on the ORCID registry.",
+
+  "person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
+
+  "person.page.orcid.sync-queue.send.validation-error": "The data that you want to synchronize with ORCID is not valid",
+
+  "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "The amount's currency is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.external-id.required": "The resource to be sent requires at least one identifier",
+
+  "person.page.orcid.sync-queue.send.validation-error.title.required": "The title is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.type.required": "The dc.type is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.start-date.required": "The start date is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.funder.required": "The funder is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.country.invalid": "Invalid 2 digits ISO 3166 country",
+
+  "person.page.orcid.sync-queue.send.validation-error.organization.required": "The organization is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
+
+  "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
+
+  "person.page.orcid.sync-queue.send.validation-error.organization.city-required": "The address of the organization to be sent requires a city",
+
+  "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "The address of the organization to be sent requires a valid 2 digits ISO 3166 country",
+
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "An identifier to disambiguate organizations is required. Supported ids are GRID, Ringgold, Legal Entity identifiers (LEIs) and Crossref Funder Registry identifiers",
+
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "The organization's identifiers requires a value",
+
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "The organization's identifiers requires a source",
+
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "The source of one of the organization identifiers is invalid. Supported sources are RINGGOLD, GRID, LEI and FUNDREF",
+
+  "person.page.orcid.synchronization-mode": "Synchronization mode",
+
+  "person.page.orcid.synchronization-mode.batch": "Batch",
+
+  "person.page.orcid.synchronization-mode.label": "Synchronization mode",
+
+  "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
+
+  "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
+
+  "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
+
+  "person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
+
+  "person.page.orcid.synchronization-settings-update.success": "The synchronization settings have been updated successfully",
+
+  "person.page.orcid.synchronization-settings-update.error": "The update of the synchronization settings failed",
+
+  "person.page.orcid.synchronization-mode.manual": "Manual",
+
+  "person.page.orcid.scope.authenticate": "Get your ORCID iD",
+
+  "person.page.orcid.scope.read-limited": "Read your information with visibility set to Trusted Parties",
+
+  "person.page.orcid.scope.activities-update": "Add/update your research activities",
+
+  "person.page.orcid.scope.person-update": "Add/update other information about you",
+
+  "person.page.orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
+
+  "person.page.orcid.unlink.error": "An error occurred while disconnecting between the profile and the ORCID registry. Try again",
+
+  "person.orcid.sync.setting": "ORCID Synchronization settings",
+
+  "person.orcid.registry.queue": "ORCID Registry Queue",
+
+  "person.orcid.registry.auth": "ORCID Authorizations",
+
 }

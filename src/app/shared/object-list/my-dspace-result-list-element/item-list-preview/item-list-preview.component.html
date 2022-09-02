@@ -2,7 +2,10 @@
   <ng-container *ngIf="status">
     <ds-mydspace-item-status [status]="status"></ds-mydspace-item-status>
   </ng-container>
-  <ds-type-badge [object]="item"></ds-type-badge>
+  <div class="d-flex">
+    <ds-type-badge [object]="item"></ds-type-badge>
+    <ds-access-status-badge [item]="item" class="pl-1"></ds-access-status-badge>
+  </div>
   <ds-truncatable [id]="item.id">
     <h3 [innerHTML]="item.firstMetadataValue('dc.title') || ('mydspace.results.no-title' | translate)" [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h3>
     <div>
@@ -16,6 +19,7 @@
               <span *ngIf="item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length === 0">{{'mydspace.results.no-authors' | translate}}</span>
               <span *ngFor="let author of item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
                 <span [innerHTML]="author"><span [innerHTML]="author"></span></span>
+                <span *ngIf="!last">; </span>
               </span>
           </span>
 

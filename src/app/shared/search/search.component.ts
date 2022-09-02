@@ -31,6 +31,7 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SelectionConfig } from './search-results/search-results.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'ds-search',
@@ -137,7 +138,7 @@ export class SearchComponent implements OnInit {
   /**
    * Defines whether or not to show the scope selector
    */
-  @Input() showScopeSelector = false;
+  @Input() showScopeSelector = true;
 
   /**
    * The current configuration used during the search
@@ -254,7 +255,7 @@ export class SearchComponent implements OnInit {
       .getCurrentConfiguration(this.configuration).pipe(distinctUntilChanged());
     const searchSortOptions$: Observable<SortOptions[]> = configuration$.pipe(
       switchMap((configuration: string) => this.searchConfigService
-        .getConfigurationSearchConfig(configuration, this.service)),
+        .getConfigurationSearchConfig(configuration)),
       map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
       distinctUntilChanged()
     );
@@ -355,7 +356,8 @@ export class SearchComponent implements OnInit {
       undefined,
       this.useCachedVersionIfAvailable,
       true,
-      followLink<Item>('thumbnail', { isOptional: true })
+      followLink<Item>('thumbnail', { isOptional: true }),
+      followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
     ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded && results.payload?.page?.length > 0) {

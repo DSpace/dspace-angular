@@ -154,7 +154,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
                 if (hasValue(fValue)) {
                   return fValue;
                 }
-                return Object.assign(new FacetValue(), { label: stripOperatorFromFilterValue(value), value: value });
+                const filterValue = stripOperatorFromFilterValue(value);
+                return Object.assign(new FacetValue(), { label: filterValue, value: filterValue });
               });
             })
           );
@@ -229,35 +230,20 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Submits a new active custom value to the filter from the input field
+   * Submits a new active custom value to the filter from the input field when the input field isn't empty.
    * @param data The string from the input field
    */
   onSubmit(data: any) {
-    this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
-        if (isNotEmpty(data)) {
-          this.router.navigate(this.getSearchLinkParts(), {
-            queryParams:
-              {
-                [this.filterConfig.paramName]: [
-                  ...selectedValues.map((facet) => this.getFacetValue(facet)),
-                  data
-                ]
-              },
-            queryParamsHandling: 'merge'
-          });
-          this.filter = '';
-        }
-        this.filterSearchResults = observableOf([]);
-      }
-    );
+    this.applyFilterValue(data);
   }
 
   /**
-   * On click, set the input's value to the clicked data
-   * @param data The value of the option that was clicked
+   * Submits a selected filter value to the filter
+   * Take the query from the InputSuggestion object
+   * @param data The input suggestion selected
    */
-  onClick(data: any) {
-    this.filter = data;
+  onClick(data: InputSuggestion) {
+    this.applyFilterValue(data.query);
   }
 
   /**
@@ -293,6 +279,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
                   return rd.payload.page.map((facet) => {
                     return {
                       displayValue: this.getDisplayValue(facet, data),
+                      query: this.getFacetValue(facet),
                       value: stripOperatorFromFilterValue(this.getFacetValue(facet))
                     };
                   });
@@ -302,6 +289,31 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       );
     } else {
       this.filterSearchResults = observableOf([]);
+    }
+  }
+
+  /**
+   * Build the filter query using the value given and apply to the search.
+   * @param data The string from the input field
+   */
+  protected applyFilterValue(data) {
+    if (data.match(new RegExp(`^.+,(equals|query|authority)$`))) {
+      this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
+        if (isNotEmpty(data)) {
+          this.router.navigate(this.getSearchLinkParts(), {
+            queryParams:
+              {
+                [this.filterConfig.paramName]: [
+                  ...selectedValues.map((facet) => this.getFacetValue(facet)),
+                  data
+                ]
+              },
+            queryParamsHandling: 'merge'
+          });
+          this.filter = '';
+        }
+        this.filterSearchResults = observableOf([]);
+      });
     }
   }
 

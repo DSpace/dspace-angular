@@ -161,25 +161,22 @@ describe('ClaimedTaskActionsComponent', () => {
     });
   }));
 
-  describe('when edit options is not available', () => {
-    it('should display a view button', waitForAsync(() => {
-      component.object = null;
-      component.initObjects(mockObject);
-      fixture.detectChanges();
+  it('should display a view button', waitForAsync(() => {
+    component.object = null;
+    component.initObjects(mockObject);
+    fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        const debugElement = fixture.debugElement.query(By.css('.workflow-view'));
-        expect(debugElement).toBeTruthy();
-        expect(debugElement.nativeElement.innerText).toBe('submission.workflow.generic.view');
-      });
+    fixture.whenStable().then(() => {
+      const debugElement = fixture.debugElement.query(By.css('.workflow-view'));
+      expect(debugElement).toBeTruthy();
+      expect(debugElement.nativeElement.innerText.trim()).toBe('submission.workflow.generic.view');
+    });
 
-    }));
+  }));
 
-    it('getWorkflowItemViewRoute should return the combined uri to show a workspaceitem', waitForAsync(() => {
-      const href = component.getWorkflowItemViewRoute(workflowitem);
-      expect(href).toEqual('/workflowitems/333/view');
-    }));
-  });
-
+  it('getWorkflowItemViewRoute should return the combined uri to show a workspaceitem', waitForAsync(() => {
+    const href = component.getWorkflowItemViewRoute(workflowitem);
+    expect(href).toEqual('/workflowitems/333/view');
+  }));
 
 });

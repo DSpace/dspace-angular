@@ -3,19 +3,18 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule, TransferState } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ServerModule } from '@angular/platform-server';
-import { RouterModule } from '@angular/router';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { Angulartics2 } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { AppComponent } from '../../app/app.component';
 
 import { AppModule } from '../../app/app.module';
 import { DSpaceServerTransferStateModule } from '../transfer-state/dspace-server-transfer-state.module';
 import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.service';
-import { TranslateJson5UniversalLoader } from '../../ngx-translate-loaders/translate-json5-universal.loader';
+import { TranslateServerLoader } from '../../ngx-translate-loaders/translate-server.loader';
 import { CookieService } from '../../app/core/services/cookie.service';
 import { ServerCookieService } from '../../app/core/services/server-cookie.service';
 import { AuthService } from '../../app/core/auth/auth.service';
@@ -37,8 +36,8 @@ import { AppConfig, APP_CONFIG_STATE } from '../../config/app-config.interface';
 
 import { environment } from '../../environments/environment';
 
-export function createTranslateLoader() {
-  return new TranslateJson5UniversalLoader('dist/server/assets/i18n/', '.json5');
+export function createTranslateLoader(transferState: TransferState) {
+  return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json5');
 }
 
 @NgModule({
@@ -47,20 +46,17 @@ export function createTranslateLoader() {
     BrowserModule.withServerTransition({
       appId: 'dspace-angular'
     }),
-    RouterModule.forRoot([], {
-      useHash: false
-    }),
     NoopAnimationsModule,
     DSpaceServerTransferStateModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
-        deps: []
+        deps: [TransferState]
       }
     }),
+    AppModule,
     ServerModule,
-    AppModule
   ],
   providers: [
     // Initialize app config and extend environment

@@ -44,13 +44,18 @@ import {
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { RouteService } from '../services/route.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
-import { getAllSucceededRemoteDataPayload } from '../shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../shared/operators';
 import { AuthMethod } from './models/auth.method';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { RemoteData } from '../data/remote-data';
 import { environment } from '../../../environments/environment';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { buildPaginatedList, PaginatedList } from '../data/paginated-list.model';
+import { Group } from '../eperson/models/group.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { PageInfo } from '../shared/page-info.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -112,7 +117,7 @@ export class AuthService {
         if (hasValue(rd.payload) && rd.payload.authenticated) {
           return rd.payload;
         } else {
-          throw(new Error('Invalid email or password'));
+          throw (new Error('Invalid email or password'));
         }
       }));
 
@@ -166,7 +171,7 @@ export class AuthService {
         if (hasValue(status) && status.authenticated) {
           return status._links.eperson.href;
         } else {
-          throw(new Error('Not authenticated'));
+          throw (new Error('Not authenticated'));
         }
       }));
   }
@@ -212,6 +217,22 @@ export class AuthService {
   }
 
   /**
+   * Return the special groups list embedded in the AuthStatus model
+   */
+  public getSpecialGroupsFromAuthStatus(): Observable<RemoteData<PaginatedList<Group>>> {
+    return this.authRequestService.getRequest('status', null, followLink('specialGroups')).pipe(
+      getFirstCompletedRemoteData(),
+      switchMap((status: RemoteData<AuthStatus>) => {
+        if (status.hasSucceeded) {
+          return status.payload.specialGroups;
+        } else {
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(),[]));
+        }
+      })
+    );
+  }
+
+  /**
    * Checks if token is present into storage and is not expired
    */
   public hasValidAuthenticationToken(): Observable<AuthTokenInfo> {
@@ -249,7 +270,7 @@ export class AuthService {
         if (hasValue(status) && status.authenticated) {
           return status.token;
         } else {
-          throw(new Error('Not authenticated'));
+          throw (new Error('Not authenticated'));
         }
       }));
   }
@@ -288,7 +309,7 @@ export class AuthService {
         if (hasValue(status) && !status.authenticated) {
           return true;
         } else {
-          throw(new Error('auth.errors.invalid-user'));
+          throw (new Error('auth.errors.invalid-user'));
         }
       }));
   }
@@ -447,8 +468,8 @@ export class AuthService {
    */
   public navigateToRedirectUrl(redirectUrl: string) {
     // Don't do redirect if already on reload url
-    if (!hasValue(redirectUrl) || !redirectUrl.includes('/reload/')) {
-      let url = `/reload/${new Date().getTime()}`;
+    if (!hasValue(redirectUrl) || !redirectUrl.includes('reload/')) {
+      let url = `reload/${new Date().getTime()}`;
       if (isNotEmpty(redirectUrl) && !redirectUrl.startsWith(LOGIN_ROUTE)) {
         url += `?redirect=${encodeURIComponent(redirectUrl)}`;
       }

@@ -3,7 +3,6 @@ import { DataService } from '../data.service';
 import { RequestService } from '../request.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../../core.reducers';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -18,6 +17,7 @@ import { PaginatedList } from '../paginated-list.model';
 import { Bitstream } from '../../shared/bitstream.model';
 import { RemoteData } from '../remote-data';
 import { BitstreamDataService } from '../bitstream-data.service';
+import { CoreState } from '../../core-state.model';
 
 @Injectable()
 @dataService(PROCESS)
@@ -38,7 +38,7 @@ export class ProcessDataService extends DataService<Process> {
   }
 
   /**
-   * Get the endpoint for a process his files
+   * Get the endpoint for the files of the process
    * @param processId The ID of the process
    */
   getFilesEndpoint(processId: string): Observable<string> {

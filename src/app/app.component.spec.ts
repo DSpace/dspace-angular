@@ -4,7 +4,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 // Load the implementations that should be tested
 import { AppComponent } from './app.component';
@@ -187,7 +187,7 @@ describe('App component', () => {
       link.setAttribute('rel', 'stylesheet');
       link.setAttribute('type', 'text/css');
       link.setAttribute('class', 'theme-css');
-      link.setAttribute('href', '/custom-theme.css');
+      link.setAttribute('href', 'custom-theme.css');
 
       expect(headSpy.appendChild).toHaveBeenCalledWith(link);
     });

@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { BROWSE_BY_COMPONENT_FACTORY } from './browse-by-decorator';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 
 @Component({
   selector: 'ds-browse-by-switcher',
@@ -21,7 +22,8 @@ export class BrowseBySwitcherComponent implements OnInit {
   browseByComponent: Observable<any>;
 
   public constructor(protected route: ActivatedRoute,
-                     @Inject(BROWSE_BY_COMPONENT_FACTORY) private getComponentByBrowseByType: (browseByType) => GenericConstructor<any>) {
+                     protected themeService: ThemeService,
+                     @Inject(BROWSE_BY_COMPONENT_FACTORY) private getComponentByBrowseByType: (browseByType, theme) => GenericConstructor<any>) {
   }
 
   /**
@@ -29,7 +31,7 @@ export class BrowseBySwitcherComponent implements OnInit {
    */
   ngOnInit(): void {
     this.browseByComponent = this.route.data.pipe(
-      map((data: { browseDefinition: BrowseDefinition }) => this.getComponentByBrowseByType(data.browseDefinition.dataType))
+      map((data: { browseDefinition: BrowseDefinition }) => this.getComponentByBrowseByType(data.browseDefinition.dataType, this.themeService.getThemeName()))
     );
   }
 
