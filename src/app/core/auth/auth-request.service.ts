@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, tap, take } from 'rxjs/operators';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { isNotEmpty } from '../../shared/empty.util';
