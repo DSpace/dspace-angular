@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { AsyncSubject, Observable } from 'rxjs';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 
@@ -23,7 +23,7 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { ActionType } from './models/action-type.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { isNotEmpty } from '../../shared/empty.util';
-import { map, take } from 'rxjs/operators';
+import { filter, first, map, switchMap } from 'rxjs/operators';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { CoreState } from '../core-state.model';
@@ -36,7 +36,6 @@ import { StatusCodeOnlyResponseParsingService } from '../data/status-code-only-r
 import { HALLink } from '../shared/hal-link.model';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { GroupDataService } from '../eperson/group-data.service';
-
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -241,13 +240,8 @@ export class ResourcePolicyService {
    * @param targetType the type of the target (eperson or group) to which the permission is being granted
    */
   updateTarget(resourcePolicyId: string, resourcePolicyHref: string, targetUUID: string, targetType: string): Observable<RemoteData<any>> {
-
     const targetService = targetType === 'eperson' ? this.ePersonService : this.groupService;
-
-    const targetEndpoint$ = targetService.getBrowseEndpoint().pipe(
-      take(1),
-      map((endpoint: string) =>`${endpoint}/${targetUUID}`),
-    );
+    const targetEndpoint$ = targetService.getIDHrefObs(targetUUID);
 
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
@@ -256,9 +250,9 @@ export class ResourcePolicyService {
 
     const requestId = this.requestService.generateRequestId();
 
-    this.requestService.setStaleByHrefSubstring(`${this.dataService.getLinkPath()}/${resourcePolicyId}/${targetType}`);
-
-    targetEndpoint$.subscribe((targetEndpoint) => {
+    targetEndpoint$.pipe(
+      first(),
+    ).subscribe((targetEndpoint) => {
       const resourceEndpoint = resourcePolicyHref + '/' + targetType;
       const request = new PutRequest(requestId, resourceEndpoint, targetEndpoint, options);
       Object.assign(request, {
@@ -269,8 +263,35 @@ export class ResourcePolicyService {
       this.requestService.send(request);
     });
 
-    return this.rdbService.buildFromRequestUUID(requestId);
+    const response$ = this.rdbService.buildFromRequestUUID(requestId);
 
+    const invalidated$ = new AsyncSubject<boolean>();
+    response$.pipe(
+      getFirstCompletedRemoteData(),
+      switchMap((rd: RemoteData<any>) => {
+        if (rd.hasSucceeded) {
+          return this.dataService.invalidateByHref(resourcePolicyHref);
+        } else {
+          return [undefined];
+        }
+      }),
+    ).subscribe(() => {
+      invalidated$.next(true);
+      invalidated$.complete();
+    });
+
+    return response$.pipe(
+      switchMap((rd: RemoteData<NoContent>) => {
+        if (rd.hasSucceeded) {
+          return invalidated$.pipe(
+            filter((invalidated: boolean) => invalidated),
+            map(() => rd)
+          );
+        } else {
+          return [rd];
+        }
+      })
+    );
   }
 
 }
