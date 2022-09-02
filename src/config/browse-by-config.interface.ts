@@ -25,6 +25,8 @@ export interface BrowseByConfig extends Config {
 
   /**
    * Number of entries in the viewport of a paginated browse-by list.
+   * Rounded to the nearest size in the list of selectable sizes on the settings
+   * menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
    */
    pageSize: number;
 }
