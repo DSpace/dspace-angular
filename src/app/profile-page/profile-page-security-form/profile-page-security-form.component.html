@@ -9,4 +9,4 @@
 <div id="notLongEnough" class="container-fluid text-danger" *ngIf="formGroup.hasError('notLongEnough')">{{FORM_PREFIX + 'error.password-length' | translate}}</div>
 <div id="notSame" class="container-fluid text-danger" *ngIf="formGroup.hasError('notSame')">{{FORM_PREFIX + 'error.matching-passwords' | translate}}</div>
 <div id="emptyPassword" class="container-fluid text-danger" *ngIf="(formGroup.dirty || formGroup.touched) && formGroup.hasError('emptyPassword')">{{FORM_PREFIX + 'error.empty-password' | translate}}</div>
-<div data-test="robust-password-error" class="container-fluid text-danger" *ngIf="isRobustPasswordError">{{FORM_PREFIX + 'error.robust-password' | translate}}</div>
+<div data-test="robust-password-error" class="container-fluid text-danger" *ngIf="isRobustPasswordError">{{'password.error.robust-password' | translate}}</div>

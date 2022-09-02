@@ -129,13 +129,13 @@ export class ProfilePageSecurityFormComponent implements OnInit {
   }
 
   /**
-   * Check if the password is at least 6 characters long
+   * Check if the password is at least 8 characters long
    * @param group The FormGroup to validate
    */
   checkPasswordLength(group: FormGroup) {
     const pass = group.get('password').value;
 
-    return isEmpty(pass) || pass.length >= 6 ? null : {notLongEnough: true};
+    return isEmpty(pass) || pass.length >= 8 ? null : {notLongEnough: true};
   }
 
   /**

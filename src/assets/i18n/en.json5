@@ -1490,7 +1490,7 @@
 
   "forgot-password.form.head": "Forgot Password",
 
-  "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least eight characters long.",
 
   "forgot-password.form.card.security": "Security",
 
@@ -1506,7 +1506,7 @@
 
   "forgot-password.form.error.matching-passwords": "The passwords do not match.",
 
-  "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
+  "forgot-password.form.error.password-length": "The password should be at least 8 characters long.",
 
   "forgot-password.form.notification.error.title": "Error when trying to submit new password",
 
@@ -1516,7 +1516,7 @@
 
   "forgot-password.form.submit": "Submit password",
 
-  "forgot-password.form.error.robust-password": "Selected password is invalid, it should be at least 8 and at most 15 characters long and must contain at least one uppercase and one lowercase character and a number.",
+  "password.error.robust-password": "New password is invalid. Valid passwords must be between 8-15 characters long and must include a minimum of: one uppercase letter, one lowercase letter, one number, and one special character (!?$@#$%^&+=).",
 
 
   "form.add": "Add more",
@@ -3043,9 +3043,9 @@
 
   "profile.security.form.error.matching-passwords": "The passwords do not match.",
 
-  "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
+  "profile.security.form.error.password-length": "The password should be at least 8 characters long.",
 
-  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least eight characters long.",
 
   "profile.security.form.label.password": "Password",
 
@@ -3057,11 +3057,11 @@
 
   "profile.security.form.notifications.error.title": "Error changing passwords",
 
-  "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
+  "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 8 characters long.",
 
   "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
 
-  "profile.security.form.error.robust-password": "Selected password is invalid, it should be at least 8 and at most 15 characters long and must contain at least one uppercase and one lowercase character and a number.",
+  "profile.security.form.notifications.error.general": "Please fill required fields of security form.",
 
   "profile.title": "Update Profile",
 
@@ -3145,7 +3145,7 @@
 
   "register-page.create-profile.security.header": "Security",
 
-  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least eight characters long.",
 
   "register-page.create-profile.security.label.password": "Password *",
 
@@ -3153,11 +3153,9 @@
 
   "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
 
-  "register-page.create-profile.security.error.robust-password": "Selected password is invalid, it should be at least 8 and at most 15 characters long and must contain at least one uppercase and one lowercase character and a number.",
-
   "register-page.create-profile.security.error.matching-passwords": "The passwords do not match.",
 
-  "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
+  "register-page.create-profile.security.error.password-length": "The password should be at least 8 characters long.",
 
   "register-page.create-profile.submit": "Complete Registration",
 
