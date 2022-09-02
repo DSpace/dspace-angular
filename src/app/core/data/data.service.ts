@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
-import { AsyncSubject, combineLatest, from as observableFrom, Observable, of as observableOf } from 'rxjs';
+import { AsyncSubject, from as observableFrom, Observable, of as observableOf } from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
@@ -166,7 +166,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    */
   buildHrefWithParams(href: string, params: RequestParam[], ...linksToFollow: FollowLinkConfig<T>[]): string {
 
-    let  args = [];
+    let args = [];
     if (hasValue(params)) {
       params.forEach((param: RequestParam) => {
         args = this.addHrefArg(href, args, `${param.fieldName}=${param.fieldValue}`);
@@ -181,6 +181,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
       return href;
     }
   }
+
   /**
    * Adds the embed options to the link for the request
    * @param href            The href the params are to be added to
@@ -487,7 +488,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
   }
 
   createPatchFromCache(object: T): Observable<Operation[]> {
-    const oldVersion$ = this.findByHref(object._links.self.href, true,  false);
+    const oldVersion$ = this.findByHref(object._links.self.href, true, false);
     return oldVersion$.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
@@ -665,9 +666,17 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
       invalidated$.complete();
     });
 
-    return combineLatest([response$, invalidated$]).pipe(
-      filter(([_, invalidated]) => invalidated),
-      map(([response, _]) => response),
+    return response$.pipe(
+      switchMap((rd: RemoteData<NoContent>) => {
+        if (rd.hasSucceeded) {
+          return invalidated$.pipe(
+            filter((invalidated: boolean) => invalidated),
+            map(() => rd)
+          );
+        } else {
+          return [rd];
+        }
+      })
     );
   }
 

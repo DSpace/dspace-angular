@@ -26,6 +26,12 @@ import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
 import { createPaginatedList, createRequestEntry$ } from '../../shared/testing/utils.test';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import { DataService } from '../data/data.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { getMockLinkService } from '../../shared/mocks/link-service.mock';
+import { DataServiceStub } from '../../shared/testing/data-service.stub';
+import { of as observableOf } from 'rxjs';
+import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 
 describe('GroupDataService', () => {
   let service: GroupDataService;
@@ -38,6 +44,8 @@ describe('GroupDataService', () => {
   let groups$;
   let halService;
   let rdbService;
+  let objectCache: ObjectCacheService;
+  let dataService: DataServiceStub;
 
   function init() {
     restEndpointURL = 'https://dspace.4science.it/dspace-spring-rest/api/eperson';
@@ -46,6 +54,8 @@ describe('GroupDataService', () => {
     groups$ = createSuccessfulRemoteDataObject$(createPaginatedList(groups));
     rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, { 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups': groups$ });
     halService = new HALEndpointServiceStub(restEndpointURL);
+    objectCache = new ObjectCacheService(store, getMockLinkService());
+    dataService = new DataServiceStub();
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -58,7 +68,9 @@ describe('GroupDataService', () => {
         }),
       ],
       declarations: [],
-      providers: [],
+      providers: [
+        { provide: DataService, useValue: dataService },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
   }
@@ -71,7 +83,7 @@ describe('GroupDataService', () => {
       requestService,
       rdbService,
       store,
-      null,
+      objectCache,
       halService,
       null,
     );
@@ -109,6 +121,10 @@ describe('GroupDataService', () => {
 
   describe('addSubGroupToGroup', () => {
     beforeEach(() => {
+      spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
+        requestUUIDs: ['request1', 'request2']
+      } as ObjectCacheEntry));
+      spyOn(dataService, 'invalidateByHref');
       service.addSubGroupToGroup(GroupMock, GroupMock2).subscribe();
     });
     it('should send PostRequest to eperson/groups/group-id/subgroups endpoint with new subgroup link in body', () => {
@@ -119,20 +135,40 @@ describe('GroupDataService', () => {
       const expected = new PostRequest(requestService.generateRequestId(), GroupMock.self + '/' + service.subgroupsEndpoint, GroupMock2.self, options);
       expect(requestService.send).toHaveBeenCalledWith(expected);
     });
+    it('should invalidate the previous requests of the parent group', () => {
+      expect(objectCache.getByHref).toHaveBeenCalledWith(GroupMock._links.self.href);
+      expect(requestService.setStaleByUUID).toHaveBeenCalledTimes(2);
+      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request1');
+      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request2');
+    });
   });
 
   describe('deleteSubGroupFromGroup', () => {
     beforeEach(() => {
+      spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
+        requestUUIDs: ['request1', 'request2']
+      } as ObjectCacheEntry));
+      spyOn(dataService, 'invalidateByHref');
       service.deleteSubGroupFromGroup(GroupMock, GroupMock2).subscribe();
     });
     it('should send DeleteRequest to eperson/groups/group-id/subgroups/group-id endpoint', () => {
       const expected = new DeleteRequest(requestService.generateRequestId(), GroupMock.self + '/' + service.subgroupsEndpoint + '/' + GroupMock2.id);
       expect(requestService.send).toHaveBeenCalledWith(expected);
     });
+    it('should invalidate the previous requests of the parent group\'', () => {
+      expect(objectCache.getByHref).toHaveBeenCalledWith(GroupMock._links.self.href);
+      expect(requestService.setStaleByUUID).toHaveBeenCalledTimes(2);
+      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request1');
+      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request2');
+    });
   });
 
   describe('addMemberToGroup', () => {
     beforeEach(() => {
+      spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
+        requestUUIDs: ['request1', 'request2']
+      } as ObjectCacheEntry));
+      spyOn(dataService, 'invalidateByHref');
       service.addMemberToGroup(GroupMock, EPersonMock2).subscribe();
     });
     it('should send PostRequest to eperson/groups/group-id/epersons endpoint with new eperson member in body', () => {
@@ -143,20 +179,38 @@ describe('GroupDataService', () => {
       const expected = new PostRequest(requestService.generateRequestId(), GroupMock.self + '/' + service.ePersonsEndpoint, EPersonMock2.self, options);
       expect(requestService.send).toHaveBeenCalledWith(expected);
     });
+    it('should invalidate the previous requests of the EPerson and the group', () => {
+      expect(objectCache.getByHref).toHaveBeenCalledWith(EPersonMock2._links.self.href);
+      expect(objectCache.getByHref).toHaveBeenCalledWith(GroupMock._links.self.href);
+      expect(requestService.setStaleByUUID).toHaveBeenCalledTimes(4);
+      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request1');
+      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request2');
+    });
   });
 
   describe('deleteMemberFromGroup', () => {
     beforeEach(() => {
+      spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
+        requestUUIDs: ['request1', 'request2']
+      } as ObjectCacheEntry));
+      spyOn(dataService, 'invalidateByHref');
       service.deleteMemberFromGroup(GroupMock, EPersonMock).subscribe();
     });
     it('should send DeleteRequest to eperson/groups/group-id/epersons/eperson-id endpoint', () => {
       const expected = new DeleteRequest(requestService.generateRequestId(), GroupMock.self + '/' + service.ePersonsEndpoint + '/' + EPersonMock.id);
       expect(requestService.send).toHaveBeenCalledWith(expected);
     });
+    it('should invalidate the previous requests of the EPerson and the group', () => {
+      expect(objectCache.getByHref).toHaveBeenCalledWith(EPersonMock._links.self.href);
+      expect(objectCache.getByHref).toHaveBeenCalledWith(GroupMock._links.self.href);
+      expect(requestService.setStaleByUUID).toHaveBeenCalledTimes(4);
+      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request1');
+      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request2');
+    });
   });
 
   describe('editGroup', () => {
-    it('should dispatch a EDIT_GROUP action with the groupp to start editing', () => {
+    it('should dispatch a EDIT_GROUP action with the group to start editing', () => {
       service.editGroup(GroupMock);
       expect(store.dispatch).toHaveBeenCalledWith(new GroupRegistryEditGroupAction(GroupMock));
     });
