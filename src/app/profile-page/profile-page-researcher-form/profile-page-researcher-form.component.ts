@@ -24,7 +24,7 @@ import { ConfirmationModalComponent } from '../../shared/confirmation-modal/conf
   templateUrl: './profile-page-researcher-form.component.html',
 })
 /**
- * Component for a user to create/delete or change his researcher profile.
+ * Component for a user to create/delete or change their researcher profile.
  */
 export class ProfilePageResearcherFormComponent implements OnInit {
 

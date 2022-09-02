@@ -16,7 +16,7 @@ export class HealthStatusComponent {
   @Input() status: HealthStatus;
 
   /**
-   * He
+   * Health Status
    */
   HealthStatus = HealthStatus;
 
