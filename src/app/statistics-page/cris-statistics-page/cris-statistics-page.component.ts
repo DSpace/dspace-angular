@@ -197,10 +197,21 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Refresh categories when the date from or date to is changed.
+   * Refresh categories when the date from is changed.
    */
-  dateChanged() {
-    this.categories$ = this.getCategories$();
+  startDateChanged() {
+    if (typeof this.dateFrom === 'object' && this.dateFrom !== null && this.dateFrom !== undefined) {
+      this.categories$ = this.getCategories$();
+    }
+  }
+
+  /**
+   * Refresh categories when the date to is changed.
+   */
+  endDateChanged() {
+    if (typeof this.dateTo === 'object' && this.dateTo !== null && this.dateTo !== undefined) {
+      this.categories$ = this.getCategories$();
+    }
   }
 
   /**
