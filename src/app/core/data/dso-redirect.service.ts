@@ -31,20 +31,18 @@ const UUID_ENDPOINT = 'dso';
  * {@link setLinkPath} must be called before each request.
  */
 class DsoByIdOrUUIDDataService extends IdentifiableDataService<DSpaceObject> {
+  // interpolate id/uuid as query parameter
+  constructIdEndpoint = (endpoint: string, resourceID: string): string =>
+    endpoint.replace(/{\?id}/, `?id=${resourceID}`)
+            .replace(/{\?uuid}/, `?uuid=${resourceID}`);
+
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super(
-      undefined, requestService, rdbService, objectCache, halService, undefined,
-      // interpolate id/uuid as query parameter
-      (endpoint: string, resourceID: string): string => {
-        return endpoint.replace(/{\?id}/, `?id=${resourceID}`)
-                       .replace(/{\?uuid}/, `?uuid=${resourceID}`);
-      },
-    );
+    super(requestService, rdbService, objectCache, halService);
   }
 
   /**

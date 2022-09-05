@@ -22,6 +22,8 @@ import { dataService } from '../data/base/data-service.decorator';
 @Injectable()
 @dataService(CLAIMED_TASK)
 export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
+  protected linkPath = 'claimedtasks';
+  protected responseMsToLive = 1000;
 
   /**
    * Initialize instance variables
@@ -37,7 +39,7 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super('claimedtasks', requestService, rdbService, objectCache, halService, 1000);
+    super(requestService, rdbService, objectCache, halService);
   }
 
   /**

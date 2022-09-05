@@ -22,6 +22,8 @@ import { dataService } from '../data/base/data-service.decorator';
 })
 @dataService(BROWSE_DEFINITION)
 export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseDefinition> implements FindAllData<BrowseDefinition> {
+  protected linkPath = 'browses';
+
   private findAllData: FindAllDataImpl<BrowseDefinition>;
 
   constructor(
@@ -30,9 +32,9 @@ export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseD
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super('browses', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
 
-    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.findAllData = new FindAllDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
   }
 
   /**

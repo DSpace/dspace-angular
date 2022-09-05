@@ -23,6 +23,8 @@ import { dataService } from '../data/base/data-service.decorator';
 @Injectable()
 @dataService(WorkspaceItem.type)
 export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceItem> implements SearchData<WorkspaceItem>, DeleteData<WorkspaceItem> {
+  protected linkPath = 'workspaceitems';
+
   protected searchByItemLinkPath = 'item';
 
   private searchData: SearchDataImpl<WorkspaceItem>;
@@ -35,10 +37,10 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
   ) {
-    super('workspaceitems', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
 
-    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
-    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
+    this.deleteData = new DeleteDataImpl(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, notificationsService);
   }
 
   /**

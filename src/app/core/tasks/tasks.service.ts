@@ -26,16 +26,14 @@ export abstract class TasksService<T extends CacheableObject> extends Identifiab
   private searchData: SearchData<T>;
 
   protected constructor(
-    protected linkPath: string,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected responseMsToLive?: number,
   ) {
-    super(linkPath, requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
 
-    this.searchData = new SearchDataImpl<T>(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.searchData = new SearchDataImpl<T>(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService, );
   }
 
   /**

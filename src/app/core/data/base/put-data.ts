@@ -39,13 +39,13 @@ export interface PutData<T extends CacheableObject> {
 export class PutDataImpl<T extends CacheableObject> extends BaseDataService<T> implements PutData<T> {
   constructor(
     protected linkPath: string,
+    protected responseMsToLive: number,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected responseMsToLive: number,
   ) {
-    super(linkPath, requestService, rdbService, objectCache, halService, responseMsToLive);
+    super(requestService, rdbService, objectCache, halService, linkPath, responseMsToLive);
   }
 
   /**

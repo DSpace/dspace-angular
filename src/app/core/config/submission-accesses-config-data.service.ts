@@ -18,13 +18,15 @@ import { dataService } from '../data/base/data-service.decorator';
 @Injectable()
 @dataService(SUBMISSION_ACCESSES_TYPE)
 export class SubmissionAccessesConfigDataService extends ConfigDataService {
+  protected linkPath = 'submissionaccessoptions';
+
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super('submissionaccessoptions', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
   }
 
   /**

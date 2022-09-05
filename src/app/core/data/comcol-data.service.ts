@@ -37,7 +37,6 @@ export abstract class ComColDataService<T extends Community | Collection> extend
   private deleteData: DeleteData<T>;
 
   protected constructor(
-    protected linkPath: string,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
@@ -46,13 +45,13 @@ export abstract class ComColDataService<T extends Community | Collection> extend
     protected notificationsService: NotificationsService,
     protected bitstreamDataService: BitstreamDataService,
   ) {
-    super(linkPath, requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
 
-    this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
-    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
-    this.searchData = new SearchDataImpl<T>(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
-    this.patchData = new PatchDataImpl<T>(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
-    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.createData = new CreateDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService, notificationsService);
+    this.findAllData = new FindAllDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService, );
+    this.searchData = new SearchDataImpl<T>(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService, );
+    this.patchData = new PatchDataImpl<T>(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, comparator);
+    this.deleteData = new DeleteDataImpl(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, notificationsService);
   }
 
   /**

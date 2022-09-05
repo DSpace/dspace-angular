@@ -21,6 +21,8 @@ import { SearchData, SearchDataImpl } from './base/search-data';
  */
 @Injectable()
 export class ExternalSourceDataService extends IdentifiableDataService<ExternalSource> implements SearchData<ExternalSource> {
+  protected linkPath = 'externalsources';
+
   private searchData: SearchData<ExternalSource>;
 
   constructor(
@@ -29,9 +31,9 @@ export class ExternalSourceDataService extends IdentifiableDataService<ExternalS
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super('externalsources', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
 
-    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
   }
 
   /**

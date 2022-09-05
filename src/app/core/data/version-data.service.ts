@@ -24,6 +24,7 @@ import { dataService } from './base/data-service.decorator';
 @Injectable()
 @dataService(VERSION)
 export class VersionDataService extends IdentifiableDataService<Version> implements PatchData<Version> {
+  protected linkPath = 'versions';
   private patchData: PatchData<Version>;
 
   constructor(
@@ -33,9 +34,9 @@ export class VersionDataService extends IdentifiableDataService<Version> impleme
     protected halService: HALEndpointService,
     protected comparator: DefaultChangeAnalyzer<Version>,
   ) {
-    super('versions', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
 
-    this.patchData = new PatchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
+    this.patchData = new PatchDataImpl(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, comparator);
   }
 
   /**

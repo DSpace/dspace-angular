@@ -28,21 +28,22 @@ export const constructIdEndpointDefault = (endpoint, resourceID) => `${endpoint}
 
 /**
  * A type of data service that deals with objects that have an ID.
- *
- * The effective endpoint to use for the ID can be adjusted by providing a different {@link ConstructIdEndpoint} method.
- * This method is passed as an argument so that it can be set on data service features without having to override them.
  */
 export class IdentifiableDataService<T extends CacheableObject> extends BaseDataService<T> {
+  /**
+   * A method to construct the effective endpoint to use for the ID.
+   * Also passed as an optional constructor argument so that it can be set on data service features without having to override them.
+   * @protected
+   */
+  protected constructIdEndpoint: ConstructIdEndpoint = constructIdEndpointDefault;
+
   constructor(
-    protected linkPath: string,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected responseMsToLive?: number,
-    protected constructIdEndpoint: ConstructIdEndpoint = constructIdEndpointDefault,
   ) {
-    super(linkPath, requestService, rdbService, objectCache, halService, responseMsToLive);
+    super(requestService, rdbService, objectCache, halService);
   }
 
   /**

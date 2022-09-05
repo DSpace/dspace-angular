@@ -20,6 +20,9 @@ import { dataService } from '../data/base/data-service.decorator';
 @Injectable()
 @dataService(POOL_TASK)
 export class PoolTaskDataService extends TasksService<PoolTask> {
+  protected linkPath = 'pooltasks';
+  protected responseMsToLive = 1000;
+
   /**
    * Initialize instance variables
    *
@@ -34,7 +37,7 @@ export class PoolTaskDataService extends TasksService<PoolTask> {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super('pooltasks', requestService, rdbService, objectCache, halService, 1000);
+    super(requestService, rdbService, objectCache, halService);
   }
 
   /**

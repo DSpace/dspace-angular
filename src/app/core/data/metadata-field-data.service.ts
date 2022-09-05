@@ -29,6 +29,8 @@ import { dataService } from './base/data-service.decorator';
 @Injectable()
 @dataService(METADATA_FIELD)
 export class MetadataFieldDataService extends IdentifiableDataService<MetadataField> implements CreateData<MetadataField>, PutData<MetadataField>, DeleteData<MetadataField>, SearchData<MetadataField> {
+  protected linkPath = 'metadatafields';
+
   private createData: CreateData<MetadataField>;
   private searchData: SearchData<MetadataField>;
   private putData: PutData<MetadataField>;
@@ -44,12 +46,12 @@ export class MetadataFieldDataService extends IdentifiableDataService<MetadataFi
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
   ) {
-    super('metadatafields', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
 
-    this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
-    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
-    this.putData = new PutDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
-    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.createData = new CreateDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService, notificationsService, );
+    this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
+    this.putData = new PutDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
+    this.deleteData = new DeleteDataImpl(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, notificationsService);
   }
 
   /**

@@ -75,6 +75,9 @@ const compareItemsByUUID = (itemCheck: Item) =>
 @Injectable()
 @dataService(RELATIONSHIP)
 export class RelationshipDataService extends IdentifiableDataService<Relationship> implements SearchData<Relationship> {
+  protected linkPath = 'relationships';
+  protected responseMsToLive = 15 * 60 * 1000;
+
   private searchData: SearchData<Relationship>;
   private putData: PutData<Relationship>;
 
@@ -87,10 +90,10 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
     protected appStore: Store<AppState>,
     @Inject(PAGINATED_RELATIONS_TO_ITEMS_OPERATOR) private paginatedRelationsToItems: (thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>,
   ) {
-    super('relationships', requestService, rdbService, objectCache, halService, 15 * 60 * 1000);
+    super(requestService, rdbService, objectCache, halService);
 
-    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
-    this.putData = new PutDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
+    this.putData = new PutDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
   }
 
   /**

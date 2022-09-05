@@ -35,7 +35,7 @@ class TestService extends TasksService<TestTask> {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super('testtasks', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
   }
 }
 

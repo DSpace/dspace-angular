@@ -23,13 +23,15 @@ import { IdentifiableDataService } from './base/identifiable-data.service';
   providedIn: 'root',
 })
 export class ItemRequestDataService extends IdentifiableDataService<ItemRequest> {
+  protected linkPath = 'itemrequests';
+
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super('itemrequests', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
   }
 
   getItemRequestEndpoint(): Observable<string> {

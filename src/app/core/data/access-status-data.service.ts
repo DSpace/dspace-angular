@@ -17,6 +17,7 @@ import { dataService } from './base/data-service.decorator';
 @Injectable()
 @dataService(ACCESS_STATUS)
 export class AccessStatusDataService extends BaseDataService<AccessStatusObject> {
+  protected linkPath = 'accessStatus';
 
   constructor(
     protected requestService: RequestService,
@@ -24,7 +25,7 @@ export class AccessStatusDataService extends BaseDataService<AccessStatusObject>
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super('accessStatus', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
   }
 
   /**

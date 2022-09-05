@@ -22,6 +22,8 @@ import { dataService } from '../data/base/data-service.decorator';
 @Injectable()
 @dataService(USAGE_REPORT)
 export class UsageReportDataService extends IdentifiableDataService<UsageReport> implements SearchData<UsageReport> {
+  protected linkPath = 'usagereports';
+
   private searchData: SearchDataImpl<UsageReport>;
 
   constructor(
@@ -30,9 +32,9 @@ export class UsageReportDataService extends IdentifiableDataService<UsageReport>
     protected halService: HALEndpointService,
     protected objectCache: ObjectCacheService,
   ) {
-    super('usagereports', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
 
-    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
   }
 
   getStatistic(scope: string, type: string): Observable<UsageReport> {

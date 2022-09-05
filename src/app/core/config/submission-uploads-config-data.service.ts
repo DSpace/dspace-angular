@@ -18,13 +18,15 @@ import { dataService } from '../data/base/data-service.decorator';
 @Injectable()
 @dataService(SUBMISSION_UPLOADS_TYPE)
 export class SubmissionUploadsConfigDataService extends ConfigDataService {
+  protected linkPath = 'submissionuploads';
+
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super('submissionuploads', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
   }
 
   findByHref(href: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow): Observable<RemoteData<SubmissionUploadsModel>> {

@@ -38,6 +38,8 @@ import { dataService } from './base/data-service.decorator';
 @Injectable()
 @dataService(COLLECTION)
 export class CollectionDataService extends ComColDataService<Collection> {
+  protected linkPath = 'collections';
+
   protected errorTitle = 'collection.source.update.notifications.error.title';
   protected contentSourceError = 'collection.source.update.notifications.error.content';
 
@@ -52,7 +54,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
     protected communityDataService: CommunityDataService,
     protected translate: TranslateService,
   ) {
-    super('collections', requestService, rdbService, objectCache, halService, comparator, notificationsService, bitstreamDataService);
+    super(requestService, rdbService, objectCache, halService, comparator, notificationsService, bitstreamDataService);
   }
 
   /**

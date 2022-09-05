@@ -17,6 +17,7 @@ import { dataService } from './base/data-service.decorator';
  * Data Service responsible for retrieving Configuration properties
  */
 export class ConfigurationDataService extends IdentifiableDataService<ConfigurationProperty> {
+  protected linkPath = 'properties';
 
   constructor(
     protected requestService: RequestService,
@@ -24,7 +25,7 @@ export class ConfigurationDataService extends IdentifiableDataService<Configurat
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super('properties', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
   }
 
   /**

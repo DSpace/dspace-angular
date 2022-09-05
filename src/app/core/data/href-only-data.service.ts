@@ -52,7 +52,7 @@ export class HrefOnlyDataService implements HALDataService<any> {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    this.dataService = new BaseDataService(undefined, requestService, rdbService, objectCache, halService);
+    this.dataService = new BaseDataService(requestService, rdbService, objectCache, halService);
   }
 
   /**

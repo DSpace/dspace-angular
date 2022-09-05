@@ -41,6 +41,8 @@ const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopl
 @Injectable()
 @dataService(EPERSON)
 export class EPersonDataService extends IdentifiableDataService<EPerson> implements CreateData<EPerson>, SearchData<EPerson>, PatchData<EPerson>, DeleteData<EPerson> {
+  protected linkPath = 'epersons';
+
   protected searchByEmailPath = 'byEmail';
   protected searchByMetadataPath = 'byMetadata';
 
@@ -58,12 +60,12 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
     protected notificationsService: NotificationsService,
     protected store: Store<any>,
   ) {
-    super('epersons', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
 
-    this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
-    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
-    this.patchData = new PatchDataImpl<EPerson>(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
-    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.createData = new CreateDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService, notificationsService);
+    this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
+    this.patchData = new PatchDataImpl<EPerson>(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, comparator);
+    this.deleteData = new DeleteDataImpl(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, notificationsService);
   }
 
   /**

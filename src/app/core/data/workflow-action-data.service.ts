@@ -22,6 +22,6 @@ export class WorkflowActionDataService extends BaseDataService<WorkflowAction> {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super('workflowactions', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
   }
 }

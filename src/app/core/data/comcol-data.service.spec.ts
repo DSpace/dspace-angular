@@ -33,6 +33,7 @@ const communitiesEndpoint = 'https://rest.api/core/communities';
 const communityEndpoint = `${communitiesEndpoint}/${scopeID}`;
 
 class TestService extends ComColDataService<any> {
+  protected linkPath = 'something';
 
   constructor(
     protected requestService: RequestService,
@@ -45,9 +46,8 @@ class TestService extends ComColDataService<any> {
     protected http: HttpClient,
     protected bitstreamDataService: BitstreamDataService,
     protected comparator: DSOChangeAnalyzer<Community>,
-    protected linkPath: string
   ) {
-    super('something', requestService, rdbService, objectCache, halService, comparator, notificationsService, bitstreamDataService);
+    super(requestService, rdbService, objectCache, halService, comparator, notificationsService, bitstreamDataService);
   }
 
   protected getFindByParentHref(parentUUID: string): Observable<string> {
@@ -131,8 +131,7 @@ describe('ComColDataService', () => {
       notificationsService,
       http,
       bitstreamDataService,
-      comparator,
-      LINK_NAME
+      comparator
     );
   }
 

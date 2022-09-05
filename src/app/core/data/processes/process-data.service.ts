@@ -20,6 +20,8 @@ import { dataService } from '../base/data-service.decorator';
 @Injectable()
 @dataService(PROCESS)
 export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process> {
+  protected linkPath = 'processes';
+
   private findAllData: FindAllData<Process>;
 
   constructor(
@@ -29,9 +31,9 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
     protected halService: HALEndpointService,
     protected bitstreamDataService: BitstreamDataService,
   ) {
-    super('processes', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
 
-    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.findAllData = new FindAllDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
   }
 
   /**

@@ -22,6 +22,8 @@ import { dataService } from './base/data-service.decorator';
 @Injectable()
 @dataService(COMMUNITY)
 export class CommunityDataService extends ComColDataService<Community> {
+  protected linkPath = 'communities';
+
   protected topLinkPath = 'search/top';
 
   constructor(
@@ -33,7 +35,7 @@ export class CommunityDataService extends ComColDataService<Community> {
     protected notificationsService: NotificationsService,
     protected bitstreamDataService: BitstreamDataService,
   ) {
-    super('communities', requestService, rdbService, objectCache, halService, comparator, notificationsService, bitstreamDataService);
+    super(requestService, rdbService, objectCache, halService, comparator, notificationsService, bitstreamDataService);
   }
 
   getEndpoint() {

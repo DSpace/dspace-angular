@@ -31,7 +31,7 @@ class TestService extends CreateDataImpl<any> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
   ) {
-    super(undefined, requestService, rdbService, objectCache, halService, notificationsService, undefined);
+    super(undefined, undefined, requestService, rdbService, objectCache, halService, notificationsService);
   }
 
   public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {

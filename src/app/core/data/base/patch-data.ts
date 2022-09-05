@@ -65,15 +65,15 @@ export interface PatchData<T extends CacheableObject> {
 export class PatchDataImpl<T extends CacheableObject> extends IdentifiableDataService<T> implements PatchData<T> {
   constructor(
     protected linkPath: string,
+    protected responseMsToLive: number,
+    protected constructIdEndpoint: ConstructIdEndpoint,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected comparator: ChangeAnalyzer<T>,
-    protected responseMsToLive: number,
-    protected constructIdEndpoint: ConstructIdEndpoint,
   ) {
-    super(linkPath, requestService, rdbService, objectCache, halService, responseMsToLive, constructIdEndpoint);
+    super(requestService, rdbService, objectCache, halService);
     if (hasNoValue(constructIdEndpoint)) {
       throw new Error(`PatchDataImpl initialized without a constructIdEndpoint method (linkPath: ${linkPath})`);
     }

@@ -22,6 +22,8 @@ import { FindAllData, FindAllDataImpl } from './base/find-all-data';
  */
 @Injectable()
 export class EntityTypeDataService extends BaseDataService<ItemType> implements FindAllData<ItemType>, SearchData<ItemType> {
+  protected linkPath = 'entitytypes';
+
   private findAllData: FindAllData<ItemType>;
   private searchData: SearchDataImpl<ItemType>;
 
@@ -32,10 +34,10 @@ export class EntityTypeDataService extends BaseDataService<ItemType> implements 
     protected halService: HALEndpointService,
     protected relationshipTypeService: RelationshipTypeDataService,
   ) {
-    super('entitytypes', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
 
-    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
-    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.findAllData = new FindAllDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
+    this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
   }
 
   getBrowseEndpoint(options, linkPath?: string): Observable<string> {

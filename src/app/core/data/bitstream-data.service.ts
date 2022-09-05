@@ -42,6 +42,8 @@ import { dataService } from './base/data-service.decorator';
 })
 @dataService(BITSTREAM)
 export class BitstreamDataService extends IdentifiableDataService<Bitstream> implements SearchData<Bitstream>, PatchData<Bitstream>, DeleteData<Bitstream> {
+  protected linkPath = 'bitstreams';
+
   private searchData: SearchDataImpl<Bitstream>;
   private patchData: PatchDataImpl<Bitstream>;
   private deleteData: DeleteDataImpl<Bitstream>;
@@ -56,11 +58,11 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
     protected comparator: DSOChangeAnalyzer<Bitstream>,
     protected notificationsService: NotificationsService,
   ) {
-    super('bitstreams', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
 
-    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
-    this.patchData = new PatchDataImpl<Bitstream>(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
-    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
+    this.patchData = new PatchDataImpl<Bitstream>(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, comparator);
+    this.deleteData = new DeleteDataImpl(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, notificationsService);
   }
 
   /**

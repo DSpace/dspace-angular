@@ -21,6 +21,8 @@ import { dataService } from '../data/base/data-service.decorator';
 @Injectable()
 @dataService(FEEDBACK)
 export class FeedbackDataService extends IdentifiableDataService<Feedback> implements CreateData<Feedback> {
+  protected linkPath = 'feedbacks';
+
   private createData: CreateDataImpl<Feedback>;
 
   constructor(
@@ -31,9 +33,9 @@ export class FeedbackDataService extends IdentifiableDataService<Feedback> imple
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
   ) {
-    super('feedbacks', requestService, rdbService, objectCache, halService);
+    super(requestService, rdbService, objectCache, halService);
 
-    this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
+    this.createData = new CreateDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService, notificationsService);
   }
 
   /**

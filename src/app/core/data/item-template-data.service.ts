@@ -22,6 +22,8 @@ import { CreateDataImpl } from './base/create-data';
  * Data service for interacting with Item templates via their Collection
  */
 class CollectionItemTemplateDataService extends IdentifiableDataService<Item> {
+  protected linkPath = 'itemtemplates';
+
   private createData: CreateDataImpl<Item>;
 
   constructor(
@@ -32,10 +34,10 @@ class CollectionItemTemplateDataService extends IdentifiableDataService<Item> {
     protected notificationsService: NotificationsService,
     protected collectionService: CollectionDataService,
   ) {
-    super('itemtemplates', requestService, rdbService, objectCache, halService, undefined);
+    super(requestService, rdbService, objectCache, halService);
 
     // We only intend to use createOnEndpoint, so this inner data service feature doesn't need an endpoint at all
-    this.createData = new CreateDataImpl<Item>(undefined, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
+    this.createData = new CreateDataImpl<Item>(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService, notificationsService);
   }
 
   /**
@@ -65,6 +67,8 @@ class CollectionItemTemplateDataService extends IdentifiableDataService<Item> {
  */
 @Injectable()
 export class ItemTemplateDataService extends BaseItemDataService {
+  protected linkPath = 'itemtemplates';
+
   private byCollection: CollectionItemTemplateDataService;
 
   constructor(
@@ -78,7 +82,7 @@ export class ItemTemplateDataService extends BaseItemDataService {
     protected bundleService: BundleDataService,
     protected collectionService: CollectionDataService,
   ) {
-    super('itemtemplates', requestService, rdbService, objectCache, halService, notificationsService, comparator, browseService, bundleService);
+    super(requestService, rdbService, objectCache, halService, notificationsService, comparator, browseService, bundleService);
 
     this.byCollection = new CollectionItemTemplateDataService(requestService, rdbService, objectCache, halService, notificationsService, collectionService);
   }
