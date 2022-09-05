@@ -22,6 +22,9 @@ import { Injectable } from '@angular/core';
 import { VOCABULARY_ENTRY_DETAIL } from './models/vocabularies.resource-type';
 import { dataService } from '../../data/base/data-service.decorator';
 
+/**
+ * Data service to retrieve vocabulary entry details from the REST server.
+ */
 @Injectable()
 @dataService(VOCABULARY_ENTRY_DETAIL)
 export class VocabularyEntryDetailsDataService extends IdentifiableDataService<VocabularyEntryDetail> implements FindAllData<VocabularyEntryDetail>, SearchData<VocabularyEntryDetail> {

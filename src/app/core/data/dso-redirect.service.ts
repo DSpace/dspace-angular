@@ -25,6 +25,11 @@ import { getDSORoute } from '../../app-routing-paths';
 const ID_ENDPOINT = 'pid';
 const UUID_ENDPOINT = 'dso';
 
+/**
+ * A data service to retrieve DSpaceObjects by persistent identifier or UUID.
+ * Doesn't define a constant {@link linkPath} but switches between two endpoints on demand:
+ * {@link setLinkPath} must be called before each request.
+ */
 class DsoByIdOrUUIDDataService extends IdentifiableDataService<DSpaceObject> {
   constructor(
     protected requestService: RequestService,
@@ -56,6 +61,10 @@ class DsoByIdOrUUIDDataService extends IdentifiableDataService<DSpaceObject> {
   }
 }
 
+/**
+ * A service to handle redirects from identifier paths to DSO path
+ * e.g.: redirect from /handle/... to /items/...
+ */
 @Injectable()
 export class DsoRedirectService {
   private dataService: DsoByIdOrUUIDDataService;
@@ -70,6 +79,11 @@ export class DsoRedirectService {
     this.dataService = new DsoByIdOrUUIDDataService(requestService, rdbService, objectCache, halService);
   }
 
+  /**
+   * Retrieve a DSpaceObject by
+   * @param id              the identifier of the object to retrieve
+   * @param identifierType  the type of the given identifier (defaults to UUID)
+   */
   findByIdAndIDType(id: string, identifierType = IdentifierType.UUID): Observable<RemoteData<DSpaceObject>> {
     this.dataService.setLinkPath(identifierType);
     return this.dataService.findById(id).pipe(
