@@ -5,7 +5,9 @@ import {
 
 @Component({
   selector: 'ds-edit-item-selector',
-  templateUrl: '../dso-selector-modal-wrapper.component.html',
+  // styleUrls: ['./edit-item-selector.component.scss'],
+  // templateUrl: './edit-item-selector.component.html',
+  templateUrl: '../../../../../../../app/shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component.html',
 })
 export class EditItemSelectorComponent extends BaseComponent {
 }
