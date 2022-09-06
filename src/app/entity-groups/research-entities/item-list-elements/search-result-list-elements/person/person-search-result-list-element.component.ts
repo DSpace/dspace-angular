@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ItemSearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
+import { hasValue } from '../../../../../shared/empty.util';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement)
 @Component({
@@ -15,8 +16,12 @@ import { ItemSearchResultListElementComponent } from '../../../../../shared/obje
 export class PersonSearchResultListElementComponent extends ItemSearchResultListElementComponent {
 
   get name() {
-    return this.value ?
-      this.value :
-      this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName');
+    if (hasValue(this.value)) {
+      return this.value;
+    }
+    if (hasValue(this.firstMetadataValue('person.familyName')) || hasValue(this.firstMetadataValue('person.givenName'))) {
+      return this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName');
+    }
+    return undefined;
   }
 }
