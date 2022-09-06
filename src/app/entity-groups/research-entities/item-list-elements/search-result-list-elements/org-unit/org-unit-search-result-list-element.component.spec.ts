@@ -9,6 +9,8 @@ import { TruncatableService } from '../../../../../shared/truncatable/truncatabl
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 
 let orgUnitListElementComponent: OrgUnitSearchResultListElementComponent;
 let fixture: ComponentFixture<OrgUnitSearchResultListElementComponent>;
@@ -53,6 +55,13 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
 describe('OrgUnitSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }
+      )],
       declarations: [ OrgUnitSearchResultListElementComponent , TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} },
