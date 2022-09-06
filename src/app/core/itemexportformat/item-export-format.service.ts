@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../data/base/data-service.decorator';
@@ -24,11 +24,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { SearchOptions } from '../../shared/search/models/search-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { Process } from '../../process-page/processes/process.model';
-import { getFirstCompletedRemoteData } from '../shared/operators';
+import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../shared/operators';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { SearchDataImpl } from '../data/base/search-data';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
-import { isNotEmpty } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { findIndex } from 'lodash';
 
 export enum ItemExportFormatMolteplicity {
   SINGLE = 'SINGLE',
@@ -81,12 +82,26 @@ export class ItemExportFormatService extends IdentifiableDataService<ItemExportF
     }
 
     return this.searchData.searchBy(searchHref, { searchParams, elementsPerPage: 100 }).pipe(
-      filter((itemExportFormats: RemoteData<PaginatedList<ItemExportFormat>>) => !itemExportFormats.isResponsePending),
-      map((response) => {
-        const page = {};
-        response.payload.page.forEach((format) => page[format.entityType] = page[format.entityType] ? [...page[format.entityType], format] : [format]);
-        return page;
-      }));
+      getAllCompletedRemoteData(),
+      map((itemExportFormatsRD: RemoteData<PaginatedList<ItemExportFormat>>) => {
+        const formatMap = {};
+        const sharedFormat = [];
+        itemExportFormatsRD.payload.page.forEach((format) => {
+          if (isEmpty(format.entityType)) {
+            if (findIndex(sharedFormat, (entry) => entry.id === format.id) === -1) {
+              sharedFormat.push(format);
+            }
+          } else {
+            formatMap[format.entityType] = formatMap[format.entityType] ? [...formatMap[format.entityType], format] : [format];
+          }
+        });
+
+        Object.keys(formatMap).forEach((itemType) => {
+          formatMap[itemType] = [...formatMap[itemType], ...sharedFormat];
+        });
+        return formatMap;
+      })
+    );
   }
 
   /**

@@ -10,7 +10,6 @@ import { ItemExportFormConfiguration, ItemExportService } from '../item-export.s
 import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ItemExportFormat } from '../../../../core/itemexportformat/model/item-export-format.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { isEmpty, isNotEmpty } from '../../../empty.util';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
@@ -131,14 +130,14 @@ export class ItemExportComponent implements OnInit, OnDestroy {
 
       // Add a new Excel export format suitable for bulk import
       this.selectedEntityType = entityType;
-      const xlsConfigurationFormat: ItemExportFormat = Object.assign(new ItemExportFormat(), {
+/*      const xlsConfigurationFormat: ItemExportFormat = Object.assign(new ItemExportFormat(), {
         type: 'itemexportformat',
         id: ItemExportComponent.BULK_IMPORT_READY_XLS,
         mimeType: 'application/vnd.ms-excel',
         entityType: entityType,
         molteplicity: 'MULTIPLE',
       });
-      this.configuration.formats.push(xlsConfigurationFormat);
+      this.configuration.formats.push(xlsConfigurationFormat);*/
 
       this.exportForm.controls.format.patchValue(this.configuration.format);
 
@@ -192,8 +191,10 @@ export class ItemExportComponent implements OnInit, OnDestroy {
       } else {
         // select the collection and submit
         if (isNotEmpty(this.bulkImportXlsEntityTypeCollectionUUID)) {
-          this.searchOptions.query = `location.coll:${this.bulkImportXlsEntityTypeCollectionUUID}`;
-          this.searchOptions.scope = this.bulkImportXlsEntityTypeCollectionUUID;
+          this.searchOptions = Object.assign(new SearchOptions({}), this.searchOptions, {
+            query: `location.coll:${this.bulkImportXlsEntityTypeCollectionUUID}`,
+            scope: this.bulkImportXlsEntityTypeCollectionUUID
+          });
         }
 
         const list$: Observable<string[]> = (this.isMyDspace || this.exportForm?.value?.selectionMode !== ExportSelectionMode.OnlySelection) ?
