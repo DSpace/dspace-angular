@@ -20,7 +20,10 @@ import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-confi
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
-import { AdvancedAttachmentRenderingConfig, AdvancedAttachmentElementType } from './advanced-attachment-rendering.config';
+import {
+  AdvancedAttachmentElementType,
+  AdvancedAttachmentRenderingConfig
+} from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 
 export class DefaultAppConfig implements AppConfig {
@@ -544,6 +547,10 @@ export class DefaultAppConfig implements AppConfig {
       },
       {
         name: 'format',
+        type: AdvancedAttachmentElementType.Attribute,
+      },
+      {
+        name: 'checksum',
         type: AdvancedAttachmentElementType.Attribute,
       }
     ]
