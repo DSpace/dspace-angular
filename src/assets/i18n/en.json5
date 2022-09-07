@@ -3618,6 +3618,7 @@
 
   "search.results.view-result": "View",
 
+  "search.results.response.500": "An error occurred during query execution, please try again later",
 
   "default.search.results.head": "Search Results",
 
