@@ -35,7 +35,7 @@ https://wiki.lyrasis.org/display/DSDOC7x/Installing+DSpace
 Quick start
 -----------
 
-**Ensure you're running [Node](https://nodejs.org) `v12.x`, `v14.x` or `v16.x`, [npm](https://www.npmjs.com/) >= `v5.x` and [yarn](https://yarnpkg.com) == `v1.x`**
+**Ensure you're running [Node](https://nodejs.org) `v14.x` or `v16.x`, [npm](https://www.npmjs.com/) >= `v5.x` and [yarn](https://yarnpkg.com) == `v1.x`**
 
 ```bash
 # clone the repo
@@ -90,7 +90,7 @@ Requirements
 ------------
 
 -	[Node.js](https://nodejs.org) and [yarn](https://yarnpkg.com)
--	Ensure you're running node `v12.x`, `v14.x` or `v16.x` and yarn == `v1.x`
+-	Ensure you're running node `v14.x` or `v16.x` and yarn == `v1.x`
 
 If you have [`nvm`](https://github.com/creationix/nvm#install-script) or [`nvm-windows`](https://github.com/coreybutler/nvm-windows) installed, which is highly recommended, you can run `nvm install --lts && nvm use` to install and start using the latest Node LTS.
 
@@ -179,7 +179,7 @@ If needing to update default configurations values for production, update local 
 
 -	Update `environment.production.ts` file in `src/environment/` for a `production` environment;
 
-The environment object is provided for use as import in code and is extended with he runtime configuration on bootstrap of the application.
+The environment object is provided for use as import in code and is extended with the runtime configuration on bootstrap of the application.
 
 > Take caution moving runtime configs into the buildtime configuration. They will be overwritten by what is defined in the runtime config on bootstrap.
 

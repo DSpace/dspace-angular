@@ -595,6 +595,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     const done$ = new AsyncSubject<boolean>();
 
     this.objectCache.getByHref(href).pipe(
+      take(1),
       switchMap((oce: ObjectCacheEntry) => observableFrom(oce.requestUUIDs).pipe(
         mergeMap((requestUUID: string) => this.requestService.setStaleByUUID(requestUUID)),
         toArray(),

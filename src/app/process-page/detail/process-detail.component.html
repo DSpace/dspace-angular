@@ -38,7 +38,7 @@
       <button *ngIf="!showOutputLogs && process?._links?.output?.href != undefined" id="showOutputButton" class="btn btn-primary" (click)="showProcessOutputLogs()">
         {{ 'process.detail.logs.button' | translate }}
       </button>
-      <ds-loading *ngIf="retrievingOutputLogs$ | async" class="ds-loading" message="{{ 'process.detail.logs.loading' | translate }}"></ds-loading>
+      <ds-themed-loading *ngIf="retrievingOutputLogs$ | async" class="ds-themed-loading" message="{{ 'process.detail.logs.loading' | translate }}"></ds-themed-loading>
       <pre class="font-weight-bold text-secondary bg-light p-3"
            *ngIf="showOutputLogs && (outputLogs$ | async)?.length > 0">{{ (outputLogs$ | async) }}</pre>
       <p id="no-output-logs-message" *ngIf="(!(retrievingOutputLogs$ | async) && showOutputLogs)

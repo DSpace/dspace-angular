@@ -59,6 +59,7 @@ import {
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { VarDirective } from './utils/var.directive';
 import { AuthNavMenuComponent } from './auth-nav-menu/auth-nav-menu.component';
+import { ThemedAuthNavMenuComponent } from './auth-nav-menu/themed-auth-nav-menu.component';
 import { LogOutComponent } from './log-out/log-out.component';
 import { DragClickDirective } from './utils/drag-click.directive';
 import { TruncatePipe } from './utils/truncate.pipe';
@@ -286,8 +287,12 @@ import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component'
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { RSSComponent } from './rss-feed/rss.component';
 import { ExternalLinkMenuItemComponent } from './menu/menu-item/external-link-menu-item.component';
+import { DsoPageOrcidButtonComponent } from './dso-page/dso-page-orcid-button/dso-page-orcid-button.component';
+import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 import { BrowserOnlyPipe } from './utils/browser-only.pipe';
+import { ThemedLoadingComponent } from './loading/themed-loading.component';
 import { PersonPageClaimButtonComponent } from './dso-page/person-page-claim-button/person-page-claim-button.component';
+import { SearchExportCsvComponent } from './search/search-export-csv/search-export-csv.component';
 
 const MODULES = [
   CommonModule,
@@ -337,6 +342,7 @@ const COMPONENTS = [
   // put shared components here
   AlertComponent,
   AuthNavMenuComponent,
+  ThemedAuthNavMenuComponent,
   UserMenuComponent,
   ChipsComponent,
   DsSelectComponent,
@@ -344,6 +350,7 @@ const COMPONENTS = [
   FileSectionComponent,
   LangSwitchComponent,
   LoadingComponent,
+  ThemedLoadingComponent,
   LogInComponent,
   LogOutComponent,
   NumberPickerComponent,
@@ -399,6 +406,7 @@ const COMPONENTS = [
 
   CollectionSearchResultGridElementComponent,
   CommunitySearchResultGridElementComponent,
+  SearchExportCsvComponent,
   PageSizeSelectorComponent,
   ListableObjectComponentLoaderComponent,
   CollectionListElementComponent,
@@ -422,6 +430,7 @@ const COMPONENTS = [
 
   LogInShibbolethComponent,
   LogInOidcComponent,
+  LogInOrcidComponent,
   LogInPasswordComponent,
   LogInContainerComponent,
   ItemVersionsComponent,
@@ -494,6 +503,7 @@ const ENTRY_COMPONENTS = [
   LogInPasswordComponent,
   LogInShibbolethComponent,
   LogInOidcComponent,
+  LogInOrcidComponent,
   BundleListElementComponent,
   ClaimedTaskActionsApproveComponent,
   ClaimedTaskActionsRejectComponent,
@@ -528,6 +538,7 @@ const SHARED_ITEM_PAGE_COMPONENTS = [
   GenericItemPageFieldComponent,
   MetadataRepresentationListComponent,
   RelatedItemsComponent,
+  DsoPageOrcidButtonComponent
 
 ];
 

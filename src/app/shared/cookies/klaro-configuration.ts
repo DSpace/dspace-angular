@@ -24,7 +24,7 @@ export const klaroConfiguration: any = {
   /*
   Setting 'hideLearnMore' to 'true' will hide the "learn more / customize" link in
   the consent notice. We strongly advise against using this under most
-  circumstances, as it keeps the user from customizing his/her consent choices.
+  circumstances, as it keeps the user from customizing their consent choices.
   */
   hideLearnMore: false,
 

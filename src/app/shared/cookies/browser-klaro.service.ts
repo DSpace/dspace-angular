@@ -63,6 +63,11 @@ export class BrowserKlaroService extends KlaroService {
    *  - Add and translate klaro configuration messages
    */
   initialize() {
+    if (!environment.info.enablePrivacyStatement) {
+      delete this.klaroConfig.privacyPolicy;
+      this.klaroConfig.translations.en.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
+    }
+
     this.translateService.setDefaultLang(environment.defaultLanguage);
 
     const user$: Observable<EPerson> = this.getUser$();
@@ -90,7 +95,6 @@ export class BrowserKlaroService extends KlaroService {
         this.translateConfiguration();
         Klaro.setup(this.klaroConfig);
       });
-
   }
 
   /**

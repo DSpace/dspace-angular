@@ -1,7 +1,7 @@
 <div class="thumbnail" [class.limit-width]="limitWidth" *ngVar="(isLoading$ | async) as isLoading">
-  <ds-loading *ngIf="isLoading" class="thumbnail-content" [showMessage]="false">
+  <ds-themed-loading *ngIf="isLoading" class="thumbnail-content" [showMessage]="false">
     text-content
-  </ds-loading>
+  </ds-themed-loading>
   <ng-container *ngVar="(src$ | async) as src">
     <!-- don't use *ngIf="!isLoading" so the thumbnail can load in while the animation is playing -->
     <img *ngIf="src !== null" class="thumbnail-content img-fluid" [ngClass]="{'d-none': isLoading}"

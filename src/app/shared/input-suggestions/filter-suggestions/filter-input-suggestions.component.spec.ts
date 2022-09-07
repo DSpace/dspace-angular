@@ -51,7 +51,7 @@ describe('FilterInputSuggestionsComponent', () => {
       fixture.detectChanges();
     });
     it('should call onClickSuggestion() with the suggestion as a parameter', () => {
-      expect(comp.onClickSuggestion).toHaveBeenCalledWith(suggestions[clickedIndex].value);
+      expect(comp.onClickSuggestion).toHaveBeenCalledWith(suggestions[clickedIndex]);
     });
   });
 });

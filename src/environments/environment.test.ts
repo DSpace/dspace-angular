@@ -243,5 +243,9 @@ export const environment: BuildConfig = {
   mediaViewer: {
     image: true,
     video: true
+  },
+  info: {
+    enableEndUserAgreement: true,
+    enablePrivacyStatement: true,
   }
 };
