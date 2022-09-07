@@ -5,8 +5,8 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { DOCUMENT } from '@angular/common';
 import { ConfigurationDataService } from '../data/configuration-data.service';
 import { RemoteData } from '../data/remote-data';
-import { map, take } from 'rxjs/operators';
-import { combineLatest, Observable, of } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { CookieService } from '../services/cookie.service';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 
@@ -20,25 +20,33 @@ export const CAPTCHA_NAME = 'google-recaptcha';
 export class GoogleRecaptchaService {
 
   private renderer: Renderer2;
-  /**
-   * A Google Recaptcha site key
-   */
-  captchaSiteKeyStr: string;
-
-  /**
-   * A Google Recaptcha site key
-   */
-  captchaSiteKey$: Observable<string>;
-
-  /**
-   * A Google Recaptcha mode
-   */
-  captchaMode$: Observable<string> = of('invisible');
 
   /**
    * A Google Recaptcha version
    */
-  captchaVersion$: Observable<string> = of('');
+  private captchaVersionSubject$ = new BehaviorSubject<string>(null);
+
+  /**
+   * The Google Recaptcha Key
+   */
+  private captchaKeySubject$ = new BehaviorSubject<string>(null);
+
+  /**
+   * The Google Recaptcha mode
+   */
+  private captchaModeSubject$ = new BehaviorSubject<string>(null);
+
+  captchaKey(): Observable<string> {
+    return this.captchaKeySubject$.asObservable();
+  }
+
+  captchaMode(): Observable<string> {
+    return this.captchaModeSubject$.asObservable();
+  }
+
+  captchaVersion(): Observable<string> {
+    return this.captchaVersionSubject$.asObservable();
+  }
 
   constructor(
     private cookieService: CookieService,
@@ -66,36 +74,46 @@ export class GoogleRecaptchaService {
   }
 
   loadRecaptchaProperties() {
-    const recaptchaKey$ = this.configService.findByPropertyName('google.recaptcha.key.site').pipe(
-      take(1),
+    const recaptchaKeyRD$ = this.configService.findByPropertyName('google.recaptcha.key.site').pipe(
       getFirstCompletedRemoteData(),
     );
-    const recaptchaVersion$ = this.configService.findByPropertyName('google.recaptcha.version').pipe(
-      take(1),
+    const recaptchaVersionRD$ = this.configService.findByPropertyName('google.recaptcha.version').pipe(
       getFirstCompletedRemoteData(),
     );
-    const recaptchaMode$ = this.configService.findByPropertyName('google.recaptcha.mode').pipe(
-      take(1),
+    const recaptchaModeRD$ = this.configService.findByPropertyName('google.recaptcha.mode').pipe(
       getFirstCompletedRemoteData(),
     );
-    combineLatest(recaptchaVersion$, recaptchaMode$, recaptchaKey$).subscribe(([recaptchaVersion, recaptchaMode, recaptchaKey]) => {
-      if (this.cookieService.get('klaro-anonymous') && this.cookieService.get('klaro-anonymous')[CAPTCHA_NAME]) {
-        if (recaptchaKey.hasSucceeded && isNotEmpty(recaptchaKey?.payload?.values[0])) {
-          this.captchaSiteKeyStr = recaptchaKey?.payload?.values[0];
-          this.captchaSiteKey$ = of(recaptchaKey?.payload?.values[0]);
+    combineLatest([recaptchaVersionRD$, recaptchaModeRD$, recaptchaKeyRD$]).subscribe(([recaptchaVersionRD, recaptchaModeRD, recaptchaKeyRD]) => {
+
+      if (
+        this.cookieService.get('klaro-anonymous') && this.cookieService.get('klaro-anonymous')[CAPTCHA_NAME] &&
+        recaptchaKeyRD.hasSucceeded && recaptchaVersionRD.hasSucceeded &&
+        isNotEmpty(recaptchaVersionRD.payload?.values) && isNotEmpty(recaptchaKeyRD.payload?.values)
+      ) {
+        const key = recaptchaKeyRD.payload?.values[0];
+        const version = recaptchaVersionRD.payload?.values[0];
+        this.captchaKeySubject$.next(key);
+        this.captchaVersionSubject$.next(version);
+
+        let captchaUrl;
+        switch (version) {
+          case 'v3':
+            if (recaptchaKeyRD.hasSucceeded && isNotEmpty(recaptchaKeyRD.payload?.values)) {
+              captchaUrl = this.buildCaptchaUrl(key);
+              this.captchaModeSubject$.next('invisible');
+            }
+            break;
+          case 'v2':
+            if (recaptchaModeRD.hasSucceeded && isNotEmpty(recaptchaModeRD.payload?.values)) {
+              captchaUrl = 'https://www.google.com/recaptcha/api.js';
+              this.captchaModeSubject$.next(recaptchaModeRD.payload?.values[0]);
+            }
+            break;
+          default:
+          // TODO handle error
         }
-        if (recaptchaVersion.hasSucceeded && isNotEmpty(recaptchaVersion?.payload?.values[0]) && recaptchaVersion?.payload?.values[0] === 'v3') {
-          this.captchaVersion$ = of('v3');
-          if (recaptchaKey.hasSucceeded && isNotEmpty(recaptchaKey?.payload?.values[0])) {
-            this.loadScript(this.buildCaptchaUrl(recaptchaKey?.payload?.values[0]));
-          }
-        } else {
-          this.captchaVersion$ = of('v2');
-          const captchaUrl = 'https://www.google.com/recaptcha/api.js';
-          if (recaptchaMode.hasSucceeded && isNotEmpty(recaptchaMode?.payload?.values[0])) {
-            this.captchaMode$ = of(recaptchaMode?.payload?.values[0]);
-            this.loadScript(captchaUrl);
-          }
+        if (captchaUrl) {
+          this.loadScript(captchaUrl);
         }
       }
     });
@@ -105,23 +123,21 @@ export class GoogleRecaptchaService {
    * Returns an observable of string
    * @param action action is the process type in which used to protect multiple spam REST calls
    */
-  public async getRecaptchaToken (action) {
-    return await grecaptcha.execute(this.captchaSiteKeyStr, {action: action});
+  public getRecaptchaToken(action) {
+    return this.captchaKey().pipe(
+      switchMap((key) => grecaptcha.execute(key, {action: action}))
+    );
   }
 
   /**
    * Returns an observable of string
    */
-  public async executeRecaptcha () {
-    return await grecaptcha.execute();
+  public executeRecaptcha() {
+    return of(grecaptcha.execute());
   }
 
-  /**
-   * Returns an observable of string
-   * @param action action is the process type in which used to protect multiple spam REST calls
-   */
-  public async getRecaptchaTokenResponse () {
-    return await grecaptcha.getResponse();
+  public getRecaptchaTokenResponse () {
+    return grecaptcha.getResponse();
   }
 
   /**

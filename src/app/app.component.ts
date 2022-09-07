@@ -15,7 +15,8 @@ import {
   ActivationEnd,
   NavigationCancel,
   NavigationEnd,
-  NavigationStart, ResolveEnd,
+  NavigationStart,
+  ResolveEnd,
   Router,
 } from '@angular/router';
 
@@ -48,8 +49,7 @@ import { BASE_THEME_NAME } from './shared/theme-support/theme.constants';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { getDefaultThemeConfig } from '../config/config.util';
-import { AppConfig, APP_CONFIG } from '../config/app-config.interface';
-import { GoogleRecaptchaService } from './core/google-recaptcha/google-recaptcha.service';
+import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 
 @Component({
   selector: 'ds-app',
@@ -110,7 +110,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     private modalConfig: NgbModalConfig,
     @Optional() private cookiesService: KlaroService,
     @Optional() private googleAnalyticsService: GoogleAnalyticsService,
-    @Optional() private googleRecaptchaService: GoogleRecaptchaService,
   ) {
 
     if (!isEqual(environment, this.appConfig)) {
