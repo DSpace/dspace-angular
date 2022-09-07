@@ -30,8 +30,7 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
                      protected browseService: BrowseService,
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
-                     protected router: Router,
-                     ) {
+                     protected router: Router) {
     super(route, browseService, dsoService, paginationService, router);
   }
 

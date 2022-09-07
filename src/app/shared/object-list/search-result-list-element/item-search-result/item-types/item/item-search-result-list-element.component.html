@@ -1,6 +1,6 @@
 <div class="row">
-  <div *ngIf="showThumbnails" class="col-md-2">
-    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer"
+  <div class="col-md-2">
+    <a *ngIf="linkType != linkTypes.None && showThumbnails" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer"
        [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out">
     <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true">
     </ds-thumbnail>
