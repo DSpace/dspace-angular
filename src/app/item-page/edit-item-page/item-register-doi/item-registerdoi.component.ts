@@ -85,7 +85,8 @@ export class ItemRegisterDoiComponent extends AbstractSimpleItemActionComponent 
     this.itemDataService.registerDOI(this.item.id).pipe(getFirstCompletedRemoteData()).subscribe(
       (response: RemoteData<Item>) => {
         this.processing = false;
-        this.router.navigateByUrl(getItemEditRoute(this.item));
+        //this.router.navigateByUrl(getItemEditRoute(this.item));
+        this.processRestResponse(response);
       }
     );
   }
