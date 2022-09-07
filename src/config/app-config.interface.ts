@@ -40,6 +40,10 @@ interface AppConfig extends Config {
   info: InfoConfig;
 }
 
+/**
+ * Injection token for the app configuration.
+ * Provided in {@link InitService.providers}.
+ */
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
 const APP_CONFIG_STATE = makeStateKey('APP_CONFIG_STATE');
