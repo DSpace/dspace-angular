@@ -15,7 +15,7 @@ import { ActionType } from './models/action-type.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { PageInfo } from '../shared/page-info.model';
 import { buildPaginatedList } from '../data/paginated-list.model';
-import { createPendingRemoteDataObject, createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { RestResponse } from '../cache/response.models';
 import { RequestEntry } from '../data/request-entry.model';
 import { FindListOptions } from '../data/find-list-options.model';
@@ -349,8 +349,6 @@ describe('ResourcePolicyService', () => {
   });
 
   describe('updateTarget', () => {
-    let buildFromRequestUUIDAndAwaitSpy;
-
     beforeEach(() => {
       scheduler.schedule(() => service.create(resourcePolicy, resourceUUID, epersonUUID));
     });

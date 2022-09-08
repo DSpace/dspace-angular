@@ -25,7 +25,6 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import {EpersonDtoModel} from '../../../../core/eperson/models/eperson-dto.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { isNotEmpty } from '../../../../shared/empty.util';
 
 /**
  * Keys to keep track of specific subscriptions

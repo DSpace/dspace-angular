@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
-import { AsyncSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 
@@ -23,7 +23,7 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { ActionType } from './models/action-type.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { isNotEmpty } from '../../shared/empty.util';
-import { filter, first, map, switchMap } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { CoreState } from '../core-state.model';

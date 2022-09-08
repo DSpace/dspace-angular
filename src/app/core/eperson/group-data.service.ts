@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { createSelector, select, Store } from '@ngrx/store';
-import { Observable, AsyncSubject, zip as observableZip } from 'rxjs';
-import { filter, map, take, switchMap } from 'rxjs/operators';
+import { Observable, zip as observableZip } from 'rxjs';
+import { filter, map, take } from 'rxjs/operators';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction
