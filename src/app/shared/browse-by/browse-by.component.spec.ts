@@ -240,10 +240,12 @@ describe('BrowseByComponent', () => {
   });
   describe('back', () => {
     it('should navigate back to the main browse page', () => {
+      const id = 'test-pagination';
       comp.back();
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('test-pagination', {page: 1}, {
+      expect(paginationService.updateRoute).toHaveBeenCalledWith(id, {page: 1}, {
         value: null,
-        startsWith: null
+        startsWith: null,
+        [id + '.return']: null
       });
     });
   });

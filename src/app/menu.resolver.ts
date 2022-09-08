@@ -16,24 +16,24 @@ import { filter, find, map, take } from 'rxjs/operators';
 import { hasValue } from './shared/empty.util';
 import { FeatureID } from './core/data/feature-authorization/feature-id';
 import {
-  CreateCommunityParentSelectorComponent
-} from './shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
+  ThemedCreateCommunityParentSelectorComponent
+} from './shared/dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
 import { OnClickMenuItemModel } from './shared/menu/menu-item/models/onclick.model';
 import {
-  CreateCollectionParentSelectorComponent
-} from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
+  ThemedCreateCollectionParentSelectorComponent
+} from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import {
-  CreateItemParentSelectorComponent
-} from './shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+  ThemedCreateItemParentSelectorComponent
+} from './shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import {
-  EditCommunitySelectorComponent
-} from './shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
+  ThemedEditCommunitySelectorComponent
+} from './shared/dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
 import {
-  EditCollectionSelectorComponent
-} from './shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
+  ThemedEditCollectionSelectorComponent
+} from './shared/dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
 import {
-  EditItemSelectorComponent
-} from './shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
+  ThemedEditItemSelectorComponent
+} from './shared/dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
 import {
   ExportMetadataSelectorComponent
 } from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
@@ -188,7 +188,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_community',
             function: () => {
-              this.modalService.open(CreateCommunityParentSelectorComponent);
+              this.modalService.open(ThemedCreateCommunityParentSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -201,7 +201,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_collection',
             function: () => {
-              this.modalService.open(CreateCollectionParentSelectorComponent);
+              this.modalService.open(ThemedCreateCollectionParentSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -214,7 +214,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_item',
             function: () => {
-              this.modalService.open(CreateItemParentSelectorComponent);
+              this.modalService.open(ThemedCreateItemParentSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -263,7 +263,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.edit_community',
             function: () => {
-              this.modalService.open(EditCommunitySelectorComponent);
+              this.modalService.open(ThemedEditCommunitySelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -276,7 +276,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.edit_collection',
             function: () => {
-              this.modalService.open(EditCollectionSelectorComponent);
+              this.modalService.open(ThemedEditCollectionSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -289,7 +289,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.edit_item',
             function: () => {
-              this.modalService.open(EditItemSelectorComponent);
+              this.modalService.open(ThemedEditItemSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
