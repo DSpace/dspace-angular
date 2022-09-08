@@ -25,6 +25,7 @@ import { SearchObjects } from '../../../shared/search/models/search-objects.mode
 import { PaginationService } from '../../pagination/pagination.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { Angulartics2 } from 'angulartics2';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -57,6 +58,7 @@ describe('SearchService', () => {
           { provide: DSpaceObjectDataService, useValue: {} },
           { provide: PaginationService, useValue: {} },
           { provide: SearchConfigurationService, useValue: searchConfigService },
+          { provide: Angulartics2, useValue: {} },
           SearchService
         ],
       });
@@ -124,6 +126,7 @@ describe('SearchService', () => {
           { provide: DSpaceObjectDataService, useValue: {} },
           { provide: PaginationService, useValue: paginationService },
           { provide: SearchConfigurationService, useValue: searchConfigService },
+          { provide: Angulartics2, useValue: {} },
           SearchService
         ],
       });

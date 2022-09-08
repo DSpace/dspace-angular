@@ -43,6 +43,7 @@ import { ObjectCacheService } from '../../cache/object-cache.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DSOChangeAnalyzer } from '../../data/dso-change-analyzer.service';
+import { Angulartics2 } from 'angulartics2';
 
 /* tslint:disable:max-classes-per-file */
 /**
@@ -124,7 +125,8 @@ export class SearchService implements OnDestroy {
               private communityService: CommunityDataService,
               private dspaceObjectService: DSpaceObjectDataService,
               private paginationService: PaginationService,
-              private searchConfigurationService: SearchConfigurationService
+              private searchConfigurationService: SearchConfigurationService,
+              private angulartics2: Angulartics2,
   ) {
     this.searchDataService = new DataServiceImpl(
       undefined,
@@ -134,7 +136,7 @@ export class SearchService implements OnDestroy {
       undefined,
       undefined,
       undefined,
-      undefined
+      undefined,
     );
   }
 
@@ -440,6 +442,37 @@ export class SearchService implements OnDestroy {
     });
 
     return this.rdb.buildFromHref(href$);
+  }
+
+  /**
+   * Send search event to rest api using angularitics
+   * @param config              Paginated search options used
+   * @param searchQueryResponse The response objects of the performed search
+   */
+  trackSearch(config: PaginatedSearchOptions, searchQueryResponse: SearchObjects<DSpaceObject>) {
+    const filters: { filter: string, operator: string, value: string, label: string; }[] = [];
+    const appliedFilters = searchQueryResponse.appliedFilters || [];
+    for (let i = 0, filtersLength = appliedFilters.length; i < filtersLength; i++) {
+      const appliedFilter = appliedFilters[i];
+      filters.push(appliedFilter);
+    }
+    this.angulartics2.eventTrack.next({
+      action: 'search',
+      properties: {
+        searchOptions: config,
+        page: {
+          size: config.pagination.size, // same as searchQueryResponse.page.elementsPerPage
+          totalElements: searchQueryResponse.pageInfo.totalElements,
+          totalPages: searchQueryResponse.pageInfo.totalPages,
+          number: config.pagination.currentPage, // same as searchQueryResponse.page.currentPage
+        },
+        sort: {
+          by: config.sort.field,
+          order: config.sort.direction
+        },
+        filters: filters,
+      },
+    });
   }
 
   /**
