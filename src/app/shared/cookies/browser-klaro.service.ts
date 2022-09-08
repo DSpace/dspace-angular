@@ -1,20 +1,22 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import * as Klaro from 'klaro';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { AuthService } from '../../core/auth/auth.service';
-import { TranslateService } from '@ngx-translate/core';
-import { environment } from '../../../environments/environment';
-import { catchError, switchMap, take } from 'rxjs/operators';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { KlaroService } from './klaro.service';
-import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
-import { CookieService } from '../../core/services/cookie.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { cloneDeep, debounce } from 'lodash';
-import { ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration } from './klaro-configuration';
-import { Operation } from 'fast-json-patch';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import {combineLatest as observableCombineLatest, Observable, of as observableOf} from 'rxjs';
+import {AuthService} from '../../core/auth/auth.service';
+import {TranslateService} from '@ngx-translate/core';
+import {environment} from '../../../environments/environment';
+import {map, switchMap, take} from 'rxjs/operators';
+import {EPerson} from '../../core/eperson/models/eperson.model';
+import {KlaroService} from './klaro.service';
+import {hasValue, isEmpty, isNotEmpty} from '../empty.util';
+import {CookieService} from '../../core/services/cookie.service';
+import {EPersonDataService} from '../../core/eperson/eperson-data.service';
+import {cloneDeep, debounce} from 'lodash';
+import {ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration} from './klaro-configuration';
+import {Operation} from 'fast-json-patch';
+import {getFirstCompletedRemoteData} from '../../core/shared/operators';
+import {ConfigurationDataService} from '../../core/data/configuration-data.service';
+import {RemoteData} from "../../core/data/remote-data";
+import {ConfigurationProperty} from "../../core/shared/configuration-property.model";
 
 /**
  * Metadata field to store a user's cookie consent preferences in
@@ -40,15 +42,21 @@ const cookiePurposeMessagePrefix = 'cookies.consent.purpose.';
  * Update request debounce in ms
  */
 const updateDebounce = 300;
+
 /**
  * Browser implementation for the KlaroService, representing a service for handling Klaro consent preferences and UI
  */
 @Injectable()
 export class BrowserKlaroService extends KlaroService {
+
+  private readonly GOOGLE_ANALYTICS_KEY = 'google.analytics.key';
+
+  private readonly GOOGLE_ANALYTICS_SERVICE_NAME = 'google-analytics';
+
   /**
    * Initial Klaro configuration
    */
-  klaroConfig = klaroConfiguration;
+  klaroConfig = cloneDeep(klaroConfiguration);
 
   constructor(
     private translateService: TranslateService,
@@ -58,6 +66,7 @@ export class BrowserKlaroService extends KlaroService {
     private cookieService: CookieService) {
     super();
   }
+
   /**
    * Initializes the service:
    *  - Retrieves the current authenticated user
@@ -71,14 +80,13 @@ export class BrowserKlaroService extends KlaroService {
       this.klaroConfig.translations.en.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
     }
 
-    this.configService.findByPropertyName('google.analytics.key').pipe(
-      getFirstCompletedRemoteData(),
-    ).subscribe((remoteData) => {
-      // make sure we got a success response from the backend
-      if (!remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) ) {
-        this.removeGoogleAnalytics();
-      }
-    });
+    const configurationToHide$: Observable<Pick<typeof klaroConfiguration, 'name'>[]> =
+      this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY)
+        .pipe(
+          getFirstCompletedRemoteData(),
+          map(remoteData=> this.mapInvalidConfiguration(remoteData, this.GOOGLE_ANALYTICS_SERVICE_NAME)),
+          take(1)
+        );
 
     this.translateService.setDefaultLang(environment.defaultLanguage);
 
@@ -86,8 +94,8 @@ export class BrowserKlaroService extends KlaroService {
 
     const translationServiceReady$ = this.translateService.get('loading.default').pipe(take(1));
 
-    observableCombineLatest([user$, translationServiceReady$])
-      .subscribe(([user, translation]: [EPerson, string]) => {
+    observableCombineLatest([user$, translationServiceReady$, configurationToHide$])
+      .subscribe(([user, translation, servicesToHide]: [EPerson, string, Pick<typeof klaroConfiguration, 'name'>[]]) => {
         user = cloneDeep(user);
 
         if (hasValue(user)) {
@@ -105,8 +113,26 @@ export class BrowserKlaroService extends KlaroService {
          * Show the configuration if the configuration has not been confirmed
          */
         this.translateConfiguration();
+
+        this.klaroConfig.services = this.filterConfigServices(servicesToHide);
+
         Klaro.setup(this.klaroConfig);
       });
+  }
+
+  private mapInvalidConfiguration(
+    remoteData: RemoteData<ConfigurationProperty>,
+    configurationName: string
+  ): Pick<typeof klaroConfiguration, 'name'>[] {
+    if (this.isEmptyOrInvalid(remoteData)) {
+      return [{name: configurationName}]
+    } else {
+      return [];
+    }
+  }
+
+  private isEmptyOrInvalid(remoteData: RemoteData<ConfigurationProperty>): boolean {
+    return !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values);
   }
 
   /**
@@ -180,7 +206,10 @@ export class BrowserKlaroService extends KlaroService {
    */
   addAppMessages() {
     this.klaroConfig.services.forEach((app) => {
-      this.klaroConfig.translations.en[app.name] = { title: this.getTitleTranslation(app.name), description: this.getDescriptionTranslation(app.name) };
+      this.klaroConfig.translations.en[app.name] = {
+        title: this.getTitleTranslation(app.name),
+        description: this.getDescriptionTranslation(app.name)
+      };
       app.purposes.forEach((purpose) => {
         this.klaroConfig.translations.en.purposes[purpose] = this.getPurposeTranslation(purpose);
       });
@@ -273,8 +302,7 @@ export class BrowserKlaroService extends KlaroService {
   /**
    * remove the google analytics from the services
    */
-  removeGoogleAnalytics() {
-    this.klaroConfig.services = klaroConfiguration.services.filter(config => config.name !== 'google-analytics');
-    return this.klaroConfig.services;
+  private filterConfigServices(servicesToHide: Pick<typeof klaroConfiguration, 'name'>[]): Pick<typeof klaroConfiguration, 'services'>[] {
+    return this.klaroConfig.services.filter(service => !servicesToHide.some(el => el.name === service.name));
   }
 }
