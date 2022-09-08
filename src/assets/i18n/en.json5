@@ -2983,6 +2983,22 @@
 
   "process.detail.create" : "Create similar process",
 
+  "process.detail.actions": "Actions",
+  
+  "process.detail.delete.button": "Delete process",
+
+  "process.detail.delete.header": "Delete process",
+
+  "process.detail.delete.body": "Are you sure you want to delete the current process?",
+
+  "process.detail.delete.cancel": "Cancel",
+
+  "process.detail.delete.confirm": "Delete process",
+
+  "process.detail.delete.success": "The process was successfully deleted.",
+
+  "process.detail.delete.error": "Something went wrong when deleting the process",
+
 
 
   "process.overview.table.finish" : "Finish time (UTC)",
@@ -3003,6 +3019,25 @@
 
   "process.overview.new": "New",
 
+  "process.overview.table.actions": "Actions",
+
+  "process.overview.delete": "Delete {{count}} processes",
+
+  "process.overview.delete.clear": "Clear delete selection",
+
+  "process.overview.delete.processing": "{{count}} process(es) are being deleted. Please wait for the deletion to fully complete. Note that this can take a while.",
+
+  "process.overview.delete.body": "Are you sure you want to delete {{count}} process(es)?",
+
+  "process.overview.delete.header": "Delete processes",
+
+  "process.bulk.delete.error.head": "Error on deleteing process",
+
+  "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
+
+  "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+
+  
 
   "profile.breadcrumbs": "Update Profile",
 
@@ -3583,6 +3618,7 @@
 
   "search.results.view-result": "View",
 
+  "search.results.response.500": "An error occurred during query execution, please try again later",
 
   "default.search.results.head": "Search Results",
 
