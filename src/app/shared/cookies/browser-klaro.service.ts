@@ -84,7 +84,7 @@ export class BrowserKlaroService extends KlaroService {
       this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY)
         .pipe(
           getFirstCompletedRemoteData(),
-          map(remoteData=> this.mapInvalidConfiguration(remoteData, this.GOOGLE_ANALYTICS_SERVICE_NAME)),
+          map(remoteData => this.mapInvalidConfiguration(remoteData, this.GOOGLE_ANALYTICS_SERVICE_NAME)),
           take(1)
         );
 
