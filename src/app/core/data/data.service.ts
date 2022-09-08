@@ -27,7 +27,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
+import { getFirstSucceededRemoteData, getRemoteDataPayload, getFirstCompletedRemoteData } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { ChangeAnalyzer } from './change-analyzer';
 import { PaginatedList } from './paginated-list.model';
@@ -577,6 +577,35 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
   }
 
   /**
+   *  Shorthand method to add a dependency to a cached object
+   *  ```
+   *  const out$ = this.findByHref(...); // or another method that sends a request
+   *  this.addDependency(out$, dependsOnHref);
+   *  ```
+   *  When {@link dependsOnHref$} is invalidated, {@link object$} will be invalidated as well.
+   *
+   *
+   * @param object$         the cached object
+   * @param dependsOnHref$  the href of the object it should depend on
+   */
+  protected addDependency(object$: Observable<RemoteData<T | PaginatedList<T>>>, dependsOnHref$: string | Observable<string>) {
+    this.objectCache.addDependency(
+      object$.pipe(
+        getFirstCompletedRemoteData(),
+        switchMap((rd: RemoteData<T>) => {
+          if (rd.hasSucceeded) {
+            return [rd.payload._links.self.href];
+          } else {
+            // undefined href will be skipped in objectCache.addDependency
+            return [undefined];
+          }
+        }),
+      ),
+      dependsOnHref$
+    );
+  }
+
+  /**
    * Invalidate an existing DSpaceObject by marking all requests it is included in as stale
    * @param   objectId The id of the object to be invalidated
    * @return  An Observable that will emit `true` once all requests are stale
@@ -597,11 +626,17 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
 
     this.objectCache.getByHref(href).pipe(
       take(1),
-      switchMap((oce: ObjectCacheEntry) => observableFrom(oce.requestUUIDs).pipe(
-        mergeMap((requestUUID: string) => this.requestService.setStaleByUUID(requestUUID)),
-        toArray(),
-      )),
+      switchMap((oce: ObjectCacheEntry) => {
+        return observableFrom([
+          ...oce.requestUUIDs,
+          ...oce.dependentRequestUUIDs
+        ]).pipe(
+          mergeMap((requestUUID: string) => this.requestService.setStaleByUUID(requestUUID)),
+          toArray(),
+        );
+      }),
     ).subscribe(() => {
+      this.objectCache.removeDependents(href);
       done$.next(true);
       done$.complete();
     });

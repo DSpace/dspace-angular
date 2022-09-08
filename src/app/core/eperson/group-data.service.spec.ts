@@ -27,11 +27,10 @@ import { createPaginatedList, createRequestEntry$ } from '../../shared/testing/u
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { DataService } from '../data/data.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { getMockLinkService } from '../../shared/mocks/link-service.mock';
 import { DataServiceStub } from '../../shared/testing/data-service.stub';
 import { of as observableOf } from 'rxjs';
 import { ObjectCacheEntry } from '../cache/object-cache.reducer';
+import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 
 describe('GroupDataService', () => {
   let service: GroupDataService;
@@ -44,7 +43,7 @@ describe('GroupDataService', () => {
   let groups$;
   let halService;
   let rdbService;
-  let objectCache: ObjectCacheService;
+  let objectCache;
   let dataService: DataServiceStub;
 
   function init() {
@@ -54,7 +53,9 @@ describe('GroupDataService', () => {
     groups$ = createSuccessfulRemoteDataObject$(createPaginatedList(groups));
     rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, { 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups': groups$ });
     halService = new HALEndpointServiceStub(restEndpointURL);
-    objectCache = new ObjectCacheService(store, getMockLinkService());
+
+    objectCache = getMockObjectCacheService();
+
     dataService = new DataServiceStub();
     TestBed.configureTestingModule({
       imports: [
@@ -122,8 +123,9 @@ describe('GroupDataService', () => {
 
   describe('addSubGroupToGroup', () => {
     beforeEach(() => {
-      spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
-        requestUUIDs: ['request1', 'request2']
+      objectCache.getByHref.and.returnValue(observableOf({
+        requestUUIDs: ['request1', 'request2'],
+        dependentRequestUUIDs: [],
       } as ObjectCacheEntry));
       spyOn(dataService, 'invalidateByHref');
       service.addSubGroupToGroup(GroupMock, GroupMock2).subscribe();
@@ -151,8 +153,9 @@ describe('GroupDataService', () => {
 
   describe('deleteSubGroupFromGroup', () => {
     beforeEach(() => {
-      spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
-        requestUUIDs: ['request1', 'request2']
+      objectCache.getByHref.and.returnValue(observableOf({
+        requestUUIDs: ['request1', 'request2'],
+        dependentRequestUUIDs: [],
       } as ObjectCacheEntry));
       spyOn(dataService, 'invalidateByHref');
       service.deleteSubGroupFromGroup(GroupMock, GroupMock2).subscribe();
@@ -176,8 +179,9 @@ describe('GroupDataService', () => {
 
   describe('addMemberToGroup', () => {
     beforeEach(() => {
-      spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
-        requestUUIDs: ['request1', 'request2']
+      objectCache.getByHref.and.returnValue(observableOf({
+        requestUUIDs: ['request1', 'request2'],
+        dependentRequestUUIDs: [],
       } as ObjectCacheEntry));
       spyOn(dataService, 'invalidateByHref');
       service.addMemberToGroup(GroupMock, EPersonMock2).subscribe();
@@ -206,8 +210,9 @@ describe('GroupDataService', () => {
 
   describe('deleteMemberFromGroup', () => {
     beforeEach(() => {
-      spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
-        requestUUIDs: ['request1', 'request2']
+      objectCache.getByHref.and.returnValue(observableOf({
+        requestUUIDs: ['request1', 'request2'],
+        dependentRequestUUIDs: [],
       } as ObjectCacheEntry));
       spyOn(dataService, 'invalidateByHref');
       service.deleteMemberFromGroup(GroupMock, EPersonMock).subscribe();

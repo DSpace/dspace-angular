@@ -2,7 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { compare, Operation } from 'fast-json-patch';
-import { Observable, of as observableOf } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -13,6 +13,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import {
   createFailedRemoteDataObject,
+  createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
@@ -96,7 +97,13 @@ describe('DataService', () => {
       },
       getByHref: () => {
         /* empty */
-      }
+      },
+      addDependency: () => {
+        /* empty */
+      },
+      removeDependents: () => {
+        /* empty */
+      },
     } as any;
     store = {} as Store<CoreState>;
     selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
@@ -849,7 +856,8 @@ describe('DataService', () => {
 
     beforeEach(() => {
       getByHrefSpy = spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
-        requestUUIDs: ['request1', 'request2', 'request3']
+        requestUUIDs: ['request1', 'request2', 'request3'],
+        dependentRequestUUIDs: []
       }));
 
     });
@@ -898,9 +906,9 @@ describe('DataService', () => {
     it('should only fire for the current state of the object (instead of tracking it)', () => {
       testScheduler.run(({ cold, flush }) => {
         getByHrefSpy.and.returnValue(cold('a---b---c---', {
-          a: { requestUUIDs: ['request1'] },  // this is the state at the moment we're invalidating the cache
-          b: { requestUUIDs: ['request2'] },  // we shouldn't keep tracking the state
-          c: { requestUUIDs: ['request3'] },  // because we may invalidate when we shouldn't
+          a: { requestUUIDs: ['request1'], dependentRequestUUIDs: [] },  // this is the state at the moment we're invalidating the cache
+          b: { requestUUIDs: ['request2'], dependentRequestUUIDs: [] },  // we shouldn't keep tracking the state
+          c: { requestUUIDs: ['request3'], dependentRequestUUIDs: [] },  // because we may invalidate when we shouldn't
         }));
 
         service.invalidateByHref('some-href');
@@ -968,6 +976,44 @@ describe('DataService', () => {
         callback();
         expect(invalidateByHrefSpy).toHaveBeenCalledWith('https://somewhere.org/something/123');
       });
+    });
+  });
+
+  describe('addDependency', () => {
+    let addDependencySpy;
+
+    beforeEach(() => {
+      addDependencySpy = spyOn(objectCache, 'addDependency');
+    });
+
+    it('should call objectCache.addDependency with the object\'s self link', () => {
+      addDependencySpy.and.callFake((href$: Observable<string>, dependsOn$: Observable<string>) => {
+        observableCombineLatest([href$, dependsOn$]).subscribe(([href, dependsOn]) => {
+          expect(href).toBe('object-href');
+          expect(dependsOn).toBe('dependsOnHref');
+        });
+      });
+
+      (service as any).addDependency(
+        createSuccessfulRemoteDataObject$({ _links: { self: { href: 'object-href' } } }),
+        observableOf('dependsOnHref')
+      );
+      expect(addDependencySpy).toHaveBeenCalled();
+    });
+
+    it('should call objectCache.addDependency without an href if request failed', () => {
+      addDependencySpy.and.callFake((href$: Observable<string>, dependsOn$: Observable<string>) => {
+        observableCombineLatest([href$, dependsOn$]).subscribe(([href, dependsOn]) => {
+          expect(href).toBe(undefined);
+          expect(dependsOn).toBe('dependsOnHref');
+        });
+      });
+
+      (service as any).addDependency(
+        createFailedRemoteDataObject$('something went wrong'),
+        observableOf('dependsOnHref')
+      );
+      expect(addDependencySpy).toHaveBeenCalled();
     });
   });
 });
