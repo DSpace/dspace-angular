@@ -4,10 +4,10 @@ import { combineLatest as observableCombineLatest, Observable, of as observableO
 import { AuthService } from '../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../environments/environment';
-import { catchError, switchMap, take } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { KlaroService } from './klaro.service';
-import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
+import { hasValue, isNotEmpty } from '../empty.util';
 import { CookieService } from '../../core/services/cookie.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { cloneDeep, debounce } from 'lodash';
@@ -274,9 +274,8 @@ export class BrowserKlaroService extends KlaroService {
   /**
    * remove the google recaptcha from the services
    */
-  removeGoogleRecaptcha() {
+  removeGoogleRecaptcha(): void {
     this.klaroConfig.services = klaroConfiguration.services.filter(config => config.name !== CAPTCHA_NAME);
-    return this.klaroConfig.services;
   }
 
 }

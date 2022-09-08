@@ -163,9 +163,8 @@ export const klaroConfiguration: any = {
       cookies: [
         CAPTCHA_COOKIE
       ],
-      onAccept: `window.refreshCaptchaScript()`,
-      onDecline: `window.refreshCaptchaScript()`,
-      onInit: `window.refreshCaptchaScript()`,
+      onAccept: `window.refreshCaptchaScript?.call()`,
+      onDecline: `window.refreshCaptchaScript?.call()`,
       onlyOnce: true,
     }
   ],
