@@ -15,8 +15,8 @@ import {ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration} from './klaro-configur
 import {Operation} from 'fast-json-patch';
 import {getFirstCompletedRemoteData} from '../../core/shared/operators';
 import {ConfigurationDataService} from '../../core/data/configuration-data.service';
-import {RemoteData} from "../../core/data/remote-data";
-import {ConfigurationProperty} from "../../core/shared/configuration-property.model";
+import {RemoteData} from '../../core/data/remote-data';
+import {ConfigurationProperty} from '../../core/shared/configuration-property.model';
 
 /**
  * Metadata field to store a user's cookie consent preferences in
@@ -84,7 +84,7 @@ export class BrowserKlaroService extends KlaroService {
       this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY)
         .pipe(
           getFirstCompletedRemoteData(),
-          map(remoteData=> this.mapInvalidConfiguration(remoteData, this.GOOGLE_ANALYTICS_SERVICE_NAME)),
+          map(remoteData => this.mapInvalidConfiguration(remoteData, this.GOOGLE_ANALYTICS_SERVICE_NAME)),
           take(1)
         );
 
@@ -125,7 +125,7 @@ export class BrowserKlaroService extends KlaroService {
     configurationName: string
   ): Pick<typeof klaroConfiguration, 'name'>[] {
     if (this.isEmptyOrInvalid(remoteData)) {
-      return [{name: configurationName}]
+      return [{name: configurationName}];
     } else {
       return [];
     }
