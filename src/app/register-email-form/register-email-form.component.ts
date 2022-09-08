@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -11,8 +11,11 @@ import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { isNotEmpty } from '../shared/empty.util';
 import { combineLatest, Observable, of, switchMap } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptcha.service';
+import { map, take, tap } from 'rxjs/operators';
+import { CAPTCHA_NAME, GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptcha.service';
+import { AlertType } from '../shared/alert/aletr-type';
+import { KlaroService } from '../shared/cookies/klaro.service';
+import { CookieService } from '../core/services/cookie.service';
 
 @Component({
   selector: 'ds-register-email-form',
@@ -34,6 +37,8 @@ export class RegisterEmailFormComponent implements OnInit {
   @Input()
   MESSAGE_PREFIX: string;
 
+  public AlertTypeEnum = AlertType;
+
   /**
    * registration verification configuration
    */
@@ -47,15 +52,16 @@ export class RegisterEmailFormComponent implements OnInit {
     return this.googleRecaptchaService.captchaMode();
   }
 
-
-constructor(
+  constructor(
     private epersonRegistrationService: EpersonRegistrationService,
     private notificationService: NotificationsService,
     private translateService: TranslateService,
     private router: Router,
     private formBuilder: FormBuilder,
     private configService: ConfigurationDataService,
-    public googleRecaptchaService: GoogleRecaptchaService
+    public googleRecaptchaService: GoogleRecaptchaService,
+    public cookieService: CookieService,
+    @Optional() public klaroService: KlaroService,
   ) {
 
   }
@@ -80,14 +86,13 @@ constructor(
    * execute the captcha function for v2 invisible
    */
   executeRecaptcha() {
-    console.log('executeRecaptcha');
     this.googleRecaptchaService.executeRecaptcha();
   }
 
   /**
    * Register an email address
    */
-  register(tokenV2 = null) {
+  register(tokenV2?) {
     if (!this.form.invalid) {
       if (this.registrationVerification) {
         combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
@@ -100,6 +105,7 @@ constructor(
               return of(tokenV2);
             }
           }),
+          take(1),
         ).subscribe((token) => {
             if (isNotEmpty(token)) {
               this.registration(token);
@@ -132,6 +138,26 @@ constructor(
           this.translateService.get(`${this.MESSAGE_PREFIX}.error.content`, {email: this.email.value}));
       }
     });
+  }
+
+  isRecaptchaCookieAccepted(): boolean {
+    const klaroAnonymousCookie = this.cookieService.get('klaro-anonymous');
+    return isNotEmpty(klaroAnonymousCookie) ? klaroAnonymousCookie[CAPTCHA_NAME] : false;
+  }
+
+  disableRegisterButton(): Observable<boolean> {
+    return combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
+      switchMap(([captchaVersion, captchaMode])  => {
+        if (captchaVersion === 'v2' && captchaMode === 'checkbox') {
+// this.googleRecaptchaService.getRecaptchaTokenResponse()
+          return of(false);
+          // TODO disable if captcha unchecked
+        } else {
+          return of(false);
+        }
+      }),
+      tap(console.log)
+    );
   }
 
   get email() {

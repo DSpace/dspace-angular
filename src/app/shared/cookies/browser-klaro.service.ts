@@ -75,7 +75,7 @@ export class BrowserKlaroService extends KlaroService {
     this.configService.findByPropertyName('registration.verification.enabled').pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((remoteData) => {
-      if (!remoteData.hasSucceeded || isEmpty(remoteData.payload?.values) || remoteData.payload.values[0].toLowerCase() !== 'true') {
+      if (remoteData.statusCode === 404 || isEmpty(remoteData.payload?.values) || remoteData.payload.values[0].toLowerCase() !== 'true') {
         this.klaroConfig.services = klaroConfiguration.services.filter(config => config.name !== CAPTCHA_NAME);
       }
     });
