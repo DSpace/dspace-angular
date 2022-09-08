@@ -204,9 +204,18 @@ export const environment: BuildConfig = {
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
     defaultLowerLimit: 1900,
   },
-  browseCommunities: {
-    communityListPageSize: 20,
-    topLevelPageSize: 5
+  communityList: {
+    pageSize: 20
+  },
+  homePage: {
+    recentSubmissions: {
+      pageSize: 5,
+      //sort record of recent submission
+      sortField: 'dc.date.accessioned',
+    },
+    topLevelCommunityList: {
+      pageSize: 5
+    }
   },
   item: {
     edit: {
@@ -256,12 +265,4 @@ export const environment: BuildConfig = {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
   },
-  //Home Page
-  homePage: {
-    recentSubmissions: {
-      pageSize: 5,
-      //sort record of recent submission
-      sortField: 'dc.date.accessioned',
-    }
-  }
 };
