@@ -263,35 +263,7 @@ export class ResourcePolicyService {
       this.requestService.send(request);
     });
 
-    const response$ = this.rdbService.buildFromRequestUUID(requestId);
-
-    const invalidated$ = new AsyncSubject<boolean>();
-    response$.pipe(
-      getFirstCompletedRemoteData(),
-      switchMap((rd: RemoteData<any>) => {
-        if (rd.hasSucceeded) {
-          return this.dataService.invalidateByHref(resourcePolicyHref);
-        } else {
-          return [undefined];
-        }
-      }),
-    ).subscribe(() => {
-      invalidated$.next(true);
-      invalidated$.complete();
-    });
-
-    return response$.pipe(
-      switchMap((rd: RemoteData<NoContent>) => {
-        if (rd.hasSucceeded) {
-          return invalidated$.pipe(
-            filter((invalidated: boolean) => invalidated),
-            map(() => rd)
-          );
-        } else {
-          return [rd];
-        }
-      })
-    );
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => this.dataService.invalidateByHref(resourcePolicyHref));
   }
 
 }

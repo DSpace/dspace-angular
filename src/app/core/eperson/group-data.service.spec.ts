@@ -95,6 +95,7 @@ describe('GroupDataService', () => {
     store = new Store<CoreState>(undefined, undefined, undefined);
     service = initTestService();
     spyOn(store, 'dispatch');
+    spyOn(rdbService, 'buildFromRequestUUIDAndAwait').and.callThrough();
   });
 
   describe('searchGroups', () => {
@@ -136,6 +137,11 @@ describe('GroupDataService', () => {
       expect(requestService.send).toHaveBeenCalledWith(expected);
     });
     it('should invalidate the previous requests of the parent group', () => {
+      expect(rdbService.buildFromRequestUUIDAndAwait).toHaveBeenCalled();
+      expect(rdbService.buildFromRequestUUIDAndAwait.calls.argsFor(0)[0]).toBe(requestService.generateRequestId());
+      const callback = rdbService.buildFromRequestUUIDAndAwait.calls.argsFor(0)[1];
+      callback();
+
       expect(objectCache.getByHref).toHaveBeenCalledWith(GroupMock._links.self.href);
       expect(requestService.setStaleByUUID).toHaveBeenCalledTimes(2);
       expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request1');
@@ -156,6 +162,11 @@ describe('GroupDataService', () => {
       expect(requestService.send).toHaveBeenCalledWith(expected);
     });
     it('should invalidate the previous requests of the parent group\'', () => {
+      expect(rdbService.buildFromRequestUUIDAndAwait).toHaveBeenCalled();
+      expect(rdbService.buildFromRequestUUIDAndAwait.calls.argsFor(0)[0]).toBe(requestService.generateRequestId());
+      const callback = rdbService.buildFromRequestUUIDAndAwait.calls.argsFor(0)[1];
+      callback();
+
       expect(objectCache.getByHref).toHaveBeenCalledWith(GroupMock._links.self.href);
       expect(requestService.setStaleByUUID).toHaveBeenCalledTimes(2);
       expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request1');
@@ -180,6 +191,11 @@ describe('GroupDataService', () => {
       expect(requestService.send).toHaveBeenCalledWith(expected);
     });
     it('should invalidate the previous requests of the EPerson and the group', () => {
+      expect(rdbService.buildFromRequestUUIDAndAwait).toHaveBeenCalled();
+      expect(rdbService.buildFromRequestUUIDAndAwait.calls.argsFor(0)[0]).toBe(requestService.generateRequestId());
+      const callback = rdbService.buildFromRequestUUIDAndAwait.calls.argsFor(0)[1];
+      callback();
+
       expect(objectCache.getByHref).toHaveBeenCalledWith(EPersonMock2._links.self.href);
       expect(objectCache.getByHref).toHaveBeenCalledWith(GroupMock._links.self.href);
       expect(requestService.setStaleByUUID).toHaveBeenCalledTimes(4);
@@ -201,6 +217,11 @@ describe('GroupDataService', () => {
       expect(requestService.send).toHaveBeenCalledWith(expected);
     });
     it('should invalidate the previous requests of the EPerson and the group', () => {
+      expect(rdbService.buildFromRequestUUIDAndAwait).toHaveBeenCalled();
+      expect(rdbService.buildFromRequestUUIDAndAwait.calls.argsFor(0)[0]).toBe(requestService.generateRequestId());
+      const callback = rdbService.buildFromRequestUUIDAndAwait.calls.argsFor(0)[1];
+      callback();
+
       expect(objectCache.getByHref).toHaveBeenCalledWith(EPersonMock._links.self.href);
       expect(objectCache.getByHref).toHaveBeenCalledWith(GroupMock._links.self.href);
       expect(requestService.setStaleByUUID).toHaveBeenCalledTimes(4);

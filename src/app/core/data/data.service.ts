@@ -649,35 +649,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     }
     this.requestService.send(request);
 
-    const response$ = this.rdbService.buildFromRequestUUID(requestId);
-
-    const invalidated$ = new AsyncSubject<boolean>();
-    response$.pipe(
-      getFirstCompletedRemoteData(),
-      switchMap((rd: RemoteData<NoContent>) => {
-        if (rd.hasSucceeded) {
-          return this.invalidateByHref(href);
-        } else {
-          return [true];
-        }
-      })
-    ).subscribe(() => {
-      invalidated$.next(true);
-      invalidated$.complete();
-    });
-
-    return response$.pipe(
-      switchMap((rd: RemoteData<NoContent>) => {
-        if (rd.hasSucceeded) {
-          return invalidated$.pipe(
-            filter((invalidated: boolean) => invalidated),
-            map(() => rd)
-          );
-        } else {
-          return [rd];
-        }
-      })
-    );
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => this.invalidateByHref(href));
   }
 
   /**

@@ -920,16 +920,16 @@ describe('DataService', () => {
     let MOCK_SUCCEEDED_RD;
     let MOCK_FAILED_RD;
 
-    let invalidateByHrefSpy: jasmine.Spy;
-    let buildFromRequestUUIDSpy: jasmine.Spy;
+    let buildFromRequestUUIDAndAwaitSpy: jasmine.Spy;
     let getIDHrefObsSpy: jasmine.Spy;
     let deleteByHrefSpy: jasmine.Spy;
+    let invalidateByHrefSpy: jasmine.Spy;
 
     beforeEach(() => {
-      invalidateByHrefSpy = spyOn(service, 'invalidateByHref').and.returnValue(observableOf(true));
-      buildFromRequestUUIDSpy = spyOn(rdbService, 'buildFromRequestUUID').and.callThrough();
+      buildFromRequestUUIDAndAwaitSpy = spyOn(rdbService, 'buildFromRequestUUIDAndAwait').and.callThrough();
       getIDHrefObsSpy = spyOn(service, 'getIDHrefObs').and.callThrough();
       deleteByHrefSpy = spyOn(service, 'deleteByHref').and.callThrough();
+      invalidateByHrefSpy = spyOn(service, 'invalidateByHref').and.returnValue(observableOf(true));
 
       MOCK_SUCCEEDED_RD = createSuccessfulRemoteDataObject({});
       MOCK_FAILED_RD = createFailedRemoteDataObject('something went wrong');
@@ -937,7 +937,7 @@ describe('DataService', () => {
 
     it('should retrieve href by ID and call deleteByHref', () => {
       getIDHrefObsSpy.and.returnValue(observableOf('some-href'));
-      buildFromRequestUUIDSpy.and.returnValue(createSuccessfulRemoteDataObject$({}));
+      buildFromRequestUUIDAndAwaitSpy.and.returnValue(createSuccessfulRemoteDataObject$({}));
 
       service.delete('some-id', ['a', 'b', 'c']).subscribe(rd => {
         expect(getIDHrefObsSpy).toHaveBeenCalledWith('some-id');
@@ -946,65 +946,27 @@ describe('DataService', () => {
     });
 
     describe('deleteByHref', () => {
-      it('should call invalidateByHref if the DELETE request succeeds', (done) => {
-        buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
-
-        service.deleteByHref('some-href').subscribe(rd => {
-          expect(rd).toBe(MOCK_SUCCEEDED_RD);
-          expect(invalidateByHrefSpy).toHaveBeenCalled();
-          done();
-        });
+      beforeEach(() => {
+        buildFromRequestUUIDAndAwaitSpy.and.returnValue(createSuccessfulRemoteDataObject$({}));
       });
 
-      it('should call invalidateByHref even if not subscribing to returned Observable', fakeAsync(() => {
-        buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+      it('should send a DELETE request', () => {
+        service.deleteByHref('https://somewhere.org/something/123', ['things', 'stuff']);
 
-        service.deleteByHref('some-href');
-        tick();
-
-        expect(invalidateByHrefSpy).toHaveBeenCalled();
-      }));
-
-      it('should not call invalidateByHref if the DELETE request fails', (done) => {
-        buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_FAILED_RD));
-
-        service.deleteByHref('some-href').subscribe(rd => {
-          expect(rd).toBe(MOCK_FAILED_RD);
-          expect(invalidateByHrefSpy).not.toHaveBeenCalled();
-          done();
-        });
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
+          method: 'DELETE',
+          href: 'https://somewhere.org/something/123?copyVirtualMetadata=things&copyVirtualMetadata=stuff'
+        }));
       });
 
-      it('should wait for invalidateByHref before emitting', () => {
-        testScheduler.run(({ cold, expectObservable }) => {
-          buildFromRequestUUIDSpy.and.returnValue(
-            cold('(r|)', { r: MOCK_SUCCEEDED_RD})      // RD emits right away
-          );
-          invalidateByHrefSpy.and.returnValue(
-            cold('----(t|)', BOOLEAN)                  // but we pretend that setting requests to stale takes longer
-          );
+      it('should retrieve response via buildFromRequestUUIDAndAwait & invalidate within the callback', () => {
+        service.deleteByHref('https://somewhere.org/something/123');
 
-          const done$ = service.deleteByHref('some-href');
-          expectObservable(done$).toBe(
-            '----(r|)', { r: MOCK_SUCCEEDED_RD}        // ...and expect the returned Observable to wait until that's done
-          );
-        });
-      });
-
-      it('should wait for the DELETE request to resolve before emitting', () => {
-        testScheduler.run(({ cold, expectObservable }) => {
-          buildFromRequestUUIDSpy.and.returnValue(
-            cold('----(r|)', { r: MOCK_SUCCEEDED_RD})   // the request takes a while
-          );
-          invalidateByHrefSpy.and.returnValue(
-            cold('(t|)', BOOLEAN)                       // but we pretend that setting to stale happens sooner
-          );                                            // e.g.: maybe already stale before this call?
-
-          const done$ = service.deleteByHref('some-href');
-          expectObservable(done$).toBe(
-            '----(r|)', { r: MOCK_SUCCEEDED_RD}         // ...and expect the returned Observable to wait for the request
-          );
-        });
+        expect(buildFromRequestUUIDAndAwaitSpy).toHaveBeenCalled();
+        expect(buildFromRequestUUIDAndAwaitSpy.calls.argsFor(0)[0]).toBe(requestService.generateRequestId());
+        const callback = buildFromRequestUUIDAndAwaitSpy.calls.argsFor(0)[1];
+        callback();
+        expect(invalidateByHrefSpy).toHaveBeenCalledWith('https://somewhere.org/something/123');
       });
     });
   });

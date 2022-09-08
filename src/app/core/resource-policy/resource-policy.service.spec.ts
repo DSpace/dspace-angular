@@ -123,6 +123,9 @@ describe('ResourcePolicyService', () => {
       }),
       buildFromRequestUUID: hot('a|', {
         a: resourcePolicyRD
+      }),
+      buildFromRequestUUIDAndAwait: hot('a|', {
+        a: resourcePolicyRD
       })
     });
     ePersonService = jasmine.createSpyObj('ePersonService', {
@@ -346,6 +349,8 @@ describe('ResourcePolicyService', () => {
   });
 
   describe('updateTarget', () => {
+    let buildFromRequestUUIDAndAwaitSpy;
+
     beforeEach(() => {
       scheduler.schedule(() => service.create(resourcePolicy, resourceUUID, epersonUUID));
     });
@@ -362,40 +367,16 @@ describe('ResourcePolicyService', () => {
       }));
     });
 
-    it('should send a PUT request to update the Group', () => {
-      service.updateTarget(resourcePolicyId, requestURL, groupUUID, 'group');
-      scheduler.flush();
-
-      expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
-        method: RestRequestMethod.PUT,
-        uuid: requestUUID,
-        href: `${resourcePolicy._links.self.href}/group`,
-        body: 'https://rest.api/rest/api/eperson/groups/' + groupUUID,
-      }));
-    });
-
-    it('should invalidate the ResourcePolicy if the PUT request succeeds', () => {
+    it('should invalidate the ResourcePolicy', () => {
       service.updateTarget(resourcePolicyId, requestURL, epersonUUID, 'eperson');
       scheduler.flush();
 
+      expect(rdbService.buildFromRequestUUIDAndAwait).toHaveBeenCalled();
+      expect((rdbService.buildFromRequestUUIDAndAwait as jasmine.Spy).calls.argsFor(0)[0]).toBe(requestService.generateRequestId());
+      const callback = (rdbService.buildFromRequestUUIDAndAwait as jasmine.Spy).calls.argsFor(0)[1];
+      callback();
+
       expect((service as any).dataService.invalidateByHref).toHaveBeenCalledWith(resourcePolicy._links.self.href);
-    });
-
-    it('should only emit when invalidation is complete', () => {
-      const RD = {
-        p: createPendingRemoteDataObject(),
-        s: createSuccessfulRemoteDataObject({}),
-      };
-      const response$ = cold('(s|)', RD);
-      const invalidate$ = cold('--(d|)', { d: true });
-
-      (rdbService.buildFromRequestUUID as any).and.returnValue(response$);
-      ((service as any).dataService.invalidateByHref).and.returnValue(invalidate$);
-
-      const out$ = service.updateTarget(resourcePolicyId, requestURL, groupUUID, 'group');
-      scheduler.flush();
-
-      expect(out$).toBeObservable(cold('--(s|)', RD));
     });
   });
 
