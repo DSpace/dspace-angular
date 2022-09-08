@@ -484,7 +484,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
       this.requestService.send(request);
     });
 
-    return this.rdbService.buildFromRequestUUID(requestId);
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => this.invalidateByHref(object._links.self.href));
   }
 
   createPatchFromCache(object: T): Observable<Operation[]> {
