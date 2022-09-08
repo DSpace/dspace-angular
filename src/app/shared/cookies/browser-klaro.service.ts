@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 import { switchMap, take } from 'rxjs/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { KlaroService } from './klaro.service';
-import { hasValue, isNotEmpty } from '../empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
 import { CookieService } from '../../core/services/cookie.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { cloneDeep, debounce } from 'lodash';
@@ -75,10 +75,8 @@ export class BrowserKlaroService extends KlaroService {
     this.configService.findByPropertyName('registration.verification.enabled').pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((remoteData) => {
-      this.klaroConfig = klaroConfiguration;
-      // make sure we got a success response from the backend
-      if (!remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) || remoteData.payload.values[0].toLowerCase() !== 'true') {
-        this.removeGoogleRecaptcha();
+      if (!remoteData.hasSucceeded || isEmpty(remoteData.payload?.values) || remoteData.payload.values[0].toLowerCase() !== 'true') {
+        this.klaroConfig.services = klaroConfiguration.services.filter(config => config.name !== CAPTCHA_NAME);
       }
     });
     this.translateService.setDefaultLang(environment.defaultLanguage);
@@ -269,13 +267,6 @@ export class BrowserKlaroService extends KlaroService {
    */
   getStorageName(identifier: string) {
     return 'klaro-' + identifier;
-  }
-
-  /**
-   * remove the google recaptcha from the services
-   */
-  removeGoogleRecaptcha(): void {
-    this.klaroConfig.services = klaroConfiguration.services.filter(config => config.name !== CAPTCHA_NAME);
   }
 
 }
