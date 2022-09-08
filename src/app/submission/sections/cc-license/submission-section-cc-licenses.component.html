@@ -4,7 +4,7 @@
 
     <ng-container class="selection">
       <span *ngIf="!submissionCcLicenses">
-        <ds-loading></ds-loading>
+        <ds-themed-loading></ds-themed-loading>
       </span>
       <span *ngIf="getSelectedCcLicense()">
         {{ getSelectedCcLicense().name }}
@@ -121,7 +121,7 @@
 <ng-container *ngIf="getCcLicenseLink$()">
   <ng-container *ngVar="getCcLicenseLink$() | async as licenseLink">
     <div *ngIf="!licenseLink">
-      <ds-loading></ds-loading>
+      <ds-themed-loading></ds-themed-loading>
     </div>
     <div *ngIf="licenseLink"
          class="mt-2 p-4 bg-light text-dark">

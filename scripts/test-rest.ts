@@ -3,7 +3,7 @@ import * as https from 'https';
 
 import { AppConfig } from '../src/config/app-config.interface';
 import { buildAppConfig } from '../src/config/config.server';
- 
+
 const appConfig: AppConfig = buildAppConfig();
 
 /**

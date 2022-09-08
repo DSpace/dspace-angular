@@ -4,18 +4,18 @@ import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sid
 import { slide } from '../../../shared/animations/slide';
 import { CSSVariableService } from '../../../shared/sass-helper/sass-helper.service';
 import { bgColor } from '../../../shared/animations/bgColor';
-import { MenuID } from '../../../shared/menu/initial-menus-state';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { combineLatest as combineLatestObservable, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
+import { MenuID } from '../../../shared/menu/menu-id.model';
 import { Router } from '@angular/router';
 
 /**
  * Represents a expandable section in the sidebar
  */
 @Component({
-  /* tslint:disable:component-selector */
+  /* eslint-disable @angular-eslint/component-selector */
   selector: 'li[ds-expandable-admin-sidebar-section]',
   templateUrl: './expandable-admin-sidebar-section.component.html',
   styleUrls: ['./expandable-admin-sidebar-section.component.scss'],

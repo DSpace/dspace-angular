@@ -128,6 +128,8 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
       'context',
       'viewMode',
       'value',
+      'hideBadges',
+      'contentChange',
     ];
 
   constructor(

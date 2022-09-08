@@ -18,6 +18,8 @@ import { BrowseByDataType, rendersBrowseBy } from '../browse-by-switcher/browse-
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 
+export const BBM_PAGINATION_ID = 'bbm';
+
 @Component({
   selector: 'ds-browse-by-metadata-page',
   styleUrls: ['./browse-by-metadata-page.component.scss'],
@@ -50,7 +52,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
    * The pagination config used to display the values
    */
   paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'bbm',
+    id: BBM_PAGINATION_ID,
     currentPage: 1,
     pageSize: 20
   });
@@ -127,10 +129,10 @@ export class BrowseByMetadataPageComponent implements OnInit {
           return [Object.assign({}, routeParams, queryParams),currentPage,currentSort];
         })
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
-          this.browseId = params.id || this.defaultBrowseId;
+          this.browseId = params.id || this.defaultBrowseId;
           this.authority = params.authority;
-          this.value = +params.value || params.value || '';
-          this.startsWith = +params.startsWith || params.startsWith;
+          this.value = +params.value || params.value || '';
+          this.startsWith = +params.startsWith || params.startsWith;
           const searchOptions = browseParamsToOptions(params, currentPage, currentSort, this.browseId);
           if (isNotEmpty(this.value)) {
             this.updatePageWithItems(searchOptions, this.value, this.authority);

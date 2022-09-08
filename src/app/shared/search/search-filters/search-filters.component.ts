@@ -93,7 +93,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   }
 
   initFilters() {
-    this.filters = this.searchService.getConfig(this.currentScope, this.currentConfiguration).pipe(
+    this.filters = this.searchConfigService.getConfig(this.currentScope, this.currentConfiguration).pipe(
       getFirstSucceededRemoteData()
     );
   }

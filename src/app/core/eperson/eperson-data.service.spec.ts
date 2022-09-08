@@ -12,9 +12,8 @@ import {
   EPeopleRegistryEditEPersonAction
 } from '../../access-control/epeople-registry/epeople-registry.actions';
 import { RequestParam } from '../cache/models/request-param.model';
-import { CoreState } from '../core.reducers';
 import { ChangeAnalyzer } from '../data/change-analyzer';
-import { DeleteRequest, FindListOptions, PatchRequest, PostRequest } from '../data/request.models';
+import { DeleteRequest, PatchRequest, PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
@@ -22,11 +21,13 @@ import { EPersonDataService } from './eperson-data.service';
 import { EPerson } from './models/eperson.model';
 import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { createPaginatedList, createRequestEntry$ } from '../../shared/testing/utils.test';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from '../data/find-list-options.model';
 
 describe('EPersonDataService', () => {
   let service: EPersonDataService;
@@ -286,13 +287,12 @@ describe('EPersonDataService', () => {
 
   describe('deleteEPerson', () => {
     beforeEach(() => {
-      spyOn(service, 'findById').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMock));
+      spyOn(service, 'delete').and.returnValue(createNoContentRemoteDataObject$());
       service.deleteEPerson(EPersonMock).subscribe();
     });
 
-    it('should send DeleteRequest', () => {
-      const expected = new DeleteRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid);
-      expect(requestService.send).toHaveBeenCalledWith(expected);
+    it('should call DataService.delete with the EPerson\'s UUID', () => {
+      expect(service.delete).toHaveBeenCalledWith(EPersonMock.id);
     });
   });
 

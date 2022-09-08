@@ -63,6 +63,12 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
   @Input() public resourceType: string;
 
   /**
+   * The resource name
+   * @type {string}
+   */
+  @Input() public resourceName: string;
+
+  /**
    * A boolean representing if component is active
    * @type {boolean}
    */
@@ -157,7 +163,6 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
         } else {
           this.notificationsService.error(null, this.translate.get('resource-policies.delete.failure.content'));
         }
-        this.requestService.setStaleByHrefSubstring(this.resourceUUID);
         this.processingDelete$.next(false);
       })
     );
