@@ -1,22 +1,22 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as Klaro from 'klaro';
-import {combineLatest as observableCombineLatest, Observable, of as observableOf} from 'rxjs';
-import {AuthService} from '../../core/auth/auth.service';
-import {TranslateService} from '@ngx-translate/core';
-import {environment} from '../../../environments/environment';
-import {map, switchMap, take} from 'rxjs/operators';
-import {EPerson} from '../../core/eperson/models/eperson.model';
-import {KlaroService} from './klaro.service';
-import {hasValue, isEmpty, isNotEmpty} from '../empty.util';
-import {CookieService} from '../../core/services/cookie.service';
-import {EPersonDataService} from '../../core/eperson/eperson-data.service';
-import {cloneDeep, debounce} from 'lodash';
-import {ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration} from './klaro-configuration';
-import {Operation} from 'fast-json-patch';
-import {getFirstCompletedRemoteData} from '../../core/shared/operators';
-import {ConfigurationDataService} from '../../core/data/configuration-data.service';
-import {RemoteData} from "../../core/data/remote-data";
-import {ConfigurationProperty} from "../../core/shared/configuration-property.model";
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import { AuthService } from '../../core/auth/auth.service';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../../../environments/environment';
+import { map, switchMap, take } from 'rxjs/operators';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { KlaroService } from './klaro.service';
+import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
+import { CookieService } from '../../core/services/cookie.service';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { cloneDeep, debounce } from 'lodash';
+import { ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration } from './klaro-configuration';
+import { Operation } from 'fast-json-patch';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 
 /**
  * Metadata field to store a user's cookie consent preferences in
@@ -125,7 +125,7 @@ export class BrowserKlaroService extends KlaroService {
     configurationName: string
   ): Pick<typeof klaroConfiguration, 'name'>[] {
     if (this.isEmptyOrInvalid(remoteData)) {
-      return [{name: configurationName}]
+      return [{name: configurationName}];
     } else {
       return [];
     }
