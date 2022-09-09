@@ -13,10 +13,15 @@ import { NativeWindowRef, NativeWindowService } from 'src/app/core/services/wind
 export class GoogleRecaptchaComponent implements OnInit {
 
   @Input() captchaMode: string;
+
   /**
    * An EventEmitter that's fired whenever the form is being submitted
    */
   @Output() executeRecaptcha: EventEmitter<any> = new EventEmitter();
+
+  @Output() checkboxChecked: EventEmitter<any> = new EventEmitter();
+
+  @Output() showNotification: EventEmitter<any> = new EventEmitter();
 
   recaptchaKey$: Observable<any>;
 
@@ -34,12 +39,27 @@ export class GoogleRecaptchaComponent implements OnInit {
       getFirstSucceededRemoteDataPayload(),
     );
     if (this.captchaMode === 'invisible') {
-      this._window.nativeWindow.executeRecaptcha = this.execute;
+      this._window.nativeWindow.executeRecaptchaCallback = this.executeRecaptchaFcn;
     }
+    if (this.captchaMode === 'checkbox') {
+      this._window.nativeWindow.checkboxCheckedCallback = this.checkboxCheckedFcn;
+    }
+    this._window.nativeWindow.expiredCallback = this.notificationFcn('expired');
+    this._window.nativeWindow.errorCallback = this.notificationFcn('error');
   }
 
-  execute = (event) => {
+  executeRecaptchaFcn = (event) => {
     this.executeRecaptcha.emit(event);
   };
+
+  checkboxCheckedFcn = (event) => {
+    this.checkboxChecked.emit(event); // todo fix con boolean
+  };
+
+  notificationFcn(key) {
+    return () => {
+      this.showNotification.emit(key);
+    };
+  }
 
 }

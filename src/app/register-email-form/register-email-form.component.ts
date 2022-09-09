@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Optional } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, Optional } from '@angular/core';
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,7 +10,7 @@ import { ConfigurationDataService } from '../core/data/configuration-data.servic
 import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { isNotEmpty } from '../shared/empty.util';
-import { combineLatest, Observable, of, switchMap } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of, switchMap } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 import { CAPTCHA_NAME, GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptcha.service';
 import { AlertType } from '../shared/alert/aletr-type';
@@ -44,6 +44,11 @@ export class RegisterEmailFormComponent implements OnInit {
    */
   registrationVerification = false;
 
+  /**
+   * Return true if the user completed the reCaptcha verification (checkbox mode)
+   */
+  checkboxCheckedSubject$ = new BehaviorSubject<boolean>(false);
+
   captchaVersion(): Observable<string> {
     return this.googleRecaptchaService.captchaVersion();
   }
@@ -62,6 +67,8 @@ export class RegisterEmailFormComponent implements OnInit {
     public googleRecaptchaService: GoogleRecaptchaService,
     public cookieService: CookieService,
     @Optional() public klaroService: KlaroService,
+    private changeDetectorRef: ChangeDetectorRef,
+    private notificationsService: NotificationsService,
   ) {
 
   }
@@ -99,10 +106,13 @@ export class RegisterEmailFormComponent implements OnInit {
           switchMap(([captchaVersion, captchaMode])  => {
             if (captchaVersion === 'v3') {
               return this.googleRecaptchaService.getRecaptchaToken('register_email');
-            } else if (captchaMode === 'checkbox') {
+            } else if (captchaVersion === 'v2' && captchaMode === 'checkbox') {
               return this.googleRecaptchaService.getRecaptchaTokenResponse();
-            } else {
+            } else if (captchaVersion === 'v2' && captchaMode === 'invisible') {
               return of(tokenV2);
+            } else {
+              console.error(`Invalid reCaptcha configuration: version = ${captchaVersion}, mode = ${captchaMode}`);
+              this.showNotification('error');
             }
           }),
           take(1),
@@ -110,8 +120,8 @@ export class RegisterEmailFormComponent implements OnInit {
             if (isNotEmpty(token)) {
               this.registration(token);
             } else {
-              this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`),
-                this.translateService.get(`${this.MESSAGE_PREFIX}.error.recaptcha`));
+              console.error('reCaptcha error');
+              this.showNotification('error');
             }
           }
         );
@@ -140,28 +150,58 @@ export class RegisterEmailFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Return true if the user has accepted the required cookies for reCaptcha
+   */
   isRecaptchaCookieAccepted(): boolean {
     const klaroAnonymousCookie = this.cookieService.get('klaro-anonymous');
     return isNotEmpty(klaroAnonymousCookie) ? klaroAnonymousCookie[CAPTCHA_NAME] : false;
   }
 
-  disableRegisterButton(): Observable<boolean> {
+  /**
+   * Return true if the user completed the reCaptcha verification (checkbox mode)
+   */
+  isCheckboxChecked(): Observable<boolean> {
     return combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
       switchMap(([captchaVersion, captchaMode])  => {
         if (captchaVersion === 'v2' && captchaMode === 'checkbox') {
-// this.googleRecaptchaService.getRecaptchaTokenResponse()
-          return of(false);
-          // TODO disable if captcha unchecked
+          return this.checkboxCheckedSubject$.asObservable();
         } else {
-          return of(false);
+          return of(true);
         }
       }),
-      tap(console.log)
+      tap(console.log),
+      tap(() => { this.changeDetectorRef.markForCheck(); })
     );
   }
 
   get email() {
     return this.form.get('email');
+  }
+
+  onCheckboxChecked($event) {
+    if (isNotEmpty($event)) {
+      this.checkboxCheckedSubject$.next(true);
+    }
+  }
+
+  /**
+   * Show a notification to the user
+   * @param key
+   */
+  showNotification(key) {
+    const notificationTitle = this.translateService.get(this.MESSAGE_PREFIX + '.google-recaptcha.notification.title');
+    const notificationErrorMsg = this.translateService.get(this.MESSAGE_PREFIX + '.google-recaptcha.notification.message.error');
+    const notificationExpiredMsg = this.translateService.get(this.MESSAGE_PREFIX + '.google-recaptcha.notification.message.expired');
+    switch (key) {
+      case 'expired':
+        this.notificationsService.warning(notificationTitle, notificationExpiredMsg);
+        break;
+      case 'error':
+        this.notificationsService.error(notificationTitle, notificationErrorMsg);
+        break;
+      default:
+    }
   }
 
 }
