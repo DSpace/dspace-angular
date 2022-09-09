@@ -50,7 +50,6 @@ export class GoogleRecaptchaComponent implements OnInit {
         this.executeRecaptcha.emit($event);
         break;
       case 'checkbox':
-        console.log('CB ' + isNotEmpty($event));
         this.checkboxChecked.emit(isNotEmpty($event)); // todo fix con boolean
         break;
       default:

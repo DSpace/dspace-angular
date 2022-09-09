@@ -11,7 +11,7 @@ import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { isNotEmpty } from '../shared/empty.util';
 import { BehaviorSubject, combineLatest, Observable, of, switchMap } from 'rxjs';
-import { map, startWith, take, tap } from 'rxjs/operators';
+import { map, startWith, take } from 'rxjs/operators';
 import { CAPTCHA_NAME, GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptcha.service';
 import { AlertType } from '../shared/alert/aletr-type';
 import { KlaroService } from '../shared/cookies/klaro.service';
@@ -48,6 +48,8 @@ export class RegisterEmailFormComponent implements OnInit {
    * Return true if the user completed the reCaptcha verification (checkbox mode)
    */
   checkboxCheckedSubject$ = new BehaviorSubject<boolean>(false);
+
+  disableUntilChecked = true;
 
   captchaVersion(): Observable<string> {
     return this.googleRecaptchaService.captchaVersion();
@@ -87,6 +89,12 @@ export class RegisterEmailFormComponent implements OnInit {
     ).subscribe((res: boolean) => {
       this.registrationVerification = res;
     });
+
+    this.disableUntilCheckedFcn().subscribe((res) => {
+      this.disableUntilChecked = res;
+      this.changeDetectorRef.detectChanges();
+    });
+
   }
 
   /**
@@ -161,16 +169,12 @@ export class RegisterEmailFormComponent implements OnInit {
   /**
    * Return true if the user has not completed the reCaptcha verification (checkbox mode)
    */
-  disableUntilChecked(): Observable<boolean> {
+  disableUntilCheckedFcn(): Observable<boolean> {
     const checked$ = this.checkboxCheckedSubject$.asObservable();
     return combineLatest([this.captchaVersion(), this.captchaMode(), checked$]).pipe(
       // disable if checkbox is not checked or if reCaptcha is not in v2 checkbox mode
       switchMap(([captchaVersion, captchaMode, checked])  => captchaVersion === 'v2' && captchaMode === 'checkbox' ? of(!checked) : of(false)),
       startWith(true),
-      tap((res) => {
-        console.log('DISABLED = ' + res);
-      }), // TODO remove
-      // tap(() => { this.changeDetectorRef.markForCheck(); }),
     );
   }
 

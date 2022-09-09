@@ -28,7 +28,6 @@
             </div>
 
         </div>
-    </form>
 
     <ds-alert [type]="AlertTypeEnum.Warning" *ngIf="!isRecaptchaCookieAccepted()">
       <p class="m-0" [innerHTML]="MESSAGE_PREFIX + '.google-recaptcha.must-accept-cookies' | translate"></p>
@@ -42,10 +41,9 @@
     </div>
 
     <ng-container *ngIf="!((googleRecaptchaService.captchaVersion() | async) === 'v2' && (googleRecaptchaService.captchaMode() | async) === 'invisible'); else v2Invisible">
-      <button class="btn btn-primary" [disabled]="form.invalid || (disableUntilChecked() | async)" (click)="register()">
+      <button class="btn btn-primary" [disabled]="form.invalid || disableUntilChecked" (click)="register()">
         {{ MESSAGE_PREFIX + '.submit' | translate }}
       </button>
-      invalid = {{form.invalid}}, disableUntilChecked = {{disableUntilChecked() | async}}
     </ng-container>
 
     <ng-template #v2Invisible>
@@ -53,5 +51,7 @@
         {{ MESSAGE_PREFIX + '.submit' | translate }}
       </button>
     </ng-template>
+    </form>
+
 
 </div>
