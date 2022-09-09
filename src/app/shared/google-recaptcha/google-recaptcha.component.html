@@ -1,5 +1,5 @@
 <div class="g-recaptcha"
-     [attr.data-callback]="captchaMode === 'invisible' ? 'executeRecaptchaCallback' : 'checkboxCheckedCallback'"
+     [attr.data-callback]="'dataCallback'"
      [attr.data-expired-callback]="'expiredCallback'"
      [attr.data-error-callback]="'errorCallback'"
      [attr.data-sitekey]="(recaptchaKey$ | async)?.values[0]"

@@ -4,6 +4,7 @@ import { ConfigurationDataService } from '../../core/data/configuration-data.ser
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { Observable } from 'rxjs';
 import { NativeWindowRef, NativeWindowService } from 'src/app/core/services/window.service';
+import { isNotEmpty } from '../empty.util';
 
 @Component({
   selector: 'ds-google-recaptcha',
@@ -38,22 +39,24 @@ export class GoogleRecaptchaComponent implements OnInit {
     this.recaptchaKey$ = this.configService.findByPropertyName('google.recaptcha.key.site').pipe(
       getFirstSucceededRemoteDataPayload(),
     );
-    if (this.captchaMode === 'invisible') {
-      this._window.nativeWindow.executeRecaptchaCallback = this.executeRecaptchaFcn;
-    }
-    if (this.captchaMode === 'checkbox') {
-      this._window.nativeWindow.checkboxCheckedCallback = this.checkboxCheckedFcn;
-    }
+    this._window.nativeWindow.dataCallback = this.dataCallbackFcn;
     this._window.nativeWindow.expiredCallback = this.notificationFcn('expired');
     this._window.nativeWindow.errorCallback = this.notificationFcn('error');
   }
 
-  executeRecaptchaFcn = (event) => {
-    this.executeRecaptcha.emit(event);
-  };
-
-  checkboxCheckedFcn = (event) => {
-    this.checkboxChecked.emit(event); // todo fix con boolean
+  dataCallbackFcn = ($event) => {
+    switch (this.captchaMode) {
+      case 'invisible':
+        this.executeRecaptcha.emit($event);
+        break;
+      case 'checkbox':
+        console.log('CB ' + isNotEmpty($event));
+        this.checkboxChecked.emit(isNotEmpty($event)); // todo fix con boolean
+        break;
+      default:
+        console.error(`Invalid reCaptcha mode '${this.captchaMode}`);
+        this.showNotification.emit('error');
+    }
   };
 
   notificationFcn(key) {

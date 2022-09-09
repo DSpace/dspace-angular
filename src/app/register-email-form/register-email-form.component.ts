@@ -11,7 +11,7 @@ import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { isNotEmpty } from '../shared/empty.util';
 import { BehaviorSubject, combineLatest, Observable, of, switchMap } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
+import { map, startWith, take, tap } from 'rxjs/operators';
 import { CAPTCHA_NAME, GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptcha.service';
 import { AlertType } from '../shared/alert/aletr-type';
 import { KlaroService } from '../shared/cookies/klaro.service';
@@ -159,19 +159,18 @@ export class RegisterEmailFormComponent implements OnInit {
   }
 
   /**
-   * Return true if the user completed the reCaptcha verification (checkbox mode)
+   * Return true if the user has not completed the reCaptcha verification (checkbox mode)
    */
-  isCheckboxChecked(): Observable<boolean> {
-    return combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
-      switchMap(([captchaVersion, captchaMode])  => {
-        if (captchaVersion === 'v2' && captchaMode === 'checkbox') {
-          return this.checkboxCheckedSubject$.asObservable();
-        } else {
-          return of(true);
-        }
-      }),
-      tap(console.log),
-      tap(() => { this.changeDetectorRef.markForCheck(); })
+  disableUntilChecked(): Observable<boolean> {
+    const checked$ = this.checkboxCheckedSubject$.asObservable();
+    return combineLatest([this.captchaVersion(), this.captchaMode(), checked$]).pipe(
+      // disable if checkbox is not checked or if reCaptcha is not in v2 checkbox mode
+      switchMap(([captchaVersion, captchaMode, checked])  => captchaVersion === 'v2' && captchaMode === 'checkbox' ? of(!checked) : of(false)),
+      startWith(true),
+      tap((res) => {
+        console.log('DISABLED = ' + res);
+      }), // TODO remove
+      // tap(() => { this.changeDetectorRef.markForCheck(); }),
     );
   }
 
@@ -179,10 +178,8 @@ export class RegisterEmailFormComponent implements OnInit {
     return this.form.get('email');
   }
 
-  onCheckboxChecked($event) {
-    if (isNotEmpty($event)) {
-      this.checkboxCheckedSubject$.next(true);
-    }
+  onCheckboxChecked(checked: boolean) {
+    this.checkboxCheckedSubject$.next(checked);
   }
 
   /**
@@ -201,6 +198,7 @@ export class RegisterEmailFormComponent implements OnInit {
         this.notificationsService.error(notificationTitle, notificationErrorMsg);
         break;
       default:
+        console.warn(`Unimplemented notification '${key}' from reCaptcha service`);
     }
   }
 
