@@ -24,7 +24,7 @@ export class CollectionSearchResultListElementComponent extends SearchResultList
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.showThumbnails = environment.showItemThumbnails;
+    this.showThumbnails = environment.browseBy.showItemThumbnails;
   }
 
 }

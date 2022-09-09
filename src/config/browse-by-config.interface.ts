@@ -18,4 +18,9 @@ export interface BrowseByConfig extends Config {
    * The absolute lowest year to display in the dropdown when no lowest date can be found for all items
    */
   defaultLowerLimit: number;
+
+  /**
+   *  If true, thumbnail images for items will be added to search and browse result lists.
+   */
+  showItemThumbnails: boolean;
 }

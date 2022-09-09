@@ -123,7 +123,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
                      protected router: Router) {
-    this.embedThumbnail = environment.showItemThumbnails;
+    this.embedThumbnail = environment.browseBy.showItemThumbnails;
   }
 
   ngOnInit(): void {

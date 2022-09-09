@@ -31,7 +31,6 @@ interface AppConfig extends Config {
   defaultLanguage: string;
   languages: LangConfig[];
   browseBy: BrowseByConfig;
-  showItemThumbnails: boolean;
   item: ItemConfig;
   collection: CollectionPageConfig;
   themes: ThemeConfig[];

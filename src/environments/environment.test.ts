@@ -199,8 +199,10 @@ export const environment: BuildConfig = {
     fiveYearLimit: 30,
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
     defaultLowerLimit: 1900,
+    // Whether to add item thumbnail images to browse and search result lists.
+    showItemThumbnails: true
   },
-  showItemThumbnails: false,
+
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds

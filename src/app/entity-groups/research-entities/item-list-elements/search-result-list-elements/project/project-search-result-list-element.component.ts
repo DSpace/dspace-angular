@@ -22,7 +22,7 @@ export class ProjectSearchResultListElementComponent extends ItemSearchResultLis
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.showThumbnails = environment.showItemThumbnails;
+    this.showThumbnails = environment.browseBy.showItemThumbnails;
   }
 
 }
