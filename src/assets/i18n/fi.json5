@@ -3274,7 +3274,7 @@
   "mydspace.status.workspace": "Työtila",
 
   // "mydspace.title": "MyDSpace",
-  "mydspace.title": "Omat tiedot",
+  "mydspace.title": "Oma DSpace",
 
   // "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
   "mydspace.upload.upload-failed": "Virhe uutta työtilaa luotaessa. Tarkista ladattava sisältö ennen kuin yrität uudelleen.",
