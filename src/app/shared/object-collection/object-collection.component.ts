@@ -243,11 +243,11 @@ export class ObjectCollectionComponent implements OnInit {
   setPlaceHolderFontSize() {
     const width = this.elementRef.nativeElement.offsetWidth;
     if (width < 750) {
-      this.placeholderFontClass = "thumb-font-1";
+      this.placeholderFontClass = 'thumb-font-1';
     } else if (width < 1000) {
-      this.placeholderFontClass = "thumb-font-2";
+      this.placeholderFontClass = 'thumb-font-2';
     } else {
-      this.placeholderFontClass = "thumb-font-3";
+      this.placeholderFontClass = 'thumb-font-3';
     }
   }
 

@@ -25,6 +25,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.util
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { environment } from '../../../environments/environment';
 
 describe('BrowseByMetadataPageComponent', () => {
   let comp: BrowseByMetadataPageComponent;
@@ -104,6 +105,7 @@ describe('BrowseByMetadataPageComponent', () => {
   }));
 
   beforeEach(() => {
+    environment.browseBy.showItemThumbnails = true;
     fixture = TestBed.createComponent(BrowseByMetadataPageComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
@@ -116,6 +118,10 @@ describe('BrowseByMetadataPageComponent', () => {
 
   it('should not fetch any items when no value is provided', () => {
     expect(comp.items$).toBeUndefined();
+  });
+
+  it('should set embed thumbnail property to true', () => {
+    expect(comp.embedThumbnail).toBeTrue();
   });
 
   describe('when a value is provided', () => {
@@ -152,7 +158,7 @@ describe('BrowseByMetadataPageComponent', () => {
         field: 'fake-field',
       };
 
-      result = browseParamsToOptions(paramsScope, paginationOptions, sortOptions, 'author');
+      result = browseParamsToOptions(paramsScope, paginationOptions, sortOptions, 'author', comp.embedThumbnail);
     });
 
     it('should return BrowseEntrySearchOptions with the correct properties', () => {
@@ -163,6 +169,7 @@ describe('BrowseByMetadataPageComponent', () => {
       expect(result.sort.direction).toEqual(SortDirection.ASC);
       expect(result.sort.field).toEqual('fake-field');
       expect(result.scope).toEqual('fake-scope');
+      expect(result.embedThumbnail).toBeTrue();
     });
   });
 });

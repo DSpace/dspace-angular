@@ -9,6 +9,7 @@ import { TruncatableService } from '../../../../../shared/truncatable/truncatabl
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { environment } from '../../../../../../environments/environment';
 
 let journalListElementComponent: JournalSearchResultListElementComponent;
 let fixture: ComponentFixture<JournalSearchResultListElementComponent>;
@@ -68,10 +69,26 @@ describe('JournalSearchResultListElementComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
+    environment.browseBy.showItemThumbnails = true;
     fixture = TestBed.createComponent(JournalSearchResultListElementComponent);
     journalListElementComponent = fixture.componentInstance;
 
   }));
+
+  describe('with environment.browseBy.showItemThumbnails set to true', () => {
+    beforeEach(() => {
+      journalListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+    it('should set showThumbnails to true', () => {
+      expect(journalListElementComponent.showThumbnails).toBeTrue();
+    });
+
+    it('should add thumbnail element', () => {
+      const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
+      expect(thumbnailElement).toBeTruthy();
+    });
+  });
 
   describe('When the item has an issn', () => {
     beforeEach(() => {
@@ -94,6 +111,42 @@ describe('JournalSearchResultListElementComponent', () => {
     it('should not show the journals span', () => {
       const issnField = fixture.debugElement.query(By.css('span.item-list-journals'));
       expect(issnField).toBeNull();
+    });
+  });
+});
+
+describe('JournalSearchResultListElementComponent', () => {
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [JournalSearchResultListElementComponent, TruncatePipe],
+      providers: [
+        {provide: TruncatableService, useValue: {}},
+        {provide: DSONameService, useClass: DSONameServiceMock}
+      ],
+
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(JournalSearchResultListElementComponent, {
+      set: {changeDetection: ChangeDetectionStrategy.Default}
+    }).compileComponents();
+  }));
+
+  beforeEach(waitForAsync(() => {
+    environment.browseBy.showItemThumbnails = false;
+    fixture = TestBed.createComponent(JournalSearchResultListElementComponent);
+    journalListElementComponent = fixture.componentInstance;
+  }));
+
+  describe('with environment.browseBy.showItemThumbnails set to false', () => {
+    beforeEach(() => {
+
+      journalListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should not add thumbnail element', () => {
+      const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
+      expect(thumbnailElement).toBeFalsy();
     });
   });
 });
