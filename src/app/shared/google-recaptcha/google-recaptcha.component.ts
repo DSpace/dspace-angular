@@ -40,8 +40,8 @@ export class GoogleRecaptchaComponent implements OnInit {
       getFirstSucceededRemoteDataPayload(),
     );
     this._window.nativeWindow.dataCallback = this.dataCallbackFcn;
-    this._window.nativeWindow.expiredCallback = this.notificationFcn('expired');
-    this._window.nativeWindow.errorCallback = this.notificationFcn('error');
+    this._window.nativeWindow.expiredCallback = this.expiredCallbackFcn;
+    this._window.nativeWindow.errorCallback = this.errorCallbackFcn;
   }
 
   dataCallbackFcn = ($event) => {
@@ -59,10 +59,13 @@ export class GoogleRecaptchaComponent implements OnInit {
     }
   };
 
-  notificationFcn(key) {
-    return () => {
-      this.showNotification.emit(key);
-    };
-  }
+  expiredCallbackFcn = () => {
+    this.checkboxChecked.emit(false);
+    this.showNotification.emit('expired');
+  };
+
+  errorCallbackFcn = () => {
+    this.showNotification.emit('error');
+  };
 
 }
