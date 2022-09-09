@@ -168,7 +168,7 @@ browseBy:
   fiveYearLimit: 30
   # The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
   defaultLowerLimit: 1900
-  # If true, thumbnail images for items will be added to search and browse result lists.
+  # If true, thumbnail images for items will be added to BOTH search and browse result lists.
   showItemThumbnails: true
 
 # Item Config

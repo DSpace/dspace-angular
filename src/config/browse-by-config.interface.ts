@@ -20,7 +20,7 @@ export interface BrowseByConfig extends Config {
   defaultLowerLimit: number;
 
   /**
-   *  If true, thumbnail images for items will be added to search and browse result lists.
+   *  If true, thumbnail images for items will be added to BOTH search and browse result lists.
    */
   showItemThumbnails: boolean;
 }
