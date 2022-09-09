@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { GoogleRecaptchaComponent } from '../../shared/google-recaptcha/google-recaptcha.component';
-import { SharedModule } from '../../shared/shared.module';
 
 import { GoogleRecaptchaService } from './google-recaptcha.service';
 
