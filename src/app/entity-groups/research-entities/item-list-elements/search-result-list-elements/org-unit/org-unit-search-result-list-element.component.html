@@ -1,10 +1,14 @@
 <div class="row">
   <div *ngIf="showThumbnails" class="col-md-2">
-    <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
-                  [defaultImage]="'assets/images/orgunit-placeholder.svg'"
-                  [alt]="'thumbnail.orgunit.alt'"
-                  [placeholder]="'thumbnail.orgunit.placeholder'">
-    </ds-thumbnail>
+    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
+       rel="noopener noreferrer"
+       [routerLink]="[itemPageRoute]" class="dont-break-out">
+      <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
+                    [defaultImage]="'assets/images/orgunit-placeholder.svg'"
+                    [alt]="'thumbnail.orgunit.alt'"
+                    [placeholder]="'thumbnail.orgunit.placeholder'">
+      </ds-thumbnail>
+    </a>
   </div>
   <div [ngClass]="showThumbnails ? 'col-md-10' : 'col-md-12'">
     <ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
