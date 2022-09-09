@@ -200,7 +200,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
    * Refresh categories when the date from is changed.
    */
   startDateChanged() {
-    if (typeof this.dateFrom === 'object' && this.dateFrom !== null && this.dateFrom !== undefined) {
+    if (typeof this.dateFrom === 'object' || this.dateFrom === null && this.dateFrom === undefined) {
       this.categories$ = this.getCategories$();
     }
   }
@@ -209,7 +209,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
    * Refresh categories when the date to is changed.
    */
   endDateChanged() {
-    if (typeof this.dateTo === 'object' && this.dateTo !== null && this.dateTo !== undefined) {
+    if (typeof this.dateTo === 'object' || this.dateTo === null || this.dateTo === undefined) {
       this.categories$ = this.getCategories$();
     }
   }
