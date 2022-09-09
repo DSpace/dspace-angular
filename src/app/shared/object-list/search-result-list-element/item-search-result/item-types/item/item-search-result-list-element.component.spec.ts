@@ -61,7 +61,7 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(new ItemSearchRe
 });
 
 
-describe('ItemListElementComponent', () => {
+describe('ItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ItemSearchResultListElementComponent, TruncatePipe],
@@ -207,7 +207,7 @@ describe('ItemListElementComponent', () => {
   });
 });
 
-describe('ItemListElementComponent', () => {
+describe('ItemSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
