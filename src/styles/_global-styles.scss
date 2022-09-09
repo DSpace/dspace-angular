@@ -138,3 +138,22 @@ ds-dynamic-form-control-container.d-none {
 .btn-dark {
   background-color: var(--ds-admin-sidebar-bg);
 }
+/* The font sizes used in "no thumbnail" placeholder */
+.thumb-font-1 {
+  .thumbnail-placeholder {
+    font-size: 0.7rem !important;
+    visibility: inherit;
+  }
+}
+.thumb-font-2 {
+  .thumbnail-placeholder {
+    font-size: 0.9rem !important;
+    visibility: inherit;
+  }
+}
+.thumb-font-3 {
+  .thumbnail-placeholder {
+    font-size: 1.25rem !important;
+    visibility: inherit;
+  }
+}

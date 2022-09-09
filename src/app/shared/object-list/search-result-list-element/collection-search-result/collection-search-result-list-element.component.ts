@@ -4,6 +4,7 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'ds-collection-search-result-list-element',
@@ -14,4 +15,16 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
  * Component representing a collection search result in list view
  */
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement)
-export class CollectionSearchResultListElementComponent extends SearchResultListElementComponent<CollectionSearchResult, Collection> {}
+export class CollectionSearchResultListElementComponent extends SearchResultListElementComponent<CollectionSearchResult, Collection> {
+
+  /**
+   * Display thumbnails if required by configuration
+   */
+  showThumbnails: boolean;
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    this.showThumbnails = environment.showItemThumbnails;
+  }
+
+}

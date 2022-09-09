@@ -4,6 +4,7 @@ import { Community } from '../../../../core/shared/community.model';
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'ds-community-search-result-list-element',
@@ -15,5 +16,14 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
  */
 @listableObjectComponent(CommunitySearchResult, ViewMode.ListElement)
 export class CommunitySearchResultListElementComponent extends SearchResultListElementComponent<CommunitySearchResult, Community> {
+  /**
+   * Display thumbnails if required by configuration
+   */
+  showThumbnails: boolean;
 
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    this.showThumbnails = environment.showItemThumbnails;
+  }
 }

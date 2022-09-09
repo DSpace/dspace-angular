@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component, ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
@@ -147,6 +154,12 @@ export class ObjectCollectionComponent implements OnInit {
    */
   viewModeEnum = ViewMode;
 
+  /**
+   * Placeholder class (defined in global-styles)
+   */
+  placeholderFontClass: string;
+
+
   ngOnInit(): void {
     this.currentMode$ = this.route
       .queryParams
@@ -154,6 +167,7 @@ export class ObjectCollectionComponent implements OnInit {
         map((params) => isEmpty(params?.view) ? ViewMode.ListElement : params.view),
         distinctUntilChanged()
       );
+    this.setPlaceHolderFontSize();
   }
 
   /**
@@ -167,7 +181,8 @@ export class ObjectCollectionComponent implements OnInit {
   constructor(
     private cdRef: ChangeDetectorRef,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private elementRef: ElementRef) {
   }
 
   /**
@@ -219,6 +234,21 @@ export class ObjectCollectionComponent implements OnInit {
   */
   goNext() {
       this.next.emit(true);
+  }
+
+  /**
+   * Sets the class to be used for the "no thumbnail"
+   * placeholder font size.
+   */
+  setPlaceHolderFontSize() {
+    const width = this.elementRef.nativeElement.offsetWidth;
+    if (width < 750) {
+      this.placeholderFontClass = "thumb-font-1";
+    } else if (width < 1000) {
+      this.placeholderFontClass = "thumb-font-2";
+    } else {
+      this.placeholderFontClass = "thumb-font-3";
+    }
   }
 
 }

@@ -8,6 +8,7 @@ import {
 } from '../../../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { environment } from '../../../../../../environments/environment';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement)
 @Component({
@@ -22,6 +23,16 @@ export class PersonSearchResultListElementComponent extends ItemSearchResultList
 
   public constructor(protected truncatableService: TruncatableService, protected dsoNameService: DSONameService) {
     super(truncatableService, dsoNameService);
+  }
+
+  /**
+   * Display thumbnail if required by configuration
+   */
+  showThumbnails: boolean;
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    this.showThumbnails = environment.showItemThumbnails;
   }
 
   /**
