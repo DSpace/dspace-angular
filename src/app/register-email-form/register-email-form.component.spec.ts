@@ -16,6 +16,8 @@ import { RegisterEmailFormComponent } from './register-email-form.component';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptcha.service';
+import { CookieService } from '../core/services/cookie.service';
+import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
 
 describe('RegisterEmailComponent', () => {
 
@@ -30,17 +32,18 @@ describe('RegisterEmailComponent', () => {
     findByPropertyName: jasmine.createSpy('findByPropertyName')
   });
 
-  const googleRecaptchaService = jasmine.createSpyObj('googleRecaptchaService', {
-    getRecaptchaToken: Promise.resolve('googleRecaptchaToken'),
-    executeRecaptcha: Promise.resolve('googleRecaptchaToken'),
-    getRecaptchaTokenResponse: Promise.resolve('googleRecaptchaToken')
-  });
-
   const captchaVersion$ = of('v3');
   const captchaMode$ = of('invisible');
   const confResponse$ = createSuccessfulRemoteDataObject$({ values: ['true'] });
   const confResponseDisabled$ = createSuccessfulRemoteDataObject$({ values: ['false'] });
 
+  const googleRecaptchaService = jasmine.createSpyObj('googleRecaptchaService', {
+    getRecaptchaToken: Promise.resolve('googleRecaptchaToken'),
+    executeRecaptcha: Promise.resolve('googleRecaptchaToken'),
+    getRecaptchaTokenResponse: Promise.resolve('googleRecaptchaToken'),
+    captchaVersion: captchaVersion$,
+    captchaMode: captchaMode$,
+  });
   beforeEach(waitForAsync(() => {
 
     router = new RouterStub();
@@ -59,6 +62,7 @@ describe('RegisterEmailComponent', () => {
         {provide: ConfigurationDataService, useValue: configurationDataService},
         {provide: FormBuilder, useValue: new FormBuilder()},
         {provide: NotificationsService, useValue: notificationsService},
+        {provide: CookieService, useValue: new CookieServiceMock()},
         {provide: GoogleRecaptchaService, useValue: googleRecaptchaService},
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
