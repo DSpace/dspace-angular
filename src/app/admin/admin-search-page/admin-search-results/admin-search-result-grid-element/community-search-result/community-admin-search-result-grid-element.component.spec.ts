@@ -22,6 +22,8 @@ import { FileService } from '../../../../../core/shared/file.service';
 import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 
 describe('CommunityAdminSearchResultGridElementComponent', () => {
   let component: CommunityAdminSearchResultGridElementComponent;
@@ -57,6 +59,7 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: FileService, useClass: FileServiceStub },
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
