@@ -4,7 +4,6 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'ds-collection-search-result-list-element',
@@ -24,7 +23,7 @@ export class CollectionSearchResultListElementComponent extends SearchResultList
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.showThumbnails = environment.browseBy.showItemThumbnails;
+    this.showThumbnails = this.appConfig.browseBy.showItemThumbnails;
   }
 
 }

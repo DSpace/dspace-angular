@@ -10,6 +10,8 @@ import { ItemListPreviewComponent } from './item-list-preview.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment';
 
 let component: ItemListPreviewComponent;
 let fixture: ComponentFixture<ItemListPreviewComponent>;
@@ -80,8 +82,8 @@ describe('ItemListPreviewComponent', () => {
       ],
       declarations: [ItemListPreviewComponent, TruncatePipe],
       providers: [
-        { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } }
-
+        { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate }},
+        { provide: APP_CONFIG, useValue: environment }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
   listableObjectComponent
 } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
@@ -9,6 +9,7 @@ import {
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { environment } from '../../../../../../environments/environment';
+import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement)
 @Component({
@@ -21,8 +22,10 @@ import { environment } from '../../../../../../environments/environment';
  */
 export class PersonSearchResultListElementComponent extends ItemSearchResultListElementComponent {
 
-  public constructor(protected truncatableService: TruncatableService, protected dsoNameService: DSONameService) {
-    super(truncatableService, dsoNameService);
+  public constructor(protected truncatableService: TruncatableService,
+                     protected dsoNameService: DSONameService,
+                     @Inject(APP_CONFIG) protected appConfig: AppConfig ) {
+    super(truncatableService, dsoNameService, appConfig);
   }
 
   /**
@@ -32,7 +35,7 @@ export class PersonSearchResultListElementComponent extends ItemSearchResultList
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.showThumbnails = environment.browseBy.showItemThumbnails;
+    this.showThumbnails = this.appConfig.browseBy.showItemThumbnails;
   }
 
   /**

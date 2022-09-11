@@ -4,7 +4,6 @@ import { Community } from '../../../../core/shared/community.model';
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'ds-community-search-result-list-element',
@@ -24,6 +23,6 @@ export class CommunitySearchResultListElementComponent extends SearchResultListE
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.showThumbnails = environment.browseBy.showItemThumbnails;
+    this.showThumbnails = this.appConfig.browseBy.showItemThumbnails;
   }
 }

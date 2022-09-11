@@ -10,6 +10,7 @@ import { ItemSearchResult } from '../../../../../object-collection/shared/item-s
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock, UNDEFINED_NAME } from '../../../../../mocks/dso-name.service.mock';
 import { environment } from '../../../../../../../environments/environment';
+import { APP_CONFIG } from '../../../../../../../config/app-config.interface';
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
@@ -67,7 +68,8 @@ describe('ItemSearchResultListElementComponent', () => {
       declarations: [ItemSearchResultListElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} },
-        { provide: DSONameService, useClass: DSONameServiceMock }
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environment }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -214,7 +216,8 @@ describe('ItemSearchResultListElementComponent', () => {
       declarations: [ItemSearchResultListElementComponent, TruncatePipe],
       providers: [
         {provide: TruncatableService, useValue: {}},
-        {provide: DSONameService, useClass: DSONameServiceMock}
+        {provide: DSONameService, useClass: DSONameServiceMock},
+        { provide: APP_CONFIG, useValue: environment }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
