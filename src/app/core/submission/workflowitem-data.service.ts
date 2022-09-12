@@ -108,21 +108,8 @@ export class WorkflowItemDataService extends IdentifiableDataService<WorkflowIte
   public findByItem(uuid: string, useCachedVersionIfAvailable = false, reRequestOnStale = true, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<WorkspaceItem>> {
     const findListOptions = new FindListOptions();
     findListOptions.searchParams = [new RequestParam('uuid', encodeURIComponent(uuid))];
-    const href$ = this.getSearchByHref(this.searchByItemLinkPath, findListOptions, ...linksToFollow);
+    const href$ = this.searchData.getSearchByHref(this.searchByItemLinkPath, findListOptions, ...linksToFollow);
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-  }
-
-  /**
-   * Create the HREF for a specific object's search method with given options object
-   *
-   * @param searchMethod The search method for the object
-   * @param options The [[FindListOptions]] object
-   * @return {Observable<string>}
-   *    Return an observable that emits created HREF
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
-   */
-  public getSearchByHref(searchMethod: string, options?: FindListOptions, ...linksToFollow): Observable<string> {
-    return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
   }
 
   /**

@@ -50,7 +50,7 @@ export interface PatchData<T extends CacheableObject> {
    * Return a list of operations representing the difference between an object and its latest value in the cache.
    * @param object  the object to resolve to a list of patch operations
    */
-  createPatchFromCache?(object: T): Observable<Operation[]>;
+  createPatchFromCache(object: T): Observable<Operation[]>;
 }
 
 /**

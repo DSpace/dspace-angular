@@ -23,7 +23,7 @@ import { IdentifiableDataService } from '../data/base/identifiable-data.service'
  * An abstract class that provides methods to handle task requests.  todo: data in name
  */
 export abstract class TasksService<T extends CacheableObject> extends IdentifiableDataService<T> implements SearchData<T> {
-  private searchData: SearchData<T>;
+  private searchData: SearchDataImpl<T>;
 
   protected constructor(
     protected linkPath: string,
@@ -119,7 +119,7 @@ export abstract class TasksService<T extends CacheableObject> extends Identifiab
    *   links to follow
    */
   public searchTask(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<T>> {
-    const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
+    const hrefObs = this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
     return hrefObs.pipe(
       find((href: string) => hasValue(href)),
       mergeMap((href) => this.findByHref(href, false, true).pipe(
@@ -159,19 +159,6 @@ export abstract class TasksService<T extends CacheableObject> extends Identifiab
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     options.headers = headers;
     return options;
-  }
-
-  /**
-   * Create the HREF for a specific object's search method with given options object
-   *
-   * @param searchMethod The search method for the object
-   * @param options The [[FindListOptions]] object
-   * @return {Observable<string>}
-   *    Return an observable that emits created HREF
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
-   */
-  public getSearchByHref(searchMethod: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<T>[]): Observable<string> {
-    return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
   }
 
   /**

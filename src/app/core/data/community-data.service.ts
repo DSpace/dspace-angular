@@ -36,13 +36,16 @@ export class CommunityDataService extends ComColDataService<Community> {
     super('communities', requestService, rdbService, objectCache, halService, comparator, notificationsService, bitstreamDataService);
   }
 
+  // this method is overridden in order to make it public
   getEndpoint() {
     return this.halService.getEndpoint(this.linkPath);
   }
 
   findTop(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Community>[]): Observable<RemoteData<PaginatedList<Community>>> {
-    const hrefObs = this.getFindAllHref(options, this.topLinkPath);
-    return this.findListByHref(hrefObs, undefined, true, true, ...linksToFollow);
+    return this.getEndpoint().pipe(
+      map(href => `${href}/search/top`),
+      switchMap(href => this.findListByHref(href, options, true, true, ...linksToFollow))
+    );
   }
 
   protected getFindByParentHref(parentUUID: string): Observable<string> {

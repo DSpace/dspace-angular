@@ -39,17 +39,6 @@ export interface FindAllData<T extends CacheableObject> {
    *    Return an observable that emits object list
    */
   findAll(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>>;
-
-  /**
-   * Create the HREF with given options object
-   *
-   * @param options The [[FindListOptions]] object
-   * @param linkPath The link path for the object
-   * @return {Observable<string>}
-   *    Return an observable that emits created HREF
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
-   */
-  getFindAllHref?(options: FindListOptions, linkPath?: string, ...linksToFollow: FollowLinkConfig<T>[]): Observable<string>;
 }
 
 /**

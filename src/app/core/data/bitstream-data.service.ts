@@ -33,6 +33,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { NoContent } from '../shared/NoContent.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { dataService } from './base/data-service.decorator';
+import { Operation } from 'fast-json-patch';
 
 /**
  * A service to retrieve {@link Bitstream}s from the REST API
@@ -242,6 +243,14 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
    */
   public update(object: Bitstream): Observable<RemoteData<Bitstream>> {
     return this.patchData.update(object);
+  }
+
+  /**
+   * Return a list of operations representing the difference between an object and its latest value in the cache.
+   * @param object  the object to resolve to a list of patch operations
+   */
+  public createPatchFromCache(object: Bitstream): Observable<Operation[]> {
+    return this.patchData.createPatchFromCache(object);
   }
 
   /**

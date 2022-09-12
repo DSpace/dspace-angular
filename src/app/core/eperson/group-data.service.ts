@@ -342,13 +342,9 @@ export class GroupDataService extends IdentifiableDataService<Group> {
     return this.createData.create(object, ...params);
   }
 
-  //
+
   searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Group>[]): Observable<RemoteData<PaginatedList<Group>>> {
     return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-  }
-
-  getSearchByHref(searchMethod: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Group>[]): Observable<string> {
-    return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
   }
 
   public createPatchFromCache(object: Group): Observable<Operation[]> {

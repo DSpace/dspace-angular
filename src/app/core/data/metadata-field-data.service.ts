@@ -166,19 +166,6 @@ export class MetadataFieldDataService extends IdentifiableDataService<MetadataFi
   }
 
   /**
-   * Create the HREF for a specific object's search method with given options object
-   *
-   * @param searchMethod The search method for the object
-   * @param options The [[FindListOptions]] object
-   * @return {Observable<string>}
-   *    Return an observable that emits created HREF
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
-   */
-  public getSearchByHref(searchMethod: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<MetadataField>[]): Observable<string> {
-    return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
-  }
-
-  /**
    * Make a new FindListRequest with given search method
    *
    * @param searchMethod                The search method for the object

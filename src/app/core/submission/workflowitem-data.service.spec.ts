@@ -118,7 +118,7 @@ describe('WorkflowItemDataService test', () => {
       service = initTestService();
 
       spyOn((service as any), 'findByHref').and.callThrough();
-      spyOn((service as any), 'getSearchByHref').and.returnValue(searchRequestURL$);
+      spyOn((service as any).searchData, 'getSearchByHref').and.returnValue(searchRequestURL$);
     });
 
     afterEach(() => {

@@ -17,6 +17,7 @@ import { RestRequestMethod } from './rest-request-method';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { dataService } from './base/data-service.decorator';
+import { Operation } from 'fast-json-patch';
 
 /**
  * Service responsible for handling requests related to the Version object
@@ -89,4 +90,13 @@ export class VersionDataService extends IdentifiableDataService<Version> impleme
   public commitUpdates(method?: RestRequestMethod): void {
     this.patchData.commitUpdates(method);
   }
+
+  /**
+   * Return a list of operations representing the difference between an object and its latest value in the cache.
+   * @param object  the object to resolve to a list of patch operations
+   */
+  public createPatchFromCache(object: Version): Observable<Operation[]> {
+    return this.patchData.createPatchFromCache(object);
+  }
+
 }

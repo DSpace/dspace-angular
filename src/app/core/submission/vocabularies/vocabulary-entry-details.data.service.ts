@@ -44,19 +44,6 @@ export class VocabularyEntryDetailsDataService extends IdentifiableDataService<V
   }
 
   /**
-   * Create the HREF with given options object
-   *
-   * @param options The [[FindListOptions]] object
-   * @param linkPath The link path for the object
-   * @return {Observable<string>}
-   *    Return an observable that emits created HREF
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
-   */
-  public getFindAllHref(options: FindListOptions, linkPath?: string, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<string> {
-    return this.findAllData.getFindAllHref(options, linkPath, ...linksToFollow);
-  }
-
-  /**
    * Returns {@link RemoteData} of all object with a list of {@link FollowLinkConfig}, to indicate which embedded
    * info should be added to the objects
    *
@@ -90,18 +77,5 @@ export class VocabularyEntryDetailsDataService extends IdentifiableDataService<V
    */
   public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
     return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-  }
-
-  /**
-   * Create the HREF for a specific object's search method with given options object
-   *
-   * @param searchMethod The search method for the object
-   * @param options The [[FindListOptions]] object
-   * @return {Observable<string>}
-   *    Return an observable that emits created HREF
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
-   */
-  public getSearchByHref(searchMethod: string, options?: FindListOptions, ...linksToFollow): Observable<string> {
-    return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
   }
 }

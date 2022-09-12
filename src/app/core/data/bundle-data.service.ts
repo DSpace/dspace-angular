@@ -167,4 +167,12 @@ export class BundleDataService extends IdentifiableDataService<Bundle> implement
   public update(object: Bundle): Observable<RemoteData<Bundle>> {
     return this.patchData.update(object);
   }
+
+  /**
+   * Return a list of operations representing the difference between an object and its latest value in the cache.
+   * @param object  the object to resolve to a list of patch operations
+   */
+  public createPatchFromCache(object: Bundle): Observable<Operation[]> {
+    return this.patchData.createPatchFromCache(object);
+  }
 }

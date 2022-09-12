@@ -28,6 +28,7 @@ import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { Operation } from 'fast-json-patch';
 
 export abstract class ComColDataService<T extends Community | Collection> extends IdentifiableDataService<T> implements CreateData<T>, FindAllData<T>, SearchData<T>, PatchData<T>, DeleteData<T> {
   private createData: CreateData<T>;
@@ -192,32 +193,6 @@ export abstract class ComColDataService<T extends Community | Collection> extend
   }
 
   /**
-   * Create the HREF with given options object
-   *
-   * @param options The [[FindListOptions]] object
-   * @param linkPath The link path for the object
-   * @return {Observable<string>}
-   *    Return an observable that emits created HREF
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
-   */
-  public getFindAllHref(options?: FindListOptions, linkPath?: string, ...linksToFollow: FollowLinkConfig<T>[]): Observable<string> {
-    return this.findAllData.getFindAllHref(options, linkPath, ...linksToFollow);
-  }
-
-  /**
-   * Create the HREF for a specific object's search method with given options object
-   *
-   * @param searchMethod The search method for the object
-   * @param options The [[FindListOptions]] object
-   * @return {Observable<string>}
-   *    Return an observable that emits created HREF
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
-   */
-  public getSearchByHref(searchMethod: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<T>[]): Observable<string> {
-    return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
-  }
-
-  /**
    * Make a new FindListRequest with given search method
    *
    * @param searchMethod                The search method for the object
@@ -259,6 +234,14 @@ export abstract class ComColDataService<T extends Community | Collection> extend
    */
   public update(object: T): Observable<RemoteData<T>> {
     return this.patchData.update(object);
+  }
+
+  /**
+   * Return a list of operations representing the difference between an object and its latest value in the cache.
+   * @param object  the object to resolve to a list of patch operations
+   */
+  public createPatchFromCache(object: T): Observable<Operation[]> {
+    return this.patchData.createPatchFromCache(object);
   }
 
   /**

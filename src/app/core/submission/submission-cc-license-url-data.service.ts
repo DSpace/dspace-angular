@@ -20,7 +20,7 @@ import { dataService } from '../data/base/data-service.decorator';
 @Injectable()
 @dataService(SUBMISSION_CC_LICENSE_URL)
 export class SubmissionCcLicenseUrlDataService extends BaseDataService<SubmissionCcLicenceUrl> implements SearchData<SubmissionCcLicenceUrl> {
-  private searchData: SearchData<SubmissionCcLicenceUrl>;
+  private searchData: SearchDataImpl<SubmissionCcLicenceUrl>;
 
   constructor(
     protected requestService: RequestService,
@@ -40,7 +40,7 @@ export class SubmissionCcLicenseUrlDataService extends BaseDataService<Submissio
    */
   getCcLicenseLink(ccLicense: SubmissionCcLicence, options: Map<Field, Option>): Observable<string> {
 
-    return this.getSearchByHref(
+    return this.searchData.getSearchByHref(
       'rightsByQuestions',{
         searchParams: [
           {
@@ -62,19 +62,6 @@ export class SubmissionCcLicenseUrlDataService extends BaseDataService<Submissio
       getRemoteDataPayload(),
       map((response) => response.url),
     );
-  }
-
-  /**
-   * Create the HREF for a specific object's search method with given options object
-   *
-   * @param searchMethod The search method for the object
-   * @param options The [[FindListOptions]] object
-   * @return {Observable<string>}
-   *    Return an observable that emits created HREF
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
-   */
-  public getSearchByHref(searchMethod: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<SubmissionCcLicenceUrl>[]): Observable<string> {
-    return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
   }
 
   /**

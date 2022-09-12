@@ -281,8 +281,10 @@ export class VocabularyService {
       pageInfo.elementsPerPage,
       pageInfo.currentPage
     );
-    return this.vocabularyEntryDetailDataService.getFindAllHref(options, linkPath).pipe(
-      mergeMap((href) => this.vocabularyEntryDetailDataService.findListByHref(href, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)),
+
+    return this.vocabularyEntryDetailDataService.getBrowseEndpoint().pipe(
+      map(href => `${href}/${name}:${value}/children`),
+      switchMap(href => this.vocabularyEntryDetailDataService.findListByHref(href, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow))
     );
   }
 

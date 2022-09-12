@@ -118,24 +118,24 @@ describe('EPersonDataService', () => {
     });
 
     it('search email scope and no query', () => {
-      spyOn(service, 'getSearchByHref').and.returnValue(epersonsEndpoint);
+      spyOn((service as any).searchData, 'getSearchByHref').and.returnValue(epersonsEndpoint);
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(null));
       service.searchByScope('email', '');
       const options = Object.assign(new FindListOptions(), {
         searchParams: [Object.assign(new RequestParam('email', encodeURIComponent('')))]
       });
-      expect(service.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
+      expect((service as any).searchData.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
       expect(service.findByHref).toHaveBeenCalledWith(epersonsEndpoint, true, true);
     });
 
     it('search email scope with a query', () => {
-      spyOn(service, 'getSearchByHref').and.returnValue(epersonsEndpoint);
+      spyOn((service as any).searchData, 'getSearchByHref').and.returnValue(epersonsEndpoint);
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMock));
       service.searchByScope('email', EPersonMock.email);
       const options = Object.assign(new FindListOptions(), {
         searchParams: [Object.assign(new RequestParam('email', encodeURIComponent(EPersonMock.email)))]
       });
-      expect(service.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
+      expect((service as any).searchData.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
       expect(service.findByHref).toHaveBeenCalledWith(epersonsEndpoint, true, true);
     });
   });

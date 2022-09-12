@@ -45,7 +45,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
   protected searchByMetadataPath = 'byMetadata';
 
   private createData: CreateData<EPerson>;
-  private searchData: SearchData<EPerson>;
+  private searchData: SearchDataImpl<EPerson>;
   private patchData: PatchData<EPerson>;
   private deleteData: DeleteData<EPerson>;
 
@@ -128,7 +128,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
   public getEPersonByEmail(query: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<EPerson | NoContent>> {
     const findListOptions = new FindListOptions();
     findListOptions.searchParams = [new RequestParam('email', encodeURIComponent(query))];
-    const href$ = this.getSearchByHref(this.searchByEmailPath, findListOptions, ...linksToFollow);
+    const href$ = this.searchData.getSearchByHref(this.searchByEmailPath, findListOptions, ...linksToFollow);
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
@@ -364,19 +364,6 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
   }
 
   /**
-   * Create the HREF for a specific object's search method with given options object
-   *
-   * @param searchMethod The search method for the object
-   * @param options The [[FindListOptions]] object
-   * @return {Observable<string>}
-   *    Return an observable that emits created HREF
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
-   */
-  getSearchByHref(searchMethod: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<string> {
-    return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
-  }
-
-  /**
    * Return a list of operations representing the difference between an object and its latest value in the cache.
    * @param object  the object to resolve to a list of patch operations
    */
@@ -384,14 +371,28 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
     return this.patchData.createPatchFromCache(object);
   }
 
+  /**
+   * Send a patch request for a specified object
+   * @param {T} object The object to send a patch request for
+   * @param {Operation[]} operations The patch operations to be performed
+   */
   patch(object: EPerson, operations: Operation[]): Observable<RemoteData<EPerson>> {
     return this.patchData.patch(object, operations);
   }
 
+  /**
+   * Add a new patch to the object cache
+   * The patch is derived from the differences between the given object and its version in the object cache
+   * @param {DSpaceObject} object The given object
+   */
   update(object: EPerson): Observable<RemoteData<EPerson>> {
     return this.patchData.update(object);
   }
 
+  /**
+   * Commit current object changes to the server
+   * @param method The RestRequestMethod for which de server sync buffer should be committed
+   */
   commitUpdates(method?: RestRequestMethod): void {
     this.patchData.commitUpdates(method);
   }
