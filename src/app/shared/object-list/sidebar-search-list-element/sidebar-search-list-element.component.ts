@@ -1,7 +1,7 @@
 import { SearchResult } from '../../search/models/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { hasValue, isNotEmpty } from '../../empty.util';
 import { Observable, of as observableOf } from 'rxjs';
 import { TruncatableService } from '../../truncatable/truncatable.service';
