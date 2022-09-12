@@ -189,6 +189,10 @@ export const environment: BuildConfig = {
     code: 'bn',
     label: 'বাংলা',
     active: true,
+  }, {
+    code: 'el',
+    label: 'Ελληνικά',
+    active: true,
   }],
 
   // Browse-By Pages
