@@ -35,7 +35,7 @@ import {
   ObjectSelectionListState,
   objectSelectionReducer
 } from './shared/object-select/object-select.reducer';
-import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/sass-helper.reducer';
+import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/css-variable.reducer';
 
 import { hostWindowReducer, HostWindowState } from './shared/search/host-window.reducer';
 import {

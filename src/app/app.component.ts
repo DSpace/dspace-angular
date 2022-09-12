@@ -31,7 +31,7 @@ import { HostWindowState } from './shared/search/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from './core/services/window.service';
 import { isAuthenticationBlocking } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
-import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
+import { CSSVariableService } from './shared/sass-helper/css-variable.service';
 import { MenuService } from './shared/menu/menu.service';
 import { HostWindowService } from './shared/host-window.service';
 import { HeadTagConfig, ThemeConfig } from '../config/theme.model';
@@ -48,6 +48,7 @@ import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { getDefaultThemeConfig } from '../config/config.util';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { getCSSCustomPropIndex } from './shared/sass-helper/css-variable.utils';
 
 @Component({
   selector: 'ds-app',
@@ -161,7 +162,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (environment.debug) {
       console.info(environment);
     }
-    this.storeCSSVariables();
   }
 
   ngOnInit() {
@@ -181,18 +181,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private storeCSSVariables() {
-    this.cssService.addCSSVariable('xlMin', '1200px');
-    this.cssService.addCSSVariable('mdMin', '768px');
-    this.cssService.addCSSVariable('lgMin', '576px');
-    this.cssService.addCSSVariable('smMin', '0');
-    this.cssService.addCSSVariable('adminSidebarActiveBg', '#0f1b28');
-    this.cssService.addCSSVariable('sidebarItemsWidth', '250px');
-    this.cssService.addCSSVariable('collapsedSidebarWidth', '53.234px');
-    this.cssService.addCSSVariable('totalSidebarWidth', '303.234px');
-    // const vars = variables.locals || {};
-    // Object.keys(vars).forEach((name: string) => {
-    //   this.cssService.addCSSVariable(name, vars[name]);
-    // })
+    getCSSCustomPropIndex(this.document).forEach(([prop, val]) => {
+      this.cssService.addCSSVariable(prop, val);
+    });
   }
 
   ngAfterViewInit() {
@@ -282,6 +273,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
       // the fact that this callback is used, proves we're on the browser.
       this.isThemeCSSLoading$.next(false);
+
+      this.storeCSSVariables();
     };
     head.appendChild(link);
   }

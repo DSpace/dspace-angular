@@ -18,7 +18,7 @@ import { OnClickMenuItemModel } from '../../shared/menu/menu-item/models/onclick
 import { TextMenuItemModel } from '../../shared/menu/menu-item/models/text.model';
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { MenuService } from '../../shared/menu/menu.service';
-import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
+import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -82,7 +82,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
   ngOnInit(): void {
     this.createMenu();
     super.ngOnInit();
-    this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
+    this.sidebarWidth = this.variableService.getVariable('--ds-sidebar-items-width');
     this.authService.isAuthenticated()
       .subscribe((loggedIn: boolean) => {
         if (loggedIn) {

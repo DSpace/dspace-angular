@@ -1,4 +1,4 @@
-import { CSSVariableAction, CSSVariableActionTypes } from './sass-helper.actions';
+import { CSSVariableAction, CSSVariableActionTypes } from './css-variable.actions';
 
 export interface CSSVariablesState {
   [name: string]: string;
