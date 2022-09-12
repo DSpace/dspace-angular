@@ -38,7 +38,7 @@ class TestService extends PatchDataImpl<any> {
     protected halService: HALEndpointService,
     protected comparator: ChangeAnalyzer<Item>,
   ) {
-    super(undefined, undefined, constructIdEndpointDefault, requestService, rdbService, objectCache, halService, comparator);
+    super(undefined, requestService, rdbService, objectCache, halService, comparator, undefined, constructIdEndpointDefault);
   }
 
   public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {

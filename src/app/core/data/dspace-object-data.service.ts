@@ -11,13 +11,6 @@ import { dataService } from './base/data-service.decorator';
 @Injectable()
 @dataService(DSPACE_OBJECT)
 export class DSpaceObjectDataService extends IdentifiableDataService<DSpaceObject> {
-  protected linkPath = 'dso';
-
-  // interpolate uuid as query parameter
-  protected constructIdEndpoint = (endpoint: string, resourceID: string): string => {
-    return endpoint.replace(/{\?uuid}/, `?uuid=${resourceID}`);
-  };
-
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
@@ -25,7 +18,11 @@ export class DSpaceObjectDataService extends IdentifiableDataService<DSpaceObjec
     protected halService: HALEndpointService,
   ) {
     super(
-      requestService, rdbService, objectCache, halService,
+      'dso', requestService, rdbService, objectCache, halService, undefined,
+      // interpolate uuid as query parameter
+      (endpoint: string, resourceID: string): string => {
+        return endpoint.replace(/{\?uuid}/, `?uuid=${resourceID}`);
+      },
     );
   }
 }

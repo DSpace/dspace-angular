@@ -22,8 +22,6 @@ import { dataService } from './base/data-service.decorator';
 @Injectable()
 @dataService(SITE)
 export class SiteDataService extends BaseDataService<Site> implements FindAllData<Site> {
-  protected linkPath = 'sites';
-
   private findAllData: FindAllData<Site>;
 
   constructor(
@@ -32,9 +30,9 @@ export class SiteDataService extends BaseDataService<Site> implements FindAllDat
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('sites', requestService, rdbService, objectCache, halService);
 
-    this.findAllData = new FindAllDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
+    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**

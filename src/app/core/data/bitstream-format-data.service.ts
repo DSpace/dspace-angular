@@ -41,6 +41,7 @@ const selectedBitstreamFormatSelector = createSelector(
 @Injectable()
 @dataService(BITSTREAM_FORMAT)
 export class BitstreamFormatDataService extends IdentifiableDataService<BitstreamFormat> implements FindAllData<BitstreamFormat>, DeleteData<BitstreamFormat> {
+
   protected linkPath = 'bitstreamformats';
 
   private findAllData: FindAllDataImpl<BitstreamFormat>;
@@ -54,10 +55,10 @@ export class BitstreamFormatDataService extends IdentifiableDataService<Bitstrea
     protected notificationsService: NotificationsService,
     protected store: Store<CoreState>,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('bitstreamformats', requestService, rdbService, objectCache, halService);
 
-    this.findAllData = new FindAllDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
-    this.deleteData = new DeleteDataImpl(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, notificationsService);
+    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
   }
 
   /**

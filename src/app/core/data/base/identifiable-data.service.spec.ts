@@ -29,7 +29,7 @@ class TestService extends IdentifiableDataService<any> {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super(undefined, requestService, rdbService, objectCache, halService);
   }
 
   public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {

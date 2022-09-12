@@ -29,9 +29,8 @@ import { dataService } from '../data/base/data-service.decorator';
 @dataService(WorkflowItem.type)
 export class WorkflowItemDataService extends IdentifiableDataService<WorkflowItem> implements SearchData<WorkflowItem>, DeleteData<WorkflowItem> {
   protected linkPath = 'workflowitems';
-  protected responseMsToLive = 10 * 1000;
-
   protected searchByItemLinkPath = 'item';
+  protected responseMsToLive = 10 * 1000;
 
   private searchData: SearchDataImpl<WorkflowItem>;
   private deleteData: DeleteDataImpl<WorkflowItem>;
@@ -43,10 +42,10 @@ export class WorkflowItemDataService extends IdentifiableDataService<WorkflowIte
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('workspaceitems', requestService, rdbService, objectCache, halService);
 
-    this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
-    this.deleteData = new DeleteDataImpl(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, notificationsService);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
   }
 
   /**

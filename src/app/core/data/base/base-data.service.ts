@@ -8,7 +8,7 @@
 
 import { AsyncSubject, from as observableFrom, Observable, of as observableOf } from 'rxjs';
 import { map, mergeMap, skipWhile, switchMap, take, tap, toArray } from 'rxjs/operators';
-import { hasValue, isEmpty, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../cache/models/request-param.model';
@@ -31,22 +31,12 @@ import { HALDataService } from './hal-data-service.interface';
  *
  * All DataService (or DataService feature) classes must
  *   - extend this class (or {@link IdentifiableDataService})
- *   - specify a {@link linkPath}
- *   - implement any DataService features it requires in order to forward calls to it.
- *     {@link linkPath} and {@link responseMsToLive} must be passed through.
+ *   - implement any DataService features it requires in order to forward calls to it
  *
  * ```
  * export class SomeDataService extends BaseDataService<Something> implements CreateData<Something>, SearchData<Something> {
- *   protected linkPath = 'something';
- *   protected responseMsToLive = 3 * 60 * 1000;  // not required
- *
  *   private createData: CreateData<Something>;
  *   private searchData: SearchDataData<Something>;
- *
- *   constructor(...) {
- *      this.createData = new CreateDataImpl(this.linkPath, this.responseMsToLive, ...);
- *      this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, ...);
- *   }
  *
  *   create(...) {
  *     return this.createData.create(...);
@@ -59,40 +49,19 @@ import { HALDataService } from './hal-data-service.interface';
  * ```
  */
 export class BaseDataService<T extends CacheableObject> implements HALDataService<T> {
-  /**
-   * The REST endpoint this data service communicates with
-   */
-  protected linkPath: string;
-
-  /**
-   * Allows subclasses to reset the response cache time.
-   */
-  protected responseMsToLive?: number;
-
-  /**
-   * @param requestService
-   * @param rdbService
-   * @param objectCache
-   * @param halService
-   * @param linkPath          Optionally sets the {@link linkPath}; to be used by composable features.
-   * @param responseMsToLive  Optionally sets the {@link responseMsToLive}; to be used by composable features.
-   */
   constructor(
+    protected linkPath: string,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    linkPath?: string,
-    responseMsToLive?: number,
+    protected responseMsToLive?: number,
   ) {
-    if (isEmpty(this.linkPath) && isNotEmpty(linkPath)) {
-      this.linkPath = linkPath;
-    }
-    if (isEmpty(this.responseMsToLive) && isNotEmpty(responseMsToLive)) {
-      this.responseMsToLive = responseMsToLive;
-    }
   }
 
+  /**
+   * Allows subclasses to reset the response cache time.
+   */
 
   /**
    * Get the endpoint for browsing

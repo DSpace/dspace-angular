@@ -23,9 +23,6 @@ import { dataService } from '../data/base/data-service.decorator';
 @Injectable()
 @dataService(ORCID_QUEUE)
 export class OrcidQueueDataService extends IdentifiableDataService<OrcidQueue> {
-  protected linkPath = 'orcidqueues';
-  protected responseMsToLive = 10 * 1000;
-
   private searchData: SearchData<OrcidQueue>;
   private deleteData: DeleteData<OrcidQueue>;
 
@@ -36,10 +33,10 @@ export class OrcidQueueDataService extends IdentifiableDataService<OrcidQueue> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('orcidqueues', requestService, rdbService, objectCache, halService, 10 * 1000);
 
-    this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
-    this.deleteData = new DeleteDataImpl(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, notificationsService);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
   }
 
   /**

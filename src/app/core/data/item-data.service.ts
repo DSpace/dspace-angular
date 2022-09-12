@@ -39,7 +39,7 @@ import { StatusCodeOnlyResponseParsingService } from './status-code-only-respons
 import { sendRequest } from '../shared/request.operators';
 import { RestRequest } from './rest-request.model';
 import { FindListOptions } from './find-list-options.model';
-import { IdentifiableDataService } from './base/identifiable-data.service';
+import { ConstructIdEndpoint, IdentifiableDataService } from './base/identifiable-data.service';
 import { PatchData, PatchDataImpl } from './base/patch-data';
 import { DeleteData, DeleteDataImpl } from './base/delete-data';
 import { RestRequestMethod } from './rest-request-method';
@@ -58,6 +58,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   private deleteData: DeleteData<Item>;
 
   protected constructor(
+    protected linkPath,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
@@ -66,12 +67,13 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     protected comparator: DSOChangeAnalyzer<Item>,
     protected browseService: BrowseService,
     protected bundleService: BundleDataService,
+    protected constructIdEndpoint: ConstructIdEndpoint = (endpoint, resourceID) => `${endpoint}/${resourceID}`,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super(linkPath, requestService, rdbService, objectCache, halService, undefined, constructIdEndpoint);
 
-    this.createData = new CreateDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService, notificationsService);
-    this.patchData = new PatchDataImpl<Item>(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, comparator);
-    this.deleteData = new DeleteDataImpl(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, notificationsService);
+    this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
+    this.patchData = new PatchDataImpl<Item>(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
+    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
   }
 
   /**
@@ -386,8 +388,6 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
 @Injectable()
 @dataService(ITEM)
 export class ItemDataService extends BaseItemDataService {
-  protected linkPath = 'items';
-
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
@@ -398,6 +398,6 @@ export class ItemDataService extends BaseItemDataService {
     protected browseService: BrowseService,
     protected bundleService: BundleDataService,
   ) {
-    super(requestService, rdbService, objectCache, halService, notificationsService, comparator, browseService, bundleService);
+    super('items', requestService, rdbService, objectCache, halService, notificationsService, comparator, browseService, bundleService);
   }
 }

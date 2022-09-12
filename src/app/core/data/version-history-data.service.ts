@@ -32,7 +32,6 @@ import { dataService } from './base/data-service.decorator';
 @Injectable()
 @dataService(VERSION_HISTORY)
 export class VersionHistoryDataService extends IdentifiableDataService<VersionHistory> {
-  protected linkPath = 'versionhistories';
   protected versionsEndpoint = 'versions';
 
   constructor(
@@ -42,7 +41,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
     protected halService: HALEndpointService,
     protected versionDataService: VersionDataService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('versionhistories', requestService, rdbService, objectCache, halService);
   }
 
   /**

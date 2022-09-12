@@ -27,8 +27,6 @@ import { dataService } from './base/data-service.decorator';
 @Injectable()
 @dataService(METADATA_SCHEMA)
 export class MetadataSchemaDataService extends IdentifiableDataService<MetadataSchema> implements FindAllData<MetadataSchema>, DeleteData<MetadataSchema> {
-  protected linkPath = 'metadataschemas';
-
   private createData: CreateData<MetadataSchema>;
   private findAllData: FindAllData<MetadataSchema>;
   private putData: PutData<MetadataSchema>;
@@ -41,12 +39,12 @@ export class MetadataSchemaDataService extends IdentifiableDataService<MetadataS
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('metadataschemas', requestService, rdbService, objectCache, halService);
 
-    this.createData = new CreateDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService, notificationsService);
-    this.putData = new PutDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
-    this.deleteData = new DeleteDataImpl(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, notificationsService);
-    this.findAllData = new FindAllDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
+    this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
+    this.putData = new PutDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**

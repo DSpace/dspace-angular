@@ -28,8 +28,6 @@ export const METADATA_EXPORT_SCRIPT_NAME = 'metadata-export';
 @Injectable()
 @dataService(SCRIPT)
 export class ScriptDataService extends IdentifiableDataService<Script> implements FindAllData<Script> {
-  protected linkPath = 'scripts';
-
   private findAllData: FindAllDataImpl<Script>;
 
   constructor(
@@ -38,9 +36,9 @@ export class ScriptDataService extends IdentifiableDataService<Script> implement
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('scripts', requestService, rdbService, objectCache, halService);
 
-    this.findAllData = new FindAllDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
+    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   public invoke(scriptName: string, parameters: ProcessParameter[], files: File[]): Observable<RemoteData<Process>> {

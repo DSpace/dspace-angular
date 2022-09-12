@@ -36,7 +36,7 @@ class TestService extends DeleteDataImpl<any> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
   ) {
-    super(undefined, undefined, constructIdEndpointDefault, requestService, rdbService, objectCache, halService, notificationsService);
+    super(undefined, requestService, rdbService, objectCache, halService, notificationsService, undefined, constructIdEndpointDefault);
   }
 
   public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {

@@ -24,7 +24,7 @@ class TestService extends ConfigDataService {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super(BROWSE, requestService, rdbService, objectCache, halService);
   }
 }
 

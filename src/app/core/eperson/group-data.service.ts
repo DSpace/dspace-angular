@@ -50,8 +50,6 @@ const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegis
 @Injectable()
 @dataService(GROUP)
 export class GroupDataService extends IdentifiableDataService<Group> {
-  protected linkPath = 'metadatafields';
-
   protected browseEndpoint = '';
   public ePersonsEndpoint = 'epersons';
   public subgroupsEndpoint = 'subgroups';
@@ -71,12 +69,12 @@ export class GroupDataService extends IdentifiableDataService<Group> {
     protected nameService: DSONameService,
     protected store: Store<any>,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('groups', requestService, rdbService, objectCache, halService);
 
-    this.createData = new CreateDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService, notificationsService);
-    this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
-    this.patchData = new PatchDataImpl<Group>(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, comparator);
-    this.deleteData = new DeleteDataImpl(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, notificationsService);
+    this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.patchData = new PatchDataImpl<Group>(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
+    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
   }
 
   /**

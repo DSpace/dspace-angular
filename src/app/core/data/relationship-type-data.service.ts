@@ -33,8 +33,6 @@ const checkSide = (typeRd: RemoteData<ItemType>, label: string): boolean =>
 @Injectable()
 @dataService(RELATIONSHIP_TYPE)
 export class RelationshipTypeDataService extends BaseDataService<RelationshipType> {
-  protected linkPath = 'relationshiptypes';
-
   private searchData: SearchDataImpl<RelationshipType>;
   private findAllData: FindAllDataImpl<RelationshipType>;
 
@@ -44,10 +42,10 @@ export class RelationshipTypeDataService extends BaseDataService<RelationshipTyp
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('relationshiptypes', requestService, rdbService, objectCache, halService);
 
-    this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
-    this.findAllData = new FindAllDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**

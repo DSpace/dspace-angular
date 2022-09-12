@@ -32,8 +32,6 @@ import { dataService } from './base/data-service.decorator';
 )
 @dataService(BUNDLE)
 export class BundleDataService extends IdentifiableDataService<Bundle> implements PatchData<Bundle> {
-  protected linkPath = 'bundles';
-
   private bitstreamsEndpoint = 'bitstreams';
 
   private patchData: PatchDataImpl<Bundle>;
@@ -45,9 +43,9 @@ export class BundleDataService extends IdentifiableDataService<Bundle> implement
     protected halService: HALEndpointService,
     protected comparator: DSOChangeAnalyzer<Bundle>,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('bundles', requestService, rdbService, objectCache, halService);
 
-    this.patchData = new PatchDataImpl<Bundle>(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, comparator);
+    this.patchData = new PatchDataImpl<Bundle>(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
   }
 
   /**

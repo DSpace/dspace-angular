@@ -40,8 +40,6 @@ import { dataService } from '../data/base/data-service.decorator';
 @Injectable()
 @dataService(RESOURCE_POLICY)
 export class ResourcePolicyDataService extends IdentifiableDataService<ResourcePolicy> {
-  protected linkPath = 'resourcepolicies';
-
   protected searchByEPersonMethod = 'eperson';
   protected searchByGroupMethod = 'group';
   protected searchByResourceMethod = 'resource';
@@ -61,12 +59,12 @@ export class ResourcePolicyDataService extends IdentifiableDataService<ResourceP
     protected ePersonService: EPersonDataService,
     protected groupService: GroupDataService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('resourcepolicies', requestService, rdbService, objectCache, halService);
 
-    this.createData = new CreateDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService, notificationsService);
-    this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
-    this.patchData = new PatchDataImpl(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, comparator);
-    this.deleteData = new DeleteDataImpl(this.linkPath, this.responseMsToLive, this.constructIdEndpoint, requestService, rdbService, objectCache, halService, notificationsService);
+    this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.patchData = new PatchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
+    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
   }
 
   /**

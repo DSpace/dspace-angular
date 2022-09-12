@@ -42,10 +42,8 @@ import { BaseDataService } from '../../data/base/base-data.service';
  * Therefore, equest/response handling methods won't work even though they're defined
  */
 class SearchDataService extends BaseDataService<any> {
-  protected linkPath = 'discover';
-
   constructor() {
-    super(undefined, undefined, undefined, undefined);
+    super('discover', undefined, undefined, undefined, undefined);
   }
 
   /**

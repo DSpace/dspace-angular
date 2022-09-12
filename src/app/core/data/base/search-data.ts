@@ -80,14 +80,14 @@ export class SearchDataImpl<T extends CacheableObject> extends BaseDataService<T
    */
   constructor(
     protected linkPath: string,
-    protected responseMsToLive: number,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
+    protected responseMsToLive: number,
     private constructSearchEndpoint: ConstructSearchEndpoint = constructSearchEndpointDefault,
   ) {
-    super(requestService, rdbService, objectCache, halService, linkPath, responseMsToLive);
+    super(linkPath, requestService, rdbService, objectCache, halService, responseMsToLive);
     if (hasNoValue(constructSearchEndpoint)) {
       throw new Error(`SearchDataImpl initialized without a constructSearchEndpoint method (linkPath: ${linkPath})`);
     }

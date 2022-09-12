@@ -32,7 +32,7 @@ class TestService extends BaseDataService<any> {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super(undefined, requestService, rdbService, objectCache, halService);
   }
 
   public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {

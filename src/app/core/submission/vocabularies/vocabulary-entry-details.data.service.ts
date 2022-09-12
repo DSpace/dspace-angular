@@ -28,8 +28,6 @@ import { dataService } from '../../data/base/data-service.decorator';
 @Injectable()
 @dataService(VOCABULARY_ENTRY_DETAIL)
 export class VocabularyEntryDetailsDataService extends IdentifiableDataService<VocabularyEntryDetail> implements FindAllData<VocabularyEntryDetail>, SearchData<VocabularyEntryDetail> {
-  protected linkPath = 'vocabularyEntryDetails';
-
   private findAllData: FindAllData<VocabularyEntryDetail>;
   private searchData: SearchData<VocabularyEntryDetail>;
 
@@ -39,10 +37,10 @@ export class VocabularyEntryDetailsDataService extends IdentifiableDataService<V
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('vocabularyEntryDetails', requestService, rdbService, objectCache, halService);
 
-    this.findAllData = new FindAllDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
-    this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
+    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**

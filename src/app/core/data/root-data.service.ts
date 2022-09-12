@@ -20,9 +20,6 @@ import { dataService } from './base/data-service.decorator';
 @Injectable()
 @dataService(ROOT)
 export class RootDataService extends BaseDataService<Root> {
-  protected linkPath = '';
-  protected responseMsToLive =  6 * 60 * 60 * 1000;
-
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
@@ -30,7 +27,7 @@ export class RootDataService extends BaseDataService<Root> {
     protected halService: HALEndpointService,
     protected restService: DspaceRestService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('', requestService, rdbService, objectCache, halService, 6 * 60 * 60 * 1000);
   }
 
   /**

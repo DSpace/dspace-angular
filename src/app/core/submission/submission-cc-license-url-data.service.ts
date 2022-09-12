@@ -20,8 +20,6 @@ import { dataService } from '../data/base/data-service.decorator';
 @Injectable()
 @dataService(SUBMISSION_CC_LICENSE_URL)
 export class SubmissionCcLicenseUrlDataService extends BaseDataService<SubmissionCcLicenceUrl> implements SearchData<SubmissionCcLicenceUrl> {
-  protected linkPath = 'submissioncclicenseUrls-search';
-
   private searchData: SearchData<SubmissionCcLicenceUrl>;
 
   constructor(
@@ -30,9 +28,9 @@ export class SubmissionCcLicenseUrlDataService extends BaseDataService<Submissio
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('submissioncclicenseUrls-search', requestService, rdbService, objectCache, halService);
 
-    this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService, (href, searchMethod) => `${href}/${searchMethod}`);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive, (href, searchMethod) => `${href}/${searchMethod}`);
   }
 
   /**

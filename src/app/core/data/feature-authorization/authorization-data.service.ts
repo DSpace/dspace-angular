@@ -29,7 +29,6 @@ import { dataService } from '../base/data-service.decorator';
 @dataService(AUTHORIZATION)
 export class AuthorizationDataService extends BaseDataService<Authorization> implements SearchData<Authorization> {
   protected linkPath = 'authorizations';
-
   protected searchByObjectPath = 'object';
 
   private searchData: SearchDataImpl<Authorization>;
@@ -41,9 +40,9 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
     protected halService: HALEndpointService,
     protected siteService: SiteDataService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('authorizations', requestService, rdbService, objectCache, halService);
 
-    this.searchData = new SearchDataImpl(this.linkPath, this.responseMsToLive, requestService, rdbService, objectCache, halService);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**

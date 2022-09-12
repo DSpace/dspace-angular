@@ -46,15 +46,15 @@ export interface DeleteData<T extends CacheableObject> {
 export class DeleteDataImpl<T extends CacheableObject> extends IdentifiableDataService<T> implements DeleteData<T> {
   constructor(
     protected linkPath: string,
-    protected responseMsToLive: number,
-    protected constructIdEndpoint: ConstructIdEndpoint,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
+    protected responseMsToLive: number,
+    protected constructIdEndpoint: ConstructIdEndpoint,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super(linkPath, requestService, rdbService, objectCache, halService, responseMsToLive, constructIdEndpoint);
     if (hasNoValue(constructIdEndpoint)) {
       throw new Error(`DeleteDataImpl initialized without a constructIdEndpoint method (linkPath: ${linkPath})`);
     }

@@ -18,15 +18,13 @@ import { dataService } from '../data/base/data-service.decorator';
 @Injectable()
 @dataService(SUBMISSION_FORMS_TYPE)
 export class SubmissionFormsConfigDataService extends ConfigDataService {
-  protected linkPath = 'submissionforms';
-
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('submissionforms', requestService, rdbService, objectCache, halService);
   }
 
   /**

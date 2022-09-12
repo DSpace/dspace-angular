@@ -23,8 +23,6 @@ import { dataService } from '../data/base/data-service.decorator';
 @Injectable()
 @dataService(ORCID_HISTORY)
 export class OrcidHistoryDataService extends IdentifiableDataService<OrcidHistory> {
-  protected linkPath = 'orcidhistories';
-  protected responseMsToLive = 10 * 1000;
 
   constructor(
     protected requestService: RequestService,
@@ -32,7 +30,7 @@ export class OrcidHistoryDataService extends IdentifiableDataService<OrcidHistor
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('orcidhistories', requestService, rdbService, objectCache, halService, 10 * 1000);
   }
 
   sendToORCID(orcidQueue: OrcidQueue): Observable<RemoteData<OrcidHistory>> {

@@ -17,6 +17,7 @@ import { dataService } from '../data/base/data-service.decorator';
 @Injectable()
 @dataService(SUBMISSION_CC_LICENSE)
 export class SubmissionCcLicenseDataService extends BaseDataService<SubmissionCcLicence> implements FindAllData<SubmissionCcLicence> {
+
   protected linkPath = 'submissioncclicenses';
 
   constructor(
@@ -25,7 +26,7 @@ export class SubmissionCcLicenseDataService extends BaseDataService<SubmissionCc
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('submissioncclicenses', requestService, rdbService, objectCache, halService);
   }
 
   /**

@@ -22,6 +22,6 @@ export class FeatureDataService extends BaseDataService<Feature> {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super(requestService, rdbService, objectCache, halService);
+    super('features', requestService, rdbService, objectCache, halService);
   }
 }

@@ -68,7 +68,7 @@ class TestService extends SearchDataImpl<any> {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super(undefined, undefined, requestService, rdbService, objectCache, halService);
+    super(undefined, requestService, rdbService, objectCache, halService, undefined);
   }
 
   public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
