@@ -1622,6 +1622,8 @@
 
   "cris-layout.attachment.viewMore": "View More",
 
+  "cris-layout.rendering.collections.owning-collection.label": "Owning collection",
+
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
   "curation-task.task.noop.label": "NOOP",

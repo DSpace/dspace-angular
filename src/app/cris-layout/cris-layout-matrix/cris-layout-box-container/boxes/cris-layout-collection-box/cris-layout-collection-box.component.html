@@ -1,0 +1,8 @@
+<div class="container" *ngIf="owningCollectionId$ | async">
+  <div class="row">
+    <div class="font-weight-bold col-3">{{ 'cris-layout.rendering.collections.owning-collection.label' | translate }}</div>
+    <div class="col-9">
+      <a href="javascript:void(0);" [routerLink]="['/collections', (owningCollectionId$ | async)]">{{ owningCollectionName$ | async }}</a>
+    </div>
+  </div>
+</div>

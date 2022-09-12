@@ -48,12 +48,14 @@ import { ComcolModule } from '../shared/comcol/comcol.module';
 import { SearchModule } from '../shared/search/search.module';
 import { AdvancedAttachmentComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/advanced-attachment.component';
 import { FileDownloadButtonComponent } from '../shared/file-download-button/file-download-button.component';
+import { CrisLayoutCollectionBoxComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/cris-layout-collection-box/cris-layout-collection-box.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
   CrisLayoutVerticalComponent,
   CrisLayoutHorizontalComponent,
   CrisLayoutMetadataBoxComponent,
+  CrisLayoutCollectionBoxComponent,
   TextComponent,
   HeadingComponent,
   CrisLayoutRelationBoxComponent,
