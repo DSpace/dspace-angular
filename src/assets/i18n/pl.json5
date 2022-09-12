@@ -976,12 +976,10 @@
   
   
   // "auth.errors.invalid-user": "Invalid email address or password.",
-  // TODO New key - Add a translation
-  "auth.errors.invalid-user": "Invalid email address or password.",
+  "auth.errors.invalid-user": "Nieprawidłowy adres e-mail lub hasło.",
   
   // "auth.messages.expired": "Your session has expired. Please log in again.",
-  // TODO New key - Add a translation
-  "auth.messages.expired": "Your session has expired. Please log in again.",
+  "auth.messages.expired": "Twoja sesja uległa zakończeniu wskutek przeterminowania. Prosimy zalogować się jeszcze raz.",
   
   
   
@@ -1056,140 +1054,106 @@
   
   
   // "browse.comcol.by.author": "By Author",
-  // TODO New key - Add a translation
-  "browse.comcol.by.author": "By Author",
+  "browse.comcol.by.author": "Wg autora",
   
   // "browse.comcol.by.dateissued": "By Issue Date",
-  // TODO New key - Add a translation
-  "browse.comcol.by.dateissued": "By Issue Date",
+  "browse.comcol.by.dateissued": "Wg daty wydania",
   
   // "browse.comcol.by.subject": "By Subject",
-  // TODO New key - Add a translation
-  "browse.comcol.by.subject": "By Subject",
+  "browse.comcol.by.subject": "Wg tematu",
   
   // "browse.comcol.by.title": "By Title",
-  // TODO New key - Add a translation
-  "browse.comcol.by.title": "By Title",
+  "browse.comcol.by.title": "Wg tytułu",
   
   // "browse.comcol.head": "Browse",
-  // TODO New key - Add a translation
-  "browse.comcol.head": "Browse",
+  "browse.comcol.head": "Przeglądanie",
   
   // "browse.empty": "No items to show.",
-  // TODO New key - Add a translation
-  "browse.empty": "No items to show.",
+  "browse.empty": "Brak rezultatów do wyswietlenia.",
   
   // "browse.metadata.author": "Author",
-  // TODO New key - Add a translation
-  "browse.metadata.author": "Author",
+  "browse.metadata.author": "Autor",
   
   // "browse.metadata.dateissued": "Issue Date",
-  // TODO New key - Add a translation
-  "browse.metadata.dateissued": "Issue Date",
+  "browse.metadata.dateissued": "Data wydania",
   
   // "browse.metadata.subject": "Subject",
-  // TODO New key - Add a translation
-  "browse.metadata.subject": "Subject",
+  "browse.metadata.subject": "Temat",
   
   // "browse.metadata.title": "Title",
-  // TODO New key - Add a translation
-  "browse.metadata.title": "Title",
+  "browse.metadata.title": "Tytuł",
   
   // "browse.metadata.author.breadcrumbs": "Browse by Author",
-  // TODO New key - Add a translation
-  "browse.metadata.author.breadcrumbs": "Browse by Author",
+  "browse.metadata.author.breadcrumbs": "Przeglądaj wg autora",
   
   // "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
-  // TODO New key - Add a translation
-  "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
+  "browse.metadata.dateissued.breadcrumbs": "Przeglądaj po dacie",
   
   // "browse.metadata.subject.breadcrumbs": "Browse by Subject",
-  // TODO New key - Add a translation
-  "browse.metadata.subject.breadcrumbs": "Browse by Subject",
+  "browse.metadata.subject.breadcrumbs": "Przeglądaj wg tematu",
   
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
-  // TODO New key - Add a translation
-  "browse.metadata.title.breadcrumbs": "Browse by Title",
+  "browse.metadata.title.breadcrumbs": "Przeglądaj wg tytułu",
   
   // "browse.startsWith.choose_start": "(Choose start)",
-  // TODO New key - Add a translation
-  "browse.startsWith.choose_start": "(Choose start)",
+  "browse.startsWith.choose_start": "(Wybierz początek)",
   
   // "browse.startsWith.choose_year": "(Choose year)",
-  // TODO New key - Add a translation
-  "browse.startsWith.choose_year": "(Choose year)",
+  "browse.startsWith.choose_year": "(Wybierz rok)",
   
   // "browse.startsWith.jump": "Jump to a point in the index:",
-  // TODO New key - Add a translation
-  "browse.startsWith.jump": "Jump to a point in the index:",
+  "browse.startsWith.jump": "Przejdź do miejsca w indeksie:",
   
   // "browse.startsWith.months.april": "April",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.april": "April",
+  "browse.startsWith.months.april": "Kwiecień",
   
   // "browse.startsWith.months.august": "August",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.august": "August",
+  "browse.startsWith.months.august": "Sierpień",
   
   // "browse.startsWith.months.december": "December",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.december": "December",
+  "browse.startsWith.months.december": "Grudzień",
   
   // "browse.startsWith.months.february": "February",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.february": "February",
+  "browse.startsWith.months.february": "Luty",
   
   // "browse.startsWith.months.january": "January",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.january": "January",
+  "browse.startsWith.months.january": "Styczeń",
   
   // "browse.startsWith.months.july": "July",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.july": "July",
+  "browse.startsWith.months.july": "Lipiec",
   
   // "browse.startsWith.months.june": "June",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.june": "June",
+  "browse.startsWith.months.june": "Czerwiec",
   
   // "browse.startsWith.months.march": "March",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.march": "March",
+  "browse.startsWith.months.march": "Marzec",
   
   // "browse.startsWith.months.may": "May",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.may": "May",
+  "browse.startsWith.months.may": "Maj",
   
   // "browse.startsWith.months.none": "(Choose month)",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.none": "(Choose month)",
+  "browse.startsWith.months.none": "(Wybierz miesiąc)",
   
   // "browse.startsWith.months.november": "November",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.november": "November",
+  "browse.startsWith.months.november": "Listopad",
   
   // "browse.startsWith.months.october": "October",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.october": "October",
+  "browse.startsWith.months.october": "Październik",
   
   // "browse.startsWith.months.september": "September",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.september": "September",
+  "browse.startsWith.months.september": "Wrzesień",
   
   // "browse.startsWith.submit": "Go",
-  // TODO New key - Add a translation
-  "browse.startsWith.submit": "Go",
+  "browse.startsWith.submit": "Szukaj",
   
   // "browse.startsWith.type_date": "Or type in a date (year-month):",
-  // TODO New key - Add a translation
-  "browse.startsWith.type_date": "Or type in a date (year-month):",
+  "browse.startsWith.type_date": "... albo wpisz datę (rok-miesiąc):",
   
   // "browse.startsWith.type_text": "Or enter first few letters:",
-  // TODO New key - Add a translation
-  "browse.startsWith.type_text": "Or enter first few letters:",
+  "browse.startsWith.type_text": "... albo wpisz pierwsze litery:",
   
   // "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
-  // TODO New key - Add a translation
-  "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+  "browse.title": "Przeglądanie {{ collection }} wg {{ field }} {{ value }}",
   
   
   // "chips.remove": "Remove chip",
@@ -1541,8 +1505,7 @@
   "collection.form.provenance": "Provenance",
   
   // "collection.form.rights": "Copyright text (HTML)",
-  // TODO New key - Add a translation
-  "collection.form.rights": "Copyright text (HTML)",
+  "collection.form.rights": "Tekst praw autorskich (HTML)",
   
   // "collection.form.tableofcontents": "News (HTML)",
   // TODO New key - Add a translation
@@ -1609,18 +1572,16 @@
   "collection.source.update.notifications.error.title": "Server Error",
   
   
+  "communityList.breadcrumbs": "Społeczności i zbiory",
   
   // "communityList.tabTitle": "DSpace - Community List",
-  // TODO New key - Add a translation
-  "communityList.tabTitle": "DSpace - Community List",
+  "communityList.tabTitle": "DSpace - Lista społeczności",
   
   // "communityList.title": "List of Communities",
-  // TODO New key - Add a translation
-  "communityList.title": "List of Communities",
+  "communityList.title": "Lista społeczności",
   
   // "communityList.showMore": "Show More",
-  // TODO New key - Add a translation
-  "communityList.showMore": "Show More",
+  "communityList.showMore": "Wyświetl więcej",
   
   
   
@@ -2267,42 +2228,36 @@
   
   
   // "footer.copyright": "copyright © 2002-{{ year }}",
-  // TODO New key - Add a translation
-  "footer.copyright": "copyright © 2002-{{ year }}",
+  "footer.copyright": "© 2002-{{ year }}",
   
   // "footer.link.dspace": "DSpace software",
-  // TODO New key - Add a translation
-  "footer.link.dspace": "DSpace software",
+  "footer.link.dspace": "Oprogramowanie DSpace",
+  
+  "footer.link.feedback": "Zgłoś uwagę do strony",
   
   // "footer.link.lyrasis": "LYRASIS",
-  // TODO New key - Add a translation
-  "footer.link.lyrasis": "LYRASIS",
+  "footer.link.lyrasis": "organizacja LYRASIS",
   
   // "footer.link.cookies": "Cookie settings",
-  // TODO New key - Add a translation
-  "footer.link.cookies": "Cookie settings",
+  "footer.link.cookies": "Konfiguracja ciasteczek",
   
   // "footer.link.privacy-policy": "Privacy policy",
-  // TODO New key - Add a translation
-  "footer.link.privacy-policy": "Privacy policy",
+  "footer.link.privacy-policy": "Polityka prywatności",
   
   // "footer.link.end-user-agreement":"End User Agreement",
-  // TODO New key - Add a translation
-  "footer.link.end-user-agreement":"End User Agreement",
+  "footer.link.end-user-agreement":"Licencja użytkownika końcowego",
   
   
   
   // "forgot-email.form.header": "Forgot Password",
-  // TODO New key - Add a translation
-  "forgot-email.form.header": "Forgot Password",
+  "forgot-email.form.header": "Zapomniane hasło",
   
   // "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
   // TODO New key - Add a translation
   "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
   
   // "forgot-email.form.email": "Email Address *",
-  // TODO New key - Add a translation
-  "forgot-email.form.email": "Email Address *",
+  "forgot-email.form.email": "Adres e-mail *",
   
   // "forgot-email.form.email.error.required": "Please fill in an email address",
   // TODO New key - Add a translation
@@ -2313,24 +2268,19 @@
   "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
   
   // "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
-  // TODO New key - Add a translation
-  "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
+  "forgot-email.form.email.hint": "Ten adres będzie zweryfikowany i użyty jako Twoja nazwa użytkownika.",
   
   // "forgot-email.form.submit": "Submit",
-  // TODO New key - Add a translation
-  "forgot-email.form.submit": "Submit",
+  "forgot-email.form.submit": "Wyślij",
   
   // "forgot-email.form.success.head": "Verification email sent",
-  // TODO New key - Add a translation
-  "forgot-email.form.success.head": "Verification email sent",
+  "forgot-email.form.success.head": "E-mail weryfikacyjny wysłany",
   
   // "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
-  // TODO New key - Add a translation
-  "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
+  "forgot-email.form.success.content": "Wiadomość e-mail została wysłana na adres {{ email }}; zawiera ona specjalny adres URL i dalsze instrukcje.",
   
   // "forgot-email.form.error.head": "Error when trying to register email",
-  // TODO New key - Add a translation
-  "forgot-email.form.error.head": "Error when trying to register email",
+  "forgot-email.form.error.head": "Błąd podczas rejestracji adresu e-mail",
   
   // "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
   // TODO New key - Add a translation
@@ -2359,12 +2309,10 @@
   "forgot-password.form.identification.header": "Identify",
   
   // "forgot-password.form.identification.email": "Email address: ",
-  // TODO New key - Add a translation
-  "forgot-password.form.identification.email": "Email address: ",
+  "forgot-password.form.identification.email": "Adres e-mail: ",
   
   // "forgot-password.form.label.password": "Password",
-  // TODO New key - Add a translation
-  "forgot-password.form.label.password": "Password",
+  "forgot-password.form.label.password": "Hasło",
   
   // "forgot-password.form.label.passwordrepeat": "Retype to confirm",
   // TODO New key - Add a translation
@@ -2497,10 +2445,10 @@
   "form.search-help": "Click here to look for an existing correspondence",
   
   // "form.submit": "Submit",
-  // TODO New key - Add a translation
-  "form.submit": "Submit",
+  "form.submit": "Wyślij",
   
-  
+  "home.search-form.placeholder": "Wpisz coś, aby przeszukać serwis",
+    
   
   // "home.description": "",
   // TODO New key - Add a translation
@@ -2516,10 +2464,10 @@
   "home.top-level-communities.head": "Społeczności w DSpace",
   
   // "home.top-level-communities.help": "Select a community to browse its collections.",
-  // TODO New key - Add a translation
-  "home.top-level-communities.help": "Select a community to browse its collections.",
+  "home.top-level-communities.help": "Wybierz społeczność, aby przeglądać jej zbiory.",
   
-  
+  "info.feedback.breadcrumbs": "Zgłoś uwagę do strony",
+
   
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
   // TODO New key - Add a translation
@@ -3783,58 +3731,49 @@
   
   
   // "login.form.email": "Email address",
-  // TODO New key - Add a translation
-  "login.form.email": "Email address",
+  "login.form.email": "Adres e-mail",
   
   // "login.form.forgot-password": "Have you forgotten your password?",
-  // TODO New key - Add a translation
-  "login.form.forgot-password": "Have you forgotten your password?",
+  "login.form.forgot-password": "Zapomniane hasło?",
   
   // "login.form.header": "Please log in to DSpace",
   // TODO New key - Add a translation
   "login.form.header": "Please log in to DSpace",
   
   // "login.form.new-user": "New user? Click here to register.",
-  // TODO New key - Add a translation
-  "login.form.new-user": "New user? Click here to register.",
+  "login.form.new-user": "Nowy użytkownik? Kliknij, aby zarejestrować.",
   
   // "login.form.or-divider": "or",
   // TODO New key - Add a translation
   "login.form.or-divider": "or",
   
   // "login.form.password": "Password",
-  // TODO New key - Add a translation
-  "login.form.password": "Password",
+  "login.form.password": "Hasło",
   
   // "login.form.shibboleth": "Log in with Shibboleth",
   // TODO New key - Add a translation
   "login.form.shibboleth": "Log in with Shibboleth",
   
   // "login.form.submit": "Log in",
-  // TODO New key - Add a translation
-  "login.form.submit": "Log in",
+  "login.form.submit": "Zaloguj się",
   
   // "login.title": "Login",
-  // TODO New key - Add a translation
-  "login.title": "Login",
+  "login.title": "Logowanie",
   
   // "login.breadcrumbs": "Login",
-  // TODO New key - Add a translation
-  "login.breadcrumbs": "Login",
+  "login.breadcrumbs": "Logowanie",
   
   
   
   // "logout.form.header": "Log out from DSpace",
-  // TODO New key - Add a translation
-  "logout.form.header": "Log out from DSpace",
+  "logout.form.header": "Wyloguj z DSpace",
   
   // "logout.form.submit": "Log out",
-  // TODO New key - Add a translation
-  "logout.form.submit": "Log out",
+  "logout.form.submit": "Wyloguj",
   
   // "logout.title": "Logout",
   // TODO New key - Add a translation
-  "logout.title": "Logout",
+  "logout.title": "Wyloguj",
   
   
   
@@ -4375,16 +4314,13 @@
   
   
   // "pagination.results-per-page": "Results Per Page",
-  // TODO New key - Add a translation
-  "pagination.results-per-page": "Results Per Page",
+  "pagination.results-per-page": "Wyników na stronę",
   
   // "pagination.showing.detail": "{{ range }} of {{ total }}",
-  // TODO New key - Add a translation
-  "pagination.showing.detail": "{{ range }} of {{ total }}",
+  "pagination.showing.detail": "{{ range }} z {{ total }}",
   
   // "pagination.showing.label": "Now showing ",
-  // TODO New key - Add a translation
-  "pagination.showing.label": "Now showing ",
+  "pagination.showing.label": "Wyświetlane jest ",
   
   // "pagination.sort-direction": "Sort Options",
   // TODO New key - Add a translation
@@ -4409,8 +4345,7 @@
   "person.page.edit": "Edit this item",
   
   // "person.page.email": "Email Address",
-  // TODO New key - Add a translation
-  "person.page.email": "Email Address",
+  "person.page.email": "Adres e-mail",
   
   // "person.page.firstname": "First Name",
   // TODO New key - Add a translation
@@ -4459,8 +4394,7 @@
   "process.new.cancel": "Cancel",
   
   // "process.new.submit": "Submit",
-  // TODO New key - Add a translation
-  "process.new.submit": "Submit",
+  "process.new.submit": "Wyślij",
   
   // "process.new.select-script": "Script",
   // TODO New key - Add a translation
@@ -4660,24 +4594,19 @@
   "profile.metadata.form.error.lastname.required": "Last Name is required",
   
   // "profile.metadata.form.label.email": "Email Address",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.email": "Email Address",
+  "profile.metadata.form.label.email": "Adres e-mail",
   
   // "profile.metadata.form.label.firstname": "First Name",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.firstname": "First Name",
+  "profile.metadata.form.label.firstname": "Imię",
   
   // "profile.metadata.form.label.language": "Language",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.language": "Language",
+  "profile.metadata.form.label.language": "Język",
   
   // "profile.metadata.form.label.lastname": "Last Name",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.lastname": "Last Name",
+  "profile.metadata.form.label.lastname": "Nazwisko",
   
   // "profile.metadata.form.label.phone": "Contact Telephone",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.phone": "Contact Telephone",
+  "profile.metadata.form.label.phone": "Numer kontaktowy",
   
   // "profile.metadata.form.notifications.success.content": "Your changes to the profile were saved.",
   // TODO New key - Add a translation
@@ -4708,8 +4637,7 @@
   "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
   
   // "profile.security.form.label.password": "Password",
-  // TODO New key - Add a translation
-  "profile.security.form.label.password": "Password",
+  "profile.security.form.label.password": "Hasło",
   
   // "profile.security.form.label.passwordrepeat": "Retype to confirm",
   // TODO New key - Add a translation
@@ -4849,64 +4777,51 @@
   "register-page.create-profile.identification.first-name": "First Name *",
   
   // "register-page.create-profile.identification.first-name.error": "Please fill in a First Name",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.first-name.error": "Please fill in a First Name",
+  "register-page.create-profile.identification.first-name.error": "Uzupełnij imię",
   
   // "register-page.create-profile.identification.last-name": "Last Name *",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.last-name": "Last Name *",
+  "register-page.create-profile.identification.last-name": "Nazwisko *",
   
   // "register-page.create-profile.identification.last-name.error": "Please fill in a Last Name",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.last-name.error": "Please fill in a Last Name",
+  "register-page.create-profile.identification.last-name.error": "Uzupełnij nazwisko",
   
   // "register-page.create-profile.identification.contact": "Contact Telephone",
   // TODO New key - Add a translation
   "register-page.create-profile.identification.contact": "Contact Telephone",
   
   // "register-page.create-profile.identification.language": "Language",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.language": "Language",
+  "register-page.create-profile.identification.language": "Język",
   
   // "register-page.create-profile.security.header": "Security",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.header": "Security",
+  "register-page.create-profile.security.header": "Bezpieczeństwo",
   
   // "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "register-page.create-profile.security.info": "Wpisz hasło i potwierdź, wpisując je jeszcze raz. Powinno mieć przynajmniej 6 znaków.",
   
   // "register-page.create-profile.security.label.password": "Password *",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.label.password": "Password *",
+  "register-page.create-profile.security.label.password": "Hasło *",
   
   // "register-page.create-profile.security.label.passwordrepeat": "Retype to confirm *",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.label.passwordrepeat": "Retype to confirm *",
+  "register-page.create-profile.security.label.passwordrepeat": "Potwierdzenie hasła *",
   
   // "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
+  "register-page.create-profile.security.error.empty-password": "Wpisz hasło do poniższego pola.",
   
   // "register-page.create-profile.security.error.matching-passwords": "The passwords do not match.",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.error.matching-passwords": "The passwords do not match.",
+  "register-page.create-profile.security.error.matching-passwords": "Hasła nie są identyczne.",
   
   // "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
   // TODO New key - Add a translation
   "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
   
   // "register-page.create-profile.submit": "Complete Registration",
-  // TODO New key - Add a translation
-  "register-page.create-profile.submit": "Complete Registration",
+  "register-page.create-profile.submit": "Zakończ rejestrację",
   
   // "register-page.create-profile.submit.error.content": "Something went wrong while registering a new user.",
-  // TODO New key - Add a translation
-  "register-page.create-profile.submit.error.content": "Something went wrong while registering a new user.",
+  "register-page.create-profile.submit.error.content": "Coś poszło nie tak podczas rejestracji nowego użytkownika.",
   
   // "register-page.create-profile.submit.error.head": "Registration failed",
-  // TODO New key - Add a translation
-  "register-page.create-profile.submit.error.head": "Registration failed",
+  "register-page.create-profile.submit.error.head": "Rejestracja nie powiodła się",
   
   // "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
   // TODO New key - Add a translation
@@ -5961,8 +5876,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
   
   // "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
+  "submission.sections.describe.relationship-lookup.search-tab.search": "Dalej",
   
   // "submission.sections.describe.relationship-lookup.search-tab.select-all": "Select all",
   // TODO New key - Add a translation
