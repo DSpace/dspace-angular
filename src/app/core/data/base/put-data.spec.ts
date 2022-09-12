@@ -15,11 +15,11 @@ import { Observable, of as observableOf } from 'rxjs';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { TestScheduler } from 'rxjs/testing';
 import { RemoteData } from '../remote-data';
 import { RequestEntryState } from '../request-entry-state.model';
 import { PutDataImpl } from './put-data';
+import { RestRequestMethod } from '../rest-request-method';
+import { DSpaceObject } from '../../shared/dspace-object.model';
 
 const endpoint = 'https://rest.api/core';
 
@@ -45,9 +45,10 @@ describe('PutDataImpl', () => {
   let rdbService;
   let objectCache;
   let selfLink;
-  let linksToFollow;
-  let testScheduler;
   let remoteDataMocks;
+
+  let obj;
+  let buildFromRequestUUIDSpy: jasmine.Spy;
 
   function initTestService(): TestService {
     requestService = getMockRequestService();
@@ -66,16 +67,6 @@ describe('PutDataImpl', () => {
       },
     } as any;
     selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
-    linksToFollow = [
-      followLink('a'),
-      followLink('b'),
-    ];
-
-    testScheduler = new TestScheduler((actual, expected) => {
-      // asserting the two objects are equal
-      // e.g. using chai.
-      expect(actual).toEqual(expected);
-    });
 
     const timeStamp = new Date().getTime();
     const msToLive = 15 * 60 * 1000;
@@ -102,7 +93,56 @@ describe('PutDataImpl', () => {
 
   beforeEach(() => {
     service = initTestService();
+
+    obj = Object.assign(new DSpaceObject(), {
+      uuid: '1698f1d3-be98-4c51-9fd8-6bfedcbd59b7',
+      metadata: {           // recognized properties will be serialized
+        ['dc.title']: [
+          { language: 'en', value: 'some object' },
+        ]
+      },
+      data: [ 1, 2, 3, 4 ], // unrecognized properties won't be serialized
+      _links: { self: { href: selfLink } },
+    });
+
+
+    buildFromRequestUUIDSpy = spyOn(rdbService, 'buildFromRequestUUID').and.returnValue(observableOf(remoteDataMocks.Success));
   });
 
-  // todo: add specs (there were no put specs in original DataService suite!)
+  describe('put', () => {
+    it('should send a PUT request with the serialized object', (done) => {
+      service.put(obj).subscribe(() => {
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
+          method: RestRequestMethod.PUT,
+          body: {  // _links are not serialized
+            uuid: obj.uuid,
+            metadata: obj.metadata
+          },
+        }));
+        done();
+      });
+    });
+
+    it('should send the PUT request to the object\'s self link', (done) => {
+      service.put(obj).subscribe(() => {
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
+          method: RestRequestMethod.PUT,
+          href: selfLink,
+        }));
+        done();
+      });
+    });
+
+    it('should return the remote data for the sent request', (done) => {
+      service.put(obj).subscribe(out => {
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
+          method: RestRequestMethod.PUT,
+          uuid: requestService.generateRequestId(),
+        }));
+        expect(buildFromRequestUUIDSpy).toHaveBeenCalledWith(requestService.generateRequestId());
+        expect(out).toEqual(remoteDataMocks.Success);
+        done();
+      });
+    });
+  });
 });

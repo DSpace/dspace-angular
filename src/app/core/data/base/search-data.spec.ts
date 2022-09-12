@@ -5,21 +5,13 @@
  *
  * http://www.dspace.org/license/
  */
-import { SearchData, SearchDataImpl } from './search-data';
-import createSpyObj = jasmine.createSpyObj;
+import { constructSearchEndpointDefault, SearchData, SearchDataImpl } from './search-data';
 import { FindListOptions } from '../find-list-options.model';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { RequestService } from '../request.service';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { Observable, of as observableOf } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { TestScheduler } from 'rxjs/testing';
-import { RemoteData } from '../remote-data';
-import { RequestEntryState } from '../request-entry-state.model';
+import createSpyObj = jasmine.createSpyObj;
 
 /**
  * Tests whether calls to `SearchData` methods are correctly patched through in a concrete data service that implements it
@@ -61,80 +53,42 @@ export function testSearchDataImplementation(service: SearchData<any>, methods =
 
 const endpoint = 'https://rest.api/core';
 
-class TestService extends SearchDataImpl<any> {
-  constructor(
-    protected requestService: RequestService,
-    protected rdbService: RemoteDataBuildService,
-    protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-  ) {
-    super(undefined, requestService, rdbService, objectCache, halService, undefined);
-  }
-
-  public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-    return observableOf(endpoint);
-  }
-}
-
 describe('SearchDataImpl', () => {
-  let service: TestService;
+  let service: SearchDataImpl<any>;
   let requestService;
   let halService;
   let rdbService;
-  let objectCache;
-  let selfLink;
   let linksToFollow;
-  let testScheduler;
-  let remoteDataMocks;
 
-  function initTestService(): TestService {
+  let constructSearchEndpointSpy;
+  let options;
+
+  function initTestService(): SearchDataImpl<any> {
     requestService = getMockRequestService();
-    halService = new HALEndpointServiceStub('url') as any;
+    halService = jasmine.createSpyObj('halService', {
+      getEndpoint: observableOf(endpoint),
+    });
     rdbService = getMockRemoteDataBuildService();
-    objectCache = {
-
-      addPatch: () => {
-        /* empty */
-      },
-      getObjectBySelfLink: () => {
-        /* empty */
-      },
-      getByHref: () => {
-        /* empty */
-      },
-    } as any;
-    selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
     linksToFollow = [
       followLink('a'),
       followLink('b'),
     ];
 
-    testScheduler = new TestScheduler((actual, expected) => {
-      // asserting the two objects are equal
-      // e.g. using chai.
-      expect(actual).toEqual(expected);
+    constructSearchEndpointSpy = jasmine.createSpy('constructSearchEndpointSpy').and.callFake(constructSearchEndpointDefault);
+
+    options = Object.assign(new FindListOptions(), {
+      elementsPerPage: 5,
+      currentPage: 3,
     });
 
-    const timeStamp = new Date().getTime();
-    const msToLive = 15 * 60 * 1000;
-    const payload = { foo: 'bar' };
-    const statusCodeSuccess = 200;
-    const statusCodeError = 404;
-    const errorMessage = 'not found';
-    remoteDataMocks = {
-      RequestPending: new RemoteData(undefined, msToLive, timeStamp, RequestEntryState.RequestPending, undefined, undefined, undefined),
-      ResponsePending: new RemoteData(undefined, msToLive, timeStamp, RequestEntryState.ResponsePending, undefined, undefined, undefined),
-      Success: new RemoteData(timeStamp, msToLive, timeStamp, RequestEntryState.Success, undefined, payload, statusCodeSuccess),
-      SuccessStale: new RemoteData(timeStamp, msToLive, timeStamp, RequestEntryState.SuccessStale, undefined, payload, statusCodeSuccess),
-      Error: new RemoteData(timeStamp, msToLive, timeStamp, RequestEntryState.Error, errorMessage, undefined, statusCodeError),
-      ErrorStale: new RemoteData(timeStamp, msToLive, timeStamp, RequestEntryState.ErrorStale, errorMessage, undefined, statusCodeError),
-    };
-
-    return new TestService(
+    return new SearchDataImpl(
+      'test',
       requestService,
       rdbService,
-      objectCache,
+      undefined,
       halService,
+      undefined,
+      constructSearchEndpointSpy,
     );
   }
 
@@ -142,5 +96,56 @@ describe('SearchDataImpl', () => {
     service = initTestService();
   });
 
-  // todo: add specs (there were no search specs in original DataService suite!)
+  describe('getSearchEndpoint', () => {
+    it('should return the search endpoint for the given method', (done) => {
+      (service as any).getSearchEndpoint('testMethod').subscribe(searchEndpoint => {
+        expect(halService.getEndpoint).toHaveBeenCalledWith('test');
+        expect(searchEndpoint).toBe('https://rest.api/core/search/testMethod');
+        done();
+      });
+    });
+
+    it('should use constructSearchEndpoint to construct the search endpoint', (done) => {
+      (service as any).getSearchEndpoint('testMethod').subscribe(() => {
+        expect(constructSearchEndpointSpy).toHaveBeenCalledWith('https://rest.api/core', 'testMethod');
+        done();
+      });
+    });
+  });
+
+  describe('getSearchByHref', () => {
+    beforeEach(() => {
+      spyOn(service as any, 'getSearchEndpoint').and.callThrough();
+      spyOn(service, 'buildHrefFromFindOptions').and.callThrough();
+    });
+
+    it('should return the search endpoint with additional query parameters', (done) => {
+      service.getSearchByHref('testMethod', options, ...linksToFollow).subscribe(href => {
+        expect((service as any).getSearchEndpoint).toHaveBeenCalledWith('testMethod');
+        expect(service.buildHrefFromFindOptions).toHaveBeenCalledWith(
+          'https://rest.api/core/search/testMethod',
+          options,
+          [],
+          ...linksToFollow,
+        );
+
+        expect(href).toBe('https://rest.api/core/search/testMethod?page=2&size=5&embed=a&embed=b');
+
+        done();
+      });
+    });
+  });
+
+  describe('searchBy', () => {
+    it('should patch getSearchEndpoint into findListByHref and return the result', () => {
+      spyOn(service, 'getSearchByHref').and.returnValue('endpoint' as any);
+      spyOn(service, 'findListByHref').and.returnValue('resulting remote data' as any);
+
+      const out: any = service.searchBy('testMethod', options, false, true, ...linksToFollow);
+
+      expect(service.getSearchByHref).toHaveBeenCalledWith('testMethod', options, ...linksToFollow);
+      expect(service.findListByHref).toHaveBeenCalledWith('endpoint', undefined, false, true);
+      expect(out).toBe('resulting remote data');
+    });
+  });
 });

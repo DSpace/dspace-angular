@@ -110,7 +110,7 @@ export class SearchDataImpl<T extends CacheableObject> extends BaseDataService<T
   searchBy(searchMethod: string, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
     const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
 
-    return this.findListByHref(hrefObs, undefined, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    return this.findListByHref(hrefObs, undefined, useCachedVersionIfAvailable, reRequestOnStale);
   }
 
   /**

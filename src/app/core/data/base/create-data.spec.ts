@@ -16,10 +16,11 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { TestScheduler } from 'rxjs/testing';
 import { RemoteData } from '../remote-data';
 import { RequestEntryState } from '../request-entry-state.model';
+import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { RequestParam } from '../../cache/models/request-param.model';
+import { RestRequestMethod } from '../rest-request-method';
 
 const endpoint = 'https://rest.api/core';
 
@@ -31,10 +32,10 @@ class TestService extends CreateDataImpl<any> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
   ) {
-    super(undefined, requestService, rdbService, objectCache, halService, notificationsService, undefined);
+    super('test', requestService, rdbService, objectCache, halService, notificationsService, undefined);
   }
 
-  public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+  public getEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     return observableOf(endpoint);
   }
 }
@@ -46,10 +47,14 @@ describe('CreateDataImpl', () => {
   let rdbService;
   let objectCache;
   let notificationsService;
-  let selfLink;
-  let linksToFollow;
-  let testScheduler;
   let remoteDataMocks;
+  let obj;
+
+  let MOCK_SUCCEEDED_RD;
+  let MOCK_FAILED_RD;
+
+  let buildFromRequestUUIDSpy: jasmine.Spy;
+  let createOnEndpointSpy: jasmine.Spy;
 
   function initTestService(): TestService {
     requestService = getMockRequestService();
@@ -67,18 +72,13 @@ describe('CreateDataImpl', () => {
         /* empty */
       },
     } as any;
-    notificationsService = {} as NotificationsService;
-    selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
-    linksToFollow = [
-      followLink('a'),
-      followLink('b'),
-    ];
-
-    testScheduler = new TestScheduler((actual, expected) => {
-      // asserting the two objects are equal
-      // e.g. using chai.
-      expect(actual).toEqual(expected);
+    notificationsService = jasmine.createSpyObj('notificationsService', {
+      error: undefined,
     });
+
+    obj = {
+      uuid: '1698f1d3-be98-4c51-9fd8-6bfedcbd59b7',
+    };
 
     const timeStamp = new Date().getTime();
     const msToLive = 15 * 60 * 1000;
@@ -106,7 +106,88 @@ describe('CreateDataImpl', () => {
 
   beforeEach(() => {
     service = initTestService();
+
+    buildFromRequestUUIDSpy = spyOn(rdbService, 'buildFromRequestUUID').and.callThrough();
+    createOnEndpointSpy = spyOn(service, 'createOnEndpoint').and.callThrough();
+
+    MOCK_SUCCEEDED_RD = createSuccessfulRemoteDataObject({});
+    MOCK_FAILED_RD = createFailedRemoteDataObject('something went wrong');
   });
 
-  // todo: add specs (there were no ceate specs in original DataService suite!)
+  describe('create', () => {
+    it('should POST the object to the root endpoint with the given parameters and return the remote data', (done) => {
+      const params = [
+        new RequestParam('abc', 123), new RequestParam('def', 456)
+      ];
+      buildFromRequestUUIDSpy.and.returnValue(observableOf(remoteDataMocks.Success));
+
+      service.create(obj, ...params).subscribe(out => {
+        expect(createOnEndpointSpy).toHaveBeenCalledWith(obj, jasmine.anything());
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
+          method: RestRequestMethod.POST,
+          uuid: requestService.generateRequestId(),
+          href: 'https://rest.api/core?abc=123&def=456',
+          body: JSON.stringify(obj),
+        }));
+        expect(buildFromRequestUUIDSpy).toHaveBeenCalledWith(requestService.generateRequestId());
+        expect(out).toEqual(remoteDataMocks.Success);
+        done();
+      });
+    });
+  });
+
+  describe('createOnEndpoint', () => {
+    beforeEach(() => {
+      buildFromRequestUUIDSpy.and.returnValue(observableOf(remoteDataMocks.Success));
+    });
+
+    it('should send a POST request with the object as JSON', (done) => {
+      service.createOnEndpoint(obj, observableOf('https://rest.api/core/custom?search')).subscribe(out => {
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
+          method: RestRequestMethod.POST,
+          body: JSON.stringify(obj),
+        }));
+        done();
+      });
+    });
+
+    it('should send the POST request to the given endpoint', (done) => {
+
+      service.createOnEndpoint(obj, observableOf('https://rest.api/core/custom?search')).subscribe(out => {
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
+          method: RestRequestMethod.POST,
+          href: 'https://rest.api/core/custom?search',
+        }));
+        done();
+      });
+    });
+
+    it('should return the remote data for the sent request', (done) => {
+      service.createOnEndpoint(obj, observableOf('https://rest.api/core/custom?search')).subscribe(out => {
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
+          method: RestRequestMethod.POST,
+          uuid: requestService.generateRequestId(),
+        }));
+        expect(buildFromRequestUUIDSpy).toHaveBeenCalledWith(requestService.generateRequestId());
+        expect(notificationsService.error).not.toHaveBeenCalled();
+        expect(out).toEqual(remoteDataMocks.Success);
+        done();
+      });
+    });
+
+    it('should show an error notification if the request fails', (done) => {
+      buildFromRequestUUIDSpy.and.returnValue(observableOf(remoteDataMocks.Error));
+
+      service.createOnEndpoint(obj, observableOf('https://rest.api/core/custom?search')).subscribe(out => {
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
+          method: RestRequestMethod.POST,
+          uuid: requestService.generateRequestId(),
+        }));
+        expect(buildFromRequestUUIDSpy).toHaveBeenCalledWith(requestService.generateRequestId());
+        expect(notificationsService.error).toHaveBeenCalled();
+        expect(out).toEqual(remoteDataMocks.Error);
+        done();
+      });
+    });
+  });
 });
