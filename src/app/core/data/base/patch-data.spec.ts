@@ -19,7 +19,7 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { TestScheduler } from 'rxjs/testing';
 import { RemoteData } from '../remote-data';
 import { RequestEntryState } from '../request-entry-state.model';
-import { PatchDataImpl } from './patch-data';
+import { PatchData, PatchDataImpl } from './patch-data';
 import { ChangeAnalyzer } from '../change-analyzer';
 import { Item } from '../../shared/item.model';
 import { compare, Operation } from 'fast-json-patch';
@@ -27,6 +27,61 @@ import { PatchRequest } from '../request.models';
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { constructIdEndpointDefault } from './identifiable-data.service';
+import { RestRequestMethod } from '../rest-request-method';
+
+/**
+ * Tests whether calls to `PatchData` methods are correctly patched through in a concrete data service that implements it
+ */
+export function testPatchDataImplementation(serviceFactory: () => PatchData<any>) {
+  let service;
+
+  describe('PatchData implementation', () => {
+    const OBJ = Object.assign(new DSpaceObject(), {
+      uuid: '08eec68f-45e4-47a3-80c5-f0beb5627079',
+    });
+    const OPERATIONS = [
+      { op: 'replace', path: '/0/value', value: 'test' },
+      { op: 'add', path: '/2/value', value: 'test2' },
+    ] as Operation[];
+    const METHOD = RestRequestMethod.POST;
+
+    beforeAll(() => {
+      service = serviceFactory();
+      (service as any).patchData = jasmine.createSpyObj('patchData', {
+        patch: 'TEST patch',
+        update: 'TEST update',
+        commitUpdates: undefined,
+        createPatchFromCache: 'TEST createPatchFromCache',
+      });
+    });
+
+    it('should handle calls to patch', () => {
+      const out: any = service.patch(OBJ, OPERATIONS);
+
+      expect((service as any).patchData.patch).toHaveBeenCalledWith(OBJ, OPERATIONS);
+      expect(out).toBe('TEST patch');
+    });
+
+    it('should handle calls to update', () => {
+      const out: any = service.update(OBJ);
+
+      expect((service as any).patchData.update).toHaveBeenCalledWith(OBJ);
+      expect(out).toBe('TEST update');
+    });
+
+    it('should handle calls to commitUpdates', () => {
+      service.commitUpdates(METHOD);
+      expect((service as any).patchData.commitUpdates).toHaveBeenCalledWith(METHOD);
+    });
+
+    it('should handle calls to createPatchFromCache', () => {
+      const out: any = service.createPatchFromCache(OBJ);
+
+      expect((service as any).patchData.createPatchFromCache).toHaveBeenCalledWith(OBJ);
+      expect(out).toBe('TEST createPatchFromCache');
+    });
+  });
+}
 
 const endpoint = 'https://rest.api/core';
 

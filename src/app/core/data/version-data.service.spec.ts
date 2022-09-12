@@ -15,6 +15,7 @@ import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RequestEntry } from './request-entry.model';
+import { testPatchDataImplementation } from './base/patch-data.spec';
 
 describe('VersionDataService test', () => {
   let scheduler: TestScheduler;
@@ -86,6 +87,11 @@ describe('VersionDataService test', () => {
       comparatorEntry
     );
   }
+
+  describe('composition', () => {
+    const initService = () => new VersionDataService(null, null, null, null, null);
+    testPatchDataImplementation(initService);
+  });
 
   describe('', () => {
     beforeEach(() => {

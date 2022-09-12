@@ -9,6 +9,8 @@ import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { CreateRequest, PutRequest } from './request.models';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { testFindAllDataImplementation } from './base/find-all-data.spec';
+import { testDeleteDataImplementation } from './base/delete-data.spec';
 
 describe('MetadataSchemaDataService', () => {
   let metadataSchemaService: MetadataSchemaDataService;
@@ -42,6 +44,13 @@ describe('MetadataSchemaDataService', () => {
 
   beforeEach(() => {
     init();
+  });
+
+  describe('composition', () => {
+    const initService = () => new MetadataSchemaDataService(null, null, null, null, null);
+
+    testFindAllDataImplementation(initService);
+    testDeleteDataImplementation(initService);
   });
 
   describe('createOrUpdateMetadataSchema', () => {

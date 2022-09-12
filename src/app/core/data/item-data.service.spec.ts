@@ -10,13 +10,16 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { ItemDataService } from './item-data.service';
-import { DeleteRequest, GetRequest, PostRequest } from './request.models';
+import { DeleteRequest, PostRequest } from './request.models';
 import { RequestService } from './request.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { CoreState } from '../core-state.model';
 import { RequestEntry } from './request-entry.model';
 import { FindListOptions } from './find-list-options.model';
 import { HALEndpointServiceStub } from 'src/app/shared/testing/hal-endpoint-service.stub';
+import { testCreateDataImplementation } from './base/create-data.spec';
+import { testPatchDataImplementation } from './base/patch-data.spec';
+import { testDeleteDataImplementation } from './base/delete-data.spec';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
@@ -86,6 +89,13 @@ describe('ItemDataService', () => {
       bundleService,
     );
   }
+
+  describe('composition', () => {
+    const initService = () => new ItemDataService(null, null, null, null, null, null, null, null);
+    testCreateDataImplementation(initService);
+    testPatchDataImplementation(initService);
+    testDeleteDataImplementation(initService);
+  });
 
   describe('getBrowseEndpoint', () => {
     beforeEach(() => {

@@ -11,6 +11,10 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.util
 import { RequestParam } from '../cache/models/request-param.model';
 import { FindListOptions } from './find-list-options.model';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { testCreateDataImplementation } from './base/create-data.spec';
+import { testSearchDataImplementation } from './base/search-data.spec';
+import { testPutDataImplementation } from './base/put-data.spec';
+import { testDeleteDataImplementation } from './base/delete-data.spec';
 
 describe('MetadataFieldDataService', () => {
   let metadataFieldService: MetadataFieldDataService;
@@ -51,6 +55,14 @@ describe('MetadataFieldDataService', () => {
 
   beforeEach(() => {
     init();
+  });
+
+  describe('composition', () => {
+    const initService = () => new MetadataFieldDataService(null, null, null, null, null);
+    testCreateDataImplementation(initService);
+    testSearchDataImplementation(initService);
+    testPutDataImplementation(initService);
+    testDeleteDataImplementation(initService);
   });
 
   describe('findBySchema', () => {

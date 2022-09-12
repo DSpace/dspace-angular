@@ -49,7 +49,7 @@ const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegis
  */
 @Injectable()
 @dataService(GROUP)
-export class GroupDataService extends IdentifiableDataService<Group> {
+export class GroupDataService extends IdentifiableDataService<Group> implements CreateData<Group>, SearchData<Group>, PatchData<Group>, DeleteData<Group> {
   protected browseEndpoint = '';
   public ePersonsEndpoint = 'epersons';
   public subgroupsEndpoint = 'subgroups';

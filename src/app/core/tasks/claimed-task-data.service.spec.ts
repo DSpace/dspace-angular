@@ -11,6 +11,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { FindListOptions } from '../data/find-list-options.model';
+import { testSearchDataImplementation } from '../data/base/search-data.spec';
 
 describe('ClaimedTaskDataService', () => {
   let scheduler: TestScheduler;
@@ -46,6 +47,11 @@ describe('ClaimedTaskDataService', () => {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     options.headers = headers;
+  });
+
+  describe('composition', () => {
+    const initService = () => new ClaimedTaskDataService(null, null, null, null);
+    testSearchDataImplementation(initService);
   });
 
   describe('submitTask', () => {

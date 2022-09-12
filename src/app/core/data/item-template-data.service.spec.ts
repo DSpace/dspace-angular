@@ -14,6 +14,9 @@ import { Item } from '../shared/item.model';
 import { RestRequest } from './rest-request.model';
 import { CoreState } from '../core-state.model';
 import { RequestEntry } from './request-entry.model';
+import { testCreateDataImplementation } from './base/create-data.spec';
+import { testPatchDataImplementation } from './base/patch-data.spec';
+import { testDeleteDataImplementation } from './base/delete-data.spec';
 import createSpyObj = jasmine.createSpyObj;
 
 describe('ItemTemplateDataService', () => {
@@ -90,6 +93,13 @@ describe('ItemTemplateDataService', () => {
 
   beforeEach(() => {
     initTestService();
+  });
+
+  describe('composition', () => {
+    const initService = () => new ItemTemplateDataService(null, null, null, null, null, null, null, null, null);
+    testCreateDataImplementation(initService);
+    testPatchDataImplementation(initService);
+    testDeleteDataImplementation(initService);
   });
 
   describe('findByCollectionID', () => {

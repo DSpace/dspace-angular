@@ -11,6 +11,7 @@ import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { Feature } from '../../shared/feature.model';
 import { FindListOptions } from '../find-list-options.model';
+import { testSearchDataImplementation } from '../base/search-data.spec';
 
 describe('AuthorizationDataService', () => {
   let service: AuthorizationDataService;
@@ -43,6 +44,11 @@ describe('AuthorizationDataService', () => {
   beforeEach(() => {
     init();
     spyOn(service, 'searchBy').and.returnValue(observableOf(undefined));
+  });
+
+  describe('composition', () => {
+    const initService = () => new AuthorizationDataService(null, null, null, null, null);
+    testSearchDataImplementation(initService);
   });
 
   it('should call setStaleByHrefSubstring method', () => {

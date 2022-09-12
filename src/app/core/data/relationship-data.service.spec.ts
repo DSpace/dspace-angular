@@ -16,6 +16,7 @@ import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RequestEntry } from './request-entry.model';
 import { FindListOptions } from './find-list-options.model';
+import { testSearchDataImplementation } from './base/search-data.spec';
 
 describe('RelationshipDataService', () => {
   let service: RelationshipDataService;
@@ -142,6 +143,12 @@ describe('RelationshipDataService', () => {
   beforeEach(() => {
     requestService = getMockRequestService(getRequestEntry$(true));
     service = initTestService();
+  });
+
+  describe('composition', () => {
+    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null);
+
+    testSearchDataImplementation(initService);
   });
 
   describe('deleteRelationship', () => {

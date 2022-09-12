@@ -9,6 +9,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { FindListOptions } from './find-list-options.model';
+import { testFindAllDataImplementation } from './base/find-all-data.spec';
 
 describe('SiteDataService', () => {
   let scheduler: TestScheduler;
@@ -51,6 +52,12 @@ describe('SiteDataService', () => {
       objectCache,
       halService,
     );
+  });
+
+  describe('composition', () => {
+    const initService = () => new SiteDataService(null, null, null, null);
+
+    testFindAllDataImplementation(initService);
   });
 
   describe('getBrowseEndpoint', () => {

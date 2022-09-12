@@ -20,6 +20,7 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import { testSearchDataImplementation } from '../data/base/search-data.spec';
 
 const LINK_NAME = 'test';
 
@@ -82,6 +83,11 @@ describe('TasksService', () => {
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     options.headers = headers;
 
+  });
+
+  describe('composition', () => {
+    const initService = () => new TestService(null, null, null, null);
+    testSearchDataImplementation(initService);
   });
 
   describe('postToEndpoint', () => {

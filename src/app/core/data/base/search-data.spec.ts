@@ -11,12 +11,13 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { of as observableOf } from 'rxjs';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import createSpyObj = jasmine.createSpyObj;
 
 /**
  * Tests whether calls to `SearchData` methods are correctly patched through in a concrete data service that implements it
  */
-export function testSearchDataImplementation(service: SearchData<any>, methods = ['searchBy', 'getSearchByHref']) {
+export function testSearchDataImplementation(serviceFactory: () => SearchData<any>) {
+  let service;
+
   describe('SearchData implementation', () => {
     const OPTIONS = Object.assign(new FindListOptions(), { elementsPerPage: 10, currentPage: 3 });
     const FOLLOWLINKS = [
@@ -24,30 +25,19 @@ export function testSearchDataImplementation(service: SearchData<any>, methods =
       followLink('something'),
     ];
 
-    beforeEach(() => {
-      (service as any).searchData = createSpyObj('searchData', {
+    beforeAll(() => {
+      service = serviceFactory();
+      (service as any).searchData = jasmine.createSpyObj('searchData', {
         searchBy: 'TEST searchBy',
-        getSearchByHref: 'TEST getSearchByHref',
       });
     });
 
-    if ('searchBy' in methods) {
-      it('should handle calls to searchBy', () => {
-        const out: any = service.searchBy('searchMethod', OPTIONS, false, true, ...FOLLOWLINKS);
+    it('should handle calls to searchBy', () => {
+      const out: any = service.searchBy('searchMethod', OPTIONS, false, true, ...FOLLOWLINKS);
 
-        expect((service as any).searchData.searchBy).toHaveBeenCalledWith('searchMethod', OPTIONS, false, true, ...FOLLOWLINKS);
-        expect(out).toBe('TEST searchBy');
-      });
-    }
-
-    if ('getSearchByHref' in methods) {
-      it('should handle calls to getSearchByHref', () => {
-        const out: any = service.getSearchByHref('searchMethod', OPTIONS, ...FOLLOWLINKS);
-
-        expect((service as any).searchData.getSearchByHref).toHaveBeenCalledWith('searchMethod', OPTIONS, ...FOLLOWLINKS);
-        expect(out).toBe('TEST getSearchByHref');
-      });
-    }
+      expect((service as any).searchData.searchBy).toHaveBeenCalledWith('searchMethod', OPTIONS, false, true, ...FOLLOWLINKS);
+      expect(out).toBe('TEST searchBy');
+    });
   });
 }
 

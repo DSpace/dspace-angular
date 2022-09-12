@@ -19,10 +19,47 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { TestScheduler } from 'rxjs/testing';
 import { RemoteData } from '../remote-data';
 import { RequestEntryState } from '../request-entry-state.model';
-import { DeleteDataImpl } from './delete-data';
+import { DeleteData, DeleteDataImpl } from './delete-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { fakeAsync, tick } from '@angular/core/testing';
+
+/**
+ * Tests whether calls to `DeleteData` methods are correctly patched through in a concrete data service that implements it
+ */
+export function testDeleteDataImplementation(serviceFactory: () => DeleteData<any>) {
+  let service;
+
+  describe('DeleteData implementation', () => {
+    const ID = '2ce78f3a-791b-4d70-b5eb-753d587bbadd';
+    const HREF = 'https://rest.api/core/items/' + ID;
+    const COPY_VIRTUAL_METADATA = [
+      'a', 'b', 'c'
+    ];
+
+    beforeAll(() => {
+      service = serviceFactory();
+      (service as any).deleteData = jasmine.createSpyObj('deleteData', {
+        delete: 'TEST delete',
+        deleteByHref: 'TEST deleteByHref',
+      });
+    });
+
+    it('should handle calls to delete', () => {
+      const out: any = service.delete(ID, COPY_VIRTUAL_METADATA);
+
+      expect((service as any).deleteData.delete).toHaveBeenCalledWith(ID, COPY_VIRTUAL_METADATA);
+      expect(out).toBe('TEST delete');
+    });
+
+    it('should handle calls to deleteByHref', () => {
+      const out: any = service.deleteByHref(HREF, COPY_VIRTUAL_METADATA);
+
+      expect((service as any).deleteData.deleteByHref).toHaveBeenCalledWith(HREF, COPY_VIRTUAL_METADATA);
+      expect(out).toBe('TEST deleteByHref');
+    });
+  });
+}
 
 const endpoint = 'https://rest.api/core';
 

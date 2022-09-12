@@ -6,7 +6,6 @@
  * http://www.dspace.org/license/
  */
 import { FindAllData, FindAllDataImpl } from './find-all-data';
-import createSpyObj = jasmine.createSpyObj;
 import { FindListOptions } from '../find-list-options.model';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
@@ -27,7 +26,9 @@ import { Observable, of as observableOf } from 'rxjs';
 /**
  * Tests whether calls to `FindAllData` methods are correctly patched through in a concrete data service that implements it
  */
-export function testFindAllDataImplementation(service: FindAllData<any>, methods = ['findAll', 'getFindAllHref']) {
+export function testFindAllDataImplementation(serviceFactory: () => FindAllData<any>) {
+  let service;
+
   describe('FindAllData implementation', () => {
     const OPTIONS = Object.assign(new FindListOptions(), { elementsPerPage: 10, currentPage: 3 });
     const FOLLOWLINKS = [
@@ -35,30 +36,19 @@ export function testFindAllDataImplementation(service: FindAllData<any>, methods
       followLink('something'),
     ];
 
-    beforeEach(() => {
-      (service as any).findAllData = createSpyObj('findAllData', {
+    beforeAll(() => {
+      service = serviceFactory();
+      (service as any).findAllData =  jasmine.createSpyObj('findAllData', {
         findAll: 'TEST findAll',
-        getFindAllHref: 'TEST getFindAllHref',
       });
     });
 
-    if ('findAll' in methods) {
-      it('should handle calls to findAll', () => {
-        const out: any = service.findAll(OPTIONS, false, true, ...FOLLOWLINKS);
+    it('should handle calls to findAll', () => {
+      const out: any = service.findAll(OPTIONS, false, true, ...FOLLOWLINKS);
 
-        expect((service as any).findAllData.findAll).toHaveBeenCalledWith(OPTIONS, false, true, ...FOLLOWLINKS);
-        expect(out).toBe('TEST findAll');
-      });
-    }
-
-    if ('getFindAllHref' in methods) {
-      it('should handle calls to getFindAllHref', () => {
-        const out: any = service.getFindAllHref(OPTIONS, 'linkPath', ...FOLLOWLINKS);
-
-        expect((service as any).findAllData.getFindAllHref).toHaveBeenCalledWith(OPTIONS, 'linkPath', ...FOLLOWLINKS);
-        expect(out).toBe('TEST getFindAllHref');
-      });
-    }
+      expect((service as any).findAllData.findAll).toHaveBeenCalledWith(OPTIONS, false, true, ...FOLLOWLINKS);
+      expect(out).toBe('TEST findAll');
+    });
   });
 }
 

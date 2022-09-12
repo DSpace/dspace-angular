@@ -13,6 +13,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.util
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { Bundle } from '../shared/bundle.model';
 import { CoreState } from '../core-state.model';
+import { testPatchDataImplementation } from './base/patch-data.spec';
 
 class DummyChangeAnalyzer implements ChangeAnalyzer<Item> {
   diff(object1: Item, object2: Item): Operation[] {
@@ -69,6 +70,12 @@ describe('BundleDataService', () => {
 
   beforeEach(() => {
     service = initTestService();
+  });
+
+  describe('composition', () => {
+    const initService = () => new BundleDataService(null, null, null, null, null);
+
+    testPatchDataImplementation(initService);
   });
 
   describe('findAllByItem', () => {

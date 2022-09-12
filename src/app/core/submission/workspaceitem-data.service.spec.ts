@@ -19,6 +19,8 @@ import { Item } from '../shared/item.model';
 import { WorkspaceItem } from './models/workspaceitem.model';
 import { RequestEntry } from '../data/request-entry.model';
 import { CoreState } from '../core-state.model';
+import { testSearchDataImplementation } from '../data/base/search-data.spec';
+import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
 
 describe('WorkspaceitemDataService test', () => {
   let scheduler: TestScheduler;
@@ -89,6 +91,12 @@ describe('WorkspaceitemDataService test', () => {
       notificationsService,
     );
   }
+
+  describe('composition', () => {
+    const initService = () => new WorkspaceitemDataService(null, null, null, null, null);
+    testSearchDataImplementation(initService);
+    testDeleteDataImplementation(initService);
+  });
 
   describe('', () => {
     beforeEach(() => {

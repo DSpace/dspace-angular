@@ -11,11 +11,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { PageInfo } from '../shared/page-info.model';
 import { buildPaginatedList } from '../data/paginated-list.model';
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../shared/remote-data.utils';
+import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RestResponse } from '../cache/response.models';
 import { RequestEntry } from '../data/request-entry.model';
 import { ResearcherProfileDataService } from './researcher-profile-data.service';
@@ -28,6 +24,10 @@ import { PostRequest } from '../data/request.models';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { testCreateDataImplementation } from '../data/base/create-data.spec';
+import { testSearchDataImplementation } from '../data/base/search-data.spec';
+import { testPatchDataImplementation } from '../data/base/patch-data.spec';
+import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
 
 describe('ResearcherProfileService', () => {
   let scheduler: TestScheduler;
@@ -266,6 +266,14 @@ describe('ResearcherProfileService', () => {
     spyOn((service as any).patchData, 'update').and.callThrough();
     spyOn((service as any).searchData, 'searchBy').and.callThrough();
     spyOn((service as any).deleteData, 'delete').and.callThrough();
+  });
+
+  describe('composition', () => {
+    const initService = () => new ResearcherProfileDataService(null, null, null, null, null, null, null, null);
+    testCreateDataImplementation(initService);
+    testSearchDataImplementation(initService);
+    testPatchDataImplementation(initService);
+    testDeleteDataImplementation(initService);
   });
 
   describe('create', () => {

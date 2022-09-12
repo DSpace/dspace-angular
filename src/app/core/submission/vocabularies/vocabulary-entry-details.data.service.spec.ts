@@ -11,6 +11,13 @@ import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.da
 import { testSearchDataImplementation } from '../../data/base/search-data.spec';
 
 describe('VocabularyEntryDetailsDataService', () => {
-  testFindAllDataImplementation(new VocabularyEntryDetailsDataService(null, null, null, null));
-  testSearchDataImplementation(new VocabularyEntryDetailsDataService(null, null, null, null));
+  function initTestService() {
+    return new VocabularyEntryDetailsDataService(null, null, null, null);
+  }
+
+  describe('composition', () => {
+    const initService = () => new VocabularyEntryDetailsDataService(null, null, null, null);
+    testFindAllDataImplementation(initService);
+    testSearchDataImplementation(initService);
+  });
 });

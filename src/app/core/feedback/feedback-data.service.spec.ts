@@ -8,6 +8,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { Store } from '@ngrx/store';
 import { Feedback } from './models/feedback.model';
 import { CoreState } from '../core-state.model';
+import { testCreateDataImplementation } from '../data/base/create-data.spec';
 
 describe('FeedbackDataService', () => {
   let service: FeedbackDataService;
@@ -65,6 +66,10 @@ describe('FeedbackDataService', () => {
     service = initTestService();
   });
 
+  describe('composition', () => {
+    const initService = () => new FeedbackDataService(null, null, null, null, null, null);
+    testCreateDataImplementation(initService);
+  });
 
   describe('getFeedback', () => {
     beforeEach(() => {

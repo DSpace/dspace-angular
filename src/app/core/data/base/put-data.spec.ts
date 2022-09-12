@@ -17,9 +17,37 @@ import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-ser
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
 import { RemoteData } from '../remote-data';
 import { RequestEntryState } from '../request-entry-state.model';
-import { PutDataImpl } from './put-data';
+import { PutData, PutDataImpl } from './put-data';
 import { RestRequestMethod } from '../rest-request-method';
 import { DSpaceObject } from '../../shared/dspace-object.model';
+
+/**
+ * Tests whether calls to `PutData` methods are correctly patched through in a concrete data service that implements it
+ */
+export function testPutDataImplementation(serviceFactory: () => PutData<any>) {
+  let service;
+
+  describe('PutData implementation', () => {
+    const OBJ = Object.assign(new DSpaceObject(), {
+      uuid: '08eec68f-45e4-47a3-80c5-f0beb5627079',
+    });
+
+    beforeAll(() => {
+      service = serviceFactory();
+      (service as any).putData = jasmine.createSpyObj('putData', {
+        put: 'TEST put',
+      });
+    });
+
+    it('should handle calls to put', () => {
+      const out: any = service.put(OBJ);
+
+      expect((service as any).putData.put).toHaveBeenCalledWith(OBJ);
+      expect(out).toBe('TEST put');
+    });
+  });
+}
+
 
 const endpoint = 'https://rest.api/core';
 

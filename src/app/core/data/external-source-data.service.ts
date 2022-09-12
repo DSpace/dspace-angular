@@ -92,6 +92,6 @@ export class ExternalSourceDataService extends IdentifiableDataService<ExternalS
    *    Return an observable that emits response from the server
    */
   public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<ExternalSource>[]): Observable<RemoteData<PaginatedList<ExternalSource>>> {
-    return undefined;
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }

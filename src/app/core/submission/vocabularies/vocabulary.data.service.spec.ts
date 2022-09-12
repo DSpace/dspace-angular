@@ -8,7 +8,13 @@
 import { VocabularyDataService } from './vocabulary.data.service';
 import { testFindAllDataImplementation } from '../../data/base/find-all-data.spec';
 
-
 describe('VocabularyDataService', () => {
-  testFindAllDataImplementation(new VocabularyDataService(null, null, null, null));
+  function initTestService() {
+    return new VocabularyDataService(null, null, null, null);
+  }
+
+  describe('composition', () => {
+    const initService = () => new VocabularyDataService(null, null, null, null);
+    testFindAllDataImplementation(initService);
+  });
 });
