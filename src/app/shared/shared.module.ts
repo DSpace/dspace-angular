@@ -25,6 +25,9 @@ import { ConfirmationModalComponent } from './confirmation-modal/confirmation-mo
 import {
   ExportMetadataSelectorComponent
 } from './dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
+import {
+  ImportBatchSelectorComponent
+} from './dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
 import { FileDropzoneNoUploaderComponent } from './file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { ItemListElementComponent } from './object-list/item-list-element/item-types/item/item-list-element.component';
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
@@ -474,6 +477,7 @@ const COMPONENTS = [
   CollectionDropdownComponent,
   EntityDropdownComponent,
   ExportMetadataSelectorComponent,
+  ImportBatchSelectorComponent,
   ConfirmationModalComponent,
   VocabularyTreeviewComponent,
   AuthorizedCollectionSelectorComponent,
@@ -571,6 +575,7 @@ const ENTRY_COMPONENTS = [
   BitstreamRequestACopyPageComponent,
   CurationFormComponent,
   ExportMetadataSelectorComponent,
+  ImportBatchSelectorComponent,
   ConfirmationModalComponent,
   VocabularyTreeviewComponent,
   SidebarSearchListElementComponent,
