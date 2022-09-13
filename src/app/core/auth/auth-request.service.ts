@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, tap, take } from 'rxjs/operators';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { isNotEmpty } from '../../shared/empty.util';
@@ -27,8 +27,13 @@ export abstract class AuthRequestService {
               ) {
   }
 
-  protected fetchRequest(request: RestRequest, ...linksToFollow: FollowLinkConfig<AuthStatus>[]): Observable<RemoteData<AuthStatus>> {
-    return this.rdbService.buildFromRequestUUID<AuthStatus>(request.uuid, ...linksToFollow).pipe(
+  /**
+   * Fetch the response to a request from the cache, once it's completed.
+   * @param requestId the UUID of the request for which to retrieve the response
+   * @protected
+   */
+  protected fetchRequest(requestId: string, ...linksToFollow: FollowLinkConfig<AuthStatus>[]): Observable<RemoteData<AuthStatus>> {
+    return this.rdbService.buildFromRequestUUID<AuthStatus>(requestId, ...linksToFollow).pipe(
       getFirstCompletedRemoteData(),
     );
   }
@@ -44,28 +49,48 @@ export abstract class AuthRequestService {
     return url;
   }
 
+  /**
+   * Send a POST request to an authentication endpoint
+   * @param method    the method to send to (e.g. 'status')
+   * @param body      the data to send (optional)
+   * @param options   the HTTP options for the request
+   */
   public postToEndpoint(method: string, body?: any, options?: HttpOptions): Observable<RemoteData<AuthStatus>> {
-    return this.halService.getEndpoint(this.linkName).pipe(
+    const requestId = this.requestService.generateRequestId();
+
+    this.halService.getEndpoint(this.linkName).pipe(
       filter((href: string) => isNotEmpty(href)),
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
       distinctUntilChanged(),
-      map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, body, options)),
-      tap((request: PostRequest) => this.requestService.send(request)),
-      mergeMap((request: PostRequest) => this.fetchRequest(request)),
-      distinctUntilChanged());
+      map((endpointURL: string) => new PostRequest(requestId, endpointURL, body, options)),
+      take(1)
+    ).subscribe((request: PostRequest) => {
+      this.requestService.send(request);
+    });
+
+    return this.fetchRequest(requestId);
   }
 
+  /**
+   * Send a GET request to an authentication endpoint
+   * @param method    the method to send to (e.g. 'status')
+   * @param options   the HTTP options for the request
+   */
   public getRequest(method: string, options?: HttpOptions, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<AuthStatus>> {
-    return this.halService.getEndpoint(this.linkName).pipe(
+    const requestId = this.requestService.generateRequestId();
+
+    this.halService.getEndpoint(this.linkName).pipe(
       filter((href: string) => isNotEmpty(href)),
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method, ...linksToFollow)),
       distinctUntilChanged(),
-      map((endpointURL: string) => new GetRequest(this.requestService.generateRequestId(), endpointURL, undefined, options)),
-      tap((request: GetRequest) => this.requestService.send(request)),
-      mergeMap((request: GetRequest) => this.fetchRequest(request, ...linksToFollow)),
-      distinctUntilChanged());
-  }
+      map((endpointURL: string) => new GetRequest(requestId, endpointURL, undefined, options)),
+      take(1)
+    ).subscribe((request: GetRequest) => {
+      this.requestService.send(request);
+    });
 
+    return this.fetchRequest(requestId, ...linksToFollow);
+  }
   /**
    * Factory function to create the request object to send. This needs to be a POST client side and
    * a GET server side. Due to CSRF validation, the server isn't allowed to send a POST, so we allow
