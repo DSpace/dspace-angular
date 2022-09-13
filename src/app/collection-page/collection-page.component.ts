@@ -29,8 +29,6 @@ import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { getCollectionPageRoute } from './collection-page-routing-paths';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { BROWSE_LINKS_TO_FOLLOW } from '../core/browse/browse.service';
-import { DSpaceObject } from '../core/shared/dspace-object.model';
-import { FollowLinkConfig } from '../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-collection-page',

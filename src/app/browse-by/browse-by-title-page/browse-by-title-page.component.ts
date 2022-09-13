@@ -15,7 +15,6 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'ds-browse-by-title-page',
