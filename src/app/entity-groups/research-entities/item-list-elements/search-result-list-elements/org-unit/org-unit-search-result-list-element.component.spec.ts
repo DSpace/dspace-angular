@@ -69,13 +69,13 @@ describe('OrgUnitSearchResultListElementComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
-    environment.browseBy.showItemThumbnails = true;
+    environment.browseBy.showThumbnails = true;
     fixture = TestBed.createComponent(OrgUnitSearchResultListElementComponent);
     orgUnitListElementComponent = fixture.componentInstance;
 
   }));
 
-  describe('with environment.browseBy.showItemThumbnails set to true', () => {
+  describe('with environment.browseBy.showThumbnails set to true', () => {
     beforeEach(() => {
       orgUnitListElementComponent.object = mockItemWithMetadata;
       fixture.detectChanges();
@@ -133,12 +133,12 @@ describe('OrgUnitSearchResultListElementComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
-    environment.browseBy.showItemThumbnails = false;
+    environment.browseBy.showThumbnails = false;
     fixture = TestBed.createComponent(OrgUnitSearchResultListElementComponent);
     orgUnitListElementComponent = fixture.componentInstance;
   }));
 
-  describe('with environment.browseBy.showItemThumbnails set to false', () => {
+  describe('with environment.browseBy.showThumbnails set to false', () => {
     beforeEach(() => {
 
       orgUnitListElementComponent.object = mockItemWithMetadata;

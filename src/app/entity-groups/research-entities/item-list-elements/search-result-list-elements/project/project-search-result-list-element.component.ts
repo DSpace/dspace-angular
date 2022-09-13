@@ -21,7 +21,7 @@ export class ProjectSearchResultListElementComponent extends ItemSearchResultLis
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.showThumbnails = this.appConfig.browseBy.showItemThumbnails;
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 
 }

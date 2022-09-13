@@ -75,13 +75,13 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
-    environment.browseBy.showItemThumbnails = true;
+    environment.browseBy.showThumbnails = true;
     fixture = TestBed.createComponent(JournalVolumeSearchResultListElementComponent);
     journalVolumeListElementComponent = fixture.componentInstance;
 
   }));
 
-  describe('with environment.browseBy.showItemThumbnails set to true', () => {
+  describe('with environment.browseBy.showThumbnails set to true', () => {
     beforeEach(() => {
       journalVolumeListElementComponent.object = mockItemWithMetadata;
       fixture.detectChanges();
@@ -163,12 +163,12 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
-    environment.browseBy.showItemThumbnails = false;
+    environment.browseBy.showThumbnails = false;
     fixture = TestBed.createComponent(JournalVolumeSearchResultListElementComponent);
     journalVolumeListElementComponent = fixture.componentInstance;
   }));
 
-  describe('with environment.browseBy.showItemThumbnails set to false', () => {
+  describe('with environment.browseBy.showThumbnails set to false', () => {
     beforeEach(() => {
       journalVolumeListElementComponent.object = mockItemWithMetadata;
       fixture.detectChanges();

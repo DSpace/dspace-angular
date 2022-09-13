@@ -72,7 +72,7 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
           }
         );
     }
-    this.showThumbnails = this.appConfig.browseBy.showItemThumbnails;
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 
   select(value) {

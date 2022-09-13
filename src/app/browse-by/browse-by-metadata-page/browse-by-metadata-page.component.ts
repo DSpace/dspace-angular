@@ -1,5 +1,5 @@
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -17,8 +17,7 @@ import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { BrowseByDataType, rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
-
+import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -122,8 +121,9 @@ export class BrowseByMetadataPageComponent implements OnInit {
                      protected browseService: BrowseService,
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
-                     protected router: Router) {
-    this.embedThumbnail = environment.browseBy.showItemThumbnails;
+                     protected router: Router,
+                     @Inject(APP_CONFIG) protected appConfig: AppConfig) {
+    this.embedThumbnail = this.appConfig.browseBy.showThumbnails;
   }
 
   ngOnInit(): void {
@@ -172,6 +172,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
    *                          scope: string }
    */
   updatePage(searchOptions: BrowseEntrySearchOptions) {
+    searchOptions.embedThumbnail = this.embedThumbnail;
     this.browseEntries$ = this.browseService.getBrowseEntriesFor(searchOptions);
     this.items$ = undefined;
   }

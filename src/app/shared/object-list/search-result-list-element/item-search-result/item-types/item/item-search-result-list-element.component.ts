@@ -29,7 +29,7 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.showThumbnails = this.appConfig.browseBy.showItemThumbnails;
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
     this.itemPageRoute = getItemPageRoute(this.dso);
   }
 }

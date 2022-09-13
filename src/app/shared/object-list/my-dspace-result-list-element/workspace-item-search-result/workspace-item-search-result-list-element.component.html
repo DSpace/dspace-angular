@@ -5,7 +5,7 @@
     [status]="status"></ds-themed-item-list-preview>
 
   <div class="row">
-    <div [ngClass]="showThumbnails ? 'offset-md-2 pl-3' : ''">
+    <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2  pl-3' : ''">
       <ds-workspaceitem-actions [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-workspaceitem-actions>
     </div>
   </div>

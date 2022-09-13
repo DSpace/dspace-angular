@@ -61,7 +61,7 @@ export class WorkspaceItemSearchResultListElementComponent extends SearchResultL
     super.ngOnInit();
     this.linkService.resolveLink(this.dso, followLink('item'));
     this.initItem(this.dso.item as Observable<RemoteData<Item>>);
-    this.showThumbnails = this.appConfig.browseBy.showItemThumbnails;
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 
   /**

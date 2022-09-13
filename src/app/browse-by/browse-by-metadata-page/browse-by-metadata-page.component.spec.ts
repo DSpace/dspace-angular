@@ -14,7 +14,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { Item } from '../../core/shared/item.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { Community } from '../../core/shared/community.model';
@@ -26,6 +26,7 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { environment } from '../../../environments/environment';
+import { APP_CONFIG } from '../../../config/app-config.interface';
 
 describe('BrowseByMetadataPageComponent', () => {
   let comp: BrowseByMetadataPageComponent;
@@ -98,14 +99,15 @@ describe('BrowseByMetadataPageComponent', () => {
         { provide: BrowseService, useValue: mockBrowseService },
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: PaginationService, useValue: paginationService },
-        { provide: Router, useValue: new RouterMock() }
+        { provide: Router, useValue: new RouterMock() },
+        { provide: APP_CONFIG, useValue: environment }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    environment.browseBy.showItemThumbnails = true;
+    environment.browseBy.showThumbnails = true;
     fixture = TestBed.createComponent(BrowseByMetadataPageComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();

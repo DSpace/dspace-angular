@@ -32,6 +32,6 @@ export class ItemSearchResultListElementSubmissionComponent extends SearchResult
 
   ngOnInit() {
     super.ngOnInit();
-    this.showThumbnails = this.appConfig.browseBy.showItemThumbnails;
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 }

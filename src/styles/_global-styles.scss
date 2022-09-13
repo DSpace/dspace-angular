@@ -144,8 +144,8 @@ ds-dynamic-form-control-container.d-none {
     font-size: 0.7rem !important;
     padding: 0.125rem;
     @media screen and (max-width: map-get($grid-breakpoints, sm)) {
-      font-size: 1.1rem !important;
-      padding: 0.5rem;
+      font-size: 0.5rem !important;
+      padding: 0.1rem;
     }
     visibility: inherit;
   }

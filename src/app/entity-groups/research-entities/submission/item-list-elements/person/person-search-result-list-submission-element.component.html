@@ -1,5 +1,5 @@
 <div class="row">
-  <div *ngIf="showThumbnails" class="col-md-2">
+  <div *ngIf="showThumbnails" class="col-3 col-md-2">
     <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
        rel="noopener noreferrer" class="dont-break-out">
       <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
@@ -9,7 +9,7 @@
       </ds-thumbnail>
     </a>
   </div>
-  <div [ngClass]="showThumbnails ? 'col-md-10' : 'col-md-12'">
+  <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
     <div class="d-flex">
       <div class="flex-grow-1">
         <ds-person-input-suggestions [suggestions]="allSuggestions" [(ngModel)]="selectedName"

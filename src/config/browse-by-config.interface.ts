@@ -22,5 +22,5 @@ export interface BrowseByConfig extends Config {
   /**
    *  If true, thumbnail images for items will be added to BOTH search and browse result lists.
    */
-  showItemThumbnails: boolean;
+  showThumbnails: boolean;
 }

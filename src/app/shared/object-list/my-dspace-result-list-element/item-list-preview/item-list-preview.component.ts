@@ -47,6 +47,6 @@ export class ItemListPreviewComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.showThumbnails = this.appConfig.browseBy.showItemThumbnails;
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 }

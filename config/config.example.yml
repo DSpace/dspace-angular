@@ -169,7 +169,7 @@ browseBy:
   # The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
   defaultLowerLimit: 1900
   # If true, thumbnail images for items will be added to BOTH search and browse result lists.
-  showItemThumbnails: true
+  showThumbnails: true
 
 # Item Config
 item:

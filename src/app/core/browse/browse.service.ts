@@ -23,11 +23,8 @@ import { BrowseDefinitionDataService } from './browse-definition-data.service';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
-const BROWSE_ENTRY_LINKS_TO_FOLLOW: FollowLinkConfig<BrowseEntry>[] = [
-  followLink('thumbnail')
-];
 
-export const BROWSE_ITEM_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
+export const BROWSE_LINKS_TO_FOLLOW: FollowLinkConfig<BrowseEntry | Item>[] = [
   followLink('thumbnail')
 ];
 
@@ -106,7 +103,7 @@ export class BrowseService {
       })
     );
     if (options.embedThumbnail) {
-      return this.hrefOnlyDataService.findAllByHref<BrowseEntry>(href$, {}, null, null, ...BROWSE_ENTRY_LINKS_TO_FOLLOW);
+      return this.hrefOnlyDataService.findAllByHref<BrowseEntry>(href$, {}, null, null, ...BROWSE_LINKS_TO_FOLLOW);
     }
     return this.hrefOnlyDataService.findAllByHref<BrowseEntry>(href$);
   }
@@ -154,7 +151,7 @@ export class BrowseService {
       }),
     );
     if (options.embedThumbnail) {
-      return this.hrefOnlyDataService.findAllByHref<Item>(href$, {}, null, null, ...BROWSE_ITEM_LINKS_TO_FOLLOW);
+      return this.hrefOnlyDataService.findAllByHref<Item>(href$, {}, null, null, ...BROWSE_LINKS_TO_FOLLOW);
     }
     return this.hrefOnlyDataService.findAllByHref<Item>(href$);
   }

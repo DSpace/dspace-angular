@@ -71,7 +71,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
       followLink('item'), followLink('submitter')
     ), followLink('action'));
     this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
-    this.showThumbnails = this.appConfig.browseBy.showItemThumbnails;
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 
 }
