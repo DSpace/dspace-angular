@@ -9,24 +9,44 @@ import { hasValue } from '../empty.util';
 import { KeyValuePair } from '../key-value-pair.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 
+/**
+ * This service deals with adding and retrieving CSS variables to and from the store
+ */
 @Injectable()
 export class CSSVariableService {
   constructor(
     protected store: Store<AppState>) {
   }
 
+  /**
+   * Adds a CSS variable to the store
+   * @param name The name/key of the CSS variable
+   * @param value The value of the CSS variable
+   */
   addCSSVariable(name: string, value: string) {
     this.store.dispatch(new AddCSSVariableAction(name, value));
   }
 
+  /**
+   * Returns the value of a specific CSS key
+   * @param name The name/key of the CSS value
+   */
   getVariable(name: string) {
     return this.store.pipe(select(themeVariableByNameSelector(name)));
   }
 
+  /**
+   * Returns the CSSVariablesState of the store containing all variables
+   */
   getAllVariables() {
     return this.store.pipe(select(themeVariablesSelector));
   }
 
+  /**
+   * Method to find CSS variables by their partially supplying their key. Case sensitive. Returns a paginated list of KeyValuePairs with CSS variables that match the query.
+   * @param query The query to look for in the keys
+   * @param paginationOptions The pagination options for the requested page
+   */
   searchVariable(query: string, paginationOptions: PaginationComponentOptions): Observable<PaginatedList<KeyValuePair<string, string>>> {
     return this.store.pipe(select(themePaginatedVariablesByQuery(query, paginationOptions)));
   }
