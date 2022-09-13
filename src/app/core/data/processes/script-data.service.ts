@@ -25,6 +25,7 @@ import { CoreState } from '../../core-state.model';
 
 export const METADATA_IMPORT_SCRIPT_NAME = 'metadata-import';
 export const METADATA_EXPORT_SCRIPT_NAME = 'metadata-export';
+export const BATCH_IMPORT_SCRIPT_NAME = 'batch-import';
 
 @Injectable()
 @dataService(SCRIPT)
