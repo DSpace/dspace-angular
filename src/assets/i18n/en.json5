@@ -2734,8 +2734,6 @@
 
   "mydspace.description": "",
 
-  "mydspace.general.text-here": "here",
-
   "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
 
   "mydspace.messages.description-placeholder": "Insert your message here...",
@@ -2811,8 +2809,6 @@
   "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
 
   "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
-
-  "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
 
   "mydspace.view-btn": "View",
 
