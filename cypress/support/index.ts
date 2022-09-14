@@ -34,4 +34,3 @@ export const TEST_WITHDRAWN_REPLACED_ITEM_WITH_AUTHORS = '0e9ef1cb-5b9f-4acc-a7c
 export const TEST_WITHDRAWN_REASON = 'reason';
 export const TEST_WITHDRAWN_REPLACEMENT = 'new URL';
 export const TEST_WITHDRAWN_AUTHORS = 'author1, author2';
-

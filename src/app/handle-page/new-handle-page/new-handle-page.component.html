@@ -1,0 +1,17 @@
+<div class="container">
+  <form #newHandle = "ngForm" (ngSubmit) = "onClickSubmit(newHandle.value)">
+    <div class="form-group">
+      <label for="handle">{{'handle-table.new-handle.form-handle-input-text' | translate}}</label>
+      <input type="text" class="form-control" id="handle" name="handle"
+             [(ngModel)]="handle"
+             [placeholder]="'handle-table.new-handle.form-handle-input-placeholder' | translate">
+    </div>
+    <div class="form-group">
+      <label for="url">{{'handle-table.new-handle.form-url-input-text' | translate}}</label>
+      <input type="text" class="form-control" id="url" name="url"
+             [(ngModel)]="url"
+             [placeholder]="'handle-table.new-handle.form-url-input-placeholder' | translate">
+    </div>
+    <button type="submit" class="btn btn-primary">{{'handle-table.new-handle.form-button-submit' | translate}}</button>
+  </form>
+</div>

@@ -268,6 +268,9 @@ describe('AdminSidebarComponent', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
           id: 'workflow', visible: true,
         }));
+        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'handle_table', visible: true,
+        }));
       });
     });
 
