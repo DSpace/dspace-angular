@@ -15,6 +15,11 @@ export interface CrisLayoutMetadataBoxConfig extends Config {
   defaultMetadataValueColStyle: string;
 }
 
+export interface CrisLayoutCollectionsBoxConfig extends Config {
+  defaultCollectionsLabelColStyle: string;
+  defaultCollectionsValueColStyle: string;
+}
+
 export interface CrisLayoutTypeConfig {
   orientation: string;
 }
@@ -34,6 +39,7 @@ export interface CrisLayoutConfig extends Config {
   crisRef: CrisRefConfig[];
   itemPage: CrisItemPageConfig;
   metadataBox: CrisLayoutMetadataBoxConfig;
+  collectionsBox: CrisLayoutCollectionsBoxConfig;
 }
 
 export interface LayoutConfig extends Config {

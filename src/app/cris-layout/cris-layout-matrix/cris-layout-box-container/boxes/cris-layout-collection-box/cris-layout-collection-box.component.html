@@ -1,8 +1,27 @@
-<div class="container" *ngIf="owningCollectionId$ | async">
-  <div class="row">
-    <div class="font-weight-bold col-3">{{ 'cris-layout.rendering.collections.owning-collection.label' | translate }}</div>
-    <div class="col-9">
-      <a href="javascript:void(0);" [routerLink]="['/collections', (owningCollectionId$ | async)]">{{ owningCollectionName$ | async }}</a>
+<div class="container" *ngIf="(owningCollection$ | async) || (mappedCollections$ | async).length > 0">
+    <div class="row" data-test="owningCollection" *ngIf="owningCollection$ | async">
+        <div class="{{labelStyle}}">{{ 'cris-layout.rendering.collections.owning-collection.label' | translate }}</div>
+        <div class="{{valueStyle}}">
+            <a href="javascript:void(0);" [routerLink]="['/collections', (owningCollection$ | async).id]">{{ (owningCollection$ | async).firstMetadataValue('dc.title') }}</a>
+        </div>
     </div>
-  </div>
+    <div class="row" data-test="mappedCollections" *ngIf="(mappedCollections$ | async).length > 0">
+        <div class="{{labelStyle}}">{{ 'cris-layout.rendering.collections.mapped-collection.label' | translate }}</div>
+        <div class="{{valueStyle}}">
+            <a href="javascript:void(0);" *ngFor="let mappedCollection of (mappedCollections$ | async); let last=last;" [routerLink]="['/collections', mappedCollection.id]">
+                {{ mappedCollection.firstMetadataValue('dc.title') }}<span *ngIf="!last" [innerHTML]="separator"></span>
+            </a>
+            <div *ngIf="isLoading$ | async">
+                {{'cris-layout.rendering.collections.loading' | translate}}
+            </div>
+        
+            <a *ngIf="!(isLoading$ | async) && (hasMore$ | async)"
+                (click)="$event.preventDefault(); handleLoadMore()"
+                class="load-more-btn btn btn-sm btn-outline-secondary"
+                role="button"
+                href="javascript:void(0);">
+                {{'cris-layout.rendering.collections.load-more' | translate}}
+            </a>
+        </div>
+    </div>
 </div>
