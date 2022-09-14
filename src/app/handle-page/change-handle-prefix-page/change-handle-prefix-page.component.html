@@ -1,0 +1,39 @@
+<div class="container">
+  <form [formGroup]="changePrefix" (ngSubmit)="onClickSubmit(changePrefix.value)" novalidate>
+    <!-- Old prefix input -->
+    <div class="form-group">
+      <label for="oldPrefix">{{'handle-table.change-handle-prefix.form-old-prefix-input-text' | translate}}</label>
+      <input type="text" class="form-control" id="oldPrefix" formControlName="oldPrefix" required
+             [placeholder]="'handle-table.change-handle-prefix.form-old-prefix-input-placeholder' | translate">
+    </div>
+    <!-- Validation error - old prefix -->
+    <div *ngIf="changePrefix.controls['oldPrefix'].invalid &&
+                (changePrefix.controls['oldPrefix'].dirty || changePrefix.controls['oldPrefix'].touched)">
+      <ds-error *ngIf="changePrefix.controls['oldPrefix'].errors.required"
+                message="{{'handle-table.change-handle-prefix.form-new-prefix-input-error' | translate}}">
+      </ds-error>
+    </div>
+
+    <!-- New prefix -->
+    <div class="form-group">
+      <label for="newPrefix">{{'handle-table.change-handle-prefix.form-new-prefix-input-text' | translate}}</label>
+      <input type="text" class="form-control" id="newPrefix" formControlName="newPrefix" required
+             [placeholder]="'handle-table.change-handle-prefix.form-new-prefix-input-placeholder' | translate">
+    </div>
+    <!-- Validation error - old prefix -->
+    <div *ngIf="changePrefix.controls['newPrefix'].invalid &&
+                (changePrefix.controls['newPrefix'].dirty || changePrefix.controls['newPrefix'].touched)">
+      <ds-error *ngIf="changePrefix.controls['newPrefix'].errors.required"
+                message="{{'handle-table.change-handle-prefix.form-old-prefix-input-error' | translate}}"></ds-error>
+    </div>
+
+    <!-- Checkbox - archive -->
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="archive" formControlName="archive">
+      <label class="form-check-label" for="archive">{{'handle-table.change-handle-prefix.form-archive-input-check' | translate}}</label>
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary mt-2">{{'handle-table.new-handle.form-button-submit' | translate}}</button>
+  </form>
+</div>

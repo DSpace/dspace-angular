@@ -125,4 +125,7 @@ export function getRequestCopyModulePath() {
   return `/${REQUEST_COPY_MODULE_PATH}`;
 }
 
-
+export const HANDLE_TABLE_MODULE_PATH = 'handle-table';
+export function getHandleTableModulePath() {
+  return `/${HANDLE_TABLE_MODULE_PATH}`;
+}

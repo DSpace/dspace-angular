@@ -13,7 +13,7 @@ import {
   ERROR_PAGE,
   FORBIDDEN_PATH,
   FORGOT_PASSWORD_PATH,
-  HEALTH_PAGE_PATH,
+  HANDLE_TABLE_MODULE_PATH,
   INFO_MODULE_PATH,
   INTERNAL_SERVER_ERROR,
   LEGACY_BITSTREAM_MODULE_PATH,
@@ -236,6 +236,11 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
             loadChildren: () => import('./subscriptions-page/subscriptions-page-routing.module')
               .then((m) => m.SubscriptionsPageRoutingModule),
             canActivate: [AuthenticatedGuard]
+          },
+          {
+            path: HANDLE_TABLE_MODULE_PATH,
+            loadChildren: () => import('./handle-page/handle-page.module').then((m) => m.HandlePageModule),
+            canActivate: [SiteAdministratorGuard],
           },
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
         ]

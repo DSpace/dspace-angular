@@ -1808,7 +1808,112 @@
 
   "health-page.section.solrAuthorityCore.title": "Solr: authority core",
 
-  "health-page.section.solrOaiCore.title": "Solr: oai core",
+  "handle-table.breadcrumbs": "Handles",
+
+  "handle-table.new-handle.breadcrumbs": "New Handle",
+
+  "handle-table.edit-handle.breadcrumbs": "Edit Handle",
+
+  "handle-table.global-actions.breadcrumbs": "Global Actions",
+
+
+  "handle-table.new-handle.form-handle-input-text": "Handle",
+
+  "handle-table.new-handle.form-handle-input-placeholder": "Enter handle",
+
+  "handle-table.new-handle.form-url-input-text": "URL",
+
+  "handle-table.new-handle.form-url-input-placeholder": "Enter URL",
+
+  "handle-table.new-handle.form-button-submit": "Submit",
+
+
+  "handle-table.new-handle.notify.error": "Server Error - Cannot create new handle",
+
+  "handle-table.new-handle.notify.successful": "The new handle was created!",
+
+
+  "handle-table.edit-handle.notify.error": "Server Error - Cannot edit this handle",
+
+  "handle-table.edit-handle.notify.successful": "The handle was edited!",
+
+
+  "handle-table.delete-handle.notify.error": "Server Error - Cannot delete this handle",
+
+  "handle-table.delete-handle.notify.successful": "The handle was deleted!",
+
+
+
+  "handle-table.edit-handle.form-handle-input-text": "Handle",
+
+  "handle-table.edit-handle.form-handle-input-placeholder": "Enter new handle",
+
+  "handle-table.edit-handle.form-url-input-text": "URL",
+
+  "handle-table.edit-handle.form-url-input-placeholder": "Enter new URL",
+
+  "handle-table.edit-handle.form-archive-input-check": "Archive old handle?",
+
+  "handle-table.edit-handle.form-button-submit": "Submit",
+
+
+  "handle-page.title": "Handles",
+
+  "handle-table.title": "Handle List",
+
+  "handle-table.table.handle": "Handle",
+
+  "handle-table.table.internal": "Internal",
+
+  "handle-table.table.is-internal": "Yes",
+
+  "handle-table.table.not-internal": "No",
+
+  "handle-table.table.url": "URL",
+
+  "handle-table.table.resource-type": "Resource type",
+
+  "handle-table.table.resource-id": "Resource id",
+
+  "handle-table.button.new-handle": "New external handle",
+
+  "handle-table.button.edit-handle": "Edit handle",
+
+  "handle-table.button.delete-handle": "Delete handle",
+
+  "handle-table.dropdown.search-option": "Search option",
+
+
+
+  "handle-table.global-actions.title": "Global Actions",
+
+  "handle-table.global-actions.actions-list-message": "This is the list of available global actions.",
+
+  "handle-table.global-actions.button.change-prefix": "Change handle prefix",
+
+  "handle-table.change-handle-prefix.form-old-prefix-input-text": "Old prefix",
+
+  "handle-table.change-handle-prefix.form-old-prefix-input-error": "Valid old prefix is required",
+
+  "handle-table.change-handle-prefix.form-old-prefix-input-placeholder": "Enter old prefix",
+
+  "handle-table.change-handle-prefix.form-new-prefix-input-text": "New prefix",
+
+  "handle-table.change-handle-prefix.form-new-prefix-input-placeholder": "Enter new prefix",
+
+  "handle-table.change-handle-prefix.form-new-prefix-input-error": "Valid new prefix is required",
+
+  "handle-table.change-handle-prefix.form-archive-input-check": "Archive old handles?",
+
+  "handle-table.change-handle-prefix.notify.started": "Changing of the prefix has been started, it will take some time.",
+
+  "handle-table.change-handle-prefix.notify.successful": "The global prefix was changed!",
+
+  "handle-table.change-handle-prefix.notify.error": "Server Error - Cannot change the global prefix",
+
+  "handle-table.change-handle-prefix.notify.error.empty-table": "Server Error - Cannot change the global prefix because no Handle exist.",
+
+
 
   "health-page.section.solrSearchCore.title": "Solr: search core",
 
@@ -2942,11 +3047,7 @@
 
   "menu.section.workflow": "Administer Workflow",
 
-  "metadata-export-search.tooltip": "Export search results as CSV",
-
-  "metadata-export-search.submit.success": "The export was started successfully",
-
-  "metadata-export-search.submit.error": "Starting the export has failed",
+  "menu.section.handle": "Manage Handles",
 
 
   "autocomplete.suggestion.sponsor.funding-code": "Funding code",
@@ -2956,7 +3057,6 @@
   "autocomplete.suggestion.sponsor.empty": "N/A",
 
   "autocomplete.suggestion.sponsor.eu": "EU",
-
 
 
   "mydspace.breadcrumbs": "MyDSpace",
