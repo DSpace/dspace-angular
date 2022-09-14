@@ -12,12 +12,13 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { cloneDeep } from 'lodash';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import {createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$} from '../remote-data.utils';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 
 describe('BrowserKlaroService', () => {
   const trackingIdProp = 'google.analytics.key';
   const trackingIdTestValue = 'mock-tracking-id';
+  const googleAnalytics = 'google-analytics';
   let translateService;
   let ePersonService;
   let authService;
@@ -33,11 +34,15 @@ describe('BrowserKlaroService', () => {
       values: values,
     }),
   });
+  const googleAnalyticsFilter =
+    (bService: BrowserKlaroService) =>
+      bService.klaroConfig.services.filter(({name}) => name === googleAnalytics);
 
   let mockConfig;
   let appName;
   let purpose;
   let testKey;
+  let findByPropertyName;
 
   beforeEach(() => {
     user = new EPerson();
@@ -52,6 +57,7 @@ describe('BrowserKlaroService', () => {
       getAuthenticatedUserFromStore: observableOf(user)
     });
     configurationDataService = createConfigSuccessSpy(trackingIdTestValue);
+    findByPropertyName = cloneDeep(configurationDataService.findByPropertyName);
     cookieService = jasmine.createSpyObj('cookieService', {
       get: '{%22token_item%22:true%2C%22impersonation%22:true%2C%22redirect%22:true%2C%22language%22:true%2C%22klaro%22:true%2C%22has_agreed_end_user%22:true%2C%22google-analytics%22:true}',
       set: () => {
@@ -100,6 +106,9 @@ describe('BrowserKlaroService', () => {
       },
       services: [{
         name: appName,
+        purposes: [purpose]
+      },{
+        name: googleAnalytics,
         purposes: [purpose]
       }],
 
@@ -249,6 +258,48 @@ describe('BrowserKlaroService', () => {
       service.setSettingsForUser(updatedUser, cookieConsent);
       expect(updatedUser.setMetadata).toHaveBeenCalledWith(COOKIE_MDFIELD, undefined, cookieConsentString);
       expect(ePersonService.patch).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('initialize google analytics configuration', () => {
+    beforeEach(() => {
+      configurationDataService.findByPropertyName = findByPropertyName;
+      spyOn((service as any), 'getUser$').and.returnValue(observableOf(user));
+      translateService.get.and.returnValue(observableOf('loading...'));
+      spyOn(service, 'addAppMessages');
+      spyOn((service as any), 'initializeUser');
+      spyOn(service, 'translateConfiguration');
+    });
+    it('should have been initialized with googleAnalytics', () => {
+      const filteredServices = googleAnalyticsFilter(service);
+      expect(filteredServices.length).toBe(1);
+    });
+    it('should filter empty configuration', () => {
+      configurationDataService.findByPropertyName = jasmine.createSpy().and.returnValue(
+        createSuccessfulRemoteDataObject$({
+          ... new ConfigurationProperty(),
+          name: googleAnalytics,
+          values: [],
+        }));
+      service.initialize();
+      const filteredServices = googleAnalyticsFilter(service);
+      expect(filteredServices.length).toBe(0);
+    });
+    it('should filter when error', () => {
+      configurationDataService.findByPropertyName = jasmine.createSpy().and.returnValue(
+        createFailedRemoteDataObject$('Erro while loading GA')
+      );
+      service.initialize();
+      const filteredServices = googleAnalyticsFilter(service);
+      expect(filteredServices.length).toBe(0);
+    });
+    it('should filter when invalid payload', () => {
+      configurationDataService.findByPropertyName = jasmine.createSpy().and.returnValue(
+        createSuccessfulRemoteDataObject$(null)
+      );
+      service.initialize();
+      const filteredServices = googleAnalyticsFilter(service);
+      expect(filteredServices.length).toBe(0);
     });
   });
 });

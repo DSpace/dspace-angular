@@ -13,10 +13,8 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { cloneDeep, debounce } from 'lodash';
 import { ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration } from './klaro-configuration';
 import { Operation } from 'fast-json-patch';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData} from '../../core/shared/operators';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 
 /**
  * Metadata field to store a user's cookie consent preferences in
@@ -80,13 +78,16 @@ export class BrowserKlaroService extends KlaroService {
       this.klaroConfig.translations.en.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
     }
 
-    const configurationToHide$: Observable<Pick<typeof klaroConfiguration, 'name'>[]> =
-      this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY)
-        .pipe(
-          getFirstCompletedRemoteData(),
-          map(remoteData => this.mapInvalidConfiguration(remoteData, this.GOOGLE_ANALYTICS_SERVICE_NAME)),
-          take(1)
-        );
+    const servicesToHide$: Observable<string[]> = this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY).pipe(
+      getFirstCompletedRemoteData(),
+      map(remoteData => {
+        if (!remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values)) {
+          return [this.GOOGLE_ANALYTICS_SERVICE_NAME];
+        } else {
+          return [];
+        }
+      }),
+    );
 
     this.translateService.setDefaultLang(environment.defaultLanguage);
 
@@ -94,8 +95,8 @@ export class BrowserKlaroService extends KlaroService {
 
     const translationServiceReady$ = this.translateService.get('loading.default').pipe(take(1));
 
-    observableCombineLatest([user$, translationServiceReady$, configurationToHide$])
-      .subscribe(([user, translation, servicesToHide]: [EPerson, string, Pick<typeof klaroConfiguration, 'name'>[]]) => {
+    observableCombineLatest([user$, servicesToHide$, translationServiceReady$])
+      .subscribe(([user, servicesToHide, _]: [EPerson, string[], string]) => {
         user = cloneDeep(user);
 
         if (hasValue(user)) {
@@ -118,21 +119,6 @@ export class BrowserKlaroService extends KlaroService {
 
         Klaro.setup(this.klaroConfig);
       });
-  }
-
-  private mapInvalidConfiguration(
-    remoteData: RemoteData<ConfigurationProperty>,
-    configurationName: string
-  ): Pick<typeof klaroConfiguration, 'name'>[] {
-    if (this.isEmptyOrInvalid(remoteData)) {
-      return [{name: configurationName}];
-    } else {
-      return [];
-    }
-  }
-
-  private isEmptyOrInvalid(remoteData: RemoteData<ConfigurationProperty>): boolean {
-    return !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values);
   }
 
   /**
@@ -302,7 +288,7 @@ export class BrowserKlaroService extends KlaroService {
   /**
    * remove the google analytics from the services
    */
-  private filterConfigServices(servicesToHide: Pick<typeof klaroConfiguration, 'name'>[]): Pick<typeof klaroConfiguration, 'services'>[] {
-    return this.klaroConfig.services.filter(service => !servicesToHide.some(el => el.name === service.name));
+  private filterConfigServices(servicesToHide: string[]): Pick<typeof klaroConfiguration, 'services'>[] {
+    return this.klaroConfig.services.filter(service => !servicesToHide.some(name => name === service.name));
   }
 }
