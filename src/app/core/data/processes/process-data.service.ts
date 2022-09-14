@@ -16,11 +16,15 @@ import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model
 import { FindAllData, FindAllDataImpl } from '../base/find-all-data';
 import { FindListOptions } from '../find-list-options.model';
 import { dataService } from '../base/data-service.decorator';
+import { DeleteData, DeleteDataImpl } from '../base/delete-data';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { NoContent } from '../../shared/NoContent.model';
 
 @Injectable()
 @dataService(PROCESS)
-export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process> {
+export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process>, DeleteData<Process> {
   private findAllData: FindAllData<Process>;
+  private deleteData: DeleteData<Process>;
 
   constructor(
     protected requestService: RequestService,
@@ -28,10 +32,12 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected bitstreamDataService: BitstreamDataService,
+    protected notificationsService: NotificationsService,
   ) {
     super('processes', requestService, rdbService, objectCache, halService);
 
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
   }
 
   /**
@@ -69,5 +75,30 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
    */
   findAll(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Process>[]): Observable<RemoteData<PaginatedList<Process>>> {
     return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Delete an existing object on the server
+   * @param   objectId The id of the object to be removed
+   * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
+   *                            metadata should be saved as real metadata
+   * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
+   *          errorMessage, timeCompleted, etc
+   */
+  public delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
+    return this.deleteData.delete(objectId, copyVirtualMetadata);
+  }
+
+  /**
+   * Delete an existing object on the server
+   * @param   href The self link of the object to be removed
+   * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
+   *                            metadata should be saved as real metadata
+   * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
+   *          errorMessage, timeCompleted, etc
+   *          Only emits once all request related to the DSO has been invalidated.
+   */
+  public deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
+    return this.deleteData.deleteByHref(href, copyVirtualMetadata);
   }
 }
