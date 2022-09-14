@@ -8,7 +8,6 @@ import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { environment } from '../../../../../../environments/environment';
 import { By } from '@angular/platform-browser';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 
@@ -53,6 +52,18 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
     })
   });
 
+const environmentUseThumbs = {
+  browseBy: {
+    showThumbnails: true
+  }
+}
+
+const enviromentNoThumbs = {
+  browseBy: {
+    showThumbnails: false
+  }
+}
+
 describe('ProjectSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -60,7 +71,7 @@ describe('ProjectSearchResultListElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -70,7 +81,6 @@ describe('ProjectSearchResultListElementComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
-    environment.browseBy.showThumbnails = true;
     fixture = TestBed.createComponent(ProjectSearchResultListElementComponent);
     projectListElementComponent = fixture.componentInstance;
 
@@ -124,7 +134,7 @@ describe('ProjectSearchResultListElementComponent', () => {
       providers: [
         {provide: TruncatableService, useValue: {}},
         {provide: DSONameService, useClass: DSONameServiceMock},
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
 
       ],
 
@@ -135,7 +145,6 @@ describe('ProjectSearchResultListElementComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
-    environment.browseBy.showThumbnails = false;
     fixture = TestBed.createComponent(ProjectSearchResultListElementComponent);
     projectListElementComponent = fixture.componentInstance;
   }));

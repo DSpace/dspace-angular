@@ -5,7 +5,7 @@
                         [showSubmitter]="showSubmitter"
                         [status]="status"></ds-themed-item-list-preview>
   <div class="row">
-    <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2pl-3' : ''">
+    <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2 pl-3' : ''">
       <ds-pool-task-actions id="actions" *ngIf="workflowitem" [object]="dso"
                             (processCompleted)="this.reloadedObject.emit($event.reloadedObject)"></ds-pool-task-actions>
     </div>

@@ -9,7 +9,6 @@ import { TruncatableService } from '../../../../../shared/truncatable/truncatabl
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { environment } from '../../../../../../environments/environment';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 
 let orgUnitListElementComponent: OrgUnitSearchResultListElementComponent;
@@ -52,6 +51,18 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
     })
   });
 
+const environmentUseThumbs = {
+  browseBy: {
+    showThumbnails: true
+  }
+}
+
+const enviromentNoThumbs = {
+  browseBy: {
+    showThumbnails: false
+  }
+}
+
 describe('OrgUnitSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -59,7 +70,7 @@ describe('OrgUnitSearchResultListElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]
@@ -69,7 +80,6 @@ describe('OrgUnitSearchResultListElementComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
-    environment.browseBy.showThumbnails = true;
     fixture = TestBed.createComponent(OrgUnitSearchResultListElementComponent);
     orgUnitListElementComponent = fixture.componentInstance;
 
@@ -123,7 +133,7 @@ describe('OrgUnitSearchResultListElementComponent', () => {
       providers: [
         {provide: TruncatableService, useValue: {}},
         {provide: DSONameService, useClass: DSONameServiceMock},
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -133,7 +143,6 @@ describe('OrgUnitSearchResultListElementComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
-    environment.browseBy.showThumbnails = false;
     fixture = TestBed.createComponent(OrgUnitSearchResultListElementComponent);
     orgUnitListElementComponent = fixture.componentInstance;
   }));
@@ -147,7 +156,7 @@ describe('OrgUnitSearchResultListElementComponent', () => {
 
     it('should not add thumbnail element', () => {
       const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
-      expect(thumbnailElement).toBeFalsy();
+      expect(thumbnailElement).toBeNull();
     });
   });
 });

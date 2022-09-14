@@ -19,7 +19,6 @@ import { By } from '@angular/platform-browser';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { environment } from '../../../../../environments/environment';
 
 let component: PoolSearchResultListElementComponent;
 let fixture: ComponentFixture<PoolSearchResultListElementComponent>;
@@ -56,6 +55,13 @@ const item = Object.assign(new Item(), {
     ]
   }
 });
+
+const environmentUseThumbs = {
+  browseBy: {
+    showThumbnails: true
+  }
+}
+
 const rdItem = createSuccessfulRemoteDataObject(item);
 const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
@@ -71,7 +77,7 @@ describe('PoolSearchResultListElementComponent', () => {
         { provide: TruncatableService, useValue: {} },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PoolSearchResultListElementComponent, {
@@ -115,4 +121,9 @@ describe('PoolSearchResultListElementComponent', () => {
     expect(component.reloadedObject.emit).toHaveBeenCalledWith(actionPayload.reloadedObject);
 
   }));
+
+  it('should add an offset to the actions element', () => {
+    const thumbnail = fixture.debugElement.query(By.css('.offset-3'));
+    expect(thumbnail).toBeTruthy();
+  });
 });

@@ -10,7 +10,6 @@ import { CommunitySearchResult } from '../../../object-collection/shared/communi
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { environment } from '../../../../../environments/environment';
 
 let communitySearchResultListElementComponent: CommunitySearchResultListElementComponent;
 let fixture: ComponentFixture<CommunitySearchResultListElementComponent>;
@@ -45,6 +44,12 @@ mockCommunityWithoutAbstract.indexableObject = Object.assign(new Community(), {
   }
 });
 
+const environmentUseThumbs = {
+  browseBy: {
+    showThumbnails: true
+  }
+}
+
 describe('CommunitySearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -52,7 +57,7 @@ describe('CommunitySearchResultListElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -89,6 +94,12 @@ describe('CommunitySearchResultListElementComponent', () => {
     it('should not show the description paragraph', () => {
       const communityAbstractField = fixture.debugElement.query(By.css('div.abstract-text'));
       expect(communityAbstractField).toBeNull();
+    });
+  });
+
+  describe('when environment is set to show thumbnail images', () => {
+    it('should offset content', () => {
+      const offset = fixture.debugElement.query(By.css('offset-md-2'))
     });
   });
 });

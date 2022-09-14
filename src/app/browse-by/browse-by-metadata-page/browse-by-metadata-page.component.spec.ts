@@ -25,7 +25,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.util
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { environment } from '../../../environments/environment';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 
 describe('BrowseByMetadataPageComponent', () => {
@@ -44,6 +43,12 @@ describe('BrowseByMetadataPageComponent', () => {
       }
     ]
   });
+
+  const environmentUseThumbs = {
+    browseBy: {
+      showThumbnails: true
+    }
+  }
 
   const mockEntries = [
     {
@@ -100,14 +105,13 @@ describe('BrowseByMetadataPageComponent', () => {
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    environment.browseBy.showThumbnails = true;
     fixture = TestBed.createComponent(BrowseByMetadataPageComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();

@@ -11,7 +11,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { environment } from '../../../../../environments/environment';
 
 let component: ItemListPreviewComponent;
 let fixture: ComponentFixture<ItemListPreviewComponent>;
@@ -68,6 +67,18 @@ const mockItemWithEntityType: Item = Object.assign(new Item(), {
   }
 });
 
+const environmentUseThumbs = {
+  browseBy: {
+    showThumbnails: true
+  }
+}
+
+const enviromentNoThumbs = {
+  browseBy: {
+    showThumbnails: false
+  }
+}
+
 describe('ItemListPreviewComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -83,7 +94,7 @@ describe('ItemListPreviewComponent', () => {
       declarations: [ItemListPreviewComponent, TruncatePipe],
       providers: [
         { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate }},
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -100,6 +111,17 @@ describe('ItemListPreviewComponent', () => {
 
   beforeEach(() => {
     component.object = { hitHighlights: {} } as any;
+  });
+
+  describe('When showThumbnails is true', () => {
+    beforeEach(() => {
+      component.item = mockItemWithAuthorAndDate;
+      fixture.detectChanges();
+    });
+    it('should add the ds-thumbnail element', () => {
+      const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
+      expect(thumbnail).toBeTruthy();
+    });
   });
 
   describe('When the item has an author', () => {
@@ -161,4 +183,49 @@ describe('ItemListPreviewComponent', () => {
       expect(entityField).not.toBeNull();
     });
   });
+});
+
+describe('ItemListPreviewComponent', () => {
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }),
+        NoopAnimationsModule
+      ],
+      declarations: [ItemListPreviewComponent, TruncatePipe],
+      providers: [
+        {provide: 'objectElementProvider', useValue: {mockItemWithAuthorAndDate}},
+        {provide: APP_CONFIG, useValue: enviromentNoThumbs}
+      ],
+
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(ItemListPreviewComponent, {
+      set: {changeDetection: ChangeDetectionStrategy.Default}
+    }).compileComponents();
+  }));
+  beforeEach(waitForAsync(() => {
+    fixture = TestBed.createComponent(ItemListPreviewComponent);
+    component = fixture.componentInstance;
+
+  }));
+
+  beforeEach(() => {
+    component.object = { hitHighlights: {} } as any;
+  });
+
+  describe('When showThumbnails is true', () => {
+    beforeEach(() => {
+      component.item = mockItemWithAuthorAndDate;
+      fixture.detectChanges();
+    });
+    it('should add the ds-thumbnail element', () => {
+      const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
+      expect(thumbnail).toBeFalsy();
+    })
+  })
 });

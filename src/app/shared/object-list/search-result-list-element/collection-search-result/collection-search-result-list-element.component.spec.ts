@@ -10,7 +10,6 @@ import { CollectionSearchResult } from '../../../object-collection/shared/collec
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { environment } from '../../../../../environments/environment';
 
 let collectionSearchResultListElementComponent: CollectionSearchResultListElementComponent;
 let fixture: ComponentFixture<CollectionSearchResultListElementComponent>;
@@ -45,6 +44,12 @@ mockCollectionWithoutAbstract.indexableObject = Object.assign(new Collection(), 
   }
 });
 
+const environmentUseThumbs = {
+  browseBy: {
+    showThumbnails: true
+  }
+}
+
 describe('CollectionSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -52,7 +57,7 @@ describe('CollectionSearchResultListElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(CollectionSearchResultListElementComponent, {
@@ -90,4 +95,11 @@ describe('CollectionSearchResultListElementComponent', () => {
       expect(collectionAbstractField).toBeNull();
     });
   });
+
+  describe('when environment is set to show thumbnail images', () => {
+    it('should offset content', () => {
+      const offset = fixture.debugElement.query(By.css('offset-md-2'))
+    });
+  });
+
 });

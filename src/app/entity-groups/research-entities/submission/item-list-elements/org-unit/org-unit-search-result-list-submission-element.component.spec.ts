@@ -182,4 +182,6 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
       expect(jobTitleField).toBeNull();
     });
   });
+
 });
+

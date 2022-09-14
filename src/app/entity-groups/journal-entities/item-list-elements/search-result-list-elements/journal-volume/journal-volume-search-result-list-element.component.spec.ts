@@ -9,7 +9,6 @@ import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { environment } from '../../../../../../environments/environment';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 
 let journalVolumeListElementComponent: JournalVolumeSearchResultListElementComponent;
@@ -58,6 +57,18 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
     })
   });
 
+const environmentUseThumbs = {
+  browseBy: {
+    showThumbnails: true
+  }
+}
+
+const enviromentNoThumbs = {
+  browseBy: {
+    showThumbnails: false
+  }
+}
+
 describe('JournalVolumeSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -65,7 +76,7 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -75,7 +86,6 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
-    environment.browseBy.showThumbnails = true;
     fixture = TestBed.createComponent(JournalVolumeSearchResultListElementComponent);
     journalVolumeListElementComponent = fixture.componentInstance;
 
@@ -153,7 +163,7 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
       providers: [
         {provide: TruncatableService, useValue: {}},
         {provide: DSONameService, useClass: DSONameServiceMock},
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -163,7 +173,6 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
-    environment.browseBy.showThumbnails = false;
     fixture = TestBed.createComponent(JournalVolumeSearchResultListElementComponent);
     journalVolumeListElementComponent = fixture.componentInstance;
   }));

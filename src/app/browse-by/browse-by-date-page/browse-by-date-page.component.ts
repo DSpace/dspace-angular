@@ -13,7 +13,6 @@ import { BrowseService } from '../../core/browse/browse.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { BrowseByDataType, rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
-import { environment } from '../../../environments/environment';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -86,7 +85,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
   updateStartsWithOptions(definition: string, metadataKeys: string[], scope?: string) {
     this.subs.push(
       this.browseService.getFirstItemFor(definition, scope).subscribe((firstItemRD: RemoteData<Item>) => {
-        let lowerLimit = environment.browseBy.defaultLowerLimit;
+        let lowerLimit = this.appConfig.browseBy.defaultLowerLimit;
         if (hasValue(firstItemRD.payload)) {
           const date = firstItemRD.payload.firstMetadataValue(metadataKeys);
           if (isNotEmpty(date) && isValidDate(date)) {
@@ -97,8 +96,8 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         }
         const options = [];
         const currentYear = new Date().getUTCFullYear();
-        const oneYearBreak = Math.floor((currentYear - environment.browseBy.oneYearLimit) / 5) * 5;
-        const fiveYearBreak = Math.floor((currentYear - environment.browseBy.fiveYearLimit) / 10) * 10;
+        const oneYearBreak = Math.floor((currentYear - this.appConfig.browseBy.oneYearLimit) / 5) * 5;
+        const fiveYearBreak = Math.floor((currentYear - this.appConfig.browseBy.fiveYearLimit) / 10) * 10;
         if (lowerLimit <= fiveYearBreak) {
           lowerLimit -= 10;
         } else if (lowerLimit <= oneYearBreak) {
