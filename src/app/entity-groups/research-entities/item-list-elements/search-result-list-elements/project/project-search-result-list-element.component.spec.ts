@@ -56,13 +56,13 @@ const environmentUseThumbs = {
   browseBy: {
     showThumbnails: true
   }
-}
+};
 
 const enviromentNoThumbs = {
   browseBy: {
     showThumbnails: false
   }
-}
+};
 
 describe('ProjectSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {

@@ -71,13 +71,13 @@ const environmentUseThumbs = {
   browseBy: {
     showThumbnails: true
   }
-}
+};
 
 const enviromentNoThumbs = {
   browseBy: {
     showThumbnails: false
   }
-}
+};
 
 describe('ItemListPreviewComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -226,6 +226,6 @@ describe('ItemListPreviewComponent', () => {
     it('should add the ds-thumbnail element', () => {
       const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnail).toBeFalsy();
-    })
-  })
+    });
+  });
 });

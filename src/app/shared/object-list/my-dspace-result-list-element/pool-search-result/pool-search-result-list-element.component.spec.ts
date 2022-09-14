@@ -60,7 +60,7 @@ const environmentUseThumbs = {
   browseBy: {
     showThumbnails: true
   }
-}
+};
 
 const rdItem = createSuccessfulRemoteDataObject(item);
 const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });

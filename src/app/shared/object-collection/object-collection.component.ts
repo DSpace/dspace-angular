@@ -21,6 +21,7 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { CollectionElementLinkType } from './collection-element-link.type';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Context } from '../../core/shared/context.model';
+import { setPlaceHolderFontSize } from '../utils/object-list-utils';
 
 /**
  * Component that can render a list of listable objects in different view modes
@@ -167,7 +168,9 @@ export class ObjectCollectionComponent implements OnInit {
         map((params) => isEmpty(params?.view) ? ViewMode.ListElement : params.view),
         distinctUntilChanged()
       );
-    this.setPlaceHolderFontSize();
+    const width = this.elementRef.nativeElement.offsetWidth;
+    this.placeholderFontClass = setPlaceHolderFontSize(width);
+
   }
 
   /**
@@ -177,6 +180,8 @@ export class ObjectCollectionComponent implements OnInit {
    *    Route is a singleton service provided by Angular.
    * @param router
    *    Router is a singleton service provided by Angular.
+   * @param elementRef
+   *    Used only to read DOM for the element width
    */
   constructor(
     private cdRef: ChangeDetectorRef,
@@ -234,21 +239,6 @@ export class ObjectCollectionComponent implements OnInit {
   */
   goNext() {
       this.next.emit(true);
-  }
-
-  /**
-   * Sets the class to be used for the "no thumbnail"
-   * placeholder font size.
-   */
-  setPlaceHolderFontSize() {
-    const width = this.elementRef.nativeElement.offsetWidth;
-    if (width < 750) {
-      this.placeholderFontClass = 'thumb-font-1';
-    } else if (width < 1000) {
-      this.placeholderFontClass = 'thumb-font-2';
-    } else {
-      this.placeholderFontClass = 'thumb-font-3';
-    }
   }
 
 }

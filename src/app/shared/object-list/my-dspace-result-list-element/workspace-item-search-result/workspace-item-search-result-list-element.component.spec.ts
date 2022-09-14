@@ -60,7 +60,7 @@ const environmentUseThumbs = {
   browseBy: {
     showThumbnails: true
   }
-}
+};
 
 const rd = createSuccessfulRemoteDataObject(item);
 mockResultObject.indexableObject = Object.assign(new WorkspaceItem(), { item: observableOf(rd) });

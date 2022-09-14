@@ -60,7 +60,7 @@ const environmentUseThumbs = {
   browseBy: {
     showThumbnails: true
   }
-}
+};
 
 const rd = createSuccessfulRemoteDataObject(item);
 mockResultObject.indexableObject = Object.assign(new WorkflowItem(), { item: observableOf(rd) });
@@ -119,7 +119,6 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
     expect(component.reloadedObject.emit).toHaveBeenCalledWith(actionPayload.reloadedObject);
 
   }));
-
 
   it('should add an offset to the actions element', () => {
     const thumbnail = fixture.debugElement.query(By.css('.offset-3'));

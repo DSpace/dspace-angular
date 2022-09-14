@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -7,6 +7,7 @@ import { ViewMode } from '../../../core/shared/view-mode.model';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { setPlaceHolderFontSize } from '../../../shared/utils/object-list-utils';
 
 @Component({
   selector: 'ds-related-items',
@@ -18,6 +19,7 @@ import { FindListOptions } from '../../../core/data/find-list-options.model';
  * It expects a parent item and relationship type, as well as a label to display on top
  */
 export class RelatedItemsComponent extends AbstractIncrementalListComponent<Observable<RemoteData<PaginatedList<Item>>>> {
+
   /**
    * The parent of the list of related items to display
    */
@@ -53,8 +55,13 @@ export class RelatedItemsComponent extends AbstractIncrementalListComponent<Obse
    */
   viewMode = ViewMode.ListElement;
 
-  constructor(public relationshipService: RelationshipService) {
+  constructor(public relationshipService: RelationshipService, protected elementRef: ElementRef) {
     super();
+  }
+  ngOnInit(): void {
+    const width = this.elementRef.nativeElement.offsetWidth;
+    this.placeholderFontClass = setPlaceHolderFontSize(width);
+    super.ngOnInit();
   }
 
   /**

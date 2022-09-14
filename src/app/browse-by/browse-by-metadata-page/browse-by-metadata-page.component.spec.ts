@@ -48,7 +48,7 @@ describe('BrowseByMetadataPageComponent', () => {
     browseBy: {
       showThumbnails: true
     }
-  }
+  };
 
   const mockEntries = [
     {

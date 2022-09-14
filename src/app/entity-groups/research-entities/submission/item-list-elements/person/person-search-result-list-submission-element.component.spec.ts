@@ -42,13 +42,13 @@ const environmentUseThumbs = {
   browseBy: {
     showThumbnails: true
   }
-}
+};
 
 const enviromentNoThumbs = {
   browseBy: {
     showThumbnails: false
   }
-}
+};
 
 function init() {
   mockItemWithMetadata = Object.assign(
