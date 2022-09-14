@@ -55,6 +55,7 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
    * @param {NotificationsService} notificationsService
    * @param {TranslateService} translate
    * @param {NgbModal} modalService
+   * @param {Router} router
    */
   constructor(private authService: AuthService,
               private changeDetectorRef: ChangeDetectorRef,
