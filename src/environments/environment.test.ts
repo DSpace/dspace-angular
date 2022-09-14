@@ -250,9 +250,10 @@ export const environment: BuildConfig = {
   },
   //Home Page
   homePage: {
-    //The number of item showing in recent submission components
-    recentSubmissionsRpp: 5,
-    //sort record of recent submission
-    recentSubmissionsSortField: 'dc.date.accessioned',
+    recentSubmissions: {
+      pageSize: 5,
+      //sort record of recent submission
+      sortField: 'dc.date.accessioned',
+    }
   }
 };

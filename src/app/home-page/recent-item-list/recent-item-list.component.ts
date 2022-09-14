@@ -43,11 +43,11 @@ export class RecentItemListComponent implements OnInit {
 
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
       id: 'hp',
-      pageSize: environment.homePage.recentSubmissionsRpp,
+      pageSize: environment.homePage.recentSubmissions.pageSize,
       currentPage: 1,
       maxSize: 1
     });
-    this.sortConfig = new SortOptions(environment.homePage.recentSubmissionsSortField, SortDirection.DESC);
+    this.sortConfig = new SortOptions(environment.homePage.recentSubmissions.sortField, SortDirection.DESC);
   }
   ngOnInit(): void {
     this.itemRD$ = this.searchService.search(
@@ -62,7 +62,7 @@ export class RecentItemListComponent implements OnInit {
   }
   onLoadMore(): void {
     this.paginationService.updateRouteWithUrl(this.searchConfigurationService.paginationID, ['search'], {
-      sortField: environment.homePage.recentSubmissionsSortField,
+      sortField: environment.homePage.recentSubmissions.sortField,
       sortDirection: 'DESC' as SortDirection,
       page: 1
     });
