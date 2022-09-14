@@ -134,7 +134,7 @@ describe('SearchDataImpl', () => {
       const out: any = service.searchBy('testMethod', options, false, true, ...linksToFollow);
 
       expect(service.getSearchByHref).toHaveBeenCalledWith('testMethod', options, ...linksToFollow);
-      expect(service.findListByHref).toHaveBeenCalledWith('endpoint', undefined, false, true);
+      expect(service.findListByHref).toHaveBeenCalledWith('endpoint', undefined, false, true, ...linksToFollow);
       expect(out).toBe('resulting remote data');
     });
   });
