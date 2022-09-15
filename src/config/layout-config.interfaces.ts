@@ -18,6 +18,8 @@ export interface CrisLayoutMetadataBoxConfig extends Config {
 export interface CrisLayoutCollectionsBoxConfig extends Config {
   defaultCollectionsLabelColStyle: string;
   defaultCollectionsValueColStyle: string;
+  isInline: boolean;
+  defaultCollectionsRowStyle?: string;
 }
 
 export interface CrisLayoutTypeConfig {

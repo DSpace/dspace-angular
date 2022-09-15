@@ -418,7 +418,8 @@ export class DefaultAppConfig implements AppConfig {
     },
     collectionsBox: {
       defaultCollectionsLabelColStyle: 'col-3 font-weight-bold',
-      defaultCollectionsValueColStyle: 'col-9'
+      defaultCollectionsValueColStyle: 'col-9',
+      isInline: true
     }
   };
 

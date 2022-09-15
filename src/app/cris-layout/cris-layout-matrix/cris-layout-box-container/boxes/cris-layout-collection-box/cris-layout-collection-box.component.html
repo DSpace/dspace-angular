@@ -5,22 +5,24 @@
             <a href="javascript:void(0);" [routerLink]="['/collections', (owningCollection$ | async).id]">{{ (owningCollection$ | async).firstMetadataValue('dc.title') }}</a>
         </div>
     </div>
-    <div class="row" data-test="mappedCollections" *ngIf="(mappedCollections$ | async).length > 0">
+    <div class="row {{rowStyle}}" data-test="mappedCollections" *ngIf="(mappedCollections$ | async)?.length > 0">
         <div class="{{labelStyle}}">{{ 'cris-layout.rendering.collections.mapped-collection.label' | translate }}</div>
-        <div class="{{valueStyle}}">
-            <a href="javascript:void(0);" *ngFor="let mappedCollection of (mappedCollections$ | async); let last=last;" [routerLink]="['/collections', mappedCollection.id]">
-                {{ mappedCollection.firstMetadataValue('dc.title') }}<span *ngIf="!last" [innerHTML]="separator"></span>
-            </a>
+        <div class="{{valueStyle}}" [ngClass]="{'d-inline-flex' : isInline}">
+            <div *ngFor="let mappedCollection of (mappedCollections$ | async); let last=last;" >
+                <a href="javascript:void(0);" [routerLink]="['/collections', mappedCollection.id]">
+                    {{ mappedCollection.firstMetadataValue('dc.title') }}
+                </a>
+                <span *ngIf="isInline && !last" class="mr-1">&bull;</span>
+            </div>
             <div *ngIf="isLoading$ | async">
                 {{'cris-layout.rendering.collections.loading' | translate}}
             </div>
-        
             <a *ngIf="!(isLoading$ | async) && (hasMore$ | async)"
                 (click)="$event.preventDefault(); handleLoadMore()"
-                class="load-more-btn btn btn-sm btn-outline-secondary"
+                [ngClass]="{'ml-3' : isInline}"
                 role="button"
                 href="javascript:void(0);">
-                {{'cris-layout.rendering.collections.load-more' | translate}}
+                <i [ngClass]="isInline ? 'fa fa-chevron-right' : 'fa fa-chevron-down'"></i> {{'cris-layout.rendering.collections.load-more' | translate}}
             </a>
         </div>
     </div>

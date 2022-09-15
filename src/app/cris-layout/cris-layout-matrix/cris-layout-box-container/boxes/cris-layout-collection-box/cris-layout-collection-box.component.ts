@@ -5,9 +5,9 @@ import { Item } from '../../../../../core/shared/item.model';
 import { TranslateService } from '@ngx-translate/core';
 import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { getFirstSucceededRemoteDataPayload, getAllCompletedRemoteData, getAllSucceededRemoteDataPayload, getPaginatedListPayload } from '../../../../../core/shared/operators';
-import { startWith, tap, withLatestFrom, switchMap, scan } from 'rxjs/operators';
+import { shareReplay, tap, switchMap, scan, map } from 'rxjs/operators';
 import { Collection } from '../../../../../core/shared/collection.model';
 import { CollectionDataService } from '../../../../../core/data/collection-data.service';
 import { FindListOptions } from '../../../../../core/data/request.models';
@@ -22,7 +22,7 @@ import { environment } from '../../../../../../environments/environment';
 @RenderCrisLayoutBoxFor(LayoutBox.COLLECTIONS)
 export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponent implements OnInit {
 
-  separator = '<br/>';
+  isInline = environment.crisLayout.collectionsBox.isInline;
 
   /**
    * Amount of mapped collections that should be fetched at once.
@@ -32,14 +32,7 @@ export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponen
    /**
     * Last page of the mapped collections that has been fetched.
     */
-  lastPage$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-
-  /**
-   * Push an event to this observable to fetch the next page of mapped collections.
-   * Because this observable is a behavior subject, the first page will be requested
-   * immediately after subscription.
-   */
-  loadMore$: BehaviorSubject<void> = new BehaviorSubject(undefined);
+  lastPage = 0;
 
   /**
    * Whether or not a page of mapped collections is currently being loaded.
@@ -73,24 +66,21 @@ export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponen
   ngOnInit(): void {
     super.ngOnInit();
 
-    this.owningCollection$ = this.cds.findOwningCollectionFor(this.item).pipe(
+    this.owningCollection$ = this.item.owningCollection.pipe(
       getFirstSucceededRemoteDataPayload(),
-      startWith(null as Collection),
+      shareReplay(),
     );
 
-    this.mappedCollections$ = this.loadMore$.pipe(
-      // update isLoading$
-      tap(() => this.isLoading$.next(true)),
+    this.handleLoadMore();
+  }
 
-      // request next batch of mapped collections
-      withLatestFrom(this.lastPage$),
-      switchMap(([_, lastPage]: [void, number]) => {
-        return this.cds.findMappedCollectionsFor(this.item, Object.assign(new FindListOptions(), {
-          elementsPerPage: this.pageSize,
-          currentPage: lastPage + 1,
-        }));
-      }),
-
+  handleLoadMore() {
+    this.isLoading$.next(true);
+    const oldMappedCollections$ = this.mappedCollections$;
+    this.mappedCollections$ = this.cds.findMappedCollectionsFor(this.item, Object.assign(new FindListOptions(), {
+      elementsPerPage: this.pageSize,
+      currentPage: this.lastPage + 1,
+    })).pipe(
       getAllCompletedRemoteData<PaginatedList<Collection>>(),
 
       // update isLoading$
@@ -99,22 +89,26 @@ export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponen
       getAllSucceededRemoteDataPayload(),
 
       // update hasMore$
-      tap((response: PaginatedList<Collection>) => this.hasMore$.next(response.currentPage < response.totalPages)),
+      tap((response: PaginatedList<Collection>) => this.hasMore$.next(this.lastPage < response.totalPages)),
 
-      // update lastPage$
-      tap((response: PaginatedList<Collection>) => this.lastPage$.next(response.currentPage)),
+      // update lastPage
+      tap((response: PaginatedList<Collection>) => this.lastPage = response.currentPage),
 
       getPaginatedListPayload<Collection>(),
 
       // add current batch to list of collections
       scan((prev: Collection[], current: Collection[]) => [...prev, ...current], []),
 
-      startWith([]),
-    ) as Observable<Collection[]>;
-  }
-
-  handleLoadMore() {
-    this.loadMore$.next();
+      switchMap((collections: Collection[]) => {
+        if (oldMappedCollections$) {
+          return oldMappedCollections$.pipe(
+            map((mappedCollection) => [...mappedCollection, ...collections])
+          );
+        } else {
+          return of(collections);
+        }
+      })
+    );
   }
 
   /**
@@ -131,5 +125,11 @@ export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponen
     return environment.crisLayout.collectionsBox.defaultCollectionsValueColStyle;
   }
 
+  /**
+   * Returns a string representing the style of row if exists
+   */
+  get rowStyle(): string {
+    return environment.crisLayout.collectionsBox.defaultCollectionsRowStyle;
+  }
 
 }
