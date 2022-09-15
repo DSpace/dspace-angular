@@ -1,20 +1,19 @@
 import { GoogleAnalyticsService } from './google-analytics.service';
-import { Angulartics2GoogleAnalytics } from 'angulartics2';
+import { Angulartics2GoogleTagManager } from 'angulartics2';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$
-} from '../shared/remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 
 describe('GoogleAnalyticsService', () => {
   const trackingIdProp = 'google.analytics.key';
   const trackingIdTestValue = 'mock-tracking-id';
   const innerHTMLTestValue = 'mock-script-inner-html';
+  const srcTestValue = 'mock-script-src';
   let service: GoogleAnalyticsService;
-  let angularticsSpy: Angulartics2GoogleAnalytics;
+  let angularticsSpy: Angulartics2GoogleTagManager;
   let configSpy: ConfigurationDataService;
   let scriptElementMock: any;
+  let srcSpy: any;
   let innerHTMLSpy: any;
   let bodyElementSpy: HTMLBodyElement;
   let documentSpy: Document;
@@ -28,18 +27,21 @@ describe('GoogleAnalyticsService', () => {
   });
 
   beforeEach(() => {
-    angularticsSpy = jasmine.createSpyObj('angulartics2GoogleAnalytics', [
+    angularticsSpy = jasmine.createSpyObj('Angulartics2GoogleTagManager', [
       'startTracking',
     ]);
 
     configSpy = createConfigSuccessSpy(trackingIdTestValue);
 
     scriptElementMock = {
+      set src(newVal) { /* noop */ },
+      get src() { return innerHTMLTestValue; },
       set innerHTML(newVal) { /* noop */ },
-      get innerHTML() { return innerHTMLTestValue; }
+      get innerHTML() { return srcTestValue; }
     };
 
     innerHTMLSpy = spyOnProperty(scriptElementMock, 'innerHTML', 'set');
+    srcSpy = spyOnProperty(scriptElementMock, 'src', 'set');
 
     bodyElementSpy = jasmine.createSpyObj('body', {
       appendChild: scriptElementMock,
@@ -106,11 +108,14 @@ describe('GoogleAnalyticsService', () => {
       describe('when the tracking id is non-empty', () => {
         it('should create a script tag whose innerHTML contains the tracking id', () => {
           service.addTrackingIdToPage();
-          expect(documentSpy.createElement).toHaveBeenCalledTimes(1);
+          expect(documentSpy.createElement).toHaveBeenCalledTimes(2);
           expect(documentSpy.createElement).toHaveBeenCalledWith('script');
 
           // sanity check
           expect(documentSpy.createElement('script')).toBe(scriptElementMock);
+
+          expect(srcSpy).toHaveBeenCalledTimes(1);
+          expect(srcSpy.calls.argsFor(0)[0]).toContain(trackingIdTestValue);
 
           expect(innerHTMLSpy).toHaveBeenCalledTimes(1);
           expect(innerHTMLSpy.calls.argsFor(0)[0]).toContain(trackingIdTestValue);
@@ -118,7 +123,7 @@ describe('GoogleAnalyticsService', () => {
 
         it('should add a script to the body', () => {
           service.addTrackingIdToPage();
-          expect(bodyElementSpy.appendChild).toHaveBeenCalledTimes(1);
+          expect(bodyElementSpy.appendChild).toHaveBeenCalledTimes(2);
         });
 
         it('should start tracking', () => {
