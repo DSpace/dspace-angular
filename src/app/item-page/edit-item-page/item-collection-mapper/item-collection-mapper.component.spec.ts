@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { EventEmitter } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -25,7 +25,7 @@ import { ObjectSelectService } from '../../../shared/object-select/object-select
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { SearchFormComponent } from '../../../shared/search-form/search-form.component';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { ObjectSelectServiceStub } from '../../../shared/testing/object-select-service.stub';
@@ -84,18 +84,18 @@ describe('ItemCollectionMapperComponent', () => {
     removeMappingFromCollection: () => createSuccessfulRemoteDataObject$({}),
     getMappedCollectionsEndpoint: () => observableOf('rest/api/mappedCollectionsEndpoint'),
     getMappedCollections: () => observableOf(mockCollectionsRD),
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     clearMappedCollectionsRequests: () => {}
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
   };
   const collectionDataServiceStub = {
-    findAllByHref: () => observableOf(mockCollectionsRD)
+    findListByHref: () => observableOf(mockCollectionsRD),
   };
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
     search: () => observableOf(mockCollectionsRD),
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     clearDiscoveryRequests: () => {}
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   });
   const activatedRouteStub = {
     parent: {

@@ -2,17 +2,22 @@
         [paginationOptions]="config"
         [pageInfoState]="objects?.payload"
         [collectionSize]="objects?.payload?.totalElements"
+        [objects]="objects"
         [sortOptions]="sortConfig"
         [hideGear]="hideGear"
         [hidePagerWhenSinglePage]="hidePagerWhenSinglePage"
         [hidePaginationDetail]="hidePaginationDetail"
+        [showPaginator]="showPaginator"
         (pageChange)="onPageChange($event)"
         (pageSizeChange)="onPageSizeChange($event)"
         (sortDirectionChange)="onSortDirectionChange($event)"
         (sortFieldChange)="onSortFieldChange($event)"
-        (paginationChange)="onPaginationChange($event)">
+        (paginationChange)="onPaginationChange($event)"
+        (prev)="goPrev()"
+        (next)="goNext()"
+        >
     <ul *ngIf="objects?.hasSucceeded" class="list-unstyled" [ngClass]="{'ml-4': selectable}">
-        <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4 d-flex" [class.border-bottom]="hasBorder && !last">
+        <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4 d-flex" [class.border-bottom]="hasBorder && !last" [attr.data-test]="'list-object' | dsBrowserOnly">
           <ds-selectable-list-item-control *ngIf="selectable" [index]="i"
                                            [object]="object"
                                            [selectionConfig]="selectionConfig"

@@ -1,12 +1,13 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
 import { SearchService } from '../../core/shared/search/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { isEmpty } from '../empty.util';
+import { isEmpty, isNotEmpty } from '../empty.util';
 import { currentPath } from '../utils/route.utils';
 import { Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 /**
  * Component to switch between list and grid views.
@@ -17,12 +18,16 @@ import { Router } from '@angular/router';
   templateUrl: './view-mode-switch.component.html'
 })
 export class ViewModeSwitchComponent implements OnInit, OnDestroy {
-  @Input() viewModeList: ViewMode[];
 
   /**
    * True when the search component should show results on the current page
    */
   @Input() inPlaceSearch;
+
+  /**
+   * List of available view mode
+   */
+  @Input() viewModeList: ViewMode[];
 
   /**
    * The current view mode
@@ -33,7 +38,17 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
    * All available view modes
    */
   viewModeEnum = ViewMode;
+
+  /**
+   * Subscription to unsubscribe OnDestroy
+   * @private
+   */
   private sub: Subscription;
+
+  /**
+   * Emits event when the user select a new view mode
+   */
+  @Output() changeViewMode: EventEmitter<ViewMode> = new EventEmitter<ViewMode>();
 
   constructor(private searchService: SearchService, private router: Router) {
   }
@@ -46,7 +61,9 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
       this.viewModeList = [ViewMode.ListElement, ViewMode.GridElement];
     }
 
-    this.sub = this.searchService.getViewMode().subscribe((viewMode: ViewMode) => {
+    this.sub = this.searchService.getViewMode().pipe(
+      filter((viewMode: ViewMode) => isNotEmpty(viewMode))
+    ).subscribe((viewMode: ViewMode) => {
       this.currentMode = viewMode;
     });
   }
@@ -56,6 +73,9 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
    * @param viewMode The new view mode
    */
   switchViewTo(viewMode: ViewMode) {
+    if (viewMode !== this.currentMode) {
+      this.changeViewMode.emit(viewMode);
+    }
     this.searchService.setViewMode(viewMode, this.getSearchLinkParts());
   }
 

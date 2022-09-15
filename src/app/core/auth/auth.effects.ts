@@ -10,7 +10,7 @@ import {
 } from 'rxjs';
 import { catchError, filter, map, observeOn, switchMap, take, tap } from 'rxjs/operators';
 // import @ngrx
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
 
 // import services
@@ -67,8 +67,7 @@ export class AuthEffects {
    * Authenticate user.
    * @method authenticate
    */
-  @Effect()
-  public authenticate$: Observable<Action> = this.actions$.pipe(
+  public authenticate$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATE),
     switchMap((action: AuthenticateAction) => {
       return this.authService.authenticate(action.payload.email, action.payload.password).pipe(
@@ -77,26 +76,23 @@ export class AuthEffects {
         catchError((error) => observableOf(new AuthenticationErrorAction(error)))
       );
     })
-  );
+  ));
 
-  @Effect()
-  public authenticateSuccess$: Observable<Action> = this.actions$.pipe(
+  public authenticateSuccess$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATE_SUCCESS),
     map((action: AuthenticationSuccessAction) => new AuthenticatedAction(action.payload))
-  );
+  ));
 
-  @Effect()
-  public authenticated$: Observable<Action> = this.actions$.pipe(
+  public authenticated$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATED),
     switchMap((action: AuthenticatedAction) => {
       return this.authService.authenticatedUser(action.payload).pipe(
         map((userHref: string) => new AuthenticatedSuccessAction((userHref !== null), action.payload, userHref)),
         catchError((error) => observableOf(new AuthenticatedErrorAction(error))),);
     })
-  );
+  ));
 
-  @Effect()
-  public authenticatedSuccess$: Observable<Action> = this.actions$.pipe(
+  public authenticatedSuccess$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATED_SUCCESS),
     tap((action: AuthenticatedSuccessAction) => this.authService.storeToken(action.payload.authToken)),
     switchMap((action: AuthenticatedSuccessAction) => this.authService.getRedirectUrl().pipe(
@@ -110,26 +106,23 @@ export class AuthEffects {
         return new RetrieveAuthenticatedEpersonAction(action.payload.userHref);
       }
     })
-  );
+  ));
 
-  @Effect({ dispatch: false })
-  public redirectAfterLoginSuccess$: Observable<Action> = this.actions$.pipe(
+  public redirectAfterLoginSuccess$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.REDIRECT_AFTER_LOGIN_SUCCESS),
     tap((action: RedirectAfterLoginSuccessAction) => {
       this.authService.clearRedirectUrl();
       this.authService.navigateToRedirectUrl(action.payload);
     })
-  );
+  ), { dispatch: false });
 
   // It means "reacts to this action but don't send another"
-  @Effect({ dispatch: false })
-  public authenticatedError$: Observable<Action> = this.actions$.pipe(
+  public authenticatedError$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATED_ERROR),
     tap((action: LogOutSuccessAction) => this.authService.removeToken())
-  );
+  ), { dispatch: false });
 
-  @Effect()
-  public retrieveAuthenticatedEperson$: Observable<Action> = this.actions$.pipe(
+  public retrieveAuthenticatedEperson$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON),
     switchMap((action: RetrieveAuthenticatedEpersonAction) => {
       const impersonatedUserID = this.authService.getImpersonateID();
@@ -143,25 +136,24 @@ export class AuthEffects {
         map((user: EPerson) => new RetrieveAuthenticatedEpersonSuccessAction(user.id)),
         catchError((error) => observableOf(new RetrieveAuthenticatedEpersonErrorAction(error))));
     })
-  );
+  ));
 
-  @Effect()
-  public checkToken$: Observable<Action> = this.actions$.pipe(ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN),
+  public checkToken$: Observable<Action> = createEffect(() => this.actions$.pipe(ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN),
     switchMap(() => {
       return this.authService.hasValidAuthenticationToken().pipe(
         map((token: AuthTokenInfo) => new AuthenticatedAction(token)),
         catchError((error) => observableOf(new CheckAuthenticationTokenCookieAction()))
       );
     })
-  );
+  ));
 
-  @Effect()
-  public checkTokenCookie$: Observable<Action> = this.actions$.pipe(
+  public checkTokenCookie$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE),
     switchMap(() => {
       return this.authService.checkAuthenticationCookie().pipe(
         map((response: AuthStatus) => {
           if (response.authenticated) {
+            this.authorizationsService.invalidateAuthorizationsRequestCache();
             return new RetrieveTokenAction();
           } else {
             return new RetrieveAuthMethodsAction(response);
@@ -170,10 +162,9 @@ export class AuthEffects {
         catchError((error) => observableOf(new AuthenticatedErrorAction(error)))
       );
     })
-  );
+  ));
 
-  @Effect()
-  public retrieveToken$: Observable<Action> = this.actions$.pipe(
+  public retrieveToken$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.RETRIEVE_TOKEN),
     switchMap((action: AuthenticateAction) => {
       return this.authService.refreshAuthenticationToken(null).pipe(
@@ -182,55 +173,51 @@ export class AuthEffects {
         catchError((error) => observableOf(new AuthenticationErrorAction(error)))
       );
     })
-  );
+  ));
 
-  @Effect()
-  public refreshToken$: Observable<Action> = this.actions$.pipe(ofType(AuthActionTypes.REFRESH_TOKEN),
+  public refreshToken$: Observable<Action> = createEffect(() => this.actions$.pipe(ofType(AuthActionTypes.REFRESH_TOKEN),
     switchMap((action: RefreshTokenAction) => {
       return this.authService.refreshAuthenticationToken(action.payload).pipe(
         map((token: AuthTokenInfo) => new RefreshTokenSuccessAction(token)),
         catchError((error) => observableOf(new RefreshTokenErrorAction()))
       );
     })
-  );
+  ));
 
   // It means "reacts to this action but don't send another"
-  @Effect({ dispatch: false })
-  public refreshTokenSuccess$: Observable<Action> = this.actions$.pipe(
+  public refreshTokenSuccess$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.REFRESH_TOKEN_SUCCESS),
     tap((action: RefreshTokenSuccessAction) => this.authService.replaceToken(action.payload))
-  );
+  ), { dispatch: false });
 
   /**
    * When the store is rehydrated in the browser,
    * clear a possible invalid token or authentication errors
    */
-  @Effect({ dispatch: false })
-  public clearInvalidTokenOnRehydrate$: Observable<any> = this.actions$.pipe(
+  public clearInvalidTokenOnRehydrate$: Observable<any> = createEffect(() => this.actions$.pipe(
     ofType(StoreActionTypes.REHYDRATE),
     switchMap(() => {
       const isLoaded$ = this.store.pipe(select(isAuthenticatedLoaded));
       const authenticated$ = this.store.pipe(select(isAuthenticated));
-      return observableCombineLatest(isLoaded$, authenticated$).pipe(
+      return observableCombineLatest([isLoaded$, authenticated$]).pipe(
         take(1),
         filter(([loaded, authenticated]) => loaded && !authenticated),
         tap(() => this.authService.removeToken()),
         tap(() => this.authService.resetAuthenticationError())
       );
-    }));
+    })), { dispatch: false });
 
   /**
    * When the store is rehydrated in the browser, invalidate all cache hits regarding the
    * authorizations endpoint, to be sure to have consistent responses after a login with external idp
    *
    */
-  @Effect({ dispatch: false }) invalidateAuthorizationsRequestCache$ = this.actions$
+   invalidateAuthorizationsRequestCache$ = createEffect(() => this.actions$
     .pipe(ofType(StoreActionTypes.REHYDRATE),
       tap(() => this.authorizationsService.invalidateAuthorizationsRequestCache())
-    );
+    ), { dispatch: false });
 
-  @Effect()
-  public logOut$: Observable<Action> = this.actions$
+  public logOut$: Observable<Action> = createEffect(() => this.actions$
     .pipe(
       ofType(AuthActionTypes.LOG_OUT),
       switchMap(() => {
@@ -240,26 +227,23 @@ export class AuthEffects {
           catchError((error) => observableOf(new LogOutErrorAction(error)))
         );
       })
-    );
+    ));
 
-  @Effect({ dispatch: false })
-  public logOutSuccess$: Observable<Action> = this.actions$
+  public logOutSuccess$: Observable<Action> = createEffect(() => this.actions$
     .pipe(ofType(AuthActionTypes.LOG_OUT_SUCCESS),
       tap(() => this.authService.removeToken()),
       tap(() => this.authService.clearRedirectUrl()),
       tap(() => this.authService.refreshAfterLogout())
-    );
+    ), { dispatch: false });
 
-  @Effect({ dispatch: false })
-  public redirectToLoginTokenExpired$: Observable<Action> = this.actions$
+  public redirectToLoginTokenExpired$: Observable<Action> = createEffect(() => this.actions$
     .pipe(
       ofType(AuthActionTypes.REDIRECT_TOKEN_EXPIRED),
       tap(() => this.authService.removeToken()),
       tap(() => this.authService.redirectToLoginWhenTokenExpired())
-    );
+    ), { dispatch: false });
 
-  @Effect()
-  public retrieveMethods$: Observable<Action> = this.actions$
+  public retrieveMethods$: Observable<Action> = createEffect(() => this.actions$
     .pipe(
       ofType(AuthActionTypes.RETRIEVE_AUTH_METHODS),
       switchMap((action: RetrieveAuthMethodsAction) => {
@@ -269,7 +253,7 @@ export class AuthEffects {
             catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction()))
           );
       })
-    );
+    ));
 
   /**
    * For any action that is not in {@link IDLE_TIMER_IGNORE_TYPES} that comes in => Start the idleness timer
@@ -277,8 +261,7 @@ export class AuthEffects {
    * => Return the action to set the user as idle ({@link SetUserAsIdleAction})
    * @method trackIdleness
    */
-  @Effect()
-  public trackIdleness$: Observable<Action> = this.actions$.pipe(
+  public trackIdleness$: Observable<Action> = createEffect(() => this.actions$.pipe(
     filter((action: Action) => !IDLE_TIMER_IGNORE_TYPES.includes(action.type)),
     // Using switchMap the effect will stop subscribing to the previous timer if a new action comes
     // in, and start a new timer
@@ -289,7 +272,7 @@ export class AuthEffects {
     // Re-enter the zone to dispatch the action
     observeOn(new EnterZoneScheduler(this.zone, queueScheduler)),
     map(() => new SetUserAsIdleAction()),
-  );
+  ));
 
   /**
    * @constructor

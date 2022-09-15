@@ -1,5 +1,5 @@
 import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
-import { SearchResult } from '../../search/search-result.model';
+import { SearchResult } from '../../search/models/search-result.model';
 import { searchResultFor } from '../../search/search-result-element-decorator';
 
 /**

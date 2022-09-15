@@ -4,7 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { map, startWith, switchMap, take } from 'rxjs/operators';
+import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { CookieAttributes } from 'js-cookie';
 
@@ -42,16 +42,20 @@ import {
   UnsetUserAsIdleAction
 } from './auth.actions';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
-import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
 import { RouteService } from '../services/route.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
-import { getAllSucceededRemoteDataPayload } from '../shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../shared/operators';
 import { AuthMethod } from './models/auth.method';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { RemoteData } from '../data/remote-data';
 import { environment } from '../../../environments/environment';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { buildPaginatedList, PaginatedList } from '../data/paginated-list.model';
+import { Group } from '../eperson/models/group.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { PageInfo } from '../shared/page-info.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -89,6 +93,8 @@ export class AuthService {
               private translateService: TranslateService
   ) {
     this.store.pipe(
+      // when this service is constructed the store is not fully initialized yet
+      filter((state: any) => state?.core?.auth !== undefined),
       select(isAuthenticated),
       startWith(false)
     ).subscribe((authenticated: boolean) => this._authenticated = authenticated);
@@ -103,7 +109,7 @@ export class AuthService {
    */
   public authenticate(user: string, password: string): Observable<AuthStatus> {
     // Attempt authenticating the user using the supplied credentials.
-    const body = (`password=${Base64EncodeUrl(password)}&user=${Base64EncodeUrl(user)}`);
+    const body = (`password=${encodeURIComponent(password)}&user=${encodeURIComponent(user)}`);
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -113,7 +119,7 @@ export class AuthService {
         if (hasValue(rd.payload) && rd.payload.authenticated) {
           return rd.payload;
         } else {
-          throw(new Error('Invalid email or password'));
+          throw (new Error('Invalid email or password'));
         }
       }));
 
@@ -167,7 +173,7 @@ export class AuthService {
         if (hasValue(status) && status.authenticated) {
           return status._links.eperson.href;
         } else {
-          throw(new Error('Not authenticated'));
+          throw (new Error('Not authenticated'));
         }
       }));
   }
@@ -213,6 +219,22 @@ export class AuthService {
   }
 
   /**
+   * Return the special groups list embedded in the AuthStatus model
+   */
+  public getSpecialGroupsFromAuthStatus(): Observable<RemoteData<PaginatedList<Group>>> {
+    return this.authRequestService.getRequest('status', null, followLink('specialGroups')).pipe(
+      getFirstCompletedRemoteData(),
+      switchMap((status: RemoteData<AuthStatus>) => {
+        if (status.hasSucceeded) {
+          return status.payload.specialGroups;
+        } else {
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(),[]));
+        }
+      })
+    );
+  }
+
+  /**
    * Checks if token is present into storage and is not expired
    */
   public hasValidAuthenticationToken(): Observable<AuthTokenInfo> {
@@ -250,7 +272,7 @@ export class AuthService {
         if (hasValue(status) && status.authenticated) {
           return status.token;
         } else {
-          throw(new Error('Not authenticated'));
+          throw (new Error('Not authenticated'));
         }
       }));
   }
@@ -289,7 +311,7 @@ export class AuthService {
         if (hasValue(status) && !status.authenticated) {
           return true;
         } else {
-          throw(new Error('auth.errors.invalid-user'));
+          throw (new Error('auth.errors.invalid-user'));
         }
       }));
   }
@@ -326,7 +348,7 @@ export class AuthService {
     let token: AuthTokenInfo;
     let currentlyRefreshingToken = false;
     this.store.pipe(select(getAuthenticationToken)).subscribe((authTokenInfo: AuthTokenInfo) => {
-      // If new token is undefined an it wasn't previously => Refresh failed
+      // If new token is undefined and it wasn't previously => Refresh failed
       if (currentlyRefreshingToken && token !== undefined && authTokenInfo === undefined) {
         // Token refresh failed => Error notification => 10 second wait => Page reloads & user logged out
         this.notificationService.error(this.translateService.get('auth.messages.token-refresh-failed'));
@@ -448,8 +470,8 @@ export class AuthService {
    */
   public navigateToRedirectUrl(redirectUrl: string) {
     // Don't do redirect if already on reload url
-    if (!hasValue(redirectUrl) || !redirectUrl.includes('/reload/')) {
-      let url = `/reload/${new Date().getTime()}`;
+    if (!hasValue(redirectUrl) || !redirectUrl.includes('reload/')) {
+      let url = `reload/${new Date().getTime()}`;
       if (isNotEmpty(redirectUrl) && !redirectUrl.startsWith(LOGIN_ROUTE)) {
         url += `?redirect=${encodeURIComponent(redirectUrl)}`;
       }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbActiveModal, NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { Metadata } from '../../../core/shared/metadata.utils';
@@ -28,6 +28,10 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
    * The entry metadata list
    */
   public metadataList: { key: string, value: MetadataValue }[];
+  /**
+   * The label prefix to use to generate the translation label
+   */
+  public labelPrefix: string;
   /**
    * The modal for the entry preview
    */
@@ -77,6 +81,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
     this.modalRef = this.modalService.open(SubmissionImportExternalCollectionComponent, {
       size: 'lg',
     });
+    this.modalRef.componentInstance.entityType = this.labelPrefix;
     this.closeMetadataModal();
 
     this.modalRef.componentInstance.selectedEvent.pipe(

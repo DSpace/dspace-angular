@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Subscription } from 'rxjs';
+import { AlertType } from '../alert/aletr-type';
 
 @Component({
   selector: 'ds-error',
@@ -12,6 +13,12 @@ import { Subscription } from 'rxjs';
 export class ErrorComponent {
 
   @Input() message = 'Error...';
+
+  /**
+   * The AlertType enumeration
+   * @type {AlertType}
+   */
+  public AlertTypeEnum = AlertType;
 
   private subscription: Subscription;
 

@@ -16,7 +16,7 @@
           (mouseover)="showTooltip(t, i)"
           (mouseout)="t.close()">
         <a class="flex-sm-fill text-sm-center nav-link active bg-info"
-           href="#"
+           href="javascript:void(0);"
            [ngClass]="{'chip-selected disabled': (editable && c.editMode) || dragged == i}"
            (click)="chipsSelected($event, i);">
           <span>

@@ -4,7 +4,7 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { hasValue } from '../../empty.util';
-import { SearchResult } from '../../search/search-result.model';
+import { SearchResult } from '../../search/models/search-result.model';
 
 /**
  * Component representing Search Results with ViewMode.DetailedElement

@@ -11,9 +11,9 @@ import { Observable } from 'rxjs';
 import { map, find, switchMap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
-import { CoreState } from '../core.reducers';
 import { isAuthenticated, isAuthenticationLoading } from './selectors';
 import { AuthService, LOGIN_ROUTE } from './auth.service';
+import { CoreState } from '../core-state.model';
 
 /**
  * Prevent unauthorized activating and loading of routes

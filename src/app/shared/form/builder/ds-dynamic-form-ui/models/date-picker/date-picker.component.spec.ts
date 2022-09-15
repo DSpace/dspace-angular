@@ -69,6 +69,7 @@ describe('DsDatePickerComponent test suite', () => {
             [bindId]='bindId'
             [group]='group'
             [model]='model'
+            [legend]='legend'
             (blur)='onBlur($event)'
             (change)='onValueChange($event)'
             (focus)='onFocus($event)'></ds-date-picker>`;

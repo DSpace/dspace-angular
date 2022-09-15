@@ -16,7 +16,7 @@
     <div class="autocomplete dropdown-menu" [ngClass]="{'show': (show | async) && isNotEmpty(suggestions)}">
         <div class="dropdown-list">
             <div *ngFor="let suggestionOption of suggestions">
-                <a href="#" class="d-block dropdown-item"  (click)="onClickSuggestion(suggestionOption)" #suggestion>
+                <a href="javascript:void(0);" class="d-block dropdown-item"  (click)="onClickSuggestion(suggestionOption)" #suggestion>
                     <span [innerHTML]="suggestionOption"></span>
                 </a>
             </div>

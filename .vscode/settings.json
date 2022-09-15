@@ -3,5 +3,6 @@
     "i18n-ally.localesPaths": [
         "src/assets/i18n",
         "src/app/core/locale"
-    ]
+    ],
+    "typescript.tsdk": "node_modules\\typescript\\lib"
 }

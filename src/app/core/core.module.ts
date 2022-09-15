@@ -2,11 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 
-import {
-  DynamicFormLayoutService,
-  DynamicFormService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
+import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
 
 import { Action, StoreConfig, StoreModule } from '@ngrx/store';
@@ -40,9 +36,9 @@ import { SubmissionDefinitionsModel } from './config/models/config-submission-de
 import { SubmissionFormsModel } from './config/models/config-submission-forms.model';
 import { SubmissionSectionModel } from './config/models/config-submission-section.model';
 import { SubmissionUploadsModel } from './config/models/config-submission-uploads.model';
-import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
+import { SubmissionFormsConfigDataService } from './config/submission-forms-config-data.service';
 import { coreEffects } from './core.effects';
-import { coreReducers, CoreState } from './core.reducers';
+import { coreReducers } from './core.reducers';
 import { BitstreamFormatDataService } from './data/bitstream-format-data.service';
 import { CollectionDataService } from './data/collection-data.service';
 import { CommunityDataService } from './data/community-data.service';
@@ -53,8 +49,8 @@ import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
 import { DSOResponseParsingService } from './data/dso-response-parsing.service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
 import { EndpointMapResponseParsingService } from './data/endpoint-map-response-parsing.service';
-import { EntityTypeService } from './data/entity-type.service';
-import { ExternalSourceService } from './data/external-source.service';
+import { EntityTypeDataService } from './data/entity-type-data.service';
+import { ExternalSourceDataService } from './data/external-source-data.service';
 import { FacetConfigResponseParsingService } from './data/facet-config-response-parsing.service';
 import { FacetValueResponseParsingService } from './data/facet-value-response-parsing.service';
 import { FilteredDiscoveryPageResponseParsingService } from './data/filtered-discovery-page-response-parsing.service';
@@ -62,9 +58,9 @@ import { ItemDataService } from './data/item-data.service';
 import { LookupRelationService } from './data/lookup-relation.service';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
-import { RelationshipTypeService } from './data/relationship-type.service';
-import { RelationshipService } from './data/relationship.service';
-import { ResourcePolicyService } from './resource-policy/resource-policy.service';
+import { RelationshipTypeDataService } from './data/relationship-type-data.service';
+import { RelationshipDataService } from './data/relationship-data.service';
+import { ResourcePolicyDataService } from './resource-policy/resource-policy-data.service';
 import { SearchResponseParsingService } from './data/search-response-parsing.service';
 import { SiteDataService } from './data/site-data.service';
 import { DspaceRestService } from './dspace-rest/dspace-rest.service';
@@ -77,8 +73,8 @@ import { MetadataSchema } from './metadata/metadata-schema.model';
 import { MetadataService } from './metadata/metadata.service';
 import { RegistryService } from './registry/registry.service';
 import { RoleService } from './roles/role.service';
+import { FeedbackDataService } from './feedback/feedback-data.service';
 
-import { ApiService } from './services/api.service';
 import { ServerResponseService } from './services/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from './services/window.service';
 import { BitstreamFormat } from './shared/bitstream-format.model';
@@ -136,10 +132,15 @@ import { Feature } from './shared/feature.model';
 import { Authorization } from './shared/authorization.model';
 import { FeatureDataService } from './data/feature-authorization/feature-data.service';
 import { AuthorizationDataService } from './data/feature-authorization/authorization-data.service';
-import { SiteAdministratorGuard } from './data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import {
+  SiteAdministratorGuard
+} from './data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { Registration } from './shared/registration.model';
 import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
 import { MetadataFieldDataService } from './data/metadata-field-data.service';
+import {
+  DsDynamicTypeBindRelationService
+} from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { TokenResponseParsingService } from './auth/token-response-parsing.service';
 import { SubmissionCcLicenseDataService } from './submission/submission-cc-license-data.service';
 import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
@@ -163,6 +164,22 @@ import { RootDataService } from './data/root-data.service';
 import { Root } from './data/root.model';
 import { SearchConfig } from './shared/search/search-filters/search-config.model';
 import { SequenceService } from './shared/sequence.service';
+import { CoreState } from './core-state.model';
+import { GroupDataService } from './eperson/group-data.service';
+import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
+import { AccessStatusObject } from '../shared/object-list/access-status-badge/access-status.model';
+import { AccessStatusDataService } from './data/access-status-data.service';
+import { LinkHeadService } from './services/link-head.service';
+import { ResearcherProfileDataService } from './profile/researcher-profile-data.service';
+import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
+import { ResearcherProfile } from './profile/model/researcher-profile.model';
+import { OrcidQueueDataService } from './orcid/orcid-queue-data.service';
+import { OrcidHistoryDataService } from './orcid/orcid-history-data.service';
+import { OrcidQueue } from './orcid/model/orcid-queue.model';
+import { OrcidHistory } from './orcid/model/orcid-history.model';
+import { OrcidAuthService } from './orcid/orcid-auth.service';
+import { VocabularyDataService } from './submission/vocabularies/vocabulary.data.service';
+import { VocabularyEntryDetailsDataService } from './submission/vocabularies/vocabulary-entry-details.data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -187,7 +204,6 @@ const DECLARATIONS = [];
 const EXPORTS = [];
 
 const PROVIDERS = [
-  ApiService,
   AuthenticatedGuard,
   CommunityDataService,
   CollectionDataService,
@@ -202,13 +218,14 @@ const PROVIDERS = [
   SectionFormOperationsService,
   FormService,
   EPersonDataService,
+  LinkHeadService,
   HALEndpointService,
   HostWindowService,
   ItemDataService,
   MetadataService,
   ObjectCacheService,
   PaginationComponentOptions,
-  ResourcePolicyService,
+  ResourcePolicyDataService,
   RegistryService,
   BitstreamFormatDataService,
   RemoteDataBuildService,
@@ -220,9 +237,10 @@ const PROVIDERS = [
   MyDSpaceResponseParsingService,
   ServerResponseService,
   BrowseService,
+  AccessStatusDataService,
   SubmissionCcLicenseDataService,
   SubmissionCcLicenseUrlDataService,
-  SubmissionFormsConfigService,
+  SubmissionFormsConfigDataService,
   SubmissionRestService,
   SubmissionResponseParsingService,
   SubmissionJsonPatchOperationsService,
@@ -243,14 +261,15 @@ const PROVIDERS = [
   MenuService,
   ObjectUpdatesService,
   SearchService,
-  RelationshipService,
+  RelationshipDataService,
   MyDSpaceGuard,
   RoleService,
   TaskResponseParsingService,
   ClaimedTaskDataService,
   PoolTaskDataService,
   BitstreamDataService,
-  EntityTypeService,
+  DsDynamicTypeBindRelationService,
+  EntityTypeDataService,
   ContentSourceResponseParsingService,
   ItemTemplateDataService,
   SearchService,
@@ -259,8 +278,8 @@ const PROVIDERS = [
   SearchFilterService,
   SearchConfigurationService,
   SelectableListService,
-  RelationshipTypeService,
-  ExternalSourceService,
+  RelationshipTypeDataService,
+  ExternalSourceDataService,
   LookupRelationService,
   VersionDataService,
   VersionHistoryDataService,
@@ -283,8 +302,17 @@ const PROVIDERS = [
   FilteredDiscoveryPageResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
   VocabularyService,
+  VocabularyDataService,
+  VocabularyEntryDetailsDataService,
   VocabularyTreeviewService,
   SequenceService,
+  GroupDataService,
+  FeedbackDataService,
+  ResearcherProfileDataService,
+  ProfileClaimService,
+  OrcidAuthService,
+  OrcidQueueDataService,
+  OrcidHistoryDataService,
 ];
 
 /**
@@ -343,7 +371,13 @@ export const models =
     Registration,
     UsageReport,
     Root,
-    SearchConfig
+    SearchConfig,
+    SubmissionAccessesModel,
+    AccessStatusObject,
+    ResearcherProfile,
+    OrcidQueue,
+    OrcidHistory,
+    AccessStatusObject
   ];
 
 @NgModule({

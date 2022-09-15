@@ -48,6 +48,12 @@ export class Version extends DSpaceObject {
   summary: string;
 
   /**
+   * The name of the submitter of this version
+   */
+  @autoserialize
+  submitterName: string;
+
+  /**
    * The Date this version was created
    */
   @deserialize

@@ -18,6 +18,8 @@ import { ItemAdminSearchResultGridElementComponent } from './item-admin-search-r
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
+import { AccessStatusObject } from '../../../../../shared/object-list/access-status-badge/access-status.model';
 
 describe('ItemAdminSearchResultGridElementComponent', () => {
   let component: ItemAdminSearchResultGridElementComponent;
@@ -28,6 +30,12 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
   const mockBitstreamDataService = {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
+    }
+  };
+
+  const mockAccessStatusDataService = {
+    findAccessStatusFor(item: Item): Observable<RemoteData<AccessStatusObject>> {
+      return createSuccessfulRemoteDataObject$(new AccessStatusObject());
     }
   };
 
@@ -55,6 +63,7 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
           { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
           { provide: ThemeService, useValue: mockThemeService },
+          { provide: AccessStatusDataService, useValue: mockAccessStatusDataService },
         ],
         schemas: [NO_ERRORS_SCHEMA]
       })

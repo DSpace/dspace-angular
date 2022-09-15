@@ -1,25 +1,8 @@
+import { AccessConditionObject } from './access-condition.model';
+
 /**
  * An interface to represent bitstream's access condition.
  */
-export class SubmissionUploadFileAccessConditionObject {
+export class SubmissionUploadFileAccessConditionObject extends AccessConditionObject {
 
-  /**
-   * The access condition id
-   */
-  id: string;
-
-  /**
-   * The access condition name
-   */
-  name: string;
-
-  /**
-   * Possible start date of the access condition
-   */
-  startDate: string;
-
-  /**
-   * Possible end date of the access condition
-   */
-  endDate: string;
 }

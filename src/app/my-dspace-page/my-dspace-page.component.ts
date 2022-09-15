@@ -1,36 +1,16 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  InjectionToken,
-  Input,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, InjectionToken, OnInit } from '@angular/core';
 
-import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
-
-import { PaginatedList } from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { DSpaceObject } from '../core/shared/dspace-object.model';
-import { pushInOut } from '../shared/animations/push';
-import { HostWindowService } from '../shared/host-window.service';
-import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { SearchService } from '../core/shared/search/search.service';
-import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { hasValue } from '../shared/empty.util';
-import { getFirstSucceededRemoteData } from '../core/shared/operators';
 import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
-import { RoleType } from '../core/roles/role-types';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
-import { SearchResult } from '../shared/search/search-result.model';
 import { Context } from '../core/shared/context.model';
-import { SortOptions } from '../core/cache/models/sort-options.model';
-import { RouteService } from '../core/services/route.service';
+import { RoleType } from '../core/roles/role-types';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -43,7 +23,6 @@ export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> =
   styleUrls: ['./my-dspace-page.component.scss'],
   templateUrl: './my-dspace-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [pushInOut],
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
@@ -54,44 +33,19 @@ export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> =
 export class MyDSpacePageComponent implements OnInit {
 
   /**
-   * True when the search component should show results on the current page
-   */
-  @Input() inPlaceSearch = true;
-
-  /**
    * The list of available configuration options
    */
   configurationList$: Observable<SearchConfigurationOption[]>;
 
   /**
-   * The current search results
+   * The start context to use in the search: workspace or workflow
    */
-  resultsRD$: BehaviorSubject<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> = new BehaviorSubject(null);
+  context: Context;
 
   /**
-   * The current paginated search options
+   * The start configuration to use in the search: workspace or workflow
    */
-  searchOptions$: Observable<PaginatedSearchOptions>;
-
-  /**
-   * The current available sort options
-   */
-  sortOptions$: Observable<SortOptions[]>;
-
-  /**
-   * The current relevant scopes
-   */
-  scopeListRD$: Observable<DSpaceObject[]>;
-
-  /**
-   * Emits true if were on a small screen
-   */
-  isXsOrSm$: Observable<boolean>;
-
-  /**
-   * Subscription to unsubscribe from
-   */
-  sub: Subscription;
+  configuration: string;
 
   /**
    * Variable for enumeration RoleType
@@ -103,22 +57,8 @@ export class MyDSpacePageComponent implements OnInit {
    */
   viewModeList = [ViewMode.ListElement, ViewMode.DetailedListElement];
 
-  /**
-   * The current context of this page: workspace or workflow
-   */
-  context$: Observable<Context>;
-
-  /**
-   * Emit an event every time search sidebars must refresh their contents.
-   */
-  refreshFilters: Subject<any> = new Subject<any>();
-
   constructor(private service: SearchService,
-              private sidebarService: SidebarService,
-              private windowService: HostWindowService,
-              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService,
-              private routeService: RouteService) {
-    this.isXsOrSm$ = this.windowService.isXsOrSm();
+              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
     this.service.setServiceOptions(MyDSpaceResponseParsingService, MyDSpaceRequest);
   }
 
@@ -136,81 +76,12 @@ export class MyDSpacePageComponent implements OnInit {
    */
   ngOnInit(): void {
     this.configurationList$ = this.searchConfigService.getAvailableConfigurationOptions();
-    this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
-    this.sub = this.searchOptions$.pipe(
-      tap(() => this.resultsRD$.next(null)),
-      switchMap((options: PaginatedSearchOptions) => this.service.search(options).pipe(getFirstSucceededRemoteData())))
-      .subscribe((results) => {
-        this.resultsRD$.next(results);
-      });
 
-    this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
-      switchMap((scopeId) => this.service.getScopes(scopeId))
-    );
-
-    this.context$ = this.searchConfigService.getCurrentConfiguration('workspace')
-      .pipe(
-        map((configuration: string) => {
-          if (configuration === 'workspace') {
-            return Context.Workspace;
-          } else {
-            return Context.Workflow;
-          }
-        })
-      );
-
-    const configuration$ = this.searchConfigService.getCurrentConfiguration('workspace');
-    const searchConfig$ = this.searchConfigService.getConfigurationSearchConfigObservable(configuration$, this.service);
-
-    this.sortOptions$ = this.searchConfigService.getConfigurationSortOptionsObservable(searchConfig$);
-    this.searchConfigService.initializeSortOptionsFromConfiguration(searchConfig$);
+    this.configurationList$.pipe(take(1)).subscribe((configurationList: SearchConfigurationOption[]) => {
+      this.configuration = configurationList[0].value;
+      this.context = configurationList[0].context;
+    });
 
   }
 
-  /**
-   * Handle the contentChange event from within the my dspace content.
-   * Notify search sidebars to refresh their content.
-   */
-  onResultsContentChange() {
-    this.refreshFilters.next();
-  }
-
-  /**
-   * Set the sidebar to a collapsed state
-   */
-  public closeSidebar(): void {
-    this.sidebarService.collapse();
-  }
-
-  /**
-   * Set the sidebar to an expanded state
-   */
-  public openSidebar(): void {
-    this.sidebarService.expand();
-  }
-
-  /**
-   * Check if the sidebar is collapsed
-   * @returns {Observable<boolean>} emits true if the sidebar is currently collapsed, false if it is expanded
-   */
-  public isSidebarCollapsed(): Observable<boolean> {
-    return this.sidebarService.isCollapsed;
-  }
-
-  /**
-   * @returns {string} The base path to the search page
-   */
-  public getSearchLink(): string {
-    return this.service.getSearchLink();
-  }
-
-  /**
-   * Unsubscribe from the subscription
-   */
-  ngOnDestroy(): void {
-    if (hasValue(this.sub)) {
-      this.sub.unsubscribe();
-    }
-    this.refreshFilters.complete();
-  }
 }

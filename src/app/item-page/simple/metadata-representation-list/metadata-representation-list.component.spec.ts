@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { MetadataRepresentationListComponent } from './metadata-representation-list.component';
-import { RelationshipService } from '../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { Item } from '../../../core/shared/item.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { createSuccessfulRemoteDataObject$, createFailedRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -110,7 +110,7 @@ describe('MetadataRepresentationListComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [MetadataRepresentationListComponent, VarDirective],
       providers: [
-        { provide: RelationshipService, useValue: relationshipService }
+        { provide: RelationshipDataService, useValue: relationshipService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MetadataRepresentationListComponent, {

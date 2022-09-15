@@ -24,7 +24,7 @@
                           [name]="filterConfig.paramName"
                           [(ngModel)]="filter"
                           (submitSuggestion)="onSubmit($event)"
-                          (clickSuggestion)="onSubmit($event)"
+                          (clickSuggestion)="onClick($event)"
                           (findSuggestions)="findSuggestions($event)"
                           ngDefaultControl></ds-filter-input-suggestions>
 </div>

@@ -1,33 +1,19 @@
 import { ActionReducerMap, } from '@ngrx/store';
 
-import { objectCacheReducer, ObjectCacheState } from './cache/object-cache.reducer';
-import { indexReducer, MetaIndexState } from './index/index.reducer';
-import { requestReducer, RequestState } from './data/request.reducer';
-import { authReducer, AuthState } from './auth/auth.reducer';
-import { jsonPatchOperationsReducer, JsonPatchOperationsState } from './json-patch/json-patch-operations.reducer';
-import { serverSyncBufferReducer, ServerSyncBufferState } from './cache/server-sync-buffer.reducer';
-import { objectUpdatesReducer, ObjectUpdatesState } from './data/object-updates/object-updates.reducer';
-import { routeReducer, RouteState } from './services/route.reducer';
+import { objectCacheReducer } from './cache/object-cache.reducer';
+import { indexReducer } from './index/index.reducer';
+import { requestReducer } from './data/request.reducer';
+import { authReducer } from './auth/auth.reducer';
+import { jsonPatchOperationsReducer } from './json-patch/json-patch-operations.reducer';
+import { serverSyncBufferReducer } from './cache/server-sync-buffer.reducer';
+import { objectUpdatesReducer } from './data/object-updates/object-updates.reducer';
+import { routeReducer } from './services/route.reducer';
 import {
-  bitstreamFormatReducer,
-  BitstreamFormatRegistryState
+  bitstreamFormatReducer
 } from '../admin/admin-registries/bitstream-formats/bitstream-format.reducers';
-import { historyReducer, HistoryState } from './history/history.reducer';
-import { metaTagReducer, MetaTagState } from './metadata/meta-tag.reducer';
-
-export interface CoreState {
-  'bitstreamFormats': BitstreamFormatRegistryState;
-  'cache/object': ObjectCacheState;
-  'cache/syncbuffer': ServerSyncBufferState;
-  'cache/object-updates': ObjectUpdatesState;
-  'data/request': RequestState;
-  'history': HistoryState;
-  'index': MetaIndexState;
-  'auth': AuthState;
-  'json/patch': JsonPatchOperationsState;
-  'metaTag': MetaTagState;
-  'route': RouteState;
-}
+import { historyReducer } from './history/history.reducer';
+import { metaTagReducer } from './metadata/meta-tag.reducer';
+import { CoreState } from './core-state.model';
 
 export const coreReducers: ActionReducerMap<CoreState> = {
   'bitstreamFormats': bitstreamFormatReducer,

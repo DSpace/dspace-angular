@@ -35,17 +35,19 @@
       <table id="groupsSearch" class="table table-striped table-hover table-bordered">
         <thead>
         <tr>
-          <th scope="col">{{messagePrefix + '.table.id' | translate}}</th>
-          <th scope="col">{{messagePrefix + '.table.name' | translate}}</th>
-          <th>{{messagePrefix + '.table.edit' | translate}}</th>
+          <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
+          <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
+          <th scope="col" class="align-middle">{{messagePrefix + '.table.collectionOrCommunity' | translate}}</th>
+          <th class="align-middle">{{messagePrefix + '.table.edit' | translate}}</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let group of (searchResults$ | async)?.payload?.page">
-          <td>{{group.id}}</td>
-          <td><a (click)="groupDataService.startEditingNewGroup(group)"
+          <td class="align-middle">{{group.id}}</td>
+          <td class="align-middle"><a (click)="groupDataService.startEditingNewGroup(group)"
                  [routerLink]="[groupDataService.getGroupEditPageRouterLink(group)]">{{group.name}}</a></td>
-          <td>
+          <td class="align-middle">{{(group.object | async)?.payload?.name}}</td>
+          <td class="align-middle">
             <div class="btn-group edit-field">
               <button *ngIf="(isSubgroupOfGroup(group) | async) && !(isActiveGroup(group) | async)"
                       (click)="deleteSubgroupFromGroup(group)"
@@ -88,17 +90,19 @@
       <table id="subgroupsOfGroup" class="table table-striped table-hover table-bordered">
         <thead>
         <tr>
-          <th scope="col">{{messagePrefix + '.table.id' | translate}}</th>
-          <th scope="col">{{messagePrefix + '.table.name' | translate}}</th>
+          <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
+          <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
+          <th scope="col" class="align-middle">{{messagePrefix + '.table.collectionOrCommunity' | translate}}</th>
           <th>{{messagePrefix + '.table.edit' | translate}}</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let group of (subGroups$ | async)?.payload?.page">
-          <td>{{group.id}}</td>
-          <td><a (click)="groupDataService.startEditingNewGroup(group)"
+          <td class="align-middle">{{group.id}}</td>
+          <td class="align-middle"><a (click)="groupDataService.startEditingNewGroup(group)"
                  [routerLink]="[groupDataService.getGroupEditPageRouterLink(group)]">{{group.name}}</a></td>
-          <td>
+          <td class="align-middle">{{(group.object | async)?.payload?.name}}</td>
+          <td class="align-middle">
             <div class="btn-group edit-field">
               <button (click)="deleteSubgroupFromGroup(group)"
                       class="btn btn-outline-danger btn-sm deleteButton"
