@@ -55,13 +55,10 @@ export class RelatedItemsComponent extends AbstractIncrementalListComponent<Obse
    */
   viewMode = ViewMode.ListElement;
 
-<<<<<<< HEAD
-  constructor(public relationshipService: RelationshipService, protected elementRef: ElementRef) {
-=======
-  constructor(public relationshipService: RelationshipDataService) {
->>>>>>> main
+  constructor(public relationshipService: RelationshipDataService,  protected elementRef: ElementRef) {
     super();
   }
+
   ngOnInit(): void {
     const width = this.elementRef.nativeElement.offsetWidth;
     this.placeholderFontClass = setPlaceHolderFontSize(width);
