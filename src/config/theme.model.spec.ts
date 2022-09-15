@@ -8,6 +8,7 @@ import { Collection } from '../app/core/shared/collection.model';
 import { Item } from '../app/core/shared/item.model';
 import { ITEM } from '../app/core/shared/item.resource-type';
 import { getItemModuleRoute } from '../app/item-page/item-page-routing-paths';
+import { HandleService } from '../app/shared/handle.service';
 
 describe('Theme Models', () => {
   let theme: Theme;
@@ -67,24 +68,40 @@ describe('Theme Models', () => {
   });
 
   describe('HandleTheme', () => {
+    let handleService;
+    beforeEach(() => {
+      handleService = new HandleService();
+      });
     it('should return true when the DSO\'s handle matches the theme\'s handle', () => {
       theme = new HandleTheme({
         name: 'matching-handle',
         handle: '1234/5678',
-      });
-      const dso = Object.assign(new Item(), {
+      }, handleService);
+      const matchingDso = Object.assign(new Item(), {
         type: ITEM.value,
         uuid: 'item-uuid',
         handle: '1234/5678',
+      }, handleService);
+      expect(theme.matches('', matchingDso)).toEqual(true);
+    });
+    it('should return false when the DSO\'s handle contains the theme\'s handle as a subpart', () => {
+      theme = new HandleTheme({
+        name: 'matching-handle',
+        handle: '1234/5678',
+      }, handleService);
+      const dso = Object.assign(new Item(), {
+        type: ITEM.value,
+        uuid: 'item-uuid',
+        handle: '1234/567891011',
       });
-      expect(theme.matches('', dso)).toEqual(true);
+      expect(theme.matches('', dso)).toEqual(false);
     });
 
     it('should return false when the handles don\'t match', () => {
       theme = new HandleTheme({
         name: 'no-matching-handle',
         handle: '1234/5678',
-      });
+      }, handleService);
       const dso = Object.assign(new Item(), {
         type: ITEM.value,
         uuid: 'item-uuid',
