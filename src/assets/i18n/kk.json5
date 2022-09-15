@@ -6500,28 +6500,22 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Іздеу нәтижесі",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Іздеу нәтижелері",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Іздеу нәтижелері",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Іздеу нәтижелері",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Іздеу нәтижелері",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Іздеу нәтижелері",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title": "Іздеу нәтижелері",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Сіз \"{{ value }}\" сол адамға арналған атау опциясы ретінде сақтағыңыз келе ме, сондықтан сіз және басқалар оны болашақ жіберу үшін қайта пайдалана аласыз ба? Егер жоқ болса, сіз оны осы жіберу үшін пайдалана аласыз.",
@@ -6602,11 +6596,10 @@
 
 
   // "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
+  "submission.sections.submit.progressbar.accessCondition": "Элементке кіру шарттары",
 
   // "submission.sections.submit.progressbar.CClicense": "Creative commons license",
-  "submission.sections.submit.progressbar.CClicense": "Creative commons license",
+  "submission.sections.submit.progressbar.CClicense": "Creative commons лицензиясы",
 
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
   "submission.sections.submit.progressbar.describe.recycle": "Өңдеуге",
@@ -6643,8 +6636,7 @@
   "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
 
   // "submission.sections.status.errors.title": "Errors",
-  // TODO New key - Add a translation
-  "submission.sections.status.errors.title": "Errors",
+  "submission.sections.status.errors.title": "Қателер",
 
   // "submission.sections.status.valid.title": "Valid",
   // TODO New key - Add a translation
@@ -6706,15 +6698,13 @@
   "submission.sections.upload.delete.submit": "Жою",
 
   // "submission.sections.upload.download.title": "Download bitstream",
-  // TODO New key - Add a translation
-  "submission.sections.upload.download.title": "Download bitstream",
+  "submission.sections.upload.download.title": "Бит ағынын жүктеу",
 
   // "submission.sections.upload.drop-message": "Drop files to attach them to the item",
   "submission.sections.upload.drop-message": "Оларды элементке бекіту үшін файлдарды жойыңыз",
 
   // "submission.sections.upload.edit.title": "Edit bitstream",
-  // TODO New key - Add a translation
-  "submission.sections.upload.edit.title": "Edit bitstream",
+  "submission.sections.upload.edit.title": "Бит ағынын өзгерту",
 
   // "submission.sections.upload.form.access-condition-label": "Access condition type",
   "submission.sections.upload.form.access-condition-label": "Кіру шартының түрі",
@@ -7724,8 +7714,7 @@
   "person.page.orcid.scope.activities-update": "Add/update your research activities",
 
   // "person.page.orcid.scope.person-update": "Add/update other information about you",
-  // TODO New key - Add a translation
-  "person.page.orcid.scope.person-update": "Add/update other information about you",
+  "person.page.orcid.scope.person-update": "Сіз туралы басқа ақпаратты қосу/жаңарту",
 
   // "person.page.orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
   // TODO New key - Add a translation
