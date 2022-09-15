@@ -1574,7 +1574,7 @@
 	"register-page.create-profile.identification.email": "Διεύθυνση ηλεκτρονικού ταχυδρομείου",
 	"register-page.create-profile.identification.first-name": "Ονομα *",
 	"register-page.create-profile.identification.first-name.error": "Παρακαλώ συμπληρώστε ένα Όνομα",
-	"register-page.create-profile.identification.header": "Αναγνωρίζω",
+	"register-page.create-profile.identification.header": "Αναγνωριστικό",
 	"register-page.create-profile.identification.language": "Γλώσσα",
 	"register-page.create-profile.identification.last-name": "Επίθετο *",
 	"register-page.create-profile.identification.last-name.error": "Παρακαλώ συμπληρώστε ένα Επώνυμο",
