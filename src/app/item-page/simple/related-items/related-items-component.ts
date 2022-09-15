@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
-import { RelationshipService } from '../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { setPlaceHolderFontSize } from '../../../shared/utils/object-list-utils';
@@ -55,7 +55,11 @@ export class RelatedItemsComponent extends AbstractIncrementalListComponent<Obse
    */
   viewMode = ViewMode.ListElement;
 
+<<<<<<< HEAD
   constructor(public relationshipService: RelationshipService, protected elementRef: ElementRef) {
+=======
+  constructor(public relationshipService: RelationshipDataService) {
+>>>>>>> main
     super();
   }
   ngOnInit(): void {
