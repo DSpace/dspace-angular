@@ -3,9 +3,9 @@ import { BrowseByTitlePageComponent as BaseComponent } from '../../../../../app/
 
 @Component({
   selector: 'ds-browse-by-title-page',
-  // styleUrls: ['./browse-by-date-page.component.scss'],
+  // styleUrls: ['./browse-by-title-page.component.scss'],
   styleUrls: ['../../../../../app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component.scss'],
-  // templateUrl: './browse-by-date-page.component.html'
+  // templateUrl: './browse-by-title-page.component.html'
   templateUrl: '../../../../../app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component.html'
 })
 
