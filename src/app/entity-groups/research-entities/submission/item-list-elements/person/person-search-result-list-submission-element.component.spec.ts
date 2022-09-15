@@ -186,7 +186,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       declarations: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} },
-        { provide: RelationshipService, useValue: mockRelationshipService },
+        { provide: RelationshipDataService, useValue: mockRelationshipService },
         { provide: NotificationsService, useValue: {} },
         { provide: TranslateService, useValue: {} },
         { provide: NgbModal, useValue: {} },
