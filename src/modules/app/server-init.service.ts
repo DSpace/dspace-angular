@@ -66,6 +66,8 @@ export class ServerInitService extends InitService {
       this.initRouteListeners();
       this.themeService.listenForThemeChanges(false);
 
+      await this.authenticationReady$().toPromise();
+
       return true;
     };
   }

@@ -38,7 +38,7 @@ export class ProcessDataService extends DataService<Process> {
   }
 
   /**
-   * Get the endpoint for a process his files
+   * Get the endpoint for the files of the process
    * @param processId The ID of the process
    */
   getFilesEndpoint(processId: string): Observable<string> {
