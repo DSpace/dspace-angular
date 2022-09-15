@@ -261,10 +261,10 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
 
     switch (scope) {
       case SubmissionScopeType.WorkspaceItem: {
-        return this.submissionObject.type === WorkspaceItem.type;
+        return (this.submissionObject as any).type === WorkspaceItem.type.value;
       }
       case SubmissionScopeType.WorkflowItem: {
-        return this.submissionObject.type === WorkflowItem.type;
+        return (this.submissionObject as any).type === WorkflowItem.type.value;
       }
       default: {
         return true;

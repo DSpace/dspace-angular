@@ -357,7 +357,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       describe('in workspace scope', () => {
         beforeEach(() => {
           // @ts-ignore
-          comp.submissionObject = { type: WorkspaceItem.type };
+          comp.submissionObject = { type: WorkspaceItem.type.value };
         });
 
         it('should return true for unscoped fields', () => {
@@ -376,7 +376,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       describe('in workflow scope', () => {
         beforeEach(() => {
           // @ts-ignore
-          comp.submissionObject = { type: WorkflowItem.type };
+          comp.submissionObject = { type: WorkflowItem.type.value };
         });
 
         it('should return true when field is unscoped', () => {
