@@ -46,6 +46,7 @@ import { sendRequest } from '../shared/request.operators';
 import { RestRequest } from './rest-request.model';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from './find-list-options.model';
+import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 
@@ -89,6 +90,7 @@ export class RelationshipService extends DataService<Relationship> {
               protected http: HttpClient,
               protected comparator: DefaultChangeAnalyzer<Relationship>,
               protected appStore: Store<AppState>,
+              @Inject(APP_CONFIG) private appConfig: AppConfig,
               @Inject(PAGINATED_RELATIONS_TO_ITEMS_OPERATOR) private paginatedRelationsToItems: (thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>) {
     super();
   }
@@ -183,7 +185,7 @@ export class RelationshipService extends DataService<Relationship> {
     ]).pipe(
       filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
       take(1),
-    ).subscribe(() => this.itemService.findByHref(item._links.self.href, false));
+    ).subscribe(() => this.itemService.findByHref(item._links.self.href, false, true, followLink('thumbnail')));
   }
 
   /**
@@ -256,7 +258,16 @@ export class RelationshipService extends DataService<Relationship> {
    * @param options
    */
   getRelatedItemsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.getItemRelationshipsByLabel(item, label, options, true, true, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType')).pipe(this.paginatedRelationsToItems(item.uuid));
+    let linksToFollow: FollowLinkConfig<Relationship>[];
+    if (this.appConfig.browseBy.showThumbnails) {
+      linksToFollow = [
+        followLink('leftItem',{}, followLink('thumbnail')),
+        followLink('rightItem',{}, followLink('thumbnail')),
+        followLink('relationshipType') ];
+    } else {
+      linksToFollow = [followLink('leftItem'), followLink('rightItem'), followLink('relationshipType')];
+    }
+    return this.getItemRelationshipsByLabel(item, label, options, true, true, ...linksToFollow).pipe(this.paginatedRelationsToItems(item.uuid));
   }
 
   /**

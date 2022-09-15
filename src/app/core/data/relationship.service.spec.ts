@@ -121,6 +121,8 @@ describe('RelationshipService', () => {
     findByHref: createSuccessfulRemoteDataObject$(relatedItems[0])
   });
 
+  const appConfig = Object.assign({browseBy: {showThumbnails: true}})
+
   function initTestService() {
     return new RelationshipService(
       itemService,
@@ -133,6 +135,7 @@ describe('RelationshipService', () => {
       null,
       null,
       null,
+      appConfig,
       jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v),
     );
   }
@@ -210,8 +213,8 @@ describe('RelationshipService', () => {
           mockOptions,
           true,
           true,
-          followLink('leftItem'),
-          followLink('rightItem'),
+          followLink('leftItem',{}, followLink('thumbnail')),
+          followLink('rightItem',{}, followLink('thumbnail')),
           followLink('relationshipType')
         );
         done();

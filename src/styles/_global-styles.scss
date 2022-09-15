@@ -139,14 +139,32 @@ ds-dynamic-form-control-container.d-none {
   background-color: var(--ds-admin-sidebar-bg);
 }
 /* The font sizes used in "no thumbnail" placeholder */
+.thumb-font-0 {
+  .thumbnail-placeholder {
+    @media screen and (max-width: map-get($grid-breakpoints, lg)) {
+      font-size: 0.7rem !important;
+      padding: 0.2rem;
+    }
+    @media screen and (max-width: map-get($grid-breakpoints, sm)) {
+      font-size: 0.6rem !important;
+      padding: 0.1rem;
+    }
+    font-size: 0.4rem !important;
+    padding: 0.1rem;
+  }
+}
 .thumb-font-1 {
   .thumbnail-placeholder {
-    font-size: 0.7rem !important;
-    padding: 0.125rem;
     @media screen and (max-width: map-get($grid-breakpoints, sm)) {
+      font-size: 0.9rem !important;
+      padding: 0.1rem;
+    }
+    @media screen and (max-width: 950px) {
       font-size: 0.5rem !important;
       padding: 0.1rem;
     }
+    font-size: 0.7rem !important;
+    padding: 0.125rem;
     visibility: inherit;
   }
 }
