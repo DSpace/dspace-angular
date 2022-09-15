@@ -2,20 +2,17 @@ import { of as observableOf } from 'rxjs';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../shared/remote-data.utils';
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { RelationshipTypeService } from './relationship-type.service';
+import { RelationshipTypeDataService } from './relationship-type-data.service';
 import { RequestService } from './request.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { hasValueOperator } from '../../shared/empty.util';
+import { ObjectCacheService } from '../cache/object-cache.service';
 
-describe('RelationshipTypeService', () => {
-  let service: RelationshipTypeService;
+describe('RelationshipTypeDataService', () => {
+  let service: RelationshipTypeDataService;
   let requestService: RequestService;
   let restEndpointURL;
   let halService: any;
@@ -29,7 +26,6 @@ describe('RelationshipTypeService', () => {
   let relationshipType1;
   let relationshipType2;
 
-  let itemService;
   let buildList;
   let rdbService;
   let objectCache;
@@ -72,22 +68,14 @@ describe('RelationshipTypeService', () => {
       /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
     }) as ObjectCacheService;
 
-    itemService = undefined;
-
   }
 
   function initTestService() {
-    return new RelationshipTypeService(
-      itemService,
+    return new RelationshipTypeDataService(
       requestService,
       rdbService,
-      null,
-      halService,
       objectCache,
-      null,
-      null,
-      null,
-      null
+      halService,
     );
   }
 

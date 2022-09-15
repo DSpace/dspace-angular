@@ -1,22 +1,18 @@
-import { HttpClient } from '@angular/common/http';
-import { Store } from '@ngrx/store';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DsoRedirectDataService } from './dso-redirect-data.service';
+import { DsoRedirectService } from './dso-redirect.service';
 import { GetRequest, IdentifierType } from './request.models';
 import { RequestService } from './request.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { Item } from '../shared/item.model';
-import { CoreState } from '../core-state.model';
 
-describe('DsoRedirectDataService', () => {
+describe('DsoRedirectService', () => {
   let scheduler: TestScheduler;
-  let service: DsoRedirectDataService;
+  let service: DsoRedirectService;
   let halService: HALEndpointService;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
@@ -29,10 +25,6 @@ describe('DsoRedirectDataService', () => {
   const requestHandleURL = `https://rest.api/rest/api/pid/find?id=${encodedHandle}`;
   const requestUUIDURL = `https://rest.api/rest/api/pid/find?id=${dsoUUID}`;
   const requestUUID = '34cfed7c-f597-49ef-9cbe-ea351f0023c2';
-  const store = {} as Store<CoreState>;
-  const notificationsService = {} as NotificationsService;
-  const http = {} as HttpClient;
-  const comparator = {} as any;
   const objectCache = {} as ObjectCacheService;
 
   beforeEach(() => {
@@ -59,20 +51,16 @@ describe('DsoRedirectDataService', () => {
         a: remoteData
       })
     });
-    service = new DsoRedirectDataService(
+    service = new DsoRedirectService(
       requestService,
       rdbService,
-      store,
       objectCache,
       halService,
-      notificationsService,
-      http,
-      comparator,
-      router
+      router,
     );
   });
 
-  describe('findById', () => {
+  describe('findByIdAndIDType', () => {
     it('should call HALEndpointService with the path to the pid endpoint', () => {
       scheduler.schedule(() => service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE));
       scheduler.flush();
@@ -141,7 +129,7 @@ describe('DsoRedirectDataService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(router.navigate).toHaveBeenCalledWith([remoteData.payload.type + 's/' + remoteData.payload.uuid]);
+      expect(router.navigate).toHaveBeenCalledWith(['/collections/' + remoteData.payload.uuid]);
     });
 
     it('should navigate to communities route', () => {
@@ -150,55 +138,58 @@ describe('DsoRedirectDataService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(router.navigate).toHaveBeenCalledWith(['communities/' + remoteData.payload.uuid]);
+      expect(router.navigate).toHaveBeenCalledWith(['/communities/' + remoteData.payload.uuid]);
     });
   });
 
-  describe('getIDHref', () => {
-    it('should return endpoint', () => {
-      const result = (service as any).getIDHref(pidLink, dsoUUID);
-      expect(result).toEqual(requestUUIDURL);
-    });
+  describe('DataService', () => {  // todo: should only test the id/uuid interpolation thingy
+    describe('getIDHref', () => {  // todo: should be able to move this up to IdentifiableDataService?
+      it('should return endpoint', () => {
+        const result = (service as any).dataService.getIDHref(pidLink, dsoUUID);
+        expect(result).toEqual(requestUUIDURL);
+      });
 
-    it('should include single linksToFollow as embed', () => {
-      const expected = `${requestUUIDURL}&embed=bundles`;
-      const result = (service as any).getIDHref(pidLink, dsoUUID, followLink('bundles'));
-      expect(result).toEqual(expected);
-    });
+      it('should include single linksToFollow as embed', () => {
+        const expected = `${requestUUIDURL}&embed=bundles`;
+        const result = (service as any).dataService.getIDHref(pidLink, dsoUUID, followLink('bundles'));
+        expect(result).toEqual(expected);
+      });
 
-    it('should include multiple linksToFollow as embed', () => {
-      const expected = `${requestUUIDURL}&embed=bundles&embed=owningCollection&embed=templateItemOf`;
-      const result = (service as any).getIDHref(pidLink, dsoUUID, followLink('bundles'), followLink('owningCollection'), followLink('templateItemOf'));
-      expect(result).toEqual(expected);
-    });
+      it('should include multiple linksToFollow as embed', () => {
+        const expected = `${requestUUIDURL}&embed=bundles&embed=owningCollection&embed=templateItemOf`;
+        const result = (service as any).dataService.getIDHref(pidLink, dsoUUID, followLink('bundles'), followLink('owningCollection'), followLink('templateItemOf'));
+        expect(result).toEqual(expected);
+      });
 
-    it('should not include linksToFollow with shouldEmbed = false', () => {
-      const expected = `${requestUUIDURL}&embed=templateItemOf`;
-      const result = (service as any).getIDHref(
-        pidLink,
-        dsoUUID,
-        followLink('bundles', { shouldEmbed: false }),
-        followLink('owningCollection', { shouldEmbed: false }),
-        followLink('templateItemOf')
-      );
-      expect(result).toEqual(expected);
-    });
+      it('should not include linksToFollow with shouldEmbed = false', () => {
+        const expected = `${requestUUIDURL}&embed=templateItemOf`;
+        const result = (service as any).dataService.getIDHref(
+          pidLink,
+          dsoUUID,
+          followLink('bundles', { shouldEmbed: false }),
+          followLink('owningCollection', { shouldEmbed: false }),
+          followLink('templateItemOf'),
+        );
+        expect(result).toEqual(expected);
+      });
 
-    it('should include nested linksToFollow 3lvl', () => {
-      const expected = `${requestUUIDURL}&embed=owningCollection/itemtemplate/relationships`;
-      const result = (service as any).getIDHref(
-        pidLink,
-        dsoUUID,
-        followLink('owningCollection',
-          {},
-          followLink('itemtemplate',
+      it('should include nested linksToFollow 3lvl', () => {
+        const expected = `${requestUUIDURL}&embed=owningCollection/itemtemplate/relationships`;
+        const result = (service as any).dataService.getIDHref(
+          pidLink,
+          dsoUUID,
+          followLink(
+            'owningCollection',
             {},
-            followLink('relationships')
-          )
-        )
-      );
-      expect(result).toEqual(expected);
+            followLink(
+              'itemtemplate',
+              {},
+              followLink('relationships'),
+            ),
+          ),
+        );
+        expect(result).toEqual(expected);
+      });
     });
   });
-
 });

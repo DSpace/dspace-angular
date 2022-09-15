@@ -94,7 +94,7 @@ describe('CollectionItemMapperComponent', () => {
   const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
   const itemDataServiceStub = {
     mapToCollection: () => createSuccessfulRemoteDataObject$({}),
-    findAllByHref: () => observableOf(emptyList)
+    findListByHref: () => observableOf(emptyList),
   };
   const activatedRouteStub = {
     parent: {
@@ -152,7 +152,7 @@ describe('CollectionItemMapperComponent', () => {
   });
 
   const groupDataService = jasmine.createSpyObj('groupsDataService', {
-    findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     getGroupRegistryRouterLink: '',
     getUUIDFromString: '',
   });

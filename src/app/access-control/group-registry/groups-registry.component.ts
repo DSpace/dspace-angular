@@ -213,7 +213,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * @param group
    */
   getMembers(group: Group): Observable<RemoteData<PaginatedList<EPerson>>> {
-    return this.ePersonDataService.findAllByHref(group._links.epersons.href).pipe(getFirstSucceededRemoteData());
+    return this.ePersonDataService.findListByHref(group._links.epersons.href).pipe(getFirstSucceededRemoteData());
   }
 
   /**
@@ -221,7 +221,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * @param group
    */
   getSubgroups(group: Group): Observable<RemoteData<PaginatedList<Group>>> {
-    return this.groupService.findAllByHref(group._links.subgroups.href).pipe(getFirstSucceededRemoteData());
+    return this.groupService.findListByHref(group._links.subgroups.href).pipe(getFirstSucceededRemoteData());
   }
 
   /**

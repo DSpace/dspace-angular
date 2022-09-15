@@ -1,13 +1,8 @@
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { Store } from '@ngrx/store';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
@@ -16,28 +11,31 @@ import { RelationshipType } from '../shared/item-relationships/relationship-type
 import { PaginatedList } from './paginated-list.model';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
-import { RelationshipTypeService } from './relationship-type.service';
-import { CoreState } from '../core-state.model';
+import { RelationshipTypeDataService } from './relationship-type-data.service';
 import { FindListOptions } from './find-list-options.model';
+import { BaseDataService } from './base/base-data.service';
+import { SearchData, SearchDataImpl } from './base/search-data';
+import { FindAllData, FindAllDataImpl } from './base/find-all-data';
 
 /**
  * Service handling all ItemType requests
  */
 @Injectable()
-export class EntityTypeService extends DataService<ItemType> {
+export class EntityTypeDataService extends BaseDataService<ItemType> implements FindAllData<ItemType>, SearchData<ItemType> {
+  private findAllData: FindAllData<ItemType>;
+  private searchData: SearchDataImpl<ItemType>;
 
-  protected linkPath = 'entitytypes';
+  constructor(
+    protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
+    protected relationshipTypeService: RelationshipTypeDataService,
+  ) {
+    super('entitytypes', requestService, rdbService, objectCache, halService);
 
-  constructor(protected requestService: RequestService,
-              protected rdbService: RemoteDataBuildService,
-              protected store: Store<CoreState>,
-              protected halService: HALEndpointService,
-              protected objectCache: ObjectCacheService,
-              protected notificationsService: NotificationsService,
-              protected relationshipTypeService: RelationshipTypeService,
-              protected http: HttpClient,
-              protected comparator: DefaultChangeAnalyzer<ItemType>) {
-    super();
+    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   getBrowseEndpoint(options, linkPath?: string): Observable<string> {
@@ -147,7 +145,7 @@ export class EntityTypeService extends DataService<ItemType> {
    */
   getEntityTypeRelationships(entityTypeId: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<RelationshipType>[]): Observable<RemoteData<PaginatedList<RelationshipType>>> {
     const href$ = this.getRelationshipTypesEndpoint(entityTypeId);
-    return this.relationshipTypeService.findAllByHref(href$, undefined, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    return this.relationshipTypeService.findListByHref(href$, undefined, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -158,7 +156,43 @@ export class EntityTypeService extends DataService<ItemType> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       take(1),
       switchMap((endPoint: string) =>
-        this.findByHref(endPoint + '/label/' + label))
+        this.findByHref(endPoint + '/label/' + label)),
     );
+  }
+
+  /**
+   * Returns {@link RemoteData} of all object with a list of {@link FollowLinkConfig}, to indicate which embedded
+   * info should be added to the objects
+   *
+   * @param options                     Find list options object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>>}
+   *    Return an observable that emits object list
+   */
+  public findAll(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<ItemType>[]): Observable<RemoteData<PaginatedList<ItemType>>> {
+    return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Make a new FindListRequest with given search method
+   *
+   * @param searchMethod                The search method for the object
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
+  searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<ItemType>[]): Observable<RemoteData<PaginatedList<ItemType>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }

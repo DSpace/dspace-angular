@@ -12,7 +12,7 @@ import {
   createPendingRemoteDataObject$,
   createSuccessfulRemoteDataObject$
 } from '../../../../../remote-data.utils';
-import { ExternalSourceService } from '../../../../../../core/data/external-source.service';
+import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
 import { ExternalSource } from '../../../../../../core/shared/external-source.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
@@ -107,7 +107,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
             paginatedSearchOptions: observableOf(pSearchOptions)
           }
         },
-        { provide: ExternalSourceService, useValue: externalSourceService },
+        { provide: ExternalSourceDataService, useValue: externalSourceService },
         { provide: SelectableListService, useValue: selectableListService },
         { provide: PaginationService, useValue: new PaginationServiceStub() }
       ],

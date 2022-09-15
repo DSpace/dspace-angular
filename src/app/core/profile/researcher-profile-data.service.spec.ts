@@ -11,14 +11,10 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { PageInfo } from '../shared/page-info.model';
 import { buildPaginatedList } from '../data/paginated-list.model';
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../shared/remote-data.utils';
+import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RestResponse } from '../cache/response.models';
 import { RequestEntry } from '../data/request-entry.model';
-import { ResearcherProfileService } from './researcher-profile.service';
+import { ResearcherProfileDataService } from './researcher-profile-data.service';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { ResearcherProfile } from './model/researcher-profile.model';
 import { Item } from '../shared/item.model';
@@ -28,10 +24,14 @@ import { PostRequest } from '../data/request.models';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { testCreateDataImplementation } from '../data/base/create-data.spec';
+import { testSearchDataImplementation } from '../data/base/search-data.spec';
+import { testPatchDataImplementation } from '../data/base/patch-data.spec';
+import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
 
 describe('ResearcherProfileService', () => {
   let scheduler: TestScheduler;
-  let service: ResearcherProfileService;
+  let service: ResearcherProfileDataService;
   let serviceAsAny: any;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
@@ -247,52 +247,41 @@ describe('ResearcherProfileService', () => {
       findByHref: jasmine.createSpy('findByHref')
     });
 
-    service = new ResearcherProfileService(
+    service = new ResearcherProfileDataService(
       requestService,
       rdbService,
       objectCache,
       halService,
       notificationsService,
-      http,
       routerStub,
       comparator,
-      itemService
+      itemService,
     );
     serviceAsAny = service;
 
-    spyOn((service as any).dataService, 'create').and.callThrough();
-    spyOn((service as any).dataService, 'delete').and.callThrough();
-    spyOn((service as any).dataService, 'update').and.callThrough();
-    spyOn((service as any).dataService, 'findById').and.callThrough();
-    spyOn((service as any).dataService, 'findByHref').and.callThrough();
-    spyOn((service as any).dataService, 'searchBy').and.callThrough();
-    spyOn((service as any).dataService, 'getLinkPath').and.returnValue(observableOf(endpointURL));
-
+    spyOn((service as any), 'findById').and.callThrough();
+    spyOn((service as any), 'findByHref').and.callThrough();
+    spyOn((service as any), 'getLinkPath').and.returnValue(observableOf(endpointURL));
+    spyOn((service as any).createData, 'create').and.callThrough();
+    spyOn((service as any).patchData, 'update').and.callThrough();
+    spyOn((service as any).searchData, 'searchBy').and.callThrough();
+    spyOn((service as any).deleteData, 'delete').and.callThrough();
   });
 
-  describe('findById', () => {
-    it('should proxy the call to dataservice.findById with eperson UUID', () => {
-      scheduler.schedule(() => service.findById(researcherProfileId));
-      scheduler.flush();
-
-      expect((service as any).dataService.findById).toHaveBeenCalledWith(researcherProfileId, true, true);
-    });
-
-    it('should return a ResearcherProfile object with the given id', () => {
-      const result = service.findById(researcherProfileId);
-      const expected = cold('a|', {
-        a: researcherProfileRD
-      });
-      expect(result).toBeObservable(expected);
-    });
+  describe('composition', () => {
+    const initService = () => new ResearcherProfileDataService(null, null, null, null, null, null, null, null);
+    testCreateDataImplementation(initService);
+    testSearchDataImplementation(initService);
+    testPatchDataImplementation(initService);
+    testDeleteDataImplementation(initService);
   });
 
   describe('create', () => {
-    it('should proxy the call to dataservice.create with eperson UUID', () => {
+    it('should proxy the call to createData.create with eperson UUID', () => {
       scheduler.schedule(() => service.create());
       scheduler.flush();
 
-      expect((service as any).dataService.create).toHaveBeenCalled();
+      expect((service as any).createData.create).toHaveBeenCalled();
     });
 
     it('should return the RemoteData<ResearcherProfile> created', () => {
@@ -305,11 +294,11 @@ describe('ResearcherProfileService', () => {
   });
 
   describe('delete', () => {
-    it('should proxy the call to dataservice.delete', () => {
-      scheduler.schedule(() => service.delete(researcherProfile));
+    it('should proxy the call to deleteData.delete', () => {
+      scheduler.schedule(() => service.delete(researcherProfile.id));
       scheduler.flush();
 
-      expect((service as any).dataService.delete).toHaveBeenCalledWith(researcherProfile.id);
+      expect((service as any).deleteData.delete).toHaveBeenCalledWith(researcherProfile.id, undefined);
     });
   });
 
@@ -360,34 +349,33 @@ describe('ResearcherProfileService', () => {
   });
 
   describe('setVisibility', () => {
-    let patchSpy;
     beforeEach(() => {
-      spyOn((service as any).dataService, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
-      spyOn((service as any), 'findById').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
+      spyOn((service as any).patchData, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
+      (service.findById as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
     });
 
-    it('should proxy the call to dataservice.patch', () => {
+    it('should proxy the call to patchData.patch', () => {
       const replaceOperation: ReplaceOperation<boolean> = {
         path: '/visible',
         op: 'replace',
-        value: true
+        value: true,
       };
 
       scheduler.schedule(() => service.setVisibility(researcherProfile, true));
       scheduler.flush();
 
-      expect((service as any).dataService.patch).toHaveBeenCalledWith(researcherProfile, [replaceOperation]);
+      expect((service as any).patchData.patch).toHaveBeenCalledWith(researcherProfile, [replaceOperation]);
     });
   });
 
   describe('createFromExternalSource', () => {
 
     beforeEach(() => {
-      spyOn((service as any).dataService, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
-      spyOn((service as any), 'findById').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
+      spyOn((service as any).patchData, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
+      (service.findById as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
     });
 
-    it('should proxy the call to dataservice.patch', () => {
+    it('should proxy the call to patchData.patch', () => {
       const options: HttpOptions = Object.create({});
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'text/uri-list');
@@ -406,14 +394,14 @@ describe('ResearcherProfileService', () => {
   describe('updateByOrcidOperations', () => {
     beforeEach(() => {
       scheduler = getTestScheduler();
-      spyOn((service as any).dataService, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
+      spyOn((service as any).patchData, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
     });
 
     it('should call patch method properly', () => {
-      scheduler.schedule(() => service.updateByOrcidOperations(researcherProfile, []).subscribe());
+      scheduler.schedule(() => service.patch(researcherProfile, []).subscribe());
       scheduler.flush();
 
-      expect((service as any).dataService.patch).toHaveBeenCalledWith(researcherProfile, []);
+      expect((service as any).patchData.patch).toHaveBeenCalledWith(researcherProfile, []);
     });
   });
 });

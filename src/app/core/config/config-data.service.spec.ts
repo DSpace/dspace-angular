@@ -1,7 +1,7 @@
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { ConfigService } from './config.service';
+import { ConfigDataService } from './config-data.service';
 import { RequestService } from '../data/request.service';
 import { GetRequest } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -9,23 +9,26 @@ import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-servic
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { FindListOptions } from '../data/find-list-options.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
 
 const LINK_NAME = 'test';
 const BROWSE = 'search/findByCollection';
 
-class TestService extends ConfigService {
+class TestService extends ConfigDataService {
   protected linkPath = LINK_NAME;
   protected browseEndpoint = BROWSE;
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected halService: HALEndpointService) {
-    super(requestService, rdbService, null, null, halService, null, null, null, BROWSE);
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
+  ) {
+    super(BROWSE, requestService, rdbService, objectCache, halService);
   }
 }
 
-describe('ConfigService', () => {
+describe('ConfigDataService', () => {
   let scheduler: TestScheduler;
   let service: TestService;
   let requestService: RequestService;
@@ -45,7 +48,8 @@ describe('ConfigService', () => {
     return new TestService(
       requestService,
       rdbService,
-      halService
+      null,
+      halService,
     );
   }
 

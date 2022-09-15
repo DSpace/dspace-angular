@@ -6,8 +6,8 @@ import { Relationship } from '../shared/item-relationships/relationship.model';
 import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';
 import { buildPaginatedList } from './paginated-list.model';
-import { DeleteRequest} from './request.models';
-import { RelationshipService } from './relationship.service';
+import { DeleteRequest } from './request.models';
+import { RelationshipDataService } from './relationship-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -16,9 +16,10 @@ import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RequestEntry } from './request-entry.model';
 import { FindListOptions } from './find-list-options.model';
+import { testSearchDataImplementation } from './base/search-data.spec';
 
-describe('RelationshipService', () => {
-  let service: RelationshipService;
+describe('RelationshipDataService', () => {
+  let service: RelationshipDataService;
   let requestService: RequestService;
 
   const restEndpointURL = 'https://rest.api/core';
@@ -122,16 +123,12 @@ describe('RelationshipService', () => {
   });
 
   function initTestService() {
-    return new RelationshipService(
-      itemService,
+    return new RelationshipDataService(
       requestService,
       rdbService,
-      null,
       halService,
       objectCache,
-      null,
-      null,
-      null,
+      itemService,
       null,
       jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v),
     );
@@ -146,6 +143,12 @@ describe('RelationshipService', () => {
   beforeEach(() => {
     requestService = getMockRequestService(getRequestEntry$(true));
     service = initTestService();
+  });
+
+  describe('composition', () => {
+    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null);
+
+    testSearchDataImplementation(initService);
   });
 
   describe('deleteRelationship', () => {
