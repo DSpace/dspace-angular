@@ -121,7 +121,7 @@ describe('RelationshipService', () => {
     findByHref: createSuccessfulRemoteDataObject$(relatedItems[0])
   });
 
-  const appConfig = Object.assign({browseBy: {showThumbnails: true}})
+  const appConfig = Object.assign({browseBy: {showThumbnails: true}});
 
   function initTestService() {
     return new RelationshipService(
