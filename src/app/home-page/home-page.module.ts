@@ -9,13 +9,14 @@ import { TopLevelCommunityListComponent } from './top-level-community-list/top-l
 import { StatisticsModule } from '../statistics/statistics.module';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 import { ThemedHomePageComponent } from './themed-home-page.component';
-
+import { RecentItemListComponent } from './recent-item-list/recent-item-list.component';
 const DECLARATIONS = [
   HomePageComponent,
   ThemedHomePageComponent,
   TopLevelCommunityListComponent,
   ThemedHomeNewsComponent,
   HomeNewsComponent,
+  RecentItemListComponent
 ];
 
 @NgModule({
