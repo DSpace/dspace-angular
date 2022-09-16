@@ -156,6 +156,9 @@ languages:
   - code: tr
     label: Türkçe
     active: true
+  - code: kk
+    label: Қазақ
+    active: true
   - code: bn
     label: বাংলা
     active: true
