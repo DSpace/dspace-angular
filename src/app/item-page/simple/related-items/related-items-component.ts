@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, ElementRef, Inject, Input } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -8,6 +8,7 @@ import { RelationshipDataService } from '../../../core/data/relationship-data.se
 import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { setPlaceHolderFontSize } from '../../../shared/utils/object-list-utils';
+import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-related-items',
@@ -55,8 +56,17 @@ export class RelatedItemsComponent extends AbstractIncrementalListComponent<Obse
    */
   viewMode = ViewMode.ListElement;
 
-  constructor(public relationshipService: RelationshipDataService,  protected elementRef: ElementRef) {
+  /**
+   * Determines whether to request embedded thumbnail.
+   */
+  embedThumbnail: boolean;
+
+  constructor(public relationshipService: RelationshipDataService,
+              protected elementRef: ElementRef,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig
+              ) {
     super();
+    this.embedThumbnail = this.appConfig.browseBy.showThumbnails;
   }
 
   ngOnInit(): void {
@@ -70,6 +80,7 @@ export class RelatedItemsComponent extends AbstractIncrementalListComponent<Obse
    * @param page  The page to fetch
    */
   getPage(page: number): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.relationshipService.getRelatedItemsByLabel(this.parentItem, this.relationType, Object.assign(this.options, { elementsPerPage: this.incrementBy, currentPage: page, embedThumbnail: true }));
+    return this.relationshipService.getRelatedItemsByLabel(this.parentItem, this.relationType, Object.assign(this.options,
+      { elementsPerPage: this.incrementBy, currentPage: page, embedThumbnail: this.embedThumbnail }));
   }
 }

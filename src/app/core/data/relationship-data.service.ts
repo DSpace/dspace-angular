@@ -525,14 +525,14 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
         {
           fieldName: 'relatedItem',
           fieldValue: itemId,
-        },
+        }
       );
     });
 
     return this.searchBy(
       'byItemsAndType',
       {
-        searchParams: searchParams,
+        searchParams: searchParams
       },
     ) as Observable<RemoteData<PaginatedList<Relationship>>>;
 
