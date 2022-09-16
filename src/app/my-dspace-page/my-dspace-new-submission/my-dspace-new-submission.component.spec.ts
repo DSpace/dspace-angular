@@ -25,7 +25,7 @@ import { CookieService } from '../../core/services/cookie.service';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
 import { getMockEntityTypeService } from './my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component.spec';
-import { EntityTypeService } from '../../core/data/entity-type.service';
+import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
 
 describe('MyDSpaceNewSubmissionComponent test', () => {
 
@@ -63,7 +63,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock('mock-token') },
         { provide: CookieService, useValue: new CookieServiceMock() },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
-        { provide: EntityTypeService, useValue: getMockEntityTypeService() },
+        { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

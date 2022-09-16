@@ -5,7 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
 import { APP_INITIALIZER, Inject, Provider, Type } from '@angular/core';
@@ -20,6 +20,9 @@ import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import { MetadataService } from './core/metadata/metadata.service';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { ThemeService } from './shared/theme-support/theme.service';
+import { isAuthenticationBlocking } from './core/auth/selectors';
+import { distinctUntilChanged, find } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 /**
  * Performs the initialization of the app.
@@ -185,5 +188,17 @@ export abstract class InitService {
     this.metadata.listenForRouteChange();
     this.breadcrumbsService.listenForRouteChanges();
     this.themeService.listenForRouteChanges();
+  }
+
+  /**
+   * Emits once authentication is ready (no longer blocking)
+   * @protected
+   */
+  protected authenticationReady$(): Observable<boolean> {
+    return this.store.pipe(
+      select(isAuthenticationBlocking),
+      distinctUntilChanged(),
+      find((b: boolean) => b === false)
+    );
   }
 }

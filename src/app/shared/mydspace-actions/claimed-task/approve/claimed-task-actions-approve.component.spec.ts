@@ -35,15 +35,15 @@ describe('ClaimedTaskActionsApproveComponent', () => {
   });
 
   beforeEach(waitForAsync(() => {
-    mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
+    mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskService },

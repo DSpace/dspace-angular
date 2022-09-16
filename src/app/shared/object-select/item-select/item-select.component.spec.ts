@@ -74,14 +74,14 @@ describe('ItemSelectComponent', () => {
 
   paginationService = new PaginationServiceStub(mockPaginationOptions);
 
-  const authorizationDataService = new AuthorizationDataService(null, null, null, null, null, null, null, null, null, null);
+  const authorizationDataService = new AuthorizationDataService(null, null, null, null, null);
 
   const linkHeadService = jasmine.createSpyObj('linkHeadService', {
     addTag: ''
   });
 
   const groupDataService = jasmine.createSpyObj('groupsDataService', {
-    findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     getGroupRegistryRouterLink: '',
     getUUIDFromString: '',
   });

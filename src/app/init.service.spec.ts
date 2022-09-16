@@ -5,7 +5,7 @@ import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { MetadataService } from './core/metadata/metadata.service';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { CommonModule } from '@angular/common';
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { authReducer } from './core/auth/auth.reducer';
 import { storeModuleConfig } from './app.reducer';
 import { AngularticsProviderMock } from './shared/mocks/angulartics-provider.service.mock';
@@ -31,6 +31,7 @@ import { getMockThemeService } from './shared/mocks/theme-service.mock';
 import objectContaining = jasmine.objectContaining;
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
+import { getTestScheduler } from 'jasmine-marbles';
 
 let spy: SpyObj<any>;
 
@@ -124,6 +125,15 @@ describe('InitService', () => {
     let metadataServiceSpy;
     let breadcrumbsServiceSpy;
 
+    const BLOCKING = {
+      t: {  core: { auth: { blocking: true } } },
+      f: {  core: { auth: { blocking: false } } },
+    };
+    const BOOLEAN = {
+      t: true,
+      f: false,
+    };
+
     beforeEach(waitForAsync(() => {
       correlationIdServiceSpy = jasmine.createSpyObj('correlationIdServiceSpy', [
         'initCorrelationId',
@@ -181,6 +191,18 @@ describe('InitService', () => {
         expect(metadataServiceSpy.listenForRouteChange).toHaveBeenCalledTimes(1);
         expect(breadcrumbsServiceSpy.listenForRouteChanges).toHaveBeenCalledTimes(1);
       }));
+    });
+
+    describe('authenticationReady', () => {
+      it('should emit & complete the first time auth is unblocked', () => {
+        getTestScheduler().run(({ cold, expectObservable }) => {
+          TestBed.overrideProvider(Store, { useValue: cold('t--t--f--t--f--', BLOCKING) });
+          const service = TestBed.inject(InitService);
+
+          // @ts-ignore
+          expectObservable(service.authenticationReady$()).toBe('------(f|)', BOOLEAN);
+        });
+      });
     });
   });
 });

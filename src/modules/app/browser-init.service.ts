@@ -6,7 +6,7 @@
  * http://www.dspace.org/license/
  */
 import { InitService } from '../../app/init.service';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AppState } from '../../app/app.reducer';
 import { TransferState } from '@angular/platform-browser';
 import { APP_CONFIG, APP_CONFIG_STATE, AppConfig } from '../../config/app-config.interface';
@@ -26,9 +26,8 @@ import { AuthService } from '../../app/core/auth/auth.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { StoreAction, StoreActionTypes } from '../../app/store.actions';
 import { coreSelector } from '../../app/core/core.selectors';
-import { distinctUntilChanged, filter, find, map, take } from 'rxjs/operators';
+import { find, map } from 'rxjs/operators';
 import { isNotEmpty } from '../../app/shared/empty.util';
-import { isAuthenticationBlocking } from '../../app/core/auth/selectors';
 
 /**
  * Performs client-side initialization.
@@ -90,6 +89,8 @@ export class BrowserInitService extends InitService {
 
       this.initKlaro();
 
+      await this.authenticationReady$().toPromise();
+
       return true;
     };
   }
@@ -116,16 +117,11 @@ export class BrowserInitService extends InitService {
   }
 
   /**
-   * Initialize Klaro
+   * Initialize Klaro (once authentication is resolved)
    * @protected
    */
   protected initKlaro() {
-    this.store.pipe(
-      select(isAuthenticationBlocking),
-      distinctUntilChanged(),
-      filter((isBlocking: boolean) => isBlocking === false),
-      take(1)
-    ).subscribe(() => {
+    this.authenticationReady$().subscribe(() => {
       this.klaroService.initialize();
     });
   }
