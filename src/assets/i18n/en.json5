@@ -4763,5 +4763,6 @@
   "person.orcid.registry.queue": "ORCID Registry Queue",
 
   "person.orcid.registry.auth": "ORCID Authorizations",
+  "home.recent-submissions.head": "Recent Submissions",
 
 }

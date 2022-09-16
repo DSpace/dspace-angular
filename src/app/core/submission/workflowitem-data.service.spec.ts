@@ -82,14 +82,11 @@ describe('WorkflowItemDataService test', () => {
   function initTestService() {
     hrefOnlyDataService = getMockHrefOnlyDataService();
     return new WorkflowItemDataService(
-      comparatorEntry,
-      halService,
-      http,
-      notificationsService,
       requestService,
       rdbService,
       objectCache,
-      store
+      halService,
+      notificationsService,
     );
   }
 
@@ -121,7 +118,7 @@ describe('WorkflowItemDataService test', () => {
       service = initTestService();
 
       spyOn((service as any), 'findByHref').and.callThrough();
-      spyOn((service as any), 'getSearchByHref').and.returnValue(searchRequestURL$);
+      spyOn((service as any).searchData, 'getSearchByHref').and.returnValue(searchRequestURL$);
     });
 
     afterEach(() => {

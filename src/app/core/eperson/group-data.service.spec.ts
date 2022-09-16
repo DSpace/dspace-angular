@@ -26,10 +26,8 @@ import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
 import { createPaginatedList, createRequestEntry$ } from '../../shared/testing/utils.test';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';
-import { DataService } from '../data/data.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { getMockLinkService } from '../../shared/mocks/link-service.mock';
-import { DataServiceStub } from '../../shared/testing/data-service.stub';
 import { of as observableOf } from 'rxjs';
 import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 
@@ -45,8 +43,6 @@ describe('GroupDataService', () => {
   let halService;
   let rdbService;
   let objectCache: ObjectCacheService;
-  let dataService: DataServiceStub;
-
   function init() {
     restEndpointURL = 'https://dspace.4science.it/dspace-spring-rest/api/eperson';
     groupsEndpoint = `${restEndpointURL}/groups`;
@@ -55,7 +51,6 @@ describe('GroupDataService', () => {
     rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, { 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups': groups$ });
     halService = new HALEndpointServiceStub(restEndpointURL);
     objectCache = new ObjectCacheService(store, getMockLinkService());
-    dataService = new DataServiceStub();
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -68,24 +63,21 @@ describe('GroupDataService', () => {
         }),
       ],
       declarations: [],
-      providers: [
-        { provide: DataService, useValue: dataService },
-      ],
+      providers: [],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
   }
 
   function initTestService() {
     return new GroupDataService(
+      requestService,
+      rdbService,
+      objectCache,
+      halService,
       new DummyChangeAnalyzer() as any,
       null,
       null,
-      requestService,
-      rdbService,
       store,
-      objectCache,
-      halService,
-      null,
     );
   }
 
@@ -125,7 +117,7 @@ describe('GroupDataService', () => {
       spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
         requestUUIDs: ['request1', 'request2']
       } as ObjectCacheEntry));
-      spyOn(dataService, 'invalidateByHref');
+      spyOn((service as any).deleteData, 'invalidateByHref');
       service.addSubGroupToGroup(GroupMock, GroupMock2).subscribe();
     });
     it('should send PostRequest to eperson/groups/group-id/subgroups endpoint with new subgroup link in body', () => {
@@ -154,7 +146,7 @@ describe('GroupDataService', () => {
       spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
         requestUUIDs: ['request1', 'request2']
       } as ObjectCacheEntry));
-      spyOn(dataService, 'invalidateByHref');
+      spyOn((service as any).deleteData, 'invalidateByHref');
       service.deleteSubGroupFromGroup(GroupMock, GroupMock2).subscribe();
     });
     it('should send DeleteRequest to eperson/groups/group-id/subgroups/group-id endpoint', () => {
@@ -179,7 +171,7 @@ describe('GroupDataService', () => {
       spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
         requestUUIDs: ['request1', 'request2']
       } as ObjectCacheEntry));
-      spyOn(dataService, 'invalidateByHref');
+      spyOn((service as any).deleteData, 'invalidateByHref');
       service.addMemberToGroup(GroupMock, EPersonMock2).subscribe();
     });
     it('should send PostRequest to eperson/groups/group-id/epersons endpoint with new eperson member in body', () => {
@@ -209,7 +201,7 @@ describe('GroupDataService', () => {
       spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
         requestUUIDs: ['request1', 'request2']
       } as ObjectCacheEntry));
-      spyOn(dataService, 'invalidateByHref');
+      spyOn((service as any).deleteData, 'invalidateByHref');
       service.deleteMemberFromGroup(GroupMock, EPersonMock).subscribe();
     });
     it('should send DeleteRequest to eperson/groups/group-id/epersons/eperson-id endpoint', () => {
