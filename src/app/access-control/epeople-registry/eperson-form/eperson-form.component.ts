@@ -265,7 +265,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
         if (eperson != null) {
-          this.groups = this.groupsDataService.findAllByHref(eperson._links.groups.href, {
+          this.groups = this.groupsDataService.findListByHref(eperson._links.groups.href, {
             currentPage: 1,
             elementsPerPage: this.config.pageSize
           });
@@ -297,7 +297,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         }),
         switchMap(([eperson, findListOptions]) => {
           if (eperson != null) {
-            return this.groupsDataService.findAllByHref(eperson._links.groups.href, findListOptions, true, true, followLink('object'));
+            return this.groupsDataService.findListByHref(eperson._links.groups.href, findListOptions, true, true, followLink('object'));
           }
           return observableOf(undefined);
         })
@@ -554,7 +554,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   private updateGroups(options) {
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
-      this.groups = this.groupsDataService.findAllByHref(eperson._links.groups.href, options);
+      this.groups = this.groupsDataService.findListByHref(eperson._links.groups.href, options);
     }));
   }
 }

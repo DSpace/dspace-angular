@@ -22,7 +22,13 @@ console.log(`...Testing connection to REST API at ${restUrl}...\n`);
 if (appConfig.rest.ssl) {
     const req = https.request(restUrl, (res) => {
         console.log(`RESPONSE: ${res.statusCode} ${res.statusMessage} \n`);
-        res.on('data', (data) => {
+        // We will keep reading data until the 'end' event fires.
+        // This ensures we don't just read the first chunk.
+        let data = '';
+        res.on('data', (chunk) => {
+            data += chunk;
+        });
+        res.on('end', () => {
             checkJSONResponse(data);
         });
     });
@@ -35,7 +41,13 @@ if (appConfig.rest.ssl) {
 } else {
     const req = http.request(restUrl, (res) => {
         console.log(`RESPONSE: ${res.statusCode} ${res.statusMessage} \n`);
-        res.on('data', (data) => {
+        // We will keep reading data until the 'end' event fires.
+        // This ensures we don't just read the first chunk.
+        let data = '';
+        res.on('data', (chunk) => {
+            data += chunk;
+        });
+        res.on('end', () => {
             checkJSONResponse(data);
         });
     });

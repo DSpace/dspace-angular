@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
@@ -21,7 +21,7 @@ import { HostWindowService } from '../../../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { RelationshipTypeService } from '../../../../core/data/relationship-type.service';
+import { RelationshipTypeDataService } from '../../../../core/data/relationship-type-data.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
@@ -187,7 +187,7 @@ describe('EditRelationshipListComponent', () => {
     });
 
     const groupDataService = jasmine.createSpyObj('groupsDataService', {
-      findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+      findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
       getGroupRegistryRouterLink: '',
       getUUIDFromString: '',
     });
@@ -206,12 +206,12 @@ describe('EditRelationshipListComponent', () => {
       declarations: [EditRelationshipListComponent],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
-        { provide: RelationshipService, useValue: relationshipService },
+        { provide: RelationshipDataService, useValue: relationshipService },
         { provide: SelectableListService, useValue: selectableListService },
         { provide: LinkService, useValue: linkService },
         { provide: PaginationService, useValue: paginationService },
         { provide: HostWindowService, useValue: hostWindowService },
-        { provide: RelationshipTypeService, useValue: relationshipTypeService },
+        { provide: RelationshipTypeDataService, useValue: relationshipTypeService },
         { provide: GroupDataService, useValue: groupDataService },
         { provide: Router, useValue: new RouterMock() },
         { provide: LinkHeadService, useValue: linkHeadService },

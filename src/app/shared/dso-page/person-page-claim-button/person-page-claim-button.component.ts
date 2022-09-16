@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { RouteService } from '../../../core/services/route.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
+import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -36,7 +36,7 @@ export class PersonPageClaimButtonComponent implements OnInit {
               protected authorizationService: AuthorizationDataService,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService,
-              protected researcherProfileService: ResearcherProfileService) {
+              protected researcherProfileService: ResearcherProfileDataService) {
   }
 
   ngOnInit(): void {
