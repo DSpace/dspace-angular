@@ -78,7 +78,7 @@ export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponen
   handleLoadMore() {
     this.isLoading$.next(true);
     const oldMappedCollections$ = this.mappedCollections$;
-    this.mappedCollections$ = this.mappedCollectionPage(this.lastPage).pipe(
+    this.mappedCollections$ = this.loadMappedCollectionPage(this.lastPage).pipe(
       getAllCompletedRemoteData<PaginatedList<Collection>>(),
 
       // update isLoading$
@@ -109,11 +109,13 @@ export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponen
     );
   }
 
-  mappedCollectionPage(page: number): Observable<RemoteData<PaginatedList<Collection>>> {
+  loadMappedCollectionPage(page: number): Observable<RemoteData<PaginatedList<Collection>>> {
     return this.cds.findMappedCollectionsFor(this.item, Object.assign(new FindListOptions(), {
       elementsPerPage: this.pageSize,
       currentPage: page,
-    }));
+    })).pipe(
+
+    );
   }
 
   /**
