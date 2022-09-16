@@ -4750,6 +4750,8 @@
 
   "search.filters.applied.charts.RELATION.Project.fundings.title": "Fundings",
 
+  "search.filters.applied.charts.RELATION.Project.researchoutputs.title": "Research Output",
+
   "search.filters.applied.charts.no.data.found": "No data found",
 
   "search.filters.applied.charts.show.hide": "Show/Hide",
