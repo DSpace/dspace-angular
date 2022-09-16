@@ -41,7 +41,6 @@ import { RequestEntryState } from './request-entry-state.model';
 import { sendRequest } from '../shared/request.operators';
 import { RestRequest } from './rest-request.model';
 import { FindListOptions } from './find-list-options.model';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { SearchData, SearchDataImpl } from './base/search-data';
 import { PutData, PutDataImpl } from './base/put-data';
 import { IdentifiableDataService } from './base/identifiable-data.service';
@@ -86,7 +85,6 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
     protected objectCache: ObjectCacheService,
     protected itemService: ItemDataService,
     protected appStore: Store<AppState>,
-    @Inject(APP_CONFIG) private appConfig: AppConfig,
     @Inject(PAGINATED_RELATIONS_TO_ITEMS_OPERATOR) private paginatedRelationsToItems: (thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>,
   ) {
     super('relationships', requestService, rdbService, objectCache, halService, 15 * 60 * 1000);
@@ -261,7 +259,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    */
   getRelatedItemsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Item>>> {
     let linksToFollow: FollowLinkConfig<Relationship>[];
-    if (this.appConfig.browseBy.showThumbnails) {
+    if (options.embedThumbnail) {
       linksToFollow = [
         followLink('leftItem',{}, followLink('thumbnail')),
         followLink('rightItem',{}, followLink('thumbnail')),

@@ -70,6 +70,6 @@ export class RelatedItemsComponent extends AbstractIncrementalListComponent<Obse
    * @param page  The page to fetch
    */
   getPage(page: number): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.relationshipService.getRelatedItemsByLabel(this.parentItem, this.relationType, Object.assign(this.options, { elementsPerPage: this.incrementBy, currentPage: page }));
+    return this.relationshipService.getRelatedItemsByLabel(this.parentItem, this.relationType, Object.assign(this.options, { elementsPerPage: this.incrementBy, currentPage: page, embedThumbnail: true }));
   }
 }
