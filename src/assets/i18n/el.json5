@@ -770,7 +770,7 @@
 	"health-page.section.db.title": "Βάση δεδομένων",
 	"health-page.section.geoIp.title": "GeoIp",
 	"health-page.section.no-issues": "Δεν εντοπίστηκαν προβλήματα",
-	"health-page.section.solrAuthorityCore.title": ""Solr: πυρήνας authority"",
+	"health-page.section.solrAuthorityCore.title": "Solr: πυρήνας authority",
 	"health-page.section.solrOaiCore.title": "Solr: πυρήνας oai",
 	"health-page.section.solrSearchCore.title": "Solr: πυρήνας search",
 	"health-page.section.solrStatisticsCore.title": "Solr: πυρήνας statistics",
