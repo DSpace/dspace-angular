@@ -46,7 +46,7 @@ describe('CSSVariableService', () => {
     expect(service).toBeTruthy();
   });
 
-  fdescribe('searchVariable', () => {
+  describe('searchVariable', () => {
     it('should return the right keys and variables in a paginated list for query that returns all 3 results', () => {
       const currentPage = 1;
       const pageSize = 5;
