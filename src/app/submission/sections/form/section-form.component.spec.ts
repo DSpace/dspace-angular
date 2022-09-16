@@ -19,7 +19,7 @@ import { getMockFormOperationsService } from '../../../shared/mocks/form-operati
 import { SectionFormOperationsService } from './section-form-operations.service';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { FormService } from '../../../shared/form/form.service';
-import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
+import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsType } from '../sections-type';
 import {
@@ -45,7 +45,7 @@ import { cold } from 'jasmine-marbles';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 
-function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
+function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('FormOperationsService', {
     getConfigAll: jasmine.createSpy('getConfigAll'),
     getConfigByHref: jasmine.createSpy('getConfigByHref'),
@@ -173,7 +173,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: SectionFormOperationsService, useValue: getMockFormOperationsService() },
         { provide: FormService, useValue: formService },
-        { provide: SubmissionFormsConfigService, useValue: formConfigService },
+        { provide: SubmissionFormsConfigDataService, useValue: formConfigService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },

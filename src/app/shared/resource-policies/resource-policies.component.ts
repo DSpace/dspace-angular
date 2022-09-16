@@ -14,7 +14,7 @@ import {
 } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
-import { ResourcePolicyService } from '../../core/resource-policy/resource-policy.service';
+import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
 import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataWithNotEmptyPayload,
@@ -102,7 +102,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * @param {GroupDataService} groupService
    * @param {NotificationsService} notificationsService
    * @param {RequestService} requestService
-   * @param {ResourcePolicyService} resourcePolicyService
+   * @param {ResourcePolicyDataService} resourcePolicyService
    * @param {ActivatedRoute} route
    * @param {Router} router
    * @param {TranslateService} translate
@@ -114,7 +114,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
     private groupService: GroupDataService,
     private notificationsService: NotificationsService,
     private requestService: RequestService,
-    private resourcePolicyService: ResourcePolicyService,
+    private resourcePolicyService: ResourcePolicyDataService,
     private route: ActivatedRoute,
     private router: Router,
     private translate: TranslateService

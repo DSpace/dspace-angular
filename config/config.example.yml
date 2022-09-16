@@ -258,3 +258,10 @@ mediaViewer:
 info:
   enableEndUserAgreement: true
   enablePrivacyStatement: true
+# Home Page
+homePage:
+  recentSubmissions:
+	# The number of item showing in recent submission components
+      pageSize: 5
+	# Sort record of recent submission
+      sortField: 'dc.date.accessioned'
