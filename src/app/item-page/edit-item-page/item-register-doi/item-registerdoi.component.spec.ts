@@ -16,7 +16,6 @@ import { By } from '@angular/platform-browser';
 import { ItemRegisterDoiComponent } from './item-registerdoi.component';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { IdentifierDataService } from '../../../core/data/identifier-data.service';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 
 let comp: ItemRegisterDoiComponent;
 let fixture: ComponentFixture<ItemRegisterDoiComponent>;

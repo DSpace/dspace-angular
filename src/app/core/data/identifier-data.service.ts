@@ -2,31 +2,27 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { dataService } from '../cache/builders/build-decorators';
+import { dataService } from './base/data-service.decorator';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DataService } from './data.service';
+import { BaseDataService } from './base/base-data.service';
 import { RequestService } from './request.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { CoreState } from '../core-state.model';
-import { AccessStatusObject } from 'src/app/shared/object-list/access-status-badge/access-status.model';
-import { ACCESS_STATUS } from 'src/app/shared/object-list/access-status-badge/access-status.resource-type';
 import { Observable } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { Item } from '../shared/item.model';
-import {IDENTIFIERS} from '../../shared/object-list/identifier-data/identifier-data.resource-type';
-import {IdentifierData} from '../../shared/object-list/identifier-data/identifier-data.model';
-import {getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload} from '../shared/operators';
-import {map, startWith} from 'rxjs/operators';
+import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';
+import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
+import { getFirstCompletedRemoteData } from '../shared/operators';
+import { map } from 'rxjs/operators';
 import {ConfigurationProperty} from '../shared/configuration-property.model';
 import {ConfigurationDataService} from './configuration-data.service';
 
 @Injectable()
 @dataService(IDENTIFIERS)
-export class IdentifierDataService extends DataService<IdentifierData> {
-
-  protected linkPath = 'identifiers';
+export class IdentifierDataService extends BaseDataService<IdentifierData> {
 
   constructor(
     protected comparator: DefaultChangeAnalyzer<IdentifierData>,
@@ -38,8 +34,9 @@ export class IdentifierDataService extends DataService<IdentifierData> {
     protected requestService: RequestService,
     protected store: Store<CoreState>,
     private configurationService: ConfigurationDataService,
+    protected linkPath = 'identifiers',
   ) {
-    super();
+    super(linkPath, requestService, rdbService, objectCache, halService);
   }
 
   /**
