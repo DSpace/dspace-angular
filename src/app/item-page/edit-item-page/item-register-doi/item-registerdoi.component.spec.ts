@@ -45,8 +45,8 @@ describe('ItemRegisterDoiComponent', () => {
     });
 
     mockIdentifierDataService = jasmine.createSpyObj('mockIdentifierDataService', {
-      getIdentifierDataFor: createSuccessfulRemoteDataObject$({"identifiers": []}),
-      getIdentifierRegistrationConfiguration: createSuccessfulRemoteDataObject$("true")
+      getIdentifierDataFor: createSuccessfulRemoteDataObject$({'identifiers': []}),
+      getIdentifierRegistrationConfiguration: createSuccessfulRemoteDataObject$('true')
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
