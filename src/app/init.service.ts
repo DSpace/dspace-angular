@@ -143,10 +143,6 @@ export abstract class InitService {
     if (environment.debug) {
       console.info(environment);
     }
-
-    const env: string = environment.production ? 'Production' : 'Development';
-    const color: string = environment.production ? 'red' : 'green';
-    console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);
   }
 
   /**

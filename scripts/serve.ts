@@ -10,6 +10,6 @@ const appConfig: AppConfig = buildAppConfig();
  * Any CLI arguments given to this script are patched through to `ng serve` as well.
  */
 child.spawn(
-  `ng serve --host ${appConfig.ui.host} --port ${appConfig.ui.port} --serve-path ${appConfig.ui.nameSpace} --ssl ${appConfig.ui.ssl} ${process.argv.slice(2).join(' ')}`,
+  `ng serve --host ${appConfig.ui.host} --port ${appConfig.ui.port} --serve-path ${appConfig.ui.nameSpace} --ssl ${appConfig.ui.ssl} ${process.argv.slice(2).join(' ')} --configuration development`,
   { stdio: 'inherit', shell: true }
 );
