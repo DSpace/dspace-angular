@@ -48,7 +48,6 @@ import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { getDefaultThemeConfig } from '../config/config.util';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
-import { getCSSCustomPropIndex } from './shared/sass-helper/css-variable.utils';
 
 @Component({
   selector: 'ds-app',
@@ -181,9 +180,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private storeCSSVariables() {
-    getCSSCustomPropIndex(this.document).forEach(([prop, val]) => {
-      this.cssService.addCSSVariable(prop, val);
-    });
+    this.cssService.clearCSSVariables();
+    this.cssService.addCSSVariables(this.cssService.getCSSVariablesFromStylesheets(this.document));
   }
 
   ngAfterViewInit() {

@@ -1,19 +1,35 @@
 import { Injectable } from '@angular/core';
 import { AppState, keySelector } from '../../app.reducer';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { AddCSSVariableAction } from './css-variable.actions';
+import { AddAllCSSVariablesAction, AddCSSVariableAction, ClearCSSVariablesAction } from './css-variable.actions';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { Observable } from 'rxjs';
 import { hasValue } from '../empty.util';
 import { KeyValuePair } from '../key-value-pair.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { CSSVariablesState } from './css-variable.reducer';
 
 /**
  * This service deals with adding and retrieving CSS variables to and from the store
  */
 @Injectable()
 export class CSSVariableService {
+  isSameDomain = (styleSheet) => {
+    // Internal style blocks won't have an href value
+    if (!styleSheet.href) {
+      return true;
+    }
+
+    return styleSheet.href.indexOf(window.location.origin) === 0;
+  };
+
+  /*
+   Determine if the given rule is a CSSStyleRule
+   See: https://developer.mozilla.org/en-US/docs/Web/API/CSSRule#Type_constants
+  */
+  isStyleRule = (rule) => rule.type === 1;
+
   constructor(
     protected store: Store<AppState>) {
   }
@@ -28,17 +44,32 @@ export class CSSVariableService {
   }
 
   /**
+   * Adds multiples CSS variables to the store
+   * @param variables The key-value pairs with the CSS variables to be added
+   */
+  addCSSVariables(variables: KeyValuePair<string, string>[]) {
+    this.store.dispatch(new AddAllCSSVariablesAction(variables));
+  }
+
+  /**
+   * Clears all CSS variables ƒrom the store
+   */
+  clearCSSVariables() {
+    this.store.dispatch(new ClearCSSVariablesAction());
+  }
+
+  /**
    * Returns the value of a specific CSS key
    * @param name The name/key of the CSS value
    */
-  getVariable(name: string) {
+  getVariable(name: string): Observable<string> {
     return this.store.pipe(select(themeVariableByNameSelector(name)));
   }
 
   /**
    * Returns the CSSVariablesState of the store containing all variables
    */
-  getAllVariables() {
+  getAllVariables(): Observable<CSSVariablesState> {
     return this.store.pipe(select(themeVariablesSelector));
   }
 
@@ -49,6 +80,40 @@ export class CSSVariableService {
    */
   searchVariable(query: string, paginationOptions: PaginationComponentOptions): Observable<PaginatedList<KeyValuePair<string, string>>> {
     return this.store.pipe(select(themePaginatedVariablesByQuery(query, paginationOptions)));
+  }
+
+  /**
+   * Get all custom properties on a page
+   * @return array<KeyValuePair<string, string>>
+   * ex; [{key: "--color-accent", value: "#b9f500"}, {key: "--color-text", value: "#252525"}, ...]
+   */
+  getCSSVariablesFromStylesheets(document: Document): KeyValuePair<string, string>[]
+  {
+    // styleSheets is array-like, so we convert it to an array.
+    // Filter out any stylesheets not on this domain
+    return [...document.styleSheets]
+      .filter(this.isSameDomain)
+      .reduce(
+        (finalArr, sheet) =>
+          finalArr.concat(
+            // cssRules is array-like, so we convert it to an array
+            [...sheet.cssRules].filter(this.isStyleRule).reduce((propValArr, rule: any) => {
+              const props = [...rule.style]
+                .map((propName) => {
+                    return {
+                      key: propName.trim(),
+                      value: rule.style.getPropertyValue(propName).trim()
+                    } as KeyValuePair<string, string>;
+                  }
+                )
+                // Discard any props that don't start with "--". Custom props are required to.
+                .filter(({ key }: KeyValuePair<string, string>) => key.indexOf('--') === 0);
+
+              return [...propValArr, ...props];
+            }, [])
+          ),
+        []
+      );
   }
 }
 
