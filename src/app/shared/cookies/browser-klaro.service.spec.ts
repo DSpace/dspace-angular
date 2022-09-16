@@ -269,9 +269,13 @@ describe('BrowserKlaroService', () => {
       spyOn((service as any), 'initializeUser');
       spyOn(service, 'translateConfiguration');
     });
-    it('should not filter any configuration', () => {
+    it('should not filter googleAnalytics when servicesToHide are empty', () => {
       const filteredConfig = (service as any).filterConfigServices([]);
       expect(filteredConfig).toContain(jasmine.objectContaining({name: googleAnalytics}));
+    });
+    it('should filter services using names passed as servicesToHide', () => {
+      const filteredConfig = (service as any).filterConfigServices([googleAnalytics]);
+      expect(filteredConfig).not.toContain(jasmine.objectContaining({name: googleAnalytics}));
     });
     it('should have been initialized with googleAnalytics', () => {
       service.initialize();
