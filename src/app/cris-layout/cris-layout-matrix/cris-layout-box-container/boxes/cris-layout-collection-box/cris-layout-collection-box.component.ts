@@ -13,6 +13,7 @@ import { CollectionDataService } from '../../../../../core/data/collection-data.
 import { FindListOptions } from '../../../../../core/data/request.models';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { environment } from '../../../../../../environments/environment';
+import { RemoteData } from '../../../../../core/data/remote-data';
 
 @Component({
   selector: 'ds-cris-layout-collection-box',
@@ -77,10 +78,7 @@ export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponen
   handleLoadMore() {
     this.isLoading$.next(true);
     const oldMappedCollections$ = this.mappedCollections$;
-    this.mappedCollections$ = this.cds.findMappedCollectionsFor(this.item, Object.assign(new FindListOptions(), {
-      elementsPerPage: this.pageSize,
-      currentPage: this.lastPage + 1,
-    })).pipe(
+    this.mappedCollections$ = this.mappedCollectionPage(this.lastPage).pipe(
       getAllCompletedRemoteData<PaginatedList<Collection>>(),
 
       // update isLoading$
@@ -109,6 +107,13 @@ export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponen
         }
       })
     );
+  }
+
+  mappedCollectionPage(page: number): Observable<RemoteData<PaginatedList<Collection>>> {
+    return this.cds.findMappedCollectionsFor(this.item, Object.assign(new FindListOptions(), {
+      elementsPerPage: this.pageSize,
+      currentPage: page,
+    }));
   }
 
   /**
