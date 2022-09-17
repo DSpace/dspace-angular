@@ -144,7 +144,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
           this.startsWith = +params.startsWith || params.startsWith;
           if (isNotEmpty(this.value)) {
             this.updatePageWithItems(
-              browseParamsToOptions(params, currentPage, currentSort, this.browseId, false), this.value, this.authority);
+              browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.fetchThumbnails), this.value, this.authority);
           } else {
             this.updatePage(browseParamsToOptions(params, currentPage, currentSort, this.browseId, false));
           }
