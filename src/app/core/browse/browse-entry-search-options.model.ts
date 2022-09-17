@@ -8,7 +8,7 @@ import { SortOptions } from '../cache/models/sort-options.model';
  * - sort:                Optional sorting options to use
  * - startsWith           An optional value to use to filter the browse results
  * - scope:               An optional scope to limit the results within a specific collection or community
- * - embedThumbnail       An optional boolean to request thumbnail for items
+ * - fetchThumbnail       An optional boolean to request thumbnail for items
  */
 export class BrowseEntrySearchOptions {
   constructor(public metadataDefinition: string,
@@ -16,6 +16,6 @@ export class BrowseEntrySearchOptions {
               public sort?: SortOptions,
               public startsWith?: string,
               public scope?: string,
-              public embedThumbnail?: boolean) {
+              public fetchThumbnail?: boolean) {
   }
 }

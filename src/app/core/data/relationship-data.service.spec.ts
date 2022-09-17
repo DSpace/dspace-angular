@@ -202,7 +202,7 @@ describe('RelationshipDataService', () => {
     });
 
     it('should call getItemRelationshipsByLabel with the correct params', (done) => {
-      mockOptions = Object.assign(mockOptions, { embedThumbnail: true });
+      mockOptions = Object.assign(mockOptions, { fetchThumbnail: true });
       service.getRelatedItemsByLabel(
         mockItem,
         mockLabel,

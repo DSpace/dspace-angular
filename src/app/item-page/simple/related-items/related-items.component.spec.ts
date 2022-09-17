@@ -97,7 +97,7 @@ describe('RelatedItemsComponent', () => {
       expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, Object.assign(comp.options, {
         elementsPerPage: comp.incrementBy,
         currentPage: 2,
-        embedThumbnail: true
+        fetchThumbnail: true
       }));
     });
 
@@ -151,7 +151,7 @@ describe('RelatedItemsComponent', () => {
     expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, Object.assign(comp.options, {
       elementsPerPage: comp.incrementBy,
       currentPage: 2,
-      embedThumbnail: false
+      fetchThumbnail: false
     }));
   });
 });

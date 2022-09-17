@@ -59,14 +59,14 @@ export class RelatedItemsComponent extends AbstractIncrementalListComponent<Obse
   /**
    * Determines whether to request embedded thumbnail.
    */
-  embedThumbnail: boolean;
+  fetchThumbnail: boolean;
 
   constructor(public relationshipService: RelationshipDataService,
               protected elementRef: ElementRef,
               @Inject(APP_CONFIG) protected appConfig: AppConfig
               ) {
     super();
-    this.embedThumbnail = this.appConfig.browseBy.showThumbnails;
+    this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
   }
 
   ngOnInit(): void {
@@ -81,6 +81,6 @@ export class RelatedItemsComponent extends AbstractIncrementalListComponent<Obse
    */
   getPage(page: number): Observable<RemoteData<PaginatedList<Item>>> {
     return this.relationshipService.getRelatedItemsByLabel(this.parentItem, this.relationType, Object.assign(this.options,
-      { elementsPerPage: this.incrementBy, currentPage: page, embedThumbnail: this.embedThumbnail }));
+      { elementsPerPage: this.incrementBy, currentPage: page, fetchThumbnail: this.fetchThumbnail }));
   }
 }

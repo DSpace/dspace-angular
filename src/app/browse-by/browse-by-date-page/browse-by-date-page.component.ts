@@ -1,9 +1,8 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import {
   BrowseByMetadataPageComponent,
-  browseParamsToOptions
+  browseParamsToOptions, getBrowseSearchOptions
 } from '../browse-by-metadata-page/browse-by-metadata-page.component';
-import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
@@ -51,8 +50,8 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
   ngOnInit(): void {
     const sortConfig = new SortOptions('default', SortDirection.ASC);
     this.startsWithType = StartsWithType.date;
-    this.updatePage(new BrowseEntrySearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig, null,
-      null));
+    // include the thumbnail configuration in browse search options
+    this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig, this.fetchThumbnails));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
     this.subs.push(
@@ -65,7 +64,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         const metadataKeys = params.browseDefinition ? params.browseDefinition.metadataKeys : this.defaultMetadataKeys;
         this.browseId = params.id || this.defaultBrowseId;
         this.startsWith = +params.startsWith || params.startsWith;
-        const searchOptions = browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.embedThumbnail);
+        const searchOptions = browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.fetchThumbnails);
         this.updatePageWithItems(searchOptions, this.value, undefined);
         this.updateParent(params.scope);
         this.updateStartsWithOptions(this.browseId, metadataKeys, params.scope);

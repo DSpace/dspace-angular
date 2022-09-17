@@ -115,7 +115,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
   /**
    * Determines whether to request embedded thumbnail.
    */
-  embedThumbnail: boolean;
+  fetchThumbnails: boolean;
 
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
@@ -123,14 +123,13 @@ export class BrowseByMetadataPageComponent implements OnInit {
                      protected paginationService: PaginationService,
                      protected router: Router,
                      @Inject(APP_CONFIG) protected appConfig: AppConfig) {
-    this.embedThumbnail = this.appConfig.browseBy.showThumbnails;
+    this.fetchThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 
   ngOnInit(): void {
 
     const sortConfig = new SortOptions('default', SortDirection.ASC);
-    this.updatePage(new BrowseEntrySearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig, null,
-      null, false));
+    this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
     this.subs.push(
@@ -145,7 +144,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
           this.startsWith = +params.startsWith || params.startsWith;
           if (isNotEmpty(this.value)) {
             this.updatePageWithItems(
-              browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.embedThumbnail), this.value, this.authority);
+              browseParamsToOptions(params, currentPage, currentSort, this.browseId, false), this.value, this.authority);
           } else {
             this.updatePage(browseParamsToOptions(params, currentPage, currentSort, this.browseId, false));
           }
@@ -172,7 +171,6 @@ export class BrowseByMetadataPageComponent implements OnInit {
    *                          scope: string }
    */
   updatePage(searchOptions: BrowseEntrySearchOptions) {
-    searchOptions.embedThumbnail = this.embedThumbnail;
     this.browseEntries$ = this.browseService.getBrowseEntriesFor(searchOptions);
     this.items$ = undefined;
   }
@@ -241,24 +239,43 @@ export class BrowseByMetadataPageComponent implements OnInit {
 }
 
 /**
+ * Creates browse entry search options.
+ * @param defaultBrowseId the metadata definition to fetch entries or items for
+ * @param paginationConfig the required pagination configuration
+ * @param sortConfig the required sort configuration
+ * @param fetchThumbnails optional boolean for fetching thumbnails
+ * @returns BrowseEntrySearchOptions instance
+ */
+export function getBrowseSearchOptions(defaultBrowseId: string,
+                                       paginationConfig: PaginationComponentOptions,
+                                       sortConfig: SortOptions,
+                                       fetchThumbnails?: boolean) {
+  if (!hasValue(fetchThumbnails)) {
+    fetchThumbnails = false;
+  }
+  return new BrowseEntrySearchOptions(defaultBrowseId, paginationConfig, sortConfig, null,
+    null, fetchThumbnails);
+}
+
+/**
  * Function to transform query and url parameters into searchOptions used to fetch browse entries or items
  * @param params            URL and query parameters
  * @param paginationConfig  Pagination configuration
  * @param sortConfig        Sorting configuration
  * @param metadata          Optional metadata definition to fetch browse entries/items for
- * @param embedThumbnails   Optional parameter for requesting thumbnail images
+ * @param fetchThumbnail   Optional parameter for requesting thumbnail images
  */
 export function browseParamsToOptions(params: any,
                                       paginationConfig: PaginationComponentOptions,
                                       sortConfig: SortOptions,
                                       metadata?: string,
-                                      embedThumbnails?: boolean): BrowseEntrySearchOptions {
+                                      fetchThumbnail?: boolean): BrowseEntrySearchOptions {
   return new BrowseEntrySearchOptions(
     metadata,
     paginationConfig,
     sortConfig,
     +params.startsWith || params.startsWith,
     params.scope,
-    embedThumbnails
+    fetchThumbnail
   );
 }

@@ -29,7 +29,7 @@ import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/b
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { SearchResult } from '../../../../shared/search/models/search-result.model';
-import { followLink, FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
+import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Collection } from '../../../../core/shared/collection.model';
@@ -40,6 +40,7 @@ import { FieldUpdate } from '../../../../core/data/object-updates/field-update.m
 import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
+import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
 
 @Component({
   selector: 'ds-edit-relationship-list',
@@ -142,7 +143,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
   /**
    * Determines whether to ask for the embedded item thumbnail.
    */
-  embedThumbnail: boolean;
+  fetchThumbnail: boolean;
 
   constructor(
     protected objectUpdatesService: ObjectUpdatesService,
@@ -154,7 +155,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     protected selectableListService: SelectableListService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
-    this.embedThumbnail = this.appConfig.browseBy.showThumbnails;
+    this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
   }
 
   /**
@@ -492,15 +493,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     );
 
     // this adds thumbnail images when required by configuration
-    let linksToFollow: FollowLinkConfig<Relationship>[];
-    if (this.embedThumbnail) {
-      linksToFollow = [
-        followLink('leftItem',{}, followLink('thumbnail')),
-        followLink('rightItem',{}, followLink('thumbnail')),
-        followLink('relationshipType') ];
-    } else {
-      linksToFollow = [followLink('leftItem'), followLink('rightItem'), followLink('relationshipType')];
-    }
+    let linksToFollow: FollowLinkConfig<Relationship>[] = itemLinksToFollow(this.fetchThumbnail);
 
     this.subs.push(
       observableCombineLatest([

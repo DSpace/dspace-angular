@@ -1,4 +1,8 @@
-import { BrowseByMetadataPageComponent, browseParamsToOptions } from './browse-by-metadata-page.component';
+import {
+  BrowseByMetadataPageComponent,
+  browseParamsToOptions,
+  getBrowseSearchOptions
+} from './browse-by-metadata-page.component';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowseService } from '../../core/browse/browse.service';
 import { CommonModule } from '@angular/common';
@@ -127,7 +131,7 @@ describe('BrowseByMetadataPageComponent', () => {
   });
 
   it('should set embed thumbnail property to true', () => {
-    expect(comp.embedThumbnail).toBeTrue();
+    expect(comp.fetchThumbnails).toBeTrue();
   });
 
   describe('when a value is provided', () => {
@@ -164,7 +168,7 @@ describe('BrowseByMetadataPageComponent', () => {
         field: 'fake-field',
       };
 
-      result = browseParamsToOptions(paramsScope, paginationOptions, sortOptions, 'author', comp.embedThumbnail);
+      result = browseParamsToOptions(paramsScope, paginationOptions, sortOptions, 'author', comp.fetchThumbnails);
     });
 
     it('should return BrowseEntrySearchOptions with the correct properties', () => {
@@ -175,7 +179,36 @@ describe('BrowseByMetadataPageComponent', () => {
       expect(result.sort.direction).toEqual(SortDirection.ASC);
       expect(result.sort.field).toEqual('fake-field');
       expect(result.scope).toEqual('fake-scope');
-      expect(result.embedThumbnail).toBeTrue();
+      expect(result.fetchThumbnail).toBeTrue();
+    });
+  });
+
+  describe('calling getBrowseSearchOptions', () => {
+    let result: BrowseEntrySearchOptions;
+
+    beforeEach(() => {
+      const paramsScope = {
+        scope: 'fake-scope'
+      };
+      const paginationOptions = Object.assign(new PaginationComponentOptions(), {
+        currentPage: 5,
+        pageSize: 10,
+      });
+      const sortOptions = {
+        direction: SortDirection.ASC,
+        field: 'fake-field',
+      };
+
+      result = getBrowseSearchOptions('title', paginationOptions, sortOptions, comp.fetchThumbnails);
+    });
+    it('should return BrowseEntrySearchOptions with the correct properties', () => {
+
+      expect(result.metadataDefinition).toEqual('title');
+      expect(result.pagination.currentPage).toEqual(5);
+      expect(result.pagination.pageSize).toEqual(10);
+      expect(result.sort.direction).toEqual(SortDirection.ASC);
+      expect(result.sort.field).toEqual('fake-field');
+      expect(result.fetchThumbnail).toBeTrue();
     });
   });
 });

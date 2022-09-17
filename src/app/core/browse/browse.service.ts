@@ -102,7 +102,7 @@ export class BrowseService {
         return href;
       })
     );
-    if (options.embedThumbnail) {
+    if (options.fetchThumbnail ) {
       return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, null, null, ...BROWSE_LINKS_TO_FOLLOW);
     }
     return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$);
@@ -150,7 +150,7 @@ export class BrowseService {
         return href;
       }),
     );
-    if (options.embedThumbnail) {
+    if (options.fetchThumbnail) {
       return this.hrefOnlyDataService.findListByHref<Item>(href$, {}, null, null, ...BROWSE_LINKS_TO_FOLLOW);
     }
     return this.hrefOnlyDataService.findListByHref<Item>(href$);
