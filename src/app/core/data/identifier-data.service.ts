@@ -34,9 +34,8 @@ export class IdentifierDataService extends BaseDataService<IdentifierData> {
     protected requestService: RequestService,
     protected store: Store<CoreState>,
     private configurationService: ConfigurationDataService,
-    protected linkPath = 'identifiers',
   ) {
-    super(linkPath, requestService, rdbService, objectCache, halService);
+    super('identifiers', requestService, rdbService, objectCache, halService);
   }
 
   /**
