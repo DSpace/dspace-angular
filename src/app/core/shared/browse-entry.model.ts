@@ -41,6 +41,12 @@ export class BrowseEntry extends ListableObject implements TypedObject {
   language: string;
 
   /**
+   * Thumbnail link used when browsing items with showThumbs config enabled.
+   */
+  @autoserializeAs('thumbnail')
+  thumbnail: string;
+
+  /**
    * The count of this browse entry
    */
   @excludeFromEquals
