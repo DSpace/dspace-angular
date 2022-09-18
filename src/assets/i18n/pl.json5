@@ -4833,7 +4833,7 @@
   "login.form.header": "Please log in to DSpace",
 
   // "login.form.new-user": "New user? Click here to register.",
-  "login.form.new-user": "Nowy użytkownik? Kliknij, aby zarejestrować.",
+  "login.form.new-user": "Kliknij aby się zarejestrować.",
 
   // "login.form.or-divider": "or",
   // TODO New key - Add a translation
