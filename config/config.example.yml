@@ -150,8 +150,14 @@ languages:
   - code: fi
     label: Suomi
     active: true
+  - code: sv
+    label: Svenska
+    active: true
   - code: tr
     label: Türkçe
+    active: true
+  - code: kk
+    label: Қазақ
     active: true
   - code: bn
     label: বাংলা
@@ -255,3 +261,10 @@ mediaViewer:
 info:
   enableEndUserAgreement: true
   enablePrivacyStatement: true
+# Home Page
+homePage:
+  recentSubmissions:
+	# The number of item showing in recent submission components
+      pageSize: 5
+	# Sort record of recent submission
+      sortField: 'dc.date.accessioned'

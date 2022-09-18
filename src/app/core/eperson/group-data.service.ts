@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { createSelector, select, Store } from '@ngrx/store';
@@ -15,7 +15,6 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
@@ -27,13 +26,20 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
-import { dataService } from '../cache/builders/build-decorators';
 import { GROUP } from './models/group.resource-type';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { Community } from '../shared/community.model';
 import { Collection } from '../shared/collection.model';
 import { NoContent } from '../shared/NoContent.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import { CreateData, CreateDataImpl } from '../data/base/create-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { SearchData, SearchDataImpl } from '../data/base/search-data';
+import { PatchData, PatchDataImpl } from '../data/base/patch-data';
+import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
+import { Operation } from 'fast-json-patch';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { dataService } from '../data/base/data-service.decorator';
 
 const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
@@ -43,24 +49,32 @@ const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegis
  */
 @Injectable()
 @dataService(GROUP)
-export class GroupDataService extends DataService<Group> {
-  protected linkPath = 'groups';
+export class GroupDataService extends IdentifiableDataService<Group> implements CreateData<Group>, SearchData<Group>, PatchData<Group>, DeleteData<Group> {
   protected browseEndpoint = '';
   public ePersonsEndpoint = 'epersons';
   public subgroupsEndpoint = 'subgroups';
 
+  private createData: CreateData<Group>;
+  private searchData: SearchData<Group>;
+  private patchData: PatchData<Group>;
+  private deleteData: DeleteData<Group>;
+
   constructor(
-    protected comparator: DSOChangeAnalyzer<Group>,
-    protected http: HttpClient,
-    protected notificationsService: NotificationsService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected store: Store<any>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
+    protected comparator: DSOChangeAnalyzer<Group>,
+    protected notificationsService: NotificationsService,
     protected nameService: DSONameService,
+    protected store: Store<any>,
   ) {
-    super();
+    super('groups', requestService, rdbService, objectCache, halService);
+
+    this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.patchData = new PatchDataImpl<Group>(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
+    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
   }
 
   /**
@@ -321,5 +335,39 @@ export class GroupDataService extends DataService<Group> {
     });
 
     return responseRD$;
+  }
+
+
+  public create(object: Group, ...params: RequestParam[]): Observable<RemoteData<Group>> {
+    return this.createData.create(object, ...params);
+  }
+
+
+  searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Group>[]): Observable<RemoteData<PaginatedList<Group>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  public createPatchFromCache(object: Group): Observable<Operation[]> {
+    return this.patchData.createPatchFromCache(object);
+  }
+
+  patch(object: Group, operations: Operation[]): Observable<RemoteData<Group>> {
+    return this.patchData.patch(object, operations);
+  }
+
+  update(object: Group): Observable<RemoteData<Group>> {
+    return this.patchData.update(object);
+  }
+
+  commitUpdates(method?: RestRequestMethod): void {
+    this.patchData.commitUpdates(method);
+  }
+
+  delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
+    return this.deleteData.delete(objectId, copyVirtualMetadata);
+  }
+
+  public deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
+    return this.deleteData.deleteByHref(href, copyVirtualMetadata);
   }
 }

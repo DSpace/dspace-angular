@@ -13,8 +13,8 @@ import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shar
 import { SectionUploadService } from './section-upload.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { ResourcePolicyService } from '../../../core/resource-policy/resource-policy.service';
-import { SubmissionUploadsConfigService } from '../../../core/config/submission-uploads-config.service';
+import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
+import { SubmissionUploadsConfigDataService } from '../../../core/config/submission-uploads-config-data.service';
 import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { SectionsType } from '../sections-type';
@@ -123,10 +123,10 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
    * @param {ChangeDetectorRef} changeDetectorRef
    * @param {CollectionDataService} collectionDataService
    * @param {GroupDataService} groupService
-   * @param {ResourcePolicyService} resourcePolicyService
+   * @param {ResourcePolicyDataService} resourcePolicyService
    * @param {SectionsService} sectionService
    * @param {SubmissionService} submissionService
-   * @param {SubmissionUploadsConfigService} uploadsConfigService
+   * @param {SubmissionUploadsConfigDataService} uploadsConfigService
    * @param {SectionDataObject} injectedSectionData
    * @param {string} injectedSubmissionId
    */
@@ -134,10 +134,10 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
               private changeDetectorRef: ChangeDetectorRef,
               private collectionDataService: CollectionDataService,
               private groupService: GroupDataService,
-              private resourcePolicyService: ResourcePolicyService,
+              private resourcePolicyService: ResourcePolicyDataService,
               protected sectionService: SectionsService,
               private submissionService: SubmissionService,
-              private uploadsConfigService: SubmissionUploadsConfigService,
+              private uploadsConfigService: SubmissionUploadsConfigDataService,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
               @Inject('submissionIdProvider') public injectedSubmissionId: string) {
     super(undefined, injectedSectionData, injectedSubmissionId);

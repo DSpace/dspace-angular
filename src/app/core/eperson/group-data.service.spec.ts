@@ -65,15 +65,14 @@ describe('GroupDataService', () => {
 
   function initTestService() {
     return new GroupDataService(
+      requestService,
+      rdbService,
+      null,
+      halService,
       new DummyChangeAnalyzer() as any,
       null,
       null,
-      requestService,
-      rdbService,
       store,
-      null,
-      halService,
-      null,
     );
   }
 

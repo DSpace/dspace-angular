@@ -4,7 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { map, startWith, switchMap, take } from 'rxjs/operators';
+import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { CookieAttributes } from 'js-cookie';
 
@@ -93,6 +93,8 @@ export class AuthService {
               private translateService: TranslateService
   ) {
     this.store.pipe(
+      // when this service is constructed the store is not fully initialized yet
+      filter((state: any) => state?.core?.auth !== undefined),
       select(isAuthenticated),
       startWith(false)
     ).subscribe((authenticated: boolean) => this._authenticated = authenticated);
@@ -346,7 +348,7 @@ export class AuthService {
     let token: AuthTokenInfo;
     let currentlyRefreshingToken = false;
     this.store.pipe(select(getAuthenticationToken)).subscribe((authTokenInfo: AuthTokenInfo) => {
-      // If new token is undefined an it wasn't previously => Refresh failed
+      // If new token is undefined and it wasn't previously => Refresh failed
       if (currentlyRefreshingToken && token !== undefined && authTokenInfo === undefined) {
         // Token refresh failed => Error notification => 10 second wait => Page reloads & user logged out
         this.notificationService.error(this.translateService.get('auth.messages.token-refresh-failed'));
