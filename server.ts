@@ -48,6 +48,7 @@ import { ServerAppModule } from './src/main.server';
 import { buildAppConfig } from './src/config/config.server';
 import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
+import { logStartupMessage } from './startup-message';
 
 /*
  * Set path for the browser application's dist folder
@@ -281,6 +282,8 @@ function run() {
 }
 
 function start() {
+  logStartupMessage(environment);
+
   /*
   * If SSL is enabled
   * - Read credentials from configuration files

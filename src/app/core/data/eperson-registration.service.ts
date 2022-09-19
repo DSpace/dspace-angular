@@ -15,11 +15,9 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HttpHeaders } from '@angular/common/http';
 
-@Injectable(
-  {
-    providedIn: 'root',
-  }
-)
+@Injectable({
+  providedIn: 'root',
+})
 /**
  * Service that will register a new email address and request a token
  */

@@ -36,7 +36,7 @@ import { SubmissionDefinitionsModel } from './config/models/config-submission-de
 import { SubmissionFormsModel } from './config/models/config-submission-forms.model';
 import { SubmissionSectionModel } from './config/models/config-submission-section.model';
 import { SubmissionUploadsModel } from './config/models/config-submission-uploads.model';
-import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
+import { SubmissionFormsConfigDataService } from './config/submission-forms-config-data.service';
 import { coreEffects } from './core.effects';
 import { coreReducers } from './core.reducers';
 import { BitstreamFormatDataService } from './data/bitstream-format-data.service';
@@ -49,8 +49,8 @@ import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
 import { DSOResponseParsingService } from './data/dso-response-parsing.service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
 import { EndpointMapResponseParsingService } from './data/endpoint-map-response-parsing.service';
-import { EntityTypeService } from './data/entity-type.service';
-import { ExternalSourceService } from './data/external-source.service';
+import { EntityTypeDataService } from './data/entity-type-data.service';
+import { ExternalSourceDataService } from './data/external-source-data.service';
 import { FacetConfigResponseParsingService } from './data/facet-config-response-parsing.service';
 import { FacetValueResponseParsingService } from './data/facet-value-response-parsing.service';
 import { FilteredDiscoveryPageResponseParsingService } from './data/filtered-discovery-page-response-parsing.service';
@@ -58,9 +58,9 @@ import { ItemDataService } from './data/item-data.service';
 import { LookupRelationService } from './data/lookup-relation.service';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
-import { RelationshipTypeService } from './data/relationship-type.service';
-import { RelationshipService } from './data/relationship.service';
-import { ResourcePolicyService } from './resource-policy/resource-policy.service';
+import { RelationshipTypeDataService } from './data/relationship-type-data.service';
+import { RelationshipDataService } from './data/relationship-data.service';
+import { ResourcePolicyDataService } from './resource-policy/resource-policy-data.service';
 import { SearchResponseParsingService } from './data/search-response-parsing.service';
 import { SiteDataService } from './data/site-data.service';
 import { DspaceRestService } from './dspace-rest/dspace-rest.service';
@@ -170,14 +170,16 @@ import { SubmissionAccessesModel } from './config/models/config-submission-acces
 import { AccessStatusObject } from '../shared/object-list/access-status-badge/access-status.model';
 import { AccessStatusDataService } from './data/access-status-data.service';
 import { LinkHeadService } from './services/link-head.service';
-import { ResearcherProfileService } from './profile/researcher-profile.service';
+import { ResearcherProfileDataService } from './profile/researcher-profile-data.service';
 import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
 import { ResearcherProfile } from './profile/model/researcher-profile.model';
-import { OrcidQueueService } from './orcid/orcid-queue.service';
+import { OrcidQueueDataService } from './orcid/orcid-queue-data.service';
 import { OrcidHistoryDataService } from './orcid/orcid-history-data.service';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
 import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { OrcidAuthService } from './orcid/orcid-auth.service';
+import { VocabularyDataService } from './submission/vocabularies/vocabulary.data.service';
+import { VocabularyEntryDetailsDataService } from './submission/vocabularies/vocabulary-entry-details.data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -223,7 +225,7 @@ const PROVIDERS = [
   MetadataService,
   ObjectCacheService,
   PaginationComponentOptions,
-  ResourcePolicyService,
+  ResourcePolicyDataService,
   RegistryService,
   BitstreamFormatDataService,
   RemoteDataBuildService,
@@ -238,7 +240,7 @@ const PROVIDERS = [
   AccessStatusDataService,
   SubmissionCcLicenseDataService,
   SubmissionCcLicenseUrlDataService,
-  SubmissionFormsConfigService,
+  SubmissionFormsConfigDataService,
   SubmissionRestService,
   SubmissionResponseParsingService,
   SubmissionJsonPatchOperationsService,
@@ -259,7 +261,7 @@ const PROVIDERS = [
   MenuService,
   ObjectUpdatesService,
   SearchService,
-  RelationshipService,
+  RelationshipDataService,
   MyDSpaceGuard,
   RoleService,
   TaskResponseParsingService,
@@ -267,7 +269,7 @@ const PROVIDERS = [
   PoolTaskDataService,
   BitstreamDataService,
   DsDynamicTypeBindRelationService,
-  EntityTypeService,
+  EntityTypeDataService,
   ContentSourceResponseParsingService,
   ItemTemplateDataService,
   SearchService,
@@ -276,8 +278,8 @@ const PROVIDERS = [
   SearchFilterService,
   SearchConfigurationService,
   SelectableListService,
-  RelationshipTypeService,
-  ExternalSourceService,
+  RelationshipTypeDataService,
+  ExternalSourceDataService,
   LookupRelationService,
   VersionDataService,
   VersionHistoryDataService,
@@ -300,14 +302,16 @@ const PROVIDERS = [
   FilteredDiscoveryPageResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
   VocabularyService,
+  VocabularyDataService,
+  VocabularyEntryDetailsDataService,
   VocabularyTreeviewService,
   SequenceService,
   GroupDataService,
   FeedbackDataService,
-  ResearcherProfileService,
+  ResearcherProfileDataService,
   ProfileClaimService,
   OrcidAuthService,
-  OrcidQueueService,
+  OrcidQueueDataService,
   OrcidHistoryDataService,
 ];
 
