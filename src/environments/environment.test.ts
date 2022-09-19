@@ -247,5 +247,13 @@ export const environment: BuildConfig = {
   info: {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
+  },
+  //Home Page
+  homePage: {
+    recentSubmissions: {
+      pageSize: 5,
+      //sort record of recent submission
+      sortField: 'dc.date.accessioned',
+    }
   }
 };

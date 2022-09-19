@@ -28,6 +28,7 @@ import { StoreAction, StoreActionTypes } from '../../app/store.actions';
 import { coreSelector } from '../../app/core/core.selectors';
 import { find, map } from 'rxjs/operators';
 import { isNotEmpty } from '../../app/shared/empty.util';
+import { logStartupMessage } from '../../../startup-message';
 
 /**
  * Performs client-side initialization.
@@ -79,6 +80,7 @@ export class BrowserInitService extends InitService {
       this.initCorrelationId();
 
       this.checkEnvironment();
+      logStartupMessage(environment);
 
       this.initI18n();
       this.initAngulartics();
