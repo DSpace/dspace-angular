@@ -99,7 +99,7 @@ import {
 import { LoadingComponent } from './app/shared/loading/loading.component';
 import { SearchResultsComponent } from './app/shared/search/search-results/search-results.component';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
-import { SearchSettingsComponent } from './app/shared/search-settings/search-settings.component';
+import { SearchSettingsComponent } from './app/shared/search/search-settings/search-settings.component';
 
 const DECLARATIONS = [
   FileSectionComponent,

@@ -8,17 +8,17 @@
 import { Component } from '@angular/core';
 import {
   SearchSettingsComponent as BaseComponent,
-} from '../../../../../app/shared/search/search-settings/search-settings.component';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../app/my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../../app/core/shared/search/search-configuration.service';
+} from '../../../../../../app/shared/search/search-settings/search-settings.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../app/my-dspace-page/my-dspace-page.component';
+import { SearchConfigurationService } from '../../../../../../app/core/shared/search/search-configuration.service';
 
 
 @Component({
   selector: 'ds-search-settings',
   // styleUrls: ['./search-settings.component.scss'],
-  styleUrls: ['../../../../../app/shared/search/search-settings/search-settings.component.scss'],
+  styleUrls: ['../../../../../../app/shared/search/search-settings/search-settings.component.scss'],
   // templateUrl: './search-settings.component.html',
-  templateUrl: '../../../../../app/shared/search/search-settings/search-settings.component.html',
+  templateUrl: '../../../../../../app/shared/search/search-settings/search-settings.component.html',
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
