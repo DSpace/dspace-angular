@@ -71,7 +71,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   getParentTitle(): Observable<string> {
     return this.getParent().pipe(
       map((parentRD: RemoteData<DSpaceObject>) => {
-        return hasValue(parentRD) && hasValue(parentRD.payload) ? parentRD.payload.firstMetadataValue('dc.title') : undefined;
+        return hasValue(parentRD) && hasValue(parentRD.payload) ? this.dsoNameService.getName(parentRD.payload) : undefined;
       })
     );
   }
@@ -91,10 +91,10 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
 
   /**
    * Get the title of the object
-   * Default: "dc.title"
+   * Default: defined by {@link DSONameService}
    */
   getTitle(): string {
-    return this.firstMetadataValue('dc.title');
+    return this.dsoNameService.getName(this.dso);
   }
 
   /**
