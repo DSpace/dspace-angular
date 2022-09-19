@@ -5,15 +5,16 @@ import { Item } from '../../../../../core/shared/item.model';
 import { TranslateService } from '@ngx-translate/core';
 import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { getFirstSucceededRemoteDataPayload, getAllCompletedRemoteData, getAllSucceededRemoteDataPayload, getPaginatedListPayload } from '../../../../../core/shared/operators';
-import { shareReplay, tap, switchMap, scan, map } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
+import { getFirstSucceededRemoteDataPayload, getPaginatedListPayload, getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
+import { shareReplay, tap, map } from 'rxjs/operators';
 import { Collection } from '../../../../../core/shared/collection.model';
 import { CollectionDataService } from '../../../../../core/data/collection-data.service';
 import { FindListOptions } from '../../../../../core/data/request.models';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { environment } from '../../../../../../environments/environment';
 import { RemoteData } from '../../../../../core/data/remote-data';
+import { hasValue } from 'src/app/shared/empty.util';
 
 @Component({
   selector: 'ds-cris-layout-collection-box',
@@ -53,7 +54,7 @@ export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponen
    /**
     * This includes the mapped collection
     */
-  mappedCollections$: Observable<Collection[]>;
+  mappedCollections$: Observable<Collection[]> = of([]);
 
   constructor(
     protected translateService: TranslateService,
@@ -77,44 +78,33 @@ export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponen
 
   handleLoadMore() {
     this.isLoading$.next(true);
-    const oldMappedCollections$ = this.mappedCollections$;
-    this.mappedCollections$ = this.loadMappedCollectionPage(this.lastPage).pipe(
-      getAllCompletedRemoteData<PaginatedList<Collection>>(),
+    const newMappedCollections$ = this.loadMappedCollectionPage();
+    this.mappedCollections$ = combineLatest([this.mappedCollections$, newMappedCollections$]).pipe(
+      map(([mappedCollections, newMappedCollections]: [Collection[], Collection[]]) => {
+        return [...mappedCollections, ...newMappedCollections].filter(collection => hasValue(collection));
+      }),
+    );
+  }
+
+  loadMappedCollectionPage(): Observable<Collection[]> {
+    return this.cds.findMappedCollectionsFor(this.item, Object.assign(new FindListOptions(), {
+      elementsPerPage: this.pageSize,
+      currentPage: this.lastPage + 1,
+    })).pipe(
+      getFirstCompletedRemoteData<PaginatedList<Collection>>(),
 
       // update isLoading$
       tap(() => this.isLoading$.next(false)),
 
-      getAllSucceededRemoteDataPayload(),
-
-      // update hasMore$
-      tap((response: PaginatedList<Collection>) => this.hasMore$.next(this.lastPage < response.totalPages)),
+      getFirstSucceededRemoteDataPayload(),
 
       // update lastPage
       tap((response: PaginatedList<Collection>) => this.lastPage = response.currentPage),
 
+      // update hasMore$
+      tap((response: PaginatedList<Collection>) => this.hasMore$.next(this.lastPage < response.totalPages)),
+
       getPaginatedListPayload<Collection>(),
-
-      // add current batch to list of collections
-      scan((prev: Collection[], current: Collection[]) => [...prev, ...current], []),
-
-      switchMap((collections: Collection[]) => {
-        if (oldMappedCollections$) {
-          return oldMappedCollections$.pipe(
-            map((mappedCollection) => [...mappedCollection, ...collections])
-          );
-        } else {
-          return of(collections);
-        }
-      })
-    );
-  }
-
-  loadMappedCollectionPage(page: number): Observable<RemoteData<PaginatedList<Collection>>> {
-    return this.cds.findMappedCollectionsFor(this.item, Object.assign(new FindListOptions(), {
-      elementsPerPage: this.pageSize,
-      currentPage: page,
-    })).pipe(
-
     );
   }
 
