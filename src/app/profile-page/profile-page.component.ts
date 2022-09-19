@@ -73,7 +73,6 @@ export class ProfilePageComponent implements OnInit {
    */
   private currentUser: EPerson;
   canChangePassword$: Observable<boolean>;
-  isRobustPasswordError: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   isResearcherProfileEnabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -148,9 +147,7 @@ export class ProfilePageComponent implements OnInit {
       this.epersonService.patch(this.currentUser, [operation]).pipe(
         getFirstCompletedRemoteData()
       ).subscribe((response: RemoteData<EPerson>) => {
-        if (response.statusCode === 422) {
-          this.isRobustPasswordError.next(true);
-        } else if (response.hasSucceeded) {
+        if (response.hasSucceeded) {
           this.notificationsService.success(
             this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'success.title'),
             this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'success.content')
@@ -171,7 +168,6 @@ export class ProfilePageComponent implements OnInit {
    */
   setPasswordValue($event: string) {
     this.password = $event;
-    this.isRobustPasswordError.next(false);
   }
 
   /**

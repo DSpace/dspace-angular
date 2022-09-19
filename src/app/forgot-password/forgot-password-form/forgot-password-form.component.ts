@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Registration } from '../../core/shared/registration.model';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,10 +10,7 @@ import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { Store } from '@ngrx/store';
 import { RemoteData } from '../../core/data/remote-data';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../core/shared/operators';
 import { CoreState } from '../../core/core-state.model';
 
 @Component({
@@ -39,7 +36,6 @@ export class ForgotPasswordFormComponent {
    * Prefix for the notification messages of this component
    */
   NOTIFICATIONS_PREFIX = 'forgot-password.form.notification';
-  isRobustPasswordError: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private ePersonDataService: EPersonDataService,
               private translateService: TranslateService,
@@ -68,7 +64,6 @@ export class ForgotPasswordFormComponent {
 
   setPasswordValue($event: string) {
     this.password = $event;
-    this.isRobustPasswordError.next(false);
   }
 
   /**
@@ -80,9 +75,7 @@ export class ForgotPasswordFormComponent {
       this.ePersonDataService.patchPasswordWithToken(this.user, this.token, this.password).pipe(
         getFirstCompletedRemoteData()
       ).subscribe((response: RemoteData<EPerson>) => {
-        if (response.statusCode === 422) {
-          this.isRobustPasswordError.next(true);
-        } else if (response.hasSucceeded) {
+        if (response.hasSucceeded) {
           this.notificationsService.success(
             this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.success.title'),
             this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.success.content')

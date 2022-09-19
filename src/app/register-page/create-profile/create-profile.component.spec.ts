@@ -239,23 +239,6 @@ describe('CreateProfileComponent', () => {
       expect(notificationsService.error).toHaveBeenCalled();
     });
 
-    it('should submit an eperson for creation but password is weak', () => {
-
-      (ePersonDataService.createEPersonForToken as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Error', 422));
-
-      comp.firstName.patchValue('First');
-      comp.lastName.patchValue('Last');
-      comp.contactPhone.patchValue('Phone');
-      comp.language.patchValue('en');
-      comp.password = 'password';
-      comp.isInValidPassword = false;
-
-      comp.submitEperson();
-
-      expect(ePersonDataService.createEPersonForToken).toHaveBeenCalledWith(eperson, 'test-token');
-      expect(comp.isRobustPasswordError.value).toBeTrue();
-    });
-
     it('should submit not create an eperson when the user info form is invalid', () => {
 
       (ePersonDataService.createEPersonForToken as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Error', 500));

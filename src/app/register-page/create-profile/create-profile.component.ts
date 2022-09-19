@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Registration } from '../../core/shared/registration.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
@@ -40,7 +40,7 @@ export class CreateProfileComponent implements OnInit {
 
   userInfoForm: FormGroup;
   activeLangs: LangConfig[];
-  isRobustPasswordError: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor(
     private translateService: TranslateService,
     private ePersonDataService: EPersonDataService,
@@ -93,7 +93,6 @@ export class CreateProfileComponent implements OnInit {
   setPasswordValue($event: string) {
     this.password = $event;
     this.isInValidPassword = this.isInValidPassword || isEmpty(this.password);
-    this.isRobustPasswordError.next(false);
   }
 
   get firstName() {
@@ -161,9 +160,7 @@ export class CreateProfileComponent implements OnInit {
       this.ePersonDataService.createEPersonForToken(eperson, this.token).pipe(
         getFirstCompletedRemoteData(),
       ).subscribe((rd: RemoteData<EPerson>) => {
-        if (rd.statusCode === 422) {
-          this.isRobustPasswordError.next(true);
-        } else if (rd.hasSucceeded) {
+        if (rd.hasSucceeded) {
           this.notificationsService.success(this.translateService.get('register-page.create-profile.submit.success.head'),
             this.translateService.get('register-page.create-profile.submit.success.content'));
           this.store.dispatch(new AuthenticateAction(this.email, this.password));
