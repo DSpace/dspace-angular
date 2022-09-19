@@ -196,7 +196,8 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'sv', label: 'Svenska', active: true },
     { code: 'tr', label: 'Türkçe', active: true },
     { code: 'kk', label: 'Қазақ', active: true },
-    { code: 'bn', label: 'বাংলা', active: true }
+    { code: 'bn', label: 'বাংলা', active: true },
+    { code: 'el', label: 'Ελληνικά', active: true }
   ];
 
   // Browse-By Pages
