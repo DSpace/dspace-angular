@@ -1,5 +1,5 @@
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { Component, Inject, Injectable, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -21,7 +21,6 @@ import { map } from 'rxjs/operators';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
-@Injectable()
 @Component({
   selector: 'ds-browse-by-metadata-page',
   styleUrls: ['./browse-by-metadata-page.component.scss'],
