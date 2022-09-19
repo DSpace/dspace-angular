@@ -561,7 +561,8 @@ describe('authReducer', () => {
       blocking: false,
       loading: true,
       authMethods: [],
-      idle: false
+      idle: false,
+      error: undefined,
     };
     expect(newState).toEqual(state);
   });
