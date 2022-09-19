@@ -12,7 +12,7 @@ import { CommunityDataService } from '../../../../core/data/community-data.servi
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
@@ -38,7 +38,7 @@ import { VersionDataService } from '../../../../core/data/version-data.service';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { ResearcherProfileService } from '../../../../core/profile/researcher-profile.service';
+import { ResearcherProfileDataService } from '../../../../core/profile/researcher-profile-data.service';
 
 export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
   return Object.assign(new MetadataValue(), {
@@ -99,7 +99,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
         providers: [
           { provide: ItemDataService, useValue: {} },
           { provide: TruncatableService, useValue: {} },
-          { provide: RelationshipService, useValue: {} },
+          { provide: RelationshipDataService, useValue: {} },
           { provide: ObjectCacheService, useValue: {} },
           { provide: UUIDService, useValue: {} },
           { provide: Store, useValue: {} },
@@ -117,7 +117,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           { provide: SearchService, useValue: {} },
           { provide: RouteService, useValue: {} },
           { provide: AuthorizationDataService, useValue: authorizationService },
-          { provide: ResearcherProfileService, useValue: {} }
+          { provide: ResearcherProfileDataService, useValue: {} }
         ],
 
         schemas: [NO_ERRORS_SCHEMA]

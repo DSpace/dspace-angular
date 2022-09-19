@@ -9,7 +9,7 @@ import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { SubmissionImportExternalComponent } from './submission-import-external.component';
-import { ExternalSourceService } from '../../core/data/external-source.service';
+import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
 import { getMockExternalSourceService } from '../../shared/mocks/external-source.service.mock';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { RouteService } from '../../core/services/route.service';
@@ -59,7 +59,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
         VarDirective
       ],
       providers: [
-        { provide: ExternalSourceService, useValue: mockExternalSourceService },
+        { provide: ExternalSourceDataService, useValue: mockExternalSourceService },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterStub() },
