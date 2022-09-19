@@ -17,6 +17,7 @@ import {
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
+import { StoreActionTypes } from '../../store.actions';
 
 /**
  * The auth state.
@@ -249,6 +250,11 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.UNSET_USER_AS_IDLE:
       return Object.assign({}, state, {
         idle: false,
+      });
+
+    case StoreActionTypes.REHYDRATE:
+      return Object.assign({}, state, {
+        blocking: true,
       });
 
     default:

@@ -29,8 +29,8 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RelationshipService } from '../../../core/data/relationship.service';
-import { EntityTypeService } from '../../../core/data/entity-type.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { getItemEditRoute } from '../../item-page-routing-paths';
@@ -100,8 +100,8 @@ export class ItemDeleteComponent
               protected translateService: TranslateService,
               protected modalService: NgbModal,
               protected objectUpdatesService: ObjectUpdatesService,
-              protected relationshipService: RelationshipService,
-              protected entityTypeService: EntityTypeService,
+              protected relationshipService: RelationshipDataService,
+              protected entityTypeService: EntityTypeDataService,
               protected linkService: LinkService,
   ) {
     super(

@@ -14,7 +14,7 @@ import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-anal
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
-import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
@@ -83,7 +83,7 @@ describe('JournalComponent', () => {
       providers: [
         { provide: ItemDataService, useValue: {} },
         { provide: TruncatableService, useValue: {} },
-        { provide: RelationshipService, useValue: {} },
+        { provide: RelationshipDataService, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
         { provide: Store, useValue: {} },

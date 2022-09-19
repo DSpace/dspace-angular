@@ -12,7 +12,7 @@ import {
 import {
   RelationshipIdentifiable
 } from '../../../../core/data/object-updates/object-updates.reducer';
-import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import { defaultIfEmpty, map, mergeMap, startWith, switchMap, take, tap, toArray } from 'rxjs/operators';
 import { hasNoValue, hasValue, hasValueOperator } from '../../../../shared/empty.util';
@@ -35,7 +35,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { Collection } from '../../../../core/shared/collection.model';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { RelationshipTypeService } from '../../../../core/data/relationship-type.service';
+import { RelationshipTypeDataService } from '../../../../core/data/relationship-type-data.service';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
@@ -142,8 +142,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
   constructor(
     protected objectUpdatesService: ObjectUpdatesService,
     protected linkService: LinkService,
-    protected relationshipService: RelationshipService,
-    protected relationshipTypeService: RelationshipTypeService,
+    protected relationshipService: RelationshipDataService,
+    protected relationshipTypeService: RelationshipTypeDataService,
     protected modalService: NgbModal,
     protected paginationService: PaginationService,
     protected selectableListService: SelectableListService,

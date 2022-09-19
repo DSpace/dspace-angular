@@ -73,16 +73,16 @@ mockObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkfl
 
 describe('MyDSpaceReloadableActionsComponent', () => {
   beforeEach(fakeAsync(() => {
-    mockDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
-    mockClaimedTaskDataService = new ClaimedTaskDataService(null, null, null, null, null, null, null, null);
+    mockDataService = new PoolTaskDataService(null, null, null, null);
+    mockClaimedTaskDataService = new ClaimedTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [PoolTaskActionsComponent],
       providers: [
@@ -141,7 +141,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
 
     beforeEach(() => {
 
-      mockDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
+      mockDataService = new PoolTaskDataService(null, null, null, null);
 
       const poolTaskHref = 'poolTaskHref';
       remoteClaimTaskErrorResponse = new ProcessTaskResponse(false, null, null);
@@ -188,7 +188,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
 
     beforeEach(() => {
 
-      mockDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
+      mockDataService = new PoolTaskDataService(null, null, null, null);
 
       const poolTaskHref = 'poolTaskHref';
       const remoteClaimTaskResponse: any = new ProcessTaskResponse(true, null, null);
@@ -234,7 +234,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
 
     beforeEach(() => {
 
-      mockDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
+      mockDataService = new PoolTaskDataService(null, null, null, null);
 
       const poolTaskHref = 'poolTaskHref';
       const remoteClaimTaskResponse: any = new ProcessTaskResponse(true, null, null);

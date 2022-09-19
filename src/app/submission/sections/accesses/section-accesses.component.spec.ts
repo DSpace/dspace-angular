@@ -7,7 +7,7 @@ import { SectionsServiceStub } from '../../../shared/testing/sections-service.st
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { SubmissionAccessesConfigService } from '../../../core/config/submission-accesses-config.service';
+import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
 import {
   getSubmissionAccessesConfigNotChangeDiscoverableService,
   getSubmissionAccessesConfigService
@@ -89,7 +89,7 @@ describe('SubmissionSectionAccessesComponent', () => {
         declarations: [SubmissionSectionAccessesComponent, FormComponent],
         providers: [
           { provide: SectionsService, useValue: sectionsServiceStub },
-          { provide: SubmissionAccessesConfigService, useValue: submissionAccessesConfigService },
+          { provide: SubmissionAccessesConfigDataService, useValue: submissionAccessesConfigService },
           { provide: SectionAccessesService, useValue: sectionAccessesService },
           { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
           { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
@@ -181,7 +181,7 @@ describe('SubmissionSectionAccessesComponent', () => {
         providers: [
           { provide: SectionsService, useValue: sectionsServiceStub },
           { provide: FormBuilderService, useValue: builderService },
-          { provide: SubmissionAccessesConfigService, useValue: getSubmissionAccessesConfigNotChangeDiscoverableService() },
+          { provide: SubmissionAccessesConfigDataService, useValue: getSubmissionAccessesConfigNotChangeDiscoverableService() },
           { provide: SectionAccessesService, useValue: sectionAccessesService },
           { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
           { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },

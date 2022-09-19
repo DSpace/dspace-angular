@@ -1,4 +1,4 @@
-import { ExternalSourceService } from './external-source.service';
+import { ExternalSourceDataService } from './external-source-data.service';
 import { SearchService } from '../shared/search/search.service';
 import { concat, distinctUntilChanged, map, multicast, startWith, take, takeWhile } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
@@ -34,7 +34,7 @@ export class LookupRelationService {
     pageSize: 1
   });
 
-  constructor(protected externalSourceService: ExternalSourceService,
+  constructor(protected externalSourceService: ExternalSourceDataService,
               protected searchService: SearchService,
               protected requestService: RequestService) {
   }
