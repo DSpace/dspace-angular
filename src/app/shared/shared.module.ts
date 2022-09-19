@@ -177,6 +177,9 @@ import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
+import {
+  ItemPageTitleFieldComponent
+} from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -346,6 +349,7 @@ const COMPONENTS = [
   CommunitySidebarSearchListElementComponent,
   SearchNavbarComponent,
   ScopeSelectorModalComponent,
+  ItemPageTitleFieldComponent,
 ];
 
 const ENTRY_COMPONENTS = [
