@@ -62,12 +62,13 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
    * @param workflowActionService
    */
   constructor(protected injector: Injector,
-              protected router: Router,
-              protected notificationsService: NotificationsService,
-              protected translate: TranslateService,
-              protected searchService: SearchService,
-              protected requestService: RequestService,
-              protected workflowActionService: WorkflowActionDataService) {
+    protected router: Router,
+    protected notificationsService: NotificationsService,
+    protected translate: TranslateService,
+    protected searchService: SearchService,
+    protected requestService: RequestService,
+    protected workflowActionService: WorkflowActionDataService,
+  ) {
     super(ClaimedTask.type, injector, router, notificationsService, translate, searchService, requestService);
   }
 
