@@ -262,8 +262,10 @@ describe('BrowserKlaroService', () => {
 
   describe('initialize google analytics configuration', () => {
     let GOOGLE_ANALYTICS_KEY;
+    let REGISTRATION_VERIFICATION_ENABLED_KEY;
     beforeEach(() => {
       GOOGLE_ANALYTICS_KEY = clone((service as any).GOOGLE_ANALYTICS_KEY);
+      REGISTRATION_VERIFICATION_ENABLED_KEY = clone((service as any).REGISTRATION_VERIFICATION_ENABLED_KEY);
       spyOn((service as any), 'getUser$').and.returnValue(observableOf(user));
       translateService.get.and.returnValue(observableOf('loading...'));
       spyOn(service, 'addAppMessages');
@@ -292,27 +294,64 @@ describe('BrowserKlaroService', () => {
       expect(service.klaroConfig.services).toContain(jasmine.objectContaining({name: googleAnalytics}));
     });
     it('should filter googleAnalytics when empty configuration is retrieved', () => {
-      configurationDataService.findByPropertyName = jasmine.createSpy().withArgs(GOOGLE_ANALYTICS_KEY).and.returnValue(
-        createSuccessfulRemoteDataObject$({
-          ... new ConfigurationProperty(),
-          name: googleAnalytics,
-          values: [],
-        }));
+      configurationDataService.findByPropertyName =
+        jasmine.createSpy()
+          .withArgs(GOOGLE_ANALYTICS_KEY)
+          .and
+          .returnValue(
+            createSuccessfulRemoteDataObject$({
+              ... new ConfigurationProperty(),
+              name: googleAnalytics,
+              values: [],
+              }
+            )
+          )
+          .withArgs(REGISTRATION_VERIFICATION_ENABLED_KEY)
+          .and
+          .returnValue(
+            createSuccessfulRemoteDataObject$({
+              ... new ConfigurationProperty(),
+              name: trackingIdTestValue,
+              values: ['false'],
+            })
+          );
 
       service.initialize();
       expect(service.klaroConfig.services).not.toContain(jasmine.objectContaining({name: googleAnalytics}));
     });
     it('should filter googleAnalytics when an error occurs', () => {
-      configurationDataService.findByPropertyName = jasmine.createSpy().withArgs(GOOGLE_ANALYTICS_KEY).and.returnValue(
-        createFailedRemoteDataObject$('Erro while loading GA')
-      );
+      configurationDataService.findByPropertyName =
+        jasmine.createSpy()
+          .withArgs(GOOGLE_ANALYTICS_KEY).and.returnValue(
+            createFailedRemoteDataObject$('Error while loading GA')
+          )
+          .withArgs(REGISTRATION_VERIFICATION_ENABLED_KEY)
+          .and
+          .returnValue(
+            createSuccessfulRemoteDataObject$({
+              ... new ConfigurationProperty(),
+              name: trackingIdTestValue,
+              values: ['false'],
+            })
+          );
       service.initialize();
       expect(service.klaroConfig.services).not.toContain(jasmine.objectContaining({name: googleAnalytics}));
     });
     it('should filter googleAnalytics when an invalid payload is retrieved', () => {
-      configurationDataService.findByPropertyName = jasmine.createSpy().withArgs(GOOGLE_ANALYTICS_KEY).and.returnValue(
-        createSuccessfulRemoteDataObject$(null)
-      );
+      configurationDataService.findByPropertyName =
+        jasmine.createSpy()
+          .withArgs(GOOGLE_ANALYTICS_KEY).and.returnValue(
+            createSuccessfulRemoteDataObject$(null)
+          )
+          .withArgs(REGISTRATION_VERIFICATION_ENABLED_KEY)
+          .and
+          .returnValue(
+            createSuccessfulRemoteDataObject$({
+              ... new ConfigurationProperty(),
+              name: trackingIdTestValue,
+              values: ['false'],
+            })
+          );
       service.initialize();
       expect(service.klaroConfig.services).not.toContain(jasmine.objectContaining({name: googleAnalytics}));
     });

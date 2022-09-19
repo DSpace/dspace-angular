@@ -50,6 +50,8 @@ export class BrowserKlaroService extends KlaroService {
 
   private readonly GOOGLE_ANALYTICS_KEY = 'google.analytics.key';
 
+  private readonly REGISTRATION_VERIFICATION_ENABLED_KEY = 'registration.verification.enabled';
+
   private readonly GOOGLE_ANALYTICS_SERVICE_NAME = 'google-analytics';
 
   /**
@@ -90,7 +92,7 @@ export class BrowserKlaroService extends KlaroService {
       }),
     );
 
-    this.configService.findByPropertyName('registration.verification.enabled').pipe(
+    this.configService.findByPropertyName(this.REGISTRATION_VERIFICATION_ENABLED_KEY).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((remoteData) => {
       if (remoteData.statusCode === 404 || isEmpty(remoteData.payload?.values) || remoteData.payload.values[0].toLowerCase() !== 'true') {
