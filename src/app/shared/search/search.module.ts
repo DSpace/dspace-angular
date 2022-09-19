@@ -28,12 +28,14 @@ import { MissingTranslationHelper } from '../translate/missing-translation.helpe
 import { SharedModule } from '../shared.module';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { SearchComponent } from './search.component';
+import { ThemedSearchSettingsComponent } from './search-settings/themed-search-settings.component';
 
 const COMPONENTS = [
   SearchComponent,
   SearchResultsComponent,
   SearchSidebarComponent,
   SearchSettingsComponent,
+  ThemedSearchSettingsComponent,
   SearchFiltersComponent,
   SearchFilterComponent,
   SearchFacetFilterComponent,
