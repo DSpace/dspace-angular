@@ -6,7 +6,7 @@ import { BrowseByConfig } from './browse-by-config.interface';
 import { CacheConfig } from './cache-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { FormConfig } from './form-config.interfaces';
-import { ItemPageConfig } from './item-page-config.interface';
+import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
@@ -14,17 +14,12 @@ import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.model';
 import { UIServerConfig } from './ui-server-config.interface';
-import { UniversalConfig } from './universal-config.interface';
-
+import { BundleConfig } from './bundle-config.interface';
+import { ActuatorsConfig } from './actuators.config';
+import { InfoConfig } from './info-config.interface';
+import { HomeConfig } from './homepage-config.interface';
 export class DefaultAppConfig implements AppConfig {
   production = false;
-
-  // Angular Universal settings
-  universal: UniversalConfig = {
-    preboot: true,
-    async: true,
-    time: false
-  };
 
   // NOTE: will log all redux actions and transfers in console
   debug = false;
@@ -53,6 +48,10 @@ export class DefaultAppConfig implements AppConfig {
     port: 8080,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/',
+  };
+
+  actuators: ActuatorsConfig = {
+    endpointPath: '/actuator/health'
   };
 
   // Caching settings
@@ -117,6 +116,9 @@ export class DefaultAppConfig implements AppConfig {
        * eg. timer: 5 * (1000 * 60); // 5 minutes
        */
       timer: 0
+    },
+    typeBind: {
+      field: 'dc.type'
     },
     icons: {
       metadata: [
@@ -190,7 +192,11 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'nl', label: 'Nederlands', active: true },
     { code: 'pt-PT', label: 'Português', active: true },
     { code: 'pt-BR', label: 'Português do Brasil', active: true },
-    { code: 'fi', label: 'Suomi', active: true }
+    { code: 'fi', label: 'Suomi', active: true },
+    { code: 'sv', label: 'Svenska', active: true },
+    { code: 'tr', label: 'Türkçe', active: true },
+    { code: 'kk', label: 'Қазақ', active: true },
+    { code: 'bn', label: 'বাংলা', active: true }
   ];
 
   // Browse-By Pages
@@ -203,11 +209,13 @@ export class DefaultAppConfig implements AppConfig {
     defaultLowerLimit: 1900
   };
 
-  // Item Page Config
-  item: ItemPageConfig = {
+  // Item Config
+  item: ItemConfig = {
     edit: {
       undoTimeout: 10000 // 10 seconds
-    }
+    },
+    // Show the item access status label in items lists
+    showAccessStatuses: false
   };
 
   // Collection Page Config
@@ -307,11 +315,37 @@ export class DefaultAppConfig implements AppConfig {
       ]
     },
   ];
+  // The default bundles that should always be displayed when you edit or add a bundle even when no bundle has been
+  // added to the item yet.
+  bundle: BundleConfig = {
+    standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE']
+  };
   // Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with "image" or "video").
   // For images, this enables a gallery viewer where you can zoom or page through images.
   // For videos, this enables embedded video streaming
   mediaViewer: MediaViewerConfig = {
     image: false,
     video: false
+  };
+  // Whether the end-user-agreement and privacy policy feature should be enabled or not.
+  // Disabling the end user agreement feature will result in:
+  // - Users no longer being forced to accept the end-user-agreement before they can access the repository
+  // - A 404 page if you manually try to navigate to the end-user-agreement page at info/end-user-agreement
+  // - All end-user-agreement related links and pages will be removed from the UI (e.g. in the footer)
+  // Disabling the privacy policy feature will result in:
+  // - A 404 page if you manually try to navigate to the privacy policy page at info/privacy
+  // - All mentions of the privacy policy being removed from the UI (e.g. in the footer)
+  info: InfoConfig = {
+    enableEndUserAgreement: true,
+    enablePrivacyStatement: true
+  };
+  // Home Pages
+  homePage: HomeConfig = {
+    recentSubmissions: {
+      //The number of item showing in recent submission components
+      pageSize: 5,
+      //sort record of recent submission
+      sortField: 'dc.date.accessioned',
+    }
   };
 }

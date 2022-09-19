@@ -6,7 +6,6 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
 
 import { MenuService } from './menu.service';
-import { MenuID } from './initial-menus-state';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,
@@ -21,8 +20,10 @@ import {
   ToggleActiveMenuSectionAction,
   ToggleMenuAction
 } from './menu.actions';
-import { MenuSection, menusReducer } from './menu.reducer';
+import { menusReducer } from './menu.reducer';
 import { storeModuleConfig } from '../../app.reducer';
+import { MenuSection } from './menu-section.model';
+import { MenuID } from './menu-id.model';
 
 describe('MenuService', () => {
   let service: MenuService;

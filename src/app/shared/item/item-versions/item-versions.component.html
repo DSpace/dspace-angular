@@ -53,7 +53,7 @@
 
                   <div class="right-column">
 
-                    <div class="btn-group edit-field" *ngIf="displayActions">
+                    <div class="btn-group edit-field space-children-mr" *ngIf="displayActions">
                       <!--EDIT WORKSPACE ITEM-->
                       <button class="btn btn-outline-primary btn-sm version-row-element-edit"
                               *ngIf="workspaceId$ | async"
@@ -103,7 +103,7 @@
                 </ng-template>
               </div>
 
-              <div class="float-right btn-group edit-field" *ngIf="displayActions">
+              <div class="float-right btn-group edit-field space-children-mr" *ngIf="displayActions">
                 <!--DISCARD EDIT -->
                 <ng-container *ngIf="(canEditVersion$(version) | async) && isThisBeingEdited(version)">
                   <button class="btn btn-sm"

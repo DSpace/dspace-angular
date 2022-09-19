@@ -2,7 +2,7 @@ import { filter, map } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 
-import { Observable ,  BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { ItemPageComponent } from '../simple/item-page.component';
 import { MetadataMap } from '../../core/shared/metadata.models';
@@ -15,6 +15,7 @@ import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
 import { AuthService } from '../../core/auth/auth.service';
 import { Location } from '@angular/common';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
 
 /**
@@ -36,9 +37,9 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
   metadata$: Observable<MetadataMap>;
 
   /**
-   * True when the itemRD has been originated from its workflowitem, false otherwise.
+   * True when the itemRD has been originated from its workspaceite/workflowitem, false otherwise.
    */
-  fromWfi = false;
+  fromSubmissionObject = false;
 
   subs = [];
 
@@ -46,8 +47,9 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
               router: Router,
               items: ItemDataService,
               authService: AuthService,
+              authorizationService: AuthorizationDataService,
               private _location: Location) {
-    super(route, router, items, authService);
+    super(route, router, items, authService, authorizationService);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/
@@ -59,7 +61,7 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
       map((item: Item) => item.metadata),);
 
     this.subs.push(this.route.data.subscribe((data: Data) => {
-        this.fromWfi = hasValue(data.wfi);
+        this.fromSubmissionObject = hasValue(data.wfi) || hasValue(data.wsi);
       })
     );
   }

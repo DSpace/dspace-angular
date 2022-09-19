@@ -1,6 +1,6 @@
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import {
   AddToObjectCacheAction,
@@ -14,17 +14,17 @@ import {
 } from '../data/request.actions';
 import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions';
 import { hasValue } from '../../shared/empty.util';
-import { IndexName } from './index.reducer';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { getUrlWithoutEmbedParams, uuidFromHrefSelector } from './index.selectors';
 import { Store, select } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { NoOpAction } from '../../shared/ngrx/no-op.action';
+import { IndexName } from './index-name.model';
+import { CoreState } from '../core-state.model';
 
 @Injectable()
 export class UUIDIndexEffects {
 
-  @Effect() addObject$ = this.actions$
+   addObject$ = createEffect(() => this.actions$
     .pipe(
       ofType(ObjectCacheActionTypes.ADD),
       filter((action: AddToObjectCacheAction) => hasValue(action.payload.objectToCache.uuid)),
@@ -35,13 +35,13 @@ export class UUIDIndexEffects {
           action.payload.objectToCache._links.self.href
         );
       })
-    );
+    ));
 
   /**
    * Adds an alternative link to an object to the ALTERNATIVE_OBJECT_LINK index
    * When the self link of the objectToCache is not the same as the alternativeLink
    */
-  @Effect() addAlternativeObjectLink$ = this.actions$
+   addAlternativeObjectLink$ = createEffect(() => this.actions$
     .pipe(
       ofType(ObjectCacheActionTypes.ADD),
       map((action: AddToObjectCacheAction) => {
@@ -57,9 +57,9 @@ export class UUIDIndexEffects {
           return new NoOpAction();
         }
       })
-    );
+    ));
 
-  @Effect() removeObject$ = this.actions$
+   removeObject$ = createEffect(() => this.actions$
     .pipe(
       ofType(ObjectCacheActionTypes.REMOVE),
       map((action: RemoveFromObjectCacheAction) => {
@@ -68,9 +68,9 @@ export class UUIDIndexEffects {
           action.payload
         );
       })
-    );
+    ));
 
-  @Effect() addRequest$ = this.actions$
+   addRequest$ = createEffect(() => this.actions$
     .pipe(
       ofType(RequestActionTypes.CONFIGURE),
       filter((action: RequestConfigureAction) => action.payload.method === RestRequestMethod.GET),
@@ -95,7 +95,7 @@ export class UUIDIndexEffects {
         )];
         return actions;
       })
-    );
+    ));
 
   constructor(private actions$: Actions, private store: Store<CoreState>) {
 

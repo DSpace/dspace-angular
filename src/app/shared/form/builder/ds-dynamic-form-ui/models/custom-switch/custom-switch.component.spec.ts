@@ -3,7 +3,6 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TextMaskModule } from 'angular2-text-mask';
 import { By } from '@angular/platform-browser';
 import { DynamicCustomSwitchModel } from './custom-switch.model';
 import { CustomSwitchComponent } from './custom-switch.component';
@@ -23,7 +22,6 @@ describe('CustomSwitchComponent', () => {
       imports: [
         ReactiveFormsModule,
         NoopAnimationsModule,
-        TextMaskModule,
         DynamicFormsCoreModule.forRoot()
       ],
       declarations: [CustomSwitchComponent]

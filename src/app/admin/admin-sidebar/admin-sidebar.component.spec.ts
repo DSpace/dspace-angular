@@ -20,6 +20,8 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import createSpy = jasmine.createSpy;
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { Item } from '../../core/shared/item.model';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 
 describe('AdminSidebarComponent', () => {
   let comp: AdminSidebarComponent;
@@ -60,6 +62,7 @@ describe('AdminSidebarComponent', () => {
       declarations: [AdminSidebarComponent],
       providers: [
         Injector,
+        { provide: ThemeService, useValue: getMockThemeService() },
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: AuthService, useClass: AuthServiceStub },
@@ -181,151 +184,5 @@ describe('AdminSidebarComponent', () => {
       tick(1);
       expect(menuService.collapseMenuPreview).toHaveBeenCalled();
     }));
-  });
-
-  describe('menu', () => {
-    beforeEach(() => {
-      spyOn(menuService, 'addSection');
-    });
-
-    describe('for regular user', () => {
-      beforeEach(() => {
-        authorizationService.isAuthorized = createSpy('isAuthorized').and.callFake(() => {
-          return observableOf(false);
-        });
-      });
-
-      beforeEach(() => {
-        comp.createMenu();
-      });
-
-      it('should not show site admin section', () => {
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          id: 'admin_search', visible: false,
-        }));
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          id: 'registries', visible: false,
-        }));
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          parentID: 'registries', visible: false,
-        }));
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          id: 'curation_tasks', visible: false,
-        }));
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          id: 'workflow', visible: false,
-        }));
-      });
-
-      it('should not show edit_community', () => {
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          id: 'edit_community', visible: false,
-        }));
-
-      });
-
-      it('should not show edit_collection', () => {
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          id: 'edit_collection', visible: false,
-        }));
-      });
-
-      it('should not show access control section', () => {
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          id: 'access_control', visible: false,
-        }));
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          parentID: 'access_control', visible: false,
-        }));
-
-      });
-    });
-
-    describe('for site admin', () => {
-      beforeEach(() => {
-        authorizationService.isAuthorized = createSpy('isAuthorized').and.callFake((featureID: FeatureID) => {
-          return observableOf(featureID === FeatureID.AdministratorOf);
-        });
-      });
-
-      beforeEach(() => {
-        comp.createMenu();
-      });
-
-      it('should contain site admin section', () => {
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          id: 'admin_search', visible: true,
-        }));
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          id: 'registries', visible: true,
-        }));
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          parentID: 'registries', visible: true,
-        }));
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          id: 'curation_tasks', visible: true,
-        }));
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          id: 'workflow', visible: true,
-        }));
-      });
-    });
-
-    describe('for community admin', () => {
-      beforeEach(() => {
-        authorizationService.isAuthorized = createSpy('isAuthorized').and.callFake((featureID: FeatureID) => {
-          return observableOf(featureID === FeatureID.IsCommunityAdmin);
-        });
-      });
-
-      beforeEach(() => {
-        comp.createMenu();
-      });
-
-      it('should show edit_community', () => {
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          id: 'edit_community', visible: true,
-        }));
-      });
-    });
-
-    describe('for collection admin', () => {
-      beforeEach(() => {
-        authorizationService.isAuthorized = createSpy('isAuthorized').and.callFake((featureID: FeatureID) => {
-          return observableOf(featureID === FeatureID.IsCollectionAdmin);
-        });
-      });
-
-      beforeEach(() => {
-        comp.createMenu();
-      });
-
-      it('should show edit_collection', () => {
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          id: 'edit_collection', visible: true,
-        }));
-      });
-    });
-
-    describe('for group admin', () => {
-      beforeEach(() => {
-        authorizationService.isAuthorized = createSpy('isAuthorized').and.callFake((featureID: FeatureID) => {
-          return observableOf(featureID === FeatureID.CanManageGroups);
-        });
-      });
-
-      beforeEach(() => {
-        comp.createMenu();
-      });
-
-      it('should show access control section', () => {
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          id: 'access_control', visible: true,
-        }));
-        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-          parentID: 'access_control', visible: true,
-        }));
-      });
-    });
   });
 });
