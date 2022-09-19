@@ -115,14 +115,14 @@ export class BrowseByMetadataPageComponent implements OnInit {
                      protected paginationService: PaginationService,
                      protected router: Router,
                      @Inject(APP_CONFIG) protected appConfig: AppConfig) {
-  }
-
-  ngOnInit(): void {
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
         id: BBM_PAGINATION_ID,
         currentPage: 1,
         pageSize: this.appConfig.browseBy.pageSize,
         });
+    }
+
+  ngOnInit(): void {
     const sortConfig = new SortOptions('default', SortDirection.ASC);
     this.updatePage(new BrowseEntrySearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
