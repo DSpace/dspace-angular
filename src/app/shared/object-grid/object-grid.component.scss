@@ -22,13 +22,13 @@
   margin-right: calc(-1 * var(--ds-wrapper-grid-spacing));
   column-gap: 0;
 
-  .object-grid {
+  .object-grid-element {
     padding-left: var(--ds-wrapper-grid-spacing);
     padding-right: var(--ds-wrapper-grid-spacing);
   }
 }
 
-.object-grid ::ng-deep {
+:host ::ng-deep .object-grid-element {
   div.card {
     height: 100%;
   }
