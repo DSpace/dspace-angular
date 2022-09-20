@@ -157,7 +157,8 @@ export class ProfilePageComponent implements OnInit {
           );
         } else {
           this.notificationsService.error(
-            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.title'), response.errorMessage
+            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.title'),
+            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.change-failed')
           );
         }
       });

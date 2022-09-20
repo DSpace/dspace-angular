@@ -640,7 +640,7 @@
   "bitstream-request-a-copy.alert.canDownload2": "here",
 
   "bitstream-request-a-copy.header": "Request a copy of the file",
-  
+
   "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
 
   "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
@@ -2984,7 +2984,7 @@
   "process.detail.create" : "Create similar process",
 
   "process.detail.actions": "Actions",
-  
+
   "process.detail.delete.button": "Delete process",
 
   "process.detail.delete.header": "Delete process",
@@ -3037,7 +3037,7 @@
 
   "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
 
-  
+
 
   "profile.breadcrumbs": "Update Profile",
 
@@ -3092,6 +3092,8 @@
   "profile.security.form.notifications.success.title": "Password saved",
 
   "profile.security.form.notifications.error.title": "Error changing passwords",
+
+  "profile.security.form.notifications.error.change-failed": "An error occurred while trying to change the password. Please check if the current password is correct.",
 
   "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
 
