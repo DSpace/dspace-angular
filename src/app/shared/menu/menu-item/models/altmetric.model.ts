@@ -6,5 +6,6 @@ import { MenuItemModel } from './menu-item.model';
  */
 export class AltmetricMenuItemModel implements MenuItemModel {
   type = MenuItemType.ALTMETRIC;
+  disabled: boolean;
   url: string;
 }

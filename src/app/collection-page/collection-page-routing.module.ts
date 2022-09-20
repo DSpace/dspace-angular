@@ -21,6 +21,7 @@ import { CollectionPageAdministratorGuard } from './collection-page-administrato
 import { MenuItemType } from '../shared/menu/initial-menus-state';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
+import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
         path: ':id',
         resolve: {
           dso: CollectionPageResolver,
-          breadcrumb: CollectionBreadcrumbResolver
+          breadcrumb: CollectionBreadcrumbResolver,
+          menu: DSOEditMenuResolver
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -90,7 +92,8 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
     DSOBreadcrumbsService,
     LinkService,
     CreateCollectionPageGuard,
-    CollectionPageAdministratorGuard
+    CollectionPageAdministratorGuard,
+    DSOEditMenuResolver
   ]
 })
 export class CollectionPageRoutingModule {

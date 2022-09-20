@@ -14,13 +14,16 @@ import { OnClickMenuItemModel } from './models/onclick.model';
 @rendersMenuItemForType(MenuItemType.ONCLICK)
 export class OnClickMenuItemComponent {
   item: OnClickMenuItemModel;
+
   constructor(@Inject('itemModelProvider') item: OnClickMenuItemModel) {
     this.item = item;
   }
 
   public activate(event: any) {
-    event.preventDefault();
-    this.item.function();
-    event.stopPropagation();
+    if (!this.item.disabled) {
+      event.preventDefault();
+      this.item.function();
+      event.stopPropagation();
+    }
   }
 }

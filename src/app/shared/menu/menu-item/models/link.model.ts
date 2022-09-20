@@ -6,6 +6,7 @@ import { MenuItemType } from '../../initial-menus-state';
  */
 export class LinkMenuItemModel implements MenuItemModel {
   type = MenuItemType.LINK;
+  disabled: boolean;
   text: string;
   link: string;
 }

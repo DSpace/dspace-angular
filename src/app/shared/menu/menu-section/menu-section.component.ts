@@ -64,7 +64,9 @@ export class MenuSectionComponent implements OnInit, OnDestroy {
    */
   toggleSection(event: Event) {
     event.preventDefault();
-    this.menuService.toggleActiveSection(this.menuID, this.section.id);
+    if (!this.section.model?.disabled) {
+      this.menuService.toggleActiveSection(this.menuID, this.section.id);
+    }
   }
 
   /**
@@ -73,7 +75,9 @@ export class MenuSectionComponent implements OnInit, OnDestroy {
    */
   activateSection(event: Event) {
     event.preventDefault();
-    this.menuService.activateSection(this.menuID, this.section.id);
+    if (!this.section.model?.disabled) {
+      this.menuService.activateSection(this.menuID, this.section.id);
+    }
   }
 
   /**

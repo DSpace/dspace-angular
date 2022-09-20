@@ -157,8 +157,6 @@ import { SidebarSearchListElementComponent } from './object-list/sidebar-search-
 import { CollectionSidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/collection/collection-sidebar-search-list-element.component';
 import { CommunitySidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/community/community-sidebar-search-list-element.component';
 import { AuthorizedCollectionSelectorComponent } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
-import { DsoPageEditButtonComponent } from './dso-page/dso-page-edit-button/dso-page-edit-button.component';
-import { DsoPageVersionButtonComponent } from './dso-page/dso-page-version-button/dso-page-version-button.component';
 import { HoverClassDirective } from './hover-class.directive';
 import { ValidationSuggestionsComponent } from './input-suggestions/validation-suggestions/validation-suggestions.component';
 import { ItemAlertsComponent } from './item/item-alerts/item-alerts.component';
@@ -177,6 +175,13 @@ import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
+import {
+  DsoEditMenuSectionComponent
+} from './dso-page/dso-edit-menu/dso-edit-menu-section/dso-edit-menu-section.component';
+import { DsoEditMenuComponent } from './dso-page/dso-edit-menu/dso-edit-menu.component';
+import {
+  DsoEditMenuExpandableSectionComponent
+} from './dso-page/dso-edit-menu/dso-edit-expandable-menu-section/dso-edit-menu-expandable-section.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -402,18 +407,20 @@ const ENTRY_COMPONENTS = [
   OnClickMenuItemComponent,
   TextMenuItemComponent,
   ScopeSelectorModalComponent,
+  DsoEditMenuSectionComponent,
+  DsoEditMenuExpandableSectionComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
   MetadataFieldWrapperComponent,
   MetadataValuesComponent,
-  DsoPageEditButtonComponent,
-  DsoPageVersionButtonComponent,
   ItemAlertsComponent,
   GenericItemPageFieldComponent,
   MetadataRepresentationListComponent,
   RelatedItemsComponent,
-
+  DsoEditMenuSectionComponent,
+  DsoEditMenuComponent,
+  DsoEditMenuExpandableSectionComponent,
 ];
 
 const PROVIDERS = [

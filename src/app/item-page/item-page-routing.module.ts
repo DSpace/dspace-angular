@@ -16,6 +16,7 @@ import { ThemedFullItemPageComponent } from './full/themed-full-item-page.compon
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 import { BitstreamRequestACopyPageComponent } from '../shared/bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
+import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
         path: ':id',
         resolve: {
           dso: ItemPageResolver,
-          breadcrumb: ItemBreadcrumbResolver
+          breadcrumb: ItemBreadcrumbResolver,
+          menu: DSOEditMenuResolver
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -88,6 +90,7 @@ import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
     LinkService,
     ItemPageAdministratorGuard,
     VersionResolver,
+    DSOEditMenuResolver
   ]
 
 })

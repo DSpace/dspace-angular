@@ -1,0 +1,18 @@
+<div class="dso-button-menu mb-1" ngbDropdown placement="bottom-right">
+    <div class="d-flex flex-row flex-nowrap"
+         [ngbTooltip]="itemModel.text | translate">
+        <button class="btn btn-dark btn-sm" ngbDropdownToggle [disabled]="section.model.disabled">
+            <i class="fas fa-{{section.icon}} fa-fw"></i>
+        </button>
+        <ul ngbDropdownMenu>
+            <ng-container *ngFor="let subSection of (subSections$ | async)">
+                <ng-container
+                        *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
+            </ng-container>
+        </ul>
+    </div>
+</div>
+
+
+
+

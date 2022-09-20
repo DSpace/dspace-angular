@@ -32,7 +32,6 @@ import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/med
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { MiradorViewerComponent } from './mirador-viewer/mirador-viewer.component';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
-import { VersionedItemComponent } from './simple/item-types/versioned-item/versioned-item.component';
 import { ThemedFileSectionComponent } from './simple/field-components/file-section/themed-file-section.component';
 
 
@@ -82,7 +81,6 @@ const DECLARATIONS = [
   ],
   declarations: [
     ...DECLARATIONS,
-    VersionedItemComponent
   ],
   exports: [
     ...DECLARATIONS

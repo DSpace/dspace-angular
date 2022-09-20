@@ -5,7 +5,8 @@ import { MenusState } from './menu.reducer';
  */
 export enum MenuID {
   ADMIN = 'admin-sidebar',
-  PUBLIC = 'public'
+  PUBLIC = 'public',
+  DSO_EDIT = 'dso-edit'
 }
 
 /**
@@ -36,5 +37,14 @@ export const initialMenusState: MenusState = {
       visible: true,
       sections: {},
       sectionToSubsectionIndex: {}
-    }
+    },
+  [MenuID.DSO_EDIT]:
+    {
+      id: MenuID.DSO_EDIT,
+      collapsed: true,
+      previewCollapsed: true,
+      visible: false,
+      sections: {},
+      sectionToSubsectionIndex: {}
+    },
 };
