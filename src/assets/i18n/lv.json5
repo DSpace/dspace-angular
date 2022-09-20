@@ -5534,7 +5534,8 @@
   // TODO Source message changed - Revise the translation
   "uploader.or": ", vai",
 
-  // "uploader.processing": "Processing",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
+  // TODO Source message changed - Revise the translation
   "uploader.processing": "Datu apstrāde",
 
   // "uploader.queue-length": "Queue length",

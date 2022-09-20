@@ -7945,8 +7945,8 @@
   // TODO New key - Add a translation
   "uploader.or": ", eller ",
 
-  // "uploader.processing": "Processing",
-  // TODO New key - Add a translation
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
+  // TODO Source message changed - Revise the translation
   "uploader.processing": "Bearbetar",
 
   // "uploader.queue-length": "Queue length",
