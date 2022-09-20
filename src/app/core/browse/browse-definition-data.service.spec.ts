@@ -5,15 +5,9 @@ import { FindListOptions } from '../data/find-list-options.model';
 
 describe(`BrowseDefinitionDataService`, () => {
   let service: BrowseDefinitionDataService;
-  const dataServiceImplSpy = jasmine.createSpyObj('dataService', {
+  const findAllDataSpy = jasmine.createSpyObj('findAllData', {
     findAll: EMPTY,
-    findByHref: EMPTY,
-    findAllByHref: EMPTY,
-    findById: EMPTY,
   });
-  const hrefAll = 'https://rest.api/server/api/discover/browses';
-  const hrefSingle = 'https://rest.api/server/api/discover/browses/author';
-  const id = 'author';
   const options = new FindListOptions();
   const linksToFollow = [
     followLink('entries'),
@@ -21,35 +15,14 @@ describe(`BrowseDefinitionDataService`, () => {
   ];
 
   beforeEach(() => {
-    service = new BrowseDefinitionDataService(null, null, null, null, null, null, null, null);
-    (service as any).dataService = dataServiceImplSpy;
+    service = new BrowseDefinitionDataService(null, null, null, null);
+    (service as any).findAllData = findAllDataSpy;
   });
 
   describe(`findAll`, () => {
-    it(`should call findAll on DataServiceImpl`, () => {
+    it(`should call findAll on findAllData`, () => {
       service.findAll(options, true, false, ...linksToFollow);
-      expect(dataServiceImplSpy.findAll).toHaveBeenCalledWith(options, true, false, ...linksToFollow);
-    });
-  });
-
-  describe(`findByHref`, () => {
-    it(`should call findByHref on DataServiceImpl`, () => {
-      service.findByHref(hrefSingle, true, false, ...linksToFollow);
-      expect(dataServiceImplSpy.findByHref).toHaveBeenCalledWith(hrefSingle, true, false, ...linksToFollow);
-    });
-  });
-
-  describe(`findAllByHref`, () => {
-    it(`should call findAllByHref on DataServiceImpl`, () => {
-      service.findAllByHref(hrefAll, options, true, false, ...linksToFollow);
-      expect(dataServiceImplSpy.findAllByHref).toHaveBeenCalledWith(hrefAll, options, true, false, ...linksToFollow);
-    });
-  });
-
-  describe(`findById`, () => {
-    it(`should call findById on DataServiceImpl`, () => {
-      service.findAllByHref(id, options, true, false, ...linksToFollow);
-      expect(dataServiceImplSpy.findAllByHref).toHaveBeenCalledWith(id, options, true, false, ...linksToFollow);
+      expect(findAllDataSpy.findAll).toHaveBeenCalledWith(options, true, false, ...linksToFollow);
     });
   });
 });

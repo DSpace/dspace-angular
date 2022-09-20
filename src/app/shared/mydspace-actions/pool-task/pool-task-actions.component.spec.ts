@@ -75,16 +75,16 @@ mockObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkfl
 
 describe('PoolTaskActionsComponent', () => {
   beforeEach(waitForAsync(() => {
-    mockDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
-    mockClaimedTaskDataService = new ClaimedTaskDataService(null, null, null, null, null, null, null, null);
+    mockDataService = new PoolTaskDataService(null, null, null, null);
+    mockClaimedTaskDataService = new ClaimedTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [PoolTaskActionsComponent],
       providers: [

@@ -89,7 +89,7 @@ describe('ItemCollectionMapperComponent', () => {
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
   };
   const collectionDataServiceStub = {
-    findAllByHref: () => observableOf(mockCollectionsRD)
+    findListByHref: () => observableOf(mockCollectionsRD),
   };
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
     search: () => observableOf(mockCollectionsRD),

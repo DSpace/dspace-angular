@@ -1,14 +1,12 @@
-import { DSpaceObject } from './../../shared/dspace-object.model';
-import { followLink } from './../../../shared/utils/follow-link-config.model';
-import { ChildHALResource } from './../../shared/child-hal-resource.model';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { switchMap } from 'rxjs/operators';
-import { DataService } from '../../data/data.service';
 import { RemoteData } from '../../data/remote-data';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
+import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated
@@ -16,8 +14,8 @@ import { getFirstCompletedRemoteData } from '../../shared/operators';
 @Injectable()
 export class SubmissionObjectResolver<T> implements Resolve<RemoteData<T>> {
     constructor(
-        protected dataService: DataService<any>,
-        protected store: Store<any>
+      protected dataService: IdentifiableDataService<any>,
+      protected store: Store<any>,
     ) {
     }
 
