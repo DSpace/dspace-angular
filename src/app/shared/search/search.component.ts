@@ -31,7 +31,8 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SelectionConfig } from './search-results/search-results.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
+import { SearchFilterConfig } from './models/search-filter-config.model';
 
 @Component({
   selector: 'ds-search',
@@ -159,6 +160,16 @@ export class SearchComponent implements OnInit {
    * The current sort options used
    */
   currentSortOptions$: BehaviorSubject<SortOptions> = new BehaviorSubject<SortOptions>(null);
+
+  /**
+   * An observable containing configuration about which filters are shown and how they are shown
+   */
+  filtersRD$: BehaviorSubject<RemoteData<SearchFilterConfig[]>> = new BehaviorSubject<RemoteData<SearchFilterConfig[]>>(null);
+
+  /**
+   * Maintains the last search options, so it can be used in refresh
+   */
+  lastSearchOptions: PaginatedSearchOptions;
 
   /**
    * The current search results
@@ -294,6 +305,7 @@ export class SearchComponent implements OnInit {
         this.initialized$.next(true);
         // retrieve results
         this.retrieveSearchResults(newSearchOptions);
+        this.retrieveFilters(searchOptions);
       }
     });
   }
@@ -345,12 +357,27 @@ export class SearchComponent implements OnInit {
   }
 
   /**
+   * Retrieve search filters by the given search options
+   * @param searchOptions
+   * @private
+   */
+  private retrieveFilters(searchOptions: PaginatedSearchOptions) {
+    this.filtersRD$.next(null);
+    this.searchConfigService.getConfig(searchOptions.scope, searchOptions.configuration).pipe(
+      getFirstCompletedRemoteData(),
+    ).subscribe((filtersRD: RemoteData<SearchFilterConfig[]>) => {
+      this.filtersRD$.next(filtersRD);
+    });
+  }
+
+  /**
    * Retrieve search result by the given search options
    * @param searchOptions
    * @private
    */
   private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
+    this.lastSearchOptions = searchOptions;
     this.service.search(
       searchOptions,
       undefined,
@@ -384,6 +411,5 @@ export class SearchComponent implements OnInit {
     }
     return this.service.getSearchLink();
   }
-
 
 }
