@@ -39,15 +39,19 @@
   "404.page-not-found": "sidan hittas inte",
 
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
+  // TODO New key - Add a translation
   "admin.curation-tasks.breadcrumbs": "System curation tasks",
 
   // "admin.curation-tasks.title": "System curation tasks",
+  // TODO New key - Add a translation
   "admin.curation-tasks.title": "System curation tasks",
 
   // "admin.curation-tasks.header": "System curation tasks",
+  // TODO New key - Add a translation
   "admin.curation-tasks.header": "System curation tasks",
 
   // "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
+  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
 
   // "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
@@ -96,6 +100,7 @@
   "admin.registries.bitstream-formats.edit.description.label": "Beskrivning",
 
   // "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
+  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
 
   // "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
@@ -188,7 +193,7 @@
   "admin.registries.metadata.breadcrumbs": "Metadata registry",
 
   // "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
-  "admin.registries.metadata.description": "Metadata registry inneåller en lista med samtliga fält som stöds av detta repository. Fälten kan förekomma i flera scheman. DSpace kräver dock det utökade Dublin Core (qdc) schemat.",
+  "admin.registries.metadata.description": "Metadata registry innehåller en lista med samtliga fält som stöds av detta repository. Fälten kan förekomma i flera scheman. DSpace kräver dock det utökade Dublin Core (qdc) schemat.",
 
   // "admin.registries.metadata.form.create": "Create metadata schema",
   "admin.registries.metadata.form.create": "Skapa metadataschema",
@@ -218,7 +223,7 @@
   "admin.registries.metadata.schemas.table.name": "Namn",
 
   // "admin.registries.metadata.schemas.table.namespace": "Namespace",
-  "admin.registries.metadata.schemas.table.namespace": "Namespace",
+  "admin.registries.metadata.schemas.table.namespace": "Namnrymd",
 
   // "admin.registries.metadata.title": "Metadata Registry",
   "admin.registries.metadata.title": "Metadata registry",
@@ -254,6 +259,7 @@
   "admin.registries.schema.form.element": "Element",
 
   // "admin.registries.schema.form.qualifier": "Qualifier",
+  // TODO New key - Add a translation
   "admin.registries.schema.form.qualifier": "Qualifier",
 
   // "admin.registries.schema.form.scopenote": "Scope Note",
@@ -263,7 +269,7 @@
   "admin.registries.schema.head": "Metadataschema",
 
   // "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
-  "admin.registries.schema.notification.created": "ar skapat metadataschemat \"{{prefix}}\"",
+  "admin.registries.schema.notification.created": "Har skapat metadataschemat \"{{prefix}}\"",
 
   // "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
   "admin.registries.schema.notification.deleted.failure": "Misslyckades med att radera {{amount}} metadatascheman",
@@ -278,7 +284,7 @@
   "admin.registries.schema.notification.failure": "Fel",
 
   // "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.created": "har skapat metadatafält \"{{field}}\"",
+  "admin.registries.schema.notification.field.created": "Har skapat metadatafält \"{{field}}\"",
 
   // "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
   "admin.registries.schema.notification.field.deleted.failure": "Misslyckades med att radera {{amount}} metadatafält",
@@ -296,6 +302,7 @@
   "admin.registries.schema.return": "Tillbaka",
 
   // "admin.registries.schema.title": "Metadata Schema Registry",
+  // TODO New key - Add a translation
   "admin.registries.schema.title": "Metadata Schema Registry",
 
 
@@ -471,7 +478,7 @@
   "admin.access-control.groups.search.head": "Sök grupper",
 
   // "admin.access-control.groups.button.see-all": "Browse all",
-  "admin.access-control.groups.button.see-all": "Browsa alla",
+  "admin.access-control.groups.button.see-all": "Bläddra bland alla",
 
   // "admin.access-control.groups.search.button": "Search",
   "admin.access-control.groups.search.button": "Sök",
@@ -584,7 +591,7 @@
   "admin.access-control.groups.form.members-list.search.head": "Lägg till EPersoner",
 
   // "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
-  "admin.access-control.groups.form.members-list.button.see-all": "Browsa alla",
+  "admin.access-control.groups.form.members-list.button.see-all": "Bläddra bland alla",
 
   // "admin.access-control.groups.form.members-list.headMembers": "Current Members",
   "admin.access-control.groups.form.members-list.headMembers": "Nuvarande medlemmar",
@@ -653,7 +660,7 @@
   "admin.access-control.groups.form.subgroups-list.search.head": "Lägg till undergrupp",
 
   // "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
-  "admin.access-control.groups.form.subgroups-list.button.see-all": "Browsa alla",
+  "admin.access-control.groups.form.subgroups-list.button.see-all": "Bläddra alla",
 
   // "admin.access-control.groups.form.subgroups-list.headSubgroups": "Current Subgroups",
   "admin.access-control.groups.form.subgroups-list.headSubgroups": "Nuvarande undergrupper",
@@ -971,7 +978,7 @@
   "browse.comcol.by.title": "Titel",
 
   // "browse.comcol.head": "Browse",
-  "browse.comcol.head": "Browse",
+  "browse.comcol.head": "Bläddra",
 
   // "browse.empty": "No items to show.",
   "browse.empty": "Inga poster att visa.",
@@ -1037,7 +1044,7 @@
   "browse.startsWith.months.july": "Juli",
 
   // "browse.startsWith.months.june": "June",
-  "browse.startsWith.months.june": "June",
+  "browse.startsWith.months.june": "Juni",
 
   // "browse.startsWith.months.march": "March",
   "browse.startsWith.months.march": "Mars",
@@ -1061,19 +1068,19 @@
   "browse.startsWith.months.september": "September",
 
   // "browse.startsWith.submit": "Browse",
-  "browse.startsWith.submit": "Browse",
+  "browse.startsWith.submit": "Bläddra",
 
   // "browse.startsWith.type_date": "Or type in a date (year-month) and click 'Browse'",
-  "browse.startsWith.type_date": "Eller skriv in ett datum (år-månad) och klicka på 'Browse'",
+  "browse.startsWith.type_date": "Eller skriv in ett datum (år-månad) och klicka på 'Bläddra'",
 
   // "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
-  "browse.startsWith.type_date.label": "Eller skriv in ett datum (år-månad) och klicka på 'Browse'",
+  "browse.startsWith.type_date.label": "Eller skriv in ett datum (år-månad) och klicka på 'Bläddra'",
 
   // "browse.startsWith.type_text": "Type the first few letters and click on the Browse button",
-  "browse.startsWith.type_text": "Ange de första bokstäverna och klicka på 'Browse'",
+  "browse.startsWith.type_text": "Ange de första bokstäverna och klicka på 'Bläddra'",
 
   // "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
-  "browse.title": "Browsar {{ collection }} efter {{ field }} {{ value }}",
+  "browse.title": "Bläddrar {{ collection }} efter {{ field }} {{ value }}",
 
 
   // "chips.remove": "Remove chip",
@@ -1182,7 +1189,7 @@
   "collection.edit.item-mapper.search-form.placeholder": "Sök...",
 
   // "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
-  "collection.edit.item-mapper.tabs.browse": "Browsa mappade poster",
+  "collection.edit.item-mapper.tabs.browse": "Bläddra i mappade poster",
 
   // "collection.edit.item-mapper.tabs.map": "Map new items",
   "collection.edit.item-mapper.tabs.map": "Mappa nya poster",
@@ -1409,48 +1416,70 @@
 
  // "collection.source.controls.head": "Harvest Controls",
   "collection.source.controls.head": "Inställningar för höstning",
+
   // "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
   "collection.source.controls.test.submit.error": "Något gick fel när testet av inställningarna initierades",
+
   // "collection.source.controls.test.failed": "The script to test the settings has failed",
   "collection.source.controls.test.failed": "Skriptet som testar inställningarna kunde inte köras",
+
   // "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
   "collection.source.controls.test.completed": "Skriptet som testar inställningarna har körts med lyckat resultat",
+
   // "collection.source.controls.test.submit": "Test configuration",
   "collection.source.controls.test.submit": "Testa konfigurationen",
+
   // "collection.source.controls.test.running": "Testing configuration...",
   "collection.source.controls.test.running": "Testar konfigurationen...",
+
   // "collection.source.controls.import.submit.success": "The import has been successfully initiated",
   "collection.source.controls.import.submit.success": "Importen har initierats",
+
   // "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
   "collection.source.controls.import.submit.error": "Något gick fel när importen skulle initieras",
+
   // "collection.source.controls.import.submit": "Import now",
   "collection.source.controls.import.submit": "Importera nu",
+
   // "collection.source.controls.import.running": "Importing...",
   "collection.source.controls.import.running": "Importerar...",
+
   // "collection.source.controls.import.failed": "An error occurred during the import",
   "collection.source.controls.import.failed": "Ett fel uppstod under importen",
+
   // "collection.source.controls.import.completed": "The import completed",
   "collection.source.controls.import.completed": "Importen har slutförts",
+
   // "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
   "collection.source.controls.reset.submit.success": "Återställning och omimport har initierats",
+
   // "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
   "collection.source.controls.reset.submit.error": "Något gick fel vid initiering av återställning och omimport",
+
   // "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
   "collection.source.controls.reset.failed": "Ett fel uppstod under återställning och omimport",
+
   // "collection.source.controls.reset.completed": "The reset and reimport completed",
   "collection.source.controls.reset.completed": "Återställningen och omimporten har slutförts",
+
   // "collection.source.controls.reset.submit": "Reset and reimport",
   "collection.source.controls.reset.submit": "Återställ och importera om",
+
   // "collection.source.controls.reset.running": "Resetting and reimporting...",
   "collection.source.controls.reset.running": "Återställer och importerar om...",
+
   // "collection.source.controls.harvest.status": "Harvest status:",
   "collection.source.controls.harvest.status": "Status:",
+
   // "collection.source.controls.harvest.start": "Harvest start time:",
   "collection.source.controls.harvest.start": "Starttid:",
+
   // "collection.source.controls.harvest.last": "Last time harvested:",
   "collection.source.controls.harvest.last": "Senaste höstning:",
+
   // "collection.source.controls.harvest.message": "Harvest info:",
   "collection.source.controls.harvest.message": "Info om höstning:",
+
   // "collection.source.controls.harvest.no-information": "N/A",
   "collection.source.controls.harvest.no-information": "saknas",
 
@@ -1469,8 +1498,8 @@
   // "communityList.tabTitle": "Community List",
   "communityList.tabTitle": "Enheter",
 
-  // "communityList.title": "Samlingar i Chalmers ODR",
-  "communityList.title": "Samlingar i Chalmers ODR",
+  // "communityList.title": "List of Communities",
+  "communityList.title": "Lista med enheter", 
 
   // "communityList.showMore": "Show More",
   "communityList.showMore": "Visa fler",
@@ -1502,7 +1531,7 @@
   "community.delete.head": "Radera enhet",
 
   // "community.delete.notification.fail": "Community could not be deleted",
-  "community.delete.notification.fail": "Eneten kunde inte raderas",
+  "community.delete.notification.fail": "Enheten kunde inte raderas",
 
   // "community.delete.notification.success": "Successfully deleted community",
   "community.delete.notification.success": "Enheten har raderats",
@@ -1806,6 +1835,7 @@
   "curation-task.task.noop.label": "NOOP",
 
   // "curation-task.task.profileformats.label": "Profile Bitstream Formats",
+  // TODO New key - Add a translation
   "curation-task.task.profileformats.label": "Profile Bitstream Formats",
 
   // "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
@@ -1998,6 +2028,7 @@
   "error.sub-communities": "Ett fel uppstod när underenheter hämtades",
 
   // "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
+  // TODO New key - Add a translation
   "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
 
   // "error.top-level-communities": "Error fetching top-level communities",
@@ -2007,6 +2038,7 @@
   "error.validation.license.notgranted": "Du måste godkänna dessa villkor för att skutföra registreringen. Om detta inte är möjligt så kan du spara nu och återvända hit senare, eller radera bidraget.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
+  // TODO New key - Add a translation
   "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
 
   // "error.validation.filerequired": "The file upload is mandatory",
@@ -2043,9 +2075,11 @@
   "footer.link.cookies": "Cookieinställningar",
 
   // "footer.link.privacy-policy": "Privacy policy",
+  // TODO New key - Add a translation
   "footer.link.privacy-policy": "Privacy policy",
 
   // "footer.link.end-user-agreement":"End User Agreement",
+  // TODO New key - Add a translation
   "footer.link.end-user-agreement":"End User Agreement",
 
   // "footer.link.feedback":"Send Feedback",
@@ -2233,6 +2267,7 @@
   "grant-deny-request-copy.email.message.empty": "Skriv ett meddelande",
 
   // "grant-deny-request-copy.email.permissions.info": "You may use this occasion to reconsider the access restrictions on the document, to avoid having to respond to these requests. If you’d like to ask the repository administrators to remove these restrictions, please check the box below.",
+  // TODO New key - Add a translation
   "grant-deny-request-copy.email.permissions.info": "You may use this occasion to reconsider the access restrictions on the document, to avoid having to respond to these requests. If you’d like to ask the repository administrators to remove these restrictions, please check the box below.",
 
   // "grant-deny-request-copy.email.permissions.label": "Change to open access",
@@ -2850,6 +2885,7 @@
 
   // "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
   "item.edit.relationships.no-entity-type": "Lägg till 'dspace.entity.type' metadata för att möjliggöra relationer till denna post",
+
   // "item.edit.return": "Back",
   "item.edit.return": "Tillbaka",
 
@@ -3101,9 +3137,11 @@
   "item.page.bitstreams.collapse": "Fäll ihop",
 
   // "item.page.filesection.original.bundle" : "Original bundle",
+  // TODO New key - Add a translation
   "item.page.filesection.original.bundle" : "Original bundle",
 
   // "item.page.filesection.license.bundle" : "License bundle",
+  // TODO New key - Add a translation
   "item.page.filesection.license.bundle" : "License bundle",
 
   // "item.page.return": "Back",
@@ -3215,6 +3253,7 @@
   "item.version.history.table.summary": "Sammanfattning",
 
   // "item.version.history.table.workspaceItem": "Workspace item",
+  // TODO New key - Add a translation
   "item.version.history.table.workspaceItem": "Workspace item",
 
   // "item.version.history.table.workflowItem": "Workflow item",
@@ -3242,6 +3281,7 @@
   "item.version.history.table.action.deleteVersion": "Radera version",
 
   // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // TODO New key - Add a translation
   "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
 
 
@@ -3283,6 +3323,7 @@
   "item.version.create.notification.failure" : "Ny version har inte skapats",
 
   // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
+  // TODO New key - Add a translation
   "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
 
 
@@ -3349,81 +3390,102 @@
 
 
   // "journalissue.listelement.badge": "Journal Issue",
+  // TODO New key - Add a translation
   "journalissue.listelement.badge": "Journal Issue",
 
   // "journalissue.page.description": "Beskrivning",
   "journalissue.page.description": "Beskrivning",
 
   // "journalissue.page.edit": "Edit this item",
+  // TODO New key - Add a translation
   "journalissue.page.edit": "Edit this item",
 
   // "journalissue.page.issuedate": "Issue Date",
+  // TODO New key - Add a translation
   "journalissue.page.issuedate": "Issue Date",
 
   // "journalissue.page.journal-issn": "Journal ISSN",
+  // TODO New key - Add a translation
   "journalissue.page.journal-issn": "Journal ISSN",
 
   // "journalissue.page.journal-title": "Journal Title",
+  // TODO New key - Add a translation
   "journalissue.page.journal-title": "Journal Title",
 
   // "journalissue.page.keyword": "Keywords",
   "journalissue.page.keyword": "Ämne/nyckelord",
 
   // "journalissue.page.number": "Number",
+  // TODO New key - Add a translation
   "journalissue.page.number": "Number",
 
   // "journalissue.page.titleprefix": "Journal Issue: ",
+  // TODO New key - Add a translation
   "journalissue.page.titleprefix": "Journal Issue: ",
 
 
 
   // "journalvolume.listelement.badge": "Journal Volume",
+  // TODO New key - Add a translation
   "journalvolume.listelement.badge": "Journal Volume",
 
   // "journalvolume.page.description": "Beskrivning",
   "journalvolume.page.description": "Beskrivning",
 
   // "journalvolume.page.edit": "Edit this item",
+  // TODO New key - Add a translation
   "journalvolume.page.edit": "Edit this item",
 
   // "journalvolume.page.issuedate": "Issue Date",
+  // TODO New key - Add a translation
   "journalvolume.page.issuedate": "Issue Date",
 
   // "journalvolume.page.titleprefix": "Journal Volume: ",
+  // TODO New key - Add a translation
   "journalvolume.page.titleprefix": "Journal Volume: ",
 
   // "journalvolume.page.volume": "Volume",
+  // TODO New key - Add a translation
   "journalvolume.page.volume": "Volume",
 
 
   // "iiifsearchable.listelement.badge": "Document Media",
+  // TODO New key - Add a translation
   "iiifsearchable.listelement.badge": "Document Media",
 
   // "iiifsearchable.page.titleprefix": "Document: ",
+  // TODO New key - Add a translation
   "iiifsearchable.page.titleprefix": "Document: ",
 
   // "iiifsearchable.page.doi": "Permanent Link: ",
+  // TODO New key - Add a translation
   "iiifsearchable.page.doi": "Permanent Link: ",
 
   // "iiifsearchable.page.issue": "Issue: ",
+  // TODO New key - Add a translation
   "iiifsearchable.page.issue": "Issue: ",
 
   // "iiifsearchable.page.description": "Beskrivning: ",
   "iiifsearchable.page.description": "Beskrivning: ",
 
   // "iiifviewer.fullscreen.notice": "Use full screen for better viewing.",
+  // TODO New key - Add a translation
   "iiifviewer.fullscreen.notice": "Use full screen for better viewing.",
 
   // "iiif.listelement.badge": "Image Media",
+  // TODO New key - Add a translation
   "iiif.listelement.badge": "Image Media",
 
   // "iiif.page.titleprefix": "Image: ",
+  // TODO New key - Add a translation
   "iiif.page.titleprefix": "Image: ",
 
   // "iiif.page.doi": "Permanent Link: ",
+  // TODO New key - Add a translation
   "iiif.page.doi": "Permanent Link: ",
 
   // "iiif.page.issue": "Issue: ",
+  // TODO New key - Add a translation
   "iiif.page.issue": "Issue: ",
 
   // "iiif.page.description": "Beskrivning: ",
@@ -3887,7 +3949,7 @@
   "mydspace.status.workspace": "I arbetsflödet",
 
   // "mydspace.title": "MyDSpace",
-  "mydspace.title": "MyDSpace",
+  "mydspace.title": "Mitt DSpace",
 
   // "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
   "mydspace.upload.upload-failed": "Ett fel uppstod när arbetsyta skulle skapas. Verifiera inneållet i det som skall laddas upp och försök igen.",
@@ -3922,13 +3984,15 @@
   "nav.login": "Logga in",
 
   // "nav.logout": "User profile menu and Log Out",
+  // TODO New key - Add a translation
   "nav.logout": "User profile menu and Log Out",
 
   // "nav.main.description": "Main navigation bar",
+  // TODO New key - Add a translation
   "nav.main.description": "Main navigation bar",
 
   // "nav.mydspace": "MyDSpace",
-  "nav.mydspace": "Mitt ODR",
+  "nav.mydspace": "Mitt DSpace",
 
   // "nav.profile": "Profile",
   "nav.profile": "Profil",
@@ -3940,40 +4004,50 @@
   "nav.statistics.header": "Statistik",
 
   // "nav.stop-impersonating": "Stop impersonating EPerson",
+  // TODO New key - Add a translation
   "nav.stop-impersonating": "Stop impersonating EPerson",
 
   // "nav.toggle" : "Toggle navigation",
+  // TODO New key - Add a translation
   "nav.toggle" : "Toggle navigation",
 
   // "nav.user.description" : "User profile bar",
+  // TODO New key - Add a translation
   "nav.user.description" : "User profile bar",
 
   // "none.listelement.badge": "Item",
+  // TODO New key - Add a translation
   "none.listelement.badge": "Item",
 
 
   // "orgunit.listelement.badge": "Organizational Unit",
+  // TODO New key - Add a translation
   "orgunit.listelement.badge": "Organizational Unit",
 
   // "orgunit.page.city": "City",
+  // TODO New key - Add a translation
   "orgunit.page.city": "City",
 
   // "orgunit.page.country": "Country",
+  // TODO New key - Add a translation
   "orgunit.page.country": "Country",
 
   // "orgunit.page.dateestablished": "Date established",
+  // TODO New key - Add a translation
   "orgunit.page.dateestablished": "Date established",
 
   // "orgunit.page.description": "Beskrivning",
   "orgunit.page.description": "Beskrivning",
 
   // "orgunit.page.edit": "Edit this item",
+  // TODO New key - Add a translation
   "orgunit.page.edit": "Edit this item",
 
   // "orgunit.page.id": "ID",
   "orgunit.page.id": "ID",
 
   // "orgunit.page.titleprefix": "Organizational Unit: ",
+  // TODO New key - Add a translation
   "orgunit.page.titleprefix": "Organizational Unit: ",
 
   // "pagination.options.description": "Pagination options",
@@ -3994,15 +4068,19 @@
 
 
   // "person.listelement.badge": "Person",
+  // TODO New key - Add a translation
   "person.listelement.badge": "Person",
 
   // "person.listelement.no-title": "No name found",
+  // TODO New key - Add a translation
   "person.listelement.no-title": "No name found",
 
   // "person.page.birthdate": "Birth Date",
+  // TODO New key - Add a translation
   "person.page.birthdate": "Birth Date",
 
   // "person.page.edit": "Edit this item",
+  // TODO New key - Add a translation
   "person.page.edit": "Edit this item",
 
   // "person.page.email": "E-post",
@@ -4018,127 +4096,164 @@
   "person.page.lastname": "Efternamn",
 
   // "person.page.link.full": "Show all metadata",
+  // TODO New key - Add a translation
   "person.page.link.full": "Show all metadata",
 
   // "person.page.orcid": "ORCID",
   "person.page.orcid": "ORCID",
 
   // "person.page.staffid": "Staff ID",
+  // TODO New key - Add a translation
   "person.page.staffid": "Staff ID",
 
   // "person.page.titleprefix": "Person: ",
+  // TODO New key - Add a translation
   "person.page.titleprefix": "Person: ",
 
   // "person.search.results.head": "Person Search Results",
+  // TODO New key - Add a translation
   "person.search.results.head": "Person Search Results",
 
   // "person.search.title": "Person Search",
+  // TODO New key - Add a translation
   "person.search.title": "Person Search",
 
 
 
   // "process.new.select-parameters": "Parameters",
+  // TODO New key - Add a translation
   "process.new.select-parameters": "Parameters",
 
   // "process.new.cancel": "Cancel",
+  // TODO New key - Add a translation
   "process.new.cancel": "Cancel",
 
   // "process.new.submit": "Save",
   "process.new.submit": "Spara",
 
   // "process.new.select-script": "Script",
+  // TODO New key - Add a translation
   "process.new.select-script": "Script",
 
   // "process.new.select-script.placeholder": "Choose a script...",
+  // TODO New key - Add a translation
   "process.new.select-script.placeholder": "Choose a script...",
 
   // "process.new.select-script.required": "Script is required",
+  // TODO New key - Add a translation
   "process.new.select-script.required": "Script is required",
 
   // "process.new.parameter.file.upload-button": "Select file...",
+  // TODO New key - Add a translation
   "process.new.parameter.file.upload-button": "Select file...",
 
   // "process.new.parameter.file.required": "Please select a file",
+  // TODO New key - Add a translation
   "process.new.parameter.file.required": "Please select a file",
 
   // "process.new.parameter.string.required": "Parameter value is required",
+  // TODO New key - Add a translation
   "process.new.parameter.string.required": "Parameter value is required",
 
   // "process.new.parameter.type.value": "value",
+  // TODO New key - Add a translation
   "process.new.parameter.type.value": "value",
 
   // "process.new.parameter.type.file": "file",
+  // TODO New key - Add a translation
   "process.new.parameter.type.file": "file",
 
   // "process.new.parameter.required.missing": "The following parameters are required but still missing:",
+  // TODO New key - Add a translation
   "process.new.parameter.required.missing": "The following parameters are required but still missing:",
 
   // "process.new.notification.success.title": "Success",
+  // TODO New key - Add a translation
   "process.new.notification.success.title": "Success",
 
   // "process.new.notification.success.content": "The process was successfully created",
+  // TODO New key - Add a translation
   "process.new.notification.success.content": "The process was successfully created",
 
   // "process.new.notification.error.title": "Error",
+  // TODO New key - Add a translation
   "process.new.notification.error.title": "Error",
 
   // "process.new.notification.error.content": "An error occurred while creating this process",
+  // TODO New key - Add a translation
   "process.new.notification.error.content": "An error occurred while creating this process",
 
   // "process.new.header": "Create a new process",
+  // TODO New key - Add a translation
   "process.new.header": "Create a new process",
 
   // "process.new.title": "Create a new process",
+  // TODO New key - Add a translation
   "process.new.title": "Create a new process",
 
   // "process.new.breadcrumbs": "Create a new process",
+  // TODO New key - Add a translation
   "process.new.breadcrumbs": "Create a new process",
 
 
 
   // "process.detail.arguments" : "Arguments",
+  // TODO New key - Add a translation
   "process.detail.arguments" : "Arguments",
 
   // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
+  // TODO New key - Add a translation
   "process.detail.arguments.empty" : "This process doesn't contain any arguments",
 
   // "process.detail.back" : "Back",
+  // TODO New key - Add a translation
   "process.detail.back" : "Back",
 
   // "process.detail.output" : "Process Output",
+  // TODO New key - Add a translation
   "process.detail.output" : "Process Output",
 
   // "process.detail.logs.button": "Retrieve process output",
+  // TODO New key - Add a translation
   "process.detail.logs.button": "Retrieve process output",
 
   // "process.detail.logs.loading": "Retrieving",
+  // TODO New key - Add a translation
   "process.detail.logs.loading": "Retrieving",
 
   // "process.detail.logs.none": "This process has no output",
+  // TODO New key - Add a translation
   "process.detail.logs.none": "This process has no output",
 
   // "process.detail.output-files" : "Output Files",
+  // TODO New key - Add a translation
   "process.detail.output-files" : "Output Files",
 
   // "process.detail.output-files.empty" : "This process doesn't contain any output files",
+  // TODO New key - Add a translation
   "process.detail.output-files.empty" : "This process doesn't contain any output files",
 
   // "process.detail.script" : "Script",
+  // TODO New key - Add a translation
   "process.detail.script" : "Script",
 
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
+  // TODO New key - Add a translation
   "process.detail.title" : "Process: {{ id }} - {{ name }}",
 
   // "process.detail.start-time" : "Start time",
+  // TODO New key - Add a translation
   "process.detail.start-time" : "Start time",
 
   // "process.detail.end-time" : "Finish time",
+  // TODO New key - Add a translation
   "process.detail.end-time" : "Finish time",
 
   // "process.detail.status" : "Status",
   "process.detail.status" : "Status",
 
   // "process.detail.create" : "Create similar process",
+  // TODO New key - Add a translation
   "process.detail.create" : "Create similar process",
 
 
@@ -4258,21 +4373,26 @@
 
 
   // "project.listelement.badge": "Research Project",
+  // TODO New key - Add a translation
   "project.listelement.badge": "Research Project",
 
   // "project.page.contributor": "Contributors",
+  // TODO New key - Add a translation
   "project.page.contributor": "Contributors",
 
   // "project.page.description": "Beskrivning",
   "project.page.description": "Beskrivning",
 
   // "project.page.edit": "Edit this item",
+  // TODO New key - Add a translation
   "project.page.edit": "Edit this item",
 
   // "project.page.expectedcompletion": "Expected Completion",
+  // TODO New key - Add a translation
   "project.page.expectedcompletion": "Expected Completion",
 
   // "project.page.funder": "Funders",
+  // TODO New key - Add a translation
   "project.page.funder": "Funders",
 
   // "project.page.id": "ID",
@@ -4285,41 +4405,51 @@
   "project.page.status": "Status",
 
   // "project.page.titleprefix": "Research Project: ",
+  // TODO New key - Add a translation
   "project.page.titleprefix": "Research Project: ",
 
   // "project.search.results.head": "Project Search Results",
+  // TODO New key - Add a translation
   "project.search.results.head": "Project Search Results",
 
 
 
   // "publication.listelement.badge": "Publication",
+  // TODO New key - Add a translation
   "publication.listelement.badge": "Publication",
 
   // "publication.page.description": "Beskrivning",
   "publication.page.description": "Beskrivning",
 
   // "publication.page.edit": "Edit this item",
+  // TODO New key - Add a translation
   "publication.page.edit": "Edit this item",
 
   // "publication.page.journal-issn": "Journal ISSN",
+  // TODO New key - Add a translation
   "publication.page.journal-issn": "Journal ISSN",
 
   // "publication.page.journal-title": "Journal Title",
+  // TODO New key - Add a translation
   "publication.page.journal-title": "Journal Title",
 
   // "publication.page.publisher": "Publisher",
   "publication.page.publisher": "Utgivare",
 
   // "publication.page.titleprefix": "Publication: ",
+  // TODO New key - Add a translation
   "publication.page.titleprefix": "Publication: ",
 
   // "publication.page.volume-title": "Volume Title",
+  // TODO New key - Add a translation
   "publication.page.volume-title": "Volume Title",
 
   // "publication.search.results.head": "Publication Search Results",
+  // TODO New key - Add a translation
   "publication.search.results.head": "Publication Search Results",
 
   // "publication.search.title": "Publication Search",
+  // TODO New key - Add a translation
   "publication.search.title": "Publication Search",
 
 
@@ -4330,6 +4460,7 @@
   "media-viewer.previous": "Föregående",
 
   // "media-viewer.playlist": "Playlist",
+  // TODO New key - Add a translation
   "media-viewer.playlist": "Playlist",
 
 
@@ -4376,7 +4507,7 @@
   "register-page.create-profile.security.label.passwordrepeat": "Bekräfta *",
 
   // "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
-  "register-page.create-profile.security.error.empty-password": "Ange ett lösnord nedan.",
+  "register-page.create-profile.security.error.empty-password": "Ange ett lösenord nedan.",
 
   // "register-page.create-profile.security.error.matching-passwords": "Lösenorden överensstämmer inte.",
   "register-page.create-profile.security.error.matching-passwords": "Lösenorden överensstämmer inte.",
@@ -4394,7 +4525,7 @@
   "register-page.create-profile.submit.error.head": "Registreringen misslyckades",
 
   // "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
-  "register-page.create-profile.submit.success.content": "Regsitreringen är klar. Du är nu inloggad som den nya användaren.",
+  "register-page.create-profile.submit.success.content": "Registreringen är klar. Du är nu inloggad som den nya användaren.",
 
   // "register-page.create-profile.submit.success.head": "Registration completed",
   "register-page.create-profile.submit.success.head": "Registreringen är klar",
@@ -4609,7 +4740,7 @@
   "resource-policies.form.policy-type.label": "Välj typ av policy",
 
   // "resource-policies.form.policy-type.required": "You must select the resource policy type.",
-  "resource-policies.form.policy-type.required": "YDu måste välja typ av policy.",
+  "resource-policies.form.policy-type.required": "Du måste välja typ av policy.",
 
   // "resource-policies.table.headers.action": "Action",
   "resource-policies.table.headers.action": "Åtgärd",
@@ -4898,12 +5029,15 @@
   "search.filters.filter.organizationFoundingDate.label": "Sök grundad (datum)",
 
   // "search.filters.filter.scope.head": "Scope",
+  // TODO New key - Add a translation
   "search.filters.filter.scope.head": "Scope",
 
   // "search.filters.filter.scope.placeholder": "Scope filter",
+  // TODO New key - Add a translation
   "search.filters.filter.scope.placeholder": "Scope filter",
 
   // "search.filters.filter.scope.label": "Search scope filter",
+  // TODO New key - Add a translation
   "search.filters.filter.scope.label": "Search scope filter",
 
   // "search.filters.filter.show-less": "Collapse",
@@ -4961,12 +5095,13 @@
 
 
   // "search.filters.head": "Filters",
-  "search.filters.head": "Filtrera",
+  "search.filters.head": "Filter",
 
   // "search.filters.reset": "Reset filters",
   "search.filters.reset": "Rensa filter",
 
   // "search.filters.search.submit": "Submit",
+  // TODO New key - Add a translation
   "search.filters.search.submit": "Submit",
 
 
@@ -5006,7 +5141,7 @@
   "search.sidebar.close": "Tillbaka till sökresultaten",
 
   // "search.sidebar.filters.title": "Filters",
-  "search.sidebar.filters.title": "Filtrera",
+  "search.sidebar.filters.title": "Filter",
 
   // "search.sidebar.open": "Search Tools",
   "search.sidebar.open": "Sökverktyg",
@@ -5059,9 +5194,11 @@
   "sorting.dc.date.issued.DESC": "Datum (fallande)",
 
   // "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
+  // TODO New key - Add a translation
   "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
 
   // "sorting.dc.date.accessioned.DESC": "Accessioned Date Descending",
+  // TODO New key - Add a translation
   "sorting.dc.date.accessioned.DESC": "Accessioned Date Descending",
 
   // "sorting.lastModified.ASC": "Last modified Ascending",
@@ -5183,7 +5320,7 @@
   "submission.import-external.page.hint": "Ange en sökfråga för att hitta information på webben att importera.",
 
   // "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
-  "submission.import-external.back-to-my-dspace": "Tillbaka till MyDSpace",
+  "submission.import-external.back-to-my-dspace": "Tillbaka till Mitt DSpace",
 
   // "submission.import-external.search.placeholder": "Search the external source",
   "submission.import-external.search.placeholder": "Sök i extern källa",
@@ -5204,15 +5341,19 @@
   "submission.import-external.source.loading": "Laddar ...",
 
   // "submission.import-external.source.sherpaJournal": "SHERPA Journals",
+  // TODO New key - Add a translation
   "submission.import-external.source.sherpaJournal": "SHERPA Journals",
 
   // "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
+  // TODO New key - Add a translation
   "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
 
   // "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+  // TODO New key - Add a translation
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
 
   // "submission.import-external.source.openAIREFunding": "Funding OpenAIRE API",
+  // TODO New key - Add a translation
   "submission.import-external.source.openAIREFunding": "Funding OpenAIRE API",
 
   // "submission.import-external.source.orcid": "ORCID",
@@ -5222,6 +5363,7 @@
   "submission.import-external.source.pubmed": "Pubmed",
 
   // "submission.import-external.source.lcname": "Library of Congress Names",
+  // TODO New key - Add a translation
   "submission.import-external.source.lcname": "Library of Congress Names",
 
   // "submission.import-external.preview.title": "Item Preview",
@@ -5243,6 +5385,7 @@
   "submission.sections.describe.relationship-lookup.close": "Stäng",
 
   // "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
+  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
@@ -5267,6 +5410,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Projekt",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
+  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
@@ -5324,7 +5468,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.local-entity": "Lokal tidskrift har lagts till",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.new-entity": "Successfully imported and added external journal to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.new-entity": "Extern tidskrift har importerats och lagts till",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.new-entity": "Extern tidskrift har importerats och lagts till", 
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.title": "Import Remote Journal Issue",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.title": "Importera externt tidskriftsexemplar",
@@ -5379,6 +5523,7 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Lokala tidskrifter ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Local Projects ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Lokala projekt ({{ count }})",
 
@@ -5401,19 +5546,25 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Lokala tidskrifter ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
+  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Lokala tidskriftsexemplar ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
+  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Lokala tidskriftsvolymer ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
+  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
+  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
@@ -5438,6 +5589,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Sök organisatoriska enheter",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
+  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
@@ -5447,6 +5599,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Finansiär",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
+  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
@@ -5468,12 +5621,16 @@
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Aktuellt urval ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
+  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
+
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Tidskriftsexemplar",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
+  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
+
   // "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.JournalVolume": "Tidskriftsvolymer",
 
@@ -5485,6 +5642,7 @@
 
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Finansiär",
+
   // "submission.sections.describe.relationship-lookup.title.Project": "Projects",
   "submission.sections.describe.relationship-lookup.title.Project": "Projekt",
 
@@ -5529,6 +5687,7 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Valda tidskriftsvolymer",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
   "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Valda projekt",
 
@@ -5551,7 +5710,8 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Valda tidskrifter",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Valt exemnplar",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Valt exemplar",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Vald volym",
 
@@ -5560,6 +5720,7 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Vald finansiering",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Selected Issue",
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Valt exemplar ",
 
@@ -5700,7 +5861,7 @@
   "submission.sections.status.warnings.title": "Varningar",
 
   // "submission.sections.status.errors.aria": "has errors",
-  "submission.sections.status.errors.aria": "inneåller fel",
+  "submission.sections.status.errors.aria": "innehåller fel",
 
   // "submission.sections.status.valid.aria": "is valid",
   "submission.sections.status.valid.aria": "är giltig",
@@ -5937,6 +6098,7 @@
 
 
   // "submission.workflow.tasks.pool.claim": "Claim",
+  // TODO New key - Add a translation
   "submission.workflow.tasks.pool.claim": "Claim",
 
   // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
@@ -6000,6 +6162,7 @@
   "vocabulary-treeview.tree.description.nsi": "The Norwegian Science Index",
 
   // "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
+  // TODO New key - Add a translation
   "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
 
 
