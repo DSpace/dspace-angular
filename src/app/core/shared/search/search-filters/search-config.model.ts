@@ -2,9 +2,9 @@ import { autoserialize, deserialize } from 'cerialize';
 
 import { SEARCH_CONFIG } from './search-config.resource-type';
 import { typedObject } from '../../../cache/builders/build-decorators';
-import { CacheableObject } from '../../../cache/object-cache.reducer';
 import { HALLink } from '../../hal-link.model';
 import { ResourceType } from '../../resource-type';
+import { CacheableObject } from '../../../cache/cacheable-object.model';
 
 /**
  * The configuration for a search
@@ -29,7 +29,7 @@ export class SearchConfig implements CacheableObject {
    * The configured sort options.
    */
   @autoserialize
-  sortOptions: SortOption[];
+  sortOptions: SortConfig[];
 
   /**
    * The object type.
@@ -63,7 +63,7 @@ export interface FilterConfig {
 /**
  * Interface to model sort option's configuration.
  */
-export interface SortOption {
+export interface SortConfig {
   name: string;
   sortOrder: string;
 }

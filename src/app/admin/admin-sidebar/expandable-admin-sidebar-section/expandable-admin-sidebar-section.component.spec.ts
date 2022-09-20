@@ -10,6 +10,8 @@ import { Component } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { RouterStub } from '../../../shared/testing/router.stub';
 
 describe('ExpandableAdminSidebarSectionComponent', () => {
   let component: ExpandableAdminSidebarSectionComponent;
@@ -24,6 +26,7 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
         { provide: 'sectionDataProvider', useValue: { icon: iconString } },
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
+        { provide: Router, useValue: new RouterStub() },
       ]
     }).overrideComponent(ExpandableAdminSidebarSectionComponent, {
       set: {
@@ -46,29 +49,14 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
   });
 
   it('should set the right icon', () => {
-    const icon = fixture.debugElement.query(By.css('.icon-wrapper')).query(By.css('i.fas'));
+    const icon = fixture.debugElement.query(By.css('.shortcut-icon > i.fas'));
     expect(icon.nativeElement.getAttribute('class')).toContain('fa-' + iconString);
-  });
-
-  describe('when the icon is clicked', () => {
-    beforeEach(() => {
-      spyOn(menuService, 'toggleActiveSection');
-      const sidebarToggler = fixture.debugElement.query(By.css('a.shortcut-icon'));
-      sidebarToggler.triggerEventHandler('click', {
-        preventDefault: () => {/**/
-        }
-      });
-    });
-
-    it('should call toggleActiveSection on the menuService', () => {
-      expect(menuService.toggleActiveSection).toHaveBeenCalled();
-    });
   });
 
   describe('when the header text is clicked', () => {
     beforeEach(() => {
       spyOn(menuService, 'toggleActiveSection');
-      const sidebarToggler = fixture.debugElement.query(By.css('.sidebar-collapsible')).query(By.css('a'));
+      const sidebarToggler = fixture.debugElement.query(By.css('.sidebar-section > div.nav-item'));
       sidebarToggler.triggerEventHandler('click', {
         preventDefault: () => {/**/
         }

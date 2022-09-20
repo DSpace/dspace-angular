@@ -1,15 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
-import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../../search/paginated-search-options.model';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { VersionHistory } from '../../../../core/shared/version-history.model';
 import { Version } from '../../../../core/shared/version.model';
 import { hasValue, hasValueOperator } from '../../../empty.util';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../core/shared/operators';
-import { filter, map, startWith, switchMap } from 'rxjs/operators';
-import { followLink } from '../../../utils/follow-link-config.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload
+} from '../../../../core/shared/operators';
+import { map, startWith, switchMap } from 'rxjs/operators';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
 import { AlertType } from '../../../alert/aletr-type';
 import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
@@ -47,16 +48,11 @@ export class ItemVersionsNoticeComponent implements OnInit {
    * Is the item's version equal to the latest version from the version history?
    * This will determine whether or not to display a notice linking to the latest version
    */
-  isLatestVersion$: Observable<boolean>;
+  showLatestVersionNotice$: Observable<boolean>;
 
   /**
    * Pagination options to fetch a single version on the first page (this is the latest version in the history)
    */
-  latestVersionOptions = Object.assign(new PaginationComponentOptions(),{
-    id: 'item-newest-version-options',
-    currentPage: 1,
-    pageSize: 1
-  });
 
   /**
    * The AlertType enumeration
@@ -71,7 +67,6 @@ export class ItemVersionsNoticeComponent implements OnInit {
    * Initialize the component's observables
    */
   ngOnInit(): void {
-    const latestVersionSearch = new PaginatedSearchOptions({pagination: this.latestVersionOptions});
     if (hasValue(this.item.version)) {
       this.versionRD$ = this.item.version;
       this.versionHistoryRD$ = this.versionRD$.pipe(
@@ -80,25 +75,17 @@ export class ItemVersionsNoticeComponent implements OnInit {
         hasValueOperator(),
         switchMap((version: Version) => version.versionhistory)
       );
-      const versionHistory$ = this.versionHistoryRD$.pipe(
-        getAllSucceededRemoteData(),
-        getRemoteDataPayload(),
-      );
-      this.latestVersion$ = versionHistory$.pipe(
-        switchMap((versionHistory: VersionHistory) =>
-          this.versionHistoryService.getVersions(versionHistory.id, latestVersionSearch, true, true, followLink('item'))),
-        getAllSucceededRemoteData(),
-        getRemoteDataPayload(),
-        hasValueOperator(),
-        filter((versions) => versions.page.length > 0),
-        map((versions) => versions.page[0])
+
+      this.latestVersion$ = this.versionHistoryRD$.pipe(
+        getFirstSucceededRemoteDataPayload(),
+        switchMap((vh) => this.versionHistoryService.getLatestVersionFromHistory$(vh))
       );
 
-      this.isLatestVersion$ = observableCombineLatest(
-        this.versionRD$.pipe(getAllSucceededRemoteData(), getRemoteDataPayload()), this.latestVersion$
-      ).pipe(
-        map(([itemVersion, latestVersion]: [Version, Version]) => itemVersion.id === latestVersion.id),
-        startWith(true)
+      this.showLatestVersionNotice$ = this.versionRD$.pipe(
+        getFirstSucceededRemoteDataPayload(),
+        switchMap((version) => this.versionHistoryService.isLatest$(version)),
+        map((isLatest) => isLatest != null && !isLatest),
+        startWith(false),
       );
     }
   }

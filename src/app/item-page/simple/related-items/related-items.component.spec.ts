@@ -5,7 +5,7 @@ import { Item } from '../../../core/shared/item.model';
 import { By } from '@angular/platform-browser';
 import { createRelationshipsObservable } from '../item-types/shared/item.component.spec';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { RelationshipService } from '../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { of as observableOf } from 'rxjs';
@@ -28,7 +28,7 @@ const mockItem2: Item = Object.assign(new Item(), {
 });
 const mockItems = [mockItem1, mockItem2];
 const relationType = 'isItemOfItem';
-let relationshipService: RelationshipService;
+let relationshipService: RelationshipDataService;
 
 describe('RelatedItemsComponent', () => {
   let comp: RelatedItemsComponent;
@@ -45,7 +45,7 @@ describe('RelatedItemsComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [RelatedItemsComponent, VarDirective],
       providers: [
-        { provide: RelationshipService, useValue: relationshipService }
+        { provide: RelationshipDataService, useValue: relationshipService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(RelatedItemsComponent, {

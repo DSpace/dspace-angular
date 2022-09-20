@@ -2,13 +2,13 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { Router } from '@angular/router';
-import { ExternalSourceService } from '../../../../../../core/data/external-source.service';
+import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
 import { ExternalSource } from '../../../../../../core/shared/external-source.model';
-import { startWith, switchMap } from 'rxjs/operators';
-import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
+import { map, startWith, switchMap } from 'rxjs/operators';
+import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { Context } from '../../../../../../core/shared/context.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { fadeIn, fadeInOut } from '../../../../../animations/fade';
@@ -22,6 +22,8 @@ import { Item } from '../../../../../../core/shared/item.model';
 import { Collection } from '../../../../../../core/shared/collection.model';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { Observable, Subscription } from 'rxjs';
+import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
+import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-external-source-tab',
@@ -116,9 +118,14 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
    */
   importObjectSub: Subscription;
 
+  /**
+   * The entity types compatible with the given external source
+   */
+  relatedEntityType: ItemType;
+
   constructor(private router: Router,
               public searchConfigService: SearchConfigurationService,
-              private externalSourceService: ExternalSourceService,
+              private externalSourceService: ExternalSourceDataService,
               private modalService: NgbModal,
               private selectableListService: SelectableListService,
               private paginationService: PaginationService
@@ -129,6 +136,15 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
    * Get the entries for the selected external source
    */
   ngOnInit(): void {
+    this.externalSource.entityTypes.pipe(
+      getFirstCompletedRemoteData(),
+      map((entityTypesRD: RemoteData<PaginatedList<ItemType>>) => {
+        return (entityTypesRD.hasSucceeded && entityTypesRD.payload.totalElements > 0) ? entityTypesRD.payload.page[0] : null;
+      })
+    ).subscribe((entityType: ItemType) => {
+      this.relatedEntityType = entityType;
+    });
+
     this.resetRoute();
     this.entriesRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
       switchMap((searchOptions: PaginatedSearchOptions) =>
@@ -155,6 +171,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
     modalComp.collection = this.collection;
     modalComp.relationship = this.relationship;
     modalComp.label = this.label;
+    modalComp.relatedEntityType = this.relatedEntityType;
     this.importObjectSub = modalComp.importedObject.subscribe((object) => {
       this.selectableListService.selectSingle(this.listId, object);
       this.importedObject.emit(object);

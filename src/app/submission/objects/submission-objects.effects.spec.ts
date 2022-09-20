@@ -54,6 +54,8 @@ import { Item } from '../../core/shared/item.model';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
+import { mockSubmissionObjectDataService } from '../../shared/testing/submission-oject-data-service.mock';
 
 describe('SubmissionObjectEffects test suite', () => {
   let submissionObjectEffects: SubmissionObjectEffects;
@@ -63,6 +65,7 @@ describe('SubmissionObjectEffects test suite', () => {
   let notificationsServiceStub;
   let submissionServiceStub;
   let submissionJsonPatchOperationsServiceStub;
+  let submissionObjectDataServiceStub;
   const collectionId: string = mockSubmissionCollectionId;
   const submissionId: string = mockSubmissionId;
   const submissionDefinitionResponse: any = mockSubmissionDefinitionResponse;
@@ -75,6 +78,9 @@ describe('SubmissionObjectEffects test suite', () => {
     notificationsServiceStub = new NotificationsServiceStub();
     submissionServiceStub =  new SubmissionServiceStub();
     submissionJsonPatchOperationsServiceStub = new SubmissionJsonPatchOperationsServiceStub();
+    submissionObjectDataServiceStub = mockSubmissionObjectDataService;
+
+    submissionServiceStub.hasUnsavedModification.and.returnValue(observableOf(true));
 
     TestBed.configureTestingModule({
       imports: [
@@ -99,6 +105,7 @@ describe('SubmissionObjectEffects test suite', () => {
         { provide: WorkflowItemDataService, useValue: {} },
         { provide: WorkflowItemDataService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
+        { provide: SubmissionObjectDataService, useValue: submissionObjectDataServiceStub },
       ],
     });
 
@@ -230,6 +237,7 @@ describe('SubmissionObjectEffects test suite', () => {
         b: new SaveSubmissionFormSuccessAction(
           submissionId,
           mockSubmissionRestResponse as any,
+          true,
           true
         )
       });
@@ -253,6 +261,7 @@ describe('SubmissionObjectEffects test suite', () => {
         b: new SaveSubmissionFormSuccessAction(
           submissionId,
           mockSubmissionRestResponse as any,
+          false,
           false
         )
       });
@@ -877,9 +886,10 @@ describe('SubmissionObjectEffects test suite', () => {
       });
 
       expect(submissionObjectEffects.saveAndDeposit$).toBeObservable(expected);
+      expect(notificationsServiceStub.warning).not.toHaveBeenCalled();
     });
 
-    it('should not allow to deposit when there are errors', () => {
+    it('should return a SAVE_SUBMISSION_FORM_SUCCESS action when there are errors', () => {
       store.nextState({
         submission: {
           objects: submissionState
@@ -902,34 +912,12 @@ describe('SubmissionObjectEffects test suite', () => {
 
       submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(response));
 
-      const errorsList = parseSectionErrors(mockSectionsErrors);
       const expected = cold('--b-', {
-        b: [
-          new UpdateSectionDataAction(
-            submissionId,
-            'traditionalpageone',
-            mockSectionsData.traditionalpageone as any,
-            errorsList.traditionalpageone || [],
-            errorsList.traditionalpageone || []
-          ),
-          new UpdateSectionDataAction(
-            submissionId,
-            'license',
-            mockSectionsData.license as any,
-            errorsList.license || [],
-            errorsList.license || []
-          ),
-          new UpdateSectionDataAction(
-            submissionId,
-            'upload',
-            mockSectionsData.upload as any,
-            errorsList.upload || [],
-            errorsList.upload || []
-          )
-        ]
+        b: new SaveSubmissionFormSuccessAction(submissionId, response as any[], false, true)
       });
 
       expect(submissionObjectEffects.saveAndDeposit$).toBeObservable(expected);
+      expect(notificationsServiceStub.warning).toHaveBeenCalled();
     });
 
     it('should catch errors and return a SAVE_SUBMISSION_FORM_ERROR', () => {

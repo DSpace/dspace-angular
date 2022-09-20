@@ -17,14 +17,12 @@ describe('SearchFiltersComponent', () => {
   let searchService: SearchService;
 
   const searchServiceStub = {
-    /* tslint:disable:no-empty */
-    getConfig: () =>
-      observableOf({ hasSucceeded: true, payload: [] }),
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     getClearFiltersQueryParams: () => {
     },
     getSearchLink: () => {
     }
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
 
   const searchFiltersStub = {
@@ -82,7 +80,7 @@ describe('SearchFiltersComponent', () => {
 
       expect(comp.initFilters).toHaveBeenCalledTimes(1);
 
-      refreshFiltersEmitter.next();
+      refreshFiltersEmitter.next(null);
 
       expect(comp.initFilters).toHaveBeenCalledTimes(2);
     });

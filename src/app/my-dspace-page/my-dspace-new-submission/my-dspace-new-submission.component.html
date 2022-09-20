@@ -8,14 +8,10 @@
 
   </div>
   <div class="add">
-    <button class="btn btn-lg btn-primary mt-1 ml-2" (click)="openDialog()" attr.aria-label="'mydspace.new-submission' | translate" title="{{'mydspace.new-submission' | translate}}">
-      <i class="fa fa-plus" aria-hidden="true"></i>
-    </button>
+    <ds-my-dspace-new-submission-dropdown></ds-my-dspace-new-submission-dropdown>
   </div>
   <div class="add">
-    <a class="btn btn-lg btn-outline-primary mt-1 ml-2" [routerLink]="['/import-external']" role="button" attr.aria-label="{{'mydspace.new-submission-external' | translate}}" title="{{'mydspace.new-submission-external' | translate}}">
-      <i class="fa fa-file-import" aria-hidden="true"></i>
-    </a>
+    <ds-my-dspace-new-external-dropdown></ds-my-dspace-new-external-dropdown>
   </div>
 
 </div>

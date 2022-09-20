@@ -3,7 +3,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of as observableOf, of } from 'rxjs';
 
 import { RemoteData } from '../data/remote-data';
 import { Item } from '../shared/item.model';
@@ -23,6 +23,7 @@ import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { getMockStore } from '@ngrx/store/testing';
 import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 
 describe('MetadataService', () => {
   let metadataService: MetadataService;
@@ -38,6 +39,7 @@ describe('MetadataService', () => {
   let rootService: RootDataService;
   let translateService: TranslateService;
   let hardRedirectService: HardRedirectService;
+  let authorizationService: AuthorizationDataService;
 
   let router: Router;
   let store;
@@ -50,7 +52,7 @@ describe('MetadataService', () => {
       findRoot: createSuccessfulRemoteDataObject$({ dspaceVersion: 'mock-dspace-version' })
     });
     bitstreamDataService = jasmine.createSpyObj({
-      findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([MockBitstream3]))
+      findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([MockBitstream3])),
     });
     bundleDataService = jasmine.createSpyObj({
       findByItemAndName: mockBundleRD$([MockBitstream3])
@@ -76,6 +78,9 @@ describe('MetadataService', () => {
     hardRedirectService = jasmine.createSpyObj( {
       getCurrentOrigin: 'https://request.org',
     });
+    authorizationService = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: observableOf(true)
+    });
 
     // @ts-ignore
     store = getMockStore({ initialState });
@@ -92,7 +97,8 @@ describe('MetadataService', () => {
       undefined,
       rootService,
       store,
-      hardRedirectService
+      hardRedirectService,
+      authorizationService
     );
   });
 
@@ -155,6 +161,22 @@ describe('MetadataService', () => {
       name: 'citation_technical_report_institution',
       content: 'Mock Publisher'
     });
+  }));
+
+  it('route titles should overwrite dso titles', fakeAsync(() => {
+    (translateService.get as jasmine.Spy).and.returnValues(of('DSpace :: '), of('Translated Route Title'));
+    (metadataService as any).processRouteChange({
+      data: {
+        value: {
+          dso: createSuccessfulRemoteDataObject(ItemMock),
+          title: 'route.title.key',
+        }
+      }
+    });
+    tick();
+    expect(title.setTitle).toHaveBeenCalledTimes(2);
+    expect((title.setTitle as jasmine.Spy).calls.argsFor(0)).toEqual(['Test PowerPoint Document']);
+    expect((title.setTitle as jasmine.Spy).calls.argsFor(1)).toEqual(['DSpace :: Translated Route Title']);
   }));
 
   it('other navigation should add title and description', fakeAsync(() => {
@@ -300,6 +322,24 @@ describe('MetadataService', () => {
       });
     }));
 
+    describe('bitstream not download allowed', () => {
+      it('should not have citation_pdf_url', fakeAsync(() => {
+        (bundleDataService.findByItemAndName as jasmine.Spy).and.returnValue(mockBundleRD$([MockBitstream3]));
+        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+
+        (metadataService as any).processRouteChange({
+          data: {
+            value: {
+              dso: createSuccessfulRemoteDataObject(ItemMock),
+            }
+          }
+        });
+        tick();
+        expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_pdf_url' }));
+      }));
+
+    });
+
     describe('no primary Bitstream', () => {
       it('should link to first and only Bitstream regardless of format', fakeAsync(() => {
         (bundleDataService.findByItemAndName as jasmine.Spy).and.returnValue(mockBundleRD$([MockBitstream3]));
@@ -321,7 +361,7 @@ describe('MetadataService', () => {
       it('should link to first Bitstream with allowed format', fakeAsync(() => {
         const bitstreams = [MockBitstream3, MockBitstream3, MockBitstream1];
         (bundleDataService.findByItemAndName as jasmine.Spy).and.returnValue(mockBundleRD$(bitstreams));
-        (bitstreamDataService.findAllByHref as jasmine.Spy).and.returnValues(
+        (bitstreamDataService.findListByHref as jasmine.Spy).and.returnValues(
           ...mockBitstreamPages$(bitstreams).map(bp => createSuccessfulRemoteDataObject$(bp)),
         );
 

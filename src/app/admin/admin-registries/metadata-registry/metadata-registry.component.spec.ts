@@ -21,8 +21,8 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../core/data/request.models';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
@@ -52,7 +52,7 @@ describe('MetadataRegistryComponent', () => {
     }
   ];
   const mockSchemas = createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockSchemasList));
-  /* tslint:disable:no-empty */
+  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   const registryServiceStub = {
     getMetadataSchemas: () => mockSchemas,
     getActiveMetadataSchema: () => observableOf(undefined),
@@ -66,7 +66,7 @@ describe('MetadataRegistryComponent', () => {
     },
     clearMetadataSchemaRequests: () => observableOf(undefined)
   };
-  /* tslint:enable:no-empty */
+  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   paginationService = new PaginationServiceStub();
 

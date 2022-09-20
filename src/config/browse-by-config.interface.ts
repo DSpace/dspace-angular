@@ -1,5 +1,4 @@
 import { Config } from './config.interface';
-import { BrowseByTypeConfig } from './browse-by-type-config.interface';
 
 /**
  * Config that determines how the dropdown list of years are created for browse-by-date components
@@ -19,9 +18,4 @@ export interface BrowseByConfig extends Config {
    * The absolute lowest year to display in the dropdown when no lowest date can be found for all items
    */
   defaultLowerLimit: number;
-
-  /**
-   * A list of all the active Browse-By pages
-   */
-  types: BrowseByTypeConfig[];
 }

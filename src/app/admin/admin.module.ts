@@ -24,7 +24,7 @@ const ENTRY_COMPONENTS = [
     AccessControlModule,
     AdminSearchModule.withEntryComponents(),
     AdminWorkflowModuleModule.withEntryComponents(),
-    SharedModule,
+    SharedModule
   ],
   declarations: [
     AdminCurationTasksComponent,
@@ -34,7 +34,7 @@ const ENTRY_COMPONENTS = [
 export class AdminModule {
   /**
    * NOTE: this method allows to resolve issue with components that using a custom decorator
-   * which are not loaded during CSR otherwise
+   * which are not loaded during SSR otherwise
    */
   static withEntryComponents() {
     return {

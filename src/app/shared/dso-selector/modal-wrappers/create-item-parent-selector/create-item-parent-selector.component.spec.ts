@@ -69,4 +69,10 @@ describe('CreateItemParentSelectorComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['/submit'], { queryParams: { collection: collection.uuid } });
   });
 
+  it('should call navigate on the router with entityType parameter', () => {
+    const entityType = 'Person';
+    component.entityType = entityType;
+    component.navigate(collection);
+    expect(router.navigate).toHaveBeenCalledWith(['/submit'], { queryParams: { collection: collection.uuid, entityType: entityType } });
+  });
 });

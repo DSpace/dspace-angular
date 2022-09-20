@@ -1,6 +1,6 @@
 <h5>
     {{getRelationshipMessageKey() | async | translate}}
-    <button class="ml-2 btn btn-success" (click)="openLookup()">
+    <button class="ml-2 btn btn-success" [disabled]="(hasChanges | async)" (click)="openLookup()">
         <i class="fas fa-plus"></i>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.relationships.edit.buttons.add" | translate}}</span>
     </button>
@@ -31,5 +31,5 @@
           <div *ngIf="updateValues.length === 0">{{"item.edit.relationships.no-relationships" | translate}}</div>
         </ng-container>
     </ng-container>
-    <ds-loading *ngIf="loading$ | async"></ds-loading>
+    <ds-themed-loading *ngIf="loading$ | async"></ds-themed-loading>
 </ng-container>

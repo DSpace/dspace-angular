@@ -10,8 +10,8 @@ import {
   SearchFilterToggleAction
 } from '../../../shared/search/search-filters/search-filter/search-filter.actions';
 import { SearchFiltersState } from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
-import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
-import { FilterType } from '../../../shared/search/filter-type.model';
+import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
+import { FilterType } from '../../../shared/search/models/filter-type.model';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { of as observableOf } from 'rxjs';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
@@ -30,14 +30,14 @@ describe('SearchFilterService', () => {
   const value1 = 'random value';
   // const value2 = 'another value';
   const store: Store<SearchFiltersState> = jasmine.createSpyObj('store', {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
     select: observableOf(true)
   });
 
   const routeServiceStub: any = {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     hasQueryParamWithValue: (param: string, value: string) => {
     },
     hasQueryParam: (param: string) => {
@@ -56,7 +56,7 @@ describe('SearchFilterService', () => {
     },
     getRouteParameterValue: (param: string) => {
     }
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
   const activatedRoute: any = new ActivatedRouteStub();
   const searchServiceStub: any = {
