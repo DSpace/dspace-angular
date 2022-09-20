@@ -189,6 +189,10 @@ export const environment: BuildConfig = {
     code: 'bn',
     label: 'বাংলা',
     active: true,
+  }, {
+    code: 'el',
+    label: 'Ελληνικά',
+    active: true,
   }],
 
   // Browse-By Pages
@@ -202,7 +206,19 @@ export const environment: BuildConfig = {
     // Whether to add item thumbnail images to BOTH browse and search result lists.
     showThumbnails: true
   },
-
+  communityList: {
+    pageSize: 20
+  },
+  homePage: {
+    recentSubmissions: {
+      pageSize: 5,
+      //sort record of recent submission
+      sortField: 'dc.date.accessioned',
+    },
+    topLevelCommunityList: {
+      pageSize: 5
+    }
+  },
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds
@@ -251,12 +267,4 @@ export const environment: BuildConfig = {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
   },
-  //Home Page
-  homePage: {
-    recentSubmissions: {
-      pageSize: 5,
-      //sort record of recent submission
-      sortField: 'dc.date.accessioned',
-    }
-  }
 };
