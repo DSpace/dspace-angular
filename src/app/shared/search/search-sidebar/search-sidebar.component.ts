@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { SearchFilterConfig } from '../models/search-filter-config.model';
 
 /**
  * This component renders a simple item page.
@@ -42,6 +44,11 @@ export class SearchSidebarComponent {
    * The current sort option used
    */
   @Input() currentSortOption: SortOptions;
+
+  /**
+   * An observable containing configuration about which filters are shown and how they are shown
+   */
+  @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
 
   /**
    * The total amount of results
