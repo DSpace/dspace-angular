@@ -62,6 +62,8 @@ export class VersionedItemComponent extends ItemComponent {
     activeModal.componentInstance.createVersionEvent.pipe(
       switchMap((summary: string) => this.versionHistoryService.createVersion(item._links.self.href, summary)),
       getFirstCompletedRemoteData(),
+      // close model (should be displaying loading/waiting indicator) when version creation failed/succeeded
+      tap(() => activeModal.close()),
       // show success/failure notification
       tap((res: RemoteData<Version>) => { this.itemVersionShared.notifyCreateNewVersion(res); }),
       // get workspace item

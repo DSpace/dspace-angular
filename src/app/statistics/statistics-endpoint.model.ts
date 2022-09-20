@@ -1,10 +1,10 @@
 import { HALLink } from '../core/shared/hal-link.model';
 import { typedObject } from '../core/cache/builders/build-decorators';
-import { CacheableObject } from '../core/cache/object-cache.reducer';
 import { excludeFromEquals } from '../core/utilities/equals.decorators';
 import { autoserialize, deserialize } from 'cerialize';
 import { ResourceType } from '../core/shared/resource-type';
 import { STATISTICS_ENDPOINT } from './statistics-endpoint.resource-type';
+import { CacheableObject } from '../core/cache/cacheable-object.model';
 
 /**
  * Model class for the statistics endpoint

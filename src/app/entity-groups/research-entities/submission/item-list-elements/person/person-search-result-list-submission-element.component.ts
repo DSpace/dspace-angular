@@ -6,7 +6,7 @@ import { listableObjectComponent } from '../../../../../shared/object-collection
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { Context } from '../../../../../core/shared/context.model';
-import { RelationshipService } from '../../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { take } from 'rxjs/operators';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
@@ -34,7 +34,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
   alternativeField = 'dc.title.alternative';
 
   constructor(protected truncatableService: TruncatableService,
-              private relationshipService: RelationshipService,
+              private relationshipService: RelationshipDataService,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
               private modalService: NgbModal,

@@ -4,6 +4,7 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
@@ -24,7 +25,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
-import { TranslateModule } from '@ngx-translate/core';
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
 mockItemWithMetadata.hitHighlights = {};
@@ -102,7 +102,7 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
       TestBed.configureTestingModule({
         imports: [
           NoopAnimationsModule,
-          TranslateModule.forRoot(),
+          TranslateModule.forRoot()
         ],
         declarations: [component, TruncatePipe],
         providers: [
