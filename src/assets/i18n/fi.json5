@@ -5061,7 +5061,8 @@
   // "uploader.or": ", or ",
   "uploader.or": " tai",
 
-  // "uploader.processing": "Processing",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
+  // TODO Source message changed - Revise the translation
   "uploader.processing": "Käsitellään",
 
   // "uploader.queue-length": "Queue length",
