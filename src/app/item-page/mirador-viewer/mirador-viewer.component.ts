@@ -8,6 +8,7 @@ import { map, take } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { MiradorViewerService } from './mirador-viewer.service';
 import { HostWindowService, WidthCategory } from '../../shared/host-window.service';
+import { BundleDataService } from '../../core/data/bundle-data.service';
 
 @Component({
   selector: 'ds-mirador-viewer',
@@ -55,6 +56,7 @@ export class MiradorViewerComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer,
               private viewerService: MiradorViewerService,
               private bitstreamDataService: BitstreamDataService,
+              private bundleDataService: BundleDataService,
               private hostWindowService: HostWindowService,
               @Inject(PLATFORM_ID) private platformId: any) {
   }
@@ -120,8 +122,12 @@ export class MiradorViewerComponent implements OnInit {
           })
         );
       } else {
-        // Sets the multi value based on the image count.
-        this.iframeViewerUrl = this.viewerService.getImageCount(this.object, this.bitstreamDataService).pipe(
+        // Sets the multi value based on the image count. Any count greater than 1
+        // will add the right thumbnail navigation panel to the viewer.
+        this.iframeViewerUrl = this.viewerService.getImageCount(
+          this.object,
+          this.bitstreamDataService,
+          this.bundleDataService).pipe(
           map(c => {
             if (c > 1) {
               this.multi = true;
