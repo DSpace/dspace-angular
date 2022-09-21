@@ -1,6 +1,6 @@
 import { Inject, InjectionToken, Pipe, PipeTransform } from '@angular/core';
 import MarkdownIt from 'markdown-it';
-import * as DOMPurify from 'isomorphic-dompurify';
+import * as sanitizeHtml from 'sanitize-html';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { environment } from '../../../environments/environment';
 
@@ -46,6 +46,38 @@ export class MarkdownPipe implements PipeTransform {
     if (environment.markdown.mathjax) {
       md.use(await this.mathjax);
     }
-    return this.sanitizer.bypassSecurityTrustHtml(DOMPurify.sanitize(md.render(value)));
+    return this.sanitizer.bypassSecurityTrustHtml(
+      sanitizeHtml(md.render(value), {
+        // sanitize-html doesn't let through SVG by default, so we extend its allowlists to cover MathJax SVG
+        allowedTags: [
+          ...sanitizeHtml.defaults.allowedTags,
+          'mjx-container', 'svg', 'g', 'path', 'rect', 'text'
+        ],
+        allowedAttributes: {
+          ...sanitizeHtml.defaults.allowedAttributes,
+          'mjx-container': [
+            'class', 'style', 'jax'
+          ],
+          svg: [
+            'xmlns', 'viewBox', 'style', 'width', 'height', 'role', 'focusable', 'alt', 'aria-label'
+          ],
+          g: [
+            'data-mml-node', 'style', 'stroke', 'fill', 'stroke-width', 'transform'
+          ],
+          path: [
+            'd', 'style', 'transform'
+          ],
+          rect: [
+            'width', 'height', 'x', 'y', 'transform', 'style'
+          ],
+          text: [
+            'transform', 'font-size'
+          ]
+        },
+        parser: {
+          lowerCaseAttributeNames: false,
+        },
+      })
+    );
   }
 }
