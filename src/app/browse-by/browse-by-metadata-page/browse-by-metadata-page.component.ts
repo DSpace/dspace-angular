@@ -1,5 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -26,9 +27,10 @@ export const BBM_PAGINATION_ID = 'bbm';
   templateUrl: './browse-by-metadata-page.component.html'
 })
 /**
- * Component for browsing (items) by metadata definition
- * A metadata definition (a.k.a. browse id) is a short term used to describe one or multiple metadata fields.
- * An example would be 'author' for 'dc.contributor.*'
+ * Component for browsing (items) by metadata definition.
+ * A metadata definition (a.k.a. browse id) is a short term used to describe one
+ * or multiple metadata fields.  An example would be 'author' for
+ * 'dc.contributor.*'
  */
 @rendersBrowseBy(BrowseByDataType.Metadata)
 export class BrowseByMetadataPageComponent implements OnInit {
@@ -51,11 +53,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
   /**
    * The pagination config used to display the values
    */
-  paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: BBM_PAGINATION_ID,
-    currentPage: 1,
-    pageSize: 20
-  });
+  paginationConfig: PaginationComponentOptions;
 
   /**
    * The pagination observable
@@ -115,8 +113,14 @@ export class BrowseByMetadataPageComponent implements OnInit {
                      protected browseService: BrowseService,
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
-                     protected router: Router) {
-  }
+                     protected router: Router,
+                     @Inject(APP_CONFIG) protected appConfig: AppConfig) {
+    this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
+        id: BBM_PAGINATION_ID,
+        currentPage: 1,
+        pageSize: this.appConfig.browseBy.pageSize,
+        });
+    }
 
   ngOnInit(): void {
     const sortConfig = new SortOptions('default', SortDirection.ASC);
