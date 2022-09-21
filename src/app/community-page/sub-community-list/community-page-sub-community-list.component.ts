@@ -12,6 +12,7 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { takeUntilCompletedRemoteData } from '../../core/shared/operators';
 import { switchMap } from 'rxjs/operators';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { hasValue } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-community-page-sub-community-list',
@@ -26,7 +27,7 @@ export class CommunityPageSubCommunityListComponent implements OnInit, OnDestroy
   @Input() community: Community;
 
   /**
-   * Optional page size (defaults to 5).
+   * Optional page size. Overrides communityList.pageSize configuration for this component.
    */
   @Input() pageSize: number;
 
@@ -58,7 +59,9 @@ export class CommunityPageSubCommunityListComponent implements OnInit, OnDestroy
   ngOnInit(): void {
     this.config = new PaginationComponentOptions();
     this.config.id = this.pageId;
-    this.pageSize ? this.config.pageSize = this.pageSize : this.config.pageSize = 5;
+    if(hasValue(this.pageSize)) {
+      this.config.pageSize = this.pageSize
+    }
     this.config.currentPage = 1;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
     this.initPage();
