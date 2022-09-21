@@ -200,7 +200,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   }
 
   protected importThemedComponent(themeName: string): Promise<any> {
-    return import(`../../../themes//${themeName}/app/shared/object-list/object-list.component`);
+    return import(`../../../themes/${themeName}/app/shared/object-list/object-list.component`);
   }
 
   protected importUnthemedComponent(): Promise<any> {
