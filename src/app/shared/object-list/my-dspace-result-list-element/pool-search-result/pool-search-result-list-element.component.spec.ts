@@ -18,6 +18,7 @@ import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { By } from '@angular/platform-browser';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 
 let component: PoolSearchResultListElementComponent;
 let fixture: ComponentFixture<PoolSearchResultListElementComponent>;
@@ -59,6 +60,10 @@ const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdIt
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockResultObject.indexableObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
 const linkService = getMockLinkService();
+const objectCacheServiceMock = jasmine.createSpyObj('ObjectCacheService', {
+  remove: jasmine.createSpy('remove')
+});
+
 
 describe('PoolSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -68,7 +73,8 @@ describe('PoolSearchResultListElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: LinkService, useValue: linkService },
-        { provide: DSONameService, useClass: DSONameServiceMock }
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: ObjectCacheService, useValue: objectCacheServiceMock }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PoolSearchResultListElementComponent, {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
@@ -13,6 +13,7 @@ import { followLink } from '../../../utils/follow-link-config.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 
 @Component({
   selector: 'ds-claimed-search-result-list-element',
@@ -20,7 +21,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
   templateUrl: './claimed-search-result-list-element.component.html'
 })
 @listableObjectComponent(ClaimedTaskSearchResult, ViewMode.ListElement)
-export class ClaimedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> {
+export class ClaimedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> implements OnInit, OnDestroy {
 
   /**
    * A boolean representing if to show submitter information
@@ -40,7 +41,8 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
   public constructor(
     protected linkService: LinkService,
     protected truncatableService: TruncatableService,
-    protected dsoNameService: DSONameService
+    protected dsoNameService: DSONameService,
+    protected objectCache: ObjectCacheService
   ) {
     super(truncatableService, dsoNameService);
   }
@@ -54,6 +56,11 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
       followLink('item'), followLink('submitter')
     ), followLink('action'));
     this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
+  }
+
+  ngOnDestroy() {
+    // This ensures the object is removed from cache, when action is performed on task
+    this.objectCache.remove(this.dso._links.workflowitem.href);
   }
 
 }
