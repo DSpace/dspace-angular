@@ -25,6 +25,7 @@ export class CommunityPageSubCollectionListComponent implements OnInit, OnDestro
 
   /**
    * Optional page size. Overrides communityList.pageSize configuration for this component.
+   * Value can be added in the themed version of the parent component.
    */
   @Input() pageSize: number;
 
@@ -56,8 +57,8 @@ export class CommunityPageSubCollectionListComponent implements OnInit, OnDestro
   ngOnInit(): void {
     this.config = new PaginationComponentOptions();
     this.config.id = this.pageId;
-    if(hasValue(this.pageSize)) {
-      this.config.pageSize = this.pageSize
+    if (hasValue(this.pageSize)) {
+      this.config.pageSize = this.pageSize;
     }
     this.config.currentPage = 1;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
