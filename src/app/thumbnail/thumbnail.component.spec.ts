@@ -244,7 +244,7 @@ describe('ThumbnailComponent', () => {
 
         fixture.detectChanges();
         const placeholder = fixture.debugElement.query(By.css('div.thumbnail-placeholder')).nativeElement;
-        expect(placeholder.innerHTML).toBe('TRANSLATED ' + comp.placeholder);
+        expect(placeholder.innerHTML).toContain('TRANSLATED ' + comp.placeholder);
       });
     });
   });
