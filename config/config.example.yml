@@ -176,6 +176,10 @@ browseBy:
   defaultLowerLimit: 1900
   # If true, thumbnail images for items will be added to BOTH search and browse result lists.
   showThumbnails: true
+  # The number of entries in a paginated browse results list.
+  # Rounded to the nearest size in the list of selectable sizes on the
+  # settings menu.
+  pageSize: 20
 
 communityList:
   # No. of communities to list per expansion (show more)

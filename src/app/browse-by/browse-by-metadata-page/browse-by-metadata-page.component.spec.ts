@@ -48,9 +48,10 @@ describe('BrowseByMetadataPageComponent', () => {
     ]
   });
 
-  const environmentUseThumbs = {
+  const environmentMock = {
     browseBy: {
-      showThumbnails: true
+      showThumbnails: true,
+      pageSize: 10
     }
   };
 
@@ -109,7 +110,7 @@ describe('BrowseByMetadataPageComponent', () => {
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentMock }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -161,7 +162,7 @@ describe('BrowseByMetadataPageComponent', () => {
       };
       const paginationOptions = Object.assign(new PaginationComponentOptions(), {
         currentPage: 5,
-        pageSize: 10,
+        pageSize: comp.appConfig.browseBy.pageSize,
       });
       const sortOptions = {
         direction: SortDirection.ASC,
@@ -192,7 +193,7 @@ describe('BrowseByMetadataPageComponent', () => {
       };
       const paginationOptions = Object.assign(new PaginationComponentOptions(), {
         currentPage: 5,
-        pageSize: 10,
+        pageSize: comp.appConfig.browseBy.pageSize,
       });
       const sortOptions = {
         direction: SortDirection.ASC,

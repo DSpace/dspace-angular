@@ -17,7 +17,7 @@ import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { isValidDate } from '../../shared/date.util';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
+import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -43,7 +43,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
                      protected router: Router,
                      protected paginationService: PaginationService,
                      protected cdRef: ChangeDetectorRef,
-                     @Inject(APP_CONFIG) protected appConfig: AppConfig) {
+                     @Inject(APP_CONFIG) public appConfig: AppConfig) {
     super(route, browseService, dsoService, paginationService, router, appConfig);
   }
 

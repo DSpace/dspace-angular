@@ -13,7 +13,7 @@ import { BrowseByDataType, rendersBrowseBy } from '../browse-by-switcher/browse-
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
+import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-browse-by-title-page',
@@ -31,7 +31,7 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
                      protected router: Router,
-                     @Inject(APP_CONFIG) protected appConfig: AppConfig) {
+                     @Inject(APP_CONFIG) public appConfig: AppConfig) {
     super(route, browseService, dsoService, paginationService, router, appConfig);
   }
 
