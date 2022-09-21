@@ -28,12 +28,12 @@ export class MiradorViewerService {
   }
 
   /**
-   * Returns observable of the number of images found in eligible IIIF bundles. This checks
-   * only the first 5 bitstreams in each bundle since any count greater than one is
-   * enough to set the IIIF viewer to use the "multi" image layout.
+   * Returns observable of the number of images found in eligible IIIF bundles. Checks
+   * the mimetype of the first 5 bitstreams in each bundle.
    * @param item
    * @param bitstreamDataService
    * @param bundleDataService
+   * @returns the total image count
    */
   getImageCount(item: Item, bitstreamDataService: BitstreamDataService, bundleDataService: BundleDataService):
     Observable<number> {
