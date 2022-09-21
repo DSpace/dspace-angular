@@ -93,7 +93,6 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
     LinkService,
     CreateCollectionPageGuard,
     CollectionPageAdministratorGuard,
-    DSOEditMenuResolver
   ]
 })
 export class CollectionPageRoutingModule {

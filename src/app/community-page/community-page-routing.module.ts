@@ -75,7 +75,6 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
     LinkService,
     CreateCommunityPageGuard,
     CommunityPageAdministratorGuard,
-    DSOEditMenuResolver
   ]
 })
 export class CommunityPageRoutingModule {

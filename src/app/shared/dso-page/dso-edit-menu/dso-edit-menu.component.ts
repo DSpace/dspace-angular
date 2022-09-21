@@ -24,13 +24,9 @@ export class DsoEditMenuComponent extends MenuComponent {
   constructor(protected menuService: MenuService,
               protected injector: Injector,
               public authorizationService: AuthorizationDataService,
-              public route: ActivatedRoute,
-              private authService: AuthService,
+              public route: ActivatedRoute
   ) {
     super(menuService, injector, authorizationService, route);
   }
 
-  ngOnInit(): void {
-    super.ngOnInit();
-  }
 }

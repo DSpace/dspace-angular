@@ -90,7 +90,6 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
     LinkService,
     ItemPageAdministratorGuard,
     VersionResolver,
-    DSOEditMenuResolver
   ]
 
 })

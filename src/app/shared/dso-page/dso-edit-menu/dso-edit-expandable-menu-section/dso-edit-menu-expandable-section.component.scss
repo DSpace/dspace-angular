@@ -16,11 +16,11 @@ ul.dropdown-menu {
         color: white;
 
         &.disabled {
-            color: $btn-link-disabled-color;
+            color: var(--bs-btn-link-disabled-color);
         }
     }
 
     .disabled {
-        color: $btn-link-disabled-color;
+        color: var(--bs-btn-link-disabled-color);
     }
 }
