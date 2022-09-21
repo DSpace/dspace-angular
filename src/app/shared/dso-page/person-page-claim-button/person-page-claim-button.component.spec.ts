@@ -9,7 +9,7 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
+import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
 import { RouteService } from '../../../core/services/route.service';
 import { routeServiceStub } from '../../testing/route-service.stub';
 import { Item } from '../../../core/shared/item.model';
@@ -102,7 +102,7 @@ describe('PersonPageClaimButtonComponent', () => {
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: NotificationsService, useValue: notificationsService },
-        { provide: ResearcherProfileService, useValue: researcherProfileService },
+        { provide: ResearcherProfileDataService, useValue: researcherProfileService },
         { provide: RouteService, useValue: routeServiceStub },
       ]
     })

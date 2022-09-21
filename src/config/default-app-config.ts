@@ -17,6 +17,8 @@ import { UIServerConfig } from './ui-server-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
 import { InfoConfig } from './info-config.interface';
+import { CommunityListConfig } from './community-list-config.interface';
+import { HomeConfig } from './homepage-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -195,7 +197,9 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'fi', label: 'Suomi', active: true },
     { code: 'sv', label: 'Svenska', active: true },
     { code: 'tr', label: 'Türkçe', active: true },
-    { code: 'bn', label: 'বাংলা', active: true }
+    { code: 'kk', label: 'Қазақ', active: true },
+    { code: 'bn', label: 'বাংলা', active: true },
+    { code: 'el', label: 'Ελληνικά', active: true }
   ];
 
   // Browse-By Pages
@@ -206,6 +210,22 @@ export class DefaultAppConfig implements AppConfig {
     fiveYearLimit: 30,
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
     defaultLowerLimit: 1900
+  };
+
+  communityList: CommunityListConfig = {
+    pageSize: 20
+  };
+
+  homePage: HomeConfig = {
+    recentSubmissions: {
+      //The number of item showing in recent submission components
+      pageSize: 5,
+      //sort record of recent submission
+      sortField: 'dc.date.accessioned',
+    },
+    topLevelCommunityList: {
+      pageSize: 5
+    }
   };
 
   // Item Config

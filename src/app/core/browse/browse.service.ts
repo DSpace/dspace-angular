@@ -96,7 +96,7 @@ export class BrowseService {
         return href;
       })
     );
-    return this.hrefOnlyDataService.findAllByHref<BrowseEntry>(href$);
+    return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$);
   }
 
   /**
@@ -141,7 +141,7 @@ export class BrowseService {
         return href;
       }),
     );
-    return this.hrefOnlyDataService.findAllByHref<Item>(href$);
+    return this.hrefOnlyDataService.findListByHref<Item>(href$);
   }
 
   /**
@@ -172,7 +172,7 @@ export class BrowseService {
       })
     );
 
-    return this.hrefOnlyDataService.findAllByHref<Item>(href$).pipe(
+    return this.hrefOnlyDataService.findListByHref<Item>(href$).pipe(
       getFirstSucceededRemoteData(),
       getFirstOccurrence()
     );
@@ -184,7 +184,7 @@ export class BrowseService {
    * @param items
    */
   getPrevBrowseItems(items: RemoteData<PaginatedList<Item>>): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.hrefOnlyDataService.findAllByHref<Item>(items.payload.prev);
+    return this.hrefOnlyDataService.findListByHref<Item>(items.payload.prev);
   }
 
   /**
@@ -192,7 +192,7 @@ export class BrowseService {
    * @param items
    */
   getNextBrowseItems(items: RemoteData<PaginatedList<Item>>): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.hrefOnlyDataService.findAllByHref<Item>(items.payload.next);
+    return this.hrefOnlyDataService.findListByHref<Item>(items.payload.next);
   }
 
   /**
@@ -200,7 +200,7 @@ export class BrowseService {
    * @param entries
    */
   getPrevBrowseEntries(entries: RemoteData<PaginatedList<BrowseEntry>>): Observable<RemoteData<PaginatedList<BrowseEntry>>> {
-    return this.hrefOnlyDataService.findAllByHref<BrowseEntry>(entries.payload.prev);
+    return this.hrefOnlyDataService.findListByHref<BrowseEntry>(entries.payload.prev);
   }
 
   /**
@@ -208,7 +208,7 @@ export class BrowseService {
    * @param entries
    */
   getNextBrowseEntries(entries: RemoteData<PaginatedList<BrowseEntry>>): Observable<RemoteData<PaginatedList<BrowseEntry>>> {
-    return this.hrefOnlyDataService.findAllByHref<BrowseEntry>(entries.payload.next);
+    return this.hrefOnlyDataService.findListByHref<BrowseEntry>(entries.payload.next);
   }
 
   /**

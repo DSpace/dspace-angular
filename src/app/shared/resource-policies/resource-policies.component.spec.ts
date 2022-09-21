@@ -20,7 +20,7 @@ import { createPaginatedList, createTestComponent } from '../testing/utils.test'
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { NotificationsServiceStub } from '../testing/notifications-service.stub';
-import { ResourcePolicyService } from '../../core/resource-policy/resource-policy.service';
+import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
 import { getMockResourcePolicyService } from '../mocks/mock-resource-policy-service';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { RequestService } from '../../core/data/request.service';
@@ -206,7 +206,7 @@ describe('ResourcePoliciesComponent test suite', () => {
         { provide: EPersonDataService, useValue: epersonService },
         { provide: GroupDataService, useValue: groupService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
-        { provide: ResourcePolicyService, useValue: resourcePolicyService },
+        { provide: ResourcePolicyDataService, useValue: resourcePolicyService },
         { provide: RequestService, useValue: getMockRequestService() },
         { provide: Router, useValue: routerStub },
         ChangeDetectorRef,

@@ -1,18 +1,11 @@
 import { Observable, of as observableOf } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AUTHORIZATION } from '../../shared/authorization.resource-type';
-import { dataService } from '../../cache/builders/build-decorators';
-import { DataService } from '../data.service';
 import { Authorization } from '../../shared/authorization.model';
 import { RequestService } from '../request.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { Store } from '@ngrx/store';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
-import { DSOChangeAnalyzer } from '../dso-change-analyzer.service';
-import { AuthService } from '../../auth/auth.service';
 import { SiteDataService } from '../site-data.service';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteData } from '../remote-data';
@@ -24,31 +17,32 @@ import { AuthorizationSearchParams } from './authorization-search-params';
 import { addSiteObjectUrlIfEmpty, oneAuthorizationMatchesFeature } from './authorization-utils';
 import { FeatureID } from './feature-id';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
-import { CoreState } from '../../core-state.model';
 import { FindListOptions } from '../find-list-options.model';
+import { BaseDataService } from '../base/base-data.service';
+import { SearchData, SearchDataImpl } from '../base/search-data';
+import { dataService } from '../base/data-service.decorator';
 
 /**
  * A service to retrieve {@link Authorization}s from the REST API
  */
 @Injectable()
 @dataService(AUTHORIZATION)
-export class AuthorizationDataService extends DataService<Authorization> {
+export class AuthorizationDataService extends BaseDataService<Authorization> implements SearchData<Authorization> {
   protected linkPath = 'authorizations';
   protected searchByObjectPath = 'object';
+
+  private searchData: SearchDataImpl<Authorization>;
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer<Authorization>,
-    protected authService: AuthService,
-    protected siteService: SiteDataService
+    protected siteService: SiteDataService,
   ) {
-    super();
+    super('authorizations', requestService, rdbService, objectCache, halService);
+
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
@@ -130,7 +124,25 @@ export class AuthorizationDataService extends DataService<Authorization> {
       params.push(new RequestParam('eperson', ePersonUuid));
     }
     return Object.assign(new FindListOptions(), options, {
-      searchParams: [...params]
+      searchParams: [...params],
     });
+  }
+
+  /**
+   * Make a new FindListRequest with given search method
+   *
+   * @param searchMethod                The search method for the object
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
+  searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Authorization>[]): Observable<RemoteData<PaginatedList<Authorization>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }
