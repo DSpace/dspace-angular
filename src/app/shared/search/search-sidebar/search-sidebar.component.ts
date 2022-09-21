@@ -83,7 +83,7 @@ export class SearchSidebarComponent {
   /**
    * Emits when the search filters values may be stale, and so they must be refreshed.
    */
-  @Input() refreshFilters: Observable<any>;
+  @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
    * Emits event when the user clicks a button to open or close the sidebar

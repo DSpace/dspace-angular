@@ -37,6 +37,7 @@
                                [context]="(currentContext$ | async)"
                                [selectable]="selectable"
                                [selectionConfig]="selectionConfig"
+                               (contentChange)="onContentChange($event)"
                                (deselectObject)="deselectObject.emit($event)"
                                (selectObject)="selectObject.emit($event)"></ds-themed-search-results>
         </div>
@@ -49,6 +50,7 @@
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
                        [filters]="filtersRD$.asObservable()"
+                       [refreshFilters]="refreshFilters"
                        [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
                        [searchOptions]="(searchOptions$ | async)"
                        [sortOptionsList]="(sortOptionsList$ | async)"
@@ -63,6 +65,7 @@
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
                        [filters]="filtersRD$.asObservable()"
+                       [refreshFilters]="refreshFilters"
                        [resultCount]="(resultsRD$ | async)?.payload.totalElements"
                        [searchOptions]="(searchOptions$ | async)"
                        [sortOptionsList]="(sortOptionsList$ | async)"

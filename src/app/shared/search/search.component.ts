@@ -202,6 +202,11 @@ export class SearchComponent implements OnInit {
   isXsOrSm$: Observable<boolean>;
 
   /**
+   * Emits when the search filters values may be stale, and so they must be refreshed.
+   */
+  refreshFilters: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
    * Link to the search page
    */
   searchLink: string;
@@ -337,6 +342,15 @@ export class SearchComponent implements OnInit {
    */
   public openSidebar(): void {
     this.sidebarService.expand();
+  }
+
+  /**
+   * Emit event to refresh filter content
+   * @param $event
+   */
+  public onContentChange($event: any) {
+    this.retrieveFilters(this.lastSearchOptions);
+    this.refreshFilters.next(true);
   }
 
   /**

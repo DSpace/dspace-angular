@@ -53,7 +53,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   /**
    * Emits when the search filters values may be stale, and so they must be refreshed.
    */
-  @Input() refreshFilters: Observable<any>;
+  @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
    * Link to the search page
