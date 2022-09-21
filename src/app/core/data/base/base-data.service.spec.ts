@@ -566,7 +566,7 @@ describe('BaseDataService', () => {
     beforeEach(() => {
       getByHrefSpy = spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
         requestUUIDs: ['request1', 'request2', 'request3'],
-        dependentRequestUUIDs: []
+        dependentRequestUUIDs: ['request4', 'request5']
       }));
 
     });
@@ -578,6 +578,8 @@ describe('BaseDataService', () => {
         expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request1');
         expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request2');
         expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request3');
+        expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request4');
+        expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request5');
         done();
       });
     });
@@ -590,6 +592,8 @@ describe('BaseDataService', () => {
       expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request1');
       expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request2');
       expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request3');
+      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request4');
+      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request5');
     }));
 
     it('should return an Observable that only emits true once all requests are stale', () => {
@@ -599,9 +603,13 @@ describe('BaseDataService', () => {
             case 'request1':
               return cold('--(t|)', BOOLEAN);
             case 'request2':
-              return cold('----(t|)', BOOLEAN);
-            case 'request3':
               return cold('------(t|)', BOOLEAN);
+            case 'request3':
+              return cold('---(t|)', BOOLEAN);
+            case 'request4':
+              return cold('-(t|)', BOOLEAN);
+            case 'request5':
+              return cold('----(t|)', BOOLEAN);
           }
         });
 
