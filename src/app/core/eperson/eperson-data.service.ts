@@ -321,7 +321,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
   patchPasswordWithToken(uuid: string, token: string, password: string): Observable<RemoteData<EPerson>> {
     const requestId = this.requestService.generateRequestId();
 
-    const operation = Object.assign({ op: 'add', path: '/password', value: { 'password': password } });
+    const operation = Object.assign({ op: 'add', path: '/password', value: { 'new_password': password } });
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, uuid)),

@@ -147,7 +147,7 @@ export class ProfilePageComponent implements OnInit {
     }
     if (!this.invalidSecurity && passEntered) {
       const operations = [
-        { 'op': 'add', 'path': '/password', 'value': { 'password': this.password, 'challenge': this.currentPassword } }
+        { 'op': 'add', 'path': '/password', 'value': { 'new_password': this.password, 'current_password': this.currentPassword } }
       ] as Operation[];
       this.epersonService.patch(this.currentUser, operations).pipe(getFirstCompletedRemoteData()).subscribe((response: RemoteData<EPerson>) => {
         if (response.hasSucceeded) {
