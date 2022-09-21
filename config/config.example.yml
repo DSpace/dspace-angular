@@ -162,6 +162,9 @@ languages:
   - code: bn
     label: বাংলা
     active: true
+  - code: el
+    label: Ελληνικά
+    active: true
 
 # Browse-By Pages
 browseBy:
@@ -171,6 +174,21 @@ browseBy:
   fiveYearLimit: 30
   # The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
   defaultLowerLimit: 1900
+
+communityList:
+  # No. of communities to list per expansion (show more)
+  pageSize: 20
+
+homePage:
+  recentSubmissions:
+    # The number of item showing in recent submission components
+    pageSize: 5
+    # Sort record of recent submission
+    sortField: 'dc.date.accessioned'
+  topLevelCommunityList:
+    # No. of communities to list per page on the home page
+    # This will always round to the nearest number from the list of page sizes. e.g. if you set it to 7 it'll use 10
+    pageSize: 5
 
 # Item Config
 item:
@@ -261,10 +279,3 @@ mediaViewer:
 info:
   enableEndUserAgreement: true
   enablePrivacyStatement: true
-# Home Page
-homePage:
-  recentSubmissions:
-	# The number of item showing in recent submission components
-      pageSize: 5
-	# Sort record of recent submission
-      sortField: 'dc.date.accessioned'
