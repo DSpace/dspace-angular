@@ -1,5 +1,5 @@
-import { Inject, Injectable } from '@angular/core';
-import { createFeatureSelector, createSelector, select, Store } from '@ngrx/store';
+import { Injectable, Inject, Injector } from '@angular/core';
+import { Store, createFeatureSelector, createSelector, select } from '@ngrx/store';
 import { BehaviorSubject, EMPTY, Observable, of as observableOf } from 'rxjs';
 import { ThemeState } from './theme.reducer';
 import { SetThemeAction, ThemeActionTypes } from './theme.actions';
@@ -53,12 +53,13 @@ export class ThemeService {
     private store: Store<ThemeState>,
     private linkService: LinkService,
     private dSpaceObjectDataService: DSpaceObjectDataService,
+    protected injector: Injector,
     @Inject(GET_THEME_CONFIG_FOR_FACTORY) private gtcf: (str) => ThemeConfig,
     private router: Router,
     @Inject(DOCUMENT) private document: any,
   ) {
     // Create objects from the theme configs in the environment file
-    this.themes = environment.themes.map((themeConfig: ThemeConfig) => themeFactory(themeConfig));
+    this.themes = environment.themes.map((themeConfig: ThemeConfig) => themeFactory(themeConfig, injector));
     this.hasDynamicTheme = environment.themes.some((themeConfig: any) =>
       hasValue(themeConfig.regex) ||
       hasValue(themeConfig.handle) ||

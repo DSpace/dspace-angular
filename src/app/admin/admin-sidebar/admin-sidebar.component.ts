@@ -2,7 +2,7 @@ import { Component, HostListener, Injector, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, first, map, withLatestFrom } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
-import { slideHorizontal, slideSidebar } from '../../shared/animations/slide';
+import { slideSidebar } from '../../shared/animations/slide';
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { MenuService } from '../../shared/menu/menu.service';
 import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
@@ -18,7 +18,7 @@ import { ThemeService } from '../../shared/theme-support/theme.service';
   selector: 'ds-admin-sidebar',
   templateUrl: './admin-sidebar.component.html',
   styleUrls: ['./admin-sidebar.component.scss'],
-  animations: [slideHorizontal, slideSidebar]
+  animations: [slideSidebar]
 })
 export class AdminSidebarComponent extends MenuComponent implements OnInit {
   /**

@@ -54,6 +54,7 @@ export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent
    * @param {Injector} injector
    * @param {Router} router
    * @param {NotificationsService} notificationsService
+   * @param {ClaimedTaskDataService} claimedTaskService
    * @param {TranslateService} translate
    * @param {SearchService} searchService
    * @param {RequestService} requestService

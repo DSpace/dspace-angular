@@ -1,6 +1,5 @@
 import { AuthorizationDataService } from './authorization-data.service';
 import { SiteDataService } from '../site-data.service';
-import { AuthService } from '../../auth/auth.service';
 import { Site } from '../../shared/site.model';
 import { EPerson } from '../../eperson/models/eperson.model';
 import { of as observableOf, combineLatest as observableCombineLatest, Observable } from 'rxjs';
@@ -12,11 +11,12 @@ import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { Feature } from '../../shared/feature.model';
 import { FindListOptions } from '../find-list-options.model';
+import { testSearchDataImplementation } from '../base/search-data.spec';
+import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
 
 describe('AuthorizationDataService', () => {
   let service: AuthorizationDataService;
   let siteService: SiteDataService;
-  let authService: AuthService;
   let objectCache;
 
   let site: Site;
@@ -38,22 +38,20 @@ describe('AuthorizationDataService', () => {
       uuid: 'test-eperson'
     });
     siteService = jasmine.createSpyObj('siteService', {
-      find: observableOf(site)
+      find: observableOf(site),
     });
-    authService = {
-      isAuthenticated: () => observableOf(true),
-      getAuthenticatedUserFromStore: () => observableOf(ePerson)
-    } as AuthService;
-    objectCache = jasmine.createSpyObj('objectCache', {
-      addDependency: undefined,
-      removeDependents: undefined,
-    });
-    service = new AuthorizationDataService(requestService, undefined, undefined, objectCache, undefined, undefined, undefined, undefined, authService, siteService);
+    objectCache = getMockObjectCacheService();
+    service = new AuthorizationDataService(requestService, undefined, objectCache, undefined, siteService);
   }
 
   beforeEach(() => {
     init();
     spyOn(service, 'searchBy').and.returnValue(observableOf(undefined));
+  });
+
+  describe('composition', () => {
+    const initService = () => new AuthorizationDataService(null, null, null, null, null);
+    testSearchDataImplementation(initService);
   });
 
   it('should call setStaleByHrefSubstring method', () => {
