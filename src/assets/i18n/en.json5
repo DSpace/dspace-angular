@@ -3086,8 +3086,6 @@
 
   "profile.security.form.notifications.error.title": "Error changing passwords",
 
-  "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 8 characters long.",
-
   "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
 
   "profile.security.form.notifications.error.general": "Please fill required fields of security form.",
