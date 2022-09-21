@@ -79,7 +79,7 @@ export class ObjectListComponent {
   /**
    * Config used for the import button
    */
-  @Input() importConfig: { importLabel: string };
+  @Input() importConfig: { buttonLabel: string };
 
   /**
    * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
@@ -231,4 +231,5 @@ export class ObjectListComponent {
   goNext() {
       this.next.emit(true);
   }
+
 }

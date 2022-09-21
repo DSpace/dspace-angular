@@ -46,6 +46,7 @@
                                [selectable]="selectable"
                                [selectionConfig]="selectionConfig"
                                [customData]="customData"
+                               (contentChange)="onContentChange($event)"
                                (customEvent)="customEvent.emit($event)"
                                (deselectObject)="deselectObject.emit($event)"
                                (selectObject)="selectObject.emit($event)"></ds-search-results>
@@ -59,6 +60,7 @@
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
                        [filters]="filtersRD$.asObservable()"
+                       [refreshFilters]="refreshFilters"
                        [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
                        [searchOptions]="(searchOptions$ | async)"
                        [sortOptionsList]="(sortOptionsList$ | async)"
@@ -73,6 +75,7 @@
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
                        [filters]="filtersRD$.asObservable()"
+                       [refreshFilters]="refreshFilters"
                        [resultCount]="(resultsRD$ | async)?.payload.totalElements"
                        [searchOptions]="(searchOptions$ | async)"
                        [sortOptionsList]="(sortOptionsList$ | async)"

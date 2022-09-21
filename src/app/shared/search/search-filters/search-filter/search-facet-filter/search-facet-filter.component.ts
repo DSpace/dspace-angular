@@ -6,7 +6,7 @@ import {
   Subject,
   Subscription
 } from 'rxjs';
-import { distinctUntilChanged, map, switchMap, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -21,6 +21,7 @@ import { SearchService } from '../../../../../core/shared/search/search.service'
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
+  REFRESH_FILTER,
   SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
@@ -98,7 +99,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
               protected router: Router,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
-              @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig) {
+              @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
+              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>) {
   }
 
   /**
@@ -110,65 +112,15 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.currentPage = this.getCurrentPage().pipe(distinctUntilChanged());
 
     this.searchOptions$ = this.searchConfigService.searchOptions;
-    this.subs.push(this.searchOptions$.subscribe(() => this.updateFilterValueList()));
-    const facetValues$ = observableCombineLatest(this.searchOptions$, this.currentPage).pipe(
-      map(([options, page]) => {
-        return { options, page };
-      }),
-      switchMap(({ options, page }) => {
-        return this.searchService.getFacetValuesFor(this.filterConfig, page, options)
-          .pipe(
-            getFirstSucceededRemoteData(),
-            map((results) => {
-                return {
-                  values: observableOf(results),
-                  page: page
-                };
-              }
-            )
-          );
+    this.subs.push(
+      this.searchOptions$.subscribe(() => this.updateFilterValueList()),
+      this.refreshFilters.asObservable().pipe(
+        filter((toRefresh: boolean) => toRefresh),
+      ).subscribe(() => {
+        this.retrieveFilterValues(false);
       })
     );
-
-    let filterValues = [];
-    this.subs.push(facetValues$.subscribe((facetOutcome) => {
-      const newValues$ = facetOutcome.values;
-
-      if (this.collapseNextUpdate) {
-        this.showFirstPageOnly();
-        facetOutcome.page = 1;
-        this.collapseNextUpdate = false;
-      }
-      if (facetOutcome.page === 1) {
-        filterValues = [];
-      }
-
-      filterValues = [...filterValues, newValues$];
-
-      this.subs.push(this.rdbs.aggregate(filterValues).pipe(
-        tap((rd: RemoteData<PaginatedList<FacetValue>[]>) => {
-          this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
-            map((selectedValues) => {
-              return selectedValues.map((value: string) => {
-                const fValue = [].concat(...rd.payload.map((page) => page.page)).find((facetValue: FacetValue) => this.getFacetValue(facetValue) === value);
-                if (hasValue(fValue)) {
-                  return fValue;
-                }
-                return Object.assign(new FacetValue(), { label: stripOperatorFromFilterValue(value), value: value });
-              });
-            })
-          );
-        })
-      ).subscribe((rd: RemoteData<PaginatedList<FacetValue>[]>) => {
-        this.animationState = 'ready';
-        this.filterValues$.next(rd);
-
-      }));
-      this.subs.push(newValues$.pipe(take(1)).subscribe((rd) => {
-        this.isLastPage$.next(hasNoValue(rd.payload.next));
-      }));
-    }));
-
+    this.retrieveFilterValues();
   }
 
   /**
@@ -310,6 +262,67 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   protected getFacetValue(facet: FacetValue): string {
     return getFacetValueForType(facet, this.filterConfig);
+  }
+
+  protected retrieveFilterValues(useCachedVersionIfAvailable = true) {
+    const facetValues$ = observableCombineLatest([this.searchOptions$, this.currentPage]).pipe(
+      map(([options, page]) => {
+        return { options, page };
+      }),
+      switchMap(({ options, page }) => {
+        return this.searchService.getFacetValuesFor(this.filterConfig, page, options, null, useCachedVersionIfAvailable)
+          .pipe(
+            getFirstSucceededRemoteData(),
+            map((results) => {
+                return {
+                  values: observableOf(results),
+                  page: page
+                };
+              }
+            )
+          );
+      })
+    );
+
+    let filterValues = [];
+    this.subs.push(facetValues$.subscribe((facetOutcome) => {
+      const newValues$ = facetOutcome.values;
+
+      if (this.collapseNextUpdate) {
+        this.showFirstPageOnly();
+        facetOutcome.page = 1;
+        this.collapseNextUpdate = false;
+      }
+      if (facetOutcome.page === 1) {
+        filterValues = [];
+      }
+
+      filterValues = [...filterValues, newValues$];
+
+      this.subs.push(this.rdbs.aggregate(filterValues).pipe(
+        tap((rd: RemoteData<PaginatedList<FacetValue>[]>) => {
+          this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
+            map((selectedValues) => {
+              return selectedValues.map((value: string) => {
+                const fValue = [].concat(...rd.payload.map((page) => page.page)).find((facetValue: FacetValue) => this.getFacetValue(facetValue) === value);
+                if (hasValue(fValue)) {
+                  return fValue;
+                }
+                const filterValue = stripOperatorFromFilterValue(value);
+                return Object.assign(new FacetValue(), { label: filterValue, value: filterValue });
+              });
+            })
+          );
+        })
+      ).subscribe((rd: RemoteData<PaginatedList<FacetValue>[]>) => {
+        this.animationState = 'ready';
+        this.filterValues$.next(rd);
+
+      }));
+      this.subs.push(newValues$.pipe(take(1)).subscribe((rd) => {
+        this.isLastPage$.next(hasNoValue(rd.payload.next));
+      }));
+    }));
   }
 
   /**

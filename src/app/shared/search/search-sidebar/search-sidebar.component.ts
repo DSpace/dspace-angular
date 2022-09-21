@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
@@ -83,7 +83,7 @@ export class SearchSidebarComponent {
   /**
    * Emits when the search filters values may be stale, and so they must be refreshed.
    */
-  @Input() refreshFilters: Observable<any>;
+  @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
    * Emits event when the user clicks a button to open or close the sidebar

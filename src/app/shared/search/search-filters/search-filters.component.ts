@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SearchService } from '../../../core/shared/search/search.service';
@@ -53,7 +53,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   /**
    * Emits when the search filters values may be stale, and so they must be refreshed.
    */
-  @Input() refreshFilters: Observable<any>;
+  @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
    * Link to the search page

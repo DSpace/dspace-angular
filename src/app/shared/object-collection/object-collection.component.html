@@ -20,7 +20,7 @@
                 [importConfig]="importConfig"
                 [customData]="customData"
                 (importObject)="importObject.emit($event)"
-                (contentChange)="contentChange.emit()"
+                (contentChange)="contentChange.emit($event)"
                 (customEvent)="customEvent.emit($event)"
                 (prev)="goPrev()"
                 (next)="goNext()"
@@ -51,6 +51,7 @@
                   [context]="context"
                   [hidePaginationDetail]="hidePaginationDetail"
                   [showPaginator]="showPaginator"
+                  (contentChange)="contentChange.emit($event)"
                   *ngIf="(currentMode$ | async) === viewModeEnum.DetailedListElement">
 </ds-object-detail>
 

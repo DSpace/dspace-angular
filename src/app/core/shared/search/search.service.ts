@@ -408,9 +408,11 @@ export class SearchService implements OnDestroy {
    * @param {number} valuePage The page number of the filter values
    * @param {SearchOptions} searchOptions The search configuration for the current search
    * @param {string} filterQuery The optional query used to filter out filter values
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
    * @returns {Observable<RemoteData<PaginatedList<FacetValue>>>} Emits the given page of facet values
    */
-  getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: SearchOptions, filterQuery?: string): Observable<RemoteData<FacetValues>> {
+  getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: SearchOptions, filterQuery?: string, useCachedVersionIfAvailable = true): Observable<RemoteData<FacetValues>> {
     let href;
     const args: string[] = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`];
     if (hasValue(filterQuery)) {
@@ -428,7 +430,7 @@ export class SearchService implements OnDestroy {
         return FacetValueResponseParsingService;
       }
     });
-    this.requestService.send(request, true);
+    this.requestService.send(request, useCachedVersionIfAvailable);
 
     return this.rdb.buildFromHref(href);
   }
