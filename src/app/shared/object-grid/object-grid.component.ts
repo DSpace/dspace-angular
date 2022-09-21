@@ -1,11 +1,12 @@
-import { combineLatest as observableCombineLatest, BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { map } from 'rxjs/operators';
 import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input, OnInit,
+  Input,
+  OnInit,
   Output,
   ViewEncapsulation
 } from '@angular/core';
@@ -160,8 +161,8 @@ export class ObjectGridComponent implements OnInit {
    * Initialize the instance variables
    */
   ngOnInit(): void {
-    this.results$ = observableCombineLatest([this._objects$]).pipe(
-      map(([objects]) => {
+    this.results$ = this._objects$.pipe(
+      map((objects) => {
         if (hasValue(objects) && hasValue(objects.payload) && hasValue(objects.payload.page)) {
           return objects.payload.page;
         } else {

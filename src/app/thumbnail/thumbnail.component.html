@@ -4,7 +4,7 @@
   </ds-loading>
   <ng-template #showThumbnail>
     <img *ngIf="src !== null" class="img-fluid"
-         [ngClass]="{'thumbnail-content': !keepAspectRatio, 'keep-aspect-ratio': keepAspectRatio }"
+         [ngClass]="keepAspectRatio ? 'keep-aspect-ratio' : 'thumbnail-content'"
          [src]="src | dsSafeUrl" [alt]="alt | translate" (error)="errorHandler()">
     <div *ngIf="src === null" class="thumbnail-content outer">
       <div class="inner">
