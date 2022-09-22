@@ -45,6 +45,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
         if (dsoRD.hasSucceeded) {
           const dso = dsoRD.payload;
           return combineLatest(this.getDsoMenus(dso, route, state)).pipe(
+            // Menu sections are retrieved as an array of arrays and flattened into a single array
             map((combinedMenus) => [].concat.apply([], combinedMenus)),
             map((menus) => this.addDsoUuidToMenuIDs(menus, dso)),
             map((menus) => {
