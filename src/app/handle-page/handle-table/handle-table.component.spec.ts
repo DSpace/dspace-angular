@@ -4,23 +4,20 @@ import { HandleDataService } from '../../core/data/handle-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Router } from '@angular/router';
 import { RequestService } from '../../core/data/request.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { of as observableOf } from 'rxjs';
 import { SharedModule } from '../../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Handle } from '../../core/handle/handle.model';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { getHandleTableModulePath } from '../../app-routing-paths';
 import { defaultPagination } from './handle-table-pagination';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { HANDLE_TABLE_EDIT_HANDLE_PATH } from '../handle-page-routing-paths';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { mockHandle, mockHandleRD$, successfulResponse, selectedHandleId } from '../../shared/mocks/handle-mock';
 
 /**
  * The test for testing HandleTableComponent.
@@ -32,25 +29,6 @@ describe('HandleTableComponent', () => {
   let handleDataService: HandleDataService;
   let requestService: RequestService;
   let notificationService: NotificationsServiceStub;
-
-  const selectedHandleId = 1;
-  const successfulResponse = {
-    response: {
-      statusCode: 200
-    }};
-  const mockHandle = Object.assign(new Handle(), {
-    id: selectedHandleId,
-    handle: '123456',
-    resourceTypeID: 0,
-    url: 'handle.url',
-    _links: {
-      self: {
-        href: 'url.123456'
-      }
-    }
-  });
-
-  const mockHandleRD$ = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [mockHandle]));
 
   beforeEach(async () => {
     notificationService = new NotificationsServiceStub();

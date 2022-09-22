@@ -8,6 +8,11 @@ import { redirectBackWithPaginationOption } from '../handle-table/handle-table-p
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { ActivatedRoute } from '@angular/router';
 import { SUCCESSFUL_RESPONSE_START_CHAR } from '../../core/handle/handle.resource-type';
+import {HandleDataService} from '../../core/data/handle-data.service';
+import {getFirstCompletedRemoteData} from '../../core/shared/operators';
+import {Handle} from '../../core/handle/handle.model';
+import {RemoteData} from '../../core/data/remote-data';
+import {isNull} from '../../shared/empty.util';
 
 /**
  * The component where is creating the new external handle.
@@ -35,11 +40,11 @@ export class NewHandlePageComponent implements OnInit {
   currentPage: number;
 
   constructor(
-    private notificationsService: NotificationsService,
+    private notificationService: NotificationsService,
     private route: ActivatedRoute,
-    private requestService: RequestService,
-    private paginationService: PaginationService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private handleService: HandleDataService,
+    private paginationService: PaginationService
   ) { }
 
   ngOnInit(): void {
@@ -51,31 +56,24 @@ export class NewHandlePageComponent implements OnInit {
    * @param value from the inputs form
    */
   onClickSubmit(value) {
-    // prepare request
-    const requestId = this.requestService.generateRequestId();
-    const createRequest = new CreateRequest(requestId,'http://localhost:8080/server/api/core/handles', value);
-
-    // call createRequest request
-    this.requestService.send(createRequest);
-
-    // check response
-    this.requestService.getByUUID(requestId)
-      .subscribe(info => {
-        if (info?.response?.statusCode?.toString().startsWith(SUCCESSFUL_RESPONSE_START_CHAR)) {
-          this.notificationsService.success(null, this.translateService.get('handle-table.new-handle.notify.successful'));
-          redirectBackWithPaginationOption(this.paginationService, this.currentPage);
-        } else {
-          // write error in the notification
-          // compose error message with message definition and server error
-          let errorMessage = '';
-          this.translateService.get('handle-table.new-handle.notify.error').pipe(
-            take(1)
-          ).subscribe( message => {
-            errorMessage = message + ': ' + info?.response?.errorMessage;
-          });
-
-          this.notificationsService.error(null, errorMessage);
+    this.handleService.create(value)
+      .pipe(getFirstCompletedRemoteData())
+      .subscribe( (handleResponse: RemoteData<Handle>) => {
+        const errContent = 'handle-table.new-handle.notify.error';
+        const sucContent = 'handle-table.new-handle.notify.successful';
+        if (isNull(handleResponse)) {
+          this.notificationService.error('', this.translateService.get(errContent));
+          return;
         }
-    });
+
+        if (handleResponse.hasSucceeded) {
+          this.notificationService.success('',
+            this.translateService.get(sucContent));
+        } else if (handleResponse.isError) {
+          this.notificationService.error('',
+            this.translateService.get(errContent));
+        }
+      });
+    redirectBackWithPaginationOption(this.paginationService, this.currentPage);
   }
 }
