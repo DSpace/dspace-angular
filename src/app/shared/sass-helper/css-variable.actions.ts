@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 import { type } from '../ngrx/type';
 import { KeyValuePair } from '../key-value-pair.model';
@@ -38,9 +39,6 @@ export class AddAllCSSVariablesAction implements Action {
 
 export class ClearCSSVariablesAction implements Action {
   type = CSSVariableActionTypes.CLEAR;
-
-  constructor() {
-  }
 }
 
 export type CSSVariableAction = AddCSSVariableAction | AddAllCSSVariablesAction | ClearCSSVariablesAction;

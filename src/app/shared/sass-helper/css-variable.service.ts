@@ -87,8 +87,7 @@ export class CSSVariableService {
    * @return array<KeyValuePair<string, string>>
    * ex; [{key: "--color-accent", value: "#b9f500"}, {key: "--color-text", value: "#252525"}, ...]
    */
-  getCSSVariablesFromStylesheets(document: Document): KeyValuePair<string, string>[]
-  {
+  getCSSVariablesFromStylesheets(document: Document): KeyValuePair<string, string>[] {
     // styleSheets is array-like, so we convert it to an array.
     // Filter out any stylesheets not on this domain
     return [...document.styleSheets]

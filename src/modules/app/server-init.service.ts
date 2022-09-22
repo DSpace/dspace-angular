@@ -18,7 +18,7 @@ import { LocaleService } from '../../app/core/locale/locale.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { MetadataService } from '../../app/core/metadata/metadata.service';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { CSSVariableService } from '../../app/shared/sass-helper/sass-helper.service';
+import { CSSVariableService } from '../../sass-helper/css-variable.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { take } from 'rxjs/operators';
 
