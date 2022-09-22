@@ -11,7 +11,7 @@
                 ({{resourceUUID}})
               </ng-container>
             </span>
-            <div class="space-children-mr">
+            <div class="space-children-mr flex-shrink-0">
               <button class="btn btn-danger p-1"
                       [disabled]="(!(canDelete() | async)) || (isProcessingDelete() | async)"
                       [title]="'resource-policies.delete.btn.title' | translate"
@@ -57,49 +57,10 @@
       </tr>
     </thead>
     <tbody *ngIf="(getResourcePolicies() | async)?.length > 0">
-      <tr *ngFor="let entry of (getResourcePolicies() | async); trackById">
-        <td class="text-center">
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox"
-                   class="custom-control-input"
-                   [id]="entry.id"
-                   [ngModel]="entry.checked"
-                   (ngModelChange)="selectCheckbox(entry, $event)">
-            <label class="custom-control-label" [for]="entry.id"></label>
-          </div>
-        </td>
-        <th scope="row">
-          {{entry.id}}
-        </th>
-        <td>{{entry.policy.name}}</td>
-        <td>{{entry.policy.policyType}}</td>
-        <td>{{entry.policy.action}}</td>
-        <td *ngIf="(hasEPerson(entry.policy) | async)">
-          {{getEPersonName(entry.policy) | async}}
-        </td>
-        <td *ngIf="!(hasEPerson(entry.policy) | async)"></td>
-        <td *ngIf="(hasGroup(entry.policy) | async)">
-          {{getGroupName(entry.policy) | async}}
-        </td>
-        <td *ngIf="!(hasGroup(entry.policy) | async)"></td>
-        <td>{{formatDate(entry.policy.startDate)}}</td>
-        <td>{{formatDate(entry.policy.endDate)}}</td>
-        <td class="text-center">
-
-          <div class="btn-group edit-field">
-            <button class="btn btn-outline-primary btn-sm"
-                    [title]="'resource-policies.table.headers.edit.policy' | translate"
-                    (click)="redirectToResourcePolicyEditPage(entry.policy)">
-              <i class="fas fa-edit fa-fw"></i>
-            </button>
-            <button *ngIf="(hasGroup(entry.policy) | async)" class="btn btn-outline-primary btn-sm"
-                    [title]="'resource-policies.table.headers.edit.group' | translate"
-                    (click)="redirectToGroupEditPage(entry.policy)">
-              <i class="fas fa-users fa-fw"></i>
-            </button>
-          </div>
-        </td>
-      </tr>
+      <tr ds-resource-policy-entry *ngFor="let entry of (getResourcePolicies() | async)"
+          [entry]="entry"
+          (toggleCheckbox)="selectCheckbox(entry, $event)"
+      ></tr>
     </tbody>
   </table>
 </div>

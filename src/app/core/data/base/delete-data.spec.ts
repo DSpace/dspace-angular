@@ -22,7 +22,7 @@ import { RequestEntryState } from '../request-entry-state.model';
 import { DeleteData, DeleteDataImpl } from './delete-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { fakeAsync, tick } from '@angular/core/testing';
+import { RestRequestMethod } from '../rest-request-method';
 
 /**
  * Tests whether calls to `DeleteData` methods are correctly patched through in a concrete data service that implements it
@@ -62,8 +62,6 @@ export function testDeleteDataImplementation(serviceFactory: () => DeleteData<an
 }
 
 const endpoint = 'https://rest.api/core';
-
-const BOOLEAN = { f: false, t: true };
 
 class TestService extends DeleteDataImpl<any> {
   constructor(
@@ -155,13 +153,13 @@ describe('DeleteDataImpl', () => {
     let MOCK_FAILED_RD;
 
     let invalidateByHrefSpy: jasmine.Spy;
-    let buildFromRequestUUIDSpy: jasmine.Spy;
+    let buildFromRequestUUIDAndAwaitSpy: jasmine.Spy;
     let getIDHrefObsSpy: jasmine.Spy;
     let deleteByHrefSpy: jasmine.Spy;
 
     beforeEach(() => {
       invalidateByHrefSpy = spyOn(service, 'invalidateByHref').and.returnValue(observableOf(true));
-      buildFromRequestUUIDSpy = spyOn(rdbService, 'buildFromRequestUUID').and.callThrough();
+      buildFromRequestUUIDAndAwaitSpy = spyOn(rdbService, 'buildFromRequestUUIDAndAwait').and.callThrough();
       getIDHrefObsSpy = spyOn(service, 'getIDHrefObs').and.callThrough();
       deleteByHrefSpy = spyOn(service, 'deleteByHref').and.callThrough();
 
@@ -171,7 +169,7 @@ describe('DeleteDataImpl', () => {
 
     it('should retrieve href by ID and call deleteByHref', () => {
       getIDHrefObsSpy.and.returnValue(observableOf('some-href'));
-      buildFromRequestUUIDSpy.and.returnValue(createSuccessfulRemoteDataObject$({}));
+      buildFromRequestUUIDAndAwaitSpy.and.returnValue(createSuccessfulRemoteDataObject$({}));
 
       service.delete('some-id', ['a', 'b', 'c']).subscribe(rd => {
         expect(getIDHrefObsSpy).toHaveBeenCalledWith('some-id');
@@ -180,64 +178,51 @@ describe('DeleteDataImpl', () => {
     });
 
     describe('deleteByHref', () => {
-      it('should call invalidateByHref if the DELETE request succeeds', (done) => {
-        buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+      it('should send a DELETE request', (done) => {
+        buildFromRequestUUIDAndAwaitSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+
+        service.deleteByHref('some-href').subscribe(() => {
+          expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
+            method: RestRequestMethod.DELETE,
+            href: 'some-href',
+          }));
+          done();
+        });
+      });
+
+      it('should include the virtual metadata to be copied in the DELETE request', (done) => {
+        buildFromRequestUUIDAndAwaitSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+
+        service.deleteByHref('some-href', ['a', 'b', 'c']).subscribe(() => {
+          expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
+            method: RestRequestMethod.DELETE,
+            href: 'some-href?copyVirtualMetadata=a&copyVirtualMetadata=b&copyVirtualMetadata=c',
+          }));
+          done();
+        });
+      });
+
+      it('should invalidate the currently cached object', (done) => {
+        service.deleteByHref('some-href').subscribe(() => {
+          expect(buildFromRequestUUIDAndAwaitSpy).toHaveBeenCalledWith(
+            requestService.generateRequestId(),
+            jasmine.anything(),
+          );
+
+          const callback = (rdbService.buildFromRequestUUIDAndAwait as jasmine.Spy).calls.argsFor(0)[1];
+          callback();
+          expect(service.invalidateByHref).toHaveBeenCalledWith('some-href');
+
+          done();
+        });
+      });
+
+      it('should return the RemoteData of the response', (done) => {
+        buildFromRequestUUIDAndAwaitSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
 
         service.deleteByHref('some-href').subscribe(rd => {
           expect(rd).toBe(MOCK_SUCCEEDED_RD);
-          expect(invalidateByHrefSpy).toHaveBeenCalled();
           done();
-        });
-      });
-
-      it('should call invalidateByHref even if not subscribing to returned Observable', fakeAsync(() => {
-        buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
-
-        service.deleteByHref('some-href');
-        tick();
-
-        expect(invalidateByHrefSpy).toHaveBeenCalled();
-      }));
-
-      it('should not call invalidateByHref if the DELETE request fails', (done) => {
-        buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_FAILED_RD));
-
-        service.deleteByHref('some-href').subscribe(rd => {
-          expect(rd).toBe(MOCK_FAILED_RD);
-          expect(invalidateByHrefSpy).not.toHaveBeenCalled();
-          done();
-        });
-      });
-
-      it('should wait for invalidateByHref before emitting', () => {
-        testScheduler.run(({ cold, expectObservable }) => {
-          buildFromRequestUUIDSpy.and.returnValue(
-            cold('(r|)', { r: MOCK_SUCCEEDED_RD})      // RD emits right away
-          );
-          invalidateByHrefSpy.and.returnValue(
-            cold('----(t|)', BOOLEAN)                  // but we pretend that setting requests to stale takes longer
-          );
-
-          const done$ = service.deleteByHref('some-href');
-          expectObservable(done$).toBe(
-            '----(r|)', { r: MOCK_SUCCEEDED_RD}        // ...and expect the returned Observable to wait until that's done
-          );
-        });
-      });
-
-      it('should wait for the DELETE request to resolve before emitting', () => {
-        testScheduler.run(({ cold, expectObservable }) => {
-          buildFromRequestUUIDSpy.and.returnValue(
-            cold('----(r|)', { r: MOCK_SUCCEEDED_RD})   // the request takes a while
-          );
-          invalidateByHrefSpy.and.returnValue(
-            cold('(t|)', BOOLEAN)                       // but we pretend that setting to stale happens sooner
-          );                                            // e.g.: maybe already stale before this call?
-
-          const done$ = service.deleteByHref('some-href');
-          expectObservable(done$).toBe(
-            '----(r|)', { r: MOCK_SUCCEEDED_RD}         // ...and expect the returned Observable to wait for the request
-          );
         });
       });
     });

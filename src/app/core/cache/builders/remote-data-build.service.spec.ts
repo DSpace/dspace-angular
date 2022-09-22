@@ -1,4 +1,4 @@
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { createFailedRemoteDataObject, createPendingRemoteDataObject, createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { buildPaginatedList, PaginatedList } from '../../data/paginated-list.model';
 import { Item } from '../../shared/item.model';
 import { PageInfo } from '../../shared/page-info.model';
@@ -19,6 +19,8 @@ import { HALLink } from '../../shared/hal-link.model';
 import { RequestEntryState } from '../../data/request-entry-state.model';
 import { RequestEntry } from '../../data/request-entry.model';
 import { cold } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
+import { fakeAsync, tick } from '@angular/core/testing';
 
 describe('RemoteDataBuildService', () => {
   let service: RemoteDataBuildService;
@@ -760,6 +762,97 @@ describe('RemoteDataBuildService', () => {
         expect(service.buildFromHref(cold('a', { a: 'rest/api/endpoint' }))).toBeObservable(cold('a', {
           a: new RemoteData(undefined, undefined, 25, RequestEntryState.Success, undefined, {}, undefined),
         }));
+      });
+    });
+  });
+
+  describe('buildFromRequestUUIDAndAwait', () => {
+    let testScheduler;
+
+    let callback: jasmine.Spy;
+    let buildFromRequestUUIDSpy;
+
+    const BOOLEAN = { t: true, f: false };
+
+    const MOCK_PENDING_RD = createPendingRemoteDataObject();
+    const MOCK_SUCCEEDED_RD = createSuccessfulRemoteDataObject({});
+    const MOCK_FAILED_RD = createFailedRemoteDataObject('failed');
+
+    const RDs = {
+      p: MOCK_PENDING_RD,
+      s: MOCK_SUCCEEDED_RD,
+      f: MOCK_FAILED_RD,
+    };
+
+
+    beforeEach(() => {
+      testScheduler = new TestScheduler((actual, expected) => {
+        expect(actual).toEqual(expected);
+      });
+
+      callback = jasmine.createSpy('callback');
+      callback.and.returnValue(observableOf(undefined));
+      buildFromRequestUUIDSpy = spyOn(service, 'buildFromRequestUUID').and.callThrough();
+    });
+
+    it('should patch through href & followLinks to buildFromRequestUUID', () => {
+      buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+      service.buildFromRequestUUIDAndAwait('some-href', callback, ...linksToFollow);
+      expect(buildFromRequestUUIDSpy).toHaveBeenCalledWith('some-href', ...linksToFollow);
+    });
+
+    it('should trigger the callback on successful RD', (done) => {
+      buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+
+      service.buildFromRequestUUIDAndAwait('some-href', callback).subscribe(rd => {
+        expect(rd).toBe(MOCK_SUCCEEDED_RD);
+        expect(callback).toHaveBeenCalled();
+        done();
+      });
+    });
+
+    it('should trigger the callback on successful RD even if nothing subscribes to the returned Observable', fakeAsync(() => {
+      buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+
+      service.buildFromRequestUUIDAndAwait('some-href', callback);
+      tick();
+
+      expect(callback).toHaveBeenCalled();
+    }));
+
+    it('should not trigger the callback on pending RD', (done) => {
+      buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_PENDING_RD));
+
+      service.buildFromRequestUUIDAndAwait('some-href', callback).subscribe(rd => {
+        expect(rd).toBe(MOCK_PENDING_RD);
+        expect(callback).not.toHaveBeenCalled();
+        done();
+      });
+    });
+
+    it('should not trigger the callback on failed RD', (done) => {
+      buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_FAILED_RD));
+
+      service.buildFromRequestUUIDAndAwait('some-href', callback).subscribe(rd => {
+        expect(rd).toBe(MOCK_FAILED_RD);
+        expect(callback).not.toHaveBeenCalled();
+        done();
+      });
+    });
+
+    it('should only emit after the callback is done', () => {
+      testScheduler.run(({ cold: tsCold, expectObservable }) => {
+        buildFromRequestUUIDSpy.and.returnValue(
+          tsCold('-p----s', RDs)
+        );
+        callback.and.returnValue(
+          tsCold('      --t', BOOLEAN)
+        );
+
+        const done$ = service.buildFromRequestUUIDAndAwait('some-href', callback);
+        expectObservable(done$).toBe(
+          '       -p------s', RDs       // resulting duration between pending & successful includes the callback
+        );
       });
     });
   });

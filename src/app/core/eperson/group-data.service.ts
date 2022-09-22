@@ -2,8 +2,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { createSelector, select, Store } from '@ngrx/store';
-import { Observable, AsyncSubject, zip as observableZip } from 'rxjs';
-import { filter, map, take, switchMap } from 'rxjs/operators';
+import { Observable, zip as observableZip } from 'rxjs';
+import { filter, map, take } from 'rxjs/operators';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction
@@ -138,40 +138,10 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
     const postRequest = new PostRequest(requestId, activeGroup.self + '/' + this.subgroupsEndpoint, subgroup.self, options);
     this.requestService.send(postRequest);
 
-    const response$ = this.rdbService.buildFromRequestUUID(requestId);
-
-    const invalidated$ = new AsyncSubject<boolean>();
-    response$.pipe(
-      getFirstCompletedRemoteData(),
-      switchMap((rd: RemoteData<Group>) => {
-        if (rd.hasSucceeded) {
-          return observableZip(
-            this.invalidateByHref(activeGroup._links.self.href),
-            this.requestService.setStaleByHrefSubstring(activeGroup._links.subgroups.href).pipe(take(1)),
-          ).pipe(
-            map((arr: boolean[]) => arr.every((b: boolean) => b === true))
-          );
-        } else {
-          return [true];
-        }
-      })
-    ).subscribe(() => {
-      invalidated$.next(true);
-      invalidated$.complete();
-    });
-
-    return response$.pipe(
-      switchMap((rd: RemoteData<Group>) => {
-        if (rd.hasSucceeded) {
-          return invalidated$.pipe(
-            filter((invalidated: boolean) => invalidated),
-            map(() => rd)
-          );
-        } else {
-          return [rd];
-        }
-      })
-    );
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => observableZip(
+      this.invalidateByHref(activeGroup._links.self.href),
+      this.requestService.setStaleByHrefSubstring(activeGroup._links.subgroups.href).pipe(take(1)),
+    ));
   }
 
   /**
@@ -186,40 +156,10 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
     const deleteRequest = new DeleteRequest(requestId, activeGroup.self + '/' + this.subgroupsEndpoint + '/' + subgroup.id);
     this.requestService.send(deleteRequest);
 
-    const response$ = this.rdbService.buildFromRequestUUID(requestId);
-
-    const invalidated$ = new AsyncSubject<boolean>();
-    response$.pipe(
-      getFirstCompletedRemoteData(),
-      switchMap((rd: RemoteData<NoContent>) => {
-        if (rd.hasSucceeded) {
-          return observableZip(
-            this.invalidateByHref(activeGroup._links.self.href),
-            this.requestService.setStaleByHrefSubstring(activeGroup._links.subgroups.href).pipe(take(1)),
-          ).pipe(
-            map((arr: boolean[]) => arr.every((b: boolean) => b === true))
-          );
-        } else {
-          return [true];
-        }
-      })
-    ).subscribe(() => {
-      invalidated$.next(true);
-      invalidated$.complete();
-    });
-
-    return response$.pipe(
-      switchMap((rd: RemoteData<NoContent>) => {
-        if (rd.hasSucceeded) {
-          return invalidated$.pipe(
-            filter((invalidated: boolean) => invalidated),
-            map(() => rd)
-          );
-        } else {
-          return [rd];
-        }
-      })
-    );
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => observableZip(
+      this.invalidateByHref(activeGroup._links.self.href),
+      this.requestService.setStaleByHrefSubstring(activeGroup._links.subgroups.href).pipe(take(1)),
+    ));
   }
 
   /**
@@ -237,42 +177,12 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
     const postRequest = new PostRequest(requestId, activeGroup.self + '/' + this.ePersonsEndpoint, ePerson.self, options);
     this.requestService.send(postRequest);
 
-    const response$ = this.rdbService.buildFromRequestUUID(requestId);
-
-    const invalidated$ = new AsyncSubject<boolean>();
-    response$.pipe(
-      getFirstCompletedRemoteData(),
-      switchMap((rd: RemoteData<NoContent>) => {
-        if (rd.hasSucceeded) {
-          return observableZip(
-            this.invalidateByHref(ePerson._links.self.href),
-            this.invalidateByHref(activeGroup._links.self.href),
-            this.requestService.setStaleByHrefSubstring(ePerson._links.groups.href).pipe(take(1)),
-            this.requestService.setStaleByHrefSubstring(activeGroup._links.epersons.href).pipe(take(1)),
-          ).pipe(
-            map((arr: boolean[]) => arr.every((b: boolean) => b === true))
-          );
-        } else {
-          return [true];
-        }
-      })
-    ).subscribe(() => {
-      invalidated$.next(true);
-      invalidated$.complete();
-    });
-
-    return response$.pipe(
-      switchMap((rd: RemoteData<Group>) => {
-        if (rd.hasSucceeded) {
-          return invalidated$.pipe(
-            filter((invalidated: boolean) => invalidated),
-            map(() => rd)
-          );
-        } else {
-          return [rd];
-        }
-      })
-    );
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => observableZip(
+      this.invalidateByHref(ePerson._links.self.href),
+      this.invalidateByHref(activeGroup._links.self.href),
+      this.requestService.setStaleByHrefSubstring(ePerson._links.groups.href).pipe(take(1)),
+      this.requestService.setStaleByHrefSubstring(activeGroup._links.epersons.href).pipe(take(1)),
+    ));
   }
 
   /**
@@ -286,42 +196,12 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
     const deleteRequest = new DeleteRequest(requestId, activeGroup.self + '/' + this.ePersonsEndpoint + '/' + ePerson.id);
     this.requestService.send(deleteRequest);
 
-    const response$ = this.rdbService.buildFromRequestUUID(requestId);
-
-    const invalidated$ = new AsyncSubject<boolean>();
-    response$.pipe(
-      getFirstCompletedRemoteData(),
-      switchMap((rd: RemoteData<NoContent>) => {
-        if (rd.hasSucceeded) {
-          return observableZip(
-            this.invalidateByHref(ePerson._links.self.href),
-            this.invalidateByHref(activeGroup._links.self.href),
-            this.requestService.setStaleByHrefSubstring(ePerson._links.groups.href).pipe(take(1)),
-            this.requestService.setStaleByHrefSubstring(activeGroup._links.epersons.href).pipe(take(1)),
-          ).pipe(
-            map((arr: boolean[]) => arr.every((b: boolean) => b === true))
-          );
-        } else {
-          return [true];
-        }
-      })
-    ).subscribe(() => {
-      invalidated$.next(true);
-      invalidated$.complete();
-    });
-
-    return response$.pipe(
-      switchMap((rd: RemoteData<NoContent>) => {
-        if (rd.hasSucceeded) {
-          return invalidated$.pipe(
-            filter((invalidated: boolean) => invalidated),
-            map(() => rd)
-          );
-        } else {
-          return [rd];
-        }
-      })
-    );
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => observableZip(
+      this.invalidateByHref(ePerson._links.self.href),
+      this.invalidateByHref(activeGroup._links.self.href),
+      this.requestService.setStaleByHrefSubstring(ePerson._links.groups.href).pipe(take(1)),
+      this.requestService.setStaleByHrefSubstring(activeGroup._links.epersons.href).pipe(take(1)),
+    ));
   }
 
   /**
