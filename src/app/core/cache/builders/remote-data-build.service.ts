@@ -3,9 +3,8 @@ import {
   combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
-  race as observableRace
 } from 'rxjs';
-import { map, switchMap, filter, distinctUntilKeyChanged } from 'rxjs/operators';
+import { map, switchMap, filter, distinctUntilKeyChanged, startWith } from 'rxjs/operators';
 import { hasValue, isEmpty, isNotEmpty, hasNoValue, isUndefined } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { FollowLinkConfig, followLink } from '../../../shared/utils/follow-link-config.model';
@@ -21,7 +20,7 @@ import { HALResource } from '../../shared/hal-resource.model';
 import { PAGINATED_LIST } from '../../data/paginated-list.resource-type';
 import { getUrlWithoutEmbedParams } from '../../index/index.selectors';
 import { getResourceTypeValueFor } from '../object-cache.reducer';
-import { hasSucceeded, RequestEntryState } from '../../data/request-entry-state.model';
+import { hasSucceeded, isStale, RequestEntryState } from '../../data/request-entry-state.model';
 import { getRequestFromRequestHref, getRequestFromRequestUUID } from '../../shared/request.operators';
 import { RequestEntry } from '../../data/request-entry.model';
 import { ResponseState } from '../../data/response-state.model';
@@ -207,10 +206,27 @@ export class RemoteDataBuildService {
         this.objectCache.getRequestUUIDBySelfLink(href)),
     );
 
-    const requestEntry$ = observableRace(
-      href$.pipe(getRequestFromRequestHref(this.requestService)),
-      requestUUID$.pipe(getRequestFromRequestUUID(this.requestService)),
-    ).pipe(
+    const requestEntry$ = observableCombineLatest([
+      href$.pipe(getRequestFromRequestHref(this.requestService), startWith(undefined)),
+      requestUUID$.pipe(getRequestFromRequestUUID(this.requestService), startWith(undefined)),
+    ]).pipe(
+      filter(([r1, r2]) => hasValue(r1) || hasValue(r2)),
+      map(([r1, r2]) => {
+        // If one of the two requests has no value, return the other (both is impossible due to the filter above)
+        if (hasNoValue(r2)) {
+          return r1;
+        } else if (hasNoValue(r1)) {
+          return r2;
+        }
+
+        if ((isStale(r1.state) && isStale(r2.state)) || (!isStale(r1.state) && !isStale(r2.state))) {
+          // Neither or both are stale, pick the most recent request
+          return r1.lastUpdated >= r2.lastUpdated ? r1 : r2;
+        } else {
+          // One of the two is stale, return the not stale request
+          return isStale(r2.state) ? r1 : r2;
+        }
+      }),
       distinctUntilKeyChanged('lastUpdated')
     );
 
