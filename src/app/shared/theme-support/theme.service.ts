@@ -1,5 +1,5 @@
-import { Inject, Injectable } from '@angular/core';
-import { createFeatureSelector, createSelector, select, Store } from '@ngrx/store';
+import { Injectable, Inject, Injector } from '@angular/core';
+import { Store, createFeatureSelector, createSelector, select } from '@ngrx/store';
 import { BehaviorSubject, EMPTY, Observable, of as observableOf } from 'rxjs';
 import { ThemeState } from './theme.reducer';
 import { SetThemeAction, ThemeActionTypes } from './theme.actions';
@@ -53,12 +53,13 @@ export class ThemeService {
     private store: Store<ThemeState>,
     private linkService: LinkService,
     private dSpaceObjectDataService: DSpaceObjectDataService,
+    protected injector: Injector,
     @Inject(GET_THEME_CONFIG_FOR_FACTORY) private gtcf: (str) => ThemeConfig,
     private router: Router,
     @Inject(DOCUMENT) private document: any,
   ) {
     // Create objects from the theme configs in the environment file
-    this.themes = environment.themes.map((themeConfig: ThemeConfig) => themeFactory(themeConfig));
+    this.themes = environment.themes.map((themeConfig: ThemeConfig) => themeFactory(themeConfig, injector));
     this.hasDynamicTheme = environment.themes.some((themeConfig: any) =>
       hasValue(themeConfig.regex) ||
       hasValue(themeConfig.handle) ||
@@ -66,10 +67,17 @@ export class ThemeService {
     );
   }
 
+  /**
+   * Set the current theme
+   * @param newName
+   */
   setTheme(newName: string) {
     this.store.dispatch(new SetThemeAction(newName));
   }
 
+  /**
+   * The name of the current theme (synchronous)
+   */
   getThemeName(): string {
     let currentTheme: string;
     this.store.pipe(
@@ -81,16 +89,29 @@ export class ThemeService {
     return currentTheme;
   }
 
+  /**
+   * The name of the current theme (asynchronous, tracks changes)
+   */
   getThemeName$(): Observable<string> {
     return this.store.pipe(
       select(currentThemeSelector)
     );
   }
 
+  /**
+   * Whether the theme is currently loading
+   */
   get isThemeLoading$(): Observable<boolean> {
     return this._isThemeLoading$;
   }
 
+  /**
+   * Every time the theme is changed
+   *   - if the theme name is valid, load it (CSS + <head> tags)
+   *   - otherwise fall back to {@link getDefaultThemeConfig} or {@link BASE_THEME_NAME}
+   * Should be called when initializing the app.
+   * @param isBrowser
+   */
   listenForThemeChanges(isBrowser: boolean): void {
     this.getThemeName$().subscribe((themeName: string) => {
       if (isBrowser) {
@@ -110,6 +131,10 @@ export class ThemeService {
     });
   }
 
+  /**
+   * For every resolved route, check if it matches a dynamic theme. If it does, load that theme.
+   * Should be called when initializing the app.
+   */
   listenForRouteChanges(): void {
     this.router.events.pipe(
       filter(event => event instanceof ResolveEnd),
@@ -126,6 +151,13 @@ export class ThemeService {
     });
   }
 
+  /**
+   * Load a theme's configuration
+   *   - CSS
+   *   - <head> tags
+   * @param themeName
+   * @private
+   */
   private loadGlobalThemeConfig(themeName: string): void {
     this.setThemeCss(themeName);
     this.setHeadTags(themeName);
@@ -167,6 +199,11 @@ export class ThemeService {
     head.appendChild(link);
   }
 
+  /**
+   * Update the page to add a theme's <head> tags
+   * @param themeName the theme in question
+   * @private
+   */
   private setHeadTags(themeName: string): void {
     const head = this.document.getElementsByTagName('head')[0];
     if (hasNoValue(head)) {
@@ -188,6 +225,12 @@ export class ThemeService {
     head.appendChild(headTagFragment);
   }
 
+  /**
+   * Create HTML elements for a theme's <head> tags
+   * (including those defined in the parent theme, if applicable)
+   * @param themeName the theme in question
+   * @private
+   */
   private createHeadTags(themeName: string): HTMLElement[] {
     const themeConfig = this.getThemeConfigFor(themeName);
     const headTagConfigs = themeConfig?.headTags;
@@ -225,6 +268,11 @@ export class ThemeService {
     return headTagConfigs.map(this.createHeadTag.bind(this));
   }
 
+  /**
+   * Create a single <head> tag element
+   * @param headTagConfig the configuration for this <head> tag
+   * @private
+   */
   private createHeadTag(headTagConfig: HeadTagConfig): HTMLElement {
     const tag = this.document.createElement(headTagConfig.tagName);
 

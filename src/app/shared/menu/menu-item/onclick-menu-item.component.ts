@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
-import { MenuItemType } from '../initial-menus-state';
 import { rendersMenuItemForType } from '../menu-item.decorator';
 import { OnClickMenuItemModel } from './models/onclick.model';
+import { MenuItemType } from '../menu-item-type.model';
 
 /**
  * Component that renders a menu section of type ONCLICK

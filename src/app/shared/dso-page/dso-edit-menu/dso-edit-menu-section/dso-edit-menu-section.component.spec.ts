@@ -8,10 +8,10 @@ import { Router } from '@angular/router';
 import { RouterStub } from '../../../testing/router.stub';
 import { of as observableOf } from 'rxjs';
 import { Component } from '@angular/core';
-import { MenuItemType } from '../../../menu/initial-menus-state';
 import { By } from '@angular/platform-browser';
 import { DsoEditMenuSectionComponent } from './dso-edit-menu-section.component';
 import { OnClickMenuItemModel } from '../../../menu/menu-item/models/onclick.model';
+import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
 
 function initAsync(dummySectionText: { visible: boolean; icon: string; active: boolean; model: { disabled: boolean; text: string; type: MenuItemType }; id: string }, menuService: MenuServiceStub) {
   beforeEach(waitForAsync(() => {

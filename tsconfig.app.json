@@ -22,7 +22,6 @@
     "src/**/mocks/*"
   ],
   "angularCompilerOptions": {
-    "entryModule": "./src/modules/app/browser-app.module#BrowserAppModule",
-    "preserveWhitespaces": true
+    "entryModule": "./src/modules/app/browser-app.module#BrowserAppModule"
   }
 }

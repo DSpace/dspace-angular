@@ -1,10 +1,10 @@
 import { Component, Inject, Injector, OnInit } from '@angular/core';
-import { MenuID } from 'src/app/shared/menu/initial-menus-state';
 import { rendersSectionForMenu } from 'src/app/shared/menu/menu-section.decorator';
 import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-section.component';
 import { MenuService } from '../../../menu/menu.service';
-import { MenuSection } from '../../../menu/menu.reducer';
 import { isNotEmpty } from '../../../empty.util';
+import { MenuID } from '../../../menu/menu-id.model';
+import { MenuSection } from '../../../menu/menu-section.model';
 
 /**
  * Represents a non-expandable section in the dso edit menus

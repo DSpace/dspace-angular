@@ -14,6 +14,8 @@ import {
   ExpandableNavbarSectionComponent
 } from '../../../navbar/expandable-navbar-section/expandable-navbar-section.component';
 import { MenuItemModel } from '../../menu/menu-item/models/menu-item.model';
+import { ThemeService } from '../../theme-support/theme.service';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
 
 describe('DsoEditMenuComponent', () => {
   let comp: DsoEditMenuComponent;
@@ -52,6 +54,7 @@ describe('DsoEditMenuComponent', () => {
         {provide: AuthService, useClass: AuthServiceStub},
         {provide: ActivatedRoute, useValue: routeStub},
         {provide: AuthorizationDataService, useValue: authorizationService},
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ExpandableNavbarSectionComponent, {

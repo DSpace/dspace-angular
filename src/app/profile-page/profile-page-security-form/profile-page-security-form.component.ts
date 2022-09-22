@@ -5,8 +5,9 @@ import { FormGroup } from '@angular/forms';
 import { hasValue, isEmpty } from '../../shared/empty.util';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { debounceTime, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { debounceTimeWorkaround as debounceTime } from '../../core/shared/operators';
 
 @Component({
   selector: 'ds-profile-page-security-form',

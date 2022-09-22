@@ -1,4 +1,5 @@
 <div [class.form-group]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')"
+     [class.d-none]="model.hidden"
      [formGroup]="group"
      [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]">
   <label *ngIf="!isCheckbox && hasLabel"
@@ -6,7 +7,7 @@
          [for]="id"
          [innerHTML]="(model.required && model.label) ? (model.label | translate) + ' *' : (model.label | translate)"
          [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
-  <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: model"></ng-container>
+  <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: { $implicit: model };"></ng-container>
   <!--    Should be *ngIf instead of class d-none, but that breaks the #componentViewContainer reference-->
   <div [ngClass]="{'form-row': model.hasLanguages || isRelationship,
                       'd-none': value?.isVirtual && (model.hasSelectableMetadata || context?.index > 0)}">

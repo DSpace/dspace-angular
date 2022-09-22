@@ -9,8 +9,8 @@ import { RouterStub } from '../../../testing/router.stub';
 import { of as observableOf } from 'rxjs';
 import { Component } from '@angular/core';
 import { DsoEditMenuExpandableSectionComponent } from './dso-edit-menu-expandable-section.component';
-import { MenuItemType } from '../../../menu/initial-menus-state';
 import { By } from '@angular/platform-browser';
+import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
 
 describe('DsoEditMenuExpandableSectionComponent', () => {
   let component: DsoEditMenuExpandableSectionComponent;

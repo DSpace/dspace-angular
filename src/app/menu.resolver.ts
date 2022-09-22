@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { combineLatest as observableCombineLatest, combineLatest, Observable } from 'rxjs';
-import { MenuID, MenuItemType } from './shared/menu/initial-menus-state';
+import { MenuID } from './shared/menu/menu-id.model';
+import { MenuState } from './shared/menu/menu-state.model';
+import { MenuItemType } from './shared/menu/menu-item-type.model';
 import { LinkMenuItemModel } from './shared/menu/menu-item/models/link.model';
 import { getFirstCompletedRemoteData } from './core/shared/operators';
 import { PaginatedList } from './core/data/paginated-list.model';
@@ -10,20 +12,38 @@ import { RemoteData } from './core/data/remote-data';
 import { TextMenuItemModel } from './shared/menu/menu-item/models/text.model';
 import { BrowseService } from './core/browse/browse.service';
 import { MenuService } from './shared/menu/menu.service';
-import { MenuState } from './shared/menu/menu.reducer';
-import { find, map, take } from 'rxjs/operators';
+import { filter, find, map, take } from 'rxjs/operators';
 import { hasValue } from './shared/empty.util';
 import { FeatureID } from './core/data/feature-authorization/feature-id';
-import { CreateCommunityParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
+import {
+  ThemedCreateCommunityParentSelectorComponent
+} from './shared/dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
 import { OnClickMenuItemModel } from './shared/menu/menu-item/models/onclick.model';
-import { CreateCollectionParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
-import { CreateItemParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
-import { EditCommunitySelectorComponent } from './shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
-import { EditCollectionSelectorComponent } from './shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
-import { EditItemSelectorComponent } from './shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
-import { ExportMetadataSelectorComponent } from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
+import {
+  ThemedCreateCollectionParentSelectorComponent
+} from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
+import {
+  ThemedCreateItemParentSelectorComponent
+} from './shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
+import {
+  ThemedEditCommunitySelectorComponent
+} from './shared/dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
+import {
+  ThemedEditCollectionSelectorComponent
+} from './shared/dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
+import {
+  ThemedEditItemSelectorComponent
+} from './shared/dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
+import {
+  ExportMetadataSelectorComponent
+} from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  METADATA_EXPORT_SCRIPT_NAME,
+  METADATA_IMPORT_SCRIPT_NAME,
+  ScriptDataService
+} from './core/data/processes/script-data.service';
 
 /**
  * Creates all of the app's menus
@@ -37,6 +57,7 @@ export class MenuResolver implements Resolve<boolean> {
     protected browseService: BrowseService,
     protected authorizationService: AuthorizationDataService,
     protected modalService: NgbModal,
+    protected scriptDataService: ScriptDataService,
   ) {
   }
 
@@ -167,7 +188,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_community',
             function: () => {
-              this.modalService.open(CreateCommunityParentSelectorComponent);
+              this.modalService.open(ThemedCreateCommunityParentSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -180,7 +201,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_collection',
             function: () => {
-              this.modalService.open(CreateCollectionParentSelectorComponent);
+              this.modalService.open(ThemedCreateCollectionParentSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -193,7 +214,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_item',
             function: () => {
-              this.modalService.open(CreateItemParentSelectorComponent);
+              this.modalService.open(ThemedCreateItemParentSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -242,7 +263,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.edit_community',
             function: () => {
-              this.modalService.open(EditCommunitySelectorComponent);
+              this.modalService.open(ThemedEditCommunitySelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -255,7 +276,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.edit_collection',
             function: () => {
-              this.modalService.open(EditCollectionSelectorComponent);
+              this.modalService.open(ThemedEditCollectionSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -268,7 +289,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.edit_item',
             function: () => {
-              this.modalService.open(EditItemSelectorComponent);
+              this.modalService.open(ThemedEditItemSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -316,6 +337,18 @@ export class MenuResolver implements Resolve<boolean> {
           icon: 'terminal',
           index: 10
         },
+        {
+          id: 'health',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.health',
+            link: '/health'
+          } as LinkMenuItemModel,
+          icon: 'heartbeat',
+          index: 11
+        },
       ];
       menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
         shouldPersistOnRouteChange: true
@@ -329,19 +362,6 @@ export class MenuResolver implements Resolve<boolean> {
    */
   createExportMenuSections() {
     const menuList = [
-      /* Export */
-      {
-        id: 'export',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.export'
-        } as TextMenuItemModel,
-        icon: 'file-export',
-        index: 3,
-        shouldPersistOnRouteChange: true
-      },
       // TODO: enable this menu item once the feature has been implemented
       // {
       //   id: 'export_community',
@@ -384,14 +404,28 @@ export class MenuResolver implements Resolve<boolean> {
     ];
     menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, menuSection));
 
-    observableCombineLatest(
+    observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      // this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME)
-    ).pipe(
-      // TODO uncomment when #635 (https://github.com/DSpace/dspace-angular/issues/635) is fixed; otherwise even in production mode, the metadata export button is only available after a refresh (and not in dev mode)
-      // filter(([authorized, metadataExportScriptExists]: boolean[]) => authorized && metadataExportScriptExists),
+      this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME)
+    ]).pipe(
+      filter(([authorized, metadataExportScriptExists]: boolean[]) => authorized && metadataExportScriptExists),
       take(1)
     ).subscribe(() => {
+      // Hides the export menu for unauthorised people
+      // If in the future more sub-menus are added,
+      // it should be reviewed if they need to be in this subscribe
+      this.menuService.addSection(MenuID.ADMIN, {
+        id: 'export',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.TEXT,
+          text: 'menu.section.export'
+        } as TextMenuItemModel,
+        icon: 'file-export',
+        index: 3,
+        shouldPersistOnRouteChange: true
+      });
       this.menuService.addSection(MenuID.ADMIN, {
         id: 'export_metadata',
         parentID: 'export',
@@ -415,18 +449,6 @@ export class MenuResolver implements Resolve<boolean> {
    */
   createImportMenuSections() {
     const menuList = [
-      /* Import */
-      {
-        id: 'import',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.import'
-        } as TextMenuItemModel,
-        icon: 'file-import',
-        index: 2
-      },
       // TODO: enable this menu item once the feature has been implemented
       // {
       //   id: 'import_batch',
@@ -440,18 +462,30 @@ export class MenuResolver implements Resolve<boolean> {
       //   } as LinkMenuItemModel,
       // }
     ];
-    menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
-      shouldPersistOnRouteChange: true
-    })));
+    menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, menuSection));
 
-    observableCombineLatest(
+    observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      // this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME)
-    ).pipe(
-      // TODO uncomment when #635 (https://github.com/DSpace/dspace-angular/issues/635) is fixed
-      // filter(([authorized, metadataImportScriptExists]: boolean[]) => authorized && metadataImportScriptExists),
+      this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME)
+    ]).pipe(
+      filter(([authorized, metadataImportScriptExists]: boolean[]) => authorized && metadataImportScriptExists),
       take(1)
     ).subscribe(() => {
+      // Hides the import menu for unauthorised people
+      // If in the future more sub-menus are added,
+      // it should be reviewed if they need to be in this subscribe
+      this.menuService.addSection(MenuID.ADMIN, {
+        id: 'import',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.TEXT,
+          text: 'menu.section.import'
+        } as TextMenuItemModel,
+        icon: 'file-import',
+        index: 2,
+        shouldPersistOnRouteChange: true,
+      });
       this.menuService.addSection(MenuID.ADMIN, {
         id: 'import_metadata',
         parentID: 'import',
@@ -560,10 +594,10 @@ export class MenuResolver implements Resolve<boolean> {
    * Create menu sections dependent on whether or not the current user can manage access control groups
    */
   createAccessControlMenuSections() {
-    observableCombineLatest(
+    observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.authorizationService.isAuthorized(FeatureID.CanManageGroups)
-    ).subscribe(([isSiteAdmin, canManageGroups]) => {
+    ]).subscribe(([isSiteAdmin, canManageGroups]) => {
       const menuList = [
         /* Access Control */
         {
@@ -618,5 +652,4 @@ export class MenuResolver implements Resolve<boolean> {
       })));
     });
   }
-
 }

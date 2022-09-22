@@ -1,4 +1,4 @@
-import { APP_BASE_HREF, CommonModule } from '@angular/common';
+import { APP_BASE_HREF, CommonModule, DOCUMENT } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
@@ -8,7 +8,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { MetaReducer, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { DYNAMIC_ERROR_MESSAGES_MATCHER, DYNAMIC_MATCHER_PROVIDERS, DynamicErrorMessagesMatcher } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
@@ -29,11 +28,19 @@ import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
 import { LogInterceptor } from './core/log/log.interceptor';
 import { EagerThemesModule } from '../themes/eager-themes.module';
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
+import { NgxMaskModule } from 'ngx-mask';
+import { StoreDevModules } from '../config/store/devtools';
 import { RootModule } from './root.module';
 
-export function getBase(appConfig: AppConfig) {
-  return appConfig.ui.nameSpace;
+export function getConfig() {
+  return environment;
 }
+
+const getBaseHref = (document: Document, appConfig: AppConfig): string => {
+  const baseTag = document.querySelector('head > base');
+  baseTag.setAttribute('href', `${appConfig.ui.nameSpace}${appConfig.ui.nameSpace.endsWith('/') ? '' : '/'}`);
+  return baseTag.getAttribute('href');
+};
 
 export function getMetaReducers(appConfig: AppConfig): MetaReducer<AppState>[] {
   return appConfig.debug ? [...appMetaReducers, ...debugMetaReducers] : appMetaReducers;
@@ -57,25 +64,20 @@ const IMPORTS = [
   ScrollToModule.forRoot(),
   NgbModule,
   TranslateModule.forRoot(),
+  NgxMaskModule.forRoot(),
   EffectsModule.forRoot(appEffects),
   StoreModule.forRoot(appReducers, storeModuleConfig),
   StoreRouterConnectingModule.forRoot(),
+  StoreDevModules,
   EagerThemesModule,
   RootModule,
 ];
 
-IMPORTS.push(
-  StoreDevtoolsModule.instrument({
-    maxAge: 1000,
-    logOnly: environment.production,
-  })
-);
-
 const PROVIDERS = [
   {
     provide: APP_BASE_HREF,
-    useFactory: getBase,
-    deps: [APP_CONFIG]
+    useFactory: getBaseHref,
+    deps: [DOCUMENT, APP_CONFIG]
   },
   {
     provide: USER_PROVIDED_META_REDUCERS,

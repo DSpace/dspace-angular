@@ -4,7 +4,7 @@
        *ngVar="group$ | async as group">
 
     <h5 class="w-100">
-      {{'comcol-role.edit.' + (comcolRole$ | async)?.name + '.name' | translate}}
+      {{ roleName$ | async }}
     </h5>
 
     <div class="mt-2 mb-2">
@@ -13,7 +13,7 @@
 
     <div class="d-flex flex-md-row justify-content-between flex-column">
       <div class="w-100 d-flex align-items-center">
-        <ds-loading *ngIf="!(groupRD$ | async)"></ds-loading>
+        <ds-themed-loading *ngIf="!(groupRD$ | async)"></ds-themed-loading>
         <div *ngIf="hasNoGroup$ | async">
           {{'comcol-role.edit.no-group' | translate}}
         </div>

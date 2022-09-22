@@ -1,9 +1,8 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { LinkMenuItemModel } from './models/link.model';
-import { MenuItemType } from '../initial-menus-state';
 import { rendersMenuItemForType } from '../menu-item.decorator';
 import { isNotEmpty } from '../../empty.util';
-import { environment } from '../../../../environments/environment';
+import { MenuItemType } from '../menu-item-type.model';
 import { Router } from '@angular/router';
 
 /**
@@ -30,7 +29,7 @@ export class LinkMenuItemComponent implements OnInit {
 
   getRouterLink() {
     if (this.hasLink) {
-      return environment.ui.nameSpace + this.item.link;
+      return this.item.link;
     }
     return undefined;
   }

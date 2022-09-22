@@ -9,12 +9,13 @@ import { MenuService } from '../menu/menu.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MenuID, MenuItemType } from '../menu/initial-menus-state';
 import { DSOEditMenuResolver } from './dso-edit-menu.resolver';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { Item } from '../../core/shared/item.model';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { MenuID } from '../menu/menu-id.model';
+import { MenuItemType } from '../menu/menu-item-type.model';
 
 describe('DSOEditMenuResolver', () => {
 

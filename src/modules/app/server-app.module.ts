@@ -7,7 +7,7 @@ import { ServerModule, ServerTransferStateModule } from '@angular/platform-serve
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { Angulartics2 } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { AppComponent } from '../../app/app.component';
 
@@ -50,8 +50,8 @@ export function createTranslateLoader(transferState: TransferState) {
         deps: [TransferState]
       }
     }),
+    AppModule,
     ServerModule,
-    AppModule
   ],
   providers: [
     ...ServerInitService.providers(),

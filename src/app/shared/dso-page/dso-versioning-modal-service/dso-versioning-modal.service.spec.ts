@@ -9,7 +9,7 @@ import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { EMPTY, of as observableOf } from 'rxjs';
 
-fdescribe('DsoVersioningModalService', () => {
+describe('DsoVersioningModalService', () => {
   let service: DsoVersioningModalService;
   let modalService;
   let versionService;

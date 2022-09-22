@@ -1,34 +1,30 @@
 import { Options } from 'cypress-axe';
+import { TEST_SEARCH_TERM } from 'cypress/support';
 import { testA11y } from 'cypress/support/utils';
 
 describe('Search Page', () => {
-    // unique ID of the search form (for selecting specific elements below)
-    const SEARCHFORM_ID = '#search-form';
-
-    it('should contain query value when navigating to page with query parameter', () => {
-        const queryString = 'test query';
-        cy.visit('/search?query=' + queryString);
-        cy.get(SEARCHFORM_ID + ' input[name="query"]').should('have.value', queryString);
-    });
-
     it('should redirect to the correct url when query was set and submit button was triggered', () => {
         const queryString = 'Another interesting query string';
         cy.visit('/search');
         // Type query in searchbox & click search button
-        cy.get(SEARCHFORM_ID + ' input[name="query"]').type(queryString);
-        cy.get(SEARCHFORM_ID + ' button.search-button').click();
+        cy.get('[data-test="search-box"]').type(queryString);
+        cy.get('[data-test="search-button"]').click();
         cy.url().should('include', 'query=' + encodeURI(queryString));
     });
 
-    it('should pass accessibility tests', () => {
-        cy.visit('/search');
+    it('should load results and pass accessibility tests', () => {
+        cy.visit('/search?query=' + TEST_SEARCH_TERM);
+        cy.get('[data-test="search-box"]').should('have.value', TEST_SEARCH_TERM);
 
         // <ds-search-page> tag must be loaded
         cy.get('ds-search-page').should('exist');
 
+        // At least one search result should be displayed
+        cy.get('[data-test="list-object"]').should('be.visible');
+
         // Click each filter toggle to open *every* filter
         // (As we want to scan filter section for accessibility issues as well)
-        cy.get('.filter-toggle').click({ multiple: true });
+        cy.get('[data-test="filter-toggle"]').click({ multiple: true });
 
         // Analyze <ds-search-page> for accessibility issues
         testA11y(
@@ -48,15 +44,17 @@ describe('Search Page', () => {
         );
     });
 
-    it('should pass accessibility tests in Grid view', () => {
-        cy.visit('/search');
+    it('should have a working grid view that passes accessibility tests', () => {
+        cy.visit('/search?query=' + TEST_SEARCH_TERM);
 
-        // Click to display grid view
-        // TODO: These buttons should likely have an easier way to uniquely select
-        cy.get('#search-sidebar-content > ds-view-mode-switch > .btn-group > [href="/search?view=grid"] > .fas').click();
+        // Click button in sidebar to display grid view
+        cy.get('ds-search-sidebar [data-test="grid-view"]').click();
 
         // <ds-search-page> tag must be loaded
         cy.get('ds-search-page').should('exist');
+
+        // At least one grid object (card) should be displayed
+        cy.get('[data-test="grid-object"]').should('be.visible');
 
         // Analyze <ds-search-page> for accessibility issues
         testA11y('ds-search-page',

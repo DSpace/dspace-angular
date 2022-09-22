@@ -7,13 +7,13 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { hasValue } from '../../../shared/empty.util';
-import { FindListOptions } from '../../../core/data/request.models';
 import {
   getAllCompletedRemoteData,
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
 } from '../../../core/shared/operators';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 /**
  * This component renders the parent collections section of the item
@@ -30,7 +30,7 @@ export class CollectionsComponent implements OnInit {
 
   label = 'item.page.collections';
 
-  separator = '<br/>';
+  @Input() separator = '<br/>';
 
   /**
    * Amount of mapped collections that should be fetched at once.

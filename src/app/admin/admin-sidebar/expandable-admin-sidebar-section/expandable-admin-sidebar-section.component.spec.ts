@@ -23,7 +23,7 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
       imports: [NoopAnimationsModule, TranslateModule.forRoot()],
       declarations: [ExpandableAdminSidebarSectionComponent, TestComponent],
       providers: [
-        { provide: 'sectionDataProvider', useValue: { icon: iconString } },
+        { provide: 'sectionDataProvider', useValue: { icon: iconString, model: {} } },
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: Router, useValue: new RouterStub() },

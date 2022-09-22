@@ -21,19 +21,23 @@ import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
-import { getTestScheduler } from 'jasmine-marbles';
+import { environment } from '../../../../environments/environment';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
 
-describe('UploadBistreamComponent', () => {
+describe('UploadBitstreamComponent', () => {
   let comp: UploadBitstreamComponent;
   let fixture: ComponentFixture<UploadBitstreamComponent>;
 
+  const customName = 'customBundleName';
   const bundle = Object.assign(new Bundle(), {
     id: 'bundle',
     uuid: 'bundle',
+    name: customName,
     metadata: {
       'dc.title': [
         {
-          value: 'bundleName',
+          value: customName,
           language: null
         }
       ]
@@ -42,14 +46,15 @@ describe('UploadBistreamComponent', () => {
       self: { href: 'bundle-selflink' }
     }
   });
-  const customName = 'Custom Name';
+  const customCreatedName = 'customCreatedBundleName';
   const createdBundle = Object.assign(new Bundle(), {
     id: 'created-bundle',
     uuid: 'created-bundle',
+    name: customCreatedName,
     metadata: {
       'dc.title': [
         {
-          value: customName,
+          value: customCreatedName,
           language: null
         }
       ]
@@ -72,13 +77,14 @@ describe('UploadBistreamComponent', () => {
     },
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle]))
   });
+  const standardBundleSuggestions = environment.bundle.standardBundles;
   let routeStub;
   const routerStub = new RouterStub();
   const restEndpoint = 'fake-rest-endpoint';
   const mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
     getBitstreamsEndpoint: observableOf(restEndpoint),
     createBundle: createSuccessfulRemoteDataObject$(createdBundle),
-    getBundles: createSuccessfulRemoteDataObject$([bundle])
+    getBundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [bundle])),
   });
   const bundleService = jasmine.createSpyObj('bundleService', {
     getBitstreamsEndpoint: observableOf(restEndpoint),
@@ -92,22 +98,6 @@ describe('UploadBistreamComponent', () => {
   const uploaderComponent = jasmine.createSpyObj('uploaderComponent', ['ngOnInit', 'ngAfterViewInit']);
   const requestService = jasmine.createSpyObj('requestService', {
     removeByHrefSubstring: {}
-  });
-
-
-  describe('on init', () => {
-    beforeEach(waitForAsync(() => {
-      createUploadBitstreamTestingModule({
-        bundle: bundle.id
-      });
-    }));
-    beforeEach(() => {
-      loadFixtureAndComp();
-    });
-    it('should initialize the bundles', () => {
-      expect(comp.bundlesRD$).toBeDefined();
-      getTestScheduler().expectObservable(comp.bundlesRD$).toBe('(a|)', {a: createSuccessfulRemoteDataObject([bundle])});
-    });
   });
 
   describe('when a file is uploaded', () => {
@@ -164,12 +154,24 @@ describe('UploadBistreamComponent', () => {
     });
 
     describe('and bundle name changed', () => {
-      beforeEach(() => {
+      beforeEach(waitForAsync(() => {
+        jasmine.getEnv().allowRespy(true);
+        mockItemDataService.getBundles.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [bundle])));
+        loadFixtureAndComp();
+      }));
+
+      it('should clear out the selected id if the name doesn\'t exist', () => {
+        comp.selectedBundleName = '';
         comp.bundleNameChange();
+
+        expect(comp.selectedBundleId).toBeUndefined();
       });
 
-      it('should clear out the selected id', () => {
-        expect(comp.selectedBundleId).toBeUndefined();
+      it('should select the correct id if the name exist', () => {
+        comp.selectedBundleName = customName;
+        comp.bundleNameChange();
+
+        expect(comp.selectedBundleId).toEqual(bundle.id);
       });
     });
   });
@@ -200,6 +202,69 @@ describe('UploadBistreamComponent', () => {
       it('should display a success notification', () => {
         expect(notificationsServiceStub.success).toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('when item has no bundles yet', () => {
+    beforeEach(waitForAsync(() => {
+      createUploadBitstreamTestingModule({
+        bundle: bundle.id
+      });
+      jasmine.getEnv().allowRespy(true);
+      mockItemDataService.getBundles.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])));
+      loadFixtureAndComp();
+    }));
+
+    it('should display only the standard bundles in dropdown', () => {
+      expect(comp.bundles.length).toEqual(standardBundleSuggestions.length);
+      for (let i = 0; i < standardBundleSuggestions.length; i++) {
+        // noinspection JSDeprecatedSymbols
+        expect(comp.bundles[i].name).toEqual(standardBundleSuggestions[i]);
+      }
+    });
+  });
+
+  describe('when item has a custom bundle', () => {
+    beforeEach(waitForAsync(() => {
+      createUploadBitstreamTestingModule({
+        bundle: bundle.id
+      });
+      jasmine.getEnv().allowRespy(true);
+      mockItemDataService.getBundles.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [bundle])));
+      loadFixtureAndComp();
+    }));
+
+    it('should still display existing bitstream bundles if the bitstream has bundles', () => {
+      const expectedSuggestions = [bundle.name, ...standardBundleSuggestions];
+      expect(comp.bundles.length).toEqual(expectedSuggestions.length);
+      for (let i = 0; i < expectedSuggestions.length; i++) {
+        // noinspection JSDeprecatedSymbols
+        expect(comp.bundles[i].name).toEqual(expectedSuggestions[i]);
+      }
+    });
+  });
+
+  describe('when item has a standard bundle', () => {
+    let clonedBundle;
+    beforeEach(waitForAsync(() => {
+      clonedBundle = { ...bundle };
+      expect(standardBundleSuggestions.length).toBeGreaterThan(0);
+      clonedBundle.name = standardBundleSuggestions[0];
+      createUploadBitstreamTestingModule({
+        bundle: clonedBundle.id
+      });
+      jasmine.getEnv().allowRespy(true);
+      mockItemDataService.getBundles.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [clonedBundle])));
+      loadFixtureAndComp();
+    }));
+
+    it('should not show duplicate bundle names', () => {
+      const expectedSuggestions = [clonedBundle.name, ...standardBundleSuggestions.filter((standardBundleSuggestion: string) => standardBundleSuggestion !== clonedBundle.name)];
+      expect(comp.bundles.length).toEqual(expectedSuggestions.length);
+      for (let i = 0; i < expectedSuggestions.length; i++) {
+        // noinspection JSDeprecatedSymbols
+        expect(comp.bundles[i].name).toEqual(expectedSuggestions[i]);
+      }
     });
   });
 

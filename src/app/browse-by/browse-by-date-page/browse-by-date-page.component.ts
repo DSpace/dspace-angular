@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import {
   BrowseByMetadataPageComponent,
   browseParamsToOptions
@@ -18,6 +18,8 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { isValidDate } from '../../shared/date.util';
+import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -42,8 +44,9 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
                      protected dsoService: DSpaceObjectDataService,
                      protected router: Router,
                      protected paginationService: PaginationService,
-                     protected cdRef: ChangeDetectorRef) {
-    super(route, browseService, dsoService, paginationService, router);
+                     protected cdRef: ChangeDetectorRef,
+                     @Inject(APP_CONFIG) protected appConfig: AppConfig) {
+    super(route, browseService, dsoService, paginationService, router, appConfig);
   }
 
   ngOnInit(): void {
@@ -85,10 +88,10 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         let lowerLimit = environment.browseBy.defaultLowerLimit;
         if (hasValue(firstItemRD.payload)) {
           const date = firstItemRD.payload.firstMetadataValue(metadataKeys);
-          if (hasValue(date)) {
+          if (isNotEmpty(date) && isValidDate(date)) {
             const dateObj = new Date(date);
             // TODO: it appears that getFullYear (based on local time) is sometimes unreliable. Switching to UTC.
-            lowerLimit = dateObj.getUTCFullYear();
+            lowerLimit = isNaN(dateObj.getUTCFullYear()) ? lowerLimit : dateObj.getUTCFullYear();
           }
         }
         const options = [];

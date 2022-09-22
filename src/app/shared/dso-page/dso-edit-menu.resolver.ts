@@ -1,7 +1,6 @@
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { combineLatest, Observable, of as observableOf } from 'rxjs';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { MenuID, MenuItemType } from '../menu/initial-menus-state';
 import { MenuService } from '../menu/menu.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { Injectable } from '@angular/core';
@@ -15,7 +14,9 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
 import { hasValue } from '../empty.util';
-import { MenuSection } from '../menu/menu.reducer';
+import { MenuID } from '../menu/menu-id.model';
+import { MenuItemType } from '../menu/menu-item-type.model';
+import { MenuSection } from '../menu/menu-section.model';
 
 /**
  * Creates the menus for the dspace object pages
