@@ -5,7 +5,7 @@ import { AddAllCSSVariablesAction, AddCSSVariableAction, ClearCSSVariablesAction
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { Observable } from 'rxjs';
-import { hasValue } from '../empty.util';
+import { hasValue, isNotEmpty } from '../empty.util';
 import { KeyValuePair } from '../key-value-pair.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { CSSVariablesState } from './css-variable.reducer';
@@ -13,7 +13,9 @@ import { CSSVariablesState } from './css-variable.reducer';
 /**
  * This service deals with adding and retrieving CSS variables to and from the store
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CSSVariableService {
   isSameDomain = (styleSheet) => {
     // Internal style blocks won't have an href value
@@ -88,31 +90,35 @@ export class CSSVariableService {
    * ex; [{key: "--color-accent", value: "#b9f500"}, {key: "--color-text", value: "#252525"}, ...]
    */
   getCSSVariablesFromStylesheets(document: Document): KeyValuePair<string, string>[] {
-    // styleSheets is array-like, so we convert it to an array.
-    // Filter out any stylesheets not on this domain
-    return [...document.styleSheets]
-      .filter(this.isSameDomain)
-      .reduce(
-        (finalArr, sheet) =>
-          finalArr.concat(
-            // cssRules is array-like, so we convert it to an array
-            [...sheet.cssRules].filter(this.isStyleRule).reduce((propValArr, rule: any) => {
-              const props = [...rule.style]
-                .map((propName) => {
-                    return {
-                      key: propName.trim(),
-                      value: rule.style.getPropertyValue(propName).trim()
-                    } as KeyValuePair<string, string>;
-                  }
-                )
-                // Discard any props that don't start with "--". Custom props are required to.
-                .filter(({ key }: KeyValuePair<string, string>) => key.indexOf('--') === 0);
+    if (isNotEmpty(document.styleSheets)) {
+      // styleSheets is array-like, so we convert it to an array.
+      // Filter out any stylesheets not on this domain
+      return [...document.styleSheets]
+        .filter(this.isSameDomain)
+        .reduce(
+          (finalArr, sheet) =>
+            finalArr.concat(
+              // cssRules is array-like, so we convert it to an array
+              [...sheet.cssRules].filter(this.isStyleRule).reduce((propValArr, rule: any) => {
+                const props = [...rule.style]
+                  .map((propName) => {
+                      return {
+                        key: propName.trim(),
+                        value: rule.style.getPropertyValue(propName).trim()
+                      } as KeyValuePair<string, string>;
+                    }
+                  )
+                  // Discard any props that don't start with "--". Custom props are required to.
+                  .filter(({ key }: KeyValuePair<string, string>) => key.indexOf('--') === 0);
 
-              return [...propValArr, ...props];
-            }, [])
-          ),
-        []
-      );
+                return [...propValArr, ...props];
+              }, [])
+            ),
+          []
+        );
+    } else {
+      return [];
+    }
   }
 }
 
