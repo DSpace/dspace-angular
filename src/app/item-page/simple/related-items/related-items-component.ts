@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, Input } from '@angular/core';
+import { Component, ElementRef, Inject, Input, PLATFORM_ID } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -7,8 +7,9 @@ import { ViewMode } from '../../../core/shared/view-mode.model';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { setPlaceHolderFontSize } from '../../../shared/utils/object-list-utils';
+import { setPlaceHolderAttributes } from '../../../shared/utils/object-list-utils';
 import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'ds-related-items',
@@ -63,15 +64,20 @@ export class RelatedItemsComponent extends AbstractIncrementalListComponent<Obse
 
   constructor(public relationshipService: RelationshipDataService,
               protected elementRef: ElementRef,
-              @Inject(APP_CONFIG) protected appConfig: AppConfig
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
+              @Inject(PLATFORM_ID) private platformId: Object
               ) {
     super();
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
   }
 
   ngOnInit(): void {
-    const width = this.elementRef.nativeElement.offsetWidth;
-    this.placeholderFontClass = setPlaceHolderFontSize(width);
+    if (isPlatformBrowser(this.platformId)) {
+      const width = this.elementRef.nativeElement.offsetWidth;
+      this.placeholderFontClass = setPlaceHolderAttributes(width);
+    } else {
+      this.placeholderFontClass = 'hide-placeholder-text';
+    }
     super.ngOnInit();
   }
 

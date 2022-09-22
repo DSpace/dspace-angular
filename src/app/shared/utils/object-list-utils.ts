@@ -2,7 +2,7 @@
  * Sets the class to be used for the "no thumbnail"
  * placeholder font size in lists.
  */
-export function  setPlaceHolderFontSize(width: number): string {
+export function  setPlaceHolderAttributes(width: number): string {
   if (width < 400) {
     return 'thumb-font-0';
   } else if (width < 750) {

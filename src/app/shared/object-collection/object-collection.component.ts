@@ -1,10 +1,10 @@
 import {
   ChangeDetectorRef,
   Component, ElementRef,
-  EventEmitter,
+  EventEmitter, Inject,
   Input,
   OnInit,
-  Output,
+  Output, PLATFORM_ID,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -21,7 +21,8 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { CollectionElementLinkType } from './collection-element-link.type';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Context } from '../../core/shared/context.model';
-import { setPlaceHolderFontSize } from '../utils/object-list-utils';
+import { setPlaceHolderAttributes } from '../utils/object-list-utils';
+import { isPlatformBrowser } from '@angular/common';
 
 /**
  * Component that can render a list of listable objects in different view modes
@@ -161,17 +162,7 @@ export class ObjectCollectionComponent implements OnInit {
   placeholderFontClass: string;
 
 
-  ngOnInit(): void {
-    this.currentMode$ = this.route
-      .queryParams
-      .pipe(
-        map((params) => isEmpty(params?.view) ? ViewMode.ListElement : params.view),
-        distinctUntilChanged()
-      );
-    const width = this.elementRef.nativeElement.offsetWidth;
-    this.placeholderFontClass = setPlaceHolderFontSize(width);
 
-  }
 
   /**
    * @param cdRef
@@ -187,7 +178,23 @@ export class ObjectCollectionComponent implements OnInit {
     private cdRef: ChangeDetectorRef,
     private route: ActivatedRoute,
     private router: Router,
-    private elementRef: ElementRef) {
+    private elementRef: ElementRef,
+    @Inject(PLATFORM_ID) private platformId: Object) {
+  }
+
+  ngOnInit(): void {
+    this.currentMode$ = this.route
+      .queryParams
+      .pipe(
+        map((params) => isEmpty(params?.view) ? ViewMode.ListElement : params.view),
+        distinctUntilChanged()
+      );
+    if (isPlatformBrowser(this.platformId)) {
+      const width = this.elementRef.nativeElement.offsetWidth;
+      this.placeholderFontClass = setPlaceHolderAttributes(width);
+    } else {
+      this.placeholderFontClass = 'hide-placeholder-text';
+    }
   }
 
   /**
