@@ -1,18 +1,17 @@
-import { HALLink } from '../shared/hal-link.model';
-import { HALResource } from '../shared/hal-resource.model';
+/* eslint-disable max-classes-per-file */
 import {
+  AddPatchObjectCacheAction,
+  AddToObjectCacheAction,
+  ApplyPatchObjectCacheAction,
   ObjectCacheAction,
   ObjectCacheActionTypes,
-  AddToObjectCacheAction,
   RemoveFromObjectCacheAction,
-  ResetObjectCacheTimestampsAction,
-  AddPatchObjectCacheAction,
-  ApplyPatchObjectCacheAction
+  ResetObjectCacheTimestampsAction
 } from './object-cache.actions';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CacheEntry } from './cache-entry';
-import { ResourceType } from '../shared/resource-type';
 import { applyPatch, Operation } from 'fast-json-patch';
+import { CacheableObject } from './cacheable-object.model';
 
 /**
  * An interface to represent a JsonPatch
@@ -29,11 +28,6 @@ export interface Patch {
   operations: Operation[];
 }
 
-export abstract class TypedObject {
-  static type: ResourceType;
-  type: ResourceType;
-}
-
 /**
  * Get the string value for an object that may be a string or a ResourceType
  *
@@ -48,25 +42,6 @@ export const getResourceTypeValueFor = (type: any): string => {
     }
   }
 };
-
-/* tslint:disable:max-classes-per-file */
-/**
- * An interface to represent objects that can be cached
- *
- * A cacheable object should have a self link
- */
-export class CacheableObject extends TypedObject implements HALResource {
-  uuid?: string;
-  handle?: string;
-  _links: {
-    self: HALLink;
-  };
-  // isNew: boolean;
-  // dirtyType: DirtyType;
-  // hasDirtyAttributes: boolean;
-  // changedAttributes: AttributeDiffh;
-  // save(): void;
-}
 
 /**
  * An entry in the ObjectCache
@@ -88,9 +63,11 @@ export class ObjectCacheEntry implements CacheEntry {
   msToLive: number;
 
   /**
-   * The UUID of the request that caused this entry to be added
+   * The UUIDs of the requests that caused this entry to be added
+   * New UUIDs should be added to the front of the array
+   * to make retrieving the latest UUID easier.
    */
-  requestUUID: string;
+  requestUUIDs: string[];
 
   /**
    * An array of patches that were made on the client side to this entry, but haven't been sent to the server yet
@@ -110,7 +87,6 @@ export class ObjectCacheEntry implements CacheEntry {
   alternativeLinks: string[];
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * The ObjectCache State
@@ -182,11 +158,11 @@ function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheActio
       data: action.payload.objectToCache,
       timeCompleted: action.payload.timeCompleted,
       msToLive: action.payload.msToLive,
-      requestUUID: action.payload.requestUUID,
+      requestUUIDs: [action.payload.requestUUID, ...(existing.requestUUIDs || [])],
       isDirty: isNotEmpty(existing.patches),
       patches: existing.patches || [],
       alternativeLinks: [...(existing.alternativeLinks || []), ...newAltLinks]
-    }
+    } as ObjectCacheEntry
   });
 }
 

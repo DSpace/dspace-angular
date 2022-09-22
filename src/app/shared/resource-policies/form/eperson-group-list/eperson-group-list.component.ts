@@ -8,11 +8,8 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
-import { DataService } from '../../../../core/data/data.service';
 import { hasValue, isNotEmpty } from '../../../empty.util';
-import { FindListOptions } from '../../../../core/data/request.models';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { getDataServiceFor } from '../../../../core/cache/builders/build-decorators';
 import { EPERSON } from '../../../../core/eperson/models/eperson.resource-type';
 import { GROUP } from '../../../../core/eperson/models/group.resource-type';
 import { ResourceType } from '../../../../core/shared/resource-type';
@@ -21,6 +18,8 @@ import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { fadeInOut } from '../../../animations/fade';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import { getDataServiceFor } from '../../../../core/data/base/data-service.decorator';
 
 export interface SearchEvent {
   scope: string;
@@ -75,7 +74,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
    * The data service used to make request.
    * It could be EPersonDataService or GroupDataService
    */
-  private dataService: DataService<DSpaceObject>;
+  private dataService: EPersonDataService | GroupDataService;
 
   /**
    * A list of eperson or group

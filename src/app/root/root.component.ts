@@ -1,11 +1,11 @@
-import { map } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { MetadataService } from '../core/metadata/metadata.service';
 import { HostWindowState } from '../shared/search/host-window.reducer';
@@ -13,12 +13,12 @@ import { NativeWindowRef, NativeWindowService } from '../core/services/window.se
 import { AuthService } from '../core/auth/auth.service';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '../shared/menu/initial-menus-state';
 import { HostWindowService } from '../shared/host-window.service';
 import { ThemeConfig } from '../../config/theme.model';
 import { Angulartics2DSpace } from '../statistics/angulartics/dspace-provider';
 import { environment } from '../../environments/environment';
 import { slideSidebarPadding } from '../shared/animations/slide';
+import { MenuID } from '../shared/menu/menu-id.model';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
 
 @Component({
@@ -71,7 +71,8 @@ export class RootComponent implements OnInit {
     const sidebarCollapsed = this.menuService.isMenuCollapsed(MenuID.ADMIN);
     this.slideSidebarOver = combineLatestObservable([sidebarCollapsed, this.windowService.isXsOrSm()])
       .pipe(
-        map(([collapsed, mobile]) => collapsed || mobile)
+        map(([collapsed, mobile]) => collapsed || mobile),
+        startWith(true),
       );
 
     if (this.router.url === getPageInternalServerErrorRoute()) {

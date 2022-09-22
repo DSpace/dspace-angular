@@ -1,4 +1,4 @@
-<div class="container-fluid mb-4">{{FORM_PREFIX + 'info' | translate}}</div>
+<ds-alert class="mb-4" [type]="'alert-info'">{{FORM_PREFIX + 'info' | translate}}</ds-alert>
 <ds-form *ngIf="formModel"
          [formId]="FORM_PREFIX"
          [formModel]="formModel"

@@ -3,45 +3,33 @@ import { Observable } from 'rxjs';
 import { distinctUntilChanged, filter, find, map } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstCompletedRemoteData, sendRequest } from '../shared/operators';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import { RemoteData } from './remote-data';
 import { PostRequest, PutRequest } from './request.models';
 import { RequestService } from './request.service';
 import { ItemRequest } from '../shared/item-request.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { DataService } from './data.service';
-import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { HttpHeaders } from '@angular/common/http';
 import { RequestCopyEmail } from '../../request-copy/email-request-copy/request-copy-email.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { sendRequest } from '../shared/request.operators';
+import { IdentifiableDataService } from './base/identifiable-data.service';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the itemrequests endpoint
  */
-@Injectable(
-  {
-    providedIn: 'root',
-  }
-)
-export class ItemRequestDataService extends DataService<ItemRequest> {
-
-  protected linkPath = 'itemrequests';
-
+@Injectable({
+  providedIn: 'root',
+})
+export class ItemRequestDataService extends IdentifiableDataService<ItemRequest> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<ItemRequest>,
   ) {
-    super();
+    super('itemrequests', requestService, rdbService, objectCache, halService);
   }
 
   getItemRequestEndpoint(): Observable<string> {
@@ -123,9 +111,9 @@ export class ItemRequestDataService extends DataService<ItemRequest> {
           suggestOpenAccess,
         }), options);
       }),
-      sendRequest(this.requestService)).subscribe();
+      sendRequest(this.requestService),
+    ).subscribe();
 
     return this.rdbService.buildFromRequestUUID(requestId);
   }
-
 }

@@ -283,44 +283,42 @@ export class ItemVersionsComponent implements OnInit {
     activeModal.componentInstance.firstVersion = false;
 
     // On modal submit/dismiss
-    activeModal.result.then(() => {
-      versionItem$.pipe(
-        getFirstSucceededRemoteDataPayload<Item>(),
-        // Retrieve version history and invalidate cache
-        mergeMap((item: Item) => combineLatest([
-          of(item),
-          this.versionHistoryService.getVersionHistoryFromVersion$(version).pipe(
-            tap((versionHistory: VersionHistory) => {
-              this.versionHistoryService.invalidateVersionHistoryCache(versionHistory.id);
-            })
-          )
-        ])),
-        // Delete item
-        mergeMap(([item, versionHistory]: [Item, VersionHistory]) => combineLatest([
-          this.deleteItemAndGetResult$(item),
-          of(versionHistory)
-        ])),
-        // Retrieve new latest version
-        mergeMap(([deleteItemResult, versionHistory]: [boolean, VersionHistory]) => combineLatest([
-          of(deleteItemResult),
-          this.versionHistoryService.getLatestVersionItemFromHistory$(versionHistory).pipe(
-            tap(() => {
-              this.getAllVersions(of(versionHistory));
-            }),
-          )
-        ])),
-      ).subscribe(([deleteHasSucceeded, newLatestVersionItem]: [boolean, Item]) => {
-        // Notify operation result and redirect to latest item
-        if (deleteHasSucceeded) {
-          this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': versionNumber}));
-        } else {
-          this.notificationsService.error(null, this.translateService.get(failureMessageKey, {'version': versionNumber}));
-        }
-        if (redirectToLatest) {
-          const path = getItemEditVersionhistoryRoute(newLatestVersionItem);
-          this.router.navigateByUrl(path);
-        }
-      });
+    activeModal.componentInstance.response.pipe(take(1)).subscribe((ok) => {
+      if (ok) {
+        versionItem$.pipe(
+          getFirstSucceededRemoteDataPayload<Item>(),
+          // Retrieve version history
+          mergeMap((item: Item) => combineLatest([
+            of(item),
+            this.versionHistoryService.getVersionHistoryFromVersion$(version)
+          ])),
+          // Delete item
+          mergeMap(([item, versionHistory]: [Item, VersionHistory]) => combineLatest([
+            this.deleteItemAndGetResult$(item),
+            of(versionHistory)
+          ])),
+          // Retrieve new latest version
+          mergeMap(([deleteItemResult, versionHistory]: [boolean, VersionHistory]) => combineLatest([
+            of(deleteItemResult),
+            this.versionHistoryService.getLatestVersionItemFromHistory$(versionHistory).pipe(
+              tap(() => {
+                this.getAllVersions(of(versionHistory));
+              }),
+            )
+          ])),
+        ).subscribe(([deleteHasSucceeded, newLatestVersionItem]: [boolean, Item]) => {
+          // Notify operation result and redirect to latest item
+          if (deleteHasSucceeded) {
+            this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': versionNumber}));
+          } else {
+            this.notificationsService.error(null, this.translateService.get(failureMessageKey, {'version': versionNumber}));
+          }
+          if (redirectToLatest) {
+            const path = getItemEditVersionhistoryRoute(newLatestVersionItem);
+            this.router.navigateByUrl(path);
+          }
+        });
+      }
     });
   }
 
@@ -342,6 +340,9 @@ export class ItemVersionsComponent implements OnInit {
         version.item.pipe(getFirstSucceededRemoteDataPayload())
       ])),
       mergeMap(([summary, item]: [string, Item]) => this.versionHistoryService.createVersion(item._links.self.href, summary)),
+      getFirstCompletedRemoteData(),
+      // close model (should be displaying loading/waiting indicator) when version creation failed/succeeded
+      tap(() => activeModal.close()),
       // show success/failure notification
       tap((newVersionRD: RemoteData<Version>) => {
         this.itemVersionShared.notifyCreateNewVersion(newVersionRD);

@@ -1,6 +1,6 @@
 import { filter, map, pairwise } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as fromRouter from '@ngrx/router-store';
 import { RouterNavigationAction } from '@ngrx/router-store';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ export class RouterEffects {
    * Effect that fires a new RouteUpdateAction when then path of route is changed
    * @type {Observable<RouteUpdateAction>}
    */
-  @Effect() routeChange$ = this.actions$
+   routeChange$ = createEffect(() => this.actions$
     .pipe(
       ofType(fromRouter.ROUTER_NAVIGATION),
       pairwise(),
@@ -23,7 +23,7 @@ export class RouterEffects {
         })),
       filter((actions: string[]) => actions[0] !== actions[1]),
       map(() => new RouteUpdateAction())
-    );
+    ));
 
   constructor(private actions$: Actions, private router: Router) {
   }

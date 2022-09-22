@@ -120,7 +120,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
       }
       this.zone.run(() => this.cdr.detectChanges());
     });
-  }
+  };
 
   public remove() {
     if (this.animate) {

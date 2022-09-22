@@ -22,7 +22,7 @@ import {
   nameVariantReducer
 } from './shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 import { formReducer, FormState } from './shared/form/form.reducer';
-import { menusReducer, MenusState } from './shared/menu/menu.reducer';
+import { menusReducer} from './shared/menu/menu.reducer';
 import {
   notificationsReducer,
   NotificationsState
@@ -49,6 +49,7 @@ import {
 import { sidebarReducer, SidebarState } from './shared/sidebar/sidebar.reducer';
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
 import { ThemeState, themeReducer } from './shared/theme-support/theme.reducer';
+import { MenusState } from './shared/menu/menus-state.model';
 import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
 
 export interface AppState {

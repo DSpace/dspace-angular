@@ -22,7 +22,7 @@ jobs:
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:
-        node-version: [12.x, 14.x]
+        node-version: [14.x, 16.x]
       # Do NOT exit immediately if one matrix job fails
       fail-fast: false
     # These are the actual CI steps to perform per job
@@ -70,7 +70,10 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Run lint
-        run: yarn run lint
+        run: yarn run lint --quiet
+
+      - name: Check for circular dependencies
+        run: yarn run check-circ-deps
 
       - name: Run build
         run: yarn run build:prod
@@ -79,11 +82,11 @@ jobs:
         run: yarn run test:headless
 
       # NOTE: Angular CLI only supports code coverage for specs. See https://github.com/angular/angular-cli/issues/6286
-      # Upload coverage reports to Codecov (for Node v12 only)
+      # Upload coverage reports to Codecov (for one version of Node only)
       # https://github.com/codecov/codecov-action
       - name: Upload coverage to Codecov.io
         uses: codecov/codecov-action@v2
-        if: matrix.node-version == '12.x'
+        if: matrix.node-version == '16.x'
 
       # Using docker-compose start backend using CI configuration
       # and load assetstore from a cached copy
@@ -127,6 +130,14 @@ jobs:
         with:
           name: e2e-test-screenshots
           path: cypress/screenshots
+
+      - name: Stop app (in case it stays up after e2e tests)
+        run: |
+          app_pid=$(lsof -t -i:4000)
+          if [[ ! -z $app_pid ]]; then
+            echo "App was still up! (PID: $app_pid)"
+            kill -9 $app_pid
+          fi
 
       # Start up the app with SSR enabled (run in background)
       - name: Start app in SSR (server-side rendering) mode

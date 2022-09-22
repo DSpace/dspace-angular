@@ -9,7 +9,6 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { LangConfig } from '../../../config/lang-config.interface';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../../core/core.reducers';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { environment } from '../../../environments/environment';
@@ -19,7 +18,8 @@ import {
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService
 } from '../../core/end-user-agreement/end-user-agreement.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { CoreState } from '../../core/core-state.model';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token
@@ -56,7 +56,8 @@ export class CreateProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.registration$ = this.route.data.pipe(
-      map((data) => data.registration as Registration),
+      map((data) => data.registration as RemoteData<Registration>),
+      getFirstSucceededRemoteDataPayload(),
     );
     this.registration$.subscribe((registration: Registration) => {
       this.email = registration.email;
