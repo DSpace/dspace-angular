@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
 import { NewHandlePageComponent } from './new-handle-page.component';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { of as observableOf } from 'rxjs';
@@ -11,6 +11,8 @@ import { RequestService } from '../../core/data/request.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { Store } from '@ngrx/store';
+import { HandleDataService } from '../../core/data/handle-data.service';
+import { mockCreatedHandleRD$ } from '../../shared/mocks/handle-mock';
 
 /**
  * The test class for the NewHandlePageComponent.
@@ -20,7 +22,7 @@ describe('NewHandlePageComponent', () => {
   let fixture: ComponentFixture<NewHandlePageComponent>;
 
   let notificationService: NotificationsServiceStub;
-  let requestService = RequestService;
+  let handleDataService: HandleDataService;
 
   const successfulResponse = {
     response: {
@@ -29,10 +31,10 @@ describe('NewHandlePageComponent', () => {
 
   beforeEach(async () => {
     notificationService = new NotificationsServiceStub();
-    requestService = jasmine.createSpyObj('requestService', {
-      send: observableOf('response'),
-      getByUUID: observableOf(successfulResponse),
-      generateRequestId: observableOf('123456'),
+
+    handleDataService = jasmine.createSpyObj('handleDataService', {
+      create: mockCreatedHandleRD$,
+      getLinkPath: observableOf('')
     });
 
     await TestBed.configureTestingModule({
@@ -45,9 +47,8 @@ describe('NewHandlePageComponent', () => {
       ],
       declarations: [ NewHandlePageComponent ],
       providers: [
-        { provide: RequestService, useValue: requestService },
         { provide: NotificationsService, useValue: notificationService },
-        { provide: TranslateService, useValue: getMockTranslateService() },
+        { provide: HandleDataService, useValue: handleDataService },
         {
           provide: Store, useValue: {
             // tslint:disable-next-line:no-empty
@@ -70,16 +71,17 @@ describe('NewHandlePageComponent', () => {
   });
 
   it('should send request after click on Submit', () => {
-    expect(component).toBeTruthy();
     component.onClickSubmit('new handle');
 
-    expect((component as any).requestService.send).toHaveBeenCalled();
+    expect((component as any).handleService.create).toHaveBeenCalled();
   });
 
   it('should notify after successful request', () => {
     component.onClickSubmit('new handle');
 
-    expect((component as any).notificationsService.success).toHaveBeenCalled();
-    expect((component as any).notificationsService.error).not.toHaveBeenCalled();
+    fixture.whenStable().then(() => {
+      expect((component as any).notificationsService.success).toHaveBeenCalled();
+      expect((component as any).notificationsService.error).not.toHaveBeenCalled();
+    });
   });
 });
