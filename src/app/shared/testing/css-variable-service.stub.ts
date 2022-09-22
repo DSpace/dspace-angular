@@ -21,7 +21,7 @@ export class CSSVariableServiceStub {
     /**/
   }
 
-  addCSSVariables(variables: KeyValuePair<string, string>[]): void {
+  addCSSVariables(variablesToAdd: KeyValuePair<string, string>[]): void {
     /**/
   }
 
