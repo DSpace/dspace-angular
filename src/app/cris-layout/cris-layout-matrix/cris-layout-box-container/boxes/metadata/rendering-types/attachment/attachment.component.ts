@@ -27,11 +27,6 @@ import { PageInfo } from '../../../../../../../core/shared/page-info.model';
 export class AttachmentComponent extends BitstreamRenderingModelComponent implements OnInit {
 
   /**
-   * List of all bitstreams that belong to the item
-   */
-  allBitstreams$: BehaviorSubject<Bitstream[]> = new BehaviorSubject<Bitstream[]>([]);
-
-  /**
    * List of bitstreams to show
    */
   bitstreams$: BehaviorSubject<Bitstream[]> = new BehaviorSubject<Bitstream[]>([]);
@@ -40,11 +35,6 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
    * If the list should show view more button
    */
   canViewMore = false;
-
-  /**
-   * The current pagination information
-   */
-  currentPageInfo: PageInfo;
 
   /**
    * Environment variables configuring pagination
@@ -82,7 +72,7 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
   retrieveBitstreams(): void {
     this.getBitstreamsByItem(this.pageOptions).pipe(
       map((bitstreamList: PaginatedList<Bitstream>) => {
-        this.canViewMore = this.pageOptions?.currentPage !== bitstreamList?.pageInfo?.totalPages;
+        this.canViewMore = this.envPagination.enabled && this.pageOptions?.currentPage !== bitstreamList?.pageInfo?.totalPages;
         return bitstreamList.page;
       }),
       take(1)
@@ -109,7 +99,7 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
    */
   protected initPageOptions(): void {
     this.pageOptions = Object.assign(new FindListOptions(), {
-      elementsPerPage: this.envPagination.elementsPerPage,
+      elementsPerPage: this.envPagination.enabled ? this.envPagination.elementsPerPage : 100,
       currentPage: 1
     });
   }

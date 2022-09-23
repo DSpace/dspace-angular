@@ -131,6 +131,7 @@ describe('AttachmentComponent', () => {
       return createSuccessfulRemoteDataObject$(new Bitstream());
     },
     findAllByItemAndBundleName: jasmine.createSpy('findAllByItemAndBundleName'),
+    findByItem: jasmine.createSpy('findByItem'),
   });
 
   const mockAuthorizedService = jasmine.createSpyObj('AuthorizationDataService', {
@@ -167,6 +168,7 @@ describe('AttachmentComponent', () => {
       mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
       component.envPagination.enabled = false;
       mockBitstreamDataService.findAllByItemAndBundleName.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
+      mockBitstreamDataService.findByItem.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
       let spy = spyOn(component, 'getBitstreams');
       spy.and.returnValue(of(createPaginatedList(attachmentsMock)));
       component.item = testItem;
