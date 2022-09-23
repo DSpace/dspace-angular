@@ -1,4 +1,4 @@
-import { combineLatest as observableCombineLatest, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
@@ -10,6 +10,7 @@ import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
+  REFRESH_FILTER,
   SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
 import { SearchService } from '../../../../../core/shared/search/search.service';
@@ -86,8 +87,9 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
               @Inject(PLATFORM_ID) private platformId: any,
+              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
               private route: RouteService) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig);
+    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
 
   }
 
