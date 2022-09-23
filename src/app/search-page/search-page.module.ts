@@ -12,6 +12,7 @@ import { SearchFilterService } from '../core/shared/search/search-filter.service
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
+import { ResourceTypeModule } from '../entity-groups/resource-type/resource-type.module';
 import { ThemedSearchPageComponent } from './themed-search-page.component';
 import { SearchModule } from '../shared/search/search.module';
 
@@ -29,7 +30,8 @@ const components = [
     CoreModule.forRoot(),
     StatisticsModule.forRoot(),
     JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents()
+    ResearchEntitiesModule.withEntryComponents(),
+    ResourceTypeModule.withEntryComponents()
   ],
   declarations: components,
   providers: [

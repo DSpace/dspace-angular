@@ -46,6 +46,7 @@ import {
 import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/submission-section-cc-licenses.component';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
+import { ResourceTypeModule } from '../entity-groups/resource-type/resource-type.module';
 import { ThemedSubmissionEditComponent } from './edit/themed-submission-edit.component';
 import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
 import { ThemedSubmissionImportExternalComponent } from './import-external/themed-submission-import-external.component';
@@ -111,6 +112,7 @@ const DECLARATIONS = [
     EffectsModule.forFeature(submissionEffects),
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
+    ResourceTypeModule.withEntryComponents(),
     FormModule,
     NgbModalModule,
     NgbCollapseModule,

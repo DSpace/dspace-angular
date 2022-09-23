@@ -2475,6 +2475,9 @@
   "iiif.page.description": "Description: ",
 
 
+  "isResourceTypedAs": "Is Document Type of", 
+
+
   "loading.bitstream": "Loading bitstream...",
 
   "loading.bitstreams": "Loading bitstreams...",
@@ -3260,6 +3263,10 @@
 
   "relationships.isFundingAgencyOf.OrgUnit": "Funder",
 
+  "relationships.isResourceTypeOf": "Document Type",
+
+  "relationships.isResourceTypedAs": "Publications",
+
 
   "repository.image.logo": "Repository logo",
 
@@ -3382,6 +3389,36 @@
 
   "resource-policies.table.headers.title.for.collection": "Policies for Collection",
 
+
+  "resourcetype.listelement.badge": "Document Type",
+
+  "resourcetype.listelement.no-title": "No document of this type found",
+
+  "resourcetype.page.edit": "Edit this item",
+
+  "resourcetype.page.link.full": "Show all metadata",
+
+  "resourcetype.page.titleprefix": "Document Type : ",
+
+  "resourcetype.search.results.head": "Document Types search results",
+
+  "resourcetype.search.title": "Document Type search",
+
+  "resourcetypes.page.name": "Name",
+
+  "resourcetypes.page.definition": "Definition",
+
+  "resourcetypes.page.uri": "URI",
+
+  "resourcetypes.page.preferredLabels": "Preferred Labels",
+
+  "resourcetypes.page.alternateLabels": "Alternate Labels",
+
+  "resourcetypes.page.narrowerConcepts": "Narrower Concepts",
+
+  "resourcetypes.page.broaderConcepts": "Broader Concepts",
+
+  "resourcetypes.page.relatedTerms": "Related terms",
 
 
   "search.description": "",
@@ -3591,6 +3628,19 @@
   "search.filters.reset": "Reset filters",
 
   "search.filters.search.submit": "Submit",
+
+
+  "search.filters.filter.resourceType.label": "Document Type",
+
+  "search.filters.filter.resourceType.head": "Document Type",
+
+  "search.filters.filter.resourceType.placeholder": "Document Type",
+
+  "search.filters.filter.resourceTypeName.label": "Document Type",
+
+  "search.filters.filter.resourceTypeName.head": "Document Type",
+
+  "search.filters.filter.resourceTypeName.placeholder": "Document Type",
 
 
 
@@ -4013,6 +4063,9 @@
   "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
 
   "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
+
+  "submission.sections.describe.relationship-lookup.title.isResourceTypeOfPublication": "Document Type",
+
 
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
 

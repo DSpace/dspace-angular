@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { IdlePreloadModule } from 'angular-idle-preload';
 import { JournalEntitiesModule } from '../../app/entity-groups/journal-entities/journal-entities.module';
+import { ResourceTypeModule } from '../../app/entity-groups/resource-type/resource-type.module';
 import { MyDspaceSearchModule } from '../../app/my-dspace-page/my-dspace-search.module';
 import { MenuModule } from '../../app/shared/menu/menu.module';
 import { NavbarModule } from '../../app/navbar/navbar.module';
@@ -179,6 +180,7 @@ const DECLARATIONS = [
     IdlePreloadModule,
     InfoModule,
     JournalEntitiesModule,
+    ResourceTypeModule,
     MenuModule,
     MyDspaceSearchModule,
     NavbarModule,

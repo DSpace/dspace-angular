@@ -5,7 +5,6 @@ import { SharedModule } from '../shared/shared.module';
 
 import { ItemPageComponent } from './simple/item-page.component';
 import { ItemPageRoutingModule } from './item-page-routing.module';
-import { MetadataUriValuesComponent } from './field-components/metadata-uri-values/metadata-uri-values.component';
 import {
   ItemPageAuthorFieldComponent
 } from './simple/field-components/specific-field/author/item-page-author-field.component';
@@ -15,7 +14,6 @@ import {
 import {
   ItemPageAbstractFieldComponent
 } from './simple/field-components/specific-field/abstract/item-page-abstract-field.component';
-import { ItemPageUriFieldComponent } from './simple/field-components/specific-field/uri/item-page-uri-field.component';
 import {
   ItemPageTitleFieldComponent
 } from './simple/field-components/specific-field/title/item-page-title-field.component';
@@ -34,6 +32,7 @@ import {
 import { UntypedItemComponent } from './simple/item-types/untyped-item/untyped-item.component';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
+import { ResourceTypeModule } from '../entity-groups/resource-type/resource-type.module';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { MediaViewerComponent } from './media-viewer/media-viewer.component';
@@ -63,11 +62,9 @@ const DECLARATIONS = [
   ThemedItemPageComponent,
   FullItemPageComponent,
   ThemedFullItemPageComponent,
-  MetadataUriValuesComponent,
   ItemPageAuthorFieldComponent,
   ItemPageDateFieldComponent,
   ItemPageAbstractFieldComponent,
-  ItemPageUriFieldComponent,
   ItemPageTitleFieldComponent,
   ItemPageFieldComponent,
   CollectionsComponent,
@@ -97,6 +94,7 @@ const DECLARATIONS = [
     StatisticsModule.forRoot(),
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
+    ResourceTypeModule.withEntryComponents(),
     NgxGalleryModule,
     NgbAccordionModule
   ],

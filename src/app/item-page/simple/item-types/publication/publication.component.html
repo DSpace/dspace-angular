@@ -89,6 +89,12 @@
       [label]="'item.page.uri'">
     </ds-item-page-uri-field>
     <ds-item-page-collections [item]="object"></ds-item-page-collections>
+    <!-- To display the resource type -->
+    <!-- <ds-related-items
+      [parentItem]="object"
+      [relationType]="'isResourceTypeOfPublication'"
+      [label]="'relationships.isResourceTypeOf' | translate">
+    </ds-related-items> !-->
     <div>
       <a class="btn btn-outline-primary" role="button" [routerLink]="[itemPageRoute + '/full']">
         <i class="fas fa-info-circle"></i> {{"item.page.link.full" | translate}}
