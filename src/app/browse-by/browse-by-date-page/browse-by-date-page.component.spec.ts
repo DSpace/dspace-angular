@@ -23,6 +23,8 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment';
 
 describe('BrowseByDatePageComponent', () => {
   let comp: BrowseByDatePageComponent;
@@ -83,7 +85,8 @@ describe('BrowseByDatePageComponent', () => {
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
-        { provide: ChangeDetectorRef, useValue: mockCdRef }
+        { provide: ChangeDetectorRef, useValue: mockCdRef },
+        { provide: APP_CONFIG, useValue: environment }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

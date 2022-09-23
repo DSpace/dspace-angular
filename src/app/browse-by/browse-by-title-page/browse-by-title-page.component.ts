@@ -1,5 +1,5 @@
 import { combineLatest as observableCombineLatest } from 'rxjs';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { hasValue } from '../../shared/empty.util';
 import {
@@ -14,6 +14,7 @@ import { BrowseByDataType, rendersBrowseBy } from '../browse-by-switcher/browse-
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-browse-by-title-page',
@@ -30,8 +31,9 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
                      protected browseService: BrowseService,
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
-                     protected router: Router) {
-    super(route, browseService, dsoService, paginationService, router);
+                     protected router: Router,
+                     @Inject(APP_CONFIG) protected appConfig: AppConfig) {
+    super(route, browseService, dsoService, paginationService, router, appConfig);
   }
 
   ngOnInit(): void {

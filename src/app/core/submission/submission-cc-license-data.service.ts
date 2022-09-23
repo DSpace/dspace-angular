@@ -6,7 +6,7 @@ import { RequestService } from '../data/request.service';
 import { SUBMISSION_CC_LICENSE } from './models/submission-cc-licence.resource-type';
 import { SubmissionCcLicence } from './models/submission-cc-license.model';
 import { BaseDataService } from '../data/base/base-data.service';
-import { FindAllData } from '../data/base/find-all-data';
+import {FindAllData, FindAllDataImpl} from '../data/base/find-all-data';
 import { FindListOptions } from '../data/find-list-options.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Observable } from 'rxjs';
@@ -19,6 +19,7 @@ import { dataService } from '../data/base/data-service.decorator';
 export class SubmissionCcLicenseDataService extends BaseDataService<SubmissionCcLicence> implements FindAllData<SubmissionCcLicence> {
 
   protected linkPath = 'submissioncclicenses';
+  private findAllData: FindAllData<SubmissionCcLicence>;
 
   constructor(
     protected requestService: RequestService,
@@ -27,6 +28,8 @@ export class SubmissionCcLicenseDataService extends BaseDataService<SubmissionCc
     protected halService: HALEndpointService,
   ) {
     super('submissioncclicenses', requestService, rdbService, objectCache, halService);
+
+    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
@@ -44,6 +47,6 @@ export class SubmissionCcLicenseDataService extends BaseDataService<SubmissionCc
    *    Return an observable that emits object list
    */
   public findAll(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<SubmissionCcLicence>[]): Observable<RemoteData<PaginatedList<SubmissionCcLicence>>> {
-    return undefined;
+    return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }

@@ -64,6 +64,7 @@ export class ProfilePageSecurityFormComponent implements OnInit {
    */
   @Input()
   FORM_PREFIX: string;
+
   private subs: Subscription[] = [];
 
   constructor(protected formService: DynamicFormService,
@@ -83,10 +84,10 @@ export class ProfilePageSecurityFormComponent implements OnInit {
     }
     if (this.passwordCanBeEmpty) {
       this.formGroup = this.formService.createFormGroup(this.formModel,
-        {validators: [this.checkPasswordsEqual, this.checkPasswordLength]});
+        { validators: [this.checkPasswordsEqual] });
     } else {
       this.formGroup = this.formService.createFormGroup(this.formModel,
-        {validators: [this.checkPasswordsEqual, this.checkPasswordLength, this.checkPasswordEmpty]});
+        { validators: [this.checkPasswordsEqual, this.checkPasswordEmpty] });
     }
     this.updateFieldTranslations();
     this.translate.onLangChange
@@ -94,11 +95,11 @@ export class ProfilePageSecurityFormComponent implements OnInit {
         this.updateFieldTranslations();
       });
 
-    this.subs.push(this.formGroup.statusChanges.pipe(
-      debounceTime(300),
-      map((status: string) => {
-        return status !== 'VALID';
-      })).subscribe((status) => this.isInvalid.emit(status))
+    this.subs.push(
+      this.formGroup.statusChanges.pipe(
+        debounceTime(300),
+        map((status: string) => status !== 'VALID')
+      ).subscribe((status) => this.isInvalid.emit(status))
     );
 
     this.subs.push(this.formGroup.valueChanges.pipe(
@@ -130,17 +131,7 @@ export class ProfilePageSecurityFormComponent implements OnInit {
     const pass = group.get('password').value;
     const repeatPass = group.get('passwordrepeat').value;
 
-    return pass === repeatPass ? null : {notSame: true};
-  }
-
-  /**
-   * Check if the password is at least 6 characters long
-   * @param group The FormGroup to validate
-   */
-  checkPasswordLength(group: FormGroup) {
-    const pass = group.get('password').value;
-
-    return isEmpty(pass) || pass.length >= 6 ? null : {notLongEnough: true};
+    return pass === repeatPass ? null : { notSame: true };
   }
 
   /**
@@ -149,7 +140,7 @@ export class ProfilePageSecurityFormComponent implements OnInit {
    */
   checkPasswordEmpty(group: FormGroup) {
     const pass = group.get('password').value;
-    return isEmpty(pass) ? {emptyPassword: true} : null;
+    return isEmpty(pass) ? { emptyPassword: true } : null;
   }
 
   /**
