@@ -16,7 +16,7 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { ActionType } from './models/action-type.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { isNotEmpty } from '../../shared/empty.util';
-import { map, take } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { FindListOptions } from '../data/find-list-options.model';
@@ -194,13 +194,8 @@ export class ResourcePolicyDataService extends IdentifiableDataService<ResourceP
    * @param targetType the type of the target (eperson or group) to which the permission is being granted
    */
   updateTarget(resourcePolicyId: string, resourcePolicyHref: string, targetUUID: string, targetType: string): Observable<RemoteData<any>> {
-
     const targetService = targetType === 'eperson' ? this.ePersonService : this.groupService;
-
-    const targetEndpoint$ = targetService.getBrowseEndpoint().pipe(
-      take(1),
-      map((endpoint: string) =>`${endpoint}/${targetUUID}`),
-    );
+    const targetEndpoint$ = targetService.getIDHrefObs(targetUUID);
 
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
@@ -209,9 +204,9 @@ export class ResourcePolicyDataService extends IdentifiableDataService<ResourceP
 
     const requestId = this.requestService.generateRequestId();
 
-    this.requestService.setStaleByHrefSubstring(`${this.getLinkPath()}/${resourcePolicyId}/${targetType}`);
-
-    targetEndpoint$.subscribe((targetEndpoint) => {
+    targetEndpoint$.pipe(
+      first(),
+    ).subscribe((targetEndpoint) => {
       const resourceEndpoint = resourcePolicyHref + '/' + targetType;
       const request = new PutRequest(requestId, resourceEndpoint, targetEndpoint, options);
       Object.assign(request, {
@@ -222,8 +217,7 @@ export class ResourcePolicyDataService extends IdentifiableDataService<ResourceP
       this.requestService.send(request);
     });
 
-    return this.rdbService.buildFromRequestUUID(requestId);
-
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => this.invalidateByHref(resourcePolicyHref));
   }
 
 }
