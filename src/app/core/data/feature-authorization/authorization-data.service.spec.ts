@@ -1,6 +1,5 @@
 import { AuthorizationDataService } from './authorization-data.service';
 import { SiteDataService } from '../site-data.service';
-import { AuthService } from '../../auth/auth.service';
 import { Site } from '../../shared/site.model';
 import { EPerson } from '../../eperson/models/eperson.model';
 import { of as observableOf } from 'rxjs';
@@ -12,11 +11,11 @@ import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { Feature } from '../../shared/feature.model';
 import { FindListOptions } from '../find-list-options.model';
+import { testSearchDataImplementation } from '../base/search-data.spec';
 
 describe('AuthorizationDataService', () => {
   let service: AuthorizationDataService;
   let siteService: SiteDataService;
-  let authService: AuthService;
 
   let site: Site;
   let ePerson: EPerson;
@@ -37,18 +36,19 @@ describe('AuthorizationDataService', () => {
       uuid: 'test-eperson'
     });
     siteService = jasmine.createSpyObj('siteService', {
-      find: observableOf(site)
+      find: observableOf(site),
     });
-    authService = {
-      isAuthenticated: () => observableOf(true),
-      getAuthenticatedUserFromStore: () => observableOf(ePerson)
-    } as AuthService;
-    service = new AuthorizationDataService(requestService, undefined, undefined, undefined, undefined, undefined, undefined, undefined, authService, siteService);
+    service = new AuthorizationDataService(requestService, undefined, undefined, undefined, siteService);
   }
 
   beforeEach(() => {
     init();
     spyOn(service, 'searchBy').and.returnValue(observableOf(undefined));
+  });
+
+  describe('composition', () => {
+    const initService = () => new AuthorizationDataService(null, null, null, null, null);
+    testSearchDataImplementation(initService);
   });
 
   it('should call setStaleByHrefSubstring method', () => {

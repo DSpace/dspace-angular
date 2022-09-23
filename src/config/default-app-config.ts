@@ -6,7 +6,7 @@ import { BrowseByConfig } from './browse-by-config.interface';
 import { CacheConfig } from './cache-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { FormConfig } from './form-config.interfaces';
-import { ItemPageConfig } from './item-page-config.interface';
+import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
@@ -15,6 +15,10 @@ import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.model';
 import { UIServerConfig } from './ui-server-config.interface';
 import { BundleConfig } from './bundle-config.interface';
+import { ActuatorsConfig } from './actuators.config';
+import { InfoConfig } from './info-config.interface';
+import { CommunityListConfig } from './community-list-config.interface';
+import { HomeConfig } from './homepage-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -46,6 +50,10 @@ export class DefaultAppConfig implements AppConfig {
     port: 8080,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/',
+  };
+
+  actuators: ActuatorsConfig = {
+    endpointPath: '/actuator/health'
   };
 
   // Caching settings
@@ -110,6 +118,9 @@ export class DefaultAppConfig implements AppConfig {
        * eg. timer: 5 * (1000 * 60); // 5 minutes
        */
       timer: 0
+    },
+    typeBind: {
+      field: 'dc.type'
     },
     icons: {
       metadata: [
@@ -184,8 +195,11 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'pt-PT', label: 'Português', active: true },
     { code: 'pt-BR', label: 'Português do Brasil', active: true },
     { code: 'fi', label: 'Suomi', active: true },
+    { code: 'sv', label: 'Svenska', active: true },
     { code: 'tr', label: 'Türkçe', active: true },
-    { code: 'bn', label: 'বাংলা', active: true }
+    { code: 'kk', label: 'Қазақ', active: true },
+    { code: 'bn', label: 'বাংলা', active: true },
+    { code: 'el', label: 'Ελληνικά', active: true }
   ];
 
   // Browse-By Pages
@@ -195,14 +209,36 @@ export class DefaultAppConfig implements AppConfig {
     // Limit for years to display using jumps of five years (current year - fiveYearLimit)
     fiveYearLimit: 30,
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
-    defaultLowerLimit: 1900
+    defaultLowerLimit: 1900,
+    // The number of entries in a paginated browse results list.
+    // Rounded to the nearest size in the list of selectable sizes on the
+    // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
+    pageSize: 20
   };
 
-  // Item Page Config
-  item: ItemPageConfig = {
+  communityList: CommunityListConfig = {
+    pageSize: 20
+  };
+
+  homePage: HomeConfig = {
+    recentSubmissions: {
+      //The number of item showing in recent submission components
+      pageSize: 5,
+      //sort record of recent submission
+      sortField: 'dc.date.accessioned',
+    },
+    topLevelCommunityList: {
+      pageSize: 5
+    }
+  };
+
+  // Item Config
+  item: ItemConfig = {
     edit: {
       undoTimeout: 10000 // 10 seconds
-    }
+    },
+    // Show the item access status label in items lists
+    showAccessStatuses: false
   };
 
   // Collection Page Config
@@ -313,5 +349,17 @@ export class DefaultAppConfig implements AppConfig {
   mediaViewer: MediaViewerConfig = {
     image: false,
     video: false
+  };
+  // Whether the end-user-agreement and privacy policy feature should be enabled or not.
+  // Disabling the end user agreement feature will result in:
+  // - Users no longer being forced to accept the end-user-agreement before they can access the repository
+  // - A 404 page if you manually try to navigate to the end-user-agreement page at info/end-user-agreement
+  // - All end-user-agreement related links and pages will be removed from the UI (e.g. in the footer)
+  // Disabling the privacy policy feature will result in:
+  // - A 404 page if you manually try to navigate to the privacy policy page at info/privacy
+  // - All mentions of the privacy policy being removed from the UI (e.g. in the footer)
+  info: InfoConfig = {
+    enableEndUserAgreement: true,
+    enablePrivacyStatement: true
   };
 }

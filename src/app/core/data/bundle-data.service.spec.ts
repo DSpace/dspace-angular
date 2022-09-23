@@ -13,6 +13,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.util
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { Bundle } from '../shared/bundle.model';
 import { CoreState } from '../core-state.model';
+import { testPatchDataImplementation } from './base/patch-data.spec';
 
 class DummyChangeAnalyzer implements ChangeAnalyzer<Item> {
   diff(object1: Item, object2: Item): Operation[] {
@@ -64,9 +65,6 @@ describe('BundleDataService', () => {
       store,
       objectCache,
       halService,
-      notificationsService,
-      http,
-      comparator,
     );
   }
 
@@ -74,14 +72,20 @@ describe('BundleDataService', () => {
     service = initTestService();
   });
 
+  describe('composition', () => {
+    const initService = () => new BundleDataService(null, null, null, null, null);
+
+    testPatchDataImplementation(initService);
+  });
+
   describe('findAllByItem', () => {
     beforeEach(() => {
-      spyOn(service, 'findAllByHref');
+      spyOn(service, 'findListByHref');
       service.findAllByItem(item);
     });
 
-    it('should call findAllByHref with the item\'s bundles link', () => {
-      expect(service.findAllByHref).toHaveBeenCalledWith(bundleLink, undefined, true, true);
+    it('should call findListByHref with the item\'s bundles link', () => {
+      expect(service.findListByHref).toHaveBeenCalledWith(bundleLink, undefined, true, true);
     });
   });
 

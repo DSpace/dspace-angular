@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import {
   BrowseByMetadataPageComponent,
   browseParamsToOptions
@@ -19,6 +19,7 @@ import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { isValidDate } from '../../shared/date.util';
+import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -43,8 +44,9 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
                      protected dsoService: DSpaceObjectDataService,
                      protected router: Router,
                      protected paginationService: PaginationService,
-                     protected cdRef: ChangeDetectorRef) {
-    super(route, browseService, dsoService, paginationService, router);
+                     protected cdRef: ChangeDetectorRef,
+                     @Inject(APP_CONFIG) protected appConfig: AppConfig) {
+    super(route, browseService, dsoService, paginationService, router, appConfig);
   }
 
   ngOnInit(): void {

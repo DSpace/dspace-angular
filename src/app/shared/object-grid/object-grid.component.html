@@ -14,11 +14,11 @@
                (paginationChange)="onPaginationChange($event)"
                (prev)="goPrev()"
                (next)="goNext()">
-  <div class="row" *ngIf="objects?.hasSucceeded">
-    <div class="col col-sm-6 col-lg-4 mb-3 object-grid-element" *ngFor="let result of (results$ | async)" @fadeIn>
-      <ds-listable-object-component-loader [object]="result" [viewMode]="viewMode" [context]="context" [linkType]="linkType"></ds-listable-object-component-loader>
+    <div class="row" *ngIf="objects?.hasSucceeded">
+      <div class="col col-sm-6 col-lg-4 mb-3 object-grid-element" *ngFor="let result of (results$ | async)" @fadeIn>
+        <ds-listable-object-component-loader [object]="result" [viewMode]="viewMode" [context]="context" [linkType]="linkType"></ds-listable-object-component-loader>
+      </div>
     </div>
-  </div>
   <ds-error *ngIf="objects.hasFailed" message="{{'error.objects' | translate}}"></ds-error>
-  <ds-loading *ngIf="objects.isLoading" message="{{'loading.objects' | translate}}"></ds-loading>
+  <ds-themed-loading *ngIf="objects.isLoading" message="{{'loading.objects' | translate}}"></ds-themed-loading>
 </ds-pagination>

@@ -31,6 +31,7 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SelectionConfig } from './search-results/search-results.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'ds-search',
@@ -138,6 +139,11 @@ export class SearchComponent implements OnInit {
    * Defines whether or not to show the scope selector
    */
   @Input() showScopeSelector = true;
+
+  /**
+   * Whether or not to track search statistics by sending updates to the rest api
+   */
+  @Input() trackStatistics = false;
 
   /**
    * The current configuration used during the search
@@ -355,11 +361,17 @@ export class SearchComponent implements OnInit {
       undefined,
       this.useCachedVersionIfAvailable,
       true,
-      followLink<Item>('thumbnail', { isOptional: true })
+      followLink<Item>('thumbnail', { isOptional: true }),
+      followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
     ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
-        if (results.hasSucceeded && results.payload?.page?.length > 0) {
-          this.resultFound.emit(results.payload);
+        if (results.hasSucceeded) {
+          if (this.trackStatistics) {
+            this.service.trackSearch(searchOptions, results.payload);
+          }
+          if (results.payload?.page?.length > 0) {
+            this.resultFound.emit(results.payload);
+          }
         }
         this.resultsRD$.next(results);
       });

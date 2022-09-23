@@ -38,6 +38,10 @@ export const environment: BuildConfig = {
     baseUrl: 'https://rest.com/api'
   },
 
+  actuators: {
+    endpointPath: '/actuator/health'
+  },
+
   // Caching settings
   cache: {
     // NOTE: how long should objects be cached for by default
@@ -99,6 +103,9 @@ export const environment: BuildConfig = {
       metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv'],
       // NOTE: every how many minutes submission is saved automatically
       timer: 5
+    },
+    typeBind: {
+      field: 'dc.type'
     },
     icons: {
       metadata: [
@@ -182,6 +189,10 @@ export const environment: BuildConfig = {
     code: 'bn',
     label: 'বাংলা',
     active: true,
+  }, {
+    code: 'el',
+    label: 'Ελληνικά',
+    active: true,
   }],
 
   // Browse-By Pages
@@ -192,11 +203,30 @@ export const environment: BuildConfig = {
     fiveYearLimit: 30,
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
     defaultLowerLimit: 1900,
+    // The number of entries in a paginated browse results list.
+    // Rounded to the nearest size in the list of selectable sizes on the
+    // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
+    pageSize: 20,
+  },
+  communityList: {
+    pageSize: 20
+  },
+  homePage: {
+    recentSubmissions: {
+      pageSize: 5,
+      //sort record of recent submission
+      sortField: 'dc.date.accessioned',
+    },
+    topLevelCommunityList: {
+      pageSize: 5
+    }
   },
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds
-    }
+    },
+    // Show the item access status label in items lists
+    showAccessStatuses: false
   },
   collection: {
     edit: {
@@ -234,5 +264,9 @@ export const environment: BuildConfig = {
   mediaViewer: {
     image: true,
     video: true
-  }
+  },
+  info: {
+    enableEndUserAgreement: true,
+    enablePrivacyStatement: true,
+  },
 };

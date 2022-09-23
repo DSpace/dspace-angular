@@ -13,11 +13,9 @@ import { RegistrationResponseParsingService } from './registration-response-pars
 import { RemoteData } from './remote-data';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 
-@Injectable(
-  {
-    providedIn: 'root',
-  }
-)
+@Injectable({
+  providedIn: 'root',
+})
 /**
  * Service that will register a new email address and request a token
  */

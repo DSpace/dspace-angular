@@ -1,4 +1,4 @@
-import { ExternalSourceService } from '../../core/data/external-source.service';
+import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
 import { ExternalSource } from '../../core/shared/external-source.model';
 import { ResourceType } from '../../core/shared/resource-type';
 
@@ -59,7 +59,7 @@ export const externalSourceMyStaffDb: ExternalSource = {
 /**
  * Mock for [[ExternalSourceService]]
  */
-export function getMockExternalSourceService(): ExternalSourceService {
+export function getMockExternalSourceService(): ExternalSourceDataService {
   return jasmine.createSpyObj('ExternalSourceService', {
     findAll: jasmine.createSpy('findAll'),
     searchBy: jasmine.createSpy('searchBy'),

@@ -94,8 +94,8 @@ export class SectionsDirective implements OnDestroy, OnInit {
    * @param {SectionsService} sectionService
    */
   constructor(private changeDetectorRef: ChangeDetectorRef,
-              private submissionService: SubmissionService,
-              private sectionService: SectionsService) {
+    private submissionService: SubmissionService,
+    private sectionService: SectionsService) {
   }
 
   /**
@@ -271,6 +271,19 @@ export class SectionsDirective implements OnDestroy, OnInit {
       this.submissionService.setActiveSection(this.submissionId, this.sectionId);
     }
   }
+
+
+  /**
+   * Check if section is information
+   *
+   * @returns {Observable<boolean>}
+   *    Emits true whenever section is information
+   */
+  public isInfo(): boolean {
+    return this.sectionService.getIsInformational(this.sectionType);
+  }
+
+
 
   /**
    * Remove error from list

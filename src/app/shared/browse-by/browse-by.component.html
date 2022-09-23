@@ -14,7 +14,7 @@
       (next)="goNext()">
     </ds-viewable-collection>
   </div>
-  <ds-loading *ngIf="!objects || objects?.isLoading" message="{{'loading.browse-by' | translate}}"></ds-loading>
+  <ds-themed-loading *ngIf="!objects || objects?.isLoading" message="{{'loading.browse-by' | translate}}"></ds-themed-loading>
   <ds-error *ngIf="objects?.hasFailed" message="{{'error.browse-by' | translate}}"></ds-error>
   <div *ngIf="!objects?.isLoading && objects?.payload?.page.length === 0">
     <div *ngIf="shouldDisplayResetButton$ |async" class="d-inline-block mb-4 reset">

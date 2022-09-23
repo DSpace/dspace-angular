@@ -2,7 +2,8 @@
 debug: false
 
 # Angular Universal server settings
-# NOTE: these must be 'synced' with the 'dspace.ui.url' setting in your backend's local.cfg.
+# NOTE: these settings define where Node.js will start your UI application. Therefore, these
+# "ui" settings usually specify a localhost port/URL which is later proxied to a public URL (using Apache or similar)
 ui:
   ssl: false
   host: localhost
@@ -15,7 +16,8 @@ ui:
     max: 500 # limit each IP to 500 requests per windowMs
 
 # The REST API server settings
-# NOTE: these must be 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
+# NOTE: these settings define which (publicly available) REST API to use. They are usually
+# 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
 rest:
   ssl: true
   host: api7.dspace.org
@@ -148,11 +150,20 @@ languages:
   - code: fi
     label: Suomi
     active: true
+  - code: sv
+    label: Svenska
+    active: true
   - code: tr
     label: Türkçe
     active: true
+  - code: kk
+    label: Қазақ
+    active: true
   - code: bn
     label: বাংলা
+    active: true
+  - code: el
+    label: Ελληνικά
     active: true
 
 # Browse-By Pages
@@ -163,11 +174,32 @@ browseBy:
   fiveYearLimit: 30
   # The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
   defaultLowerLimit: 1900
+  # The number of entries in a paginated browse results list.
+  # Rounded to the nearest size in the list of selectable sizes on the
+  # settings menu.
+  pageSize: 20
 
-# Item Page Config
+communityList:
+  # No. of communities to list per expansion (show more)
+  pageSize: 20
+
+homePage:
+  recentSubmissions:
+    # The number of item showing in recent submission components
+    pageSize: 5
+    # Sort record of recent submission
+    sortField: 'dc.date.accessioned'
+  topLevelCommunityList:
+    # No. of communities to list per page on the home page
+    # This will always round to the nearest number from the list of page sizes. e.g. if you set it to 7 it'll use 10
+    pageSize: 5
+
+# Item Config
 item:
   edit:
     undoTimeout: 10000 # 10 seconds
+  # Show the item access status label in items lists
+  showAccessStatuses: false
 
 # Collection Page Config
 collection:
@@ -244,3 +276,10 @@ bundle:
 mediaViewer:
   image: false
   video: false
+
+# Whether the end user agreement is required before users use the repository.
+# If enabled, the user will be required to accept the agreement before they can use the repository.
+# And whether the privacy statement should exist or not.
+info:
+  enableEndUserAgreement: true
+  enablePrivacyStatement: true
