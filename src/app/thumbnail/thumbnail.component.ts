@@ -14,6 +14,7 @@ import { RemoteData } from '../core/data/remote-data';
   templateUrl: './thumbnail.component.html',
 })
 export class ThumbnailComponent implements OnChanges {
+
   /**
    * The thumbnail Bitstream
    */
@@ -90,4 +91,5 @@ export class ThumbnailComponent implements OnChanges {
       this.src = null;
     }
   }
+
 }

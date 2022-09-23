@@ -132,7 +132,7 @@ describe('BrowseByComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: MockThemedBrowseEntryListElementComponent },
         { provide: ThemeService, useValue: themeService },
-        {provide: RouteService, useValue: routeServiceStub},
+        { provide: RouteService, useValue: routeServiceStub},
         { provide: SelectableListService, useValue: {} },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
       ],

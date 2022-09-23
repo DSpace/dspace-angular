@@ -3,9 +3,13 @@
     [item]="item$ | async"
     [object]="object"
     [status]="status"></ds-themed-item-list-preview>
-
-  <ds-workflowitem-actions [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-workflowitem-actions>
+  <div class="row">
+    <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2  pl-3' : ''">
+      <ds-workflowitem-actions [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-workflowitem-actions>
+    </div>
+  </div>
 </ng-container>
+
 <ds-themed-loading
   *ngIf="!(item$ | async)"
   [showMessage]="false"></ds-themed-loading>

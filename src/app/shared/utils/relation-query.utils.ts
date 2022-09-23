@@ -1,3 +1,6 @@
+import { followLink, FollowLinkConfig } from './follow-link-config.model';
+import { Relationship } from '../../core/shared/item-relationships/relationship.model';
+
 /**
  * Get the query for looking up items by relation type
  * @param {string} relationType   Relation type
@@ -15,4 +18,22 @@ export function getQueryByRelations(relationType: string, itemUUID: string): str
  */
 export function getFilterByRelation(relationType: string, itemUUID: string): string {
   return `f.${relationType}=${itemUUID},equals`;
+}
+
+/**
+ * Creates links to follow for the leftItem and rightItem. Links will include
+ * @param showThumbnail thumbnail image configuration
+ * @returns followLink array
+ */
+export function itemLinksToFollow(showThumbnail: boolean):  FollowLinkConfig<Relationship>[] {
+  let linksToFollow: FollowLinkConfig<Relationship>[];
+  if (showThumbnail) {
+    linksToFollow = [
+      followLink('leftItem',{}, followLink('thumbnail')),
+      followLink('rightItem',{}, followLink('thumbnail'))
+    ];
+  } else {
+    linksToFollow = [followLink('leftItem'), followLink('rightItem')];
+  }
+  return linksToFollow;
 }
