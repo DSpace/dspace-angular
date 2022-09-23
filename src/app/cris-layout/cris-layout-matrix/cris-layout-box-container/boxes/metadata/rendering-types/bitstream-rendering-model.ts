@@ -111,28 +111,25 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   }
 
   /**
-   * Filter a list of bitstream according to "dc.type" metadata value
+   * Returns the list of bitstreams according to BUNDLE configured in the rendering and filtering by the field configuration
    *
-   * @param bitstreams
+   * @param options The {@link FindListOptions} for the request
    */
-  filterBitstreamsByType(bitstreams: Bitstream[]): Bitstream[] {
-    if (isEmpty(this.field.bitstream.metadataValue)) {
-      return bitstreams;
+  getBitstreamsByItem(options?: FindListOptions): Observable<PaginatedList<Bitstream>> {
+    let filter = {};
+    if (!isEmpty(this.field.bitstream.metadataValue)) {
+      filter = { [this.field.bitstream.metadataField]: this.field.bitstream.metadataValue };
     }
 
-    return bitstreams.filter((bitstream) => {
-      const metadataValue = bitstream.firstMetadataValue(
-        this.field.bitstream.metadataField
+    return this.bitstreamDataService
+      .findByItem(this.item.uuid, this.field.bitstream.bundle, filter, options, false, false, followLink('thumbnail'))
+      .pipe(
+        getFirstCompletedRemoteData(),
+        map((response: RemoteData<PaginatedList<Bitstream>>) => {
+          return response.hasSucceeded ? response.payload : buildPaginatedList(null, []);
+        })
       );
-
-      // if metadata value of the configuration has open and close clauses it is regex pattern
-      if (this.field.bitstream.metadataValue.startsWith('(') && this.field.bitstream.metadataValue.endsWith(')')) {
-        let patternValueArr = this.field.bitstream.metadataValue.slice(1, -1).split('/');
-        const pattern = new RegExp(patternValueArr[1], patternValueArr[3]);
-        return hasValue(metadataValue) && !!metadataValue.match(pattern);
-      } else {
-        return hasValue(metadataValue) && metadataValue.toLowerCase() === this.field.bitstream.metadataValue.toLowerCase();
-      }
-    });
   }
+
+
 }

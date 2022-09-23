@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { BehaviorSubject } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
@@ -80,21 +80,15 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
    * Retrieve the list of bitstream to show
    */
   retrieveBitstreams(): void {
-    this.getBitstreams().pipe(
-      map((bitstreamList: PaginatedList<Bitstream>) => this.filterBitstreamsByType(bitstreamList.page)),
+    this.getBitstreamsByItem(this.pageOptions).pipe(
+      map((bitstreamList: PaginatedList<Bitstream>) => {
+        this.canViewMore = this.pageOptions?.currentPage !== bitstreamList?.pageInfo?.totalPages;
+        return bitstreamList.page;
+      }),
       take(1)
     ).subscribe((bitstreams: Bitstream[]) => {
       if (this.envPagination.enabled) {
-        this.currentPageInfo = new PageInfo({
-            elementsPerPage: this.pageOptions.elementsPerPage,
-            totalElements: bitstreams.length,
-            totalPages: Math.ceil(bitstreams.length / this.pageOptions.elementsPerPage),
-            currentPage: this.pageOptions.currentPage
-          }
-        );
-        this.allBitstreams$.next(bitstreams);
-
-        this.bitstreams$.next(this.getPaginatedBitstreams(this.pageOptions.currentPage));
+        this.bitstreams$.next([...this.bitstreams$.value, ...bitstreams]);
       } else {
         this.bitstreams$.next(bitstreams);
       }
@@ -105,18 +99,8 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
    * When view more is clicked show the next page and check if view more button should be shown
    */
   viewMore() {
-    this.currentPageInfo.currentPage++;
-    this.bitstreams$.next(this.getPaginatedBitstreams(this.currentPageInfo.currentPage));
-  }
-
-  /**
-   * Get the list of paginated bitstreams that will be shown
-   */
-  protected getPaginatedBitstreams(page: number): Bitstream[] {
-    this.canViewMore = this.currentPageInfo?.currentPage !== this.currentPageInfo?.totalPages;
-    return this.allBitstreams$.value.filter((bitstream: Bitstream, index) => {
-      return index < this.pageOptions.elementsPerPage * page;
-    });
+    this.pageOptions.currentPage++;
+    this.retrieveBitstreams();
   }
 
   /**

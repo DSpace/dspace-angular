@@ -61,8 +61,8 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
    */
   ngOnInit(): void {
     this.setDefaultImage();
-    this.getBitstreams().pipe(
-      map((bitstreamList: PaginatedList<Bitstream>) => this.filterBitstreamsByType(bitstreamList.page)),
+    this.getBitstreamsByItem().pipe(
+      map((bitstreamList: PaginatedList<Bitstream>) => bitstreamList.page),
       switchMap((filteredBitstreams: Bitstream[]) => {
         if (filteredBitstreams.length > 0) {
           if (isEmpty(filteredBitstreams[0].thumbnail)) {
