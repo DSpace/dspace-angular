@@ -18,7 +18,7 @@ import { Observable, of } from 'rxjs';
 })
 export class ImportBatchSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.DSPACEOBJECT;
-  selectorTypes = [DSpaceObjectType.COLLECTION, DSpaceObjectType.COMMUNITY];
+  selectorTypes = [DSpaceObjectType.COLLECTION];
   action = SelectorActionType.IMPORT_BATCH;
   /**
    * An event fired when the modal is closed
