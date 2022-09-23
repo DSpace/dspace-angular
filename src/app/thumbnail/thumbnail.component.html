@@ -12,7 +12,7 @@
          [src]="src | dsSafeUrl" [alt]="alt | translate" (error)="errorHandler()" (load)="successHandler()">
     <div *ngIf="src === null && !isLoading" class="thumbnail-content outer">
       <div class="inner">
-        <div class="thumbnail-placeholder centered p-3 lead">
+        <div class="thumbnail-placeholder centered lead">
           {{ placeholder | translate }}
         </div>
       </div>

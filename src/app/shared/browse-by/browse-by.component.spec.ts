@@ -80,7 +80,7 @@ describe('BrowseByComponent', () => {
   const mockItemsRD$ = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockItems));
 
   const groupDataService = jasmine.createSpyObj('groupsDataService', {
-    findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     getGroupRegistryRouterLink: '',
     getUUIDFromString: '',
   });
@@ -132,7 +132,7 @@ describe('BrowseByComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: MockThemedBrowseEntryListElementComponent },
         { provide: ThemeService, useValue: themeService },
-        {provide: RouteService, useValue: routeServiceStub},
+        { provide: RouteService, useValue: routeServiceStub},
         { provide: SelectableListService, useValue: {} },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
       ],

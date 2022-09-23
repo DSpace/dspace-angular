@@ -6,7 +6,7 @@ import {
   SourceElement,
   SubmissionImportExternalSearchbarComponent
 } from './submission-import-external-searchbar.component';
-import { ExternalSourceService } from '../../../core/data/external-source.service';
+import { ExternalSourceDataService } from '../../../core/data/external-source-data.service';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import {
   externalSourceCiencia,
@@ -48,7 +48,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
         TestComponent,
       ],
       providers: [
-        { provide: ExternalSourceService, useValue: mockExternalSourceService },
+        { provide: ExternalSourceDataService, useValue: mockExternalSourceService },
         ChangeDetectorRef,
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         SubmissionImportExternalSearchbarComponent

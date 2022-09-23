@@ -125,11 +125,20 @@ import {
   CreateCommunityParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
 import {
+    ThemedCreateCommunityParentSelectorComponent
+} from './dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
+import {
   CreateItemParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import {
+    ThemedCreateItemParentSelectorComponent
+} from './dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
+import {
   CreateCollectionParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
+import {
+    ThemedCreateCollectionParentSelectorComponent
+} from './dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import {
   CommunitySearchResultListElementComponent
 } from './object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
@@ -140,11 +149,20 @@ import {
   EditItemSelectorComponent
 } from './dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import {
+    ThemedEditItemSelectorComponent
+} from './dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
+import {
   EditCommunitySelectorComponent
 } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import {
+    ThemedEditCommunitySelectorComponent
+} from './dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
+import {
   EditCollectionSelectorComponent
 } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
+import {
+    ThemedEditCollectionSelectorComponent
+} from './dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
 import {
   ItemListPreviewComponent
 } from './object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
@@ -395,11 +413,17 @@ const COMPONENTS = [
   DsoInputSuggestionsComponent,
   DSOSelectorComponent,
   CreateCommunityParentSelectorComponent,
+  ThemedCreateCommunityParentSelectorComponent,
   CreateCollectionParentSelectorComponent,
+  ThemedCreateCollectionParentSelectorComponent,
   CreateItemParentSelectorComponent,
+  ThemedCreateItemParentSelectorComponent,
   EditCommunitySelectorComponent,
+  ThemedEditCommunitySelectorComponent,
   EditCollectionSelectorComponent,
+  ThemedEditCollectionSelectorComponent,
   EditItemSelectorComponent,
+  ThemedEditItemSelectorComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
   BrowseByComponent,
@@ -491,11 +515,17 @@ const ENTRY_COMPONENTS = [
   StartsWithDateComponent,
   StartsWithTextComponent,
   CreateCommunityParentSelectorComponent,
+  ThemedCreateCommunityParentSelectorComponent,
   CreateCollectionParentSelectorComponent,
+  ThemedCreateCollectionParentSelectorComponent,
   CreateItemParentSelectorComponent,
+  ThemedCreateItemParentSelectorComponent,
   EditCommunitySelectorComponent,
+  ThemedEditCommunitySelectorComponent,
   EditCollectionSelectorComponent,
+  ThemedEditCollectionSelectorComponent,
   EditItemSelectorComponent,
+  ThemedEditItemSelectorComponent,
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,

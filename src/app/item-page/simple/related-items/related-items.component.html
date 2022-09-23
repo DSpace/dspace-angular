@@ -1,4 +1,4 @@
-<ds-metadata-field-wrapper [label]="label">
+<ds-metadata-field-wrapper [label]="label" [ngClass]="placeholderFontClass">
   <ng-container *ngFor="let objectPage of objects; let i = index">
     <ng-container *ngVar="(objectPage | async) as itemsRD">
       <ds-listable-object-component-loader *ngFor="let item of itemsRD?.payload?.page"

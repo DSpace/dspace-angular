@@ -640,7 +640,7 @@
   "bitstream-request-a-copy.alert.canDownload2": "here",
 
   "bitstream-request-a-copy.header": "Request a copy of the file",
-  
+
   "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
 
   "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
@@ -1266,6 +1266,7 @@
 
   "cookies.consent.purpose.statistical": "Statistical",
 
+  "curation-task.task.citationpage.label":  "Generate Citation Page",
 
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
@@ -1490,7 +1491,7 @@
 
   "forgot-password.form.head": "Forgot Password",
 
-  "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box.",
 
   "forgot-password.form.card.security": "Security",
 
@@ -1506,8 +1507,6 @@
 
   "forgot-password.form.error.matching-passwords": "The passwords do not match.",
 
-  "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
-
   "forgot-password.form.notification.error.title": "Error when trying to submit new password",
 
   "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
@@ -1515,7 +1514,6 @@
   "forgot-password.form.notification.success.title": "Password reset completed",
 
   "forgot-password.form.submit": "Submit password",
-
 
 
   "form.add": "Add more",
@@ -2983,6 +2981,22 @@
 
   "process.detail.create" : "Create similar process",
 
+  "process.detail.actions": "Actions",
+
+  "process.detail.delete.button": "Delete process",
+
+  "process.detail.delete.header": "Delete process",
+
+  "process.detail.delete.body": "Are you sure you want to delete the current process?",
+
+  "process.detail.delete.cancel": "Cancel",
+
+  "process.detail.delete.confirm": "Delete process",
+
+  "process.detail.delete.success": "The process was successfully deleted.",
+
+  "process.detail.delete.error": "Something went wrong when deleting the process",
+
 
 
   "process.overview.table.finish" : "Finish time (UTC)",
@@ -3002,6 +3016,25 @@
   "process.overview.breadcrumbs": "Processes Overview",
 
   "process.overview.new": "New",
+
+  "process.overview.table.actions": "Actions",
+
+  "process.overview.delete": "Delete {{count}} processes",
+
+  "process.overview.delete.clear": "Clear delete selection",
+
+  "process.overview.delete.processing": "{{count}} process(es) are being deleted. Please wait for the deletion to fully complete. Note that this can take a while.",
+
+  "process.overview.delete.body": "Are you sure you want to delete {{count}} process(es)?",
+
+  "process.overview.delete.header": "Delete processes",
+
+  "process.bulk.delete.error.head": "Error on deleteing process",
+
+  "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
+
+  "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+
 
 
   "profile.breadcrumbs": "Update Profile",
@@ -3042,9 +3075,7 @@
 
   "profile.security.form.error.matching-passwords": "The passwords do not match.",
 
-  "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
-
-  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box.",
 
   "profile.security.form.label.password": "Password",
 
@@ -3056,9 +3087,9 @@
 
   "profile.security.form.notifications.error.title": "Error changing passwords",
 
-  "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
-
   "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
+
+  "profile.security.form.notifications.error.general": "Please fill required fields of security form.",
 
   "profile.title": "Update Profile",
 
@@ -3142,7 +3173,7 @@
 
   "register-page.create-profile.security.header": "Security",
 
-  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box.",
 
   "register-page.create-profile.security.label.password": "Password *",
 
@@ -3151,8 +3182,6 @@
   "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
 
   "register-page.create-profile.security.error.matching-passwords": "The passwords do not match.",
-
-  "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
 
   "register-page.create-profile.submit": "Complete Registration",
 
@@ -3583,6 +3612,7 @@
 
   "search.results.view-result": "View",
 
+  "search.results.response.500": "An error occurred during query execution, please try again later",
 
   "default.search.results.head": "Search Results",
 
@@ -4727,5 +4757,6 @@
   "person.orcid.registry.queue": "ORCID Registry Queue",
 
   "person.orcid.registry.auth": "ORCID Authorizations",
+  "home.recent-submissions.head": "Recent Submissions",
 
 }
