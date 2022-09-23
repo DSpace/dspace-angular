@@ -23,7 +23,7 @@ export class ThumbnailComponent implements OnChanges {
    * The default image, used if the thumbnail isn't set or can't be downloaded.
    * If defaultImage is null, a HTML placeholder is used instead.
    */
-  @Input() defaultImage? = null;
+  @Input() defaultImage? = 'assets/images/project-placeholder.svg';
 
   /**
    * The src attribute used in the template to render the image.
@@ -44,6 +44,11 @@ export class ThumbnailComponent implements OnChanges {
    * Limit thumbnail width to --ds-thumbnail-max-width
    */
   @Input() limitWidth? = true;
+
+  /**
+   * Keep image aspect ratio, add padding and do not crop the image
+   */
+  @Input() keepAspectRatio? = false;
 
   isLoading: boolean;
 

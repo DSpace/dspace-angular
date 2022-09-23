@@ -1,6 +1,4 @@
 import { cold, hot } from 'jasmine-marbles';
-import { map } from 'rxjs/operators';
-import { WidthCategory } from '../host-window.service';
 import { ObjectGridComponent } from './object-grid.component';
 
 describe('ObjectGridComponent', () => {
@@ -22,211 +20,59 @@ describe('ObjectGridComponent', () => {
     }
   } as any;
 
-  describe('the number of columns', () => {
+  describe('the number of elements', () => {
 
-    it('should be 3 for xl screens', () => {
-      const hostWindowService = {
-        widthCategory: hot('a', { a: WidthCategory.XL }),
-      } as any;
-      const comp = new ObjectGridComponent(hostWindowService);
+    // 10 elements are declared in testObject
+    it('should be 10 for all screens', () => {
+      const comp = new ObjectGridComponent();
 
       (comp as any)._objects$ = hot('b', { b: mockRD });
 
       comp.ngOnInit();
 
-      const expected = cold('c', { c: 3 });
+      const expected = cold('c', {
+        c: [
+          testObjects[0], testObjects[1], testObjects[2], testObjects[3], testObjects[4],
+          testObjects[5], testObjects[6], testObjects[7], testObjects[8], testObjects[9],
+        ]
+      });
 
-      const result = comp.columns$.pipe(
-        map((columns) => columns.length)
-      );
+      const result = comp.results$;
 
       expect(result).toBeObservable(expected);
     });
 
-    it('should be 3 for lg screens', () => {
-      const hostWindowService = {
-        widthCategory: hot('a', { a: WidthCategory.LG }),
+    // 5 elements are declared in testObject
+    it('should be 5 for all screens', () => {
+      const newTestObjects = [
+        { one: 1 },
+        { two: 2 },
+        { three: 3 },
+        { four: 4 },
+        { five: 5 }
+      ];
+      const newMockRD = {
+        payload: {
+          page: newTestObjects
+        }
       } as any;
-      const comp = new ObjectGridComponent(hostWindowService);
+      const comp = new ObjectGridComponent();
 
-      (comp as any)._objects$ = hot('b', { b: mockRD });
+      (comp as any)._objects$ = hot('b', { b: newMockRD });
 
       comp.ngOnInit();
 
-      const expected = cold('c', { c: 3 });
+      const expected = cold('c', {
+        c: [
+          newTestObjects[0], newTestObjects[1], newTestObjects[2], newTestObjects[3], newTestObjects[4]
+        ]
+      });
 
-      const result = comp.columns$.pipe(
-        map((columns) => columns.length)
-      );
-
-      expect(result).toBeObservable(expected);
-    });
-
-    it('should be 2 for md screens', () => {
-      const hostWindowService = {
-        widthCategory: hot('a', { a: WidthCategory.MD }),
-      } as any;
-      const comp = new ObjectGridComponent(hostWindowService);
-
-      (comp as any)._objects$ = hot('b', { b: mockRD });
-
-      comp.ngOnInit();
-
-      const expected = cold('c', { c: 2 });
-
-      const result = comp.columns$.pipe(
-        map((columns) => columns.length)
-      );
-
-      expect(result).toBeObservable(expected);
-    });
-
-    it('should be 2 for sm screens', () => {
-      const hostWindowService = {
-        widthCategory: hot('a', { a: WidthCategory.SM }),
-      } as any;
-      const comp = new ObjectGridComponent(hostWindowService);
-
-      (comp as any)._objects$ = hot('b', { b: mockRD });
-
-      comp.ngOnInit();
-
-      const expected = cold('c', { c: 2 });
-
-      const result = comp.columns$.pipe(
-        map((columns) => columns.length)
-      );
-
-      expect(result).toBeObservable(expected);
-    });
-
-    it('should be 1 for xs screens', () => {
-      const hostWindowService = {
-        widthCategory: hot('a', { a: WidthCategory.XS }),
-      } as any;
-      const comp = new ObjectGridComponent(hostWindowService);
-
-      (comp as any)._objects$ = hot('b', { b: mockRD });
-
-      comp.ngOnInit();
-
-      const expected = cold('c', { c: 1 });
-
-      const result = comp.columns$.pipe(
-        map((columns) => columns.length)
-      );
+      const result = comp.results$;
 
       expect(result).toBeObservable(expected);
     });
 
   });
 
-  describe('The ordering of the content', () => {
-    it('should be left to right for XL screens', () => {
-      const hostWindowService = {
-        widthCategory: hot('a', { a: WidthCategory.XL }),
-      } as any;
-      const comp = new ObjectGridComponent(hostWindowService);
-
-      (comp as any)._objects$ = hot('b', { b: mockRD });
-
-      comp.ngOnInit();
-
-      const expected = cold('c', {
-        c: [
-          [testObjects[0], testObjects[3], testObjects[6], testObjects[9]],
-          [testObjects[1], testObjects[4], testObjects[7]],
-          [testObjects[2], testObjects[5], testObjects[8]]
-        ]
-      });
-
-      const result = comp.columns$;
-
-      expect(result).toBeObservable(expected);
-    });
-
-    it('should be left to right for LG screens', () => {
-      const hostWindowService = {
-        widthCategory: hot('a', { a: WidthCategory.LG }),
-      } as any;
-      const comp = new ObjectGridComponent(hostWindowService);
-
-      (comp as any)._objects$ = hot('b', { b: mockRD });
-
-      comp.ngOnInit();
-
-      const expected = cold('c', {
-        c: [
-          [testObjects[0], testObjects[3], testObjects[6], testObjects[9]],
-          [testObjects[1], testObjects[4], testObjects[7]],
-          [testObjects[2], testObjects[5], testObjects[8]]
-        ]
-      });
-
-      const result = comp.columns$;
-
-      expect(result).toBeObservable(expected);
-    });
-
-    it('should be left to right for MD screens', () => {
-      const hostWindowService = {
-        widthCategory: hot('a', { a: WidthCategory.MD }),
-      } as any;
-      const comp = new ObjectGridComponent(hostWindowService);
-
-      (comp as any)._objects$ = hot('b', { b: mockRD });
-
-      comp.ngOnInit();
-
-      const expected = cold('c', {
-        c: [
-          [testObjects[0], testObjects[2], testObjects[4], testObjects[6], testObjects[8]],
-          [testObjects[1], testObjects[3], testObjects[5], testObjects[7], testObjects[9]],
-        ]
-      });
-
-      const result = comp.columns$;
-
-      expect(result).toBeObservable(expected);
-    });
-
-    it('should be left to right for SM screens', () => {
-      const hostWindowService = {
-        widthCategory: hot('a', { a: WidthCategory.SM }),
-      } as any;
-      const comp = new ObjectGridComponent(hostWindowService);
-
-      (comp as any)._objects$ = hot('b', { b: mockRD });
-
-      comp.ngOnInit();
-
-      const expected = cold('c', {
-        c: [
-          [testObjects[0], testObjects[2], testObjects[4], testObjects[6], testObjects[8]],
-          [testObjects[1], testObjects[3], testObjects[5], testObjects[7], testObjects[9]],
-        ]
-      });
-
-      const result = comp.columns$;
-
-      expect(result).toBeObservable(expected);
-    });
-
-    it('should be top to bottom for XS screens', () => {
-      const hostWindowService = {
-        widthCategory: hot('a', { a: WidthCategory.XS }),
-      } as any;
-      const comp = new ObjectGridComponent(hostWindowService);
-
-      (comp as any)._objects$ = hot('b', { b: mockRD });
-
-      comp.ngOnInit();
-
-      const expected = cold('c', { c: [testObjects] });
-
-      const result = comp.columns$;
-
-      expect(result).toBeObservable(expected);
-    });
-  });
 });
