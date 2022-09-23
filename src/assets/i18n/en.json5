@@ -1276,14 +1276,6 @@
 
   "cookies.consent.purpose.sharing": "Sharing",
 
-  "cris-layout.toggle.open": "Open section",
-
-  "cris-layout.toggle.close": "Close section",
-
-  "cris-layout.toggle.aria.open": "Expand {{sectionHeader}} section",
-
-  "cris-layout.toggle.aria.close": "Collapse {{sectionHeader}} section",
-
   "curation-task.task.citationpage.label":  "Generate Citation Page",
 
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
