@@ -1,11 +1,11 @@
 <ng-container *ngIf="item$ | async">
-  <ds-item-list-preview
+  <ds-themed-item-list-preview
     [item]="item$ | async"
     [object]="object"
-    [status]="status"></ds-item-list-preview>
+    [status]="status"></ds-themed-item-list-preview>
 
   <ds-workspaceitem-actions [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-workspaceitem-actions>
 </ng-container>
-<ds-loading
+<ds-themed-loading
   *ngIf="!(item$ | async)"
-  [showMessage]="false"></ds-loading>
+  [showMessage]="false"></ds-themed-loading>
