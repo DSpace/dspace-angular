@@ -58,7 +58,7 @@ describe('MetadataValuesComponent', () => {
   });
 
   it('should contain separators equal to the amount of metadata values minus one', () => {
-    const separators = fixture.debugElement.queryAll(By.css('span>span'));
+    const separators = fixture.debugElement.queryAll(By.css('span.separator'));
     expect(separators.length).toBe(mockMetadata.length - 1);
   });
 

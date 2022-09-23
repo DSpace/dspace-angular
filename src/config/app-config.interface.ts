@@ -34,6 +34,8 @@ interface AppConfig extends Config {
   collection: CollectionPageConfig;
   themes: ThemeConfig[];
   mediaViewer: MediaViewerConfig;
+  enableMarkdown: boolean;
+  enableMathjax: boolean;
 }
 
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');

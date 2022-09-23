@@ -19,6 +19,11 @@ export class ItemPageFieldComponent {
     @Input() item: Item;
 
     /**
+     * Whether this metadata should be rendered with markdown.
+     */
+    enableMarkdown = false;
+
+    /**
      * Fields (schema.element.qualifier) used to render their values.
      */
     fields: string[];

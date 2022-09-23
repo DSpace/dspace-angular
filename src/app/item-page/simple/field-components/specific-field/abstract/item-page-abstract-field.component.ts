@@ -36,4 +36,5 @@ export class ItemPageAbstractFieldComponent extends ItemPageFieldComponent {
      */
     label = 'item.page.abstract';
 
+    enableMarkdown = true;
 }

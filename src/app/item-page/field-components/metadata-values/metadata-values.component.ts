@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MetadataValue } from '../../../core/shared/metadata.models';
+import { environment } from '../../../../environments/environment';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component.
@@ -10,7 +11,7 @@ import { MetadataValue } from '../../../core/shared/metadata.models';
   styleUrls: ['./metadata-values.component.scss'],
   templateUrl: './metadata-values.component.html'
 })
-export class MetadataValuesComponent {
+export class MetadataValuesComponent implements OnChanges {
 
   /**
    * The metadata values to display
@@ -27,4 +28,18 @@ export class MetadataValuesComponent {
    */
   @Input() label: string;
 
+  /**
+   * Whether this metadata should be rendered with markdown.
+   */
+  @Input() enableMarkdown = false;
+
+  /**
+   * This variable will be true if this metadata should be rendered with markdown, and if markdown is enabled in the
+   * environment config.
+   */
+  renderMarkdown = false;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.renderMarkdown = !!environment.enableMarkdown && this.enableMarkdown;
+  }
 }

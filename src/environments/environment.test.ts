@@ -227,5 +227,7 @@ export const environment: AppConfig = {
   mediaViewer: {
     image: true,
     video: true
-  }
+  },
+  enableMarkdown: false,
+  enableMathjax: false,
 };

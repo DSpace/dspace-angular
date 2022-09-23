@@ -314,4 +314,8 @@ export class DefaultAppConfig implements AppConfig {
     image: false,
     video: false
   };
+
+  enableMarkdown = false;
+
+  enableMathjax = false;
 }
