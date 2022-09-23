@@ -31,6 +31,7 @@ import { SearchConfigurationServiceStub } from '../../../../shared/testing/searc
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 import { Router } from '@angular/router';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
 
 let comp: EditRelationshipListComponent;
 let fixture: ComponentFixture<EditRelationshipListComponent>;
@@ -201,6 +202,12 @@ describe('EditRelationshipListComponent', () => {
       }))
     });
 
+    const environmentUseThumbs = {
+      browseBy: {
+        showThumbnails: true
+      }
+    };
+
     TestBed.configureTestingModule({
       imports: [SharedModule, TranslateModule.forRoot()],
       declarations: [EditRelationshipListComponent],
@@ -217,6 +224,7 @@ describe('EditRelationshipListComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
+        { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
@@ -259,9 +267,11 @@ describe('EditRelationshipListComponent', () => {
 
       const callArgs = relationshipService.getItemRelationshipsByLabel.calls.mostRecent().args;
       const findListOptions = callArgs[2];
-
+      const linksToFollow = callArgs[5];
       expect(findListOptions.elementsPerPage).toEqual(paginationOptions.pageSize);
       expect(findListOptions.currentPage).toEqual(paginationOptions.currentPage);
+      expect(linksToFollow.linksToFollow[0].name).toEqual('thumbnail');
+
     });
 
     describe('when the publication is on the left side of the relationship', () => {

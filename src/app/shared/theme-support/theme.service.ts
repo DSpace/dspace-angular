@@ -182,7 +182,7 @@ export class ThemeService {
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('type', 'text/css');
     link.setAttribute('class', 'theme-css');
-    link.setAttribute('href', `/${encodeURIComponent(themeName)}-theme.css`);
+    link.setAttribute('href', `${encodeURIComponent(themeName)}-theme.css`);
     // wait for the new css to download before removing the old one to prevent a
     // flash of unstyled content
     link.onload = () => {

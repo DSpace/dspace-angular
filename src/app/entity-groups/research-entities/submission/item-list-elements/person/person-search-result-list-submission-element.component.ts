@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
@@ -17,6 +17,7 @@ import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
 @Component({
@@ -33,6 +34,11 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
   selectedName: string;
   alternativeField = 'dc.title.alternative';
 
+  /**
+   * Display thumbnail if required by configuration
+   */
+  showThumbnails: boolean;
+
   constructor(protected truncatableService: TruncatableService,
               private relationshipService: RelationshipDataService,
               private notificationsService: NotificationsService,
@@ -41,9 +47,10 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
               private itemDataService: ItemDataService,
               private bitstreamDataService: BitstreamDataService,
               private selectableListService: SelectableListService,
-              protected dsoNameService: DSONameService
+              protected dsoNameService: DSONameService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
-    super(truncatableService, dsoNameService);
+    super(truncatableService, dsoNameService, appConfig);
   }
 
   ngOnInit() {
@@ -58,6 +65,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
         this.selectedName = nameVariant || defaultValue;
         }
       );
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 
   select(value) {
