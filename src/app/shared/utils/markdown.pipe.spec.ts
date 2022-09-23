@@ -40,19 +40,15 @@ describe('Markdown Pipe', () => {
 
   it('should render regular links', async () => {
     await testTransform(
-      /*eslint-disable quotemark*/
       '<a href="https://www.dspace.com">DSpace</a>',
       '<a href="https://www.dspace.com">DSpace</a>'
-      /* eslint-enable quotemark */
     );
   });
 
   it('should not render javascript links', async () => {
     await testTransform(
-      /*eslint-disable quotemark*/
       '<a href="javascript:window.alert(\'bingo!\');">exploit</a>',
       '<a>exploit</a>'
-      /* eslint-enable quotemark */
     );
   });
 
