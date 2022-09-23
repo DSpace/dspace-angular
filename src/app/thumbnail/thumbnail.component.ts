@@ -1,7 +1,13 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { Bitstream } from '../core/shared/bitstream.model';
-import { hasValue } from '../shared/empty.util';
+import { hasNoValue, hasValue } from '../shared/empty.util';
 import { RemoteData } from '../core/data/remote-data';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { AuthService } from '../core/auth/auth.service';
+import { FileService } from '../core/shared/file.service';
 
 /**
  * This component renders a given Bitstream as a thumbnail.
@@ -14,7 +20,6 @@ import { RemoteData } from '../core/data/remote-data';
   templateUrl: './thumbnail.component.html',
 })
 export class ThumbnailComponent implements OnChanges {
-
   /**
    * The thumbnail Bitstream
    */
@@ -29,7 +34,9 @@ export class ThumbnailComponent implements OnChanges {
   /**
    * The src attribute used in the template to render the image.
    */
-  src: string = null;
+  src$ = new BehaviorSubject<string>(undefined);
+
+  retriedWithToken = false;
 
   /**
    * i18n key of thumbnail alt text
@@ -46,50 +53,123 @@ export class ThumbnailComponent implements OnChanges {
    */
   @Input() limitWidth? = true;
 
-  isLoading: boolean;
+  /**
+   * Whether the thumbnail is currently loading
+   * Start out as true to avoid flashing the alt text while a thumbnail is being loaded.
+   */
+  isLoading$ = new BehaviorSubject(true);
+
+  constructor(
+    protected auth: AuthService,
+    protected authorizationService: AuthorizationDataService,
+    protected fileService: FileService,
+  ) {
+  }
 
   /**
    * Resolve the thumbnail.
    * Use a default image if no actual image is available.
    */
   ngOnChanges(): void {
-    if (this.thumbnail === undefined || this.thumbnail === null) {
+    if (hasNoValue(this.thumbnail)) {
       return;
     }
-    if (this.thumbnail instanceof Bitstream) {
-      this.resolveThumbnail(this.thumbnail as Bitstream);
+
+    const thumbnail = this.bitstream;
+    if (hasValue(thumbnail?._links?.content?.href)) {
+      this.setSrc(thumbnail?._links?.content?.href);
     } else {
-      const thumbnailRD = this.thumbnail as RemoteData<Bitstream>;
-      if (thumbnailRD.isLoading) {
-        this.isLoading = true;
-      } else {
-        this.resolveThumbnail(thumbnailRD.payload as Bitstream);
-      }
+      this.showFallback();
     }
   }
 
-  private resolveThumbnail(thumbnail: Bitstream): void {
-    if (hasValue(thumbnail) && hasValue(thumbnail._links)
-                            && hasValue(thumbnail._links.content)
-                            && thumbnail._links.content.href) {
-      this.src = thumbnail._links.content.href;
-    } else {
-      this.src = this.defaultImage;
+  /**
+   * The current thumbnail Bitstream
+   * @private
+   */
+  private get bitstream(): Bitstream {
+    if (this.thumbnail instanceof Bitstream) {
+      return this.thumbnail as Bitstream;
+    } else if (this.thumbnail instanceof RemoteData) {
+      return (this.thumbnail as RemoteData<Bitstream>).payload;
     }
-    this.isLoading = false;
   }
 
   /**
    * Handle image download errors.
-   * If the image can't be found, use the defaultImage instead.
-   * If that also can't be found, use null to fall back to the HTML placeholder.
+   * If the image can't be loaded, try re-requesting it with an authorization token in case it's a restricted Bitstream
+   * Otherwise, fall back to the default image or a HTML placeholder
    */
   errorHandler() {
-    if (this.src !== this.defaultImage) {
-      this.src = this.defaultImage;
+    if (!this.retriedWithToken && hasValue(this.thumbnail)) {
+      // the thumbnail may have failed to load because it's restricted
+      //   → retry with an authorization token
+      //     only do this once; fall back to the default if it still fails
+      this.retriedWithToken = true;
+
+      const thumbnail = this.bitstream;
+      this.auth.isAuthenticated().pipe(
+        switchMap((isLoggedIn) => {
+          if (isLoggedIn && hasValue(thumbnail)) {
+            return this.authorizationService.isAuthorized(FeatureID.CanDownload, thumbnail.self);
+          } else {
+            return observableOf(false);
+          }
+        }),
+        switchMap((isAuthorized) => {
+          if (isAuthorized) {
+            return this.fileService.retrieveFileDownloadLink(thumbnail._links.content.href);
+          } else {
+            return observableOf(null);
+          }
+        })
+      ).subscribe((url: string) => {
+        if (hasValue(url)) {
+          // If we got a URL, try to load it
+          //   (if it still fails this method will be called again, and we'll fall back to the default)
+          // Otherwise, fall back to the default image right now
+          this.setSrc(url);
+        } else {
+          this.showFallback();
+        }
+      });
     } else {
-      this.src = null;
+      this.showFallback();
     }
   }
 
+  /**
+   * To be called when the requested thumbnail could not be found
+   * - If the current src is not the default image, try that first
+   * - If this was already the case and the default image could not be found either,
+   *   show an HTML placecholder by setting src to null
+   *
+   * Also stops the loading animation.
+   */
+  showFallback() {
+    if (this.src$.getValue() !== this.defaultImage) {
+      this.setSrc(this.defaultImage);
+    } else {
+      this.setSrc(null);
+    }
+  }
+
+  /**
+   * Set the thumbnail.
+   * Stop the loading animation if setting to null.
+   * @param src
+   */
+  setSrc(src: string): void {
+    this.src$.next(src);
+    if (src === null) {
+      this.isLoading$.next(false);
+    }
+  }
+
+  /**
+   * Stop the loading animation once the thumbnail is successfully loaded
+   */
+  successHandler() {
+    this.isLoading$.next(false);
+  }
 }

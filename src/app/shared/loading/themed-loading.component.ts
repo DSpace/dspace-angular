@@ -15,8 +15,9 @@ export class ThemedLoadingComponent extends ThemedComponent<LoadingComponent> {
 
   @Input() message: string;
   @Input() showMessage = true;
+  @Input() spinner = false;
 
-  protected inAndOutputNames: (keyof LoadingComponent & keyof this)[] = ['message', 'showMessage'];
+  protected inAndOutputNames: (keyof LoadingComponent & keyof this)[] = ['message', 'showMessage', 'spinner'];
 
   constructor(
     protected resolver: ComponentFactoryResolver,
