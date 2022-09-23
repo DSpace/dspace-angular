@@ -161,6 +161,7 @@ export const klaroConfiguration: any = {
       purposes: ['registration-password-recovery'],
       required: false,
       cookies: [
+        [/^klaro-.+$/],
         CAPTCHA_COOKIE
       ],
       onAccept: `window.refreshCaptchaScript?.call()`,
