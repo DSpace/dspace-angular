@@ -37,7 +37,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
                      protected linkService: LinkService,
                      protected dsoNameService: DSONameService
   ) {
-    super(truncatableService, dsoNameService);
+    super(truncatableService, dsoNameService, null);
   }
 
   /**

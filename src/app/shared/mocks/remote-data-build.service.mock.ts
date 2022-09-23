@@ -29,6 +29,7 @@ export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observab
       }
     },
     buildFromRequestUUID: (id: string) => createSuccessfulRemoteDataObject$({}),
+    buildFromRequestUUIDAndAwait: (id: string, callback: (rd?: RemoteData<any>) => Observable<any>) => createSuccessfulRemoteDataObject$({}),
     buildFromHref: (href: string) => createSuccessfulRemoteDataObject$({})
   } as RemoteDataBuildService;
 
@@ -66,6 +67,7 @@ export function getMockRemoteDataBuildServiceHrefMap(toRemoteDataObservable$?: O
       );
     },
     buildFromRequestUUID: (id: string) => createSuccessfulRemoteDataObject$({}),
+    buildFromRequestUUIDAndAwait: (id: string, callback: (rd?: RemoteData<any>) => Observable<any>) => createSuccessfulRemoteDataObject$({}),
     buildFromHref: (href: string) => createSuccessfulRemoteDataObject$({})
   } as RemoteDataBuildService;
 

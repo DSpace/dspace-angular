@@ -10,6 +10,7 @@ import { hasValue, isNotEmpty } from '../../../shared/empty.util';
  * An abstract component for displaying an incremental list of objects
  */
 export class AbstractIncrementalListComponent<T> implements OnInit, OnDestroy {
+
   /**
    * The amount to increment the list by
    * Define this amount in the child component overriding this component
@@ -20,6 +21,11 @@ export class AbstractIncrementalListComponent<T> implements OnInit, OnDestroy {
    * All pages of objects to display as an array
    */
   objects: T[];
+
+  /**
+   * Placeholder css class (defined in global-styles)
+   */
+  placeholderFontClass: string;
 
   /**
    * A list of open subscriptions
