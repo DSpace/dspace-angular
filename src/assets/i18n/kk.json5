@@ -2597,7 +2597,6 @@
 
 
   // "item.alerts.private": "This item is non-discoverable",
-  // TODO Source message changed - Revise the translation
   "item.alerts.private": "Бұл элемент жеке",
 
   // "item.alerts.withdrawn": "This item has been withdrawn",
@@ -4361,7 +4360,7 @@
   "person.page.email": "Электрондық мекенжайы",
 
   // "person.page.firstname": "First Name",
-  "person.page.firstname":"Имя",
+  "person.page.firstname":"Аты",
 
   // "person.page.jobtitle": "Job Title",
   "person.page.jobtitle": "Жұмыс атауы",
@@ -4370,8 +4369,7 @@
   "person.page.lastname": "Фамилия",
 
   // "person.page.name": "Name",
-  // TODO New key - Add a translation
-  "person.page.name": "Name",
+  "person.page.name": "Аты",
 
   // "person.page.link.full": "Show all metadata",
   "person.page.link.full": "Барлық метамәліметті көрсету",
@@ -4383,18 +4381,16 @@
   "person.page.staffid": "Қызметкерлердің жеке куәлігі",
 
   // "person.page.titleprefix": "Person: ",
-  "person.page.titleprefix":"Адам: ",
+  "person.page.titleprefix": "Адам: ",
 
   // "person.search.results.head": "Person Search Results",
   "person.search.results.head": "Тұлға іздеу нәтижелері",
 
   // "person-relationships.search.results.head": "Person Search Results",
-  // TODO New key - Add a translation
-  "person-relationships.search.results.head": "Person Search Results",
+  "person-relationships.search.results.head": "Тұлға іздеу нәтижелері",
 
   // "person.search.title": "Person Search",
-  // TODO Source message changed - Revise the translation
-  "person.search.title": "DSpace Angular :: Адамды іздеу",
+  "person.search.title": "Адамды іздеу",
 
 
 
@@ -4731,8 +4727,7 @@
   "project.search.results.head": "Жобаны іздеу нәтижелері",
 
   // "project-relationships.search.results.head": "Project Search Results",
-  // TODO New key - Add a translation
-  "project-relationships.search.results.head": "Project Search Results",
+  "project-relationships.search.results.head": "Жобаны іздеу нәтижелері",
 
 
 
@@ -4764,12 +4759,10 @@
   "publication.search.results.head": "Жарияланымдарды іздеу нәтижелері",
 
   // "publication-relationships.search.results.head": "Publication Search Results",
-  // TODO New key - Add a translation
-  "publication-relationships.search.results.head": "Publication Search Results",
+  "publication-relationships.search.results.head": "Жарияланымды іздеу нәтижелері",
 
   // "publication.search.title": "Publication Search",
-  // TODO Source message changed - Revise the translation
-  "publication.search.title": "DSpace Angular :: Жарияланымдарды іздеу",
+  "publication.search.title": "Жарияланымдарды іздеу",
 
 
   // "media-viewer.next": "Next",
@@ -5150,15 +5143,13 @@
   "search.switch-configuration.title": "Көрсету",
 
   // "search.title": "Search",
-  // TODO Source message changed - Revise the translation
-  "search.title": "DSpace Angular :: Іздеу",
+  "search.title": "Іздеу",
 
   // "search.breadcrumbs": "Search",
   "search.breadcrumbs": "Іздеу",
 
   // "search.search-form.placeholder": "Search the repository ...",
-  // TODO New key - Add a translation
-  "search.search-form.placeholder": "Search the repository ...",
+  "search.search-form.placeholder": " Репозиторидең іздеу ...",
 
 
   // "search.filters.applied.f.author": "Author",
@@ -5260,8 +5251,7 @@
   "search.filters.filter.creativeWorkKeywords.placeholder": "Тақырыбы",
 
   // "search.filters.filter.creativeWorkKeywords.label": "Search subject",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkKeywords.label": "Search subject",
+  "search.filters.filter.creativeWorkKeywords.label": "Іздеу тақырыбы",
 
   // "search.filters.filter.creativeWorkPublisher.head": "Publisher",
   "search.filters.filter.creativeWorkPublisher.head": "Баспагер",
@@ -5303,7 +5293,6 @@
   "search.filters.filter.dateSubmitted.label": "Search date submitted",
 
   // "search.filters.filter.discoverable.head": "Non-discoverable",
-  // TODO Source message changed - Revise the translation
   "search.filters.filter.discoverable.head": "Жеке",
 
   // "search.filters.filter.withdrawn.head": "Withdrawn",
@@ -5479,8 +5468,7 @@
   "search.filters.reset": "Сүзгілерді қалпына келтіру",
 
   // "search.filters.search.submit": "Submit",
-  // TODO New key - Add a translation
-  "search.filters.search.submit": "Submit",
+  "search.filters.search.submit": "Орындау",
 
 
 
@@ -5488,12 +5476,10 @@
   "search.form.search":"Іздеу",
 
   // "search.form.search_dspace": "All repository",
-  // TODO Source message changed - Revise the translation
-  "search.form.search_dspace": "Іздеу кеңістігі",
+  "search.form.search_dspace": "Бүкіл репозиторий",
 
   // "search.form.scope.all": "All of DSpace",
-  // TODO New key - Add a translation
-  "search.form.scope.all": "All of DSpace",
+  "search.form.scope.all": "Бүкіл DSpace",
 
 
 
@@ -5836,8 +5822,7 @@
   "submission.import-external.preview.title.Person": "Person Preview",
 
   // "submission.import-external.preview.title.Project": "Project Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Project": "Project Preview",
+  "submission.import-external.preview.title.Project": "Жобаны алдын ала қарау",
 
   // "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
   "submission.import-external.preview.subtitle": "Төмендегі метадеректер сыртқы көзден импортталды. Сіз жіберуді бастаған кезде ол алдын-ала толтырылады.",
@@ -5870,60 +5855,46 @@
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Журналдың қашықтағы томын импорттау",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Жоба",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Import remote item",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Import remote item",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Қашықтағы элементті импорттау",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Import remote event",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Import remote event",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Қашықтағы оқиғаны импорттау",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Import remote product",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Import remote product",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Қашықтағы өнімді импорттау",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Қашықтағы жабдықты импорттау",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Import remote organizational unit",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Import remote organizational unit",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Қашықтағы ұйымдастыру бөлімшесінің импорты",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Import remote fund",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Import remote fund",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Қашықтағы қорды импорттау",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Import remote person",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Import remote person",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Қашықтағы пайдаланушыны импорттау",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Import remote patent",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Import remote patent",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Патентті қашықтан импорттау",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Import remote project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Import remote project",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Қашықтағы жобаны импорттау",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Қашықтағы жарияланымды импорттау",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "Жаңа Нысан Қосылды!",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Жоба",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Демеуші OpenAIRE API",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Қашықтағы авторды импорттау",
@@ -6019,8 +5990,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.search": "Бару",
 
   // "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
+  "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Іздеу...",
 
   // "submission.sections.describe.relationship-lookup.search-tab.select-all": "Select all",
   "submission.sections.describe.relationship-lookup.search-tab.select-all": "Барлығын таңдау",
@@ -6036,6 +6006,7 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Жергілікті журналдар ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Local Projects ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Жергілікті жобалар ({{ count }})",
 
@@ -6059,11 +6030,13 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Жергілікті журнал мәселелері ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Жергілікті журнал мәселелері ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Жергілікті журнал томдары ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Жергілікті журнал томдары ({{ count }})",
 
@@ -6071,7 +6044,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal":"Sherpa журналдары ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa баспалары ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
@@ -6095,50 +6068,44 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Ұйымдастырушылық бірліктерді іздеу",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Демеуші OpenAIRE API",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Жобалар",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Жоба демеушісі",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Демеуші OpenAIRE API",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Жоба",
 
   // "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
+  "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Жобалар",
 
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
+  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Жоба демеушісі",
 
 
 
 
   // "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
+  "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Іздеу...",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title":"Ағымдағы таңдау ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Журналдың шығарылымдары",
+
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.JournalIssue":"Журналдың шығарылымдары",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication":"Журнал томдары",
+
   // "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.JournalVolume": "Журнал томдары",
 
@@ -6150,6 +6117,7 @@
 
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Қаржыландыру агенттігі",
+
   // "submission.sections.describe.relationship-lookup.title.Project": "Projects",
   "submission.sections.describe.relationship-lookup.title.Project": "Жобалар",
 
@@ -6194,6 +6162,7 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Журналдың таңдалған көлемі",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
   "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Таңдаулы жобалар",
 
@@ -6217,6 +6186,7 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Таңдалған сұрақ",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume":"Журналдың таңдалған көлемі",
 
@@ -6225,6 +6195,7 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Таңдалған қаржыландыру",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Selected Issue",
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Таңдалған шығарылым",
 
@@ -6304,8 +6275,7 @@
   "submission.sections.general.add-more": "Тағы қосу",
 
   // "submission.sections.general.cannot_deposit": "Deposit cannot be completed due to errors in the form.<br>Please fill out all required fields to complete the deposit.",
-  // TODO New key - Add a translation
-  "submission.sections.general.cannot_deposit": "Deposit cannot be completed due to errors in the form.<br>Please fill out all required fields to complete the deposit.",
+  "submission.sections.general.cannot_deposit": "Пішіндегі қателіктерге байланысты Депозит аяқталуы мүмкін емес.<br>Депозитті аяқтау үшін барлық қажетті өрістерді толтырыңыз.",
 
   // "submission.sections.general.collection": "Collection",
   "submission.sections.general.collection": "Жинақ",
@@ -6373,67 +6343,53 @@
   "submission.sections.submit.progressbar.license": "Депозиттік лицензия",
 
   // "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
+  "submission.sections.submit.progressbar.sherpapolicy": "Sherpa саясаттары",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Файлдарды жүктеу",
 
   // "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.sherpaPolicies": "Баспагердің ашық қол жеткізу саясаты туралы ақпарат",
 
 
   // "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
+  "submission.sections.sherpa-policy.title-empty": "Баспагердің саясаты туралы ақпарат жоқ. Егер сіздің жұмысыңыз ISSN-мен байланысты болса, баспагердің кез-келген тиісті ашық кіру саясатымен танысу үшін оны жоғарыда енгізіңіз.",
 
   // "submission.sections.status.errors.title": "Errors",
   "submission.sections.status.errors.title": "Қателер",
 
   // "submission.sections.status.valid.title": "Valid",
-  // TODO New key - Add a translation
-  "submission.sections.status.valid.title": "Valid",
+  "submission.sections.status.valid.title": "Жарамды",
 
   // "submission.sections.status.warnings.title": "Warnings",
-  // TODO New key - Add a translation
-  "submission.sections.status.warnings.title": "Warnings",
+  "submission.sections.status.warnings.title": "Ескертулер",
 
   // "submission.sections.status.errors.aria": "has errors",
-  // TODO New key - Add a translation
-  "submission.sections.status.errors.aria": "has errors",
+  "submission.sections.status.errors.aria": "қателер бар",
 
   // "submission.sections.status.valid.aria": "is valid",
-  // TODO New key - Add a translation
-  "submission.sections.status.valid.aria": "is valid",
+  "submission.sections.status.valid.aria": "жарамды болып табылады",
 
   // "submission.sections.status.warnings.aria": "has warnings",
-  // TODO New key - Add a translation
-  "submission.sections.status.warnings.aria": "has warnings",
+  "submission.sections.status.warnings.aria": "ескертулер бар",
 
   // "submission.sections.status.info.title": "Additional Information",
-  // TODO New key - Add a translation
-  "submission.sections.status.info.title": "Additional Information",
+  "submission.sections.status.info.title": "Қосымша ақпарат",
 
   // "submission.sections.status.info.aria": "Additional Information",
-  // TODO New key - Add a translation
-  "submission.sections.status.info.aria": "Additional Information",
+  "submission.sections.status.info.aria": "Қосымша ақпарат",
 
   // "submission.sections.toggle.open": "Open section",
-  // TODO New key - Add a translation
-  "submission.sections.toggle.open": "Open section",
+  "submission.sections.toggle.open": "Бөлімді ашу",
 
   // "submission.sections.toggle.close": "Close section",
-  // TODO New key - Add a translation
-  "submission.sections.toggle.close": "Close section",
+  "submission.sections.toggle.close": "Бөлімді жабу",
 
   // "submission.sections.toggle.aria.open": "Expand {{sectionHeader}} section",
-  // TODO New key - Add a translation
-  "submission.sections.toggle.aria.open": "Expand {{sectionHeader}} section",
+  "submission.sections.toggle.aria.open": "Бөлімді ашу {{sectionHeader}}",
 
   // "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
-  // TODO New key - Add a translation
-  "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
+  "submission.sections.toggle.aria.close": "Бөлімді кішірейту {{sectionHeader}}",
 
   // "submission.sections.upload.delete.confirm.cancel": "Cancel",
   "submission.sections.upload.delete.confirm.cancel": "Болдырмау",
@@ -6463,26 +6419,22 @@
   "submission.sections.upload.form.access-condition-label": "Кіру шартының түрі",
 
   // "submission.sections.upload.form.access-condition-hint": "Select an access condition to apply on the bitstream once the item is deposited",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.access-condition-hint": "Select an access condition to apply on the bitstream once the item is deposited",
+  "submission.sections.upload.form.access-condition-hint": "Элементті сақтағаннан кейін бит ағынына қолданылатын кіру шартын таңдаңыз",
 
   // "submission.sections.upload.form.date-required": "Date is required.",
   "submission.sections.upload.form.date-required": "Күні міндетті.",
 
   // "submission.sections.upload.form.date-required-from": "Grant access from date is required.",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.date-required-from": "Grant access from date is required.",
+  "submission.sections.upload.form.date-required-from": "Күннен бастап қол жеткізуді қамтамасыз ету қажет.",
 
   // "submission.sections.upload.form.date-required-until": "Grant access until date is required.",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.date-required-until": "Grant access until date is required.",
+  "submission.sections.upload.form.date-required-until": "Күн қажет болғанша қол жеткізіңіз.",
 
   // "submission.sections.upload.form.from-label": "Grant access from",
   "submission.sections.upload.form.from-label": "Қатынауды ұсыну бірі",
 
   // "submission.sections.upload.form.from-hint": "Select the date from which the related access condition is applied",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.from-hint": "Select the date from which the related access condition is applied",
+  "submission.sections.upload.form.from-hint": "Тиісті кіру шарты қолданылатын күнді таңдаңыз",
 
   // "submission.sections.upload.form.from-placeholder": "From",
   "submission.sections.upload.form.from-placeholder": "Кімнен",
@@ -6497,11 +6449,10 @@
   "submission.sections.upload.form.until-label": "Рұқсат беруге болғанша",
 
   // "submission.sections.upload.form.until-hint": "Select the date until which the related access condition is applied",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.until-hint": "Select the date until which the related access condition is applied",
+  "submission.sections.upload.form.until-hint": "Тиісті кіру шарты қолданылатын күнді таңдаңыз",
 
   // "submission.sections.upload.form.until-placeholder": "Until",
-  "submission.sections.upload.form.until-placeholder":"Әзірге",
+  "submission.sections.upload.form.until-placeholder": "Әзірге",
 
   // "submission.sections.upload.header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
   "submission.sections.upload.header.policy.default.nolist": "{{collectionName}} жинағына жүктелген файлдар келесі топқа (топтарға) сәйкес қол жетімді болады:",
@@ -6531,85 +6482,65 @@
   "submission.sections.upload.upload-successful": "Жүктеу сәтті өтті",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
+  "submission.sections.accesses.form.discoverable-description": "Егер бұл құсбелгі қойылса, бұл элемент іздеу/қарау үшін қол жетімді болады. Егер құсбелгі алынып тасталса, элемент тек тікелей сілтеме арқылы қол жетімді болады және іздеу/қарау кезінде ешқашан пайда болмайды.",
 
   // "submission.sections.accesses.form.discoverable-label": "Discoverable",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.discoverable-label": "Discoverable",
+  "submission.sections.accesses.form.discoverable-label": "Анықталатын",
 
   // "submission.sections.accesses.form.access-condition-label": "Access condition type",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.access-condition-label": "Access condition type",
+  "submission.sections.accesses.form.access-condition-label": "Кіру шартының түрі",
 
   // "submission.sections.accesses.form.access-condition-hint": "Select an access condition to apply on the item once it is deposited",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.access-condition-hint": "Select an access condition to apply on the item once it is deposited",
+  "submission.sections.accesses.form.access-condition-hint": "Депозитке салынғаннан кейін өнімге қолданылатын қол жеткізу шартын таңдаңыз",
 
   // "submission.sections.accesses.form.date-required": "Date is required.",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.date-required": "Date is required.",
+  "submission.sections.accesses.form.date-required": "Күні міндетті.",
 
   // "submission.sections.accesses.form.date-required-from": "Grant access from date is required.",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.date-required-from": "Grant access from date is required.",
+  "submission.sections.accesses.form.date-required-from": "Күннен бастап қол жеткізуді қамтамасыз ету қажет.",
 
   // "submission.sections.accesses.form.date-required-until": "Grant access until date is required.",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.date-required-until": "Grant access until date is required.",
+  "submission.sections.accesses.form.date-required-until": "Күн қажет болғанша қол жеткізіңіз.",
 
   // "submission.sections.accesses.form.from-label": "Grant access from",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.from-label": "Grant access from",
+  "submission.sections.accesses.form.from-label": "Қол жеткізуді қамтамасыз етіңіз",
 
   // "submission.sections.accesses.form.from-hint": "Select the date from which the related access condition is applied",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.from-hint": "Select the date from which the related access condition is applied",
+  "submission.sections.accesses.form.from-hint": "Тиісті кіру шарты қолданылатын күнді таңдаңыз",
 
   // "submission.sections.accesses.form.from-placeholder": "From",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.from-placeholder": "From",
+  "submission.sections.accesses.form.from-placeholder": "Бастап",
 
   // "submission.sections.accesses.form.group-label": "Group",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.group-label": "Group",
+  "submission.sections.accesses.form.group-label": "Топ",
 
   // "submission.sections.accesses.form.group-required": "Group is required.",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.group-required": "Group is required.",
+  "submission.sections.accesses.form.group-required": "Топ қажет.",
 
   // "submission.sections.accesses.form.until-label": "Grant access until",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.until-label": "Grant access until",
+  "submission.sections.accesses.form.until-label": "Дейін қол жеткізуді қамтамасыз ету",
 
   // "submission.sections.accesses.form.until-hint": "Select the date until which the related access condition is applied",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.until-hint": "Select the date until which the related access condition is applied",
+  "submission.sections.accesses.form.until-hint": "Тиісті кіру шарты қолданылатын күнді таңдаңыз",
 
   // "submission.sections.accesses.form.until-placeholder": "Until",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.until-placeholder": "Until",
+  "submission.sections.accesses.form.until-placeholder": "Осы уақытқа дейін",
 
   // "submission.sections.license.granted-label": "I confirm the license above",
-  // TODO New key - Add a translation
-  "submission.sections.license.granted-label": "I confirm the license above",
+  "submission.sections.license.granted-label": "Мен жоғарыда аталған лицензияны растаймын",
 
   // "submission.sections.license.required": "You must accept the license",
-  // TODO New key - Add a translation
-  "submission.sections.license.required": "You must accept the license",
+  "submission.sections.license.required": "Лицензияны қабылдау керек",
 
   // "submission.sections.license.notgranted":  "You must accept the license",
-  // TODO New key - Add a translation
-  "submission.sections.license.notgranted":  "You must accept the license",
+  "submission.sections.license.notgranted":  "Лицензияны қабылдау керек",
 
 
   // "submission.sections.sherpa.publication.information": "Publication information",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publication.information": "Publication information",
+  "submission.sections.sherpa.publication.information": "Жарияланым туралы ақпарат",
 
   // "submission.sections.sherpa.publication.information.title": "Title",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publication.information.title": "Title",
+  "submission.sections.sherpa.publication.information.title": "Атауы",
 
   // "submission.sections.sherpa.publication.information.issns": "ISSNs",
   // TODO New key - Add a translation
@@ -6620,102 +6551,78 @@
   "submission.sections.sherpa.publication.information.url": "URL",
 
   // "submission.sections.sherpa.publication.information.publishers": "Publisher",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publication.information.publishers": "Publisher",
+  "submission.sections.sherpa.publication.information.publishers": "Баспагер",
 
   // "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
+  "submission.sections.sherpa.publication.information.romeoPub": "Romeo Баспагер",
 
   // "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
+  "submission.sections.sherpa.publication.information.zetoPub": "Zeto Баспагер",
 
   // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy": "Publisher Policy",
+  "submission.sections.sherpa.publisher.policy": "Баспагердің саясаты",
 
   // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+  "submission.sections.sherpa.publisher.policy.description": "Төмендегі ақпарат Шерпа Ромео арқылы табылды. Баспагердің саясатына сүйене отырып, ол сізге эмбарго қажет пе және / немесе қандай файлдарды жүктеуге рұқсат етілгені туралы ұсыныстар береді. Егер сізде сұрақтар туындаса, төменгі деректемедегі кері байланыс нысаны арқылы веб-сайтыңыздың әкімшісіне хабарласыңыз.",
 
   // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
+  "submission.sections.sherpa.publisher.policy.openaccess": "Осы журналдың саясатымен рұқсат етілген ашық қол жетімділік жолдары төменде мақалалардың нұсқалары бойынша бөлінген. Толығырақ көру үшін жолды нұқыңыз",
 
   // "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
+  "submission.sections.sherpa.publisher.policy.more.information": "Қосымша ақпарат алу үшін келесі сілтемелерге өтіңіз:",
 
   // "submission.sections.sherpa.publisher.policy.version": "Version",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.version": "Version",
+  "submission.sections.sherpa.publisher.policy.version": "Нұсқа",
 
   // "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
+  "submission.sections.sherpa.publisher.policy.embargo": "Эмбарго",
 
   // "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
+  "submission.sections.sherpa.publisher.policy.noembargo": "Эмбарго Жоқ",
 
   // "submission.sections.sherpa.publisher.policy.nolocation": "None",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.nolocation": "None",
+  "submission.sections.sherpa.publisher.policy.nolocation": "Ешкім",
 
   // "submission.sections.sherpa.publisher.policy.license": "License",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.license": "License",
+  "submission.sections.sherpa.publisher.policy.license": "Лицензия",
 
   // "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
+  "submission.sections.sherpa.publisher.policy.prerequisites": "Алғышарттар",
 
   // "submission.sections.sherpa.publisher.policy.location": "Location",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.location": "Location",
+  "submission.sections.sherpa.publisher.policy.location": "Орналасқан жері",
 
   // "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
+  "submission.sections.sherpa.publisher.policy.conditions": "Шарттары",
 
   // "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
+  "submission.sections.sherpa.publisher.policy.refresh": "Жаңарту",
 
   // "submission.sections.sherpa.record.information": "Record Information",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.record.information": "Record Information",
+  "submission.sections.sherpa.record.information": "Жазуға арналған ақпарат",
 
   // "submission.sections.sherpa.record.information.id": "ID",
-  // TODO New key - Add a translation
   "submission.sections.sherpa.record.information.id": "ID",
 
   // "submission.sections.sherpa.record.information.date.created": "Date Created",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.record.information.date.created": "Date Created",
+  "submission.sections.sherpa.record.information.date.created": "Құрылған күні",
 
   // "submission.sections.sherpa.record.information.date.modified": "Last Modified",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.record.information.date.modified": "Last Modified",
+  "submission.sections.sherpa.record.information.date.modified": "Соңғы өзгеріс",
 
   // "submission.sections.sherpa.record.information.uri": "URI",
-  // TODO New key - Add a translation
   "submission.sections.sherpa.record.information.uri": "URI",
 
   // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
+  "submission.sections.sherpa.error.message": "Шерпе туралы ақпарат алу кезінде қате пайда болды",
 
 
 
   // "submission.submit.breadcrumbs": "New submission",
-  // TODO New key - Add a translation
-  "submission.submit.breadcrumbs": "New submission",
+  "submission.submit.breadcrumbs": "Жаңа көрініс",
 
   // "submission.submit.title": "New submission",
-  // TODO Source message changed - Revise the translation
-  "submission.submit.title":"Бағыну",
+  "submission.submit.title": "Жаңа көрініс",
 
 
 
@@ -6805,45 +6712,35 @@
 
 
   // "submission.workspace.generic.view": "View",
-  // TODO New key - Add a translation
-  "submission.workspace.generic.view": "View",
+  "submission.workspace.generic.view": "Көрініс",
 
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
-  // TODO New key - Add a translation
-  "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  "submission.workspace.generic.view-help": "Элемент метадеректерін көру үшін осы параметрді таңдаңыз.",
 
 
   // "thumbnail.default.alt": "Thumbnail Image",
-  // TODO New key - Add a translation
-  "thumbnail.default.alt": "Thumbnail Image",
+  "thumbnail.default.alt": "Кішірейтілген сурет",
 
   // "thumbnail.default.placeholder": "No Thumbnail Available",
-  // TODO New key - Add a translation
-  "thumbnail.default.placeholder": "No Thumbnail Available",
+  "thumbnail.default.placeholder": "Нобайлар Жоқ",
 
   // "thumbnail.project.alt": "Project Logo",
-  // TODO New key - Add a translation
-  "thumbnail.project.alt": "Project Logo",
+  "thumbnail.project.alt": "Жобаның логотипі",
 
   // "thumbnail.project.placeholder": "Project Placeholder Image",
-  // TODO New key - Add a translation
-  "thumbnail.project.placeholder": "Project Placeholder Image",
+  "thumbnail.project.placeholder": "Жобаның толтырғыш суреті",
 
   // "thumbnail.orgunit.alt": "OrgUnit Logo",
-  // TODO New key - Add a translation
-  "thumbnail.orgunit.alt": "OrgUnit Logo",
+  "thumbnail.orgunit.alt": "Ұйым бөлімшесінің логотипі",
 
   // "thumbnail.orgunit.placeholder": "OrgUnit Placeholder Image",
-  // TODO New key - Add a translation
-  "thumbnail.orgunit.placeholder": "OrgUnit Placeholder Image",
+  "thumbnail.orgunit.placeholder": "Мекеме бірлігін толтырушы суреті",
 
   // "thumbnail.person.alt": "Profile Picture",
-  // TODO New key - Add a translation
-  "thumbnail.person.alt": "Profile Picture",
+  "thumbnail.person.alt": "Профиль суреті",
 
   // "thumbnail.person.placeholder": "No Profile Picture Available",
-  // TODO New key - Add a translation
-  "thumbnail.person.placeholder": "No Profile Picture Available",
+  "thumbnail.person.placeholder": "Профиль Суреті Қол Жетімді Емес",
 
 
 
@@ -6882,8 +6779,7 @@
   "uploader.drag-message": "Файлдарды осында сүйреңіз",
 
   // "uploader.delete.btn-title": "Delete",
-  // TODO New key - Add a translation
-  "uploader.delete.btn-title": "Delete",
+  "uploader.delete.btn-title": "Жою",
 
   // "uploader.or": ", or ",
   "uploader.or": ", немесе ",
@@ -6906,25 +6802,21 @@
 
 
   // "workspace.search.results.head": "Your submissions",
-  // TODO New key - Add a translation
-  "workspace.search.results.head": "Your submissions",
+  "workspace.search.results.head": "Сіздің жазылымдарыңыз",
 
   // "workflowAdmin.search.results.head": "Administer Workflow",
   "workflowAdmin.search.results.head": "Жұмыс процесін басқару",
 
   // "workflow.search.results.head": "Workflow tasks",
-  // TODO New key - Add a translation
-  "workflow.search.results.head": "Workflow tasks",
+  "workflow.search.results.head": "Жұмыс процесінің міндеттері",
 
 
 
   // "workflow-item.edit.breadcrumbs": "Edit workflowitem",
-  // TODO New key - Add a translation
-  "workflow-item.edit.breadcrumbs": "Edit workflowitem",
+  "workflow-item.edit.breadcrumbs": "Жұмыс процесінің элементін өңдеу",
 
   // "workflow-item.edit.title": "Edit workflowitem",
-  // TODO New key - Add a translation
-  "workflow-item.edit.title": "Edit workflowitem",
+  "workflow-item.edit.title": "Жұмыс процесінің элементін өңдеу",
 
   // "workflow-item.delete.notification.success.title": "Deleted",
   "workflow-item.delete.notification.success.title":"Жойылды",
@@ -6973,525 +6865,397 @@
   "workflow-item.send-back.button.cancel": "Алып тастау",
 
   // "workflow-item.send-back.button.confirm": "Send back",
-  // TODO Source message changed - Revise the translation
   "workflow-item.send-back.button.confirm": "Кері жіберу",
 
   // "workflow-item.view.breadcrumbs": "Workflow View",
-  // TODO New key - Add a translation
-  "workflow-item.view.breadcrumbs": "Workflow View",
+  "workflow-item.view.breadcrumbs": "Жұмыс процесін көру",
 
   // "workspace-item.view.breadcrumbs": "Workspace View",
-  // TODO New key - Add a translation
-  "workspace-item.view.breadcrumbs": "Workspace View",
+  "workspace-item.view.breadcrumbs": "Жұмыс аймағының түрі",
 
   // "workspace-item.view.title": "Workspace View",
-  // TODO New key - Add a translation
-  "workspace-item.view.title": "Workspace View",
+  "workspace-item.view.title": "Жұмыс аймағының түрі",
 
   // "idle-modal.header": "Session will expire soon",
-  // TODO New key - Add a translation
-  "idle-modal.header": "Session will expire soon",
+  "idle-modal.header": "Сессия жақында аяқталады",
 
   // "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
-  // TODO New key - Add a translation
-  "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
+  "idle-modal.info": "Қауіпсіздік мақсатында пайдаланушы сеанстары {{ timeToExpire }} әрекетсіздік минуттары арқылы аяқталады. Сіздің сессияңыз жақында аяқталады. Сіз оны ұзартқыңыз немесе жүйеден шыққыңыз келе ме?",
 
   // "idle-modal.log-out": "Log out",
-  // TODO New key - Add a translation
-  "idle-modal.log-out": "Log out",
+  "idle-modal.log-out": "Шығу",
 
   // "idle-modal.extend-session": "Extend session",
-  // TODO New key - Add a translation
-  "idle-modal.extend-session": "Extend session",
+  "idle-modal.extend-session": "Сеансты ұзарту",
 
   // "researcher.profile.action.processing" : "Processing...",
-  // TODO New key - Add a translation
-  "researcher.profile.action.processing" : "Processing...",
+  "researcher.profile.action.processing" : "Процессте...",
 
   // "researcher.profile.associated": "Researcher profile associated",
-  // TODO New key - Add a translation
-  "researcher.profile.associated": "Researcher profile associated",
+  "researcher.profile.associated": "Зерттеушінің байланысты профилі",
 
   // "researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
-  // TODO New key - Add a translation
-  "researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
+  "researcher.profile.change-visibility.fail": "Профиль көрінісі өзгерген кезде күтпеген қате пайда болады",
 
   // "researcher.profile.create.new": "Create new",
-  // TODO New key - Add a translation
-  "researcher.profile.create.new": "Create new",
+  "researcher.profile.create.new": "Жаңасың құру",
 
   // "researcher.profile.create.success": "Researcher profile created successfully",
-  // TODO New key - Add a translation
-  "researcher.profile.create.success": "Researcher profile created successfully",
+  "researcher.profile.create.success": "Зерттеуші профилі сәтті жасалды",
 
   // "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
-  // TODO New key - Add a translation
-  "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
+  "researcher.profile.create.fail": "Зерттеуші профилін құру кезінде қате пайда болады",
 
   // "researcher.profile.delete": "Delete",
-  // TODO New key - Add a translation
-  "researcher.profile.delete": "Delete",
+  "researcher.profile.delete": "Жою",
 
   // "researcher.profile.expose": "Expose",
-  // TODO New key - Add a translation
-  "researcher.profile.expose": "Expose",
+  "researcher.profile.expose": "Ашу",
 
   // "researcher.profile.hide": "Hide",
-  // TODO New key - Add a translation
-  "researcher.profile.hide": "Hide",
+  "researcher.profile.hide": "Жасыру",
 
   // "researcher.profile.not.associated": "Researcher profile not yet associated",
-  // TODO New key - Add a translation
-  "researcher.profile.not.associated": "Researcher profile not yet associated",
+  "researcher.profile.not.associated": "Зерттеуші профилі әлі байланысты емес",
 
   // "researcher.profile.view": "View",
-  // TODO New key - Add a translation
-  "researcher.profile.view": "View",
+  "researcher.profile.view": "Қөрімдігі",
 
   // "researcher.profile.private.visibility" : "PRIVATE",
-  // TODO New key - Add a translation
-  "researcher.profile.private.visibility" : "PRIVATE",
+  "researcher.profile.private.visibility" : "ЖАСЫРЫН",
 
   // "researcher.profile.public.visibility" : "PUBLIC",
-  // TODO New key - Add a translation
-  "researcher.profile.public.visibility" : "PUBLIC",
+  "researcher.profile.public.visibility" : "АШЫҚ",
 
   // "researcher.profile.status": "Status:",
-  // TODO New key - Add a translation
-  "researcher.profile.status": "Status:",
+  "researcher.profile.status": "Мәртебесі:",
 
   // "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
-  // TODO New key - Add a translation
-  "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
+  "researcherprofile.claim.not-authorized": "Сіз бұл өнімді талап етуге құқығыңыз жоқ. Қосымша ақпарат алу үшін әкімшіге хабарласыңыз.",
 
   // "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
-  // TODO New key - Add a translation
-  "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
+  "researcherprofile.error.claim.body" : "Профильді толтыру кезінде қате пайда болды, кейінірек қайталап көріңіз",
 
   // "researcherprofile.error.claim.title" : "Error",
-  // TODO New key - Add a translation
-  "researcherprofile.error.claim.title" : "Error",
+  "researcherprofile.error.claim.title" : "Қате",
 
   // "researcherprofile.success.claim.body" : "Profile claimed with success",
-  // TODO New key - Add a translation
-  "researcherprofile.success.claim.body" : "Profile claimed with success",
+  "researcherprofile.success.claim.body" : "Сәтті мәлімделген Профиль",
 
   // "researcherprofile.success.claim.title" : "Success",
-  // TODO New key - Add a translation
-  "researcherprofile.success.claim.title" : "Success",
+  "researcherprofile.success.claim.title" : "Сәтті",
 
   // "person.page.orcid.create": "Create an ORCID ID",
-  // TODO New key - Add a translation
-  "person.page.orcid.create": "Create an ORCID ID",
+  "person.page.orcid.create": "ORCID ID құру",
 
   // "person.page.orcid.granted-authorizations": "Granted authorizations",
-  // TODO New key - Add a translation
-  "person.page.orcid.granted-authorizations": "Granted authorizations",
+  "person.page.orcid.granted-authorizations": "Рұқсат берілген",
 
   // "person.page.orcid.grant-authorizations" : "Grant authorizations",
-  // TODO New key - Add a translation
-  "person.page.orcid.grant-authorizations" : "Grant authorizations",
+  "person.page.orcid.grant-authorizations" : "Рұқсат беру",
 
   // "person.page.orcid.link": "Connect to ORCID ID",
-  // TODO New key - Add a translation
-  "person.page.orcid.link": "Connect to ORCID ID",
+  "person.page.orcid.link": "ORCID идентификаторына қосылу",
 
   // "person.page.orcid.link.processing": "Linking profile to ORCID...",
-  // TODO New key - Add a translation
-  "person.page.orcid.link.processing": "Linking profile to ORCID...",
+  "person.page.orcid.link.processing": "Профильді ORCID-ке байланыстыру...",
 
   // "person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
-  // TODO New key - Add a translation
-  "person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
+  "person.page.orcid.link.error.message": "Профильді ORCID-ке қосқан кезде бірдеңе дұрыс болмады. Егер мәселе шешілмесе, әкімшіге хабарласыңыз.",
 
   // "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
-  // TODO New key - Add a translation
-  "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
+  "person.page.orcid.orcid-not-linked-message": "Осы профильдің ORCID идентификаторы ({{ orcid }}) әлі ORCID тізіліміндегі есептік жазбаға қосылмаған немесе қосылу мерзімі аяқталған.",
 
   // "person.page.orcid.unlink": "Disconnect from ORCID",
-  // TODO New key - Add a translation
-  "person.page.orcid.unlink": "Disconnect from ORCID",
+  "person.page.orcid.unlink": "ORCID өшіру",
 
   // "person.page.orcid.unlink.processing": "Processing...",
   "person.page.orcid.unlink.processing": "Процессте...",
 
   // "person.page.orcid.missing-authorizations": "Missing authorizations",
-  // TODO New key - Add a translation
-  "person.page.orcid.missing-authorizations": "Missing authorizations",
+  "person.page.orcid.missing-authorizations": "Рұқсаттары жоқ",
 
   // "person.page.orcid.missing-authorizations-message": "The following authorizations are missing:",
-  // TODO New key - Add a translation
-  "person.page.orcid.missing-authorizations-message": "The following authorizations are missing:",
+  "person.page.orcid.missing-authorizations-message": "Келесі рұқсаттар жоқ:",
 
   // "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
-  // TODO New key - Add a translation
-  "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
+  "person.page.orcid.no-missing-authorizations-message": "Тамаша! Бұл өріс бос, бұл сіздің мекемеңіздің барлық мүмкіндіктерін пайдалану үшін барлық қол жетімділік құқығын береді.",
 
   // "person.page.orcid.no-orcid-message": "No ORCID iD associated yet. By clicking on the button below it is possible to link this profile with an ORCID account.",
-  // TODO New key - Add a translation
-  "person.page.orcid.no-orcid-message": "No ORCID iD associated yet. By clicking on the button below it is possible to link this profile with an ORCID account.",
+  "person.page.orcid.no-orcid-message": "ORCID идентификаторы әлі қосылмаған. Төмендегі батырманы басу арқылы сіз бұл Профильді ORCID тіркелгісімен байланыстыра аласыз.",
 
   // "person.page.orcid.profile-preferences": "Profile preferences",
-  // TODO New key - Add a translation
-  "person.page.orcid.profile-preferences": "Profile preferences",
+  "person.page.orcid.profile-preferences": "Профиль параметрлері",
 
   // "person.page.orcid.funding-preferences": "Funding preferences",
-  // TODO New key - Add a translation
-  "person.page.orcid.funding-preferences": "Funding preferences",
+  "person.page.orcid.funding-preferences": "Қаржыландырудағы артықшылықтар",
 
   // "person.page.orcid.publications-preferences": "Publication preferences",
-  // TODO New key - Add a translation
-  "person.page.orcid.publications-preferences": "Publication preferences",
+  "person.page.orcid.publications-preferences": "Жарияланымдағы артықшылықтар",
 
   // "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
-  // TODO New key - Add a translation
-  "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
+  "person.page.orcid.remove-orcid-message": "Егер сізге ORCID жою қажет болса, репозиторий әкімшісіне хабарласыңыз",
 
   // "person.page.orcid.save.preference.changes": "Update settings",
-  // TODO New key - Add a translation
-  "person.page.orcid.save.preference.changes": "Update settings",
+  "person.page.orcid.save.preference.changes": "Параметрлерді жаңарту",
 
   // "person.page.orcid.sync-profile.affiliation" : "Affiliation",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.affiliation" : "Affiliation",
+  "person.page.orcid.sync-profile.affiliation" : "Филиалы",
 
   // "person.page.orcid.sync-profile.biographical" : "Biographical data",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.biographical" : "Biographical data",
+  "person.page.orcid.sync-profile.biographical" : "Өмірбаяндық мәліметтер",
 
   // "person.page.orcid.sync-profile.education" : "Education",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.education" : "Education",
+  "person.page.orcid.sync-profile.education" : "Білімі",
 
   // "person.page.orcid.sync-profile.identifiers" : "Identifiers",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.identifiers" : "Identifiers",
+  "person.page.orcid.sync-profile.identifiers" : "Идентификатор",
 
   // "person.page.orcid.sync-fundings.all" : "All fundings",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.all" : "All fundings",
+  "person.page.orcid.sync-fundings.all" : "Барлық құралдар",
 
   // "person.page.orcid.sync-fundings.mine" : "My fundings",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.mine" : "My fundings",
+  "person.page.orcid.sync-fundings.mine" : "Менің қаражатым",
 
   // "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
+  "person.page.orcid.sync-fundings.my_selected" : "Таңдалған құралдар",
 
   // "person.page.orcid.sync-fundings.disabled" : "Disabled",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.disabled" : "Disabled",
+  "person.page.orcid.sync-fundings.disabled" : "Қолжетімсіз",
 
   // "person.page.orcid.sync-publications.all" : "All publications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.all" : "All publications",
+  "person.page.orcid.sync-publications.all" : "Барлық жарияланымдар",
 
   // "person.page.orcid.sync-publications.mine" : "My publications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.mine" : "My publications",
+  "person.page.orcid.sync-publications.mine" : "Менің жарияланымдарым",
 
   // "person.page.orcid.sync-publications.my_selected" : "Selected publications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.my_selected" : "Selected publications",
+  "person.page.orcid.sync-publications.my_selected" : "Таңдаулы басылымдар",
 
   // "person.page.orcid.sync-publications.disabled" : "Disabled",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.disabled" : "Disabled",
+  "person.page.orcid.sync-publications.disabled" : "Қолжетімсіз",
 
   // "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
+  "person.page.orcid.sync-queue.discard" : "Өзгерісті болдырмаңыз және ORCID тізілімімен синхрондамаңыз",
 
   // "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
+  "person.page.orcid.sync-queue.discard.error": "ORCID кезегінің жазбасын жою мүмкін емес",
 
   // "person.page.orcid.sync-queue.discard.success": "The ORCID queue record have been discarded successfully",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.discard.success": "The ORCID queue record have been discarded successfully",
+  "person.page.orcid.sync-queue.discard.success": "ORCID кезегінің жазбасы сәтті жойылды",
 
   // "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
+  "person.page.orcid.sync-queue.empty-message": "ORCID кезегінің тізілімі бос",
 
   // "person.page.orcid.sync-queue.table.header.type" : "Type",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.type" : "Type",
+  "person.page.orcid.sync-queue.table.header.type" : "Түрі",
 
   // "person.page.orcid.sync-queue.table.header.description" : "Description",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.description" : "Description",
+  "person.page.orcid.sync-queue.table.header.description" : "Сипаттамасы",
 
   // "person.page.orcid.sync-queue.table.header.action" : "Action",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.action" : "Action",
+  "person.page.orcid.sync-queue.table.header.action" : "Әрекет",
 
   // "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
+  "person.page.orcid.sync-queue.description.affiliation": "Филиалы",
 
   // "person.page.orcid.sync-queue.description.country": "Country",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.description.country": "Country",
+  "person.page.orcid.sync-queue.description.country": "ЕЛ",
 
   // "person.page.orcid.sync-queue.description.education": "Educations",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.description.education": "Educations",
+  "person.page.orcid.sync-queue.description.education": "Білімі",
 
   // "person.page.orcid.sync-queue.description.external_ids": "External ids",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.description.external_ids": "External ids",
+  "person.page.orcid.sync-queue.description.external_ids": "Қосымша ids",
 
   // "person.page.orcid.sync-queue.description.other_names": "Other names",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.description.other_names": "Other names",
+  "person.page.orcid.sync-queue.description.other_names": "Басқа атаулары",
 
   // "person.page.orcid.sync-queue.description.qualification": "Qualifications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.description.qualification": "Qualifications",
+  "person.page.orcid.sync-queue.description.qualification": "Квалификациясы",
 
   // "person.page.orcid.sync-queue.description.researcher_urls": "Researcher urls",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.description.researcher_urls": "Researcher urls",
+  "person.page.orcid.sync-queue.description.researcher_urls": "Зерттеушінің URL мекенжайы",
 
   // "person.page.orcid.sync-queue.description.keywords": "Keywords",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.description.keywords": "Keywords",
+  "person.page.orcid.sync-queue.description.keywords": "Кілт сөздер",
 
   // "person.page.orcid.sync-queue.tooltip.insert": "Add a new entry in the ORCID registry",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.insert": "Add a new entry in the ORCID registry",
+  "person.page.orcid.sync-queue.tooltip.insert": "ORCID тізіліміне жаңа жазба қосыңыз",
 
   // "person.page.orcid.sync-queue.tooltip.update": "Update this entry on the ORCID registry",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.update": "Update this entry on the ORCID registry",
+  "person.page.orcid.sync-queue.tooltip.update": "Бұл жазбаны ORCID тізіліміне жаңартыңыз",
 
   // "person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
+  "person.page.orcid.sync-queue.tooltip.delete": "Бұл жазбаны ORCID тізілімінен жойыңыз",
 
   // "person.page.orcid.sync-queue.tooltip.publication": "Publication",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.publication": "Publication",
+  "person.page.orcid.sync-queue.tooltip.publication": "Жарияланымдар",
 
   // "person.page.orcid.sync-queue.tooltip.project": "Project",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.project": "Project",
+  "person.page.orcid.sync-queue.tooltip.project": "Проект",
 
   // "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
+  "person.page.orcid.sync-queue.tooltip.affiliation": "Филиалы",
 
   // "person.page.orcid.sync-queue.tooltip.education": "Education",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.education": "Education",
+  "person.page.orcid.sync-queue.tooltip.education": "Білімі",
 
   // "person.page.orcid.sync-queue.tooltip.qualification": "Qualification",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.qualification": "Qualification",
+  "person.page.orcid.sync-queue.tooltip.qualification": "Квалификациясы",
 
   // "person.page.orcid.sync-queue.tooltip.other_names": "Other name",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.other_names": "Other name",
+  "person.page.orcid.sync-queue.tooltip.other_names": "Басқа атауы",
 
   // "person.page.orcid.sync-queue.tooltip.country": "Country",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.country": "Country",
+  "person.page.orcid.sync-queue.tooltip.country": "Ел",
 
   // "person.page.orcid.sync-queue.tooltip.keywords": "Keyword",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.keywords": "Keyword",
+  "person.page.orcid.sync-queue.tooltip.keywords": "Кілт сөз",
 
   // "person.page.orcid.sync-queue.tooltip.external_ids": "External identifier",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.external_ids": "External identifier",
+  "person.page.orcid.sync-queue.tooltip.external_ids": "Сыртқы идентификатор",
 
   // "person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
+  "person.page.orcid.sync-queue.tooltip.researcher_urls": "Зерттеушінің URL мекенжайы",
 
   // "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
+  "person.page.orcid.sync-queue.send" : "ORCID тізілімімен синхрондау",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
+  "person.page.orcid.sync-queue.send.unauthorized-error.title": "Рұқсаттардың болмауына байланысты ORCID-ке жіберу сәтсіз аяқталды.",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.content": "Click <a href='{{orcid}}'>here</a> to grant again the required permissions. If the problem persists, contact the administrator",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.unauthorized-error.content": "Click <a href='{{orcid}}'>here</a> to grant again the required permissions. If the problem persists, contact the administrator",
+  "person.page.orcid.sync-queue.send.unauthorized-error.content": "Қажетті рұқсаттарды қайтадан беру үшін <a href='{{orcid}}'>>мұнда</a> басыңыз. Егер мәселе шешілмесе, әкімшіге хабарласыңыз",
 
   // "person.page.orcid.sync-queue.send.bad-request-error": "The submission to ORCID failed because the resource sent to ORCID registry is not valid",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.bad-request-error": "The submission to ORCID failed because the resource sent to ORCID registry is not valid",
+  "person.page.orcid.sync-queue.send.bad-request-error": "ORCID-ке жіберу сәтсіз аяқталды, өйткені ORCID тізіліміне жіберілген ресурс жарамсыз",
 
   // "person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
+  "person.page.orcid.sync-queue.send.error": "ORCID-ке жіберу сәтсіз аяқталды",
 
   // "person.page.orcid.sync-queue.send.conflict-error": "The submission to ORCID failed because the resource is already present on the ORCID registry",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.conflict-error": "The submission to ORCID failed because the resource is already present on the ORCID registry",
+  "person.page.orcid.sync-queue.send.conflict-error": "ORCID-ке жіберу сәтсіз аяқталды, өйткені ресурс ORCID тізілімінде бар",
 
   // "person.page.orcid.sync-queue.send.not-found-warning": "The resource does not exists anymore on the ORCID registry.",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.not-found-warning": "The resource does not exists anymore on the ORCID registry.",
+  "person.page.orcid.sync-queue.send.not-found-warning": "Ресурс енді ORCID тізілімінде жоқ.",
 
   // "person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
+  "person.page.orcid.sync-queue.send.success": "ORCID-ке жіберу сәтті аяқталды",
 
   // "person.page.orcid.sync-queue.send.validation-error": "The data that you want to synchronize with ORCID is not valid",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error": "The data that you want to synchronize with ORCID is not valid",
+  "person.page.orcid.sync-queue.send.validation-error": "ORCID-пен синхрондағыңыз келетін деректер жарамсыз",
 
   // "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "The amount's currency is required",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "The amount's currency is required",
+  "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "Соманың валютасын көрсету талап етіледі",
 
   // "person.page.orcid.sync-queue.send.validation-error.external-id.required": "The resource to be sent requires at least one identifier",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.external-id.required": "The resource to be sent requires at least one identifier",
+  "person.page.orcid.sync-queue.send.validation-error.external-id.required": "Жіберілген ресурс үшін кем дегенде бір идентификатор қажет",
 
   // "person.page.orcid.sync-queue.send.validation-error.title.required": "The title is required",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.title.required": "The title is required",
+  "person.page.orcid.sync-queue.send.validation-error.title.required": "Аты міндетті",
 
   // "person.page.orcid.sync-queue.send.validation-error.type.required": "The dc.type is required",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.type.required": "The dc.type is required",
+  "person.page.orcid.sync-queue.send.validation-error.type.required": "dc.type міндетті",
 
   // "person.page.orcid.sync-queue.send.validation-error.start-date.required": "The start date is required",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.start-date.required": "The start date is required",
+  "person.page.orcid.sync-queue.send.validation-error.start-date.required": "Басталу күні міндетті",
 
   // "person.page.orcid.sync-queue.send.validation-error.funder.required": "The funder is required",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.funder.required": "The funder is required",
+  "person.page.orcid.sync-queue.send.validation-error.funder.required": "Қаржыландыру қажет",
 
   // "person.page.orcid.sync-queue.send.validation-error.country.invalid": "Invalid 2 digits ISO 3166 country",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.country.invalid": "Invalid 2 digits ISO 3166 country",
+  "person.page.orcid.sync-queue.send.validation-error.country.invalid": "Жарамсыз 2 сандық ISO 3166 елі",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.required": "The organization is required",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.organization.required": "The organization is required",
+  "person.page.orcid.sync-queue.send.validation-error.organization.required": "Ұйым міндетті",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
+  "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "Ұйымның атауы міндетті",
 
   // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "Жариялау күні 1900 жылдан бір жыл артық болуы керек",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
+  "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "Ұйымға жіберу үшін мекен-жай қажет",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.city-required": "The address of the organization to be sent requires a city",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.organization.city-required": "The address of the organization to be sent requires a city",
+  "person.page.orcid.sync-queue.send.validation-error.organization.city-required": "Жөнелтілетін ұйымның мекенжайы үшін қаланы көрсету қажет",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "The address of the organization to be sent requires a valid 2 digits ISO 3166 country",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "The address of the organization to be sent requires a valid 2 digits ISO 3166 country",
+  "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "Жіберілетін ұйымның мекен-жайы жарамды болуы керек 2 санық ISO 3166 ел",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "An identifier to disambiguate organizations is required. Supported ids are GRID, Ringgold, Legal Entity identifiers (LEIs) and Crossref Funder Registry identifiers",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "An identifier to disambiguate organizations is required. Supported ids are GRID, Ringgold, Legal Entity identifiers (LEIs) and Crossref Funder Registry identifiers",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "Ұйымдардың түсініксіздігін жою үшін идентификатор қажет. Қолдау көрсетілетін идентификаторлар - GRID, Ringgold, заңды тұлға идентификаторлары (LEI) және Crossref демеушілер тізілімінің идентификаторлары",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "The organization's identifiers requires a value",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "The organization's identifiers requires a value",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "Ұйым идентификаторлары мәндерді талап етеді",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "The organization's identifiers requires a source",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "The organization's identifiers requires a source",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "Ұйым идентификаторлары үшін ақпарат көзі қажет",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "The source of one of the organization identifiers is invalid. Supported sources are RINGGOLD, GRID, LEI and FUNDREF",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "The source of one of the organization identifiers is invalid. Supported sources are RINGGOLD, GRID, LEI and FUNDREF",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "Ұйым идентификаторларының бірінің көзі жарамсыз. Қолдау көздері: RINGGOLD, GRID, LEI және FUNDREF",
 
-  // "person.page.orcid.synchronization-mode": "Synchronization mode",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode": "Synchronization mode",
+  // "person.page.orcid.synchronization-mode": "Synchronization mode",һ
+  "person.page.orcid.synchronization-mode": "Синхрондау режимі",
 
   // "person.page.orcid.synchronization-mode.batch": "Batch",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode.batch": "Batch",
+  "person.page.orcid.synchronization-mode.batch": "Партия",
 
   // "person.page.orcid.synchronization-mode.label": "Synchronization mode",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode.label": "Synchronization mode",
+  "person.page.orcid.synchronization-mode.label": "Синхрондау режимі",
 
   // "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
+  "person.page.orcid.synchronization-mode-message": "Orcid-пен синхрондау қалай жүретінін таңдаңыз. Опцияларға \"Қолмен\" (деректерді ORCID-ке қолмен жіберу керек) немесе \ "пакеттік\" (жүйе жоспарланған сценарий арқылы деректерді ORCID-ке жібереді) кіреді.",
 
   // "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
+  "person.page.orcid.synchronization-mode-funding-message": "Сізге қатысты жоба нысандарын ORCID жазбаңызды қаржыландыру туралы ақпарат тізіміне жіберуді таңдаңыз.",
 
   // "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
+  "person.page.orcid.synchronization-mode-publication-message": "Қатысты жариялау нысандарын ORCID жазбаңыздың жұмыс тізіміне жіберу керек пе, жоқ па, соны таңдаңыз.",
 
   // "person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
+  "person.page.orcid.synchronization-mode-profile-message": "Оқу жоспарын немесе жеке куәліктерді ORCID жазбаңызға жіберуді таңдаңыз.",
 
   // "person.page.orcid.synchronization-settings-update.success": "The synchronization settings have been updated successfully",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-settings-update.success": "The synchronization settings have been updated successfully",
+  "person.page.orcid.synchronization-settings-update.success": "Синхрондау параметрлері сәтті жаңартылды",
 
   // "person.page.orcid.synchronization-settings-update.error": "The update of the synchronization settings failed",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-settings-update.error": "The update of the synchronization settings failed",
+  "person.page.orcid.synchronization-settings-update.error": "Синхрондау баптауларын жаңарту мүмкін емес",
 
   // "person.page.orcid.synchronization-mode.manual": "Manual",
   "person.page.orcid.synchronization-mode.manual": "Қолмен",
 
   // "person.page.orcid.scope.authenticate": "Get your ORCID iD",
-  // TODO New key - Add a translation
-  "person.page.orcid.scope.authenticate": "Get your ORCID iD",
+  "person.page.orcid.scope.authenticate": "ORCID iD алу",
 
   // "person.page.orcid.scope.read-limited": "Read your information with visibility set to Trusted Parties",
-  // TODO New key - Add a translation
-  "person.page.orcid.scope.read-limited": "Read your information with visibility set to Trusted Parties",
+  "person.page.orcid.scope.read-limited": "Сенімді тараптар үшін көріну параметрімен сіздің ақпаратты оқыңыз",
 
   // "person.page.orcid.scope.activities-update": "Add/update your research activities",
-  // TODO New key - Add a translation
-  "person.page.orcid.scope.activities-update": "Add/update your research activities",
+  "person.page.orcid.scope.activities-update": "Зерттеу жұмыстарын қосыңыз/жаңартыңыз",
 
   // "person.page.orcid.scope.person-update": "Add/update other information about you",
   "person.page.orcid.scope.person-update": "Сіз туралы басқа ақпаратты қосу/жаңарту",
 
   // "person.page.orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
-  // TODO New key - Add a translation
-  "person.page.orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
+  "person.page.orcid.unlink.success": "Профиль мен ORCID тізілімі арасындағы ажырату сәтті өтті",
 
   // "person.page.orcid.unlink.error": "An error occurred while disconnecting between the profile and the ORCID registry. Try again",
-  // TODO New key - Add a translation
-  "person.page.orcid.unlink.error": "An error occurred while disconnecting between the profile and the ORCID registry. Try again",
+  "person.page.orcid.unlink.error": "Профиль мен ORCID тізілімі арасында өшіру кезінде қате пайда болды. Қайта көріңіз",
 
   // "person.orcid.sync.setting": "ORCID Synchronization settings",
-  // TODO New key - Add a translation
-  "person.orcid.sync.setting": "ORCID Synchronization settings",
+  "person.orcid.sync.setting": "ORCID синхрондау параметрлері",
 
   // "person.orcid.registry.queue": "ORCID Registry Queue",
-  // TODO New key - Add a translation
-  "person.orcid.registry.queue": "ORCID Registry Queue",
+  "person.orcid.registry.queue": "ORCID тіркеу кезегі",
 
   // "person.orcid.registry.auth": "ORCID Authorizations",
-  // TODO New key - Add a translation
-  "person.orcid.registry.auth": "ORCID Authorizations",
+  "person.orcid.registry.auth": "ORCID Ауторизациясы",
 
   // "home.recent-submissions.head": "Recent Submissions",
-  // TODO New key - Add a translation
-  "home.recent-submissions.head": "Recent Submissions",
+  "home.recent-submissions.head": "Соңғы материалдар",
 
 
 
