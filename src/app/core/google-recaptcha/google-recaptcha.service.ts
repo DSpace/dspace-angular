@@ -105,7 +105,7 @@ export class GoogleRecaptchaService {
             break;
           case 'v2':
             if (recaptchaModeRD.hasSucceeded && isNotEmpty(recaptchaModeRD.payload?.values)) {
-              captchaUrl = 'https://www.google.com/recaptcha/api.js';
+              captchaUrl = this.buildCaptchaUrl();
               this.captchaModeSubject$.next(recaptchaModeRD.payload?.values[0]);
             }
             break;
@@ -146,8 +146,9 @@ export class GoogleRecaptchaService {
    * @param key contains a secret key of a google captchas
    * @returns string which has google captcha url with google captchas key
    */
-  buildCaptchaUrl(key: string) {
-    return `https://www.google.com/recaptcha/api.js?render=${key}`;
+  buildCaptchaUrl(key?: string) {
+    const apiUrl = 'https://www.google.com/recaptcha/api.js';
+    return key ? `${apiUrl}?render=${key}` : apiUrl;
   }
 
   /**
