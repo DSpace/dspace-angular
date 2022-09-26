@@ -16,10 +16,10 @@
       <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
          rel="noopener noreferrer"
          [routerLink]="[itemPageRoute]" class="lead"
-         [innerHTML]="name"></a>
+         [innerHTML]="dsoTitle"></a>
       <span *ngIf="linkType == linkTypes.None"
             class="lead"
-            [innerHTML]="name"></span>
+            [innerHTML]="dsoTitle"></span>
       <span class="text-muted">
     <ds-truncatable-part [id]="dso.id" [minLines]="1">
             <span *ngIf="dso.allMetadata(['person.jobTitle']).length > 0"

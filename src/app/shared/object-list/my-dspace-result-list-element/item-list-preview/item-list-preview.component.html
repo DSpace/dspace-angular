@@ -13,8 +13,7 @@
         <ds-access-status-badge [item]="item" class="pl-1"></ds-access-status-badge>
       </div>
       <ds-truncatable [id]="item.id">
-        <h3 [innerHTML]="item.firstMetadataValue('dc.title') || ('mydspace.results.no-title' | translate)"
-            [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h3>
+        <h3 [innerHTML]="dsoTitle" [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h3>
         <div>
       <span class="text-muted">
         <ds-truncatable-part [id]="item.id" [minLines]="1">

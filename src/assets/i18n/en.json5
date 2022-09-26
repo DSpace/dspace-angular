@@ -910,7 +910,7 @@
 
   "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
-  "collection.edit.tabs.source.notifications.discarded.title": "Changed discarded",
+  "collection.edit.tabs.source.notifications.discarded.title": "Changes discarded",
 
   "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
 
@@ -1915,7 +1915,7 @@
 
   "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
-  "item.edit.metadata.notifications.discarded.title": "Changed discarded",
+  "item.edit.metadata.notifications.discarded.title": "Changes discarded",
 
   "item.edit.metadata.notifications.error.title": "An error occurred",
 
@@ -1925,7 +1925,7 @@
 
   "item.edit.metadata.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
 
-  "item.edit.metadata.notifications.outdated.title": "Changed outdated",
+  "item.edit.metadata.notifications.outdated.title": "Changes outdated",
 
   "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
 

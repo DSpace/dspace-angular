@@ -21,9 +21,11 @@ import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.inter
  */
 export class PersonSearchResultListElementComponent extends ItemSearchResultListElementComponent {
 
-  public constructor(protected truncatableService: TruncatableService,
-                     protected dsoNameService: DSONameService,
-                     @Inject(APP_CONFIG) protected appConfig: AppConfig ) {
+  public constructor(
+    protected truncatableService: TruncatableService,
+    protected dsoNameService: DSONameService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig
+  ) {
     super(truncatableService, dsoNameService, appConfig);
   }
 
@@ -35,12 +37,5 @@ export class PersonSearchResultListElementComponent extends ItemSearchResultList
   ngOnInit(): void {
     super.ngOnInit();
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
-  }
-
-  /**
-   * Return the person name
-   */
-  get name() {
-    return this.dsoNameService.getName(this.dso);
   }
 }
