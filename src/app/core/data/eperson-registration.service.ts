@@ -3,10 +3,10 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { GetRequest, PostRequest } from './request.models';
 import { Observable } from 'rxjs';
-import { filter, find, map, skipWhile } from 'rxjs/operators';
+import { filter, find, map } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { Registration } from '../shared/registration.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../shared/operators';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import { ResponseParsingService } from './parsing.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { RegistrationResponseParsingService } from './registration-response-parsing.service';
@@ -53,6 +53,7 @@ export class EpersonRegistrationService {
   /**
    * Register a new email address
    * @param email
+   * @param captchaToken
    */
   registerEmail(email: string, captchaToken: string = null): Observable<RemoteData<Registration>> {
     const registration = new Registration();
