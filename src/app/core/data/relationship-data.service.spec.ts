@@ -202,6 +202,7 @@ describe('RelationshipDataService', () => {
     });
 
     it('should call getItemRelationshipsByLabel with the correct params', (done) => {
+      mockOptions = Object.assign(mockOptions, { fetchThumbnail: true });
       service.getRelatedItemsByLabel(
         mockItem,
         mockLabel,
@@ -213,8 +214,8 @@ describe('RelationshipDataService', () => {
           mockOptions,
           true,
           true,
-          followLink('leftItem'),
-          followLink('rightItem'),
+          followLink('leftItem',{}, followLink('thumbnail')),
+          followLink('rightItem',{}, followLink('thumbnail')),
           followLink('relationshipType')
         );
         done();

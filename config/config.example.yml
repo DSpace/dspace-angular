@@ -174,6 +174,8 @@ browseBy:
   fiveYearLimit: 30
   # The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
   defaultLowerLimit: 1900
+  # If true, thumbnail images for items will be added to BOTH search and browse result lists.
+  showThumbnails: true
   # The number of entries in a paginated browse results list.
   # Rounded to the nearest size in the list of selectable sizes on the
   # settings menu.
@@ -268,7 +270,7 @@ themes:
 
 # The default bundles that should always be displayed as suggestions when you upload a new bundle
 bundle:
-  - standardBundles: [ ORIGINAL, THUMBNAIL, LICENSE ]
+  standardBundles: [ ORIGINAL, THUMBNAIL, LICENSE ]
 
 # Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with 'image' or 'video').
 # For images, this enables a gallery viewer where you can zoom or page through images.
