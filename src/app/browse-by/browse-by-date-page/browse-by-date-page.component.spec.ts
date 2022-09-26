@@ -18,13 +18,10 @@ import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-
 import { toRemoteData } from '../browse-by-metadata-page/browse-by-metadata-page.component.spec';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { APP_CONFIG } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment';
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 
 describe('BrowseByDatePageComponent', () => {
   let comp: BrowseByDatePageComponent;

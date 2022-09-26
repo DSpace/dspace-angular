@@ -45,6 +45,7 @@ import { SearchData, SearchDataImpl } from './base/search-data';
 import { PutData, PutDataImpl } from './base/put-data';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { dataService } from './base/data-service.decorator';
+import { itemLinksToFollow } from '../../shared/utils/relation-query.utils';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 
@@ -185,7 +186,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
     ]).pipe(
       filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
       take(1),
-    ).subscribe(() => this.itemService.findByHref(item._links.self.href, false));
+    ).subscribe(() => this.itemService.findByHref(item._links.self.href));
   }
 
   /**
@@ -258,7 +259,10 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    * @param options
    */
   getRelatedItemsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.getItemRelationshipsByLabel(item, label, options, true, true, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType')).pipe(this.paginatedRelationsToItems(item.uuid));
+    let linksToFollow: FollowLinkConfig<Relationship>[] = itemLinksToFollow(options.fetchThumbnail);
+    linksToFollow.push(followLink('relationshipType'));
+
+    return this.getItemRelationshipsByLabel(item, label, options, true, true, ...linksToFollow).pipe(this.paginatedRelationsToItems(item.uuid));
   }
 
   /**
@@ -516,14 +520,14 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
         {
           fieldName: 'relatedItem',
           fieldValue: itemId,
-        },
+        }
       );
     });
 
     return this.searchBy(
       'byItemsAndType',
       {
-        searchParams: searchParams,
+        searchParams: searchParams
       },
     ) as Observable<RemoteData<PaginatedList<Relationship>>>;
 
