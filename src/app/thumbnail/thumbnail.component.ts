@@ -12,7 +12,7 @@ import { FileService } from '../core/shared/file.service';
 /**
  * This component renders a given Bitstream as a thumbnail.
  * One input parameter of type Bitstream is expected.
- * If no Bitstream is provided, a HTML placeholder will be rendered instead.
+ * If no Bitstream is provided, an HTML placeholder will be rendered instead.
  */
 @Component({
   selector: 'ds-thumbnail',
@@ -75,11 +75,11 @@ export class ThumbnailComponent implements OnChanges {
       return;
     }
 
-    const thumbnail = this.bitstream;
-    if (hasValue(thumbnail?._links?.content?.href)) {
-      this.setSrc(thumbnail?._links?.content?.href);
+    const src = this.contentHref;
+    if (hasValue(src)) {
+      this.setSrc(src);
     } else {
-      this.showFallback();
+      this.setSrc(this.defaultImage);
     }
   }
 
@@ -95,22 +95,33 @@ export class ThumbnailComponent implements OnChanges {
     }
   }
 
+  private get contentHref(): string | undefined {
+    if (this.thumbnail instanceof Bitstream) {
+      return this.thumbnail?._links?.content?.href;
+    } else if (this.thumbnail instanceof RemoteData) {
+      return this.thumbnail?.payload?._links?.content?.href;
+    }
+  }
+
   /**
    * Handle image download errors.
    * If the image can't be loaded, try re-requesting it with an authorization token in case it's a restricted Bitstream
    * Otherwise, fall back to the default image or a HTML placeholder
    */
   errorHandler() {
-    if (!this.retriedWithToken && hasValue(this.thumbnail)) {
+    const src = this.src$.getValue();
+    const thumbnail = this.bitstream;
+    const thumbnailSrc = thumbnail?._links?.content?.href;
+
+    if (!this.retriedWithToken && hasValue(thumbnailSrc) && src === thumbnailSrc) {
       // the thumbnail may have failed to load because it's restricted
       //   → retry with an authorization token
       //     only do this once; fall back to the default if it still fails
       this.retriedWithToken = true;
 
-      const thumbnail = this.bitstream;
       this.auth.isAuthenticated().pipe(
         switchMap((isLoggedIn) => {
-          if (isLoggedIn && hasValue(thumbnail)) {
+          if (isLoggedIn) {
             return this.authorizationService.isAuthorized(FeatureID.CanDownload, thumbnail.self);
           } else {
             return observableOf(false);
@@ -118,7 +129,7 @@ export class ThumbnailComponent implements OnChanges {
         }),
         switchMap((isAuthorized) => {
           if (isAuthorized) {
-            return this.fileService.retrieveFileDownloadLink(thumbnail._links.content.href);
+            return this.fileService.retrieveFileDownloadLink(thumbnailSrc);
           } else {
             return observableOf(null);
           }
@@ -130,27 +141,17 @@ export class ThumbnailComponent implements OnChanges {
           // Otherwise, fall back to the default image right now
           this.setSrc(url);
         } else {
-          this.showFallback();
+          this.setSrc(this.defaultImage);
         }
       });
     } else {
-      this.showFallback();
-    }
-  }
-
-  /**
-   * To be called when the requested thumbnail could not be found
-   * - If the current src is not the default image, try that first
-   * - If this was already the case and the default image could not be found either,
-   *   show an HTML placecholder by setting src to null
-   *
-   * Also stops the loading animation.
-   */
-  showFallback() {
-    if (this.src$.getValue() !== this.defaultImage) {
-      this.setSrc(this.defaultImage);
-    } else {
-      this.setSrc(null);
+      if (src !== this.defaultImage) {
+        // we failed to get thumbnail (possibly retried with a token but failed again)
+        this.setSrc(this.defaultImage);
+      } else {
+        // we have failed to retrieve the default image, fall back to the placeholder
+        this.setSrc(null);
+      }
     }
   }
 
