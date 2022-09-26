@@ -10,8 +10,11 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { ViewMode } from 'src/app/core/shared/view-mode.model';
 import { of as observableOf } from 'rxjs';
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
+import { PLATFORM_ID } from '@angular/core';
+
 describe('RecentItemListComponent', () => {
   let component: RecentItemListComponent;
   let fixture: ComponentFixture<RecentItemListComponent>;
@@ -42,6 +45,8 @@ describe('RecentItemListComponent', () => {
         { provide: SearchService, useValue: searchServiceStub },
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: PLATFORM_ID, useValue: 'browser' },
       ],
     })
     .compileComponents();
