@@ -78,7 +78,7 @@ export class BatchImportPageComponent {
       const parameterValues: ProcessParameter[] = [
         Object.assign(new ProcessParameter(), { name: '--zip', value: this.fileObject.name }),
       ];
-      parameterValues.push(Object.assign(new ProcessParameter(), { name: '--add', value: this.fileObject.name }));
+      parameterValues.push(Object.assign(new ProcessParameter(), { name: '--add' }));
       if (this.dso) {
         parameterValues.push(Object.assign(new ProcessParameter(), { name: '--collection', value: this.dso.uuid }));
       }

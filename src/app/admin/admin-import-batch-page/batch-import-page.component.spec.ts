@@ -101,7 +101,7 @@ describe('BatchImportPageComponent', () => {
         const parameterValues: ProcessParameter[] = [
           Object.assign(new ProcessParameter(), { name: '--zip', value: 'filename.zip' }),
         ];
-        parameterValues.push(Object.assign(new ProcessParameter(), { name: '--add', value: 'filename.zip' }));
+        parameterValues.push(Object.assign(new ProcessParameter(), { name: '--add' }));
         expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_IMPORT_SCRIPT_NAME, parameterValues, [fileMock]);
       });
       it('success notification is shown', () => {
@@ -122,7 +122,7 @@ describe('BatchImportPageComponent', () => {
       it('metadata-import script is invoked with --zip fileName and the mockFile and -v validate-only', () => {
         const parameterValues: ProcessParameter[] = [
           Object.assign(new ProcessParameter(), { name: '--zip', value: 'filename.zip' }),
-          Object.assign(new ProcessParameter(), { name: '--add', value: 'filename.zip' }),
+          Object.assign(new ProcessParameter(), { name: '--add' }),
           Object.assign(new ProcessParameter(), { name: '-v', value: true }),
         ];
         expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_IMPORT_SCRIPT_NAME, parameterValues, [fileMock]);
