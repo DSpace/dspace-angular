@@ -53,7 +53,7 @@ export class EpersonRegistrationService {
   /**
    * Register a new email address
    * @param email
-   * @param captchaToken
+   * @param captchaToken the value of x-recaptcha-token header
    */
   registerEmail(email: string, captchaToken: string = null): Observable<RemoteData<Registration>> {
     const registration = new Registration();
