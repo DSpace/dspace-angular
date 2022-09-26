@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { Observable, BehaviorSubject, of as observableOf } from 'rxjs';
+import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { HostWindowService } from '../host-window.service';
@@ -30,6 +30,8 @@ import { RemoteData } from '../../core/data/remote-data';
 import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchManager } from '../../core/browse/search-manager';
+import { SearchFilterConfig } from './models/search-filter-config.model';
+import { FilterType } from './models/filter-type.model';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -96,10 +98,38 @@ const mockSearchResults: SearchObjects<DSpaceObject> = Object.assign(new SearchO
 });
 const mockResultsRD: RemoteData<SearchObjects<DSpaceObject>> = createSuccessfulRemoteDataObject(mockSearchResults);
 const mockResultsRD$: Observable<RemoteData<SearchObjects<DSpaceObject>>> = observableOf(mockResultsRD);
+
+const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
+  name: 'test1',
+  filterType: FilterType.text,
+  hasFacets: false,
+  isOpenByDefault: false,
+  pageSize: 2
+});
+const mockFilterConfig2: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
+  name: 'test2',
+  filterType: FilterType.text,
+  hasFacets: false,
+  isOpenByDefault: false,
+  pageSize: 1
+});
+const mockChartFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
+  name: 'line',
+  filterType: FilterType['chart.line'],
+  hasFacets: false,
+  isOpenByDefault: false,
+  pageSize: 1
+});
+
+const filtersConfigRD = createSuccessfulRemoteDataObject([mockFilterConfig, mockFilterConfig2, mockChartFilterConfig]);
+const resultFiltersConfigRD = createSuccessfulRemoteDataObject([mockFilterConfig, mockFilterConfig2]);
+const filtersConfigRD$ = observableOf(filtersConfigRD);
+
 const searchServiceStub = jasmine.createSpyObj('SearchService', {
   getSearchLink: '/search',
   getScopes: observableOf(['test-scope']),
-  getSearchConfigurationFor: createSuccessfulRemoteDataObject$(searchConfig)
+  getSearchConfigurationFor: createSuccessfulRemoteDataObject$(searchConfig),
+  getConfig: filtersConfigRD$,
 });
 const searchManagerStub = jasmine.createSpyObj('SearchManager', {
   search: mockResultsRD$,
@@ -152,6 +182,7 @@ const routeServiceStub = {
 
 const searchConfigurationServiceStub = jasmine.createSpyObj('SearchConfigurationService', {
   getConfigurationSortOptions: jasmine.createSpy('getConfigurationSortOptions'),
+  getConfig: filtersConfigRD$,
   getConfigurationSearchConfig: jasmine.createSpy('getConfigurationSearchConfig'),
   getCurrentConfiguration: jasmine.createSpy('getCurrentConfiguration'),
   getCurrentScope: jasmine.createSpy('getCurrentScope'),
@@ -269,6 +300,15 @@ describe('SearchComponent', () => {
     tick(100);
     const expectedResults = mockResultsRD;
     expect(comp.resultsRD$).toBeObservable(cold('b', {
+      b: expectedResults
+    }));
+  }));
+
+  it('should retrieve Search Filters', fakeAsync(() => {
+    fixture.detectChanges();
+    tick(100);
+    const expectedResults = resultFiltersConfigRD;
+    expect(comp.filtersRD$).toBeObservable(cold('b', {
       b: expectedResults
     }));
   }));
