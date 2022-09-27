@@ -311,6 +311,9 @@ import { BrowserOnlyPipe } from './utils/browser-only.pipe';
 import { ThemedLoadingComponent } from './loading/themed-loading.component';
 import { PersonPageClaimButtonComponent } from './dso-page/person-page-claim-button/person-page-claim-button.component';
 import { SearchExportCsvComponent } from './search/search-export-csv/search-export-csv.component';
+import {
+  ItemPageTitleFieldComponent
+} from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 
 const MODULES = [
   CommonModule,
@@ -491,7 +494,8 @@ const COMPONENTS = [
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
   SearchNavbarComponent,
-  ScopeSelectorModalComponent
+  ScopeSelectorModalComponent,
+  ItemPageTitleFieldComponent,
 ];
 
 const ENTRY_COMPONENTS = [

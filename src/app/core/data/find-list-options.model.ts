@@ -11,4 +11,5 @@ export class FindListOptions {
     sort?: SortOptions;
     searchParams?: RequestParam[];
     startsWith?: string;
+    fetchThumbnail?: boolean;
 }

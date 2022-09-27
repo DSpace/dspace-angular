@@ -10,7 +10,7 @@ import {
   combineLatest as observableCombineLatest,
   ObservedValueOf,
 } from 'rxjs';
-import { map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { defaultIfEmpty, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import {buildPaginatedList, PaginatedList} from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
@@ -129,7 +129,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
     this.subs.set(SubKey.MembersDTO,
       this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
         switchMap((currentPagination) => {
-          return this.ePersonDataService.findAllByHref(this.groupBeingEdited._links.epersons.href, {
+          return this.ePersonDataService.findListByHref(this.groupBeingEdited._links.epersons.href, {
               currentPage: currentPagination.currentPage,
               elementsPerPage: currentPagination.pageSize
             }
@@ -144,7 +144,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
         }
       }),
       switchMap((epersonListRD: RemoteData<PaginatedList<EPerson>>) => {
-        const dtos$ = observableCombineLatest(...epersonListRD.payload.page.map((member: EPerson) => {
+        const dtos$ = observableCombineLatest([...epersonListRD.payload.page.map((member: EPerson) => {
           const dto$: Observable<EpersonDtoModel> = observableCombineLatest(
             this.isMemberOfGroup(member), (isMember: ObservedValueOf<Observable<boolean>>) => {
               const epersonDtoModel: EpersonDtoModel = new EpersonDtoModel();
@@ -153,8 +153,8 @@ export class MembersListComponent implements OnInit, OnDestroy {
               return epersonDtoModel;
             });
           return dto$;
-        }));
-        return dtos$.pipe(map((dtos: EpersonDtoModel[]) => {
+        })]);
+        return dtos$.pipe(defaultIfEmpty([]), map((dtos: EpersonDtoModel[]) => {
           return buildPaginatedList(epersonListRD.payload.pageInfo, dtos);
         }));
       }))
@@ -171,10 +171,10 @@ export class MembersListComponent implements OnInit, OnDestroy {
     return this.groupDataService.getActiveGroup().pipe(take(1),
       mergeMap((group: Group) => {
         if (group != null) {
-          return this.ePersonDataService.findAllByHref(group._links.epersons.href, {
+          return this.ePersonDataService.findListByHref(group._links.epersons.href, {
             currentPage: 1,
             elementsPerPage: 9999
-          }, false)
+          })
             .pipe(
               getFirstSucceededRemoteData(),
               getRemoteDataPayload(),
@@ -274,7 +274,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
           }
         }),
         switchMap((epersonListRD: RemoteData<PaginatedList<EPerson>>) => {
-          const dtos$ = observableCombineLatest(...epersonListRD.payload.page.map((member: EPerson) => {
+          const dtos$ = observableCombineLatest([...epersonListRD.payload.page.map((member: EPerson) => {
             const dto$: Observable<EpersonDtoModel> = observableCombineLatest(
               this.isMemberOfGroup(member), (isMember: ObservedValueOf<Observable<boolean>>) => {
                 const epersonDtoModel: EpersonDtoModel = new EpersonDtoModel();
@@ -283,8 +283,8 @@ export class MembersListComponent implements OnInit, OnDestroy {
                 return epersonDtoModel;
               });
             return dto$;
-          }));
-          return dtos$.pipe(map((dtos: EpersonDtoModel[]) => {
+          })]);
+          return dtos$.pipe(defaultIfEmpty([]), map((dtos: EpersonDtoModel[]) => {
             return buildPaginatedList(epersonListRD.payload.pageInfo, dtos);
           }));
         }))

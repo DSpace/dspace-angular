@@ -640,7 +640,7 @@
   "bitstream-request-a-copy.alert.canDownload2": "here",
 
   "bitstream-request-a-copy.header": "Request a copy of the file",
-  
+
   "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
 
   "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
@@ -910,7 +910,7 @@
 
   "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
-  "collection.edit.tabs.source.notifications.discarded.title": "Changed discarded",
+  "collection.edit.tabs.source.notifications.discarded.title": "Changes discarded",
 
   "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
 
@@ -1266,6 +1266,7 @@
 
   "cookies.consent.purpose.statistical": "Statistical",
 
+  "curation-task.task.citationpage.label":  "Generate Citation Page",
 
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
@@ -1490,7 +1491,7 @@
 
   "forgot-password.form.head": "Forgot Password",
 
-  "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box.",
 
   "forgot-password.form.card.security": "Security",
 
@@ -1506,8 +1507,6 @@
 
   "forgot-password.form.error.matching-passwords": "The passwords do not match.",
 
-  "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
-
   "forgot-password.form.notification.error.title": "Error when trying to submit new password",
 
   "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
@@ -1515,7 +1514,6 @@
   "forgot-password.form.notification.success.title": "Password reset completed",
 
   "forgot-password.form.submit": "Submit password",
-
 
 
   "form.add": "Add more",
@@ -1917,7 +1915,7 @@
 
   "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
-  "item.edit.metadata.notifications.discarded.title": "Changed discarded",
+  "item.edit.metadata.notifications.discarded.title": "Changes discarded",
 
   "item.edit.metadata.notifications.error.title": "An error occurred",
 
@@ -1927,7 +1925,7 @@
 
   "item.edit.metadata.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
 
-  "item.edit.metadata.notifications.outdated.title": "Changed outdated",
+  "item.edit.metadata.notifications.outdated.title": "Changes outdated",
 
   "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
 
@@ -2986,7 +2984,7 @@
   "process.detail.create" : "Create similar process",
 
   "process.detail.actions": "Actions",
-  
+
   "process.detail.delete.button": "Delete process",
 
   "process.detail.delete.header": "Delete process",
@@ -3039,7 +3037,7 @@
 
   "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
 
-  
+
 
   "profile.breadcrumbs": "Update Profile",
 
@@ -3079,9 +3077,7 @@
 
   "profile.security.form.error.matching-passwords": "The passwords do not match.",
 
-  "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
-
-  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box.",
 
   "profile.security.form.label.password": "Password",
 
@@ -3093,9 +3089,9 @@
 
   "profile.security.form.notifications.error.title": "Error changing passwords",
 
-  "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
-
   "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
+
+  "profile.security.form.notifications.error.general": "Please fill required fields of security form.",
 
   "profile.title": "Update Profile",
 
@@ -3179,7 +3175,7 @@
 
   "register-page.create-profile.security.header": "Security",
 
-  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box.",
 
   "register-page.create-profile.security.label.password": "Password *",
 
@@ -3188,8 +3184,6 @@
   "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
 
   "register-page.create-profile.security.error.matching-passwords": "The passwords do not match.",
-
-  "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
 
   "register-page.create-profile.submit": "Complete Registration",
 
@@ -4765,5 +4759,6 @@
   "person.orcid.registry.queue": "ORCID Registry Queue",
 
   "person.orcid.registry.auth": "ORCID Authorizations",
+  "home.recent-submissions.head": "Recent Submissions",
 
 }

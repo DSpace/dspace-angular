@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { LinkService } from '../../../../core/cache/builders/link.service';
@@ -12,6 +12,7 @@ import { WorkspaceItemSearchResult } from '../../../object-collection/shared/wor
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { map } from 'rxjs/operators';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
@@ -43,12 +44,18 @@ export class  WorkspaceItemSearchResultListElementComponent extends SearchResult
    */
   status = MyDspaceItemStatusType.WORKSPACE;
 
+  /**
+   * Display thumbnails if required by configuration
+   */
+  showThumbnails: boolean;
+
   constructor(
     protected truncatableService: TruncatableService,
     protected linkService: LinkService,
-    protected dsoNameService: DSONameService
+    protected dsoNameService: DSONameService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
-    super(truncatableService, dsoNameService);
+    super(truncatableService, dsoNameService, appConfig);
   }
 
   /**
@@ -57,6 +64,7 @@ export class  WorkspaceItemSearchResultListElementComponent extends SearchResult
   ngOnInit() {
     super.ngOnInit();
     this.deriveSearchResult();
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 
   private deriveSearchResult() {
