@@ -44,6 +44,9 @@ import {
   METADATA_IMPORT_SCRIPT_NAME,
   ScriptDataService
 } from './core/data/processes/script-data.service';
+import {
+  ExportBatchSelectorComponent
+} from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
 
 /**
  * Creates all of the app's menus
@@ -436,6 +439,20 @@ export class MenuResolver implements Resolve<boolean> {
           text: 'menu.section.export_metadata',
           function: () => {
             this.modalService.open(ExportMetadataSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
+        shouldPersistOnRouteChange: true
+      });
+      this.menuService.addSection(MenuID.ADMIN, {
+        id: 'export_batch',
+        parentID: 'export',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.ONCLICK,
+          text: 'menu.section.export_batch',
+          function: () => {
+            this.modalService.open(ExportBatchSelectorComponent);
           }
         } as OnClickMenuItemModel,
         shouldPersistOnRouteChange: true
