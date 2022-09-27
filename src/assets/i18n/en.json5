@@ -3081,11 +3081,15 @@
 
   "profile.security.form.label.passwordrepeat": "Retype to confirm",
 
+  "profile.security.form.label.current-password": "Current password",
+
   "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
 
   "profile.security.form.notifications.success.title": "Password saved",
 
   "profile.security.form.notifications.error.title": "Error changing passwords",
+
+  "profile.security.form.notifications.error.change-failed": "An error occurred while trying to change the password. Please check if the current password is correct.",
 
   "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
 
