@@ -32,6 +32,8 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service.stub';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
 
 describe('TopLevelCommunityList Component', () => {
   let comp: TopLevelCommunityListComponent;
@@ -151,6 +153,7 @@ describe('TopLevelCommunityList Component', () => {
       ],
       declarations: [TopLevelCommunityListComponent],
       providers: [
+        { provide: APP_CONFIG, useValue: environment },
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
