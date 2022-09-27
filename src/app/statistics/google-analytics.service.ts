@@ -1,9 +1,14 @@
+import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
+
 import { Angulartics2GoogleTagManager } from 'angulartics2';
+import { combineLatest } from 'rxjs';
+
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { isEmpty } from '../shared/empty.util';
-import { DOCUMENT } from '@angular/common';
+import { KlaroService } from '../shared/cookies/klaro.service';
+import { GOOGLE_ANALYTICS_KLARO_KEY } from '../shared/cookies/klaro-configuration';
 
 /**
  * Set up Google Analytics on the client side.
@@ -15,9 +20,11 @@ export class GoogleAnalyticsService {
   constructor(
     // private angulartics: Angulartics2GoogleAnalytics,
     private angulartics: Angulartics2GoogleTagManager,
+    private klaroService: KlaroService,
     private configService: ConfigurationDataService,
     @Inject(DOCUMENT) private document: any,
-  ) { }
+  ) {
+  }
 
   /**
    * Call this method once when Angular initializes on the client side.
@@ -26,29 +33,40 @@ export class GoogleAnalyticsService {
    * page and starts tracking.
    */
   addTrackingIdToPage(): void {
-    this.configService.findByPropertyName('google.analytics.key').pipe(
+    const googleKey$ = this.configService.findByPropertyName('google.analytics.key').pipe(
       getFirstCompletedRemoteData(),
-    ).subscribe((remoteData) => {
-      // make sure we got a success response from the backend
-      if (!remoteData.hasSucceeded) { return; }
+    );
+    combineLatest([this.klaroService.getSavedPreferences(), googleKey$])
+      .subscribe(([preferences, remoteData]) => {
+        // make sure user has accepted Google Analytics consents
+        if (isEmpty(preferences) || isEmpty(preferences[GOOGLE_ANALYTICS_KLARO_KEY]) || !preferences[GOOGLE_ANALYTICS_KLARO_KEY]) {
+          return;
+        }
 
-      const trackingId = remoteData.payload.values[0];
+        // make sure we got a success response from the backend
+        if (!remoteData.hasSucceeded) {
+          return;
+        }
 
-      // make sure we received a tracking id
-      if (isEmpty(trackingId)) { return; }
+        const trackingId = remoteData.payload.values[0];
 
-      // add GTag snippet to page
-      const keyScript = this.document.createElement('script');
-      keyScript.src = `https://www.googletagmanager.com/gtag/js?id=${trackingId}`;
-      this.document.body.appendChild(keyScript);
+        // make sure we received a tracking id
+        if (isEmpty(trackingId)) {
+          return;
+        }
 
-      const libScript = this.document.createElement('script');
-      libScript.innerHTML = `window.dataLayer = window.dataLayer || [];function gtag(){window.dataLayer.push(arguments);}
-                             gtag('js', new Date());gtag('config', '${trackingId}');`;
-      this.document.body.appendChild(libScript);
+        // add GTag snippet to page
+        const keyScript = this.document.createElement('script');
+        keyScript.src = `https://www.googletagmanager.com/gtag/js?id=${trackingId}`;
+        this.document.body.appendChild(keyScript);
 
-      // start tracking
-      this.angulartics.startTracking();
-    });
+        const libScript = this.document.createElement('script');
+        libScript.innerHTML = `window.dataLayer = window.dataLayer || [];function gtag(){window.dataLayer.push(arguments);}
+                               gtag('js', new Date());gtag('config', '${trackingId}');`;
+        this.document.body.appendChild(libScript);
+
+        // start tracking
+        this.angulartics.startTracking();
+      });
   }
 }

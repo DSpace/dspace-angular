@@ -1,8 +1,12 @@
-import { GoogleAnalyticsService } from './google-analytics.service';
 import { Angulartics2GoogleTagManager } from 'angulartics2';
+import { of } from 'rxjs';
+
+import { GoogleAnalyticsService } from './google-analytics.service';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { KlaroService } from '../shared/cookies/klaro.service';
+import { GOOGLE_ANALYTICS_KLARO_KEY } from '../shared/cookies/klaro-configuration';
 
 describe('GoogleAnalyticsService', () => {
   const trackingIdProp = 'google.analytics.key';
@@ -12,6 +16,7 @@ describe('GoogleAnalyticsService', () => {
   let service: GoogleAnalyticsService;
   let angularticsSpy: Angulartics2GoogleTagManager;
   let configSpy: ConfigurationDataService;
+  let klaroServiceSpy: jasmine.SpyObj<KlaroService>;
   let scriptElementMock: any;
   let srcSpy: any;
   let innerHTMLSpy: any;
@@ -30,6 +35,10 @@ describe('GoogleAnalyticsService', () => {
     angularticsSpy = jasmine.createSpyObj('Angulartics2GoogleTagManager', [
       'startTracking',
     ]);
+
+    klaroServiceSpy = jasmine.createSpyObj('KlaroService', {
+      'getSavedPreferences': jasmine.createSpy('getSavedPreferences')
+    });
 
     configSpy = createConfigSuccessSpy(trackingIdTestValue);
 
@@ -53,7 +62,11 @@ describe('GoogleAnalyticsService', () => {
       body: bodyElementSpy,
     });
 
-    service = new GoogleAnalyticsService(angularticsSpy, configSpy, documentSpy);
+    klaroServiceSpy.getSavedPreferences.and.returnValue(of({
+      GOOGLE_ANALYTICS_KLARO_KEY: true
+    }));
+
+    service = new GoogleAnalyticsService(angularticsSpy, klaroServiceSpy, configSpy, documentSpy );
   });
 
   it('should be created', () => {
@@ -73,7 +86,11 @@ describe('GoogleAnalyticsService', () => {
           findByPropertyName: createFailedRemoteDataObject$(),
         });
 
-        service = new GoogleAnalyticsService(angularticsSpy, configSpy, documentSpy);
+        klaroServiceSpy.getSavedPreferences.and.returnValue(of({
+          GOOGLE_ANALYTICS_KLARO_KEY: true
+        }));
+
+        service = new GoogleAnalyticsService(angularticsSpy, klaroServiceSpy, configSpy, documentSpy);
       });
 
       it('should NOT add a script to the body', () => {
@@ -91,7 +108,10 @@ describe('GoogleAnalyticsService', () => {
       describe('when the tracking id is empty', () => {
         beforeEach(() => {
           configSpy = createConfigSuccessSpy();
-          service = new GoogleAnalyticsService(angularticsSpy, configSpy, documentSpy);
+          klaroServiceSpy.getSavedPreferences.and.returnValue(of({
+            [GOOGLE_ANALYTICS_KLARO_KEY]: true
+          }));
+          service = new GoogleAnalyticsService(angularticsSpy, klaroServiceSpy, configSpy, documentSpy);
         });
 
         it('should NOT add a script to the body', () => {
@@ -105,7 +125,55 @@ describe('GoogleAnalyticsService', () => {
         });
       });
 
-      describe('when the tracking id is non-empty', () => {
+      describe('when google-analytics cookie preferences are not existing', () => {
+        beforeEach(() => {
+          configSpy = createConfigSuccessSpy(trackingIdTestValue);
+          klaroServiceSpy.getSavedPreferences.and.returnValue(of({}));
+          service = new GoogleAnalyticsService(angularticsSpy, klaroServiceSpy, configSpy, documentSpy);
+        });
+
+        it('should NOT add a script to the body', () => {
+          service.addTrackingIdToPage();
+          expect(bodyElementSpy.appendChild).toHaveBeenCalledTimes(0);
+        });
+
+        it('should NOT start tracking', () => {
+          service.addTrackingIdToPage();
+          expect(angularticsSpy.startTracking).toHaveBeenCalledTimes(0);
+        });
+      });
+
+
+      describe('when google-analytics cookie preferences are set to false', () => {
+        beforeEach(() => {
+          configSpy = createConfigSuccessSpy(trackingIdTestValue);
+          klaroServiceSpy.getSavedPreferences.and.returnValue(of({
+            [GOOGLE_ANALYTICS_KLARO_KEY]: false
+          }));
+          service = new GoogleAnalyticsService(angularticsSpy, klaroServiceSpy, configSpy, documentSpy);
+        });
+
+        it('should NOT add a script to the body', () => {
+          service.addTrackingIdToPage();
+          expect(bodyElementSpy.appendChild).toHaveBeenCalledTimes(0);
+        });
+
+        it('should NOT start tracking', () => {
+          service.addTrackingIdToPage();
+          expect(angularticsSpy.startTracking).toHaveBeenCalledTimes(0);
+        });
+      });
+
+      describe('when both google-analytics cookie and the tracking id are non-empty', () => {
+
+        beforeEach(() => {
+          configSpy = createConfigSuccessSpy(trackingIdTestValue);
+          klaroServiceSpy.getSavedPreferences.and.returnValue(of({
+            [GOOGLE_ANALYTICS_KLARO_KEY]: true
+          }));
+          service = new GoogleAnalyticsService(angularticsSpy, klaroServiceSpy, configSpy, documentSpy);
+        });
+
         it('should create a script tag whose innerHTML contains the tracking id', () => {
           service.addTrackingIdToPage();
           expect(documentSpy.createElement).toHaveBeenCalledTimes(2);
