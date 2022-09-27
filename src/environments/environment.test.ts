@@ -271,6 +271,8 @@ export const environment: BuildConfig = {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
   },
-  enableMarkdown: false,
-  enableMathjax: false,
+  markdown: {
+    enabled: false,
+    mathjax: false,
+  },
 };

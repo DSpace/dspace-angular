@@ -14,8 +14,10 @@ describe('Markdown Pipe', () => {
         {
           provide: APP_CONFIG,
           useValue: Object.assign(environment, {
-            enableMarkdown: true,
-            enableMathjax: true,
+            markdown: {
+              enabled: true,
+              mathjax: true,
+            }
           })
         },
       ],

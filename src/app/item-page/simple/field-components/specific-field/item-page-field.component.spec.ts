@@ -57,7 +57,7 @@ describe('ItemPageFieldComponent', () => {
   describe('when markdown is disabled in the environment config', () => {
 
     beforeEach(() => {
-      environment.enableMarkdown = false;
+      environment.markdown.enabled = false;
     });
 
     describe('and markdown is disabled in this component', () => {
@@ -88,7 +88,7 @@ describe('ItemPageFieldComponent', () => {
   describe('when markdown is enabled in the environment config', () => {
 
     beforeEach(() => {
-      environment.enableMarkdown = true;
+      environment.markdown.enabled = true;
     });
 
     describe('and markdown is disabled in this component', () => {

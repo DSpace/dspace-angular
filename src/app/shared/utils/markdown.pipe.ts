@@ -13,6 +13,16 @@ const MATHJAX = new InjectionToken<Mathjax>(
 
 /**
  * Pipe for rendering markdown and mathjax.
+ * - markdown will only be rendered if {@link MarkdownConfig#enabled} is true
+ * - mathjax will only be rendered if both {@link MarkdownConfig#enabled} and {@link MarkdownConfig#mathjax} are true
+ *
+ * This pipe should be used on the 'innerHTML' attribute of a component, in combination with an async pipe.
+ * Example usage:
+ *   <span class="example" [innerHTML]="'# title' | dsMarkdown | async"></span>
+ * Result:
+ *   <span class="example">
+ *     <h1>title</h1>
+ *   </span>
  */
 @Pipe({
   name: 'dsMarkdown'
@@ -26,11 +36,14 @@ export class MarkdownPipe implements PipeTransform {
   }
 
   async transform(value: string): Promise<SafeHtml> {
+    if (!environment.markdown.enabled) {
+      return value;
+    }
     const md = new MarkdownIt({
       html: true,
       linkify: true,
     });
-    if (environment.enableMathjax) {
+    if (environment.markdown.mathjax) {
       md.use(await this.mathjax);
     }
     return this.sanitizer.bypassSecurityTrustHtml(

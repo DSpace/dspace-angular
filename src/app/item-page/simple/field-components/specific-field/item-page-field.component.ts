@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-
 import { Item } from '../../../../core/shared/item.model';
 
 /**
@@ -19,7 +18,7 @@ export class ItemPageFieldComponent {
     @Input() item: Item;
 
     /**
-     * Whether this metadata should be rendered with markdown.
+     * Whether the {@link MarkdownPipe} should be used to render this metadata.
      */
     enableMarkdown = false;
 

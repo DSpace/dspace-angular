@@ -365,7 +365,8 @@ export class DefaultAppConfig implements AppConfig {
     enablePrivacyStatement: true
   };
 
-  enableMarkdown = false;
-
-  enableMathjax = false;
+  markdown: {
+    enabled: false,
+    mathjax: false,
+  };
 }

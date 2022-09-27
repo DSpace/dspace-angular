@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { environment } from '../../../../environments/environment';
 
@@ -11,7 +11,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./metadata-values.component.scss'],
   templateUrl: './metadata-values.component.html'
 })
-export class MetadataValuesComponent implements OnChanges {
+export class MetadataValuesComponent {
 
   /**
    * The metadata values to display
@@ -29,17 +29,11 @@ export class MetadataValuesComponent implements OnChanges {
   @Input() label: string;
 
   /**
-   * Whether this metadata should be rendered with markdown.
+   * Whether the {@link MarkdownPipe} should be used to render these metadata values.
+   * This will only have effect if {@link MarkdownConfig#enabled} is true.
+   * Mathjax will only be rendered if {@link MarkdownConfig#mathjax} is true.
    */
   @Input() enableMarkdown = false;
 
-  /**
-   * This variable will be true if this metadata should be rendered with markdown, and if markdown is enabled in the
-   * environment config.
-   */
-  renderMarkdown = false;
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.renderMarkdown = !!environment.enableMarkdown && this.enableMarkdown;
-  }
+  env = environment;
 }
