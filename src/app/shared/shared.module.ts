@@ -26,6 +26,9 @@ import {
   ExportMetadataSelectorComponent
 } from './dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import {
+  ExportBatchSelectorComponent
+} from './dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
+import {
   ImportBatchSelectorComponent
 } from './dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
 import { FileDropzoneNoUploaderComponent } from './file-dropzone-no-uploader/file-dropzone-no-uploader.component';
@@ -478,6 +481,7 @@ const COMPONENTS = [
   EntityDropdownComponent,
   ExportMetadataSelectorComponent,
   ImportBatchSelectorComponent,
+  ExportBatchSelectorComponent,
   ConfirmationModalComponent,
   VocabularyTreeviewComponent,
   AuthorizedCollectionSelectorComponent,
@@ -576,6 +580,7 @@ const ENTRY_COMPONENTS = [
   CurationFormComponent,
   ExportMetadataSelectorComponent,
   ImportBatchSelectorComponent,
+  ExportBatchSelectorComponent,
   ConfirmationModalComponent,
   VocabularyTreeviewComponent,
   SidebarSearchListElementComponent,

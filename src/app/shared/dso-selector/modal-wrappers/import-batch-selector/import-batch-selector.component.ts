@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Collection } from '../../../../core/shared/collection.model';
-import { Community } from '../../../../core/shared/community.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -32,10 +31,10 @@ export class ImportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
   }
 
   /**
-   * If the dso is a collection or community:
+   * If the dso is a collection:
    */
   navigate(dso: DSpaceObject): Observable<null> {
-    if (dso instanceof Collection || dso instanceof Community) {
+    if (dso instanceof Collection) {
       this.response.emit(dso);
       return of(null);
     }

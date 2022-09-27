@@ -4,7 +4,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Collection } from '../../../../core/shared/collection.model';
-import { Community } from '../../../../core/shared/community.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ImportBatchSelectorComponent } from './import-batch-selector.component';
 
@@ -26,18 +25,6 @@ describe('ImportBatchSelectorComponent', () => {
         {
           language: null,
           value: 'fake/test-collection-1'
-        }
-      ]
-    }
-  });
-  const mockCommunity = Object.assign(new Community(), {
-    id: 'test-uuid',
-    uuid: 'test-uuid',
-    metadata: {
-      'dc.identifier.uri': [
-        {
-          language: null,
-          value: 'fake/test-community-1'
         }
       ]
     }
@@ -87,14 +74,4 @@ describe('ImportBatchSelectorComponent', () => {
     });
   });
 
-  describe('if community is selected', () => {
-    beforeEach((done) => {
-      component.navigate(mockCommunity).subscribe(() => {
-        done();
-      });
-    });
-    it('should emit community value', () => {
-      expect(component.response.emit).toHaveBeenCalledWith(mockCommunity);
-    });
-  });
 });

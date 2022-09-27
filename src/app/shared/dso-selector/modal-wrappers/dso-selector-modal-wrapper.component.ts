@@ -13,7 +13,8 @@ export enum SelectorActionType {
   IMPORT_ITEM = 'import-item',
   EXPORT_ITEM = 'export-item',
   IMPORT_BATCH = 'import-batch',
-  SET_SCOPE = 'set-scope'
+  SET_SCOPE = 'set-scope',
+  EXPORT_BATCH = 'export-batch'
 }
 
 /**
