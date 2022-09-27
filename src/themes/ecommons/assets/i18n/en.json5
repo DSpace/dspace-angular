@@ -1,7 +1,8 @@
 {
-  "menu.section.browse_global": "Browse DSpace",
-
+  "menu.section.browse_global": "Browse",
   "repository.title.prefix": "Cornell eCommons :: ",
   "repository.title.prefixDSpace": "Cornell eCommons ::",
-  "footer.copyright": "© {{ year }}"
+  "footer.copyright": "© {{ year }}",
+  "login.form.header": "Please log in to eCommons.",
+
 }
