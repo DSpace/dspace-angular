@@ -142,6 +142,11 @@ export class SearchComponent implements OnInit {
   @Input() showScopeSelector = true;
 
   /**
+   * Whether or not to track search statistics by sending updates to the rest api
+   */
+  @Input() trackStatistics = false;
+
+  /**
    * The current configuration used during the search
    */
   currentConfiguration$: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -401,8 +406,13 @@ export class SearchComponent implements OnInit {
       followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
     ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
-        if (results.hasSucceeded && results.payload?.page?.length > 0) {
-          this.resultFound.emit(results.payload);
+        if (results.hasSucceeded) {
+          if (this.trackStatistics) {
+            this.service.trackSearch(searchOptions, results.payload);
+          }
+          if (results.payload?.page?.length > 0) {
+            this.resultFound.emit(results.payload);
+          }
         }
         this.resultsRD$.next(results);
       });

@@ -18,6 +18,8 @@ import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { By } from '@angular/platform-browser';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 
 let component: ClaimedSearchResultListElementComponent;
@@ -73,6 +75,7 @@ describe('ClaimedSearchResultListElementComponent', () => {
         { provide: TruncatableService, useValue: {} },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environment },
         { provide: ObjectCacheService, useValue: objectCacheServiceMock }
       ],
       schemas: [NO_ERRORS_SCHEMA]

@@ -54,7 +54,8 @@ describe('BitstreamFormatDataService', () => {
   function initTestService(halService) {
     rd = createSuccessfulRemoteDataObject({});
     rdbService = jasmine.createSpyObj('rdbService', {
-      buildFromRequestUUID: observableOf(rd)
+      buildFromRequestUUID: observableOf(rd),
+      buildFromRequestUUIDAndAwait: observableOf(rd),
     });
 
     return new BitstreamFormatDataService(

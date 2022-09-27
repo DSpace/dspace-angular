@@ -40,7 +40,7 @@ export function createSidebarSearchListElementTests(
         providers: [
           { provide: TruncatableService, useValue: {} },
           { provide: LinkService, useValue: linkService },
-          { provide: DSONameService, useClass: DSONameServiceMock },
+          DSONameService,
           ...extraProviders
         ],
         schemas: [NO_ERRORS_SCHEMA]
@@ -51,6 +51,7 @@ export function createSidebarSearchListElementTests(
       fixture = TestBed.createComponent(componentClass);
       component = fixture.componentInstance;
       component.object = object;
+      component.ngOnInit();
       fixture.detectChanges();
     });
 
@@ -62,7 +63,7 @@ export function createSidebarSearchListElementTests(
     });
 
     it('should contain the correct title', () => {
-      expect(component.title).toEqual(expectedTitle);
+      expect(component.dsoTitle).toEqual(expectedTitle);
     });
 
     it('should contain the correct description', () => {

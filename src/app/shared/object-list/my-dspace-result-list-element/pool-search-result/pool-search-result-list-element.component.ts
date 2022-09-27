@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
@@ -14,6 +14,7 @@ import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 
 /**
@@ -48,13 +49,19 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
    */
   public index: number;
 
+  /**
+   * Display thumbnails if required by configuration
+   */
+  showThumbnails: boolean;
+
   constructor(
     protected linkService: LinkService,
     protected truncatableService: TruncatableService,
     protected dsoNameService: DSONameService,
-    protected objectCache: ObjectCacheService
+    protected objectCache: ObjectCacheService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
-    super(truncatableService, dsoNameService);
+    super(truncatableService, dsoNameService, appConfig);
   }
 
   /**
@@ -66,6 +73,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
       followLink('item'), followLink('submitter')
     ), followLink('action'));
     this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 
   ngOnDestroy() {

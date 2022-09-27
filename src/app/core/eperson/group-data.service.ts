@@ -2,7 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { createSelector, select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, zip as observableZip } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import {
   GroupRegistryCancelGroupAction,
@@ -124,7 +124,8 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
   }
 
   /**
-   * Adds given subgroup as a subgroup to the given active group
+   * Adds given subgroup as a subgroup to the given active group and waits until the {@link activeGroup} and
+   * the {@link subgroup} are invalidated.
    * @param activeGroup   Group we want to add subgroup to
    * @param subgroup      Group we want to add as subgroup to activeGroup
    */
@@ -137,11 +138,16 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
     const postRequest = new PostRequest(requestId, activeGroup.self + '/' + this.subgroupsEndpoint, subgroup.self, options);
     this.requestService.send(postRequest);
 
-    return this.rdbService.buildFromRequestUUID(requestId);
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => observableZip(
+      this.invalidateByHref(activeGroup._links.self.href),
+      this.requestService.setStaleByHrefSubstring(activeGroup._links.subgroups.href).pipe(take(1)),
+    ));
   }
 
   /**
-   * Deletes a given subgroup from the subgroups of the given active group
+   * Deletes a given subgroup from the subgroups of the given active group and waits until the {@link activeGroup} and
+   * the {@link subgroup} are invalidated.
+   * are invalidated.
    * @param activeGroup   Group we want to delete subgroup from
    * @param subgroup      Subgroup we want to delete from activeGroup
    */
@@ -150,11 +156,15 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
     const deleteRequest = new DeleteRequest(requestId, activeGroup.self + '/' + this.subgroupsEndpoint + '/' + subgroup.id);
     this.requestService.send(deleteRequest);
 
-    return this.rdbService.buildFromRequestUUID(requestId);
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => observableZip(
+      this.invalidateByHref(activeGroup._links.self.href),
+      this.requestService.setStaleByHrefSubstring(activeGroup._links.subgroups.href).pipe(take(1)),
+    ));
   }
 
   /**
-   * Adds given ePerson as member to given group
+   * Adds given ePerson as member to a given group and invalidates the ePerson and waits until the {@link ePerson} and
+   * the {@link activeGroup} are invalidated.
    * @param activeGroup   Group we want to add member to
    * @param ePerson       EPerson we want to add as member to given activeGroup
    */
@@ -167,11 +177,17 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
     const postRequest = new PostRequest(requestId, activeGroup.self + '/' + this.ePersonsEndpoint, ePerson.self, options);
     this.requestService.send(postRequest);
 
-    return this.rdbService.buildFromRequestUUID(requestId);
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => observableZip(
+      this.invalidateByHref(ePerson._links.self.href),
+      this.invalidateByHref(activeGroup._links.self.href),
+      this.requestService.setStaleByHrefSubstring(ePerson._links.groups.href).pipe(take(1)),
+      this.requestService.setStaleByHrefSubstring(activeGroup._links.epersons.href).pipe(take(1)),
+    ));
   }
 
   /**
-   * Deletes a given ePerson from the members of the given active group
+   * Deletes a given ePerson from the members of the given active group and waits until the {@link ePerson} and the
+   * {@link activeGroup} are invalidated.
    * @param activeGroup   Group we want to delete member from
    * @param ePerson       EPerson we want to delete from members of given activeGroup
    */
@@ -180,7 +196,12 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
     const deleteRequest = new DeleteRequest(requestId, activeGroup.self + '/' + this.ePersonsEndpoint + '/' + ePerson.id);
     this.requestService.send(deleteRequest);
 
-    return this.rdbService.buildFromRequestUUID(requestId);
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => observableZip(
+      this.invalidateByHref(ePerson._links.self.href),
+      this.invalidateByHref(activeGroup._links.self.href),
+      this.requestService.setStaleByHrefSubstring(ePerson._links.groups.href).pipe(take(1)),
+      this.requestService.setStaleByHrefSubstring(activeGroup._links.epersons.href).pipe(take(1)),
+    ));
   }
 
   /**
@@ -276,7 +297,7 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
    * @param role        The name of the role for which to create a group
    * @param link        The REST endpoint to create the group
    */
-  createComcolGroup(dso: Community|Collection, role: string, link: string): Observable<RemoteData<Group>> {
+  createComcolGroup(dso: Community | Collection, role: string, link: string): Observable<RemoteData<Group>> {
 
     const requestId = this.requestService.generateRequestId();
     const group = Object.assign(new Group(), {

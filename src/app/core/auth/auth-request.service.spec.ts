@@ -111,7 +111,6 @@ describe(`AuthRequestService`, () => {
             body: undefined,
             options,
           }));
-          expect((service as any).fetchRequest).toHaveBeenCalledWith(requestID);
         });
       });
     });
@@ -151,7 +150,6 @@ describe(`AuthRequestService`, () => {
             body: { content: 'something' },
             options,
           }));
-          expect((service as any).fetchRequest).toHaveBeenCalledWith(requestID);
         });
       });
     });
