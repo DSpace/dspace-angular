@@ -17,14 +17,13 @@
   line-height: 1.5;
   color: var(--bs-link-color);
 }
-// New CUL mobile logo
+// CUL mobile logo
 .mobile-cornell-logo {
   background: url("/assets/ecommons/images/cornell-reduced-red.svg") no-repeat;
   width: 200px;
   height: 45px;
   display: block;
   text-indent: -99999em;
-  margin: 0 .5rem;
 }
 .library-brand-mobile {
   display: block;
@@ -32,11 +31,35 @@
   text-indent: -99999em;
   width: 120px;
   height: 45px;
-  margin: .5rem .5rem 0 .5rem;
+  margin-top: .5rem;
 }
-.ecommons-brand {
+
+// CUL logo
+.cornell-logo {
+  padding-left: 0;
+  background: url('/assets/ecommons/images/CULibraryRed.svg') no-repeat;
+  min-height: 100px;
+  width: 300px;
+}
+.cornell-logo .insignia {
+  float: left;
+  margin-right: 0.8em;
+  width: 100px;
+  height: 100px;
+  text-indent: -99999em;
+}
+.library-brand {
+  margin-top: .5rem;
+}
+.library-logo a {
+  text-indent: -99999em;
+  display: block;
+  width: 160px;
+  height: 100px;
+}
+// eCommons type
+.navbar-brand {
+  text-decoration: none;
   font-size: 2.25rem;
-  padding: .25rem;
-  color: white;
-  background-color: var(--cul-red);
+  color: var(--cul-blue-darker);
 }
