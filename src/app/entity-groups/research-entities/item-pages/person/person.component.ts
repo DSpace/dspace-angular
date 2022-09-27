@@ -14,25 +14,4 @@ import { ItemComponent } from '../../../../item-page/simple/item-types/shared/it
  * The component for displaying metadata and relations of an item of the type Person
  */
 export class PersonComponent extends ItemComponent {
-
-  /**
-   * Returns the metadata values to be used for the page title.
-   */
-  getTitleMetadataValues(): MetadataValue[] {
-    const metadataValues = [];
-    const familyName = this.object?.firstMetadata('person.familyName');
-    const givenName = this.object?.firstMetadata('person.givenName');
-    const title = this.object?.firstMetadata('dc.title');
-    if (familyName) {
-      metadataValues.push(familyName);
-    }
-    if (givenName) {
-      metadataValues.push(givenName);
-    }
-    if (metadataValues.length === 0 && title) {
-      metadataValues.push(title);
-    }
-    return metadataValues;
-  }
-
 }

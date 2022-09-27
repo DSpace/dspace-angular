@@ -1,9 +1,7 @@
 <div class="d-flex flex-row">
-  <h2 class="item-page-title-field mr-auto">
-    {{'person.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="getTitleMetadataValues()" [separator]="', '"></ds-metadata-values>
-  </h2>
+  <ds-item-page-title-field class="mr-auto" [item]="object">
+  </ds-item-page-title-field>
   <ds-dso-edit-menu></ds-dso-edit-menu>
-
 </div>
 <div class="row">
   <div class="col-xs-12 col-md-4">
@@ -23,7 +21,7 @@
       [label]="'person.page.birthdate'">
     </ds-generic-item-page-field>
   </div>
-  <div class="col-xs-12 col-md-6">
+  <div class="col-xs-12 col-md-7">
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isProjectOfPerson'"

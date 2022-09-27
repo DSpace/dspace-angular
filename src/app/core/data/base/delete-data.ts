@@ -6,13 +6,12 @@
  * http://www.dspace.org/license/
  */
 import { CacheableObject } from '../../cache/cacheable-object.model';
-import { AsyncSubject, combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../remote-data';
 import { NoContent } from '../../shared/NoContent.model';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { DeleteRequest } from '../request.models';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
-import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { RequestService } from '../request.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
@@ -83,26 +82,6 @@ export class DeleteDataImpl<T extends CacheableObject> extends IdentifiableDataS
     }
     this.requestService.send(request);
 
-    const response$ = this.rdbService.buildFromRequestUUID(requestId);
-
-    const invalidated$ = new AsyncSubject<boolean>();
-    response$.pipe(
-      getFirstCompletedRemoteData(),
-      switchMap((rd: RemoteData<NoContent>) => {
-        if (rd.hasSucceeded) {
-          return this.invalidateByHref(href);
-        } else {
-          return [true];
-        }
-      })
-    ).subscribe(() => {
-      invalidated$.next(true);
-      invalidated$.complete();
-    });
-
-    return combineLatest([response$, invalidated$]).pipe(
-      filter(([_, invalidated]) => invalidated),
-      map(([response, _]) => response),
-    );
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => this.invalidateByHref(href));
   }
 }
