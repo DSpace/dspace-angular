@@ -43,7 +43,7 @@ export class MiradorViewerService {
       return bundleDataService.findAllByItem(item).pipe(
           getFirstCompletedRemoteData(),
           map((bundlesRD: RemoteData<PaginatedList<Bundle>>) => {
-              return bundlesRD.payload
+              return bundlesRD.payload;
           }),
           map((paginatedList: PaginatedList<Bundle>) => paginatedList.page),
           switchMap((bundles: Bundle[]) => bundles),
@@ -62,7 +62,7 @@ export class MiradorViewerService {
                   switchMap((bitstream: Bitstream) => bitstream.format.pipe(
                           getFirstCompletedRemoteData(),
                           map((formatRD: RemoteData<BitstreamFormat>) => {
-                              return formatRD.payload
+                              return formatRD.payload;
                           }),
                           map((format: BitstreamFormat) => {
                               if (format.mimetype.includes('image')) {
