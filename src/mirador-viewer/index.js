@@ -10,6 +10,7 @@ const searchOption = params.get('searchable');
 const query = params.get('query');
 const multi = params.get('multi');
 const notMobile = params.get('notMobile');
+const host = params.get('h');
 
 let windowSettings = {};
 let sidbarPanel = 'info';
@@ -121,6 +122,36 @@ windowSettings.manifestId = manifest;
       },
       miradorDownloadPlugin: {
         restrictDownloadOnSizeDefinition: false
+      },
+      requests: {
+        preprocessors: [ // Functions that receive HTTP requests and manipulate them (e.g. to add headers)
+
+          (url, options) => {
+            // Get the token from the dsAuthInfo cookie
+            let authToken;
+            if (document.cookie.includes('dsAuthInfo')) {
+              authToken = document.cookie.split('; ')
+                .find(c => c.startsWith('dsAuthInfo='))
+                .split('=')[1].split('%22')[3];
+            }
+            if (url.match(host) && authToken) {
+              // For DSpace REST API requests, set the authorization header.
+              // Allows authorized users to retrieve the manifest
+              // when access restrictions have been added to the Item.
+              return { ...options,
+                method: 'GET',
+                headers: {'accept': 'application/json',
+                  'content-type': 'application/json',
+                  'authorization': 'Bearer ' + authToken
+                   }
+              };
+            }
+            return options;
+          }
+
+        ],
+        postprocessors: [ // Functions that receive HTTP responses and manipulates them before adding to store
+        ]
       },
       window: {
         allowClose: false,
