@@ -20,6 +20,12 @@ import { getMockThemeService } from '../../../../../shared/mocks/theme-service.m
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
 import { AccessStatusObject } from '../../../../../shared/object-list/access-status-badge/access-status.model';
+import { AuthService } from '../../../../../core/auth/auth.service';
+import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
+import { FileService } from '../../../../../core/shared/file.service';
+import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
 
 describe('ItemAdminSearchResultGridElementComponent', () => {
   let component: ItemAdminSearchResultGridElementComponent;
@@ -64,6 +70,9 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
           { provide: ThemeService, useValue: mockThemeService },
           { provide: AccessStatusDataService, useValue: mockAccessStatusDataService },
+          { provide: AuthService, useClass: AuthServiceStub },
+          { provide: FileService, useClass: FileServiceStub },
+          { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         ],
         schemas: [NO_ERRORS_SCHEMA]
       })
