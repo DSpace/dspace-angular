@@ -1363,7 +1363,7 @@
 
   "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
 
-  "dso-selector.export-batch.dspaceobject.head": "Export Batch(ZIP) from",
+  "dso-selector.export-batch.dspaceobject.head": "Export Batch (ZIP) from",
 
   "dso-selector.import-batch.dspaceobject.head": "Import batch from",
 
@@ -1395,9 +1395,9 @@
 
   "confirmation-modal.export-metadata.confirm": "Export",
 
-  "confirmation-modal.export-batch.header": "Export batch(ZIP) for {{ dsoName }}",
+  "confirmation-modal.export-batch.header": "Export batch (ZIP) for {{ dsoName }}",
 
-  "confirmation-modal.export-batch.info": "Are you sure you want to export batch(ZIP) for {{ dsoName }}",
+  "confirmation-modal.export-batch.info": "Are you sure you want to export batch (ZIP) for {{ dsoName }}",
 
   "confirmation-modal.export-batch.cancel": "Cancel",
 
@@ -2646,7 +2646,7 @@
 
   "menu.section.export_metadata": "Metadata",
 
-  "menu.section.export_batch": "Batch Export(ZIP)",
+  "menu.section.export_batch": "Batch Export (ZIP)",
 
 
   "menu.section.icon.access_control": "Access Control menu section",
