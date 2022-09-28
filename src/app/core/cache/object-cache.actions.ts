@@ -128,6 +128,9 @@ export class ApplyPatchObjectCacheAction implements Action {
   }
 }
 
+/**
+ * An NgRx action to add dependent request UUIDs to a cached object
+ */
 export class AddDependentsObjectCacheAction implements Action {
   type = ObjectCacheActionTypes.ADD_DEPENDENTS;
   payload: {
@@ -136,7 +139,7 @@ export class AddDependentsObjectCacheAction implements Action {
   };
 
   /**
-   * Create a new AddDependencyObjectCacheAction
+   * Create a new AddDependentsObjectCacheAction
    *
    * @param href                  the self link of a cached object
    * @param dependentRequestUUIDs the UUID of the request that depends on this object
@@ -149,12 +152,15 @@ export class AddDependentsObjectCacheAction implements Action {
   }
 }
 
+/**
+ * An NgRx action to remove all dependent request UUIDs from a cached object
+ */
 export class RemoveDependentsObjectCacheAction implements Action {
   type = ObjectCacheActionTypes.REMOVE_DEPENDENTS;
   payload: string;
 
   /**
-   * Create a new AddDependencyObjectCacheAction
+   * Create a new RemoveDependentsObjectCacheAction
    *
    * @param href  the self link of a cached object for which to remove all dependent request UUIDs
    */
