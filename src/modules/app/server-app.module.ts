@@ -6,7 +6,7 @@ import { ServerModule, ServerTransferStateModule } from '@angular/platform-serve
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { Angulartics2, Angulartics2GoogleTagManager } from 'angulartics2';
+import { Angulartics2, Angulartics2GoogleAnalytics, Angulartics2GoogleTagManager } from 'angulartics2';
 
 import { AppComponent } from '../../app/app.component';
 
@@ -57,6 +57,10 @@ export function createTranslateLoader(transferState: TransferState) {
     {
       provide: Angulartics2,
       useClass: Angulartics2Mock
+    },
+    {
+      provide: Angulartics2GoogleAnalytics,
+      useClass: AngularticsProviderMock
     },
     {
       provide: Angulartics2GoogleTagManager,
