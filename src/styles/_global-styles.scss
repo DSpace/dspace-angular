@@ -92,3 +92,8 @@ ngb-modal-backdrop {
   hyphens: auto;
 
 }
+
+ul.dso-edit-dropdown-menu li.nav-item ng-deep a.nav-link {
+  padding: 0;
+  display: inline;
+}

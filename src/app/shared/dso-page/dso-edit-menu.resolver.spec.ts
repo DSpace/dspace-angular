@@ -15,6 +15,8 @@ import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-ve
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { Item } from '../../core/shared/item.model';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { TextMenuItemModel } from '../menu/menu-item/models/text.model';
+import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
 
 describe('DSOEditMenuResolver', () => {
 
@@ -164,7 +166,7 @@ describe('DSOEditMenuResolver', () => {
         expect(menuList[0].active).toEqual(false);
         expect(menuList[0].visible).toEqual(true);
         expect(menuList[0].model.type).toEqual(MenuItemType.ONCLICK);
-        expect(menuList[0].model.text).toEqual('message');
+        expect((menuList[0].model as TextMenuItemModel).text).toEqual('message');
         expect(menuList[0].model.disabled).toEqual(false);
         expect(menuList[0].icon).toEqual('code-branch');
         done();
@@ -179,8 +181,8 @@ describe('DSOEditMenuResolver', () => {
         expect(menuList[0].active).toEqual(false);
         expect(menuList[0].visible).toEqual(true);
         expect(menuList[0].model.type).toEqual(MenuItemType.LINK);
-        expect(menuList[0].model.text).toEqual('item.page.edit');
-        expect(menuList[0].model.link).toEqual('test-url/edit/metadata');
+        expect((menuList[0].model as LinkMenuItemModel).text).toEqual('item.page.edit');
+        expect((menuList[0].model as LinkMenuItemModel).link).toEqual('test-url/edit/metadata');
         expect(menuList[0].icon).toEqual('pencil-alt');
         done();
       });

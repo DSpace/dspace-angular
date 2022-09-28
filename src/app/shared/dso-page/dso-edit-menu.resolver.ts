@@ -16,6 +16,7 @@ import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
 import { hasValue } from '../empty.util';
 import { MenuSection } from '../menu/menu.reducer';
+import { TextMenuItemModel } from '../menu/menu-item/models/text.model';
 
 /**
  * Creates the menus for the dspace object pages
@@ -65,17 +66,17 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
   /**
    * Return all the menus for a dso based on the route and state
    */
-  getDsoMenus(dso, route, state) {
+  getDsoMenus(dso, route, state): Observable<MenuSection[]>[] {
     return [
       this.getItemMenu(dso),
-      this.getCommonMenu(dso, state)
+      this.getCommonMenu(dso, state),
     ];
   }
 
   /**
    * Get the common menus between all dspace objects
    */
-  protected getCommonMenu(dso, state): Observable<any[]> {
+  protected getCommonMenu(dso, state): Observable<MenuSection[]> {
     return combineLatest([
       this.authorizationService.isAuthorized(FeatureID.CanEditMetadata, dso.self),
     ]).pipe(
@@ -102,7 +103,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
   /**
    * Get item sepcific menus
    */
-  protected getItemMenu(dso): Observable<any[]> {
+  protected getItemMenu(dso): Observable<MenuSection[]> {
     if (dso instanceof Item) {
       return combineLatest([
         this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, dso.self),
