@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
@@ -13,6 +13,7 @@ import { followLink } from '../../../utils/follow-link-config.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-claimed-search-result-list-element',
@@ -40,9 +41,10 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
   public constructor(
     protected linkService: LinkService,
     protected truncatableService: TruncatableService,
-    protected dsoNameService: DSONameService
+    protected dsoNameService: DSONameService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
-    super(truncatableService, dsoNameService);
+    super(truncatableService, dsoNameService, appConfig);
   }
 
   /**

@@ -3,7 +3,10 @@ import { createSelector, select, Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import { find, map, take } from 'rxjs/operators';
-import { EPeopleRegistryCancelEPersonAction, EPeopleRegistryEditEPersonAction } from '../../access-control/epeople-registry/epeople-registry.actions';
+import {
+  EPeopleRegistryCancelEPersonAction,
+  EPeopleRegistryEditEPersonAction
+} from '../../access-control/epeople-registry/epeople-registry.actions';
 import { EPeopleRegistryState } from '../../access-control/epeople-registry/epeople-registry.reducers';
 import { AppState } from '../../app.reducer';
 import { hasNoValue, hasValue } from '../../shared/empty.util';
@@ -318,7 +321,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
   patchPasswordWithToken(uuid: string, token: string, password: string): Observable<RemoteData<EPerson>> {
     const requestId = this.requestService.generateRequestId();
 
-    const operation = Object.assign({ op: 'add', path: '/password', value: password });
+    const operation = Object.assign({ op: 'add', path: '/password', value: { 'new_password': password } });
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, uuid)),

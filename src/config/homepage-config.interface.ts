@@ -16,5 +16,7 @@ export interface HomeConfig extends Config {
     sortField: string;
   }
 
-
+  topLevelCommunityList: {
+    pageSize: number;
+  };
 }

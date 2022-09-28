@@ -19,6 +19,7 @@ import { RequestEntry } from '../data/request-entry.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { GroupDataService } from '../eperson/group-data.service';
+import { RestRequestMethod } from '../data/rest-request-method';
 
 describe('ResourcePolicyService', () => {
   let scheduler: TestScheduler;
@@ -120,11 +121,22 @@ describe('ResourcePolicyService', () => {
       }),
       buildFromRequestUUID: hot('a|', {
         a: resourcePolicyRD
+      }),
+      buildFromRequestUUIDAndAwait: hot('a|', {
+        a: resourcePolicyRD
       })
     });
     ePersonService = jasmine.createSpyObj('ePersonService', {
       getBrowseEndpoint: hot('a', {
         a: ePersonEndpoint
+      }),
+      getIDHrefObs: cold('a', {
+        a: 'https://rest.api/rest/api/eperson/epersons/' + epersonUUID
+      }),
+    });
+    groupService = jasmine.createSpyObj('groupService', {
+      getIDHrefObs: cold('a', {
+        a: 'https://rest.api/rest/api/eperson/groups/' + groupUUID
       }),
     });
     objectCache = {} as ObjectCacheService;
@@ -142,11 +154,12 @@ describe('ResourcePolicyService', () => {
       groupService,
     );
 
+    spyOn(service, 'findById').and.callThrough();
+    spyOn(service, 'findByHref').and.callThrough();
+    spyOn(service, 'invalidateByHref').and.returnValue(observableOf(true));
     spyOn((service as any).createData, 'create').and.callThrough();
     spyOn((service as any).deleteData, 'delete').and.callThrough();
     spyOn((service as any).patchData, 'update').and.callThrough();
-    spyOn((service as any), 'findById').and.callThrough();
-    spyOn((service as any), 'findByHref').and.callThrough();
     spyOn((service as any).searchData, 'searchBy').and.callThrough();
     spyOn((service as any).searchData, 'getSearchByHref').and.returnValue(observableOf(requestURL));
   });
@@ -318,14 +331,32 @@ describe('ResourcePolicyService', () => {
   });
 
   describe('updateTarget', () => {
-    it('should create a new PUT request for eperson', () => {
-      const targetType = 'eperson';
+    beforeEach(() => {
+      scheduler.schedule(() => service.create(resourcePolicy, resourceUUID, epersonUUID));
+    });
 
-      const result = service.updateTarget(resourcePolicyId, requestURL, epersonUUID, targetType);
-      const expected = cold('a|', {
-        a: resourcePolicyRD
-      });
-      expect(result).toBeObservable(expected);
+    it('should send a PUT request to update the EPerson', () => {
+      service.updateTarget(resourcePolicyId, requestURL, epersonUUID, 'eperson');
+      scheduler.flush();
+
+      expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
+        method: RestRequestMethod.PUT,
+        uuid: requestUUID,
+        href: `${resourcePolicy._links.self.href}/eperson`,
+        body: 'https://rest.api/rest/api/eperson/epersons/' + epersonUUID,
+      }));
+    });
+
+    it('should invalidate the ResourcePolicy', () => {
+      service.updateTarget(resourcePolicyId, requestURL, epersonUUID, 'eperson');
+      scheduler.flush();
+
+      expect(rdbService.buildFromRequestUUIDAndAwait).toHaveBeenCalled();
+      expect((rdbService.buildFromRequestUUIDAndAwait as jasmine.Spy).calls.argsFor(0)[0]).toBe(requestService.generateRequestId());
+      const callback = (rdbService.buildFromRequestUUIDAndAwait as jasmine.Spy).calls.argsFor(0)[1];
+      callback();
+
+      expect(service.invalidateByHref).toHaveBeenCalledWith(resourcePolicy._links.self.href);
     });
   });
 

@@ -17,6 +17,8 @@ import { ClaimedApprovedTaskSearchResult } from '../../../../object-collection/s
 import { ClaimedApprovedSearchResultListElementComponent } from './claimed-approved-search-result-list-element.component';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
+import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment';
 
 let component: ClaimedApprovedSearchResultListElementComponent;
 let fixture: ComponentFixture<ClaimedApprovedSearchResultListElementComponent>;
@@ -67,7 +69,8 @@ describe('ClaimedApprovedSearchResultListElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: LinkService, useValue: linkService },
-        { provide: DSONameService, useClass: DSONameServiceMock }
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environment }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ClaimedApprovedSearchResultListElementComponent, {

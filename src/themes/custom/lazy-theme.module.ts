@@ -100,6 +100,12 @@ import { LoadingComponent } from './app/shared/loading/loading.component';
 import { SearchResultsComponent } from './app/shared/search/search-results/search-results.component';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
 import { SearchSettingsComponent } from './app/shared/search/search-settings/search-settings.component';
+import {
+  CommunityPageSubCommunityListComponent
+} from './app/community-page/sub-community-list/community-page-sub-community-list.component';
+import {
+  CommunityPageSubCollectionListComponent
+} from './app/community-page/sub-collection-list/community-page-sub-collection-list.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -119,6 +125,8 @@ const DECLARATIONS = [
   ItemStatisticsPageComponent,
   SiteStatisticsPageComponent,
   CommunityPageComponent,
+  CommunityPageSubCommunityListComponent,
+  CommunityPageSubCollectionListComponent,
   CollectionPageComponent,
   ItemPageComponent,
   FullItemPageComponent,
@@ -198,6 +206,9 @@ const DECLARATIONS = [
     ComcolModule,
   ],
   declarations: DECLARATIONS,
+  exports: [
+    CommunityPageSubCollectionListComponent
+  ]
 })
 
   /**
