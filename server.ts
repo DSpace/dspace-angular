@@ -76,6 +76,10 @@ export function app() {
    */
   const server = express();
 
+  // Tell Express to trust X-FORWARDED-* headers from proxies
+  // See https://expressjs.com/en/guide/behind-proxies.html
+  server.set('trust proxy', environment.ui.useProxies);
+
   /*
    * If production mode is enabled in the environment file:
    * - Enable Angular's production mode
