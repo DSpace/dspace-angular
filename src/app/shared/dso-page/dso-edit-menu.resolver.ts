@@ -1,5 +1,5 @@
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { combineLatest, Observable, of as observableOf } from 'rxjs';
+import { combineLatest, Observable, of, of as observableOf } from 'rxjs';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { MenuService } from '../menu/menu.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -17,6 +17,7 @@ import { hasValue } from '../empty.util';
 import { MenuID } from '../menu/menu-id.model';
 import { MenuItemType } from '../menu/menu-item-type.model';
 import { MenuSection } from '../menu/menu-section.model';
+import { TextMenuItemModel } from '../menu/menu-item/models/text.model';
 
 /**
  * Creates the menus for the dspace object pages
@@ -66,7 +67,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
   /**
    * Return all the menus for a dso based on the route and state
    */
-  getDsoMenus(dso, route, state) {
+  getDsoMenus(dso, route, state): Observable<MenuSection[]>[] {
     return [
       this.getItemMenu(dso),
       this.getCommonMenu(dso, state)
@@ -76,7 +77,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
   /**
    * Get the common menus between all dspace objects
    */
-  protected getCommonMenu(dso, state): Observable<any[]> {
+  protected getCommonMenu(dso, state): Observable<MenuSection[]> {
     return combineLatest([
       this.authorizationService.isAuthorized(FeatureID.CanEditMetadata, dso.self),
     ]).pipe(
@@ -95,7 +96,6 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
             index: 1
           },
         ];
-
       })
     );
   }
@@ -103,7 +103,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
   /**
    * Get item sepcific menus
    */
-  protected getItemMenu(dso): Observable<any[]> {
+  protected getItemMenu(dso): Observable<MenuSection[]> {
     if (dso instanceof Item) {
       return combineLatest([
         this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, dso.self),
