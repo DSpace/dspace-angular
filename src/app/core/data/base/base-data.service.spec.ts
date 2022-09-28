@@ -10,7 +10,7 @@ import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.s
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { FindListOptions } from '../find-list-options.model';
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable, of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
@@ -20,6 +20,7 @@ import { RemoteData } from '../remote-data';
 import { RequestEntryState } from '../request-entry-state.model';
 import { fakeAsync, tick } from '@angular/core/testing';
 import { BaseDataService } from './base-data.service';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 const endpoint = 'https://rest.api/core';
 
@@ -65,7 +66,13 @@ describe('BaseDataService', () => {
       },
       getByHref: () => {
         /* empty */
-      }
+      },
+      addDependency: () => {
+        /* empty */
+      },
+      removeDependents: () => {
+        /* empty */
+      },
     } as any;
     selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
     linksToFollow = [
@@ -558,7 +565,8 @@ describe('BaseDataService', () => {
 
     beforeEach(() => {
       getByHrefSpy = spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
-        requestUUIDs: ['request1', 'request2', 'request3']
+        requestUUIDs: ['request1', 'request2', 'request3'],
+        dependentRequestUUIDs: ['request4', 'request5']
       }));
 
     });
@@ -570,6 +578,8 @@ describe('BaseDataService', () => {
         expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request1');
         expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request2');
         expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request3');
+        expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request4');
+        expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request5');
         done();
       });
     });
@@ -582,6 +592,8 @@ describe('BaseDataService', () => {
       expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request1');
       expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request2');
       expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request3');
+      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request4');
+      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request5');
     }));
 
     it('should return an Observable that only emits true once all requests are stale', () => {
@@ -591,9 +603,13 @@ describe('BaseDataService', () => {
             case 'request1':
               return cold('--(t|)', BOOLEAN);
             case 'request2':
-              return cold('----(t|)', BOOLEAN);
-            case 'request3':
               return cold('------(t|)', BOOLEAN);
+            case 'request3':
+              return cold('---(t|)', BOOLEAN);
+            case 'request4':
+              return cold('-(t|)', BOOLEAN);
+            case 'request5':
+              return cold('----(t|)', BOOLEAN);
           }
         });
 
@@ -607,9 +623,9 @@ describe('BaseDataService', () => {
     it('should only fire for the current state of the object (instead of tracking it)', () => {
       testScheduler.run(({ cold, flush }) => {
         getByHrefSpy.and.returnValue(cold('a---b---c---', {
-          a: { requestUUIDs: ['request1'] },  // this is the state at the moment we're invalidating the cache
-          b: { requestUUIDs: ['request2'] },  // we shouldn't keep tracking the state
-          c: { requestUUIDs: ['request3'] },  // because we may invalidate when we shouldn't
+          a: { requestUUIDs: ['request1'], dependentRequestUUIDs: [] },  // this is the state at the moment we're invalidating the cache
+          b: { requestUUIDs: ['request2'], dependentRequestUUIDs: [] },  // we shouldn't keep tracking the state
+          c: { requestUUIDs: ['request3'], dependentRequestUUIDs: [] },  // because we may invalidate when we shouldn't
         }));
 
         service.invalidateByHref('some-href');
@@ -622,6 +638,44 @@ describe('BaseDataService', () => {
         expect(requestService.setStaleByUUID).not.toHaveBeenCalledWith('request2');
         expect(requestService.setStaleByUUID).not.toHaveBeenCalledWith('request3');
       });
+    });
+  });
+
+  describe('addDependency', () => {
+    let addDependencySpy;
+
+    beforeEach(() => {
+      addDependencySpy = spyOn(objectCache, 'addDependency');
+    });
+
+    it('should call objectCache.addDependency with the object\'s self link', () => {
+      addDependencySpy.and.callFake((href$: Observable<string>, dependsOn$: Observable<string>) => {
+        observableCombineLatest([href$, dependsOn$]).subscribe(([href, dependsOn]) => {
+          expect(href).toBe('object-href');
+          expect(dependsOn).toBe('dependsOnHref');
+        });
+      });
+
+      (service as any).addDependency(
+        createSuccessfulRemoteDataObject$({ _links: { self: { href: 'object-href' } } }),
+        observableOf('dependsOnHref')
+      );
+      expect(addDependencySpy).toHaveBeenCalled();
+    });
+
+    it('should call objectCache.addDependency without an href if request failed', () => {
+      addDependencySpy.and.callFake((href$: Observable<string>, dependsOn$: Observable<string>) => {
+        observableCombineLatest([href$, dependsOn$]).subscribe(([href, dependsOn]) => {
+          expect(href).toBe(undefined);
+          expect(dependsOn).toBe('dependsOnHref');
+        });
+      });
+
+      (service as any).addDependency(
+        createFailedRemoteDataObject$('something went wrong'),
+        observableOf('dependsOnHref')
+      );
+      expect(addDependencySpy).toHaveBeenCalled();
     });
   });
 });
