@@ -24,3 +24,7 @@ ul.dropdown-menu {
         color: var(--bs-btn-link-disabled-color);
     }
 }
+
+.dso-edit-menu-dropdown {
+  max-width: calc(min(600px, 75vw));
+}

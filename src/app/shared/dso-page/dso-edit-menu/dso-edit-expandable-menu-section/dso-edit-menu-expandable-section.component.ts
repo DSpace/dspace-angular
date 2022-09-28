@@ -5,6 +5,9 @@ import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-sect
 import { MenuService } from '../../../menu/menu.service';
 import { MenuSection } from '../../../menu/menu.reducer';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { hasValue } from '../../../empty.util';
 
 /**
  * Represents an expandable section in the dso edit menus
@@ -21,6 +24,8 @@ export class DsoEditMenuExpandableSectionComponent extends MenuSectionComponent 
   menuID: MenuID = MenuID.DSO_EDIT;
   itemModel;
 
+  renderIcons$: Observable<boolean>;
+
   constructor(
     @Inject('sectionDataProvider') menuSection: MenuSection,
     protected menuService: MenuService,
@@ -34,6 +39,11 @@ export class DsoEditMenuExpandableSectionComponent extends MenuSectionComponent 
   ngOnInit(): void {
     this.menuService.activateSection(this.menuID, this.section.id);
     super.ngOnInit();
-  }
 
+    this.renderIcons$ = this.subSections$.pipe(
+      map((sections: MenuSection[]) => {
+        return sections.some(section => hasValue(section.icon));
+      }),
+    );
+  }
 }

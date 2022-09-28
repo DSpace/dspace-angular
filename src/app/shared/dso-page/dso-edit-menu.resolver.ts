@@ -16,7 +16,6 @@ import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
 import { hasValue } from '../empty.util';
 import { MenuSection } from '../menu/menu.reducer';
-import { TextMenuItemModel } from '../menu/menu-item/models/text.model';
 
 /**
  * Creates the menus for the dspace object pages
@@ -95,7 +94,6 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
             index: 1
           },
         ];
-
       })
     );
   }
