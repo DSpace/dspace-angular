@@ -150,11 +150,10 @@ describe('ExportBatchSelectorComponent', () => {
         done();
       });
     });
-    it('should invoke the batch-export script with option --id uuid and -a option', () => {
+    it('should invoke the batch-export script with option --id uuid option', () => {
       const parameterValues: ProcessParameter[] = [
         Object.assign(new ProcessParameter(), { name: '--id', value: mockCollection.uuid }),
         Object.assign(new ProcessParameter(), { name: '--type', value: 'COLLECTION' }),
-        Object.assign(new ProcessParameter(), { name: '-a' }),
       ];
       expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_EXPORT_SCRIPT_NAME, parameterValues, []);
     });
@@ -176,7 +175,7 @@ describe('ExportBatchSelectorComponent', () => {
         done();
       });
     });
-    it('should invoke the Batch-export script with option --id uuid without the -a option', () => {
+    it('should invoke the Batch-export script with option --id uuid without option', () => {
       const parameterValues: ProcessParameter[] = [
         Object.assign(new ProcessParameter(), { name: '--id', value: mockCollection.uuid }),
         Object.assign(new ProcessParameter(), { name: '--type', value: 'COLLECTION' })
