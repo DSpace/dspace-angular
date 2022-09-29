@@ -1,5 +1,9 @@
 <ng-container *ngIf="derivedSearchResult$ | async">
-    <ds-mydspace-item-status [status]="status"></ds-mydspace-item-status>
+    <div class="row">
+        <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2  pl-3' : ''">
+            <ds-mydspace-item-status [status]="status"></ds-mydspace-item-status>
+        </div>
+    </div>
     <ds-listable-object-component-loader
             [viewMode]="ViewModes.ListElement"
             [object]="derivedSearchResult$ | async" [linkType]="LinkTypes.None"></ds-listable-object-component-loader>
