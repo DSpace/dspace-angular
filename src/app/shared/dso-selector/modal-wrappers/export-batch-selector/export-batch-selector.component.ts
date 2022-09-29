@@ -86,10 +86,7 @@ export class ExportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
       Object.assign(new ProcessParameter(), { name: '--type', value: 'COLLECTION' })
     ];
     return this.authorizationDataService.isAuthorized(FeatureID.AdministratorOf).pipe(
-      switchMap((isAdmin) => {
-        if (isAdmin) {
-          parameterValues.push(Object.assign(new ProcessParameter(), {name: '-a'}));
-        }
+      switchMap(() => {
         return this.scriptDataService.invoke(BATCH_EXPORT_SCRIPT_NAME, parameterValues, []);
       }),
       getFirstCompletedRemoteData(),
