@@ -11,6 +11,7 @@ import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { environment } from '../../../../../environments/environment';
 import { MarkdownPipe } from '../../../../shared/utils/markdown.pipe';
 import { SharedModule } from '../../../../shared/shared.module';
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
 
 let comp: ItemPageFieldComponent;
 let fixture: ComponentFixture<ItemPageFieldComponent>;
@@ -32,6 +33,9 @@ describe('ItemPageFieldComponent', () => {
           }
         }),
         SharedModule,
+      ],
+      providers: [
+        { provide: APP_CONFIG, useValue: Object.assign({}, environment) },
       ],
       declarations: [ItemPageFieldComponent, MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA]
@@ -57,7 +61,7 @@ describe('ItemPageFieldComponent', () => {
   describe('when markdown is disabled in the environment config', () => {
 
     beforeEach(() => {
-      environment.markdown.enabled = false;
+      TestBed.inject(APP_CONFIG).markdown.enabled = false;
     });
 
     describe('and markdown is disabled in this component', () => {
@@ -88,7 +92,7 @@ describe('ItemPageFieldComponent', () => {
   describe('when markdown is enabled in the environment config', () => {
 
     beforeEach(() => {
-      environment.markdown.enabled = true;
+      TestBed.inject(APP_CONFIG).markdown.enabled = true;
     });
 
     describe('and markdown is disabled in this component', () => {

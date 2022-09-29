@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { environment } from '../../../../environments/environment';
 
@@ -11,7 +11,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./metadata-values.component.scss'],
   templateUrl: './metadata-values.component.html'
 })
-export class MetadataValuesComponent {
+export class MetadataValuesComponent implements OnChanges {
 
   /**
    * The metadata values to display
@@ -35,5 +35,12 @@ export class MetadataValuesComponent {
    */
   @Input() enableMarkdown = false;
 
-  env = environment;
+  /**
+   * This variable will be true if both {@link environment.markdown.enabled} and {@link enableMarkdown} are true.
+   */
+  renderMarkdown;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.renderMarkdown = !!environment.markdown.enabled && this.enableMarkdown;
+  }
 }
