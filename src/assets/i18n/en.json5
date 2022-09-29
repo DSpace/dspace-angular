@@ -2764,8 +2764,6 @@
 
   "mydspace.description": "",
 
-  "mydspace.general.text-here": "here",
-
   "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
 
   "mydspace.messages.description-placeholder": "Insert your message here...",
@@ -2841,8 +2839,6 @@
   "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
 
   "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
-
-  "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
 
   "mydspace.view-btn": "View",
 
@@ -3111,11 +3107,15 @@
 
   "profile.security.form.label.passwordrepeat": "Retype to confirm",
 
+  "profile.security.form.label.current-password": "Current password",
+
   "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
 
   "profile.security.form.notifications.success.title": "Password saved",
 
   "profile.security.form.notifications.error.title": "Error changing passwords",
+
+  "profile.security.form.notifications.error.change-failed": "An error occurred while trying to change the password. Please check if the current password is correct.",
 
   "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
 

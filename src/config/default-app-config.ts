@@ -39,7 +39,10 @@ export class DefaultAppConfig implements AppConfig {
     rateLimiter: {
       windowMs: 1 * 60 * 1000, // 1 minute
       max: 500 // limit each IP to 500 requests per windowMs
-    }
+    },
+
+    // Trust X-FORWARDED-* headers from proxies
+    useProxies: true,
   };
 
   // The REST API server settings

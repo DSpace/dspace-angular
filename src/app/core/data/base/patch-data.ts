@@ -101,7 +101,7 @@ export class PatchDataImpl<T extends CacheableObject> extends IdentifiableDataSe
       this.requestService.send(request);
     });
 
-    return this.rdbService.buildFromRequestUUID(requestId);
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => this.invalidateByHref(object._links.self.href));
   }
 
   /**

@@ -99,6 +99,7 @@ import {
 import { LoadingComponent } from './app/shared/loading/loading.component';
 import { SearchResultsComponent } from './app/shared/search/search-results/search-results.component';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
+import { SearchSettingsComponent } from './app/shared/search/search-settings/search-settings.component';
 import {
   CommunityPageSubCommunityListComponent
 } from './app/community-page/sub-community-list/community-page-sub-community-list.component';
@@ -152,6 +153,7 @@ const DECLARATIONS = [
   LoadingComponent,
   SearchResultsComponent,
   AdminSidebarComponent,
+  SearchSettingsComponent
 ];
 
 @NgModule({
