@@ -39,6 +39,7 @@ import {
   SearchResultListElementComponent
 } from './object-list/search-result-list-element/search-result-list-element.component';
 import { ObjectListComponent } from './object-list/object-list.component';
+import { ThemedObjectListComponent } from './object-list/themed-object-list.component';
 import {
   CollectionGridElementComponent
 } from './object-grid/collection-grid-element/collection-grid-element.component';
@@ -290,6 +291,7 @@ import { LinkMenuItemComponent } from './menu/menu-item/link-menu-item.component
 import { OnClickMenuItemComponent } from './menu/menu-item/onclick-menu-item.component';
 import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
+import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import {
   ItemVersionsSummaryModalComponent
 } from './item/item-versions/item-versions-summary-modal/item-versions-summary-modal.component';
@@ -376,6 +378,7 @@ const COMPONENTS = [
   LogOutComponent,
   NumberPickerComponent,
   ObjectListComponent,
+  ThemedObjectListComponent,
   ObjectDetailComponent,
   ObjectGridComponent,
   AbstractListableElementComponent,
@@ -496,6 +499,7 @@ const COMPONENTS = [
   SearchNavbarComponent,
   ScopeSelectorModalComponent,
   ItemPageTitleFieldComponent,
+  ThemedSearchNavbarComponent,
 ];
 
 const ENTRY_COMPONENTS = [
