@@ -19,6 +19,7 @@ import { ActuatorsConfig } from './actuators.config';
 import { InfoConfig } from './info-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { HomeConfig } from './homepage-config.interface';
+import { MarkdownConfig } from './markdown-config.interface';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -42,6 +43,7 @@ interface AppConfig extends Config {
   bundle: BundleConfig;
   actuators: ActuatorsConfig
   info: InfoConfig;
+  markdown: MarkdownConfig;
 }
 
 /**
