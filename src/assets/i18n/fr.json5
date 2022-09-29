@@ -3627,9 +3627,6 @@
   // "mydspace.description": "",
   "mydspace.description": "",
 
-  // "mydspace.general.text-here": "here",
-  "mydspace.general.text-here": "ici",
-
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
   "mydspace.messages.controller-help": "Sélectionner cette option pour envoyer un message au déposant.",
 
@@ -3743,9 +3740,6 @@
 
   // "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
   "mydspace.upload.upload-multiple-successful": "{{qty}} nouveaux Items créés dans l'espace de travail.",
-
-  // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
-  "mydspace.upload.upload-successful": "Nouvel item créé dans l'espace de travail. Cliquer {{here}} pour l'éditer.",
 
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Afficher",

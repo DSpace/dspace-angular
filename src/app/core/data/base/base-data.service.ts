@@ -23,6 +23,7 @@ import { PaginatedList } from '../paginated-list.model';
 import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALDataService } from './hal-data-service.interface';
+import { getFirstCompletedRemoteData } from '../../shared/operators';
 
 /**
  * Common functionality for data services.
@@ -352,19 +353,55 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
   }
 
   /**
-   * Invalidate a cached object by its href
-   * @param href  the href to invalidate
+   *  Shorthand method to add a dependency to a cached object
+   *  ```
+   *  const out$ = this.findByHref(...); // or another method that sends a request
+   *  this.addDependency(out$, dependsOnHref);
+   *  ```
+   *  When {@link dependsOnHref$} is invalidated, {@link object$} will be invalidated as well.
+   *
+   *
+   * @param object$         the cached object
+   * @param dependsOnHref$  the href of the object it should depend on
    */
-  public invalidateByHref(href: string): Observable<boolean> {
+  protected addDependency(object$: Observable<RemoteData<T | PaginatedList<T>>>, dependsOnHref$: string | Observable<string>) {
+    this.objectCache.addDependency(
+      object$.pipe(
+        getFirstCompletedRemoteData(),
+        switchMap((rd: RemoteData<T>) => {
+          if (rd.hasSucceeded) {
+            return [rd.payload._links.self.href];
+          } else {
+            // undefined href will be skipped in objectCache.addDependency
+            return [undefined];
+          }
+        }),
+      ),
+      dependsOnHref$
+    );
+  }
+
+  /**
+   * Invalidate an existing DSpaceObject by marking all requests it is included in as stale
+   * @param   href The self link of the object to be invalidated
+   * @return  An Observable that will emit `true` once all requests are stale
+   */
+  invalidateByHref(href: string): Observable<boolean> {
     const done$ = new AsyncSubject<boolean>();
 
     this.objectCache.getByHref(href).pipe(
       take(1),
-      switchMap((oce: ObjectCacheEntry) => observableFrom(oce.requestUUIDs).pipe(
-        mergeMap((requestUUID: string) => this.requestService.setStaleByUUID(requestUUID)),
-        toArray(),
-      )),
+      switchMap((oce: ObjectCacheEntry) => {
+        return observableFrom([
+          ...oce.requestUUIDs,
+          ...oce.dependentRequestUUIDs
+        ]).pipe(
+          mergeMap((requestUUID: string) => this.requestService.setStaleByUUID(requestUUID)),
+          toArray(),
+        );
+      }),
     ).subscribe(() => {
+      this.objectCache.removeDependents(href);
       done$.next(true);
       done$.complete();
     });

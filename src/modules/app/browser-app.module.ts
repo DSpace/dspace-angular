@@ -15,13 +15,17 @@ import { AppModule } from '../../app/app.module';
 import { ClientCookieService } from '../../app/core/services/client-cookie.service';
 import { CookieService } from '../../app/core/services/cookie.service';
 import { AuthService } from '../../app/core/auth/auth.service';
-import { Angulartics2RouterlessModule } from 'angulartics2';
+import { Angulartics2GoogleTagManager, Angulartics2RouterlessModule } from 'angulartics2';
 import { SubmissionService } from '../../app/submission/submission.service';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { BrowserKlaroService } from '../../app/shared/cookies/browser-klaro.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
-import { BrowserHardRedirectService, locationProvider, LocationToken } from '../../app/core/services/browser-hard-redirect.service';
+import {
+  BrowserHardRedirectService,
+  locationProvider,
+  LocationToken
+} from '../../app/core/services/browser-hard-redirect.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
@@ -94,6 +98,10 @@ export function getRequest(transferState: TransferState): any {
     {
       provide: GoogleAnalyticsService,
       useClass: GoogleAnalyticsService,
+    },
+    {
+      provide: Angulartics2GoogleTagManager,
+      useClass: Angulartics2GoogleTagManager
     },
     {
       provide: AuthRequestService,

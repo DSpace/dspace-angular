@@ -127,19 +127,18 @@ describe('ThumbnailComponent', () => {
   });
 
   const errorHandler = () => {
-    let fallbackSpy;
+    let setSrcSpy;
 
     beforeEach(() => {
-      fallbackSpy = spyOn(comp, 'showFallback').and.callThrough();
+      // disconnect error handler to be sure it's only called once
+      const img = fixture.debugElement.query(By.css('img.thumbnail-content'));
+      img.nativeNode.onerror = null;
+
+      comp.ngOnChanges();
+      setSrcSpy = spyOn(comp, 'setSrc').and.callThrough();
     });
 
     describe('retry with authentication token', () => {
-      beforeEach(() => {
-        // disconnect error handler to be sure it's only called once
-        const img = fixture.debugElement.query(By.css('img.thumbnail-content'));
-        img.nativeNode.onerror = null;
-      });
-
       it('should remember that it already retried once', () => {
         expect(comp.retriedWithToken).toBeFalse();
         comp.errorHandler();
@@ -153,7 +152,7 @@ describe('ThumbnailComponent', () => {
 
         it('should fall back to default', () => {
           comp.errorHandler();
-          expect(fallbackSpy).toHaveBeenCalled();
+          expect(setSrcSpy).toHaveBeenCalledWith(comp.defaultImage);
         });
       });
 
@@ -172,11 +171,9 @@ describe('ThumbnailComponent', () => {
 
             if ((comp.thumbnail as RemoteData<Bitstream>)?.hasFailed) {
               // If we failed to retrieve the Bitstream in the first place, fall back to the default
-              expect(comp.src$.getValue()).toBe(null);
-              expect(fallbackSpy).toHaveBeenCalled();
+              expect(setSrcSpy).toHaveBeenCalledWith(comp.defaultImage);
             } else {
-              expect(comp.src$.getValue()).toBe(CONTENT + '?authentication-token=fake');
-              expect(fallbackSpy).not.toHaveBeenCalled();
+              expect(setSrcSpy).toHaveBeenCalledWith(CONTENT + '?authentication-token=fake');
             }
           });
         });
@@ -189,8 +186,7 @@ describe('ThumbnailComponent', () => {
           it('should fall back to default', () => {
             comp.errorHandler();
 
-            expect(comp.src$.getValue()).toBe(null);
-            expect(fallbackSpy).toHaveBeenCalled();
+            expect(setSrcSpy).toHaveBeenCalledWith(comp.defaultImage);
 
             // We don't need to check authorization if we failed to retrieve the Bitstreamin the first place
             if (!(comp.thumbnail as RemoteData<Bitstream>)?.hasFailed) {
@@ -210,7 +206,7 @@ describe('ThumbnailComponent', () => {
         comp.errorHandler();
         expect(authService.isAuthenticated).not.toHaveBeenCalled();
         expect(fileService.retrieveFileDownloadLink).not.toHaveBeenCalled();
-        expect(fallbackSpy).toHaveBeenCalled();
+        expect(setSrcSpy).toHaveBeenCalledWith(comp.defaultImage);
       });
     });
   };
@@ -263,21 +259,23 @@ describe('ThumbnailComponent', () => {
       comp.thumbnail = thumbnail;
     });
 
-    it('should display an image', () => {
-      comp.ngOnChanges();
-      fixture.detectChanges();
-      const image: HTMLElement = fixture.debugElement.query(By.css('img')).nativeElement;
-      expect(image.getAttribute('src')).toBe(thumbnail._links.content.href);
+    describe('if content can be loaded', () => {
+      it('should display an image', () => {
+        comp.ngOnChanges();
+        fixture.detectChanges();
+        const image: HTMLElement = fixture.debugElement.query(By.css('img')).nativeElement;
+        expect(image.getAttribute('src')).toBe(thumbnail._links.content.href);
+      });
+
+      it('should include the alt text', () => {
+        comp.ngOnChanges();
+        fixture.detectChanges();
+        const image: HTMLElement = fixture.debugElement.query(By.css('img')).nativeElement;
+        expect(image.getAttribute('alt')).toBe('TRANSLATED ' + comp.alt);
+      });
     });
 
-    it('should include the alt text', () => {
-      comp.ngOnChanges();
-      fixture.detectChanges();
-      const image: HTMLElement = fixture.debugElement.query(By.css('img')).nativeElement;
-      expect(image.getAttribute('alt')).toBe('TRANSLATED ' + comp.alt);
-    });
-
-    describe('when there is no thumbnail', () => {
+    describe('if content can\'t be loaded', () => {
       errorHandler();
     });
   });
@@ -296,36 +294,42 @@ describe('ThumbnailComponent', () => {
       };
     });
 
-    describe('when there is a thumbnail', () => {
+    describe('if RemoteData succeeded', () => {
       beforeEach(() => {
         comp.thumbnail = createSuccessfulRemoteDataObject(thumbnail);
       });
 
-      it('should display an image', () => {
-        comp.ngOnChanges();
-        fixture.detectChanges();
-        const image: HTMLElement = de.query(By.css('img')).nativeElement;
-        expect(image.getAttribute('src')).toBe(thumbnail._links.content.href);
+      describe('if content can be loaded', () => {
+        it('should display an image', () => {
+          comp.ngOnChanges();
+          fixture.detectChanges();
+          const image: HTMLElement = de.query(By.css('img')).nativeElement;
+          expect(image.getAttribute('src')).toBe(thumbnail._links.content.href);
+        });
+
+        it('should display the alt text', () => {
+          comp.ngOnChanges();
+          fixture.detectChanges();
+          const image: HTMLElement = de.query(By.css('img')).nativeElement;
+          expect(image.getAttribute('alt')).toBe('TRANSLATED ' + comp.alt);
+        });
       });
 
-      it('should display the alt text', () => {
-        comp.ngOnChanges();
-        fixture.detectChanges();
-        const image: HTMLElement = de.query(By.css('img')).nativeElement;
-        expect(image.getAttribute('alt')).toBe('TRANSLATED ' + comp.alt);
-      });
-
-      describe('but it can\'t be loaded', () => {
+      describe('if content can\'t be loaded', () => {
         errorHandler();
       });
     });
 
-    describe('when there is no thumbnail', () => {
+    describe('if RemoteData failed', () => {
       beforeEach(() => {
         comp.thumbnail = createFailedRemoteDataObject();
       });
 
-      errorHandler();
+      it('should show the default image', () => {
+        comp.defaultImage = 'default/image.jpg';
+        comp.ngOnChanges();
+        expect(comp.src$.getValue()).toBe('default/image.jpg');
+      });
     });
   });
 });

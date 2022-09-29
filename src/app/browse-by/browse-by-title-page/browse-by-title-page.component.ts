@@ -9,7 +9,6 @@ import {
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { BrowseByDataType, rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -23,7 +22,6 @@ import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 /**
  * Component for browsing items by title (dc.title)
  */
-@rendersBrowseBy(BrowseByDataType.Title)
 export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
 
   public constructor(protected route: ActivatedRoute,
