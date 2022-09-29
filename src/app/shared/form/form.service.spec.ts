@@ -186,7 +186,9 @@ describe('FormService test suite', () => {
     expect(formGroup.controls.description.touched).toBe(true);
   });
 
-  it('should add errors to fields of group', () => {
+  it('should add errors to fields of concat group', () => {
+    (builderService as any).isConcatGroup.and.returnValue(true);
+
     let control = controls.addressLocation;
     let model = formModel.find((mdl: DynamicFormControlModel) => mdl.id === 'addressLocation');
     let errorKeys: string[];
@@ -240,7 +242,9 @@ describe('FormService test suite', () => {
     expect(formGroup.controls.description.touched).toBe(false);
   });
 
-  it('should remove errors from fields of group', () => {
+  it('should remove errors from fields of concat group', () => {
+    (builderService as any).isConcatGroup.and.returnValue(true);
+
     let control = controls.addressLocation;
     let model = formModel.find((mdl: DynamicFormControlModel) => mdl.id === 'addressLocation');
     let errorKeys: string[];
