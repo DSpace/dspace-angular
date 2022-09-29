@@ -1,10 +1,9 @@
 import { Store, StoreModule } from '@ngrx/store';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 // Load the implementations that should be tested
 import { AppComponent } from './app.component';
@@ -73,7 +72,6 @@ describe('App component', () => {
       providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: MetadataService, useValue: new MetadataServiceMock() },
-        { provide: Angulartics2GoogleAnalytics, useValue: new AngularticsProviderMock() },
         { provide: Angulartics2DSpace, useValue: new AngularticsProviderMock() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: Router, useValue: new RouterMock() },
