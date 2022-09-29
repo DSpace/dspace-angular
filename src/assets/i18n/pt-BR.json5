@@ -9,8 +9,6 @@
   // "401.unauthorized": "unauthorized",
   "401.unauthorized": "não autorizado",
 
-
-
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
   "403.help": "Você não tem permissão para acessar esta página. Você pode usar o botão abaixo para voltar à página inicial.",
 
@@ -49,51 +47,40 @@
   "error-page.description.500": "Serviço Indisponível",
 
   // "error-page.description.404": "page not found",
-  "error-page.description.404": "pagína não encontrada",
+  "error-page.description.404": "página não encontrada",
 
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
-  // TODO New key - Add a translation
-  "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
+  "error-page.orcid.generic-error": "Ocorreu um erro durante o login via ORCID. Certifique-se de ter compartilhado o endereço de e-mail da sua conta ORCID com o DSpace. Se o erro persistir, entre em contato com o administrador",
 
   // "access-status.embargo.listelement.badge": "Embargo",
-  // TODO New key - Add a translation
   "access-status.embargo.listelement.badge": "Embargo",
 
   // "access-status.metadata.only.listelement.badge": "Metadata only",
-  // TODO New key - Add a translation
-  "access-status.metadata.only.listelement.badge": "Metadata only",
+  "access-status.metadata.only.listelement.badge": "Somente Metadadados",
 
   // "access-status.open.access.listelement.badge": "Open Access",
-  // TODO New key - Add a translation
   "access-status.open.access.listelement.badge": "Open Access",
 
   // "access-status.restricted.listelement.badge": "Restricted",
-  // TODO New key - Add a translation
-  "access-status.restricted.listelement.badge": "Restricted",
+  "access-status.restricted.listelement.badge": "Restrito",
 
   // "access-status.unknown.listelement.badge": "Unknown",
-  // TODO New key - Add a translation
-  "access-status.unknown.listelement.badge": "Unknown",
+  "access-status.unknown.listelement.badge": "Desconhecido",
 
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
-  // TODO New key - Add a translation
-  "admin.curation-tasks.breadcrumbs": "System curation tasks",
+  "admin.curation-tasks.breadcrumbs": "Tarefas de Curadoria do Sistema",
 
   // "admin.curation-tasks.title": "System curation tasks",
-  // TODO New key - Add a translation
-  "admin.curation-tasks.title": "System curation tasks",
+  "admin.curation-tasks.title": "Tarefas de Curadoria do Sistema",
 
   // "admin.curation-tasks.header": "System curation tasks",
-  // TODO New key - Add a translation
-  "admin.curation-tasks.header": "System curation tasks",
+  "admin.curation-tasks.header": "Tarefas de Curadoria do Sistema",
 
   // "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
+  "admin.registries.bitstream-formats.breadcrumbs": "Formatar registro",
 
   // "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
+  "admin.registries.bitstream-formats.create.breadcrumbs": "Formatar Bitstream",
 
   // "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
   "admin.registries.bitstream-formats.create.failure.content": "Um erro ocorreu durante a criação do novo formato de bitstream.",
@@ -129,8 +116,7 @@
   "admin.registries.bitstream-formats.description": "Esta lista de formatos de bitstream provê informações sobre formatos conhecidos e seus níveis de suporte.",
 
   // "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
+  "admin.registries.bitstream-formats.edit.breadcrumbs": "Formatar Bitstream",
 
   // "admin.registries.bitstream-formats.edit.description.hint": "",
   "admin.registries.bitstream-formats.edit.description.hint": "",
@@ -208,7 +194,6 @@
   "admin.registries.bitstream-formats.table.name": "Nome",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
-  // TODO Source message changed - Revise the translation
   "admin.registries.bitstream-formats.table.return": "Voltar",
 
   // "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
@@ -224,14 +209,11 @@
   "admin.registries.bitstream-formats.table.supportLevel.head": "Nível de Suporte",
 
   // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
-  // TODO Source message changed - Revise the translation
   "admin.registries.bitstream-formats.title": "DSpace Angular :: Registro de Formato de Bitstream",
 
 
-
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.breadcrumbs": "Metadata registry",
+  "admin.registries.metadata.breadcrumbs": "Registro de Metadadados",
 
   // "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
   "admin.registries.metadata.description": "O registro de metadados mantém a lista de todos os campos de metadados disponíveis no repositório. Estes campos podêm ser divididos em multiplos esquemas. Entretanto, o DSpace requer esquemas de Dublin Core qualificados.",
@@ -267,14 +249,10 @@
   "admin.registries.metadata.schemas.table.namespace": "Namespace",
 
   // "admin.registries.metadata.title": "Metadata Registry",
-  // TODO Source message changed - Revise the translation
-  "admin.registries.metadata.title": "DSpace Angular :: Registro de Metadados",
-
-
+  "admin.registries.metadata.title": "Registro de Metadados",
 
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
-  // TODO New key - Add a translation
-  "admin.registries.schema.breadcrumbs": "Metadata schema",
+  "admin.registries.schema.breadcrumbs": "Esquema de Metadados",
 
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   "admin.registries.schema.description": "Este é o esquema de metadados para \"{{namespace}}\".",
@@ -343,53 +321,40 @@
   "admin.registries.schema.notification.success": "Sucesso",
 
   // "admin.registries.schema.return": "Back",
-  // TODO Source message changed - Revise the translation
   "admin.registries.schema.return": "Voltar",
 
   // "admin.registries.schema.title": "Metadata Schema Registry",
-  // TODO Source message changed - Revise the translation
-  "admin.registries.schema.title": "DSpace Angular :: Registro de Esquema de Metadados",
-
-
+  "admin.registries.schema.title": "Registro de Esquema de Metadados",
 
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.delete": "Delete EPerson",
+  "admin.access-control.epeople.actions.delete": "Apagar EPerson",
 
   // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
+  "admin.access-control.epeople.actions.impersonate": "Personificar EPerson",
 
   // "admin.access-control.epeople.actions.reset": "Reset password",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.reset": "Reset password",
+  "admin.access-control.epeople.actions.reset": "Redefinir senha",
 
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
+  "admin.access-control.epeople.actions.stop-impersonating": "Parar de personificar EPerson",
 
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.breadcrumbs": "EPeople",
 
   // "admin.access-control.epeople.title": "EPeople",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.title": "EPeople",
 
   // "admin.access-control.epeople.head": "EPeople",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.head": "EPeople",
 
   // "admin.access-control.epeople.search.head": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.head": "Search",
+  "admin.access-control.epeople.search.head": "Procurar",
 
   // "admin.access-control.epeople.button.see-all": "Browse All",
   "admin.access-control.epeople.button.see-all": "Pesquisar Todos",
 
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.scope.metadata": "Metadata",
+  "admin.access-control.epeople.search.scope.metadata": "Metadados",
 
   // "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
   "admin.access-control.epeople.search.scope.email": "Email (exato)",
@@ -398,23 +363,19 @@
   "admin.access-control.epeople.search.button": "Procurar",
 
   // "admin.access-control.epeople.search.placeholder": "Search people...",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.placeholder": "Search people...",
+  "admin.access-control.epeople.search.placeholder": "Procurar pessoa ...",
 
   // "admin.access-control.epeople.button.add": "Add EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.button.add": "Add EPerson",
+  "admin.access-control.epeople.button.add": "Adicionar EPerson",
 
   // "admin.access-control.epeople.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.table.id": "ID",
 
   // "admin.access-control.epeople.table.name": "Name",
   "admin.access-control.epeople.table.name": "Nome",
 
   // "admin.access-control.epeople.table.email": "E-mail (exact)",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.email": "E-mail (exact)",
+  "admin.access-control.epeople.table.email": "E-mail (exato)",
 
   // "admin.access-control.epeople.table.edit": "Edit",
   "admin.access-control.epeople.table.edit": "Editar",
@@ -423,141 +384,106 @@
   "admin.access-control.epeople.table.edit.buttons.edit": "Editar \"{{name}}\"",
 
   // "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
+  "admin.access-control.epeople.table.edit.buttons.edit-disabled": "Você não está autorizado a editar este grupo",
 
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove": "Apagar \"{{name}}\"",
 
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.no-items": "No EPeople to show.",
+  "admin.access-control.epeople.no-items": "Nenhuma EPeople para mostrar.",
 
   // "admin.access-control.epeople.form.create": "Create EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.create": "Create EPerson",
+  "admin.access-control.epeople.form.create": "Criar EPerson",
 
   // "admin.access-control.epeople.form.edit": "Edit EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.edit": "Edit EPerson",
+  "admin.access-control.epeople.form.edit": "Editar EPerson",
 
   // "admin.access-control.epeople.form.firstName": "First name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.firstName": "First name",
+  "admin.access-control.epeople.form.firstName": "Primeiro Nome",
 
   // "admin.access-control.epeople.form.lastName": "Last name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.lastName": "Last name",
+  "admin.access-control.epeople.form.lastName": "Último nome",
 
   // "admin.access-control.epeople.form.email": "E-mail",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.form.email": "E-mail",
 
   // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+  "admin.access-control.epeople.form.emailHint": "Deve ter um e-mail válido",
 
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.canLogIn": "Can log in",
+  "admin.access-control.epeople.form.canLogIn": "Pode logar",
 
   // "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
+  "admin.access-control.epeople.form.requireCertificate": "Requer certificado",
 
   // "admin.access-control.epeople.form.return": "Back",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.return": "Back",
+  "admin.access-control.epeople.form.return": "Voltar",
 
   // "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.success": "EPerson \"{{name}}\" criada com sucesso",
 
   // "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.failure": "Failha ao criar EPerson \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Falha ao criar EPerson \"{{name}}\", email \"{{email}}\" já em uso.",
 
   // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failha ao editar EPerson \"{{name}}\", email \"{{email}}\" já em uso.",
 
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.success": "EPerson \"{{name}}\" editada com sucesso.",
 
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.failure": "Falha ao editar EPerson \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.success": "EPerson \"{{name}}\" apagado com sucesso",
 
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.failure": "Falha ao deletar EPerson \"{{name}}\"",
 
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
+  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Membro destes grupos:",
 
   // "admin.access-control.epeople.form.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.form.table.id": "ID",
 
   // "admin.access-control.epeople.form.table.name": "Name",
   "admin.access-control.epeople.form.table.name": "Nome",
 
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
+  "admin.access-control.epeople.form.table.collectionOrCommunity": "Coleção/Comunidade",
 
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
+  "admin.access-control.epeople.form.memberOfNoGroups": "Esta EPerson não é mebro de nenhum grupo",
 
   // "admin.access-control.epeople.form.goToGroups": "Add to groups",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.goToGroups": "Add to groups",
+  "admin.access-control.epeople.form.goToGroups": "Adicionar aos grupos",
 
   // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "Falha ao apagar EPerson: \"{{name}}\"",
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
-
-
+  "admin.access-control.epeople.notification.deleted.success": "EPerson: \"{{name}}\" apagado com sucesso",
 
   // "admin.access-control.groups.title": "Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.title": "Groups",
+  "admin.access-control.groups.title": "Grupos",
 
   // "admin.access-control.groups.breadcrumbs": "Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.breadcrumbs": "Groups",
+  "admin.access-control.groups.breadcrumbs": "Grupos",
 
   // "admin.access-control.groups.singleGroup.breadcrumbs": "Edit Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.singleGroup.breadcrumbs": "Edit Group",
+  "admin.access-control.groups.singleGroup.breadcrumbs": "Editar Grupo",
 
   // "admin.access-control.groups.title.singleGroup": "Edit Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.title.singleGroup": "Edit Group",
+  "admin.access-control.groups.title.singleGroup": "Editar Grupo",
 
   // "admin.access-control.groups.title.addGroup": "New Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.title.addGroup": "New Group",
+  "admin.access-control.groups.title.addGroup": "Novo Grupo",
 
   // "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
+  "admin.access-control.groups.addGroup.breadcrumbs": "Novo Grupo",
 
   // "admin.access-control.groups.head": "Groups",
   "admin.access-control.groups.head": "Grupos",
@@ -569,68 +495,52 @@
   "admin.access-control.groups.search.head": "Pesquisar grupos",
 
   // "admin.access-control.groups.button.see-all": "Browse all",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.button.see-all": "Browse all",
+  "admin.access-control.groups.button.see-all": "Procurar tudo",
 
   // "admin.access-control.groups.search.button": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.search.button": "Search",
+  "admin.access-control.groups.search.button": "Procurar",
 
   // "admin.access-control.groups.search.placeholder": "Search groups...",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.search.placeholder": "Search groups...",
+  "admin.access-control.groups.search.placeholder": "Procurar grupos...",
 
   // "admin.access-control.groups.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.groups.table.id": "ID",
 
   // "admin.access-control.groups.table.name": "Name",
   "admin.access-control.groups.table.name": "Nome",
 
   // "admin.access-control.groups.table.collectionOrCommunity": "Collection/Community",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.collectionOrCommunity": "Collection/Community",
+  "admin.access-control.groups.table.collectionOrCommunity": "Coleção/Comunidade",
 
   // "admin.access-control.groups.table.members": "Members",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.members": "Members",
+  "admin.access-control.groups.table.members": "Membros",
 
   // "admin.access-control.groups.table.edit": "Edit",
   "admin.access-control.groups.table.edit": "Editar",
 
   // "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.edit": "Editar \"{{name}}\"",
 
   // "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.remove": "Apagar \"{{name}}\"",
 
   // "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
+  "admin.access-control.groups.no-items": "Nenhum grupo encontrado com este nome ou com esta UUID",
 
   // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.success": "Grupo \"{{name}}\" apagado com sucesso",
 
   // "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.failure.title": "Falha ao deletar o grupo \"{{name}}\"",
 
   // "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
-
-
+  "admin.access-control.groups.notification.deleted.failure.content": "Causa: \"{{cause}}\"",
 
   // "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
+  "admin.access-control.groups.form.alert.permanent": "Este grupo é permanente, portanto, não pode ser editado ou excluído. Você ainda pode adicionar e remover membros do grupo usando esta página.",
 
   // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
+  "admin.access-control.groups.form.alert.workflowGroup": "Este grupo não pode ser modificado ou excluído porque corresponde a uma função no processo de submissão e workflow \"{{name}}\" {{comcol}}. Você não pode deletar ele da função atribuída: <a href='{{comcolEditRolesRoute}}'> </a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
 
   // "admin.access-control.groups.form.head.create": "Create group",
   "admin.access-control.groups.form.head.create": "Criar grupo",
@@ -648,111 +558,85 @@
   "admin.access-control.groups.form.groupDescription": "Descrição",
 
   // "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.success": "Grupo \"{{name}}\" criado com sucesso",
 
   // "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.failure": "Falha ao criar o Grupo \"{{name}}\"",
 
   // "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Falha ao criar o Grupo com o nome: \"{{name}}\", tenha certeza que o nome não está em uso.",
 
   // "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.failure": "Falha ao editar o Grupo \"{{name}}\"",
 
   // "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Nome \"{{name}}\" já foi utilizado!",
 
   // "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.success": "Grupo \"{{name}}\" editado com sucesso",
 
   // "admin.access-control.groups.form.actions.delete": "Delete Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.actions.delete": "Delete Group",
+  "admin.access-control.groups.form.actions.delete": "Apagar Grupo",
 
   // "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.header": "Apagar Grupo \"{{ dsoName }}\"",
 
   // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.info": "Você tem certeza que quer deletar o Grupo \"{{ dsoName }}\"",
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
+  "admin.access-control.groups.form.delete-group.modal.cancel": "Cancelar",
 
   // "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
+  "admin.access-control.groups.form.delete-group.modal.confirm": "Apagar",
 
   // "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.success": "Grupo \"{{ name }}\" apagado com sucesso",
 
   // "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.title": "Falha ao apagar o grupo \"{{ name }}\"",
 
   // "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.content": "Causa: \"{{ cause }}\"",
 
   // "admin.access-control.groups.form.members-list.head": "EPeople",
-  // TODO New key - Add a translation
   "admin.access-control.groups.form.members-list.head": "EPeople",
 
   // "admin.access-control.groups.form.members-list.search.head": "Add EPeople",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.head": "Add EPeople",
+  "admin.access-control.groups.form.members-list.search.head": "Adicionar EPeople",
 
   // "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
+  "admin.access-control.groups.form.members-list.button.see-all": "Procurar Todos",
 
   // "admin.access-control.groups.form.members-list.headMembers": "Current Members",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.headMembers": "Current Members",
+  "admin.access-control.groups.form.members-list.headMembers": "Membros Atuais",
 
   // "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
+  "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadados",
 
   // "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
+  "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exato)",
 
   // "admin.access-control.groups.form.members-list.search.button": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.button": "Search",
+  "admin.access-control.groups.form.members-list.search.button": "Procurar",
 
   // "admin.access-control.groups.form.members-list.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.groups.form.members-list.table.id": "ID",
 
   // "admin.access-control.groups.form.members-list.table.name": "Name",
   "admin.access-control.groups.form.members-list.table.name": "Nome",
 
   // "admin.access-control.groups.form.members-list.table.identity": "Identity",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.identity": "Identity",
+  "admin.access-control.groups.form.members-list.table.identity": "Identitade",
 
   // "admin.access-control.groups.form.members-list.table.email": "Email",
-  // TODO New key - Add a translation
   "admin.access-control.groups.form.members-list.table.email": "Email",
 
   // "admin.access-control.groups.form.members-list.table.netid": "NetID",
-  // TODO New key - Add a translation
   "admin.access-control.groups.form.members-list.table.netid": "NetID",
 
   // "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
+  "admin.access-control.groups.form.members-list.table.edit": "Remover / Adicionar",
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
   "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remover o membro com nome \"{{name}}\"",
@@ -761,122 +645,94 @@
   "admin.access-control.groups.form.members-list.notification.success.addMember": "Membro adicionado com sucesso: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Falha ao adicionar membro: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Membro apagado com sucesso: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Falha ao apagar membro: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Adicionar membro com o nome \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "Nenhum grupo ativo atualmente, envie um nome primeiro.",
 
   // "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
+  "admin.access-control.groups.form.members-list.no-members-yet": "Nenhum membro no grupo ainda, procurar e adicionar.",
 
   // "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
+  "admin.access-control.groups.form.members-list.no-items": "Nenhuma EPeople encontrada nesta pesquisa",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure": "Alguma coisa deu errado: \"{{cause}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.head": "Groups",
   "admin.access-control.groups.form.subgroups-list.head": "Grupos",
 
   // "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
+  "admin.access-control.groups.form.subgroups-list.search.head": "Adicionar Subgrupo",
 
   // "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
+  "admin.access-control.groups.form.subgroups-list.button.see-all": "Procurar Todos",
 
   // "admin.access-control.groups.form.subgroups-list.headSubgroups": "Current Subgroups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.headSubgroups": "Current Subgroups",
+  "admin.access-control.groups.form.subgroups-list.headSubgroups": "Subgrupos atuais",
 
   // "admin.access-control.groups.form.subgroups-list.search.button": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.search.button": "Search",
+  "admin.access-control.groups.form.subgroups-list.search.button": "Procurar",
 
   // "admin.access-control.groups.form.subgroups-list.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.groups.form.subgroups-list.table.id": "ID",
 
   // "admin.access-control.groups.form.subgroups-list.table.name": "Name",
   "admin.access-control.groups.form.subgroups-list.table.name": "Nome",
 
   // "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Collection/Community",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Collection/Community",
+  "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Coleção/Comunidade",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
   "admin.access-control.groups.form.subgroups-list.table.edit": "Remover / Adicionar",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remover subgrupo com nome \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Adicionar subgrupo com nome \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
   "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Grupo atual",
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Subgrupo adicionado com sucesso: \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Falha ao adicionar subgrupo: \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Subgrupo: \"{{name}}\" apagado com sucesso",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Falha ao apagar subgrupo: \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "Nenhum grupo ativo atual, envie um nome primeiro.",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "This is the current group, can't be added.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "This is the current group, can't be added.",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "Este é o grupo atual, não pode ser adicionado.",
 
   // "admin.access-control.groups.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
+  "admin.access-control.groups.form.subgroups-list.no-items": "Nenhum grupo encontrado com este nome ou com este UUID",
 
   // "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
+  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "Ainda não há subgrupos no grupo.",
 
   // "admin.access-control.groups.form.return": "Back",
-  // TODO Source message changed - Revise the translation
-  "admin.access-control.groups.form.return": "Retornar aos grupos",
-
-
+  "admin.access-control.groups.form.return": "Voltar",
 
   // "admin.search.breadcrumbs": "Administrative Search",
-  // TODO New key - Add a translation
-  "admin.search.breadcrumbs": "Administrative Search",
+  "admin.search.breadcrumbs": "Pesquisa Administrativa",
 
   // "admin.search.collection.edit": "Edit",
   "admin.search.collection.edit": "Editar",
@@ -885,8 +741,7 @@
   "admin.search.community.edit": "Editar",
 
   // "admin.search.item.delete": "Delete",
-  // TODO New key - Add a translation
-  "admin.search.item.delete": "Delete",
+  "admin.search.item.delete": "Apagar",
 
   // "admin.search.item.edit": "Edit",
   "admin.search.item.edit": "Editar",
@@ -903,91 +758,64 @@
   "admin.search.item.move": "Mover",
 
   // "admin.search.item.reinstate": "Reinstate",
-  // TODO New key - Add a translation
-  "admin.search.item.reinstate": "Reinstate",
+  "admin.search.item.reinstate": "Reintegrar",
 
   // "admin.search.item.withdraw": "Withdraw",
-  // TODO New key - Add a translation
-  "admin.search.item.withdraw": "Withdraw",
+  "admin.search.item.withdraw": "Retirar",
 
   // "admin.search.title": "Administrative Search",
   "admin.search.title": "Pesquisa Administrativa",
 
   // "administrativeView.search.results.head": "Administrative Search",
-  // TODO New key - Add a translation
-  "administrativeView.search.results.head": "Administrative Search",
-
-
-
+  "administrativeView.search.results.head": "Pesquisa Administrativa",
 
   // "admin.workflow.breadcrumbs": "Administer Workflow",
-  // TODO New key - Add a translation
-  "admin.workflow.breadcrumbs": "Administer Workflow",
+  "admin.workflow.breadcrumbs": "Administrar Workflow",
 
   // "admin.workflow.title": "Administer Workflow",
-  // TODO New key - Add a translation
-  "admin.workflow.title": "Administer Workflow",
+  "admin.workflow.title": "Administrar Workflow",
 
   // "admin.workflow.item.workflow": "Workflow",
-  // TODO New key - Add a translation
   "admin.workflow.item.workflow": "Workflow",
 
   // "admin.workflow.item.delete": "Delete",
-  // TODO New key - Add a translation
-  "admin.workflow.item.delete": "Delete",
+  "admin.workflow.item.delete": "Apagar",
 
   // "admin.workflow.item.send-back": "Send back",
-  // TODO New key - Add a translation
-  "admin.workflow.item.send-back": "Send back",
-
-
+  "admin.workflow.item.send-back": "Devolver",
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
-  // TODO New key - Add a translation
-  "admin.metadata-import.breadcrumbs": "Import Metadata",
+  "admin.metadata-import.breadcrumbs": "Importar Metadados",
 
   // "admin.metadata-import.title": "Import Metadata",
-  // TODO New key - Add a translation
-  "admin.metadata-import.title": "Import Metadata",
+  "admin.metadata-import.title": "Importar Metadados",
 
   // "admin.metadata-import.page.header": "Import Metadata",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.header": "Import Metadata",
+  "admin.metadata-import.page.header": "Importar Metadados",
 
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
+  "admin.metadata-import.page.help": "Você arrastar soltar ou procurar arquivos CSV que contêm operações de metadados em lote em arquivos aqui",
 
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
+  "admin.metadata-import.page.dropMsg": "Arraste um CSV de metadados para importar",
 
   // "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
+  "admin.metadata-import.page.dropMsgReplace": "Solte para substituir o CSV de metadados a ser importado",
 
   // "admin.metadata-import.page.button.return": "Back",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.button.return": "Back",
+  "admin.metadata-import.page.button.return": "Voltar",
 
   // "admin.metadata-import.page.button.proceed": "Proceed",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.button.proceed": "Proceed",
+  "admin.metadata-import.page.button.proceed": "Continuar",
 
   // "admin.metadata-import.page.error.addFile": "Select file first!",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.error.addFile": "Select file first!",
+  "admin.metadata-import.page.error.addFile": "Selecione o arquivo primeiro!",
 
   // "admin.metadata-import.page.validateOnly": "Validate Only",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.validateOnly": "Validate Only",
+  "admin.metadata-import.page.validateOnly": "Validar Somente",
 
   // "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
-
-
-
+  "admin.metadata-import.page.validateOnly.hint": "Quando selecionado, o CSV carregado será validado. Você receberá um relatório das alterações detectadas, mas nenhuma alteração será salva.",
 
   // "auth.errors.invalid-user": "Invalid email address or password.",
   "auth.errors.invalid-user": "Endereço de email ou senha inválidos.",
@@ -996,54 +824,42 @@
   "auth.messages.expired": "Sua sessão expirou. Por favor entre novamente.",
 
   // "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
-  // TODO New key - Add a translation
-  "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
-
-
+  "auth.messages.token-refresh-failed": "Falha ao atualizar seu token de sessão. Por favor faça login novamente.",
 
   // "bitstream.download.page": "Now downloading {{bitstream}}..." ,
-  // TODO New key - Add a translation
-  "bitstream.download.page": "Now downloading {{bitstream}}..." ,
+  "bitstream.download.page": "Agora downloading {{bitstream}}..." ,
 
   // "bitstream.download.page.back": "Back" ,
-  // TODO New key - Add a translation
-  "bitstream.download.page.back": "Back" ,
+  "bitstream.download.page.back": "Voltar" ,
 
 
   // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
-  // TODO New key - Add a translation
-  "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
+  "bitstream.edit.authorizations.link": "Editar as políticas do bitstream's",
 
   // "bitstream.edit.authorizations.title": "Edit bitstream's Policies",
-  // TODO New key - Add a translation
-  "bitstream.edit.authorizations.title": "Edit bitstream's Policies",
+  "bitstream.edit.authorizations.title": "Editar as políticas do bitstream's",
 
   // "bitstream.edit.return": "Back",
-  // TODO New key - Add a translation
-  "bitstream.edit.return": "Back",
+  "bitstream.edit.return": "Voltar",
 
   // "bitstream.edit.bitstream": "Bitstream: ",
-  // TODO New key - Add a translation
   "bitstream.edit.bitstream": "Bitstream: ",
 
   // "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
+  "bitstream.edit.form.description.hint": "Opcionalmente, forneça uma breve descrição do arquivo, por exemplo \"<i>Main article</i>\" ou \"<i>Experimento leitura de dados</i>\".",
 
   // "bitstream.edit.form.description.label": "Description",
   "bitstream.edit.form.description.label": "Descrição",
 
-  // "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
+  // "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Autorizações...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
   // TODO New key - Add a translation
   "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
 
   // "bitstream.edit.form.embargo.label": "Embargo until specific date",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.embargo.label": "Embargo until specific date",
+  "bitstream.edit.form.embargo.label": "Embargo até data específica",
 
   // "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
+  "bitstream.edit.form.fileName.hint": "Altere o nome do arquivo para o bitstream. Observe que isso alterará o URL do fluxo de bits de exibição, mas os links antigos ainda serão resolvidos, desde que a ID da sequência não seja alterada.",
 
   // "bitstream.edit.form.fileName.label": "Filename",
   "bitstream.edit.form.fileName.label": "Nome do arquivo",
@@ -1052,153 +868,117 @@
   "bitstream.edit.form.newFormat.label": "Descreva o novo formato",
 
   // "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
+  "bitstream.edit.form.newFormat.hint": "O aplicativo que você usou para criar o arquivo e o número da versão (por exemplo, \"<i>ACMESoft SuperApp version 1.5</i>\").",
 
   // "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
+  "bitstream.edit.form.primaryBitstream.label": "Bitstream primário",
 
   // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
+  "bitstream.edit.form.selectedFormat.hint": "Se o formato não estiver na lista acima, <b>selecione \"formato fora da lista\" acima</b> e descreva-o em \"Descrever novo formato\".",
 
   // "bitstream.edit.form.selectedFormat.label": "Selected Format",
   "bitstream.edit.form.selectedFormat.label": "Formato Selecionado",
 
   // "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
+  "bitstream.edit.form.selectedFormat.unknown": "Formato não está na lista",
 
   // "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
+  "bitstream.edit.notifications.error.format.title": "Um erro ocorreu salvando o formato do bitstream's",
 
   // "bitstream.edit.form.iiifLabel.label": "IIIF Label",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifLabel.label": "IIIF Label",
+  "bitstream.edit.form.iiifLabel.label": "Etiqueta IIIF",
 
   // "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image. If not provided default label will be used.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image. If not provided default label will be used.",
+  "bitstream.edit.form.iiifLabel.hint": "Etiqueta de tela para esta imagem. Se não for fornecido, o rótulo padrão será usado.",
 
   // "bitstream.edit.form.iiifToc.label": "IIIF Table of Contents",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifToc.label": "IIIF Table of Contents",
+  "bitstream.edit.form.iiifToc.label": "Tabela de Conteúdos IIIF",
 
   // "bitstream.edit.form.iiifToc.hint": "Adding text here makes this the start of a new table of contents range.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifToc.hint": "Adding text here makes this the start of a new table of contents range.",
+  "bitstream.edit.form.iiifToc.hint": "Adicionar texto aqui faz com que este seja o início de um novo intervalo de índice.",
 
   // "bitstream.edit.form.iiifWidth.label": "IIIF Canvas Width",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifWidth.label": "IIIF Canvas Width",
+  "bitstream.edit.form.iiifWidth.label": "Largura da tela IIIF",
 
   // "bitstream.edit.form.iiifWidth.hint": "The canvas width should usually match the image width.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifWidth.hint": "The canvas width should usually match the image width.",
+  "bitstream.edit.form.iiifWidth.hint": "A largura da tela geralmente deve corresponder à largura da imagem.",
 
   // "bitstream.edit.form.iiifHeight.label": "IIIF Canvas Height",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifHeight.label": "IIIF Canvas Height",
+  "bitstream.edit.form.iiifHeight.label": "Altura da tela IIIF",
 
   // "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
+  "bitstream.edit.form.iiifHeight.hint": "A altura da tela geralmente deve corresponder à altura da imagem.",
 
 
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
+  "bitstream.edit.notifications.saved.content": "Suas alterações neste fluxo de bits foram salvas.",
 
   // "bitstream.edit.notifications.saved.title": "Bitstream saved",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.saved.title": "Bitstream saved",
+  "bitstream.edit.notifications.saved.title": "Bitstream salvo",
 
   // "bitstream.edit.title": "Edit bitstream",
-  // TODO New key - Add a translation
-  "bitstream.edit.title": "Edit bitstream",
+  "bitstream.edit.title": "Editar bitstream",
 
   // "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
+  "bitstream-request-a-copy.alert.canDownload1": "Você já tem acesso a este arquivo. Se você deseja baixar o arquivo, clique ",
 
   // "bitstream-request-a-copy.alert.canDownload2": "here",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.alert.canDownload2": "here",
+  "bitstream-request-a-copy.alert.canDownload2": "aqui",
 
   // "bitstream-request-a-copy.header": "Request a copy of the file",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.header": "Request a copy of the file",
+  "bitstream-request-a-copy.header": "Solicite uma cópia do arquivo",
 
   // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
+  "bitstream-request-a-copy.intro": "Insira as seguintes informações para solicitar uma cópia do seguinte item: ",
 
   // "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
+  "bitstream-request-a-copy.intro.bitstream.one": "Solicitando o seguinte arquivo: ",
   // "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
+  "bitstream-request-a-copy.intro.bitstream.all": "Solicitando todos os arquivos. ",
 
   // "bitstream-request-a-copy.name.label": "Name *",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.name.label": "Name *",
+  "bitstream-request-a-copy.name.label": "Nome *",
 
   // "bitstream-request-a-copy.name.error": "The name is required",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.name.error": "The name is required",
+  "bitstream-request-a-copy.name.error": "O nome é requerido",
 
   // "bitstream-request-a-copy.email.label": "Your e-mail address *",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.email.label": "Your e-mail address *",
+  "bitstream-request-a-copy.email.label": "Seu endereço de e-mail *",
 
   // "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
+  "bitstream-request-a-copy.email.hint": "Este endereço de e-mail é usado para enviar o arquivo.",
 
   // "bitstream-request-a-copy.email.error": "Please enter a valid email address.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.email.error": "Please enter a valid email address.",
+  "bitstream-request-a-copy.email.error": "Por favor entre um endereço de email válido.",
 
   // "bitstream-request-a-copy.allfiles.label": "Files",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.allfiles.label": "Files",
+  "bitstream-request-a-copy.allfiles.label": "Arquivos",
 
   // "bitstream-request-a-copy.files-all-false.label": "Only the requested file",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.files-all-false.label": "Only the requested file",
+  "bitstream-request-a-copy.files-all-false.label": "Apenas o arquivo solicitado",
 
   // "bitstream-request-a-copy.files-all-true.label": "All files (of this item) in restricted access",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.files-all-true.label": "All files (of this item) in restricted access",
+  "bitstream-request-a-copy.files-all-true.label": "Todos os arquivos (deste item) em acesso restrito",
 
   // "bitstream-request-a-copy.message.label": "Message",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.message.label": "Message",
+  "bitstream-request-a-copy.message.label": "Mensagem",
 
   // "bitstream-request-a-copy.return": "Back",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.return": "Back",
+  "bitstream-request-a-copy.return": "Voltar",
 
   // "bitstream-request-a-copy.submit": "Request copy",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.submit": "Request copy",
+  "bitstream-request-a-copy.submit": "Solicitar cópia",
 
   // "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
+  "bitstream-request-a-copy.submit.success": "A solicitação de item foi enviada com sucesso.",
 
   // "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
+  "bitstream-request-a-copy.submit.error": "Ocorreu um erro ao enviar a solicitação de item.",
 
 
 
   // "browse.back.all-results": "All browse results",
-  // TODO New key - Add a translation
-  "browse.back.all-results": "All browse results",
+  "browse.back.all-results": "Todos os resultados",
 
   // "browse.comcol.by.author": "By Author",
   "browse.comcol.by.author": "Por Autor",
@@ -1243,16 +1023,13 @@
   "browse.metadata.title.breadcrumbs": "Pesquisar por Título",
 
   // "pagination.next.button": "Next",
-  // TODO New key - Add a translation
-  "pagination.next.button": "Next",
+  "pagination.next.button": "Próximo",
 
   // "pagination.previous.button": "Previous",
-  // TODO New key - Add a translation
-  "pagination.previous.button": "Previous",
+  "pagination.previous.button": "Anterior",
 
   // "pagination.next.button.disabled.tooltip": "No more pages of results",
-  // TODO New key - Add a translation
-  "pagination.next.button.disabled.tooltip": "No more pages of results",
+  "pagination.next.button.disabled.tooltip": "Não há mais páginas de resultados",
 
   // "browse.startsWith": ", starting with {{ startsWith }}",
   // TODO New key - Add a translation
@@ -1265,12 +1042,10 @@
   "browse.startsWith.choose_year": "(Escolha o ano)",
 
   // "browse.startsWith.choose_year.label": "Choose the issue year",
-  // TODO New key - Add a translation
-  "browse.startsWith.choose_year.label": "Choose the issue year",
+  "browse.startsWith.choose_year.label": "Escolha o ano de emissão",
 
   // "browse.startsWith.jump": "Filter results by year or month",
-  // TODO Source message changed - Revise the translation
-  "browse.startsWith.jump": "Pular para um ponto do índice:",
+  "browse.startsWith.jump": "Filtrar resultados por ano ou mês",
 
   // "browse.startsWith.months.april": "April",
   "browse.startsWith.months.april": "Abril",
@@ -1303,8 +1078,7 @@
   "browse.startsWith.months.none": "(escolha o mês)",
 
   // "browse.startsWith.months.none.label": "Choose the issue month",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.none.label": "Choose the issue month",
+  "browse.startsWith.months.none.label": "Escolha o mês de emissão",
 
   // "browse.startsWith.months.november": "November",
   "browse.startsWith.months.november": "Novembro",
@@ -1320,8 +1094,7 @@
   "browse.startsWith.submit": "Ir",
 
   // "browse.startsWith.type_date": "Filter results by date",
-  // TODO Source message changed - Revise the translation
-  "browse.startsWith.type_date": "Ou informe uma data (ano-mês):",
+  "browse.startsWith.type_date": "Filtrar bresultados pela data",
 
   // "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
   // TODO New key - Add a translation
@@ -1366,8 +1139,7 @@
   "collection.delete.confirm": "Confirmar",
 
   // "collection.delete.processing": "Deleting",
-  // TODO New key - Add a translation
-  "collection.delete.processing": "Deleting",
+  "collection.delete.processing": "Apagando",
 
   // "collection.delete.head": "Delete Collection",
   "collection.delete.head": "Apagar Coleção",
@@ -1390,8 +1162,7 @@
   "collection.edit.head": "Editar Coleção",
 
   // "collection.edit.breadcrumbs": "Edit Collection",
-  // TODO New key - Add a translation
-  "collection.edit.breadcrumbs": "Edit Collection",
+  "collection.edit.breadcrumbs": "Editar Coleção",
 
 
 
@@ -1624,20 +1395,17 @@
 
 
   // "collection.edit.template.add-button": "Add",
-  // TODO New key - Add a translation
-  "collection.edit.template.add-button": "Add",
+  "collection.edit.template.add-button": "Adicionar",
 
   // "collection.edit.template.breadcrumbs": "Item template",
   // TODO New key - Add a translation
   "collection.edit.template.breadcrumbs": "Item template",
 
   // "collection.edit.template.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "collection.edit.template.cancel": "Cancel",
+  "collection.edit.template.cancel": "Cancelar",
 
   // "collection.edit.template.delete-button": "Delete",
-  // TODO New key - Add a translation
-  "collection.edit.template.delete-button": "Delete",
+  "collection.edit.template.delete-button": "Apagar",
 
   // "collection.edit.template.edit-button": "Edit",
   "collection.edit.template.edit-button": "Editar",
@@ -1714,8 +1482,7 @@
   "collection.page.browse.recent.empty": "Nenhum item a exibir",
 
   // "collection.page.edit": "Edit this collection",
-  // TODO New key - Add a translation
-  "collection.page.edit": "Edit this collection",
+  "collection.page.edit": "Editar está coleção",
 
   // "collection.page.handle": "Permanent URI for this collection",
   "collection.page.handle": "URI Permanente para esta coleção",
@@ -1737,40 +1504,28 @@
   // "collection.select.table.title": "Title",
   "collection.select.table.title": "Título",
 
-
   // "collection.source.controls.head": "Harvest Controls",
-  // TODO New key - Add a translation
-  "collection.source.controls.head": "Harvest Controls",
+  "collection.source.controls.head": "Controles de Harvest",
   // "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
+  "collection.source.controls.test.submit.error": "Alguma coisa errada durante a inicialização e teste das configurações",
   // "collection.source.controls.test.failed": "The script to test the settings has failed",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.failed": "The script to test the settings has failed",
+  "collection.source.controls.test.failed": "O script de teste das configurações falhou",
   // "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
+  "collection.source.controls.test.completed": "O script de teste das configurações terminou com sucesso",
   // "collection.source.controls.test.submit": "Test configuration",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.submit": "Test configuration",
+  "collection.source.controls.test.submit": "Testar a configuração",
   // "collection.source.controls.test.running": "Testing configuration...",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.running": "Testing configuration...",
+  "collection.source.controls.test.running": "Testando a configuração...",
   // "collection.source.controls.import.submit.success": "The import has been successfully initiated",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.submit.success": "The import has been successfully initiated",
+  "collection.source.controls.import.submit.success": "A importação foi iniciada com sucesso",
   // "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
+  "collection.source.controls.import.submit.error": "Alguma coisa errada durante a inicialização da importação",
   // "collection.source.controls.import.submit": "Import now",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.submit": "Import now",
+  "collection.source.controls.import.submit": "Importar agora",
   // "collection.source.controls.import.running": "Importing...",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.running": "Importing...",
+  "collection.source.controls.import.running": "Importando...",
   // "collection.source.controls.import.failed": "An error occurred during the import",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.failed": "An error occurred during the import",
+  "collection.source.controls.import.failed": "Um erro ocorreu durante a importação",
   // "collection.source.controls.import.completed": "The import completed",
   // TODO New key - Add a translation
   "collection.source.controls.import.completed": "The import completed",
@@ -1778,36 +1533,25 @@
   // TODO New key - Add a translation
   "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
   // "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
+  "collection.source.controls.reset.submit.error": "Alguma coisa errada durante a inicialização da redefinição e reimportação",
   // "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
+  "collection.source.controls.reset.failed": "Um erro ocorreru durante o reset e reimportação",
   // "collection.source.controls.reset.completed": "The reset and reimport completed",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.completed": "The reset and reimport completed",
+  "collection.source.controls.reset.completed": "Completou o reset e a reimportação",
   // "collection.source.controls.reset.submit": "Reset and reimport",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.submit": "Reset and reimport",
+  "collection.source.controls.reset.submit": "Resetar e reimportar",
   // "collection.source.controls.reset.running": "Resetting and reimporting...",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.running": "Resetting and reimporting...",
+  "collection.source.controls.reset.running": "Resetando e importando...",
   // "collection.source.controls.harvest.status": "Harvest status:",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.status": "Harvest status:",
+  "collection.source.controls.harvest.status": "Status do Harvest:",
   // "collection.source.controls.harvest.start": "Harvest start time:",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.start": "Harvest start time:",
+  "collection.source.controls.harvest.start": "Hora de ínicio Harvest:",
   // "collection.source.controls.harvest.last": "Last time harvested:",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.last": "Last time harvested:",
+  "collection.source.controls.harvest.last": "Última hora de harvested:",
   // "collection.source.controls.harvest.message": "Harvest info:",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.message": "Harvest info:",
+  "collection.source.controls.harvest.message": "Informação Harvest:",
   // "collection.source.controls.harvest.no-information": "N/A",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.no-information": "N/A",
-
+  "collection.source.controls.harvest.no-information": "N/D",
 
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
   // TODO New key - Add a translation
@@ -1815,8 +1559,6 @@
 
   // "collection.source.update.notifications.error.title": "Server Error",
   "collection.source.update.notifications.error.title": "Erro no Servidor",
-
-
 
   // "communityList.breadcrumbs": "Community List",
   "communityList.breadcrumbs": "Lista da Comunidade",
@@ -1830,21 +1572,17 @@
   // "communityList.showMore": "Show More",
   "communityList.showMore": "Mostrar Mais",
 
-
-
   // "community.create.head": "Create a Community",
   "community.create.head": "Criar uma Comunidade",
 
   // "community.create.notifications.success": "Successfully created the Community",
-  // TODO New key - Add a translation
-  "community.create.notifications.success": "Successfully created the Community",
+  "community.create.notifications.success": "Comunidade criada com sucesso",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
   "community.create.sub-head": "Criar uma Sub-Comunidade para Comunidade {{ parent }}",
 
   // "community.curate.header": "Curate Community: {{community}}",
-  // TODO New key - Add a translation
-  "community.curate.header": "Curate Community: {{community}}",
+  "community.curate.header": "Curadoria da Comunidade: {{community}}",
 
   // "community.delete.cancel": "Cancel",
   "community.delete.cancel": "Cancelar",
@@ -1853,8 +1591,7 @@
   "community.delete.confirm": "Confirmar",
 
   // "community.delete.processing": "Deleting...",
-  // TODO New key - Add a translation
-  "community.delete.processing": "Deleting...",
+  "community.delete.processing": "Apagando...",
 
   // "community.delete.head": "Delete Community",
   "community.delete.head": "Apagar Comunidade",
@@ -1877,133 +1614,96 @@
   // "community.edit.breadcrumbs": "Edit Community",
   "community.edit.breadcrumbs": "Editar Comunidade",
 
-
   // "community.edit.logo.delete.title": "Delete logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.delete.title": "Delete logo",
+  "community.edit.logo.delete.title": "Apagar logo",
 
   // "community.edit.logo.delete-undo.title": "Undo delete",
-  // TODO New key - Add a translation
-  "community.edit.logo.delete-undo.title": "Undo delete",
+  "community.edit.logo.delete-undo.title": "Desfazer apagar",
 
   // "community.edit.logo.label": "Community logo",
   "community.edit.logo.label": "Logo da Comunidade",
 
   // "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
+  "community.edit.logo.notifications.add.error": "Erro no Upload do Logo da Communidade. Por favor verifique o conteúdo antes de tentar novamente.",
 
   // "community.edit.logo.notifications.add.success": "Upload Community logo successful.",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.add.success": "Upload Community logo successful.",
+  "community.edit.logo.notifications.add.success": "Sucesso no Upload do logo da Comunidade.",
 
   // "community.edit.logo.notifications.delete.success.title": "Logo deleted",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.delete.success.title": "Logo deleted",
+  "community.edit.logo.notifications.delete.success.title": "Logo apagado",
 
   // "community.edit.logo.notifications.delete.success.content": "Successfully deleted the community's logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.delete.success.content": "Successfully deleted the community's logo",
+  "community.edit.logo.notifications.delete.success.content": "Logo da comunidade apagado com sucesso",
 
   // "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
+  "community.edit.logo.notifications.delete.error.title": "Erro apagando o logo",
 
   // "community.edit.logo.upload": "Drop a Community Logo to upload",
-  // TODO New key - Add a translation
-  "community.edit.logo.upload": "Drop a Community Logo to upload",
-
-
+  "community.edit.logo.upload": "Arraste um Logo de Comunidade para fazer upload",
 
   // "community.edit.notifications.success": "Successfully edited the Community",
-  // TODO New key - Add a translation
-  "community.edit.notifications.success": "Successfully edited the Community",
+  "community.edit.notifications.success": "Comunidade Editada com sucesso",
 
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
-  // TODO New key - Add a translation
-  "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
+  "community.edit.notifications.unauthorized": "Você não tem privilégio de fazer esta mudança",
 
   // "community.edit.notifications.error": "An error occured while editing the Community",
-  // TODO New key - Add a translation
-  "community.edit.notifications.error": "An error occured while editing the Community",
+  "community.edit.notifications.error": "Um erro ocorreu enquanto editava a  Comunidade",
 
   // "community.edit.return": "Back",
-  // TODO New key - Add a translation
-  "community.edit.return": "Back",
-
-
+  "community.edit.return": "Voltar",
 
   // "community.edit.tabs.curate.head": "Curate",
-  // TODO New key - Add a translation
-  "community.edit.tabs.curate.head": "Curate",
+  "community.edit.tabs.curate.head": "Curador",
 
   // "community.edit.tabs.curate.title": "Community Edit - Curate",
-  // TODO New key - Add a translation
-  "community.edit.tabs.curate.title": "Community Edit - Curate",
+  "community.edit.tabs.curate.title": "Editar Comunidade - Curador",
 
   // "community.edit.tabs.metadata.head": "Edit Metadata",
-  // TODO New key - Add a translation
-  "community.edit.tabs.metadata.head": "Edit Metadata",
+  "community.edit.tabs.metadata.head": "Editar Metadado",
 
   // "community.edit.tabs.metadata.title": "Community Edit - Metadata",
-  // TODO New key - Add a translation
-  "community.edit.tabs.metadata.title": "Community Edit - Metadata",
+  "community.edit.tabs.metadata.title": "Editar Communidade - Metadados",
 
   // "community.edit.tabs.roles.head": "Assign Roles",
-  // TODO New key - Add a translation
-  "community.edit.tabs.roles.head": "Assign Roles",
+  "community.edit.tabs.roles.head": "Atribuir Funções",
 
   // "community.edit.tabs.roles.title": "Community Edit - Roles",
-  // TODO New key - Add a translation
-  "community.edit.tabs.roles.title": "Community Edit - Roles",
+  "community.edit.tabs.roles.title": "Editar Comunidade - Funções",
 
   // "community.edit.tabs.authorizations.head": "Authorizations",
-  // TODO New key - Add a translation
-  "community.edit.tabs.authorizations.head": "Authorizations",
+  "community.edit.tabs.authorizations.head": "Authorizações",
 
   // "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
-  // TODO New key - Add a translation
-  "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
-
-
+  "community.edit.tabs.authorizations.title": "Editar Communidades - Authorizações",
 
   // "community.listelement.badge": "Community",
   "community.listelement.badge": "Comunidade",
 
-
-
   // "comcol-role.edit.no-group": "None",
-  // TODO New key - Add a translation
-  "comcol-role.edit.no-group": "None",
+  "comcol-role.edit.no-group": "Nenhum",
 
   // "comcol-role.edit.create": "Create",
-  // TODO New key - Add a translation
-  "comcol-role.edit.create": "Create",
+  "comcol-role.edit.create": "Criar",
 
   // "comcol-role.edit.create.error.title": "Failed to create a group for the '{{ role }}' role",
-  // TODO New key - Add a translation
-  "comcol-role.edit.create.error.title": "Failed to create a group for the '{{ role }}' role",
+  "comcol-role.edit.create.error.title": "Falha ao criar o grupo para a '{{ role }}' role",
 
   // "comcol-role.edit.restrict": "Restrict",
-  // TODO New key - Add a translation
-  "comcol-role.edit.restrict": "Restrict",
+  "comcol-role.edit.restrict": "Restrito",
 
   // "comcol-role.edit.delete": "Delete",
-  // TODO New key - Add a translation
-  "comcol-role.edit.delete": "Delete",
+  "comcol-role.edit.delete": "Apagar",
 
   // "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
-  // TODO New key - Add a translation
-  "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
+  "comcol-role.edit.delete.error.title": "Falha ao deletar a '{{ role }}' role's para o grupo",
 
 
   // "comcol-role.edit.community-admin.name": "Administrators",
-  // TODO New key - Add a translation
-  "comcol-role.edit.community-admin.name": "Administrators",
+  "comcol-role.edit.community-admin.name": "Administradores",
 
   // "comcol-role.edit.collection-admin.name": "Administrators",
-  // TODO New key - Add a translation
-  "comcol-role.edit.collection-admin.name": "Administrators",
+  "comcol-role.edit.collection-admin.name": "Administradores",
 
 
   // "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
@@ -2016,8 +1716,7 @@
 
 
   // "comcol-role.edit.submitters.name": "Submitters",
-  // TODO New key - Add a translation
-  "comcol-role.edit.submitters.name": "Submitters",
+  "comcol-role.edit.submitters.name": "Remetentes",
 
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
   // TODO New key - Add a translation
@@ -2025,8 +1724,7 @@
 
 
   // "comcol-role.edit.item_read.name": "Default item read access",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.name": "Default item read access",
+  "comcol-role.edit.item_read.name": "Default item acesso leitura",
 
   // "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
   // TODO New key - Add a translation
@@ -2038,8 +1736,7 @@
 
 
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
+  "comcol-role.edit.bitstream_read.name": "Default bitstream acesso leitura",
 
   // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
   // TODO New key - Add a translation
@@ -2051,31 +1748,24 @@
 
 
   // "comcol-role.edit.editor.name": "Editors",
-  // TODO New key - Add a translation
-  "comcol-role.edit.editor.name": "Editors",
+  "comcol-role.edit.editor.name": "Editores",
 
   // "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
+  "comcol-role.edit.editor.description": "Editores podem editar metadados de submissões de entrada, e  aceitar ou rejeitar elas.",
 
 
   // "comcol-role.edit.finaleditor.name": "Final editors",
-  // TODO New key - Add a translation
-  "comcol-role.edit.finaleditor.name": "Final editors",
+  "comcol-role.edit.finaleditor.name": "Editores Finais",
 
   // "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
+  "comcol-role.edit.finaleditor.description": "Editores Finais podem editar os metadadods de submissões de entrada, mas não podem rejeitar elas.",
 
 
   // "comcol-role.edit.reviewer.name": "Reviewers",
-  // TODO New key - Add a translation
-  "comcol-role.edit.reviewer.name": "Reviewers",
+  "comcol-role.edit.reviewer.name": "Revisores",
 
   // "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
-
+  "comcol-role.edit.reviewer.description": "Revisores podem aceitar ou rejeitar submissões de entrada.. Entretanto, eles não podem editar os metadados da submissão.",
 
 
   // "community.form.abstract": "Short Description",
@@ -2097,8 +1787,7 @@
   "community.form.title": "Nome",
 
   // "community.page.edit": "Edit this community",
-  // TODO New key - Add a translation
-  "community.page.edit": "Edit this community",
+  "community.page.edit": "Editar esta comunidade",
 
   // "community.page.handle": "Permanent URI for this community",
   "community.page.handle": "URI Permanente desta comunidade",
@@ -2121,106 +1810,82 @@
 
 
   // "cookies.consent.accept-all": "Accept all",
-  // TODO New key - Add a translation
-  "cookies.consent.accept-all": "Accept all",
+  "cookies.consent.accept-all": "Aceitar tudo",
 
   // "cookies.consent.accept-selected": "Accept selected",
-  // TODO New key - Add a translation
-  "cookies.consent.accept-selected": "Accept selected",
+  "cookies.consent.accept-selected": "Aceitar selecionados",
 
   // "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
-  // TODO New key - Add a translation
-  "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
+  "cookies.consent.app.opt-out.description": "Este aplicativo é carregado por padrão (mas você pode desativar)",
 
   // "cookies.consent.app.opt-out.title": "(opt-out)",
-  // TODO New key - Add a translation
-  "cookies.consent.app.opt-out.title": "(opt-out)",
+  "cookies.consent.app.opt-out.title": "(desativar)",
 
   // "cookies.consent.app.purpose": "purpose",
-  // TODO New key - Add a translation
-  "cookies.consent.app.purpose": "purpose",
+  "cookies.consent.app.purpose": "propósito",
 
   // "cookies.consent.app.required.description": "This application is always required",
-  // TODO New key - Add a translation
-  "cookies.consent.app.required.description": "This application is always required",
+  "cookies.consent.app.required.description": "Esta aplicação é sempre necessária",
 
   // "cookies.consent.app.required.title": "(always required)",
-  // TODO New key - Add a translation
-  "cookies.consent.app.required.title": "(always required)",
+  "cookies.consent.app.required.title": "(sempre requerido)",
 
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
-  // TODO New key - Add a translation
-  "cookies.consent.update": "There were changes since your last visit, please update your consent.",
+  "cookies.consent.update": "Houve alterações desde sua última visita, atualize seu consentimento.",
 
   // "cookies.consent.close": "Close",
-  // TODO New key - Add a translation
-  "cookies.consent.close": "Close",
+  "cookies.consent.close": "Fechar",
 
   // "cookies.consent.decline": "Decline",
-  // TODO New key - Add a translation
-  "cookies.consent.decline": "Decline",
+  "cookies.consent.decline": "Recusar",
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
-  // TODO New key - Add a translation
-  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Coletamos e processamos suas informações pessoais para os seguintes propósitos: <strong>Autenticação, Preferências, Reconhecimento e Estatísticas</strong>. <br/> To learn more, please read our {privacyPolicy}.",
 
   // "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
-  // TODO New key - Add a translation
-  "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
+  "cookies.consent.content-notice.description.no-privacy": "Coletamos e processamos suas informações pessoais para os seguintes propósitos: <strong>Autenticação, Preferências, Reconhecimento e Estatísticas</strong>.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
-  // TODO New key - Add a translation
-  "cookies.consent.content-notice.learnMore": "Customize",
+  "cookies.consent.content-notice.learnMore": "Customizar",
 
   // "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
-  // TODO New key - Add a translation
-  "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
+  "cookies.consent.content-modal.description": "Aqui você pode ver e personalizar as informações que coletamos sobre você.",
 
   // "cookies.consent.content-modal.privacy-policy.name": "privacy policy",
-  // TODO New key - Add a translation
-  "cookies.consent.content-modal.privacy-policy.name": "privacy policy",
+  "cookies.consent.content-modal.privacy-policy.name": "política de privacidade",
 
   // "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
-  // TODO New key - Add a translation
-  "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
+  "cookies.consent.content-modal.privacy-policy.text": "Para saber mais, leia nosso {privacyPolicy}.",
 
   // "cookies.consent.content-modal.title": "Information that we collect",
-  // TODO New key - Add a translation
-  "cookies.consent.content-modal.title": "Information that we collect",
+  "cookies.consent.content-modal.title": "Informações que coletamos",
 
 
 
   // "cookies.consent.app.title.authentication": "Authentication",
-  // TODO New key - Add a translation
-  "cookies.consent.app.title.authentication": "Authentication",
+  "cookies.consent.app.title.authentication": "Authenticação",
 
   // "cookies.consent.app.description.authentication": "Required for signing you in",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.authentication": "Required for signing you in",
+  "cookies.consent.app.description.authentication": "Obrigatório para fazer login",
 
 
   // "cookies.consent.app.title.preferences": "Preferences",
-  // TODO New key - Add a translation
-  "cookies.consent.app.title.preferences": "Preferences",
+  "cookies.consent.app.title.preferences": "Preferências",
 
   // "cookies.consent.app.description.preferences": "Required for saving your preferences",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.preferences": "Required for saving your preferences",
+  "cookies.consent.app.description.preferences": "Necessário para salvar suas preferências",
 
 
 
   // "cookies.consent.app.title.acknowledgement": "Acknowledgement",
-  // TODO New key - Add a translation
-  "cookies.consent.app.title.acknowledgement": "Acknowledgement",
+  "cookies.consent.app.title.acknowledgement": "Reconhecimento",
 
   // "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
+  "cookies.consent.app.description.acknowledgement": "Necessário para salvar suas confirmações e consentimentos",
 
 
 
   // "cookies.consent.app.title.google-analytics": "Google Analytics",
-  // TODO New key - Add a translation
   "cookies.consent.app.title.google-analytics": "Google Analytics",
 
   // "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
@@ -2230,12 +1895,10 @@
 
 
   // "cookies.consent.purpose.functional": "Functional",
-  // TODO New key - Add a translation
-  "cookies.consent.purpose.functional": "Functional",
+  "cookies.consent.purpose.functional": "Funcional",
 
   // "cookies.consent.purpose.statistical": "Statistical",
-  // TODO New key - Add a translation
-  "cookies.consent.purpose.statistical": "Statistical",
+  "cookies.consent.purpose.statistical": "Estatística",
 
   // "curation-task.task.citationpage.label":  "Generate Citation Page",
   // TODO New key - Add a translation
@@ -2258,12 +1921,10 @@
   "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
 
   // "curation-task.task.translate.label": "Microsoft Translator",
-  // TODO New key - Add a translation
   "curation-task.task.translate.label": "Microsoft Translator",
 
   // "curation-task.task.vscan.label": "Virus Scan",
-  // TODO New key - Add a translation
-  "curation-task.task.vscan.label": "Virus Scan",
+  "curation-task.task.vscan.label": "Escanear Virus",
 
 
 
@@ -5105,16 +4766,14 @@
 
 
   // "process.detail.arguments" : "Arguments",
-  // TODO New key - Add a translation
-  "process.detail.arguments" : "Arguments",
+  "process.detail.arguments" : "Argumentos",
 
   // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
   // TODO New key - Add a translation
   "process.detail.arguments.empty" : "This process doesn't contain any arguments",
 
   // "process.detail.back" : "Back",
-  // TODO New key - Add a translation
-  "process.detail.back" : "Back",
+  "process.detail.back" : "Voltar",
 
   // "process.detail.output" : "Process Output",
   // TODO New key - Add a translation
@@ -5181,8 +4840,7 @@
   "process.detail.delete.body": "Are you sure you want to delete the current process?",
 
   // "process.detail.delete.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "process.detail.delete.cancel": "Cancel",
+  "process.detail.delete.cancel": "Cancelar",
 
   // "process.detail.delete.confirm": "Delete process",
   // TODO New key - Add a translation
@@ -5219,8 +4877,7 @@
   "process.overview.table.status" : "Status",
 
   // "process.overview.table.user" : "User",
-  // TODO New key - Add a translation
-  "process.overview.table.user" : "User",
+  "process.overview.table.user" : "Usuário",
 
   // "process.overview.title": "Processes Overview",
   // TODO New key - Add a translation
@@ -5231,12 +4888,10 @@
   "process.overview.breadcrumbs": "Processes Overview",
 
   // "process.overview.new": "New",
-  // TODO New key - Add a translation
-  "process.overview.new": "New",
+  "process.overview.new": "Novo",
 
   // "process.overview.table.actions": "Actions",
-  // TODO New key - Add a translation
-  "process.overview.table.actions": "Actions",
+  "process.overview.table.actions": "Ações",
 
   // "process.overview.delete": "Delete {{count}} processes",
   // TODO New key - Add a translation
@@ -5280,12 +4935,10 @@
   "profile.card.identify": "Identify",
 
   // "profile.card.security": "Security",
-  // TODO New key - Add a translation
-  "profile.card.security": "Security",
+  "profile.card.security": "Segurança",
 
   // "profile.form.submit": "Save",
-  // TODO New key - Add a translation
-  "profile.form.submit": "Save",
+  "profile.form.submit": "Salvar",
 
   // "profile.groups.head": "Authorization groups you belong to",
   // TODO New key - Add a translation
@@ -5450,12 +5103,10 @@
 
 
   // "media-viewer.next": "Next",
-  // TODO New key - Add a translation
-  "media-viewer.next": "Next",
+  "media-viewer.next": "Próximo",
 
   // "media-viewer.previous": "Previous",
-  // TODO New key - Add a translation
-  "media-viewer.previous": "Previous",
+  "media-viewer.previous": "Anterior",
 
   // "media-viewer.playlist": "Playlist",
   // TODO New key - Add a translation
@@ -5463,108 +5114,83 @@
 
 
   // "register-email.title": "New user registration",
-  // TODO New key - Add a translation
-  "register-email.title": "New user registration",
+  "register-email.title": "Novo registro de usuário",
 
   // "register-page.create-profile.header": "Create Profile",
-  // TODO New key - Add a translation
-  "register-page.create-profile.header": "Create Profile",
+  "register-page.create-profile.header": "Criar Profile",
 
   // "register-page.create-profile.identification.header": "Identify",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.header": "Identify",
+  "register-page.create-profile.identification.header": "Identificar",
 
   // "register-page.create-profile.identification.email": "Email Address",
   "register-page.create-profile.identification.email": "Endereço de Email",
 
   // "register-page.create-profile.identification.first-name": "First Name *",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.first-name": "First Name *",
+  "register-page.create-profile.identification.first-name": "Primeiro Nome *",
 
   // "register-page.create-profile.identification.first-name.error": "Please fill in a First Name",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.first-name.error": "Please fill in a First Name",
+  "register-page.create-profile.identification.first-name.error": "Por favor preencha o Primeiro Nome",
 
   // "register-page.create-profile.identification.last-name": "Last Name *",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.last-name": "Last Name *",
+  "register-page.create-profile.identification.last-name": "Último Nome *",
 
   // "register-page.create-profile.identification.last-name.error": "Please fill in a Last Name",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.last-name.error": "Please fill in a Last Name",
+  "register-page.create-profile.identification.last-name.error": "Por favor preencha o Último Nome",
 
   // "register-page.create-profile.identification.contact": "Contact Telephone",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.contact": "Contact Telephone",
+  "register-page.create-profile.identification.contact": "Telefone de Contato",
 
   // "register-page.create-profile.identification.language": "Language",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.language": "Language",
+  "register-page.create-profile.identification.language": "Linguagem",
 
   // "register-page.create-profile.security.header": "Security",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.header": "Security",
+  "register-page.create-profile.security.header": "Segurança",
 
   // "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box.",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box.",
+  "register-page.create-profile.security.info": "Por favor entre a senha na caixa abaixo, e confirme digitando na segunda caixa abaixo.",
 
   // "register-page.create-profile.security.label.password": "Password *",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.label.password": "Password *",
+  "register-page.create-profile.security.label.password": "Senha *",
 
   // "register-page.create-profile.security.label.passwordrepeat": "Retype to confirm *",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.label.passwordrepeat": "Retype to confirm *",
+  "register-page.create-profile.security.label.passwordrepeat": "Redigite para confirmar *",
 
   // "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
+  "register-page.create-profile.security.error.empty-password": "Por favor entre a senha na caixa abaixo.",
 
   // "register-page.create-profile.security.error.matching-passwords": "The passwords do not match.",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.error.matching-passwords": "The passwords do not match.",
+  "register-page.create-profile.security.error.matching-passwords": "As senhas não coincidem.",
 
   // "register-page.create-profile.submit": "Complete Registration",
-  // TODO New key - Add a translation
-  "register-page.create-profile.submit": "Complete Registration",
+  "register-page.create-profile.submit": "Registro Completo",
 
   // "register-page.create-profile.submit.error.content": "Something went wrong while registering a new user.",
-  // TODO New key - Add a translation
-  "register-page.create-profile.submit.error.content": "Something went wrong while registering a new user.",
+  "register-page.create-profile.submit.error.content": "Algo deu errado ao registrar um novo usuário.",
 
   // "register-page.create-profile.submit.error.head": "Registration failed",
-  // TODO New key - Add a translation
-  "register-page.create-profile.submit.error.head": "Registration failed",
+  "register-page.create-profile.submit.error.head": "Registro falhou",
 
   // "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
-  // TODO New key - Add a translation
-  "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
+  "register-page.create-profile.submit.success.content": "O registro foi realizado com sucesso. Você está logado como o usuário criado",
 
   // "register-page.create-profile.submit.success.head": "Registration completed",
-  // TODO New key - Add a translation
-  "register-page.create-profile.submit.success.head": "Registration completed",
+  "register-page.create-profile.submit.success.head": "Registo completo",
 
 
   // "register-page.registration.header": "New user registration",
-  // TODO New key - Add a translation
-  "register-page.registration.header": "New user registration",
+  "register-page.registration.header": "Novo registro de usuário",
 
   // "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
-  // TODO New key - Add a translation
-  "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
+  "register-page.registration.info": "Registre uma conta para assinar coleções para atualizações por e-mail e enviar novos itens para o DSpace.",
 
   // "register-page.registration.email": "Email Address *",
-  // TODO New key - Add a translation
-  "register-page.registration.email": "Email Address *",
+  "register-page.registration.email": "Endereço de Email  *",
 
   // "register-page.registration.email.error.required": "Please fill in an email address",
-  // TODO New key - Add a translation
-  "register-page.registration.email.error.required": "Please fill in an email address",
+  "register-page.registration.email.error.required": "Por favor preencha o endereço de email",
 
   // "register-page.registration.email.error.pattern": "Please fill in a valid email address",
-  // TODO New key - Add a translation
-  "register-page.registration.email.error.pattern": "Please fill in a valid email address",
+  "register-page.registration.email.error.pattern": "Por favor preencha com um endereço válido de email",
 
   // "register-page.registration.email.hint": "This address will be verified and used as your login name.",
   "register-page.registration.email.hint": "Este endereço será verificado e usado como seu nome de login.",
@@ -5573,45 +5199,36 @@
   "register-page.registration.submit": "Cadastrar",
 
   // "register-page.registration.success.head": "Verification email sent",
-  // TODO New key - Add a translation
   "register-page.registration.success.head": "E-mail de verificação enviado",
 
   // "register-page.registration.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
-  // TODO New key - Add a translation
-  "register-page.registration.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
+  "register-page.registration.success.content": "Um email foi enviado para {{ email }} contendo uma URL especial e mais instruções.",
 
   // "register-page.registration.error.head": "Error when trying to register email",
-  // TODO New key - Add a translation
-  "register-page.registration.error.head": "Error when trying to register email",
+  "register-page.registration.error.head": "Erro tentando registrar o email",
 
   // "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
-  // TODO New key - Add a translation
-  "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
+  "register-page.registration.error.content": "Um erro ocorreu enquanto registrava o seguinte endereço de email: {{ email }}",
 
 
 
   // "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
-  // TODO New key - Add a translation
-  "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
+  "relationships.add.error.relationship-type.content": "Nenhuma correspondência adequada foi encontrada para o tipo de relacionamento {{ type }} entre os dois itens",
 
   // "relationships.add.error.server.content": "The server returned an error",
-  // TODO New key - Add a translation
-  "relationships.add.error.server.content": "The server returned an error",
+  "relationships.add.error.server.content": "O servidor retornou um erro",
 
   // "relationships.add.error.title": "Unable to add relationship",
-  // TODO New key - Add a translation
-  "relationships.add.error.title": "Unable to add relationship",
+  "relationships.add.error.title": "Não foi possível adicionar relacionamento",
 
   // "relationships.isAuthorOf": "Authors",
   "relationships.isAuthorOf": "Autores",
 
   // "relationships.isAuthorOf.Person": "Authors (persons)",
-  // TODO New key - Add a translation
-  "relationships.isAuthorOf.Person": "Authors (persons)",
+  "relationships.isAuthorOf.Person": "Autores (pessoas)",
 
   // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  // TODO New key - Add a translation
-  "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
+  "relationships.isAuthorOf.OrgUnit": "Autores (unidades organizacionais)",
 
   // "relationships.isIssueOf": "Journal Issues",
   "relationships.isIssueOf": "Fascículo",
@@ -5647,62 +5264,49 @@
   "relationships.isVolumeOf": "Volumes do Periódico",
 
   // "relationships.isContributorOf": "Contributors",
-  // TODO New key - Add a translation
-  "relationships.isContributorOf": "Contributors",
+  "relationships.isContributorOf": "Contribuidores",
 
   // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  // TODO New key - Add a translation
-  "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+  "relationships.isContributorOf.OrgUnit": "Contribuidor (Unidade Organizacional)",
 
   // "relationships.isContributorOf.Person": "Contributor",
-  // TODO New key - Add a translation
-  "relationships.isContributorOf.Person": "Contributor",
+  "relationships.isContributorOf.Person": "Contribuidor",
 
   // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  // TODO New key - Add a translation
-  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  "relationships.isFundingAgencyOf.OrgUnit": "Financiador",
 
 
   // "repository.image.logo": "Repository logo",
-  // TODO New key - Add a translation
-  "repository.image.logo": "Repository logo",
+  "repository.image.logo": "Logo do Repositório",
 
   // "repository.title.prefix": "DSpace Angular :: ",
-  // TODO New key - Add a translation
   "repository.title.prefix": "DSpace Angular :: ",
 
   // "repository.title.prefixDSpace": "DSpace Angular ::",
-  // TODO New key - Add a translation
   "repository.title.prefixDSpace": "DSpace Angular ::",
 
 
   // "resource-policies.add.button": "Add",
-  // TODO New key - Add a translation
-  "resource-policies.add.button": "Add",
+  "resource-policies.add.button": "Adicionar",
 
   // "resource-policies.add.for.": "Add a new policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.": "Add a new policy",
+  "resource-policies.add.for.": "Adicionar uma nova política",
 
   // "resource-policies.add.for.bitstream": "Add a new Bitstream policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.bitstream": "Add a new Bitstream policy",
+  "resource-policies.add.for.bitstream": "Adicionar uma nova política para o Bitstream",
 
   // "resource-policies.add.for.bundle": "Add a new Bundle policy",
   // TODO New key - Add a translation
   "resource-policies.add.for.bundle": "Add a new Bundle policy",
 
   // "resource-policies.add.for.item": "Add a new Item policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.item": "Add a new Item policy",
+  "resource-policies.add.for.item": "Adicionar uma nova política para Item",
 
   // "resource-policies.add.for.community": "Add a new Community policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.community": "Add a new Community policy",
+  "resource-policies.add.for.community": "Adicionar uma nova política para Comunidade",
 
   // "resource-policies.add.for.collection": "Add a new Collection policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.collection": "Add a new Collection policy",
+  "resource-policies.add.for.collection": "Adicionar uma nova política para Coleção",
 
   // "resource-policies.create.page.heading": "Create new resource policy for ",
   // TODO New key - Add a translation
@@ -5713,16 +5317,14 @@
   "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
 
   // "resource-policies.create.page.success.content": "Operation successful",
-  // TODO New key - Add a translation
-  "resource-policies.create.page.success.content": "Operation successful",
+  "resource-policies.create.page.success.content": "Operação com sucesso",
 
   // "resource-policies.create.page.title": "Create new resource policy",
   // TODO New key - Add a translation
   "resource-policies.create.page.title": "Create new resource policy",
 
   // "resource-policies.delete.btn": "Delete selected",
-  // TODO New key - Add a translation
-  "resource-policies.delete.btn": "Delete selected",
+  "resource-policies.delete.btn": "Apagar selecionado",
 
   // "resource-policies.delete.btn.title": "Delete selected resource policies",
   // TODO New key - Add a translation
@@ -5733,8 +5335,7 @@
   "resource-policies.delete.failure.content": "An error occurred while deleting selected resource policies.",
 
   // "resource-policies.delete.success.content": "Operation successful",
-  // TODO New key - Add a translation
-  "resource-policies.delete.success.content": "Operation successful",
+  "resource-policies.delete.success.content": "Operação com sucesso",
 
   // "resource-policies.edit.page.heading": "Edit resource policy ",
   // TODO New key - Add a translation
@@ -5753,8 +5354,7 @@
   "resource-policies.edit.page.other-failure.content": "An error occurred while editing the resource policy. The target (ePerson or group) has been successfully updated.",
 
   // "resource-policies.edit.page.success.content": "Operation successful",
-  // TODO New key - Add a translation
-  "resource-policies.edit.page.success.content": "Operation successful",
+  "resource-policies.edit.page.success.content": "Operação com sucesso",
 
   // "resource-policies.edit.page.title": "Edit resource policy",
   // TODO New key - Add a translation
@@ -5773,32 +5373,26 @@
   "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
 
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.select.btn": "Select",
+  "resource-policies.form.eperson-group-list.select.btn": "Selecione",
 
   // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
   // TODO New key - Add a translation
   "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
 
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
+  "resource-policies.form.eperson-group-list.tab.group": "Procurar por um grupo",
 
   // "resource-policies.form.eperson-group-list.table.headers.action": "Action",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.table.headers.action": "Action",
+  "resource-policies.form.eperson-group-list.table.headers.action": "Ação",
 
   // "resource-policies.form.eperson-group-list.table.headers.id": "ID",
-  // TODO New key - Add a translation
   "resource-policies.form.eperson-group-list.table.headers.id": "ID",
 
   // "resource-policies.form.eperson-group-list.table.headers.name": "Name",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.table.headers.name": "Name",
+  "resource-policies.form.eperson-group-list.table.headers.name": "Nome",
 
   // "resource-policies.form.eperson-group-list.modal.header": "Cannot change type",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.modal.header": "Cannot change type",
+  "resource-policies.form.eperson-group-list.modal.header": "Não posso alterar o tipo",
 
   // "resource-policies.form.eperson-group-list.modal.text1.toGroup": "It is not possible to replace an ePerson with a group.",
   // TODO New key - Add a translation
@@ -5813,95 +5407,75 @@
   "resource-policies.form.eperson-group-list.modal.text2": "Delete the current resource policy and create a new one with the desired type.",
 
   // "resource-policies.form.eperson-group-list.modal.close": "Ok",
-  // TODO New key - Add a translation
   "resource-policies.form.eperson-group-list.modal.close": "Ok",
 
   // "resource-policies.form.date.end.label": "End Date",
-  // TODO New key - Add a translation
-  "resource-policies.form.date.end.label": "End Date",
+  "resource-policies.form.date.end.label": "Data Fim",
 
   // "resource-policies.form.date.start.label": "Start Date",
-  // TODO New key - Add a translation
-  "resource-policies.form.date.start.label": "Start Date",
+  "resource-policies.form.date.start.label": "Data Início",
 
   // "resource-policies.form.description.label": "Description",
-  // TODO New key - Add a translation
-  "resource-policies.form.description.label": "Description",
+  "resource-policies.form.description.label": "Descrição",
 
   // "resource-policies.form.name.label": "Name",
-  // TODO New key - Add a translation
-  "resource-policies.form.name.label": "Name",
+  "resource-policies.form.name.label": "Nome",
 
   // "resource-policies.form.policy-type.label": "Select the policy type",
-  // TODO New key - Add a translation
-  "resource-policies.form.policy-type.label": "Select the policy type",
+  "resource-policies.form.policy-type.label": "Selecione o tipo política",
 
   // "resource-policies.form.policy-type.required": "You must select the resource policy type.",
   // TODO New key - Add a translation
   "resource-policies.form.policy-type.required": "You must select the resource policy type.",
 
   // "resource-policies.table.headers.action": "Action",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.action": "Action",
+  "resource-policies.table.headers.action": "Ação",
 
   // "resource-policies.table.headers.date.end": "End Date",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.date.end": "End Date",
+  "resource-policies.table.headers.date.end": "Data Fim",
 
   // "resource-policies.table.headers.date.start": "Start Date",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.date.start": "Start Date",
+  "resource-policies.table.headers.date.start": "Data Início",
 
   // "resource-policies.table.headers.edit": "Edit",
   "resource-policies.table.headers.edit": "Editar",
 
   // "resource-policies.table.headers.edit.group": "Edit group",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.edit.group": "Edit group",
+  "resource-policies.table.headers.edit.group": "Editar grupo",
 
   // "resource-policies.table.headers.edit.policy": "Edit policy",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.edit.policy": "Edit policy",
+  "resource-policies.table.headers.edit.policy": "Editar política",
 
   // "resource-policies.table.headers.eperson": "EPerson",
-  // TODO New key - Add a translation
   "resource-policies.table.headers.eperson": "EPerson",
 
   // "resource-policies.table.headers.group": "Group",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.group": "Group",
+  "resource-policies.table.headers.group": "Grupo",
 
   // "resource-policies.table.headers.id": "ID",
-  // TODO New key - Add a translation
   "resource-policies.table.headers.id": "ID",
 
   // "resource-policies.table.headers.name": "Name",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.name": "Name",
+  "resource-policies.table.headers.name": "Nome",
 
   // "resource-policies.table.headers.policyType": "type",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.policyType": "type",
+  "resource-policies.table.headers.policyType": "tipo",
 
   // "resource-policies.table.headers.title.for.bitstream": "Policies for Bitstream",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.bitstream": "Policies for Bitstream",
+  "resource-policies.table.headers.title.for.bitstream": "Políticas para Bitstream",
 
   // "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
   // TODO New key - Add a translation
   "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
 
   // "resource-policies.table.headers.title.for.item": "Policies for Item",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.item": "Policies for Item",
+  "resource-policies.table.headers.title.for.item": "Políticas para Item",
 
   // "resource-policies.table.headers.title.for.community": "Policies for Community",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.community": "Policies for Community",
+  "resource-policies.table.headers.title.for.community": "Políticas para Comunidade",
 
   // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.collection": "Policies for Collection",
+  "resource-policies.table.headers.title.for.collection": "Políticas para Coleção",
 
 
 
@@ -6014,8 +5588,7 @@
   "search.filters.filter.creativeWorkEditor.placeholder": "Editor",
 
   // "search.filters.filter.creativeWorkEditor.label": "Search editor",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkEditor.label": "Search editor",
+  "search.filters.filter.creativeWorkEditor.label": "Pesquisar editor",
 
   // "search.filters.filter.creativeWorkKeywords.head": "Subject",
   "search.filters.filter.creativeWorkKeywords.head": "Assunto",
@@ -6024,8 +5597,7 @@
   "search.filters.filter.creativeWorkKeywords.placeholder": "Assunto",
 
   // "search.filters.filter.creativeWorkKeywords.label": "Search subject",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkKeywords.label": "Search subject",
+  "search.filters.filter.creativeWorkKeywords.label": "Pesquisar assunto",
 
   // "search.filters.filter.creativeWorkPublisher.head": "Publisher",
   "search.filters.filter.creativeWorkPublisher.head": "Editora",
@@ -6034,8 +5606,7 @@
   "search.filters.filter.creativeWorkPublisher.placeholder": "Editora",
 
   // "search.filters.filter.creativeWorkPublisher.label": "Search publisher",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkPublisher.label": "Search publisher",
+  "search.filters.filter.creativeWorkPublisher.label": "Search editora",
 
   // "search.filters.filter.dateIssued.head": "Date",
   "search.filters.filter.dateIssued.head": "Data",
@@ -6050,8 +5621,7 @@
   "search.filters.filter.dateIssued.min.placeholder": "Data Mínima",
 
   // "search.filters.filter.dateIssued.min.label": "Start",
-  // TODO New key - Add a translation
-  "search.filters.filter.dateIssued.min.label": "Start",
+  "search.filters.filter.dateIssued.min.label": "Início",
 
   // "search.filters.filter.dateSubmitted.head": "Date submitted",
   "search.filters.filter.dateSubmitted.head": "Data de submissão",
@@ -6060,8 +5630,7 @@
   "search.filters.filter.dateSubmitted.placeholder": "Data de submissão",
 
   // "search.filters.filter.dateSubmitted.label": "Search date submitted",
-  // TODO New key - Add a translation
-  "search.filters.filter.dateSubmitted.label": "Search date submitted",
+  "search.filters.filter.dateSubmitted.label": "Procurar data de submissão",
 
   // "search.filters.filter.discoverable.head": "Non-discoverable",
   // TODO New key - Add a translation
@@ -6078,12 +5647,10 @@
   "search.filters.filter.entityType.placeholder": "Tipo de Item",
 
   // "search.filters.filter.entityType.label": "Search item type",
-  // TODO New key - Add a translation
-  "search.filters.filter.entityType.label": "Search item type",
+  "search.filters.filter.entityType.label": "Procurar tipo de item",
 
   // "search.filters.filter.expand": "Expand filter",
-  // TODO New key - Add a translation
-  "search.filters.filter.expand": "Expand filter",
+  "search.filters.filter.expand": "Expandir filtro",
 
   // "search.filters.filter.has_content_in_original_bundle.head": "Has files",
   "search.filters.filter.has_content_in_original_bundle.head": "Tem arquivos",
@@ -6095,8 +5662,7 @@
   "search.filters.filter.itemtype.placeholder": "Tipo",
 
   // "search.filters.filter.itemtype.label": "Search type",
-  // TODO New key - Add a translation
-  "search.filters.filter.itemtype.label": "Search type",
+  "search.filters.filter.itemtype.label": "Procurar tipo",
 
   // "search.filters.filter.jobTitle.head": "Job Title",
   "search.filters.filter.jobTitle.head": "Cargo",
@@ -6105,8 +5671,7 @@
   "search.filters.filter.jobTitle.placeholder": "Cargo",
 
   // "search.filters.filter.jobTitle.label": "Search job title",
-  // TODO New key - Add a translation
-  "search.filters.filter.jobTitle.label": "Search job title",
+  "search.filters.filter.jobTitle.label": "Procurar cargo",
 
   // "search.filters.filter.knowsLanguage.head": "Known language",
   "search.filters.filter.knowsLanguage.head": "Idioma conhecido",
@@ -6115,8 +5680,7 @@
   "search.filters.filter.knowsLanguage.placeholder": "Idioma conhecido",
 
   // "search.filters.filter.knowsLanguage.label": "Search known language",
-  // TODO New key - Add a translation
-  "search.filters.filter.knowsLanguage.label": "Search known language",
+  "search.filters.filter.knowsLanguage.label": "Procurar Idioma conhecido",
 
   // "search.filters.filter.namedresourcetype.head": "Status",
   "search.filters.filter.namedresourcetype.head": "Estado",
@@ -6125,8 +5689,7 @@
   "search.filters.filter.namedresourcetype.placeholder": "Estado",
 
   // "search.filters.filter.namedresourcetype.label": "Search status",
-  // TODO New key - Add a translation
-  "search.filters.filter.namedresourcetype.label": "Search status",
+  "search.filters.filter.namedresourcetype.label": "Procurar por estado",
 
   // "search.filters.filter.objectpeople.head": "People",
   "search.filters.filter.objectpeople.head": "Pessoas",
@@ -6135,8 +5698,7 @@
   "search.filters.filter.objectpeople.placeholder": "Pessoas",
 
   // "search.filters.filter.objectpeople.label": "Search people",
-  // TODO New key - Add a translation
-  "search.filters.filter.objectpeople.label": "Search people",
+  "search.filters.filter.objectpeople.label": "Procurar pessoas",
 
   // "search.filters.filter.organizationAddressCountry.head": "Country",
   "search.filters.filter.organizationAddressCountry.head": "País",
@@ -6145,8 +5707,7 @@
   "search.filters.filter.organizationAddressCountry.placeholder": "País",
 
   // "search.filters.filter.organizationAddressCountry.label": "Search country",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressCountry.label": "Search country",
+  "search.filters.filter.organizationAddressCountry.label": "Procurar país",
 
   // "search.filters.filter.organizationAddressLocality.head": "City",
   "search.filters.filter.organizationAddressLocality.head": "Cidade",
@@ -6155,8 +5716,7 @@
   "search.filters.filter.organizationAddressLocality.placeholder": "Cidade",
 
   // "search.filters.filter.organizationAddressLocality.label": "Search city",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressLocality.label": "Search city",
+  "search.filters.filter.organizationAddressLocality.label": "Procurar cidade",
 
   // "search.filters.filter.organizationFoundingDate.head": "Date Founded",
   "search.filters.filter.organizationFoundingDate.head": "Data de Fundação",
@@ -6165,8 +5725,7 @@
   "search.filters.filter.organizationFoundingDate.placeholder": "Data de Fundação",
 
   // "search.filters.filter.organizationFoundingDate.label": "Search date founded",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationFoundingDate.label": "Search date founded",
+  "search.filters.filter.organizationFoundingDate.label": "Procurar Data de Fundação",
 
   // "search.filters.filter.scope.head": "Scope",
   "search.filters.filter.scope.head": "Escopo",
@@ -6175,8 +5734,7 @@
   "search.filters.filter.scope.placeholder": "Filtrar escopo",
 
   // "search.filters.filter.scope.label": "Search scope filter",
-  // TODO New key - Add a translation
-  "search.filters.filter.scope.label": "Search scope filter",
+  "search.filters.filter.scope.label": "Procurar filtro de escopo",
 
   // "search.filters.filter.show-less": "Collapse",
   "search.filters.filter.show-less": "Mostrar menos",
@@ -6191,8 +5749,7 @@
   "search.filters.filter.subject.placeholder": "Assunto",
 
   // "search.filters.filter.subject.label": "Search subject",
-  // TODO New key - Add a translation
-  "search.filters.filter.subject.label": "Search subject",
+  "search.filters.filter.subject.label": "Procurar assunto",
 
   // "search.filters.filter.submitter.head": "Submitter",
   "search.filters.filter.submitter.head": "Submetedor",
@@ -6201,8 +5758,7 @@
   "search.filters.filter.submitter.placeholder": "Submetedor",
 
   // "search.filters.filter.submitter.label": "Search submitter",
-  // TODO New key - Add a translation
-  "search.filters.filter.submitter.label": "Search submitter",
+  "search.filters.filter.submitter.label": "Procurar submetedor",
 
 
 
@@ -6243,8 +5799,7 @@
   "search.filters.reset": "Limpar filtros",
 
   // "search.filters.search.submit": "Submit",
-  // TODO New key - Add a translation
-  "search.filters.search.submit": "Submit",
+  "search.filters.search.submit": "Submeter",
 
 
 
@@ -6272,20 +5827,16 @@
   "search.results.empty": "Sua pesquisa não retornou resultados.",
 
   // "search.results.view-result": "View",
-  // TODO New key - Add a translation
-  "search.results.view-result": "View",
+  "search.results.view-result": "Visão",
 
   // "search.results.response.500": "An error occurred during query execution, please try again later",
-  // TODO New key - Add a translation
-  "search.results.response.500": "An error occurred during query execution, please try again later",
+  "search.results.response.500": "Ocorreu um erro durante a execução da consulta. Tente novamente mais tarde",
 
   // "default.search.results.head": "Search Results",
-  // TODO New key - Add a translation
-  "default.search.results.head": "Search Results",
+  "default.search.results.head": "Resultados de Busca",
 
   // "default-relationships.search.results.head": "Search Results",
-  // TODO New key - Add a translation
-  "default-relationships.search.results.head": "Search Results",
+  "default-relationships.search.results.head": "Resultados de Busca",
 
 
   // "search.sidebar.close": "Back to results",
@@ -6323,12 +5874,10 @@
 
 
   // "sorting.ASC": "Ascending",
-  // TODO New key - Add a translation
-  "sorting.ASC": "Ascending",
+  "sorting.ASC": "Ascendente",
 
   // "sorting.DESC": "Descending",
-  // TODO New key - Add a translation
-  "sorting.DESC": "Descending",
+  "sorting.DESC": "Descendente",
 
   // "sorting.dc.title.ASC": "Title Ascending",
   "sorting.dc.title.ASC": "Título Ascendente",
@@ -6337,19 +5886,16 @@
   "sorting.dc.title.DESC": "Título Descendente",
 
   // "sorting.score.ASC": "Least Relevant",
-  // TODO New key - Add a translation
-  "sorting.score.ASC": "Least Relevant",
+  "sorting.score.ASC": "Menos relevante",
 
   // "sorting.score.DESC": "Most Relevant",
   "sorting.score.DESC": "Mais Relevante",
 
   // "sorting.dc.date.issued.ASC": "Date Issued Ascending",
-  // TODO New key - Add a translation
-  "sorting.dc.date.issued.ASC": "Date Issued Ascending",
+  "sorting.dc.date.issued.ASC": "Data de emissão ascendente",
 
   // "sorting.dc.date.issued.DESC": "Date Issued Descending",
-  // TODO New key - Add a translation
-  "sorting.dc.date.issued.DESC": "Date Issued Descending",
+  "sorting.dc.date.issued.DESC": "Data de emissão descendente",
 
   // "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
   // TODO New key - Add a translation
@@ -6369,61 +5915,48 @@
 
 
   // "statistics.title": "Statistics",
-  // TODO New key - Add a translation
-  "statistics.title": "Statistics",
+  "statistics.title": "Estatisticas",
 
   // "statistics.header": "Statistics for {{ scope }}",
-  // TODO New key - Add a translation
-  "statistics.header": "Statistics for {{ scope }}",
+  "statistics.header": "Estatisticas para {{ scope }}",
 
   // "statistics.breadcrumbs": "Statistics",
-  // TODO New key - Add a translation
-  "statistics.breadcrumbs": "Statistics",
+  "statistics.breadcrumbs": "Estatisticas",
 
   // "statistics.page.no-data": "No data available",
-  // TODO New key - Add a translation
-  "statistics.page.no-data": "No data available",
+  "statistics.page.no-data": "Nenhum dado disponível",
 
   // "statistics.table.no-data": "No data available",
-  // TODO New key - Add a translation
-  "statistics.table.no-data": "No data available",
+  "statistics.table.no-data": "Nenhum dado disponível",
 
   // "statistics.table.title.TotalVisits": "Total visits",
-  // TODO New key - Add a translation
-  "statistics.table.title.TotalVisits": "Total visits",
+  "statistics.table.title.TotalVisits": "Total visitas",
 
   // "statistics.table.title.TotalVisitsPerMonth": "Total visits per month",
-  // TODO New key - Add a translation
-  "statistics.table.title.TotalVisitsPerMonth": "Total visits per month",
+  "statistics.table.title.TotalVisitsPerMonth": "Total visitas por mês",
 
   // "statistics.table.title.TotalDownloads": "File Visits",
-  // TODO New key - Add a translation
-  "statistics.table.title.TotalDownloads": "File Visits",
+  "statistics.table.title.TotalDownloads": "Visitas Arquivos",
 
   // "statistics.table.title.TopCountries": "Top country views",
-  // TODO New key - Add a translation
-  "statistics.table.title.TopCountries": "Top country views",
+  "statistics.table.title.TopCountries": "Maiores visualizações por país",
 
   // "statistics.table.title.TopCities": "Top city views",
-  // TODO New key - Add a translation
-  "statistics.table.title.TopCities": "Top city views",
+  "statistics.table.title.TopCities": "Maiores visualizações por cidade",
 
   // "statistics.table.header.views": "Views",
-  // TODO New key - Add a translation
-  "statistics.table.header.views": "Views",
+  "statistics.table.header.views": "Visão",
 
 
 
   // "submission.edit.breadcrumbs": "Edit Submission",
-  // TODO New key - Add a translation
-  "submission.edit.breadcrumbs": "Edit Submission",
+  "submission.edit.breadcrumbs": "Editar Submissão",
 
   // "submission.edit.title": "Edit Submission",
   "submission.edit.title": "Editar Submissão",
 
   // "submission.general.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "submission.general.cancel": "Cancel",
+  "submission.general.cancel": "Cancelar",
 
   // "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
   "submission.general.cannot_submit": "Você mão tem privilégios para fazer uma nova submissão.",
@@ -6447,12 +5980,10 @@
   "submission.general.discard.submit": "Descartar",
 
   // "submission.general.info.saved": "Saved",
-  // TODO New key - Add a translation
-  "submission.general.info.saved": "Saved",
+  "submission.general.info.saved": "Salvo",
 
   // "submission.general.info.pending-changes": "Unsaved changes",
-  // TODO New key - Add a translation
-  "submission.general.info.pending-changes": "Unsaved changes",
+  "submission.general.info.pending-changes": "Modificações não salvas",
 
   // "submission.general.save": "Save",
   "submission.general.save": "Salvar",
@@ -6462,12 +5993,10 @@
 
 
   // "submission.import-external.page.title": "Import metadata from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.page.title": "Import metadata from an external source",
+  "submission.import-external.page.title": "Importar metadados de fonte externa",
 
   // "submission.import-external.title": "Import metadata from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title": "Import metadata from an external source",
+  "submission.import-external.title": "Importar metadados de fonte externa",
 
   // "submission.import-external.title.Journal": "Import a journal from an external source",
   // TODO New key - Add a translation
@@ -6486,175 +6015,137 @@
   "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.Person": "Import a person from an external source",
+  "submission.import-external.title.Person": "Importar uma pessoa de uma fonte externa",
 
   // "submission.import-external.title.Project": "Import a project from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.Project": "Import a project from an external source",
+  "submission.import-external.title.Project": "Importar um projeto de uma fonte externa",
 
   // "submission.import-external.title.Publication": "Import a publication from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.Publication": "Import a publication from an external source",
+  "submission.import-external.title.Publication": "Importar uma publicação de uma fonte externa",
 
   // "submission.import-external.title.none": "Import metadata from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.none": "Import metadata from an external source",
+  "submission.import-external.title.none": "Importar metadados de uma fonte externa",
 
   // "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
   // TODO New key - Add a translation
   "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
 
   // "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
-  // TODO New key - Add a translation
-  "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
+  "submission.import-external.back-to-my-dspace": "Voltar para o MyDSpace",
 
   // "submission.import-external.search.placeholder": "Search the external source",
-  // TODO New key - Add a translation
-  "submission.import-external.search.placeholder": "Search the external source",
+  "submission.import-external.search.placeholder": "Procurar de uma fonte externa",
 
   // "submission.import-external.search.button": "Search",
-  // TODO New key - Add a translation
-  "submission.import-external.search.button": "Search",
+  "submission.import-external.search.button": "Procurar",
 
   // "submission.import-external.search.button.hint": "Write some words to search",
   // TODO New key - Add a translation
   "submission.import-external.search.button.hint": "Write some words to search",
 
   // "submission.import-external.search.source.hint": "Pick an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.search.source.hint": "Pick an external source",
+  "submission.import-external.search.source.hint": "Escolha uma fonte externa",
 
   // "submission.import-external.source.arxiv": "arXiv",
-  // TODO New key - Add a translation
   "submission.import-external.source.arxiv": "arXiv",
 
   // "submission.import-external.source.ads": "NASA/ADS",
-  // TODO New key - Add a translation
   "submission.import-external.source.ads": "NASA/ADS",
 
   // "submission.import-external.source.cinii": "CiNii",
-  // TODO New key - Add a translation
   "submission.import-external.source.cinii": "CiNii",
 
   // "submission.import-external.source.crossref": "CrossRef",
-  // TODO New key - Add a translation
   "submission.import-external.source.crossref": "CrossRef",
 
   // "submission.import-external.source.scielo": "SciELO",
-  // TODO New key - Add a translation
   "submission.import-external.source.scielo": "SciELO",
 
   // "submission.import-external.source.scopus": "Scopus",
-  // TODO New key - Add a translation
   "submission.import-external.source.scopus": "Scopus",
 
   // "submission.import-external.source.vufind": "VuFind",
-  // TODO New key - Add a translation
   "submission.import-external.source.vufind": "VuFind",
 
   // "submission.import-external.source.wos": "Web Of Science",
-  // TODO New key - Add a translation
   "submission.import-external.source.wos": "Web Of Science",
 
   // "submission.import-external.source.orcidWorks": "ORCID",
-  // TODO New key - Add a translation
   "submission.import-external.source.orcidWorks": "ORCID",
 
   // "submission.import-external.source.epo": "European Patent Office (EPO)",
-  // TODO New key - Add a translation
   "submission.import-external.source.epo": "European Patent Office (EPO)",
 
   // "submission.import-external.source.loading": "Loading ...",
-  // TODO New key - Add a translation
-  "submission.import-external.source.loading": "Loading ...",
+  "submission.import-external.source.loading": "Carregando ...",
 
   // "submission.import-external.source.sherpaJournal": "SHERPA Journals",
-  // TODO New key - Add a translation
   "submission.import-external.source.sherpaJournal": "SHERPA Journals",
 
   // "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
-  // TODO New key - Add a translation
   "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
 
   // "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
-  // TODO New key - Add a translation
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
 
   // "submission.import-external.source.openAIREFunding": "Funding OpenAIRE API",
-  // TODO New key - Add a translation
   "submission.import-external.source.openAIREFunding": "Funding OpenAIRE API",
 
   // "submission.import-external.source.orcid": "ORCID",
-  // TODO New key - Add a translation
   "submission.import-external.source.orcid": "ORCID",
 
   // "submission.import-external.source.pubmed": "Pubmed",
-  // TODO New key - Add a translation
   "submission.import-external.source.pubmed": "Pubmed",
 
   // "submission.import-external.source.pubmedeu": "Pubmed Europe",
-  // TODO New key - Add a translation
   "submission.import-external.source.pubmedeu": "Pubmed Europe",
 
   // "submission.import-external.source.lcname": "Library of Congress Names",
-  // TODO New key - Add a translation
   "submission.import-external.source.lcname": "Library of Congress Names",
 
   // "submission.import-external.preview.title": "Item Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title": "Item Preview",
+  "submission.import-external.preview.title": "Item Previsão",
 
   // "submission.import-external.preview.title.Publication": "Publication Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Publication": "Publication Preview",
+  "submission.import-external.preview.title.Publication": "Publicação Previsão",
 
   // "submission.import-external.preview.title.none": "Item Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.none": "Item Preview",
+  "submission.import-external.preview.title.none": "Item Previsão",
 
   // "submission.import-external.preview.title.Journal": "Journal Preview",
   // TODO New key - Add a translation
   "submission.import-external.preview.title.Journal": "Journal Preview",
 
   // "submission.import-external.preview.title.OrgUnit": "Organizational Unit Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.OrgUnit": "Organizational Unit Preview",
+  "submission.import-external.preview.title.OrgUnit": "Unidade Organizacional Previsão",
 
   // "submission.import-external.preview.title.Person": "Person Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Person": "Person Preview",
+  "submission.import-external.preview.title.Person": "Pessoa Previsão",
 
   // "submission.import-external.preview.title.Project": "Project Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Project": "Project Preview",
+  "submission.import-external.preview.title.Project": "Projeto Previsão",
 
   // "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
   // TODO New key - Add a translation
   "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
 
   // "submission.import-external.preview.button.import": "Start submission",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.button.import": "Start submission",
+  "submission.import-external.preview.button.import": "Iniciar submissão",
 
   // "submission.import-external.preview.error.import.title": "Submission error",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.error.import.title": "Submission error",
+  "submission.import-external.preview.error.import.title": "Erro submissão",
 
   // "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
+  "submission.import-external.preview.error.import.body": "Ocorreu um erro durante o processo de importação da entrada de origem externa.",
 
   // "submission.sections.describe.relationship-lookup.close": "Close",
   "submission.sections.describe.relationship-lookup.close": "Fechar",
 
   // "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.added": "Entrada local adicionada com sucesso à seleção",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Importar autor remoto",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Import remote journal",
   // TODO New key - Add a translation
@@ -6669,8 +6160,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Projeto",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Import remote item",
   // TODO New key - Add a translation
@@ -6717,8 +6207,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Projeto",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
   // TODO New key - Add a translation
@@ -6745,8 +6234,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority.new": "Import as a new local authority entry",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Cancel",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Cancelar",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Select a collection to import new entries to",
   // TODO New key - Add a translation
@@ -6761,8 +6249,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.entities.new": "Import as a new local entity",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importing from LC Name",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importing from LC Name",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importando do LC Name",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importando do ORCID",
@@ -6771,20 +6258,16 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importando do Sherpa Journal",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importando do Sherpa Publisher",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importando do PubMed",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importing from arXiv",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importing from arXiv",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importando do arXiv",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Importar",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.title": "Import Remote Journal",
   // TODO New key - Add a translation
@@ -6827,12 +6310,10 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Select a local match:",
 
   // "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
+  "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Desmarcar todos",
 
   // "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Deselect page",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Deselect page",
+  "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Desmarcar página",
 
   // "submission.sections.describe.relationship-lookup.search-tab.loading": "Loading...",
   "submission.sections.describe.relationship-lookup.search-tab.loading": "Carregando...",
@@ -6842,20 +6323,16 @@
   "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
 
   // "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
+  "submission.sections.describe.relationship-lookup.search-tab.search": "Ir",
 
   // "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
+  "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Procurar...",
 
   // "submission.sections.describe.relationship-lookup.search-tab.select-all": "Select all",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.select-all": "Select all",
+  "submission.sections.describe.relationship-lookup.search-tab.select-all": "Selecionar todos",
 
   // "submission.sections.describe.relationship-lookup.search-tab.select-page": "Select page",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.select-page": "Select page",
+  "submission.sections.describe.relationship-lookup.search-tab.select-page": "Selecionar página",
 
   // "submission.sections.describe.relationship-lookup.selected": "Selected {{ size }} items",
   // TODO New key - Add a translation
@@ -6911,27 +6388,21 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC Names ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC Names ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.pubmed": "PubMed ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.pubmed": "PubMed ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.arxiv": "arXiv ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.arxiv": "arXiv ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
@@ -6951,8 +6422,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projetos",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
   // TODO New key - Add a translation
@@ -6963,12 +6433,10 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Projeto",
 
   // "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
+  "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projetos",
 
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
   // TODO New key - Add a translation
@@ -6978,12 +6446,10 @@
 
 
   // "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
+  "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Procurar...",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
+  "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Seleção Atual ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
   // TODO New key - Add a translation
@@ -7004,8 +6470,7 @@
   "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Journals",
 
   // "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Authors",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Authors",
+  "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Autores",
 
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
   // TODO New key - Add a translation
@@ -7015,20 +6480,16 @@
   "submission.sections.describe.relationship-lookup.title.Project": "Projects",
 
   // "submission.sections.describe.relationship-lookup.title.Publication": "Publications",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.Publication": "Publications",
+  "submission.sections.describe.relationship-lookup.title.Publication": "Publicações",
 
   // "submission.sections.describe.relationship-lookup.title.Person": "Authors",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.Person": "Authors",
+  "submission.sections.describe.relationship-lookup.title.Person": "Autores",
 
   // "submission.sections.describe.relationship-lookup.title.OrgUnit": "Organizational Units",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.OrgUnit": "Organizational Units",
+  "submission.sections.describe.relationship-lookup.title.OrgUnit": "Unidade Organizacional",
 
   // "submission.sections.describe.relationship-lookup.title.DataPackage": "Data Packages",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.DataPackage": "Data Packages",
+  "submission.sections.describe.relationship-lookup.title.DataPackage": "Pacotes de Dados",
 
   // "submission.sections.describe.relationship-lookup.title.DataFile": "Data Files",
   // TODO New key - Add a translation
@@ -7051,16 +6512,13 @@
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.settings": "Settings",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.settings": "Settings",
+  "submission.sections.describe.relationship-lookup.selection-tab.settings": "Configurações",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "Your selection is currently empty.",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "Your selection is currently empty.",
+  "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "Sua seleção atual está vazia.",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Selected Authors",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Selected Authors",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Autores Selecionados",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
   // TODO New key - Add a translation
@@ -7070,16 +6528,14 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Projetos Selecionados",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Selected Publications",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Selected Publications",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Selected Authors",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Selected Authors",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Autores Selecionados",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.OrgUnit": "Selected Organizational Units",
   // TODO New key - Add a translation
@@ -7120,56 +6576,43 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Resultados da pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Resultados da pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Resultados da pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Resultados da pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Resultados da pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Resultados da pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Resultados da pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Resultados da pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Resultados da pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Resultados da pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Resultados da pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Resultados da pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title": "Resultados da pesquisa",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
   // TODO New key - Add a translation
@@ -7564,11 +7007,9 @@
   "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
 
   // "submission.sections.sherpa.publisher.policy.version": "Version",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.version": "Version",
+  "submission.sections.sherpa.publisher.policy.version": "Versão",
 
   // "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
-  // TODO New key - Add a translation
   "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
 
   // "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
@@ -7576,47 +7017,37 @@
   "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
 
   // "submission.sections.sherpa.publisher.policy.nolocation": "None",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.nolocation": "None",
+  "submission.sections.sherpa.publisher.policy.nolocation": "Nenhum",
 
   // "submission.sections.sherpa.publisher.policy.license": "License",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.license": "License",
+  "submission.sections.sherpa.publisher.policy.license": "Licenças",
 
   // "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
+  "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisitos",
 
   // "submission.sections.sherpa.publisher.policy.location": "Location",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.location": "Location",
+  "submission.sections.sherpa.publisher.policy.location": "Localização",
 
   // "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
+  "submission.sections.sherpa.publisher.policy.conditions": "Condições",
 
   // "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
+  "submission.sections.sherpa.publisher.policy.refresh": "Atualizar",
 
   // "submission.sections.sherpa.record.information": "Record Information",
   // TODO New key - Add a translation
   "submission.sections.sherpa.record.information": "Record Information",
 
   // "submission.sections.sherpa.record.information.id": "ID",
-  // TODO New key - Add a translation
   "submission.sections.sherpa.record.information.id": "ID",
 
   // "submission.sections.sherpa.record.information.date.created": "Date Created",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.record.information.date.created": "Date Created",
+  "submission.sections.sherpa.record.information.date.created": "Data de Criação",
 
   // "submission.sections.sherpa.record.information.date.modified": "Last Modified",
-  // TODO New key - Add a translation
-  "submission.sections.sherpa.record.information.date.modified": "Last Modified",
+  "submission.sections.sherpa.record.information.date.modified": "Última modificação",
 
   // "submission.sections.sherpa.record.information.uri": "URI",
-  // TODO New key - Add a translation
   "submission.sections.sherpa.record.information.uri": "URI",
 
   // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
@@ -7630,7 +7061,6 @@
 
   // "submission.submit.title": "New submission",
   "submission.submit.title": "Novo envio",
-
 
 
   // "submission.workflow.generic.delete": "Delete",
@@ -7650,7 +7080,6 @@
 
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
   "submission.workflow.generic.view-help": "Selecione esta opção para ver o metadados do item.",
-
 
 
   // "submission.workflow.tasks.claimed.approve": "Approve",
@@ -7690,7 +7119,6 @@
   "submission.workflow.tasks.claimed.return_help": "Retornar a tarefa para o conjunto para que outra pessoa possa a fazer.",
 
 
-
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
   "submission.workflow.tasks.generic.error": "Ocorreu um erro durante a operação...",
 
@@ -7702,8 +7130,6 @@
 
   // "submission.workflow.tasks.generic.success": "Operation successful",
   "submission.workflow.tasks.generic.success": "Operação realizada com sucesso",
-
-
 
   // "submission.workflow.tasks.pool.claim": "Claim",
   "submission.workflow.tasks.pool.claim": "Requerer",
@@ -7719,8 +7145,7 @@
 
 
   // "submission.workspace.generic.view": "View",
-  // TODO New key - Add a translation
-  "submission.workspace.generic.view": "View",
+  "submission.workspace.generic.view": "Visualizar",
 
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
   // TODO New key - Add a translation
@@ -7728,16 +7153,13 @@
 
 
   // "thumbnail.default.alt": "Thumbnail Image",
-  // TODO New key - Add a translation
-  "thumbnail.default.alt": "Thumbnail Image",
+  "thumbnail.default.alt": "Imagem de Thumbnail Image",
 
   // "thumbnail.default.placeholder": "No Thumbnail Available",
-  // TODO New key - Add a translation
-  "thumbnail.default.placeholder": "No Thumbnail Available",
+  "thumbnail.default.placeholder": "Nenhuma Miniatura disponível",
 
   // "thumbnail.project.alt": "Project Logo",
-  // TODO New key - Add a translation
-  "thumbnail.project.alt": "Project Logo",
+  "thumbnail.project.alt": "Logo do Projetpo",
 
   // "thumbnail.project.placeholder": "Project Placeholder Image",
   // TODO New key - Add a translation
@@ -7803,8 +7225,7 @@
   "uploader.drag-message": "Clique e arraste seus arquivos aqui",
 
   // "uploader.delete.btn-title": "Delete",
-  // TODO New key - Add a translation
-  "uploader.delete.btn-title": "Delete",
+  "uploader.delete.btn-title": "Apagar",
 
   // "uploader.or": ", or ",
   "uploader.or": ", ou ",
@@ -7876,13 +7297,10 @@
   "workflow-item.delete.header": "Delete workflow item",
 
   // "workflow-item.delete.button.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "workflow-item.delete.button.cancel": "Cancel",
+  "workflow-item.delete.button.cancel": "Cancelar",
 
   // "workflow-item.delete.button.confirm": "Delete",
-  // TODO New key - Add a translation
-  "workflow-item.delete.button.confirm": "Delete",
-
+  "workflow-item.delete.button.confirm": "Apagar",
 
   // "workflow-item.send-back.notification.success.title": "Sent back to submitter",
   // TODO New key - Add a translation
@@ -7909,12 +7327,10 @@
   "workflow-item.send-back.header": "Send workflow item back to submitter",
 
   // "workflow-item.send-back.button.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.button.cancel": "Cancel",
+  "workflow-item.send-back.button.cancel": "Cancelar",
 
   // "workflow-item.send-back.button.confirm": "Send back",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.button.confirm": "Send back",
+  "workflow-item.send-back.button.confirm": "Devolver",
 
   // "workflow-item.view.breadcrumbs": "Workflow View",
   // TODO New key - Add a translation
@@ -7925,28 +7341,23 @@
   "workspace-item.view.breadcrumbs": "Workspace View",
 
   // "workspace-item.view.title": "Workspace View",
-  // TODO New key - Add a translation
-  "workspace-item.view.title": "Workspace View",
+  "workspace-item.view.title": "Visão do Workspace",
 
   // "idle-modal.header": "Session will expire soon",
-  // TODO New key - Add a translation
-  "idle-modal.header": "Session will expire soon",
+  "idle-modal.header": "Sessão vai exoirar em breve",
 
   // "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
   // TODO New key - Add a translation
   "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
 
   // "idle-modal.log-out": "Log out",
-  // TODO New key - Add a translation
-  "idle-modal.log-out": "Log out",
+  "idle-modal.log-out": "Deslogar",
 
   // "idle-modal.extend-session": "Extend session",
-  // TODO New key - Add a translation
-  "idle-modal.extend-session": "Extend session",
+  "idle-modal.extend-session": "Extender sessão",
 
   // "researcher.profile.action.processing" : "Processing...",
-  // TODO New key - Add a translation
-  "researcher.profile.action.processing" : "Processing...",
+  "researcher.profile.action.processing" : "Processando...",
 
   // "researcher.profile.associated": "Researcher profile associated",
   // TODO New key - Add a translation
@@ -7957,8 +7368,7 @@
   "researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
 
   // "researcher.profile.create.new": "Create new",
-  // TODO New key - Add a translation
-  "researcher.profile.create.new": "Create new",
+  "researcher.profile.create.new": "Criar novo",
 
   // "researcher.profile.create.success": "Researcher profile created successfully",
   // TODO New key - Add a translation
@@ -7969,35 +7379,28 @@
   "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
 
   // "researcher.profile.delete": "Delete",
-  // TODO New key - Add a translation
-  "researcher.profile.delete": "Delete",
+  "researcher.profile.delete": "Apagar",
 
   // "researcher.profile.expose": "Expose",
-  // TODO New key - Add a translation
-  "researcher.profile.expose": "Expose",
+  "researcher.profile.expose": "Expor",
 
   // "researcher.profile.hide": "Hide",
-  // TODO New key - Add a translation
-  "researcher.profile.hide": "Hide",
+  "researcher.profile.hide": "Esconder",
 
   // "researcher.profile.not.associated": "Researcher profile not yet associated",
   // TODO New key - Add a translation
   "researcher.profile.not.associated": "Researcher profile not yet associated",
 
   // "researcher.profile.view": "View",
-  // TODO New key - Add a translation
-  "researcher.profile.view": "View",
+  "researcher.profile.view": "Ver",
 
   // "researcher.profile.private.visibility" : "PRIVATE",
-  // TODO New key - Add a translation
-  "researcher.profile.private.visibility" : "PRIVATE",
+  "researcher.profile.private.visibility" : "PRIVADO",
 
   // "researcher.profile.public.visibility" : "PUBLIC",
-  // TODO New key - Add a translation
-  "researcher.profile.public.visibility" : "PUBLIC",
+  "researcher.profile.public.visibility" : "PUBLICO",
 
   // "researcher.profile.status": "Status:",
-  // TODO New key - Add a translation
   "researcher.profile.status": "Status:",
 
   // "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
@@ -8009,24 +7412,20 @@
   "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
 
   // "researcherprofile.error.claim.title" : "Error",
-  // TODO New key - Add a translation
-  "researcherprofile.error.claim.title" : "Error",
+  "researcherprofile.error.claim.title" : "Erro",
 
   // "researcherprofile.success.claim.body" : "Profile claimed with success",
   // TODO New key - Add a translation
   "researcherprofile.success.claim.body" : "Profile claimed with success",
 
   // "researcherprofile.success.claim.title" : "Success",
-  // TODO New key - Add a translation
-  "researcherprofile.success.claim.title" : "Success",
+  "researcherprofile.success.claim.title" : "Successo",
 
   // "person.page.orcid.create": "Create an ORCID ID",
-  // TODO New key - Add a translation
-  "person.page.orcid.create": "Create an ORCID ID",
+  "person.page.orcid.create": "Criar um ORCID ID",
 
   // "person.page.orcid.granted-authorizations": "Granted authorizations",
-  // TODO New key - Add a translation
-  "person.page.orcid.granted-authorizations": "Granted authorizations",
+  "person.page.orcid.granted-authorizations": "Autorizações concedidas",
 
   // "person.page.orcid.grant-authorizations" : "Grant authorizations",
   // TODO New key - Add a translation
@@ -8345,96 +7744,73 @@
   "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "An identifier to disambiguate organizations is required. Supported ids are GRID, Ringgold, Legal Entity identifiers (LEIs) and Crossref Funder Registry identifiers",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "The organization's identifiers requires a value",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "The organization's identifiers requires a value",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "Os identificadores da organização requerem um valor",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "The organization's identifiers requires a source",
   // TODO New key - Add a translation
   "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "The organization's identifiers requires a source",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "The source of one of the organization identifiers is invalid. Supported sources are RINGGOLD, GRID, LEI and FUNDREF",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "The source of one of the organization identifiers is invalid. Supported sources are RINGGOLD, GRID, LEI and FUNDREF",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "A origem de um dos identificadores da organização é inválida. As fontes suportadas são RINGGOLD, GRID, LEI e FUNDREF",
 
   // "person.page.orcid.synchronization-mode": "Synchronization mode",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode": "Synchronization mode",
+  "person.page.orcid.synchronization-mode": "Modo de sincronização",
 
   // "person.page.orcid.synchronization-mode.batch": "Batch",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode.batch": "Batch",
+  "person.page.orcid.synchronization-mode.batch": "Lote",
 
   // "person.page.orcid.synchronization-mode.label": "Synchronization mode",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode.label": "Synchronization mode",
+  "person.page.orcid.synchronization-mode.label": "Modo de sincronização",
 
   // "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
+  "person.page.orcid.synchronization-mode-message": "Selecione como deseja que ocorra a sincronização com ORCID. As opções incluem \"Manual\" (você deve enviar seus dados para o ORCID manualmente), ou \"Lote\" (o sistema enviará seus dados para o ORCID por meio de um script programado).",
 
   // "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
+  "person.page.orcid.synchronization-mode-funding-message": "Selecione se deseja enviar suas entidades de projeto vinculadas à lista de informações de financiamento do seu registro ORCID.",
 
   // "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
+  "person.page.orcid.synchronization-mode-publication-message": "Selecione se deseja enviar suas entidades de publicação vinculadas à lista de trabalhos do seu registro ORCID.",
 
   // "person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
+  "person.page.orcid.synchronization-mode-profile-message": "Selecione se deseja enviar seus dados biográficos ou identificadores pessoais para seu registro ORCID.",
 
   // "person.page.orcid.synchronization-settings-update.success": "The synchronization settings have been updated successfully",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-settings-update.success": "The synchronization settings have been updated successfully",
+  "person.page.orcid.synchronization-settings-update.success": "As configurações de sincronização foram atualizadas com sucesso",
 
   // "person.page.orcid.synchronization-settings-update.error": "The update of the synchronization settings failed",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-settings-update.error": "The update of the synchronization settings failed",
+  "person.page.orcid.synchronization-settings-update.error": "A atualização das configurações de sincronização falhou",
 
   // "person.page.orcid.synchronization-mode.manual": "Manual",
-  // TODO New key - Add a translation
   "person.page.orcid.synchronization-mode.manual": "Manual",
 
   // "person.page.orcid.scope.authenticate": "Get your ORCID iD",
-  // TODO New key - Add a translation
-  "person.page.orcid.scope.authenticate": "Get your ORCID iD",
+  "person.page.orcid.scope.authenticate": "COnseguir seu ORCID iD",
 
   // "person.page.orcid.scope.read-limited": "Read your information with visibility set to Trusted Parties",
-  // TODO New key - Add a translation
-  "person.page.orcid.scope.read-limited": "Read your information with visibility set to Trusted Parties",
+  "person.page.orcid.scope.read-limited": "Leia suas informações com visibilidade definida como Parceiros Confiáveis",
 
   // "person.page.orcid.scope.activities-update": "Add/update your research activities",
-  // TODO New key - Add a translation
-  "person.page.orcid.scope.activities-update": "Add/update your research activities",
+  "person.page.orcid.scope.activities-update": "Adicione/atualize suas atividades de pesquisa",
 
   // "person.page.orcid.scope.person-update": "Add/update other information about you",
-  // TODO New key - Add a translation
-  "person.page.orcid.scope.person-update": "Add/update other information about you",
+  "person.page.orcid.scope.person-update": "Adicionar/atualizar outras informações sobre você",
 
   // "person.page.orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
-  // TODO New key - Add a translation
-  "person.page.orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
+  "person.page.orcid.unlink.success": "A desconexão entre o perfil e o registro ORCID foi bem-sucedida",
 
   // "person.page.orcid.unlink.error": "An error occurred while disconnecting between the profile and the ORCID registry. Try again",
-  // TODO New key - Add a translation
-  "person.page.orcid.unlink.error": "An error occurred while disconnecting between the profile and the ORCID registry. Try again",
+  "person.page.orcid.unlink.error": "Um erro ocorreu enquanto dA desconexão entre o perfil e o registro ORCID. Tente novamente",
 
   // "person.orcid.sync.setting": "ORCID Synchronization settings",
-  // TODO New key - Add a translation
-  "person.orcid.sync.setting": "ORCID Synchronization settings",
+  "person.orcid.sync.setting": "ORCID Configuração de sincronização",
 
   // "person.orcid.registry.queue": "ORCID Registry Queue",
-  // TODO New key - Add a translation
-  "person.orcid.registry.queue": "ORCID Registry Queue",
+  "person.orcid.registry.queue": "ORCID Registro na Fila",
 
-  // "person.orcid.registry.auth": "ORCID Authorizations",
-  // TODO New key - Add a translation
-  "person.orcid.registry.auth": "ORCID Authorizations",
+  // "person.orcid.registry.auth": "ORCID Autorizações",
+  "person.orcid.registry.auth": "ORCID Autorizações",
+  
   // "home.recent-submissions.head": "Recent Submissions",
-  // TODO New key - Add a translation
-  "home.recent-submissions.head": "Recent Submissions",
-
-
+  "home.recent-submissions.head": "Submissões Recentes",
 
 }
