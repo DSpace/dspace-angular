@@ -27,7 +27,7 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   hasSelectableMetadata: boolean;
   metadataValue?: FormFieldMetadataValueObject;
   isModelOfInnerForm?: boolean;
-  hideRequiredHint?: boolean;
+  hideErrorMessages?: boolean;
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -46,7 +46,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() hasSelectableMetadata: boolean;
   @serializable() metadataValue: FormFieldMetadataValueObject;
   @serializable() isModelOfInnerForm: boolean;
-  @serializable() hideRequiredHint?: boolean;
+  @serializable() hideErrorMessages?: boolean;
 
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
@@ -62,7 +62,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
     this.metadataValue = config.metadataValue;
     this.place = config.place;
     this.isModelOfInnerForm = (hasValue(config.isModelOfInnerForm) ? config.isModelOfInnerForm : false);
-    this.hideRequiredHint = config.hideRequiredHint;
+    this.hideErrorMessages = config.hideErrorMessages;
 
     this.language = config.language;
     if (!this.language) {

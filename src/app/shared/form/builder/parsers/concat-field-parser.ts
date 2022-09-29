@@ -70,8 +70,8 @@ export class ConcatFieldParser extends FieldParser {
       false
     );
 
-    input1ModelConfig.hideRequiredHint = true;
-    input2ModelConfig.hideRequiredHint = true;
+    input1ModelConfig.hideErrorMessages = true;
+    input2ModelConfig.hideErrorMessages = true;
 
     if (hasNoValue(concatGroup.hint) && hasValue(input1ModelConfig.hint) && hasNoValue(input2ModelConfig.hint)) {
       concatGroup.hint = input1ModelConfig.hint;
