@@ -162,7 +162,7 @@ const DECLARATIONS = [
   LoadingComponent,
   SearchResultsComponent,
   AdminSidebarComponent,
-  SearchSettingsComponent
+  SearchSettingsComponent,
   ComcolPageBrowseByComponent,
   ObjectListComponent,
   BrowseByMetadataPageComponent,
