@@ -1,21 +1,26 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import {
+  MyDspaceItemStatusType
+} from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
-import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import {
+  SearchResultListElementComponent
+} from '../../search-result-list-element/search-result-list-element.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 
 /**
  * This component renders pool task object for the search result in the list view.
@@ -42,7 +47,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
   /**
    * The workflowitem object that belonging to the result object
    */
-  public workflowitemRD$: Observable<RemoteData<WorkflowItem>>;
+  public workflowitem$: BehaviorSubject<WorkflowItem> = new BehaviorSubject<WorkflowItem>(null);
 
   /**
    * The index of this list element
@@ -72,12 +77,19 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
     this.linkService.resolveLinks(this.dso, followLink('workflowitem', {},
       followLink('item'), followLink('submitter')
     ), followLink('action'));
-    this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
+    (this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
+      getFirstCompletedRemoteData()
+    ).subscribe((wfiRD: RemoteData<WorkflowItem>) => {
+      if (wfiRD.hasSucceeded) {
+        this.workflowitem$.next(wfiRD.payload);
+      }
+    });
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 
   ngOnDestroy() {
     // This ensures the object is removed from cache, when action is performed on task
+    // this.wfiService.invalidateByHref(this.dso._links.workflowitem.href);
     this.objectCache.remove(this.dso._links.workflowitem.href);
   }
 }

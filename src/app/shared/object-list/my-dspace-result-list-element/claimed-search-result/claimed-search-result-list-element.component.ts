@@ -5,16 +5,21 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
-import { Observable } from 'rxjs';
+import {
+  MyDspaceItemStatusType
+} from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { followLink } from '../../../utils/follow-link-config.model';
-import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import {
+  SearchResultListElementComponent
+} from '../../search-result-list-element/search-result-list-element.component';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 
 @Component({
   selector: 'ds-claimed-search-result-list-element',
@@ -37,7 +42,12 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
   /**
    * The workflowitem object that belonging to the result object
    */
-  public workflowitemRD$: Observable<RemoteData<WorkflowItem>>;
+  public workflowitem$: BehaviorSubject<WorkflowItem> = new BehaviorSubject<WorkflowItem>(null);
+
+  /**
+   * Display thumbnails if required by configuration
+   */
+  showThumbnails: boolean;
 
   public constructor(
     protected linkService: LinkService,
@@ -57,7 +67,14 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
     this.linkService.resolveLinks(this.dso, followLink('workflowitem', {},
       followLink('item'), followLink('submitter')
     ), followLink('action'));
-    this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
+    (this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
+      getFirstCompletedRemoteData()
+    ).subscribe((wfiRD: RemoteData<WorkflowItem>) => {
+      if (wfiRD.hasSucceeded) {
+        this.workflowitem$.next(wfiRD.payload);
+      }
+    });
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 
   ngOnDestroy() {
