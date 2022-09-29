@@ -136,7 +136,7 @@ export class GoogleRecaptchaService {
     return of(grecaptcha.execute());
   }
 
-  public getRecaptchaTokenResponse () {
+  public getRecaptchaTokenResponse() {
     return grecaptcha.getResponse();
   }
 

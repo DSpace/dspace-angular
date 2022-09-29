@@ -115,7 +115,7 @@ export class RegisterEmailFormComponent implements OnInit {
             if (captchaVersion === 'v3') {
               return this.googleRecaptchaService.getRecaptchaToken('register_email');
             } else if (captchaVersion === 'v2' && captchaMode === 'checkbox') {
-              return this.googleRecaptchaService.getRecaptchaTokenResponse();
+              return of(this.googleRecaptchaService.getRecaptchaTokenResponse());
             } else if (captchaVersion === 'v2' && captchaMode === 'invisible') {
               return of(tokenV2);
             } else {

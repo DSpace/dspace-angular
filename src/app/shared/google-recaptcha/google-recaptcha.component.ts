@@ -20,7 +20,7 @@ export class GoogleRecaptchaComponent implements OnInit {
    */
   @Output() executeRecaptcha: EventEmitter<any> = new EventEmitter();
 
-  @Output() checkboxChecked: EventEmitter<any> = new EventEmitter();
+  @Output() checkboxChecked: EventEmitter<boolean> = new EventEmitter();
 
   @Output() showNotification: EventEmitter<any> = new EventEmitter();
 
@@ -50,7 +50,7 @@ export class GoogleRecaptchaComponent implements OnInit {
         this.executeRecaptcha.emit($event);
         break;
       case 'checkbox':
-        this.checkboxChecked.emit(isNotEmpty($event)); // todo fix con boolean
+        this.checkboxChecked.emit(isNotEmpty($event));
         break;
       default:
         console.error(`Invalid reCaptcha mode '${this.captchaMode}`);
