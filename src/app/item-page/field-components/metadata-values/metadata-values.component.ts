@@ -1,6 +1,6 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { environment } from '../../../../environments/environment';
+import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component.
@@ -12,6 +12,11 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './metadata-values.component.html'
 })
 export class MetadataValuesComponent implements OnChanges {
+
+  constructor(
+    @Inject(APP_CONFIG) private appConfig: AppConfig,
+  ) {
+  }
 
   /**
    * The metadata values to display
@@ -41,6 +46,6 @@ export class MetadataValuesComponent implements OnChanges {
   renderMarkdown;
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.renderMarkdown = !!environment.markdown.enabled && this.enableMarkdown;
+    this.renderMarkdown = !!this.appConfig.markdown.enabled && this.enableMarkdown;
   }
 }

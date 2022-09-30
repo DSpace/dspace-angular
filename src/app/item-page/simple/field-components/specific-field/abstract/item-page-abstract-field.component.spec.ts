@@ -6,6 +6,8 @@ import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loa
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { mockItemWithMetadataFieldAndValue } from '../item-page-field.component.spec';
 import { SharedModule } from '../../../../../shared/shared.module';
+import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment';
 
 let comp: ItemPageAbstractFieldComponent;
 let fixture: ComponentFixture<ItemPageAbstractFieldComponent>;
@@ -24,6 +26,9 @@ describe('ItemPageAbstractFieldComponent', () => {
           }
         }),
         SharedModule,
+      ],
+      providers: [
+        { provide: APP_CONFIG, useValue: environment },
       ],
       declarations: [ItemPageAbstractFieldComponent, MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA]
