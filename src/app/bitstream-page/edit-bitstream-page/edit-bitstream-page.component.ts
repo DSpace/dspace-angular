@@ -52,7 +52,6 @@ import {
   DsDynamicInputModel
 } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
-import { DynamicScrollableDropdownModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
