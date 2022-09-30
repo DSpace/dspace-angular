@@ -268,15 +268,21 @@ export class SearchService implements OnDestroy {
    *                                    no valid cached version. Defaults to true
    * @returns {Observable<RemoteData<PaginatedList<FacetValue>>>} Emits the given page of facet values
    */
-  getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: SearchOptions, filterQuery?: string, useCachedVersionIfAvailable = true): Observable<RemoteData<FacetValues>> {
+  getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: PaginatedSearchOptions, filterQuery?: string, useCachedVersionIfAvailable = true): Observable<RemoteData<FacetValues>> {
     let href;
-    const args: string[] = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`];
+    let args: string[] = [];
     if (hasValue(filterQuery)) {
       args.push(`prefix=${filterQuery}`);
     }
     if (hasValue(searchOptions)) {
+      searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
+        pagination: Object.assign({}, searchOptions.pagination, {
+          currentPage: valuePage
+        })
+      });
       href = searchOptions.toRestUrl(filterConfig._links.self.href, args);
     } else {
+      args = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`, ...args];
       href = new URLCombiner(filterConfig._links.self.href, `?${args.join('&')}`).toString();
     }
 
