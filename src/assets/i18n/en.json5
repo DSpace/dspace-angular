@@ -542,28 +542,45 @@
 
   "admin.metadata-import.breadcrumbs": "Import Metadata",
 
+  "admin.batch-import.breadcrumbs": "Import Batch",
+
   "admin.metadata-import.title": "Import Metadata",
+
+  "admin.batch-import.title": "Import Batch",
 
   "admin.metadata-import.page.header": "Import Metadata",
 
+  "admin.batch-import.page.header": "Import Batch",
+
   "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
+
+  "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
 
   "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
 
+  "admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
+
   "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
+
+  "admin.batch-import.page.dropMsgReplace": "Drop to replace the batch ZIP to import",
 
   "admin.metadata-import.page.button.return": "Back",
 
   "admin.metadata-import.page.button.proceed": "Proceed",
 
+  "admin.metadata-import.page.button.select-collection": "Select Collection",
+
   "admin.metadata-import.page.error.addFile": "Select file first!",
+
+  "admin.batch-import.page.error.addFile": "Select Zip file first!",
 
   "admin.metadata-import.page.validateOnly": "Validate Only",
 
   "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
 
+  "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
 
-
+  "admin.batch-import.page.remove": "remove",
 
   "auth.errors.invalid-user": "Invalid email address or password.",
 
@@ -1346,6 +1363,10 @@
 
   "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
 
+  "dso-selector.export-batch.dspaceobject.head": "Export Batch (ZIP) from",
+
+  "dso-selector.import-batch.dspaceobject.head": "Import batch from",
+
   "dso-selector.no-results": "No {{ type }} found",
 
   "dso-selector.placeholder": "Search for a {{ type }}",
@@ -1373,6 +1394,14 @@
   "confirmation-modal.export-metadata.cancel": "Cancel",
 
   "confirmation-modal.export-metadata.confirm": "Export",
+
+  "confirmation-modal.export-batch.header": "Export batch (ZIP) for {{ dsoName }}",
+
+  "confirmation-modal.export-batch.info": "Are you sure you want to export batch (ZIP) for {{ dsoName }}",
+
+  "confirmation-modal.export-batch.cancel": "Cancel",
+
+  "confirmation-modal.export-batch.confirm": "Export",
 
   "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
 
@@ -2617,6 +2646,7 @@
 
   "menu.section.export_metadata": "Metadata",
 
+  "menu.section.export_batch": "Batch Export (ZIP)",
 
 
   "menu.section.icon.access_control": "Access Control menu section",
