@@ -1215,6 +1215,17 @@
   // "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
   "collection.edit.tabs.authorizations.title": "Édition de collection - Autorisations",
 
+   //"collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
+  "collection.edit.item.authorizations.load-bundle-button": "Charger plus de Bundles",
+  
+  //"collection.edit.item.authorizations.load-more-button": "Load more",
+  "collection.edit.item.authorizations.load-more-button": "Charger plus",
+  
+  //"collection.edit.item.authorizations.show-bitstreams-button": "Show bitstream policies for bundle",
+  "collection.edit.item.authorizations.show-bitstreams-button": "Afficher les politiques de Bitstream pour le Bundle",
+
+  
+  
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
   "collection.edit.tabs.metadata.head": "Éditer les Métadonnées",
 
@@ -2909,6 +2920,13 @@
 
   // "item.search.title": "Item Search",
   "item.search.title": "Recherche d'Items",
+  
+  // "item.truncatable-part.show-more": "Show more",
+  "item.truncatable-part.show-more": "Voir plus",
+
+  //"item.truncatable-part.show-less": "Collapse",
+  "item.truncatable-part.show-less": "Réduire",
+  
 
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Résumé",
@@ -3572,6 +3590,9 @@
 
   // "menu.section.processes": "Processes",
   "menu.section.processes": "Processus",
+  
+  // "menu.section.health": "Health",
+  "menu.section.health": "Santé du système",
 
   // "menu.section.registries": "Registries",
   "menu.section.registries": "Registres",
@@ -4802,6 +4823,9 @@
 
   // "default.search.results.head": "Search Results",
   "default.search.results.head": "Résultats de recherche",
+  
+  // "default-relationships.search.results.head": "Search Results",
+   "default-relationships.search.results.head": "Résultats de recherche",
 
   // "search.sidebar.close": "Back to results",
   "search.sidebar.close": "Retour aux résultats",
