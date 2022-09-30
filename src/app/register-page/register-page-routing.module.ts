@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { RegisterEmailComponent } from './register-email/register-email.component';
-import { ItemPageResolver } from '../item-page/item-page.resolver';
 import { RegistrationResolver } from '../register-email-form/registration.resolver';
 import { ThemedCreateProfileComponent } from './create-profile/themed-create-profile.component';
 import { RegistrationGuard } from './registration.guard';
@@ -25,7 +24,7 @@ import { RegistrationGuard } from './registration.guard';
     ])
   ],
   providers: [
-    ItemPageResolver
+    RegistrationResolver,
   ]
 })
 /**

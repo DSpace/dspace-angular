@@ -12,7 +12,6 @@ import { getCommunityPageRoute } from './../../../community-page/community-page-
 import { getCollectionPageRoute } from './../../../collection-page/collection-page-routing-paths';
 import { map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { environment } from './../../../../environments/environment';
 
 @Pipe({
   name: 'dsCreateLink',
@@ -53,7 +52,7 @@ export class CreateLinkPipe implements PipeTransform {
       }
       return link$.pipe(
         map((link: string) => {
-          return link ? `${environment.ui.baseUrl}${link}` : '';
+          return link ? `${link}` : '';
         })
       );
     }

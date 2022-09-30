@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VarDirective } from '../shared/utils/var.directive';
 import { AuthService } from '../core/auth/auth.service';
 import { createPaginatedList } from '../shared/testing/utils.test';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -30,6 +31,10 @@ const mockItem: Item = Object.assign(new Item(), {
 const authService = jasmine.createSpyObj('authService', {
   isAuthenticated: of(true),
   setRedirectUrl: {}
+});
+
+const authorizationService = jasmine.createSpyObj('AuthorizationDataService', {
+  isAuthorized: of(true)
 });
 
 describe('CrisItemPageComponent', () => {
@@ -50,6 +55,7 @@ describe('CrisItemPageComponent', () => {
       }), BrowserAnimationsModule],
       declarations: [ CrisItemPageComponent, VarDirective ],
       providers: [
+        {provide: AuthorizationDataService, useValue: authorizationService},
         {provide: ActivatedRoute, useValue: mockRoute},
         {provide: ItemDataService, useValue: {}},
         {provide: Router, useValue: {}},

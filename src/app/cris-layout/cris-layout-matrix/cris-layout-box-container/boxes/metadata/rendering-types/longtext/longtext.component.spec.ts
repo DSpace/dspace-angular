@@ -15,7 +15,7 @@ describe('LongtextComponent', () => {
   let fixture: ComponentFixture<LongtextComponent>;
 
   const metadataValue = Object.assign(new MetadataValue(), {
-    'value': 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+    'value': '<b>Lorem Ipsum</b> is simply dummy text of the printing and typesetting industry.\nLorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\nIt has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.\nIt was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
     'language': null,
     'authority': null,
     'confidence': -1,
@@ -75,9 +75,12 @@ describe('LongtextComponent', () => {
   });
 
   it('check metadata rendering', (done) => {
-    const spanValueFound = fixture.debugElement.queryAll(By.css('ds-truncatable-part'));
-    expect(spanValueFound.length).toBe(1);
-    expect(spanValueFound[0].nativeElement.textContent).toContain(metadataValue.value);
+    const formattedText = fixture.debugElement.query(By.css('[data-test="formatted-text"]')).nativeElement.innerHTML;
+    const breaklineCount = formattedText.match(/<br>/g)?.length;
+
+    expect(breaklineCount).toBe(3);
+    expect(formattedText).toContain('&lt;b&gt;Lorem Ipsum&lt;/b&gt;');
+
     done();
   });
 

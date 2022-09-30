@@ -147,7 +147,6 @@ export class VocabularyTreeviewService {
     }
     const parent: TreeviewNode = this.nodeMap.get(item.otherInformation.id)!;
     const children = this.nodeMap.get(item.otherInformation.id)!.children || [];
-    children.pop();
     this.getChildrenNodesByParent(item.otherInformation.id, parent.pageInfo).subscribe((list: PaginatedList<VocabularyEntryDetail>) => {
 
       if (onlyFirstTime && parent.children!.length > 0) {
@@ -155,7 +154,10 @@ export class VocabularyTreeviewService {
       }
 
       const newNodes: TreeviewNode[] = list.page.map((entry) => this._generateNode(entry));
-      children.push(...newNodes);
+      if (newNodes.length > 0) {
+        children.pop();
+        children.push(...newNodes);
+      }
 
       if ((list.pageInfo.currentPage + 1) <= list.pageInfo.totalPages) {
         // Update page info

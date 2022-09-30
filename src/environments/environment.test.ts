@@ -2,6 +2,7 @@
 import { BuildConfig } from 'src/config/build-config.interface';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
+import { AdvancedAttachmentElementType } from '../config/advanced-attachment-rendering.config';
 
 export const environment: BuildConfig = {
   production: false,
@@ -381,4 +382,43 @@ export const environment: BuildConfig = {
       class: 'alert-danger',
     },
   ],
+
+  attachmentRendering: {
+    pagination: {
+      enabled: true,
+      elementsPerPage: 2
+    },
+  },
+
+  advancedAttachmentRendering: {
+    pagination: {
+      enabled: true,
+      elementsPerPage: 2
+    },
+    metadata: [
+      {
+        name: 'dc.title',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: false
+      },
+      {
+        name: 'dc.type',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: false
+      },
+      {
+        name: 'dc.description',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: true
+      },
+      {
+        name: 'size',
+        type: AdvancedAttachmentElementType.Attribute,
+      },
+      {
+        name: 'format',
+        type: AdvancedAttachmentElementType.Attribute,
+      }
+    ]
+  }
 };

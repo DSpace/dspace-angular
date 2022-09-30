@@ -101,6 +101,11 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
   public availableAccessConditionOptions: AccessConditionOption[];  // List of accessConditions that an user can select
 
   /**
+   * add more access conditions link show or not
+   */
+  public singleAccessCondition: boolean;
+
+  /**
    * Is the upload required
    * @type {boolean}
    */
@@ -182,6 +187,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
       ).subscribe((config: SubmissionUploadsModel) => {
         this.required$.next(config.required);
         this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
+        this.singleAccessCondition = config?.singleAccessCondition || false;
         this.collectionPolicyType = this.availableAccessConditionOptions.length > 0
           ? POLICY_DEFAULT_WITH_LIST
           : POLICY_DEFAULT_NO_LIST;

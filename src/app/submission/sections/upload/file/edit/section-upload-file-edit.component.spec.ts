@@ -119,6 +119,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
     beforeEach(() => {
       const html = `
       <ds-submission-section-upload-file-edit [availableAccessConditionGroups]="availableAccessConditionGroups"
+                                              [singleAccessCondition]="singleAccessCondition"
                                               [availableAccessConditionOptions]="availableAccessConditionOptions"
                                               [collectionId]="collectionId"
                                               [collectionPolicyType]="collectionPolicyType"
@@ -160,6 +161,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp.collectionId = collectionId;
       comp.sectionId = sectionId;
       comp.availableAccessConditionOptions = availableAccessConditionOptions;
+      comp.singleAccessCondition = false;
       comp.collectionPolicyType = collectionPolicyType;
       comp.fileIndex = fileIndex;
       comp.fileId = fileId;
@@ -175,7 +177,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       compAsAny = null;
     });
 
-    it('should init form model properly', () => {
+    it('should init form model properly when singleAccessCondition is false', () => {
       comp.fileData = fileData;
       comp.formId = 'testFileForm';
       const maxStartDate = {year: 2022, month: 1, day: 12};
@@ -192,6 +194,19 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       expect(startDateModel.max).toEqual(maxStartDate);
       const endDateModel = formbuilderService.findById('endDate', comp.formModel);
       expect(endDateModel.max).toEqual(maxEndDate);
+    });
+
+    it('should init form model properly when singleAccessCondition is true', () => {
+      comp.fileData = fileData;
+      comp.formId = 'testFileForm';
+      comp.singleAccessCondition = true;
+
+      comp.ngOnInit();
+
+      expect(comp.formModel).toBeDefined();
+      expect(comp.formModel.length).toBe(2);
+      expect(comp.formModel[0] instanceof DynamicFormGroupModel).toBeTruthy();
+      expect(comp.formModel[1] instanceof DynamicFormGroupModel).toBeTruthy();
     });
 
     it('should call setOptions method onChange', () => {
@@ -323,6 +338,7 @@ class TestComponent {
 
   availableGroups;
   availableAccessConditionOptions;
+  singleAccessCondition;
   collectionId = mockSubmissionCollectionId;
   collectionPolicyType;
   fileIndexes = [];

@@ -46,6 +46,12 @@ export class EPerson extends DSpaceObject {
   public email: string;
 
   /**
+   * The EPerson machine token
+   */
+  @autoserialize
+  public machineTokenGenerated: boolean;
+
+  /**
    * A boolean representing if this EPerson require certificate
    */
   @autoserialize

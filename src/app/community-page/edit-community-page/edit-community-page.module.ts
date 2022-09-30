@@ -10,6 +10,7 @@ import { CommunityAuthorizationsComponent } from './community-authorizations/com
 import { CommunityFormModule } from '../community-form/community-form.module';
 import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../shared/comcol/comcol.module';
+import { DataService } from '../../core/data/data.service';
 
 /**
  * Module that contains all components related to the Edit Community page administrator functionality

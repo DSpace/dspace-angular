@@ -29,6 +29,10 @@
 
   "404.page-not-found": "page not found",
 
+  "410.gone-handle": "This object is not longer available",
+
+  "410.link.home-page": "Take me to the home page",
+
   "error-page.description.401": "unauthorized",
 
   "error-page.description.403": "forbidden",
@@ -1641,19 +1645,39 @@
 
   "cris-layout.toggle.aria.close": "Collapse {{sectionHeader}} section",
 
+  "cris-layout.advanced-attachment.dc.title": "Name",
+
+  "cris-layout.advanced-attachment.size": "Size",
+
+  "cris-layout.advanced-attachment.format": "Format",
+
+  "cris-layout.advanced-attachment.dc.type": "Type",
+
+  "cris-layout.advanced-attachment.dc.description": "Description",
+
+  "cris-layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
+
+  "cris-layout.advanced-attachment.download": "Download",
+
+  "cris-layout.advanced-attachment.requestACopy": "Request a copy",
+
+  "cris-layout.advanced-attachment.viewMore": "View More",
+
+  "cris-layout.attachment.viewMore": "View More",
+
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
   "curation-task.task.noop.label": "NOOP",
 
   "curation-task.task.profileformats.label": "Profile Bitstream Formats",
 
+   "curation-task.task.registerdoi.label": "Mint DOI",
+
   "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
 
   "curation-task.task.translate.label": "Microsoft Translator",
 
   "curation-task.task.vscan.label": "Virus Scan",
-
-
 
   "curation.form.task-select.label": "Task:",
 
@@ -3607,6 +3631,8 @@
 
   "statistics.login.page.no-data-found": "No data found",
 
+  "statistics.login.title statistics.workflow.title" : "Login Statistics",
+
   "manage.relations": "Manage Relations",
 
   "menu.section.toggle.access_control": "Toggle Access Control section",
@@ -4179,6 +4205,36 @@
 
   "profile.breadcrumbs": "Update Profile",
 
+  "profile.card.access-token": "Personal access token",
+
+  "profile.card.access-token.copy": "Copy token",
+
+  "profile.card.access-token.copy-info": "Make sure to copy your personal access token now. You won’t be able to see it again!",
+
+  "profile.card.access-token.info": "Tokens you have generated that can be used to access the DSpace-CRIS API.",
+
+  "profile.card.access-token.create.error": "An error occurred while generating the token, please try again later.",
+
+  "profile.card.access-token.create-warning.title": "Generate a new personal access token",
+
+  "profile.card.access-token.create-warning.msg": "Are you sure you want to generate a new personal access token?\nThis will revoke access for the existing personal access token. This action cannot be undone.",
+
+  "profile.card.access-token.delete-warning.title": "Revoke the new personal access token",
+
+  "profile.card.access-token.delete-warning.msg": "Are you sure you want to revoke access for the personal access token? This action cannot be undone.",
+
+  "profile.card.access-token.confirm": "Confirm",
+
+  "profile.card.access-token.cancel": "Cancel",
+
+  "profile.card.access-token.create": "Generate new token",
+
+  "profile.card.access-token.delete": "Revoke token",
+
+  "profile.card.access-token.no-token-generated": "You don't have personal access token. Generate a personal access token for quick access to the DSpace-CRIS API.",
+
+  "profile.card.access-token.token-generated": "You have already generated a personal access token.",
+
   "profile.card.identify": "Identify",
 
   "profile.card.security": "Security",
@@ -4624,6 +4680,8 @@
 
   "search.filters.applied.charts.RELATION.Project.fundings.title": "Fundings",
 
+  "search.filters.applied.charts.RELATION.Project.researchoutputs.title": "Research Output",
+
   "search.filters.applied.charts.no.data.found": "No data found",
 
   "search.filters.applied.charts.show.hide": "Show/Hide",
@@ -5029,6 +5087,8 @@
   "statistics.table.downloadReports.title.TopCities": "Top city downloads",
 
   "statistics.table.mainReports.header.views": "Views",
+
+  "statistics.table.mainReports.header.bitstream": "File Visits",
 
   "statistics.table.mainReports.header.continent": "Continent",
 

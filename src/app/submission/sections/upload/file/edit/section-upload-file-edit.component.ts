@@ -4,6 +4,8 @@ import { FormControl } from '@angular/forms';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
   DynamicDatePickerModel,
+  DynamicDatePickerModelConfig,
+  DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
@@ -57,6 +59,7 @@ import { SectionUploadService } from '../../section-upload.service';
 import { Subscription } from 'rxjs';
 import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
 import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
+import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
 
 /**
  * This component represents the edit form for bitstream
@@ -72,6 +75,12 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
    * The FormComponent reference
    */
   @ViewChild('formRef') public formRef: FormComponent;
+
+  /**
+   * add more access conditions link show or not
+   * @type {boolean}
+   */
+  public singleAccessCondition: boolean;
 
   /**
    * The list of available access condition
@@ -349,37 +358,19 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
       const hasStartDate = startDateCondition.length > 0;
       const hasEndDate = endDateCondition.length > 0;
 
-      accessConditionsArrayConfig.groupFactory = () => {
-        const type = new DynamicSelectModel(accessConditionTypeModelConfig, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT);
-        const startDateConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG, confStart);
-        if (maxStartDate) {
-          startDateConfig.max = maxStartDate;
-        }
+      if (this.singleAccessCondition) {
+        formModel.push(this.createAccessConditionGroupModel(accessConditionTypeModelConfig, confStart, confEnd, hasStartDate, maxStartDate, hasEndDate, maxEndDate));
+      } else {
+        accessConditionsArrayConfig.groupFactory = () => {
+          return [this.createAccessConditionGroupModel(accessConditionTypeModelConfig, confStart, confEnd, hasStartDate, maxStartDate, hasEndDate, maxEndDate)];
+        };
 
-        const endDateConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG, confEnd);
-        if (maxEndDate) {
-          endDateConfig.max = maxEndDate;
-        }
-
-        const startDate = new DynamicDatePickerModel(startDateConfig, BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT);
-        const endDate = new DynamicDatePickerModel(endDateConfig, BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT);
-        const accessConditionGroupConfig = Object.assign({}, BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG);
-        accessConditionGroupConfig.group = [type];
-        if (hasStartDate) {
-          accessConditionGroupConfig.group.push(startDate);
-        }
-        if (hasEndDate) {
-          accessConditionGroupConfig.group.push(endDate);
-        }
-        return [new DynamicFormGroupModel(accessConditionGroupConfig, BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT)];
-      };
-
-      // Number of access conditions blocks in form
-      accessConditionsArrayConfig.initialCount = isNotEmpty(this.fileData.accessConditions) ? this.fileData.accessConditions.length : 1;
-      formModel.push(
-        new DynamicFormArrayModel(accessConditionsArrayConfig, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT)
-      );
-
+        // Number of access conditions blocks in form
+        accessConditionsArrayConfig.initialCount = isNotEmpty(this.fileData.accessConditions) ? this.fileData.accessConditions.length : 1;
+        formModel.push(
+          new DynamicFormArrayModel(accessConditionsArrayConfig, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT)
+        );
+      }
     }
     this.initModelData(formModel);
     return formModel;
@@ -415,8 +406,14 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
             this.operationsBuilder.remove(this.pathCombiner.getPath(path));
           });
         const accessConditionsToSave = [];
-        formData.accessConditions
-          .map((accessConditions) => accessConditions.accessConditionGroup)
+        let accessConditionsToIterate;
+        if (this.singleAccessCondition) {
+          accessConditionsToIterate = [formData[BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG.id]];
+        } else {
+          accessConditionsToIterate = formData.accessConditions
+            .map((accessConditions) => accessConditions.accessConditionGroup);
+        }
+        accessConditionsToIterate
           .filter((accessCondition) => isNotEmpty(accessCondition))
           .forEach((accessCondition) => {
             let accessConditionOpt;
@@ -471,6 +468,38 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
       this.activeModal.close();
     });
     this.subscriptions.push(saveBitstreamDataSubscription);
+  }
+
+  private createAccessConditionGroupModel(accessConditionTypeModelConfig: DynamicSelectModelConfig<any>,
+                                          confStart: Partial<DynamicDatePickerModelConfig>,
+                                          confEnd: Partial<DynamicDatePickerModelConfig>,
+                                          hasStartDate: boolean,
+                                          maxStartDate: DynamicDateControlValue,
+                                          hasEndDate: boolean,
+                                          maxEndDate: DynamicDateControlValue ): DynamicFormGroupModel {
+    const type = new DynamicSelectModel(accessConditionTypeModelConfig, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT);
+    const startDateConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG, confStart);
+    if (maxStartDate) {
+      startDateConfig.max = maxStartDate;
+    }
+
+    const endDateConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG, confEnd);
+    if (maxEndDate) {
+      endDateConfig.max = maxEndDate;
+    }
+
+    const startDate = new DynamicDatePickerModel(startDateConfig, BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT);
+    const endDate = new DynamicDatePickerModel(endDateConfig, BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT);
+    const accessConditionGroupConfig = Object.assign({}, BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG);
+    accessConditionGroupConfig.group = [type];
+    if (hasStartDate) {
+      accessConditionGroupConfig.group.push(startDate);
+    }
+    if (hasEndDate) {
+      accessConditionGroupConfig.group.push(endDate);
+    }
+
+    return new DynamicFormGroupModel(accessConditionGroupConfig, BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT);
   }
 
   private unsubscribeAll() {

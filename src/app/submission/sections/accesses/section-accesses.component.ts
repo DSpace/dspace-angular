@@ -16,6 +16,7 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
   DynamicCheckboxModel,
   DynamicDatePickerModel,
+  DynamicDatePickerModelConfig,
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
@@ -58,6 +59,7 @@ import {
 import { dateToISOFormat } from '../../../shared/date.util';
 import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
 import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
+import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
 
 /**
  * This component represents a section for managing item's access conditions.
@@ -79,6 +81,12 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
    * List of available access conditions that could be set to item
    */
   public availableAccessConditionOptions: AccessesConditionOption[];  // List of accessConditions that an user can select
+
+  /**
+   * add more access conditions link show or not
+   * @type {boolean}
+   */
+  public singleAccessCondition: boolean;
 
   /**
    * The form id
@@ -206,8 +214,14 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
         take(1)
       ).subscribe((formData: any) => {
         const accessConditionsToSave = [];
-        formData.accessCondition
-          .map((accessConditions) => accessConditions.accessConditionGroup)
+        let accessConditionsToIterate;
+        if (this.singleAccessCondition) {
+          accessConditionsToIterate = [formData[ACCESS_CONDITION_GROUP_CONFIG.id]];
+        } else {
+          accessConditionsToIterate = formData.accessCondition
+            .map((accessConditions) => accessConditions.accessConditionGroup);
+        }
+        accessConditionsToIterate
           .filter((accessCondition) => isNotEmpty(accessCondition))
           .forEach((accessCondition) => {
             let accessConditionOpt;
@@ -279,6 +293,7 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
 
     combineLatest([config$, accessData$]).subscribe(([config, accessData]) => {
       this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
+      this.singleAccessCondition = config?.singleAccessCondition || false;
       this.canChangeDiscoverable = !!config.canChangeDiscoverable;
       this.accessesData = accessData;
       this.formModel = this.buildFileEditForm();
@@ -363,39 +378,55 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
     const hasStartDate = startDateCondition.length > 0;
     const hasEndDate = endDateCondition.length > 0;
 
-    accessConditionsArrayConfig.groupFactory = () => {
-      const type = new DynamicSelectModel(accessConditionTypeModelConfig, FORM_ACCESS_CONDITION_TYPE_LAYOUT);
-      const startDateConfig = Object.assign({}, FORM_ACCESS_CONDITION_START_DATE_CONFIG, confStart);
+    if (this.singleAccessCondition) {
+      formModel.push(this.createAccessConditionGroupModel(accessConditionTypeModelConfig, confStart, confEnd, hasStartDate, maxStartDate, hasEndDate, maxEndDate));
+    } else {
+      accessConditionsArrayConfig.groupFactory = () => {
+        return [this.createAccessConditionGroupModel(accessConditionTypeModelConfig, confStart, confEnd, hasStartDate, maxStartDate, hasEndDate, maxEndDate)];
+      };
+
+      // Number of access conditions blocks in form
+      accessConditionsArrayConfig.initialCount = isNotEmpty(this.accessesData.accessConditions) ? this.accessesData.accessConditions.length : 1;
+      formModel.push(
+        new DynamicFormArrayModel(accessConditionsArrayConfig, ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT)
+      );
+    }
+
+    this.initModelData(formModel);
+    return formModel;
+  }
+
+  private createAccessConditionGroupModel(accessConditionTypeModelConfig: DynamicSelectModelConfig<any>,
+                                          confStart: Partial<DynamicDatePickerModelConfig>,
+                                          confEnd: Partial<DynamicDatePickerModelConfig>,
+                                          hasStartDate: boolean,
+                                          maxStartDate: DynamicDateControlValue,
+                                          hasEndDate: boolean,
+                                          maxEndDate: DynamicDateControlValue): DynamicFormGroupModel {
+
+    const type = new DynamicSelectModel(accessConditionTypeModelConfig, FORM_ACCESS_CONDITION_TYPE_LAYOUT);
+    const startDateConfig = Object.assign({}, FORM_ACCESS_CONDITION_START_DATE_CONFIG, confStart);
       if (maxStartDate) {
         startDateConfig.max = maxStartDate;
       }
 
-      const endDateConfig = Object.assign({}, FORM_ACCESS_CONDITION_END_DATE_CONFIG, confEnd);
+    const endDateConfig = Object.assign({}, FORM_ACCESS_CONDITION_END_DATE_CONFIG, confEnd);
       if (maxEndDate) {
         endDateConfig.max = maxEndDate;
       }
 
-      const startDate = new DynamicDatePickerModel(startDateConfig, FORM_ACCESS_CONDITION_START_DATE_LAYOUT);
-      const endDate = new DynamicDatePickerModel(endDateConfig, FORM_ACCESS_CONDITION_END_DATE_LAYOUT);
-      const accessConditionGroupConfig = Object.assign({}, ACCESS_CONDITION_GROUP_CONFIG);
-      accessConditionGroupConfig.group = [type];
+    const startDate = new DynamicDatePickerModel(startDateConfig, FORM_ACCESS_CONDITION_START_DATE_LAYOUT);
+    const endDate = new DynamicDatePickerModel(endDateConfig, FORM_ACCESS_CONDITION_END_DATE_LAYOUT);
+    const accessConditionGroupConfig = Object.assign({}, ACCESS_CONDITION_GROUP_CONFIG);
+    accessConditionGroupConfig.group = [type];
       if (hasStartDate) {
-        accessConditionGroupConfig.group.push(startDate);
-      }
+      accessConditionGroupConfig.group.push(startDate);
+    }
       if (hasEndDate) {
-        accessConditionGroupConfig.group.push(endDate);
-      }
-      return [new DynamicFormGroupModel(accessConditionGroupConfig, ACCESS_CONDITION_GROUP_LAYOUT)];
-    };
+      accessConditionGroupConfig.group.push(endDate);
+    }
 
-    // Number of access conditions blocks in form
-    accessConditionsArrayConfig.initialCount = isNotEmpty(this.accessesData.accessConditions) ? this.accessesData.accessConditions.length : 1;
-    formModel.push(
-      new DynamicFormArrayModel(accessConditionsArrayConfig, ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT)
-    );
-
-    this.initModelData(formModel);
-    return formModel;
+    return new DynamicFormGroupModel(accessConditionGroupConfig, ACCESS_CONDITION_GROUP_LAYOUT);
   }
 
   protected retrieveValueFromField(field: any) {

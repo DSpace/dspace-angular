@@ -1,3 +1,6 @@
+<div class="container">
+  <ds-item-alerts [item]="(itemRD$ | async)?.payload"></ds-item-alerts>
+</div>
 <ds-view-tracker [object]="(itemRD$ | async)?.payload"></ds-view-tracker>
 <ds-loading *ngIf="(itemRD$ | async)?.isLoading" message="{{'loading.item' | translate}}"></ds-loading>
-<ds-cris-layout [item]="(itemRD$ | async)?.payload"></ds-cris-layout>
+<ds-cris-layout *ngIf="!((itemRD$ | async)?.payload?.isWithdrawn) || (isAdmin$|async)" [item]="(itemRD$ | async)?.payload"></ds-cris-layout>

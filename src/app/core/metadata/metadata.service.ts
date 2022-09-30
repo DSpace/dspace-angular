@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -37,6 +37,9 @@ import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { getDownloadableBitstream } from '../shared/bitstream.operators';
+import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
+import { ITEM } from '../shared/item.resource-type';
+import { isPlatformServer } from '@angular/common';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -87,7 +90,9 @@ export class MetadataService {
     private rootService: RootDataService,
     private store: Store<CoreState>,
     private hardRedirectService: HardRedirectService,
-    private authorizationService: AuthorizationDataService
+    private authorizationService: AuthorizationDataService,
+    private schemaJsonLDService: SchemaJsonLDService,
+    @Inject(PLATFORM_ID) private platformId: any,
   ) {
   }
 
@@ -127,6 +132,16 @@ export class MetadataService {
         this.addMetaTag('description', translatedDescription);
       });
     }
+
+    if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
+      this.currentObject.next(routeInfo.data.value.dso.payload);
+      this.setDSOMetaTags();
+      if (routeInfo.data.value.dso.payload.type === ITEM.value && isPlatformServer(this.platformId)) {
+        this.schemaJsonLDService.insertSchema(routeInfo.data.value.dso.payload);
+      }
+    }
+
+
   }
 
   private getCurrentRoute(route: ActivatedRoute): ActivatedRoute {
@@ -141,6 +156,9 @@ export class MetadataService {
     this.setTitleTag();
     this.setDescriptionTag();
 
+    if (!this.isResearchOutput()) {
+      return;
+    }
     this.setCitationTitleTag();
     this.setCitationAuthorTags();
     this.setCitationPublicationDateTag();
@@ -158,20 +176,19 @@ export class MetadataService {
       this.setCitationDissertationNameTag();
     }
 
-    // this.setCitationJournalTitleTag();
-    // this.setCitationVolumeTag();
-    // this.setCitationIssueTag();
-    // this.setCitationFirstPageTag();
-    // this.setCitationLastPageTag();
-    // this.setCitationDOITag();
-    // this.setCitationPMIDTag();
+    this.setCitationJournalTitleTag();
+    this.setCitationVolumeTag();
+    this.setCitationIssueTag();
+    this.setCitationFirstPageTag();
+    this.setCitationLastPageTag();
+    this.setCitationDOITag();
+    this.setCitationPMIDTag();
+    this.setCitationArxivIdTag();
+    this.setCitationConferenceTag();
 
-    // this.setCitationFullTextTag();
-
-    // this.setCitationConferenceTag();
-
-    // this.setCitationPatentCountryTag();
-    // this.setCitationPatentNumberTag();
+    if (this.isTechReport()) {
+      this.setCitationTechnicalReportNumberTag();
+    }
 
   }
 
@@ -221,7 +238,7 @@ export class MetadataService {
    * Add <meta name="citation_issn" ... >  to the <head>
    */
   private setCitationISSNTag(): void {
-    const value = this.getMetaTagValue('dc.identifier.issn');
+    const value = this.getMetaTagValue('dc.relation.issn');
     this.addMetaTag('citation_issn', value);
   }
 
@@ -269,6 +286,86 @@ export class MetadataService {
   private setCitationKeywordsTag(): void {
     const value = this.getMetaTagValuesAndCombine('dc.subject');
     this.addMetaTag('citation_keywords', value);
+  }
+
+  /**
+   * Add <meta name="citation_journal_title" ... >  to the <head>
+   */
+  private setCitationJournalTitleTag(): void {
+    const value = this.getMetaTagValue('dc.relation.ispartof');
+    this.addMetaTag('citation_journal_title', value);
+  }
+
+  /**
+   * Add <meta name="citation_volume" ... >  to the <head>
+   */
+  private setCitationVolumeTag(): void {
+    const value = this.getMetaTagValue('oaire.citation.volume');
+    this.addMetaTag('citation_volume', value);
+  }
+
+  /**
+   * Add <meta name="citation_issue" ... >  to the <head>
+   */
+  private setCitationIssueTag(): void {
+    const value = this.getMetaTagValue('oaire.citation.issue');
+    this.addMetaTag('citation_issue', value);
+  }
+
+  /**
+   * Add <meta name="citation_firstpage" ... >  to the <head>
+   */
+  private setCitationFirstPageTag(): void {
+    const value = this.getMetaTagValue('oaire.citation.startPage');
+    this.addMetaTag('citation_firstpage', value);
+  }
+
+  /**
+   * Add <meta name="citation_firstpage" ... >  to the <head>
+   */
+  private setCitationLastPageTag(): void {
+    const value = this.getMetaTagValue('oaire.citation.endPage');
+    this.addMetaTag('citation_lastpage', value);
+  }
+
+  /**
+   * Add <meta name="citation_doi" ... >  to the <head>
+   */
+  private setCitationDOITag(): void {
+    const value = this.getMetaTagValue('dc.identifier.doi');
+    this.addMetaTag('citation_doi', value);
+  }
+
+  /**
+   * Add <meta name="citation_pmid" ... >  to the <head>
+   */
+  private setCitationPMIDTag(): void {
+    const value = this.getMetaTagValue('dc.identifier.pmid');
+    this.addMetaTag('citation_pmid', value);
+  }
+
+  /**
+   * Add <meta name="citation_arxiv_id" ... >  to the <head>
+   */
+  private setCitationArxivIdTag(): void {
+    const value = this.getMetaTagValue('dc.identifier.arxiv');
+    this.addMetaTag('citation_arxiv_id', value);
+  }
+
+  /**
+   * Add <meta name="citation_conference_title" ... >  to the <head>
+   */
+   private setCitationConferenceTag(): void {
+    const value = this.getMetaTagValue('dc.relation.conference');
+    this.addMetaTag('citation_conference_title', value);
+  }
+
+  /**
+   * Add <meta name="citation_technical_report_number" ... >  to the <head>
+   */
+   private setCitationTechnicalReportNumberTag(): void {
+    const value = this.getMetaTagValue('dc.relation.ispartofseries');
+    this.addMetaTag('citation_technical_report_number', value);
   }
 
   /**
@@ -433,7 +530,11 @@ export class MetadataService {
   }
 
   private hasType(value: string): boolean {
-    return this.currentObject.value.hasMetadata('dc.type', { value: value, ignoreCase: true });
+    return this.currentObject.value.hasMetadata('dc.type', { value: value, ignoreCase: true, substring: true });
+  }
+
+  private hasEntityType(value: string): boolean {
+    return this.currentObject.value.hasMetadata('dspace.entity.type', { value: value, ignoreCase: true });
   }
 
   /**
@@ -445,6 +546,26 @@ export class MetadataService {
   private isDissertation(): boolean {
     return this.hasType('thesis');
   }
+
+  /**
+   * Returns true if this._item is a research output (publication, patent or product)
+   *
+   * @returns {boolean}
+   *      true if this._item has a dc.type equal to 'Thesis'
+   */
+   private isResearchOutput(): boolean {
+    return this.hasEntityType('publication') || this.hasEntityType('product') || this.hasEntityType('patent');
+  }
+
+    /**
+   * Returns true if this._item is a research output (publication, patent or product)
+   *
+   * @returns {boolean}
+   *      true if this._item has a dc.type equal to 'Thesis'
+   */
+     private isPatent(): boolean {
+      return this.hasEntityType('patent');
+    }
 
   /**
    * Returns true if this._item is a technical report
@@ -491,6 +612,7 @@ export class MetadataService {
   }
 
   public clearMetaTags() {
+    this.schemaJsonLDService.removeStructuredData();
     this.store.pipe(
       select(tagsInUseSelector),
       take(1)

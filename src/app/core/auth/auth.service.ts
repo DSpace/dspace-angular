@@ -48,6 +48,8 @@ import { Group } from '../eperson/models/group.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PageInfo } from '../shared/page-info.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { MachineToken } from './models/machine-token.model';
+import { NoContent } from '../shared/NoContent.model';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -602,6 +604,20 @@ export class AuthService {
     } else {
       this.store.dispatch(new UnsetUserAsIdleAction());
     }
+  }
+
+  /**
+   * Create a new machine token for the current user
+   */
+  public createMachineToken(): Observable<RemoteData<MachineToken>> {
+    return this.authRequestService.postToMachineTokenEndpoint();
+  }
+
+  /**
+   * Delete the machine token for the current user
+   */
+  public deleteMachineToken(): Observable<RemoteData<NoContent>> {
+    return this.authRequestService.deleteToMachineTokenEndpoint();
   }
 
 }

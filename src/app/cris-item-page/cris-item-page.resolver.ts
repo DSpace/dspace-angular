@@ -25,8 +25,9 @@ export class CrisItemPageResolver implements Resolve<RemoteData<Item>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Item>> {
+    // TODO temporary disable cache to have always an update item, check if after update with 7.3, it's only necessary to invalidate a cache on edit item saving
     return this.itemService.findById(route.params.id,
-      true, true,
+      false, true,
       followLink('owningCollection'),
       followLink('bundles'),
       followLink('relationships'),

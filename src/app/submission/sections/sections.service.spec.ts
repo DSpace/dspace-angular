@@ -49,6 +49,7 @@ describe('SectionsService test suite', () => {
   const formId = 'formTest';
   const submissionId = '826';
   const sectionId = 'traditionalpageone';
+  const sectionType = SectionsType.Upload;
   const sectionErrors: any = parseSectionErrors(mockSectionsErrors);
   const sectionData: any = mockSectionsData;
   const submissionState: any = Object.assign({}, mockSubmissionState[submissionId]);
@@ -294,6 +295,68 @@ describe('SectionsService test suite', () => {
       });
 
       expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
+    });
+  });
+
+  describe('isSectionReadOnlyByType', () => {
+    it('should return an observable of true when it\'s a readonly section and scope is not workspace', () => {
+      submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
+      const mockState = {
+        sections: {
+          'upload': {
+            sectionType: SectionsType.Upload,
+            visibility: {
+              workflow: SubmissionVisibilityValue.ReadOnly
+            }
+          }
+        }
+      };
+      store.select.and.returnValue(observableOf(mockState));
+
+      const expected = cold('(b|)', {
+        b: true
+      });
+
+      expect(service.isSectionReadOnlyByType(submissionId, sectionType, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
+    });
+
+    it('should return an observable of false when it\'s a readonly section and scope is workspace', () => {
+      submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
+      const mockState = {
+        sections: {
+          'upload': {
+            sectionType: SectionsType.Upload,
+            visibility: {
+              workflow: SubmissionVisibilityValue.ReadOnly
+            }
+          }
+        }
+      };
+      store.select.and.returnValue(observableOf(mockState));
+
+      const expected = cold('(b|)', {
+        b: false
+      });
+
+      expect(service.isSectionReadOnlyByType(submissionId, sectionType, SubmissionScopeType.WorkspaceItem)).toBeObservable(expected);
+    });
+
+    it('should return an observable of false when it\'s not a readonly section', () => {
+      const mockState = {
+        sections: {
+          'upload': {
+            sectionType: SectionsType.Upload,
+            visibility: null
+          }
+        }
+      };
+      store.select.and.returnValue(observableOf(mockState));
+
+      const expected = cold('(b|)', {
+        b: false
+      });
+
+      expect(service.isSectionReadOnlyByType(submissionId, sectionType, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
     });
   });
 

@@ -22,6 +22,8 @@ import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-confi
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
+import { AdvancedAttachmentRenderingConfig, AdvancedAttachmentElementType } from './advanced-attachment-rendering.config';
+import { AttachmentRenderingConfig } from './attachment-rendering.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -524,4 +526,43 @@ export class DefaultAppConfig implements AppConfig {
       class: 'alert-danger',
     },
   ];
+
+  attachmentRendering: AttachmentRenderingConfig = {
+    pagination: {
+      enabled: true,
+      elementsPerPage: 2,
+    },
+  };
+
+  advancedAttachmentRendering: AdvancedAttachmentRenderingConfig = {
+    pagination: {
+      enabled: true,
+      elementsPerPage: 2,
+    },
+    metadata: [
+      {
+        name: 'dc.title',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: false
+      },
+      {
+        name: 'dc.type',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: false
+      },
+      {
+        name: 'dc.description',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: true
+      },
+      {
+        name: 'size',
+        type: AdvancedAttachmentElementType.Attribute,
+      },
+      {
+        name: 'format',
+        type: AdvancedAttachmentElementType.Attribute,
+      }
+    ]
+  };
 }

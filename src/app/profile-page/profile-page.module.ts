@@ -13,6 +13,7 @@ import { FormModule } from '../shared/form/form.module';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { ProfileClaimItemModalComponent } from './profile-claim-item-modal/profile-claim-item-modal.component';
 import { OpenaireModule } from '../openaire/openaire.module';
+import { ProfilePageAccessTokenComponent } from './profile-page-access-token/profile-page-access-token.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { OpenaireModule } from '../openaire/openaire.module';
     ThemedProfilePageComponent,
     ProfilePageMetadataFormComponent,
     ProfilePageSecurityFormComponent,
-    ProfilePageResearcherFormComponent
+    ProfilePageResearcherFormComponent,
+    ProfilePageAccessTokenComponent
   ],
   declarations: [
     ProfilePageComponent,
@@ -36,7 +38,8 @@ import { OpenaireModule } from '../openaire/openaire.module';
     ProfileClaimItemModalComponent,
     ProfilePageMetadataFormComponent,
     ProfilePageSecurityFormComponent,
-    ProfilePageResearcherFormComponent
+    ProfilePageResearcherFormComponent,
+    ProfilePageAccessTokenComponent
   ]
 })
 export class ProfilePageModule {

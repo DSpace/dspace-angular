@@ -359,6 +359,32 @@ export class SectionsService {
   }
 
   /**
+   * Check if a given section type is a read only section
+   *
+   * @param submissionId
+   *    The submission id
+   * @param sectionType
+   *    The section type
+   * @param submissionScope
+   *    The submission scope
+   * @return Observable<boolean>
+   *    Emits true whenever a given section should be read only
+   */
+  public isSectionReadOnlyByType(submissionId: string, sectionType: SectionsType, submissionScope: SubmissionScopeType): Observable<boolean> {
+    return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
+      filter((submissionState: SubmissionObjectEntry) => isNotUndefined(submissionState)),
+      map((submissionState: SubmissionObjectEntry) => {
+        const key = findKey(submissionState.sections, {sectionType: sectionType});
+
+        return submissionState.sections[key];
+      }),
+      map((sectionObj: SubmissionSectionObject) => {
+        return SubmissionVisibility.isReadOnly(sectionObj.visibility, submissionScope);
+      }),
+      distinctUntilChanged());
+  }
+
+  /**
    * Check if a given section id is present in the list of sections
    *
    * @param submissionId
