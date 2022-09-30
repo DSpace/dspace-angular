@@ -2203,6 +2203,8 @@
 	"uploader.delete.btn-title": "Διαγραφή",
 	"uploader.drag-message": "Σύρετε και αποθέστε τα αρχεία σας εδώ",
 	"uploader.or": ", ή",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
+  // TODO Source message changed - Revise the translation
 	"uploader.processing": "Επεξεργασία",
 	"uploader.queue-length": "Μέγεθος ουράς",
 	"virtual-metadata.delete-item.info": "Επιλέξτε τους τύπους για τους οποίους θέλετε να αποθηκεύσετε τα εικονικά μεταδεδομένα ως πραγματικά μεταδεδομένα",
