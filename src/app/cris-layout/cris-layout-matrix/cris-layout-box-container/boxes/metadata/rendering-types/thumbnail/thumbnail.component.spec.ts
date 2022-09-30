@@ -21,7 +21,7 @@ import {
   AuthorizationDataService
 } from '../../../../../../../core/data/feature-authorization/authorization-data.service';
 import { By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject } from '../../../../../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
 
 describe('ThumbnailComponent', () => {
@@ -74,7 +74,7 @@ describe('ThumbnailComponent', () => {
   });
 
   const mockBitstreamDataService = jasmine.createSpyObj('BitstreamDataService', {
-    findAllByItemAndBundleName: jasmine.createSpy('findAllByItemAndBundleName')
+    findByItem: jasmine.createSpy('findByItem'),
   });
 
   const mockAuthorizedService = jasmine.createSpyObj('AuthorizationDataService', {
@@ -121,7 +121,7 @@ describe('ThumbnailComponent', () => {
       fixture = TestBed.createComponent(ThumbnailComponent);
       component = fixture.componentInstance;
       de = fixture.debugElement;
-      mockBitstreamDataService.findAllByItemAndBundleName.and.returnValue(of([]));
+      mockBitstreamDataService.findByItem.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([])));
       mockThumbnailService.getConfig.and.returnValue(of(createSuccessfulRemoteDataObject(null)));
       fixture.detectChanges();
     });
@@ -130,14 +130,14 @@ describe('ThumbnailComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('findAllByItemAndBundleName should have been called', () => {
-      expect(mockBitstreamDataService.findAllByItemAndBundleName).toHaveBeenCalled();
+    it('findByItem should have been called', () => {
+      expect(mockBitstreamDataService.findByItem).toHaveBeenCalled();
     });
 
     describe('When bitstreams are empty', () => {
 
       beforeEach(() => {
-        const spy = spyOn(component, 'getBitstreams');
+        const spy = spyOn(component, 'getBitstreamsByItem');
         spy.and.returnValue(of(createPaginatedList([])));
         component.ngOnInit();
         fixture.detectChanges();
@@ -158,7 +158,7 @@ describe('ThumbnailComponent', () => {
     describe('When bitstreams are only original', () => {
 
       beforeEach(() => {
-        const spy = spyOn(component, 'getBitstreams');
+        const spy = spyOn(component, 'getBitstreamsByItem');
         spy.and.returnValue(of(createPaginatedList([bitstreamWithoutThumbnail])));
         component.ngOnInit();
         fixture.detectChanges();
@@ -179,7 +179,7 @@ describe('ThumbnailComponent', () => {
     describe('When bitstreams are only thumbnail', () => {
 
       beforeEach(() => {
-        const spy = spyOn(component, 'getBitstreams');
+        const spy = spyOn(component, 'getBitstreamsByItem');
         spy.and.returnValue(of(createPaginatedList([bitstreamWithThumbnail])));
         component.ngOnInit();
         fixture.detectChanges();
@@ -211,7 +211,7 @@ describe('ThumbnailComponent', () => {
       fixture = TestBed.createComponent(ThumbnailComponent);
       component = fixture.componentInstance;
       de = fixture.debugElement;
-      mockBitstreamDataService.findAllByItemAndBundleName.and.returnValue(of([]));
+      mockBitstreamDataService.findByItem.and.returnValue(of([]));
       mockThumbnailService.getConfig.and.returnValue(of(createSuccessfulRemoteDataObject(null)));
       fixture.detectChanges();
     });
@@ -220,14 +220,14 @@ describe('ThumbnailComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('findAllByItemAndBundleName should have been called', () => {
-      expect(mockBitstreamDataService.findAllByItemAndBundleName).toHaveBeenCalled();
+    it('findByItem should have been called', () => {
+      expect(mockBitstreamDataService.findByItem).toHaveBeenCalled();
     });
 
     describe('When bitstreams are empty', () => {
 
       beforeEach(() => {
-        const spy = spyOn(component, 'getBitstreams');
+        const spy = spyOn(component, 'getBitstreamsByItem');
         spy.and.returnValue(of(createPaginatedList([])));
         component.ngOnInit();
         fixture.detectChanges();
@@ -248,7 +248,7 @@ describe('ThumbnailComponent', () => {
     describe('When bitstreams are only original without the right metadata information', () => {
 
       beforeEach(() => {
-        const spy = spyOn(component, 'getBitstreams');
+        const spy = spyOn(component, 'getBitstreamsByItem');
         spy.and.returnValue(of(createPaginatedList([bitstreamWithoutThumbnail])));
         component.ngOnInit();
         fixture.detectChanges();
@@ -264,8 +264,8 @@ describe('ThumbnailComponent', () => {
     describe('When bitstreams are thumbnail of original without the right metadata information', () => {
 
       beforeEach(() => {
-        const spy = spyOn(component, 'getBitstreams');
-        spy.and.returnValue(of(createPaginatedList([bitstreamWithThumbnail])));
+        const spy = spyOn(component, 'getBitstreamsByItem');
+        spy.and.returnValue(of(createPaginatedList([])));
         component.ngOnInit();
         fixture.detectChanges();
       });
@@ -280,7 +280,7 @@ describe('ThumbnailComponent', () => {
     describe('When bitstreams are only original with the right metadata information', () => {
 
       beforeEach(() => {
-        const spy = spyOn(component, 'getBitstreams');
+        const spy = spyOn(component, 'getBitstreamsByItem');
         spy.and.returnValue(of(createPaginatedList([bitstreamOrignialWithMetadata])));
         component.ngOnInit();
         fixture.detectChanges();
@@ -296,7 +296,7 @@ describe('ThumbnailComponent', () => {
     describe('When bitstreams thumbnail of original bitsream with the right metadata information', () => {
 
       beforeEach(() => {
-        const spy = spyOn(component, 'getBitstreams');
+        const spy = spyOn(component, 'getBitstreamsByItem');
         spy.and.returnValue(of(createPaginatedList([bitstreamWithThumbnailWithMetadata])));
         component.ngOnInit();
         fixture.detectChanges();
