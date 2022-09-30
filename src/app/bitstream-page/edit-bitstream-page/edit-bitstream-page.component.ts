@@ -191,7 +191,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * The Dynamic Input Model for select a file type
    */
-  fileTypeModel = new DynamicScrollableDropdownModel({
+  fileTypeModel = new DsDynamicInputModel({
     vocabularyOptions: {
       name: 'bitstream_types',
       metadata: 'dc.type',
@@ -652,7 +652,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const primary = rawForm.fileNamePrimaryContainer.primaryBitstream;
     Metadata.setFirstValue(newMetadata, 'dc.title', rawForm.fileNamePrimaryContainer.fileName);
     Metadata.setFirstValue(newMetadata, 'dc.description', rawForm.descriptionContainer.description);
-    Metadata.setFirstValue(newMetadata, 'dc.type', rawForm.fileTypeContainer.fileType.display);
+    Metadata.setFirstValue(newMetadata, 'dc.type', rawForm.fileTypeContainer.fileType);
     if (this.isIIIF) {
       // It's helpful to remove these metadata elements entirely when the form value is empty.
       // This avoids potential issues on the REST side and makes it possible to do things like
