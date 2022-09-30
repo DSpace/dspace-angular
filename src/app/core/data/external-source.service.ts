@@ -20,7 +20,7 @@ import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from './find-list-options.model';
-import { sendRequest } from '../shared/operators';
+import { sendRequest } from '../shared/request.operators';
 
 /**
  * A service handling all external source requests

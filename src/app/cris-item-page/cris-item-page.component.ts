@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { RemoteData } from '../core/data/remote-data';
 import { Item } from '../core/shared/item.model';
-import { redirectOn4xx } from '../core/shared/operators';
+import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { fadeInOut } from '../shared/animations/fade';
 import { AuthService } from '../core/auth/auth.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';

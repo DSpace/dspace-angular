@@ -1,4 +1,4 @@
-import { CacheableObject } from '../../cache/object-cache.reducer';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';

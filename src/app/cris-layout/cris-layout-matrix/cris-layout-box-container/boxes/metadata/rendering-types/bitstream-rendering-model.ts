@@ -1,4 +1,4 @@
-import { FindListOptions } from '../../../../../../core/data/request.models';
+import { FindListOptions } from '../../../../../../core/data/find-list-options.model';
 import { Component, Inject } from '@angular/core';
 
 import { Observable } from 'rxjs';

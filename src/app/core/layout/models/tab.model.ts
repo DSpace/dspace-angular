@@ -1,7 +1,7 @@
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { TAB } from './tab.resource-type';
-import { CacheableObject } from '../../cache/object-cache.reducer';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';

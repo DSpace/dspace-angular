@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { SortDirection, SortOptions, } from '../core/cache/models/sort-options.model';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
-import { getFirstSucceededRemoteDataPayload, redirectOn4xx } from '../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { SuggestionBulkResult, SuggestionsService } from '../openaire/reciter-suggestions/suggestions.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { OpenaireSuggestion } from '../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
@@ -19,8 +19,9 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { SuggestionTargetsStateService } from '../openaire/reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { PaginationService } from '../core/pagination/pagination.service';
-import { FindListOptions } from '../core/data/request.models';
+import { FindListOptions } from '../core/data/find-list-options.model';
 import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
+import { redirectOn4xx } from '../core/shared/authorized.operators';
 
 @Component({
   selector: 'ds-suggestion-page',

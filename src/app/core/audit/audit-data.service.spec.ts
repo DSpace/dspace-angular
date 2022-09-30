@@ -3,7 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { CoreState } from '../core.reducers';
+import { CoreState } from '../core-state.model';
 import { RequestService } from '../data/request.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -12,7 +12,7 @@ import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { createPaginatedList, createRequestEntry$ } from '../../shared/testing/utils.test';
 import { AUDIT_FIND_BY_OBJECT_SEARCH_METHOD, AuditDataService } from './audit-data.service';
 import { AuditMock } from '../../shared/testing/audit.mock';
-import { FindListOptions } from '../data/request.models';
+import { FindListOptions } from '../data/find-list-options.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 

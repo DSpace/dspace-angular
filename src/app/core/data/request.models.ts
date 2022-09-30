@@ -12,7 +12,7 @@ import { ContentSourceResponseParsingService } from './content-source-response-p
 import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { FindListOptions } from './find-list-options.model';
-import { PathableObjectError } from './request.reducer';
+import { PathableObjectError } from './response-state.model';
 
 
 // uuid and handle requests have separate endpoints

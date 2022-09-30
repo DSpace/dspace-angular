@@ -3,7 +3,7 @@ import { Component, Inject, Injector, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { from, Observable } from 'rxjs';
 
-import { CoreState } from '../../core/core.reducers';
+import { CoreState } from '../../core/core-state.model';
 import { isAuthenticated } from '../../core/auth/selectors';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';

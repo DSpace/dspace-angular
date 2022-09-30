@@ -189,6 +189,4 @@ export class ResearcherProfileService {
     return this.dataService.patch(researcherProfile, operations);
   }
 
-
-
 }

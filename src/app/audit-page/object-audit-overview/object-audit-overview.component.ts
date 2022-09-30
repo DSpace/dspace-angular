@@ -5,7 +5,7 @@ import { mergeMap } from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { FindListOptions } from '../../core/data/request.models';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { Audit } from '../../core/audit/model/audit.model';
@@ -13,10 +13,11 @@ import { AuditDataService } from '../../core/audit/audit-data.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { getFirstCompletedRemoteData, redirectOn4xx } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
 
 /**
  * Component displaying a list of all audit about a object in a paginated table
