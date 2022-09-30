@@ -107,7 +107,7 @@ describe('My DSpace page', () => {
             cy.get('[data-dismiss="alert"]').click({multiple: true});
 
             // This is the GET command that will actually run the search
-            cy.intercept('GET', '/server/api/discover/search/objects*').as('search-results');
+            cy.intercept('GET', '/server/api/discover/search/objects**').as('search-results');
             // On MyDSpace, find the submission we just created via its ID
             cy.get('[data-test="search-box"]').type(id);
             cy.get('[data-test="search-button"]').click();
