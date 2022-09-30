@@ -5,6 +5,8 @@ import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock
 import { MetadataValuesComponent } from './metadata-values.component';
 import { By } from '@angular/platform-browser';
 import { MetadataValue } from '../../../core/shared/metadata.models';
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
 
 let comp: MetadataValuesComponent;
 let fixture: ComponentFixture<MetadataValuesComponent>;
@@ -34,6 +36,9 @@ describe('MetadataValuesComponent', () => {
           useClass: TranslateLoaderMock
         }
       })],
+      providers: [
+        { provide: APP_CONFIG, useValue: environment },
+      ],
       declarations: [MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MetadataValuesComponent, {
