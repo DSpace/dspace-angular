@@ -11,10 +11,10 @@ import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-
 import { RemoteData } from '../remote-data';
 import { PaginatedList } from '../paginated-list.model';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { AuthorizationSearchParams } from './authorization-search-params';
-import { addSiteObjectUrlIfEmpty, oneAuthorizationMatchesFeature } from './authorization-utils';
+import { oneAuthorizationMatchesFeature } from './authorization-utils';
 import { FeatureID } from './feature-id';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { FindListOptions } from '../find-list-options.model';
@@ -96,12 +96,28 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
    *                                    {@link HALLink}s should be automatically resolved
    */
   searchByObject(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Authorization>[]): Observable<RemoteData<PaginatedList<Authorization>>> {
-    return observableOf(new AuthorizationSearchParams(objectUrl, ePersonUuid, featureId)).pipe(
-      addSiteObjectUrlIfEmpty(this.siteService),
+    const objectUrl$ = observableOf(objectUrl).pipe(
+      switchMap((url) => {
+        if (hasNoValue(url)) {
+          return this.siteService.find().pipe(
+            map((site) => site.self)
+          );
+        } else {
+          return observableOf(url);
+        }
+      }),
+    );
+
+    const out$ = objectUrl$.pipe(
+      map((url: string) => new AuthorizationSearchParams(url, ePersonUuid, featureId)),
       switchMap((params: AuthorizationSearchParams) => {
         return this.searchBy(this.searchByObjectPath, this.createSearchOptions(params.objectUrl, options, params.ePersonUuid, params.featureId), useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
       })
     );
+
+    this.addDependency(out$, objectUrl$);
+
+    return out$;
   }
 
   /**

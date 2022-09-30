@@ -5,6 +5,7 @@ import { ItemPageAbstractFieldComponent } from './item-page-abstract-field.compo
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { mockItemWithMetadataFieldAndValue } from '../item-page-field.component.spec';
+import { SharedModule } from '../../../../../shared/shared.module';
 
 let comp: ItemPageAbstractFieldComponent;
 let fixture: ComponentFixture<ItemPageAbstractFieldComponent>;
@@ -15,12 +16,15 @@ const mockValue = 'test value';
 describe('ItemPageAbstractFieldComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }),
+        SharedModule,
+      ],
       declarations: [ItemPageAbstractFieldComponent, MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemPageAbstractFieldComponent, {

@@ -27,6 +27,10 @@ export class ProfilePageSecurityFormComponent implements OnInit {
    * Emits the value of the password
    */
   @Output() passwordValue = new EventEmitter<string>();
+  /**
+   * Emits the value of the current-password
+   */
+  @Output() currentPasswordValue = new EventEmitter<string>();
 
   /**
    * The form's input models
@@ -70,6 +74,14 @@ export class ProfilePageSecurityFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.FORM_PREFIX === 'profile.security.form.') {
+      this.formModel.unshift(new DynamicInputModel({
+        id: 'current-password',
+        name: 'current-password',
+        inputType: 'password',
+        required: true
+      }));
+    }
     if (this.passwordCanBeEmpty) {
       this.formGroup = this.formService.createFormGroup(this.formModel,
         { validators: [this.checkPasswordsEqual] });
@@ -94,6 +106,9 @@ export class ProfilePageSecurityFormComponent implements OnInit {
       debounceTime(300),
     ).subscribe((valueChange) => {
       this.passwordValue.emit(valueChange.password);
+      if (this.FORM_PREFIX === 'profile.security.form.') {
+        this.currentPasswordValue.emit(valueChange['current-password']);
+      }
     }));
   }
 

@@ -13,6 +13,8 @@ export function getMockObjectCacheService(): ObjectCacheService {
     'hasByUUID',
     'hasByHref',
     'getRequestUUIDBySelfLink',
+    'addDependency',
+    'removeDependents',
   ]);
 
 }

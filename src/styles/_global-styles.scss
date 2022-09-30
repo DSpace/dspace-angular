@@ -187,6 +187,10 @@ ds-dynamic-form-control-container.d-none {
   }
 }
 
+.preserve-line-breaks {
+  white-space: pre-line;
+}
+
 ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
   // ensure that links in DSO edit menu dropdowns are unstyled (li elements are styled instead to support icons)
   padding: 0;

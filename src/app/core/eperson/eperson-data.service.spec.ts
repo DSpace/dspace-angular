@@ -307,7 +307,7 @@ describe('EPersonDataService', () => {
     it('should sent a patch request with an uuid, token and new password to the epersons endpoint', () => {
       service.patchPasswordWithToken('test-uuid', 'test-token', 'test-password');
 
-      const operation = Object.assign({ op: 'add', path: '/password', value: 'test-password' });
+      const operation = Object.assign({ op: 'add', path: '/password', value: { new_password: 'test-password' } });
       const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/test-uuid?token=test-token', [operation]);
 
       expect(requestService.send).toHaveBeenCalledWith(expected);
