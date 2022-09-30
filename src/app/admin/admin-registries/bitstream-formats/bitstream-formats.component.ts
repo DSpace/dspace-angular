@@ -32,9 +32,9 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
    * The current pagination configuration for the page used by the FindAll method
    * Currently simply renders all bitstream formats
    */
-  config: FindListOptions = Object.assign(new FindListOptions(), {
-    elementsPerPage: 20
-  });
+  // config: FindListOptions = Object.assign(new FindListOptions(), {
+  //   elementsPerPage: 20
+  // });
 
   /**
    * The current pagination configuration for the page
@@ -42,7 +42,8 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'rbp',
-    pageSize: 20
+    pageSize: 25,
+    pageSizeOptions: [25, 50, 100, 200]
   });
 
   constructor(private notificationsService: NotificationsService,
@@ -50,7 +51,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
               private translateService: TranslateService,
               private bitstreamFormatService: BitstreamFormatDataService,
               private paginationService: PaginationService,
-              ) {
+  ) {
   }
 
 
@@ -140,7 +141,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.bitstreamFormats = this.paginationService.getFindListOptions(this.pageConfig.id, this.config).pipe(
+    this.bitstreamFormats = this.paginationService.getFindListOptions(this.pageConfig.id, this.pageConfig).pipe(
       switchMap((findListOptions: FindListOptions) => {
         return this.bitstreamFormatService.findAll(findListOptions);
       })
