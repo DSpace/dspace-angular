@@ -9,6 +9,7 @@ import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-na
 import { SearchModule } from '../../app/shared/search/search.module';
 import { RootModule } from '../../app/root.module';
 import { NavbarModule } from '../../app/navbar/navbar.module';
+import { ExploreModule } from '../../app/shared/explore/explore.module';
 
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
@@ -26,14 +27,15 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    SearchModule,
-    FormsModule,
-    RootModule,
-    NavbarModule,
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        SearchModule,
+        FormsModule,
+        RootModule,
+        NavbarModule,
+        ExploreModule,
+    ],
   declarations: DECLARATIONS,
   providers: [
     ...ENTRY_COMPONENTS.map((component) => ({ provide: component }))

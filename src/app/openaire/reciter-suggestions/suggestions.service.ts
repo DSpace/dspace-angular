@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
 
-import { of, forkJoin, Observable } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, take } from 'rxjs/operators';
 
-import { OpenaireSuggestionsDataService } from '../../core/openaire/reciter-suggestions/openaire-suggestions-data.service';
+import {
+  OpenaireSuggestionsDataService
+} from '../../core/openaire/reciter-suggestions/openaire-suggestions-data.service';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../core/data/request.models';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
-import { OpenaireSuggestionTarget } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+import {
+  OpenaireSuggestionTarget
+} from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFinishedRemoteData,
@@ -27,6 +30,7 @@ import { NoContent } from '../../core/shared/NoContent.model';
 import { environment } from '../../../environments/environment';
 import { SuggestionConfig } from '../../../config/layout-config.interfaces';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 export interface SuggestionBulkResult {
   success: number;
@@ -44,6 +48,7 @@ export class SuggestionsService {
    * @param {AuthService} authService
    * @param {ResearcherProfileService} researcherProfileService
    * @param {OpenaireSuggestionsDataService} suggestionsDataService
+   * @param {TranslateService} translateService
    */
   constructor(
     private authService: AuthService,
@@ -146,21 +151,19 @@ export class SuggestionsService {
    *   The EPerson object for which to retrieve suggestion targets
    */
   public retrieveCurrentUserSuggestions(user: EPerson): Observable<OpenaireSuggestionTarget[]> {
-    return this.researcherProfileService.findById(user.uuid).pipe(
-      mergeMap((profile: ResearcherProfile) => {
-        if (isNotEmpty(profile)) {
-          return this.researcherProfileService.findRelatedItemId(profile).pipe(
-            mergeMap((itemId: string) => {
-              return this.suggestionsDataService.getTargetsByUser(itemId).pipe(
-                getFirstSucceededRemoteListPayload()
-              );
-            })
-          );
-        } else {
-          return of([]);
-        }
-      }),
-      take(1)
+    return this.researcherProfileService.findById(user.id, false, true, followLink('item')).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      mergeMap((researcherProfile) => this.researcherProfileService.findRelatedItemId(researcherProfile).pipe(
+        mergeMap((itemId: string) => {
+          if (isNotEmpty(itemId)) {
+            return this.suggestionsDataService.getTargetsByUser(itemId).pipe(
+              getFirstSucceededRemoteListPayload()
+            );
+          } else {
+            return of([]);
+          }
+        })
+      )),
     );
   }
 

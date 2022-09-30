@@ -82,7 +82,6 @@ const rowArrayQualdropConfig = {
   notRepeatable: true,
   isDraggable: false,
   relationshipConfig: undefined,
-  showButtons: true,
   groupFactory: () => {
     return [MockQualdropModel];
   },

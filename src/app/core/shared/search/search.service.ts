@@ -9,6 +9,7 @@ import { PaginatedList } from '../../data/paginated-list.model';
 import { ResponseParsingService } from '../../data/parsing.service';
 import { RemoteData } from '../../data/remote-data';
 import { GetRequest} from '../../data/request.models';
+import { RestRequest } from '../../data/rest-request.model';
 import { RequestService } from '../../data/request.service';
 import { DSpaceObject } from '../dspace-object.model';
 import { GenericConstructor } from '../generic-constructor';
@@ -20,6 +21,7 @@ import { SearchFilterConfig } from '../../../shared/search/models/search-filter-
 import { SearchResponseParsingService } from '../../data/search-response-parsing.service';
 import { SearchObjects } from '../../../shared/search/models/search-objects.model';
 import { FacetValueResponseParsingService } from '../../data/facet-value-response-parsing.service';
+import { FacetConfigResponseParsingService } from '../../data/facet-config-response-parsing.service';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { Community } from '../community.model';
 import { CommunityDataService } from '../../data/community-data.service';
@@ -31,18 +33,19 @@ import { RouteService } from '../../services/route.service';
 import { SearchResult } from '../../../shared/search/models/search-result.model';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
+import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
 import { FacetValues } from '../../../shared/search/models/facet-values.model';
+import { SearchConfig } from './search-filters/search-config.model';
 import { PaginationService } from '../../pagination/pagination.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { DataService } from '../../data/data.service';
 import { Store } from '@ngrx/store';
+import { CoreState } from '../../core-state.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DSOChangeAnalyzer } from '../../data/dso-change-analyzer.service';
-import { RestRequest } from '../../data/rest-request.model';
-import { CoreState } from '../../core-state.model';
 
 /**
  * A class that lets us delegate some methods to DataService
@@ -78,6 +81,11 @@ class DataServiceImpl extends DataService<any> {
  */
 @Injectable()
 export class SearchService implements OnDestroy {
+
+  /**
+   * Endpoint link path for retrieving search configurations
+   */
+  private configurationLinkPath = 'discover/search';
 
   /**
    * Endpoint link path for retrieving general search results
@@ -511,6 +519,25 @@ export class SearchService implements OnDestroy {
         }
         this.paginationService.updateRouteWithUrl(this.searchConfigurationService.paginationID, hasValue(searchLinkParts) ? searchLinkParts : [this.getSearchLink()], pageParams, queryParams);
       });
+  }
+
+  /**
+   * Request the search configuration for a given scope or the whole repository
+   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
+   * @param {string} configurationName the name of the configuration
+   * @returns {Observable<RemoteData<SearchConfig[]>>} The found configuration
+   */
+  getSearchConfigurationFor(scope?: string, configurationName?: string): Observable<RemoteData<SearchConfig>> {
+    const href$ = this.halService.getEndpoint(this.configurationLinkPath).pipe(
+      map((url: string) => this.getConfigUrl(url, scope, configurationName)),
+    );
+
+    href$.pipe(take(1)).subscribe((url: string) => {
+      const request = new this.request(this.requestService.generateRequestId(), url);
+      this.requestService.send(request, true);
+    });
+
+    return this.rdb.buildFromHref(href$);
   }
 
   /**

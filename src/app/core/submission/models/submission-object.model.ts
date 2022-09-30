@@ -14,7 +14,7 @@ import { ITEM } from '../../shared/item.resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
 import { CacheableObject } from '../../cache/cacheable-object.model';
-import { PathableObjectError } from '../../data/request.reducer';
+import { PathableObjectError } from '../../data/response-state.model';
 
 export type SubmissionObjectError = PathableObjectError;
 

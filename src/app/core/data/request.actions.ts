@@ -4,7 +4,7 @@ import { type } from '../../shared/ngrx/type';
 import { HALLink } from '../shared/hal-link.model';
 import { UnCacheableObject } from '../shared/uncacheable-object.model';
 import { RestRequest } from './rest-request.model';
-import { PathableObjectError } from './request.reducer';
+import { PathableObjectError } from './response-state.model';
 
 /**
  * The list of RequestAction type definitions

@@ -118,6 +118,8 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     switch (orcidQueue.recordType.toLowerCase()) {
       case 'publication':
         return 'fas fa-book';
+      case 'funding':
+        return 'fa fa-wallet';
       case 'project':
         return 'fas fa-wallet';
       case 'education':

@@ -48,7 +48,6 @@ import { HomePageComponent } from './app/home-page/home-page.component';
 import { RootComponent } from './app/root/root.component';
 import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
 import { OpenaireModule } from '../../app/openaire/openaire.module';
-import { AccessControlModule } from '../../app/access-control/access-control.module';
 import { BrowseBySwitcherComponent } from './app/browse-by/browse-by-switcher/browse-by-switcher.component';
 import { CommunityListPageComponent } from './app/community-list-page/community-list-page.component';
 import { SearchPageComponent } from './app/search-page/search-page.component';

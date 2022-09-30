@@ -108,7 +108,7 @@ export class OrcidSyncSettingsComponent implements OnInit {
 
     const syncProfilePreferences = this.item.allMetadataValues('dspace.orcid.sync-profile');
 
-    this.syncProfileOptions = ['BIOGRAPHICAL', 'IDENTIFIERS']
+    this.syncProfileOptions = ['AFFILIATION', 'EDUCATION', 'BIOGRAPHICAL', 'IDENTIFIERS']
       .map((value) => {
         return {
           label: this.messagePrefix + '.sync-profile.' + value.toLowerCase(),

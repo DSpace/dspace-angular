@@ -29,9 +29,6 @@ import { IdentifierComponent } from './cris-layout-matrix/cris-layout-box-contai
 import { CrisrefComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/crisref/crisref.component';
 import { ThumbnailComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/thumbnail/thumbnail.component';
 import { AttachmentComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/attachment/attachment.component';
-import { OrcidSyncQueueComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/orcid-sync-queue/orcid-sync-queue.component';
-import { OrcidAuthorizationsComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/orcid-authorizations/orcid-authorizations.component';
-import { OrcidSyncSettingsComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/orcid-sync-settings/orcid-sync-settings.component';
 import { CrisLayoutMetricsBoxComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component';
 import { CrisLayoutIIIFViewerBoxComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/iiif-viewer/cris-layout-iiif-viewer-box.component';
 import { MetricRowComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metrics/metric-row/metric-row.component';
@@ -65,9 +62,6 @@ const ENTRY_COMPONENTS = [
   CrisrefComponent,
   ThumbnailComponent,
   AttachmentComponent,
-  OrcidSyncQueueComponent,
-  OrcidAuthorizationsComponent,
-  OrcidSyncSettingsComponent,
   CrisLayoutMetricsBoxComponent,
   TableComponent,
   InlineComponent,

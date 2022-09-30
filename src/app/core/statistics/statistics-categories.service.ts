@@ -5,7 +5,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
+import { CoreState } from '../core-state.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';

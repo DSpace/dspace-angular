@@ -11,7 +11,6 @@ import { ThemedAdminSidebarComponent } from './admin/admin-sidebar/themed-admin-
 import {
   ExpandableAdminSidebarSectionComponent
 } from './admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
-import { FooterComponent } from './footer/footer.component';
 import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
 import { HeaderComponent } from './header/header.component';
 import { NavbarModule } from './navbar/navbar.module';
@@ -28,7 +27,6 @@ import { ThemedRootComponent } from './root/themed-root.component';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { ThemedHeaderComponent } from './header/themed-header.component';
-import { ThemedFooterComponent } from './footer/themed-footer.component';
 import { ThemedBreadcrumbsComponent } from './breadcrumbs/themed-breadcrumbs.component';
 import {
   ThemedHeaderNavbarWrapperComponent
@@ -45,6 +43,8 @@ import { PageErrorComponent } from './page-error/page-error.component';
 import {
   ProcessNotificationComponent
 } from './shared/notifications/process-notification/process-notification.component';
+import { FooterModule } from './footer/footer.module';
+import { SocialModule } from './social/social.module';
 
 const IMPORTS = [
   CommonModule,
@@ -67,8 +67,6 @@ const DECLARATIONS = [
   ThemedAdminSidebarComponent,
   AdminSidebarSectionComponent,
   ExpandableAdminSidebarSectionComponent,
-  FooterComponent,
-  ThemedFooterComponent,
   PageNotFoundComponent,
   ThemedPageNotFoundComponent,
   NotificationComponent,
@@ -90,7 +88,9 @@ const EXPORTS = [
 
 @NgModule({
   imports: [
-    ...IMPORTS
+    ...IMPORTS,
+    FooterModule,
+    SocialModule
   ],
   providers: [
     ...PROVIDERS

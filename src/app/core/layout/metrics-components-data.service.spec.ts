@@ -6,7 +6,7 @@ import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestEntry } from '../data/request.reducer';
+import { RequestEntry } from '../data/request-entry.model';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { RestResponse } from '../cache/response.models';

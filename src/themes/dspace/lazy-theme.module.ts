@@ -58,6 +58,7 @@ import { RootModule } from '../../app/root.module';
 import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
 import { ExploreModule } from '../../app/shared/explore/explore.module';
 import { FooterModule } from '../../app/footer/footer.module';
+import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
 
 const DECLARATIONS = [
 ];
@@ -110,6 +111,7 @@ const DECLARATIONS = [
     FormsModule,
     ResourcePoliciesModule,
     ComcolModule,
+    ContextMenuModule,
     MiradorViewerModule,
     FooterModule,
     ExploreModule
