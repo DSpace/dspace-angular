@@ -23,8 +23,16 @@ const mockLabel = 'test label';
 const mockFields = [mockField];
 
 describe('ItemPageFieldComponent', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+
+  let appConfig = Object.assign({}, environment, {
+    markdown: {
+      enabled: false,
+      mathjax: false,
+    }
+  });
+
+  const buildTestEnvironment = async () => {
+    await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
           loader: {
@@ -35,7 +43,7 @@ describe('ItemPageFieldComponent', () => {
         SharedModule,
       ],
       providers: [
-        { provide: APP_CONFIG, useValue: Object.assign({}, environment) },
+        { provide: APP_CONFIG, useValue: appConfig },
       ],
       declarations: [ItemPageFieldComponent, MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA]
@@ -43,26 +51,25 @@ describe('ItemPageFieldComponent', () => {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
     markdownSpy = spyOn(MarkdownPipe.prototype, 'transform');
-  }));
-
-  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ItemPageFieldComponent);
     comp = fixture.componentInstance;
     comp.item = mockItemWithMetadataFieldAndValue(mockField, mockValue);
     comp.fields = mockFields;
     comp.label = mockLabel;
     fixture.detectChanges();
-  }));
+  };
 
-  it('should display display the correct metadata value', () => {
+  it('should display display the correct metadata value', waitForAsync(async () => {
+    await buildTestEnvironment();
     expect(fixture.nativeElement.innerHTML).toContain(mockValue);
-  });
+  }));
 
   describe('when markdown is disabled in the environment config', () => {
 
-    beforeEach(() => {
-      TestBed.inject(APP_CONFIG).markdown.enabled = false;
-    });
+    beforeEach(waitForAsync(async () => {
+      appConfig.markdown.enabled = false;
+      await buildTestEnvironment();
+    }));
 
     describe('and markdown is disabled in this component', () => {
 
@@ -91,9 +98,10 @@ describe('ItemPageFieldComponent', () => {
 
   describe('when markdown is enabled in the environment config', () => {
 
-    beforeEach(() => {
-      TestBed.inject(APP_CONFIG).markdown.enabled = true;
-    });
+    beforeEach(waitForAsync(async () => {
+      appConfig.markdown.enabled = true;
+      await buildTestEnvironment();
+    }));
 
     describe('and markdown is disabled in this component', () => {
 
