@@ -1,10 +1,10 @@
 {
 
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
-  "401.help": "Você não tem autorização para acessar esta página. Clique no botão abaixo para retornar à página inicial.",
+  "401.help": "Você não tem autorização para acessar esta página. Clique no botão abaixo para ir à página inicial.",
 
   // "401.link.home-page": "Take me to the home page",
-  "401.link.home-page": "Retornar à página inicial",
+  "401.link.home-page": "Ir à página inicial",
 
   // "401.unauthorized": "unauthorized",
   "401.unauthorized": "não autorizado",
@@ -12,7 +12,7 @@
 
 
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
-  "403.help": "Você não tem permissão para acessar esta página. Clique no botão abaixo para retornar à página inicial.",
+  "403.help": "Você não tem permissão para acessar esta página. Clique no botão abaixo para ir à página inicial.",
 
   // "403.link.home-page": "Take me to the home page",
   "403.link.home-page": "Ir à página inicial",
@@ -34,7 +34,7 @@
   "404.help": "Não encontramos a página que você procura. A página pode ter sido movida ou apagada. Você pode utilizar o botão abaixo para voltar à página inicial. ",
 
   // "404.link.home-page": "Take me to the home page",
-  "404.link.home-page": "Retornar à página inicial",
+  "404.link.home-page": "Ir à página inicial",
 
   // "404.page-not-found": "page not found",
   "404.page-not-found": "página não encontrada",
@@ -127,7 +127,7 @@
   "admin.registries.bitstream-formats.edit.description.label": "Descrição",
 
   // "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
-  "admin.registries.bitstream-formats.edit.extensions.hint": "Extensões são extensões de arquivo usadas para identificar automaticamente o formato dos arquivo enviados. Você pode informar várias extensões para cada formato.",
+  "admin.registries.bitstream-formats.edit.extensions.hint": "Extensões de arquivo são usadas para identificar automaticamente o formato dos arquivo enviados. Você pode informar várias extensões para cada formato.",
 
   // "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
   "admin.registries.bitstream-formats.edit.extensions.label": "Extensões de arquivo",
@@ -145,7 +145,7 @@
   "admin.registries.bitstream-formats.edit.head": "Formato de bitstream: {{ format }}",
 
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
-  "admin.registries.bitstream-formats.edit.internal.hint": "Formatos marcados como interno são ocultos para o usuário e utilizados para propósitos administrativos.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "Formatos marcados como interno são ocultados para o usuário e utilizados para propósitos administrativos.",
 
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
   "admin.registries.bitstream-formats.edit.internal.label": "Interno",
@@ -311,7 +311,7 @@
   "admin.registries.schema.notification.failure": "Erro",
 
   // "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.created": "Campo de metadado \"{{field}}\" criado com sucesso",
+  "admin.registries.schema.notification.field.created": "Campo de metadados \"{{field}}\" criado com sucesso",
 
   // "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
   "admin.registries.schema.notification.field.deleted.failure": "Falha ao apagar {{amount}} campo(s) de metadados",
@@ -320,7 +320,7 @@
   "admin.registries.schema.notification.field.deleted.success": "Apagou {{amount}} campo(s) de metadados com sucesso",
 
   // "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.edited": "Campo de metadado \"{{field}}\" editado com sucesso",
+  "admin.registries.schema.notification.field.edited": "Campo de metadados \"{{field}}\" editado com sucesso",
 
   // "admin.registries.schema.notification.success": "Success",
   "admin.registries.schema.notification.success": "Sucesso",
@@ -337,13 +337,13 @@
   "admin.access-control.epeople.actions.delete": "Excluir EPerson",
 
   // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
-  "admin.access-control.epeople.actions.impersonate": "Incorporar EPerson",
+  "admin.access-control.epeople.actions.impersonate": "Assumir o papel do EPerson",
 
   // "admin.access-control.epeople.actions.reset": "Reset password",
   "admin.access-control.epeople.actions.reset": "Redefinir senha",
 
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
-  "admin.access-control.epeople.actions.stop-impersonating": "Parar de incorporar EPerson",
+  "admin.access-control.epeople.actions.stop-impersonating": "Parar de assumir o papel do EPerson",
 
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
   "admin.access-control.epeople.breadcrumbs": "EPeople",
