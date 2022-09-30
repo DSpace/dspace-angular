@@ -127,7 +127,7 @@ describe('DSOEditMenuResolver', () => {
   });
 
   describe('resolve', () => {
-    it('should create all menus when a dso is found', (done) => {
+    it('should create all menus when a dso is found based on the route id param', (done) => {
       spyOn(resolver, 'getDsoMenus').and.returnValue(
         [observableOf(dummySections1), observableOf(dummySections2)]
       );
@@ -141,6 +141,41 @@ describe('DSOEditMenuResolver', () => {
             ]
           }
         );
+        expect(dSpaceObjectDataService.findById).toHaveBeenCalledWith('test-uuid', true, false);
+        expect(resolver.getDsoMenus).toHaveBeenCalled();
+        done();
+      });
+    });
+    it('should create all menus when a dso is found based on the route scope query param when no id param is present', (done) => {
+      spyOn(resolver, 'getDsoMenus').and.returnValue(
+        [observableOf(dummySections1), observableOf(dummySections2)]
+      );
+      const routeWithScope = {
+        data: {
+          menu: {
+            'statistics': [{
+              id: 'statistics-dummy-1',
+              active: false,
+              visible: true,
+              model: null
+            }]
+          }
+        },
+        params: {},
+        queryParams: {scope: 'test-scope-uuid'},
+      };
+
+      resolver.resolve(routeWithScope as any, null).subscribe(resolved => {
+        expect(resolved).toEqual(
+          {
+            ...route.data.menu,
+            [MenuID.DSO_EDIT]: [
+              ...dummySections1.map((menu) => Object.assign(menu, {id: menu.id + '-test-scope-uuid'})),
+              ...dummySections2.map((menu) => Object.assign(menu, {id: menu.id + '-test-scope-uuid'}))
+            ]
+          }
+        );
+        expect(dSpaceObjectDataService.findById).toHaveBeenCalledWith('test-scope-uuid', true, false);
         expect(resolver.getDsoMenus).toHaveBeenCalled();
         done();
       });
@@ -183,7 +218,7 @@ describe('DSOEditMenuResolver', () => {
         expect(menuList[0].visible).toEqual(true);
         expect(menuList[0].model.type).toEqual(MenuItemType.LINK);
         expect((menuList[0].model as LinkMenuItemModel).text).toEqual('item.page.edit');
-        expect((menuList[0].model as LinkMenuItemModel).link).toEqual('test-url/edit/metadata');
+        expect((menuList[0].model as LinkMenuItemModel).link).toEqual('/items/test-uuid/edit/metadata');
         expect(menuList[0].icon).toEqual('pencil-alt');
         done();
       });
