@@ -184,6 +184,7 @@
   "admin.registries.schema.fields.table.delete": "Delete selected",
 
   "admin.registries.schema.fields.table.field": "Field",
+  "admin.registries.schema.fields.table.id" : "ID",
 
   "admin.registries.schema.fields.table.scopenote": "Scope Note",
 
