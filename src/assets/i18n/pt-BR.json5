@@ -15,7 +15,7 @@
   "403.help": "Você não tem permissão para acessar esta página. Clique no botão abaixo para retornar à página inicial.",
 
   // "403.link.home-page": "Take me to the home page",
-  "403.link.home-page": "Retornar à página inicial",
+  "403.link.home-page": "Ir à página inicial",
 
   // "403.forbidden": "forbidden",
   "403.forbidden": "proibido",
@@ -27,7 +27,7 @@
   "500.help": "O servidor está temporariamente impossibilitado de atender sua solicitação devido a um período de manutenção ou problemas no servidor. Por favor, tente novamente mais tarde.",
 
   // "500.link.home-page": "Take me to the home page",
-  "500.link.home-page": "Retornar à página inicial",
+  "500.link.home-page": "Ir à página inicial",
 
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
