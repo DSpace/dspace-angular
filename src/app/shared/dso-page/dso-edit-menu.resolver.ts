@@ -14,8 +14,9 @@ import { map, switchMap } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
-import { hasValue } from '../empty.util';
+import { hasNoValue, hasValue } from '../empty.util';
 import { MenuSection } from '../menu/menu.reducer';
+import { getDSORoute } from '../../app-routing-paths';
 
 /**
  * Creates the menus for the dspace object pages
@@ -38,8 +39,11 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
    * Initialise all dspace object related menus
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<{ [key: string]: MenuSection[] }> {
-    const uuid = route.params.id;
-    return this.dSpaceObjectDataService.findById(uuid, true, false).pipe(
+    let id = route.params.id;
+    if (hasNoValue(id) && hasValue(route.queryParams.scope)) {
+      id = route.queryParams.scope;
+    }
+    return this.dSpaceObjectDataService.findById(id, true, false).pipe(
       getFirstCompletedRemoteData(),
       switchMap((dsoRD) => {
         if (dsoRD.hasSucceeded) {
@@ -88,7 +92,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
             model: {
               type: MenuItemType.LINK,
               text: this.getDsoType(dso) + '.page.edit',
-              link: new URLCombiner(state.url, 'edit', 'metadata').toString()
+              link: new URLCombiner(getDSORoute(dso), 'edit', 'metadata').toString()
             } as LinkMenuItemModel,
             icon: 'pencil-alt',
             index: 1
