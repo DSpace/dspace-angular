@@ -41,6 +41,7 @@ import { SelectionConfig } from './search-results/search-results.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { SearchManager } from '../../core/browse/search-manager';
+import { SearchFilterConfig } from './models/search-filter-config.model';
 
 @Component({
   selector: 'ds-search',
@@ -192,7 +193,12 @@ export class SearchComponent implements OnInit, OnDestroy {
   /**
    * Defines whether to show the toggle button to Show/Hide chart
    */
-   @Input() showChartsToggle = false;
+  @Input() showChartsToggle = false;
+
+  /**
+   * For chart regular expression
+   */
+  chartReg = new RegExp(/^chart./, 'i');
 
   /**
    * The current configuration used during the search
@@ -213,6 +219,16 @@ export class SearchComponent implements OnInit, OnDestroy {
    * The current sort options used
    */
   currentSortOptions$: BehaviorSubject<SortOptions> = new BehaviorSubject<SortOptions>(null);
+
+  /**
+   * An observable containing configuration about which filters are shown and how they are shown
+   */
+  filtersRD$: BehaviorSubject<RemoteData<SearchFilterConfig[]>> = new BehaviorSubject<RemoteData<SearchFilterConfig[]>>(null);
+
+  /**
+   * Maintains the last search options, so it can be used in refresh
+   */
+  lastSearchOptions: PaginatedSearchOptions;
 
   /**
    * The current search results
@@ -243,6 +259,11 @@ export class SearchComponent implements OnInit, OnDestroy {
    * Emits true if were on a small screen
    */
   isXsOrSm$: Observable<boolean>;
+
+  /**
+   * Emits when the search filters values may be stale, and so they must be refreshed.
+   */
+  refreshFilters: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
    * Link to the search page
@@ -356,6 +377,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.initialized$.next(true);
         // retrieve results
         this.retrieveSearchResults(newSearchOptions);
+        this.retrieveFilters(searchOptions);
       }
     });
   }
@@ -390,6 +412,15 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Emit event to refresh filter content
+   * @param $event
+   */
+  public onContentChange($event: any) {
+    this.retrieveFilters(this.lastSearchOptions);
+    this.refreshFilters.next(true);
+  }
+
+  /**
    * Unsubscribe from the subscription
    */
   ngOnDestroy(): void {
@@ -407,12 +438,32 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Retrieve search filters by the given search options
+   * @param searchOptions
+   * @private
+   */
+  private retrieveFilters(searchOptions: PaginatedSearchOptions) {
+    this.filtersRD$.next(null);
+    this.service.getConfig(searchOptions.scope, searchOptions.configuration).pipe(
+      getFirstCompletedRemoteData(),
+      map((rd: RemoteData<SearchFilterConfig[]>) => Object.assign(rd, {
+        payload: rd.payload.filter((entry: SearchFilterConfig) =>
+          !this.chartReg.test(entry.filterType)
+        )})
+      )
+    ).subscribe((filtersRD: RemoteData<SearchFilterConfig[]>) => {
+      this.filtersRD$.next(filtersRD);
+    });
+  }
+
+  /**
    * Retrieve search result by the given search options
    * @param searchOptions
    * @private
    */
   private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
+    this.lastSearchOptions = searchOptions;
 
     if (this.projection) {
       searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
