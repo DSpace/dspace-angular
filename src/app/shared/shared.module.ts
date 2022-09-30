@@ -314,6 +314,7 @@ import { SearchExportCsvComponent } from './search/search-export-csv/search-expo
 import {
   ItemPageTitleFieldComponent
 } from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
+import { MarkdownPipe } from './utils/markdown.pipe';
 
 const MODULES = [
   CommonModule,
@@ -357,6 +358,7 @@ const PIPES = [
   ConsolePipe,
   ObjNgFor,
   BrowserOnlyPipe,
+  MarkdownPipe,
 ];
 
 const COMPONENTS = [
