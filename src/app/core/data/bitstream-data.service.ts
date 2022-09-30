@@ -30,6 +30,11 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.util
 import { PageInfo } from '../shared/page-info.model';
 import { RequestParam } from '../cache/models/request-param.model';
 
+export interface MetadataFilter {
+  metadataName: string;
+  metadataValue: string;
+}
+
 /**
  * A service to retrieve {@link Bitstream}s from the REST API
  */
@@ -191,7 +196,8 @@ export class BitstreamDataService extends DataService<Bitstream> {
    *
    * @param uuid                        The item UUID to retrieve bitstreams from
    * @param bundlename                  Bundle type of the bitstreams
-   * @param metadataFilter              Array of object we want to filter by
+   * @param metadataFilters             Array of object we want to filter by
+   * @param options                     The {@link FindListOptions} for the request
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
    *                                    no valid cached version. Defaults to true
    * @param reRequestOnStale            Whether or not the request should automatically be re-
@@ -202,7 +208,7 @@ export class BitstreamDataService extends DataService<Bitstream> {
   findByItem(
     uuid: string,
     bundlename: string,
-    metadataFilter: any,
+    metadataFilters: MetadataFilter[],
     options: FindListOptions,
     useCachedVersionIfAvailable = true,
     reRequestOnStale = true,
@@ -212,10 +218,9 @@ export class BitstreamDataService extends DataService<Bitstream> {
     searchParams.push(new RequestParam('uuid', uuid));
     searchParams.push(new RequestParam('name', bundlename));
 
-
-    Object.keys(metadataFilter).forEach(key => {
-      searchParams.push(new RequestParam('filterMetadata', key));
-      searchParams.push(new RequestParam('filterMetadataValue', metadataFilter[key]));
+    metadataFilters.forEach((entry: MetadataFilter) => {
+      searchParams.push(new RequestParam('filterMetadata', entry.metadataName));
+      searchParams.push(new RequestParam('filterMetadataValue', entry.metadataValue));
     });
 
     const hrefObs = this.getSearchByHref(

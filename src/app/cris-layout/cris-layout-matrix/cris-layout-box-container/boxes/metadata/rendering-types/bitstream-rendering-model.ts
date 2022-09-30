@@ -6,9 +6,9 @@ import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Bitstream } from '../../../../../../core/shared/bitstream.model';
-import { hasValue, isEmpty } from '../../../../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../../../../shared/empty.util';
 import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
-import { BitstreamDataService } from '../../../../../../core/data/bitstream-data.service';
+import { BitstreamDataService, MetadataFilter } from '../../../../../../core/data/bitstream-data.service';
 import { Item } from '../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../core/layout/models/box.model';
 import { RenderingTypeStructuredModelComponent } from './rendering-type-structured.model';
@@ -116,13 +116,16 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
    * @param options The {@link FindListOptions} for the request
    */
   getBitstreamsByItem(options?: FindListOptions): Observable<PaginatedList<Bitstream>> {
-    let filter = {};
-    if (!isEmpty(this.field.bitstream.metadataValue)) {
-      filter = { [this.field.bitstream.metadataField]: this.field.bitstream.metadataValue };
+    let filters: MetadataFilter[] = [];
+    if (isNotEmpty(this.field.bitstream.metadataValue)) {
+      filters.push({
+        metadataName: this.field.bitstream.metadataField,
+        metadataValue: this.field.bitstream.metadataValue
+      });
     }
 
     return this.bitstreamDataService
-      .findByItem(this.item.uuid, this.field.bitstream.bundle, filter, options, false, false, followLink('thumbnail'))
+      .findByItem(this.item.uuid, this.field.bitstream.bundle, filters, options, false, false, followLink('thumbnail'))
       .pipe(
         getFirstCompletedRemoteData(),
         map((response: RemoteData<PaginatedList<Bitstream>>) => {
