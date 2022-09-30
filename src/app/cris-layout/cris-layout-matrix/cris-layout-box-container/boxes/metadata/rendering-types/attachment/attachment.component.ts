@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { BehaviorSubject } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
@@ -13,7 +13,6 @@ import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { environment } from '../../../../../../../../environments/environment';
 import { FindListOptions } from '../../../../../../../core/data/request.models';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
-import { PageInfo } from '../../../../../../../core/shared/page-info.model';
 
 @Component({
   selector: 'ds-attachment',
@@ -60,9 +59,7 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
   * On init check if we want to show the attachment list with pagination or show all attachments
   */
   ngOnInit() {
-    if (this.envPagination.enabled) {
-      this.initPageOptions();
-    }
+    this.initPageOptions();
     this.retrieveBitstreams();
   }
 
