@@ -17,8 +17,7 @@
   "403.link.home-page": "मुझे होम पेज पर ले चलो", 
  
 
-  "404.help": "आप जिस पेज की तलाश कर रहे हैं, 
- वह हमें नहीं मिल रहा है। हो सकता है कि पृष्ठ को स्थानांतरित या हटा दिया गया हो। होम पेज पर वापस जाने के लिए आप नीचे दिए गए बटन का उपयोग कर सकते हैं।", 
+  "404.help": "आप जिस पेज की तलाश कर रहे हैं, वह हमें नहीं मिल रहा है। हो सकता है कि पृष्ठ को स्थानांतरित या हटा दिया गया हो। होम पेज पर वापस जाने के लिए आप नीचे दिए गए बटन का उपयोग कर सकते हैं।", 
 
   "404.link.home-page": "मुझे होम पेज पर ले जाएं", 
 
@@ -86,8 +85,7 @@
 
   "admin.access-control.epeople.form.notification.edited.failure": "\"{{name}}\" ई-व्यक्ति संपादित करने में विफल", 
 
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "ई-व्यक्ति \"{{name}}\", 
- ईमेल \"{{email}}\" पहले से प्रयोग में संपादित करने में विफल।", 
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "ई-व्यक्ति \"{{name}}\", ईमेल \"{{email}}\" पहले से प्रयोग में संपादित करने में विफल।", 
 
   "admin.access-control.epeople.form.notification.edited.success": "ई-व्यक्ति \"{{name}}\" को सफलतापूर्वक संपादित किया गया", 
 
@@ -145,8 +143,7 @@
 
   "admin.access-control.groups.form.actions.delete": "समूह हटाएं", 
 
-  "admin.access-control.groups.form.alert.permanent": "यह समूह स्थायी है, 
- इसलिए इसे संपादित या हटाया नहीं जा सकता है। आप अभी भी इस  पृष्ठ का उपयोग करके समूह के सदस्यों को जोड़ और हटा सकते हैं।", 
+  "admin.access-control.groups.form.alert.permanent": "यह समूह स्थायी है, इसलिए इसे संपादित या हटाया नहीं जा सकता है। आप अभी भी इस  पृष्ठ का उपयोग करके समूह के सदस्यों को जोड़ और हटा सकते हैं।", 
 
   "admin.access-control.groups.form.alert.workflowGroup": "इस समूह को संशोधित या हटाया नहीं जा सकता क्योंकि \"{{name}}\" {{comcol}}  प्रस्तुतीकरण और कार्यप्रवाह प्रक्रिया में एक भूमिका से संबंधित है। आप इसे हटाने के लिए {{comcol}} संपादन पृष्ठ पर <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> टैब का प्रयोग कर सकते है। आप अभी भी इस पेज का उपयोग करके समूह के सदस्यों को जोड़ और हटा सकते हैं।", 
 
@@ -176,15 +173,13 @@
 
   "admin.access-control.groups.form.members-list.no-items": "उस खोज में कोई ई-लोग नहीं मिले", 
 
-  "admin.access-control.groups.form.members-list.no-members-yet": "समूह में अभी तक कोई सदस्य नहीं है, 
- सदस्य खोजें और जोड़ें।", 
+  "admin.access-control.groups.form.members-list.no-members-yet": "समूह में अभी तक कोई सदस्य नहीं है, सदस्य खोजें और जोड़ें।", 
 
   "admin.access-control.groups.form.members-list.notification.failure.addMember": "सदस्य जोड़ने में विफल: \"{{name}}\"", 
 
   "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "सदस्य को हटाने में विफल: \"{{name}}\"", 
 
-  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "पहले एक नाम प्रस्तुत करें, 
- कोई वर्तमान सक्रिय समूह नहीं है।", 
+  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "पहले एक नाम प्रस्तुत करें, कोई वर्तमान सक्रिय समूह नहीं है।", 
 
   "admin.access-control.groups.form.members-list.notification.success.addMember": "\"{{name}}\" सदस्य सफलतापूर्वक जोड़ा गया", 
 
@@ -216,8 +211,7 @@
 
   "admin.access-control.groups.form.notification.created.failure": "\"{{name}}\" समूह बनाने में विफल", 
 
-  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "\"{{name}}\" नाम के साथ समूह बनाने में विफल, 
- सुनिश्चित करें कि नाम पहले से उपयोग में नहीं है।", 
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "\"{{name}}\" नाम के साथ समूह बनाने में विफल, सुनिश्चित करें कि नाम पहले से उपयोग में नहीं है।", 
 
   "admin.access-control.groups.form.notification.created.success": "\"{{name}}\" समूह सफलतापूर्वक बनाया गया", 
 
@@ -251,11 +245,9 @@
 
   "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "\"{{name}}\" उपसमूह को हटाने में विफल", 
 
-  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "कोई वर्तमान सक्रिय समूह नहीं है, 
- पहले एक नाम प्रस्तुत करें।", 
+  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "कोई वर्तमान सक्रिय समूह नहीं है, पहले एक नाम प्रस्तुत करें।", 
 
-  "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "यह वर्तमान समूह है, 
- जोड़ा नहीं जा सकता।", 
+  "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "यह वर्तमान समूह है, जोड़ा नहीं जा सकता।", 
 
   "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "उपसमूह सफलतापूर्वक जोड़ा गया: \"{{name}}\"", 
 
@@ -341,8 +333,7 @@
 
   "admin.metadata-import.page.validateOnly": "केवल मान्य करें", 
 
-  "admin.metadata-import.page.validateOnly.hint": "चुनी गयी CSV फाइल को उप्लोअडिंग उपरांत पुष्टिकृत किया जाएगा। आपको पाए गए परिवर्तनों की रिपोर्ट प्राप्त होगी, 
- लेकिन कोई भी परिवर्तन सहेजा नहीं जाएगा।", 
+  "admin.metadata-import.page.validateOnly.hint": "चुनी गयी CSV फाइल को उप्लोअडिंग उपरांत पुष्टिकृत किया जाएगा। आपको पाए गए परिवर्तनों की रिपोर्ट प्राप्त होगी, लेकिन कोई भी परिवर्तन सहेजा नहीं जाएगा।", 
 
   "admin.metadata-import.title": "मेटाडेटा आयात करें", 
 
@@ -390,8 +381,7 @@
 
   "admin.registries.bitstream-formats.edit.head": "बिटस्ट्रीम प्रारूप: {{ format }}", 
 
-  "admin.registries.bitstream-formats.edit.internal.hint": "आंतरिक के रूप में चिह्नित प्रारूप उपयोगकर्ता से छिपे हुए हैं, 
- और प्रशासनिक उद्देश्यों के लिए उपयोग किए जाते हैं।", 
+  "admin.registries.bitstream-formats.edit.internal.hint": "आंतरिक के रूप में चिह्नित प्रारूप उपयोगकर्ता से छिपे हुए हैं, और प्रशासनिक उद्देश्यों के लिए उपयोग किए जाते हैं।", 
 
   "admin.registries.bitstream-formats.edit.internal.label": "आंतरिक", 
 
@@ -399,8 +389,7 @@
 
   "admin.registries.bitstream-formats.edit.mimetype.label": "माइम (MIME) प्रकार", 
 
-  "admin.registries.bitstream-formats.edit.shortDescription.hint": "इस प्रारूप के लिए एक अनूठा नाम, 
- (जैसे माइक्रोसॉफ्ट वर्ड एक्सपी या माइक्रोसॉफ्ट वर्ड 2000)", 
+  "admin.registries.bitstream-formats.edit.shortDescription.hint": "इस प्रारूप के लिए एक अनूठा नाम, (जैसे माइक्रोसॉफ्ट वर्ड एक्सपी या माइक्रोसॉफ्ट वर्ड 2000)", 
 
   "admin.registries.bitstream-formats.edit.shortDescription.label": "नाम", 
 
@@ -440,8 +429,7 @@
 
   "admin.registries.metadata.breadcrumbs": "मेटाडेटा रजिस्ट्री", 
 
-  "admin.registries.metadata.description": "मेटाडेटा रजिस्ट्री संग्रहालय में उपलब्ध सभी मेटाडेटा फ़ील्ड की एक सूची रखता है। इन क्षेत्रों को कई स्कीमाओं में विभाजित किया जा सकता है। हालांकि, 
- डीस्पेस को योग्य डबलिन कोर स्कीमा की आवश्यकता है।", 
+  "admin.registries.metadata.description": "मेटाडेटा रजिस्ट्री संग्रहालय में उपलब्ध सभी मेटाडेटा फ़ील्ड की एक सूची रखता है। इन क्षेत्रों को कई स्कीमाओं में विभाजित किया जा सकता है। हालांकि, डीस्पेस को योग्य डबलिन कोर स्कीमा की आवश्यकता है।", 
 
   "admin.registries.metadata.form.create": "मेटाडेटा स्कीमा बनाएं", 
 
@@ -555,8 +543,7 @@
 
   "auth.messages.token-refresh-failed": "आपका सत्र टोकन रीफ़्रेश करना विफल रहा। कृपया फिर लॉगिन करें।", 
 
-  "bitstream-request-a-copy.alert.canDownload1": "आपके पास पहले से ही इस फ़ाइल तक पहुंच है। अगर आप फ़ाइल डाउनलोड करना चाहते हैं, 
- तो क्लिक करें", 
+  "bitstream-request-a-copy.alert.canDownload1": "आपके पास पहले से ही इस फ़ाइल तक पहुंच है। अगर आप फ़ाइल डाउनलोड करना चाहते हैं, तो क्लिक करें", 
 
   "bitstream-request-a-copy.alert.canDownload2": "यहां", 
 
@@ -608,22 +595,15 @@
 
   "bitstream.edit.bitstream": "बिटस्ट्रीम: ", 
 
-  "bitstream.edit.form.description.hint": "वैकल्पिक रूप से, 
- फ़ाइल का संक्षिप्त विवरण प्रदान करें, 
- उदाहरण के लिए \"<i>मुख्य लेख</i>\" या \"<i>डेटा रीडिंग का प्रयोग करें</i>\"।", 
+  "bitstream.edit.form.description.hint": "वैकल्पिक रूप से, फ़ाइल का संक्षिप्त विवरण प्रदान करें, उदाहरण के लिए \"<i>मुख्य लेख</i>\" या \"<i>डेटा रीडिंग का प्रयोग करें</i>\"।", 
 
   "bitstream.edit.form.description.label": "विवरण", 
 
-  "bitstream.edit.form.embargo.hint": "पहला दिन जब से प्रवेश की अनुमति है। <b>इस फॉर्म पर इस तिथि को संशोधित नहीं किया जा सकता है।</b> बिटस्ट्रीम के लिए एक प्रतिबंध तिथि निर्धारित करने के लिए, 
- <i>आइटम स्थिति</i> टैब पर जाएं, 
- <i>प्राधिकरण...</i> पर क्लिक करें, 
- बिटस्ट्रीम की <i>READ</i> नीति बनाएं या संपादित करें, 
- और वांछित के रूप में <i>प्रारंभ तिथि</i> सेट करें।", 
+  "bitstream.edit.form.embargo.hint": "पहला दिन जब से प्रवेश की अनुमति है। <b>इस फॉर्म पर इस तिथि को संशोधित नहीं किया जा सकता है।</b> बिटस्ट्रीम के लिए एक प्रतिबंध तिथि निर्धारित करने के लिए, <i>आइटम स्थिति</i> टैब पर जाएं, <i>प्राधिकरण...</i> पर क्लिक करें, बिटस्ट्रीम की <i>READ</i> नीति बनाएं या संपादित करें, और वांछित के रूप में <i>प्रारंभ तिथि</i> सेट करें।", 
 
   "bitstream.edit.form.embargo.label": "विशिष्ट तिथि तक प्रतिबंध", 
 
-  "bitstream.edit.form.fileName.hint": "बिटस्ट्रीम के लिए फ़ाइल नाम बदलें। ध्यान दें कि यह प्रदर्शन बिटस्ट्रीम URL को बदल देगा, 
- लेकिन पुराने लिंक तब तक हल होंगे जब तक अनुक्रम आईडी नहीं बदलेगा।", 
+  "bitstream.edit.form.fileName.hint": "बिटस्ट्रीम के लिए फ़ाइल नाम बदलें। ध्यान दें कि यह प्रदर्शन बिटस्ट्रीम URL को बदल देगा, लेकिन पुराने लिंक तब तक हल होंगे जब तक अनुक्रम आईडी नहीं बदलेगा।", 
 
   "bitstream.edit.form.fileName.label": "फ़ाइल का नाम", 
 
@@ -643,16 +623,13 @@
 
   "bitstream.edit.form.iiifWidth.label": "आईआईआईएफ कैनवास चौड़ाई", 
 
-  "bitstream.edit.form.newFormat.hint": "फ़ाइल बनाने के लिए आपके द्वारा उपयोग किया जाने वाला एप्लिकेशन, 
- और संस्करण संख्या (उदाहरण के लिए, 
- \"<i>ACMESoft SuperApp संस्करण 1.5</i>\")।", 
+  "bitstream.edit.form.newFormat.hint": "फ़ाइल बनाने के लिए आपके द्वारा उपयोग किया जाने वाला एप्लिकेशन, और संस्करण संख्या (उदाहरण के लिए, \"<i>ACMESoft SuperApp संस्करण 1.5</i>\")।", 
 
   "bitstream.edit.form.newFormat.label": "नए प्रारूप का वर्णन करें", 
 
   "bitstream.edit.form.primaryBitstream.label": "प्राथमिक बिटस्ट्रीम", 
 
-  "bitstream.edit.form.selectedFormat.hint": "यदि प्रारूप उपरोक्त सूची में नहीं है, 
- तो <b>उपरोक्त \"प्रारूप सूची में नहीं है\" चुनें</b> और \"नए प्रारूप का वर्णन करें\" के तहत इसका वर्णन करें।", 
+  "bitstream.edit.form.selectedFormat.hint": "यदि प्रारूप उपरोक्त सूची में नहीं है, तो <b>उपरोक्त \"प्रारूप सूची में नहीं है\" चुनें</b> और \"नए प्रारूप का वर्णन करें\" के तहत इसका वर्णन करें।", 
 
   "bitstream.edit.form.selectedFormat.label": "चयनित प्रारूप", 
 
@@ -698,8 +675,7 @@
 
   "browse.metadata.title.breadcrumbs": "शीर्षक द्वारा ब्राउज़ करें", 
 
-  "browse.startsWith": ", 
- {{ startWith }} से शुरू होता है", 
+  "browse.startsWith": ", {{ startWith }} से शुरू होता है", 
 
   "browse.startsWith.choose_start": "(प्रारंभ चुनें)", 
 
@@ -785,8 +761,7 @@
 
   "collection.edit.item-mapper.confirm": "चयनित आइटम मैप करें", 
 
-  "collection.edit.item-mapper.description": "यह आइटम मैपर उपकरण है जो संग्रह प्रशासकों को इस संग्रह में अन्य संग्रह से आइटम मैप करने की अनुमति देता है। आप अन्य संग्रहों से आइटम खोज सकते हैं और उन्हें मैप कर सकते हैं, 
- या वर्तमान में मैप किए गए आइटम की सूची ब्राउज़ कर सकते हैं।", 
+  "collection.edit.item-mapper.description": "यह आइटम मैपर उपकरण है जो संग्रह प्रशासकों को इस संग्रह में अन्य संग्रह से आइटम मैप करने की अनुमति देता है। आप अन्य संग्रहों से आइटम खोज सकते हैं और उन्हें मैप कर सकते हैं, या वर्तमान में मैप किए गए आइटम की सूची ब्राउज़ कर सकते हैं।", 
 
   "collection.edit.item-mapper.head": "आइटम मैपर - अन्य संग्रहों से आइटम मैप करें", 
 
@@ -1016,25 +991,15 @@
 
   "comcol-role.edit.bitstream_read.anonymous-group": "आने वाली बिटस्ट्रीम के लिए डिफ़ॉल्ट पठन वर्तमान में बेनामी पर सेट है।", 
 
-  "comcol-role.edit.bitstream_read.description": "सामुदायिक प्रशासक उप-समुदाय या संग्रह बना सकते हैं, 
- और उन उप-समुदायों या संग्रहों के लिए प्रबंधन या प्रबंधन सौंप सकते हैं। इसके अलावा, 
- वे तय करते हैं कि कौन किसी भी उप-संग्रह में आइटम प्रस्तुत कर सकता है, 
- आइटम मेटाडेटा (प्रस्तुति के बाद) संपादित कर सकता है, 
- और अन्य संग्रहों (प्राधिकरण के अधीन) से मौजूदा आइटम जोड़ सकता है (मैप)।", 
+  "comcol-role.edit.bitstream_read.description": "सामुदायिक प्रशासक उप-समुदाय या संग्रह बना सकते हैं, और उन उप-समुदायों या संग्रहों के लिए प्रबंधन या प्रबंधन सौंप सकते हैं। इसके अलावा, वे तय करते हैं कि कौन किसी भी उप-संग्रह में आइटम प्रस्तुत कर सकता है, आइटम मेटाडेटा (प्रस्तुति के बाद) संपादित कर सकता है, और अन्य संग्रहों (प्राधिकरण के अधीन) से मौजूदा आइटम जोड़ सकता है (मैप)।", 
 
   "comcol-role.edit.bitstream_read.name": "डिफ़ॉल्ट बिटस्ट्रीम पठन पहुंच", 
 
-  "comcol-role.edit.collection-admin.description": "संग्रह व्यवस्थापक यह तय करते हैं कि संग्रह में आइटम कौन प्रस्तुत कर सकता है, 
- आइटम मेटाडेटा संपादित कर सकता है (प्रस्तुति के बाद), 
- और अन्य संग्रह से मौजूदा आइटम को इस संग्रह में जोड़ सकता है (उस संग्रह के लिए प्राधिकरण के अधीन)।", 
+  "comcol-role.edit.collection-admin.description": "संग्रह व्यवस्थापक यह तय करते हैं कि संग्रह में आइटम कौन प्रस्तुत कर सकता है, आइटम मेटाडेटा संपादित कर सकता है (प्रस्तुति के बाद), और अन्य संग्रह से मौजूदा आइटम को इस संग्रह में जोड़ सकता है (उस संग्रह के लिए प्राधिकरण के अधीन)।", 
 
   "comcol-role.edit.collection-admin.name": "व्यवस्थापक", 
 
-  "comcol-role.edit.community-admin.description": "सामुदायिक प्रशासक उप-समुदाय या संग्रह बना सकते हैं, 
- और उन उप-समुदायों या संग्रहों के लिए प्रबंधन या प्रबंधन नियुक्त कर सकते हैं। इसके अलावा, 
- वे तय करते हैं कि कौन किसी भी उप-संग्रह में आइटम प्रस्तुत कर सकता है, 
- आइटम मेटाडेटा (सबमिशन के बाद) संपादित कर सकता है, 
- और अन्य संग्रहों (प्राधिकरण के अधीन) से मौजूदा आइटम जोड़ सकता है (मैप)।", 
+  "comcol-role.edit.community-admin.description": "सामुदायिक प्रशासक उप-समुदाय या संग्रह बना सकते हैं, और उन उप-समुदायों या संग्रहों के लिए प्रबंधन या प्रबंधन नियुक्त कर सकते हैं। इसके अलावा, वे तय करते हैं कि कौन किसी भी उप-संग्रह में आइटम प्रस्तुत कर सकता है, आइटम मेटाडेटा (सबमिशन के बाद) संपादित कर सकता है, और अन्य संग्रहों (प्राधिकरण के अधीन) से मौजूदा आइटम जोड़ सकता है (मैप)।", 
 
   "comcol-role.edit.community-admin.name": "व्यवस्थापक", 
 
@@ -1046,13 +1011,11 @@
 
   "comcol-role.edit.delete.error.title": "'{{ role }}' भूमिका के समूह को हटाने में विफल", 
 
-  "comcol-role.edit.editor.description": "संपादक आने वाले प्रस्तुतियों के मेटाडेटा को संपादित करने में सक्षम हैं, 
- और फिर उन्हें स्वीकार या अस्वीकार कर सकते हैं।", 
+  "comcol-role.edit.editor.description": "संपादक आने वाले प्रस्तुतियों के मेटाडेटा को संपादित करने में सक्षम हैं, और फिर उन्हें स्वीकार या अस्वीकार कर सकते हैं।", 
 
   "comcol-role.edit.editor.name": "संपादक", 
 
-  "comcol-role.edit.finaleditor.description": "अंतिम संपादक आने वाले प्रस्तुति के मेटाडेटा को संपादित करने में सक्षम हैं, 
- लेकिन उन्हें अस्वीकार नहीं कर पाएंगे।", 
+  "comcol-role.edit.finaleditor.description": "अंतिम संपादक आने वाले प्रस्तुति के मेटाडेटा को संपादित करने में सक्षम हैं, लेकिन उन्हें अस्वीकार नहीं कर पाएंगे।", 
 
   "comcol-role.edit.finaleditor.name": "अंतिम संपादक", 
 
@@ -1066,8 +1029,7 @@
 
   "comcol-role.edit.restrict": "प्रतिबंधित करें", 
 
-  "comcol-role.edit.reviewer.description": "समीक्षक आने वाली प्रस्तुतियाँ स्वीकार या अस्वीकार करने में सक्षम हैं। हालांकि, 
- वे प्रस्तुति के मेटाडेटा को संपादित करने में सक्षम नहीं हैं।", 
+  "comcol-role.edit.reviewer.description": "समीक्षक आने वाली प्रस्तुतियाँ स्वीकार या अस्वीकार करने में सक्षम हैं। हालांकि, वे प्रस्तुति के मेटाडेटा को संपादित करने में सक्षम नहीं हैं।", 
 
   "comcol-role.edit.reviewer.name": "समीक्षक", 
 
@@ -1241,19 +1203,13 @@
 
   "cookies.consent.content-modal.privacy-policy.name": "गोपनीयता नीति", 
 
-  "cookies.consent.content-modal.privacy-policy.text": "अधिक जानने के लिए, 
- हमारी {privacyPolicy} पढ़ें।", 
+  "cookies.consent.content-modal.privacy-policy.text": "अधिक जानने के लिए, हमारी {privacyPolicy} पढ़ें।", 
 
   "cookies.consent.content-modal.title": "जानकारी जो हम एकत्र करते हैं", 
 
-  "cookies.consent.content-notice.description": "हम निम्नलिखित उद्देश्यों के लिए आपकी व्यक्तिगत जानकारी एकत्र और संसाधित करते हैं: <strong>प्रमाणीकरण, 
- प्राथमिकताएं, 
- पावती और सांख्यिकी</strong>। <br/> अधिक जानने के लिए, 
- कृपया हमारी {privacyPolicy} पढ़ें।", 
+  "cookies.consent.content-notice.description": "हम निम्नलिखित उद्देश्यों के लिए आपकी व्यक्तिगत जानकारी एकत्र और संसाधित करते हैं: <strong>प्रमाणीकरण, प्राथमिकताएं, पावती और सांख्यिकी</strong>। <br/> अधिक जानने के लिए, कृपया हमारी {privacyPolicy} पढ़ें।", 
 
-  "cookies.consent.content-notice.description.no-privacy": "हम निम्नलिखित उद्देश्यों के लिए आपकी व्यक्तिगत जानकारी एकत्र और संसाधित करते हैं: <strong>प्रमाणीकरण, 
- प्राथमिकताएं, 
- पावती और सांख्यिकी</strong>।", 
+  "cookies.consent.content-notice.description.no-privacy": "हम निम्नलिखित उद्देश्यों के लिए आपकी व्यक्तिगत जानकारी एकत्र और संसाधित करते हैं: <strong>प्रमाणीकरण, प्राथमिकताएं, पावती और सांख्यिकी</strong>।", 
 
   "cookies.consent.content-notice.learnMore": "अनुकूलित करें", 
 
@@ -1263,8 +1219,7 @@
 
   "cookies.consent.purpose.statistical": "सांख्यिकीय", 
 
-  "cookies.consent.update": "आपकी पिछली विज़िट के बाद से परिवर्तन हुए हैं, 
- कृपया अपनी सहमति अपडेट करें।", 
+  "cookies.consent.update": "आपकी पिछली विज़िट के बाद से परिवर्तन हुए हैं, कृपया अपनी सहमति अपडेट करें।", 
 
   "curation-task.task.checklinks.label": "मेटाडेटा में लिंक जांचें", 
 
@@ -1300,11 +1255,7 @@
 
   "default.search.results.head": "खोज के परिणाम", 
 
-  "deny-request-copy.email.message": "प्रिय {{ recipientName }}, 
-\nआपके अनुरोध के प्रत्युत्तर में मुझे आपको यह बताते हुए खेद हो रहा है कि आपके द्वारा अनुरोधित फ़ाइल (फ़ाइलों) की एक प्रति, 
- दस्तावेज़ के संबंध में भेजना संभव नहीं है: \"{{itemUrl }}\" ({{itemName }}), 
- जिनमें से मैं एक लेखक हूँ।\n\nसाभार, 
-\n{{ authorName }} <{{ authorEmail }}>", 
+  "deny-request-copy.email.message": "प्रिय {{ recipientName }}, \nआपके अनुरोध के प्रत्युत्तर में मुझे आपको यह बताते हुए खेद हो रहा है कि आपके द्वारा अनुरोधित फ़ाइल (फ़ाइलों) की एक प्रति, दस्तावेज़ के संबंध में भेजना संभव नहीं है: \"{{itemUrl }}\" ({{itemName }}), जिनमें से मैं एक लेखक हूँ।\n\nसाभार, \n{{ authorName }} <{{ authorEmail }}>", 
 
   "deny-request-copy.email.subject": "दस्तावेज़ की प्रति का अनुरोध करें", 
 
@@ -1316,10 +1267,7 @@
 
   "deny-request-copy.success": "आइटम अनुरोध को सफलतापूर्वक अस्वीकार कर दिया गया", 
 
-  "dso-selector.claim.item.body": "ये मौजूदा प्रोफ़ाइल हैं जो आपसे संबंधित हो सकती हैं। यदि आप इनमें से किसी एक प्रोफाइल में खुद को पहचानते हैं, 
- तो इसे चुनें और विवरण पृष्ठ पर, 
- विकल्पों में से, 
- इसका दावा करना चुनें। अन्यथा आप नीचे दिए गए बटन का उपयोग करके नए सिरे से एक नई प्रोफ़ाइल बना सकते हैं।", 
+  "dso-selector.claim.item.body": "ये मौजूदा प्रोफ़ाइल हैं जो आपसे संबंधित हो सकती हैं। यदि आप इनमें से किसी एक प्रोफाइल में खुद को पहचानते हैं, तो इसे चुनें और विवरण पृष्ठ पर, विकल्पों में से, इसका दावा करना चुनें। अन्यथा आप नीचे दिए गए बटन का उपयोग करके नए सिरे से एक नई प्रोफ़ाइल बना सकते हैं।", 
 
   "dso-selector.claim.item.create-from-scratch": "नया बनाएँ", 
 
@@ -1375,8 +1323,7 @@
 
   "error-page.description.500": "सेवा उप्लब्ध् नहीं है", 
 
-  "error-page.orcid.generic-error": "ORCID के माध्यम से लॉगिन के दौरान एक त्रुटि हुई। सुनिश्चित करें कि आपने अपना ORCID खाता ईमेल पता डीस्पेस के साथ साझा किया है। यदि त्रुटि बनी रहती है, 
- तो व्यवस्थापक से संपर्क करें", 
+  "error-page.orcid.generic-error": "ORCID के माध्यम से लॉगिन के दौरान एक त्रुटि हुई। सुनिश्चित करें कि आपने अपना ORCID खाता ईमेल पता डीस्पेस के साथ साझा किया है। यदि त्रुटि बनी रहती है, तो व्यवस्थापक से संपर्क करें", 
 
   "error.bitstream": "बिटस्ट्रीम लाने में त्रुटि", 
 
@@ -1408,8 +1355,7 @@
 
   "error.sub-communities": "उप-समुदाय लाने में त्रुटि", 
 
-  "error.submission.sections.init-form-error": "अनुभाग आरंभीकरण के दौरान त्रुटि हुई, 
- कृपया अपने निविष्ट-फॉर्म विन्यास की जाँच करें। विवरण नीचे हैं: <br> <br>  ", 
+  "error.submission.sections.init-form-error": "अनुभाग आरंभीकरण के दौरान त्रुटि हुई, कृपया अपने निविष्ट-फॉर्म विन्यास की जाँच करें। विवरण नीचे हैं: <br> <br>  ", 
 
   "error.top-level-communities": "शीर्ष-स्तरीय समुदायों को लाने में त्रुटि", 
 
@@ -1481,8 +1427,7 @@
 
   "forgot-password.form.identification.header": "पहचान", 
 
-  "forgot-password.form.info": "नीचे दिए गए बॉक्स में एक नया पासवर्ड दर्ज करें, 
- और दूसरे बॉक्स में फिर से टाइप करके इसकी पुष्टि करें। यह कम से कम छह वर्ण लंबा होना चाहिए।", 
+  "forgot-password.form.info": "नीचे दिए गए बॉक्स में एक नया पासवर्ड दर्ज करें, और दूसरे बॉक्स में फिर से टाइप करके इसकी पुष्टि करें। यह कम से कम छह वर्ण लंबा होना चाहिए।", 
 
   "forgot-password.form.label.password": "पासवर्ड", 
 
@@ -1572,8 +1517,7 @@
 
   "grant-deny-request-copy.email.message.empty": "कृपया संदेश दर्ज करें", 
 
-  "grant-deny-request-copy.email.permissions.info": "इन अनुरोधों का जवाब देने से बचने के लिए आप इस अवसर का उपयोग दस्तावेज़ पर पहुंच प्रतिबंधों पर पुनर्विचार करने के लिए कर सकते हैं। यदि आप रिपॉजिटरी व्यवस्थापकों से इन प्रतिबंधों को हटाने के लिए कहना चाहते हैं, 
- तो कृपया नीचे दिए गए बॉक्स को चेक करें।", 
+  "grant-deny-request-copy.email.permissions.info": "इन अनुरोधों का जवाब देने से बचने के लिए आप इस अवसर का उपयोग दस्तावेज़ पर पहुंच प्रतिबंधों पर पुनर्विचार करने के लिए कर सकते हैं। यदि आप रिपॉजिटरी व्यवस्थापकों से इन प्रतिबंधों को हटाने के लिए कहना चाहते हैं, तो कृपया नीचे दिए गए बॉक्स को चेक करें।", 
 
   "grant-deny-request-copy.email.permissions.label": "ओपन एक्सेस में बदलें", 
 
@@ -1589,19 +1533,13 @@
 
   "grant-deny-request-copy.home-page": "मुझे होम पेज पर ले जाएं", 
 
-  "grant-deny-request-copy.intro1": "यदि आप <a href='{{ url }}'>{{ name }}</a> दस्तावेज़ के लेखकों में से एक हैं, 
- तो कृपया उपयोगकर्ता के अनुरोध का जवाब देने के लिए नीचे दिए गए विकल्पों में से किसी एक का उपयोग करें।", 
+  "grant-deny-request-copy.intro1": "यदि आप <a href='{{ url }}'>{{ name }}</a> दस्तावेज़ के लेखकों में से एक हैं, तो कृपया उपयोगकर्ता के अनुरोध का जवाब देने के लिए नीचे दिए गए विकल्पों में से किसी एक का उपयोग करें।", 
 
-  "grant-deny-request-copy.intro2": "एक विकल्प चुनने के बाद, 
- आपको एक सुझाया गया ईमेल उत्तर प्रस्तुत किया जाएगा जिसे आप संपादित कर सकते हैं।", 
+  "grant-deny-request-copy.intro2": "एक विकल्प चुनने के बाद, आपको एक सुझाया गया ईमेल उत्तर प्रस्तुत किया जाएगा जिसे आप संपादित कर सकते हैं।", 
 
   "grant-deny-request-copy.processed": "यह अनुरोध पहले ही संसाधित किया जा चुका है। होम पृष्ठ पर वापस जाने के लिए आप नीचे दिए गए बटन का उपयोग कर सकते हैं।", 
 
-  "grant-request-copy.email.message": "प्रिय {{ recipientName }}, 
-\nआपके अनुरोध के प्रत्युत्तर में मुझे आपको \"{{ itemUrl }}\" ({{itemName }}) दस्तावेज़ से संबंधित फ़ाइल(ो), 
-जिसका मैं एक लेखक हूं, 
- की प्रति संलग्न करते हुए प्रसन्नता हो रही है।\n\nसाभार, 
-\n{{ authorName }} <{{ authorEmail }}>", 
+  "grant-request-copy.email.message": "प्रिय {{ recipientName }}, \nआपके अनुरोध के प्रत्युत्तर में मुझे आपको \"{{ itemUrl }}\" ({{itemName }}) दस्तावेज़ से संबंधित फ़ाइल(ो), जिसका मैं एक लेखक हूं, की प्रति संलग्न करते हुए प्रसन्नता हो रही है।\n\nसाभार, \n{{ authorName }} <{{ authorEmail }}>", 
 
   "grant-request-copy.email.subject": "दस्तावेज़ की प्रति का अनुरोध करें", 
 
@@ -1671,8 +1609,7 @@
 
   "idle-modal.header": "सत्र जल्द ही समाप्त होगा", 
 
-  "idle-modal.info": "सुरक्षा कारणों से, 
- उपयोगकर्ता सत्र {{timeToExpire}} मिनट की निष्क्रियता के बाद समाप्त हो जाते हैं। आपका सत्र जल्द ही समाप्त हो जाएगा। क्या आप इसे बढ़ाना चाहते हैं या लॉग आउट करना चाहते हैं?", 
+  "idle-modal.info": "सुरक्षा कारणों से, उपयोगकर्ता सत्र {{timeToExpire}} मिनट की निष्क्रियता के बाद समाप्त हो जाते हैं। आपका सत्र जल्द ही समाप्त हो जाएगा। क्या आप इसे बढ़ाना चाहते हैं या लॉग आउट करना चाहते हैं?", 
 
   "idle-modal.log-out": "लॉग आउट", 
 
@@ -1776,11 +1713,7 @@
 
   "item.bitstreams.upload.title": "बिटस्ट्रीम अपलोड करें", 
 
-  "item.edit.authorizations.heading": "इस संपादक के साथ आप किसी आइटम की नीतियों को देख और बदल सकते हैं, 
- साथ ही अलग-अलग आइटम घटकों (बंडल और बिटस्ट्रीम) की नीतियों को बदल सकते हैं। संक्षेप में, 
- आइटम बंडलों का कंटेनर होता है, 
- और बंडल बिटस्ट्रीम के कंटेनर होते हैं। कंटेनर में आमतौर पर जोड़ें/निकालें/पढ़ें/लिखें नीतियां होती हैं, 
- जबकि बिटस्ट्रीम में केवल पढ़ने/लिखने की नीतियां होती हैं।", 
+  "item.edit.authorizations.heading": "इस संपादक के साथ आप किसी आइटम की नीतियों को देख और बदल सकते हैं, साथ ही अलग-अलग आइटम घटकों (बंडल और बिटस्ट्रीम) की नीतियों को बदल सकते हैं। संक्षेप में, आइटम बंडलों का कंटेनर होता है, और बंडल बिटस्ट्रीम के कंटेनर होते हैं। कंटेनर में आमतौर पर जोड़ें/निकालें/पढ़ें/लिखें नीतियां होती हैं, जबकि बिटस्ट्रीम में केवल पढ़ने/लिखने की नीतियां होती हैं।", 
 
   "item.edit.authorizations.title": "आइटम की नीतियां संपादित करें", 
 
@@ -1828,8 +1761,7 @@
 
   "item.edit.bitstreams.notifications.move.saved.title": "सहेजे गए परिवर्तनों को स्थानांतरित करें", 
 
-  "item.edit.bitstreams.notifications.outdated.content": "जिस आइटम पर आप वर्तमान में काम कर रहे हैं, 
- उसे किसी अन्य उपयोगकर्ता ने बदल दिया है। संघर्षों को रोकने के लिए आपके वर्तमान परिवर्तन खारिज कर दिए गए हैं", 
+  "item.edit.bitstreams.notifications.outdated.content": "जिस आइटम पर आप वर्तमान में काम कर रहे हैं, उसे किसी अन्य उपयोगकर्ता ने बदल दिया है। संघर्षों को रोकने के लिए आपके वर्तमान परिवर्तन खारिज कर दिए गए हैं", 
 
   "item.edit.bitstreams.notifications.outdated.title": "कालग्रस्त परिवर्तन", 
 
@@ -1867,8 +1799,7 @@
 
   "item.edit.item-mapper.cancel": "रद्द करें", 
 
-  "item.edit.item-mapper.description": "यह आइटम मैपर टूल है जो प्रशासकों को इस आइटम को अन्य संग्रहों में मैप करने की अनुमति देता है। आप संग्रहों की खोज कर सकते हैं और उन्हें मैप कर सकते हैं, 
- या उन संग्रहों की सूची ब्राउज़ कर सकते हैं जिनसे आइटम वर्तमान में मैप किया गया है।", 
+  "item.edit.item-mapper.description": "यह आइटम मैपर टूल है जो प्रशासकों को इस आइटम को अन्य संग्रहों में मैप करने की अनुमति देता है। आप संग्रहों की खोज कर सकते हैं और उन्हें मैप कर सकते हैं, या उन संग्रहों की सूची ब्राउज़ कर सकते हैं जिनसे आइटम वर्तमान में मैप किया गया है।", 
 
   "item.edit.item-mapper.head": "आइटम मैपर - संग्रह के लिए आइटम मैप करें", 
 
@@ -1932,8 +1863,7 @@
 
   "item.edit.metadata.notifications.invalid.title": "मेटाडेटा अमान्य", 
 
-  "item.edit.metadata.notifications.outdated.content": "जिस आइटम पर आप वर्तमान में काम कर रहे हैं, 
- उसे किसी अन्य उपयोगकर्ता ने बदल दिया है। संघर्षों को रोकने के लिए आपके वर्तमान परिवर्तन खारिज कर दिए गए हैं", 
+  "item.edit.metadata.notifications.outdated.content": "जिस आइटम पर आप वर्तमान में काम कर रहे हैं, उसे किसी अन्य उपयोगकर्ता ने बदल दिया है। संघर्षों को रोकने के लिए आपके वर्तमान परिवर्तन खारिज कर दिए गए हैं", 
 
   "item.edit.metadata.notifications.outdated.title": "पुराना बदल गया", 
 
@@ -1953,8 +1883,7 @@
 
   "item.edit.move.cancel": "वापस", 
 
-  "item.edit.move.description": "उस संग्रह का चयन करें जिसमें आप इस आइटम को ले जाना चाहते हैं। प्रदर्शित संग्रहों की सूची को छोटा करने के लिए, 
- आप बॉक्स में खोज क्वेरी दर्ज कर सकते हैं।", 
+  "item.edit.move.description": "उस संग्रह का चयन करें जिसमें आप इस आइटम को ले जाना चाहते हैं। प्रदर्शित संग्रहों की सूची को छोटा करने के लिए, आप बॉक्स में खोज क्वेरी दर्ज कर सकते हैं।", 
 
   "item.edit.move.discard-button": "रद्द करें", 
 
@@ -2032,8 +1961,7 @@
 
   "item.edit.relationships.notifications.failed.title": "संबंध संपादित करने में त्रुटि", 
 
-  "item.edit.relationships.notifications.outdated.content": "जिस आइटम पर आप वर्तमान में काम कर रहे हैं, 
- उसे किसी अन्य उपयोगकर्ता ने बदल दिया है। संघर्षों को रोकने के लिए आपके वर्तमान परिवर्तन खारिज कर दिए गए हैं", 
+  "item.edit.relationships.notifications.outdated.content": "जिस आइटम पर आप वर्तमान में काम कर रहे हैं, उसे किसी अन्य उपयोगकर्ता ने बदल दिया है। संघर्षों को रोकने के लिए आपके वर्तमान परिवर्तन खारिज कर दिए गए हैं", 
 
   "item.edit.relationships.notifications.outdated.title": "परिवर्तन पुराना", 
 
@@ -2103,9 +2031,7 @@
 
   "item.edit.tabs.status.buttons.withdraw.label": "संग्रहालय से आइटम वापस लेना", 
 
-  "item.edit.tabs.status.description": "आइटम प्रबंधन पृष्ठ पर आपका स्वागत है। यहां से आप आइटम को वापस ले सकते हैं, 
- बहाल कर सकते हैं, 
- स्थानांतरित कर सकते हैं या हटा सकते हैं। आप अन्य टैब पर नए मेटाडेटा / बिटस्ट्रीम को भी अपडेट या जोड़ सकते हैं।", 
+  "item.edit.tabs.status.description": "आइटम प्रबंधन पृष्ठ पर आपका स्वागत है। यहां से आप आइटम को वापस ले सकते हैं, बहाल कर सकते हैं, स्थानांतरित कर सकते हैं या हटा सकते हैं। आप अन्य टैब पर नए मेटाडेटा / बिटस्ट्रीम को भी अपडेट या जोड़ सकते हैं।", 
 
   "item.edit.tabs.status.head": "स्थिति", 
 
@@ -2875,8 +2801,7 @@
 
   "person.page.orcid.link": "ORCID आईडी से जोड़े", 
 
-  "person.page.orcid.link.error.message": "प्रोफ़ाइल को ORCID से जोड़ते समय कोई गड़बड़ी हुई। यदि समस्या बनी रहती है, 
- तो व्यवस्थापक से संपर्क करें।", 
+  "person.page.orcid.link.error.message": "प्रोफ़ाइल को ORCID से जोड़ते समय कोई गड़बड़ी हुई। यदि समस्या बनी रहती है, तो व्यवस्थापक से संपर्क करें।", 
 
   "person.page.orcid.link.processing": "प्रोफ़ाइल को ORCID से लिंक किया जा रहा है...", 
 
@@ -2884,8 +2809,7 @@
 
   "person.page.orcid.missing-authorizations-message": "निम्नलिखित प्राधिकरण गायब हैं:", 
 
-  "person.page.orcid.no-missing-authorizations-message": "आपको आपके संस्थान द्वारा सभी फ़ंक्शन का उपयोग करने के लिए एक्सेस अधिकार दिए गए हैं, 
- इसलिए यह बॉक्स खाली है!", 
+  "person.page.orcid.no-missing-authorizations-message": "आपको आपके संस्थान द्वारा सभी फ़ंक्शन का उपयोग करने के लिए एक्सेस अधिकार दिए गए हैं, इसलिए यह बॉक्स खाली है!", 
 
   "person.page.orcid.no-orcid-message": "अभी तक कोई ORCID iD संबद्ध नहीं है। नीचे दिए गए बटन पर क्लिक करके इस प्रोफाइल को ओआरसीआईडी खाते से लिंक करना संभव है।", 
 
@@ -2895,8 +2819,7 @@
 
   "person.page.orcid.publications-preferences": "प्रकाशन प्राथमिकताएं", 
 
-  "person.page.orcid.remove-orcid-message": "यदि आपको अपना ORCID हटाना है, 
- तो कृपया संग्रहालय व्यवस्थापक से संपर्क करें", 
+  "person.page.orcid.remove-orcid-message": "यदि आपको अपना ORCID हटाना है, तो कृपया संग्रहालय व्यवस्थापक से संपर्क करें", 
 
   "person.page.orcid.save.preference.changes": "सेटिंग अद्यतन करें", 
 
@@ -2968,8 +2891,7 @@
 
   "person.page.orcid.sync-queue.send.success": "ORCID को प्रस्तुतीकरण सफलतापूर्वक पूरा किया गया ", 
 
-  "person.page.orcid.sync-queue.send.unauthorized-error.content": "फिर से आवश्यक अनुमतियां देने के लिए <a href='{{orcid}}'>यहां</a> क्लिक करें। यदि समस्या बनी रहती है, 
- तो व्यवस्थापक से संपर्क करें।", 
+  "person.page.orcid.sync-queue.send.unauthorized-error.content": "फिर से आवश्यक अनुमतियां देने के लिए <a href='{{orcid}}'>यहां</a> क्लिक करें। यदि समस्या बनी रहती है, तो व्यवस्थापक से संपर्क करें।", 
 
   "person.page.orcid.sync-queue.send.unauthorized-error.title": "ORCID को प्रस्तुतीकरण अनुपलब्ध प्राधिकरणों के कारण विफल रहा।", 
 
@@ -2979,15 +2901,11 @@
 
   "person.page.orcid.sync-queue.send.validation-error.country.invalid": "अमान्य 2 अंक ISO 3166 देश", 
 
-  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "संगठनों को स्पष्ट करने के लिए एक पहचानकर्ता की आवश्यकता है। समर्थित आईडी जीआरआईडी, 
- रिंगगोल्ड, 
- कानूनी इकाई पहचानकर्ता (एलईआई) और क्रॉसरेफ फंडर रजिस्ट्री पहचानकर्ता हैं", 
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "संगठनों को स्पष्ट करने के लिए एक पहचानकर्ता की आवश्यकता है। समर्थित आईडी जीआरआईडी, रिंगगोल्ड, कानूनी इकाई पहचानकर्ता (एलईआई) और क्रॉसरेफ फंडर रजिस्ट्री पहचानकर्ता हैं", 
 
   "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "संगठन के पहचानकर्ताओं को एक मूल्य की आवश्यकता है", 
 
-  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "संगठन पहचानकर्ताओं में से एक का स्रोत अमान्य है। समर्थित स्रोत हैं RINGGOLD, 
- GRID, 
- LEI और FUNDREF", 
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "संगठन पहचानकर्ताओं में से एक का स्रोत अमान्य है। समर्थित स्रोत हैं RINGGOLD, GRID, LEI और FUNDREF", 
 
   "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "संगठन के पहचानकर्ताओं को स्रोत की आवश्यकता होती है", 
 
@@ -3049,8 +2967,7 @@
 
   "person.page.orcid.synchronization-mode-funding-message": "चुनें कि आपकी लिंक की गई परियोजना संस्थाओं को आपके ORCID रिकॉर्ड की फंडिंग जानकारी की सूची में भेजना है या नहीं।", 
 
-  "person.page.orcid.synchronization-mode-message": "कृपया ORCID के साथ तुल्यकालन (सिंक्रोनाइजेशन) विकल्प चुनें। विकल्पों में \"मानव चलित\" (आपको अपना डेटा अपने आप ORCID को भेजना होगा), 
- या \"बैच\" (सिस्टम आपके डेटा को एक निर्धारित स्क्रिप्ट के माध्यम से ORCID को भेजेगा)।", 
+  "person.page.orcid.synchronization-mode-message": "कृपया ORCID के साथ तुल्यकालन (सिंक्रोनाइजेशन) विकल्प चुनें। विकल्पों में \"मानव चलित\" (आपको अपना डेटा अपने आप ORCID को भेजना होगा), या \"बैच\" (सिस्टम आपके डेटा को एक निर्धारित स्क्रिप्ट के माध्यम से ORCID को भेजेगा)।", 
 
   "person.page.orcid.synchronization-mode-profile-message": "क्या आपका जैविक डेटा या व्यक्तिगत पहचानकर्ता आपके ओआरसीआईडी रिकॉर्ड में भेजना है?", 
 
@@ -3208,9 +3125,7 @@
 
   "profile.security.form.error.password-length": "पासवर्ड कम से कम 6 अक्षर लंबा होना चाहिए।", 
 
-  "profile.security.form.info": "वैकल्पिक रूप से, 
- आप नीचे दिए गए बॉक्स में नया पासवर्ड दर्ज कर सकते हैं, 
- और इसे दूसरे बॉक्स में फिर से टाइप करके इसकी पुष्टि करें। यह कम से कम छह वर्ण लंबा होना चाहिए।", 
+  "profile.security.form.info": "वैकल्पिक रूप से, आप नीचे दिए गए बॉक्स में नया पासवर्ड दर्ज कर सकते हैं, और इसे दूसरे बॉक्स में फिर से टाइप करके इसकी पुष्टि करें। यह कम से कम छह वर्ण लंबा होना चाहिए।", 
 
   "profile.security.form.label.password": "पासवर्ड", 
 
@@ -3304,8 +3219,7 @@
 
   "register-page.create-profile.security.header": "सुरक्षा", 
 
-  "register-page.create-profile.security.info": "कृपया नीचे दिए गए बॉक्स में पासवर्ड दर्ज करें, 
- और दूसरे बॉक्स में फिर से टाइप करके इसकी पुष्टि करें। यह कम से कम छह वर्ण लंबा होना चाहिए।", 
+  "register-page.create-profile.security.info": "कृपया नीचे दिए गए बॉक्स में पासवर्ड दर्ज करें, और दूसरे बॉक्स में फिर से टाइप करके इसकी पुष्टि करें। यह कम से कम छह वर्ण लंबा होना चाहिए।", 
 
   "register-page.create-profile.security.label.password": "पासवर्ड *", 
 
@@ -3421,8 +3335,7 @@
 
   "researcherprofile.claim.not-authorized": "आप इस मद पर दावा करने के लिए अधिकृत नहीं हैं। अधिक जानकारी के लिए व्यवस्थापक से संपर्क करें।", 
 
-  "researcherprofile.error.claim.body": "प्रोफ़ाइल का दावा करते समय एक त्रुटि हुई, 
- कृपया बाद में पुन: प्रयास करें", 
+  "researcherprofile.error.claim.body": "प्रोफ़ाइल का दावा करते समय एक त्रुटि हुई, कृपया बाद में पुन: प्रयास करें", 
 
   "researcherprofile.error.claim.title": "त्रुटि", 
 
@@ -3958,9 +3871,7 @@
 
   "submission.sections.accesses.form.date-required-until": "तिथि तक पहुंच प्रदान करना आवश्यक है।", 
 
-  "submission.sections.accesses.form.discoverable-description": "चयनित होने पर, 
- यह आइटम खोज/ब्राउज़ में खोजने योग्य होगा। अचयनित होने पर, 
- आइटम केवल सीधे लिंक के माध्यम से उपलब्ध होगा और कभी भी खोज/ब्राउज़ में दिखाई नहीं देगा। ", 
+  "submission.sections.accesses.form.discoverable-description": "चयनित होने पर, यह आइटम खोज/ब्राउज़ में खोजने योग्य होगा। अचयनित होने पर, आइटम केवल सीधे लिंक के माध्यम से उपलब्ध होगा और कभी भी खोज/ब्राउज़ में दिखाई नहीं देगा। ", 
 
   "submission.sections.accesses.form.discoverable-label": "खोज योग्य", 
 
@@ -4274,13 +4185,11 @@
 
   "submission.sections.general.collection": "संग्रह", 
 
-  "submission.sections.general.deposit_error_notice": "आइटम प्रस्तुत करते समय एक समस्या हुई थी, 
- कृपया बाद में फिर से प्रयास करें।", 
+  "submission.sections.general.deposit_error_notice": "आइटम प्रस्तुत करते समय एक समस्या हुई थी, कृपया बाद में फिर से प्रयास करें।", 
 
   "submission.sections.general.deposit_success_notice": "प्रस्तुति को सफलतापूर्वक जमा किया गया।", 
 
-  "submission.sections.general.discard_error_notice": "आइटम को हटाते समय एक समस्या हुई थी, 
- कृपया बाद में फिर से प्रयास करें।", 
+  "submission.sections.general.discard_error_notice": "आइटम को हटाते समय एक समस्या हुई थी, कृपया बाद में फिर से प्रयास करें।", 
 
   "submission.sections.general.discard_success_notice": "प्रस्तुति सफलतापूर्वक रद्द करी गयी। ", 
 
@@ -4292,8 +4201,7 @@
 
   "submission.sections.general.no-sections": "कोई विकल्प उपलब्ध नहीं", 
 
-  "submission.sections.general.save_error_notice": "आइटम सहेजते समय एक समस्या हुई थी, 
- कृपया बाद में पुन: प्रयास करें।", 
+  "submission.sections.general.save_error_notice": "आइटम सहेजते समय एक समस्या हुई थी, कृपया बाद में पुन: प्रयास करें।", 
 
   "submission.sections.general.save_success_notice": "प्रस्तुतीकरण सफलतापूर्वक सहेजा गया।", 
 
@@ -4307,8 +4215,7 @@
 
   "submission.sections.license.required": "आपको लाइसेंस स्वीकार करना होगा", 
 
-  "submission.sections.sherpa-policy.title-empty": "प्रकाशक नीति की कोई जानकारी उपलब्ध नहीं है। अगर आपके काम में संबधित आईएसएसएन है, 
- तो कृपया संबंधित प्रकाशक की खुली पहुंच (ओपन एक्सेस) नीतियों को देखने के लिए इसे ऊपर दर्ज करें।", 
+  "submission.sections.sherpa-policy.title-empty": "प्रकाशक नीति की कोई जानकारी उपलब्ध नहीं है। अगर आपके काम में संबधित आईएसएसएन है, तो कृपया संबंधित प्रकाशक की खुली पहुंच (ओपन एक्सेस) नीतियों को देखने के लिए इसे ऊपर दर्ज करें।", 
 
   "submission.sections.sherpa.error.message": "शेरपा जानकारी प्राप्त करने में त्रुटि हुई थी", 
 
@@ -4330,9 +4237,7 @@
 
   "submission.sections.sherpa.publisher.policy.conditions": "स्थितियाँ", 
 
-  "submission.sections.sherpa.publisher.policy.description": "नीचे दी गई जानकारी शेरपा रोमियो के माध्यम से मिली। आपके प्रकाशक की नीतियों के आधार पर, 
- यह इस बारे में सलाह देता है कि क्या प्रतिबंध आवश्यक हो सकता है और/या आपको कौन सी फाइलें अपलोड करने की अनुमति है। यदि आपके कोई प्रश्न हैं, 
- तो कृपया पाद लेख में फ़ीडबैक फ़ॉर्म के माध्यम से अपने साइट व्यवस्थापक से संपर्क करें।", 
+  "submission.sections.sherpa.publisher.policy.description": "नीचे दी गई जानकारी शेरपा रोमियो के माध्यम से मिली। आपके प्रकाशक की नीतियों के आधार पर, यह इस बारे में सलाह देता है कि क्या प्रतिबंध आवश्यक हो सकता है और/या आपको कौन सी फाइलें अपलोड करने की अनुमति है। यदि आपके कोई प्रश्न हैं, तो कृपया पाद लेख में फ़ीडबैक फ़ॉर्म के माध्यम से अपने साइट व्यवस्थापक से संपर्क करें।", 
 
   "submission.sections.sherpa.publisher.policy.embargo": "प्रतिबंध", 
 
@@ -4340,8 +4245,7 @@
 
   "submission.sections.sherpa.publisher.policy.location": "स्थान", 
 
-  "submission.sections.sherpa.publisher.policy.more.information": "अधिक जानकारी के लिए, 
- कृपया निम्नलिखित लिंक देखें:", 
+  "submission.sections.sherpa.publisher.policy.more.information": "अधिक जानकारी के लिए, कृपया निम्नलिखित लिंक देखें:", 
 
   "submission.sections.sherpa.publisher.policy.noembargo": "कोई प्रतिबंध नहीं", 
 
@@ -4477,8 +4381,7 @@
 
   "submission.workflow.generic.delete": "हटाएं", 
 
-  "submission.workflow.generic.delete-help": "यदि आप इस आइटम को त्यागना चाहते हैं, 
- तो \"हटाएं\" चुनें। फिर आपको इसकी पुष्टि करने के लिए कहा जाएगा।", 
+  "submission.workflow.generic.delete-help": "यदि आप इस आइटम को त्यागना चाहते हैं, तो \"हटाएं\" चुनें। फिर आपको इसकी पुष्टि करने के लिए कहा जाएगा।", 
 
   "submission.workflow.generic.edit": "संपादित करें", 
 
@@ -4490,19 +4393,15 @@
 
   "submission.workflow.tasks.claimed.approve": "स्वीकृत करें", 
 
-  "submission.workflow.tasks.claimed.approve_help": "यदि आपने आइटम की समीक्षा की है और यह संग्रह में शामिल करने के लिए उपयुक्त है, 
- तो \"स्वीकृत करें\" चुनें।", 
+  "submission.workflow.tasks.claimed.approve_help": "यदि आपने आइटम की समीक्षा की है और यह संग्रह में शामिल करने के लिए उपयुक्त है, तो \"स्वीकृत करें\" चुनें।", 
 
   "submission.workflow.tasks.claimed.edit": "संपादित करें", 
 
   "submission.workflow.tasks.claimed.edit_help": "आइटम का मेटाडेटा बदलने के लिए इस विकल्प का चयन करें।", 
 
-  "submission.workflow.tasks.claimed.reject_help": "यदि आपने आइटम की समीक्षा की है और पाया है कि यह संग्रह में शामिल करने के लिए उपयुक्त <strong>नहीं</strong> है, 
- तो \"अस्वीकार करें\" चुनें। फिर आपको एक संदेश दर्ज करने के लिए कहा जाएगा जो यह दर्शाता है कि आइटम अनुपयुक्त क्यों है, 
- और क्या जमाकर्ता को कुछ बदलना चाहिए और फिर से सबमिट करना चाहिए।", 
+  "submission.workflow.tasks.claimed.reject_help": "यदि आपने आइटम की समीक्षा की है और पाया है कि यह संग्रह में शामिल करने के लिए उपयुक्त <strong>नहीं</strong> है,  तो \"अस्वीकार करें\" चुनें। फिर आपको एक संदेश दर्ज करने के लिए कहा जाएगा जो यह दर्शाता है कि आइटम अनुपयुक्त क्यों है, और क्या जमाकर्ता को कुछ बदलना चाहिए और फिर से सबमिट करना चाहिए।", 
 
-  "submission.workflow.tasks.claimed.reject.reason.info": "कृपया नीचे दिए गए बॉक्स में प्रस्तुति को अस्वीकार करने का अपना कारण दर्ज करें, 
- यह इंगित करते हुए कि क्या प्रस्तुतकर्ता किसी समस्या को ठीक कर सकता है और फिर से प्रस्तुत कर सकता है।  ", 
+  "submission.workflow.tasks.claimed.reject.reason.info": "कृपया नीचे दिए गए बॉक्स में प्रस्तुति को अस्वीकार करने का अपना कारण दर्ज करें, यह इंगित करते हुए कि क्या प्रस्तुतकर्ता किसी समस्या को ठीक कर सकता है और फिर से प्रस्तुत कर सकता है।  ", 
 
   "submission.workflow.tasks.claimed.reject.reason.placeholder": "अस्वीकार करने का कारण बताएं", 
 
@@ -4560,8 +4459,7 @@
 
   "uploader.drag-message": "अपनी फ़ाइलों को यहाँ खींचें और छोड़ें", 
 
-  "uploader.or": ", 
- अथवा", 
+  "uploader.or": ", अथवा", 
 
   "uploader.processing": "प्रसंस्करण", 
 
