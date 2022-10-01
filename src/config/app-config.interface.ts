@@ -17,7 +17,10 @@ import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
 import { InfoConfig } from './info-config.interface';
+import { CommunityListConfig } from './community-list-config.interface';
 import { HomeConfig } from './homepage-config.interface';
+import { MarkdownConfig } from './markdown-config.interface';
+
 interface AppConfig extends Config {
   ui: UIServerConfig;
   rest: ServerConfig;
@@ -31,6 +34,8 @@ interface AppConfig extends Config {
   defaultLanguage: string;
   languages: LangConfig[];
   browseBy: BrowseByConfig;
+  communityList: CommunityListConfig;
+  homePage: HomeConfig;
   item: ItemConfig;
   collection: CollectionPageConfig;
   themes: ThemeConfig[];
@@ -38,7 +43,7 @@ interface AppConfig extends Config {
   bundle: BundleConfig;
   actuators: ActuatorsConfig
   info: InfoConfig;
-  homePage: HomeConfig;
+  markdown: MarkdownConfig;
 }
 
 /**

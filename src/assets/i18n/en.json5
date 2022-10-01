@@ -542,28 +542,45 @@
 
   "admin.metadata-import.breadcrumbs": "Import Metadata",
 
+  "admin.batch-import.breadcrumbs": "Import Batch",
+
   "admin.metadata-import.title": "Import Metadata",
+
+  "admin.batch-import.title": "Import Batch",
 
   "admin.metadata-import.page.header": "Import Metadata",
 
+  "admin.batch-import.page.header": "Import Batch",
+
   "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
+
+  "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
 
   "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
 
+  "admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
+
   "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
+
+  "admin.batch-import.page.dropMsgReplace": "Drop to replace the batch ZIP to import",
 
   "admin.metadata-import.page.button.return": "Back",
 
   "admin.metadata-import.page.button.proceed": "Proceed",
 
+  "admin.metadata-import.page.button.select-collection": "Select Collection",
+
   "admin.metadata-import.page.error.addFile": "Select file first!",
+
+  "admin.batch-import.page.error.addFile": "Select Zip file first!",
 
   "admin.metadata-import.page.validateOnly": "Validate Only",
 
   "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
 
+  "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
 
-
+  "admin.batch-import.page.remove": "remove",
 
   "auth.errors.invalid-user": "Invalid email address or password.",
 
@@ -640,7 +657,7 @@
   "bitstream-request-a-copy.alert.canDownload2": "here",
 
   "bitstream-request-a-copy.header": "Request a copy of the file",
-  
+
   "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
 
   "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
@@ -910,7 +927,7 @@
 
   "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
-  "collection.edit.tabs.source.notifications.discarded.title": "Changed discarded",
+  "collection.edit.tabs.source.notifications.discarded.title": "Changes discarded",
 
   "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
 
@@ -1266,6 +1283,7 @@
 
   "cookies.consent.purpose.statistical": "Statistical",
 
+  "curation-task.task.citationpage.label":  "Generate Citation Page",
 
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
@@ -1345,6 +1363,10 @@
 
   "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
 
+  "dso-selector.export-batch.dspaceobject.head": "Export Batch (ZIP) from",
+
+  "dso-selector.import-batch.dspaceobject.head": "Import batch from",
+
   "dso-selector.no-results": "No {{ type }} found",
 
   "dso-selector.placeholder": "Search for a {{ type }}",
@@ -1372,6 +1394,14 @@
   "confirmation-modal.export-metadata.cancel": "Cancel",
 
   "confirmation-modal.export-metadata.confirm": "Export",
+
+  "confirmation-modal.export-batch.header": "Export batch (ZIP) for {{ dsoName }}",
+
+  "confirmation-modal.export-batch.info": "Are you sure you want to export batch (ZIP) for {{ dsoName }}",
+
+  "confirmation-modal.export-batch.cancel": "Cancel",
+
+  "confirmation-modal.export-batch.confirm": "Export",
 
   "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
 
@@ -1490,7 +1520,7 @@
 
   "forgot-password.form.head": "Forgot Password",
 
-  "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box.",
 
   "forgot-password.form.card.security": "Security",
 
@@ -1506,8 +1536,6 @@
 
   "forgot-password.form.error.matching-passwords": "The passwords do not match.",
 
-  "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
-
   "forgot-password.form.notification.error.title": "Error when trying to submit new password",
 
   "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
@@ -1515,7 +1543,6 @@
   "forgot-password.form.notification.success.title": "Password reset completed",
 
   "forgot-password.form.submit": "Submit password",
-
 
 
   "form.add": "Add more",
@@ -1917,7 +1944,7 @@
 
   "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
-  "item.edit.metadata.notifications.discarded.title": "Changed discarded",
+  "item.edit.metadata.notifications.discarded.title": "Changes discarded",
 
   "item.edit.metadata.notifications.error.title": "An error occurred",
 
@@ -1927,7 +1954,7 @@
 
   "item.edit.metadata.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
 
-  "item.edit.metadata.notifications.outdated.title": "Changed outdated",
+  "item.edit.metadata.notifications.outdated.title": "Changes outdated",
 
   "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
 
@@ -2619,6 +2646,7 @@
 
   "menu.section.export_metadata": "Metadata",
 
+  "menu.section.export_batch": "Batch Export (ZIP)",
 
 
   "menu.section.icon.access_control": "Access Control menu section",
@@ -2736,8 +2764,6 @@
 
   "mydspace.description": "",
 
-  "mydspace.general.text-here": "here",
-
   "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
 
   "mydspace.messages.description-placeholder": "Insert your message here...",
@@ -2813,8 +2839,6 @@
   "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
 
   "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
-
-  "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
 
   "mydspace.view-btn": "View",
 
@@ -2984,7 +3008,7 @@
   "process.detail.create" : "Create similar process",
 
   "process.detail.actions": "Actions",
-  
+
   "process.detail.delete.button": "Delete process",
 
   "process.detail.delete.header": "Delete process",
@@ -3037,7 +3061,7 @@
 
   "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
 
-  
+
 
   "profile.breadcrumbs": "Update Profile",
 
@@ -3077,13 +3101,13 @@
 
   "profile.security.form.error.matching-passwords": "The passwords do not match.",
 
-  "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
-
-  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box.",
 
   "profile.security.form.label.password": "Password",
 
   "profile.security.form.label.passwordrepeat": "Retype to confirm",
+
+  "profile.security.form.label.current-password": "Current password",
 
   "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
 
@@ -3091,9 +3115,11 @@
 
   "profile.security.form.notifications.error.title": "Error changing passwords",
 
-  "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
+  "profile.security.form.notifications.error.change-failed": "An error occurred while trying to change the password. Please check if the current password is correct.",
 
   "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
+
+  "profile.security.form.notifications.error.general": "Please fill required fields of security form.",
 
   "profile.title": "Update Profile",
 
@@ -3177,7 +3203,7 @@
 
   "register-page.create-profile.security.header": "Security",
 
-  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box.",
 
   "register-page.create-profile.security.label.password": "Password *",
 
@@ -3186,8 +3212,6 @@
   "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
 
   "register-page.create-profile.security.error.matching-passwords": "The passwords do not match.",
-
-  "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
 
   "register-page.create-profile.submit": "Complete Registration",
 
@@ -4449,7 +4473,7 @@
 
   "uploader.or": ", or ",
 
-  "uploader.processing": "Processing",
+  "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
 
   "uploader.queue-length": "Queue length",
 

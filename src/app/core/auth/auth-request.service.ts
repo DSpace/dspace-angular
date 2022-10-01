@@ -58,7 +58,9 @@ export abstract class AuthRequestService {
   public postToEndpoint(method: string, body?: any, options?: HttpOptions): Observable<RemoteData<AuthStatus>> {
     const requestId = this.requestService.generateRequestId();
 
-    this.halService.getEndpoint(this.linkName).pipe(
+    const endpoint$ = this.halService.getEndpoint(this.linkName);
+
+    endpoint$.pipe(
       filter((href: string) => isNotEmpty(href)),
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
       distinctUntilChanged(),
@@ -68,7 +70,9 @@ export abstract class AuthRequestService {
       this.requestService.send(request);
     });
 
-    return this.fetchRequest(requestId);
+    return endpoint$.pipe(
+      switchMap(() => this.fetchRequest(requestId)),
+    );
   }
 
   /**
@@ -79,7 +83,9 @@ export abstract class AuthRequestService {
   public getRequest(method: string, options?: HttpOptions, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<AuthStatus>> {
     const requestId = this.requestService.generateRequestId();
 
-    this.halService.getEndpoint(this.linkName).pipe(
+    const endpoint$ = this.halService.getEndpoint(this.linkName);
+
+    endpoint$.pipe(
       filter((href: string) => isNotEmpty(href)),
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method, ...linksToFollow)),
       distinctUntilChanged(),
@@ -89,7 +95,9 @@ export abstract class AuthRequestService {
       this.requestService.send(request);
     });
 
-    return this.fetchRequest(requestId, ...linksToFollow);
+    return endpoint$.pipe(
+      switchMap(() => this.fetchRequest(requestId, ...linksToFollow)),
+    );
   }
   /**
    * Factory function to create the request object to send. This needs to be a POST client side and

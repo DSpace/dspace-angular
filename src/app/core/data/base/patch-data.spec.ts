@@ -178,7 +178,12 @@ describe('PatchDataImpl', () => {
 
   describe('patch', () => {
     const dso = {
-      uuid: 'dso-uuid'
+      uuid: 'dso-uuid',
+      _links: {
+        self: {
+          href: 'dso-href',
+        }
+      }
     };
     const operations = [
       Object.assign({
@@ -188,14 +193,23 @@ describe('PatchDataImpl', () => {
       }) as Operation
     ];
 
-    beforeEach((done) => {
-      service.patch(dso, operations).subscribe(() => {
-        done();
-      });
+    it('should send a PatchRequest', () => {
+      service.patch(dso, operations);
+      expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PatchRequest));
     });
 
-    it('should send a PatchRequest', () => {
-      expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PatchRequest));
+    it('should invalidate the cached object if successfully patched', () => {
+      spyOn(rdbService, 'buildFromRequestUUIDAndAwait');
+      spyOn(service, 'invalidateByHref');
+
+      service.patch(dso, operations);
+
+      expect(rdbService.buildFromRequestUUIDAndAwait).toHaveBeenCalled();
+      expect((rdbService.buildFromRequestUUIDAndAwait as jasmine.Spy).calls.argsFor(0)[0]).toBe(requestService.generateRequestId());
+      const callback = (rdbService.buildFromRequestUUIDAndAwait as jasmine.Spy).calls.argsFor(0)[1];
+      callback();
+
+      expect(service.invalidateByHref).toHaveBeenCalledWith('dso-href');
     });
   });
 

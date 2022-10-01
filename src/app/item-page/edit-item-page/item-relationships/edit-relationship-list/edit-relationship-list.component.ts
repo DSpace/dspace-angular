@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
@@ -29,7 +29,7 @@ import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/b
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { SearchResult } from '../../../../shared/search/models/search-result.model';
-import { followLink } from '../../../../shared/utils/follow-link-config.model';
+import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Collection } from '../../../../core/shared/collection.model';
@@ -39,6 +39,8 @@ import { RelationshipTypeDataService } from '../../../../core/data/relationship-
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
+import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
+import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
 
 @Component({
   selector: 'ds-edit-relationship-list',
@@ -138,6 +140,10 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    */
   modalRef: NgbModalRef;
 
+  /**
+   * Determines whether to ask for the embedded item thumbnail.
+   */
+  fetchThumbnail: boolean;
 
   constructor(
     protected objectUpdatesService: ObjectUpdatesService,
@@ -147,7 +153,9 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     protected modalService: NgbModal,
     protected paginationService: PaginationService,
     protected selectableListService: SelectableListService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
+    this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
   }
 
   /**
@@ -484,6 +492,9 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
       tap(() => this.loading$.next(true))
     );
 
+    // this adds thumbnail images when required by configuration
+    let linksToFollow: FollowLinkConfig<Relationship>[] = itemLinksToFollow(this.fetchThumbnail);
+
     this.subs.push(
       observableCombineLatest([
         currentPagination$,
@@ -496,12 +507,11 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
             currentItemIsLeftItem ? this.relationshipType.leftwardType : this.relationshipType.rightwardType,
             {
               elementsPerPage: currentPagination.pageSize,
-              currentPage: currentPagination.currentPage,
+              currentPage: currentPagination.currentPage
             },
             false,
             true,
-            followLink('leftItem'),
-            followLink('rightItem'),
+            ...linksToFollow
           )),
       ).subscribe((rd: RemoteData<PaginatedList<Relationship>>) => {
         this.relationshipsRd$.next(rd);

@@ -78,8 +78,9 @@ describe('CommunityRolesComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should display a community admin role component', () => {
+  it('should display a community admin role component', (done) => {
     expect(de.query(By.css('ds-comcol-role .community-admin')))
       .toBeTruthy();
+    done();
   });
 });

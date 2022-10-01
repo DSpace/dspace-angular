@@ -88,6 +88,8 @@ import {
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
+
+import { ComcolPageHandleComponent } from './app/shared/comcol-page-handle/comcol-page-handle.component';
 import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.component';
 import {
   ExpandableNavbarSectionComponent
@@ -99,6 +101,19 @@ import {
 import { LoadingComponent } from './app/shared/loading/loading.component';
 import { SearchResultsComponent } from './app/shared/search/search-results/search-results.component';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
+import { ComcolPageBrowseByComponent } from './app/shared/comcol-page-browse-by/comcol-page-browse-by.component';
+import { SearchSettingsComponent } from './app/shared/search/search-settings/search-settings.component';
+import {
+  CommunityPageSubCommunityListComponent
+} from './app/community-page/sub-community-list/community-page-sub-community-list.component';
+import {
+  CommunityPageSubCollectionListComponent
+} from './app/community-page/sub-collection-list/community-page-sub-collection-list.component';
+import { ObjectListComponent } from './app/shared/object-list/object-list.component';
+
+import { BrowseByMetadataPageComponent } from './app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component';
+import { BrowseByDatePageComponent } from './app/browse-by/browse-by-date-page/browse-by-date-page.component';
+import { BrowseByTitlePageComponent } from './app/browse-by/browse-by-title-page/browse-by-title-page.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -118,6 +133,8 @@ const DECLARATIONS = [
   ItemStatisticsPageComponent,
   SiteStatisticsPageComponent,
   CommunityPageComponent,
+  CommunityPageSubCommunityListComponent,
+  CommunityPageSubCollectionListComponent,
   CollectionPageComponent,
   ItemPageComponent,
   FullItemPageComponent,
@@ -137,6 +154,7 @@ const DECLARATIONS = [
   BreadcrumbsComponent,
   FeedbackComponent,
   CommunityListComponent,
+  ComcolPageHandleComponent,
   AuthNavMenuComponent,
   ExpandableNavbarSectionComponent,
   ItemMetadataComponent,
@@ -144,6 +162,14 @@ const DECLARATIONS = [
   LoadingComponent,
   SearchResultsComponent,
   AdminSidebarComponent,
+  SearchSettingsComponent,
+  ComcolPageBrowseByComponent,
+  ObjectListComponent,
+  BrowseByMetadataPageComponent,
+  BrowseByDatePageComponent,
+  BrowseByTitlePageComponent,
+
+
 ];
 
 @NgModule({
@@ -196,6 +222,9 @@ const DECLARATIONS = [
     ComcolModule,
   ],
   declarations: DECLARATIONS,
+  exports: [
+    CommunityPageSubCollectionListComponent
+  ]
 })
 
   /**

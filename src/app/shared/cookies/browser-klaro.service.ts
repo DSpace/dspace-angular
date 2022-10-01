@@ -13,7 +13,7 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { cloneDeep, debounce } from 'lodash';
 import { ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration } from './klaro-configuration';
 import { Operation } from 'fast-json-patch';
-import { getFirstCompletedRemoteData} from '../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 
 /**
@@ -119,6 +119,23 @@ export class BrowserKlaroService extends KlaroService {
 
         Klaro.setup(this.klaroConfig);
       });
+  }
+
+  /**
+   * Return saved preferences stored in the klaro cookie
+   */
+  getSavedPreferences(): Observable<any> {
+    return this.getUser$().pipe(
+      map((user: EPerson) => {
+        let storageName;
+        if (isEmpty(user)) {
+          storageName = ANONYMOUS_STORAGE_NAME_KLARO;
+        } else {
+          storageName = this.getStorageName(user.uuid);
+        }
+        return this.cookieService.get(storageName);
+      })
+    );
   }
 
   /**
