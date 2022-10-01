@@ -135,6 +135,9 @@ languages:
   - code: lv
     label: Latviešu
     active: true
+  - code: hi
+    label: Hindi
+    active: true
   - code: hu
     label: Magyar
     active: true
