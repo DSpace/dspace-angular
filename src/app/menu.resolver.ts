@@ -7,10 +7,8 @@ import { MenuItemType } from './shared/menu/menu-item-type.model';
 import { LinkMenuItemModel } from './shared/menu/menu-item/models/link.model';
 import { getFirstCompletedRemoteData } from './core/shared/operators';
 import { PaginatedList } from './core/data/paginated-list.model';
-import { BrowseDefinition } from './core/shared/browse-definition.model';
 import { RemoteData } from './core/data/remote-data';
 import { TextMenuItemModel } from './shared/menu/menu-item/models/text.model';
-import { BrowseService } from './core/browse/browse.service';
 import { MenuService } from './shared/menu/menu.service';
 import { filter, find, map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from './shared/empty.util';
@@ -45,6 +43,8 @@ import {
   ScriptDataService
 } from './core/data/processes/script-data.service';
 import { environment } from '../environments/environment';
+import { SectionDataService } from './core/layout/section-data.service';
+import { Section } from './core/layout/models/section.model';
 
 /**
  * Creates all of the app's menus
@@ -59,10 +59,10 @@ export class MenuResolver implements Resolve<boolean> {
   constructor(
     protected route: ActivatedRoute,
     protected menuService: MenuService,
-    protected browseService: BrowseService,
     protected authorizationService: AuthorizationDataService,
     protected modalService: NgbModal,
     protected scriptDataService: ScriptDataService,
+    protected sectionDataService: SectionDataService,
   ) {
   }
 
@@ -114,41 +114,28 @@ export class MenuResolver implements Resolve<boolean> {
     }
 
     // Read the different Browse-By types from config and add them to the browse menu
-    this.browseService.getBrowseDefinitions()
-      .pipe(getFirstCompletedRemoteData<PaginatedList<BrowseDefinition>>())
-      .subscribe((browseDefListRD: RemoteData<PaginatedList<BrowseDefinition>>) => {
-        if (browseDefListRD.hasSucceeded) {
-          browseDefListRD.payload.page.forEach((browseDef: BrowseDefinition) => {
-            menuList.push({
-              id: `browse_global_by_${browseDef.id}`,
-              parentID: 'browse_global',
-              active: false,
-              visible: true,
-              model: {
-                type: MenuItemType.LINK,
-                text: `menu.section.browse_global_by_${browseDef.id}`,
-                link: `/browse/${browseDef.id}`
-              } as LinkMenuItemModel
-            });
+    this.sectionDataService.findVisibleSections().pipe(
+      getFirstCompletedRemoteData()
+    ).subscribe( (sectionDefListRD: RemoteData<PaginatedList<Section>>) => {
+      if (sectionDefListRD.hasSucceeded) {
+        sectionDefListRD.payload.page.forEach((section) => {
+          menuList.push({
+            id: `explore_${section.id}`,
+            active: false,
+            visible: true,
+            model: {
+              type: MenuItemType.LINK,
+              text: `menu.section.explore_${section.id}`,
+              link: `/explore/${section.id}`
+            } as LinkMenuItemModel
           });
-          menuList.push(
-            /* Browse */
-            {
-              id: 'browse_global',
-              active: false,
-              visible: true,
-              index: 1,
-              model: {
-                type: MenuItemType.TEXT,
-                text: 'menu.section.browse_global'
-              } as TextMenuItemModel,
-            }
-          );
-        }
-        menuList.forEach((menuSection) => this.menuService.addSection(MenuID.PUBLIC, Object.assign(menuSection, {
-          shouldPersistOnRouteChange: true
-        })));
-      });
+
+        });
+      }
+      menuList.forEach((menuSection) => this.menuService.addSection(MenuID.PUBLIC, Object.assign(menuSection, {
+        shouldPersistOnRouteChange: true
+      })));
+    });
 
     this.createStatisticsMenu();
     return this.waitForMenu$(MenuID.PUBLIC);

@@ -15,8 +15,7 @@ import { ExploreModule } from '../../app/shared/explore/explore.module';
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
  * This will ensure that decorator gets picked up when the app loads
  */
-const ENTRY_COMPONENTS = [
-];
+const ENTRY_COMPONENTS = [];
 
 const DECLARATIONS = [
   ...ENTRY_COMPONENTS,
@@ -27,15 +26,15 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SharedModule,
-        SearchModule,
-        FormsModule,
-        RootModule,
-        NavbarModule,
-        ExploreModule,
-    ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    SearchModule,
+    FormsModule,
+    RootModule,
+    NavbarModule,
+    ExploreModule
+  ],
   declarations: DECLARATIONS,
   providers: [
     ...ENTRY_COMPONENTS.map((component) => ({ provide: component }))

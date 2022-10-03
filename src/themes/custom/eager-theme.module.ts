@@ -12,6 +12,10 @@ import { NavbarModule } from '../../app/navbar/navbar.module';
 import { PublicationComponent } from './app/item-page/simple/item-types/publication/publication.component';
 import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { FooterComponent } from './app/footer/footer.component';
+import { FooterModule } from '../../app/footer/footer.module';
+import { ExploreModule } from '../../app/shared/explore/explore.module';
+import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
+import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
 
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
@@ -39,6 +43,10 @@ const DECLARATIONS = [
     RootModule,
     NavbarModule,
     ItemPageModule,
+    ContextMenuModule,
+    FooterModule,
+    ExploreModule,
+    MiradorViewerModule,
   ],
   declarations: DECLARATIONS,
   providers: [
