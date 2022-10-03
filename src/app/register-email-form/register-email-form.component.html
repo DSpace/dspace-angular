@@ -29,7 +29,7 @@
 
         </div>
 
-    <ds-alert [type]="AlertTypeEnum.Warning" *ngIf="!isRecaptchaCookieAccepted()">
+    <ds-alert [type]="AlertTypeEnum.Warning" *ngIf="registrationVerification && !isRecaptchaCookieAccepted()">
       <p class="m-0" [innerHTML]="MESSAGE_PREFIX + '.google-recaptcha.must-accept-cookies' | translate"></p>
       <p class="m-0"><a href="javascript:void(0);" (click)="this.klaroService.showSettings()">{{ MESSAGE_PREFIX + '.google-recaptcha.open-cookie-settings' | translate }}</a></p>
     </ds-alert>
