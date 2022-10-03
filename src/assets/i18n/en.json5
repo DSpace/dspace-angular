@@ -1516,6 +1516,8 @@
 
   "context-menu.actions.edit-item-relationships.btn.projects": "Manage Projects",
 
+  "context-menu.actions.orcid-view": "Open ORCID setting page",
+
   "context-menu.actions.statistics.btn": "Statistics",
 
   "context-menu.actions.subscription.title": "Subscription",
