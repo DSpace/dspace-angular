@@ -298,7 +298,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         {
           id: 'handle_table',
           active: false,
-          visible: true,
+          visible: isSiteAdmin,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.handle',
