@@ -91,14 +91,15 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
   }));
 
   beforeEach(() => {
-    component.dso = mockResultObject.indexableObject;
+    component.object = mockResultObject;
     fixture.detectChanges();
   });
 
-  it('should init item properly', (done) => {
-    component.item$.pipe(take(1)).subscribe((i) => {
+  it('should init derivedSearchResult$ properly', (done) => {
+    component.derivedSearchResult$.pipe(take(1)).subscribe((i) => {
       expect(linkService.resolveLink).toHaveBeenCalled();
-      expect(i).toBe(item);
+      expect(i.indexableObject).toBe(item);
+      expect(i.hitHighlights).toBe(mockResultObject.hitHighlights);
       done();
     });
   });

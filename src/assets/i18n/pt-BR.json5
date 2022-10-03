@@ -1,10 +1,10 @@
 {
 
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
-  "401.help": "Você não está autorizado a acessar esta página. Você pode usar o botão abaixo para voltar à página inicial.",
+  "401.help": "Você não tem autorização para acessar esta página. Clique no botão abaixo para ir à página inicial.",
 
   // "401.link.home-page": "Take me to the home page",
-  "401.link.home-page": "Leve-me para a página inicial",
+  "401.link.home-page": "Ir à página inicial",
 
   // "401.unauthorized": "unauthorized",
   "401.unauthorized": "não autorizado",
@@ -12,10 +12,10 @@
 
 
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
-  "403.help": "Você não tem permissão para acessar esta página. Você pode usar o botão abaixo para voltar à página inicial.",
+  "403.help": "Você não tem permissão para acessar esta página. Clique no botão abaixo para ir à página inicial.",
 
   // "403.link.home-page": "Take me to the home page",
-  "403.link.home-page": "Leve-me para a página inicial",
+  "403.link.home-page": "Ir à página inicial",
 
   // "403.forbidden": "forbidden",
   "403.forbidden": "proibido",
@@ -27,14 +27,14 @@
   "500.help": "O servidor está temporariamente impossibilitado de atender sua solicitação devido a um período de manutenção ou problemas no servidor. Por favor, tente novamente mais tarde.",
 
   // "500.link.home-page": "Take me to the home page",
-  "500.link.home-page": "Leve-me para a página inicial",
+  "500.link.home-page": "Ir à página inicial",
 
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
-  "404.help": "Não pudemos encontrar a página pela qual procura. A página pode ter sido movida ou apagada. Você pode utilizar o botão abaixo para voltar a página inicial. ",
+  "404.help": "Não encontramos a página que você procura. A página pode ter sido movida ou apagada. Você pode utilizar o botão abaixo para voltar à página inicial. ",
 
   // "404.link.home-page": "Take me to the home page",
-  "404.link.home-page": "Leve-me a página inicial",
+  "404.link.home-page": "Ir à página inicial",
 
   // "404.page-not-found": "page not found",
   "404.page-not-found": "página não encontrada",
@@ -49,54 +49,43 @@
   "error-page.description.500": "Serviço Indisponível",
 
   // "error-page.description.404": "page not found",
-  "error-page.description.404": "pagína não encontrada",
+  "error-page.description.404": "página não encontrada",
 
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
-  // TODO New key - Add a translation
-  "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
+  "error-page.orcid.generic-error": "Um erro ocorreu durante o login via ORCID. Certifique-se de que compartilhou o e-mail da sua conta ORCID com o DSpace. Se o erro persistir, contate o administrador.",
 
   // "access-status.embargo.listelement.badge": "Embargo",
-  // TODO New key - Add a translation
   "access-status.embargo.listelement.badge": "Embargo",
 
   // "access-status.metadata.only.listelement.badge": "Metadata only",
-  // TODO New key - Add a translation
-  "access-status.metadata.only.listelement.badge": "Metadata only",
+  "access-status.metadata.only.listelement.badge": "Somente metadados",
 
   // "access-status.open.access.listelement.badge": "Open Access",
-  // TODO New key - Add a translation
-  "access-status.open.access.listelement.badge": "Open Access",
+  "access-status.open.access.listelement.badge": "Acesso aberto",
 
   // "access-status.restricted.listelement.badge": "Restricted",
-  // TODO New key - Add a translation
-  "access-status.restricted.listelement.badge": "Restricted",
+  "access-status.restricted.listelement.badge": "Restrito",
 
   // "access-status.unknown.listelement.badge": "Unknown",
-  // TODO New key - Add a translation
-  "access-status.unknown.listelement.badge": "Unknown",
+  "access-status.unknown.listelement.badge": "Desconhecido",
 
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
-  // TODO New key - Add a translation
-  "admin.curation-tasks.breadcrumbs": "System curation tasks",
+  "admin.curation-tasks.breadcrumbs": "Tarefas de curadoria do sistema",
 
   // "admin.curation-tasks.title": "System curation tasks",
-  // TODO New key - Add a translation
-  "admin.curation-tasks.title": "System curation tasks",
+  "admin.curation-tasks.title": "Tarefas de curadoria do sistema",
 
   // "admin.curation-tasks.header": "System curation tasks",
-  // TODO New key - Add a translation
-  "admin.curation-tasks.header": "System curation tasks",
+  "admin.curation-tasks.header": "Tarefas de curadoria do sistema",
 
   // "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
+  "admin.registries.bitstream-formats.breadcrumbs": "Registro de formato",
 
   // "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
+  "admin.registries.bitstream-formats.create.breadcrumbs": "Formato de bitstream",
 
   // "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
-  "admin.registries.bitstream-formats.create.failure.content": "Um erro ocorreu durante a criação do novo formato de bitstream.",
+  "admin.registries.bitstream-formats.create.failure.content": "Ocorreu um erro durante a criação do novo formato de bitstream.",
 
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
   "admin.registries.bitstream-formats.create.failure.head": "Falha",
@@ -129,8 +118,7 @@
   "admin.registries.bitstream-formats.description": "Esta lista de formatos de bitstream provê informações sobre formatos conhecidos e seus níveis de suporte.",
 
   // "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
+  "admin.registries.bitstream-formats.edit.breadcrumbs": "Formato de bitstream",
 
   // "admin.registries.bitstream-formats.edit.description.hint": "",
   "admin.registries.bitstream-formats.edit.description.hint": "",
@@ -139,7 +127,7 @@
   "admin.registries.bitstream-formats.edit.description.label": "Descrição",
 
   // "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
-  "admin.registries.bitstream-formats.edit.extensions.hint": "Extensões são extensões de arquivo que são usadas para identificar automaticamente o formato dos arquivo enviados. Você pode informar várias extensões para cada formato.",
+  "admin.registries.bitstream-formats.edit.extensions.hint": "Extensões de arquivo são usadas para identificar automaticamente o formato dos arquivo enviados. Você pode informar várias extensões para cada formato.",
 
   // "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
   "admin.registries.bitstream-formats.edit.extensions.label": "Extensões de arquivo",
@@ -157,7 +145,7 @@
   "admin.registries.bitstream-formats.edit.head": "Formato de bitstream: {{ format }}",
 
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
-  "admin.registries.bitstream-formats.edit.internal.hint": "Formatos marcados como interno são ocultos para o usuário, e utilizados por motivos administrativos.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "Formatos marcados como interno são ocultados para o usuário e utilizados para propósitos administrativos.",
 
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
   "admin.registries.bitstream-formats.edit.internal.label": "Interno",
@@ -175,13 +163,13 @@
   "admin.registries.bitstream-formats.edit.shortDescription.label": "Nome",
 
   // "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
-  "admin.registries.bitstream-formats.edit.success.content": "O formato de bitstream foi editedo com sucesso.",
+  "admin.registries.bitstream-formats.edit.success.content": "O formato de bitstream foi editado com sucesso.",
 
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
   "admin.registries.bitstream-formats.edit.success.head": "Sucesso",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
-  "admin.registries.bitstream-formats.edit.supportLevel.hint": "O nível de suporte que a sua instituição promete para este formato.",
+  "admin.registries.bitstream-formats.edit.supportLevel.hint": "O nível de suporte que a sua instituição garante para este formato.",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
   "admin.registries.bitstream-formats.edit.supportLevel.label": "Nível de suporte",
@@ -196,7 +184,7 @@
   "admin.registries.bitstream-formats.table.delete": "Apagar selecionado(s)",
 
   // "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
-  "admin.registries.bitstream-formats.table.deselect-all": "Desselecionar todos",
+  "admin.registries.bitstream-formats.table.deselect-all": "Desmarcar todos",
 
   // "admin.registries.bitstream-formats.table.internal": "internal",
   "admin.registries.bitstream-formats.table.internal": "Interno",
@@ -208,7 +196,6 @@
   "admin.registries.bitstream-formats.table.name": "Nome",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
-  // TODO Source message changed - Revise the translation
   "admin.registries.bitstream-formats.table.return": "Voltar",
 
   // "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
@@ -224,17 +211,15 @@
   "admin.registries.bitstream-formats.table.supportLevel.head": "Nível de Suporte",
 
   // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
-  // TODO Source message changed - Revise the translation
   "admin.registries.bitstream-formats.title": "DSpace Angular :: Registro de Formato de Bitstream",
 
 
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.breadcrumbs": "Metadata registry",
+  "admin.registries.metadata.breadcrumbs": "Registro de metadados",
 
   // "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
-  "admin.registries.metadata.description": "O registro de metadados mantém a lista de todos os campos de metadados disponíveis no repositório. Estes campos podêm ser divididos em multiplos esquemas. Entretanto, o DSpace requer esquemas de Dublin Core qualificados.",
+  "admin.registries.metadata.description": "O registro de metadados mantém a lista de todos os campos de metadados disponíveis no repositório. Estes campos podem ser divididos em múltiplos esquemas. Entretanto, o DSpace requer esquemas de Dublin Core qualificados.",
 
   // "admin.registries.metadata.form.create": "Create metadata schema",
   "admin.registries.metadata.form.create": "Criar esquema de metadados",
@@ -252,7 +237,7 @@
   "admin.registries.metadata.head": "Registro de Metadados",
 
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
-  "admin.registries.metadata.schemas.no-items": "Nenhum esquema de metadados a mostrar.",
+  "admin.registries.metadata.schemas.no-items": "Nenhum esquema de metadados a exibir.",
 
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   "admin.registries.metadata.schemas.table.delete": "Apagar selecionado(s)",
@@ -267,14 +252,12 @@
   "admin.registries.metadata.schemas.table.namespace": "Namespace",
 
   // "admin.registries.metadata.title": "Metadata Registry",
-  // TODO Source message changed - Revise the translation
   "admin.registries.metadata.title": "DSpace Angular :: Registro de Metadados",
 
 
 
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
-  // TODO New key - Add a translation
-  "admin.registries.schema.breadcrumbs": "Metadata schema",
+  "admin.registries.schema.breadcrumbs": "Esquema de metadados",
 
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   "admin.registries.schema.description": "Este é o esquema de metadados para \"{{namespace}}\".",
@@ -313,107 +296,92 @@
   "admin.registries.schema.head": "Esquema de Metadados",
 
   // "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
-  "admin.registries.schema.notification.created": "Criou o esquema de metadados \"{{prefix}}\" com sucesso",
+  "admin.registries.schema.notification.created": "Esquema de metadados \"{{prefix}}\" criado com sucesso",
 
   // "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
-  "admin.registries.schema.notification.deleted.failure": "Falhou ao apagar {{amount}} esquema(s) de metadados",
+  "admin.registries.schema.notification.deleted.failure": "Falha ao apagar {{amount}} esquema(s) de metadados",
 
   // "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
   "admin.registries.schema.notification.deleted.success": "Apagou {{amount}} esquema(s) de metadados com sucesso",
 
   // "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
-  "admin.registries.schema.notification.edited": "Editou o esquema de metadados \"{{prefix}}\" com sucesso",
+  "admin.registries.schema.notification.edited": "Esquema de metadados \"{{prefix}}\" editado com sucesso",
 
   // "admin.registries.schema.notification.failure": "Error",
   "admin.registries.schema.notification.failure": "Erro",
 
   // "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.created": "Criou o campo de medado \"{{field}}\" com sucesso",
+  "admin.registries.schema.notification.field.created": "Campo de metadados \"{{field}}\" criado com sucesso",
 
   // "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
-  "admin.registries.schema.notification.field.deleted.failure": "Falhou ao apagar {{amount}} campo(s) de metadados",
+  "admin.registries.schema.notification.field.deleted.failure": "Falha ao apagar {{amount}} campo(s) de metadados",
 
   // "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
   "admin.registries.schema.notification.field.deleted.success": "Apagou {{amount}} campo(s) de metadados com sucesso",
 
   // "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.edited": "Editou o campo de metadodo \"{{field}}\" com sucesso",
+  "admin.registries.schema.notification.field.edited": "Campo de metadados \"{{field}}\" editado com sucesso",
 
   // "admin.registries.schema.notification.success": "Success",
   "admin.registries.schema.notification.success": "Sucesso",
 
   // "admin.registries.schema.return": "Back",
-  // TODO Source message changed - Revise the translation
   "admin.registries.schema.return": "Voltar",
 
   // "admin.registries.schema.title": "Metadata Schema Registry",
-  // TODO Source message changed - Revise the translation
   "admin.registries.schema.title": "DSpace Angular :: Registro de Esquema de Metadados",
 
 
 
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.delete": "Delete EPerson",
+  "admin.access-control.epeople.actions.delete": "Excluir EPerson",
 
   // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
+  "admin.access-control.epeople.actions.impersonate": "Assumir o papel do EPerson",
 
   // "admin.access-control.epeople.actions.reset": "Reset password",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.reset": "Reset password",
+  "admin.access-control.epeople.actions.reset": "Redefinir senha",
 
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
+  "admin.access-control.epeople.actions.stop-impersonating": "Parar de assumir o papel do EPerson",
 
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.breadcrumbs": "EPeople",
 
   // "admin.access-control.epeople.title": "EPeople",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.title": "EPeople",
 
   // "admin.access-control.epeople.head": "EPeople",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.head": "EPeople",
 
   // "admin.access-control.epeople.search.head": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.head": "Search",
+  "admin.access-control.epeople.search.head": "Busca",
 
   // "admin.access-control.epeople.button.see-all": "Browse All",
   "admin.access-control.epeople.button.see-all": "Pesquisar Todos",
 
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.scope.metadata": "Metadata",
+  "admin.access-control.epeople.search.scope.metadata": "Metadado",
 
   // "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
-  "admin.access-control.epeople.search.scope.email": "Email (exato)",
+  "admin.access-control.epeople.search.scope.email": "E-mail (exato)",
 
   // "admin.access-control.epeople.search.button": "Search",
   "admin.access-control.epeople.search.button": "Procurar",
 
   // "admin.access-control.epeople.search.placeholder": "Search people...",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.placeholder": "Search people...",
+  "admin.access-control.epeople.search.placeholder": "Procurar pessoas...",
 
   // "admin.access-control.epeople.button.add": "Add EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.button.add": "Add EPerson",
+  "admin.access-control.epeople.button.add": "Adicionar EPerson",
 
   // "admin.access-control.epeople.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.table.id": "ID",
 
   // "admin.access-control.epeople.table.name": "Name",
   "admin.access-control.epeople.table.name": "Nome",
 
   // "admin.access-control.epeople.table.email": "E-mail (exact)",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.table.email": "E-mail (exact)",
 
   // "admin.access-control.epeople.table.edit": "Edit",
@@ -424,140 +392,108 @@
 
   // "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
+  "admin.access-control.epeople.table.edit.buttons.edit-disabled": "Você não tem autorização para editar este grupo",
 
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove": "Excluir \"{{name}}\"",
 
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.no-items": "No EPeople to show.",
+  "admin.access-control.epeople.no-items": "Nenhum EPeople a exibir.",
 
   // "admin.access-control.epeople.form.create": "Create EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.create": "Create EPerson",
+  "admin.access-control.epeople.form.create": "Criar EPerson",
 
   // "admin.access-control.epeople.form.edit": "Edit EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.edit": "Edit EPerson",
+  "admin.access-control.epeople.form.edit": "Editar EPerson",
 
   // "admin.access-control.epeople.form.firstName": "First name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.firstName": "First name",
+  "admin.access-control.epeople.form.firstName": "Primeiro nome",
 
   // "admin.access-control.epeople.form.lastName": "Last name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.lastName": "Last name",
+  "admin.access-control.epeople.form.lastName": "Último nome",
 
   // "admin.access-control.epeople.form.email": "E-mail",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.form.email": "E-mail",
 
   // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+  "admin.access-control.epeople.form.emailHint": "Deve ser um endereço de e-mail válido",
 
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.canLogIn": "Can log in",
+  "admin.access-control.epeople.form.canLogIn": "Pode fazer login",
 
   // "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
+  "admin.access-control.epeople.form.requireCertificate": "Requer certificado",
 
   // "admin.access-control.epeople.form.return": "Back",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.return": "Back",
+  "admin.access-control.epeople.form.return": "Voltar",
 
   // "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.success": "EPerson \"{{name}}\" criado com sucesso",
 
   // "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.failure": "Falha ao criar EPerson \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Falha ao criar EPerson \"{{name}}\": e-mail \"{{email}}\" já está em uso.",
 
   // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Falha ao editar EPerson \"{{name}}\": e-mail \"{{email}}\" já está em uso.",
 
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.success": "EPerson \"{{name}}\" editado com sucesso",
 
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.failure": "Falha ao editar EPerson \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.success": "EPerson \"{{name}}\" excluído com sucesso",
 
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.failure": "Falha ao excluir EPerson \"{{name}}\"",
 
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
+  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Membro destes grupos:",
 
   // "admin.access-control.epeople.form.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.form.table.id": "ID",
 
   // "admin.access-control.epeople.form.table.name": "Name",
   "admin.access-control.epeople.form.table.name": "Nome",
 
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
+  "admin.access-control.epeople.form.table.collectionOrCommunity": "Coleção/Comunidade",
 
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
+  "admin.access-control.epeople.form.memberOfNoGroups": "Este EPerson não é membro de nenhum grupo",
 
   // "admin.access-control.epeople.form.goToGroups": "Add to groups",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.goToGroups": "Add to groups",
+  "admin.access-control.epeople.form.goToGroups": "Adicionar ao grupos",
 
   // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "Falha ao excluir EPerson: \"{{name}}\"",
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.success": "EPerson: \"{{name}}\" excluído com sucesso",
 
 
 
   // "admin.access-control.groups.title": "Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.title": "Groups",
+  "admin.access-control.groups.title": "Grupos",
 
   // "admin.access-control.groups.breadcrumbs": "Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.breadcrumbs": "Groups",
+  "admin.access-control.groups.breadcrumbs": "Grupos",
 
   // "admin.access-control.groups.singleGroup.breadcrumbs": "Edit Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.singleGroup.breadcrumbs": "Edit Group",
+  "admin.access-control.groups.singleGroup.breadcrumbs": "Editar Grupo",
 
   // "admin.access-control.groups.title.singleGroup": "Edit Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.title.singleGroup": "Edit Group",
+  "admin.access-control.groups.title.singleGroup": "Editar Grupo",
 
   // "admin.access-control.groups.title.addGroup": "New Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.title.addGroup": "New Group",
+  "admin.access-control.groups.title.addGroup": "Novo Grupo",
 
   // "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
+  "admin.access-control.groups.addGroup.breadcrumbs": "Novo Grupo",
 
   // "admin.access-control.groups.head": "Groups",
   "admin.access-control.groups.head": "Grupos",
@@ -569,46 +505,37 @@
   "admin.access-control.groups.search.head": "Pesquisar grupos",
 
   // "admin.access-control.groups.button.see-all": "Browse all",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.button.see-all": "Browse all",
+  "admin.access-control.groups.button.see-all": "Pesquisar todos",
 
   // "admin.access-control.groups.search.button": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.search.button": "Search",
+  "admin.access-control.groups.search.button": "Procurar",
 
   // "admin.access-control.groups.search.placeholder": "Search groups...",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.search.placeholder": "Search groups...",
+  "admin.access-control.groups.search.placeholder": "Procurar grupos...",
 
   // "admin.access-control.groups.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.groups.table.id": "ID",
 
   // "admin.access-control.groups.table.name": "Name",
   "admin.access-control.groups.table.name": "Nome",
 
   // "admin.access-control.groups.table.collectionOrCommunity": "Collection/Community",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.collectionOrCommunity": "Collection/Community",
+  "admin.access-control.groups.table.collectionOrCommunity": "Coleção/Comunidade",
 
   // "admin.access-control.groups.table.members": "Members",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.members": "Members",
+  "admin.access-control.groups.table.members": "Membros",
 
   // "admin.access-control.groups.table.edit": "Edit",
   "admin.access-control.groups.table.edit": "Editar",
 
   // "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.edit": "Editar \"{{name}}\"",
 
   // "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.remove": "Excluir \"{{name}}\"",
 
   // "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
+  "admin.access-control.groups.no-items": "Nenhum grupo encontrado com isto no seu nome ou com esse UUID",
 
   // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
   // TODO New key - Add a translation
@@ -7809,7 +7736,8 @@
   // "uploader.or": ", or ",
   "uploader.or": ", ou ",
 
-  // "uploader.processing": "Processing",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
+  // TODO Source message changed - Revise the translation
   "uploader.processing": "Processando",
 
   // "uploader.queue-length": "Queue length",
