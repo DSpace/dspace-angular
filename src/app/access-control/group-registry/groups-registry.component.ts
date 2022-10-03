@@ -5,11 +5,12 @@ import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
+  EMPTY,
   Observable,
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, defaultIfEmpty, map, switchMap, tap } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
@@ -144,7 +145,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
         }
         return this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
           switchMap((isSiteAdmin: boolean) => {
-            return observableCombineLatest(groups.page.map((group: Group) => {
+            return observableCombineLatest([...groups.page.map((group: Group) => {
               if (hasValue(group) && !this.deletedGroupsIds.includes(group.id)) {
                 return observableCombineLatest([
                   this.authorizationService.isAuthorized(FeatureID.CanDelete, group.self),
@@ -165,8 +166,10 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
                     }
                   )
                 );
+              } else {
+                return EMPTY;
               }
-            })).pipe(map((dtos: GroupDtoModel[]) => {
+            })]).pipe(defaultIfEmpty([]), map((dtos: GroupDtoModel[]) => {
               return buildPaginatedList(groups.pageInfo, dtos);
             }));
           })

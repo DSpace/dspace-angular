@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { MetadataService } from '../core/metadata/metadata.service';
 import { HostWindowState } from '../shared/search/host-window.reducer';
@@ -51,7 +50,6 @@ export class RootComponent implements OnInit {
     private translate: TranslateService,
     private store: Store<HostWindowState>,
     private metadata: MetadataService,
-    private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
     private angulartics2DSpace: Angulartics2DSpace,
     private authService: AuthService,
     private router: Router,
