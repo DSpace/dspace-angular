@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 
 import { Subscription } from 'rxjs';
-import { debounceTime, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 import { ListableObject } from '../listable-object.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
@@ -182,8 +182,6 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
 
     if ((this.compRef.instance as any).reloadedObject) {
       (this.compRef.instance as any).reloadedObject.pipe(
-        // Add delay before emitting event to allow the new object is elaborated on REST side
-        debounceTime((100)),
         take(1)
       ).subscribe((reloadedObject: DSpaceObject) => {
         if (reloadedObject) {

@@ -10,7 +10,7 @@ import {
   Subject,
   Subscription
 } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
@@ -120,6 +120,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       this.searchOptions$.subscribe(() => this.updateFilterValueList()),
       this.refreshFilters.asObservable().pipe(
         filter((toRefresh: boolean) => toRefresh),
+        // NOTE This is a workaround, otherwise retrieving filter values returns tha old cached response
+        debounceTime((100)),
         mergeMap(() => this.retrieveFilterValues(false))
       ).subscribe()
     );
