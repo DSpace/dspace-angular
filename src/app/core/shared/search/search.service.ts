@@ -276,7 +276,8 @@ export class SearchService implements OnDestroy {
     if (hasValue(searchOptions)) {
       searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
         pagination: Object.assign({}, searchOptions.pagination, {
-          currentPage: valuePage
+          currentPage: valuePage,
+          pageSize: filterConfig.pageSize
         })
       });
       href = searchOptions.toRestUrl(filterConfig._links.self.href, args);
