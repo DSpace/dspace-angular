@@ -31,5 +31,7 @@ jobs:
           export ENVFILE=$(pwd)/.env.dev-5
           ./start.sh
       - name: import licenses
-        run: ~/import_licenses.sh
+        run: |
+          cd ~
+          ./import_licenses.sh
 
