@@ -22,7 +22,7 @@
       <div *ngIf="context?.index !== null
               && (!showErrorMessages || errorMessages.length === 0)" class="clearfix w-100 mb-2"></div>
 
-      <div *ngIf="showErrorMessages" [id]="id + '_errors'"
+      <div *ngIf="!model.hideErrorMessages && showErrorMessages" [id]="id + '_errors'"
            [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
         <small *ngFor="let message of errorMessages" class="invalid-feedback d-block">{{ message | translate: model.validators }}</small>
       </div>

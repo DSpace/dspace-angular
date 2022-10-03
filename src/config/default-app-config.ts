@@ -19,6 +19,7 @@ import { ActuatorsConfig } from './actuators.config';
 import { InfoConfig } from './info-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { HomeConfig } from './homepage-config.interface';
+import { MarkdownConfig } from './markdown-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -202,6 +203,7 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'tr', label: 'Türkçe', active: true },
     { code: 'kk', label: 'Қазақ', active: true },
     { code: 'bn', label: 'বাংলা', active: true },
+    { code: 'hi', label: 'हिंदी', active: true},
     { code: 'el', label: 'Ελληνικά', active: true }
   ];
 
@@ -366,5 +368,10 @@ export class DefaultAppConfig implements AppConfig {
   info: InfoConfig = {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true
+  };
+
+  markdown: MarkdownConfig = {
+    enabled: false,
+    mathjax: false,
   };
 }

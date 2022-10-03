@@ -5,6 +5,8 @@ import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loa
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { mockItemWithMetadataFieldAndValue } from '../item-page-field.component.spec';
 import { ItemPageDateFieldComponent } from './item-page-date-field.component';
+import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment';
 
 let comp: ItemPageDateFieldComponent;
 let fixture: ComponentFixture<ItemPageDateFieldComponent>;
@@ -21,6 +23,9 @@ describe('ItemPageDateFieldComponent', () => {
           useClass: TranslateLoaderMock
         }
       })],
+      providers: [
+        { provide: APP_CONFIG, useValue: environment },
+      ],
       declarations: [ItemPageDateFieldComponent, MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemPageDateFieldComponent, {
