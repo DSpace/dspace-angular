@@ -6239,5 +6239,13 @@
 
   "invitation.ignore-btn": "Ignore",
 
-  "authority-confidence.search-label":"Search"
+  "authority-confidence.search-label":"Search",
+
+  "curation-task.task.hocr.label": "Extract text (HOCR) from images",
+
+  "curation-task.task.ocrfilter.label": "Consolidate hOCR for fulltext indexing",
+
+  "curation-task.task.pushocr.label": "Send OCR to the Annotation Server",
+
+  "curation-task.task.ocrclean.label": "Remove all metadata bundles and uploaded ocr created by a previous upload to the ocr server"
 }
