@@ -67,6 +67,10 @@ export class ProfilePageComponent implements OnInit {
    * The password filled in, in the security form
    */
   private password: string;
+  /**
+   * The current-password filled in, in the security form
+   */
+  private currentPassword: string;
 
   /**
    * The authenticated user
@@ -138,15 +142,14 @@ export class ProfilePageComponent implements OnInit {
    */
   updateSecurity() {
     const passEntered = isNotEmpty(this.password);
-
     if (this.invalidSecurity) {
       this.notificationsService.error(this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.general'));
     }
     if (!this.invalidSecurity && passEntered) {
-      const operation = {op: 'add', path: '/password', value: this.password} as Operation;
-      this.epersonService.patch(this.currentUser, [operation]).pipe(
-        getFirstCompletedRemoteData()
-      ).subscribe((response: RemoteData<EPerson>) => {
+      const operations = [
+        { 'op': 'add', 'path': '/password', 'value': { 'new_password': this.password, 'current_password': this.currentPassword } }
+      ] as Operation[];
+      this.epersonService.patch(this.currentUser, operations).pipe(getFirstCompletedRemoteData()).subscribe((response: RemoteData<EPerson>) => {
         if (response.hasSucceeded) {
           this.notificationsService.success(
             this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'success.title'),
@@ -154,7 +157,8 @@ export class ProfilePageComponent implements OnInit {
           );
         } else {
           this.notificationsService.error(
-            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.title'), response.errorMessage
+            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.title'),
+            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.change-failed')
           );
         }
       });
@@ -168,6 +172,14 @@ export class ProfilePageComponent implements OnInit {
    */
   setPasswordValue($event: string) {
     this.password = $event;
+  }
+
+  /**
+   * Set the current-password value based on the value emitted from the security form
+   * @param $event
+   */
+  setCurrentPasswordValue($event: string) {
+    this.currentPassword = $event;
   }
 
   /**

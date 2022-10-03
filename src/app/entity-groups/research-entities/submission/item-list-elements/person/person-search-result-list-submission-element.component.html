@@ -8,6 +8,13 @@
                     [placeholder]="'thumbnail.person.placeholder'">
       </ds-thumbnail>
     </a>
+    <span *ngIf="linkType == linkTypes.None" class="dont-break-out">
+      <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
+                    [defaultImage]="'assets/images/person-placeholder.svg'"
+                    [alt]="'thumbnail.person.alt'"
+                    [placeholder]="'thumbnail.person.placeholder'">
+      </ds-thumbnail>
+    </span>
   </div>
   <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
     <div class="d-flex">

@@ -6,6 +6,10 @@
       <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true">
       </ds-thumbnail>
     </a>
+      <span *ngIf="linkType == linkTypes.None" class="lead item-list-title dont-break-out">
+      <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true">
+      </ds-thumbnail>
+    </span>
   </div>
   <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
     <ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>

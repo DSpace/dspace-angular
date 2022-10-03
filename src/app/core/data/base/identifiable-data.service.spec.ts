@@ -19,6 +19,7 @@ import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.s
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { IdentifiableDataService } from './identifiable-data.service';
+import { EMBED_SEPARATOR } from './base-data.service';
 
 const endpoint = 'https://rest.api/core';
 
@@ -137,7 +138,7 @@ describe('IdentifiableDataService', () => {
     });
 
     it('should include nested linksToFollow 3lvl', () => {
-      const expected = `${endpointMock}/${resourceIdMock}?embed=owningCollection/itemtemplate/relationships`;
+      const expected = `${endpointMock}/${resourceIdMock}?embed=owningCollection${EMBED_SEPARATOR}itemtemplate${EMBED_SEPARATOR}relationships`;
       const result = (service as any).getIDHref(endpointMock, resourceIdMock, followLink('owningCollection', {}, followLink('itemtemplate', {}, followLink('relationships'))));
       expect(result).toEqual(expected);
     });

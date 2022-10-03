@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../app/shared/shared.module';
 import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
+import { SearchNavbarComponent } from './app/search-navbar/search-navbar.component';
 import { HeaderComponent } from './app/header/header.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
 import { SearchModule } from '../../app/shared/search/search.module';
@@ -40,6 +41,10 @@ import {
     EditItemSelectorComponent
 } from './app/shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 
+import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
+import { CollectionListElementComponent} from './app/shared/object-list/collection-list-element/collection-list-element.component';
+
+
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
  * This will ensure that decorator gets picked up when the app loads
@@ -50,6 +55,9 @@ const ENTRY_COMPONENTS = [
   JournalVolumeComponent,
   PublicationComponent,
   UntypedItemComponent,
+
+  CommunityListElementComponent,
+  CollectionListElementComponent,
 ];
 
 const DECLARATIONS = [
@@ -58,6 +66,7 @@ const DECLARATIONS = [
   HeaderComponent,
   HeaderNavbarWrapperComponent,
   NavbarComponent,
+  SearchNavbarComponent,
   FooterComponent,
   CreateCollectionParentSelectorComponent,
   CreateCommunityParentSelectorComponent,

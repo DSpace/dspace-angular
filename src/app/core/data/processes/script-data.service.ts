@@ -24,6 +24,8 @@ import { dataService } from '../base/data-service.decorator';
 
 export const METADATA_IMPORT_SCRIPT_NAME = 'metadata-import';
 export const METADATA_EXPORT_SCRIPT_NAME = 'metadata-export';
+export const BATCH_IMPORT_SCRIPT_NAME = 'import';
+export const BATCH_EXPORT_SCRIPT_NAME = 'export';
 
 @Injectable()
 @dataService(SCRIPT)

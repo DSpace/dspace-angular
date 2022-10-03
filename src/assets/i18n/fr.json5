@@ -1215,6 +1215,17 @@
   // "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
   "collection.edit.tabs.authorizations.title": "Édition de collection - Autorisations",
 
+   //"collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
+  "collection.edit.item.authorizations.load-bundle-button": "Charger plus de Bundles",
+  
+  //"collection.edit.item.authorizations.load-more-button": "Load more",
+  "collection.edit.item.authorizations.load-more-button": "Charger plus",
+  
+  //"collection.edit.item.authorizations.show-bitstreams-button": "Show bitstream policies for bundle",
+  "collection.edit.item.authorizations.show-bitstreams-button": "Afficher les politiques de Bitstream pour le Bundle",
+
+  
+  
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
   "collection.edit.tabs.metadata.head": "Éditer les Métadonnées",
 
@@ -2909,6 +2920,13 @@
 
   // "item.search.title": "Item Search",
   "item.search.title": "Recherche d'Items",
+  
+  // "item.truncatable-part.show-more": "Show more",
+  "item.truncatable-part.show-more": "Voir plus",
+
+  //"item.truncatable-part.show-less": "Collapse",
+  "item.truncatable-part.show-less": "Réduire",
+  
 
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Résumé",
@@ -3572,6 +3590,9 @@
 
   // "menu.section.processes": "Processes",
   "menu.section.processes": "Processus",
+  
+  // "menu.section.health": "Health",
+  "menu.section.health": "Santé du système",
 
   // "menu.section.registries": "Registries",
   "menu.section.registries": "Registres",
@@ -3626,9 +3647,6 @@
 
   // "mydspace.description": "",
   "mydspace.description": "",
-
-  // "mydspace.general.text-here": "here",
-  "mydspace.general.text-here": "ici",
 
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
   "mydspace.messages.controller-help": "Sélectionner cette option pour envoyer un message au déposant.",
@@ -3743,9 +3761,6 @@
 
   // "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
   "mydspace.upload.upload-multiple-successful": "{{qty}} nouveaux Items créés dans l'espace de travail.",
-
-  // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
-  "mydspace.upload.upload-successful": "Nouvel item créé dans l'espace de travail. Cliquer {{here}} pour l'éditer.",
 
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Afficher",
@@ -4808,6 +4823,9 @@
 
   // "default.search.results.head": "Search Results",
   "default.search.results.head": "Résultats de recherche",
+  
+  // "default-relationships.search.results.head": "Search Results",
+   "default-relationships.search.results.head": "Résultats de recherche",
 
   // "search.sidebar.close": "Back to results",
   "search.sidebar.close": "Retour aux résultats",
@@ -5802,7 +5820,8 @@
   // "uploader.or": ", or ",
   "uploader.or": ", ou ",
 
-  // "uploader.processing": "Processing",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
+  // TODO Source message changed - Revise the translation
   "uploader.processing": "En cours de traitement",
 
   // "uploader.queue-length": "Queue length",
