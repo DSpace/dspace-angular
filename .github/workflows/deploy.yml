@@ -31,8 +31,5 @@ jobs:
           export ENVFILE=$(pwd)/.env.dev-5
           ./start.sh
       - name: import licenses
-        run: |
-          git clone git@github.com:dataquest-dev/dspace-blackbox-testing.git limport
-          cd limport
-          pip install -r requirements.txt
-          python3 install_licenses.py
+        run: ~/import_licenses.sh
+
