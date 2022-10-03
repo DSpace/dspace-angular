@@ -14,17 +14,17 @@ import { ScriptDataService } from './core/data/processes/script-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { MenuID } from './shared/menu/menu-id.model';
-import { BrowseService } from './core/browse/browse.service';
 import { cold } from 'jasmine-marbles';
-import createSpy = jasmine.createSpy;
 import { createSuccessfulRemoteDataObject$ } from './shared/remote-data.utils';
 import { createPaginatedList } from './shared/testing/utils.test';
+import { SectionDataService } from './core/layout/section-data.service';
+import createSpy = jasmine.createSpy;
 
 const BOOLEAN = { t: true, f: false };
 const MENU_STATE = {
   id: 'some menu'
 };
-const BROWSE_DEFINITIONS = [
+const EXPLORE_SECTIONS_DEFINITIONS = [
   { id: 'definition1' },
   { id: 'definition2' },
   { id: 'definition3' },
@@ -34,7 +34,7 @@ describe('MenuResolver', () => {
   let resolver: MenuResolver;
 
   let menuService;
-  let browseService;
+  let sectionsService;
   let authorizationService;
   let scriptService;
 
@@ -42,8 +42,8 @@ describe('MenuResolver', () => {
     menuService = new MenuServiceStub();
     spyOn(menuService, 'getMenu').and.returnValue(observableOf(MENU_STATE));
 
-    browseService = jasmine.createSpyObj('browseService', {
-      getBrowseDefinitions: createSuccessfulRemoteDataObject$(createPaginatedList(BROWSE_DEFINITIONS))
+    sectionsService = jasmine.createSpyObj('SectionDataService', {
+      findVisibleSections: createSuccessfulRemoteDataObject$(createPaginatedList(EXPLORE_SECTIONS_DEFINITIONS))
     });
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: observableOf(true)
@@ -57,7 +57,7 @@ describe('MenuResolver', () => {
       declarations: [AdminSidebarComponent],
       providers: [
         { provide: MenuService, useValue: menuService },
-        { provide: BrowseService, useValue: browseService },
+        { provide: SectionDataService, useValue: sectionsService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
         {
@@ -123,19 +123,15 @@ describe('MenuResolver', () => {
         }));
       });
 
-      it('should include browse dropdown', () => {
+      it('should include explore sections', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
-          id: 'browse_global_by_definition1', parentID: 'browse_global', visible: true,
+          id: 'explore_definition1', visible: true,
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
-          id: 'browse_global_by_definition2', parentID: 'browse_global', visible: true,
+          id: 'explore_definition2', visible: true,
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
-          id: 'browse_global_by_definition3', parentID: 'browse_global', visible: true,
-        }));
-
-        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
-          id: 'browse_global', visible: true,
+          id: 'explore_definition3', visible: true,
         }));
       });
     });

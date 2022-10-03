@@ -148,7 +148,7 @@ describe('SearchHierarchyFilterComponent', () => {
     comp.onSubmit(searchQuery);
 
     expect(router.navigate).toHaveBeenCalledWith(['', 'search'], Object({
-      queryParams: Object({ [mockFilterConfig.paramName]: [...values.map((value: FacetValue) => `${value.value},equals`), `${searchQuery}`] }),
+      queryParams: Object({ [mockFilterConfig.paramName]: [...values.map((value: FacetValue) => `${value.value},equals`), `${searchQuery},query`] }),
       queryParamsHandling: 'merge'
     }));
   });

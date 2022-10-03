@@ -13,7 +13,6 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 
 describe('ItemStatusComponent', () => {
@@ -58,7 +57,7 @@ describe('ItemStatusComponent', () => {
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: ResearcherProfileService, useValue: orcidAuthService },
+        { provide: OrcidAuthService, useValue: orcidAuthService },
       ], schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
