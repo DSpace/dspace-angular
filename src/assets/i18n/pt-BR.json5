@@ -59,7 +59,7 @@
  "access-status.metadata.only.listelement.badge": "Somente Metadadados",
 
   // "access-status.open.access.listelement.badge": "Open Access",
-  "access-status.open.access.listelement.badge": "Acesso aberto (Open Access)"
+  "access-status.open.access.listelement.badge": "Acesso aberto (Open Access)",
 
   // "access-status.restricted.listelement.badge": "Restricted",
   "access-status.restricted.listelement.badge": "Restrito",
@@ -389,7 +389,6 @@
   // "admin.access-control.epeople.table.email": "E-mail (exact)",
   "admin.access-control.epeople.table.email": "E-mail (exato)",
 
-
   // "admin.access-control.epeople.table.edit": "Edit",
   "admin.access-control.epeople.table.edit": "Editar",
 
@@ -481,7 +480,6 @@
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
   "admin.access-control.epeople.notification.deleted.success": "EPerson: \"{{name}}\" apagado com sucesso",
-
 
   // "admin.access-control.groups.title": "Groups",
   "admin.access-control.groups.title": "Grupos",
@@ -988,8 +986,6 @@
   // "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
   "bitstream-request-a-copy.submit.error": "Ocorreu um erro ao enviar a solicitação de item.",
 
-
-
   // "browse.back.all-results": "All browse results",
   "browse.back.all-results": "Todos os resultados",
 
@@ -1119,11 +1115,8 @@
   // "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
   "browse.title.page": "Navegando {{ collection }} por {{ field }} {{ value }}",
 
-
   // "chips.remove": "Remove chip",
   "chips.remove": "Remover chip",
-
-
 
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Criar uma coleção",
@@ -1158,8 +1151,6 @@
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
   "collection.delete.text": "Você tem certeza que deseja apagar a coleção \"{{ dso }}?\"",
 
-
-
   // "collection.edit.delete": "Delete this collection",
   "collection.edit.delete": "Apagar esta coleção",
 
@@ -1168,8 +1159,6 @@
 
   // "collection.edit.breadcrumbs": "Edit Collection",
   "collection.edit.breadcrumbs": "Editar Coleção",
-
-
 
   // "collection.edit.tabs.mapper.head": "Item Mapper",
   "collection.edit.tabs.mapper.head": "Mapeamentos",
@@ -1231,7 +1220,6 @@
   // "collection.edit.item-mapper.tabs.map": "Map new items",
   "collection.edit.item-mapper.tabs.map": "Mapear novos itens",
 
-
   // "collection.edit.logo.delete.title": "Delete logo",
   "collection.edit.logo.delete.title": "Apagar logo",
 
@@ -1259,15 +1247,11 @@
   // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
   "collection.edit.logo.upload": "Arraste um logotipo da coleção para upload",
 
-
-
   // "collection.edit.notifications.success": "Successfully edited the Collection",
   "collection.edit.notifications.success": "Coleção editada com sucesso",
 
   // "collection.edit.return": "Return",
   "collection.edit.return": "Voltar",
-
-
 
   // "collection.edit.tabs.curate.head": "Curate",
   "collection.edit.tabs.curate.head": "Curadoria",
@@ -1359,8 +1343,6 @@
   // "collection.edit.tabs.source.title": "Collection Edit - Content Source",
   "collection.edit.tabs.source.title": "Editar Coleção - Conteúdo fonte",
 
-
-
   // "collection.edit.template.add-button": "Add",
   "collection.edit.template.add-button": "Adicionar",
 
@@ -1396,7 +1378,6 @@
 
   // "collection.edit.template.title": "Edit Template Item",
   "collection.edit.template.title": "Editar Template de Item",
-
 
 
   // "collection.form.abstract": "Short Description",
