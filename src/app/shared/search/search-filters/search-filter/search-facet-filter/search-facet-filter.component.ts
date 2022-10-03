@@ -120,11 +120,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       this.searchOptions$.subscribe(() => this.updateFilterValueList()),
       this.refreshFilters.asObservable().pipe(
         filter((toRefresh: boolean) => toRefresh),
-      ).subscribe(() => {
-        this.retrieveFilterValues(false);
-      })
+        mergeMap(() => this.retrieveFilterValues(false))
+      ).subscribe()
     );
-    this.retrieveFilterValues();
+    this.retrieveFilterValues().subscribe();
   }
 
   /**
@@ -279,7 +278,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     return getFacetValueForType(facet, this.filterConfig);
   }
 
-  protected retrieveFilterValues(useCachedVersionIfAvailable = true) {
+  protected retrieveFilterValues(useCachedVersionIfAvailable = true): Observable<RemoteData<PaginatedList<FacetValue>[]>> {
     const facetValues$ = observableCombineLatest([this.searchOptions$, this.currentPage]).pipe(
       map(([options, page]) => {
         return { options, page };
@@ -301,40 +300,39 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     );
 
     let filterValues = [];
-    this.subs.push(
-      facetValues$.pipe(
-        mergeMap((facetOutcome) => {
-          const newValues$ = facetOutcome.values;
+    return facetValues$.pipe(
+      mergeMap((facetOutcome) => {
+        const newValues$ = facetOutcome.values;
 
-          if (this.collapseNextUpdate) {
-            this.showFirstPageOnly();
-            facetOutcome.page = 1;
-            this.collapseNextUpdate = false;
-          }
-          if (facetOutcome.page === 1) {
-            filterValues = [];
-          }
+        if (this.collapseNextUpdate) {
+          this.showFirstPageOnly();
+          facetOutcome.page = 1;
+          this.collapseNextUpdate = false;
+        }
+        if (facetOutcome.page === 1) {
+          filterValues = [];
+        }
 
-          filterValues = [...filterValues, newValues$];
+        filterValues = [...filterValues, newValues$];
 
-          return this.rdbs.aggregate(filterValues);
-        }),
-        tap((rd: RemoteData<PaginatedList<FacetValue>[]>) => {
-          this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
-            map((selectedValues) => {
-              return selectedValues.map((value: string) => {
-                const fValue = [].concat(...rd.payload.map((page) => page.page))
-                                 .find((facetValue: FacetValue) => this.getFacetValue(facetValue) === value);
-                if (hasValue(fValue)) {
-                  return fValue;
-                }
-                const filterValue = stripOperatorFromFilterValue(value);
-                return Object.assign(new FacetValue(), { label: filterValue, value: filterValue });
-              });
-            })
-          );
-        })
-      ).subscribe((rd: RemoteData<PaginatedList<FacetValue>[]>) => {
+        return this.rdbs.aggregate(filterValues);
+      }),
+      tap((rd: RemoteData<PaginatedList<FacetValue>[]>) => {
+        this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
+          map((selectedValues) => {
+            return selectedValues.map((value: string) => {
+              const fValue = [].concat(...rd.payload.map((page) => page.page))
+                               .find((facetValue: FacetValue) => this.getFacetValue(facetValue) === value);
+              if (hasValue(fValue)) {
+                return fValue;
+              }
+              const filterValue = stripOperatorFromFilterValue(value);
+              return Object.assign(new FacetValue(), { label: filterValue, value: filterValue });
+            });
+          })
+        );
+      }),
+      tap((rd: RemoteData<PaginatedList<FacetValue>[]>) => {
         this.animationState = 'ready';
         this.filterValues$.next(rd);
       })
