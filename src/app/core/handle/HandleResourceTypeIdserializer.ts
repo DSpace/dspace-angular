@@ -1,5 +1,5 @@
 import { UNDEFINED_NAME } from '../../shared/mocks/dso-name.service.mock';
-import { COLLECTION, COMMUNITY, ITEM } from './handle.resource-type';
+import {COLLECTION, COMMUNITY, ITEM, SITE} from './handle.resource-type';
 
 /**
  * The ResourceTypeId of the Handle is number in the database but in the Handle table the user
@@ -29,7 +29,7 @@ export const HandleResourceTypeIdSerializer = {
       case 4:
         return COMMUNITY;
       default:
-        return UNDEFINED_NAME;
+        return SITE;
     }
   }
 };

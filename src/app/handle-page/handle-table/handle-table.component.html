@@ -20,7 +20,7 @@
           <button class="dropdown-item" (click)="setSearchOption($event)">{{"handle-table.table.resource-type" | translate}}</button>
         </div>
       </div>
-        <input type="text" class="form-control" aria-label="Text input with dropdown button"
+        <input type="text" id="clarin-dc-search-box" class="form-control" aria-label="Text input with dropdown button"
                [value]="searchQuery"
                (input)="setSearchQuery()"
                #searchInput>

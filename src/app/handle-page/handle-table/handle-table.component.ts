@@ -18,7 +18,13 @@ import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { Handle } from '../../core/handle/handle.model';
-import { COLLECTION, COMMUNITY, ITEM, SUCCESSFUL_RESPONSE_START_CHAR } from '../../core/handle/handle.resource-type';
+import {
+  COLLECTION,
+  COMMUNITY,
+  ITEM,
+  SITE,
+  SUCCESSFUL_RESPONSE_START_CHAR
+} from '../../core/handle/handle.resource-type';
 
 /**
  * Constants for converting the searchQuery for the server
@@ -326,12 +332,17 @@ export class HandleTableComponent implements OnInit {
 
     fromEvent(this.searchInput.nativeElement,'keyup')
       .pipe(
-        debounceTime(150),
+        debounceTime(300),
         distinctUntilChanged()
       )
       .subscribe( cc => {
         this.searchHandles(this.searchInput.nativeElement.value);
+        setTimeout(() => {
+          // click to refresh table data because without click it still shows wrong data
+          document.getElementById('clarin-dc-search-box').click();
+        }, 25);
       });
+
   }
 
   /**
@@ -383,6 +394,8 @@ export class HandleTableComponent implements OnInit {
           case COMMUNITY:
             parsedSearchQuery = '' + 4;
             break;
+          case SITE:
+            parsedSearchQuery = '' + 5;
         }
         break;
       default:
