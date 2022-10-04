@@ -78,6 +78,7 @@
     "@nguniversal/express-engine": "^13.0.2",
     "@ngx-translate/core": "^13.0.0",
     "@nicky-lenaers/ngx-scroll-to": "^9.0.0",
+    "@types/grecaptcha": "^3.0.4",
     "angular-idle-preload": "3.0.0",
     "angulartics2": "^12.0.0",
     "axios": "^0.27.2",
