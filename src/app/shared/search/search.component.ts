@@ -33,6 +33,7 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { environment } from 'src/environments/environment';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
 
 @Component({
   selector: 'ds-search',
@@ -167,6 +168,16 @@ export class SearchComponent implements OnInit {
   currentSortOptions$: BehaviorSubject<SortOptions> = new BehaviorSubject<SortOptions>(null);
 
   /**
+   * An observable containing configuration about which filters are shown and how they are shown
+   */
+  filtersRD$: BehaviorSubject<RemoteData<SearchFilterConfig[]>> = new BehaviorSubject<RemoteData<SearchFilterConfig[]>>(null);
+
+  /**
+   * Maintains the last search options, so it can be used in refresh
+   */
+  lastSearchOptions: PaginatedSearchOptions;
+
+  /**
    * The current search results
    */
   resultsRD$: BehaviorSubject<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> = new BehaviorSubject(null);
@@ -195,6 +206,11 @@ export class SearchComponent implements OnInit {
    * Emits true if were on a small screen
    */
   isXsOrSm$: Observable<boolean>;
+
+  /**
+   * Emits when the search filters values may be stale, and so they must be refreshed.
+   */
+  refreshFilters: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
    * Link to the search page
@@ -300,6 +316,7 @@ export class SearchComponent implements OnInit {
         this.initialized$.next(true);
         // retrieve results
         this.retrieveSearchResults(newSearchOptions);
+        this.retrieveFilters(searchOptions);
       }
     });
   }
@@ -334,6 +351,15 @@ export class SearchComponent implements OnInit {
   }
 
   /**
+   * Emit event to refresh filter content
+   * @param $event
+   */
+  public onContentChange($event: any) {
+    this.retrieveFilters(this.lastSearchOptions);
+    this.refreshFilters.next(true);
+  }
+
+  /**
    * Unsubscribe from the subscription
    */
   ngOnDestroy(): void {
@@ -351,12 +377,27 @@ export class SearchComponent implements OnInit {
   }
 
   /**
+   * Retrieve search filters by the given search options
+   * @param searchOptions
+   * @private
+   */
+  private retrieveFilters(searchOptions: PaginatedSearchOptions) {
+    this.filtersRD$.next(null);
+    this.searchConfigService.getConfig(searchOptions.scope, searchOptions.configuration).pipe(
+      getFirstCompletedRemoteData(),
+    ).subscribe((filtersRD: RemoteData<SearchFilterConfig[]>) => {
+      this.filtersRD$.next(filtersRD);
+    });
+  }
+
+  /**
    * Retrieve search result by the given search options
    * @param searchOptions
    * @private
    */
   private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
+    this.lastSearchOptions = searchOptions;
     this.service.search(
       searchOptions,
       undefined,
@@ -396,6 +437,5 @@ export class SearchComponent implements OnInit {
     }
     return this.service.getSearchLink();
   }
-
 
 }

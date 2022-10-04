@@ -21,7 +21,7 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
   templateUrl: '../../theme-support/themed.component.html',
 })
 export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsComponent> {
-  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'deselectObject', 'selectObject'];
+  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject'];
 
   @Input() linkType: CollectionElementLinkType;
 
@@ -44,6 +44,8 @@ export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsC
   @Input() hidePaginationDetail = false;
 
   @Input() selectionConfig: SelectionConfig = null;
+
+  @Output() contentChange: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 

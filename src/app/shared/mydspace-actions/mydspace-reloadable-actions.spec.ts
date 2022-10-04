@@ -12,10 +12,7 @@ import { RouterStub } from '../testing/router.stub';
 import { getMockSearchService } from '../mocks/search-service.mock';
 import { getMockRequestService } from '../mocks/request.service.mock';
 import { Item } from '../../core/shared/item.model';
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject
-} from '../remote-data.utils';
+import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -103,7 +100,9 @@ describe('MyDSpaceReloadableActionsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PoolTaskActionsComponent);
     component = fixture.componentInstance;
+    component.item = item;
     component.object = mockObject;
+    component.workflowitem = workflowitem;
     notificationsServiceStub = TestBed.get(NotificationsService);
     router = TestBed.get(Router);
     fixture.detectChanges();
