@@ -81,24 +81,31 @@ export class BrowserKlaroService extends KlaroService {
       this.klaroConfig.translations.en.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
     }
 
-    const servicesToHide$: Observable<string[]> = this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY).pipe(
+    const hideGoogleAnalytics$ = this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY).pipe(
       getFirstCompletedRemoteData(),
-      map(remoteData => {
-        if (!remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values)) {
-          return [this.GOOGLE_ANALYTICS_SERVICE_NAME];
-        } else {
-          return [];
-        }
-      }),
+      map(remoteData => !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values)),
     );
 
-    this.configService.findByPropertyName(this.REGISTRATION_VERIFICATION_ENABLED_KEY).pipe(
+    const hideRegistrationVerification$ = this.configService.findByPropertyName(this.REGISTRATION_VERIFICATION_ENABLED_KEY).pipe(
       getFirstCompletedRemoteData(),
-    ).subscribe((remoteData) => {
-      if (remoteData.statusCode === 404 || isEmpty(remoteData.payload?.values) || remoteData.payload.values[0].toLowerCase() !== 'true') {
-        this.klaroConfig.services = klaroConfiguration.services.filter(config => config.name !== CAPTCHA_NAME);
-      }
-    });
+      map((remoteData) =>
+        !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) || remoteData.payload.values[0].toLowerCase() !== 'true'
+      ),
+    );
+
+    const servicesToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$]).pipe(
+      map(([hideGoogleAnalytics, hideRegistrationVerification]) => {
+        let servicesToHideArray: string[] = [];
+        if (hideGoogleAnalytics) {
+          servicesToHideArray.push(this.GOOGLE_ANALYTICS_SERVICE_NAME);
+        }
+        if (hideRegistrationVerification) {
+          servicesToHideArray.push(CAPTCHA_NAME);
+        }
+        console.log(servicesToHideArray);
+        return servicesToHideArray;
+      })
+    );
 
     this.translateService.setDefaultLang(environment.defaultLanguage);
 
