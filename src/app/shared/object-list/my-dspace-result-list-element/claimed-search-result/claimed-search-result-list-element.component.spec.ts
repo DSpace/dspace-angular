@@ -104,6 +104,7 @@ describe('ClaimedSearchResultListElementComponent', () => {
       jasmine.objectContaining({ name: 'action' })
     );
     expect(component.workflowitem$.value).toEqual(workflowitem);
+    expect(component.item$.value).toEqual(item);
   }));
 
   it('should have properly status', () => {
