@@ -175,14 +175,18 @@ describe('TopLevelCommunityList Component', () => {
 
   });
 
-  it('should display a list of top-communities', () => {
-    const subComList = fixture.debugElement.queryAll(By.css('li'));
 
-    expect(subComList.length).toEqual(5);
-    expect(subComList[0].nativeElement.textContent).toContain('TopCommunity 1');
-    expect(subComList[1].nativeElement.textContent).toContain('TopCommunity 2');
-    expect(subComList[2].nativeElement.textContent).toContain('TopCommunity 3');
-    expect(subComList[3].nativeElement.textContent).toContain('TopCommunity 4');
-    expect(subComList[4].nativeElement.textContent).toContain('TopCommunity 5');
+  it('should display a list of top-communities', () => {
+    waitForAsync(() => {
+      const subComList = fixture.debugElement.queryAll(By.css('li'));
+
+      expect(subComList.length).toEqual(5);
+      expect(subComList[0].nativeElement.textContent).toContain('TopCommunity 1');
+      expect(subComList[1].nativeElement.textContent).toContain('TopCommunity 2');
+      expect(subComList[2].nativeElement.textContent).toContain('TopCommunity 3');
+      expect(subComList[3].nativeElement.textContent).toContain('TopCommunity 4');
+      expect(subComList[4].nativeElement.textContent).toContain('TopCommunity 5');
+    });
   });
+
 });

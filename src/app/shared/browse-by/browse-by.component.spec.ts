@@ -198,11 +198,13 @@ describe('BrowseByComponent', () => {
       });
 
       it('should use the base component to render browse entries', () => {
-        const componentLoaders = fixture.debugElement.queryAll(By.directive(ListableObjectComponentLoaderComponent));
-        expect(componentLoaders.length).toEqual(browseEntries.length);
-        componentLoaders.forEach((componentLoader) => {
-          const browseEntry = componentLoader.query(By.css('ds-browse-entry-list-element'));
-          expect(browseEntry.componentInstance).toBeInstanceOf(BrowseEntryListElementComponent);
+        waitForAsync(() => {
+          const componentLoaders = fixture.debugElement.queryAll(By.directive(ListableObjectComponentLoaderComponent));
+          expect(componentLoaders.length).toEqual(browseEntries.length);
+          componentLoaders.forEach((componentLoader) => {
+            const browseEntry = componentLoader.query(By.css('ds-browse-entry-list-element'));
+            expect(browseEntry.componentInstance).toBeInstanceOf(BrowseEntryListElementComponent);
+          });
         });
       });
     });
@@ -215,11 +217,13 @@ describe('BrowseByComponent', () => {
       });
 
       it('should use the themed component to render browse entries', () => {
-        const componentLoaders = fixture.debugElement.queryAll(By.directive(ListableObjectComponentLoaderComponent));
-        expect(componentLoaders.length).toEqual(browseEntries.length);
-        componentLoaders.forEach((componentLoader) => {
-          const browseEntry = componentLoader.query(By.css('ds-browse-entry-list-element'));
-          expect(browseEntry.componentInstance).toBeInstanceOf(MockThemedBrowseEntryListElementComponent);
+        waitForAsync(() => {
+          const componentLoaders = fixture.debugElement.queryAll(By.directive(ListableObjectComponentLoaderComponent));
+          expect(componentLoaders.length).toEqual(browseEntries.length);
+          componentLoaders.forEach((componentLoader) => {
+            const browseEntry = componentLoader.query(By.css('ds-browse-entry-list-element'));
+            expect(browseEntry.componentInstance).toBeInstanceOf(MockThemedBrowseEntryListElementComponent);
+          });
         });
       });
     });

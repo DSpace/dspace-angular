@@ -5,6 +5,8 @@ import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loa
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { mockItemWithMetadataFieldAndValue } from '../item-page-field.component.spec';
 import { GenericItemPageFieldComponent } from './generic-item-page-field.component';
+import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment';
 
 let comp: GenericItemPageFieldComponent;
 let fixture: ComponentFixture<GenericItemPageFieldComponent>;
@@ -23,6 +25,9 @@ describe('GenericItemPageFieldComponent', () => {
           useClass: TranslateLoaderMock
         }
       })],
+      providers: [
+        { provide: APP_CONFIG, useValue: environment },
+      ],
       declarations: [GenericItemPageFieldComponent, MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(GenericItemPageFieldComponent, {
