@@ -8,6 +8,8 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { isNotEmpty } from '../../../empty.util';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { followLink } from '../../../utils/follow-link-config.model';
 
 /**
  * This component represents a badge with submitter information.
@@ -29,10 +31,17 @@ export class ItemSubmitterComponent implements OnInit {
    */
   submitter$: Observable<EPerson>;
 
+  public constructor(protected linkService: LinkService) {
+
+  }
+
   /**
    * Initialize submitter object
    */
   ngOnInit() {
+    this.linkService.resolveLinks(this.object, followLink('workflowitem', {},
+      followLink('submitter',{})
+    ));
     this.submitter$ = (this.object.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
       getFirstCompletedRemoteData(),
       mergeMap((rd: RemoteData<WorkflowItem>) => {

@@ -111,7 +111,6 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
 
   ngOnDestroy() {
     // This ensures the object is removed from cache, when action is performed on task
-    // this.wfiService.invalidateByHref(this.dso._links.workflowitem.href);
     this.objectCache.remove(this.dso._links.workflowitem.href);
   }
 }
