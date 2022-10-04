@@ -4,12 +4,9 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 // Import modules
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '../shared/shared.module';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 
@@ -20,7 +17,6 @@ import { SubscriptionsPageComponent } from './subscriptions-page.component';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { SubscriptionService } from '../shared/subscriptions/subscription.service';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
-import { RouterStub } from '../shared/testing/router.stub';
 import { AuthService } from '../core/auth/auth.service';
 
 // Import utils
@@ -33,8 +29,12 @@ import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { findAllSubscriptionRes } from '../shared/testing/subscriptions-data.mock';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { of as observableOf } from 'rxjs';
-import { SubscriptionsModule } from '../shared/subscriptions/subscriptions.module';
 import { EPersonMock } from '../shared/testing/eperson.mock';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { VarDirective } from '../shared/utils/var.directive';
+import {
+  SubscriptionViewComponent
+} from '../shared/subscriptions/components/subscription-view/subscription-view.component';
 
 
 describe('SubscriptionsPageComponent', () => {
@@ -55,12 +55,7 @@ describe('SubscriptionsPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        NgbModule,
-        FormsModule,
-        ReactiveFormsModule,
         BrowserModule,
-        SharedModule,
-        SubscriptionsModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
           loader: {
@@ -68,11 +63,11 @@ describe('SubscriptionsPageComponent', () => {
             useClass: TranslateLoaderMock
           }
         }),
+        NoopAnimationsModule
       ],
-      declarations: [ SubscriptionsPageComponent ],
+      declarations: [ SubscriptionsPageComponent, SubscriptionViewComponent, VarDirective ],
       providers:[
         { provide: SubscriptionService, useValue: subscriptionServiceStub },
-        { provide: Router, useValue: new RouterStub() },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: AuthService, useValue: authServiceStub },

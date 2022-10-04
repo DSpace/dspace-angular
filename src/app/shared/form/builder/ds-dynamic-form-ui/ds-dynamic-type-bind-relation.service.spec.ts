@@ -1,23 +1,23 @@
-import {inject, TestBed} from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
 import {
+  DISABLED_MATCHER_PROVIDER,
   DynamicFormControlRelation,
   DynamicFormRelationService,
+  HIDDEN_MATCHER,
+  HIDDEN_MATCHER_PROVIDER,
   MATCH_VISIBLE,
   OR_OPERATOR,
-  HIDDEN_MATCHER,
-  HIDDEN_MATCHER_PROVIDER, REQUIRED_MATCHER_PROVIDER, DISABLED_MATCHER_PROVIDER,
+  REQUIRED_MATCHER_PROVIDER,
 } from '@ng-dynamic-forms/core';
 
-import {
-  mockInputWithTypeBindModel, MockRelationModel, mockDcTypeInputModel
-} from '../../../mocks/form-models.mock';
-import {DsDynamicTypeBindRelationService} from './ds-dynamic-type-bind-relation.service';
-import {FormFieldMetadataValueObject} from '../models/form-field-metadata-value.model';
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import {FormBuilderService} from '../form-builder.service';
-import {getMockFormBuilderService} from '../../../mocks/form-builder-service.mock';
-import {Injector} from '@angular/core';
+import { mockInputWithTypeBindModel, MockRelationModel } from '../../../mocks/form-models.mock';
+import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilderService } from '../form-builder.service';
+import { getMockFormBuilderService } from '../../../mocks/form-builder-service.mock';
+import { Injector } from '@angular/core';
 
 describe('DSDynamicTypeBindRelationService test suite', () => {
   let service: DsDynamicTypeBindRelationService;
@@ -47,14 +47,14 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
   describe('Test getTypeBindValue method', () => {
     it('Should get type bind "boundType" from the given metadata object value', () => {
         const mockMetadataValueObject: FormFieldMetadataValueObject = new FormFieldMetadataValueObject(
-          'boundType', null, null, 'Bound Type'
+          'boundType', null, null, null,'Bound Type'
         );
         const bindType = service.getTypeBindValue(mockMetadataValueObject);
         expect(bindType).toBe('boundType');
     });
     it('Should get type authority key "bound-auth-key" from the given metadata object value', () => {
       const mockMetadataValueObject: FormFieldMetadataValueObject = new FormFieldMetadataValueObject(
-        'boundType', null, 'bound-auth-key', 'Bound Type'
+        'boundType', null, null, 'bound-auth-key', 'Bound Type'
       );
       const bindType = service.getTypeBindValue(mockMetadataValueObject);
       expect(bindType).toBe('bound-auth-key');

@@ -7,7 +7,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { OrcidViewPageMenuComponent } from './orcid-view-page-menu.component';
-import { DsoPageOrcidButtonComponent } from '../../dso-page/dso-page-orcid-button/dso-page-orcid-button.component';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
@@ -15,8 +14,8 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 
 describe('OrcidViewPageMenuComponent', () => {
-  let component: DsoPageOrcidButtonComponent;
-  let fixture: ComponentFixture<DsoPageOrcidButtonComponent>;
+  let component: OrcidViewPageMenuComponent;
+  let fixture: ComponentFixture<OrcidViewPageMenuComponent>;
 
   let authorizationService: AuthorizationDataService;
   let dso: DSpaceObject;
@@ -32,7 +31,7 @@ describe('OrcidViewPageMenuComponent', () => {
       isAuthorized: observableOf(true)
     });
     TestBed.configureTestingModule({
-      declarations: [DsoPageOrcidButtonComponent],
+      declarations: [OrcidViewPageMenuComponent],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
       providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },
@@ -43,7 +42,7 @@ describe('OrcidViewPageMenuComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DsoPageOrcidButtonComponent);
+    fixture = TestBed.createComponent(OrcidViewPageMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

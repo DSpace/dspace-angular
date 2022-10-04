@@ -70,14 +70,15 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
             });
           }
         )
-      ).subscribe((res) => {
+      ).subscribe({
+        next: (res: any) => {
           this.subscriptions$.next(res);
           this.loading$.next(false);
         },
-        (err) => {
+        error: () => {
           this.loading$.next(false);
         }
-      );
+      });
     });
   }
 
@@ -95,14 +96,15 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
           });
         }
       )
-    ).subscribe((res) => {
+    ).subscribe({
+      next: (res: any) => {
         this.subscriptions$.next(res);
         this.loading$.next(false);
       },
-      (err) => {
+      error: () => {
         this.loading$.next(false);
       }
-    );
+    });
   }
 
   /**

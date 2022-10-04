@@ -3,7 +3,8 @@ import { SearchFilterConfig } from './models/search-filter-config.model';
 import {
   addOperatorToFilterValue,
   escapeRegExp,
-  getFacetValueForType, getFacetValueForTypeAndLabel,
+  getFacetValueForType,
+  getFacetValueForTypeAndLabel,
   stripOperatorFromFilterValue
 } from './search.utils';
 
@@ -56,7 +57,7 @@ describe('Search Utils', () => {
 
     beforeEach(() => {
       facetValueWithSearchHref = Object.assign(new FacetValue(), {
-        label: 'Facet Label',
+        label: 'Facet Label with search href',
         _links: {
           search: {
             href: 'rest/api/search?f.otherFacet=Other facet value,operator&f.facetName=Facet Label with search href,operator'
@@ -72,7 +73,7 @@ describe('Search Utils', () => {
     });
 
     it('should retrieve the correct value from the search href', () => {
-      expect(getFacetValueForTypeAndLabel(facetValueWithSearchHref, searchFilterConfig)).toEqual('Facet Label with search href,operator');
+      expect(getFacetValueForTypeAndLabel(facetValueWithSearchHref, searchFilterConfig)).toEqual('Facet Label with search href,equals');
     });
 
     it('should return the facet value with an equals operator by default', () => {

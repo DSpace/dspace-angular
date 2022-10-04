@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
 
@@ -9,8 +9,6 @@ import { SearchFilterConfig } from '../../../search/models/search-filter-config.
 import { FilterType } from '../../../search/models/filter-type.model';
 import { FacetValue } from '../../../search/models/facet-value.model';
 import { getFacetValueForTypeAndLabel } from '../../../search/search.utils';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 
 /**
  * Component representing the Facet component section.
@@ -18,12 +16,6 @@ import { SearchConfigurationService } from '../../../../core/shared/search/searc
 @Component({
     selector: 'ds-facet-section',
     templateUrl: './facet-section.component.html',
-    providers: [
-        {
-      provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
 })
 export class FacetSectionComponent implements OnInit {
 
@@ -38,9 +30,7 @@ export class FacetSectionComponent implements OnInit {
     facets: SearchFilterConfig[] = [];
     facets$ = new BehaviorSubject(this.facets);
 
-    constructor(public searchService: SearchService,
-                @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-    ) {
+    constructor(public searchService: SearchService) {
 
     }
 

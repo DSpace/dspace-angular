@@ -23,7 +23,7 @@ export function getFacetValueForTypeAndLabel(facetValue: FacetValue, searchFilte
 }
 
 function _createValue(paramName: string, facetValueLinks, value, authorityKey) {
-  const regex = new RegExp(`[?|&]${escapeRegExp(paramName)}=(${escapeRegExp(value)}[^&]*)`, 'g');
+  const regex = new RegExp(`[?|&]${escapeRegExp(encodeURIComponent(paramName))}=(${escapeRegExp(encodeURIComponent(value))}[^&]*)`, 'g');
   if (isNotEmpty(facetValueLinks)) {
     const values = regex.exec(facetValueLinks.search.href);
     if (isNotEmpty(values)) {

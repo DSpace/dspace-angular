@@ -3,9 +3,20 @@ import { ItemDataService } from '../core/data/item-data.service';
 import { Item } from '../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { ItemPageResolver } from './item-page.resolver';
-
+import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
 
 describe('ItemPageResolver', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule.withRoutes([{
+        path: 'entities/:entity-type/:id',
+        component: {} as any
+      }])]
+    });
+  });
+
   describe('resolve', () => {
     let resolver: ItemPageResolver;
     let itemService: ItemDataService;
@@ -44,21 +55,16 @@ describe('ItemPageResolver', () => {
     describe('When item has custom url', () => {
 
       beforeEach(() => {
-
+        router = TestBed.inject(Router);
         itemService = {
           findById: (id: string) => createSuccessfulRemoteDataObject$(item)
         } as any;
-
-        // (itemService.findById as any).and.returnValue(createSuccessfulRemoteDataObject$(item));
 
         store = jasmine.createSpyObj('store', {
           dispatch: {},
         });
 
-        router = jasmine.createSpyObj('Router', {
-          navigateByUrl: jasmine.createSpy('navigateByUrl')
-        });
-
+        spyOn(router, 'navigateByUrl');
         resolver = new ItemPageResolver(itemService, store, router);
       });
 
@@ -111,7 +117,7 @@ describe('ItemPageResolver', () => {
     describe('When item has no custom url', () => {
 
       beforeEach(() => {
-
+        router = TestBed.inject(Router);
         itemService = {
           findById: (id: string) => createSuccessfulRemoteDataObject$(noMetadataItem)
         } as any;
@@ -120,10 +126,7 @@ describe('ItemPageResolver', () => {
           dispatch: {},
         });
 
-        router = jasmine.createSpyObj('Router', {
-          navigateByUrl: jasmine.createSpy('navigateByUrl')
-        });
-
+        spyOn(router, 'navigateByUrl');
         resolver = new ItemPageResolver(itemService, store, router);
       });
 
