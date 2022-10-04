@@ -9,6 +9,7 @@ import { GetRequest, IdentifierType } from './request.models';
 import { RequestService } from './request.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { Item } from '../shared/item.model';
+import { EMBED_SEPARATOR } from './base/base-data.service';
 
 describe('DsoRedirectService', () => {
   let scheduler: TestScheduler;
@@ -174,7 +175,7 @@ describe('DsoRedirectService', () => {
       });
 
       it('should include nested linksToFollow 3lvl', () => {
-        const expected = `${requestUUIDURL}&embed=owningCollection/itemtemplate/relationships`;
+        const expected = `${requestUUIDURL}&embed=owningCollection${EMBED_SEPARATOR}itemtemplate${EMBED_SEPARATOR}relationships`;
         const result = (service as any).dataService.getIDHref(
           pidLink,
           dsoUUID,

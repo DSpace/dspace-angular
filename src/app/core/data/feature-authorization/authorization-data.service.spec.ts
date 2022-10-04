@@ -2,7 +2,7 @@ import { AuthorizationDataService } from './authorization-data.service';
 import { SiteDataService } from '../site-data.service';
 import { Site } from '../../shared/site.model';
 import { EPerson } from '../../eperson/models/eperson.model';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { FeatureID } from './feature-id';
 import { hasValue } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
@@ -12,10 +12,12 @@ import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { Feature } from '../../shared/feature.model';
 import { FindListOptions } from '../find-list-options.model';
 import { testSearchDataImplementation } from '../base/search-data.spec';
+import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
 
 describe('AuthorizationDataService', () => {
   let service: AuthorizationDataService;
   let siteService: SiteDataService;
+  let objectCache;
 
   let site: Site;
   let ePerson: EPerson;
@@ -38,7 +40,8 @@ describe('AuthorizationDataService', () => {
     siteService = jasmine.createSpyObj('siteService', {
       find: observableOf(site),
     });
-    service = new AuthorizationDataService(requestService, undefined, undefined, undefined, siteService);
+    objectCache = getMockObjectCacheService();
+    service = new AuthorizationDataService(requestService, undefined, objectCache, undefined, siteService);
   }
 
   beforeEach(() => {
@@ -108,6 +111,43 @@ describe('AuthorizationDataService', () => {
 
       it('should call searchBy with the object\'s url, user\'s uuid and the feature', () => {
         expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(objectUrl, ePersonUuid, FeatureID.LoginOnBehalfOf), true, true);
+      });
+    });
+
+    describe('dependencies', () => {
+      let addDependencySpy;
+
+      beforeEach(() => {
+        (service.searchBy as any).and.returnValue(observableOf('searchBy RD$'));
+        addDependencySpy = spyOn(service as any, 'addDependency');
+      });
+
+      it('should add a dependency on the objectUrl', (done) => {
+        addDependencySpy.and.callFake((href$: Observable<string>, dependsOn$: Observable<string>) => {
+          observableCombineLatest([href$, dependsOn$]).subscribe(([href, dependsOn]) => {
+            expect(href).toBe('searchBy RD$');
+            expect(dependsOn).toBe('object-href');
+          });
+        });
+
+        service.searchByObject(FeatureID.AdministratorOf, 'object-href').subscribe(() => {
+          expect(addDependencySpy).toHaveBeenCalled();
+          done();
+        });
+      });
+
+      it('should add a dependency on the Site object if no objectUrl is given', (done) => {
+        addDependencySpy.and.callFake((object$: Observable<any>, dependsOn$: Observable<string>) => {
+          observableCombineLatest([object$, dependsOn$]).subscribe(([object, dependsOn]) => {
+            expect(object).toBe('searchBy RD$');
+            expect(dependsOn).toBe('test-site-href');
+          });
+        });
+
+        service.searchByObject(FeatureID.AdministratorOf).subscribe(() => {
+          expect(addDependencySpy).toHaveBeenCalled();
+          done();
+        });
       });
     });
   });

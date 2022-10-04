@@ -1,5 +1,5 @@
 <div class="clamp-{{background}}-{{lines}} min-{{minLines}} {{type}} {{fixedHeight ? 'fixedHeight' : ''}}">
-  <div #content class="content dont-break-out">
+  <div #content class="content dont-break-out preserve-line-breaks">
     <ng-content></ng-content>
   </div>
   <button class="btn btn-link p-0 expandButton" dsDragClick (actualClick)="toggle()">

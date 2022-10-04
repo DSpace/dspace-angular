@@ -24,6 +24,12 @@ import { ConfirmationModalComponent } from './confirmation-modal/confirmation-mo
 import {
   ExportMetadataSelectorComponent
 } from './dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
+import {
+  ExportBatchSelectorComponent
+} from './dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
+import {
+  ImportBatchSelectorComponent
+} from './dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
 import { FileDropzoneNoUploaderComponent } from './file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { ItemListElementComponent } from './object-list/item-list-element/item-types/item/item-list-element.component';
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
@@ -39,6 +45,7 @@ import {
   SearchResultListElementComponent
 } from './object-list/search-result-list-element/search-result-list-element.component';
 import { ObjectListComponent } from './object-list/object-list.component';
+import { ThemedObjectListComponent } from './object-list/themed-object-list.component';
 import {
   CollectionGridElementComponent
 } from './object-grid/collection-grid-element/collection-grid-element.component';
@@ -290,6 +297,7 @@ import { LinkMenuItemComponent } from './menu/menu-item/link-menu-item.component
 import { OnClickMenuItemComponent } from './menu/menu-item/onclick-menu-item.component';
 import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
+import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import {
   ItemVersionsSummaryModalComponent
 } from './item/item-versions/item-versions-summary-modal/item-versions-summary-modal.component';
@@ -314,6 +322,7 @@ import { SearchExportCsvComponent } from './search/search-export-csv/search-expo
 import {
   ItemPageTitleFieldComponent
 } from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
+import { MarkdownPipe } from './utils/markdown.pipe';
 
 const MODULES = [
   CommonModule,
@@ -357,6 +366,7 @@ const PIPES = [
   ConsolePipe,
   ObjNgFor,
   BrowserOnlyPipe,
+  MarkdownPipe,
 ];
 
 const COMPONENTS = [
@@ -376,6 +386,7 @@ const COMPONENTS = [
   LogOutComponent,
   NumberPickerComponent,
   ObjectListComponent,
+  ThemedObjectListComponent,
   ObjectDetailComponent,
   ObjectGridComponent,
   AbstractListableElementComponent,
@@ -471,6 +482,8 @@ const COMPONENTS = [
   CollectionDropdownComponent,
   EntityDropdownComponent,
   ExportMetadataSelectorComponent,
+  ImportBatchSelectorComponent,
+  ExportBatchSelectorComponent,
   ConfirmationModalComponent,
   VocabularyTreeviewComponent,
   AuthorizedCollectionSelectorComponent,
@@ -496,6 +509,7 @@ const COMPONENTS = [
   SearchNavbarComponent,
   ScopeSelectorModalComponent,
   ItemPageTitleFieldComponent,
+  ThemedSearchNavbarComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -549,6 +563,8 @@ const ENTRY_COMPONENTS = [
   BitstreamRequestACopyPageComponent,
   CurationFormComponent,
   ExportMetadataSelectorComponent,
+  ImportBatchSelectorComponent,
+  ExportBatchSelectorComponent,
   ConfirmationModalComponent,
   VocabularyTreeviewComponent,
   SidebarSearchListElementComponent,

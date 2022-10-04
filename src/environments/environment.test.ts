@@ -25,7 +25,8 @@ export const environment: BuildConfig = {
     rateLimiter: {
       windowMs: 1 * 60 * 1000, // 1 minute
       max: 500 // limit each IP to 500 requests per windowMs
-    }
+    },
+    useProxies: true,
   },
 
   // The REST API server settings.
@@ -270,5 +271,9 @@ export const environment: BuildConfig = {
   info: {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
+  },
+  markdown: {
+    enabled: false,
+    mathjax: false,
   },
 };
