@@ -7,6 +7,7 @@ import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { CrisLayoutBox } from './box.model';
+import { Metric } from '../../shared/metric.model';
 
 /**
  * Describes a type of CrisLayoutTab
@@ -85,9 +86,11 @@ export interface CrisLayoutRow {
   cells: CrisLayoutCell[];
 }
 
-
-
 export interface CrisLayoutCell {
   style: string;
   boxes: CrisLayoutBox[];
+}
+
+export interface CrisLayoutMetricRow {
+  metrics: Metric[];
 }

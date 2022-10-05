@@ -9,14 +9,10 @@ import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { hasValue } from '../../../../../shared/empty.util';
 import { MetricsComponentsDataService } from '../../../../../core/layout/metrics-components-data.service';
-import { Metric } from '../../../../../core/shared/metric.model';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { CrisLayoutBox, MetricsBoxConfiguration, } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
-
-export interface MetricRow {
-  metrics: Metric[];
-}
+import { CrisLayoutMetricRow } from '../../../../../core/layout/models/tab.model';
 
 /**
  * This component renders the metadata boxes of items
@@ -41,7 +37,7 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent i
   /**
    * Computed metric rows for the item and the current box
    */
-  metricRows: BehaviorSubject<MetricRow[]> = new BehaviorSubject<MetricRow[]>([]);
+  metricRows: BehaviorSubject<CrisLayoutMetricRow[]> = new BehaviorSubject<CrisLayoutMetricRow[]>([]);
 
   /**
    * true if the item has a thumbnail, false otherwise
