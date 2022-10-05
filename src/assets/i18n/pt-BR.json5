@@ -341,13 +341,13 @@
   "admin.access-control.epeople.actions.delete": "Apagar EPerson",
 
   // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
-  "admin.access-control.epeople.actions.impersonate": "Assumir o papel EPerson",
+  "admin.access-control.epeople.actions.impersonate": "Assumir o pápel de EPerson",
 
   // "admin.access-control.epeople.actions.reset": "Reset password",
   "admin.access-control.epeople.actions.reset": "Redefinir senha",
 
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
-  "admin.access-control.epeople.actions.stop-impersonating": "Parar de assumir o papel do EPerson",
+  "admin.access-control.epeople.actions.stop-impersonating": "Parar de assumir o pápel de EPerson",
 
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
   "admin.access-control.epeople.breadcrumbs": "EPeople",
@@ -423,7 +423,7 @@
   "admin.access-control.epeople.form.emailHint": "Deve ter um e-mail válido",
 
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
-  "admin.access-control.epeople.form.canLogIn": "Pode logar",
+  "admin.access-control.epeople.form.canLogIn": "Pode entrar",
 
 
   // "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
@@ -454,7 +454,7 @@
   "admin.access-control.epeople.form.notification.deleted.success": "EPerson \"{{name}}\" apagado com sucesso",
 
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.deleted.failure": "Falha ao deletar EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.failure": "Falha ao apagar EPerson \"{{name}}\"",
 
 
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
@@ -545,7 +545,7 @@
   "admin.access-control.groups.notification.deleted.success": "Grupo \"{{name}}\" apagado com sucesso",
 
   // "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
-  "admin.access-control.groups.notification.deleted.failure.title": "Falha ao deletar o grupo \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.failure.title": "Falha ao apagar o grupo \"{{name}}\"",
 
   // "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
   "admin.access-control.groups.notification.deleted.failure.content": "Causa: \"{{cause}}\"",
@@ -596,7 +596,7 @@
   "admin.access-control.groups.form.delete-group.modal.header": "Apagar Grupo \"{{ dsoName }}\"",
 
   // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
-  "admin.access-control.groups.form.delete-group.modal.info": "Você tem certeza que quer deletar o Grupo \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.info": "Você tem certeza que quer apagar o Grupo \"{{ dsoName }}\"",
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
   "admin.access-control.groups.form.delete-group.modal.cancel": "Cancelar",
@@ -782,10 +782,10 @@
   "administrativeView.search.results.head": "Pesquisa Administrativa",
 
   // "admin.workflow.breadcrumbs": "Administer Workflow",
-  "admin.workflow.breadcrumbs": "Administrar Workflow",
+  "admin.workflow.breadcrumbs": "Administrar Fluxo de Dados (Workflow)",
 
   // "admin.workflow.title": "Administer Workflow",
-  "admin.workflow.title": "Administrar Workflow",
+  "admin.workflow.title": "Administrar Fluxo de Dados (Workflow)",
 
   // "admin.workflow.item.workflow": "Workflow",
   "admin.workflow.item.workflow": "Workflow",
@@ -806,13 +806,13 @@
   "admin.metadata-import.page.header": "Importar Metadados",
 
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
-  "admin.metadata-import.page.help": "Você arrastar soltar ou procurar arquivos CSV que contêm operações de metadados em lote em arquivos aqui",
+  "admin.metadata-import.page.help": "Você pode arrastar e soltar ou procurar arquivos CSV que contêm operações de metadados em lote em arquivos aqui",
 
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
-  "admin.metadata-import.page.dropMsg": "Arraste um CSV de metadados para importar",
+  "admin.metadata-import.page.dropMsg": "Arraste e solte um CSV de metadados para importar",
 
   // "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
-  "admin.metadata-import.page.dropMsgReplace": "Solte para substituir o CSV de metadados a ser importado",
+  "admin.metadata-import.page.dropMsgReplace": "Arraste e Solte para substituir o CSV de metadados a ser importado",
 
   // "admin.metadata-import.page.button.return": "Back",
   "admin.metadata-import.page.button.return": "Voltar",
@@ -1191,7 +1191,7 @@
   "collection.edit.item-mapper.notifications.map.error.head": "Erros de mapeamento",
 
   // "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
-  "collection.edit.item-mapper.notifications.map.success.content": "Mapeou {{amount}} itens com sucesso.",
+  "collection.edit.item-mapper.notifications.map.success.content": "Foram mapeados {{amount}} itens com sucesso.",
 
   // "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
   "collection.edit.item-mapper.notifications.map.success.head": "Mapeamento completo",
