@@ -150,19 +150,6 @@ export class MenuResolver implements Resolve<boolean> {
     ]).pipe(take(1)).subscribe(([canViewUsage, canViewLogin, canViewWorkflow]) => {
       const menuList = [];
       if (canViewUsage || canViewLogin || canViewWorkflow) {
-        menuList.push(
-          {
-            id: 'statistics',
-            active: false,
-            visible: true,
-            index: 1,
-            model: {
-              type: MenuItemType.TEXT,
-              text: 'menu.section.statistics'
-            } as TextMenuItemModel,
-          }
-        );
-
         if (canViewUsage) {
           menuList.push({
             id: 'statistics_site',
@@ -204,6 +191,20 @@ export class MenuResolver implements Resolve<boolean> {
             } as LinkMenuItemModel
           });
         }
+
+        // the parent menu should be added after the children
+        menuList.push(
+          {
+            id: 'statistics',
+            active: false,
+            visible: true,
+            index: 1,
+            model: {
+              type: MenuItemType.TEXT,
+              text: 'menu.section.statistics'
+            } as TextMenuItemModel,
+          }
+        );
       }
       menuList.forEach((menuSection) => this.menuService.addSection(MenuID.PUBLIC, Object.assign(menuSection, {
         shouldPersistOnRouteChange: true
