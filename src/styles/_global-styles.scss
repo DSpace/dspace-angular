@@ -138,6 +138,29 @@ ds-dynamic-form-control-container.d-none {
 .btn-dark {
   background-color: var(--ds-admin-sidebar-bg);
 }
+
+.preserve-line-breaks {
+  white-space: pre-line;
+}
+
+/* Thumbnail styles */
+.hide-placeholder-text {
+  .thumbnail-placeholder {
+    color: transparent !important;
+  }
+}
+
+/* Used to hide the thumbnail column in modals. */
+.hide-modal-thumbnail-column {
+  .modal-body ds-listable-object-component-loader div.row > div:first-child {
+    display: none;
+  }
+  .modal-body ds-listable-object-component-loader div.row > div:nth-child(2) {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
 /* The font sizes used in "no thumbnail" placeholder */
 .thumb-font-0 {
   .thumbnail-placeholder {
@@ -153,13 +176,6 @@ ds-dynamic-form-control-container.d-none {
     padding: 0.1rem;
   }
 }
-
-.hide-placeholder-text {
-  .thumbnail-placeholder {
-    color: transparent !important;
-  }
-}
-
 .thumb-font-1 {
   .thumbnail-placeholder {
     @media screen and (max-width: map-get($grid-breakpoints, sm)) {
@@ -170,7 +186,7 @@ ds-dynamic-form-control-container.d-none {
       font-size: 0.4rem;
       padding: 0.1rem;
     }
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     padding: 0.125rem;
   }
 }
@@ -187,6 +203,4 @@ ds-dynamic-form-control-container.d-none {
   }
 }
 
-.preserve-line-breaks {
-  white-space: pre-line;
-}
+
