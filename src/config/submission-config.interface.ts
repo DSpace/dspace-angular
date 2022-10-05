@@ -6,6 +6,10 @@ interface AutosaveConfig extends Config {
   timer: number;
 }
 
+interface TypeBindConfig extends Config {
+  field: string;
+}
+
 interface IconsConfig extends Config {
   metadata: MetadataIconConfig[];
   authority: {
@@ -29,6 +33,7 @@ interface DetectDuplicateConfig extends Config {
 
 export interface SubmissionConfig extends Config {
   autosave: AutosaveConfig;
+  typeBind: TypeBindConfig;
   icons: IconsConfig;
   detectDuplicate: DetectDuplicateConfig;
 }

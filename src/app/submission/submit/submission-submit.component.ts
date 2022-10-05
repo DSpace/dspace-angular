@@ -11,7 +11,7 @@ import { SubmissionService } from '../submission.service';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { Item } from '../../core/shared/item.model';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { SubmissionError } from '../objects/submission-objects.reducer';
+import { SubmissionError } from '../objects/submission-error.model';
 
 /**
  * This component allows to submit a new workspaceitem.

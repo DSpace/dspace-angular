@@ -25,7 +25,7 @@ import {
   DynamicSliderModel,
   DynamicSwitchModel,
   DynamicTextAreaModel,
-  DynamicTimePickerModel
+  DynamicTimePickerModel, MATCH_VISIBLE, OR_OPERATOR
 } from '@ng-dynamic-forms/core';
 import {
   DynamicNGBootstrapCalendarComponent,
@@ -66,7 +66,8 @@ import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-gr
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
-import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-group/dynamic-relation-inline-group.components';import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RelationshipService } from '../../../../core/data/relationship.service';
+import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-group/dynamic-relation-inline-group.components';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Store } from '@ngrx/store';
@@ -83,7 +84,9 @@ import { NgxMaskModule } from 'ngx-mask';
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
     getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
-    isFormControlToBeHidden: jasmine.createSpy('isFormControlToBeHidden')
+    isFormControlToBeHidden: jasmine.createSpy('isFormControlToBeHidden'),
+    matchesCondition: jasmine.createSpy('matchesCondition'),
+    subscribeRelations: jasmine.createSpy('subscribeRelations')
   });
 }
 
@@ -121,7 +124,12 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       metadataFields: [],
       repeatable: false,
       submissionId: '1234',
-      hasSelectableMetadata: false
+      hasSelectableMetadata: false,
+      typeBindRelations: [{
+        match: MATCH_VISIBLE,
+        operator: OR_OPERATOR,
+        when: [{id: 'dc.type', value: 'Book'}]
+      }]
     }),
     new DynamicScrollableDropdownModel({
       id: 'scrollableDropdown',
@@ -257,7 +265,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     });
   }));
 
-  beforeEach(inject([DynamicFormService], (service: DynamicFormService) => {
+  beforeEach(inject([DynamicFormService, FormBuilderService], (service: DynamicFormService, formBuilderService: FormBuilderService) => {
 
     formGroup = service.createFormGroup(formModel);
 

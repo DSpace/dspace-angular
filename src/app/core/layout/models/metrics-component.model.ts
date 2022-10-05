@@ -1,4 +1,4 @@
-import { CacheableObject } from '../../cache/object-cache.reducer';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { autoserialize, deserialize } from 'cerialize';
 import { HALLink } from '../../shared/hal-link.model';

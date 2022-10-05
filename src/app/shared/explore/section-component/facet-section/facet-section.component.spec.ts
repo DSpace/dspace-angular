@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -15,12 +13,10 @@ import { FacetValue } from '../../../search/models/facet-value.model';
 import { FilterType } from '../../../search/models/filter-type.model';
 import { SearchFilterConfig } from '../../../search/models/search-filter-config.model';
 import { FacetSectionComponent } from './facet-section.component';
-import {SEARCH_CONFIG_SERVICE} from '../../../../my-dspace-page/my-dspace-page.component';
-import {SearchConfigurationServiceStub} from '../../../testing/search-configuration-service.stub';
-import {StoreModule} from '@ngrx/store';
-import {authReducer} from '../../../../core/auth/auth.reducer';
-import {storeModuleConfig} from '../../../../app.reducer';
-import {isNotNull} from '../../../empty.util';
+import { StoreModule } from '@ngrx/store';
+import { authReducer } from '../../../../core/auth/auth.reducer';
+import { storeModuleConfig } from '../../../../app.reducer';
+import { isNotNull } from '../../../empty.util';
 
 describe('FacetSectionComponent', () => {
   let component: FacetSectionComponent;
@@ -113,7 +109,7 @@ describe('FacetSectionComponent', () => {
       values: [pieChartFacetValue]
     }
   });
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     searchServiceStub = {
       searchFacets(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
@@ -125,7 +121,9 @@ describe('FacetSectionComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
+      imports: [CommonModule,
+        BrowserModule,
+        RouterTestingModule,
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot({
           loader: {
@@ -135,9 +133,9 @@ describe('FacetSectionComponent', () => {
         }),
       ],
       declarations: [FacetSectionComponent],
-      providers: [FacetSectionComponent,
-        { provide: SearchService, useValue: searchServiceStub },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() }],
+      providers: [
+        { provide: SearchService, useValue: searchServiceStub }
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
@@ -158,9 +156,9 @@ describe('FacetSectionComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create FacetSectionComponent', inject([FacetSectionComponent], (comp: FacetSectionComponent) => {
-    expect(comp).toBeDefined();
-  }));
+  it('should create FacetSectionComponent',  () => {
+    expect(component).toBeDefined();
+  });
 
   it('should create a facet section foreach not empty filter configs',  () => {
     // graph facets control

@@ -162,7 +162,7 @@ describe('SearchFacetSelectedOptionComponent', () => {
       comp.removeQueryParams = {};
       (comp as any).updateRemoveParams(selectedValues);
       expect(comp.removeQueryParams).toEqual({
-        [mockFilterConfig.paramName]: [value1],
+        [mockFilterConfig.paramName]: [`${value1},equals`],
         ['page-id.page']: 1
       });
     });

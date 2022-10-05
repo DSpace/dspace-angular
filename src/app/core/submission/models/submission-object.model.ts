@@ -2,7 +2,6 @@ import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
 import { link } from '../../cache/builders/build-decorators';
 
-import { CacheableObject } from '../../cache/object-cache.reducer';
 import { SubmissionDefinitionsModel } from '../../config/models/config-submission-definitions.model';
 import { RemoteData } from '../../data/remote-data';
 import { EPerson } from '../../eperson/models/eperson.model';
@@ -14,7 +13,8 @@ import { HALLink } from '../../shared/hal-link.model';
 import { ITEM } from '../../shared/item.resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
-import { PathableObjectError } from '../../data/request.reducer';
+import { CacheableObject } from '../../cache/cacheable-object.model';
+import { PathableObjectError } from '../../data/response-state.model';
 
 export type SubmissionObjectError = PathableObjectError;
 

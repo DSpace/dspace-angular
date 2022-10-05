@@ -35,7 +35,6 @@ export class ItemPageResolver extends ItemResolver {
     return super.resolve(route, state).pipe(
       map((rd: RemoteData<Item>) => {
         if (rd.hasSucceeded && hasValue(rd.payload)) {
-          const itemRoute = getItemPageRoute(rd.payload);
           // Check if custom url not empty and if the current id parameter is different from the custom url redirect to custom url
           if (hasValue(rd.payload.metadata) && isNotEmpty(rd.payload.metadata['cris.customurl'])) {
             if (route.params.id !== rd.payload.metadata['cris.customurl'][0].value) {
@@ -44,6 +43,13 @@ export class ItemPageResolver extends ItemResolver {
             }
           } else {
             const thisRoute = state.url;
+
+            // Angular uses a custom function for encodeURIComponent, (e.g. it doesn't encode commas
+            // or semicolons) and thisRoute has been encoded with that function. If we want to compare
+            // it with itemRoute, we have to run itemRoute through Angular's version as well to ensure
+            // the same characters are encoded the same way.
+            const itemRoute = this.router.parseUrl(getItemPageRoute(rd.payload)).toString();
+
             if (!thisRoute.startsWith(itemRoute)) {
               const itemId = rd.payload.uuid;
               const subRoute = thisRoute.substring(thisRoute.indexOf(itemId) + itemId.length, thisRoute.length);

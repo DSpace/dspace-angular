@@ -13,10 +13,11 @@ import { RequestService } from '../../data/request.service';
 import { UnCacheableObject } from '../../shared/uncacheable-object.model';
 import { RemoteData } from '../../data/remote-data';
 import { Observable, of as observableOf } from 'rxjs';
-import { RequestEntry, RequestEntryState } from '../../data/request.reducer';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { take } from 'rxjs/operators';
 import { HALLink } from '../../shared/hal-link.model';
+import { RequestEntryState } from '../../data/request-entry-state.model';
+import { RequestEntry } from '../../data/request-entry.model';
 
 describe('RemoteDataBuildService', () => {
   let service: RemoteDataBuildService;

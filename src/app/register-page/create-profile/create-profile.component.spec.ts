@@ -12,7 +12,6 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { of, of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
-import { CoreState } from '../../core/core.reducers';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { RouterStub } from '../../shared/testing/router.stub';
@@ -26,6 +25,7 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
+import { CoreState } from '../../core/core-state.model';
 
 describe('CreateProfileComponent', () => {
   let comp: CreateProfileComponent;

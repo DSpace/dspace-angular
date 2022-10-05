@@ -1,14 +1,15 @@
 import { ItemVersionsComponent } from './item-versions.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture, TestBed, waitForAsync
+} from '@angular/core/testing';
 import { VarDirective } from '../../utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { Version } from '../../../core/shared/version.model';
 import { VersionHistory } from '../../../core/shared/version-history.model';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { By } from '@angular/platform-browser';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
 import { EMPTY, of, of as observableOf } from 'rxjs';
@@ -17,7 +18,7 @@ import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 import { AuthService } from '../../../core/auth/auth.service';
 import { VersionDataService } from '../../../core/data/version-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -25,6 +26,9 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { Router } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule } from '@angular/common';
 
 describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
@@ -70,6 +74,7 @@ describe('ItemVersionsComponent', () => {
   versionHistory.versions = createSuccessfulRemoteDataObject$(createPaginatedList(versions));
 
   const item1 = Object.assign(new Item(), { // is a workspace item
+    id: 'item-identifier-1',
     uuid: 'item-identifier-1',
     handle: '123456789/1',
     version: createSuccessfulRemoteDataObject$(version1),
@@ -80,6 +85,7 @@ describe('ItemVersionsComponent', () => {
     }
   });
   const item2 = Object.assign(new Item(), {
+    id: 'item-identifier-2',
     uuid: 'item-identifier-2',
     handle: '123456789/2',
     version: createSuccessfulRemoteDataObject$(version2),
@@ -95,12 +101,16 @@ describe('ItemVersionsComponent', () => {
 
   const versionHistoryServiceSpy = jasmine.createSpyObj('versionHistoryService', {
     getVersions: createSuccessfulRemoteDataObject$(createPaginatedList(versions)),
+    getVersionHistoryFromVersion$: of(versionHistory),
+    getLatestVersionItemFromHistory$: of(item1),  // called when version2 is deleted
   });
   const authenticationServiceSpy = jasmine.createSpyObj('authenticationService', {
     isAuthenticated: observableOf(true),
     setRedirectUrl: {}
   });
-  const authorizationServiceSpy = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
+  const authorizationServiceSpy = jasmine.createSpyObj('authorizationService', {
+    isAuthorized: observableOf(true)
+  });
   const workspaceItemDataServiceSpy = jasmine.createSpyObj('workspaceItemDataService', {
     findByItem: EMPTY,
   });
@@ -115,11 +125,19 @@ describe('ItemVersionsComponent', () => {
     findByPropertyName: of(true),
   });
 
+  const itemDataServiceSpy = jasmine.createSpyObj('itemDataService', {
+    delete: createSuccessfulRemoteDataObject$({}),
+  });
+
+  const routerSpy = jasmine.createSpyObj('router', {
+    navigateByUrl: null,
+  });
+
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       declarations: [ItemVersionsComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule],
       providers: [
         {provide: PaginationService, useValue: new PaginationServiceStub()},
         {provide: FormBuilder, useValue: new FormBuilder()},
@@ -127,11 +145,12 @@ describe('ItemVersionsComponent', () => {
         {provide: AuthService, useValue: authenticationServiceSpy},
         {provide: AuthorizationDataService, useValue: authorizationServiceSpy},
         {provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy},
-        {provide: ItemDataService, useValue: {}},
+        {provide: ItemDataService, useValue: itemDataServiceSpy},
         {provide: VersionDataService, useValue: versionServiceSpy},
         {provide: WorkspaceitemDataService, useValue: workspaceItemDataServiceSpy},
         {provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy},
         {provide: ConfigurationDataService, useValue: configurationServiceSpy},
+        { provide: Router, useValue: routerSpy },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -275,4 +294,43 @@ describe('ItemVersionsComponent', () => {
     });
   });
 
+  describe('when deleting a version', () => {
+    let deleteButton;
+
+    beforeEach(() => {
+      const canDelete = (featureID: FeatureID, url: string ) => of(featureID === FeatureID.CanDeleteVersion);
+      authorizationServiceSpy.isAuthorized.and.callFake(canDelete);
+
+      fixture.detectChanges();
+
+      // delete the last version in the table (version2 → item2)
+      deleteButton = fixture.debugElement.queryAll(By.css('.version-row-element-delete'))[1].nativeElement;
+
+      itemDataServiceSpy.delete.calls.reset();
+    });
+
+    describe('if confirmed via modal', () => {
+      beforeEach(waitForAsync(() => {
+        deleteButton.click();
+        fixture.detectChanges();
+        (document as any).querySelector('.modal-footer .confirm').click();
+      }));
+
+      it('should call ItemService.delete', () => {
+        expect(itemDataServiceSpy.delete).toHaveBeenCalledWith(item2.id);
+      });
+    });
+
+    describe('if canceled via modal', () => {
+      beforeEach(waitForAsync(() => {
+        deleteButton.click();
+        fixture.detectChanges();
+        (document as any).querySelector('.modal-footer .cancel').click();
+      }));
+
+      it('should not call ItemService.delete', () => {
+        expect(itemDataServiceSpy.delete).not.toHaveBeenCalled();
+      });
+    });
+  });
 });

@@ -14,7 +14,6 @@ import { INotification, Notification } from '../../../shared/notifications/model
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { Item } from '../../../core/shared/item.model';
-import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
@@ -23,6 +22,7 @@ import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } f
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { DSOSuccessResponse } from '../../../core/cache/response.models';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 import { MetadataSecurityConfigurationService } from '../../../core/submission/metadatasecurityconfig-data.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';

@@ -11,7 +11,7 @@ import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { environment } from '../../../../../../../../environments/environment';
-import { FindListOptions } from '../../../../../../../core/data/request.models';
+import { FindListOptions } from '../../../../../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 
 @Component({

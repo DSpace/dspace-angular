@@ -40,6 +40,7 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SelectionConfig } from './search-results/search-results.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { environment } from 'src/environments/environment';
 import { SearchManager } from '../../core/browse/search-manager';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 
@@ -221,6 +222,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   currentSortOptions$: BehaviorSubject<SortOptions> = new BehaviorSubject<SortOptions>(null);
 
   /**
+   * An observable containing configuration about which chart filters are shown and how they are shown
+   */
+  chartFiltersRD$: BehaviorSubject<RemoteData<SearchFilterConfig[]>> = new BehaviorSubject<RemoteData<SearchFilterConfig[]>>(null);
+
+  /**
    * An observable containing configuration about which filters are shown and how they are shown
    */
   filtersRD$: BehaviorSubject<RemoteData<SearchFilterConfig[]>> = new BehaviorSubject<RemoteData<SearchFilterConfig[]>>(null);
@@ -336,7 +342,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       .getCurrentConfiguration(this.configuration).pipe(distinctUntilChanged());
     const searchSortOptions$: Observable<SortOptions[]> = configuration$.pipe(
       switchMap((configuration: string) => this.searchConfigService
-        .getConfigurationSearchConfig(configuration, this.service)),
+        .getConfigurationSearchConfig(configuration)),
       map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
       distinctUntilChanged()
     );
@@ -444,15 +450,38 @@ export class SearchComponent implements OnInit, OnDestroy {
    */
   private retrieveFilters(searchOptions: PaginatedSearchOptions) {
     this.filtersRD$.next(null);
+    this.chartFiltersRD$.next(null);
     this.service.getConfig(searchOptions.scope, searchOptions.configuration).pipe(
       getFirstCompletedRemoteData(),
-      map((rd: RemoteData<SearchFilterConfig[]>) => Object.assign(rd, {
-        payload: rd.payload.filter((entry: SearchFilterConfig) =>
-          !this.chartReg.test(entry.filterType)
-        )})
-      )
     ).subscribe((filtersRD: RemoteData<SearchFilterConfig[]>) => {
-      this.filtersRD$.next(filtersRD);
+      const filtersPayload = filtersRD.payload.filter((entry: SearchFilterConfig) =>
+        !this.chartReg.test(entry.filterType)
+      );
+      const chartFiltersPayload = filtersRD.payload.filter((entry: SearchFilterConfig) =>
+        this.chartReg.test(entry.filterType)
+      );
+      const filters = new RemoteData(
+        filtersRD.timeCompleted,
+        filtersRD.msToLive,
+        filtersRD.lastUpdated,
+        filtersRD.state,
+        filtersRD.errorMessage,
+        filtersPayload,
+        filtersRD.statusCode,
+        filtersRD.errors
+      );
+      this.filtersRD$.next(filters);
+      const chartFilters  = new RemoteData(
+        filtersRD.timeCompleted,
+        filtersRD.msToLive,
+        filtersRD.lastUpdated,
+        filtersRD.state,
+        filtersRD.errorMessage,
+        chartFiltersPayload,
+        filtersRD.statusCode,
+        filtersRD.errors
+      );
+      this.chartFiltersRD$.next(chartFilters);
     });
   }
 
@@ -476,7 +505,8 @@ export class SearchComponent implements OnInit, OnDestroy {
       undefined,
       this.useCachedVersionIfAvailable,
       true,
-      followLink<Item>('thumbnail', { isOptional: true })
+      followLink<Item>('thumbnail', { isOptional: true }),
+      followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
     ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded && results.payload?.page?.length > 0) {

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
+import { CoreState } from '../core-state.model';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';

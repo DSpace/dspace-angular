@@ -21,7 +21,7 @@ import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { PaginatedList, buildPaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import { FindListOptions, PatchRequest, PostRequest, } from '../data/request.models';
+import { PatchRequest, PostRequest, } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getRemoteDataPayload, getFirstSucceededRemoteData, } from '../shared/operators';
@@ -29,6 +29,7 @@ import { EPerson } from './models/eperson.model';
 import { EPERSON } from './models/eperson.resource-type';
 import { NoContent } from '../shared/NoContent.model';
 import { PageInfo } from '../shared/page-info.model';
+import { FindListOptions } from '../data/find-list-options.model';
 
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
 const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);

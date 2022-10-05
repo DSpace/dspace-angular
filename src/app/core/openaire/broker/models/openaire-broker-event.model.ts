@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
-import { CacheableObject } from '../../../cache/object-cache.reducer';
+import { CacheableObject } from '../../../cache/cacheable-object.model';
 import { OPENAIRE_BROKER_EVENT_OBJECT } from './openaire-broker-event-object.resource-type';
 import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { ResourceType } from '../../../shared/resource-type';

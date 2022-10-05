@@ -9,7 +9,9 @@
 <ds-search-charts *ngIf="showCharts"
                   [configuration]="currentConfiguration$"
                   [collapseChart]="collapseCharts"
+                  [filters]="chartFiltersRD$.asObservable()"
                   [inPlaceSearch]="inPlaceSearch"
+                  [refreshFilters]="refreshFilters"
                   [showChartsToggle]="showChartsToggle"></ds-search-charts>
 
 <div *ngIf="!showSidebar && (initialized$ | async)">

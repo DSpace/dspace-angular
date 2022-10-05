@@ -1,14 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, of as observableOf, BehaviorSubject, Subscription as rxSubscription } from 'rxjs';
-import { switchMap, map, take, tap } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, Subscription as rxSubscription } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
-import { RemoteData } from '../core/data/remote-data';
 import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
-import { Community } from '../core/shared/community.model';
 import { SubscriptionService } from '../shared/subscriptions/subscription.service';
-import { followLink, FollowLinkConfig } from '../shared/utils/follow-link-config.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { FindListOptions } from '../core/data/request.models';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { PageInfo } from '../core/shared/page-info.model';
 import { AuthService } from '../core/auth/auth.service';
@@ -74,14 +70,15 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
             });
           }
         )
-      ).subscribe((res) => {
+      ).subscribe({
+        next: (res: any) => {
           this.subscriptions$.next(res);
           this.loading$.next(false);
         },
-        (err) => {
+        error: () => {
           this.loading$.next(false);
         }
-      );
+      });
     });
   }
 
@@ -99,14 +96,15 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
           });
         }
       )
-    ).subscribe((res) => {
+    ).subscribe({
+      next: (res: any) => {
         this.subscriptions$.next(res);
         this.loading$.next(false);
       },
-      (err) => {
+      error: () => {
         this.loading$.next(false);
       }
-    );
+    });
   }
 
   /**

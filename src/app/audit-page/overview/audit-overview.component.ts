@@ -6,7 +6,7 @@ import { mergeMap } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { FindListOptions } from '../../core/data/request.models';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { Audit } from '../../core/audit/model/audit.model';

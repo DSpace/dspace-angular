@@ -50,8 +50,6 @@ describe('SubmissionSectionAccessesComponent', () => {
   let fixture: ComponentFixture<SubmissionSectionAccessesComponent>;
 
   const sectionsServiceStub = new SectionsServiceStub();
-  // const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionId, 'files', fileIndex);
-
   const builderService: FormBuilderService = getMockFormBuilderService();
   const submissionAccessesConfigService: jasmine.SpyObj<SubmissionAccessesConfigService> = getSubmissionAccessesConfigService();
   const sectionAccessesService = getSectionAccessesService();
@@ -63,6 +61,7 @@ describe('SubmissionSectionAccessesComponent', () => {
   });
 
   let formService: any;
+  let formbuilderService: any;
 
   const storeStub = jasmine.createSpyObj('store', ['dispatch']);
 
@@ -94,7 +93,6 @@ describe('SubmissionSectionAccessesComponent', () => {
         declarations: [SubmissionSectionAccessesComponent, FormComponent],
         providers: [
           { provide: SectionsService, useValue: sectionsServiceStub },
-          { provide: FormBuilderService, useValue: builderService },
           { provide: SubmissionAccessesConfigService, useValue: submissionAccessesConfigService },
           { provide: SectionAccessesService, useValue: sectionAccessesService },
           { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
@@ -105,6 +103,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
+          FormBuilderService
         ]
       })
         .compileComponents();
@@ -115,6 +114,7 @@ describe('SubmissionSectionAccessesComponent', () => {
         fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
         component = fixture.componentInstance;
         formService = TestBed.inject(FormService);
+      formbuilderService = TestBed.inject(FormBuilderService);
         formService.validateAllFormFields.and.callFake(() => null);
         formService.isValid.and.returnValue(observableOf(true));
         formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
@@ -143,10 +143,21 @@ describe('SubmissionSectionAccessesComponent', () => {
       it('formModel type array should have formgroup with 1 input and 2 datepickers', () => {
         const formModel: any = component.formModel[1];
         const formGroup = formModel.groupFactory()[0].group;
+
         expect(formGroup[0] instanceof DynamicSelectModel).toBeTrue();
         expect(formGroup[1] instanceof DynamicDatePickerModel).toBeTrue();
         expect(formGroup[2] instanceof DynamicDatePickerModel).toBeTrue();
       });
+
+    it('should have set maxStartDate and maxEndDate properly', () => {
+      const maxStartDate = {year: 2024, month: 12, day: 20};
+      const maxEndDate = {year: 2022, month: 6, day: 20};
+
+      const startDateModel = formbuilderService.findById('startDate', component.formModel);
+      expect(startDateModel.max).toEqual(maxStartDate);
+      const endDateModel = formbuilderService.findById('endDate', component.formModel);
+      expect(endDateModel.max).toEqual(maxEndDate);
+    });
 
       it('when checkbox changed it should call operationsBuilder replace function', () => {
         component.onChange(checkboxChangeEvent);

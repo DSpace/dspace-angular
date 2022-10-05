@@ -9,6 +9,7 @@ import { Item } from '../../../core/shared/item.model';
 import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
+import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 
 /**
  * Page component for unlink a profile item from ORCID.
@@ -29,12 +30,14 @@ import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-path
 
   processing = false;
 
-  constructor(private route: ActivatedRoute,
-    private router: Router,
-    private researcherProfileService: ResearcherProfileService,
-    private translateService: TranslateService,
+  constructor(
     private notificationsService: NotificationsService,
-    ) { }
+    private orcidAuthService: OrcidAuthService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private translateService: TranslateService) {
+
+  }
 
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
@@ -54,12 +57,12 @@ import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-path
   }
 
   isLinkedToOrcid(): boolean {
-    return this.researcherProfileService.isLinkedToOrcid(this.item);
+    return this.orcidAuthService.isLinkedToOrcid(this.item);
   }
 
   unlinkOrcid(): void {
     this.processing = true;
-    this.researcherProfileService.unlinkOrcid(this.item).subscribe((remoteData) => {
+    this.orcidAuthService.unlinkOrcidByItem(this.item).subscribe((remoteData) => {
       this.processing = false;
       if (remoteData.isSuccess) {
         this.notificationsService.success(this.translateService.get('item.edit.unlink-orcid.unlink.success'));

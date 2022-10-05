@@ -1,5 +1,5 @@
 <div class="facet-filter d-block mb-3 p-3">
-  <div (click)="toggle()" class="filter-name">
+  <div (click)="toggle()" class="filter-name" [attr.data-test]="'filter-toggle' | dsBrowserOnly">
     <h5 class="d-inline-block mb-0">
       {{ label | translate }}
     </h5>

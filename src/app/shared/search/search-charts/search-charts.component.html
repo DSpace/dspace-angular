@@ -10,7 +10,7 @@
                 (click)="toggleChart()" *ngIf="showChartsToggle">
           <i class="fa fa-chart-line mr-2"></i> {{"search.filters.applied.charts.show.hide" | translate}}</button>
       </div>
-      <div *ngIf="!collapseChart" @shrinkInOut data-test="search-charts">
+      <div *ngIf="!collapseChart && selectedFilter" @shrinkInOut data-test="search-charts">
         <ul class="nav nav-pills mb-2">
           <li class="nav-item mr-3" *ngFor="let filter of (filters | async)?.payload; trackBy: trackUpdate; let i = index"
               (click)="changeChartType(filter)">
@@ -20,7 +20,9 @@
           </li>
         </ul>
         <div>
-          <ds-search-chart [filter]="selectedFilter" [inPlaceSearch]="inPlaceSearch"> </ds-search-chart>
+          <ds-search-chart [filter]="selectedFilter"
+                           [inPlaceSearch]="inPlaceSearch"
+                           [refreshFilters]="refreshFilters"></ds-search-chart>
         </div>
       </div>
     </div>

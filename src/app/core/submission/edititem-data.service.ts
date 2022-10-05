@@ -10,7 +10,7 @@ import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
+import { CoreState } from '../core-state.model';
 import { map, take } from 'rxjs/operators';
 import { getAllSucceededRemoteDataPayload, getPaginatedListPayload } from '../shared/operators';
 import { EditItemMode } from './models/edititem-mode.model';

@@ -1,6 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { StatisticsState } from './statistics.reducer';
-import { CoreState } from '../core.reducers';
 
 /**
  * Returns the statistic state.

@@ -8,7 +8,9 @@ import {
 } from '../../../../../core/shared/search/search-filter.service';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { SearchFacetFilterComponent } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
+import {
+  SearchFacetFilterComponent
+} from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { renderChartFilterType } from '../../chart-search-result-element-decorator';
 
 @Component({
@@ -34,10 +36,12 @@ export class SearchChartFilterWrapperComponent implements OnInit {
    * Emits when the search filters values may be stale, and so they must be refreshed.
    */
   @Input() refreshFilters: BehaviorSubject<boolean>;
+
   /**
    * The constructor of the search facet filter that should be rendered, based on the filter config's type
    */
   searchFilter: GenericConstructor<SearchFacetFilterComponent>;
+
   /**
    * Injector to inject a child component with the @Input parameters
    */

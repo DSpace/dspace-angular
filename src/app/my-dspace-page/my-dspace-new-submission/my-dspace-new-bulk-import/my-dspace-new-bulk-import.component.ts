@@ -1,15 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BulkImportSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
+import {
+  BulkImportSelectorComponent
+} from '../../../shared/dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { FindListOptions } from '../../../core/data/request.models';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { hasValue } from '../../../shared/empty.util';
-import { flatMap, map, take } from 'rxjs/operators';
+import { mergeMap, map, take } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { Observable, Subscription } from 'rxjs';
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf, Subscription } from 'rxjs';
 
 
 /**
@@ -57,7 +58,7 @@ export class MyDSpaceNewBulkImportComponent {
     this.initialized$ = observableOf(false);
     this.moreThanOne$ = this.entityTypeService.hasMoreThanOneAuthorized();
     this.singleEntity$ = this.moreThanOne$.pipe(
-      flatMap((response: boolean) => {
+      mergeMap((response: boolean) => {
         if (!response) {
           const findListOptions: FindListOptions = {
             elementsPerPage: 1,

@@ -39,6 +39,10 @@ export const environment: BuildConfig = {
     baseUrl: 'https://rest.com/api'
   },
 
+  actuators: {
+    endpointPath: '/actuator/health'
+  },
+
   // Caching settings
   cache: {
     // NOTE: how long should objects be cached for by default
@@ -100,6 +104,9 @@ export const environment: BuildConfig = {
       metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv'],
       // NOTE: every how many minutes submission is saved automatically
       timer: 5
+    },
+    typeBind: {
+      field: 'dc.type'
     },
     icons: {
       metadata: [
@@ -209,7 +216,9 @@ export const environment: BuildConfig = {
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds
-    }
+    },
+    // Show the item access status label in items lists
+    showAccessStatuses: false
   },
   collection: {
     edit: {
@@ -241,6 +250,9 @@ export const environment: BuildConfig = {
       name: 'base',
     },
   ],
+  bundle: {
+    standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE'],
+  },
   mediaViewer: {
     image: true,
     video: true
@@ -293,7 +305,7 @@ export const environment: BuildConfig = {
   layout: {
     navbar: {
       // If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
-      showCommunityCollection: false,
+      showCommunityCollection: true,
     }
   },
   security: {

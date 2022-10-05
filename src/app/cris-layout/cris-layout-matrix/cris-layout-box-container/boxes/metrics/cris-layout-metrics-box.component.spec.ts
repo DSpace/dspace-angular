@@ -13,12 +13,13 @@ import { By } from '@angular/platform-browser';
 import { boxMetrics } from '../../../../../shared/testing/box.mock';
 import { TextComponent } from '../metadata/rendering-types/text/text.component';
 import { SharedModule } from '../../../../../shared/shared.module';
-import { CrisLayoutMetricsBoxComponent, MetricRow } from './cris-layout-metrics-box.component';
+import { CrisLayoutMetricsBoxComponent } from './cris-layout-metrics-box.component';
 import { metricsComponent } from '../../../../../shared/testing/metrics-components.mock';
 import { MetricsComponent } from '../../../../../core/layout/models/metrics-component.model';
 import { MetricsComponentsDataService } from '../../../../../core/layout/metrics-components-data.service';
 import { Metric } from '../../../../../core/shared/metric.model';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
+import { CrisLayoutMetricRow } from '../../../../../core/layout/models/tab.model';
 
 export const metric1Mock = {
   acquisitionDate: new Date(),
@@ -65,7 +66,7 @@ class MetricsComponentsDataServiceMock {
       createSuccessfulRemoteDataObject(metricsComponent)
     );
   }
-  getMatchingMetrics(metrics: Metric[], maxColumn: number, metricTypes: string[]): MetricRow[] {
+  getMatchingMetrics(metrics: Metric[], maxColumn: number, metricTypes: string[]): CrisLayoutMetricRow[] {
     return metricRowsMock as any;
   }
 }
