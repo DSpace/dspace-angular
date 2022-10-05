@@ -205,7 +205,7 @@ export class MenuResolver implements Resolve<boolean> {
           });
         }
       }
-      menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
+      menuList.forEach((menuSection) => this.menuService.addSection(MenuID.PUBLIC, Object.assign(menuSection, {
         shouldPersistOnRouteChange: true
       })));
     });
