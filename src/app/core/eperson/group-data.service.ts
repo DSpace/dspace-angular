@@ -179,7 +179,6 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
 
     return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => observableZip(
       this.invalidateByHref(ePerson._links.self.href),
-      this.invalidateByHref(activeGroup._links.self.href),
       this.requestService.setStaleByHrefSubstring(ePerson._links.groups.href).pipe(take(1)),
       this.requestService.setStaleByHrefSubstring(activeGroup._links.epersons.href).pipe(take(1)),
     ));
@@ -198,7 +197,6 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
 
     return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => observableZip(
       this.invalidateByHref(ePerson._links.self.href),
-      this.invalidateByHref(activeGroup._links.self.href),
       this.requestService.setStaleByHrefSubstring(ePerson._links.groups.href).pipe(take(1)),
       this.requestService.setStaleByHrefSubstring(activeGroup._links.epersons.href).pipe(take(1)),
     ));

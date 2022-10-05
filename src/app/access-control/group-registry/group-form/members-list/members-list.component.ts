@@ -209,7 +209,6 @@ export class MembersListComponent implements OnInit, OnDestroy {
       if (activeGroup != null) {
         const response = this.groupDataService.deleteMemberFromGroup(activeGroup, ePerson.eperson);
         this.showNotifications('deleteMember', response, ePerson.eperson.name, activeGroup);
-        this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery });
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
       }
@@ -315,7 +314,6 @@ export class MembersListComponent implements OnInit, OnDestroy {
     response.pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<any>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.success.' + messageSuffix, { name: nameObject }));
-        this.ePersonDataService.clearLinkRequests(activeGroup._links.epersons.href);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.' + messageSuffix, { name: nameObject }));
       }
