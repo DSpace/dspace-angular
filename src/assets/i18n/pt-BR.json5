@@ -341,7 +341,7 @@
   "admin.access-control.epeople.actions.delete": "Apagar EPerson",
 
   // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
-  "admin.access-control.epeople.actions.impersonate": "Assumir o papel EPerson",
+  "admin.access-control.epeople.actions.impersonate": "Assumir o papel do EPerson",
 
   // "admin.access-control.epeople.actions.reset": "Reset password",
   "admin.access-control.epeople.actions.reset": "Redefinir senha",
@@ -423,7 +423,7 @@
   "admin.access-control.epeople.form.emailHint": "Deve ter um e-mail válido",
 
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
-  "admin.access-control.epeople.form.canLogIn": "Pode logar",
+  "admin.access-control.epeople.form.canLogIn": "Pode entrar",
 
 
   // "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
@@ -454,7 +454,7 @@
   "admin.access-control.epeople.form.notification.deleted.success": "EPerson \"{{name}}\" apagado com sucesso",
 
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.deleted.failure": "Falha ao deletar EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.failure": "Falha ao apagar EPerson \"{{name}}\"",
 
 
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
@@ -545,7 +545,7 @@
   "admin.access-control.groups.notification.deleted.success": "Grupo \"{{name}}\" apagado com sucesso",
 
   // "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
-  "admin.access-control.groups.notification.deleted.failure.title": "Falha ao deletar o grupo \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.failure.title": "Falha ao apagar o grupo \"{{name}}\"",
 
   // "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
   "admin.access-control.groups.notification.deleted.failure.content": "Causa: \"{{cause}}\"",
@@ -554,7 +554,7 @@
   "admin.access-control.groups.form.alert.permanent": "Este grupo é permanente, portanto, não pode ser editado ou excluído. Você ainda pode adicionar e remover membros do grupo usando esta página.",
 
   // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
-  "admin.access-control.groups.form.alert.workflowGroup": "Este grupo não pode ser modificado ou excluído porque corresponde a uma função no processo de submissão e workflow \"{{name}}\" {{comcol}}. Você não pode deletar ele da função atribuída: <a href='{{comcolEditRolesRoute}}'> </a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
+  "admin.access-control.groups.form.alert.workflowGroup": "Este grupo não pode ser modificado ou excluído porque corresponde a uma função no processo de submissão e workflow \"{{name}}\" {{comcol}}. Você não pode apagar ele da função atribuída: <a href='{{comcolEditRolesRoute}}'> </a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
 
   // "admin.access-control.groups.form.head.create": "Create group",
   "admin.access-control.groups.form.head.create": "Criar grupo",
@@ -596,7 +596,7 @@
   "admin.access-control.groups.form.delete-group.modal.header": "Apagar Grupo \"{{ dsoName }}\"",
 
   // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
-  "admin.access-control.groups.form.delete-group.modal.info": "Você tem certeza que quer deletar o Grupo \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.info": "Você tem certeza que quer apagar o Grupo \"{{ dsoName }}\"",
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
   "admin.access-control.groups.form.delete-group.modal.cancel": "Cancelar",
@@ -839,7 +839,7 @@
   "auth.messages.token-refresh-failed": "Falha ao atualizar seu token de sessão. Por favor faça login novamente.",
 
   // "bitstream.download.page": "Now downloading {{bitstream}}..." ,
-  "bitstream.download.page": "Agora downloading {{bitstream}}..." ,
+  "bitstream.download.page": "Baixando {{bitstream}} agora ..." ,
 
   // "bitstream.download.page.back": "Back" ,
   "bitstream.download.page.back": "Voltar" ,
@@ -922,7 +922,7 @@
 
 
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
-  "bitstream.edit.notifications.saved.content": "Suas alterações neste fluxo de bits foram salvas.",
+  "bitstream.edit.notifications.saved.content": "Suas alterações neste bitstream foram salvas.",
 
   // "bitstream.edit.notifications.saved.title": "Bitstream saved",
   "bitstream.edit.notifications.saved.title": "Bitstream salvo",
@@ -981,10 +981,10 @@
   "bitstream-request-a-copy.submit": "Solicitar cópia",
 
   // "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
-  "bitstream-request-a-copy.submit.success": "A solicitação de item foi enviada com sucesso.",
+  "bitstream-request-a-copy.submit.success": "A solicitação do item foi enviada com sucesso.",
 
   // "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
-  "bitstream-request-a-copy.submit.error": "Ocorreu um erro ao enviar a solicitação de item.",
+  "bitstream-request-a-copy.submit.error": "Ocorreu um erro ao enviar a solicitação do item.",
 
   // "browse.back.all-results": "All browse results",
   "browse.back.all-results": "Todos os resultados",
@@ -1098,7 +1098,7 @@
   "browse.startsWith.months.september": "Setembro",
 
   // "browse.startsWith.submit": "Browse",
-  "browse.startsWith.submit": "Ir",
+  "browse.startsWith.submit": "Pesquisar",
 
   // "browse.startsWith.type_date": "Filter results by date",
   "browse.startsWith.type_date": "Filtrar bresultados pela data",
@@ -1146,7 +1146,7 @@
   "collection.delete.notification.fail": "Coleção não pôde ser apagada",
 
   // "collection.delete.notification.success": "Successfully deleted collection",
-  "collection.delete.notification.success": "Apagou a coleção com sucesso",
+  "collection.delete.notification.success": "Coleção apagada com sucesso",
 
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
   "collection.delete.text": "Você tem certeza que deseja apagar a coleção \"{{ dso }}?\"",
@@ -1203,7 +1203,7 @@
   "collection.edit.item-mapper.notifications.unmap.error.head": "Erros de remoção de mapeamento",
 
   // "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
-  "collection.edit.item-mapper.notifications.unmap.success.content": "Removeu os mapeamentps de {{amount}} item(ns) com sucesso.",
+  "collection.edit.item-mapper.notifications.unmap.success.content": "Removeu os mapeamentos de {{amount}} item(ns) com sucesso.",
 
   // "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
   "collection.edit.item-mapper.notifications.unmap.success.head": "Remoção de mapeamentos completa",
@@ -1368,7 +1368,7 @@
   "collection.edit.template.loading": "Carregando o template de item...",
 
   // "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
-  "collection.edit.template.notifications.delete.error": "Falha ao deletar o item do template",
+  "collection.edit.template.notifications.delete.error": "Falha ao apagar o item do template",
 
   // "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
   "collection.edit.template.notifications.delete.success": "Item do template apagado com sucesso",
@@ -1463,13 +1463,13 @@
   // "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
   "collection.source.controls.reset.submit.error": "Alguma coisa errada durante a inicialização da redefinição e reimportação",
   // "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
-  "collection.source.controls.reset.failed": "Um erro ocorreru durante a redifinição e reimportação",
+  "collection.source.controls.reset.failed": "Um erro ocorreu durante a redifinição e reimportação",
   // "collection.source.controls.reset.completed": "The reset and reimport completed",
-  "collection.source.controls.reset.completed": "Completou o reset e a reimportação",
+  "collection.source.controls.reset.completed": "Completou a redefinição e a reimportação",
   // "collection.source.controls.reset.submit": "Reset and reimport",
-  "collection.source.controls.reset.submit": "Resetar e reimportar",
+  "collection.source.controls.reset.submit": "Redefinir e reimportar",
   // "collection.source.controls.reset.running": "Resetting and reimporting...",
-  "collection.source.controls.reset.running": "Resetando e importando...",
+  "collection.source.controls.reset.running": "Redefinindo e importando...",
   // "collection.source.controls.harvest.status": "Harvest status:",
   "collection.source.controls.harvest.status": "Status da Colheita (Harvest):",
   // "collection.source.controls.harvest.start": "Harvest start time:",
@@ -1551,10 +1551,10 @@
   "community.edit.logo.label": "Logo da Comunidade",
 
   // "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
-  "community.edit.logo.notifications.add.error": "Erro no Upload do Logo da Communidade. Por favor verifique o conteúdo antes de tentar novamente.",
+  "community.edit.logo.notifications.add.error": "Erro no envio do Logo da Communidade. Por favor verifique o conteúdo antes de tentar novamente.",
 
   // "community.edit.logo.notifications.add.success": "Upload Community logo successful.",
-  "community.edit.logo.notifications.add.success": "Sucesso no Upload do logo da Comunidade.",
+  "community.edit.logo.notifications.add.success": "Sucesso no envio do logo da Comunidade.",
 
   // "community.edit.logo.notifications.delete.success.title": "Logo deleted",
   "community.edit.logo.notifications.delete.success.title": "Logo apagado",
@@ -1614,7 +1614,7 @@
   "comcol-role.edit.create": "Criar",
 
   // "comcol-role.edit.create.error.title": "Failed to create a group for the '{{ role }}' role",
-  "comcol-role.edit.create.error.title": "Falha ao criar o grupo para a '{{ role }}' role",
+  "comcol-role.edit.create.error.title": "Falha ao criar o grupo '{{ role }}' para a função",
 
   // "comcol-role.edit.restrict": "Restrict",
   "comcol-role.edit.restrict": "Restrito",
@@ -1623,7 +1623,7 @@
   "comcol-role.edit.delete": "Apagar",
 
   // "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
-  "comcol-role.edit.delete.error.title": "Falha ao deletar a '{{ role }}' role's para o grupo",
+  "comcol-role.edit.delete.error.title": "Falha ao apagar a(s) funções '{{ role }}' para o grupo",
 
   // "comcol-role.edit.community-admin.name": "Administrators",
   "comcol-role.edit.community-admin.name": "Administradores",
@@ -2045,7 +2045,7 @@
   "error.validation.NotValidEmail": "Este E-mail não é válido",
 
   // "error.validation.emailTaken": "This E-mail is already taken",
-  "error.validation.emailTaken": "Este e-mail já está registrado",
+  "error.validation.emailTaken": "Este E-mail já está registrado",
 
   // "error.validation.groupExists": "This group already exists",
   "error.validation.groupExists": "Este Grupo já existe",
@@ -2243,7 +2243,7 @@
   "grant-deny-request-copy.email.back": "Voltar",
 
   // "grant-deny-request-copy.email.message": "Message",
-  "grant-deny-request-copy.email.message": "Menssagem",
+  "grant-deny-request-copy.email.message": "Mensagem",
 
   // "grant-deny-request-copy.email.message.empty": "Please enter a message",
   "grant-deny-request-copy.email.message.empty": "Por favor coloque uma mensagem",
@@ -2252,7 +2252,7 @@
   "grant-deny-request-copy.email.permissions.info": "Você pode aproveitar esta ocasião para reconsiderar as restrições de acesso ao documento, para evitar ter que responder a essas solicitações. Se você quiser pedir aos administradores do repositório para remover essas restrições, marque a caixa abaixo.",
 
   // "grant-deny-request-copy.email.permissions.label": "Change to open access",
-  "grant-deny-request-copy.email.permissions.label": "Trocar para acesso aberto",
+  "grant-deny-request-copy.email.permissions.label": "Trocar para acesso aberto (open access)",
 
   // "grant-deny-request-copy.email.send": "Send",
   "grant-deny-request-copy.email.send": "Enviar",
@@ -2499,10 +2499,10 @@
   "item.bitstreams.upload.notifications.upload.failed": "Falha no Upload. Por favor verifique o conteúdo antes de tentar novamente.",
 
   // "item.bitstreams.upload.title": "Upload bitstream",
-  "item.bitstreams.upload.title": "Upload bitstream",
+  "item.bitstreams.upload.title": "Enviar bitstream",
 
   // "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
-  "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
+  "item.edit.bitstreams.bundle.edit.buttons.upload": "Enviar",
 
   // "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
   "item.edit.bitstreams.bundle.displaying": "Mostrando atualmente {{ amount }} bitstreams de {{ total }}.",
@@ -2520,7 +2520,7 @@
   "item.edit.bitstreams.discard-button": "Descartar",
 
   // "item.edit.bitstreams.edit.buttons.download": "Download",
-  "item.edit.bitstreams.edit.buttons.download": "Download",
+  "item.edit.bitstreams.edit.buttons.download": "Baixar",
 
   // "item.edit.bitstreams.edit.buttons.drag": "Drag",
   "item.edit.bitstreams.edit.buttons.drag": "Arraste",
@@ -2535,7 +2535,7 @@
   "item.edit.bitstreams.edit.buttons.undo": "Desfazer mudanças",
 
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
-  "item.edit.bitstreams.empty": "Este item não possui nenhum bitstream. Clique no botão de upload e envie um novo.",
+  "item.edit.bitstreams.empty": "Este item não possui nenhum bitstream. Clique no botão de envio e envie um novo.",
 
   // "item.edit.bitstreams.headers.actions": "Actions",
   "item.edit.bitstreams.headers.actions": "Ações",
@@ -2589,7 +2589,7 @@
   "item.edit.bitstreams.save-button": "Salvar",
 
   // "item.edit.bitstreams.upload-button": "Upload",
-  "item.edit.bitstreams.upload-button": "Upload",
+  "item.edit.bitstreams.upload-button": "Enviar",
 
   // "item.edit.delete.cancel": "Cancel",
   "item.edit.delete.cancel": "Cancelar",
@@ -3094,7 +3094,7 @@
   "item.page.filesection.description": "Descrição:",
 
   // "item.page.filesection.download": "Download",
-  "item.page.filesection.download": "Download",
+  "item.page.filesection.download": "Baixar",
 
   // "item.page.filesection.format": "Format:",
   "item.page.filesection.format": "Formato:",
@@ -3106,7 +3106,7 @@
   "item.page.filesection.size": "Tamanho:",
 
   // "item.page.journal.search.title": "Articles in this journal",
-  "item.page.journal.search.title": "Articles in this journal",
+  "item.page.journal.search.title": "Artigos nesta revista",
 
   // "item.page.link.full": "Full item page",
   "item.page.link.full": "Página do item completo",
@@ -3163,7 +3163,7 @@
   "item.page.return": "Voltar",
 
   // "item.page.version.create": "Create new version",
-  "item.page.version.create": "Criar noca versão",
+  "item.page.version.create": "Criar nova versão",
 
   // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
   "item.page.version.hasDraft": "Não é possível criar uma nova versão porque há uma submissão em andamento no histórico de versões",
@@ -3190,7 +3190,7 @@
   "item.preview.dc.identifier.other": "Outro identificador:",
 
   // "item.preview.dc.language.iso": "Language:",
-  "item.preview.dc.language.iso": "Linguagem:",
+  "item.preview.dc.language.iso": "Idioma:",
 
   // "item.preview.dc.subject": "Subjects:",
   "item.preview.dc.subject": "Assuntos:",
@@ -3253,7 +3253,7 @@
   "item.select.confirm": "Confirmar seleção",
 
   // "item.select.empty": "No items to show",
-  "item.select.empty": "Nenhum itme a mostrar",
+  "item.select.empty": "Nenhum item a mostrar",
 
   // "item.select.table.author": "Author",
   "item.select.table.author": "Autor",
@@ -3319,10 +3319,10 @@
   "item.version.history.table.action.newVersion": "Criar nova versão a partir desta",
 
   // "item.version.history.table.action.deleteVersion": "Delete version",
-  "item.version.history.table.action.deleteVersion": "Deletar versão",
+  "item.version.history.table.action.deleteVersion": "Apagar versão",
 
   // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
-  "item.version.history.table.action.hasDraft": "Não é possível criar uma nova versão porque há um envio em andamento no histórico de versões",
+  "item.version.history.table.action.hasDraft": "Não é possível criar uma nova versão porque há uma submissão em andamento no histórico de versões",
 
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
   "item.version.notice": "Esta não é a versão mais recente deste item. A versão mais recente pode ser encontrada <a href='{{destination}}'>aqui</a>.",
@@ -3400,7 +3400,7 @@
   "item.version.edit.notification.failure" : "O resumo da versão número {{version}} não foi alterado",
 
   // "journal.listelement.badge": "Journal",
-  "journal.listelement.badge": "Periódico",
+  "journal.listelement.badge": "Revista",
 
   // "journal.page.description": "Description",
   "journal.page.description": "Descrição",
@@ -3418,16 +3418,16 @@
   "journal.page.publisher": "Editora",
 
   // "journal.page.titleprefix": "Journal: ",
-  "journal.page.titleprefix": "Periódico: ",
+  "journal.page.titleprefix": "Revista: ",
 
   // "journal.search.results.head": "Journal Search Results",
-  "journal.search.results.head": "Resultado da Busca de Periódicos",
+  "journal.search.results.head": "Resultado da Busca de Revistas",
 
   // "journal-relationships.search.results.head": "Journal Search Results",
-  "journal-relationships.search.results.head": "Resultados da Busca de Periódicos",
+  "journal-relationships.search.results.head": "Resultados da Busca de Revistas",
 
   // "journal.search.title": "Journal Search",
-  "journal.search.title": "Busca de Periódicos",
+  "journal.search.title": "Busca de Revistas",
 
   // "journalissue.listelement.badge": "Journal Issue",
   "journalissue.listelement.badge": "Fascículo",
@@ -3442,10 +3442,10 @@
   "journalissue.page.issuedate": "Data de Publicação",
 
   // "journalissue.page.journal-issn": "Journal ISSN",
-  "journalissue.page.journal-issn": "ISSN do Periódico",
+  "journalissue.page.journal-issn": "ISSN da Revista",
 
   // "journalissue.page.journal-title": "Journal Title",
-  "journalissue.page.journal-title": "Título do Periódico",
+  "journalissue.page.journal-title": "Título da Revista",
 
   // "journalissue.page.keyword": "Keywords",
   "journalissue.page.keyword": "Palavras-chave",
@@ -3457,7 +3457,7 @@
   "journalissue.page.titleprefix": "Fascículo: ",
 
   // "journalvolume.listelement.badge": "Journal Volume",
-  "journalvolume.listelement.badge": "Volume do Periódico",
+  "journalvolume.listelement.badge": "Volume da Revista",
 
   // "journalvolume.page.description": "Description",
   "journalvolume.page.description": "Descrição",
@@ -3469,7 +3469,7 @@
   "journalvolume.page.issuedate": "Data de Publicação",
 
   // "journalvolume.page.titleprefix": "Journal Volume: ",
-  "journalvolume.page.titleprefix": "Volume do Periódico: ",
+  "journalvolume.page.titleprefix": "Volume da Revista: ",
 
   // "journalvolume.page.volume": "Volume",
   "journalvolume.page.volume": "Volume",
@@ -3997,7 +3997,7 @@
   "nav.statistics.header": "Estatísticas",
 
   // "nav.stop-impersonating": "Stop impersonating EPerson",
-  "nav.stop-impersonating": "Deixar de assumir o papel de EPerson",
+  "nav.stop-impersonating": "Deixar de assumir o papel do EPerson",
 
   // "nav.toggle" : "Toggle navigation",
   "nav.toggle" : "Alternar navegação",
@@ -4409,10 +4409,10 @@
   "publication.page.edit": "Editar este item",
 
   // "publication.page.journal-issn": "Journal ISSN",
-  "publication.page.journal-issn": "ISSN do Periódico",
+  "publication.page.journal-issn": "ISSN da Revista",
 
   // "publication.page.journal-title": "Journal Title",
-  "publication.page.journal-title": "Título do Periódico",
+  "publication.page.journal-title": "Título da Revista",
 
   // "publication.page.publisher": "Publisher",
   "publication.page.publisher": "Editora",
@@ -4469,7 +4469,7 @@
   "register-page.create-profile.identification.contact": "Telefone de Contato",
 
   // "register-page.create-profile.identification.language": "Language",
-  "register-page.create-profile.identification.language": "Linguagem",
+  "register-page.create-profile.identification.language": "Idioma",
 
   // "register-page.create-profile.security.header": "Security",
   "register-page.create-profile.security.header": "Segurança",
@@ -4562,7 +4562,7 @@
   "relationships.isJournalIssueOf": "Fascículo",
 
   // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Periódicos",
+  "relationships.isJournalOf": "Revistas",
 
   // "relationships.isOrgUnitOf": "Organizational Units",
   "relationships.isOrgUnitOf": "Unidades Organizacionais",
@@ -4580,13 +4580,13 @@
   "relationships.isPublicationOfJournalIssue": "Artigos",
 
   // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Periódico",
+  "relationships.isSingleJournalOf": "Revista",
 
   // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Volume do Periódico",
+  "relationships.isSingleVolumeOf": "Volume da Revista",
 
   // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Volumes do Periódico",
+  "relationships.isVolumeOf": "Volumes da Revista",
 
   // "relationships.isContributorOf": "Contributors",
   "relationships.isContributorOf": "Contribuidores",
@@ -5198,7 +5198,7 @@
   "statistics.table.no-data": "Nenhum dado disponível",
 
   // "statistics.table.title.TotalVisits": "Total visits",
-  "statistics.table.title.TotalVisits": "Total visitas",
+  "statistics.table.title.TotalVisits": "Total de visitas",
 
   // "statistics.table.title.TotalVisitsPerMonth": "Total visits per month",
   "statistics.table.title.TotalVisitsPerMonth": "Total visitas por mês",
