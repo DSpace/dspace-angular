@@ -4162,5 +4162,8 @@
 
   "idle-modal.log-out": "Log out",
 
-  "idle-modal.extend-session": "Extend session"
+  "idle-modal.extend-session": "Extend session",
+
+
+  "listable-notification-object.default-message": "This object couldn't be retrieved",
 }

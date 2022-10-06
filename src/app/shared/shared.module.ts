@@ -177,6 +177,9 @@ import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
+import {
+  ListableNotificationObjectComponent
+} from './object-list/listable-notification-object/listable-notification-object.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -346,6 +349,7 @@ const COMPONENTS = [
   CommunitySidebarSearchListElementComponent,
   SearchNavbarComponent,
   ScopeSelectorModalComponent,
+  ListableNotificationObjectComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -402,6 +406,7 @@ const ENTRY_COMPONENTS = [
   OnClickMenuItemComponent,
   TextMenuItemComponent,
   ScopeSelectorModalComponent,
+  ListableNotificationObjectComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
