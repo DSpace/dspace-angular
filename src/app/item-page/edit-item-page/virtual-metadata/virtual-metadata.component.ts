@@ -47,7 +47,8 @@ export class VirtualMetadataComponent implements OnInit {
   @Output() save = new EventEmitter();
 
   /**
-   * Display thumbnails if required by configuration
+   * Indicates when thumbnails are required by configuration and therefore
+   * need to be hidden in the modal layout.
    */
   showThumbnails: boolean;
 
