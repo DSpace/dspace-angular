@@ -20,14 +20,12 @@ import { TestScheduler } from 'rxjs/testing';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
+  createFailedRemoteDataObject$
 } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 describe('BitstreamFormatsComponent', () => {
   let comp: BitstreamFormatsComponent;
@@ -84,10 +82,6 @@ describe('BitstreamFormatsComponent', () => {
     bitstreamFormat4
   ];
   const mockFormatsRD = createSuccessfulRemoteDataObject(createPaginatedList(mockFormatsList));
-
-  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
-  const sort = new SortOptions('score', SortDirection.DESC);
-  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
 
   const initAsync = () => {
     notificationsServiceStub = new NotificationsServiceStub();
@@ -246,7 +240,7 @@ describe('BitstreamFormatsComponent', () => {
     ));
 
     beforeEach(initBeforeEach);
-    it('should clear bitstream formats  ', () => {
+    it('should clear bitstream formats and show a success notification', () => {
       comp.deleteFormats();
 
       expect(bitstreamFormatService.clearBitStreamFormatRequests).toHaveBeenCalled();
@@ -275,7 +269,7 @@ describe('BitstreamFormatsComponent', () => {
           selectBitstreamFormat: {},
           deselectBitstreamFormat: {},
           deselectAllBitstreamFormats: {},
-          delete: observableOf(false),
+          delete: createFailedRemoteDataObject$(),
           clearBitStreamFormatRequests: observableOf('cleared')
         });
 
@@ -295,7 +289,7 @@ describe('BitstreamFormatsComponent', () => {
     ));
 
     beforeEach(initBeforeEach);
-    it('should clear bitstream formats  ', () => {
+    it('should clear bitstream formats and show an error notification', () => {
       comp.deleteFormats();
 
       expect(bitstreamFormatService.clearBitStreamFormatRequests).toHaveBeenCalled();
