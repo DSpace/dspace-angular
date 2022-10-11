@@ -11,9 +11,9 @@ import {
   DeactivateMenuSectionAction,
   ExpandMenuAction,
   ExpandMenuPreviewAction,
-  HideMenuAction,
+  HideMenuAction, HideMenuSectionAction,
   RemoveMenuSectionAction,
-  ShowMenuAction,
+  ShowMenuAction, ShowMenuSectionAction,
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
 } from './menu.actions';
@@ -241,11 +241,29 @@ export class MenuService {
   }
 
   /**
+   * Show a given menu section
+   * @param {MenuID} menuID The ID of the menu
+   * @param id The ID of the section
+   */
+  showMenuSection(menuID: MenuID, id: string): void {
+    this.store.dispatch(new ShowMenuSectionAction(menuID, id));
+  }
+
+  /**
    * Hide a given menu
    * @param {MenuID} menuID The ID of the menu
    */
   hideMenu(menuID: MenuID): void {
     this.store.dispatch(new HideMenuAction(menuID));
+  }
+
+  /**
+   * Hide a given menu section
+   * @param {MenuID} menuID The ID of the menu
+   * @param id The ID of the section
+   */
+  hideMenuSection(menuID: MenuID, id: string): void {
+    this.store.dispatch(new HideMenuSectionAction(menuID, id));
   }
 
   /**

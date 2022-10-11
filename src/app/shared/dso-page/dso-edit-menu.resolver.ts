@@ -9,15 +9,18 @@ import { Item } from '../../core/shared/item.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OnClickMenuItemModel } from '../menu/menu-item/models/onclick.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { map, switchMap } from 'rxjs/operators';
+import { map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
-import { hasNoValue, hasValue } from '../empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
 import { MenuID } from '../menu/menu-id.model';
 import { MenuItemType } from '../menu/menu-item-type.model';
 import { MenuSection } from '../menu/menu-section.model';
 import { getDSORoute } from '../../app-routing-paths';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Creates the menus for the dspace object pages
@@ -33,6 +36,9 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
     protected authorizationService: AuthorizationDataService,
     protected modalService: NgbModal,
     protected dsoVersioningModalService: DsoVersioningModalService,
+    protected researcherProfileService: ResearcherProfileDataService,
+    protected notificationsService: NotificationsService,
+    protected translate: TranslateService,
   ) {
   }
 
@@ -96,7 +102,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
               link: new URLCombiner(getDSORoute(dso), 'edit', 'metadata').toString()
             } as LinkMenuItemModel,
             icon: 'pencil-alt',
-            index: 1
+            index: 2
           },
         ];
       })
@@ -104,17 +110,32 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
   }
 
   /**
-   * Get item sepcific menus
+   * Get item specific menus
    */
   protected getItemMenu(dso): Observable<MenuSection[]> {
     if (dso instanceof Item) {
       return combineLatest([
         this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, dso.self),
         this.dsoVersioningModalService.isNewVersionButtonDisabled(dso),
-        this.dsoVersioningModalService.getVersioningTooltipMessage(dso, 'item.page.version.hasDraft', 'item.page.version.create')
+        this.dsoVersioningModalService.getVersioningTooltipMessage(dso, 'item.page.version.hasDraft', 'item.page.version.create'),
+        this.authorizationService.isAuthorized(FeatureID.CanSynchronizeWithORCID, dso.self),
+        this.authorizationService.isAuthorized(FeatureID.CanClaimItem, dso.self),
       ]).pipe(
-        map(([canCreateVersion, disableVersioning, versionTooltip]) => {
+        map(([canCreateVersion, disableVersioning, versionTooltip, canSynchronizeWithOrcid, canClaimItem]) => {
+          const isPerson = this.getDsoType(dso) === 'person';
           return [
+            {
+              id: 'orcid-dso',
+              active: false,
+              visible: isPerson && canSynchronizeWithOrcid,
+              model: {
+                type: MenuItemType.LINK,
+                text: 'item.page.orcid.tooltip',
+                link: new URLCombiner(getDSORoute(dso), 'orcid').toString()
+              } as LinkMenuItemModel,
+              icon: 'orcid fab fa-lg',
+              index: 0
+            },
             {
               id: 'version-dso',
               active: false,
@@ -128,7 +149,21 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
                 }
               } as OnClickMenuItemModel,
               icon: 'code-branch',
-              index: 0
+              index: 1
+            },
+            {
+              id: 'claim-dso',
+              active: false,
+              visible: isPerson && canClaimItem,
+              model: {
+                type: MenuItemType.ONCLICK,
+                text: 'item.page.claim.button',
+                function: () => {
+                  this.claimResearcher(dso);
+                }
+              } as OnClickMenuItemModel,
+              icon: 'hand-paper',
+              index: 3
             },
           ];
         }),
@@ -136,6 +171,26 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
     } else {
       return observableOf([]);
     }
+  }
+
+  /**
+   * Claim a researcher by creating a profile
+   * Shows notifications and/or hides the menu section on success/error
+   */
+  protected claimResearcher(dso) {
+    this.researcherProfileService.createFromExternalSourceAndReturnRelatedItemId(dso.self)
+      .subscribe((id: string) => {
+        if (isNotEmpty(id)) {
+          this.notificationsService.success(this.translate.get('researcherprofile.success.claim.title'),
+            this.translate.get('researcherprofile.success.claim.body'));
+          this.authorizationService.invalidateAuthorizationsRequestCache();
+          this.menuService.hideMenuSection(MenuID.DSO_EDIT, 'claim-dso-' + dso.uuid);
+        } else {
+          this.notificationsService.error(
+            this.translate.get('researcherprofile.error.claim.title'),
+            this.translate.get('researcherprofile.error.claim.body'));
+        }
+      });
   }
 
   /**

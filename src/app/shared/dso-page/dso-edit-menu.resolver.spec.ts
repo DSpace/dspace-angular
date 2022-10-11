@@ -1,7 +1,7 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { MenuServiceStub } from '../testing/menu-service.stub';
 import { of as observableOf } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AdminSidebarComponent } from '../../admin/admin-sidebar/admin-sidebar.component';
@@ -18,6 +18,8 @@ import { MenuID } from '../menu/menu-id.model';
 import { MenuItemType } from '../menu/menu-item-type.model';
 import { TextMenuItemModel } from '../menu/menu-item/models/text.model';
 import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
+import { NotificationsService } from '../notifications/notifications.service';
 
 describe('DSOEditMenuResolver', () => {
 
@@ -31,6 +33,9 @@ describe('DSOEditMenuResolver', () => {
   let menuService;
   let authorizationService;
   let dsoVersioningModalService;
+  let researcherProfileService;
+  let notificationsService;
+  let translate;
 
   const route = {
     data: {
@@ -99,6 +104,16 @@ describe('DSOEditMenuResolver', () => {
       getVersioningTooltipMessage: observableOf('message'),
       openCreateVersionModal: {}
     });
+    researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
+      createFromExternalSourceAndReturnRelatedItemId: observableOf('mock-id'),
+    });
+    translate = jasmine.createSpyObj('translate', {
+      get: observableOf('translated-message'),
+    });
+    notificationsService = jasmine.createSpyObj('notificationsService', {
+      success: {},
+      error: {},
+    });
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
@@ -108,6 +123,9 @@ describe('DSOEditMenuResolver', () => {
         {provide: MenuService, useValue: menuService},
         {provide: AuthorizationDataService, useValue: authorizationService},
         {provide: DsoVersioningModalService, useValue: dsoVersioningModalService},
+        {provide: ResearcherProfileDataService, useValue: researcherProfileService},
+        {provide: TranslateService, useValue: translate},
+        {provide: NotificationsService, useValue: notificationsService},
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/
@@ -194,17 +212,30 @@ describe('DSOEditMenuResolver', () => {
     });
   });
   describe('getDsoMenus', () => {
-    it('should return as first part the item version list ', (done) => {
+    it('should return as first part the item version, orcid and claim list ', (done) => {
       const result = resolver.getDsoMenus(testObject, route, state);
       result[0].subscribe((menuList) => {
-        expect(menuList.length).toEqual(1);
-        expect(menuList[0].id).toEqual('version-dso');
+        expect(menuList.length).toEqual(3);
+        expect(menuList[0].id).toEqual('orcid-dso');
         expect(menuList[0].active).toEqual(false);
-        expect(menuList[0].visible).toEqual(true);
-        expect(menuList[0].model.type).toEqual(MenuItemType.ONCLICK);
-        expect((menuList[0].model as TextMenuItemModel).text).toEqual('message');
-        expect(menuList[0].model.disabled).toEqual(false);
-        expect(menuList[0].icon).toEqual('code-branch');
+        // Visible should be false due to the item not being of type person
+        expect(menuList[0].visible).toEqual(false);
+        expect(menuList[0].model.type).toEqual(MenuItemType.LINK);
+
+        expect(menuList[1].id).toEqual('version-dso');
+        expect(menuList[1].active).toEqual(false);
+        expect(menuList[1].visible).toEqual(true);
+        expect(menuList[1].model.type).toEqual(MenuItemType.ONCLICK);
+        expect((menuList[1].model as TextMenuItemModel).text).toEqual('message');
+        expect(menuList[1].model.disabled).toEqual(false);
+        expect(menuList[1].icon).toEqual('code-branch');
+
+        expect(menuList[2].id).toEqual('claim-dso');
+        expect(menuList[2].active).toEqual(false);
+        // Visible should be false due to the item not being of type person
+        expect(menuList[2].visible).toEqual(false);
+        expect(menuList[2].model.type).toEqual(MenuItemType.ONCLICK);
+        expect((menuList[2].model as TextMenuItemModel).text).toEqual('item.page.claim.button');
         done();
       });
 
