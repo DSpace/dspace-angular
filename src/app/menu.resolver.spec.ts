@@ -260,7 +260,13 @@ describe('MenuResolver', () => {
           id: 'import', visible: true,
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'import_batch', parentID: 'import', visible: true,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
           id: 'export', visible: true,
+        }));
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
+          id: 'export_batch', parentID: 'export', visible: true,
         }));
       });
     });

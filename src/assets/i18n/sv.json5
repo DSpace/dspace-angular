@@ -1499,7 +1499,7 @@
   "communityList.tabTitle": "Enheter",
 
   // "communityList.title": "List of Communities",
-  "communityList.title": "Lista med enheter", 
+  "communityList.title": "Lista med enheter",
 
   // "communityList.showMore": "Show More",
   "communityList.showMore": "Visa fler",
@@ -5468,7 +5468,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.local-entity": "Lokal tidskrift har lagts till",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.new-entity": "Successfully imported and added external journal to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.new-entity": "Extern tidskrift har importerats och lagts till", 
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.new-entity": "Extern tidskrift har importerats och lagts till",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.title": "Import Remote Journal Issue",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.title": "Importera externt tidskriftsexemplar",
@@ -6179,7 +6179,8 @@
   // "uploader.or": ", or ",
   "uploader.or": ", eller ",
 
-  // "uploader.processing": "Processing",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
+  // TODO Source message changed - Revise the translation
   "uploader.processing": "Bearbetar",
 
   // "uploader.queue-length": "Queue length",

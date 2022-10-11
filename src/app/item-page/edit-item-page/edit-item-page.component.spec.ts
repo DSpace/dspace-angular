@@ -22,7 +22,6 @@ describe('ItemPageComponent', () => {
 
   class AcceptNoneGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      console.log('BLA');
       return observableOf(false);
     }
   }

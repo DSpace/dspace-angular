@@ -22,6 +22,7 @@ import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.s
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { Observable, of as observableOf } from 'rxjs';
+import { EMBED_SEPARATOR } from './base-data.service';
 
 /**
  * Tests whether calls to `FindAllData` methods are correctly patched through in a concrete data service that implements it
@@ -276,7 +277,7 @@ describe('FindAllDataImpl', () => {
     });
 
     it('should include nested linksToFollow 3lvl', () => {
-      const expected = `${endpoint}?embed=owningCollection/itemtemplate/relationships`;
+      const expected = `${endpoint}?embed=owningCollection${EMBED_SEPARATOR}itemtemplate${EMBED_SEPARATOR}relationships`;
 
       (service as any).getFindAllHref({}, null, followLink('owningCollection', {}, followLink('itemtemplate', {}, followLink('relationships')))).subscribe((value) => {
         expect(value).toBe(expected);
@@ -284,7 +285,7 @@ describe('FindAllDataImpl', () => {
     });
 
     it('should include nested linksToFollow 2lvl and nested embed\'s size', () => {
-      const expected = `${endpoint}?embed.size=owningCollection/itemtemplate=4&embed=owningCollection/itemtemplate`;
+      const expected = `${endpoint}?embed.size=owningCollection${EMBED_SEPARATOR}itemtemplate=4&embed=owningCollection${EMBED_SEPARATOR}itemtemplate`;
       const config: FindListOptions = Object.assign(new FindListOptions(), {
         elementsPerPage: 4,
       });

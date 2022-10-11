@@ -25,6 +25,7 @@ import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALDataService } from './hal-data-service.interface';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 
+export const EMBED_SEPARATOR = '%2F';
 /**
  * Common functionality for data services.
  * Specific functionality that not all services would need
@@ -202,7 +203,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
     let nestEmbed = embedString;
     linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
       if (hasValue(linkToFollow) && linkToFollow.shouldEmbed) {
-        nestEmbed = nestEmbed + '/' + String(linkToFollow.name);
+        nestEmbed = nestEmbed + EMBED_SEPARATOR + String(linkToFollow.name);
         // Add the nested embeds size if given in the FollowLinkConfig.FindListOptions
         if (hasValue(linkToFollow.findListOptions) && hasValue(linkToFollow.findListOptions.elementsPerPage)) {
           const nestedEmbedSize = 'embed.size=' + nestEmbed.split('=')[1] + '=' + linkToFollow.findListOptions.elementsPerPage;
