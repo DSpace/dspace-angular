@@ -50,7 +50,7 @@ export class OrcidComponent extends RenderingTypeValueModelComponent implements 
   }
 
   public hasOrcidBadge(): boolean {
-    return this.item.hasMetadata('cris.orcid.authenticated');
+    return this.item.hasMetadata('dspace.orcid.authenticated');
   }
 
 }
