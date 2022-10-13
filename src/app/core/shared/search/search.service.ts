@@ -376,7 +376,7 @@ export class SearchService implements OnDestroy {
     let href;
     const args: string[] = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`];
     if (hasValue(filterQuery)) {
-      args.push(`prefix=${filterQuery}`);
+      args.push(`prefix=${encodeURIComponent(filterQuery)}`);
     }
     if (hasValue(searchOptions)) {
       href = searchOptions.toRestUrl(filterConfig._links.self.href, args);
