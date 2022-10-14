@@ -1,6 +1,6 @@
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import * as formatInTimeZone from 'date-fns-tz/formatInTimeZone';
-import isValid from 'date-fns/isValid';
+import { formatInTimeZone }  from 'date-fns-tz';
+import { isValid } from 'date-fns';
 import { isObject } from 'lodash';
 
 import { isNull, isUndefined } from './empty.util';
