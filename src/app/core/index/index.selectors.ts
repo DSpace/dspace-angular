@@ -3,6 +3,7 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { coreSelector } from '../core.selectors';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { IndexState, MetaIndexState } from './index.reducer';
+// eslint-disable-next-line import/no-namespace
 import * as parse from 'url-parse';
 import { IndexName } from './index-name.model';
 import { CoreState } from '../core-state.model';

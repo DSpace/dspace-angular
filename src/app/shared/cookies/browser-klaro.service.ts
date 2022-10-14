@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as Klaro from 'klaro';
+import { setup, show } from 'klaro';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -136,7 +136,7 @@ export class BrowserKlaroService extends KlaroService {
 
         this.klaroConfig.services = this.filterConfigServices(servicesToHide);
 
-        Klaro.setup(this.klaroConfig);
+        setup(this.klaroConfig);
       });
   }
 
@@ -220,7 +220,7 @@ export class BrowserKlaroService extends KlaroService {
    * Show the cookie consent form
    */
   showSettings() {
-    Klaro.show(this.klaroConfig);
+    show(this.klaroConfig);
   }
 
   /**

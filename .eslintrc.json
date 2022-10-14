@@ -204,6 +204,7 @@
 
         "import/order": "off",
         "import/no-deprecated": "warn",
+        "import/no-namespace": "error",
 
         "lodash/import-scope": [
           "error",
