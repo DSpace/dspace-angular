@@ -131,4 +131,13 @@ export class SearchResultsComponent {
 
     return result;
   }
+
+  /**
+   * Catch the custom event and emit it again
+   * @param $event
+   */
+  emitCustomEvent($event: any) {
+    this.customEvent.emit($event);
+  }
+
 }
