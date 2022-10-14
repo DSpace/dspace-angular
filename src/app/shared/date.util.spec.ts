@@ -1,4 +1,4 @@
-import { dateToString, dateToNgbDateStruct, dateToISOFormat, isValidDate } from './date.util';
+import { dateToString, dateToNgbDateStruct, dateToISOFormat, isValidDate, yearFromString } from './date.util';
 
 describe('Date Utils', () => {
 
@@ -84,6 +84,24 @@ describe('Date Utils', () => {
         });
         it('should return false for a time that does not exist', () => {
             expect(isValidDate('2022-02-60T10:60:20')).toBe(false);
+        });
+    });
+
+    describe('yearFromString', () => {
+        it('should return year from YYYY string', () => {
+            expect(yearFromString('2022')).toEqual(2022);
+        });
+        it('should return year from YYYY-MM string', () => {
+            expect(yearFromString('1970-06')).toEqual(1970);
+        });
+        it('should return year from YYYY-MM-DD string', () => {
+            expect(yearFromString('1914-10-23')).toEqual(1914);
+        });
+        it('should return year from YYYY-MM-DDTHH:MM:SSZ string', () => {
+            expect(yearFromString('1914-10-23T10:20:30Z')).toEqual(1914);
+        });
+        it('should return null if invalid date', () => {
+            expect(yearFromString('test')).toBeNull();
         });
     });
 });
