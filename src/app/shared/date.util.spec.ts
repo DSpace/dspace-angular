@@ -1,11 +1,11 @@
 import { dateToString, dateToNgbDateStruct, dateToISOFormat, isValidDate } from './date.util';
 
-fdescribe('Date Utils', () => {
+describe('Date Utils', () => {
 
     describe('dateToISOFormat', () => {
         it('should convert Date to YYYY-MM-DDThh:mm:ssZ string', () => {
             // NOTE: month is zero indexed which is why it increases by one
-            expect(dateToISOFormat(new Date(2022, 5, 3))).toEqual('2022-06-03T00:00:00Z');
+            expect(dateToISOFormat(new Date(Date.UTC(2022, 5, 3)))).toEqual('2022-06-03T00:00:00Z');
         });
         it('should convert Date string to YYYY-MM-DDThh:mm:ssZ string', () => {
             expect(dateToISOFormat('2022-06-03')).toEqual('2022-06-03T00:00:00Z');
