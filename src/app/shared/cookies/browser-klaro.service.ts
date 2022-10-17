@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { setup, show } from 'klaro';
+import { setup, show } from 'klaro/dist/klaro-no-translations';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -79,7 +79,7 @@ export class BrowserKlaroService extends KlaroService {
   initialize() {
     if (!environment.info.enablePrivacyStatement) {
       delete this.klaroConfig.privacyPolicy;
-      this.klaroConfig.translations.en.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
+      this.klaroConfig.translations.zz.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
     }
 
     const hideGoogleAnalytics$ = this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY).pipe(
@@ -228,12 +228,12 @@ export class BrowserKlaroService extends KlaroService {
    */
   addAppMessages() {
     this.klaroConfig.services.forEach((app) => {
-      this.klaroConfig.translations.en[app.name] = {
+      this.klaroConfig.translations.zz[app.name] = {
         title: this.getTitleTranslation(app.name),
         description: this.getDescriptionTranslation(app.name)
       };
       app.purposes.forEach((purpose) => {
-        this.klaroConfig.translations.en.purposes[purpose] = this.getPurposeTranslation(purpose);
+        this.klaroConfig.translations.zz.purposes[purpose] = this.getPurposeTranslation(purpose);
       });
     });
   }
@@ -247,7 +247,7 @@ export class BrowserKlaroService extends KlaroService {
      */
     this.translateService.setDefaultLang(environment.defaultLanguage);
 
-    this.translate(this.klaroConfig.translations.en);
+    this.translate(this.klaroConfig.translations.zz);
   }
 
   /**
