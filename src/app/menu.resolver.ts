@@ -650,6 +650,32 @@ export class MenuResolver implements Resolve<boolean> {
           icon: 'user-check',
           index: 11
         },
+        /* User agreement edit*/
+        {
+          id: 'user_agreement_edit',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.edit_user_agreement',
+            link: '/admin/edit-user-agreement'
+          } as LinkMenuItemModel,
+          icon: 'list-alt',
+          index: 13
+        },
+        /* CMS edit menu entry */
+        {
+          id: 'metadata_cms_edit',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.cms_metadata_edit',
+            link: '/admin/edit-cms-metadata'
+          } as LinkMenuItemModel,
+          icon: 'edit',
+          index: 14
+        },
       ];
 
       menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
