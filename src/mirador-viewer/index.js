@@ -4,6 +4,7 @@ import miradorSharePlugin from 'mirador-share-plugin/es/miradorSharePlugin';
 import miradorDownloadPlugin from 'mirador-dl-plugin/es/miradorDownloadPlugin';
 import miradorDownloadDialog from 'mirador-dl-plugin/es/MiradorDownloadDialog';
 
+const embedURL = location.href;
 const params = new URLSearchParams(location.search);
 const manifest = params.get('manifest');
 const searchOption = params.get('searchable');
@@ -104,8 +105,8 @@ windowSettings.manifestId = manifest;
         embedOption: {
           enabled: true,
           embedUrlReplacePattern: [
-            /.*\.edu\/(\w+)\/iiif\/manifest/,
-            manifest
+            /.*/,
+            embedURL
           ],
           syncIframeDimensions: {
             height: {param: 'maxheight'},

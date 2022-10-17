@@ -13,6 +13,8 @@
   --ds-login-logo-width: 72px;
   --ds-submission-header-z-index: 1001;
   --ds-submission-footer-z-index: 999;
+  // z-index of group form delete button in submission form to not overlay on the footer
+  --ds-submission-inline-group-form-delete-z-index: 998;
 
   --ds-main-z-index: 1;
   --ds-nav-z-index: 10;
