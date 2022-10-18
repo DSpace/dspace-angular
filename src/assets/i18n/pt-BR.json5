@@ -1260,7 +1260,7 @@
   "collection.edit.logo.label": "Logotipo de Coleção",
 
   // "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
-  "collection.edit.logo.notifications.add.error": "Falha ao carregar o logotipo da coleção. Verifique o ficheiro antes de tentar de novo.",
+  "collection.edit.logo.notifications.add.error": "Falha ao carregar o logotipo da coleção. Verifique o arquivo antes de tentar de novo.",
 
   // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
   "collection.edit.logo.notifications.add.success": "O logotipo da coleção foi carregado com sucesso.",
@@ -2505,7 +2505,7 @@
   "item.alerts.withdrawn": "Este item foi recebido",
 
   // "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
-  "item.edit.authorizations.heading": "Com este editor pode ver e alterar as políticas de um item, assim como alterar políticas de componentes individuais do item: pacotes e ficheiros. Em resumo, um item contém pacotes, e os pacotes contêm de ficheiros. Os pacotes possuem usualmente políticas de ADICIONAR/REMOVER/LER/ESCREVER enquanto que os ficheiros apenas políticas de LER/ESCREVER.",
+  "item.edit.authorizations.heading": "Com este editor pode ver e alterar as políticas de um item, assim como alterar políticas de componentes individuais do item: pacotes e arquivos. Em resumo, um item contém pacotes, e os pacotes contêm de arquivos. Os pacotes possuem usualmente políticas de ADICIONAR/REMOVER/LER/ESCREVER enquanto que os arquivos apenas políticas de LER/ESCREVER.",
 
   // "item.edit.authorizations.title": "Edit item's Policies",
   "item.edit.authorizations.title": "Editar Política de item",
