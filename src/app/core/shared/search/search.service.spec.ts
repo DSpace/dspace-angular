@@ -23,11 +23,11 @@ import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.s
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { SearchObjects } from '../../../shared/search/search-objects.model';
 import { PaginationService } from '../../pagination/pagination.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
-import { FindListOptions } from '../../data/request.models';
 import { SearchConfigurationService } from './search-configuration.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
+import { GetRequest } from '../../data/request.models';
+import anything = jasmine.anything;
 
 @Component({ template: '' })
 class DummyComponent {
@@ -38,7 +38,7 @@ describe('SearchService', () => {
     let searchService: SearchService;
     const router = new RouterStub();
     const route = new ActivatedRouteStub();
-    const searchConfigService = {paginationID: 'page-id'};
+    const searchConfigService = { paginationID: 'page-id' };
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
@@ -104,7 +104,8 @@ describe('SearchService', () => {
     };
 
     const paginationService = new PaginationServiceStub();
-    const searchConfigService = {paginationID: 'page-id'};
+    const searchConfigService = { paginationID: 'page-id' };
+    const requestService = getMockRequestService();
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -120,7 +121,7 @@ describe('SearchService', () => {
         providers: [
           { provide: Router, useValue: router },
           { provide: RouteService, useValue: routeServiceStub },
-          { provide: RequestService, useValue: getMockRequestService() },
+          { provide: RequestService, useValue: requestService },
           { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
           { provide: HALEndpointService, useValue: halService },
           { provide: CommunityDataService, useValue: {} },
@@ -138,13 +139,13 @@ describe('SearchService', () => {
 
     it('should call the navigate method on the Router with view mode list parameter as a parameter when setViewMode is called', () => {
       searchService.setViewMode(ViewMode.ListElement);
-      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], {page: 1}, { view: ViewMode.ListElement }
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], { page: 1 }, { view: ViewMode.ListElement }
       );
     });
 
     it('should call the navigate method on the Router with view mode grid parameter as a parameter when setViewMode is called', () => {
       searchService.setViewMode(ViewMode.GridElement);
-      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], {page: 1}, { view: ViewMode.GridElement }
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], { page: 1 }, { view: ViewMode.GridElement }
       );
     });
 
@@ -290,5 +291,22 @@ describe('SearchService', () => {
       });
     });
 
+    describe('when getFacetValuesFor is called with a filterQuery', () => {
+      it('should add the encoded filterQuery to the args list', () => {
+        jasmine.getEnv().allowRespy(true);
+        const spyRequest = spyOn((searchService as any), 'request').and.stub();
+        spyOn(requestService, 'send').and.returnValue(true);
+        const searchFilterConfig = new SearchFilterConfig();
+        searchFilterConfig._links = {
+          self: {
+            href: 'https://demo.dspace.org/',
+          },
+        };
+
+        searchService.getFacetValuesFor(searchFilterConfig, 1, undefined, 'filter&Query');
+
+        expect(spyRequest).toHaveBeenCalledWith(anything(), 'https://demo.dspace.org?page=0&size=5&prefix=filter%26Query');
+      });
+    });
   });
 });
