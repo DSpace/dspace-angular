@@ -44,8 +44,8 @@ describe('OnClickMenuItemComponent', () => {
     expect(textContent).toEqual(text);
   });
 
-  it('should contain call the function on the item when clicked', () => {
-    debugElement.query(By.css('a.nav-link')).triggerEventHandler('click', {});
+  it('should call the function on the item when clicked', () => {
+    debugElement.query(By.css('a.nav-link')).triggerEventHandler('click', new Event(('click')));
     expect(item.function).toHaveBeenCalled();
   });
 });

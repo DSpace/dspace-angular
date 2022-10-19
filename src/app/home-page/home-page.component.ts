@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Site } from '../core/shared/site.model';
-
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'ds-home-page',
   styleUrls: ['./home-page.component.scss'],
@@ -12,10 +12,11 @@ import { Site } from '../core/shared/site.model';
 export class HomePageComponent implements OnInit {
 
   site$: Observable<Site>;
-
+  recentSubmissionspageSize: number;
   constructor(
     private route: ActivatedRoute,
   ) {
+    this.recentSubmissionspageSize = environment.homePage.recentSubmissions.pageSize;
   }
 
   ngOnInit(): void {

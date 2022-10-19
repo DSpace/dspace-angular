@@ -4,7 +4,6 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
-import { DataService } from '../../core/data/data.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ResourceType } from '../../core/shared/resource-type';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
@@ -12,21 +11,21 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RequestService } from '../../core/data/request.service';
 import { SearchService } from '../../core/shared/search/search.service';
-import { Observable} from 'rxjs/internal/Observable';
-import { of} from 'rxjs/internal/observable/of';
+import { Observable, of } from 'rxjs';
 import { ProcessTaskResponse } from '../../core/tasks/models/process-task-response';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { getSearchResultFor } from '../search/search-result-element-decorator';
 import { MyDSpaceActionsComponent } from './mydspace-actions';
+import { IdentifiableDataService } from '../../core/data/base/identifiable-data.service';
 
 /**
  * Abstract class for all different representations of mydspace actions
  */
 @Component({
   selector: 'ds-mydspace-reloadable-actions',
-  template: ''
+  template: '',
 })
-export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject, TService extends DataService<T>>
+export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject, TService extends IdentifiableDataService<T>>
   extends MyDSpaceActionsComponent<T, TService> implements OnInit {
 
   protected constructor(
@@ -36,7 +35,8 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
     protected searchService: SearchService,
-    protected requestService: RequestService) {
+    protected requestService: RequestService,
+  ) {
     super(objectType, injector, router, notificationsService, translate, searchService, requestService);
   }
 
@@ -110,7 +110,7 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
   /**
    * Hook called on init to initialized the required information used to reload the object.
    */
-  // tslint:disable-next-line:no-empty
+  // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function
   initReloadAnchor() {}
 
   /**

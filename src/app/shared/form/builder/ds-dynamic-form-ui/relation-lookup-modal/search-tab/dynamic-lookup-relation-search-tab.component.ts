@@ -2,24 +2,28 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { Item } from '../../../../../../core/shared/item.model';
-import { SearchResult } from '../../../../../search/search-result.model';
+import { SearchResult } from '../../../../../search/models/search-result.model';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../core/data/remote-data';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { hasValue } from '../../../../../empty.util';
-import { map, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { getFirstSucceededRemoteData } from '../../../../../../core/shared/operators';
-import { RouteService } from '../../../../../../core/services/route.service';
+import { map, mapTo, switchMap, take, tap } from 'rxjs/operators';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { Context } from '../../../../../../core/shared/context.model';
 import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { RelationshipDataService } from '../../../../../../core/data/relationship-data.service';
+import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
+
+import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
+import { SearchObjects } from '../../../../../search/models/search-objects.model';
+import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
+
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-search-tab',
@@ -64,6 +68,32 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   @Input() context: Context;
 
   /**
+   * The type of relationship
+   */
+  @Input() relationshipType: RelationshipType;
+
+  /**
+   * The item being viewed
+   */
+  @Input() item: Item;
+
+  /**
+   * Check if is left type or right type
+   */
+  @Input() isLeft: boolean;
+
+  /**
+   * Check if is left type or right type
+   */
+  @Input() toRemove: SearchResult<Item>[];
+
+
+  /**
+   * Check if is being utilized by edit relationship component
+   */
+  @Input() isEditRelationship: boolean;
+
+  /**
    * Send an event to deselect an object from the list
    */
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
@@ -76,7 +106,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   /**
    * Search results
    */
-  resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
+  resultsRD$: BehaviorSubject<SearchObjects<DSpaceObject>> = new BehaviorSubject<SearchObjects<DSpaceObject>>(null);
 
   /**
    * Are all results selected?
@@ -111,14 +141,17 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    */
   linkTypes = CollectionElementLinkType;
 
+  /**
+   * Emits an event with the current search result entries
+   */
+  @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter<SearchObjects<DSpaceObject>>();
+
   constructor(
     private searchService: SearchService,
-    private router: Router,
-    private route: ActivatedRoute,
     private selectableListService: SelectableListService,
     public searchConfigService: SearchConfigurationService,
-    private routeService: RouteService,
     public lookupRelationService: LookupRelationService,
+    private relationshipService: RelationshipDataService,
     private paginationService: PaginationService
   ) {
   }
@@ -128,11 +161,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    */
   ngOnInit(): void {
     this.resetRoute();
-    this.routeService.setParameter('fixedFilterQuery', this.relationship.filter);
-    this.routeService.setParameter('configuration', this.relationship.searchConfiguration);
-    this.resultsRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
-      switchMap((options) => this.lookupRelationService.getLocalResults(this.relationship, options).pipe(startWith(undefined)))
-    );
   }
 
   /**
@@ -146,7 +174,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * Selects a page in the store
    * @param page The page to select
    */
-  selectPage(page: SearchResult<Item>[]) {
+  selectPage(page: SearchResult<DSpaceObject>[]) {
     this.selection$
       .pipe(take(1))
       .subscribe((selection: SearchResult<Item>[]) => {
@@ -160,7 +188,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * Deselects a page in the store
    * @param page the page to deselect
    */
-  deselectPage(page: SearchResult<Item>[]) {
+  deselectPage(page: SearchResult<DSpaceObject>[]) {
     this.allSelected = false;
     this.selection$
       .pipe(take(1))
@@ -187,16 +215,55 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
       getFirstSucceededRemoteData(),
       map((resultsRD) => resultsRD.payload.page),
       tap(() => this.selectAllLoading = false),
+      switchMap((results) => this.selection$.pipe(
+        take(1),
+        tap((selection: SearchResult<Item>[]) => {
+          const filteredResults = results.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
+          this.selectObject.emit(...filteredResults);
+        }),
+        mapTo(results)
+      ))
     ).subscribe((results) => {
-        this.selection$
-          .pipe(take(1))
-          .subscribe((selection: SearchResult<Item>[]) => {
-            const filteredResults = results.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
-            this.selectObject.emit(...filteredResults);
-          });
         this.selectableListService.select(this.listId, results);
-      }
-    );
+    });
+  }
+
+  /**
+   * setSelectedIds select all the items from the results that have relationship
+   * @param idOfItems the uuid of items that are being checked
+   * @param resultListOfItems the list of results of the items
+   */
+  setSelectedIds(idOfItems: string[], resultListOfItems: SearchResult<DSpaceObject>[]) {
+    let relationType = this.relationshipType.rightwardType;
+    if ( this.isLeft ) {
+      relationType = this.relationshipType.leftwardType;
+    }
+    this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, relationType ,idOfItems ).pipe(
+        getFirstSucceededRemoteData(),
+        getRemoteDataPayload(),
+      ).subscribe( (res: PaginatedList<Relationship>) => {
+
+        let selectableObject = res.page.map( (relationship: any) => {
+
+          let arrUrl = [];
+          if ( this.isLeft ) {
+            arrUrl = relationship._links.rightItem.href.split('/');
+          } else {
+            arrUrl = relationship._links.leftItem.href.split('/');
+          }
+          const uuid = arrUrl[ arrUrl.length - 1 ];
+
+          return this.getRelatedItem(uuid, resultListOfItems);
+        });
+
+        selectableObject = selectableObject.filter( (selObject) => {
+          return !this.getIfInRemove(selObject.indexableObject.uuid);
+        });
+
+        if ( selectableObject.length > 0 ) {
+          this.selectableListService.select(this.listId, selectableObject);
+        }
+    });
   }
 
   /**
@@ -206,13 +273,34 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.allSelected = false;
     this.selection$
       .pipe(take(1))
-      .subscribe((selection: SearchResult<Item>[]) => this.deselectObject.emit(...selection));
+      .subscribe((selection: SearchResult<DSpaceObject>[]) => this.deselectObject.emit(...selection));
     this.selectableListService.deselectAll(this.listId);
+  }
+
+  getRelatedItem(uuid: string, resultList: SearchResult<DSpaceObject>[]) {
+    return resultList.find( (resultItem) => {
+      return resultItem.indexableObject.uuid === uuid;
+    });
+  }
+
+  getIfInRemove(uuid: string) {
+    return !!this.toRemove.find( (searchResult) => searchResult.indexableObject.uuid === uuid);
   }
 
   ngOnDestroy(): void {
     if (hasValue(this.subscription)) {
       this.subscription.unsubscribe();
+    }
+  }
+
+  onResultFound($event: SearchObjects<DSpaceObject>) {
+    this.resultsRD$.next($event);
+    this.resultFound.emit($event);
+    if (this.isEditRelationship ) {
+      const idOfItems = $event.page.map( itemSearchResult => {
+        return itemSearchResult.indexableObject.uuid;
+      });
+      this.setSelectedIds(idOfItems, $event.page);
     }
   }
 }

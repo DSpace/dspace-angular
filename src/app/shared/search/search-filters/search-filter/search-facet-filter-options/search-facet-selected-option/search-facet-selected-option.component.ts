@@ -1,12 +1,12 @@
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SearchFilterConfig } from '../../../../search-filter-config.model';
+import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { hasValue } from '../../../../../empty.util';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { FacetValue } from '../../../../facet-value.model';
+import { FacetValue } from '../../../../models/facet-value.model';
 import { currentPath } from '../../../../../utils/route.utils';
 import { getFacetValueForType } from '../../../../search.utils';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';

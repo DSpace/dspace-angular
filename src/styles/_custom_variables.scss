@@ -45,7 +45,7 @@
   --ds-edit-item-metadata-field-width: 190px;
   --ds-edit-item-language-field-width: 43px;
 
-  --ds-thumbnail-max-width: 175px;
+  --ds-thumbnail-max-width: 125px;
   --ds-thumbnail-placeholder-background: #{$gray-100};
   --ds-thumbnail-placeholder-border: 1px solid #{$gray-300};
   --ds-thumbnail-placeholder-color: #{lighten($gray-800, 7%)};
@@ -79,7 +79,12 @@
   --ds-breadcrumb-bg: #{$gray-200} !important;
   --ds-breadcrumb-link-color: #{$cyan};
   --ds-breadcrumb-link-active-color: #{darken($cyan, 30%)};
+  --ds-breadcrumb-max-length: 200px;
 
   --ds-slider-color: #{$green};
   --ds-slider-handle-width: 18px;
+
+  --ds-search-form-scope-max-width: 150px;
+
+  --ds-gap: 0.25rem;
 }

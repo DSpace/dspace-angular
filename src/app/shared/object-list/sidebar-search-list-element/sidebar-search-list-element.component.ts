@@ -1,16 +1,15 @@
-import { SearchResult } from '../../search/search-result.model';
+import { SearchResult } from '../../search/models/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
 import { Component } from '@angular/core';
 import { hasValue, isNotEmpty } from '../../empty.util';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of as observableOf } from 'rxjs';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { find, map } from 'rxjs/operators';
 import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
 import { followLink } from '../../utils/follow-link-config.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { of as observableOf } from 'rxjs';
 import { Context } from '../../../core/shared/context.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
@@ -30,11 +29,6 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   parentTitle$: Observable<string>;
 
   /**
-   * The title for the object to display
-   */
-  title: string;
-
-  /**
    * A description to display below the title
    */
   description: string;
@@ -43,7 +37,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
                      protected linkService: LinkService,
                      protected dsoNameService: DSONameService
   ) {
-    super(truncatableService, dsoNameService);
+    super(truncatableService, dsoNameService, null);
   }
 
   /**
@@ -53,7 +47,6 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
     super.ngOnInit();
     if (hasValue(this.dso)) {
       this.parentTitle$ = this.getParentTitle();
-      this.title = this.getTitle();
       this.description = this.getDescription();
     }
   }
@@ -72,7 +65,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   getParentTitle(): Observable<string> {
     return this.getParent().pipe(
       map((parentRD: RemoteData<DSpaceObject>) => {
-        return hasValue(parentRD) && hasValue(parentRD.payload) ? parentRD.payload.firstMetadataValue('dc.title') : undefined;
+        return hasValue(parentRD) && hasValue(parentRD.payload) ? this.dsoNameService.getName(parentRD.payload) : undefined;
       })
     );
   }
@@ -88,14 +81,6 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
       );
     }
     return observableOf(undefined);
-  }
-
-  /**
-   * Get the title of the object
-   * Default: "dc.title"
-   */
-  getTitle(): string {
-    return this.firstMetadataValue('dc.title');
   }
 
   /**

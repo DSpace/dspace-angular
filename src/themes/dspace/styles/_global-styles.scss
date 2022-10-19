@@ -23,8 +23,7 @@
 }
 
 header {
-  ds-navbar-section > li,
-  ds-expandable-navbar-section > li {
+  .navbar-navigation > li {
     display: flex;
     flex-direction: column;
     justify-content: center;

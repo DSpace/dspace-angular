@@ -1,13 +1,18 @@
-import { combineLatest as observableCombineLatest, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { FilterType } from '../../../filter-type.model';
+import { FilterType } from '../../../models/filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
 import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
-import { SearchFilterConfig } from '../../../search-filter-config.model';
-import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import {
+  FILTER_CONFIG,
+  IN_PLACE_SEARCH,
+  REFRESH_FILTER,
+  SearchFilterService
+} from '../../../../../core/shared/search/search-filter.service';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
@@ -82,8 +87,9 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
               @Inject(PLATFORM_ID) private platformId: any,
+              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
               private route: RouteService) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig);
+    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
 
   }
 

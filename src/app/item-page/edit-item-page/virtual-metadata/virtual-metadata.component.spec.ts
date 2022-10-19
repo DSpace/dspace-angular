@@ -7,6 +7,8 @@ import { VirtualMetadataComponent } from './virtual-metadata.component';
 import { Item } from '../../../core/shared/item.model';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { VarDirective } from '../../../shared/utils/var.directive';
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
 
 describe('VirtualMetadataComponent', () => {
 
@@ -46,6 +48,7 @@ describe('VirtualMetadataComponent', () => {
       declarations: [VirtualMetadataComponent, VarDirective],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
+        { provide: APP_CONFIG, useValue: environment }
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]

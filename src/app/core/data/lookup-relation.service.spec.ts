@@ -1,13 +1,13 @@
 import { LookupRelationService } from './lookup-relation.service';
-import { ExternalSourceService } from './external-source.service';
+import { ExternalSourceDataService } from './external-source-data.service';
 import { SearchService } from '../shared/search/search.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { buildPaginatedList } from './paginated-list.model';
 import { PageInfo } from '../shared/page-info.model';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';
-import { SearchResult } from '../../shared/search/search-result.model';
+import { SearchResult } from '../../shared/search/models/search-result.model';
 import { Item } from '../shared/item.model';
 import { skip, take } from 'rxjs/operators';
 import { ExternalSource } from '../shared/external-source.model';
@@ -16,7 +16,7 @@ import { of as observableOf } from 'rxjs';
 
 describe('LookupRelationService', () => {
   let service: LookupRelationService;
-  let externalSourceService: ExternalSourceService;
+  let externalSourceService: ExternalSourceDataService;
   let searchService: SearchService;
   let requestService: RequestService;
 

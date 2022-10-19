@@ -5,7 +5,7 @@ import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { ObjectUpdatesService } from '../../../../../core/data/object-updates/object-updates.service';
 import { BundleDataService } from '../../../../../core/data/bundle-data.service';
 import { switchMap } from 'rxjs/operators';
-import { PaginatedSearchOptions } from '../../../../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../../../shared/search/models/paginated-search-options.model';
 import { ResponsiveTableSizes } from '../../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { ObjectValuesPipe } from '../../../../../shared/utils/object-values-pipe';

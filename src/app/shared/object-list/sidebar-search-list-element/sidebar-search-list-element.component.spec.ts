@@ -3,7 +3,7 @@ import { VarDirective } from '../../utils/var.directive';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { SearchResult } from '../../search/search-result.model';
+import { SearchResult } from '../../search/models/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
@@ -40,7 +40,7 @@ export function createSidebarSearchListElementTests(
         providers: [
           { provide: TruncatableService, useValue: {} },
           { provide: LinkService, useValue: linkService },
-          { provide: DSONameService, useClass: DSONameServiceMock },
+          DSONameService,
           ...extraProviders
         ],
         schemas: [NO_ERRORS_SCHEMA]
@@ -51,6 +51,7 @@ export function createSidebarSearchListElementTests(
       fixture = TestBed.createComponent(componentClass);
       component = fixture.componentInstance;
       component.object = object;
+      component.ngOnInit();
       fixture.detectChanges();
     });
 
@@ -62,7 +63,7 @@ export function createSidebarSearchListElementTests(
     });
 
     it('should contain the correct title', () => {
-      expect(component.title).toEqual(expectedTitle);
+      expect(component.dsoTitle).toEqual(expectedTitle);
     });
 
     it('should contain the correct description', () => {

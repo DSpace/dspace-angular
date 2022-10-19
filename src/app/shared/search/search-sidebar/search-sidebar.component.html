@@ -8,11 +8,22 @@
         </button>
     </div>
     <div id="search-sidebar-content">
-        <ds-view-mode-switch *ngIf="showViewModes" [viewModeList]="viewModeList" class="d-none d-md-block"></ds-view-mode-switch>
+        <ds-view-mode-switch *ngIf="showViewModes" class="d-none d-md-block"
+                             [viewModeList]="viewModeList"
+                             (changeViewMode)="changeViewMode.emit($event)"></ds-view-mode-switch>
         <div class="sidebar-content">
-            <ds-search-switch-configuration [inPlaceSearch]="inPlaceSearch" *ngIf="configurationList" [configurationList]="configurationList"></ds-search-switch-configuration>
-            <ds-search-filters [refreshFilters]="refreshFilters" [inPlaceSearch]="inPlaceSearch"></ds-search-filters>
-            <ds-search-settings [searchOptions]="searchOptions" [sortOptions]="sortOptions"></ds-search-settings>
+            <ds-search-switch-configuration *ngIf="configurationList"
+                                            [configurationList]="configurationList"
+                                            [defaultConfiguration]="configuration"
+                                            [inPlaceSearch]="inPlaceSearch"
+                                            (changeConfiguration)="changeConfiguration.emit($event)"></ds-search-switch-configuration>
+            <ds-search-filters [currentScope]="currentScope"
+                               [currentConfiguration]="configuration"
+                               [filters]="filters"
+                               [refreshFilters]="refreshFilters"
+                               [inPlaceSearch]="inPlaceSearch"></ds-search-filters>
+            <ds-themed-search-settings [currentSortOption]="currentSortOption"
+                                       [sortOptionsList]="sortOptionsList"></ds-themed-search-settings>
         </div>
     </div>
 </div>

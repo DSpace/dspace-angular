@@ -21,6 +21,7 @@ describe('LocaleService test suite', () => {
   let spyOnSet;
   let authService;
   let routeService;
+  let document;
 
   authService = jasmine.createSpyObj('AuthService', {
     isAuthenticated: jasmine.createSpy('isAuthenticated'),
@@ -43,6 +44,7 @@ describe('LocaleService test suite', () => {
         { provide: CookieService, useValue: new CookieServiceMock() },
         { provide: AuthService, userValue: authService },
         { provide: RouteService, useValue: routeServiceStub },
+        { provide: Document, useValue: document },
       ]
     });
   }));
@@ -52,7 +54,8 @@ describe('LocaleService test suite', () => {
     translateService = TestBed.inject(TranslateService);
     routeService = TestBed.inject(RouteService);
     window = new NativeWindowRef();
-    service = new LocaleService(window, cookieService, translateService, authService, routeService);
+    document = { documentElement: { lang: 'en' } };
+    service = new LocaleService(window, cookieService, translateService, authService, routeService, document);
     serviceAsAny = service;
     spyOnGet = spyOn(cookieService, 'get');
     spyOnSet = spyOn(cookieService, 'set');
@@ -113,6 +116,12 @@ describe('LocaleService test suite', () => {
       service.setCurrentLanguageCode();
       expect(translateService.use).toHaveBeenCalledWith('es');
       expect(service.saveLanguageCodeToCookie).toHaveBeenCalledWith('es');
+    });
+
+    it('should set the current language on the html tag', () => {
+      spyOn(service, 'getCurrentLanguageCode').and.returnValue('es');
+      service.setCurrentLanguageCode();
+      expect((service as any).document.documentElement.lang).toEqual('es');
     });
   });
 

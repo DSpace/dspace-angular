@@ -13,4 +13,15 @@ import { ItemSearchResultListElementComponent } from '../../../../../shared/obje
  * The component for displaying a list element for an item search result of the type Journal Volume
  */
 export class JournalVolumeSearchResultListElementComponent extends ItemSearchResultListElementComponent {
+
+  /**
+   * Display thumbnails if required by configuration
+   */
+  showThumbnails: boolean;
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
+  }
+
 }

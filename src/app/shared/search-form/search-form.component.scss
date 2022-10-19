@@ -3,3 +3,7 @@
   background-color: var(--bs-input-bg);
   color: var(--bs-input-color);
 }
+
+.scope-button {
+  max-width: var(--ds-search-form-scope-max-width);
+}

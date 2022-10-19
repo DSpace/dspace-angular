@@ -8,13 +8,15 @@ import { Community } from '../../core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchService } from '../../core/shared/search/search.service';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../core/data/request.models';
-import { of as observableOf } from 'rxjs';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
+import { SearchServiceStub } from '../testing/search-service.stub';
+import { Router } from '@angular/router';
+import { RouterStub } from '../testing/router.stub';
 
 describe('SearchFormComponent', () => {
   let comp: SearchFormComponent;
@@ -22,22 +24,28 @@ describe('SearchFormComponent', () => {
   let de: DebugElement;
   let el: HTMLElement;
 
+  const router = new RouterStub();
+  const searchService = new SearchServiceStub();
   const paginationService = new PaginationServiceStub();
-
-  const searchConfigService = {paginationID: 'test-id'};
+  const searchConfigService = { paginationID: 'test-id' };
+  const dspaceObjectService = {
+    findById: () => createSuccessfulRemoteDataObject$(undefined),
+  };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot()],
       providers: [
-        {
-          provide: SearchService,
-          useValue: {}
-        },
+        { provide: Router, useValue: router },
+        { provide: SearchService, useValue: searchService },
         { provide: PaginationService, useValue: paginationService },
-        { provide: SearchConfigurationService, useValue: searchConfigService }
+        { provide: SearchConfigurationService, useValue: searchConfigService },
+        { provide: DSpaceObjectDataService, useValue: dspaceObjectService },
       ],
-      declarations: [SearchFormComponent]
+      declarations: [
+        SearchFormComponent,
+        BrowserOnlyMockPipe,
+      ]
     }).compileComponents();
   }));
 
@@ -48,29 +56,23 @@ describe('SearchFormComponent', () => {
     el = de.nativeElement;
   });
 
-  it('should display scopes when available with default and all scopes', () => {
+  it('should not display scopes when showScopeSelector is false', fakeAsync(() => {
+    comp.showScopeSelector = false;
 
-    comp.scopes = objects;
     fixture.detectChanges();
-    const select: HTMLElement = de.query(By.css('select')).nativeElement;
-    expect(select).toBeDefined();
-    const options: HTMLCollection = select.children;
-    const defOption: Element = options.item(0);
-    expect(defOption.getAttribute('value')).toBe('');
+    tick();
 
-    let index = 1;
-    objects.forEach((object) => {
-      expect(options.item(index).textContent).toBe(object.name);
-      expect(options.item(index).getAttribute('value')).toBe(object.uuid);
-      index++;
-    });
-  });
+    expect(de.query(By.css('.scope-button'))).toBeFalsy();
+  }));
 
-  it('should not display scopes when empty', () => {
+  it('should display scopes when showScopeSelector is true', fakeAsync(() => {
+    comp.showScopeSelector = true;
+
     fixture.detectChanges();
-    const select = de.query(By.css('select'));
-    expect(select).toBeNull();
-  });
+    tick();
+
+    expect(de.query(By.css('.scope-button'))).toBeTruthy();
+  }));
 
   it('should display set query value in input field', fakeAsync(() => {
     const testString = 'This is a test query';
@@ -84,18 +86,93 @@ describe('SearchFormComponent', () => {
   }));
 
   it('should select correct scope option in scope select', fakeAsync(() => {
-    comp.scopes = objects;
-    fixture.detectChanges();
 
+    fixture.detectChanges();
+    comp.showScopeSelector = true;
     const testCommunity = objects[1];
-    comp.scope = testCommunity.id;
+    comp.selectedScope.next(testCommunity);
 
     fixture.detectChanges();
     tick();
-    const scopeSelect = de.query(By.css('select')).nativeElement;
+    const scopeSelect = de.query(By.css('.scope-button')).nativeElement;
 
-    expect(scopeSelect.value).toBe(testCommunity.id);
+    expect(scopeSelect.textContent).toBe(testCommunity.name);
   }));
+
+  describe('updateSearch', () => {
+    const query = 'THOR';
+    const scope = 'MCU';
+    let searchQuery = {};
+
+    it('should navigate to the search page even when no parameters are provided', () => {
+      comp.updateSearch(searchQuery);
+
+      expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
+        queryParams: searchQuery,
+        queryParamsHandling: 'merge'
+      });
+    });
+
+    it('should navigate to the search page with parameters only query if only query is provided', () => {
+      searchQuery = {
+        query: query
+      };
+
+      comp.updateSearch(searchQuery);
+
+      expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
+        queryParams: searchQuery,
+        queryParamsHandling: 'merge'
+      });
+    });
+
+    it('should navigate to the search page with parameters only query if only scope is provided', () => {
+      searchQuery = {
+        scope: scope
+      };
+
+      comp.updateSearch(searchQuery);
+
+      expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
+        queryParams: searchQuery,
+        queryParamsHandling: 'merge'
+      });
+    });
+  });
+
+  describe('when the scope variable is used', () => {
+    const query = 'THOR';
+    const scope = 'MCU';
+    let searchQuery = {};
+
+    beforeEach(() => {
+      spyOn(comp, 'updateSearch');
+    });
+
+    it('should only search in the provided scope', () => {
+      searchQuery = {
+        query: query,
+        scope: scope
+      };
+
+      comp.scope = scope;
+      comp.onSubmit(searchQuery);
+
+      expect(comp.updateSearch).toHaveBeenCalledWith(searchQuery);
+    });
+
+    it('should not create searchQuery with the scope if an empty scope is provided', () => {
+      searchQuery = {
+        query: query
+      };
+
+      comp.scope = '';
+      comp.onSubmit(searchQuery);
+
+      expect(comp.updateSearch).toHaveBeenCalledWith(searchQuery);
+    });
+  });
+
   // it('should call updateSearch when clicking the submit button with correct parameters', fakeAsync(() => {
   //   comp.query = 'Test String'
   //   fixture.detectChanges();

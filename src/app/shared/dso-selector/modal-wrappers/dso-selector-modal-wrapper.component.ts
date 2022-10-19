@@ -9,7 +9,10 @@ import { hasValue, isNotEmpty } from '../../empty.util';
 export enum SelectorActionType {
   CREATE = 'create',
   EDIT = 'edit',
-  EXPORT_METADATA = 'export-metadata'
+  EXPORT_METADATA = 'export-metadata',
+  IMPORT_BATCH = 'import-batch',
+  SET_SCOPE = 'set-scope',
+  EXPORT_BATCH = 'export-batch'
 }
 
 /**
@@ -77,6 +80,7 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
       }
     }
   }
+
   /**
    * Method called when an object has been selected
    * @param dso The selected DSpaceObject

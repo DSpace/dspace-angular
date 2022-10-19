@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { PaginatedSearchOptions } from '../search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { map, take } from 'rxjs/operators';
 import { PaginationService } from '../../core/pagination/pagination.service';
 

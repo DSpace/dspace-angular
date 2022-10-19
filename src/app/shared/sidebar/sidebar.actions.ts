@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
 import { type } from '../ngrx/type';
@@ -16,7 +17,6 @@ export const SidebarActionTypes = {
   TOGGLE: type('dspace/sidebar/TOGGLE')
 };
 
-/* tslint:disable:max-classes-per-file */
 /**
  * Used to collapse the sidebar
  */
@@ -37,7 +37,6 @@ export class SidebarExpandAction implements Action {
 export class SidebarToggleAction implements Action {
   type = SidebarActionTypes.TOGGLE;
 }
-/* tslint:enable:max-classes-per-file */
 
 /**
  * Export a type alias of all actions in this action group

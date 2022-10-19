@@ -14,7 +14,7 @@ import { InputSuggestion } from '../input-suggestions.model';
     {
       provide: NG_VALUE_ACCESSOR,
       // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
-      // tslint:disable-next-line:no-forward-ref
+      // eslint-disable-next-line @angular-eslint/no-forward-ref
       useExisting: forwardRef(() => ValidationSuggestionsComponent),
       multi: true
     }
@@ -42,7 +42,10 @@ export class ValidationSuggestionsComponent extends InputSuggestionsComponent im
    * The suggestions that should be shown
    */
   @Input() suggestions: InputSuggestion[] = [];
-
+  /**
+   * The possibility to edit metadata
+   */
+  @Input() disable;
   constructor(private metadataFieldValidator: MetadataFieldValidator,
               private objectUpdatesService: ObjectUpdatesService) {
     super();

@@ -4,6 +4,7 @@
           class="filter-name d-flex" [attr.aria-controls]="regionId" [id]="toggleId"
           [attr.aria-expanded]="false"
           [attr.aria-label]="((collapsed$ | async) ? 'search.filters.filter.expand' : 'search.filters.filter.collapse') | translate"
+          [attr.data-test]="'filter-toggle' | dsBrowserOnly"
   >
     <h5 class="d-inline-block mb-0">
       {{'search.filters.filter.' + filter.name + '.head'| translate}}
@@ -18,7 +19,8 @@
        class="search-filter-wrapper" [ngClass]="{ 'closed' : closed, 'notab': notab }">
     <ds-search-facet-filter-wrapper
       [filterConfig]="filter"
-      [inPlaceSearch]="inPlaceSearch">
+      [inPlaceSearch]="inPlaceSearch"
+      [refreshFilters]="refreshFilters" >
     </ds-search-facet-filter-wrapper>
   </div>
 </div>

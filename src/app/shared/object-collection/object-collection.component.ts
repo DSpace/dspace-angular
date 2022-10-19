@@ -1,19 +1,28 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component, ElementRef,
+  EventEmitter, Inject,
+  Input,
+  OnInit,
+  Output, PLATFORM_ID,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { filter, map, startWith } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ListableObject } from './shared/listable-object.model';
-import { isNotEmpty } from '../empty.util';
+import { isEmpty } from '../empty.util';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { CollectionElementLinkType } from './collection-element-link.type';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Context } from '../../core/shared/context.model';
+import { setPlaceHolderAttributes } from '../utils/object-list-utils';
+import { isPlatformBrowser } from '@angular/common';
 
 /**
  * Component that can render a list of listable objects in different view modes
@@ -50,6 +59,11 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() hideGear = false;
   @Input() selectable = false;
   @Input() selectionConfig: {repeatable: boolean, listId: string};
+
+  /**
+   * Emit custom event for listable object custom actions.
+   */
+  @Output() customEvent = new EventEmitter<any>();
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
@@ -89,6 +103,11 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() hidePaginationDetail = false;
 
   /**
+   * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
+   */
+  @Input() showPaginator = true;
+
+  /**
    * the page info of the list
    */
   pageInfo: Observable<PageInfo>;
@@ -123,6 +142,16 @@ export class ObjectCollectionComponent implements OnInit {
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
 
   /**
+   * If showPaginator is set to true, emit when the previous button is clicked
+   */
+  @Output() prev = new EventEmitter<boolean>();
+
+  /**
+   * If showPaginator is set to true, emit when the next button is clicked
+   */
+  @Output() next = new EventEmitter<boolean>();
+
+  /**
    * Emits the current view mode
    */
   currentMode$: Observable<ViewMode>;
@@ -132,15 +161,13 @@ export class ObjectCollectionComponent implements OnInit {
    */
   viewModeEnum = ViewMode;
 
-  ngOnInit(): void {
-    this.currentMode$ = this.route
-      .queryParams
-      .pipe(
-        filter((params) => isNotEmpty(params.view)),
-        map((params) => params.view),
-        startWith(ViewMode.ListElement)
-      );
-  }
+  /**
+   * Placeholder class (defined in global-styles)
+   */
+  placeholderFontClass: string;
+
+
+
 
   /**
    * @param cdRef
@@ -149,11 +176,30 @@ export class ObjectCollectionComponent implements OnInit {
    *    Route is a singleton service provided by Angular.
    * @param router
    *    Router is a singleton service provided by Angular.
+   * @param elementRef
+   *    Used only to read DOM for the element width
    */
   constructor(
     private cdRef: ChangeDetectorRef,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private elementRef: ElementRef,
+    @Inject(PLATFORM_ID) private platformId: Object) {
+  }
+
+  ngOnInit(): void {
+    this.currentMode$ = this.route
+      .queryParams
+      .pipe(
+        map((params) => isEmpty(params?.view) ? ViewMode.ListElement : params.view),
+        distinctUntilChanged()
+      );
+    if (isPlatformBrowser(this.platformId)) {
+      const width = this.elementRef.nativeElement.offsetWidth;
+      this.placeholderFontClass = setPlaceHolderAttributes(width);
+    } else {
+      this.placeholderFontClass = 'hide-placeholder-text';
+    }
   }
 
   /**
@@ -191,6 +237,20 @@ export class ObjectCollectionComponent implements OnInit {
    */
   onPaginationChange(event) {
     this.paginationChange.emit(event);
+  }
+
+  /**
+   * Go to the previous page
+   */
+  goPrev() {
+      this.prev.emit(true);
+  }
+
+ /**
+  * Go to the next page
+  */
+  goNext() {
+      this.next.emit(true);
   }
 
 }
