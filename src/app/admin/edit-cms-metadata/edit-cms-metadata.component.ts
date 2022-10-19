@@ -114,7 +114,7 @@ export class EditCmsMetadataComponent implements OnInit {
       op: 'replace',
       path: '/metadata/' + this.selectedMetadata,
       value: {
-        value: this.selectedMetadataValues.get(firstLanguage),
+        value: this.selectedMetadataValues.get(firstLanguage) ?? '',
         language: firstLanguage
       }
     });
@@ -124,7 +124,7 @@ export class EditCmsMetadataComponent implements OnInit {
           op: 'add',
           path: '/metadata/' + this.selectedMetadata,
           value: {
-            value: value,
+            value: value ?? '',
             language: key
           }
         });
