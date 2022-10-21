@@ -47,6 +47,7 @@
                                [context]="(currentContext$ | async)"
                                [selectable]="selectable"
                                [selectionConfig]="selectionConfig"
+                               [showHiddenRelatedItemsAlert]="true"
                                [customData]="customData"
                                (contentChange)="onContentChange($event)"
                                (customEvent)="customEvent.emit($event)"

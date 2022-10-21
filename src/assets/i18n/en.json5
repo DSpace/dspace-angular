@@ -3388,6 +3388,8 @@
 
   "manage.relationships.error.sort" : "An unexpected error occurs while sorting entities.",
 
+  "manage.relationships.hidden-related-items-alert" : "Please note that hidden related items will always be visible among Item’s relations to administrators and owner of the Item",
+
 
   "menu.header.admin": "Management",
 
