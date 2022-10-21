@@ -6,7 +6,7 @@ import {
   SourceElement,
   SubmissionImportExternalSearchbarComponent
 } from './submission-import-external-searchbar.component';
-import { ExternalSourceService } from '../../../core/data/external-source.service';
+import { ExternalSourceDataService } from '../../../core/data/external-source-data.service';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import {
   externalSourceCiencia,
@@ -18,12 +18,12 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { ExternalSource } from '../../../core/shared/external-source.model';
-import { FindListOptions } from '../../../core/data/request.models';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 describe('SubmissionImportExternalSearchbarComponent test suite', () => {
   let comp: SubmissionImportExternalSearchbarComponent;
@@ -48,7 +48,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
         TestComponent,
       ],
       providers: [
-        { provide: ExternalSourceService, useValue: mockExternalSourceService },
+        { provide: ExternalSourceDataService, useValue: mockExternalSourceService },
         ChangeDetectorRef,
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         SubmissionImportExternalSearchbarComponent
