@@ -10,8 +10,13 @@
         (cdkDropListDropped)="drop($event)">
 
         <div *ngFor="let relationship of filteredRelationships; let last = last" class="relationships-sort-list"
-             [class.border-bottom]="!last" cdkDrag>
-          <ds-relationships-items-list-preview (deleteRelationship)="deleteRelationship.emit($event)" [viewConfig]="'relationship-sort-list'" [customData]="{ relationship: relationship }" [item]="(relationship.leftItem | async)?.payload"></ds-relationships-items-list-preview>
+             [class.border-bottom]="!last" cdkDrag [cdkDragDisabled]="pendingChanges">
+          <ds-relationships-items-list-preview
+                  (deleteRelationship)="deleteRelationship.emit($event)"
+                  [hideHandle]="pendingChanges"
+                  [viewConfig]="'relationship-sort-list'"
+                  [customData]="{ relationship: relationship }"
+                  [item]="(relationship.leftItem | async)?.payload"></ds-relationships-items-list-preview>
         </div>
       </div>
 

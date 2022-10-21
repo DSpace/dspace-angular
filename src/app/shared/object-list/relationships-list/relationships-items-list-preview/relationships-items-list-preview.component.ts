@@ -27,14 +27,19 @@ export class RelationshipsItemsListPreviewComponent {
   @Input() object: SearchResult<any>;
 
   /**
-   * A boolean representing if to show submitter information
+   * A boolean representing whether to show submitter information
    */
   @Input() showSubmitter = false;
 
   /**
-   * An string utilized for specifying the type of view which component is being used for
+   * A string used for specifying the type of view which the component is being used for
    */
   @Input() viewConfig = 'default';
+
+  /**
+   * A boolean representing whether the drag-and-drop handle should be hidden
+   */
+  @Input() hideHandle = false;
 
   /**
    * Emit when trying to delete the relationship

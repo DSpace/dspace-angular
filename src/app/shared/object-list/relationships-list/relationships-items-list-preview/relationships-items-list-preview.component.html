@@ -1,6 +1,6 @@
 <div class="item-details-preview" *ngIf="item" @fadeInOut [ngClass]="{ 'mt-3 mb-3 pl-3' : viewConfig === 'relationship-sort-list'}">
   <div class="top-header" *ngIf="viewConfig === 'relationship-sort-list'; else singleBadge">
-    <div class="drag-handle text-muted float-left pr-1">
+    <div class="drag-handle text-muted float-left pr-1" [class.invisible]="hideHandle">
       <i class="fas fa-grip-vertical fa-fw"></i>
     </div>
 

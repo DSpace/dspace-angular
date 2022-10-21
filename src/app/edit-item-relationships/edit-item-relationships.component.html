@@ -28,6 +28,7 @@
             <ng-container *ngVar="(relationshipResults$ | async) as relationships">
                 <ds-relationships-sort-list [item]="item"
                                             [relationships]="relationships"
+                                            [pendingChanges]="(pendingChanges$ | async)"
                                             (deleteRelationship)="manageRelationship($event)"
                                             (itemDrop)="itemDropped($event)"></ds-relationships-sort-list>
             </ng-container>
