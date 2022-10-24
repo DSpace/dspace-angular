@@ -62,7 +62,7 @@ export class MarkdownPipe implements PipeTransform {
     let html: string;
     if (environment.markdown.mathjax) {
       md.use(await this.mathjax);
-      const sanitizeHtml = await this.sanitizeHtml
+      const sanitizeHtml = await this.sanitizeHtml;
       html = sanitizeHtml(md.render(value), {
         // sanitize-html doesn't let through SVG by default, so we extend its allowlists to cover MathJax SVG
         allowedTags: [
@@ -98,6 +98,6 @@ export class MarkdownPipe implements PipeTransform {
       html = this.sanitizer.sanitize(SecurityContext.HTML, md.render(value));
     }
 
-    return this.sanitizer.bypassSecurityTrustHtml(html)
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 }
