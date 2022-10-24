@@ -17,7 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterMock } from '../shared/mocks/router.mock';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { MenuService } from '../shared/menu/menu.service';
-import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
+import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { CSSVariableServiceStub } from '../shared/testing/css-variable-service.stub';
 import { HostWindowService } from '../shared/host-window.service';
 import { HostWindowServiceStub } from '../shared/testing/host-window-service.stub';

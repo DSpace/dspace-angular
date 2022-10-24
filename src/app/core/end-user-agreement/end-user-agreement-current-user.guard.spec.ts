@@ -50,7 +50,6 @@ describe('EndUserAgreementGuard', () => {
       it('should return true', (done) => {
         environment.info.enableEndUserAgreement = false;
         guard.canActivate(undefined, Object.assign({ url: 'redirect' })).subscribe((result) => {
-          console.log(result);
           expect(result).toEqual(true);
           done();
         });
