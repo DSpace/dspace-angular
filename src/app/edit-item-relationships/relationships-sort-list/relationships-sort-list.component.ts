@@ -41,7 +41,6 @@ export class RelationshipsSortListComponent implements OnChanges {
     if (change.relationships) {
       this.isLoading.next(true);
       this.filteredRelationships = this.relationships.filter((rel) => !rel.leftwardValue.includes('Hidden'));
-      console.log(this.filteredRelationships);
       this.isLoading.next(false);
     }
     if (change.pendingChanges) {

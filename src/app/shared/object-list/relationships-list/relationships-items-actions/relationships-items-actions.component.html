@@ -2,7 +2,7 @@
 			*ngIf="!isSelected && !!object"
             ngbTooltip="{{'manage.relationships.select' | translate}}"
             (click)="emitAction('select')"
-            [disabled]="isProcessing()"
+            [disabled]="isProcessing | async"
             >
       <span *ngIf="isProcessingSelect"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
       <span *ngIf="!isProcessingSelect"> {{"manage.relationships.select" | translate}}</span>
@@ -12,7 +12,7 @@
 			*ngIf="!!isSelected && !!object"
             ngbTooltip="{{'manage.relationships.unselect' | translate}}"
             (click)="emitAction('unselect')"
-            [disabled]="isProcessing()"
+            [disabled]="isProcessing | async"
             >
       <span *ngIf="isProcessingUnselect"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
       <span *ngIf="!isProcessingUnselect"> {{"manage.relationships.unselect" | translate}}</span>
@@ -22,7 +22,7 @@
 			*ngIf="!isHidden && !!object"
             ngbTooltip="{{'manage.relationships.hide' | translate}}"
             (click)="emitAction('hide')"
-            [disabled]="isProcessing()"
+            [disabled]="isProcessing | async"
             >
       <span *ngIf="isProcessingHide"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
       <span *ngIf="!isProcessingHide"> {{"manage.relationships.hide" | translate}}</span>
@@ -31,7 +31,7 @@
 			*ngIf="!!isHidden && !!object"
             ngbTooltip="{{'manage.relationships.unhide' | translate}}"
             (click)="emitAction('unhide')"
-            [disabled]="isProcessing()"
+            [disabled]="isProcessing | async"
             >
       <span *ngIf="isProcessingUnhide"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
       <span *ngIf="!isProcessingUnhide"> {{"manage.relationships.unhide" | translate}}</span>

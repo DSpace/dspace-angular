@@ -1,9 +1,9 @@
-import {Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 
 import { RelationshipService } from '../core/data/relationship.service';
 import { RelationshipType } from '../core/shared/item-relationships/relationship-type.model';
 import { Relationship } from '../core/shared/item-relationships/relationship.model';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { hasValue } from '../shared/empty.util';
 import { followLink } from '../shared/utils/follow-link-config.model';
@@ -25,6 +25,9 @@ import { BehaviorSubject, Observable, Subscription, } from 'rxjs';
 import { getItemPageRoute } from '../item-page/item-page-routing-paths';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.reducer';
+import { EditItemRelationshipsActionTypes } from './edit-item-relationships.actions';
 
 @Component({
   selector: 'ds-edit-item-relationships',
@@ -123,7 +126,9 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
   /**
    * Emits true when a relationship is being added, deleted, or updated
    */
-  pendingChanges$ = new BehaviorSubject<boolean>(false);
+  private pendingChangesSubject$ = new BehaviorSubject<boolean>(false);
+
+  pendingChanges$: Observable<boolean>;
 
   /**
    * This parameter define the status of sidebar (hide/show)
@@ -141,7 +146,8 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
               protected entityTypeService: EntityTypeService,
               private windowService: HostWindowService,
               private translate: TranslateService,
-              private title: Title
+              private title: Title,
+              protected store: Store<AppState>,
   ) {
     this.relationshipType = this.route.snapshot.params.type;
     this.isXsOrSm$ = this.windowService.isXsOrSm();
@@ -164,6 +170,12 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
     this.getEntityType();
 
     this.retrieveRelationships();
+
+    this.pendingChanges$ = this.pendingChangesSubject$.asObservable().pipe(
+      tap((res) => {
+        this.store.dispatch(EditItemRelationshipsActionTypes.PENDING_CHANGES({ pendingChanges: res }));
+      })
+    );
 
   }
 
@@ -191,8 +203,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    * Get all relationships of the relation to manage
    */
   retrieveRelationships(objectItem?: Item): void {
-    // TODO check
-    this.pendingChanges$.next(true);
+    this.pendingChangesSubject$.next(true);
     // this.subs.push(
       this.itemRD$.pipe(
         getRemoteDataPayload(),
@@ -214,8 +225,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
         this.updateStatusByItemId$.next(itemId);
         this.isInit = true;
 
-        // TODO check
-        this.pendingChanges$.next(false);
+        this.pendingChangesSubject$.next(false);
       });
       // );
   }
@@ -282,11 +292,11 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    * @param objectItem  the relationship type of the relationship created
    */
   addRelationship(type: RelationshipType, objectItem: Item): void {
-    this.pendingChanges$.next(true);
+    this.pendingChangesSubject$.next(true);
     this.relationshipService.addRelationship(type.id, objectItem, this.item, type.leftwardType, type.rightwardType).pipe(take(1))
       .subscribe(() => {
         this.retrieveRelationships(objectItem);
-        this.pendingChanges$.next(false);
+        this.pendingChangesSubject$.next(false);
       });
   }
 
@@ -295,10 +305,10 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    * @param relationship  the relationship to update place
    */
   updateRelationship(relationship: Relationship): void {
-    this.pendingChanges$.next(true);
+    this.pendingChangesSubject$.next(true);
     this.relationshipService.updateRightPlace(relationship).pipe(take(1)).subscribe({
       error: err => this.retrieveRelationships(), // TODO handle pending changes
-      complete: () => this.pendingChanges$.next(false)
+      complete: () => this.pendingChangesSubject$.next(false)
     });
   }
 
@@ -308,10 +318,10 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    * @param objectItem the reference to the objectItem that owns the relationship
    */
   deleteRelationship(relationship: Relationship, objectItem: Item): void {
-    this.pendingChanges$.next(true);
+    this.pendingChangesSubject$.next(true);
     this.relationshipService.deleteRelationship(relationship.id).subscribe((res) => {
       this.retrieveRelationships(objectItem);
-      this.pendingChanges$.next(false);
+      this.pendingChangesSubject$.next(false);
     });
   }
 
@@ -322,11 +332,11 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    * @param relationship  the relationship to delete
    */
   deleteAddRelationship(type: RelationshipType, objectItem: Item, relationship: Relationship) {
-    this.pendingChanges$.next(true);
+    this.pendingChangesSubject$.next(true);
     this.relationshipService.deleteRelationship(relationship.id).pipe(take(1))
       .subscribe(() => {
         this.addRelationship(type, objectItem);
-        this.pendingChanges$.next(false);
+        this.pendingChangesSubject$.next(false);
       });
   }
 
