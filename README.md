@@ -351,7 +351,7 @@ Documentation
 
 Official DSpace documentation is available in the DSpace wiki at https://wiki.lyrasis.org/display/DSDOC7x/
 
-Some UI specific configuration documentation is also found in the [`./docs`](docs) folder of htis codebase.
+Some UI specific configuration documentation is also found in the [`./docs`](docs) folder of this codebase.
 
 ### Building code documentation
 

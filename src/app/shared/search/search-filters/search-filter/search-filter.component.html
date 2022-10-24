@@ -19,7 +19,8 @@
        class="search-filter-wrapper" [ngClass]="{ 'closed' : closed, 'notab': notab }">
     <ds-search-facet-filter-wrapper
       [filterConfig]="filter"
-      [inPlaceSearch]="inPlaceSearch">
+      [inPlaceSearch]="inPlaceSearch"
+      [refreshFilters]="refreshFilters" >
     </ds-search-facet-filter-wrapper>
   </div>
 </div>

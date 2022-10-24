@@ -370,6 +370,8 @@ export class DefaultAppConfig implements AppConfig {
     enablePrivacyStatement: true
   };
 
+  // Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
+  // display in supported metadata fields. By default, only dc.description.abstract is supported.
   markdown: MarkdownConfig = {
     enabled: false,
     mathjax: false,

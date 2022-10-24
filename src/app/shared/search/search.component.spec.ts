@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { Observable, BehaviorSubject, of as observableOf } from 'rxjs';
+import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { HostWindowService } from '../host-window.service';
@@ -29,6 +29,8 @@ import { Item } from '../../core/shared/item.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
+import { FilterType } from './models/filter-type.model';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -131,6 +133,24 @@ const activatedRouteStub = {
   })
 };
 
+const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
+  name: 'test1',
+  filterType: FilterType.text,
+  hasFacets: false,
+  isOpenByDefault: false,
+  pageSize: 2
+});
+const mockFilterConfig2: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
+  name: 'test2',
+  filterType: FilterType.text,
+  hasFacets: false,
+  isOpenByDefault: false,
+  pageSize: 1
+});
+
+const filtersConfigRD = createSuccessfulRemoteDataObject([mockFilterConfig, mockFilterConfig2]);
+const filtersConfigRD$ = observableOf(filtersConfigRD);
+
 const routeServiceStub = {
   getRouteParameterValue: () => {
     return observableOf('');
@@ -151,6 +171,7 @@ let searchConfigurationServiceStub;
 export function configureSearchComponentTestingModule(compType, additionalDeclarations: any[] = []) {
   searchConfigurationServiceStub = jasmine.createSpyObj('SearchConfigurationService', {
     getConfigurationSortOptions: sortOptionsList,
+    getConfig: filtersConfigRD$,
     getConfigurationSearchConfig: observableOf(searchConfig),
     getCurrentConfiguration: observableOf('default'),
     getCurrentScope: observableOf('test-id'),
@@ -269,6 +290,15 @@ describe('SearchComponent', () => {
     tick(100);
     const expectedResults = mockResultsRD;
     expect(comp.resultsRD$).toBeObservable(cold('b', {
+      b: expectedResults
+    }));
+  }));
+
+  it('should retrieve Search Filters', fakeAsync(() => {
+    fixture.detectChanges();
+    tick(100);
+    const expectedResults = filtersConfigRD;
+    expect(comp.filtersRD$).toBeObservable(cold('b', {
       b: expectedResults
     }));
   }));

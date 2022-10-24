@@ -15,6 +15,7 @@ import { ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration } from './klaro-config
 import { Operation } from 'fast-json-patch';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
 
 /**
  * Metadata field to store a user's cookie consent preferences in
@@ -49,6 +50,8 @@ export class BrowserKlaroService extends KlaroService {
 
   private readonly GOOGLE_ANALYTICS_KEY = 'google.analytics.key';
 
+  private readonly REGISTRATION_VERIFICATION_ENABLED_KEY = 'registration.verification.enabled';
+
   private readonly GOOGLE_ANALYTICS_SERVICE_NAME = 'google-analytics';
 
   /**
@@ -78,15 +81,30 @@ export class BrowserKlaroService extends KlaroService {
       this.klaroConfig.translations.en.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
     }
 
-    const servicesToHide$: Observable<string[]> = this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY).pipe(
+    const hideGoogleAnalytics$ = this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY).pipe(
       getFirstCompletedRemoteData(),
-      map(remoteData => {
-        if (!remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values)) {
-          return [this.GOOGLE_ANALYTICS_SERVICE_NAME];
-        } else {
-          return [];
+      map(remoteData => !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values)),
+    );
+
+    const hideRegistrationVerification$ = this.configService.findByPropertyName(this.REGISTRATION_VERIFICATION_ENABLED_KEY).pipe(
+      getFirstCompletedRemoteData(),
+      map((remoteData) =>
+        !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) || remoteData.payload.values[0].toLowerCase() !== 'true'
+      ),
+    );
+
+    const servicesToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$]).pipe(
+      map(([hideGoogleAnalytics, hideRegistrationVerification]) => {
+        let servicesToHideArray: string[] = [];
+        if (hideGoogleAnalytics) {
+          servicesToHideArray.push(this.GOOGLE_ANALYTICS_SERVICE_NAME);
         }
-      }),
+        if (hideRegistrationVerification) {
+          servicesToHideArray.push(CAPTCHA_NAME);
+        }
+        console.log(servicesToHideArray);
+        return servicesToHideArray;
+      })
     );
 
     this.translateService.setDefaultLang(environment.defaultLanguage);
@@ -308,4 +326,5 @@ export class BrowserKlaroService extends KlaroService {
   private filterConfigServices(servicesToHide: string[]): Pick<typeof klaroConfiguration, 'services'>[] {
     return this.klaroConfig.services.filter(service => !servicesToHide.some(name => name === service.name));
   }
+
 }

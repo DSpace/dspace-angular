@@ -13,7 +13,6 @@ import { GenericConstructor } from '../generic-constructor';
 import { HALEndpointService } from '../hal-endpoint.service';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { hasValue, hasValueOperator, isNotEmpty } from '../../../shared/empty.util';
-import { SearchOptions } from '../../../shared/search/models/search-options.model';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import { SearchResponseParsingService } from '../../data/search-response-parsing.service';
 import { SearchObjects } from '../../../shared/search/models/search-objects.model';
@@ -264,17 +263,26 @@ export class SearchService implements OnDestroy {
    * @param {number} valuePage The page number of the filter values
    * @param {SearchOptions} searchOptions The search configuration for the current search
    * @param {string} filterQuery The optional query used to filter out filter values
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
    * @returns {Observable<RemoteData<PaginatedList<FacetValue>>>} Emits the given page of facet values
    */
-  getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: SearchOptions, filterQuery?: string): Observable<RemoteData<FacetValues>> {
+  getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: PaginatedSearchOptions, filterQuery?: string, useCachedVersionIfAvailable = true): Observable<RemoteData<FacetValues>> {
     let href;
-    const args: string[] = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`];
+    let args: string[] = [];
     if (hasValue(filterQuery)) {
       args.push(`prefix=${filterQuery}`);
     }
     if (hasValue(searchOptions)) {
+      searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
+        pagination: Object.assign({}, searchOptions.pagination, {
+          currentPage: valuePage,
+          pageSize: filterConfig.pageSize
+        })
+      });
       href = searchOptions.toRestUrl(filterConfig._links.self.href, args);
     } else {
+      args = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`, ...args];
       href = new URLCombiner(filterConfig._links.self.href, `?${args.join('&')}`).toString();
     }
 
@@ -284,7 +292,7 @@ export class SearchService implements OnDestroy {
         return FacetValueResponseParsingService;
       }
     });
-    this.requestService.send(request, true);
+    this.requestService.send(request, useCachedVersionIfAvailable);
 
     return this.rdb.buildFromHref(href);
   }
