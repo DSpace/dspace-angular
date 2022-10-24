@@ -4,8 +4,6 @@ import * as fs from 'fs';
 import { TransferState } from '@angular/platform-browser';
 import { NGX_TRANSLATE_STATE, NgxTranslateState } from './ngx-translate-state';
 
-const JSON5 = require('json5').default;
-
 /**
  * A TranslateLoader for ngx-translate to parse json5 files server-side, and store them in the
  * TransferState
@@ -26,7 +24,7 @@ export class TranslateServerLoader implements TranslateLoader {
    */
   public getTranslation(lang: string): Observable<any> {
     // Retrieve the file for the given language, and parse it
-    const messages = JSON5.parse(fs.readFileSync(`${this.prefix}${lang}${this.suffix}`, 'utf8'));
+    const messages = JSON.parse(fs.readFileSync(`${this.prefix}${lang}${this.suffix}`, 'utf8'));
     // Store the parsed messages in the transfer state so they'll be available immediately when the
     // app loads on the client
     this.storeInTransferState(lang, messages);
