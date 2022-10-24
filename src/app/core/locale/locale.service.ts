@@ -40,7 +40,7 @@ export class LocaleService {
     protected translate: TranslateService,
     protected authService: AuthService,
     protected routeService: RouteService,
-    @Inject(DOCUMENT) private document: any
+    @Inject(DOCUMENT) protected document: any
   ) {
   }
 
