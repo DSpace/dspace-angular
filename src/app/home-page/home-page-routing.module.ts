@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { HomePageResolver } from './home-page.resolver';
-import { MenuItemType } from '../shared/menu/initial-menus-state';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedHomePageComponent } from './themed-home-page.component';
+import { MenuItemType } from '../shared/menu/menu-item-type.model';
 
 @NgModule({
   imports: [

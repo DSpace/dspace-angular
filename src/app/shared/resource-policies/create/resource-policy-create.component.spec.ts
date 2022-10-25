@@ -17,7 +17,7 @@ import { ResourcePolicyCreateComponent } from './resource-policy-create.componen
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { ResourcePolicyService } from '../../../core/resource-policy/resource-policy.service';
+import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
 import { getMockResourcePolicyService } from '../../mocks/mock-resource-policy-service';
 import { getMockLinkService } from '../../mocks/link-service.mock';
 import { RouterStub } from '../../testing/router.stub';
@@ -100,7 +100,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
         { provide: LinkService, useValue: linkService },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: ResourcePolicyService, useValue: resourcePolicyService },
+        { provide: ResourcePolicyDataService, useValue: resourcePolicyService },
         { provide: Router, useValue: routerStub },
         ResourcePolicyCreateComponent,
         ChangeDetectorRef,

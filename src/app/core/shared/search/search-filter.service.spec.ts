@@ -30,14 +30,14 @@ describe('SearchFilterService', () => {
   const value1 = 'random value';
   // const value2 = 'another value';
   const store: Store<SearchFiltersState> = jasmine.createSpyObj('store', {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
     select: observableOf(true)
   });
 
   const routeServiceStub: any = {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     hasQueryParamWithValue: (param: string, value: string) => {
     },
     hasQueryParam: (param: string) => {
@@ -56,7 +56,7 @@ describe('SearchFilterService', () => {
     },
     getRouteParameterValue: (param: string) => {
     }
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
   const activatedRoute: any = new ActivatedRouteStub();
   const searchServiceStub: any = {

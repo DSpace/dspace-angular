@@ -57,7 +57,7 @@
     <div *ngIf="displaySubmit || displayCancel">
       <hr>
       <div class="form-group row">
-        <div class="col text-right">
+        <div class="col text-right space-children-mr">
           <ng-content select="[before]"></ng-content>
             <button *ngIf="displayCancel" type="reset" class="btn btn-outline-secondary" (click)="reset()">
               <i class="fa fa-times"></i> {{cancelLabel | translate}}

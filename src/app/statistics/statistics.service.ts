@@ -5,8 +5,8 @@ import { map, take } from 'rxjs/operators';
 import { TrackRequest } from './track-request.model';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { HALEndpointService } from '../core/shared/hal-endpoint.service';
-import { RestRequest } from '../core/data/request.models';
 import { SearchOptions } from '../shared/search/models/search-options.model';
+import { RestRequest } from '../core/data/rest-request.model';
 
 /**
  * The statistics service
