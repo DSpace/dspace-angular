@@ -74,7 +74,7 @@ export abstract class BaseEmbeddedMetricComponent extends BaseMetricComponent im
     try {
       this.applyScript();
       this.success = true;
-      notifier.next();
+      notifier.next(null);
       notifier.complete();
     } catch (error) {
       console.log('Error applying script for ' + this.metric.metricType + '. Retry');

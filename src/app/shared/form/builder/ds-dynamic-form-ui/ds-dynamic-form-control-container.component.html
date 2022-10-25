@@ -1,8 +1,7 @@
-<div
-  [class.form-group]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')"
-  [class.d-none]="model.hidden"
-  [formGroup]="group"
-  [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]">
+<div [class.form-group]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')"
+     [class.d-none]="model.hidden"
+     [formGroup]="group"
+     [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]">
   <label *ngIf="!isCheckbox && hasLabel"
          [id]="'label_' + model.id"
          [for]="id"

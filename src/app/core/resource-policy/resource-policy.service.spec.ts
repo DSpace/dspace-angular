@@ -12,13 +12,15 @@ import { RequestService } from '../data/request.service';
 import { ResourcePolicyService } from './resource-policy.service';
 import { PolicyType } from './models/policy-type.model';
 import { ActionType } from './models/action-type.model';
-import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 import { PageInfo } from '../shared/page-info.model';
 import { buildPaginatedList } from '../data/paginated-list.model';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { RequestEntry } from '../data/request.reducer';
 import { RestResponse } from '../cache/response.models';
+import { RequestEntry } from '../data/request-entry.model';
+import { FindListOptions } from '../data/find-list-options.model';
+import { EPersonDataService } from '../eperson/eperson-data.service';
+import { GroupDataService } from '../eperson/group-data.service';
 
 describe('ResourcePolicyService', () => {
   let scheduler: TestScheduler;
@@ -28,6 +30,8 @@ describe('ResourcePolicyService', () => {
   let objectCache: ObjectCacheService;
   let halService: HALEndpointService;
   let responseCacheEntry: RequestEntry;
+  let ePersonService: EPersonDataService;
+  let groupService: GroupDataService;
 
   const resourcePolicy: any = {
     id: '1',
@@ -88,6 +92,8 @@ describe('ResourcePolicyService', () => {
   const resourcePolicyRD = createSuccessfulRemoteDataObject(resourcePolicy);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
+  const ePersonEndpoint = 'EPERSON_EP';
+
   beforeEach(() => {
     scheduler = getTestScheduler();
 
@@ -105,6 +111,7 @@ describe('ResourcePolicyService', () => {
       removeByHrefSubstring: {},
       getByHref: observableOf(responseCacheEntry),
       getByUUID: observableOf(responseCacheEntry),
+      setStaleByHrefSubstring: {},
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: hot('a|', {
@@ -116,6 +123,11 @@ describe('ResourcePolicyService', () => {
       buildFromRequestUUID: hot('a|', {
         a: resourcePolicyRD
       })
+    });
+    ePersonService = jasmine.createSpyObj('ePersonService', {
+      getBrowseEndpoint: hot('a', {
+        a: ePersonEndpoint
+      }),
     });
     objectCache = {} as ObjectCacheService;
     const notificationsService = {} as NotificationsService;
@@ -129,7 +141,9 @@ describe('ResourcePolicyService', () => {
       halService,
       notificationsService,
       http,
-      comparator
+      comparator,
+      ePersonService,
+      groupService
     );
 
     spyOn((service as any).dataService, 'create').and.callThrough();
@@ -320,4 +334,17 @@ describe('ResourcePolicyService', () => {
       expect(result).toBeObservable(expected);
     });
   });
+
+  describe('updateTarget', () => {
+    it('should create a new PUT request for eperson', () => {
+      const targetType = 'eperson';
+
+      const result = service.updateTarget(resourcePolicyId, requestURL, epersonUUID, targetType);
+      const expected = cold('a|', {
+        a: resourcePolicyRD
+      });
+      expect(result).toBeObservable(expected);
+    });
+  });
+
 });

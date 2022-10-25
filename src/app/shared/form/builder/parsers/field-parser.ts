@@ -1,7 +1,7 @@
-import { Inject, InjectionToken } from '@angular/core';
+import {Inject, InjectionToken} from '@angular/core';
 
 import { uniqueId } from 'lodash';
-import { DynamicFormControlLayout, MATCH_VISIBLE, OR_OPERATOR } from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout, DynamicFormControlRelation, MATCH_VISIBLE, OR_OPERATOR } from '@ng-dynamic-forms/core';
 
 import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
@@ -29,6 +29,11 @@ export const SECURITY_CONFIG: InjectionToken<any> = new InjectionToken<any>('sec
 export abstract class FieldParser {
 
   protected fieldId: string;
+  /**
+   * This is the field to use for type binding
+   * @protected
+   */
+  protected typeField: string;
 
   constructor(
     @Inject(SUBMISSION_ID) protected submissionId: string,
@@ -73,7 +78,8 @@ export abstract class FieldParser {
         metadataFields: this.getAllFieldIds(),
         hasSelectableMetadata: isNotEmpty(this.configData.selectableMetadata),
         isDraggable,
-        typeBindRelations: isNotEmpty(this.configData.typeBind) ? this.getTypeBindRelations(this.configData.typeBind) : null,
+        typeBindRelations: isNotEmpty(this.configData.typeBind) ? this.getTypeBindRelations(this.configData.typeBind,
+          this.parserOptions.typeField) : null,
         groupFactory: () => {
           let model;
           if ((arrayCounter === 0)) {
@@ -319,10 +325,13 @@ export abstract class FieldParser {
       (controlModel as DsDynamicInputModel).languageCodes = this.configData.languageCodes;
     }
 
+    // If typeBind is configured
     if (isNotEmpty(this.configData.typeBind)) {
-      (controlModel as DsDynamicInputModel).typeBindRelations = this.getTypeBindRelations(this.configData.typeBind);
+      (controlModel as DsDynamicInputModel).typeBindRelations = this.getTypeBindRelations(this.configData.typeBind,
+        this.parserOptions.typeField);
     }
     controlModel.securityConfigLevel = this.mapBetweenMetadataRowAndSecurityMetadataLevels(this.fieldId);
+
     return controlModel;
   }
 
@@ -335,14 +344,30 @@ export abstract class FieldParser {
     return isNotEmpty(submissionScope) && SubmissionVisibility.isReadOnly(visibility, submissionScope);
   }
 
-  private getTypeBindRelations(configuredTypeBindValues: string[]): any[] {
+  /**
+   * Get the type bind values from the REST data for a specific field
+   * The return value is any[] in the method signature but in reality it's
+   * returning the 'relation' that'll be used for a dynamic matcher when filtering
+   * fields in type bind, made up of a 'match' outcome (make this field visible), an 'operator'
+   * (OR) and a 'when' condition (the bindValues array).
+   * @param configuredTypeBindValues  array of types from the submission definition (CONFIG_DATA)
+   * @private
+   * @return DynamicFormControlRelation[] array with one relation in it, for type bind matching to show a field
+   */
+  private getTypeBindRelations(configuredTypeBindValues: string[], typeField: string): DynamicFormControlRelation[] {
     const bindValues = [];
     configuredTypeBindValues.forEach((value) => {
       bindValues.push({
-        id: 'dc_type',
+        id: typeField,
         value: value
       });
     });
+    // match: MATCH_VISIBLE means that if true, the field / component will be visible
+    // operator: OR means that all the values in the 'when' condition will be compared with OR, not AND
+    // when: the list of values to match against, in this case the list of strings from <type-bind>...</type-bind>
+    // Example: Field [x] will be VISIBLE if item type = book OR item type = book_part
+    //
+    // The opposing match value will be the dc.type for the workspace item
     return [{
       match: MATCH_VISIBLE,
       operator: OR_OPERATOR,

@@ -14,10 +14,9 @@
         (sortFieldChange)="onSortFieldChange($event)"
         (paginationChange)="onPaginationChange($event)"
         (prev)="goPrev()"
-        (next)="goNext()"
-        >
+        (next)="goNext()">
     <ul *ngIf="objects?.hasSucceeded" class="list-unstyled" [ngClass]="{'ml-4': selectable}">
-        <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4 d-flex" [class.border-bottom]="hasBorder && !last" data-test="list-object">
+        <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4 d-flex" [class.border-bottom]="hasBorder && !last" [attr.data-test]="'list-object' | dsBrowserOnly">
           <ds-selectable-list-item-control *ngIf="selectable" [index]="i"
                                            [object]="object"
                                            [selectionConfig]="selectionConfig"
@@ -31,7 +30,7 @@
                                                [customData]="customData"
                                                (contentChange)="contentChange.emit()"
                                                (customEvent)="customEvent.emit($event)"
-          ></ds-listable-object-component-loader>
+                                               (contentChange)="contentChange.emit($event)"></ds-listable-object-component-loader>
         </li>
     </ul>
 </ds-pagination>

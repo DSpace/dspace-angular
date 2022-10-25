@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import {
@@ -20,7 +20,16 @@ import {
 } from '@ng-dynamic-forms/core';
 import { isObject, isString, mergeWith } from 'lodash';
 
-import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull, isObjectEmpty } from '../../empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+  isNull,
+  isObjectEmpty
+} from '../../empty.util';
 import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
@@ -33,6 +42,8 @@ import { dateToString, isNgbDateStruct } from '../../date.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { CONCAT_GROUP_SUFFIX, DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -49,14 +60,24 @@ export class FormBuilderService extends DynamicFormService {
    */
   private formGroups: Map<string, FormGroup>;
 
+  /**
+   * This is the field to use for type binding
+   */
+  private typeField: string;
+
   constructor(
     componentService: DynamicFormComponentService,
     validationService: DynamicFormValidationService,
-    protected rowParser: RowParser
+    protected rowParser: RowParser,
+    @Optional() protected configService: ConfigurationDataService,
   ) {
     super(componentService, validationService);
     this.formModels = new Map();
     this.formGroups = new Map();
+    // If optional config service was passed, perform an initial set of type field (default dc_type) for type binds
+    if (hasValue(this.configService)) {
+      this.setTypeBindFieldFromConfig();
+    }
   }
 
   createDynamicFormControlEvent(control: FormControl, group: FormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {
@@ -323,7 +344,8 @@ export class FormBuilderService extends DynamicFormService {
      const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
-        const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope, readOnly, isInnerForm, securityConfig);
+        const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope,
+          readOnly, this.getTypeField(), isInnerForm, securityConfig);
         if (isNotNull(rowParsed)) {
           if (Array.isArray(rowParsed)) {
             rows = rows.concat(rowParsed);
@@ -334,11 +356,11 @@ export class FormBuilderService extends DynamicFormService {
       });
     }
 
-    if (isNull(typeBindModel)) {
-      typeBindModel = this.findById('dc_type', rows);
+    if (hasNoValue(typeBindModel)) {
+      typeBindModel = this.findById(this.typeField, rows);
     }
 
-    if (typeBindModel !== null) {
+    if (hasValue(typeBindModel)) {
       this.setTypeBindModel(typeBindModel);
     }
     return rows;
@@ -577,6 +599,41 @@ export class FormBuilderService extends DynamicFormService {
     const result = iterateControlModels([model]);
 
     return Object.keys(result);
+  }
+
+  /**
+   * Get the type bind field from config
+   */
+  setTypeBindFieldFromConfig(): void {
+    this.configService.findByPropertyName('submit.type-bind.field').pipe(
+      getFirstCompletedRemoteData(),
+    ).subscribe((remoteData: any) => {
+      // make sure we got a success response from the backend
+      if (!remoteData.hasSucceeded) {
+        this.typeField = 'dc_type';
+        return;
+      }
+      // Read type bind value from response and set if non-empty
+      const typeFieldConfig = remoteData.payload.values[0];
+      if (isEmpty(typeFieldConfig)) {
+        this.typeField = 'dc_type';
+      } else {
+        this.typeField = typeFieldConfig.replace(/\./g, '_');
+      }
+    });
+  }
+
+  /**
+   * Get type field. If the type isn't already set, and a ConfigurationDataService is provided, set (with subscribe)
+   * from back end. Otherwise, get/set a default "dc_type" value
+   */
+  getTypeField(): string {
+    if (hasValue(this.configService) && hasNoValue(this.typeField)) {
+      this.setTypeBindFieldFromConfig();
+    } else if (hasNoValue(this.typeField)) {
+      this.typeField = 'dc_type';
+    }
+    return this.typeField;
   }
 
   /**

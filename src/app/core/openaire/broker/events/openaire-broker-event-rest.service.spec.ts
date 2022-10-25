@@ -6,8 +6,8 @@ import { cold, getTestScheduler } from 'jasmine-marbles';
 
 import { RequestService } from '../../../data/request.service';
 import { buildPaginatedList } from '../../../data/paginated-list.model';
-import { RequestEntry } from '../../../data/request.reducer';
-import { FindListOptions } from '../../../data/request.models';
+import { RequestEntry } from '../../../data/request-entry.model';
+import { FindListOptions } from '../../../data/find-list-options.model';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
 import { RestResponse } from '../../../cache/response.models';

@@ -20,8 +20,8 @@ import { getDSORoute } from '../../app-routing-paths';
 })
 export class DSOBreadcrumbsService implements BreadcrumbsProviderService<ChildHALResource & DSpaceObject> {
   constructor(
-    private linkService: LinkService,
-    private dsoNameService: DSONameService
+    protected linkService: LinkService,
+    protected dsoNameService: DSONameService
   ) {
 
   }

@@ -14,7 +14,7 @@
                                       [configuration]="relationshipConfig"
                                       [context]="context"
                                       [fixedFilterQuery]="searchFilter"
-                                      [customData]="{ relationships$ : relationshipResults$, entityType: relationshipType }"
+                                      [customData]="{relationships$ : relationshipResults$, entityType: relationshipType, updateStatusByItemId$: updateStatusByItemId$}"
                                       [showScopeSelector]="false"
                                       (customEvent)="manageRelationship($event)"></ds-configuration-search-page>
 

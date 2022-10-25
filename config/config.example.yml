@@ -163,6 +163,9 @@ languages:
   - code: fi
     label: Suomi
     active: true
+  - code: tr
+    label: Türkçe
+    active: true
   - code: bn
     label: বাংলা
     active: true
@@ -176,10 +179,12 @@ browseBy:
   # The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
   defaultLowerLimit: 1900
 
-# Item Page Config
+# Item Config
 item:
   edit:
     undoTimeout: 10000 # 10 seconds
+  # Show the item access status label in items lists
+  showAccessStatuses: false
 
 # When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
 # Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
@@ -258,6 +263,10 @@ themes:
       attributes:
         rel: stylesheet
         href: "https://fonts.googleapis.com/icon?family=Material+Icons"
+
+# The default bundles that should always be displayed as suggestions when you upload a new bundle
+bundle:
+  - standardBundles: [ ORIGINAL, THUMBNAIL, LICENSE ]
 
 # Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with 'image' or 'video').
 # For images, this enables a gallery viewer where you can zoom or page through images.

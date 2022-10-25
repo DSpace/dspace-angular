@@ -197,7 +197,10 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
           this.compRef.destroy();
           this.object = reloadedObject;
           this.instantiateComponent(reloadedObject);
-          this.contentChange.emit(reloadedObject);
+          // Add delay before emitting event to allow the new object is instantiated
+          setTimeout(() => {
+            this.contentChange.emit(reloadedObject);
+          }, 100);
         }
       });
     }

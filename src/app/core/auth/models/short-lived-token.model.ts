@@ -1,10 +1,10 @@
-import { CacheableObject } from '../../cache/object-cache.reducer';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
 import { ResourceType } from '../../shared/resource-type';
 import { SHORT_LIVED_TOKEN } from './short-lived-token.resource-type';
 import { HALLink } from '../../shared/hal-link.model';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 
 /**
  * A short-lived token that can be used to authenticate a rest request

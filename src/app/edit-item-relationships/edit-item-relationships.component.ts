@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 
 import { RelationshipService } from '../core/data/relationship.service';
 import { RelationshipType } from '../core/shared/item-relationships/relationship-type.model';
@@ -96,6 +96,12 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
   relationshipResults$: BehaviorSubject<Relationship[]> = new BehaviorSubject([]);
 
   /**
+   * The emitter that updates the state of the items.
+   * If null or undefined then updates all items in the view.
+   */
+  updateStatusByItemId$: EventEmitter<string> = new EventEmitter<string>();
+
+  /**
    * The relationship configuration
    */
   relationshipConfig: string;
@@ -179,7 +185,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
   /**
    * Get all relationships of the relation to manage
    */
-  retrieveRelationships(): void {
+  retrieveRelationships(objectItem?: Item): void {
     console.log('retrieveRelationships');
     // this.subs.push(
       this.itemRD$.pipe(
@@ -193,6 +199,13 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
         const relations = relationships
           .filter((relation) => !!relation.leftwardValue && relation.leftwardValue.toLowerCase().includes('is' + this.relationshipType));
         this.relationshipResults$.next(relations);
+
+        let itemId = null;
+        if (objectItem != null && objectItem.id != null) {
+          itemId = objectItem.id;
+        }
+
+        this.updateStatusByItemId$.next(itemId);
         this.isInit = true;
       });
       // );
@@ -244,7 +257,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
       }
 
     } else {
-      this.deleteRelationship(event.relationship);
+      this.deleteRelationship(event.relationship, event.item);
     }
   }
 
@@ -256,7 +269,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
   addRelationship(type: RelationshipType, objectItem: Item): void {
     this.relationshipService.addRelationship(type.id, objectItem, this.item, type.leftwardType, type.rightwardType).pipe(take(1))
       .subscribe(() => {
-        this.retrieveRelationships();
+        this.retrieveRelationships(objectItem);
       });
   }
 
@@ -273,10 +286,11 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
   /**
    * Request for deleting relationship
    * @param relationship  the relationship to delete
+   * @param objectItem the reference to the objectItem that owns the relationship
    */
-  deleteRelationship(relationship: Relationship): void {
+  deleteRelationship(relationship: Relationship, objectItem: Item): void {
     this.relationshipService.deleteRelationship(relationship.id).subscribe((res) => {
-      this.retrieveRelationships();
+      this.retrieveRelationships(objectItem);
     });
   }
 

@@ -1,5 +1,4 @@
 import { SharedModule } from './../shared.module';
-import { Version } from './../../core/shared/version.model';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -23,6 +22,7 @@ import { SubscriptionsModule } from '../subscriptions/subscriptions.module';
 import { ItemVersionMenuComponent } from './item-version/item-version-menu.component';
 import { ItemVersionContainerComponent } from './item-version/item-version-container/item-version-container.component';
 import { FullItemMenuComponent } from './full-item/full-item-menu.component';
+import { OrcidViewPageMenuComponent } from './orcid-view-page/orcid-view-page-menu.component';
 
 const COMPONENTS = [
   BulkImportMenuComponent,
@@ -39,7 +39,8 @@ const COMPONENTS = [
   SubscriptionMenuComponent,
   ItemVersionMenuComponent,
   ItemVersionContainerComponent,
-  FullItemMenuComponent
+  FullItemMenuComponent,
+  OrcidViewPageMenuComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -55,7 +56,8 @@ const ENTRY_COMPONENTS = [
   StatisticsMenuComponent,
   SubscriptionMenuComponent,
   ItemVersionMenuComponent,
-  FullItemMenuComponent
+  FullItemMenuComponent,
+  OrcidViewPageMenuComponent
 ];
 
 const MODULE = [

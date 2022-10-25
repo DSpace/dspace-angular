@@ -16,7 +16,6 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../../shared/remote-data.utils';
-import { RequestEntry } from '../../data/request.reducer';
 import { RestResponse } from '../../cache/response.models';
 import { VocabularyService } from './vocabulary.service';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
@@ -26,6 +25,7 @@ import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
 import { HrefOnlyDataService } from '../../data/href-only-data.service';
 import { getMockHrefOnlyDataService } from '../../../shared/mocks/href-only-data.service.mock';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { RequestEntry } from '../../data/request-entry.model';
 
 describe('VocabularyService', () => {
   let scheduler: TestScheduler;

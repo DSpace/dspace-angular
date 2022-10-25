@@ -1,5 +1,4 @@
 import { Store } from '@ngrx/store';
-import { CoreState } from '../../core.reducers';
 import {
   NewPatchAddOperationAction,
   NewPatchMoveOperationAction,
@@ -13,6 +12,7 @@ import { dateToISOFormat, dateToString, isNgbDateStruct } from '../../../shared/
 import { VocabularyEntry } from '../../submission/vocabularies/models/vocabulary-entry.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
+import { CoreState } from '../../core-state.model';
 
 /**
  * Provides methods to dispatch JsonPatch Operations Actions

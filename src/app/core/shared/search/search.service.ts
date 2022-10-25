@@ -8,7 +8,8 @@ import { LinkService } from '../../cache/builders/link.service';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { ResponseParsingService } from '../../data/parsing.service';
 import { RemoteData } from '../../data/remote-data';
-import { GetRequest, RestRequest } from '../../data/request.models';
+import { GetRequest} from '../../data/request.models';
+import { RestRequest } from '../../data/rest-request.model';
 import { RequestService } from '../../data/request.service';
 import { DSpaceObject } from '../dspace-object.model';
 import { GenericConstructor } from '../generic-constructor';
@@ -40,7 +41,7 @@ import { SearchConfigurationService } from './search-configuration.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { DataService } from '../../data/data.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../../core.reducers';
+import { CoreState } from '../../core-state.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
@@ -408,9 +409,11 @@ export class SearchService implements OnDestroy {
    * @param {number} valuePage The page number of the filter values
    * @param {SearchOptions} searchOptions The search configuration for the current search
    * @param {string} filterQuery The optional query used to filter out filter values
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
    * @returns {Observable<RemoteData<PaginatedList<FacetValue>>>} Emits the given page of facet values
    */
-  getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: SearchOptions, filterQuery?: string): Observable<RemoteData<FacetValues>> {
+  getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: SearchOptions, filterQuery?: string, useCachedVersionIfAvailable = true): Observable<RemoteData<FacetValues>> {
     let href;
     const args: string[] = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`];
     if (hasValue(filterQuery)) {
@@ -428,7 +431,7 @@ export class SearchService implements OnDestroy {
         return FacetValueResponseParsingService;
       }
     });
-    this.requestService.send(request, true);
+    this.requestService.send(request, useCachedVersionIfAvailable);
 
     return this.rdb.buildFromHref(href);
   }

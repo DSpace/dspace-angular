@@ -3,6 +3,7 @@
     <button *ngIf="(showDepositAndDiscard | async)"
             type="button"
             id="discard"
+            [attr.data-test]="'discard' | dsBrowserOnly"
             class="btn btn-danger"
             [disabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
             (click)="$event.preventDefault();confirmDiscard(content)">
@@ -26,6 +27,7 @@
       <button type="button"
               class="btn btn-secondary"
               id="save"
+              [attr.data-test]="'save' | dsBrowserOnly"
               [disabled]="(processingSaveStatus | async) || !(hasUnsavedModification | async)"
               (click)="save($event)">
         <span><i class="fas fa-save"></i> {{'submission.general.save' | translate}}</span>
@@ -35,6 +37,7 @@
               [class.btn-secondary]="(showDepositAndDiscard | async)"
               class="btn"
               id="saveForLater"
+              [attr.data-test]="'save-for-later' | dsBrowserOnly"
               [disabled]="(!(showDepositAndDiscard | async) && (submissionIsInvalid | async)) || (processingSaveStatus | async) || (processingDepositStatus | async)"
               (click)="saveLater($event)">
       <span><i class="fas fa-save"></i> {{saveForLaterLabel() | translate}}</span>
@@ -42,6 +45,7 @@
       <button *ngIf="(showDepositAndDiscard | async)"
               type="button"
               id="deposit"
+              [attr.data-test]="'deposit' | dsBrowserOnly"
               class="btn btn-success"
               [disabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
               (click)="deposit($event)">

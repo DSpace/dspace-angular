@@ -1,23 +1,24 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
-import { UsageReportService } from '../../core/statistics/usage-report-data.service';
-import { map, switchMap, take, tap } from 'rxjs/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { getFirstSucceededRemoteData, getRemoteDataPayload, redirectOn4xx } from '../../core/shared/operators';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { combineLatest, Observable } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+
+import { UsageReportService } from '../../core/statistics/usage-report-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { StatisticsCategory } from '../../core/statistics/models/statistics-category.model';
 import { StatisticsCategoriesService } from '../../core/statistics/statistics-categories.service';
 import { SiteDataService } from '../../core/data/site-data.service';
-
-import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-
-import { select, Store } from '@ngrx/store';
 import { getCategoryId, getReportId } from '../../core/statistics/statistics-selector';
 import { CleanCategoryReportAction, SetCategoryReportAction } from '../../core/statistics/statistics.action';
 import { AppState } from '../../app.reducer';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
 
 @Component({
   selector: 'ds-cris-statistics-page',
@@ -197,10 +198,21 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Refresh categories when the date from or date to is changed.
+   * Refresh categories when the date from is changed.
    */
-  dateChanged() {
-    this.categories$ = this.getCategories$();
+  startDateChanged() {
+    if (typeof this.dateFrom === 'object' || this.dateFrom === null && this.dateFrom === undefined) {
+      this.categories$ = this.getCategories$();
+    }
+  }
+
+  /**
+   * Refresh categories when the date to is changed.
+   */
+  endDateChanged() {
+    if (typeof this.dateTo === 'object' || this.dateTo === null || this.dateTo === undefined) {
+      this.categories$ = this.getCategories$();
+    }
   }
 
   /**

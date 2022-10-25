@@ -13,6 +13,7 @@ describe('SeriesFieldParser test suite', () => {
     readOnly: false,
     submissionScope: 'testScopeUUID',
     collectionUUID: null,
+    typeField: 'dc_type',
     isInnerForm: false
   };
 

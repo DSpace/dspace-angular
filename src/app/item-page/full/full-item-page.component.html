@@ -11,26 +11,28 @@
           <ds-context-menu [contextMenuObject]="item" [contextMenuObjectType]="'ITEM'"></ds-context-menu>
           </div>
         </div>
-        <div class="simple-view-link my-3" *ngIf="!fromWfi">
+        <div class="simple-view-link my-3" *ngIf="!fromSubmissionObject">
           <a class="btn btn-outline-primary" [routerLink]="[(itemPageRoute$ | async)]">
             {{"item.page.link.simple" | translate}}
           </a>
         </div>
-        <table class="table table-responsive table-striped">
-          <tbody>
-          <ng-container *ngFor="let mdEntry of (metadata$ | async) | keyvalue">
-            <tr *ngFor="let mdValue of mdEntry.value">
-              <td>{{mdEntry.key}}</td>
-              <td>{{mdValue.value}}</td>
-              <td>{{mdValue.language}}</td>
-            </tr>
-          </ng-container>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="table  table-striped">
+            <tbody>
+            <ng-container *ngFor="let mdEntry of (metadata$ | async) | keyvalue">
+              <tr *ngFor="let mdValue of mdEntry.value">
+                <td>{{mdEntry.key}}</td>
+                <td>{{mdValue.value}}</td>
+                <td>{{mdValue.language}}</td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
+        </div>
         <ds-item-page-full-file-section [item]="item"></ds-item-page-full-file-section>
         <ds-item-page-collections [item]="item"></ds-item-page-collections>
         <ds-item-versions class="mt-2" [item]="item"></ds-item-versions>
-        <div class="button-row bottom" *ngIf="fromWfi">
+        <div class="button-row bottom" *ngIf="fromSubmissionObject">
           <div class="text-right">
             <button class="btn btn-outline-secondary mr-1" (click)="back()"><i
                     class="fas fa-arrow-left"></i> {{'item.page.return' | translate}}</button>

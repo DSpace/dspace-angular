@@ -151,7 +151,7 @@ describe('VersionHistoryDataService', () => {
   describe('when getVersionsEndpoint is called', () => {
     it('should return the correct value', () => {
       service.getVersionsEndpoint(versionHistoryId).subscribe((res) => {
-        expect(res).toBe(url + '/versions');
+        expect(res).toBe(url + '/versionhistories/version-history-id/versions');
       });
     });
   });

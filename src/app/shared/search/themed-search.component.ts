@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { SearchComponent } from './search.component';
 import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';

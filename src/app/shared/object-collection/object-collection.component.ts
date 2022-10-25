@@ -50,6 +50,11 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() hideGear = false;
   @Input() selectable = false;
   @Input() selectionConfig: {repeatable: boolean, listId: string};
+
+  /**
+   * Emit custom event for listable object custom actions.
+   */
+  @Output() customEvent = new EventEmitter<any>();
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
@@ -131,11 +136,6 @@ export class ObjectCollectionComponent implements OnInit {
    * Event's payload equals to the newly selected sort field.
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
-
-  /**
-   * Emit custom event for listable object custom actions.
-   */
-  @Output() customEvent = new EventEmitter<any>();
 
   /**
    * If showPaginator is set to true, emit when the previous button is clicked

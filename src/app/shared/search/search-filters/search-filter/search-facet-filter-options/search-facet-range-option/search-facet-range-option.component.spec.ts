@@ -15,10 +15,7 @@ import { SearchConfigurationService } from '../../../../../../core/shared/search
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { By } from '@angular/platform-browser';
 import { SearchFacetRangeOptionComponent } from './search-facet-range-option.component';
-import {
-  RANGE_FILTER_MAX_SUFFIX,
-  RANGE_FILTER_MIN_SUFFIX
-} from '../../search-range-filter/search-range-filter.component';
+import { RANGE_FILTER_MAX_SUFFIX, RANGE_FILTER_MIN_SUFFIX } from '../../search-range-filter/search-range-filter.component';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';

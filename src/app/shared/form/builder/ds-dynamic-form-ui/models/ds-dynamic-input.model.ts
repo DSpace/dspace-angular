@@ -6,7 +6,7 @@ import {
   DynamicInputModelConfig,
   serializable
 } from '@ng-dynamic-forms/core';
-import { Subject } from 'rxjs';
+import {Subject} from 'rxjs';
 
 import { LanguageCode } from '../../models/form-field-language-value.model';
 import { VocabularyOptions } from '../../../../../core/submission/vocabularies/models/vocabulary-options.model';

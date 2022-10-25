@@ -193,8 +193,8 @@
   // "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
   "admin.registries.bitstream-formats.table.supportLevel.head": "Unterstützungsgrad",
 
-  // "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
-  "admin.registries.bitstream-formats.title": "DSpace Angular :: Referenzliste der Dateiformate",
+  // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
+  "admin.registries.bitstream-formats.title": "Referenzliste der Dateiformate",
 
 
 
@@ -234,8 +234,8 @@
   // "admin.registries.metadata.schemas.table.namespace": "Namespace",
   "admin.registries.metadata.schemas.table.namespace": "Namensraum",
 
-  // "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
-  "admin.registries.metadata.title": "DSpace Angular :: Metadatenreferenzliste",
+  // "admin.registries.metadata.title": "Metadata Registry",
+  "admin.registries.metadata.title": "Metadatenreferenzliste",
 
 
 
@@ -252,7 +252,7 @@
   "admin.registries.schema.fields.no-items": "Es gibt keine Metadatenfelder in diesem Schema.",
 
   // "admin.registries.schema.fields.table.delete": "Delete selected",
-  "admin.registries.schema.fields.table.delete": "Ausgewähltes löschen",
+  "admin.registries.schema.fields.table.delete": "Auswahl löschen",
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Feld",
@@ -311,8 +311,8 @@
   // "admin.registries.schema.return": "Return",
   "admin.registries.schema.return": "Zurück",
 
-  // "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
-  "admin.registries.schema.title": "DSpace Angular :: Referenzliste der Metadatenschemata",
+  // "admin.registries.schema.title": "Metadata Schema Registry",
+  "admin.registries.schema.title": "Referenzliste der Metadatenschemata",
 
 
 
@@ -328,8 +328,8 @@
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
   "admin.access-control.epeople.actions.stop-impersonating": "Von Person ausloggen",
 
-  // "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
-  "admin.access-control.epeople.title": "DSpace Angular :: Personen",
+  // "admin.access-control.epeople.title": "EPeople",
+  "admin.access-control.epeople.title": "Personen",
 
   // "admin.access-control.epeople.head": "EPeople",
   "admin.access-control.epeople.head": "Personen",
@@ -444,14 +444,14 @@
 
 
 
-  // "admin.access-control.groups.title": "DSpace Angular :: Groups",
-  "admin.access-control.groups.title": "DSpace Angular :: Gruppen",
+  // "admin.access-control.groups.title": "Groups",
+  "admin.access-control.groups.title": "Gruppen",
 
-  // "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
-  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Gruppe bearbeiten",
+  // "admin.access-control.groups.title.singleGroup": "Edit Group",
+  "admin.access-control.groups.title.singleGroup": "Gruppe bearbeiten",
 
-  // "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
-  "admin.access-control.groups.title.addGroup": "DSpace Angular :: Neue Gruppe",
+  // "admin.access-control.groups.title.addGroup": "New Group",
+  "admin.access-control.groups.title.addGroup": "Neue Gruppe",
 
   // "admin.access-control.groups.head": "Groups",
   "admin.access-control.groups.head": "Gruppen",
@@ -895,6 +895,8 @@
   "bitstream.edit.title": "Datei bearbeiten",
 
 
+  // "browse.back.all-results": "All browse results",
+  "browse.back.all-results": "Filter zurücksetzen",
 
   // "browse.comcol.by.author": "By Author",
   "browse.comcol.by.author": "Nach Autor:in",
@@ -1007,8 +1009,11 @@
   // "browse.startsWith.type_text": "Or enter first few letters:",
   "browse.startsWith.type_text": "Oder geben Sie die ersten Buchstaben ein:",
 
-  // "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
-  "browse.title": "Auflistung von {{ collection }} nach {{ field }} {{ value }}",
+  // "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
+  "browse.title": "Auflistung {{ collection }} nach {{ field }}{{ startsWith }} {{ value }}",
+
+  // "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
+  "browse.title.page": "Auflistung {{ collection }} nach {{ field }} {{ value }}",
 
 
   // "chips.remove": "Remove chip",
@@ -1355,8 +1360,11 @@
   // "community.edit.logo.delete.title": "Delete logo",
   "community.edit.logo.delete.title": "Logo löschen",
 
-  // "communityList.tabTitle": "DSpace - Community List",
-  "communityList.tabTitle": "DSpace - Bereichsliste",
+  // "communityList.breadcrumbs": "Community List",
+  "communityList.breadcrumbs": "Bereichsliste",
+
+  // "communityList.tabTitle": "Community List",
+  "communityList.tabTitle": "Bereichsliste",
 
   // "communityList.title": "List of Communities",
   "communityList.title": "Liste der Bereiche",
@@ -1373,7 +1381,7 @@
   "community.create.notifications.success": "Bereich erfolgreich angelegt",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
-  "community.create.sub-head": "Teilbeirech im Bereich {{ parent }} anlegen",
+  "community.create.sub-head": "Teilbereich im Bereich {{ parent }} anlegen",
 
   // "community.curate.header": "Curate Community: {{community}}",
   "community.curate.header": "Bereich: {{community}} pflegen",
@@ -1560,7 +1568,7 @@
   "community.form.errors.title.required": "Bitte geben Sie einen Namen für den Bereich ein.",
 
   // "community.form.rights": "Copyright text (HTML)",
-  "community.form.rights": "Copyrighterklärung (HTML)",
+  "community.form.rights": "Copyright Text (HTML)",
 
   // "community.form.tableofcontents": "News (HTML)",
   "community.form.tableofcontents": "Neuigkeiten (HTML)",
@@ -1753,7 +1761,7 @@
   "dso-selector.create.community.sub-level": "Einen neuen Bereich anlegen in",
 
   // "dso-selector.create.community.top-level": "Create a new top-level community",
-  "dso-selector.create.community.top-level": "Einen neuen Bereich auf oberster Ebene anlgen",
+  "dso-selector.create.community.top-level": "Einen neuen Bereich auf oberster Ebene anlegen",
 
   // "dso-selector.create.item.head": "New item",
   "dso-selector.create.item.head": "Neues Item",
@@ -1781,6 +1789,18 @@
 
   // "dso-selector.placeholder": "Search for a {{ type }}",
   "dso-selector.placeholder": "Suche nach {{ type }}",
+
+  // "dso-selector.select.collection.head": "Select a collection",
+  "dso-selector.select.collection.head": "Sammlung auswählen",
+
+  // "dso-selector.set-scope.community.head": "Select a search scope",
+  "dso-selector.set-scope.community.head": "Suchbereich auswählen",
+
+  // "dso-selector.set-scope.community.button": "Search all of DSpace",
+  "dso-selector.set-scope.community.button": "Alles durchsuchen",
+
+  // "dso-selector.set-scope.community.input-header": "Search for a community or collection",
+  "dso-selector.set-scope.community.input-header": "Suche Bereich oder Sammlung",
 
 
 
@@ -2127,8 +2147,8 @@
   // "home.search-form.placeholder": "Search the repository ...",
   "home.search-form.placeholder": "Durchsuche Repositorium",
 
-  // "home.title": "DSpace Angular :: Home",
-  "home.title": "DSpace Angular :: Startseite",
+  // "home.title": "Home",
+  "home.title": "Startseite",
 
   // "home.top-level-communities.head": "Communities in DSpace",
   "home.top-level-communities.head": "Hauptbereiche in DSpace",
@@ -2789,8 +2809,8 @@
   // "item.search.results.head": "Item Search Results",
   "item.search.results.head": "Item-Suchergebnisse",
 
-  // "item.search.title": "DSpace Angular :: Item Search",
-  "item.search.title": "DSpace Angular :: Item-Suche",
+  // "item.search.title": "Item Search",
+  "item.search.title": "Item-Suche",
 
 
 
@@ -2986,8 +3006,8 @@
   // "journal.search.results.head": "Journal Search Results",
   "journal.search.results.head": "Suchergebnisse für Zeitschriften",
 
-  // "journal.search.title": "DSpace Angular :: Journal Search",
-  "journal.search.title": "DSpace Angular :: Zeitschriftensuche",
+  // "journal.search.title": "Journal Search",
+  "journal.search.title": "Zeitschriftensuche",
 
 
 
@@ -3615,8 +3635,8 @@
   // "person.search.results.head": "Person Search Results",
   "person.search.results.head": "Ergebnisse der Personensuche",
 
-  // "person.search.title": "DSpace Angular :: Person Search",
-  "person.search.title": "DSpace Angular :: Personensuche",
+  // "person.search.title": "Person Search",
+  "person.search.title": "Personensuche",
 
 
 
@@ -3908,8 +3928,8 @@
   // "publication.search.results.head": "Publication Search Results",
   "publication.search.results.head": "Suchergebnisse Publikationen",
 
-  // "publication.search.title": "DSpace Angular :: Publication Search",
-  "publication.search.title": "DSpace Angular :: Publikationssuche",
+  // "publication.search.title": "Publication Search",
+  "publication.search.title": "Publikationssuche",
 
 
   // "register-email.title": "New user registration",
@@ -4068,6 +4088,24 @@
   // "relationships.isContributorOf": "Contributors",
   "relationships.isContributorOf": "Beteiligte",
 
+  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+  "relationships.isContributorOf.OrgUnit": "Beteiligte (Organisationseinheit)",
+
+  // "relationships.isContributorOf.Person": "Contributor",
+  "relationships.isContributorOf.Person": "Beteiligte (Person)",
+
+  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  "relationships.isFundingAgencyOf.OrgUnit": "Förderer",
+
+
+  // "repository.image.logo": "Repository logo",
+  "repository.image.logo": "Repository Logo",
+
+  // "repository.title.prefix": "DSpace Angular :: ",
+  "repository.title.prefix": "DSpace Angular :: ",
+
+  // "repository.title.prefixDSpace": "DSpace Angular ::",
+  "repository.title.prefixDSpace": "DSpace Angular ::",
 
 
   // "resource-policies.add.button": "Add",
@@ -4231,8 +4269,8 @@
   // "search.switch-configuration.title": "Show",
   "search.switch-configuration.title": "Zeige",
 
-  // "search.title": "DSpace Angular :: Search",
-  "search.title": "DSpace Angular :: Suche",
+  // "search.title": "Search",
+  "search.title": "Suche",
 
   // "search.breadcrumbs": "Search",
   "search.breadcrumbs": "Suche",
@@ -4292,6 +4330,9 @@
 
   // "search.filters.filter.author.placeholder": "Author name",
   "search.filters.filter.author.placeholder": "Autor:innenname",
+
+  // "search.filters.filter.author.label": "Search author name",
+  "search.filters.filter.author.label": "Autorensuche",
 
   // "search.filters.filter.birthDate.head": "Birth Date",
   "search.filters.filter.birthDate.head": "Geburtsdatum",
@@ -4472,6 +4513,8 @@
   // "search.form.search_mydspace": "Search MyDSpace",
   "search.form.search_mydspace": "Suche im persönlichen Arbeitsbereich",
 
+  // "search.form.scope.all": "All of DSpace",
+  "search.form.scope.all": "Alles durchsuchen",
 
 
   // "search.results.head": "Search Results",
@@ -4486,7 +4529,11 @@
   // "search.results.empty": "Your search returned no results.",
   "search.results.empty": "Ihre Suche führte zu keinem Ergebnis.",
 
+  // "search.results.view-result": "View",
+  "search.results.view-result": "Anzeigen",
 
+  // "default.search.results.head": "Search Results",
+  "default.search.results.head": "Suchergebnisse",
 
   // "search.sidebar.close": "Back to results",
   "search.sidebar.close": "Zurück zu den Ergebnissen",
@@ -4534,10 +4581,29 @@
   // "sorting.dc.title.DESC": "Title Descending",
   "sorting.dc.title.DESC": "Titel absteigend",
 
-  // "sorting.score.DESC": "Relevance",
-  "sorting.score.DESC": "Relevanz",
+  // "sorting.score.ASC": "Least Relevant",
+  "sorting.score.ASC": "Relevanz aufsteigend",
 
+  // "sorting.score.DESC": "Most Relevant",
+  "sorting.score.DESC": "Relevanz absteigend",
 
+  // "sorting.dc.date.issued.ASC": "Date Issued Ascending",
+  "sorting.dc.date.issued.ASC": "Erscheinungsdatum aufsteigend",
+
+  // "sorting.dc.date.issued.DESC": "Date Issued Descending",
+  "sorting.dc.date.issued.DESC": "Erscheinungsdatum absteigend",
+
+  // "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
+  "sorting.dc.date.accessioned.ASC": "Freischaltungsdatum aufsteigend",
+
+  // "sorting.dc.date.accessioned.DESC": "Accessioned Date Descending",
+  "sorting.dc.date.accessioned.DESC": "Freischaltungsdatum absteigend",
+
+  // "sorting.lastModified.ASC": "Last modified Ascending",
+  "sorting.lastModified.ASC": "Änderungsdatum aufsteigend",
+
+  // "sorting.lastModified.DESC": "Last modified Descending",
+  "sorting.lastModified.DESC": "Änderungsdatum absteigend",
 
   // "statistics.title": "Statistics",
   "statistics.title": "Statistiken",
@@ -4573,6 +4639,8 @@
   "statistics.table.header.views": "Aufrufe",
 
 
+  // "submission.edit.breadcrumbs": "Edit Submission",
+  "submission.edit.breadcrumbs": "Einreichung bearbeiten",
 
   // "submission.edit.title": "Edit Submission",
   "submission.edit.title": "Einreichung bearbeiten",
@@ -4597,6 +4665,12 @@
 
   // "submission.general.discard.submit": "Discard",
   "submission.general.discard.submit": "Verwerfen",
+
+  // "submission.general.info.saved": "Saved",
+  "submission.general.info.saved": "Gespeichert",
+
+  // "submission.general.info.pending-changes": "Unsaved changes",
+  "submission.general.info.pending-changes": "Ungespeicherte Änderungen",
 
   // "submission.general.save": "Save",
   "submission.general.save": "Speichern",
@@ -5157,7 +5231,7 @@
   "submission.workflow.generic.delete": "Löschen",
 
   // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
-  "submission.workflow.generic.delete-help": "Wenn Sie dieses Item möchten, wählen Sie bitte \"Löschen\". Sie werden danach um Bestätigung gebeten.",
+  "submission.workflow.generic.delete-help": "Wenn Sie dieses Item verwerfen möchten, wählen Sie bitte \"Löschen\". Sie werden danach um Bestätigung gebeten.",
 
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Bearbeiten",
@@ -5237,6 +5311,37 @@
   // "submission.workflow.tasks.pool.show-detail": "Show detail",
   "submission.workflow.tasks.pool.show-detail": "Details anzeigen",
 
+  // "submission.workspace.generic.view": "View",
+  "submission.workspace.generic.view": "Anzeige",
+
+  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  "submission.workspace.generic.view-help": "Wählen Sie diese Option, um die Metadaten des Items anzuzeigen.",
+
+
+
+  // "thumbnail.default.alt": "Thumbnail Image",
+  "thumbnail.default.alt": "Vorschaubild",
+
+  // "thumbnail.default.placeholder": "No Thumbnail Available",
+  "thumbnail.default.placeholder": "Vorschaubild nicht verfügbar",
+
+  // "thumbnail.project.alt": "Project Logo",
+  "thumbnail.project.alt": "Logo des Projekt",
+
+  // "thumbnail.project.placeholder": "Project Placeholder Image",
+  "thumbnail.project.placeholder": "Platzhalterbild des Projekts",
+
+  // "thumbnail.orgunit.alt": "OrgUnit Logo",
+  "thumbnail.orgunit.alt": "Logo der Organisationseinheit",
+
+  // "thumbnail.orgunit.placeholder": "OrgUnit Placeholder Image",
+  "thumbnail.orgunit.placeholder": "Platzhalterbild der Organisationseinheit",
+
+  // "thumbnail.person.alt": "Profile Picture",
+  "thumbnail.person.alt": "Profilbild",
+
+  // "thumbnail.person.placeholder": "No Profile Picture Available",
+  "thumbnail.person.placeholder": "Profilbild nicht verfügbar",
 
 
   // "title": "DSpace",
@@ -5292,10 +5397,14 @@
   "virtual-metadata.delete-relationship.modal-head": "Wählen Sie die Items aus, deren virtuelle Metadaten Sie als echte Metadaten speichern möchten.",
 
 
+  // "workspace.search.results.head": "Your submissions",
+  "workspace.search.results.head": "Ihre Veröffentlichungen",
 
   // "workflowAdmin.search.results.head": "Administer Workflow",
   "workflowAdmin.search.results.head": "Workflow verwalten",
 
+  // "workflow.search.results.head": "Workflow tasks",
+  "workflow.search.results.head": "Workflow-Aufgaben",
 
 
   // "workflow-item.delete.notification.success.title": "Deleted",

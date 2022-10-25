@@ -9,7 +9,9 @@
 <ds-search-charts *ngIf="showCharts"
                   [configuration]="currentConfiguration$"
                   [collapseChart]="collapseCharts"
+                  [filters]="chartFiltersRD$.asObservable()"
                   [inPlaceSearch]="inPlaceSearch"
+                  [refreshFilters]="refreshFilters"
                   [showChartsToggle]="showChartsToggle"></ds-search-charts>
 
 <div *ngIf="!showSidebar && (initialized$ | async)">
@@ -46,6 +48,7 @@
                                [selectable]="selectable"
                                [selectionConfig]="selectionConfig"
                                [customData]="customData"
+                               (contentChange)="onContentChange($event)"
                                (customEvent)="customEvent.emit($event)"
                                (deselectObject)="deselectObject.emit($event)"
                                (selectObject)="selectObject.emit($event)"></ds-search-results>
@@ -58,6 +61,8 @@
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
+                       [filters]="filtersRD$.asObservable()"
+                       [refreshFilters]="refreshFilters"
                        [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
                        [searchOptions]="(searchOptions$ | async)"
                        [sortOptionsList]="(sortOptionsList$ | async)"
@@ -71,6 +76,8 @@
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
+                       [filters]="filtersRD$.asObservable()"
+                       [refreshFilters]="refreshFilters"
                        [resultCount]="(resultsRD$ | async)?.payload.totalElements"
                        [searchOptions]="(searchOptions$ | async)"
                        [sortOptionsList]="(sortOptionsList$ | async)"

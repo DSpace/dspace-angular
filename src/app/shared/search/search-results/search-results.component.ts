@@ -85,6 +85,11 @@ export class SearchResultsComponent {
    */
   @Input() selectionConfig: SelectionConfig = null;
 
+  /**
+   * Emit when one of the listed object has changed.
+   */
+  @Output() contentChange = new EventEmitter<any>();
+
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
@@ -126,4 +131,13 @@ export class SearchResultsComponent {
 
     return result;
   }
+
+  /**
+   * Catch the custom event and emit it again
+   * @param $event
+   */
+  emitCustomEvent($event: any) {
+    this.customEvent.emit($event);
+  }
+
 }

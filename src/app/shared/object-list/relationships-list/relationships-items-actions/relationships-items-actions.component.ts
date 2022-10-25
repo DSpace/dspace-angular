@@ -56,15 +56,25 @@ export class RelationshipsItemsActionsComponent implements OnInit,OnDestroy {
    * Subscribe to the relationships list
    */
   ngOnInit(): void {
-    if (!!this.customData && !!this.customData.relationships$) {
-      this.sub = this.customData.relationships$.subscribe( (relationships) => {
-        this.getSelected(relationships);
-        this.getHidden(relationships);
-        this.isProcessingHide = false;
-        this.isProcessingSelect = false;
-        this.isProcessingUnhide = false;
-        this.isProcessingUnselect = false;
-      });
+    if (!!this.customData) {
+      if (!!this.customData.relationships$) {
+        this.sub = this.customData.relationships$.subscribe( (relationships) => {
+          this.getSelected(relationships);
+          this.getHidden(relationships);
+        });
+      }
+      if (!!this.customData.updateStatusByItemId$) {
+        this.sub.add(
+          this.customData.updateStatusByItemId$.subscribe((itemId?: string) => {
+            if (!itemId || this.object.id === itemId) {
+              this.isProcessingHide = false;
+              this.isProcessingSelect = false;
+              this.isProcessingUnhide = false;
+              this.isProcessingUnselect = false;
+            }
+          })
+        );
+      }
     }
   }
 

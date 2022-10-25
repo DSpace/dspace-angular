@@ -14,7 +14,9 @@ import { DataService } from '../../core/data/data.service';
 import { DSOChangeAnalyzer } from '../../core/data/dso-change-analyzer.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { CreateRequest, FindListOptions, PutRequest, RestRequest } from '../../core/data/request.models';
+import { CreateRequest, PutRequest } from '../../core/data/request.models';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { RestRequest } from '../../core/data/rest-request.model';
 
 import { RequestService } from '../../core/data/request.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
@@ -25,7 +27,8 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { isNotEmpty, isNotEmptyOperator } from '../empty.util';
 
-import { getFirstCompletedRemoteData, getRemoteDataPayload, sendRequest } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
+import { sendRequest } from 'src/app/core/shared/request.operators';
 
 /**
  * Provides methods to retrieve subscription resources from the REST API related CRUD actions.

@@ -21,6 +21,8 @@ import { Version } from './version.model';
 import { VERSION } from './version.resource-type';
 import { BITSTREAM } from './bitstream.resource-type';
 import { Bitstream } from './bitstream.model';
+import { ACCESS_STATUS } from 'src/app/shared/object-list/access-status-badge/access-status.resource-type';
+import { AccessStatusObject } from 'src/app/shared/object-list/access-status-badge/access-status.model';
 import { Metric } from './metric.model';
 import { METRIC } from './metric.resource-type';
 
@@ -81,6 +83,7 @@ export class Item extends DSpaceObject implements ChildHALResource {
     templateItemOf: HALLink;
     version: HALLink;
     thumbnail: HALLink;
+    accessStatus: HALLink;
     metrics: HALLink;
     self: HALLink;
   };
@@ -119,6 +122,13 @@ export class Item extends DSpaceObject implements ChildHALResource {
    */
   @link(BITSTREAM, false, 'thumbnail')
   thumbnail?: Observable<RemoteData<Bitstream>>;
+
+  /**
+   * The access status for this Item
+   * Will be undefined unless the access status {@link HALLink} has been resolved.
+   */
+   @link(ACCESS_STATUS)
+   accessStatus?: Observable<RemoteData<AccessStatusObject>>;
 
   /**
    * The list of the Item's metrics

@@ -1,7 +1,6 @@
 import { RequestService } from './request.service';
 import { EpersonRegistrationService } from './eperson-registration.service';
 import { RestResponse } from '../cache/response.models';
-import { RequestEntry } from './request.reducer';
 import { cold } from 'jasmine-marbles';
 import { PostRequest } from './request.models';
 import { Registration } from '../shared/registration.model';
@@ -9,6 +8,7 @@ import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-servic
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+import { RequestEntry } from './request-entry.model';
 
 describe('EpersonRegistrationService', () => {
   let testScheduler;

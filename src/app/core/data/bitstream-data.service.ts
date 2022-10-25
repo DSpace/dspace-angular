@@ -9,7 +9,6 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { Bitstream } from '../shared/bitstream.model';
 import { BITSTREAM } from '../shared/bitstream.resource-type';
 import { Bundle } from '../shared/bundle.model';
@@ -20,15 +19,22 @@ import { DataService } from './data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { buildPaginatedList, PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { FindListOptions, PutRequest } from './request.models';
+import { PutRequest } from './request.models';
 import { RequestService } from './request.service';
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { sendRequest } from '../shared/operators';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PageInfo } from '../shared/page-info.model';
 import { RequestParam } from '../cache/models/request-param.model';
+import { sendRequest } from '../shared/request.operators';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
+
+export interface MetadataFilter {
+  metadataName: string;
+  metadataValue: string;
+}
 
 /**
  * A service to retrieve {@link Bitstream}s from the REST API
@@ -183,4 +189,53 @@ export class BitstreamDataService extends DataService<Bitstream> {
     );
   }
 
+
+  /**
+   * Returns an observable of {@link RemoteData} of a {@link Bitstream}, based on a handle and an
+   * optional sequenceId or filename, with a list of {@link FollowLinkConfig}, to automatically
+   * resolve {@link HALLink}s of the object
+   *
+   * @param uuid                        The item UUID to retrieve bitstreams from
+   * @param bundlename                  Bundle type of the bitstreams
+   * @param metadataFilters             Array of object we want to filter by
+   * @param options                     The {@link FindListOptions} for the request
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  findByItem(
+    uuid: string,
+    bundlename: string,
+    metadataFilters: MetadataFilter[],
+    options: FindListOptions,
+    useCachedVersionIfAvailable = true,
+    reRequestOnStale = true,
+    ...linksToFollow: FollowLinkConfig<Bitstream>[]
+  ): Observable<RemoteData<PaginatedList<Bitstream>>> {
+    const searchParams = [];
+    searchParams.push(new RequestParam('uuid', uuid));
+    searchParams.push(new RequestParam('name', bundlename));
+
+    metadataFilters.forEach((entry: MetadataFilter) => {
+      searchParams.push(new RequestParam('filterMetadata', entry.metadataName));
+      searchParams.push(new RequestParam('filterMetadataValue', entry.metadataValue));
+    });
+
+    const hrefObs = this.getSearchByHref(
+      'byItemId',
+      { searchParams },
+      ...linksToFollow
+    );
+
+    return this.findAllByHref(
+      hrefObs,
+      options,
+      useCachedVersionIfAvailable,
+      reRequestOnStale,
+      ...linksToFollow
+    );
+  }
 }

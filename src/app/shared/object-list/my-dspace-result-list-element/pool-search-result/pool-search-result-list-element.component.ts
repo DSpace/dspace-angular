@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
@@ -14,6 +14,7 @@ import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 
 /**
  * This component renders pool task object for the search result in the list view.
@@ -25,7 +26,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 })
 
 @listableObjectComponent(PoolTaskSearchResult, ViewMode.ListElement)
-export class PoolSearchResultListElementComponent extends SearchResultListElementComponent<PoolTaskSearchResult, PoolTask> implements OnInit {
+export class PoolSearchResultListElementComponent extends SearchResultListElementComponent<PoolTaskSearchResult, PoolTask>  implements OnInit, OnDestroy {
 
   /**
    * A boolean representing if to show submitter information
@@ -50,7 +51,8 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
   constructor(
     protected linkService: LinkService,
     protected truncatableService: TruncatableService,
-    protected dsoNameService: DSONameService
+    protected dsoNameService: DSONameService,
+    protected objectCache: ObjectCacheService
   ) {
     super(truncatableService, dsoNameService);
   }
@@ -66,4 +68,8 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
     this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
   }
 
+  ngOnDestroy() {
+    // This ensures the object is removed from cache, when action is performed on task
+    this.objectCache.remove(this.dso._links.workflowitem.href);
+  }
 }

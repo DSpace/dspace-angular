@@ -39,7 +39,7 @@ import { SubmissionSectionModel } from './config/models/config-submission-sectio
 import { SubmissionUploadsModel } from './config/models/config-submission-uploads.model';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { coreEffects } from './core.effects';
-import { coreReducers, CoreState } from './core.reducers';
+import { coreReducers } from './core.reducers';
 import { BitstreamFormatDataService } from './data/bitstream-format-data.service';
 import { CollectionDataService } from './data/collection-data.service';
 import { CommunityDataService } from './data/community-data.service';
@@ -76,7 +76,6 @@ import { RegistryService } from './registry/registry.service';
 import { RoleService } from './roles/role.service';
 import { FeedbackDataService } from './feedback/feedback-data.service';
 
-import { ApiService } from './services/api.service';
 import { ServerResponseService } from './services/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from './services/window.service';
 import { BitstreamFormat } from './shared/bitstream-format.model';
@@ -165,14 +164,9 @@ import { EndUserAgreementService } from './end-user-agreement/end-user-agreement
 import { SiteRegisterGuard } from './data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { UsageReport } from './statistics/models/usage-report.model';
-import { ResearcherProfileService } from './profile/researcher-profile.service';
-import { ResearcherProfile } from './profile/model/researcher-profile.model';
 import { SectionDataService } from './layout/section-data.service';
 import { Section } from './layout/models/section.model';
-import { OrcidQueueService } from './orcid/orcid-queue.service';
-import { OrcidQueue } from './orcid/model/orcid-queue.model';
 import { OrcidHistoryService } from './orcid/orcid-history.service';
-import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { EditItem } from './submission/models/edititem.model';
 import { EditItemDataService } from './submission/edititem-data.service';
 import { EditItemMode } from './submission/models/edititem-mode.model';
@@ -194,10 +188,21 @@ import { StatisticsCategory } from './statistics/models/statistics-category.mode
 import { RootDataService } from './data/root-data.service';
 import { SearchConfig } from '../shared/search/search-filters/search-config.model';
 import { EditItemRelationsGuard } from '../edit-item-relationships/guards/edit-item-relationships.guard';
-import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
 import { SequenceService } from './shared/sequence.service';
+import { CoreState } from './core-state.model';
 import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
+import { AccessStatusObject } from '../shared/object-list/access-status-badge/access-status.model';
+import { AccessStatusDataService } from './data/access-status-data.service';
+import { LinkHeadService } from './services/link-head.service';
+import { ResearcherProfileService } from './profile/researcher-profile.service';
+import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
+import { ResearcherProfile } from './profile/model/researcher-profile.model';
+import { OrcidQueueService } from './orcid/orcid-queue.service';
+import { OrcidHistoryDataService } from './orcid/orcid-history-data.service';
+import { OrcidQueue } from './orcid/model/orcid-queue.model';
+import { OrcidHistory } from './orcid/model/orcid-history.model';
+import { OrcidAuthService } from './orcid/orcid-auth.service';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { WorkflowStepStatisticsService } from './statistics/workflow-step-statistics.service';
 import { WorkflowStepStatistics } from './statistics/models/workflow-step-statistics.model';
@@ -254,7 +259,6 @@ const DECLARATIONS = [];
 const EXPORTS = [];
 
 const PROVIDERS = [
-  ApiService,
   AuthenticatedGuard,
   CommunityDataService,
   CollectionDataService,
@@ -269,6 +273,7 @@ const PROVIDERS = [
   SectionFormOperationsService,
   FormService,
   EPersonDataService,
+  LinkHeadService,
   HALEndpointService,
   HostWindowService,
   ItemDataService,
@@ -288,6 +293,7 @@ const PROVIDERS = [
   MyDSpaceResponseParsingService,
   ServerResponseService,
   BrowseService,
+  AccessStatusDataService,
   SubmissionCcLicenseDataService,
   SubmissionCcLicenseUrlDataService,
   SubmissionFormsConfigService,
@@ -358,17 +364,18 @@ const PROVIDERS = [
   MetricService,
   VocabularyService,
   VocabularyTreeviewService,
-  ProfileClaimService,
-  ResearcherProfileService,
   ItemExportFormatService,
   SectionDataService,
-  OrcidQueueService,
-  OrcidHistoryService,
   EditItemDataService,
   EditItemRelationsGuard,
   SequenceService,
   GroupDataService,
   FeedbackDataService,
+  ResearcherProfileService,
+  ProfileClaimService,
+  OrcidAuthService,
+  OrcidQueueService,
+  OrcidHistoryDataService,
   WorkflowStepStatisticsService,
   WorkflowOwnerStatisticsService,
   LoginStatisticsService,
@@ -447,10 +454,7 @@ export const models =
     ShortLivedToken,
     Registration,
     UsageReport,
-    ResearcherProfile,
     ItemExportFormat,
-    OrcidQueue,
-    OrcidHistory,
     Section,
     EditItem,
     EditItemMode,
@@ -463,6 +467,10 @@ export const models =
     Root,
     SearchConfig,
     SubmissionAccessesModel,
+    AccessStatusObject,
+    ResearcherProfile,
+    OrcidQueue,
+    OrcidHistory,
     Subscription,
     WorkflowStepStatistics,
     WorkflowOwnerStatistics,

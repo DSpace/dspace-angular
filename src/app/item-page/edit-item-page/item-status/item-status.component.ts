@@ -11,7 +11,7 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { hasValue } from '../../../shared/empty.util';
 import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
+import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 
 @Component({
   selector: 'ds-item-status',
@@ -59,7 +59,7 @@ export class ItemStatusComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private authorizationService: AuthorizationDataService,
-              private researcherProfileService: ResearcherProfileService) {
+              private orcidAuthService: OrcidAuthService) {
   }
 
   ngOnInit(): void {
@@ -113,8 +113,8 @@ export class ItemStatusComponent implements OnInit {
         );
 
         let orcidOps$ = observableOf([]);
-        if (this.researcherProfileService.isLinkedToOrcid(item)) {
-          orcidOps$ = this.researcherProfileService.adminCanDisconnectProfileFromOrcid().pipe(
+        if (this.orcidAuthService.isLinkedToOrcid(item)) {
+          orcidOps$ = this.orcidAuthService.onlyAdminCanDisconnectProfileFromOrcid().pipe(
               map((canDisconnect) => {
                 if (canDisconnect) {
                   return [new ItemOperation('unlinkOrcid', this.getCurrentUrl(item) + '/unlink-orcid')];

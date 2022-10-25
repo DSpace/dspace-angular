@@ -15,13 +15,14 @@ import { SubmissionRestServiceStub } from '../../../shared/testing/submission-re
 import { SubmissionFormFooterComponent } from './submission-form-footer.component';
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
 import { createTestComponent } from '../../../shared/testing/utils.test';
+import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 
 const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
 
 const submissionId = mockSubmissionId;
 
-describe('SubmissionFormFooterComponent Component', () => {
+describe('SubmissionFormFooterComponent', () => {
 
   let comp: SubmissionFormFooterComponent;
   let compAsAny: any;
@@ -37,7 +38,8 @@ describe('SubmissionFormFooterComponent Component', () => {
       ],
       declarations: [
         SubmissionFormFooterComponent,
-        TestComponent
+        TestComponent,
+        BrowserOnlyMockPipe,
       ],
       providers: [
         { provide: SubmissionService, useValue: submissionServiceStub },

@@ -10,11 +10,9 @@ import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-
 import { dataService } from '../../cache/builders/build-decorators';
 import { DataService } from '../../data/data.service';
 import { RequestService } from '../../data/request.service';
-import { FindListOptions } from '../../data/request.models';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { RemoteData } from '../../data/remote-data';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { CoreState } from '../../core.reducers';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ChangeAnalyzer } from '../../data/change-analyzer';
@@ -31,6 +29,8 @@ import { RequestParam } from '../../cache/models/request-param.model';
 import { VocabularyOptions } from './models/vocabulary-options.model';
 import { PageInfo } from '../../shared/page-info.model';
 import { HrefOnlyDataService } from '../../data/href-only-data.service';
+import { CoreState } from '../../core-state.model';
+import { FindListOptions } from '../../data/find-list-options.model';
 
 
 /**

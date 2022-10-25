@@ -8,12 +8,12 @@ import { CrisLayoutTab } from './models/tab.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { RequestEntry } from '../data/request.reducer';
+import { RequestEntry } from '../data/request-entry.model';
 import { TAB } from './models/tab.resource-type';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { RestResponse } from '../cache/response.models';
 import { of } from 'rxjs';
-import { FindListOptions } from '../data/request.models';
+import { FindListOptions } from '../data/find-list-options.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 

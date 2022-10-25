@@ -22,7 +22,6 @@ import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
@@ -35,17 +34,20 @@ import {
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-  sendRequest
 } from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { ItemDataService } from './item-data.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
+import { DeleteRequest, PostRequest} from './request.models';
 import { RequestService } from './request.service';
-import { RequestEntryState } from './request.reducer';
 import { NoContent } from '../shared/NoContent.model';
+import { RequestEntryState } from './request-entry-state.model';
+import { sendRequest } from '../shared/request.operators';
+import { RestRequest } from './rest-request.model';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 

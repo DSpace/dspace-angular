@@ -2,6 +2,7 @@
   <div class="truncatable-content">
     <div>
       <ds-type-badge class="d-inline-block" *ngIf="showLabel" [object]="dso"></ds-type-badge>
+      <ds-access-status-badge class="d-inline-block" [item]="dso" class="pl-1"></ds-access-status-badge>
       <ds-truncatable [id]="dso.id" *ngIf="object !== undefined && object !== null">
         <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
           rel="noopener noreferrer" [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"

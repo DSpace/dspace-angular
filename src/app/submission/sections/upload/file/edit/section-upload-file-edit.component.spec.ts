@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormGroupModel,
@@ -181,6 +180,8 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
     it('should init form model properly when singleAccessCondition is false', () => {
       comp.fileData = fileData;
       comp.formId = 'testFileForm';
+      const maxStartDate = {year: 2022, month: 1, day: 12};
+      const maxEndDate = {year: 2019, month: 7, day: 12};
 
       comp.ngOnInit();
 
@@ -189,6 +190,10 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       expect(comp.formModel[0] instanceof DynamicFormGroupModel).toBeTruthy();
       expect(comp.formModel[1] instanceof DynamicFormArrayModel).toBeTruthy();
       expect((comp.formModel[1] as DynamicFormArrayModel).groups.length).toBe(2);
+      const startDateModel = formbuilderService.findById('startDate', comp.formModel);
+      expect(startDateModel.max).toEqual(maxStartDate);
+      const endDateModel = formbuilderService.findById('endDate', comp.formModel);
+      expect(endDateModel.max).toEqual(maxEndDate);
     });
 
     it('should init form model properly when singleAccessCondition is true', () => {
@@ -231,20 +236,19 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       const formGroup = formbuilderService.createFormGroup(comp.formModel);
       const control = formbuilderService.getFormControlById('name', formGroup, comp.formModel, 0);
 
-      spyOn(formbuilderService, 'findById').and.callThrough();
+      spyOn(control.parent, 'markAsDirty').and.callThrough();
 
       control.value = 'openaccess';
       comp.setOptions(model, control);
-      expect(formbuilderService.findById).not.toHaveBeenCalledWith('endDate', (model.parent as DynamicFormArrayGroupModel).group);
-      expect(formbuilderService.findById).not.toHaveBeenCalledWith('startDate', (model.parent as DynamicFormArrayGroupModel).group);
+      expect(control.parent.markAsDirty).toHaveBeenCalled();
 
       control.value = 'lease';
       comp.setOptions(model, control);
-      expect(formbuilderService.findById).toHaveBeenCalledWith('endDate', (model.parent as DynamicFormArrayGroupModel).group);
+      expect(control.parent.markAsDirty).toHaveBeenCalled();
 
       control.value = 'embargo';
       comp.setOptions(model, control);
-      expect(formbuilderService.findById).toHaveBeenCalledWith('startDate', (model.parent as DynamicFormArrayGroupModel).group);
+      expect(control.parent.markAsDirty).toHaveBeenCalled();
     });
 
     it('should retrieve Value From Field properly', () => {

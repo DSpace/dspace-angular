@@ -14,7 +14,6 @@ import { SubmissionFormsConfigService } from '../../../core/config/submission-fo
 import { hasValue, isEmpty, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { SectionDataObject } from '../models/section-data.model';
 import { renderSectionFor } from '../sections-decorator';
@@ -37,6 +36,8 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
+import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SubmissionVisibility } from '../../utils/visibility.util';
 import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
 import { SubmissionVisibilityType } from '../../../core/config/models/config-submission-section.model';
