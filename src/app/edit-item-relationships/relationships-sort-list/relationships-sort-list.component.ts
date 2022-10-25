@@ -17,6 +17,11 @@ export class RelationshipsSortListComponent implements OnChanges {
 
   @Input() item: Item;
 
+  /**
+   * When true disable drag & drop and hide handle
+   */
+  @Input() pendingChanges = false;
+
   @Output() itemDrop = new EventEmitter<any>();
 
   @Output() deleteRelationship = new EventEmitter<any>();
@@ -30,13 +35,16 @@ export class RelationshipsSortListComponent implements OnChanges {
    */
   isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
+  disableSorting: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   ngOnChanges(change) {
-    this.isLoading.next(true);
-    console.log('ngOnChanges', change.relationships);
     if (change.relationships) {
+      this.isLoading.next(true);
       this.filteredRelationships = this.relationships.filter((rel) => !rel.leftwardValue.includes('Hidden'));
-      console.log(this.filteredRelationships);
       this.isLoading.next(false);
+    }
+    if (change.pendingChanges) {
+      this.disableSorting.next(this.pendingChanges);
     }
 
   }
