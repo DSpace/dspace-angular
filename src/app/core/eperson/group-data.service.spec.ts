@@ -191,9 +191,7 @@ describe('GroupDataService', () => {
       callback();
 
       expect(objectCache.getByHref).toHaveBeenCalledWith(EPersonMock2._links.self.href);
-      expect(objectCache.getByHref).toHaveBeenCalledWith(GroupMock._links.self.href);
-      expect(requestService.setStaleByUUID).toHaveBeenCalledTimes(4);
-      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request1');
+      expect(requestService.setStaleByUUID).toHaveBeenCalledTimes(2);
       expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request2');
     });
   });
@@ -218,9 +216,7 @@ describe('GroupDataService', () => {
       callback();
 
       expect(objectCache.getByHref).toHaveBeenCalledWith(EPersonMock._links.self.href);
-      expect(objectCache.getByHref).toHaveBeenCalledWith(GroupMock._links.self.href);
-      expect(requestService.setStaleByUUID).toHaveBeenCalledTimes(4);
-      expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request1');
+      expect(requestService.setStaleByUUID).toHaveBeenCalledTimes(2);
       expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request2');
     });
   });

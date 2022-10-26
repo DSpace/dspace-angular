@@ -1,17 +1,18 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
-  SearchFilterService,
   FILTER_CONFIG,
-  IN_PLACE_SEARCH
+  IN_PLACE_SEARCH,
+  REFRESH_FILTER,
+  SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { SearchFiltersComponent } from '../../search-filters.component';
 import { Router } from '@angular/router';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
-import { of as observableOf, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
@@ -21,7 +22,7 @@ import {
 } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { FacetValue } from '../../../models/facet-value.model';
 import { FilterType } from '../../../models/filter-type.model';
@@ -112,7 +113,8 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
-        { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() }
+        { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
+        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchHierarchyFilterComponent, {
@@ -140,7 +142,7 @@ describe('SearchHierarchyFilterComponent', () => {
   });
 
   it('should navigate to the correct filter with the query operator', () => {
-    expect((comp as any).searchService.getFacetValuesFor).toHaveBeenCalledWith(comp.filterConfig, 0, {});
+    expect((comp as any).searchService.getFacetValuesFor).toHaveBeenCalledWith(comp.filterConfig, 0, {}, null, true);
 
     const searchQuery = 'MARVEL';
     comp.onSubmit(searchQuery);
