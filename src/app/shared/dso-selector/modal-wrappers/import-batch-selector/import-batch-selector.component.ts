@@ -16,6 +16,7 @@ import { Observable, of } from 'rxjs';
   templateUrl: '../dso-selector-modal-wrapper.component.html',
 })
 export class ImportBatchSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
+  configuration = 'backend';
   objectType = DSpaceObjectType.DSPACEOBJECT;
   selectorTypes = [DSpaceObjectType.COLLECTION];
   action = SelectorActionType.IMPORT_BATCH;
