@@ -14,8 +14,6 @@ import { NoContent } from '../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import {MetadataSchema} from "../../../core/metadata/metadata-schema.model";
-import {toFindListOptions} from "../../../shared/pagination/pagination.utils";
 
 /**
  * This component renders a list of bitstream formats
@@ -45,7 +43,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'rbp',
-    pageSize: 25,
+    pageSize: 20,
     pageSizeOptions: [20, 40, 60, 80, 100]
   });
 
