@@ -45,6 +45,9 @@ import {
 import { environment } from '../environments/environment';
 import { SectionDataService } from './core/layout/section-data.service';
 import { Section } from './core/layout/models/section.model';
+import {
+  ExportBatchSelectorComponent
+} from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
 
 /**
  * Creates all of the app's menus
@@ -508,6 +511,20 @@ export class MenuResolver implements Resolve<boolean> {
         } as OnClickMenuItemModel,
         shouldPersistOnRouteChange: true
       });
+      this.menuService.addSection(MenuID.ADMIN, {
+        id: 'export_batch',
+        parentID: 'export',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.ONCLICK,
+          text: 'menu.section.export_batch',
+          function: () => {
+            this.modalService.open(ExportBatchSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
+        shouldPersistOnRouteChange: true
+      });
     });
   }
 
@@ -516,20 +533,7 @@ export class MenuResolver implements Resolve<boolean> {
    * the import scripts exist and the current user is allowed to execute them
    */
   createImportMenuSections() {
-    const menuList = [
-      // TODO: enable this menu item once the feature has been implemented
-      // {
-      //   id: 'import_batch',
-      //   parentID: 'import',
-      //   active: false,
-      //   visible: true,
-      //   model: {
-      //     type: MenuItemType.LINK,
-      //     text: 'menu.section.import_batch',
-      //     link: ''
-      //   } as LinkMenuItemModel,
-      // }
-    ];
+    const menuList = [];
     menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, menuSection));
 
     observableCombineLatest([
@@ -563,6 +567,18 @@ export class MenuResolver implements Resolve<boolean> {
           type: MenuItemType.LINK,
           text: 'menu.section.import_metadata',
           link: '/admin/metadata-import'
+        } as LinkMenuItemModel,
+        shouldPersistOnRouteChange: true
+      });
+      this.menuService.addSection(MenuID.ADMIN, {
+        id: 'import_batch',
+        parentID: 'import',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: 'menu.section.import_batch',
+          link: '/admin/batch-import'
         } as LinkMenuItemModel,
         shouldPersistOnRouteChange: true
       });
