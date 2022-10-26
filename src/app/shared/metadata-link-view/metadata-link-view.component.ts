@@ -12,6 +12,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { Metadata } from '../../core/shared/metadata.utils';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 interface MetadataView {
   authority: string;
@@ -35,7 +36,7 @@ export class MetadataLinkViewComponent implements OnInit {
   /**
    * Item of the metadata value
    */
-  @Input() item: Item;
+  @Input() item: DSpaceObject;
   /**
    * Processed metadata to create MetadataOrcid with the informations needed to show
    */

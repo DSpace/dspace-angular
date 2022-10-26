@@ -321,6 +321,7 @@ import { ItemCorrectionComponent } from './object-collection/shared/mydspace-ite
 import { MetricsModule } from './metric/metrics.module';
 import { SearchChartBarHorizontalComponent } from './search/search-charts/search-chart/search-chart-bar-horizontal/search-chart-bar-horizontal.component';
 import { ThumbnailService } from './thumbnail/thumbnail.service';
+import { AdditionalMetadataComponent } from './object-list/search-result-list-element/additional-metadata/additional-metadata.component';
 
 const MODULES = [
   CommonModule,
@@ -646,6 +647,7 @@ const DIRECTIVES = [
     ItemVersionsSummaryModalComponent,
     ItemVersionsDeleteModalComponent,
     ItemExportAlertComponent,
+    AdditionalMetadataComponent,
   ],
   providers: [
     ...PROVIDERS
@@ -656,7 +658,8 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ...DIRECTIVES,
-    TranslateModule
+    TranslateModule,
+    AdditionalMetadataComponent
   ]
 })
 
