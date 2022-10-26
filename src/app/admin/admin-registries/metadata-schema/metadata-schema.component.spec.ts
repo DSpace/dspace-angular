@@ -169,10 +169,10 @@ describe('MetadataSchemaComponent', () => {
   });
 
   it('should contain the correct fields', () => {
-    const editorField: HTMLElement = fixture.debugElement.query(By.css('#metadata-fields tr:nth-child(1) td:nth-child(2)')).nativeElement;
+    const editorField: HTMLElement = fixture.debugElement.query(By.css('#metadata-fields tr:nth-child(1) td:nth-child(3)')).nativeElement;
     expect(editorField.textContent).toBe('mock.contributor.editor');
 
-    const illustratorField: HTMLElement = fixture.debugElement.query(By.css('#metadata-fields tr:nth-child(2) td:nth-child(2)')).nativeElement;
+    const illustratorField: HTMLElement = fixture.debugElement.query(By.css('#metadata-fields tr:nth-child(2) td:nth-child(3)')).nativeElement;
     expect(illustratorField.textContent).toBe('mock.contributor.illustrator');
   });
 
