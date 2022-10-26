@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable, zip } from 'rxjs';
+import {combineLatest, combineLatest as observableCombineLatest, Observable, of as observableOf, zip} from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
@@ -14,6 +14,8 @@ import { NoContent } from '../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import {MetadataSchema} from "../../../core/metadata/metadata-schema.model";
+import {toFindListOptions} from "../../../shared/pagination/pagination.utils";
 
 /**
  * This component renders a list of bitstream formats
@@ -44,7 +46,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'rbp',
     pageSize: 25,
-    pageSizeOptions: [25, 50, 100, 200]
+    pageSizeOptions: [20, 40, 60, 80, 100]
   });
 
   constructor(private notificationsService: NotificationsService,

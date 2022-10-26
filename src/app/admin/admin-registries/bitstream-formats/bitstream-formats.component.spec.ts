@@ -129,16 +129,19 @@ describe('BitstreamFormatsComponent', () => {
     });
 
     it('should contain the correct formats', () => {
-      const unknownName: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(1) td:nth-child(2)')).nativeElement;
+      const unknownName: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(1) td:nth-child(3)')).nativeElement;
       expect(unknownName.textContent).toBe('Unknown');
 
-      const licenseName: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(2) td:nth-child(2)')).nativeElement;
+      const UUID: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(1) td:nth-child(2)')).nativeElement;
+      expect(UUID.textContent).toBe('test-uuid-1');
+
+      const licenseName: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(2) td:nth-child(3)')).nativeElement;
       expect(licenseName.textContent).toBe('License');
 
-      const ccLicenseName: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(3) td:nth-child(2)')).nativeElement;
+      const ccLicenseName: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(3) td:nth-child(3)')).nativeElement;
       expect(ccLicenseName.textContent).toBe('CC License');
 
-      const adobeName: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(4) td:nth-child(2)')).nativeElement;
+      const adobeName: HTMLElement = fixture.debugElement.query(By.css('#formats tr:nth-child(4) td:nth-child(3)')).nativeElement;
       expect(adobeName.textContent).toBe('Adobe PDF');
     });
   });
