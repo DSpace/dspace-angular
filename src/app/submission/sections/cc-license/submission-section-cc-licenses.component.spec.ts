@@ -16,8 +16,8 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import {ConfigurationDataService} from "../../../core/data/configuration-data.service";
-import {ConfigurationProperty} from "../../../core/shared/configuration-property.model";
+import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
+import {ConfigurationProperty} from '../../../core/shared/configuration-property.model';
 
 describe('SubmissionSectionCcLicensesComponent', () => {
 
