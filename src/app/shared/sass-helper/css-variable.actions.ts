@@ -1,5 +1,7 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 import { type } from '../ngrx/type';
+import { KeyValuePair } from '../key-value-pair.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -11,6 +13,8 @@ import { type } from '../ngrx/type';
  */
 export const CSSVariableActionTypes = {
   ADD: type('dspace/css-variables/ADD'),
+  ADD_ALL: type('dspace/css-variables/ADD_ALL'),
+  CLEAR: type('dspace/css-variables/CLEAR'),
 };
 
 export class AddCSSVariableAction implements Action {
@@ -24,5 +28,17 @@ export class AddCSSVariableAction implements Action {
     this.payload = {name, value};
   }
 }
+export class AddAllCSSVariablesAction implements Action {
+  type = CSSVariableActionTypes.ADD_ALL;
+  payload: KeyValuePair<string, string>[];
 
-export type CSSVariableAction = AddCSSVariableAction;
+  constructor(variables: KeyValuePair<string, string>[]) {
+    this.payload = variables;
+  }
+}
+
+export class ClearCSSVariablesAction implements Action {
+  type = CSSVariableActionTypes.CLEAR;
+}
+
+export type CSSVariableAction = AddCSSVariableAction | AddAllCSSVariablesAction | ClearCSSVariablesAction;
