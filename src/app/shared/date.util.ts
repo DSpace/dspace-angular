@@ -2,7 +2,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { formatInTimeZone }  from 'date-fns-tz';
 import { isValid } from 'date-fns';
 import isObject from 'lodash/isObject';
-import { isNull, isUndefined } from './empty.util';
+import { hasNoValue } from './empty.util';
 
 /**
  * Returns true if the passed value is a NgbDateStruct.
@@ -66,7 +66,7 @@ export function stringToNgbDateStruct(date: string): NgbDateStruct {
  *    the NgbDateStruct object
  */
 export function dateToNgbDateStruct(date?: Date): NgbDateStruct {
-  if (isNull(date) || isUndefined(date)) {
+  if (hasNoValue(date)) {
     date = new Date();
   }
 
@@ -95,7 +95,7 @@ export function dateToString(date: Date | NgbDateStruct): string {
  * @param date the string to be checked
  */
 export function isValidDate(date: string) {
-  return (isNull(date) || isUndefined(date)) ? false : isValid(new Date(date));
+  return (hasNoValue(date)) ? false : isValid(new Date(date));
 }
 
 /**
