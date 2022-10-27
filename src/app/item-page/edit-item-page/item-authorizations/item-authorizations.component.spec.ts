@@ -1,11 +1,12 @@
+import { Observable } from 'rxjs/internal/Observable';
 import { waitForAsync, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, of } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { ItemAuthorizationsComponent } from './item-authorizations.component';
+import { ItemAuthorizationsComponent, BitstreamMapValue } from './item-authorizations.component';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
@@ -57,8 +58,6 @@ describe('ItemAuthorizationsComponent test suite', () => {
     bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream3, bitstream4]))
   });
   const bundles = [bundle1, bundle2];
-  const bitstreamList1: PaginatedList<Bitstream> = buildPaginatedList(new PageInfo(), [bitstream1, bitstream2]);
-  const bitstreamList2: PaginatedList<Bitstream> = buildPaginatedList(new PageInfo(), [bitstream3, bitstream4]);
 
   const item = Object.assign(new Item(), {
     uuid: 'item',
@@ -142,13 +141,12 @@ describe('ItemAuthorizationsComponent test suite', () => {
       expect(compAsAny.bundleBitstreamsMap.has('bundle1')).toBeTruthy();
       expect(compAsAny.bundleBitstreamsMap.has('bundle2')).toBeTruthy();
       let bitstreamList = compAsAny.bundleBitstreamsMap.get('bundle1');
-      expect(bitstreamList).toBeObservable(cold('(a|)', {
-        a: bitstreamList1
+      expect(bitstreamList.bitstreams).toBeObservable(cold('(a|)', {
+        a : [bitstream1, bitstream2]
       }));
-
       bitstreamList = compAsAny.bundleBitstreamsMap.get('bundle2');
-      expect(bitstreamList).toBeObservable(cold('(a|)', {
-        a: bitstreamList2
+      expect(bitstreamList.bitstreams).toBeObservable(cold('(a|)', {
+        a: [bitstream3, bitstream4]
       }));
     });
 

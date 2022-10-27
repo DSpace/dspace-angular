@@ -1,17 +1,21 @@
 import {
+  ChangeDetectorRef,
   Component,
-  ComponentFactoryResolver,
+  ComponentRef,
   ElementRef,
+  EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
-  ViewChild,
-  EventEmitter,
   SimpleChanges,
-  OnChanges,
-  ComponentRef
+  ViewChild
 } from '@angular/core';
+
+import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
+
 import { ListableObject } from '../listable-object.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Context } from '../../../../core/shared/context.model';
@@ -20,9 +24,7 @@ import { GenericConstructor } from '../../../../core/shared/generic-constructor'
 import { ListableObjectDirective } from './listable-object.directive';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { hasValue, isNotEmpty } from '../../../empty.util';
-import { Subscription } from 'rxjs';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { take } from 'rxjs/operators';
 import { ThemeService } from '../../../theme-support/theme.service';
 
 @Component({
@@ -82,7 +84,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   /**
    * Directive hook used to place the dynamic child component
    */
-  @ViewChild(ListableObjectDirective, {static: true}) listableObjectDirective: ListableObjectDirective;
+  @ViewChild(ListableObjectDirective, { static: true }) listableObjectDirective: ListableObjectDirective;
 
   /**
    * View on the badges template, to be passed on to the loaded component (which will place the badges in the desired
@@ -120,20 +122,19 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
    * The list of input and output names for the dynamic component
    */
   protected inAndOutputNames: string[] = [
-      'object',
-      'index',
-      'linkType',
-      'listID',
-      'showLabel',
-      'context',
-      'viewMode',
-      'value',
-    ];
+    'object',
+    'index',
+    'linkType',
+    'listID',
+    'showLabel',
+    'context',
+    'viewMode',
+    'value',
+    'hideBadges',
+    'contentChange',
+  ];
 
-  constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private themeService: ThemeService
-  ) {
+  constructor(private cdr: ChangeDetectorRef, private themeService: ThemeService) {
   }
 
   /**
@@ -164,27 +165,30 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
 
     const component = this.getComponent(object.getRenderTypes(), this.viewMode, this.context);
 
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-
     const viewContainerRef = this.listableObjectDirective.viewContainerRef;
     viewContainerRef.clear();
 
     this.compRef = viewContainerRef.createComponent(
-      componentFactory,
-      0,
-      undefined,
-      [
-        [this.badges.nativeElement],
-      ]);
+      component, {
+        index: 0,
+        injector: undefined,
+        projectableNodes: [
+          [this.badges.nativeElement],
+        ]
+      }
+    );
 
     this.connectInputsAndOutputs();
 
     if ((this.compRef.instance as any).reloadedObject) {
-      (this.compRef.instance as any).reloadedObject.pipe(take(1)).subscribe((reloadedObject: DSpaceObject) => {
+      (this.compRef.instance as any).reloadedObject.pipe(
+        take(1)
+      ).subscribe((reloadedObject: DSpaceObject) => {
         if (reloadedObject) {
           this.compRef.destroy();
           this.object = reloadedObject;
           this.instantiateComponent(reloadedObject);
+          this.cdr.detectChanges();
           this.contentChange.emit(reloadedObject);
         }
       });

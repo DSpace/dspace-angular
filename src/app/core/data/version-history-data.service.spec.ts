@@ -102,17 +102,23 @@ describe('VersionHistoryDataService', () => {
       buildFromRequestUUID: jasmine.createSpy('buildFromRequestUUID'),
     });
     objectCache = jasmine.createSpyObj('objectCache', {
-      remove: jasmine.createSpy('remove')
+      remove: jasmine.createSpy('remove'),
     });
     versionService = jasmine.createSpyObj('objectCache', {
       findByHref: jasmine.createSpy('findByHref'),
-      findAllByHref: jasmine.createSpy('findAllByHref'),
+      findListByHref: jasmine.createSpy('findListByHref'),
       getHistoryFromVersion: jasmine.createSpy('getHistoryFromVersion'),
     });
     halService = new HALEndpointServiceStub(url);
     notificationsService = new NotificationsServiceStub();
 
-    service = new VersionHistoryDataService(requestService, rdbService, null, objectCache, halService, notificationsService, versionService, null, null);
+    service = new VersionHistoryDataService(
+      requestService,
+      rdbService,
+      objectCache,
+      halService,
+      versionService,
+    );
   }
 
   beforeEach(() => {
@@ -126,8 +132,8 @@ describe('VersionHistoryDataService', () => {
       result = service.getVersions('1');
     });
 
-    it('should call versionService.findAllByHref', () => {
-      expect(versionService.findAllByHref).toHaveBeenCalled();
+    it('should call versionService.findListByHref', () => {
+      expect(versionService.findListByHref).toHaveBeenCalled();
     });
   });
 
@@ -135,8 +141,8 @@ describe('VersionHistoryDataService', () => {
     beforeEach(waitForAsync(() => {
       service.getVersions(versionHistoryId);
     }));
-    it('findAllByHref should have been called', () => {
-      expect(versionService.findAllByHref).toHaveBeenCalled();
+    it('findListByHref should have been called', () => {
+      expect(versionService.findListByHref).toHaveBeenCalled();
     });
   });
 
@@ -151,7 +157,7 @@ describe('VersionHistoryDataService', () => {
   describe('when getVersionsEndpoint is called', () => {
     it('should return the correct value', () => {
       service.getVersionsEndpoint(versionHistoryId).subscribe((res) => {
-        expect(res).toBe(url + '/versions');
+        expect(res).toBe(url + '/versionhistories/version-history-id/versions');
       });
     });
   });

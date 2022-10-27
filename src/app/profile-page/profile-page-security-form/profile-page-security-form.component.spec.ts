@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
@@ -73,6 +73,19 @@ describe('ProfilePageSecurityFormComponent', () => {
         tick(300);
 
         expect(component.passwordValue.emit).toHaveBeenCalledWith('new-password');
+      }));
+
+      it('should emit the value on password change with current password for profile-page', fakeAsync(() => {
+        spyOn(component.passwordValue, 'emit');
+        spyOn(component.currentPasswordValue, 'emit');
+        component.FORM_PREFIX = 'profile.security.form.';
+        component.ngOnInit();
+        component.formGroup.patchValue({password: 'new-password'});
+        component.formGroup.patchValue({'current-password': 'current-password'});
+        tick(300);
+
+        expect(component.passwordValue.emit).toHaveBeenCalledWith('new-password');
+        expect(component.currentPasswordValue.emit).toHaveBeenCalledWith('current-password');
       }));
     });
   });

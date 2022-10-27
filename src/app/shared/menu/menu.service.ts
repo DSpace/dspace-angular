@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { MenuSection, MenuSections, MenuState } from './menu.reducer';
 import { AppState, keySelector } from '../../app.reducer';
-import { MenuID } from './initial-menus-state';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import {
@@ -20,6 +18,10 @@ import {
   ToggleMenuAction,
 } from './menu.actions';
 import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../empty.util';
+import { MenuState } from './menu-state.model';
+import { MenuSections } from './menu-sections.model';
+import { MenuSection } from './menu-section.model';
+import { MenuID } from './menu-id.model';
 
 export function menuKeySelector<T>(key: string, selector): MemoizedSelector<MenuState, T> {
   return createSelector(selector, (state) => {
@@ -37,7 +39,7 @@ const menuByIDSelector = (menuID: MenuID): MemoizedSelector<AppState, MenuState>
   return keySelector<MenuState>(menuID, menusStateSelector);
 };
 
-const menuSectionStateSelector = (state: MenuState) => state.sections;
+const menuSectionStateSelector = (state: MenuState) => hasValue(state) ? state.sections : {};
 
 const menuSectionByIDSelector = (id: string): MemoizedSelector<MenuState, MenuSection> => {
   return menuKeySelector<MenuSection>(id, menuSectionStateSelector);
@@ -164,7 +166,7 @@ export class MenuService {
    */
   isMenuCollapsed(menuID: MenuID): Observable<boolean> {
     return this.getMenu(menuID).pipe(
-      map((state: MenuState) => state.collapsed)
+      map((state: MenuState) => hasValue(state) ? state.collapsed : undefined)
     );
   }
 
@@ -175,7 +177,7 @@ export class MenuService {
    */
   isMenuPreviewCollapsed(menuID: MenuID): Observable<boolean> {
     return this.getMenu(menuID).pipe(
-      map((state: MenuState) => state.previewCollapsed)
+      map((state: MenuState) => hasValue(state) ? state.previewCollapsed : undefined)
     );
   }
 
@@ -186,7 +188,7 @@ export class MenuService {
    */
   isMenuVisible(menuID: MenuID): Observable<boolean> {
     return this.getMenu(menuID).pipe(
-      map((state: MenuState) => state.visible)
+      map((state: MenuState) => hasValue(state) ? state.visible : undefined)
     );
   }
 
