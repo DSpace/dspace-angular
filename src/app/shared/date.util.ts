@@ -1,6 +1,6 @@
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
-import { isObject } from 'lodash';
+import isObject from 'lodash/isObject';
 import * as moment from 'moment';
 
 import { isNull, isUndefined } from './empty.util';

@@ -1,4 +1,5 @@
-import { isObject, uniqueId } from 'lodash';
+import isObject from 'lodash/isObject';
+import uniqueId from 'lodash/uniqueId';
 import { hasValue, isNotEmpty } from '../../empty.util';
 import { FormFieldMetadataValueObject } from '../../form/builder/models/form-field-metadata-value.model';
 import { ConfidenceType } from '../../../core/shared/confidence-type';

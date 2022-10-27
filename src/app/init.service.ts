@@ -13,7 +13,7 @@ import { makeStateKey, TransferState } from '@angular/platform-browser';
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { TranslateService } from '@ngx-translate/core';
 import { LocaleService } from './core/locale/locale.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
