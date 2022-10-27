@@ -114,7 +114,7 @@ export class RSSComponent implements OnInit, OnDestroy  {
    * @returns The combine URL to opensearch
    */
   formulateRoute(uuid: string, opensearch: string, sort: SortOptions, query: string): string {
-    let route = 'search?format=atom';
+    let route = '?format=atom';
     if (uuid) {
       route += `&scope=${uuid}`;
     }
@@ -126,7 +126,7 @@ export class RSSComponent implements OnInit, OnDestroy  {
     } else {
       route += `&query=*`;
     }
-    route = '/' + opensearch + '/' + route;
+    route = '/' + opensearch + route;
     return route;
   }
 
