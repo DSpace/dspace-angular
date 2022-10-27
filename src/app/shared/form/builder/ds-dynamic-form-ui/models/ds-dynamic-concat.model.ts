@@ -1,4 +1,10 @@
-import { DynamicFormControlLayout, DynamicFormGroupModel, DynamicFormGroupModelConfig, serializable } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlLayout,
+  DynamicFormControlRelation,
+  DynamicFormGroupModel,
+  DynamicFormGroupModelConfig,
+  serializable
+} from '@ng-dynamic-forms/core';
 
 import { Subject } from 'rxjs';
 
@@ -16,6 +22,7 @@ export interface DynamicConcatModelConfig extends DynamicFormGroupModelConfig {
   separator: string;
   value?: any;
   hint?: string;
+  typeBindRelations?: DynamicFormControlRelation[];
   relationship?: RelationshipOptions;
   repeatable: boolean;
   required: boolean;
@@ -29,6 +36,8 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
 
   @serializable() separator: string;
   @serializable() hasLanguages = false;
+  @serializable() typeBindRelations: DynamicFormControlRelation[];
+  @serializable() typeBindHidden = false;
   @serializable() relationship?: RelationshipOptions;
   @serializable() repeatable?: boolean;
   @serializable() required?: boolean;
@@ -55,6 +64,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     this.metadataValue = config.metadataValue;
     this.valueUpdates = new Subject<string>();
     this.valueUpdates.subscribe((value: string) => this.value = value);
+    this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
   }
 
   get value() {
