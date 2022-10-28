@@ -227,6 +227,8 @@
 	"admin.registries.schema.fields.no-items": "Δεν υπάρχουν πεδία μεταδεδομένων για εμφάνιση.",
 	"admin.registries.schema.fields.table.delete": "Διαγραφή επιλεγμένων",
 	"admin.registries.schema.fields.table.field": "Πεδίο",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
 	"admin.registries.schema.fields.table.scopenote": "Πεδίο εφαρμογής",
 	"admin.registries.schema.form.create": "Δημιουργία πεδίου μεταδεδομένων",
 	"admin.registries.schema.form.edit": "Επεξεργασία πεδίου μεταδεδομένων",
