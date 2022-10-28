@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
+import { BehaviorSubject } from 'rxjs';
+
 import { Context } from '../../core/shared/context.model';
 import { Relationship } from '../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../core/shared/item.model';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'ds-relationships-sort-list',
@@ -35,18 +36,12 @@ export class RelationshipsSortListComponent implements OnChanges {
    */
   isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
-  disableSorting: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
   ngOnChanges(change) {
     if (change.relationships) {
       this.isLoading.next(true);
       this.filteredRelationships = this.relationships.filter((rel) => !rel.leftwardValue.includes('Hidden'));
       this.isLoading.next(false);
     }
-    if (change.pendingChanges) {
-      this.disableSorting.next(this.pendingChanges);
-    }
-
   }
 
   drop(event: CdkDragDrop<string[]>): void {

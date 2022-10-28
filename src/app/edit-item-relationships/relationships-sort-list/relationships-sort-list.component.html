@@ -13,7 +13,7 @@
              [class.border-bottom]="!last" cdkDrag [cdkDragDisabled]="pendingChanges">
           <ds-relationships-items-list-preview
                   (deleteRelationship)="deleteRelationship.emit($event)"
-                  [hideHandle]="pendingChanges"
+                  [pendingChanges]="pendingChanges"
                   [viewConfig]="'relationship-sort-list'"
                   [customData]="{ relationship: relationship }"
                   [item]="(relationship.leftItem | async)?.payload"></ds-relationships-items-list-preview>

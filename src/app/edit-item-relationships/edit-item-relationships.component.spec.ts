@@ -21,6 +21,8 @@ import { SidebarServiceStub } from '../shared/testing/sidebar-service.stub';
 import { RelationshipsSortListComponent } from './relationships-sort-list/relationships-sort-list.component';
 import { Store } from '@ngrx/store';
 import { EditItemRelationshipsState } from './edit-item-relationships.actions';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 
 describe('EditItemRelationshipsComponent', () => {
   let component: EditItemRelationshipsComponent;
@@ -91,6 +93,9 @@ describe('EditItemRelationshipsComponent', () => {
         {
           provide: SidebarService,
           useValue: SidebarServiceStub
+        },
+        {
+          provide: NotificationsService, useClass: NotificationsServiceStub
         }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

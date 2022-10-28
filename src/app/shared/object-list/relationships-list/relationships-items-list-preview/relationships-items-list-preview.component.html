@@ -1,6 +1,6 @@
 <div class="item-details-preview" *ngIf="item" @fadeInOut [ngClass]="{ 'mt-3 mb-3 pl-3' : viewConfig === 'relationship-sort-list'}">
   <div class="top-header" *ngIf="viewConfig === 'relationship-sort-list'; else singleBadge">
-    <div class="drag-handle text-muted float-left pr-1" [class.invisible]="hideHandle">
+    <div class="drag-handle text-muted float-left pr-1" [class.invisible]="pendingChanges">
       <i class="fas fa-grip-vertical fa-fw"></i>
     </div>
 
@@ -27,7 +27,7 @@
                     <ds-metadata-link-view [item]="item" [metadata]="author"></ds-metadata-link-view>
                   <!-- <span [innerHTML]="author"><span [innerHTML]="author"></span></span> -->
                 </span>
-                
+
               </span>
           </span>
 
@@ -41,10 +41,10 @@
 
     </div>
   </ds-truncatable>
-  <ds-item-submitter *ngIf="showSubmitter" [object]="object.indexableObject"></ds-item-submitter>
+  <ds-item-submitter *ngIf="showSubmitter" [object]="item"></ds-item-submitter>
   <div *ngIf="viewConfig === 'relationship-sort-list'" class="d-flex justify-content-end mr-3">
     <button class="btn btn-danger btn-sm"
-            [disabled]="processing"
+            [disabled]="processing || pendingChanges"
             (click)="dispatchDelete()">
       <span *ngIf="processing"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
       <span *ngIf="!processing"> {{"manage.relationships.unselect" | translate}}</span>

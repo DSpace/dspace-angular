@@ -3378,6 +3378,16 @@
 
   "manage.relationships.no.data.found" : "No data found",
 
+  "manage.relationships.error.select" : "An unexpected error occurs while selecting the entity.",
+
+  "manage.relationships.error.unselect" : "An unexpected error occurs while unselecting the entity.",
+
+  "manage.relationships.error.hide" : "An unexpected error occurs while hiding the entity.",
+
+  "manage.relationships.error.unhide" : "An unexpected error occurs while exposing the entity.",
+
+  "manage.relationships.error.sort" : "An unexpected error occurs while sorting entities.",
+
 
   "menu.header.admin": "Management",
 
