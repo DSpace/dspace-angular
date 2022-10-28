@@ -101,7 +101,7 @@ describe('BrowserKlaroService', () => {
 
     mockConfig = {
       translations: {
-        en: {
+        zz: {
           purposes: {},
           test: {
             testeritis: testKey
@@ -159,8 +159,8 @@ describe('BrowserKlaroService', () => {
 
   it('addAppMessages', () => {
     service.addAppMessages();
-    expect(mockConfig.translations.en[appName]).toBeDefined();
-    expect(mockConfig.translations.en.purposes[purpose]).toBeDefined();
+    expect(mockConfig.translations.zz[appName]).toBeDefined();
+    expect(mockConfig.translations.zz.purposes[purpose]).toBeDefined();
   });
 
   it('translateConfiguration', () => {

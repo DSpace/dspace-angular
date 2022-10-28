@@ -1,4 +1,4 @@
-import * as fromRouter from '@ngrx/router-store';
+import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import { ActionReducerMap, createSelector, MemoizedSelector } from '@ngrx/store';
 import {
   ePeopleRegistryReducer,
@@ -53,7 +53,7 @@ import { MenusState } from './shared/menu/menus-state.model';
 import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
 
 export interface AppState {
-  router: fromRouter.RouterReducerState;
+  router: RouterReducerState;
   hostWindow: HostWindowState;
   forms: FormState;
   metadataRegistry: MetadataRegistryState;
@@ -75,7 +75,7 @@ export interface AppState {
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
-  router: fromRouter.routerReducer,
+  router: routerReducer,
   hostWindow: hostWindowReducer,
   forms: formReducer,
   metadataRegistry: metadataRegistryReducer,
