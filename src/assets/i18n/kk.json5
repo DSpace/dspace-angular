@@ -1119,7 +1119,7 @@
   "browse.startsWith.type_date": "Немесе күнді енгізіңіз (жыл-ай):",
 
   // "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
-  "browse.startsWith.type_date.label": "Немесе күнді (жыл-ай) енгізіп, "шолу"түймесін басыңыз.",
+  "browse.startsWith.type_date.label": "Немесе күнді (жыл-ай) енгізіп, Шолу батырманы басыңыз.",
 
   // "browse.startsWith.type_text": "Filter results by typing the first few letters",
   "browse.startsWith.type_text": "Немесе алғашқы бірнеше әріптерді енгізіңіз:",
@@ -3750,13 +3750,13 @@
   "login.form.or-divider": "немесе",
 
   // "login.form.oidc": "Log in with OIDC",
-  "login.form.oidc": "OIDC"-пен кіру,
+  "login.form.oidc": "OIDC-пен кіру",
 
   // "login.form.orcid": "Log in with ORCID",
   "login.form.orcid": "ORCID-пен кіру",
 
   // "login.form.password": "Password",
-  "login.form.password":"Пароль",
+  "login.form.password": "Пароль",
 
   // "login.form.shibboleth": "Log in with Shibboleth",
   "login.form.shibboleth": "Шибболетпен кіру",
@@ -7024,7 +7024,7 @@
   "person.page.orcid.synchronization-mode.label": "Синхрондау режимі",
 
   // "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
-  "person.page.orcid.synchronization-mode-message": "Orcid-пен синхрондау қалай жүретінін таңдаңыз. Опцияларға \"Қолмен\" (деректерді ORCID-ке қолмен жіберу керек) немесе \ "пакеттік\" (жүйе жоспарланған сценарий арқылы деректерді ORCID-ке жібереді) кіреді.",
+  "person.page.orcid.synchronization-mode-message": "Orcid-пен синхрондау қалай жүретінін таңдаңыз. Опцияларға \"Қолмен\" (деректерді ORCID-ке қолмен жіберу керек) немесе \"пакеттік\" (жүйе жоспарланған сценарий арқылы деректерді ORCID-ке жібереді) кіреді.",
 
   // "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
   "person.page.orcid.synchronization-mode-funding-message": "Сізге қатысты жоба нысандарын ORCID жазбаңызды қаржыландыру туралы ақпарат тізіміне жіберуді таңдаңыз.",
