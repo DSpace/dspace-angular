@@ -128,7 +128,7 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
    * The identifier data for this Item
    * Will be undefined unless the identifiers {@link HALLink} has been resolved.
    */
-  @link(IDENTIFIERS)
+  @link(IDENTIFIERS, false, 'identifiers')
   identifiers?: Observable<RemoteData<IdentifierData>>;
 
   /**
