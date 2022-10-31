@@ -30,14 +30,6 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
   bitstreamFormats: Observable<RemoteData<PaginatedList<BitstreamFormat>>>;
 
   /**
-   * The current pagination configuration for the page used by the FindAll method
-   * Currently simply renders all bitstream formats
-   */
-  // config: FindListOptions = Object.assign(new FindListOptions(), {
-  //   elementsPerPage: 20
-  // });
-
-  /**
    * The current pagination configuration for the page
    * Currently simply renders all bitstream formats
    */
