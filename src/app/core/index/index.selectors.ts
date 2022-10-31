@@ -3,7 +3,6 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { coreSelector } from '../core.selectors';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { IndexState, MetaIndexState } from './index.reducer';
-import * as parse from 'url-parse';
 import { IndexName } from './index-name.model';
 import { CoreState } from '../core-state.model';
 
@@ -21,17 +20,21 @@ import { CoreState } from '../core-state.model';
  */
 export const getUrlWithoutEmbedParams = (url: string): string => {
   if (isNotEmpty(url)) {
-    const parsed = parse(url);
-    if (isNotEmpty(parsed.query)) {
-      const parts = parsed.query.split(/[?|&]/)
-        .filter((part: string) => isNotEmpty(part))
-        .filter((part: string) => !(part.startsWith('embed=') || part.startsWith('embed.size=')));
-      let args = '';
-      if (isNotEmpty(parts)) {
-        args = `?${parts.join('&')}`;
+    try {
+      const parsed = new URL(url);
+      if (isNotEmpty(parsed.search)) {
+        const parts = parsed.search.split(/[?|&]/)
+          .filter((part: string) => isNotEmpty(part))
+          .filter((part: string) => !(part.startsWith('embed=') || part.startsWith('embed.size=')));
+        let args = '';
+        if (isNotEmpty(parts)) {
+          args = `?${parts.join('&')}`;
+        }
+        url = new URLCombiner(parsed.origin, parsed.pathname, args).toString();
+        return url;
       }
-      url = new URLCombiner(parsed.origin, parsed.pathname, args).toString();
-      return url;
+    } catch (e) {
+      // Ignore parsing errors. By default, we return the original string below.
     }
   }
 
@@ -44,15 +47,19 @@ export const getUrlWithoutEmbedParams = (url: string): string => {
  */
 export const getEmbedSizeParams = (url: string): { name: string, size: number }[] => {
   if (isNotEmpty(url)) {
-    const parsed = parse(url);
-    if (isNotEmpty(parsed.query)) {
-      return parsed.query.split(/[?|&]/)
-        .filter((part: string) => isNotEmpty(part))
-        .map((part: string) => part.match(/^embed.size=([^=]+)=(\d+)$/))
-        .filter((matches: RegExpMatchArray) => hasValue(matches) && hasValue(matches[1]) && hasValue(matches[2]))
-        .map((matches: RegExpMatchArray) => {
-          return { name: matches[1], size: Number(matches[2]) };
-        });
+    try {
+      const parsed = new URL(url);
+      if (isNotEmpty(parsed.search)) {
+        return parsed.search.split(/[?|&]/)
+          .filter((part: string) => isNotEmpty(part))
+          .map((part: string) => part.match(/^embed.size=([^=]+)=(\d+)$/))
+          .filter((matches: RegExpMatchArray) => hasValue(matches) && hasValue(matches[1]) && hasValue(matches[2]))
+          .map((matches: RegExpMatchArray) => {
+            return { name: matches[1], size: Number(matches[2]) };
+          });
+      }
+    } catch (e) {
+      // Ignore parsing errors. By default, we return an empty result below.
     }
   }
 

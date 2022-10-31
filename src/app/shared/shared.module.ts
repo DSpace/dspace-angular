@@ -19,7 +19,6 @@ import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core'
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FileUploadModule } from 'ng2-file-upload';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { MomentModule } from 'ngx-moment';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import {
   ExportMetadataSelectorComponent
@@ -342,7 +341,6 @@ const MODULES = [
   ReactiveFormsModule,
   RouterModule,
   NouisliderModule,
-  MomentModule,
   DragDropModule,
   CdkTreeModule,
   GoogleRecaptchaModule,

@@ -31,7 +31,7 @@ import { ServerAuthRequestService } from '../../app/core/auth/server-auth-reques
 import { ServerInitService } from './server-init.service';
 
 export function createTranslateLoader(transferState: TransferState) {
-  return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json5');
+  return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json');
 }
 
 @NgModule({
