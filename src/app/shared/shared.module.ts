@@ -323,6 +323,7 @@ import {
 } from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 import { MarkdownPipe } from './utils/markdown.pipe';
 import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
+import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 
 const MODULES = [
   CommonModule,
@@ -480,6 +481,7 @@ const COMPONENTS = [
   BitstreamDownloadPageComponent,
   BitstreamRequestACopyPageComponent,
   CollectionDropdownComponent,
+  ThemedCollectionDropdownComponent,
   EntityDropdownComponent,
   ExportMetadataSelectorComponent,
   ImportBatchSelectorComponent,
@@ -558,6 +560,7 @@ const ENTRY_COMPONENTS = [
   ClaimedTaskActionsReturnToPoolComponent,
   ClaimedTaskActionsEditMetadataComponent,
   CollectionDropdownComponent,
+  ThemedCollectionDropdownComponent,
   FileDownloadLinkComponent,
   BitstreamDownloadPageComponent,
   BitstreamRequestACopyPageComponent,
