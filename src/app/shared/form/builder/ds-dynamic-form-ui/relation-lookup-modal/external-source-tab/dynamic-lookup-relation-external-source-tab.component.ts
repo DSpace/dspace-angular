@@ -15,7 +15,7 @@ import { fadeIn, fadeInOut } from '../../../../../animations/fade';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { ThemedExternalSourceEntryImportModalComponent as ExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
 import { hasValue } from '../../../../../empty.util';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { Item } from '../../../../../../core/shared/item.model';
