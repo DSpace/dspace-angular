@@ -37,6 +37,11 @@ export class NavbarComponent extends MenuComponent {
 
   public isXsOrSm$: Observable<boolean>;
 
+  /**
+   * Flag to check wheather search in navbar is expanded or collapsed
+   */
+  public isNavbarSearchExpanded = 'collapsed';
+
   constructor(protected menuService: MenuService,
     protected injector: Injector,
               public windowService: HostWindowService,
@@ -53,5 +58,12 @@ export class NavbarComponent extends MenuComponent {
     super.ngOnInit();
     this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.isAuthenticated$ = this.store.pipe(select(isAuthenticated));
+  }
+
+  /**
+   * Focuses on event Emitted by the search-navbar to blur the header while search is expanded
+   */
+  toggleNavbarBlur(event) {
+    this.isNavbarSearchExpanded = event;
   }
 }

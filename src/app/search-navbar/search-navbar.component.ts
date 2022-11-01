@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SearchService } from '../core/shared/search/search.service';
@@ -14,6 +14,11 @@ import { expandSearchInput } from '../shared/animations/slide';
   animations: [expandSearchInput]
 })
 export class SearchNavbarComponent {
+
+  /**
+   * An EventEmitter that's fired whenever the search expands or collapse
+   */
+  @Output() isNavbarSearchExpanded: EventEmitter<string> = new EventEmitter<string>();
 
   // The search form
   searchForm;
@@ -37,6 +42,7 @@ export class SearchNavbarComponent {
     this.searchExpanded = true;
     this.isExpanded = 'expanded';
     this.editSearch();
+    this.isNavbarSearchExpanded.emit(this.isExpanded);
   }
 
   /**
@@ -46,6 +52,7 @@ export class SearchNavbarComponent {
     this.searchField.nativeElement.blur();
     this.searchExpanded = false;
     this.isExpanded = 'collapsed';
+    this.isNavbarSearchExpanded.emit(this.isExpanded);
   }
 
   /**

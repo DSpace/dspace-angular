@@ -1,6 +1,6 @@
 <nav [ngClass]="{'open': !(menuCollapsed | async)}" [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : ((menuCollapsed | async) ? 'collapsed' : 'expanded')"
   class="navbar navbar-expand-md navbar-light p-0 navbar-container" role="navigation" [attr.aria-label]="'nav.main.description' | translate">
-  <div class="navbar-inner-container w-100 h-100" [class.container]="!(isXsOrSm$ | async)">
+  <div class="navbar-inner-container w-100 h-100" [class.container]="!(isXsOrSm$ | async)" [class.navbar-blur]="isNavbarSearchExpanded === 'expanded'">
     <a class="navbar-brand my-2" routerLink="/home">
       <img src="assets/images/dspace-logo.svg" [attr.alt]="'menu.header.image.logo' | translate" />
     </a>
@@ -15,7 +15,7 @@
         </ng-container>
       </ul>
     </div>
-    <ds-search-navbar class="navbar-collapsed"></ds-search-navbar>
+    <ds-search-navbar class="navbar-collapsed" (isNavbarSearchExpanded)="toggleNavbarBlur($event)"></ds-search-navbar>
     <ds-lang-switch class="navbar-collapsed"></ds-lang-switch>
     <ds-themed-auth-nav-menu class="navbar-collapsed"></ds-themed-auth-nav-menu>
     <ds-impersonate-navbar class="navbar-collapsed"></ds-impersonate-navbar>
