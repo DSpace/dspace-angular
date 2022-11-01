@@ -4,7 +4,7 @@
    [queryParams]="addQueryParams" queryParamsHandling="merge">
   <label class="mb-0">
     <input type="checkbox" [checked]="false" class="my-1 align-self-stretch"/>
-    <span class="filter-value px-1">
+    <span class="filter-value px-1 break-facet">
       {{ 'search.filters.' + filterConfig.name + '.' + filterValue.value | translate: {default: filterValue.value} }}
     </span>
   </label>
