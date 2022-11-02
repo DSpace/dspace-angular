@@ -9,7 +9,7 @@ import { mergeMap } from 'rxjs/operators';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
+import { ThemedSubmissionImportExternalCollectionComponent as SubmissionImportExternalCollectionComponent } from '../import-external-collection/themed-submission-import-external-collection.component';
 
 /**
  * This component display a preview of an external source item.

@@ -23,7 +23,7 @@ import { ItemSearchResult } from '../../../../../../object-collection/shared/ite
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ItemType } from '../../../../../../../core/shared/item-relationships/item-type.model';
-import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
+import { ThemedSubmissionImportExternalCollectionComponent as SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/themed-submission-import-external-collection.component';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
 
 /**

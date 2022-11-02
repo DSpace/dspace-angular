@@ -19,6 +19,9 @@ import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
+import {
+  ThemedSubmissionImportExternalCollectionComponent
+} from '../import-external-collection/themed-submission-import-external-collection.component';
 
 const externalEntry = Object.assign(new ExternalSourceEntry(), {
   id: '0001-0001-0001-0001',
@@ -150,7 +153,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
       scheduler.schedule(() => comp.import());
       scheduler.flush();
 
-      expect(compAsAny.modalService.open).toHaveBeenCalledWith(SubmissionImportExternalCollectionComponent, { size: 'lg' });
+      expect(compAsAny.modalService.open).toHaveBeenCalledWith(ThemedSubmissionImportExternalCollectionComponent, { size: 'lg' });
       expect(comp.closeMetadataModal).toHaveBeenCalled();
       expect(compAsAny.submissionService.createSubmissionFromExternalSource).toHaveBeenCalledWith(externalEntry._links.self.href, emittedEvent.collection.id);
       expect(compAsAny.router.navigateByUrl).toHaveBeenCalledWith('/workspaceitems/' + submissionObjects[0].id + '/edit');

@@ -63,6 +63,9 @@ import {
 import {
   MetadataInformationComponent
 } from './sections/sherpa-policies/metadata-information/metadata-information.component';
+import {
+  ThemedSubmissionImportExternalCollectionComponent
+} from './import-external/import-external-collection/themed-submission-import-external-collection.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -96,6 +99,7 @@ const DECLARATIONS = [
   SubmissionImportExternalSearchbarComponent,
   SubmissionImportExternalPreviewComponent,
   SubmissionImportExternalCollectionComponent,
+  ThemedSubmissionImportExternalCollectionComponent,
   ContentAccordionComponent,
   PublisherPolicyComponent,
   PublicationInformationComponent,
