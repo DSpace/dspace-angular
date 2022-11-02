@@ -271,7 +271,7 @@ export class SearchService implements OnDestroy {
     let href;
     let args: string[] = [];
     if (hasValue(filterQuery)) {
-      args.push(`prefix=${filterQuery}`);
+      args.push(`prefix=${encodeURIComponent(filterQuery)}`);
     }
     if (hasValue(searchOptions)) {
       searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
