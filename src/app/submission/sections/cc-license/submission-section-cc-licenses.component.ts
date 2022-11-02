@@ -167,7 +167,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    * @param field       the field for which to get the selected option value.
    */
   getSelectedOption(ccLicense: SubmissionCcLicence, field: Field): Option {
-    if (field.id === 'jurisdiction' && this.defaultJurisdiction !== 'none') {
+    if (field.id === 'jurisdiction' && this.defaultJurisdiction !== undefined && this.defaultJurisdiction !== 'none') {
       return field.enums.find(option => option.id === this.defaultJurisdiction);
     }
     return this.data.ccLicense.fields[field.id];
@@ -274,7 +274,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         getFirstCompletedRemoteData(),
         getRemoteDataPayload()
       ).subscribe((remoteData) => {
-          if (remoteData.values.length === 0) {
+          if (remoteData === undefined || remoteData.values.length === 0) {
             // No value configured, use blank value (International jurisdiction)
             this.defaultJurisdiction = '';
           } else {
