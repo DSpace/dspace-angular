@@ -3835,7 +3835,9 @@
 
   "nav.login": "Log In",
 
-  "nav.logout": "User profile menu and Log Out",
+  "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+
+  "nav.logout": "Log Out",
 
   "nav.main.description": "Main navigation bar",
 
