@@ -22,7 +22,7 @@ describe('Date Utils', () => {
         });
         it('should convert NgbDateStruct to YYYY-MM-DDThh:mm:ssZ string', () => {
             // NOTE: month is zero indexed which is why it increases by one
-            const date = new Date(Date.UTC(2022, 5, 3))
+            const date = new Date(Date.UTC(2022, 5, 3));
             expect(dateToISOFormat(dateToNgbDateStruct(date))).toEqual('2022-06-03T00:00:00Z');
         });
     });
