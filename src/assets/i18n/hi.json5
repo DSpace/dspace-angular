@@ -1569,13 +1569,13 @@
 
   "health-page.section.no-issues": "कोई समस्या नहीं मिली", 
 
-  "health-page.section.solrAuthorityCore.title": "Sor: प्राधिकरण कोर", 
+  "health-page.section.solrAuthorityCore.title": "Solr: प्राधिकरण कोर", 
 
-  "health-page.section.solrOaiCore.title": "Sor: oai कोर", 
+  "health-page.section.solrOaiCore.title": "Solr: oai कोर", 
 
-  "health-page.section.solrSearchCore.title": "Sor: मूल खोज", 
+  "health-page.section.solrSearchCore.title": "Solr: मूल खोज", 
 
-  "health-page.section.solrStatisticsCore.title": "Sor: सांख्यिकी कोर", 
+  "health-page.section.solrStatisticsCore.title": "Solr: सांख्यिकी कोर", 
 
   "health-page.status": "स्थिति", 
 

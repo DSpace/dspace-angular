@@ -2445,17 +2445,17 @@
   // "health-page.section.geoIp.title": "GeoIp",
   "health-page.section.geoIp.title": "GeoIp",
 
-  // "health-page.section.solrAuthorityCore.title": "Sor: authority core",
-  "health-page.section.solrAuthorityCore.title": "Sor: биліктің өзегі",
+  // "health-page.section.solrAuthorityCore.title": "Solr: authority core",
+  "health-page.section.solrAuthorityCore.title": "Solr: биліктің өзегі",
 
-  // "health-page.section.solrOaiCore.title": "Sor: oai core",
-  "health-page.section.solrOaiCore.title": "Sor: oai өзегі",
+  // "health-page.section.solrOaiCore.title": "Solr: oai core",
+  "health-page.section.solrOaiCore.title": "Solr: oai өзегі",
 
-  // "health-page.section.solrSearchCore.title": "Sor: search core",
-  "health-page.section.solrSearchCore.title": "Sor: іздеу өзегі",
+  // "health-page.section.solrSearchCore.title": "Solr: search core",
+  "health-page.section.solrSearchCore.title": "Solr: іздеу өзегі",
 
-  // "health-page.section.solrStatisticsCore.title": "Sor: statistics core",
-  "health-page.section.solrStatisticsCore.title": "Sor: статистиканың өзегі",
+  // "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
+  "health-page.section.solrStatisticsCore.title": "Solr: статистиканың өзегі",
 
   // "health-page.section-info.app.title": "Application Backend",
   "health-page.section-info.app.title": "Қосымшаның серверлік бөлігі",
