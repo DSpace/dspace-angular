@@ -20,6 +20,7 @@ import { InfoConfig } from './info-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
+import { AccessControlConfig } from './access-control-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -252,6 +253,21 @@ export class DefaultAppConfig implements AppConfig {
   collection: CollectionPageConfig = {
     edit: {
       undoTimeout: 10000 // 10 seconds
+    }
+  };
+
+  accesscontrol: AccessControlConfig = {
+    epeople: {
+      // Number of entries in the epeople list in the access controll page.
+      // Rounded to the nearest size in the list of selectable sizes on the
+      // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
+      pageSize: 5
+    },
+    groups: {
+      // Number of entries in the groups list in the access controll page.
+      // Rounded to the nearest size in the list of selectable sizes on the
+      // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
+      pageSize: 5
     }
   };
 

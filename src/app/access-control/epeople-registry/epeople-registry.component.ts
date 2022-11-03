@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -21,6 +21,7 @@ import { RequestService } from '../../core/data/request.service';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 
 @Component({
   selector: 'ds-epeople-registry',
@@ -57,11 +58,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   /**
    * Pagination config used to display the list of epeople
    */
-  config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'elp',
-    pageSize: 5,
-    currentPage: 1
-  });
+  paginationConfig: PaginationComponentOptions;
 
   /**
    * Whether or not to show the EPerson form
@@ -93,13 +90,19 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
               private router: Router,
               private modalService: NgbModal,
               private paginationService: PaginationService,
-              public requestService: RequestService) {
+              public requestService: RequestService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig) {
     this.currentSearchQuery = '';
     this.currentSearchScope = 'metadata';
     this.searchForm = this.formBuilder.group(({
       scope: 'metadata',
       query: '',
     }));
+    this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
+      id: 'elp',
+      pageSize: this.appConfig.accesscontrol.epeople.pageSize,
+      currentPage: 1
+    });
   }
 
   ngOnInit() {
@@ -152,7 +155,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
     if (hasValue(this.findListOptionsSub)) {
       this.findListOptionsSub.unsubscribe();
     }
-    this.findListOptionsSub = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
+    this.findListOptionsSub = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig).pipe(
       switchMap((findListOptions) => {
           const query: string = data.query;
           const scope: string = data.scope;
@@ -161,14 +164,14 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
               queryParamsHandling: 'merge'
             });
             this.currentSearchQuery = query;
-            this.paginationService.resetPage(this.config.id);
+            this.paginationService.resetPage(this.paginationConfig.id);
           }
           if (scope != null && this.currentSearchScope !== scope) {
             this.router.navigate([this.epersonService.getEPeoplePageRouterLink()], {
               queryParamsHandling: 'merge'
             });
             this.currentSearchScope = scope;
-            this.paginationService.resetPage(this.config.id);
+            this.paginationService.resetPage(this.paginationConfig.id);
 
           }
           return this.epersonService.searchByScope(this.currentSearchScope, this.currentSearchQuery, {
@@ -253,7 +256,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy(): void {
     this.cleanupSubscribes();
-    this.paginationService.clearPagination(this.config.id);
+    this.paginationService.clearPagination(this.paginationConfig.id);
   }
 
 
