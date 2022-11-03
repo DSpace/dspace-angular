@@ -191,12 +191,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * The Dynamic Input Model for select a file type
    */
   fileTypeModel = new DsDynamicInputModel({
-    vocabularyOptions: {
-      name: 'bitstream_types',
-      metadata: 'dc.type',
-      scope: '',
-      closed: false,
-    },
     repeatable: false,
     metadataFields: [],
     submissionId: '',
