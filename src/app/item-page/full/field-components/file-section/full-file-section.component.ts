@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 
@@ -14,6 +14,7 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { TranslateService } from '@ngx-translate/core';
 import { hasValue, isEmpty } from '../../../../shared/empty.util';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 
 /**
  * This component renders the file section of the item
@@ -34,26 +35,28 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
   originals$: Observable<RemoteData<PaginatedList<Bitstream>>>;
   licenses$: Observable<RemoteData<PaginatedList<Bitstream>>>;
 
-  pageSize = 5;
-  originalOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'obo',
-    currentPage: 1,
-    pageSize: this.pageSize
-  });
-
-  licenseOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'lbo',
-    currentPage: 1,
-    pageSize: this.pageSize
-  });
+  originalOptions: PaginationComponentOptions;
+  licenseOptions: PaginationComponentOptions;
 
   constructor(
     bitstreamDataService: BitstreamDataService,
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
-    protected paginationService: PaginationService
+    protected paginationService: PaginationService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
-    super(bitstreamDataService, notificationsService, translateService);
+    super(bitstreamDataService, notificationsService, translateService, appConfig);
+    this.originalOptions = Object.assign(new PaginationComponentOptions(), {
+      id: 'obo',
+      currentPage: 1,
+      pageSize: this.appConfig.item.fullView.bitstreamPageSize
+    });
+
+    this.licenseOptions = Object.assign(new PaginationComponentOptions(), {
+      id: 'lbo',
+      currentPage: 1,
+      pageSize: this.appConfig.item.fullView.bitstreamPageSize
+    });
   }
 
   ngOnInit(): void {
