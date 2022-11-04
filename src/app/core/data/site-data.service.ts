@@ -17,6 +17,8 @@ import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
+import { RequestParam } from '../cache/models/request-param.model';
 
 /**
  * Service responsible for handling requests related to the Site object
@@ -43,7 +45,9 @@ export class SiteDataService extends DataService<Site> {
    * Retrieve the Site Object
    */
   find(): Observable<Site> {
-    return this.findAll().pipe(
+    const searchParams: RequestParam[] = [new RequestParam('projection', 'allLanguages')];
+    const options = Object.assign(new FindListOptions(), { searchParams });
+    return this.findAll(options).pipe(
       getFirstSucceededRemoteData(),
       map((remoteData: RemoteData<PaginatedList<Site>>) => remoteData.payload),
       map((list: PaginatedList<Site>) => list.page[0])
