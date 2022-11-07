@@ -586,6 +586,12 @@
 
   "admin.batch-import.page.error.addFile": "Select Zip file first!",
 
+  "admin.metadata-import.page.toggle.upload": "Upload",
+
+  "admin.metadata-import.page.toggle.url": "URL",
+
+  "admin.metadata-import.page.urlMsg": "Insert the batch ZIP url to import",
+
   "admin.metadata-import.page.validateOnly": "Validate Only",
 
   "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
