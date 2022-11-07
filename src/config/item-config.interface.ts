@@ -7,14 +7,10 @@ export interface ItemConfig extends Config {
   // This is used to show the access status label of items in results lists
   showAccessStatuses: boolean;
 
-  simpleView: {
-    bitstreamPageSize: number;
-  };
-
-  fullView: {
-    // Number of entries in the bitstream list in the full item view page.
+  bitstream: {
+    // Number of entries in the bitstream list in the item view page.
     // Rounded to the nearest size in the list of selectable sizes on the
     // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
-    bitstreamPageSize: number;
+    pageSize: number;
   }
 }

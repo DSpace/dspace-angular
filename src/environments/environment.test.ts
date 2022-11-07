@@ -230,14 +230,11 @@ export const environment: BuildConfig = {
     },
     // Show the item access status label in items lists
     showAccessStatuses: false,
-    simpleView: {
-      bitstreamPageSize: 5
-    },
-    fullView: {
-      // Number of entries in the bitstream list in the full item view page.
+    bitstream: {
+      // Number of entries in the bitstream list in the item view page.
       // Rounded to the nearest size in the list of selectable sizes on the
       // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
-      bitstreamPageSize: 5
+      pageSize: 5
     }
   },
   collection: {

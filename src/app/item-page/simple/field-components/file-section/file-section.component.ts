@@ -44,7 +44,7 @@ export class FileSectionComponent implements OnInit {
     protected translateService: TranslateService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
-    this.pageSize = this.appConfig.item.simpleView.bitstreamPageSize;
+    this.pageSize = this.appConfig.item.bitstream.pageSize;
   }
 
   ngOnInit(): void {

@@ -35,8 +35,17 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
   originals$: Observable<RemoteData<PaginatedList<Bitstream>>>;
   licenses$: Observable<RemoteData<PaginatedList<Bitstream>>>;
 
-  originalOptions: PaginationComponentOptions;
-  licenseOptions: PaginationComponentOptions;
+  originalOptions = Object.assign(new PaginationComponentOptions(), {
+    id: 'obo',
+    currentPage: 1,
+    pageSize: this.appConfig.item.bitstream.pageSize
+  });
+
+  licenseOptions = Object.assign(new PaginationComponentOptions(), {
+    id: 'lbo',
+    currentPage: 1,
+    pageSize: this.appConfig.item.bitstream.pageSize
+  });
 
   constructor(
     bitstreamDataService: BitstreamDataService,
@@ -46,17 +55,6 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     super(bitstreamDataService, notificationsService, translateService, appConfig);
-    this.originalOptions = Object.assign(new PaginationComponentOptions(), {
-      id: 'obo',
-      currentPage: 1,
-      pageSize: this.appConfig.item.fullView.bitstreamPageSize
-    });
-
-    this.licenseOptions = Object.assign(new PaginationComponentOptions(), {
-      id: 'lbo',
-      currentPage: 1,
-      pageSize: this.appConfig.item.fullView.bitstreamPageSize
-    });
   }
 
   ngOnInit(): void {
