@@ -4027,10 +4027,10 @@
   "process.overview.delete": "Supprimer {{count}} processus",
 
   // "process.overview.delete.processing": "{{count}} process(es) are being deleted. Please wait for the deletion to fully complete. Note that this can take a while.",
-  "process.overview.delete.processing": "{{count}} processus sont en train d'être supprimer. Patientez jusqu'à ce que la suppression soit terminée. Notez que cela peut prendre un certain temps.",
+  "process.overview.delete.processing": "{{count}} processus sont en train d'être supprimés. Patientez jusqu'à ce que la suppression soit terminée. Notez que cela peut prendre un certain temps.",
 
   // "process.overview.delete.body": "Are you sure you want to delete {{count}} process(es)?",
-  "process.overview.delete.body": "Êtes vous sûr de vouloir supprimer {{count}} processus?",
+  "process.overview.delete.body": "Êtes-vous certain-e de vouloir supprimer {{count}} processus?",
 
   // "process.overview.delete.header": "Delete processes",
   "process.overview.delete.header": "Supprimer les processus",
@@ -4039,7 +4039,7 @@
   "process.bulk.delete.error.head": "Erreur lors de la suppression de processus",
 
   // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
-  "process.bulk.delete.error.body": "Le processus numéro {{processId}} n'a pu être supprimé. Les processus restants continuent à être supprimés. ",
+  "process.bulk.delete.error.body": "Le processus numéro {{processId}} n'a pu être supprimé. Les processus restants continueront à être supprimés. ",
 
   // "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
   "process.bulk.delete.success": "{{count}} processus ont été supprimés.",
@@ -5767,13 +5767,13 @@
   "submission.sections.sherpa.publisher.policy": "Politique de l'éditeur",
 
   // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
-  "submission.sections.sherpa.publisher.policy.description": "L'information ci-dessous provient de Sherpa Romeo. Elle vous permet de savoir quelle version vous êtes autorisé-e à déposer et si une restriction de diffusion (embargo) doit être appliquée. Si vous avez des questions, contactez votre administrateur en utilisant le formulaire en pied de page.",
+  "submission.sections.sherpa.publisher.policy.description": "L'information ci-dessous provient de Sherpa Romeo. Elle vous permet de savoir quelle version vous êtes autorisé-e à déposer et si une restriction de diffusion (embargo) doit être appliquée. Si vous avez des questions, contactez votre administrateur-trice en utilisant le formulaire en pied de page.",
 
   // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
   "submission.sections.sherpa.publisher.policy.openaccess": "Les voies de libre accès autorisées par la politique de cette revue sont listées ci-dessous par version d'article. Cliquez sur l'une des voies pour plus de détails.",
 
   // "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
-  "submission.sections.sherpa.publisher.policy.more.information": "Pour plus d'information, cliquez sur le lien suivant:",
+  "submission.sections.sherpa.publisher.policy.more.information": "Pour plus d'information, cliquez sur le lien suivant :",
 
   // "submission.sections.sherpa.publisher.policy.version": "Version",
   "submission.sections.sherpa.publisher.policy.version": "Version",
@@ -5788,7 +5788,7 @@
   "submission.sections.sherpa.publisher.policy.nolocation": "Aucun",
 
   // "submission.sections.sherpa.publisher.policy.license": "License",
-  "submission.sections.sherpa.publisher.policy.license": "License",
+  "submission.sections.sherpa.publisher.policy.license": "Licence",
 
   // "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
   "submission.sections.sherpa.publisher.policy.prerequisites": "Prérequis",
@@ -5909,7 +5909,7 @@
   "submission.workspace.generic.view": "Voir",
 
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
-  "submission.workspace.generic.view-help": "Sélecionner cette option pour voir les métadonnées de l'item.",
+  "submission.workspace.generic.view-help": "Sélectionner cette option pour voir les métadonnées de l'item.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
   "thumbnail.default.alt": "Vignette d'image",
