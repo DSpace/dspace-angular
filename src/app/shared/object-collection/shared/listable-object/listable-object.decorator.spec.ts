@@ -1,5 +1,4 @@
   /* eslint-disable max-classes-per-file */
-import { Item } from '../../../../core/shared/item.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { DEFAULT_VIEW_MODE, getListableObjectComponent, listableObjectComponent } from './listable-object.decorator';
 import { Context } from '../../../../core/shared/context.model';
