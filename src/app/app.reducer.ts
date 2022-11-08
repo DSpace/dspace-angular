@@ -52,6 +52,10 @@ import { ThemeState, themeReducer } from './shared/theme-support/theme.reducer';
 import { MenusState } from './shared/menu/menus-state.model';
 import { StatisticsReducer, StatisticsState } from './core/statistics/statistics.reducer';
 import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
+import {
+  editItemRelationshipsReducer,
+  EditItemRelationshipsState
+} from './edit-item-relationships/edit-item-relationships.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
@@ -74,6 +78,7 @@ export interface AppState {
   groupRegistry: GroupRegistryState;
   statistics: StatisticsState;
   correlationId: string;
+  editItemRelationships: EditItemRelationshipsState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -96,7 +101,8 @@ export const appReducers: ActionReducerMap<AppState> = {
   epeopleRegistry: ePeopleRegistryReducer,
   groupRegistry: groupRegistryReducer,
   statistics: StatisticsReducer,
-  correlationId: correlationIdReducer
+  correlationId: correlationIdReducer,
+  editItemRelationships: editItemRelationshipsReducer
 };
 
 export const routerStateSelector = (state: AppState) => state.router;

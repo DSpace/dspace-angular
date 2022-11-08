@@ -29,7 +29,7 @@ import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RELATIONSHIP } from '../shared/item-relationships/relationship.resource-type';
 import { Item } from '../shared/item.model';
 import {
-  getAllSucceededRemoteData,
+  getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -40,7 +40,7 @@ import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { ItemDataService } from './item-data.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { DeleteRequest, PostRequest} from './request.models';
+import { DeleteRequest, PostRequest } from './request.models';
 import { RequestService } from './request.service';
 import { NoContent } from '../shared/NoContent.model';
 import { RequestEntryState } from './request-entry-state.model';
@@ -203,8 +203,7 @@ export class RelationshipService extends DataService<Relationship> {
   getItemRelationshipsArray(item: Item, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<Relationship[]> {
     return this.findAllByHref(item._links.relationships.href, undefined, true, false, ...linksToFollow).pipe(
       // getFirstSucceededRemoteData(),
-      getAllSucceededRemoteData(),
-      getRemoteDataPayload(),
+      getAllSucceededRemoteDataPayload(),
       map((rels: PaginatedList<Relationship>) => rels.page),
       hasValueOperator(),
       distinctUntilChanged(compareArraysUsingIds()),

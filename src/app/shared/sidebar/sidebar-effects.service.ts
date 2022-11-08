@@ -12,15 +12,18 @@ import { URLBaser } from '../../core/url-baser/url-baser';
 @Injectable()
 export class SidebarEffects {
   private previousPath: string;
-   routeChange$ = createEffect(() => this.actions$
-    .pipe(
-      ofType(fromRouter.ROUTER_NAVIGATION),
-      filter((action) => this.previousPath !== this.getBaseUrl(action)),
-      tap((action) => {
-        this.previousPath = this.getBaseUrl(action);
-      }),
-      map(() => new SidebarCollapseAction())
-    ));
+  private previousPathAvailability: string;
+  routeChange$ = createEffect(() => this.actions$
+  .pipe(
+    ofType(fromRouter.ROUTER_NAVIGATION),
+    filter((action) => this.previousPath !== this.getBaseUrl(action)),
+    tap((action) => {
+      this.previousPathAvailability = this.previousPath;
+      this.previousPath = this.getBaseUrl(action);
+    }),
+    filter(() => this.previousPathAvailability !== undefined),
+    map(() => new SidebarCollapseAction())
+  ));
 
   constructor(private actions$: Actions) {
 

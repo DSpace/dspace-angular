@@ -19,6 +19,10 @@ import { HostWindowService } from '../shared/host-window.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { SidebarServiceStub } from '../shared/testing/sidebar-service.stub';
 import { RelationshipsSortListComponent } from './relationships-sort-list/relationships-sort-list.component';
+import { Store } from '@ngrx/store';
+import { EditItemRelationshipsState } from './edit-item-relationships.actions';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 
 describe('EditItemRelationshipsComponent', () => {
   let component: EditItemRelationshipsComponent;
@@ -56,6 +60,10 @@ describe('EditItemRelationshipsComponent', () => {
     }
   };
 
+  const store: Store<EditItemRelationshipsState> = jasmine.createSpyObj('store', {
+    pendingChanges: false
+  });
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -73,6 +81,7 @@ describe('EditItemRelationshipsComponent', () => {
         { provide: RelationshipService, useValue: relationshipsServiceStub },
         { provide: EntityTypeService, useValue: {} },
         { provide: RouteService, useValue: routeServiceStub },
+        { provide: Store, useValue: store },
         {
           provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
             {
@@ -84,6 +93,9 @@ describe('EditItemRelationshipsComponent', () => {
         {
           provide: SidebarService,
           useValue: SidebarServiceStub
+        },
+        {
+          provide: NotificationsService, useClass: NotificationsServiceStub
         }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

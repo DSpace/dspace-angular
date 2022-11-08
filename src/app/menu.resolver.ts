@@ -45,6 +45,9 @@ import {
 import { environment } from '../environments/environment';
 import { SectionDataService } from './core/layout/section-data.service';
 import { Section } from './core/layout/models/section.model';
+import {
+  ExportBatchSelectorComponent
+} from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
 
 /**
  * Creates all of the app's menus
@@ -508,6 +511,20 @@ export class MenuResolver implements Resolve<boolean> {
         } as OnClickMenuItemModel,
         shouldPersistOnRouteChange: true
       });
+      this.menuService.addSection(MenuID.ADMIN, {
+        id: 'export_batch',
+        parentID: 'export',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.ONCLICK,
+          text: 'menu.section.export_batch',
+          function: () => {
+            this.modalService.open(ExportBatchSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
+        shouldPersistOnRouteChange: true
+      });
     });
   }
 
@@ -516,20 +533,7 @@ export class MenuResolver implements Resolve<boolean> {
    * the import scripts exist and the current user is allowed to execute them
    */
   createImportMenuSections() {
-    const menuList = [
-      // TODO: enable this menu item once the feature has been implemented
-      // {
-      //   id: 'import_batch',
-      //   parentID: 'import',
-      //   active: false,
-      //   visible: true,
-      //   model: {
-      //     type: MenuItemType.LINK,
-      //     text: 'menu.section.import_batch',
-      //     link: ''
-      //   } as LinkMenuItemModel,
-      // }
-    ];
+    const menuList = [];
     menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, menuSection));
 
     observableCombineLatest([
@@ -563,6 +567,18 @@ export class MenuResolver implements Resolve<boolean> {
           type: MenuItemType.LINK,
           text: 'menu.section.import_metadata',
           link: '/admin/metadata-import'
+        } as LinkMenuItemModel,
+        shouldPersistOnRouteChange: true
+      });
+      this.menuService.addSection(MenuID.ADMIN, {
+        id: 'import_batch',
+        parentID: 'import',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: 'menu.section.import_batch',
+          link: '/admin/batch-import'
         } as LinkMenuItemModel,
         shouldPersistOnRouteChange: true
       });
@@ -649,6 +665,32 @@ export class MenuResolver implements Resolve<boolean> {
           } as LinkMenuItemModel,
           icon: 'user-check',
           index: 11
+        },
+        /* User agreement edit*/
+        {
+          id: 'user_agreement_edit',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.edit_user_agreement',
+            link: '/admin/edit-user-agreement'
+          } as LinkMenuItemModel,
+          icon: 'list-alt',
+          index: 13
+        },
+        /* CMS edit menu entry */
+        {
+          id: 'metadata_cms_edit',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.cms_metadata_edit',
+            link: '/admin/edit-cms-metadata'
+          } as LinkMenuItemModel,
+          icon: 'edit',
+          index: 14
         },
       ];
 

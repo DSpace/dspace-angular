@@ -1,23 +1,34 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RelationshipsListComponent } from './relationships-list.component';
-import { TruncatableService } from '../../../shared/truncatable/truncatable.service';
-import { mockTruncatableService } from '../../../shared/mocks/mock-trucatable.service';
+import { TruncatableService } from '../../truncatable/truncatable.service';
+import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { SharedModule } from '../../shared.module';
-import { ItemInfo } from '../..//testing/relationships-mocks';
+import { ItemInfo } from '../../testing/relationships-mocks';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Item } from '../../../core/shared/item.model';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../app.reducer';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 
 describe('RelationshipsListComponent', () => {
   let component: RelationshipsListComponent;
   let fixture: ComponentFixture<RelationshipsListComponent>;
+  let store: Store<AppState>;
+  let mockStore: MockStore<AppState>;
+
+  const initialState = {
+    editItemRelationships: {
+      pendingChanges: true
+    }
+  };
 
   let de: DebugElement;
 
@@ -37,6 +48,7 @@ describe('RelationshipsListComponent', () => {
         })
       ],
       providers: [
+        provideMockStore({ initialState }),
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
       ],
@@ -46,6 +58,8 @@ describe('RelationshipsListComponent', () => {
   });
 
   beforeEach(() => {
+    store = TestBed.inject(Store);
+    mockStore = store as MockStore<AppState>;
     fixture = TestBed.createComponent(RelationshipsListComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;

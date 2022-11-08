@@ -86,6 +86,11 @@ export class SearchResultsComponent {
   @Input() selectionConfig: SelectionConfig = null;
 
   /**
+   * Whether or not to show an alert for hidden related items
+   */
+  @Input() showHiddenRelatedItemsAlert = false;
+
+  /**
    * Emit when one of the listed object has changed.
    */
   @Output() contentChange = new EventEmitter<any>();
@@ -131,4 +136,13 @@ export class SearchResultsComponent {
 
     return result;
   }
+
+  /**
+   * Catch the custom event and emit it again
+   * @param $event
+   */
+  emitCustomEvent($event: any) {
+    this.customEvent.emit($event);
+  }
+
 }

@@ -27,6 +27,8 @@ export const METADATA_IMPORT_SCRIPT_NAME = 'metadata-import';
 export const METADATA_EXPORT_SCRIPT_NAME = 'metadata-export';
 export const ITEM_EXPORT_SCRIPT_NAME = 'item-export';
 export const BULK_ITEM_EXPORT_SCRIPT_NAME = 'bulk-item-export';
+export const BATCH_IMPORT_SCRIPT_NAME = 'import';
+export const BATCH_EXPORT_SCRIPT_NAME = 'export';
 
 @Injectable()
 @dataService(SCRIPT)

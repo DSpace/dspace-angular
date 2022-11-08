@@ -13,8 +13,10 @@
             [context]="context"
             [linkType]="linkType"
             [hidePaginationDetail]="hidePaginationDetail"
+            [showHiddenRelatedItemsAlert]="showHiddenRelatedItemsAlert"
             [customData]="customData"
             (contentChange)="contentChange.emit($event)"
+            (customEvent)="emitCustomEvent($event)"
             (deselectObject)="deselectObject.emit($event)"
             (selectObject)="selectObject.emit($event)">
     </ds-viewable-collection>

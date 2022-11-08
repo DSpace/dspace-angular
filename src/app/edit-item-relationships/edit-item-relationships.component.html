@@ -14,7 +14,10 @@
                                       [configuration]="relationshipConfig"
                                       [context]="context"
                                       [fixedFilterQuery]="searchFilter"
-                                      [customData]="{ relationships$ : relationshipResults$, entityType: relationshipType }"
+                                      [collapseFilters]="true"
+                                      [showFilterToggle]="true"
+                                      [showExport]="false"
+                                      [customData]="{relationships$ : relationshipResults$, entityType: relationshipType, updateStatusByItemId$: updateStatusByItemId$}"
                                       [showScopeSelector]="false"
                                       (customEvent)="manageRelationship($event)"></ds-configuration-search-page>
 
@@ -28,6 +31,7 @@
             <ng-container *ngVar="(relationshipResults$ | async) as relationships">
                 <ds-relationships-sort-list [item]="item"
                                             [relationships]="relationships"
+                                            [pendingChanges]="(pendingChanges$ | async)"
                                             (deleteRelationship)="manageRelationship($event)"
                                             (itemDrop)="itemDropped($event)"></ds-relationships-sort-list>
             </ng-container>
