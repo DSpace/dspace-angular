@@ -1,0 +1,8 @@
+<div>
+  <a *ngIf="(metadataRepresentation.representationType=='browse_link')"
+     target="_blank" class="dont-break-out"
+     href="/browse/{{metadataRepresentation.browseDefinition.id}}?{{metadataRepresentation.browseDefinition.metadataBrowse?'value':'startsWith'}}={{metadataRepresentation.getValue()}}">
+    {{metadataRepresentation.getValue()}}
+  </a>
+  <b>(new browse link page)</b>
+</div>

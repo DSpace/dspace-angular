@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
-import { mockItemWithMetadataFieldAndValue } from '../item-page-field.component.spec';
+import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component.spec';
 import { ItemPageDateFieldComponent } from './item-page-date-field.component';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
@@ -36,7 +36,7 @@ describe('ItemPageDateFieldComponent', () => {
   beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ItemPageDateFieldComponent);
     comp = fixture.componentInstance;
-    comp.item = mockItemWithMetadataFieldAndValue(mockField, mockValue);
+    comp.item = mockItemWithMetadataFieldsAndValue([mockField], mockValue);
     fixture.detectChanges();
   }));
 

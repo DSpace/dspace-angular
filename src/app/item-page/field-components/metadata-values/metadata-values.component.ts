@@ -1,6 +1,8 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
+import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
+import { hasValue } from '../../../shared/empty.util';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component.
@@ -41,11 +43,37 @@ export class MetadataValuesComponent implements OnChanges {
   @Input() enableMarkdown = false;
 
   /**
+   * Whether any valid HTTP(S) URL should be rendered as a link
+   */
+  @Input() urlRegex?;
+
+  /**
    * This variable will be true if both {@link environment.markdown.enabled} and {@link enableMarkdown} are true.
    */
   renderMarkdown;
 
+  @Input() browseDefinition?: BrowseDefinition;
+
   ngOnChanges(changes: SimpleChanges): void {
     this.renderMarkdown = !!this.appConfig.markdown.enabled && this.enableMarkdown;
+  }
+
+  /**
+   * Does this metadata value have a configured link to a browse definition?
+   */
+  hasBrowseDefinition(): boolean {
+    return hasValue(this.browseDefinition);
+  }
+
+  /**
+   * Does this metadata value have a valid URL that should be rendered as a link?
+   * @param value
+   */
+  hasLink(value): boolean {
+    if (hasValue(this.urlRegex)) {
+      const pattern: RegExp = new RegExp(this.urlRegex);
+      return pattern.test(value.value);
+    }
+    return false;
   }
 }

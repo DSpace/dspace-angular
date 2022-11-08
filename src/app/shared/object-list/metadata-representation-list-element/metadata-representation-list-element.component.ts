@@ -13,4 +13,11 @@ export class MetadataRepresentationListElementComponent {
    * The metadata representation of this component
    */
   metadataRepresentation: MetadataRepresentation;
+
+  isLink(): boolean {
+    // Match any http:// or https://
+    const linkPattern: RegExp = /^https?\/\//;
+    return linkPattern.test(this.metadataRepresentation.getValue());
+  }
+
 }

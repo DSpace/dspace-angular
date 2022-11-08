@@ -17,6 +17,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 import { RouteService } from '../../../../core/services/route.service';
+import { BrowseService } from '../../../../core/browse/browse.service';
 
 @Component({
   selector: 'ds-versioned-item',
@@ -36,8 +37,9 @@ export class VersionedItemComponent extends ItemComponent {
     private searchService: SearchService,
     private itemService: ItemDataService,
     protected routeService: RouteService,
+    protected browseService: BrowseService,
   ) {
-    super(routeService, router);
+    super(routeService, router, browseService);
   }
 
   /**
