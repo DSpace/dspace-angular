@@ -299,7 +299,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'dspace.owner': [
+                        'dspace.object.owner': [
                             {
                                 'value': 'Demo Site Administrator',
                                 'language': null,
@@ -1024,7 +1024,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'dspace.owner': [
+                        'dspace.object.owner': [
                             {
                                 'value': 'Demo Site Administrator',
                                 'language': null,
@@ -1754,7 +1754,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'dspace.owner': [
+                        'dspace.object.owner': [
                             {
                                 'value': 'Demo Site Administrator',
                                 'language': null,
