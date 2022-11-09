@@ -340,6 +340,9 @@ export class ItemVersionsComponent implements OnInit {
         version.item.pipe(getFirstSucceededRemoteDataPayload())
       ])),
       mergeMap(([summary, item]: [string, Item]) => this.versionHistoryService.createVersion(item._links.self.href, summary)),
+      getFirstCompletedRemoteData(),
+      // close model (should be displaying loading/waiting indicator) when version creation failed/succeeded
+      tap(() => activeModal.close()),
       // show success/failure notification
       tap((newVersionRD: RemoteData<Version>) => {
         this.itemVersionShared.notifyCreateNewVersion(newVersionRD);

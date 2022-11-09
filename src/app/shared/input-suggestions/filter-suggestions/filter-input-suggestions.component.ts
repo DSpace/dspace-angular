@@ -32,8 +32,8 @@ export class FilterInputSuggestionsComponent extends InputSuggestionsComponent {
     this.submitSuggestion.emit(data);
   }
 
-  onClickSuggestion(data) {
-    this.value = data;
+  onClickSuggestion(data: InputSuggestion) {
+    this.value = data.value;
     this.clickSuggestion.emit(data);
     this.close();
     this.blockReopen = true;

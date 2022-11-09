@@ -1,4 +1,5 @@
-<ds-object-list [config]="config"
+<ds-themed-object-list [ngClass]="placeholderFontClass"
+                [config]="config"
                 [sortConfig]="sortConfig"
                 [objects]="objects"
                 [hasBorder]="hasBorder"
@@ -19,11 +20,11 @@
                 [importable]="importable"
                 [importConfig]="importConfig"
                 (importObject)="importObject.emit($event)"
-                (contentChange)="contentChange.emit()"
+                (contentChange)="contentChange.emit($event)"
                 (prev)="goPrev()"
                 (next)="goNext()"
                 *ngIf="(currentMode$ | async) === viewModeEnum.ListElement">
-</ds-object-list>
+</ds-themed-object-list>
 
 <ds-object-grid [config]="config"
                 [sortConfig]="sortConfig"
@@ -49,6 +50,7 @@
                   [context]="context"
                   [hidePaginationDetail]="hidePaginationDetail"
                   [showPaginator]="showPaginator"
+                  (contentChange)="contentChange.emit($event)"
                   *ngIf="(currentMode$ | async) === viewModeEnum.DetailedListElement">
 </ds-object-detail>
 

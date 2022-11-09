@@ -2,23 +2,26 @@ import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
-import { DataService } from '../data/data.service';
-import { getRemoteDataPayload, getFirstCompletedRemoteData } from '../shared/operators';
+import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { ChildHALResource } from '../shared/child-hal-resource.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { hasValue } from '../../shared/empty.util';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 
 /**
  * The class that resolves the BreadcrumbConfig object for a DSpaceObject
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export abstract class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceObject> implements Resolve<BreadcrumbConfig<T>> {
-  constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: DataService<T>) {
+  protected constructor(
+    protected breadcrumbService: DSOBreadcrumbsService,
+    protected dataService: IdentifiableDataService<T>,
+  ) {
   }
 
   /**
@@ -36,7 +39,7 @@ export abstract class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceO
         if (hasValue(object)) {
           const fullPath = state.url;
           const url = fullPath.substr(0, fullPath.indexOf(uuid)) + uuid;
-          return {provider: this.breadcrumbService, key: object, url: url};
+          return { provider: this.breadcrumbService, key: object, url: url };
         } else {
           return undefined;
         }

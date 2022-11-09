@@ -25,7 +25,7 @@
         <label class="form-check-label"
                for="externalSourceCheck">{{ 'collection.edit.tabs.source.external' | translate }}</label>
     </div>
-    <ds-loading *ngIf="!contentSource" [message]="'loading.content-source' | translate"></ds-loading>
+    <ds-themed-loading *ngIf="!contentSource" [message]="'loading.content-source' | translate"></ds-themed-loading>
     <h4 *ngIf="contentSource && (contentSource?.harvestType !== harvestTypeNone)">{{ 'collection.edit.tabs.source.form.head' | translate }}</h4>
 </div>
 <div class="row">

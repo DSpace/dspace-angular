@@ -1,27 +1,22 @@
 /* eslint-disable max-classes-per-file */
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { map, switchMap, take } from 'rxjs/operators';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { LinkService } from '../../cache/builders/link.service';
-import { PaginatedList } from '../../data/paginated-list.model';
 import { ResponseParsingService } from '../../data/parsing.service';
 import { RemoteData } from '../../data/remote-data';
-import { GetRequest} from '../../data/request.models';
+import { GetRequest } from '../../data/request.models';
 import { RequestService } from '../../data/request.service';
 import { DSpaceObject } from '../dspace-object.model';
 import { GenericConstructor } from '../generic-constructor';
 import { HALEndpointService } from '../hal-endpoint.service';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { hasValue, hasValueOperator, isNotEmpty } from '../../../shared/empty.util';
-import { SearchOptions } from '../../../shared/search/models/search-options.model';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import { SearchResponseParsingService } from '../../data/search-response-parsing.service';
 import { SearchObjects } from '../../../shared/search/models/search-objects.model';
 import { FacetValueResponseParsingService } from '../../data/facet-value-response-parsing.service';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
-import { CommunityDataService } from '../../data/community-data.service';
 import { ViewMode } from '../view-mode.model';
 import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
@@ -34,31 +29,20 @@ import { FacetValues } from '../../../shared/search/models/facet-values.model';
 import { PaginationService } from '../../pagination/pagination.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { DataService } from '../../data/data.service';
-import { Store } from '@ngrx/store';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
-import { DSOChangeAnalyzer } from '../../data/dso-change-analyzer.service';
 import { RestRequest } from '../../data/rest-request.model';
-import { CoreState } from '../../core-state.model';
+import { BaseDataService } from '../../data/base/base-data.service';
+import { Angulartics2 } from 'angulartics2';
 
 /**
- * A class that lets us delegate some methods to DataService
+ * A limited data service implementation for the 'discover' endpoint
+ * - Overrides {@link BaseDataService.addEmbedParams} in order to make it public
+ *
+ * Doesn't use any of the service's dependencies, they are initialized as undefined
+ * Therefore, equest/response handling methods won't work even though they're defined
  */
-class DataServiceImpl extends DataService<any> {
-  protected linkPath = 'discover';
-
-  constructor(
-    protected requestService: RequestService,
-    protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
-    protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer<any>) {
-    super();
+class SearchDataService extends BaseDataService<any> {
+  constructor() {
+    super('discover', undefined, undefined, undefined, undefined);
   }
 
   /**
@@ -99,31 +83,21 @@ export class SearchService implements OnDestroy {
   private sub;
 
   /**
-   * Instance of DataServiceImpl that lets us delegate some methods to DataService
+   * Instance of SearchDataService to forward data service methods to
    */
-  private searchDataService: DataServiceImpl;
+  private searchDataService: SearchDataService;
 
-  constructor(private router: Router,
-              private routeService: RouteService,
-              protected requestService: RequestService,
-              private rdb: RemoteDataBuildService,
-              private linkService: LinkService,
-              private halService: HALEndpointService,
-              private communityService: CommunityDataService,
-              private dspaceObjectService: DSpaceObjectDataService,
-              private paginationService: PaginationService,
-              private searchConfigurationService: SearchConfigurationService
+  constructor(
+    private routeService: RouteService,
+    protected requestService: RequestService,
+    private rdb: RemoteDataBuildService,
+    private halService: HALEndpointService,
+    private dspaceObjectService: DSpaceObjectDataService,
+    private paginationService: PaginationService,
+    private searchConfigurationService: SearchConfigurationService,
+    private angulartics2: Angulartics2,
   ) {
-    this.searchDataService = new DataServiceImpl(
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    );
+    this.searchDataService = new SearchDataService();
   }
 
   /**
@@ -288,17 +262,26 @@ export class SearchService implements OnDestroy {
    * @param {number} valuePage The page number of the filter values
    * @param {SearchOptions} searchOptions The search configuration for the current search
    * @param {string} filterQuery The optional query used to filter out filter values
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
    * @returns {Observable<RemoteData<PaginatedList<FacetValue>>>} Emits the given page of facet values
    */
-  getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: SearchOptions, filterQuery?: string): Observable<RemoteData<FacetValues>> {
+  getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: PaginatedSearchOptions, filterQuery?: string, useCachedVersionIfAvailable = true): Observable<RemoteData<FacetValues>> {
     let href;
-    const args: string[] = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`];
+    let args: string[] = [];
     if (hasValue(filterQuery)) {
-      args.push(`prefix=${filterQuery}`);
+      args.push(`prefix=${encodeURIComponent(filterQuery)}`);
     }
     if (hasValue(searchOptions)) {
+      searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
+        pagination: Object.assign({}, searchOptions.pagination, {
+          currentPage: valuePage,
+          pageSize: filterConfig.pageSize
+        })
+      });
       href = searchOptions.toRestUrl(filterConfig._links.self.href, args);
     } else {
+      args = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`, ...args];
       href = new URLCombiner(filterConfig._links.self.href, `?${args.join('&')}`).toString();
     }
 
@@ -308,7 +291,7 @@ export class SearchService implements OnDestroy {
         return FacetValueResponseParsingService;
       }
     });
-    this.requestService.send(request, true);
+    this.requestService.send(request, useCachedVersionIfAvailable);
 
     return this.rdb.buildFromHref(href);
   }
@@ -344,6 +327,37 @@ export class SearchService implements OnDestroy {
         }
         this.paginationService.updateRouteWithUrl(this.searchConfigurationService.paginationID, hasValue(searchLinkParts) ? searchLinkParts : [this.getSearchLink()], pageParams, queryParams);
       });
+  }
+
+  /**
+   * Send search event to rest api using angularitics
+   * @param config              Paginated search options used
+   * @param searchQueryResponse The response objects of the performed search
+   */
+  trackSearch(config: PaginatedSearchOptions, searchQueryResponse: SearchObjects<DSpaceObject>) {
+    const filters: { filter: string, operator: string, value: string, label: string; }[] = [];
+    const appliedFilters = searchQueryResponse.appliedFilters || [];
+    for (let i = 0, filtersLength = appliedFilters.length; i < filtersLength; i++) {
+      const appliedFilter = appliedFilters[i];
+      filters.push(appliedFilter);
+    }
+    this.angulartics2.eventTrack.next({
+      action: 'search',
+      properties: {
+        searchOptions: config,
+        page: {
+          size: config.pagination.size, // same as searchQueryResponse.page.elementsPerPage
+          totalElements: searchQueryResponse.pageInfo.totalElements,
+          totalPages: searchQueryResponse.pageInfo.totalPages,
+          number: config.pagination.currentPage, // same as searchQueryResponse.page.currentPage
+        },
+        sort: {
+          by: config.sort.field,
+          order: config.sort.direction
+        },
+        filters: filters,
+      },
+    });
   }
 
   /**

@@ -14,9 +14,9 @@ import { ConfigurationDataService } from '../core/data/configuration-data.servic
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { Observable } from 'rxjs';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
+import { HandleService } from '../shared/handle.service';
 
 export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
-
 /**
  * Component responsible for rendering the Curation Task form
  */
@@ -39,6 +39,7 @@ export class CurationFormComponent implements OnInit {
     private processDataService: ProcessDataService,
     private notificationsService: NotificationsService,
     private translateService: TranslateService,
+    private handleService: HandleService,
     private router: Router
   ) {
   }
@@ -76,13 +77,19 @@ export class CurationFormComponent implements OnInit {
     const taskName = this.form.get('task').value;
     let handle;
     if (this.hasHandleValue()) {
-      handle = this.dsoHandle;
+      handle = this.handleService.normalizeHandle(this.dsoHandle);
+      if (isEmpty(handle)) {
+        this.notificationsService.error(this.translateService.get('curation.form.submit.error.head'),
+          this.translateService.get('curation.form.submit.error.invalid-handle'));
+        return;
+      }
     } else {
-      handle = this.form.get('handle').value;
+      handle = this.handleService.normalizeHandle(this.form.get('handle').value);
       if (isEmpty(handle)) {
         handle = 'all';
       }
     }
+
     this.scriptDataService.invoke('curate', [
       { name: '-t', value: taskName },
       { name: '-i', value: handle },

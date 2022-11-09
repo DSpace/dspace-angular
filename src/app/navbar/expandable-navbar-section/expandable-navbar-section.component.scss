@@ -1,3 +1,10 @@
+.expandable-navbar-section {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .dropdown-menu {
     overflow: hidden;
     min-width: 100%;

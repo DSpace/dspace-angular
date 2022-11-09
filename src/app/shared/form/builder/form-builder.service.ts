@@ -18,7 +18,9 @@ import {
   DynamicPathable,
   parseReviver,
 } from '@ng-dynamic-forms/core';
-import { isObject, isString, mergeWith } from 'lodash';
+import isObject from 'lodash/isObject';
+import isString from 'lodash/isString';
+import mergeWith from 'lodash/mergeWith';
 
 import {
   hasNoValue,
@@ -116,8 +118,8 @@ export class FormBuilderService extends DynamicFormService {
         }
 
         if (this.isConcatGroup(controlModel)) {
-          if (controlModel.id.match(new RegExp(findId + CONCAT_GROUP_SUFFIX + `_\\d+$`))) {
-            result = (controlModel as DynamicConcatModel).group[0];
+          if (controlModel.id.match(new RegExp(findId + CONCAT_GROUP_SUFFIX))) {
+            result = (controlModel as DynamicConcatModel);
             break;
           }
         }

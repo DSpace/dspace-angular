@@ -196,8 +196,6 @@ describe('SubmissionFormFooterComponent', () => {
 
         const confirmBtn: any = ((document as any).querySelector('.btn-danger:nth-child(2)'));
 
-        console.log(confirmBtn);
-
         confirmBtn.click();
 
         fixture.detectChanges();

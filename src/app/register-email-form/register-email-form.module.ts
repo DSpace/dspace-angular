@@ -6,7 +6,7 @@ import { RegisterEmailFormComponent } from './register-email-form.component';
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
+    SharedModule
   ],
   declarations: [
     RegisterEmailFormComponent,

@@ -19,13 +19,17 @@ import 'zone.js/node';
 import 'reflect-metadata';
 import 'rxjs';
 
-import * as pem from 'pem';
-import * as https from 'https';
+/* eslint-disable import/no-namespace */
 import * as morgan from 'morgan';
 import * as express from 'express';
-import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
 import * as expressStaticGzip from 'express-static-gzip';
+/* eslint-enable import/no-namespace */
+
+import axios from 'axios';
+import { createCertificate } from 'pem';
+import { createServer } from 'https';
+import { json } from 'body-parser';
 
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
@@ -38,15 +42,16 @@ import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { hasValue, hasNoValue } from './src/app/shared/empty.util';
+import { hasNoValue, hasValue } from './src/app/shared/empty.util';
 
 import { UIServerConfig } from './src/config/ui-server-config.interface';
 
 import { ServerAppModule } from './src/main.server';
 
 import { buildAppConfig } from './src/config/config.server';
-import { AppConfig, APP_CONFIG } from './src/config/app-config.interface';
+import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
+import { logStartupMessage } from './startup-message';
 
 /*
  * Set path for the browser application's dist folder
@@ -73,6 +78,10 @@ export function app() {
    * Create a new express application
    */
   const server = express();
+
+  // Tell Express to trust X-FORWARDED-* headers from proxies
+  // See https://expressjs.com/en/guide/behind-proxies.html
+  server.set('trust proxy', environment.ui.useProxies);
 
   /*
    * If production mode is enabled in the environment file:
@@ -104,7 +113,7 @@ export function app() {
    * Add parser for request bodies
    * See [morgan](https://github.com/expressjs/body-parser)
    */
-  server.use(bodyParser.json());
+  server.use(json());
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine('html', (_, options, callback) =>
@@ -173,6 +182,11 @@ export function app() {
   * Fallthrough to the IIIF viewer (must be included in the build).
   */
   router.use('/iiif', express.static(IIIF_VIEWER, { index: false }));
+
+  /**
+   * Checking server status
+   */
+  server.get('/app/health', healthCheck);
 
   // Register the ngApp callback function to handle incoming requests
   router.get('*', ngApp);
@@ -255,7 +269,7 @@ function serverStarted() {
  * @param keys SSL credentials
  */
 function createHttpsServer(keys) {
-  https.createServer({
+  createServer({
     key: keys.serviceKey,
     cert: keys.certificate
   }, app).listen(environment.ui.port, environment.ui.host, () => {
@@ -275,6 +289,8 @@ function run() {
 }
 
 function start() {
+  logStartupMessage(environment);
+
   /*
   * If SSL is enabled
   * - Read credentials from configuration files
@@ -307,7 +323,7 @@ function start() {
 
       process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // lgtm[js/disabling-certificate-validation]
 
-      pem.createCertificate({
+      createCertificate({
         days: 1,
         selfSigned: true
       }, (error, keys) => {
@@ -319,6 +335,21 @@ function start() {
   }
 }
 
+/*
+ * The callback function to serve health check requests
+ */
+function healthCheck(req, res) {
+  const baseUrl = `${environment.rest.baseUrl}${environment.actuators.endpointPath}`;
+  axios.get(baseUrl)
+    .then((response) => {
+      res.status(response.status).send(response.data);
+    })
+    .catch((error) => {
+      res.status(error.response.status).send({
+        error: error.message
+      });
+    });
+}
 // Webpack will replace 'require' with '__webpack_require__'
 // '__non_webpack_require__' is a proxy to Node 'require'
 // The below code is to ensure that the server is run only when not requiring the bundle.
