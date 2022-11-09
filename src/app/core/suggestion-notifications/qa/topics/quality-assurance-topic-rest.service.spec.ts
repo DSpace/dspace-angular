@@ -18,7 +18,7 @@ import {
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid
 } from '../../../../shared/mocks/notifications.mock';
-import {RequestEntry} from '../../../data/request-entry.model';
+import { RequestEntry } from '../../../data/request-entry.model';
 
 describe('QualityAssuranceTopicRestService', () => {
   let scheduler: TestScheduler;
@@ -36,7 +36,7 @@ describe('QualityAssuranceTopicRestService', () => {
   const requestUUID = '8b3c913a-5a4b-438b-9181-be1a5b4a1c8a';
 
   const pageInfo = new PageInfo();
-  const array = [ qualityAssuranceTopicObjectMorePid, qualityAssuranceTopicObjectMoreAbstract ];
+  const array = [qualityAssuranceTopicObjectMorePid, qualityAssuranceTopicObjectMoreAbstract];
   const paginatedList = buildPaginatedList(pageInfo, array);
   const qaTopicObjectRD = createSuccessfulRemoteDataObject(qualityAssuranceTopicObjectMorePid);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
@@ -65,7 +65,7 @@ describe('QualityAssuranceTopicRestService', () => {
 
     objectCache = {} as ObjectCacheService;
     halService = jasmine.createSpyObj('halService', {
-       getEndpoint: cold('a|', { a: endpointURL })
+      getEndpoint: cold('a|', { a: endpointURL })
     });
 
     notificationsService = {} as NotificationsService;
@@ -77,20 +77,18 @@ describe('QualityAssuranceTopicRestService', () => {
       rdbService,
       objectCache,
       halService,
-      notificationsService,
-      http,
-      comparator
+      notificationsService
     );
 
-    spyOn((service as any).dataService, 'findAllByHref').and.callThrough();
-    spyOn((service as any).dataService, 'findByHref').and.callThrough();
+    spyOn((service as any), 'findListByHref').and.callThrough();
+    spyOn((service as any), 'findByHref').and.callThrough();
   });
 
   describe('getTopics', () => {
-    it('should proxy the call to dataservice.findAllByHref', (done) => {
+    it('should call findListByHref', (done) => {
       service.getTopics().subscribe(
         (res) => {
-          expect((service as any).dataService.findAllByHref).toHaveBeenCalledWith(endpointURL, {}, true, true);
+          expect((service as any).findListByHref).toHaveBeenCalledWith(endpointURL, {}, true, true);
         }
       );
       done();
@@ -106,10 +104,10 @@ describe('QualityAssuranceTopicRestService', () => {
   });
 
   describe('getTopic', () => {
-    it('should proxy the call to dataservice.findByHref', (done) => {
+    it('should call findByHref', (done) => {
       service.getTopic(qualityAssuranceTopicObjectMorePid.id).subscribe(
         (res) => {
-          expect((service as any).dataService.findByHref).toHaveBeenCalledWith(endpointURL + '/' + qualityAssuranceTopicObjectMorePid.id, true, true);
+          expect((service as any).findByHref).toHaveBeenCalledWith(endpointURL + '/' + qualityAssuranceTopicObjectMorePid.id, true, true);
         }
       );
       done();

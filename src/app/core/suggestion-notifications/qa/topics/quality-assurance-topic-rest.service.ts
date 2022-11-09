@@ -1,7 +1,4 @@
-/* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 import { mergeMap, take } from 'rxjs/operators';
@@ -10,62 +7,22 @@ import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
-import { dataService } from '../../../cache/builders/build-decorators';
 import { RequestService } from '../../../data/request.service';
-import { DataService } from '../../../data/data.service';
-import { ChangeAnalyzer } from '../../../data/change-analyzer';
-import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
 import { RemoteData } from '../../../data/remote-data';
 import { QualityAssuranceTopicObject } from '../models/quality-assurance-topic.model';
-import { QUALITY_ASSURANCE_TOPIC_OBJECT } from '../models/quality-assurance-topic-object.resource-type';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../../data/paginated-list.model';
-import {CoreState} from '../../../core-state.model';
-import {FindListOptions} from '../../../data/find-list-options.model';
-
-/**
- * A private DataService implementation to delegate specific methods to.
- */
-class DataServiceImpl extends DataService<QualityAssuranceTopicObject> {
-  /**
-   * The REST endpoint.
-   */
-  protected linkPath = 'qualityassurancetopics';
-
-  /**
-   * Initialize service variables
-   * @param {RequestService} requestService
-   * @param {RemoteDataBuildService} rdbService
-   * @param {Store<CoreState>} store
-   * @param {ObjectCacheService} objectCache
-   * @param {HALEndpointService} halService
-   * @param {NotificationsService} notificationsService
-   * @param {HttpClient} http
-   * @param {ChangeAnalyzer<QualityAssuranceTopicObject>} comparator
-   */
-  constructor(
-    protected requestService: RequestService,
-    protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
-    protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<QualityAssuranceTopicObject>) {
-    super();
-  }
-}
+import { FindListOptions } from '../../../data/find-list-options.model';
+import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
+import { dataService } from '../../../data/base/data-service.decorator';
+import { QUALITY_ASSURANCE_TOPIC_OBJECT } from '../models/quality-assurance-topic-object.resource-type';
 
 /**
  * The service handling all Quality Assurance topic REST requests.
  */
 @Injectable()
 @dataService(QUALITY_ASSURANCE_TOPIC_OBJECT)
-export class QualityAssuranceTopicRestService {
-  /**
-   * A private DataService implementation to delegate specific methods to.
-   */
-  private dataService: DataServiceImpl;
+export class QualityAssuranceTopicRestService extends IdentifiableDataService<QualityAssuranceTopicObject> {
 
   /**
    * Initialize service variables
@@ -74,18 +31,15 @@ export class QualityAssuranceTopicRestService {
    * @param {ObjectCacheService} objectCache
    * @param {HALEndpointService} halService
    * @param {NotificationsService} notificationsService
-   * @param {HttpClient} http
-   * @param {DefaultChangeAnalyzer<QualityAssuranceTopicObject>} comparator
    */
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<QualityAssuranceTopicObject>) {
-      this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
+    protected notificationsService: NotificationsService
+  ) {
+    super('qualityassurancetopics', requestService, rdbService, objectCache, halService);
   }
 
   /**
@@ -99,9 +53,9 @@ export class QualityAssuranceTopicRestService {
    *    The list of Quality Assurance topics.
    */
   public getTopics(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>> {
-    return this.dataService.getBrowseEndpoint(options, 'qualityassurancetopics').pipe(
+    return this.getBrowseEndpoint(options).pipe(
       take(1),
-      mergeMap((href: string) => this.dataService.findAllByHref(href, options, true, true, ...linksToFollow)),
+      mergeMap((href: string) => this.findListByHref(href, options, true, true, ...linksToFollow)),
     );
   }
 
@@ -124,9 +78,9 @@ export class QualityAssuranceTopicRestService {
    */
   public getTopic(id: string, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<QualityAssuranceTopicObject>> {
     const options = {};
-    return this.dataService.getBrowseEndpoint(options, 'qualityassurancetopics').pipe(
+    return this.getBrowseEndpoint(options).pipe(
       take(1),
-      mergeMap((href: string) => this.dataService.findByHref(href + '/' + id, true, true, ...linksToFollow))
+      mergeMap((href: string) => this.findByHref(href + '/' + id, true, true, ...linksToFollow))
     );
   }
 }

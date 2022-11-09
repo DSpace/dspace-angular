@@ -20,8 +20,8 @@ import {
   qualityAssuranceEventObjectMissingProjectFound
 } from '../../../../shared/mocks/notifications.mock';
 import { ReplaceOperation } from 'fast-json-patch';
-import {RequestEntry} from '../../../data/request-entry.model';
-import {FindListOptions} from '../../../data/find-list-options.model';
+import { RequestEntry } from '../../../data/request-entry.model';
+import { FindListOptions } from '../../../data/find-list-options.model';
 
 describe('QualityAssuranceEventRestService', () => {
   let scheduler: TestScheduler;
@@ -43,7 +43,7 @@ describe('QualityAssuranceEventRestService', () => {
   const topic = 'ENRICH!MORE!PID';
 
   const pageInfo = new PageInfo();
-  const array = [ qualityAssuranceEventObjectMissingPid, qualityAssuranceEventObjectMissingPid2 ];
+  const array = [qualityAssuranceEventObjectMissingPid, qualityAssuranceEventObjectMissingPid2];
   const paginatedList = buildPaginatedList(pageInfo, array);
   const qaEventObjectRD = createSuccessfulRemoteDataObject(qualityAssuranceEventObjectMissingPid);
   const qaEventObjectMissingProjectRD = createSuccessfulRemoteDataObject(qualityAssuranceEventObjectMissingProjectFound);
@@ -87,12 +87,13 @@ describe('QualityAssuranceEventRestService', () => {
       buildList: cold('(a)', {
         a: paginatedListRD
       }),
-      buildFromRequestUUID: jasmine.createSpy('buildFromRequestUUID')
+      buildFromRequestUUID: jasmine.createSpy('buildFromRequestUUID'),
+      buildFromRequestUUIDAndAwait: jasmine.createSpy('buildFromRequestUUIDAndAwait')
     });
 
     objectCache = {} as ObjectCacheService;
     halService = jasmine.createSpyObj('halService', {
-       getEndpoint: cold('a|', { a: endpointURL })
+      getEndpoint: cold('a|', { a: endpointURL })
     });
 
     notificationsService = {} as NotificationsService;
@@ -105,17 +106,16 @@ describe('QualityAssuranceEventRestService', () => {
       objectCache,
       halService,
       notificationsService,
-      http,
       comparator
     );
 
     serviceASAny = service;
 
-    spyOn(serviceASAny.dataService, 'searchBy').and.callThrough();
-    spyOn(serviceASAny.dataService, 'findById').and.callThrough();
-    spyOn(serviceASAny.dataService, 'patch').and.callThrough();
-    spyOn(serviceASAny.dataService, 'postOnRelated').and.callThrough();
-    spyOn(serviceASAny.dataService, 'deleteOnRelated').and.callThrough();
+    spyOn(serviceASAny.searchData, 'searchBy').and.callThrough();
+    spyOn(serviceASAny, 'findById').and.callThrough();
+    spyOn(serviceASAny.patchData, 'patch').and.callThrough();
+    spyOn(serviceASAny, 'postOnRelated').and.callThrough();
+    spyOn(serviceASAny, 'deleteOnRelated').and.callThrough();
   });
 
   describe('getEventsByTopic', () => {
@@ -125,7 +125,7 @@ describe('QualityAssuranceEventRestService', () => {
       serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(qaEventObjectRD));
     });
 
-    it('should proxy the call to dataservice.searchBy', () => {
+    it('should proxy the call to searchData.searchBy', () => {
       const options: FindListOptions = {
         searchParams: [
           {
@@ -135,13 +135,13 @@ describe('QualityAssuranceEventRestService', () => {
         ]
       };
       service.getEventsByTopic(topic);
-      expect(serviceASAny.dataService.searchBy).toHaveBeenCalledWith('findByTopic', options, true, true);
+      expect(serviceASAny.searchData.searchBy).toHaveBeenCalledWith('findByTopic', options, true, true);
     });
 
     it('should return a RemoteData<PaginatedList<QualityAssuranceEventObject>> for the object with the given Topic', () => {
       const result = service.getEventsByTopic(topic);
       const expected = cold('(a)', {
-         a: paginatedListRD
+        a: paginatedListRD
       });
       expect(result).toBeObservable(expected);
     });
@@ -154,15 +154,15 @@ describe('QualityAssuranceEventRestService', () => {
       serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(qaEventObjectRD));
     });
 
-    it('should proxy the call to dataservice.findById', () => {
+    it('should call findById', () => {
       service.getEvent(qualityAssuranceEventObjectMissingPid.id).subscribe(
         (res) => {
-          expect(serviceASAny.dataService.findById).toHaveBeenCalledWith(qualityAssuranceEventObjectMissingPid.id, true, true);
+          expect(serviceASAny.findById).toHaveBeenCalledWith(qualityAssuranceEventObjectMissingPid.id, true, true);
         }
       );
     });
 
-    it('should return a RemoteData<QualityAssuranceEventObject> for the object with the given URL', () => {
+    it('should return a RemoteData for the object with the given URL', () => {
       const result = service.getEvent(qualityAssuranceEventObjectMissingPid.id);
       const expected = cold('(a)', {
         a: qaEventObjectRD
@@ -176,12 +176,13 @@ describe('QualityAssuranceEventRestService', () => {
       serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntry));
       serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntry));
       serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(qaEventObjectRD));
+      serviceASAny.rdbService.buildFromRequestUUIDAndAwait.and.returnValue(observableOf(qaEventObjectRD));
     });
 
-    it('should proxy the call to dataservice.patch', () => {
+    it('should proxy the call to patchData.patch', () => {
       service.patchEvent(status, qualityAssuranceEventObjectMissingPid).subscribe(
         (res) => {
-          expect(serviceASAny.dataService.patch).toHaveBeenCalledWith(qualityAssuranceEventObjectMissingPid, operation);
+          expect(serviceASAny.patchData.patch).toHaveBeenCalledWith(qualityAssuranceEventObjectMissingPid, operation);
         }
       );
     });
@@ -202,10 +203,10 @@ describe('QualityAssuranceEventRestService', () => {
       serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(qaEventObjectMissingProjectRD));
     });
 
-    it('should proxy the call to dataservice.postOnRelated', () => {
+    it('should call postOnRelated', () => {
       service.boundProject(qualityAssuranceEventObjectMissingProjectFound.id, requestUUID).subscribe(
         (res) => {
-          expect(serviceASAny.dataService.postOnRelated).toHaveBeenCalledWith(qualityAssuranceEventObjectMissingProjectFound.id, requestUUID);
+          expect(serviceASAny.postOnRelated).toHaveBeenCalledWith(qualityAssuranceEventObjectMissingProjectFound.id, requestUUID);
         }
       );
     });
@@ -226,10 +227,10 @@ describe('QualityAssuranceEventRestService', () => {
       serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(createSuccessfulRemoteDataObject({})));
     });
 
-    it('should proxy the call to dataservice.deleteOnRelated', () => {
+    it('should call deleteOnRelated', () => {
       service.removeProject(qualityAssuranceEventObjectMissingProjectFound.id).subscribe(
         (res) => {
-          expect(serviceASAny.dataService.deleteOnRelated).toHaveBeenCalledWith(qualityAssuranceEventObjectMissingProjectFound.id);
+          expect(serviceASAny.deleteOnRelated).toHaveBeenCalledWith(qualityAssuranceEventObjectMissingProjectFound.id);
         }
       );
     });

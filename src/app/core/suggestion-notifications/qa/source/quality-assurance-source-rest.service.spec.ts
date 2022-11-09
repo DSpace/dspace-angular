@@ -17,8 +17,8 @@ import {
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid
 } from '../../../../shared/mocks/notifications.mock';
-import {RequestEntry} from '../../../data/request-entry.model';
-import {QualityAssuranceSourceRestService} from './quality-assurance-source-rest.service';
+import { RequestEntry } from '../../../data/request-entry.model';
+import { QualityAssuranceSourceRestService } from './quality-assurance-source-rest.service';
 
 describe('QualityAssuranceSourceRestService', () => {
   let scheduler: TestScheduler;
@@ -36,7 +36,7 @@ describe('QualityAssuranceSourceRestService', () => {
   const requestUUID = '8b3c913a-5a4b-438b-9181-be1a5b4a1c8a';
 
   const pageInfo = new PageInfo();
-  const array = [ qualityAssuranceSourceObjectMorePid, qualityAssuranceSourceObjectMoreAbstract ];
+  const array = [qualityAssuranceSourceObjectMorePid, qualityAssuranceSourceObjectMoreAbstract];
   const paginatedList = buildPaginatedList(pageInfo, array);
   const qaSourceObjectRD = createSuccessfulRemoteDataObject(qualityAssuranceSourceObjectMorePid);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
@@ -65,7 +65,7 @@ describe('QualityAssuranceSourceRestService', () => {
 
     objectCache = {} as ObjectCacheService;
     halService = jasmine.createSpyObj('halService', {
-       getEndpoint: cold('a|', { a: endpointURL })
+      getEndpoint: cold('a|', { a: endpointURL })
     });
 
     notificationsService = {} as NotificationsService;
@@ -77,20 +77,18 @@ describe('QualityAssuranceSourceRestService', () => {
       rdbService,
       objectCache,
       halService,
-      notificationsService,
-      http,
-      comparator
+      notificationsService
     );
 
-    spyOn((service as any).dataService, 'findAllByHref').and.callThrough();
-    spyOn((service as any).dataService, 'findByHref').and.callThrough();
+    spyOn((service as any), 'findListByHref').and.callThrough();
+    spyOn((service as any), 'findByHref').and.callThrough();
   });
 
   describe('getSources', () => {
-    it('should proxy the call to dataservice.findAllByHref', (done) => {
+    it('should call findListByHref', (done) => {
       service.getSources().subscribe(
         (res) => {
-          expect((service as any).dataService.findAllByHref).toHaveBeenCalledWith(endpointURL, {}, true, true);
+          expect((service as any).findListByHref).toHaveBeenCalledWith(endpointURL, {}, true, true);
         }
       );
       done();
@@ -106,10 +104,10 @@ describe('QualityAssuranceSourceRestService', () => {
   });
 
   describe('getSource', () => {
-    it('should proxy the call to dataservice.findByHref', (done) => {
+    it('should call findByHref', (done) => {
       service.getSource(qualityAssuranceSourceObjectMorePid.id).subscribe(
         (res) => {
-          expect((service as any).dataService.findByHref).toHaveBeenCalledWith(endpointURL + '/' + qualityAssuranceSourceObjectMorePid.id, true, true);
+          expect((service as any).findByHref).toHaveBeenCalledWith(endpointURL + '/' + qualityAssuranceSourceObjectMorePid.id, true, true);
         }
       );
       done();
