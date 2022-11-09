@@ -40,7 +40,7 @@
               </button>
             </div>
             <span *ngIf="uploader.progress < 100 && !(uploader.progress === 0 && !uploader.options.autoUpload)" class="float-right mr-3">{{ uploader.progress }}%</span>
-            <span *ngIf="uploader.progress === 100" class="float-right mr-3">{{'uploader.processing' | translate}}...</span>
+            <span *ngIf="uploader.progress === 100" class="float-right mr-3">{{'uploader.processing' | translate}}</span>
           </div>
           <div class="ds-base-drop-zone-progress clearfix mt-2">
             <div role="progressbar"

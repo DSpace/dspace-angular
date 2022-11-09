@@ -130,6 +130,7 @@
   "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
 
   "admin.registries.bitstream-formats.table.name": "Name",
+  "admin.registries.bitstream-formats.table.id" : "ID",
 
   "admin.registries.bitstream-formats.table.return": "Back",
 
@@ -184,6 +185,7 @@
   "admin.registries.schema.fields.table.delete": "Delete selected",
 
   "admin.registries.schema.fields.table.field": "Field",
+  "admin.registries.schema.fields.table.id" : "ID",
 
   "admin.registries.schema.fields.table.scopenote": "Scope Note",
 
@@ -550,28 +552,45 @@
 
   "admin.metadata-import.breadcrumbs": "Import Metadata",
 
+  "admin.batch-import.breadcrumbs": "Import Batch",
+
   "admin.metadata-import.title": "Import Metadata",
+
+  "admin.batch-import.title": "Import Batch",
 
   "admin.metadata-import.page.header": "Import Metadata",
 
+  "admin.batch-import.page.header": "Import Batch",
+
   "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
+
+  "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
 
   "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
 
+  "admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
+
   "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
+
+  "admin.batch-import.page.dropMsgReplace": "Drop to replace the batch ZIP to import",
 
   "admin.metadata-import.page.button.return": "Back",
 
   "admin.metadata-import.page.button.proceed": "Proceed",
 
+  "admin.metadata-import.page.button.select-collection": "Select Collection",
+
   "admin.metadata-import.page.error.addFile": "Select file first!",
+
+  "admin.batch-import.page.error.addFile": "Select Zip file first!",
 
   "admin.metadata-import.page.validateOnly": "Validate Only",
 
   "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
 
+  "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
 
-
+  "admin.batch-import.page.remove": "remove",
 
   "auth.errors.invalid-user": "Invalid email address or password.",
 
@@ -918,7 +937,7 @@
 
   "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
-  "collection.edit.tabs.source.notifications.discarded.title": "Changed discarded",
+  "collection.edit.tabs.source.notifications.discarded.title": "Changes discarded",
 
   "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
 
@@ -1225,13 +1244,25 @@
 
   "cookies.consent.app.required.title": "(always required)",
 
+  "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
+
+  "cookies.consent.app.disable-all.title": "Enable or disable all services",
+
   "cookies.consent.update": "There were changes since your last visit, please update your consent.",
 
   "cookies.consent.close": "Close",
 
   "cookies.consent.decline": "Decline",
 
+  "cookies.consent.ok": "That's ok",
+
+  "cookies.consent.save": "Save",
+
+  "cookies.consent.content-notice.title": "Cookie Consent",
+
   "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
+
+  "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
 
   "cookies.consent.content-notice.learnMore": "Customize",
 
@@ -1243,7 +1274,9 @@
 
   "cookies.consent.content-modal.title": "Information that we collect",
 
+  "cookies.consent.content-modal.services": "services",
 
+  "cookies.consent.content-modal.service": "service",
 
   "cookies.consent.app.title.authentication": "Authentication",
 
@@ -1268,10 +1301,20 @@
 
 
 
+  "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
+
+  "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
+
+
   "cookies.consent.purpose.functional": "Functional",
 
   "cookies.consent.purpose.statistical": "Statistical",
 
+  "cookies.consent.purpose.registration-password-recovery": "Registration and Password recovery",
+
+  "cookies.consent.purpose.sharing": "Sharing",
+
+  "curation-task.task.citationpage.label":  "Generate Citation Page",
 
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
@@ -1351,6 +1394,10 @@
 
   "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
 
+  "dso-selector.export-batch.dspaceobject.head": "Export Batch (ZIP) from",
+
+  "dso-selector.import-batch.dspaceobject.head": "Import batch from",
+
   "dso-selector.no-results": "No {{ type }} found",
 
   "dso-selector.placeholder": "Search for a {{ type }}",
@@ -1378,6 +1425,14 @@
   "confirmation-modal.export-metadata.cancel": "Cancel",
 
   "confirmation-modal.export-metadata.confirm": "Export",
+
+  "confirmation-modal.export-batch.header": "Export batch (ZIP) for {{ dsoName }}",
+
+  "confirmation-modal.export-batch.info": "Are you sure you want to export batch (ZIP) for {{ dsoName }}",
+
+  "confirmation-modal.export-batch.cancel": "Cancel",
+
+  "confirmation-modal.export-batch.confirm": "Export",
 
   "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
 
@@ -1470,7 +1525,7 @@
 
   "forgot-email.form.header": "Forgot Password",
 
-  "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
+  "forgot-email.form.info": "Enter the email address associated with the account.",
 
   "forgot-email.form.email": "Email Address *",
 
@@ -1478,17 +1533,17 @@
 
   "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
 
-  "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
+  "forgot-email.form.email.hint": "An email will be sent to this address with a further instructions.",
 
-  "forgot-email.form.submit": "Save",
+  "forgot-email.form.submit": "Reset password",
 
-  "forgot-email.form.success.head": "Verification email sent",
+  "forgot-email.form.success.head": "Password reset email sent",
 
   "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
 
-  "forgot-email.form.error.head": "Error when trying to register email",
+  "forgot-email.form.error.head": "Error when trying to reset password",
 
-  "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
+  "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
 
 
 
@@ -1496,7 +1551,7 @@
 
   "forgot-password.form.head": "Forgot Password",
 
-  "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box.",
 
   "forgot-password.form.card.security": "Security",
 
@@ -1512,8 +1567,6 @@
 
   "forgot-password.form.error.matching-passwords": "The passwords do not match.",
 
-  "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
-
   "forgot-password.form.notification.error.title": "Error when trying to submit new password",
 
   "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
@@ -1521,7 +1574,6 @@
   "forgot-password.form.notification.success.title": "Password reset completed",
 
   "forgot-password.form.submit": "Submit password",
-
 
 
   "form.add": "Add more",
@@ -1643,13 +1695,13 @@
 
   "health-page.section.geoIp.title": "GeoIp",
 
-  "health-page.section.solrAuthorityCore.title": "Sor: authority core",
+  "health-page.section.solrAuthorityCore.title": "Solr: authority core",
 
-  "health-page.section.solrOaiCore.title": "Sor: oai core",
+  "health-page.section.solrOaiCore.title": "Solr: oai core",
 
-  "health-page.section.solrSearchCore.title": "Sor: search core",
+  "health-page.section.solrSearchCore.title": "Solr: search core",
 
-  "health-page.section.solrStatisticsCore.title": "Sor: statistics core",
+  "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
 
   "health-page.section-info.app.title": "Application Backend",
 
@@ -1923,7 +1975,7 @@
 
   "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
-  "item.edit.metadata.notifications.discarded.title": "Changed discarded",
+  "item.edit.metadata.notifications.discarded.title": "Changes discarded",
 
   "item.edit.metadata.notifications.error.title": "An error occurred",
 
@@ -1933,7 +1985,7 @@
 
   "item.edit.metadata.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
 
-  "item.edit.metadata.notifications.outdated.title": "Changed outdated",
+  "item.edit.metadata.notifications.outdated.title": "Changes outdated",
 
   "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
 
@@ -2626,6 +2678,7 @@
 
   "menu.section.export_metadata": "Metadata",
 
+  "menu.section.export_batch": "Batch Export (ZIP)",
 
 
   "menu.section.icon.access_control": "Access Control menu section",
@@ -2751,8 +2804,6 @@
 
   "mydspace.description": "",
 
-  "mydspace.general.text-here": "here",
-
   "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
 
   "mydspace.messages.description-placeholder": "Insert your message here...",
@@ -2829,8 +2880,6 @@
 
   "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
 
-  "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
-
   "mydspace.view-btn": "View",
 
 
@@ -2843,7 +2892,9 @@
 
   "nav.login": "Log In",
 
-  "nav.logout": "User profile menu and Log Out",
+  "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+
+  "nav.logout": "Log Out",
 
   "nav.main.description": "Main navigation bar",
 
@@ -2996,6 +3047,8 @@
 
   "orgunit.listelement.badge": "Organizational Unit",
 
+  "orgunit.listelement.no-title": "Untitled",
+
   "orgunit.page.city": "City",
 
   "orgunit.page.country": "Country",
@@ -3128,6 +3181,22 @@
 
   "process.detail.create" : "Create similar process",
 
+  "process.detail.actions": "Actions",
+
+  "process.detail.delete.button": "Delete process",
+
+  "process.detail.delete.header": "Delete process",
+
+  "process.detail.delete.body": "Are you sure you want to delete the current process?",
+
+  "process.detail.delete.cancel": "Cancel",
+
+  "process.detail.delete.confirm": "Delete process",
+
+  "process.detail.delete.success": "The process was successfully deleted.",
+
+  "process.detail.delete.error": "Something went wrong when deleting the process",
+
 
 
   "process.overview.table.finish" : "Finish time (UTC)",
@@ -3147,6 +3216,25 @@
   "process.overview.breadcrumbs": "Processes Overview",
 
   "process.overview.new": "New",
+
+  "process.overview.table.actions": "Actions",
+
+  "process.overview.delete": "Delete {{count}} processes",
+
+  "process.overview.delete.clear": "Clear delete selection",
+
+  "process.overview.delete.processing": "{{count}} process(es) are being deleted. Please wait for the deletion to fully complete. Note that this can take a while.",
+
+  "process.overview.delete.body": "Are you sure you want to delete {{count}} process(es)?",
+
+  "process.overview.delete.header": "Delete processes",
+
+  "process.bulk.delete.error.head": "Error on deleteing process",
+
+  "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
+
+  "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+
 
 
   "profile.breadcrumbs": "Update Profile",
@@ -3187,13 +3275,13 @@
 
   "profile.security.form.error.matching-passwords": "The passwords do not match.",
 
-  "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
-
-  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box.",
 
   "profile.security.form.label.password": "Password",
 
   "profile.security.form.label.passwordrepeat": "Retype to confirm",
+
+  "profile.security.form.label.current-password": "Current password",
 
   "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
 
@@ -3201,9 +3289,11 @@
 
   "profile.security.form.notifications.error.title": "Error changing passwords",
 
-  "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
+  "profile.security.form.notifications.error.change-failed": "An error occurred while trying to change the password. Please check if the current password is correct.",
 
   "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
+
+  "profile.security.form.notifications.error.general": "Please fill required fields of security form.",
 
   "profile.title": "Update Profile",
 
@@ -3287,7 +3377,7 @@
 
   "register-page.create-profile.security.header": "Security",
 
-  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box.",
 
   "register-page.create-profile.security.label.password": "Password *",
 
@@ -3296,8 +3386,6 @@
   "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
 
   "register-page.create-profile.security.error.matching-passwords": "The passwords do not match.",
-
-  "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
 
   "register-page.create-profile.submit": "Complete Registration",
 
@@ -3332,7 +3420,17 @@
 
   "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
 
+  "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
 
+  "register-page.registration.google-recaptcha.must-accept-cookies": "In order to register you must accept the <b>Registration and Password recovery</b> (Google reCaptcha) cookies.",
+
+  "register-page.registration.google-recaptcha.open-cookie-settings": "Open cookie settings",
+
+  "register-page.registration.google-recaptcha.notification.title": "Google reCaptcha",
+
+  "register-page.registration.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
+
+  "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.",
 
   "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
 
@@ -3730,6 +3828,7 @@
 
   "search.results.view-result": "View",
 
+  "search.results.response.500": "An error occurred during query execution, please try again later",
 
   "default.search.results.head": "Search Results",
 
@@ -4383,6 +4482,12 @@
 
   "submission.sections.accesses.form.until-placeholder": "Until",
 
+  "submission.sections.license.granted-label": "I confirm the license above",
+
+  "submission.sections.license.required": "You must accept the license",
+
+  "submission.sections.license.notgranted":  "You must accept the license",
+
 
   "submission.sections.sherpa.publication.information": "Publication information",
 
@@ -4554,7 +4659,7 @@
 
   "uploader.or": ", or ",
 
-  "uploader.processing": "Processing",
+  "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
 
   "uploader.queue-length": "Queue length",
 
@@ -4868,5 +4973,6 @@
   "person.orcid.registry.queue": "ORCID Registry Queue",
 
   "person.orcid.registry.auth": "ORCID Authorizations",
+  "home.recent-submissions.head": "Recent Submissions",
 
 }

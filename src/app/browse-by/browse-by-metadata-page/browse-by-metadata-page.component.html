@@ -6,10 +6,10 @@
         <ds-comcol-page-header [name]="parentContext.name">
         </ds-comcol-page-header>
         <!-- Handle -->
-        <ds-comcol-page-handle
+        <ds-themed-comcol-page-handle
             [content]="parentContext.handle"
             [title]="parentContext.type+'.page.handle'" >
-        </ds-comcol-page-handle>
+        </ds-themed-comcol-page-handle>
         <!-- Introductory text -->
         <ds-comcol-page-content [content]="parentContext.introductoryText" [hasInnerHtml]="true">
         </ds-comcol-page-content>
@@ -40,7 +40,7 @@
       (prev)="goPrev()"
       (next)="goNext()">
     </ds-browse-by>
-    <ds-loading *ngIf="!startsWithOptions" message="{{'loading.browse-by-page' | translate}}"></ds-loading>
+    <ds-themed-loading *ngIf="!startsWithOptions" message="{{'loading.browse-by-page' | translate}}"></ds-themed-loading>
   </div>
   </section>
   <ng-container *ngVar="(parent$ | async) as parent">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { Context } from '../../../../../core/shared/context.model';
@@ -13,6 +13,7 @@ import { SearchResultListElementComponent } from '../../../../../shared/object-l
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.ListElement, Context.AdminWorkflowSearch)
 @Component({
@@ -32,9 +33,10 @@ export class WorkflowItemSearchResultAdminWorkflowListElementComponent extends S
 
   constructor(private linkService: LinkService,
               protected truncatableService: TruncatableService,
-              protected dsoNameService: DSONameService
+              protected dsoNameService: DSONameService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
-    super(truncatableService, dsoNameService);
+    super(truncatableService, dsoNameService, appConfig);
   }
 
   /**

@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as yaml from 'js-yaml';
+import { existsSync, writeFileSync } from 'fs';
+import { dump } from 'js-yaml';
 import { join } from 'path';
 
 /**
@@ -18,7 +18,7 @@ if (args[0] === undefined) {
 
 const envFullPath = join(process.cwd(), args[0]);
 
-if (!fs.existsSync(envFullPath)) {
+if (!existsSync(envFullPath)) {
   console.error(`Error:\n${envFullPath} does not exist\n`);
   process.exit(1);
 }
@@ -26,10 +26,10 @@ if (!fs.existsSync(envFullPath)) {
 try {
   const env = require(envFullPath).environment;
 
-  const config = yaml.dump(env);
+  const config = dump(env);
   if (args[1]) {
     const ymlFullPath = join(process.cwd(), args[1]);
-    fs.writeFileSync(ymlFullPath, config);
+    writeFileSync(ymlFullPath, config);
   } else {
     console.log(config);
   }

@@ -156,6 +156,8 @@
   
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "İsim",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
   
   // "admin.registries.bitstream-formats.table.return": "Return",
   "admin.registries.bitstream-formats.table.return": "Geri Dön",
@@ -235,6 +237,8 @@
   
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Alan",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
   
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Kapsam Notu",
@@ -5052,7 +5056,8 @@
   // "uploader.or": ", or ",
   "uploader.or": ", veya",
   
-  // "uploader.processing": "Processing",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
+  // TODO Source message changed - Revise the translation
   "uploader.processing": "İşleniyor",
   
   // "uploader.queue-length": "Queue length",

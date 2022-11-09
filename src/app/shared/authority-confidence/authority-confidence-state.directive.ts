@@ -11,7 +11,7 @@ import {
   SimpleChanges
 } from '@angular/core';
 
-import { findIndex } from 'lodash';
+import findIndex from 'lodash/findIndex';
 
 import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';

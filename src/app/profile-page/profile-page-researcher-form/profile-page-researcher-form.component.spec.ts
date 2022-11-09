@@ -11,7 +11,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form.component';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
@@ -28,7 +28,7 @@ describe('ProfilePageResearcherFormComponent', () => {
   let user: EPerson;
   let profile: ResearcherProfile;
 
-  let researcherProfileService: jasmine.SpyObj<ResearcherProfileService>;
+  let researcherProfileService: jasmine.SpyObj<ResearcherProfileDataService>;
 
   let notificationsServiceStub: NotificationsServiceStub;
 
@@ -75,7 +75,7 @@ describe('ProfilePageResearcherFormComponent', () => {
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         NgbModal,
-        { provide: ResearcherProfileService, useValue: researcherProfileService },
+        { provide: ResearcherProfileDataService, useValue: researcherProfileService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: ProfileClaimService, useValue: profileClaimService },
         { provide: AuthService, useValue: authService }
@@ -165,7 +165,7 @@ describe('ProfilePageResearcherFormComponent', () => {
 
     it('should delete the profile', () => {
 
-      expect(researcherProfileService.delete).toHaveBeenCalledWith(profile);
+      expect(researcherProfileService.delete).toHaveBeenCalledWith(profile.id);
     });
 
   });

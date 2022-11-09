@@ -42,7 +42,7 @@ let mockPoolTaskDataService: PoolTaskDataService;
 
 describe('ClaimedTaskActionsRejectComponent', () => {
   beforeEach(waitForAsync(() => {
-    mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
+    mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
@@ -50,9 +50,9 @@ describe('ClaimedTaskActionsRejectComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [ClaimedTaskActionsRejectComponent],
       providers: [

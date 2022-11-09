@@ -6,6 +6,8 @@ import { By } from '@angular/platform-browser';
 import { MetadataUriValuesComponent } from './metadata-uri-values.component';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { MetadataValue } from '../../../core/shared/metadata.models';
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
 
 let comp: MetadataUriValuesComponent;
 let fixture: ComponentFixture<MetadataUriValuesComponent>;
@@ -33,6 +35,9 @@ describe('MetadataUriValuesComponent', () => {
           useClass: TranslateLoaderMock
         }
       })],
+      providers: [
+        { provide: APP_CONFIG, useValue: environment },
+      ],
       declarations: [MetadataUriValuesComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MetadataUriValuesComponent, {

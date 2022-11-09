@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { createSelector, Store } from '@ngrx/store';
 
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
@@ -23,6 +23,7 @@ import { followLink } from '../shared/utils/follow-link-config.model';
 import { FlatNode } from './flat-node.model';
 import { ShowMoreFlatNode } from './show-more-flat-node.model';
 import { FindListOptions } from '../core/data/find-list-options.model';
+import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 
 // Helper method to combine an flatten an array of observables of flatNode arrays
 export const combineAndFlatten = (obsList: Observable<FlatNode[]>[]): Observable<FlatNode[]> =>
@@ -80,8 +81,6 @@ const communityListStateSelector = (state: AppState) => state.communityList;
 const expandedNodesSelector = createSelector(communityListStateSelector, (communityList: CommunityListState) => communityList.expandedNodes);
 const loadingNodeSelector = createSelector(communityListStateSelector, (communityList: CommunityListState) => communityList.loadingNode);
 
-export const MAX_COMCOLS_PER_PAGE = 20;
-
 /**
  * Service class for the community list, responsible for the creating of the flat list used by communityList dataSource
  *  and connection to the store to retrieve and save the state of the community list
@@ -89,8 +88,15 @@ export const MAX_COMCOLS_PER_PAGE = 20;
 @Injectable()
 export class CommunityListService {
 
-  constructor(private communityDataService: CommunityDataService, private collectionDataService: CollectionDataService,
-              private store: Store<any>) {
+  private pageSize: number;
+
+  constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    private communityDataService: CommunityDataService,
+    private collectionDataService: CollectionDataService,
+    private store: Store<any>
+  ) {
+    this.pageSize = appConfig.communityList.pageSize;
   }
 
   private configOnePage: FindListOptions = Object.assign(new FindListOptions(), {
@@ -145,7 +151,7 @@ export class CommunityListService {
   private getTopCommunities(options: FindListOptions): Observable<PaginatedList<Community>> {
     return this.communityDataService.findTop({
         currentPage: options.currentPage,
-        elementsPerPage: MAX_COMCOLS_PER_PAGE,
+        elementsPerPage: this.pageSize,
         sort: {
           field: options.sort.field,
           direction: options.sort.direction
@@ -216,7 +222,7 @@ export class CommunityListService {
       let subcoms = [];
       for (let i = 1; i <= currentCommunityPage; i++) {
         const nextSetOfSubcommunitiesPage = this.communityDataService.findByParent(community.uuid, {
-            elementsPerPage: MAX_COMCOLS_PER_PAGE,
+            elementsPerPage: this.pageSize,
             currentPage: i
           },
           followLink('subcommunities', { findListOptions: this.configOnePage }),
@@ -241,7 +247,7 @@ export class CommunityListService {
       let collections = [];
       for (let i = 1; i <= currentCollectionPage; i++) {
         const nextSetOfCollectionsPage = this.collectionDataService.findByParent(community.uuid, {
-          elementsPerPage: MAX_COMCOLS_PER_PAGE,
+          elementsPerPage: this.pageSize,
           currentPage: i
         })
           .pipe(

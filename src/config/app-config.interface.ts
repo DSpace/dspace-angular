@@ -16,6 +16,10 @@ import { MediaViewerConfig } from './media-viewer-config.interface';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
+import { InfoConfig } from './info-config.interface';
+import { CommunityListConfig } from './community-list-config.interface';
+import { HomeConfig } from './homepage-config.interface';
+import { MarkdownConfig } from './markdown-config.interface';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -30,14 +34,22 @@ interface AppConfig extends Config {
   defaultLanguage: string;
   languages: LangConfig[];
   browseBy: BrowseByConfig;
+  communityList: CommunityListConfig;
+  homePage: HomeConfig;
   item: ItemConfig;
   collection: CollectionPageConfig;
   themes: ThemeConfig[];
   mediaViewer: MediaViewerConfig;
   bundle: BundleConfig;
   actuators: ActuatorsConfig
+  info: InfoConfig;
+  markdown: MarkdownConfig;
 }
 
+/**
+ * Injection token for the app configuration.
+ * Provided in {@link InitService.providers}.
+ */
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
 const APP_CONFIG_STATE = makeStateKey('APP_CONFIG_STATE');
