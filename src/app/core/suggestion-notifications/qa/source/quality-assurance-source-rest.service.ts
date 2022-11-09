@@ -30,7 +30,7 @@ class DataServiceImpl extends DataService<QualityAssuranceSourceObject> {
   /**
    * The REST endpoint.
    */
-  protected linkPath = 'qasources';
+  protected linkPath = 'qualityassurancesources';
 
   /**
    * Initialize service variables
@@ -99,7 +99,7 @@ export class QualityAssuranceSourceRestService {
    *    The list of Quality Assurance source.
    */
   public getSources(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<QualityAssuranceSourceObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceSourceObject>>> {
-    return this.dataService.getBrowseEndpoint(options, 'qasources').pipe(
+    return this.dataService.getBrowseEndpoint(options, 'qualityassurancesources').pipe(
       take(1),
       mergeMap((href: string) => this.dataService.findAllByHref(href, options, true, true, ...linksToFollow)),
     );
@@ -109,7 +109,7 @@ export class QualityAssuranceSourceRestService {
    * Clear FindAll source requests from cache
    */
   public clearFindAllSourceRequests() {
-    this.requestService.setStaleByHrefSubstring('qasources');
+    this.requestService.setStaleByHrefSubstring('qualityassurancesources');
   }
 
   /**
@@ -124,7 +124,7 @@ export class QualityAssuranceSourceRestService {
    */
   public getSource(id: string, ...linksToFollow: FollowLinkConfig<QualityAssuranceSourceObject>[]): Observable<RemoteData<QualityAssuranceSourceObject>> {
     const options = {};
-    return this.dataService.getBrowseEndpoint(options, 'qasources').pipe(
+    return this.dataService.getBrowseEndpoint(options, 'qualityassurancesources').pipe(
       take(1),
       mergeMap((href: string) => this.dataService.findByHref(href + '/' + id, true, true, ...linksToFollow))
     );

@@ -32,7 +32,7 @@ describe('QualityAssuranceTopicRestService', () => {
   let http: HttpClient;
   let comparator: any;
 
-  const endpointURL = 'https://rest.api/rest/api/integration/qatopics';
+  const endpointURL = 'https://rest.api/rest/api/integration/qualityassurancetopics';
   const requestUUID = '8b3c913a-5a4b-438b-9181-be1a5b4a1c8a';
 
   const pageInfo = new PageInfo();

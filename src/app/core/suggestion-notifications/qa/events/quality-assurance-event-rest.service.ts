@@ -12,7 +12,6 @@ import { RestResponse } from '../../../cache/response.models';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
 import { dataService } from '../../../cache/builders/build-decorators';
 import { RequestService } from '../../../data/request.service';
-import { DataService } from '../../../data/data.service';
 import { ChangeAnalyzer } from '../../../data/change-analyzer';
 import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
 import { RemoteData } from '../../../data/remote-data';
@@ -33,7 +32,7 @@ class DataServiceImpl extends DataService<QualityAssuranceEventObject> {
   /**
    * The REST endpoint.
    */
-  protected linkPath = 'qaevents';
+  protected linkPath = 'qualityassuranceevents';
 
   /**
    * Initialize service variables
