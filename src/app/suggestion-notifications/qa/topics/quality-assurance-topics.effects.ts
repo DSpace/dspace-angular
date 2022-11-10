@@ -1,21 +1,26 @@
 import { Injectable } from '@angular/core';
+
 import { Store } from '@ngrx/store';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs';
+
 import {
   AddTopicsAction,
   QualityAssuranceTopicActionTypes,
   RetrieveAllTopicsAction,
   RetrieveAllTopicsErrorAction,
 } from './quality-assurance-topics.actions';
-
-import { QualityAssuranceTopicObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
+import {
+  QualityAssuranceTopicObject
+} from '../../../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { QualityAssuranceTopicRestService } from '../../../core/suggestion-notifications/qa/topics/quality-assurance-topic-rest.service';
+import {
+  QualityAssuranceTopicRestService
+} from '../../../core/suggestion-notifications/qa/topics/quality-assurance-topic-rest.service';
 
 /**
  * Provides effect methods for the Quality Assurance topics actions.
@@ -26,7 +31,7 @@ export class QualityAssuranceTopicsEffects {
   /**
    * Retrieve all Quality Assurance topics managing pagination and errors.
    */
-  @Effect() retrieveAllTopics$ = this.actions$.pipe(
+  retrieveAllTopics$ = createEffect(() => this.actions$.pipe(
     ofType(QualityAssuranceTopicActionTypes.RETRIEVE_ALL_TOPICS),
     withLatestFrom(this.store$),
     switchMap(([action, currentState]: [RetrieveAllTopicsAction, any]) => {
@@ -45,27 +50,27 @@ export class QualityAssuranceTopicsEffects {
         })
       );
     })
-  );
+  ));
 
   /**
    * Show a notification on error.
    */
-  @Effect({ dispatch: false }) retrieveAllTopicsErrorAction$ = this.actions$.pipe(
+  retrieveAllTopicsErrorAction$ = createEffect(() => this.actions$.pipe(
     ofType(QualityAssuranceTopicActionTypes.RETRIEVE_ALL_TOPICS_ERROR),
     tap(() => {
       this.notificationsService.error(null, this.translate.get('quality-assurance.topic.error.service.retrieve'));
     })
-  );
+  ), { dispatch: false });
 
   /**
    * Clear find all topics requests from cache.
    */
-  @Effect({ dispatch: false }) addTopicsAction$ = this.actions$.pipe(
+  addTopicsAction$ = createEffect(() => this.actions$.pipe(
     ofType(QualityAssuranceTopicActionTypes.ADD_TOPICS),
     tap(() => {
       this.qualityAssuranceTopicDataService.clearFindAllTopicsRequests();
     })
-  );
+  ), { dispatch: false });
 
   /**
    * Initialize the effect class variables.

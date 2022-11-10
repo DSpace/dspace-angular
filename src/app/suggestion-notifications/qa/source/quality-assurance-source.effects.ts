@@ -1,21 +1,26 @@
 import { Injectable } from '@angular/core';
+
 import { Store } from '@ngrx/store';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs';
-import {
- AddSourceAction,
- QualityAssuranceSourceActionTypes,
- RetrieveAllSourceAction,
- RetrieveAllSourceErrorAction,
-} from './quality-assurance-source.actions';
 
-import { QualityAssuranceSourceObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
+import {
+  AddSourceAction,
+  QualityAssuranceSourceActionTypes,
+  RetrieveAllSourceAction,
+  RetrieveAllSourceErrorAction,
+} from './quality-assurance-source.actions';
+import {
+  QualityAssuranceSourceObject
+} from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { QualityAssuranceSourceService } from './quality-assurance-source.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { QualityAssuranceSourceRestService } from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-rest.service';
+import {
+  QualityAssuranceSourceRestService
+} from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-rest.service';
 
 /**
  * Provides effect methods for the Quality Assurance source actions.
@@ -26,7 +31,7 @@ export class QualityAssuranceSourceEffects {
   /**
    * Retrieve all Quality Assurance source managing pagination and errors.
    */
-  @Effect() retrieveAllSource$ = this.actions$.pipe(
+  retrieveAllSource$ = createEffect(() => this.actions$.pipe(
     ofType(QualityAssuranceSourceActionTypes.RETRIEVE_ALL_SOURCE),
     withLatestFrom(this.store$),
     switchMap(([action, currentState]: [RetrieveAllSourceAction, any]) => {
@@ -45,27 +50,27 @@ export class QualityAssuranceSourceEffects {
         })
       );
     })
-  );
+  ));
 
   /**
    * Show a notification on error.
    */
-  @Effect({ dispatch: false }) retrieveAllSourceErrorAction$ = this.actions$.pipe(
+  retrieveAllSourceErrorAction$ = createEffect(() => this.actions$.pipe(
     ofType(QualityAssuranceSourceActionTypes.RETRIEVE_ALL_SOURCE_ERROR),
     tap(() => {
       this.notificationsService.error(null, this.translate.get('quality-assurance.source.error.service.retrieve'));
     })
-  );
+  ), { dispatch: false });
 
   /**
    * Clear find all source requests from cache.
    */
-  @Effect({ dispatch: false }) addSourceAction$ = this.actions$.pipe(
+  addSourceAction$ = createEffect(() => this.actions$.pipe(
     ofType(QualityAssuranceSourceActionTypes.ADD_SOURCE),
     tap(() => {
       this.qualityAssuranceSourceDataService.clearFindAllSourceRequests();
     })
-  );
+  ), { dispatch: false });
 
   /**
    * Initialize the effect class variables.
@@ -83,5 +88,6 @@ export class QualityAssuranceSourceEffects {
     private notificationsService: NotificationsService,
     private qualityAssuranceSourceService: QualityAssuranceSourceService,
     private qualityAssuranceSourceDataService: QualityAssuranceSourceRestService
-  ) { }
+  ) {
+  }
 }
