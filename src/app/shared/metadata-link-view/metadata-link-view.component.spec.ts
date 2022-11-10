@@ -51,7 +51,7 @@ describe('MetadataLinkViewComponent', () => {
           value: '0000-0001-8918-3592'
         })
       ],
-      'cris.orcid.authenticated': [
+      'dspace.orcid.authenticated': [
         Object.assign(new MetadataValue(), {
           language: null,
           value: 'authenticated'

@@ -161,7 +161,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.authenticated': [
+                        'dspace.orcid.authenticated': [
                             {
                                 'value': 'true',
                                 'language': null,
@@ -181,7 +181,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.scope': [
+                        'dspace.orcid.scope': [
                             {
                                 'value': '/authenticate',
                                 'language': null,
@@ -215,7 +215,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.sync-fundings': [
+                        'dspace.orcid.sync-fundings': [
                             {
                                 'value': 'ALL',
                                 'language': null,
@@ -225,7 +225,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.sync-mode': [
+                        'dspace.orcid.sync-mode': [
                             {
                                 'value': 'MANUAL',
                                 'language': null,
@@ -235,7 +235,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.sync-profile': [
+                        'dspace.orcid.sync-profile': [
                             {
                                 'value': 'AFFILIATION',
                                 'language': null,
@@ -279,7 +279,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.sync-publications': [
+                        'dspace.orcid.sync-publications': [
                             {
                                 'value': 'ALL',
                                 'language': null,
@@ -289,7 +289,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.webhook': [
+                        'dspace.orcid.webhook': [
                             {
                                 'value': '2021-05-26T12:47:27.971367',
                                 'language': null,
@@ -299,7 +299,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.owner': [
+                        'dspace.object.owner': [
                             {
                                 'value': 'Demo Site Administrator',
                                 'language': null,
@@ -886,7 +886,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.authenticated': [
+                        'dspace.orcid.authenticated': [
                             {
                                 'value': 'true',
                                 'language': null,
@@ -906,7 +906,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.scope': [
+                        'dspace.orcid.scope': [
                             {
                                 'value': '/authenticate',
                                 'language': null,
@@ -940,7 +940,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.sync-fundings': [
+                        'dspace.orcid.sync-fundings': [
                             {
                                 'value': 'ALL',
                                 'language': null,
@@ -950,7 +950,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.sync-mode': [
+                        'dspace.orcid.sync-mode': [
                             {
                                 'value': 'MANUAL',
                                 'language': null,
@@ -960,7 +960,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.sync-profile': [
+                        'dspace.orcid.sync-profile': [
                             {
                                 'value': 'AFFILIATION',
                                 'language': null,
@@ -1004,7 +1004,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.sync-publications': [
+                        'dspace.orcid.sync-publications': [
                             {
                                 'value': 'ALL',
                                 'language': null,
@@ -1014,7 +1014,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.webhook': [
+                        'dspace.orcid.webhook': [
                             {
                                 'value': '2021-05-26T12:47:27.971367',
                                 'language': null,
@@ -1024,7 +1024,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.owner': [
+                        'dspace.object.owner': [
                             {
                                 'value': 'Demo Site Administrator',
                                 'language': null,
@@ -1616,7 +1616,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.authenticated': [
+                        'dspace.orcid.authenticated': [
                             {
                                 'value': 'true',
                                 'language': null,
@@ -1636,7 +1636,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.scope': [
+                        'dspace.orcid.scope': [
                             {
                                 'value': '/authenticate',
                                 'language': null,
@@ -1670,7 +1670,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.sync-fundings': [
+                        'dspace.orcid.sync-fundings': [
                             {
                                 'value': 'ALL',
                                 'language': null,
@@ -1680,7 +1680,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.sync-mode': [
+                        'dspace.orcid.sync-mode': [
                             {
                                 'value': 'MANUAL',
                                 'language': null,
@@ -1690,7 +1690,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.sync-profile': [
+                        'dspace.orcid.sync-profile': [
                             {
                                 'value': 'AFFILIATION',
                                 'language': null,
@@ -1734,7 +1734,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.sync-publications': [
+                        'dspace.orcid.sync-publications': [
                             {
                                 'value': 'ALL',
                                 'language': null,
@@ -1744,7 +1744,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.orcid.webhook': [
+                        'dspace.orcid.webhook': [
                             {
                                 'value': '2021-05-26T12:47:27.971367',
                                 'language': null,
@@ -1754,7 +1754,7 @@ export const findAllSubscriptionRes = {
                                 'securityLevel': 0
                             }
                         ],
-                        'cris.owner': [
+                        'dspace.object.owner': [
                             {
                                 'value': 'Demo Site Administrator',
                                 'language': null,

@@ -116,7 +116,7 @@ export class MetadataLinkViewComponent implements OnInit {
    * @param referencedItem Item of the metadata being shown
    */
   getOrcid(referencedItem: Item): string {
-    if (referencedItem.hasMetadata('cris.orcid.authenticated')) {
+    if (referencedItem.hasMetadata('dspace.orcid.authenticated')) {
       return referencedItem.firstMetadataValue('person.identifier.orcid');
     }
     return null;
