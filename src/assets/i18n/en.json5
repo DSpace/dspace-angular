@@ -568,6 +568,8 @@
 
   "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
 
+  "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
+
   "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
 
   "admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
@@ -583,6 +585,8 @@
   "admin.metadata-import.page.button.select-collection": "Select Collection",
 
   "admin.metadata-import.page.error.addFile": "Select file first!",
+
+  "admin.metadata-import.page.error.addFileUrl": "Insert file url first!",
 
   "admin.batch-import.page.error.addFile": "Select Zip file first!",
 

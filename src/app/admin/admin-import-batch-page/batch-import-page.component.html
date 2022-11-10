@@ -20,10 +20,15 @@
     </small>
   </div>
 
-  <ui-switch [checkedLabel]="'admin.metadata-import.page.toggle.upload' | translate"
+  <ui-switch color="#ebebeb"
+             [checkedLabel]="'admin.metadata-import.page.toggle.upload' | translate"
              [uncheckedLabel]="'admin.metadata-import.page.toggle.url' | translate"
              [checked]="isUpload"
              (change)="toggleUpload()" ></ui-switch>
+  <small class="form-text text-muted">
+    {{'admin.batch-import.page.toggle.help' | translate}}
+  </small>
+  
 
   <ds-file-dropzone-no-uploader
     *ngIf="isUpload"

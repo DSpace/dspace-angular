@@ -84,7 +84,11 @@ export class BatchImportPageComponent {
    */
   public importMetadata() {
     if (this.fileObject == null && isEmpty(this.fileURL)) {
-      this.notificationsService.error(this.translate.get('admin.metadata-import.page.error.addFile'));
+      if (this.isUpload) {
+        this.notificationsService.error(this.translate.get('admin.metadata-import.page.error.addFile'));
+      } else {
+        this.notificationsService.error(this.translate.get('admin.metadata-import.page.error.addFileUrl'));
+      }
     } else {
       const parameterValues: ProcessParameter[] = [
         Object.assign(new ProcessParameter(), { name: '--add' })
@@ -93,7 +97,7 @@ export class BatchImportPageComponent {
         parameterValues.push(Object.assign(new ProcessParameter(), { name: '--zip', value: this.fileObject.name }));
       } else {
         this.fileObject = null;
-        parameterValues.push(Object.assign(new ProcessParameter(), { name: '--u', value: this.fileURL }));
+        parameterValues.push(Object.assign(new ProcessParameter(), { name: '--url', value: this.fileURL }));
       }
       if (this.dso) {
         parameterValues.push(Object.assign(new ProcessParameter(), { name: '--collection', value: this.dso.uuid }));

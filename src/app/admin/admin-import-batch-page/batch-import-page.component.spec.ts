@@ -178,10 +178,10 @@ describe('BatchImportPageComponent', () => {
         proceed.click();
         fixture.detectChanges();
       }));
-      it('metadata-import script is invoked with --u and the file url', () => {
+      it('metadata-import script is invoked with --url and the file url', () => {
         const parameterValues: ProcessParameter[] = [
           Object.assign(new ProcessParameter(), { name: '--add' }),
-          Object.assign(new ProcessParameter(), { name: '--u', value: 'example.fileURL.com' })
+          Object.assign(new ProcessParameter(), { name: '--url', value: 'example.fileURL.com' })
         ];
         expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_IMPORT_SCRIPT_NAME, parameterValues, [null]);
       });
@@ -200,10 +200,10 @@ describe('BatchImportPageComponent', () => {
         proceed.click();
         fixture.detectChanges();
       }));
-      it('metadata-import script is invoked with --u and the file url and -v validate-only', () => {
+      it('metadata-import script is invoked with --url and the file url and -v validate-only', () => {
         const parameterValues: ProcessParameter[] = [
           Object.assign(new ProcessParameter(), { name: '--add' }),
-          Object.assign(new ProcessParameter(), { name: '--u', value: 'example.fileURL.com' }),
+          Object.assign(new ProcessParameter(), { name: '--url', value: 'example.fileURL.com' }),
           Object.assign(new ProcessParameter(), { name: '-v', value: true }),
         ];
         expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_IMPORT_SCRIPT_NAME, parameterValues, [null]);
