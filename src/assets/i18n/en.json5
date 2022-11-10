@@ -6565,5 +6565,15 @@
 
   "curation-task.task.pushocr.label": "Send OCR to the Annotation Server",
 
-  "curation-task.task.ocrclean.label": "Remove all metadata bundles and uploaded ocr created by a previous upload to the ocr server"
+  "curation-task.task.ocrclean.label": "Remove all metadata bundles and uploaded ocr created by a previous upload to the ocr server",
+
+  "curation-task.task.iiifuploader.label": "Upload images to the IIIF Image Server (photo gallery)",
+
+  "curation-task.task.iiifuploader.primary.label": "Upload images to the IIIF Image Server (digitized book)",
+
+  "curation-task.task.iiifforbidfiledownload.label": "Forbid file download for files uploaded on image server",
+
+  "curation-task.task.iiifallowfiledownload.label": "Allow file download for files uploaded on image server",
+
+  "curation-task.task.iiifpdfmultipages.label": "Create multipages PDF from IIIF images"
 }
