@@ -6,7 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
 import { TranslateService } from '@ngx-translate/core';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
+import { COLLECTION_EXPORT_SCRIPT_NAME, ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
 import { Process } from '../../../../process-page/processes/process.model';
@@ -45,7 +45,7 @@ export class ExportExcelSelectorComponent extends DSOSelectorModalWrapperCompone
       { name: '-c', value: dso.id }
     ];
 
-    this.scriptService.invoke('collection-export', stringParameters, [])
+    this.scriptService.invoke(COLLECTION_EXPORT_SCRIPT_NAME, stringParameters, [])
       .pipe(getFirstCompletedRemoteData())
       .subscribe((rd: RemoteData<Process>) => {
         if (rd.isSuccess) {

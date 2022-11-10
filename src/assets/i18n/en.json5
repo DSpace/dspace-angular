@@ -1762,6 +1762,8 @@
 
   "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
 
+  "dso-selector.export-metadata-xls.dspaceobject.head": "Export metadata from",
+
   "dso-selector.import-item.item.head": "Import items",
 
   "dso-selector.import-item.sub-level": "Bulk import items in",
@@ -1801,6 +1803,14 @@
   "confirmation-modal.export-metadata.cancel": "Cancel",
 
   "confirmation-modal.export-metadata.confirm": "Export",
+
+  "confirmation-modal.export-metadata-xls.header": "Export metadata for {{ dsoName }}",
+
+  "confirmation-modal.export-metadata-xls.info": "Are you sure you want to export metadata for {{ dsoName }}",
+
+  "confirmation-modal.export-metadata-xls.cancel": "Cancel",
+
+  "confirmation-modal.export-metadata-xls.confirm": "Export",
 
   "confirmation-modal.export-batch.header": "Export batch (ZIP) for {{ dsoName }}",
 
@@ -3471,7 +3481,9 @@
 
   "menu.section.export_item": "Item",
 
-  "menu.section.export_metadata": "Metadata",
+  "menu.section.export_metadata": "Metadata CSV",
+
+  "menu.section.export_metadata_xls": "Metadata XLS",
 
   "menu.section.import_from_excel": "Import from excel",
 

@@ -327,6 +327,7 @@ import { ItemCorrectionComponent } from './object-collection/shared/mydspace-ite
 import { MetricsModule } from './metric/metrics.module';
 import { SearchChartBarHorizontalComponent } from './search/search-charts/search-chart/search-chart-bar-horizontal/search-chart-bar-horizontal.component';
 import { ThumbnailService } from './thumbnail/thumbnail.service';
+import { ExportMetadataXlsSelectorComponent } from './dso-selector/modal-wrappers/export-metadata-xls-selector/export-metadata-xls-selector.component';
 
 const MODULES = [
   CommonModule,
@@ -480,6 +481,7 @@ const COMPONENTS = [
   CollectionDropdownComponent,
   EntityDropdownComponent,
   ExportMetadataSelectorComponent,
+  ExportMetadataXlsSelectorComponent,
   ImportBatchSelectorComponent,
   ExportBatchSelectorComponent,
   ConfirmationModalComponent,
@@ -579,6 +581,7 @@ const ENTRY_COMPONENTS = [
   BitstreamRequestACopyPageComponent,
   CurationFormComponent,
   ExportMetadataSelectorComponent,
+  ExportMetadataXlsSelectorComponent,
   ImportBatchSelectorComponent,
   ExportBatchSelectorComponent,
   ConfirmationModalComponent,

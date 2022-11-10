@@ -48,6 +48,9 @@ import { Section } from './core/layout/models/section.model';
 import {
   ExportBatchSelectorComponent
 } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
+import {
+  ExportMetadataXlsSelectorComponent
+} from './shared/dso-selector/modal-wrappers/export-metadata-xls-selector/export-metadata-xls-selector.component';
 
 /**
  * Creates all of the app's menus
@@ -507,6 +510,20 @@ export class MenuResolver implements Resolve<boolean> {
           text: 'menu.section.export_metadata',
           function: () => {
             this.modalService.open(ExportMetadataSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
+        shouldPersistOnRouteChange: true
+      });
+      this.menuService.addSection(MenuID.ADMIN, {
+        id: 'export_metadata_xls',
+        parentID: 'export',
+        active: true,
+        visible: true,
+        model: {
+          type: MenuItemType.ONCLICK,
+          text: 'menu.section.export_metadata_xls',
+          function: () => {
+            this.modalService.open(ExportMetadataXlsSelectorComponent);
           }
         } as OnClickMenuItemModel,
         shouldPersistOnRouteChange: true
