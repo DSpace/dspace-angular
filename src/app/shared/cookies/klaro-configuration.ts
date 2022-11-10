@@ -54,10 +54,46 @@ export const klaroConfiguration: any = {
   https://github.com/KIProtect/klaro/tree/master/src/translations
   */
   translations: {
-    en: {
+    /*
+      The `zz` key contains default translations that will be used as fallback values.
+      This can e.g. be useful for defining a fallback privacy policy URL.
+      FOR DSPACE: We use 'zz' to map to our own i18n translations for klaro, see
+      translateConfiguration() in browser-klaro.service.ts. All the below i18n keys are specified
+      in your /src/assets/i18n/*.json5 translation pack.
+    */
+    zz: {
       acceptAll: 'cookies.consent.accept-all',
       acceptSelected: 'cookies.consent.accept-selected',
-      app: {
+      close: 'cookies.consent.close',
+      consentModal: {
+        title: 'cookies.consent.content-modal.title',
+        description: 'cookies.consent.content-modal.description'
+      },
+      consentNotice: {
+        changeDescription: 'cookies.consent.update',
+        title: 'cookies.consent.content-notice.title',
+        description: 'cookies.consent.content-notice.description',
+        learnMore: 'cookies.consent.content-notice.learnMore',
+      },
+      decline: 'cookies.consent.decline',
+      ok: 'cookies.consent.ok',
+      poweredBy: 'Powered by Klaro!',
+      privacyPolicy: {
+        name: 'cookies.consent.content-modal.privacy-policy.name',
+        text: 'cookies.consent.content-modal.privacy-policy.text'
+      },
+      purposeItem: {
+        service: 'cookies.consent.content-modal.service',
+        services: 'cookies.consent.content-modal.services'
+      },
+      purposes: {
+      },
+      save: 'cookies.consent.save',
+      service: {
+        disableAll: {
+          description: 'cookies.consent.app.disable-all.description',
+          title: 'cookies.consent.app.disable-all.title'
+        },
         optOut: {
           description: 'cookies.consent.app.opt-out.description',
           title: 'cookies.consent.app.opt-out.title'
@@ -65,26 +101,10 @@ export const klaroConfiguration: any = {
         purpose: 'cookies.consent.app.purpose',
         purposes: 'cookies.consent.app.purposes',
         required: {
-          description: 'cookies.consent.app.required.description',
-          title: 'cookies.consent.app.required.title'
+          title: 'cookies.consent.app.required.title',
+          description: 'cookies.consent.app.required.description'
         }
-      },
-      close: 'cookies.consent.close',
-      decline: 'cookies.consent.decline',
-      changeDescription: 'cookies.consent.update',
-      consentNotice: {
-        description: 'cookies.consent.content-notice.description',
-        learnMore: 'cookies.consent.content-notice.learnMore'
-      },
-      consentModal: {
-        description: 'cookies.consent.content-modal.description',
-        privacyPolicy: {
-          name: 'cookies.consent.content-modal.privacy-policy.name',
-          text: 'cookies.consent.content-modal.privacy-policy.text'
-        },
-        title: 'cookies.consent.content-modal.title'
-      },
-      purposes: {}
+      }
     }
   },
   services: [

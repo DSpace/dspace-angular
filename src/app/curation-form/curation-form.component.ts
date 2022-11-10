@@ -5,7 +5,7 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { find, map } from 'rxjs/operators';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { hasValue, isEmpty, isNotEmpty, hasNoValue } from '../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../shared/empty.util';
 import { RemoteData } from '../core/data/remote-data';
 import { Router } from '@angular/router';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
