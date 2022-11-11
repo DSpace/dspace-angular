@@ -1,4 +1,30 @@
 <div class="d-inline-block">
-  <div>{{object.display}}</div>
+  <div class="lead item-list-title dont-break-out text-info">{{object.display}}</div>
   <div *ngIf="uri"><a target="_blank" [href]="uri.value">{{uri.value}}</a></div>
+  <div *ngIf="issued || contributors?.length" data-test="issued-contributor" class="d-flex align-items-center text-muted">
+    <span *ngIf="issued" data-test="issued" class="item-list-date">({{issued.value | date: 'YYYY-MM-dd'}})&nbsp;</span>
+    <ds-truncatable *ngIf="contributors?.length" [id]="object.id">
+      <ds-truncatable-part [id]="object.id" [minLines]="1">
+        <span *ngFor="let contributor of contributors; let last=last;" data-test="contributors" class="item-list-authors">
+          {{contributor.value}}<span *ngIf="!last">; </span>
+        </span>
+      </ds-truncatable-part>
+    </ds-truncatable>
+  </div>
+  <div *ngIf="abstract" data-test="abstract" class="item-list-abstract">
+    <ds-truncatable [id]="object.id">
+      <ds-truncatable-part [id]="object.id" [minLines]="3">
+        <span>{{abstract.value}}</span>
+      </ds-truncatable-part>
+    </ds-truncatable>
+  </div>
+  <div *ngIf="identifiers?.length" data-test="identifiers" class="text-muted">
+    <ds-truncatable [id]="object.id">
+      <ds-truncatable-part [id]="object.id" [minLines]="1">
+        <span *ngFor="let identifier of identifiers; let last=last">
+          {{identifier.value}}<span *ngIf="!last">; </span>
+        </span>
+      </ds-truncatable-part>
+    </ds-truncatable>
+  </div>
 </div>
