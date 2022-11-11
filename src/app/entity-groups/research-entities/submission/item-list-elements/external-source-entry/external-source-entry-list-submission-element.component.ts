@@ -22,9 +22,25 @@ export class ExternalSourceEntryListSubmissionElementComponent extends AbstractL
    * The metadata value for the object's uri
    */
   uri: MetadataValue;
+
+  /**
+   * The metadata value for issue date
+   */
   issued: MetadataValue;
+
+  /**
+   * The metadata value for abstract
+   */
   abstract: MetadataValue;
+
+  /**
+   * The metadata value for contributors
+   */
   contributors: MetadataValue[];
+
+  /**
+   * The metadata value for identifiers
+   */
   identifiers: MetadataValue[];
 
   ngOnInit(): void {

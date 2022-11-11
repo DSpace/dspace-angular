@@ -6,8 +6,7 @@
     <ds-truncatable *ngIf="contributors?.length" [id]="object.id">
       <ds-truncatable-part [id]="object.id" [minLines]="1">
         <span *ngFor="let contributor of contributors; let last=last;" data-test="contributors" class="item-list-authors">
-          {{contributor.value}}
-          <span *ngIf="!last">; </span>
+          {{contributor.value}}<span *ngIf="!last">; </span>
         </span>
       </ds-truncatable-part>
     </ds-truncatable>
