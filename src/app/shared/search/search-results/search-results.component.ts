@@ -48,6 +48,11 @@ export class SearchResultsComponent {
   @Input() searchConfig: PaginatedSearchOptions;
 
   /**
+   * A boolean representing if show export button
+   */
+  @Input() showExport = true;
+
+  /**
    * The current sorting configuration of the search
    */
   @Input() sortConfig: SortOptions;

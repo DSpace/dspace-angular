@@ -118,6 +118,11 @@ export class SearchComponent implements OnInit {
   @Input() selectionConfig: SelectionConfig;
 
   /**
+   * A boolean representing if show export button
+   */
+  @Input() showExport = true;
+
+  /**
    * A boolean representing if show search sidebar button
    */
   @Input() showSidebar = true;
