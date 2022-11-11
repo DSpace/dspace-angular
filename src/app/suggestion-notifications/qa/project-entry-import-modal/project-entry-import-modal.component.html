@@ -38,19 +38,20 @@
     </div>
 
     <ds-loading *ngIf="(isLoading$ | async)" message="{{'loading.search-results' | translate}}"></ds-loading>
-    <ds-search-results *ngIf="(localEntitiesRD$ | async)?.payload?.page?.length > 0 && !(isLoading$ | async)"
-                       [searchResults]="(localEntitiesRD$ | async)"
-                       [sortConfig]="this.searchOptions?.sort"
-                       [searchConfig]="this.searchOptions"
-                       [selectable]="true"
-                       [disableHeader]="true"
-                       [hidePaginationDetail]="false"
-                       [selectionConfig]="{ repeatable: false, listId: entityListId }"
-                       [linkType]="linkTypes.ExternalLink"
-                       [context]="context"
-                       (deselectObject)="deselectEntity()"
-                       (selectObject)="selectEntity($event)">
-    </ds-search-results>
+    <ds-themed-search-results *ngIf="(localEntitiesRD$ | async)?.payload?.page?.length > 0 && !(isLoading$ | async)"
+                              [searchResults]="(localEntitiesRD$ | async)"
+                              [sortConfig]="this.searchOptions?.sort"
+                              [searchConfig]="this.searchOptions"
+                              [selectable]="true"
+                              [disableHeader]="true"
+                              [hidePaginationDetail]="false"
+                              [selectionConfig]="{ repeatable: false, listId: entityListId }"
+                              [showExport]="false"
+                              [linkType]="linkTypes.ExternalLink"
+                              [context]="context"
+                              (deselectObject)="deselectEntity()"
+                              (selectObject)="selectEntity($event)">
+    </ds-themed-search-results>
 
     <div *ngIf="(localEntitiesRD$ | async)?.payload?.page?.length < 1 && !(isLoading$ | async)">
       <ds-alert [type]="'alert-info'">
