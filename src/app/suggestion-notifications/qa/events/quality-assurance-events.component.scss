@@ -1,5 +1,12 @@
-.button-rows {
-  min-width: 200px;
+.button-col, .trust-col {
+  width: 15%;
+}
+
+.title-col {
+  width: 30%;
+}
+.content-col {
+  width: 40%;
 }
 
 .button-width {

@@ -1,12 +1,19 @@
 import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs';
-import { find, map } from 'rxjs/operators';
-import { QualityAssuranceSourceRestService } from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-rest.service';
+import { map } from 'rxjs/operators';
+
+import {
+  QualityAssuranceSourceRestService
+} from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-rest.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { QualityAssuranceSourceObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
-import {FindListOptions} from '../../../core/data/find-list-options.model';
+import {
+  QualityAssuranceSourceObject
+} from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 /**
  * The service handling all Quality Assurance source requests to the REST service.
@@ -20,7 +27,8 @@ export class QualityAssuranceSourceService {
    */
   constructor(
     private qualityAssuranceSourceRestService: QualityAssuranceSourceRestService
-  ) { }
+  ) {
+  }
 
   /**
    * Return the list of Quality Assurance source managing pagination and errors.
@@ -42,7 +50,7 @@ export class QualityAssuranceSourceService {
     };
 
     return this.qualityAssuranceSourceRestService.getSources(findListOptions).pipe(
-      find((rd: RemoteData<PaginatedList<QualityAssuranceSourceObject>>) => !rd.isResponsePending),
+      getFirstCompletedRemoteData(),
       map((rd: RemoteData<PaginatedList<QualityAssuranceSourceObject>>) => {
         if (rd.hasSucceeded) {
           return rd.payload;

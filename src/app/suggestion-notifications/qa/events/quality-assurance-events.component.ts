@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, from, Observable, of as observableOf, Subscription } from 'rxjs';
-import { distinctUntilChanged, map, mergeMap, scan, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, from, Observable, of, Subscription } from 'rxjs';
+import { distinctUntilChanged, last, map, mergeMap, scan, switchMap, take, tap } from 'rxjs/operators';
 
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
@@ -19,7 +19,7 @@ import {
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { hasValue, isEmpty } from '../../../shared/empty.util';
+import { hasValue } from '../../../shared/empty.util';
 import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
@@ -28,7 +28,6 @@ import {
 } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 import { Item } from '../../../core/shared/item.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 
@@ -65,7 +64,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    * The total number of Quality Assurance events.
    * @type {Observable<number>}
    */
-  public totalElements$: Observable<number>;
+  public totalElements$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
   /**
    * The topic of the Quality Assurance events; suitable for displaying.
    * @type {string}
@@ -87,11 +86,6 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    */
   public isEventPageLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   /**
-   * Contains the information about the loading status of the events inside the pagination component.
-   * @type {Observable<boolean>}
-   */
-  public isEventLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  /**
    * The modal reference.
    * @type {any}
    */
@@ -104,7 +98,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   /**
    * The FindListOptions object
    */
-  protected defaultConfig: FindListOptions = Object.assign(new FindListOptions(), {sort: this.paginationSortConfig});
+  protected defaultConfig: FindListOptions = Object.assign(new FindListOptions(), { sort: this.paginationSortConfig });
   /**
    * Array to track all the component subscriptions. Useful to unsubscribe them with 'onDestroy'.
    * @type {Array}
@@ -138,13 +132,17 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
 
     this.activatedRoute.paramMap.pipe(
       map((params) => params.get('topicId')),
-      take(1)
-    ).subscribe((id: string) => {
-      const regEx = /!/g;
-      this.showTopic = id.replace(regEx, '/');
-      this.topic = id;
+      take(1),
+      switchMap((id: string) => {
+        const regEx = /!/g;
+        this.showTopic = id.replace(regEx, '/');
+        this.topic = id;
+        return this.getQualityAssuranceEvents();
+      })
+    ).subscribe((events: QualityAssuranceEventData[]) => {
+      console.log(events);
+      this.eventsUpdated$.next(events);
       this.isEventPageLoading.next(false);
-      this.getQualityAssuranceEvents();
     });
   }
 
@@ -240,20 +238,25 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   public executeAction(action: string, eventData: QualityAssuranceEventData): void {
     eventData.isRunning = true;
     this.subs.push(
-      this.qualityAssuranceEventRestService.patchEvent(action, eventData.event, eventData.reason).pipe(getFirstCompletedRemoteData())
-        .subscribe((rd: RemoteData<QualityAssuranceEventObject>) => {
-          if (rd.isSuccess && rd.statusCode === 200) {
+      this.qualityAssuranceEventRestService.patchEvent(action, eventData.event, eventData.reason).pipe(
+        getFirstCompletedRemoteData(),
+        switchMap((rd: RemoteData<QualityAssuranceEventObject>) => {
+          if (rd.hasSucceeded) {
             this.notificationsService.success(
               this.translateService.instant('quality-assurance.event.action.saved')
             );
-            this.getQualityAssuranceEvents();
+            return this.getQualityAssuranceEvents();
           } else {
             this.notificationsService.error(
               this.translateService.instant('quality-assurance.event.action.error')
             );
+            return of(this.eventsUpdated$.value);
           }
-          eventData.isRunning = false;
         })
+      ).subscribe((events: QualityAssuranceEventData[]) => {
+        this.eventsUpdated$.next(events);
+        eventData.isRunning = false;
+      })
     );
   }
 
@@ -274,7 +277,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.qualityAssuranceEventRestService.boundProject(eventData.id, projectId).pipe(getFirstCompletedRemoteData())
         .subscribe((rd: RemoteData<QualityAssuranceEventObject>) => {
-          if (rd.isSuccess) {
+          if (rd.hasSucceeded) {
             this.notificationsService.success(
               this.translateService.instant('quality-assurance.event.project.bounded')
             );
@@ -303,7 +306,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.qualityAssuranceEventRestService.removeProject(eventData.id).pipe(getFirstCompletedRemoteData())
         .subscribe((rd: RemoteData<QualityAssuranceEventObject>) => {
-          if (rd.isSuccess) {
+          if (rd.hasSucceeded) {
             this.notificationsService.success(
               this.translateService.instant('quality-assurance.event.project.removed')
             );
@@ -337,12 +340,11 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
     return event.pidHref;
   }
 
-
   /**
    * Dispatch the Quality Assurance events retrival.
    */
-  public getQualityAssuranceEvents(): void {
-    this.paginationService.getFindListOptions(this.paginationConfig.id, this.defaultConfig).pipe(
+  public getQualityAssuranceEvents(): Observable<QualityAssuranceEventData[]> {
+    return this.paginationService.getFindListOptions(this.paginationConfig.id, this.defaultConfig).pipe(
       distinctUntilChanged(),
       switchMap((options: FindListOptions) => this.qualityAssuranceEventRestService.getEventsByTopic(
         this.topic,
@@ -350,16 +352,24 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
         followLink('target'), followLink('related')
       )),
       getFirstCompletedRemoteData(),
-    ).subscribe((rd: RemoteData<PaginatedList<QualityAssuranceEventObject>>) => {
-      if (rd.hasSucceeded) {
-        this.isEventLoading.next(false);
-        this.totalElements$ = observableOf(rd.payload.totalElements);
-        this.setEventUpdated(rd.payload.page);
-      } else {
-        throw new Error('Can\'t retrieve Quality Assurance events from the Broker events REST service');
-      }
-      this.qualityAssuranceEventRestService.clearFindByTopicRequests();
-    });
+      switchMap((rd: RemoteData<PaginatedList<QualityAssuranceEventObject>>) => {
+        if (rd.hasSucceeded) {
+          this.totalElements$.next(rd.payload.totalElements);
+          if (rd.payload.totalElements > 0) {
+            console.log(rd.payload.page);
+            return this.fetchEvents(rd.payload.page);
+          } else {
+            return of([]);
+          }
+        } else {
+          throw new Error('Can\'t retrieve Quality Assurance events from the Broker events REST service');
+        }
+      }),
+      take(1),
+      tap(() => {
+        this.qualityAssuranceEventRestService.clearFindByTopicRequests();
+      })
+    );
   }
 
   /**
@@ -372,55 +382,47 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Set the project status for the Quality Assurance events.
+   * Fetch Quality Assurance events in order to build proper QualityAssuranceEventData object.
    *
    * @param {QualityAssuranceEventObject[]} events
    *    the Quality Assurance event item
+   * @return array of QualityAssuranceEventData
    */
-  protected setEventUpdated(events: QualityAssuranceEventObject[]): void {
-    if (isEmpty(events)) {
-      this.eventsUpdated$.next([]);
-    } else {
-      this.subs.push(
-        from(events).pipe(
-          mergeMap((event: QualityAssuranceEventObject) => {
-            const related$ = event.related.pipe(
-              getFirstCompletedRemoteData(),
-            );
-            const target$ = event.target.pipe(
-              getFirstCompletedRemoteData()
-            );
-            return combineLatest([related$, target$]).pipe(
-              map(([relatedItemRD, targetItemRD]: [RemoteData<Item>, RemoteData<Item>]) => {
-                const data: QualityAssuranceEventData = {
-                  event: event,
-                  id: event.id,
-                  title: event.title,
-                  hasProject: false,
-                  projectTitle: null,
-                  projectId: null,
-                  handle: null,
-                  reason: null,
-                  isRunning: false,
-                  target: (targetItemRD?.hasSucceeded) ? targetItemRD.payload : null,
-                };
-                if (relatedItemRD?.hasSucceeded && relatedItemRD?.payload?.id) {
-                  data.hasProject = true;
-                  data.projectTitle = event.message.title;
-                  data.projectId = relatedItemRD?.payload?.id;
-                  data.handle = relatedItemRD?.payload?.handle;
-                }
-                return data;
-              })
-            );
-          }),
-          scan((acc: any, value: any) => [...acc, value], []),
-          take(events.length)
-        ).subscribe((eventsReduced) => {
-            this.eventsUpdated$.next(eventsReduced);
-          }
-        )
-      );
-    }
+  protected fetchEvents(events: QualityAssuranceEventObject[]): Observable<QualityAssuranceEventData[]> {
+    return from(events).pipe(
+      mergeMap((event: QualityAssuranceEventObject) => {
+        const related$ = event.related.pipe(
+          getFirstCompletedRemoteData(),
+        );
+        const target$ = event.target.pipe(
+          getFirstCompletedRemoteData()
+        );
+        return combineLatest([related$, target$]).pipe(
+          map(([relatedItemRD, targetItemRD]: [RemoteData<Item>, RemoteData<Item>]) => {
+            const data: QualityAssuranceEventData = {
+              event: event,
+              id: event.id,
+              title: event.title,
+              hasProject: false,
+              projectTitle: null,
+              projectId: null,
+              handle: null,
+              reason: null,
+              isRunning: false,
+              target: (targetItemRD?.hasSucceeded) ? targetItemRD.payload : null,
+            };
+            if (relatedItemRD?.hasSucceeded && relatedItemRD?.payload?.id) {
+              data.hasProject = true;
+              data.projectTitle = event.message.title;
+              data.projectId = relatedItemRD?.payload?.id;
+              data.handle = relatedItemRD?.payload?.handle;
+            }
+            return data;
+          })
+        );
+      }),
+      scan((acc: any, value: any) => [...acc, value], []),
+      last()
+    );
   }
 }

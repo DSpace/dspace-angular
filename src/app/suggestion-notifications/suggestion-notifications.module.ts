@@ -30,6 +30,7 @@ import {
 const MODULES = [
   CommonModule,
   SharedModule,
+  SearchModule,
   CoreModule.forRoot(),
   StoreModule.forFeature('suggestionNotifications', suggestionNotificationsReducers, storeModuleConfig as StoreConfig<SuggestionNotificationsState, Action>),
   EffectsModule.forFeature(suggestionNotificationsEffects),
@@ -59,8 +60,7 @@ const PROVIDERS = [
 
 @NgModule({
     imports: [
-        ...MODULES,
-        SearchModule
+        ...MODULES
     ],
   declarations: [
     ...COMPONENTS,

@@ -1,21 +1,23 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <h2 class="border-bottom pb-2">{{'notifications.events.title'| translate}}</h2>
-      <p>{{'quality-assurance.events.description'| translate}}</p>
-      <p>
-        <a class="btn btn-outline-secondary" [routerLink]="['/admin/notifications/quality-assurance']">
-          <i class="fas fa-angle-double-left"></i>
-          {{'quality-assurance.events.back' | translate}}
-        </a>
-      </p>
+      <h2 class="border-bottom pb-2">
+        <div class="d-flex justify-content-between">
+          {{'notifications.events.title'| translate}}
+          <a class="btn btn-outline-secondary" [routerLink]="['/admin/notifications/quality-assurance']">
+            <i class="fas fa-angle-double-left"></i>
+            {{'quality-assurance.events.back' | translate}}
+          </a>
+        </div>
+      </h2>
+      <ds-alert [type]="'alert-info'" [content]="'quality-assurance.events.description'"></ds-alert>
     </div>
   </div>
   <div class="row">
     <div class="col-12">
-      <h3 class="border-bottom pb-2">
+      <h4 class="border-bottom pb-2">
         {{'quality-assurance.events.topic' | translate}} {{this.showTopic}}
-      </h3>
+      </h4>
 
       <ds-loading class="container" *ngIf="(isEventPageLoading | async)" message="{{'quality-assurance.loading' | translate}}"></ds-loading>
 
@@ -25,8 +27,7 @@
                       [sortOptions]="paginationSortConfig"
                       (paginationChange)="getQualityAssuranceEvents()">
 
-        <ds-loading class="container" *ngIf="(isEventLoading | async)" message="{{'quality-assurance.loading' | translate}}"></ds-loading>
-        <ng-container *ngIf="!(isEventLoading | async)">
+        <ng-container>
           <div *ngIf="(eventsUpdated$|async)?.length == 0" class="alert alert-info w-100 mb-2 mt-2" role="alert">
             {{'quality-assurance.noEvents' | translate}}
           </div>
@@ -34,11 +35,15 @@
             <table id="events" class="table table-striped table-hover table-bordered">
               <thead>
               <tr>
-                <th scope="col">{{'quality-assurance.event.table.trust' | translate}}</th>
-                <th scope="col">{{'quality-assurance.event.table.publication' | translate}}</th>
-                <th *ngIf="hasDetailColumn() && showTopic.indexOf('/PROJECT') == -1" scope="col">{{'quality-assurance.event.table.details' | translate}}</th>
-                <th *ngIf="hasDetailColumn() && showTopic.indexOf('/PROJECT') !== -1" scope="col">{{'quality-assurance.event.table.project-details' | translate}}</th>
-                <th scope="col" class="button-rows">{{'quality-assurance.event.table.actions' | translate}}</th>
+                <th scope="col" class="trust-col">{{'quality-assurance.event.table.trust' | translate}}</th>
+                <th scope="col" class="title-col">{{'quality-assurance.event.table.publication' | translate}}</th>
+                <th *ngIf="hasDetailColumn() && showTopic.indexOf('/PROJECT') == -1" scope="col" class="content-col">
+                  {{'quality-assurance.event.table.details' | translate}}
+                </th>
+                <th *ngIf="hasDetailColumn() && showTopic.indexOf('/PROJECT') !== -1" scope="col" class="content-col">
+                  {{'quality-assurance.event.table.project-details' | translate}}
+                </th>
+                <th scope="col" class="button-col">{{'quality-assurance.event.table.actions' | translate}}</th>
               </tr>
               </thead>
               <tbody>
@@ -51,7 +56,7 @@
                     <span *ngIf="!eventElement?.target">{{eventElement.title}}</span>
                   </td>
                   <td *ngIf="showTopic.indexOf('/PID') !== -1">
-                    <p><span class="small">{{'quality-assurance.event.table.pidtype' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.type}}</span></p>
+                    <p><span class="small">{{'quality-assurance.event.table.pidtype' | translate}}</span>&nbsp;<span class="badge badge-info">{{eventElement.event.message.type}}</span></p>
                     <p><span class="small">{{'quality-assurance.event.table.pidvalue' | translate}}</span><br>
                       <a *ngIf="hasPIDHref(eventElement.event.message); else noPID" href="{{getPIDHref(eventElement.event.message)}}" target="_blank">
                         {{eventElement.event.message.value}}
@@ -82,18 +87,19 @@
                       <a href="https://explore.openaire.eu/search/project?projectId={{ eventElement.event.message.openaireId}}" target="_blank">{{eventElement.event.message.title}}</a>
                     </p>
                     <p>
-                      <span *ngIf="eventElement.event.message.acronym"><span class="small">{{'quality-assurance.event.table.acronym' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.acronym}}</span><br></span>
-                      <span *ngIf="eventElement.event.message.code"><span class="small">{{'quality-assurance.event.table.code' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.code}}</span><br></span>
-                      <span *ngIf="eventElement.event.message.funder"><span class="small">{{'quality-assurance.event.table.funder' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.funder}}</span><br></span>
-                      <span *ngIf="eventElement.event.message.fundingProgram"><span class="small">{{'quality-assurance.event.table.fundingProgram' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.fundingProgram}}</span><br></span>
-                      <span *ngIf="eventElement.event.message.jurisdiction"><span class="small">{{'quality-assurance.event.table.jurisdiction' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.jurisdiction}}</span></span>
+                      <span *ngIf="eventElement.event.message.acronym"><span class="small">{{'quality-assurance.event.table.acronym' | translate}}</span>&nbsp;<span class="badge badge-info">{{eventElement.event.message.acronym}}</span><br></span>
+                      <span *ngIf="eventElement.event.message.code"><span class="small">{{'quality-assurance.event.table.code' | translate}}</span>&nbsp;<span class="badge badge-info">{{eventElement.event.message.code}}</span><br></span>
+                      <span *ngIf="eventElement.event.message.funder"><span class="small">{{'quality-assurance.event.table.funder' | translate}}</span>&nbsp;<span class="badge badge-info">{{eventElement.event.message.funder}}</span><br></span>
+                      <span *ngIf="eventElement.event.message.fundingProgram"><span class="small">{{'quality-assurance.event.table.fundingProgram' | translate}}</span>&nbsp;<span class="badge badge-info">{{eventElement.event.message.fundingProgram}}</span><br></span>
+                      <span *ngIf="eventElement.event.message.jurisdiction"><span class="small">{{'quality-assurance.event.table.jurisdiction' | translate}}</span>&nbsp;<span class="badge badge-info">{{eventElement.event.message.jurisdiction}}</span></span>
                     </p>
                     <hr>
                     <div>
                       {{(eventElement.hasProject ? 'quality-assurance.event.project.found' : 'quality-assurance.event.project.notFound') | translate}}
                       <a target="_blank" *ngIf="eventElement.hasProject" title="{{eventElement.projectTitle}}" [routerLink]="['/items', eventElement.projectId]">{{eventElement.handle}} </a>
                       <div class="btn-group">
-                        <button class="btn btn-outline-primary btn-sm"
+                        <button *ngIf="!eventElement.hasProject"
+                                class="btn btn-outline-primary btn-sm"
                                 [disabled]="eventElement.isRunning"
                                 (click)="openModalLookup(eventElement); $event.stopPropagation();">
                           <i class="fas fa-search"></i>
@@ -149,7 +155,7 @@
       </ds-pagination>
     </div>
   </div>
-  <div class="row">
+  <div class="row text-right">
     <div class="col-md-12">
       <a class="btn btn-outline-secondary" [routerLink]="['/admin/notifications/quality-assurance']">
         <i class="fas fa-angle-double-left"></i>

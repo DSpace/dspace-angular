@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-12">
       <h2 class="border-bottom pb-2">{{'quality-assurance.title'| translate}}</h2>
-      <p>{{'quality-assurance.topics.description'| translate:{source: sourceId} }}</p>
+      <ds-alert [type]="'alert-info'">{{'quality-assurance.topics.description'| translate:{source: sourceId} }}</ds-alert>
     </div>
   </div>
   <div class="row">
     <div class="col-12">
-      <h3 class="border-bottom pb-2">{{'quality-assurance.topics'| translate}}</h3>
+      <h4 class="border-bottom pb-2">{{'quality-assurance.topics'| translate}}</h4>
 
       <ds-loading class="container" *ngIf="(isTopicsLoading() | async)" message="{{'quality-assurance.loading' | translate}}"></ds-loading>
       <ds-pagination *ngIf="!(isTopicsLoading() | async)"

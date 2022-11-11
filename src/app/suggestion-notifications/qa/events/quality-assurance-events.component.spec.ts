@@ -5,16 +5,18 @@ import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/t
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { of as observableOf } from 'rxjs';
-import { QualityAssuranceEventRestService } from '../../../core/suggestion-notifications/qa/events/quality-assurance-event-rest.service';
+import {
+  QualityAssuranceEventRestService
+} from '../../../core/suggestion-notifications/qa/events/quality-assurance-event-rest.service';
 import { QualityAssuranceEventsComponent } from './quality-assurance-events.component';
 import {
   getMockQualityAssuranceEventRestService,
   ItemMockPid10,
   ItemMockPid8,
   ItemMockPid9,
+  NotificationsMockDspaceObject,
   qualityAssuranceEventObjectMissingProjectFound,
-  qualityAssuranceEventObjectMissingProjectNotFound,
-  NotificationsMockDspaceObject
+  qualityAssuranceEventObjectMissingProjectNotFound
 } from '../../../shared/mocks/notifications.mock';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -22,10 +24,12 @@ import { getMockTranslateService } from '../../../shared/mocks/translate.service
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { QualityAssuranceEventObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
+import {
+  QualityAssuranceEventObject
+} from '../../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
 import { QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { TestScheduler } from 'rxjs/testing';
-import { getTestScheduler } from 'jasmine-marbles';
+import { cold, getTestScheduler } from 'jasmine-marbles';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
@@ -37,7 +41,7 @@ import {
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import {FindListOptions} from '../../../core/data/find-list-options.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 describe('QualityAssuranceEventsComponent test suite', () => {
   let fixture: ComponentFixture<QualityAssuranceEventsComponent>;
@@ -156,18 +160,16 @@ describe('QualityAssuranceEventsComponent test suite', () => {
       compAsAny = null;
     });
 
-    describe('setEventUpdated', () => {
-      it('should update events', () => {
-        const expected = [
-          getQualityAssuranceEventData1(),
-          getQualityAssuranceEventData2()
-        ];
-        scheduler.schedule(() => {
-          compAsAny.setEventUpdated(events);
+    describe('fetchEvents', () => {
+      it('should fetch events', () => {
+        const result = compAsAny.fetchEvents(events);
+        const expected = cold('(a|)', {
+          a: [
+            getQualityAssuranceEventData1(),
+            getQualityAssuranceEventData2()
+          ]
         });
-        scheduler.flush();
-
-        expect(comp.eventsUpdated$.value).toEqual(expected);
+        expect(result).toBeObservable(expected);
       });
     });
 
@@ -229,7 +231,10 @@ describe('QualityAssuranceEventsComponent test suite', () => {
     describe('executeAction', () => {
       it('should call getQualityAssuranceEvents on 200 response from REST', () => {
         const action = 'ACCEPTED';
-        spyOn(compAsAny, 'getQualityAssuranceEvents');
+        spyOn(compAsAny, 'getQualityAssuranceEvents').and.returnValue(observableOf([
+          getQualityAssuranceEventData1(),
+          getQualityAssuranceEventData2()
+        ]));
         qualityAssuranceEventRestServiceStub.patchEvent.and.returnValue(createSuccessfulRemoteDataObject$({}));
 
         scheduler.schedule(() => {
@@ -279,7 +284,7 @@ describe('QualityAssuranceEventsComponent test suite', () => {
     });
 
     describe('getQualityAssuranceEvents', () => {
-      it('should call the "qualityAssuranceEventRestService.getEventsByTopic" to take data and "setEventUpdated" to populate eventData', () => {
+      it('should call the "qualityAssuranceEventRestService.getEventsByTopic" to take data and "fetchEvents" to populate eventData', () => {
         comp.paginationConfig = new PaginationComponentOptions();
         comp.paginationConfig.currentPage = 1;
         comp.paginationConfig.pageSize = 20;
@@ -292,7 +297,7 @@ describe('QualityAssuranceEventsComponent test suite', () => {
 
         const pageInfo = new PageInfo({
           elementsPerPage: comp.paginationConfig.pageSize,
-          totalElements: 0,
+          totalElements: 2,
           totalPages: 1,
           currentPage: comp.paginationConfig.currentPage
         });
@@ -303,10 +308,13 @@ describe('QualityAssuranceEventsComponent test suite', () => {
         const paginatedList = buildPaginatedList(pageInfo, array);
         const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
         qualityAssuranceEventRestServiceStub.getEventsByTopic.and.returnValue(observableOf(paginatedListRD));
-        spyOn(compAsAny, 'setEventUpdated');
+        spyOn(compAsAny, 'fetchEvents').and.returnValue(observableOf([
+          getQualityAssuranceEventData1(),
+          getQualityAssuranceEventData2()
+        ]));
 
         scheduler.schedule(() => {
-          compAsAny.getQualityAssuranceEvents();
+          compAsAny.getQualityAssuranceEvents().subscribe();
         });
         scheduler.flush();
 
@@ -315,7 +323,7 @@ describe('QualityAssuranceEventsComponent test suite', () => {
           options,
           followLink('target'),followLink('related')
         );
-        expect(compAsAny.setEventUpdated).toHaveBeenCalled();
+        expect(compAsAny.fetchEvents).toHaveBeenCalled();
       });
     });
 

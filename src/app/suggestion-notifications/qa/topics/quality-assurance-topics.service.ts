@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { find, map } from 'rxjs/operators';
-import { QualityAssuranceTopicRestService } from '../../../core/suggestion-notifications/qa/topics/quality-assurance-topic-rest.service';
+import { map } from 'rxjs/operators';
+import {
+  QualityAssuranceTopicRestService
+} from '../../../core/suggestion-notifications/qa/topics/quality-assurance-topic-rest.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { QualityAssuranceTopicObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
+import {
+  QualityAssuranceTopicObject
+} from '../../../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
-import {FindListOptions} from '../../../core/data/find-list-options.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 /**
  * The service handling all Quality Assurance topic requests to the REST service.
@@ -49,7 +54,7 @@ export class QualityAssuranceTopicsService {
     };
 
     return this.qualityAssuranceTopicRestService.getTopics(findListOptions).pipe(
-      find((rd: RemoteData<PaginatedList<QualityAssuranceTopicObject>>) => !rd.isResponsePending),
+      getFirstCompletedRemoteData(),
       map((rd: RemoteData<PaginatedList<QualityAssuranceTopicObject>>) => {
         if (rd.hasSucceeded) {
           return rd.payload;
