@@ -19,7 +19,7 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../../remote-data.utils';
-import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
+import { ExportMetadataCsvSelectorComponent } from './export-metadata-csv-selector.component';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
 @NgModule({
@@ -38,9 +38,9 @@ import { ExportMetadataSelectorComponent } from './export-metadata-selector.comp
 class ModelTestModule {
 }
 
-describe('ExportMetadataSelectorComponent', () => {
-  let component: ExportMetadataSelectorComponent;
-  let fixture: ComponentFixture<ExportMetadataSelectorComponent>;
+describe('ExportMetadataCsvSelectorComponent', () => {
+  let component: ExportMetadataCsvSelectorComponent;
+  let fixture: ComponentFixture<ExportMetadataCsvSelectorComponent>;
   let debugElement: DebugElement;
   let modalRef;
 
@@ -97,7 +97,7 @@ describe('ExportMetadataSelectorComponent', () => {
     );
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule],
-      declarations: [ExportMetadataSelectorComponent],
+      declarations: [ExportMetadataCsvSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: NotificationsService, useValue: notificationService },
@@ -124,7 +124,7 @@ describe('ExportMetadataSelectorComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExportMetadataSelectorComponent);
+    fixture = TestBed.createComponent(ExportMetadataCsvSelectorComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
     const modalService = TestBed.inject(NgbModal);

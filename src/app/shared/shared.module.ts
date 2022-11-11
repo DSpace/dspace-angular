@@ -23,8 +23,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MomentModule } from 'ngx-moment';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import {
-  ExportMetadataSelectorComponent
-} from './dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
+  ExportMetadataCsvSelectorComponent
+} from './dso-selector/modal-wrappers/export-metadata-csv-selector/export-metadata-csv-selector.component';
 import {
   ExportBatchSelectorComponent
 } from './dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
@@ -480,7 +480,7 @@ const COMPONENTS = [
   BitstreamRequestACopyPageComponent,
   CollectionDropdownComponent,
   EntityDropdownComponent,
-  ExportMetadataSelectorComponent,
+  ExportMetadataCsvSelectorComponent,
   ExportMetadataXlsSelectorComponent,
   ImportBatchSelectorComponent,
   ExportBatchSelectorComponent,
@@ -580,7 +580,7 @@ const ENTRY_COMPONENTS = [
   BitstreamDownloadPageComponent,
   BitstreamRequestACopyPageComponent,
   CurationFormComponent,
-  ExportMetadataSelectorComponent,
+  ExportMetadataCsvSelectorComponent,
   ExportMetadataXlsSelectorComponent,
   ImportBatchSelectorComponent,
   ExportBatchSelectorComponent,

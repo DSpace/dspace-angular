@@ -33,8 +33,8 @@ import {
   EditItemSelectorComponent
 } from './shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import {
-  ExportMetadataSelectorComponent
-} from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
+  ExportMetadataCsvSelectorComponent
+} from './shared/dso-selector/modal-wrappers/export-metadata-csv-selector/export-metadata-csv-selector.component';
 import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -431,7 +431,7 @@ export class MenuResolver implements Resolve<boolean> {
   }
 
   /**
-   * Create menu sections dependent on whether or not the current user is a site administrator and on whether or not
+   * Create menu sections depending on whether or not the current user is a site administrator and on whether or not
    * the export scripts exist and the current user is allowed to execute them
    */
   createExportMenuSections() {
@@ -501,15 +501,15 @@ export class MenuResolver implements Resolve<boolean> {
         shouldPersistOnRouteChange: true
       });
       this.menuService.addSection(MenuID.ADMIN, {
-        id: 'export_metadata',
+        id: 'export_metadata_csv',
         parentID: 'export',
         active: true,
         visible: true,
         model: {
           type: MenuItemType.ONCLICK,
-          text: 'menu.section.export_metadata',
+          text: 'menu.section.export_metadata_csv',
           function: () => {
-            this.modalService.open(ExportMetadataSelectorComponent);
+            this.modalService.open(ExportMetadataCsvSelectorComponent);
           }
         } as OnClickMenuItemModel,
         shouldPersistOnRouteChange: true
