@@ -1,4 +1,4 @@
-import { createSelector, MemoizedSelector, Selector } from '@ngrx/store';
+import { createSelector, MemoizedSelector } from '@ngrx/store';
 import { hasValue } from './empty.util';
 
 /**

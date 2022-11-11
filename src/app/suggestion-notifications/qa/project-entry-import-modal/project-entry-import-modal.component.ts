@@ -13,9 +13,8 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { SearchService } from '../../../core/shared/search/search.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
-  QualityAssuranceEventObject,
-  QualityAssuranceEventMessageObject,
   OpenaireQualityAssuranceEventMessageObject,
+  QualityAssuranceEventObject,
 } from '../../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { Item } from '../../../core/shared/item.model';

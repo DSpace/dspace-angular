@@ -1,9 +1,9 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
 import { CommonModule } from '@angular/common';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf, of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import {
