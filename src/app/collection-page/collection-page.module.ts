@@ -8,6 +8,7 @@ import { CollectionPageRoutingModule } from './collection-page-routing.module';
 import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
 import { EditItemTemplatePageComponent } from './edit-item-template-page/edit-item-template-page.component';
+import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
 import { EditItemPageModule } from '../item-page/edit-item-page/edit-item-page.module';
 import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
 import { SearchService } from '../core/shared/search/search.service';
@@ -32,6 +33,7 @@ import { ComcolModule } from '../shared/comcol/comcol.module';
     CreateCollectionPageComponent,
     DeleteCollectionPageComponent,
     EditItemTemplatePageComponent,
+    ThemedEditItemTemplatePageComponent,
     CollectionItemMapperComponent
   ],
   providers: [

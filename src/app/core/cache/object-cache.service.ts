@@ -4,23 +4,15 @@ import { applyPatch, Operation } from 'fast-json-patch';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 
 import { distinctUntilChanged, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
-import { hasValue, isNotEmpty, isEmpty } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CoreState } from '../core-state.model';
 import { coreSelector } from '../core.selectors';
 import { RestRequestMethod } from '../data/rest-request-method';
-import {
-  selfLinkFromAlternativeLinkSelector,
-  selfLinkFromUuidSelector
-} from '../index/index.selectors';
+import { selfLinkFromAlternativeLinkSelector, selfLinkFromUuidSelector } from '../index/index.selectors';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { getClassForType } from './builders/build-decorators';
 import { LinkService } from './builders/link.service';
-import {
-  AddPatchObjectCacheAction,
-  AddToObjectCacheAction,
-  ApplyPatchObjectCacheAction,
-  RemoveFromObjectCacheAction
-} from './object-cache.actions';
+import { AddDependentsObjectCacheAction, AddPatchObjectCacheAction, AddToObjectCacheAction, ApplyPatchObjectCacheAction, RemoveDependentsObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
 
 import { ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
 import { AddToSSBAction } from './server-sync-buffer.actions';
@@ -337,6 +329,99 @@ export class ObjectCacheService {
    */
   private applyPatchesToCachedObject(selfLink: string) {
     this.store.dispatch(new ApplyPatchObjectCacheAction(selfLink));
+  }
+
+  /**
+   * Add a new dependency between two cached objects.
+   * When {@link dependsOnHref$} is invalidated, {@link href$} will be invalidated as well.
+   *
+   * This method should be called _after_ requests have been sent;
+   * it will only work if both objects are already present in the cache.
+   *
+   * If either object is undefined, the dependency will not be added
+   *
+   * @param href$          the href of an object to add a dependency to
+   * @param dependsOnHref$ the href of the new dependency
+   */
+  addDependency(href$: string | Observable<string>, dependsOnHref$: string | Observable<string>) {
+    if (hasNoValue(href$) || hasNoValue(dependsOnHref$)) {
+      return;
+    }
+
+    if (typeof href$ === 'string') {
+      href$ = observableOf(href$);
+    }
+    if (typeof dependsOnHref$ === 'string') {
+      dependsOnHref$ = observableOf(dependsOnHref$);
+    }
+
+    observableCombineLatest([
+      href$,
+      dependsOnHref$.pipe(
+        switchMap(dependsOnHref => this.resolveSelfLink(dependsOnHref))
+      ),
+    ]).pipe(
+      switchMap(([href, dependsOnSelfLink]: [string, string]) => {
+        const dependsOnSelfLink$ = observableOf(dependsOnSelfLink);
+
+        return observableCombineLatest([
+          dependsOnSelfLink$,
+          dependsOnSelfLink$.pipe(
+            switchMap(selfLink => this.getBySelfLink(selfLink)),
+            map(oce => oce?.dependentRequestUUIDs || []),
+          ),
+          this.getByHref(href).pipe(
+            // only add the latest request to keep dependency index from growing indefinitely
+            map((entry: ObjectCacheEntry) => entry?.requestUUIDs?.[0]),
+          )
+        ]);
+      }),
+      take(1),
+    ).subscribe(([dependsOnSelfLink, currentDependents, newDependent]: [string, string[], string]) => {
+      // don't dispatch if either href is invalid or if the new dependency already exists
+      if (hasValue(dependsOnSelfLink) && hasValue(newDependent) && !currentDependents.includes(newDependent)) {
+        this.store.dispatch(new AddDependentsObjectCacheAction(dependsOnSelfLink, [newDependent]));
+      }
+    });
+  }
+
+  /**
+   * Clear all dependent requests associated with a cache entry.
+   *
+   * @href  the href of a cached object
+   */
+  removeDependents(href: string) {
+    this.resolveSelfLink(href).pipe(
+      take(1),
+    ).subscribe((selfLink: string) => {
+      if (hasValue(selfLink)) {
+        this.store.dispatch(new RemoveDependentsObjectCacheAction(selfLink));
+      }
+    });
+  }
+
+
+  /**
+   * Resolve the self link of an existing cached object from an arbitrary href
+   *
+   * @param href  any href
+   * @return      an observable of the self link corresponding to the given href.
+   *              Will emit the given href if it was a self link, another href
+   *              if the given href was an alt link, or undefined if there is no
+   *              cached object for this href.
+   */
+  private resolveSelfLink(href: string): Observable<string> {
+    return this.getBySelfLink(href).pipe(
+      switchMap((oce: ObjectCacheEntry) => {
+        if (isNotEmpty(oce)) {
+          return [href];
+        } else {
+          return this.store.pipe(
+            select(selfLinkFromAlternativeLinkSelector(href)),
+          );
+        }
+      }),
+    );
   }
 
 }

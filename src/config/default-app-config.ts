@@ -16,6 +16,10 @@ import { ThemeConfig } from './theme.model';
 import { UIServerConfig } from './ui-server-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
+import { InfoConfig } from './info-config.interface';
+import { CommunityListConfig } from './community-list-config.interface';
+import { HomeConfig } from './homepage-config.interface';
+import { MarkdownConfig } from './markdown-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -36,7 +40,10 @@ export class DefaultAppConfig implements AppConfig {
     rateLimiter: {
       windowMs: 1 * 60 * 1000, // 1 minute
       max: 500 // limit each IP to 500 requests per windowMs
-    }
+    },
+
+    // Trust X-FORWARDED-* headers from proxies
+    useProxies: true,
   };
 
   // The REST API server settings
@@ -192,8 +199,12 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'pt-PT', label: 'Português', active: true },
     { code: 'pt-BR', label: 'Português do Brasil', active: true },
     { code: 'fi', label: 'Suomi', active: true },
+    { code: 'sv', label: 'Svenska', active: true },
     { code: 'tr', label: 'Türkçe', active: true },
-    { code: 'bn', label: 'বাংলা', active: true }
+    { code: 'kk', label: 'Қазақ', active: true },
+    { code: 'bn', label: 'বাংলা', active: true },
+    { code: 'hi', label: 'हिंदी', active: true},
+    { code: 'el', label: 'Ελληνικά', active: true }
   ];
 
   // Browse-By Pages
@@ -203,7 +214,29 @@ export class DefaultAppConfig implements AppConfig {
     // Limit for years to display using jumps of five years (current year - fiveYearLimit)
     fiveYearLimit: 30,
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
-    defaultLowerLimit: 1900
+    defaultLowerLimit: 1900,
+    // Whether to add item thumbnail images to BOTH browse and search result lists.
+    showThumbnails: true,
+    // The number of entries in a paginated browse results list.
+    // Rounded to the nearest size in the list of selectable sizes on the
+    // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
+    pageSize: 20
+  };
+
+  communityList: CommunityListConfig = {
+    pageSize: 20
+  };
+
+  homePage: HomeConfig = {
+    recentSubmissions: {
+      //The number of item showing in recent submission components
+      pageSize: 5,
+      //sort record of recent submission
+      sortField: 'dc.date.accessioned',
+    },
+    topLevelCommunityList: {
+      pageSize: 5
+    }
   };
 
   // Item Config
@@ -323,5 +356,24 @@ export class DefaultAppConfig implements AppConfig {
   mediaViewer: MediaViewerConfig = {
     image: false,
     video: false
+  };
+  // Whether the end-user-agreement and privacy policy feature should be enabled or not.
+  // Disabling the end user agreement feature will result in:
+  // - Users no longer being forced to accept the end-user-agreement before they can access the repository
+  // - A 404 page if you manually try to navigate to the end-user-agreement page at info/end-user-agreement
+  // - All end-user-agreement related links and pages will be removed from the UI (e.g. in the footer)
+  // Disabling the privacy policy feature will result in:
+  // - A 404 page if you manually try to navigate to the privacy policy page at info/privacy
+  // - All mentions of the privacy policy being removed from the UI (e.g. in the footer)
+  info: InfoConfig = {
+    enableEndUserAgreement: true,
+    enablePrivacyStatement: true
+  };
+
+  // Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
+  // display in supported metadata fields. By default, only dc.description.abstract is supported.
+  markdown: MarkdownConfig = {
+    enabled: false,
+    mathjax: false,
   };
 }

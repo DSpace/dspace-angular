@@ -1,6 +1,6 @@
 import {Inject, InjectionToken} from '@angular/core';
 
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import {DynamicFormControlLayout, DynamicFormControlRelation, MATCH_VISIBLE, OR_OPERATOR} from '@ng-dynamic-forms/core';
 
 import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';

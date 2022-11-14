@@ -179,7 +179,7 @@ If needing to update default configurations values for production, update local 
 
 -	Update `environment.production.ts` file in `src/environment/` for a `production` environment;
 
-The environment object is provided for use as import in code and is extended with he runtime configuration on bootstrap of the application.
+The environment object is provided for use as import in code and is extended with the runtime configuration on bootstrap of the application.
 
 > Take caution moving runtime configs into the buildtime configuration. They will be overwritten by what is defined in the runtime config on bootstrap.
 
@@ -351,7 +351,7 @@ Documentation
 
 Official DSpace documentation is available in the DSpace wiki at https://wiki.lyrasis.org/display/DSDOC7x/
 
-Some UI specific configuration documentation is also found in the [`./docs`](docs) folder of htis codebase.
+Some UI specific configuration documentation is also found in the [`./docs`](docs) folder of this codebase.
 
 ### Building code documentation
 

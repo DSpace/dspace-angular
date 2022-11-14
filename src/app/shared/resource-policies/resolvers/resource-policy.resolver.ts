@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { isEmpty } from '../../empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { ResourcePolicyService } from '../../../core/resource-policy/resource-policy.service';
+import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
 import { followLink } from '../../utils/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
@@ -16,7 +16,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 @Injectable()
 export class ResourcePolicyResolver implements Resolve<RemoteData<ResourcePolicy>> {
 
-  constructor(private resourcePolicyService: ResourcePolicyService, private router: Router) {
+  constructor(private resourcePolicyService: ResourcePolicyDataService, private router: Router) {
   }
 
   /**

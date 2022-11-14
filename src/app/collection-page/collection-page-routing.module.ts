@@ -6,7 +6,7 @@ import { CreateCollectionPageComponent } from './create-collection-page/create-c
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { CreateCollectionPageGuard } from './create-collection-page/create-collection-page.guard';
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
-import { EditItemTemplatePageComponent } from './edit-item-template-page/edit-item-template-page.component';
+import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
 import { ItemTemplatePageResolver } from './edit-item-template-page/item-template-page.resolver';
 import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
@@ -52,7 +52,7 @@ import { MenuItemType } from '../shared/menu/menu-item-type.model';
           },
           {
             path: ITEMTEMPLATE_PATH,
-            component: EditItemTemplatePageComponent,
+            component: ThemedEditItemTemplatePageComponent,
             canActivate: [AuthenticatedGuard],
             resolve: {
               item: ItemTemplatePageResolver,

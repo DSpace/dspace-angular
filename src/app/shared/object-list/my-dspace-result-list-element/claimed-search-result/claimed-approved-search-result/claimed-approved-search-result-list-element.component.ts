@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ClaimedApprovedTaskSearchResult } from '../../../../object-collection/shared/claimed-approved-task-search-result.model';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
@@ -13,6 +13,7 @@ import { SearchResultListElementComponent } from '../../../search-result-list-el
 import { ClaimedTaskSearchResult } from '../../../../object-collection/shared/claimed-task-search-result.model';
 import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-object.model';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
 
 /**
  * This component renders claimed task approved object for the search result in the list view.
@@ -43,9 +44,10 @@ export class ClaimedApprovedSearchResultListElementComponent extends SearchResul
   public constructor(
     protected linkService: LinkService,
     protected truncatableService: TruncatableService,
-    protected dsoNameService: DSONameService
+    protected dsoNameService: DSONameService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
-    super(truncatableService, dsoNameService);
+    super(truncatableService, dsoNameService, appConfig);
   }
 
   /**

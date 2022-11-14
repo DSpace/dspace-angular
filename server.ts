@@ -19,14 +19,17 @@ import 'zone.js/node';
 import 'reflect-metadata';
 import 'rxjs';
 
-import axios from 'axios';
-import * as pem from 'pem';
-import * as https from 'https';
+/* eslint-disable import/no-namespace */
 import * as morgan from 'morgan';
 import * as express from 'express';
-import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
 import * as expressStaticGzip from 'express-static-gzip';
+/* eslint-enable import/no-namespace */
+
+import axios from 'axios';
+import { createCertificate } from 'pem';
+import { createServer } from 'https';
+import { json } from 'body-parser';
 
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
@@ -48,6 +51,7 @@ import { ServerAppModule } from './src/main.server';
 import { buildAppConfig } from './src/config/config.server';
 import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
+import { logStartupMessage } from './startup-message';
 
 /*
  * Set path for the browser application's dist folder
@@ -74,6 +78,10 @@ export function app() {
    * Create a new express application
    */
   const server = express();
+
+  // Tell Express to trust X-FORWARDED-* headers from proxies
+  // See https://expressjs.com/en/guide/behind-proxies.html
+  server.set('trust proxy', environment.ui.useProxies);
 
   /*
    * If production mode is enabled in the environment file:
@@ -105,7 +113,7 @@ export function app() {
    * Add parser for request bodies
    * See [morgan](https://github.com/expressjs/body-parser)
    */
-  server.use(bodyParser.json());
+  server.use(json());
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine('html', (_, options, callback) =>
@@ -261,7 +269,7 @@ function serverStarted() {
  * @param keys SSL credentials
  */
 function createHttpsServer(keys) {
-  https.createServer({
+  createServer({
     key: keys.serviceKey,
     cert: keys.certificate
   }, app).listen(environment.ui.port, environment.ui.host, () => {
@@ -281,6 +289,8 @@ function run() {
 }
 
 function start() {
+  logStartupMessage(environment);
+
   /*
   * If SSL is enabled
   * - Read credentials from configuration files
@@ -313,7 +323,7 @@ function start() {
 
       process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // lgtm[js/disabling-certificate-validation]
 
-      pem.createCertificate({
+      createCertificate({
         days: 1,
         selfSigned: true
       }, (error, keys) => {
