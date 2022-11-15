@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { hasValue, isNotEmpty } from '../empty.util';
+import { isNotEmpty } from '../empty.util';
 import { Item } from '../../core/shared/item.model';
-import { environment } from '../../../environments/environment';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { PLACEHOLDER_PARENT_METADATA } from '../form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { RemoteData } from '../../core/data/remote-data';
@@ -15,9 +14,10 @@ import { Metadata } from '../../core/shared/metadata.utils';
 
 interface MetadataView {
   authority: string;
-  icon: string;
   value: string;
   orcidAuthenticated: string;
+  entityType: string;
+  entityStyle: string;
 }
 
 @Component({
@@ -36,29 +36,21 @@ export class MetadataLinkViewComponent implements OnInit {
    * Item of the metadata value
    */
   @Input() item: Item;
+
   /**
    * Processed metadata to create MetadataOrcid with the informations needed to show
    */
   metadata$: Observable<MetadataView>;
+
   /**
-   * Map icons of the respective entity types
+   * Position of the Icon before/after the element
    */
-  private entity2icon: Map<string, string>;
+  iconPosition = 'after';
 
   /**
    * Map all entities with the icons specified in the envoirment configuration file
    */
-  constructor(private itemService: ItemDataService) {
-    this.entity2icon = new Map();
-    const confValue = environment.crisLayout.crisRef;
-    confValue.forEach((config) => {
-      if (config.entityType && config.icon) {
-        this.entity2icon.set(config.entityType.toUpperCase(), config.icon);
-      } else {
-        console.warn(`Incomplete configuration found in 'environment.crisLayout.crisRef':\n{ entityType: ${config.entityType}, icon: ${config.icon} }`);
-      }
-    });
-  }
+  constructor(private itemService: ItemDataService) { }
 
   /**
    * On init process metadata to get the informations and form MetadataOrcid model
@@ -73,16 +65,18 @@ export class MetadataLinkViewComponent implements OnInit {
               if (itemRD.hasSucceeded) {
                 return {
                   authority: metadataValue.authority,
-                  icon: this.getIcon(itemRD.payload.firstMetadataValue('dspace.entity.type')),
                   value: metadataValue.value,
-                  orcidAuthenticated: this.getOrcid(itemRD.payload)
+                  orcidAuthenticated: this.getOrcid(itemRD.payload),
+                  entityType: itemRD.payload.firstMetadataValue('dspace.entity.type'),
+                  entityStyle: itemRD.payload.firstMetadataValue('cris.entity.style')
                 };
               } else {
                 return {
                   authority: null,
-                  icon: null,
                   value: metadataValue.value,
-                  orcidAuthenticated: null
+                  orcidAuthenticated: null,
+                  entityType: null,
+                  entityStyle: null
                 };
               }
             })
@@ -90,24 +84,14 @@ export class MetadataLinkViewComponent implements OnInit {
         } else {
           return observableOf({
             authority: null,
-            icon: null,
             value: metadataValue.value,
-            orcidAuthenticated: null
+            orcidAuthenticated: null,
+            entityType: null,
+            entityStyle: null
           });
         }
       })
     );
-  }
-
-  /**
-   * Returns the icon configured for given entityType, or
-   * default icon if configuration not exists
-   * @param entityType entity type name, ex. Person
-   */
-  getIcon(entityType: string): string {
-    return hasValue(entityType) && this.entity2icon.has(entityType.toUpperCase()) ?
-      this.entity2icon.get(entityType.toUpperCase()) :
-      this.entity2icon.get('DEFAULT');
   }
 
   /**
