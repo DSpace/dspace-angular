@@ -48,7 +48,7 @@ import { Section } from './core/layout/models/section.model';
 import {
   ExportBatchSelectorComponent
 } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
-import {NOTIFICATIONS_RECITER_SUGGESTION_PATH} from "./admin/admin-notifications/admin-notifications-routing-paths";
+import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
 
 /**
  * Creates all of the app's menus
@@ -243,7 +243,7 @@ export class MenuResolver implements Resolve<boolean> {
         {
           id: 'new',
           active: false,
-          visible: true,
+          visible: isCollectionAdmin || isCommunityAdmin || isSiteAdmin,
           model: {
             type: MenuItemType.TEXT,
             text: 'menu.section.new'
@@ -318,7 +318,7 @@ export class MenuResolver implements Resolve<boolean> {
         {
           id: 'edit',
           active: false,
-          visible: true,
+          visible: isCollectionAdmin || isCommunityAdmin || isSiteAdmin,
           model: {
             type: MenuItemType.TEXT,
             text: 'menu.section.edit'
