@@ -1,10 +1,11 @@
 <nav [ngClass]="{'open': !(menuCollapsed | async)}" [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : ((menuCollapsed | async) ? 'collapsed' : 'expanded')"
   class="navbar navbar-expand-md navbar-light p-0 navbar-container" role="navigation" [attr.aria-label]="'nav.main.description' | translate">
   <div class="container h-100">
-    <a class="navbar-brand my-2" routerLink="/home">
-      eCommons
-    </a>
-
+    <h1>
+      <a class="navbar-brand my-2" routerLink="/home">
+        eCommons
+      </a>
+    </h1>
     <div id="collapsingNav" class="w-100 h-100">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 h-100">
         <ng-container *ngFor="let section of (sections | async)">
