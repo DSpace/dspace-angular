@@ -20,7 +20,6 @@ import { SearchFilterConfig } from '../../../shared/search/models/search-filter-
 import { SearchResponseParsingService } from '../../data/search-response-parsing.service';
 import { SearchObjects } from '../../../shared/search/models/search-objects.model';
 import { FacetValueResponseParsingService } from '../../data/facet-value-response-parsing.service';
-import { FacetConfigResponseParsingService } from '../../data/facet-config-response-parsing.service';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { Community } from '../community.model';
 import { CommunityDataService } from '../../data/community-data.service';
@@ -32,7 +31,6 @@ import { RouteService } from '../../services/route.service';
 import { SearchResult } from '../../../shared/search/models/search-result.model';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
-import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
 import { FacetValues } from '../../../shared/search/models/facet-values.model';
 import { PaginationService } from '../../pagination/pagination.service';
 import { SearchConfigurationService } from './search-configuration.service';
@@ -70,24 +68,9 @@ class SearchDataService extends BaseDataService<any> {
 export class SearchService implements OnDestroy {
 
   /**
-   * Endpoint link path for retrieving search configurations
-   */
-  private configurationLinkPath = 'discover/search';
-
-  /**
    * Endpoint link path for retrieving general search results
    */
   private searchLinkPath = 'discover/search/objects';
-
-  /**
-   * Endpoint link path for retrieving facet config incl values
-   */
-  private facetLinkPathPrefix = 'discover/facets/';
-
-  /**
-   * Endpoint link path for retrieving configured facets with their respective values
-   */
-  private searchFacetLinkPath = 'discover/search/facets/';
 
   /**
    * The ResponseParsingService constructor name
@@ -280,108 +263,6 @@ export class SearchService implements OnDestroy {
     );
   }
 
-  private getConfigUrl(url: string, scope?: string, configurationName?: string) {
-    const args: string[] = [];
-
-    if (isNotEmpty(scope)) {
-      args.push(`scope=${scope}`);
-    }
-
-    if (isNotEmpty(configurationName)) {
-      args.push(`configuration=${configurationName}`);
-    }
-
-    if (isNotEmpty(args)) {
-      url = new URLCombiner(url, `?${args.join('&')}`).toString();
-    }
-
-    return url;
-  }
-
-  private formatEmbeddedKeysQueryParams(keys: string[]): string {
-    let params = '';
-    if (hasValue(keys)) {
-      keys.forEach((key: string) => (params = params + '&embed=' + key));
-    }
-    return params;
-  }
-
-  /**
-   * Request the filter configuration for a given scope or the whole repository
-   * @param {link}   link the link to use for the request
-   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
-   * @param {string} configurationName the name of the configuration
-   * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
-   */
-  private getFilterConfigByLink(link: string, scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
-    const href$ = this.halService.getEndpoint(link).pipe(
-      map((url: string) => {
-        const args: string[] = [];
-
-        if (isNotEmpty(scope)) {
-          args.push(`scope=${scope}`);
-        }
-
-        if (isNotEmpty(configurationName)) {
-          args.push(`configuration=${configurationName}`);
-        }
-
-        if (isNotEmpty(args)) {
-          url = new URLCombiner(url, `?${args.join('&')}`).toString();
-        }
-
-        return url;
-      }),
-    );
-
-    href$.pipe(take(1)).subscribe((url: string) => {
-      let request = new this.request(this.requestService.generateRequestId(), url);
-      request = Object.assign(request, {
-        getResponseParser(): GenericConstructor<ResponseParsingService> {
-          return FacetConfigResponseParsingService;
-        }
-      });
-      this.requestService.send(request, true);
-    });
-
-    return this.rdb.buildFromHref(href$).pipe(
-      map((rd: RemoteData<FacetConfigResponse>) => {
-        if (rd.hasSucceeded) {
-          let filters: SearchFilterConfig[];
-          if (isNotEmpty(rd.payload.filters)) {
-            filters = rd.payload.filters
-              .map((filter: any) => Object.assign(new SearchFilterConfig(), filter));
-          } else {
-            filters = [];
-          }
-
-          return new RemoteData(
-            rd.timeCompleted,
-            rd.msToLive,
-            rd.lastUpdated,
-            rd.state,
-            rd.errorMessage,
-            filters,
-            rd.statusCode,
-          );
-        } else {
-          return rd as any as RemoteData<SearchFilterConfig[]>;
-        }
-      })
-    );
-  }
-
-
-  /**
-   * Request the filter configuration for a given scope or the whole repository
-   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
-   * @param {string} configurationName the name of the configuration
-   * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
-   */
-  getConfig(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
-    return this.getFilterConfigByLink(this.facetLinkPathPrefix, scope, configurationName);
-  }
-
   /**
    * Method to request a single page of filter values for a given value
    * @param {SearchFilterConfig} filterConfig The filter config for which we want to request filter values
@@ -420,16 +301,6 @@ export class SearchService implements OnDestroy {
     this.requestService.send(request, useCachedVersionIfAvailable);
 
     return this.rdb.buildFromHref(href);
-  }
-
-  /**
-   * Request the filter configuration for a given scope or the whole repository
-   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
-   * @param {string} configurationName the name of the configuration
-   * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
-   */
-  searchFacets(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
-    return this.getFilterConfigByLink(this.searchFacetLinkPath, scope, configurationName);
   }
 
   /**
@@ -508,25 +379,6 @@ export class SearchService implements OnDestroy {
   }
 
   /**
-   * Request the search configuration for a given scope or the whole repository
-   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
-   * @param {string} configurationName the name of the configuration
-   * @returns {Observable<RemoteData<SearchConfig[]>>} The found configuration
-   */
-  getSearchConfigurationFor(scope?: string, configurationName?: string): Observable<RemoteData<SearchConfig>> {
-    const href$ = this.halService.getEndpoint(this.configurationLinkPath).pipe(
-      map((url: string) => this.getConfigUrl(url, scope, configurationName)),
-    );
-
-    href$.pipe(take(1)).subscribe((url: string) => {
-      const request = new this.request(this.requestService.generateRequestId(), url);
-      this.requestService.send(request, true);
-    });
-
-    return this.rdb.buildFromHref(href$);
-  }
-
-  /**
    * Send search event to rest api using angularitics
    * @param config              Paginated search options used
    * @param searchQueryResponse The response objects of the performed search
@@ -562,6 +414,14 @@ export class SearchService implements OnDestroy {
    */
   getSearchLink(): string {
     return '/search';
+  }
+
+  private formatEmbeddedKeysQueryParams(keys: string[]): string {
+    let params = '';
+    if (hasValue(keys)) {
+      keys.forEach((key: string) => (params = params + '&embed=' + key));
+    }
+    return params;
   }
 
   /**

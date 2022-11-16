@@ -50,6 +50,8 @@ import { dataService } from './base/data-service.decorator';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { ItemSearchParams } from './item-search-params';
 import { validate as uuidValidate } from 'uuid';
+import { SearchDataImpl } from './base/search-data';
+import { Vocabulary } from '../submission/vocabularies/models/vocabulary.model';
 
 /**
  * An abstract service for CRUD operations on Items
@@ -60,6 +62,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   private createData: CreateData<Item>;
   private patchData: PatchData<Item>;
   private deleteData: DeleteData<Item>;
+  private searchData: SearchDataImpl<Item>;
   protected searchFindAllByIdPath = 'findAllById';
 
   protected constructor(
@@ -437,7 +440,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   findAllById(uuidList: string[], options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {
     return of(new ItemSearchParams(uuidList)).pipe(
       switchMap((params: ItemSearchParams) => {
-        return this.sea.searchBy(this.searchFindAllByIdPath,
+        return this.searchData.searchBy(this.searchFindAllByIdPath,
           this.createSearchOptionsObjectsFindAllByID(params.uuidList, options), useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
       })
     );
@@ -488,7 +491,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   findByIdWithProjection(id: string, projections: string[], useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
 
     if (uuidValidate(id)) {
-      return super.findByIdWithProjection(id, projections, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+      return this.findByIdWithProjection(id, projections, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
     } else {
       return this.findByCustomUrl(id, useCachedVersionIfAvailable, reRequestOnStale, linksToFollow, projections);
     }
@@ -520,7 +523,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
       options.searchParams.push(new RequestParam('projection', projection));
     });
 
-    const hrefObs = this.getSearchByHref(searchHref, options, ...linksToFollow);
+    const hrefObs = this.searchData.getSearchByHref(searchHref, options, ...linksToFollow);
 
     return this.findByHref(hrefObs, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }

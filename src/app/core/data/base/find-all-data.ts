@@ -19,6 +19,7 @@ import { RequestService } from '../request.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { RequestParam } from '../../cache/models/request-param.model';
 
 /**
  * Interface for a data service that list all of its objects.
@@ -74,6 +75,30 @@ export class FindAllDataImpl<T extends CacheableObject> extends BaseDataService<
    *    Return an observable that emits object list
    */
   findAll(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
+    return this.findListByHref(this.getFindAllHref(options), options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Returns {@link RemoteData} of all object with a list of {@link FollowLinkConfig}, to indicate which embedded
+   * info should be added to the objects
+   *
+   * @param projections                 Array of string of projections to be added to the parameters
+   * @param options                     Find list options object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>>}
+   *    Return an observable that emits object list
+   */
+  findAllWithProjection(projections: string[], options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
+
+    projections.forEach((projection) => {
+      options.searchParams.push(new RequestParam('projection', projection));
+    });
+
     return this.findListByHref(this.getFindAllHref(options), options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 

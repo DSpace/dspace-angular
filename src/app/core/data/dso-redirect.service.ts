@@ -97,6 +97,8 @@ export class DsoRedirectService {
               this.router.navigate([newRoute]);
             }
           }
+        } else if (response.statusCode === 410) {
+          this.router.navigate(['handle/object-gone']);
         }
       })
     );

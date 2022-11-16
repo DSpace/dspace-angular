@@ -4,7 +4,6 @@ import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { GetRequest } from './request.models';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
@@ -16,7 +15,6 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { FindListOptions } from './find-list-options.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { SearchData, SearchDataImpl } from './base/search-data';
-import { sendRequest } from '../shared/request.operators';
 
 /**
  * A service handling all external source requests
@@ -114,18 +112,12 @@ export class ExternalSourceDataService extends IdentifiableDataService<ExternalS
    * @param entryId           The id of the entry to retrieve
    */
   getExternalSourceEntryById(externalSourceId: string, entryId: string): Observable<RemoteData<ExternalSourceEntry>> {
-    const requestUuid = this.requestService.generateRequestId();
-
     const href$ = this.getEntryIDHref(externalSourceId, entryId).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged()
     );
 
-    href$.pipe(
-      map((endpoint: string) => new GetRequest(requestUuid, endpoint)),
-      sendRequest(this.requestService)
-    ).subscribe();
-
-    return this.rdbService.buildSingle(href$);
+    // TODO create a dedicated ExternalSourceEntryDataService and move this entire method to it. Then the "as any"s won't be necessary
+    return this.findByHref(href$) as any;
   }
 }

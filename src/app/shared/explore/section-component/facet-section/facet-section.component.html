@@ -8,7 +8,7 @@
       </div>
       <ng-template #notChartFacet>
         <div *ngFor="let facetValue of facet._embedded.values" class="border p-3">
-          <a [routerLink]="[searchService.getSearchLink()]"
+          <a [routerLink]="getSearchLink()"
              [queryParams]="getSearchQueryParams(facet, facetValue)">
             {{facetValue.label}}
           </a>

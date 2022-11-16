@@ -160,7 +160,7 @@ export class VocabularyService {
       searchParams: params,
       elementsPerPage: 1,
     });
-    const href$ = this.vocabularyDataService.getIDHrefObs(options, vocabularyName + '/entries');
+    const href$ = this.vocabularyDataService.getFindAllHref(options, vocabularyName + '/entries');
     return this.vocabularyEntryDetailDataService.findListByHref(href$);
   }
 
@@ -233,7 +233,7 @@ export class VocabularyService {
   searchVocabularyByMetadataAndCollection(vocabularyOptions: VocabularyOptions, ...linksToFollow: FollowLinkConfig<Vocabulary>[]): Observable<RemoteData<Vocabulary>> {
     const options: VocabularyFindOptions = new VocabularyFindOptions(vocabularyOptions.scope, vocabularyOptions.metadata);
 
-    return this.vocabularyDataService.getSearchByHref(this.searchByMetadataAndCollectionMethod, options, ).pipe(
+    return this.vocabularyDataService.getSearchByHref(this.searchByMetadataAndCollectionMethod, options).pipe(
       first((href: string) => hasValue(href)),
       mergeMap((href: string) => this.vocabularyDataService.findByHref(href))
     );
