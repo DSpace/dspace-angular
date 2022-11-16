@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { mergeMap, switchMap, take, tap } from 'rxjs/operators';
+import { map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/profile-claim-item-modal.component';
@@ -12,19 +12,20 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { AuthService } from '../../core/auth/auth.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { isNotEmpty } from '../../shared/empty.util';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
+import { NoContent } from '../../core/shared/NoContent.model';
 
 @Component({
   selector: 'ds-profile-page-researcher-form',
   templateUrl: './profile-page-researcher-form.component.html',
 })
 /**
- * Component for a user to create/delete or change his researcher profile.
+ * Component for a user to create/delete or change their researcher profile.
  */
 export class ProfilePageResearcherFormComponent implements OnInit {
 
@@ -55,7 +56,7 @@ export class ProfilePageResearcherFormComponent implements OnInit {
    */
   researcherProfileItemId: string;
 
-  constructor(protected researcherProfileService: ResearcherProfileService,
+  constructor(protected researcherProfileService: ResearcherProfileDataService,
               protected profileClaimService: ProfileClaimService,
               protected translationService: TranslateService,
               protected notificationService: NotificationsService,
@@ -125,14 +126,16 @@ export class ProfilePageResearcherFormComponent implements OnInit {
     modalRef.componentInstance.response.pipe(take(1)).subscribe((confirm: boolean) => {
       if (confirm) {
         this.processingDelete$.next(true);
-        this.researcherProfileService.delete(researcherProfile)
-          .subscribe((deleted) => {
-            if (deleted) {
-              this.researcherProfile$.next(null);
-              this.researcherProfileItemId = null;
-            }
-            this.processingDelete$.next(false);
-          });
+        this.researcherProfileService.delete(researcherProfile.id).pipe(
+          getFirstCompletedRemoteData(),
+          map((response: RemoteData<NoContent>) => response.isSuccess),
+        ).subscribe((deleted) => {
+          if (deleted) {
+            this.researcherProfile$.next(null);
+            this.researcherProfileItemId = null;
+          }
+          this.processingDelete$.next(false);
+        });
       }
     });
   }

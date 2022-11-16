@@ -9,7 +9,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { OrcidHistory } from '../../../core/orcid/model/orcid-history.model';
 import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
 import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.service';
-import { OrcidQueueService } from '../../../core/orcid/orcid-queue.service';
+import { OrcidQueueDataService } from '../../../core/orcid/orcid-queue-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
@@ -62,7 +62,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   private subs: Subscription[] = [];
 
   constructor(private orcidAuthService: OrcidAuthService,
-              private orcidQueueService: OrcidQueueService,
+              private orcidQueueService: OrcidQueueDataService,
               protected translateService: TranslateService,
               private paginationService: PaginationService,
               private notificationsService: NotificationsService,

@@ -19,7 +19,7 @@ import { getMockFormOperationsService } from '../../../shared/mocks/form-operati
 import { SectionFormOperationsService } from './section-form-operations.service';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { FormService } from '../../../shared/form/form.service';
-import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
+import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsType } from '../sections-type';
 import {
@@ -50,7 +50,7 @@ import {
 } from '../../../core/config/models/config-submission-section.model';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 
-function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
+function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('FormOperationsService', {
     getConfigAll: jasmine.createSpy('getConfigAll'),
     getConfigByHref: jasmine.createSpy('getConfigByHref'),
@@ -180,7 +180,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: SectionFormOperationsService, useValue: getMockFormOperationsService() },
         { provide: FormService, useValue: formService },
-        { provide: SubmissionFormsConfigService, useValue: formConfigService },
+        { provide: SubmissionFormsConfigDataService, useValue: formConfigService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
@@ -370,7 +370,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       describe('in workspace scope', () => {
         beforeEach(() => {
           // @ts-ignore
-          comp.submissionObject = { type: WorkspaceItem.type };
+          comp.submissionObject = { type: WorkspaceItem.type.value };
           submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
         });
 
@@ -390,7 +390,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       describe('in workflow scope', () => {
         beforeEach(() => {
           // @ts-ignore
-          comp.submissionObject = { type: WorkflowItem.type };
+          comp.submissionObject = { type: WorkflowItem.type.value };
           submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
         });
 

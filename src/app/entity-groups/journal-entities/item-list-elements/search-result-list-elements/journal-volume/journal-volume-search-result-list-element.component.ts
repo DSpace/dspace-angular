@@ -16,8 +16,18 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
  */
 export class JournalVolumeSearchResultListElementComponent extends ItemSearchResultListElementComponent {
 
+  /**
+   * Display thumbnails if required by configuration
+   */
+  showThumbnails: boolean;
+
   public constructor(protected truncatableService: TruncatableService, protected dsoNameService: DSONameService) {
     super(truncatableService, dsoNameService);
+  }
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 
 }

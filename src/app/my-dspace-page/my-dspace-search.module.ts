@@ -16,6 +16,7 @@ import { WorkflowItemSearchResultListElementComponent } from '../shared/object-l
 import { PoolSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/pool-search-result/pool-search-result-detail-element.component';
 import { ClaimedApprovedSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-search-result/claimed-approved-search-result/claimed-approved-search-result-list-element.component';
 import { ClaimedDeclinedSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-search-result/claimed-declined-search-result/claimed-declined-search-result-list-element.component';
+import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -38,6 +39,7 @@ const ENTRY_COMPONENTS = [
     CommonModule,
     SharedModule,
     MyDspacePageRoutingModule,
+    ResearchEntitiesModule.withEntryComponents()
   ],
   declarations: [
     ...ENTRY_COMPONENTS

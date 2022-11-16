@@ -9,6 +9,8 @@ import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { RequestEntry } from './request-entry.model';
+import { HttpHeaders } from '@angular/common/http';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 
 describe('EpersonRegistrationService', () => {
   let testScheduler;
@@ -79,8 +81,23 @@ describe('EpersonRegistrationService', () => {
     it('should send an email registration', () => {
 
       const expected = service.registerEmail('test@mail.org');
+      let headers = new HttpHeaders();
+      const options: HttpOptions = Object.create({});
+      options.headers = headers;
 
-      expect(requestService.send).toHaveBeenCalledWith(new PostRequest('request-id', 'rest-url/registrations', registration));
+      expect(requestService.send).toHaveBeenCalledWith(new PostRequest('request-id', 'rest-url/registrations', registration, options));
+      expect(expected).toBeObservable(cold('(a|)', { a: rd }));
+    });
+
+    it('should send an email registration with captcha', () => {
+
+      const expected = service.registerEmail('test@mail.org', 'afreshcaptchatoken');
+      let headers = new HttpHeaders();
+      const options: HttpOptions = Object.create({});
+      headers = headers.append('x-recaptcha-token', 'afreshcaptchatoken');
+      options.headers = headers;
+
+      expect(requestService.send).toHaveBeenCalledWith(new PostRequest('request-id', 'rest-url/registrations', registration, options));
       expect(expected).toBeObservable(cold('(a|)', { a: rd }));
     });
   });

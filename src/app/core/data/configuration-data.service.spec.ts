@@ -5,8 +5,6 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
 import { ConfigurationDataService } from './configuration-data.service';
 import { ConfigurationProperty } from '../shared/configuration-property.model';
 
@@ -44,18 +42,12 @@ describe('ConfigurationDataService', () => {
       })
     });
     objectCache = {} as ObjectCacheService;
-    const notificationsService = {} as NotificationsService;
-    const http = {} as HttpClient;
-    const comparator = {} as any;
 
     service = new ConfigurationDataService(
       requestService,
       rdbService,
       objectCache,
       halService,
-      notificationsService,
-      http,
-      comparator
     );
   });
 

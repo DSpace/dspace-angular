@@ -10,7 +10,7 @@ import { AdminSearchModule } from './admin-search-page/admin-search.module';
 import { AdminSidebarSectionComponent } from './admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
 import { ExpandableAdminSidebarSectionComponent } from './admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
 import { AdminEditUserAgreementComponent } from './admin-edit-user-agreement/admin-edit-user-agreement.component';
-import {EditCmsMetadataComponent} from './edit-cms-metadata/edit-cms-metadata.component';
+import { EditCmsMetadataComponent } from './edit-cms-metadata/edit-cms-metadata.component';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 
 const ENTRY_COMPONENTS = [

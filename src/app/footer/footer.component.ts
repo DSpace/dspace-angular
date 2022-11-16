@@ -1,6 +1,7 @@
 import { Component, OnInit, Optional } from '@angular/core';
 import { hasValue, isEmpty } from '../shared/empty.util';
 import { KlaroService } from '../shared/cookies/klaro.service';
+import { environment } from '../../environments/environment';
 import { take } from 'rxjs/operators';
 import { Site } from '../core/shared/site.model';
 import { SiteDataService } from '../core/data/site-data.service';
@@ -31,6 +32,9 @@ export class FooterComponent implements OnInit {
    * The section data to be rendered as footer
    */
   section: TextRowSection;
+
+  showPrivacyPolicy = environment.info.enablePrivacyStatement;
+  showEndUserAgreement = environment.info.enableEndUserAgreement;
 
   constructor(
     @Optional() private cookies: KlaroService,

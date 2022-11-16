@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { StatisticsPageComponent } from '../statistics-page/statistics-page.component';
 import { SiteDataService } from '../../core/data/site-data.service';
-import { UsageReportService } from '../../core/statistics/usage-report-data.service';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Site } from '../../core/shared/site.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -28,7 +28,7 @@ export class SiteStatisticsPageComponent extends StatisticsPageComponent<Site> {
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
-    protected usageReportService: UsageReportService,
+    protected usageReportService: UsageReportDataService,
     protected nameService: DSONameService,
     protected siteService: SiteDataService,
     protected authService: AuthService,

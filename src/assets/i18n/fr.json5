@@ -751,13 +751,13 @@
   "administrativeView.search.results.head": "Recherche Administrateur",
 
   // "admin.workflow.breadcrumbs": "Administer Workflow",
-  "admin.workflow.breadcrumbs": "Gestion des soumissions en Workflow",
+  "admin.workflow.breadcrumbs": "Gestion des soumissions en traitement",
 
   // "admin.workflow.title": "Administer Workflow",
-  "admin.workflow.title": "Gestion des soumissions en Workflow",
+  "admin.workflow.title": "Gestion des soumissions en traitement",
 
   // "admin.workflow.item.workflow": "Workflow",
-  "admin.workflow.item.workflow": "Workflow",
+  "admin.workflow.item.workflow": "En traitement",
 
   // "admin.workflow.item.delete": "Delete",
   "admin.workflow.item.delete": "Supprimer",
@@ -899,8 +899,8 @@
 
   // "bitstream-request-a-copy.header": "Request a copy of the file",
   "bitstream-request-a-copy.header": "Demander une copie du fichier",
-
-  // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
+  
+   // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
   "bitstream-request-a-copy.intro": "Entrer les informations suivantes pour demander une copie de l'élément suivant : ",
 
   // "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
@@ -943,7 +943,7 @@
   "bitstream-request-a-copy.submit": "Demander une copie",
 
   // "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
-  "bitstream-request-a-copy.submit.success": "La demande d'Item a été soumise avec succès.",
+  "bitstream-request-a-copy.submit.success": "Votre demande de copie a été envoyée avec succès.",
 
   // "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
   "bitstream-request-a-copy.submit.error": "Un problème est survenu lors de la soumission de la demande d'Item",
@@ -1215,6 +1215,17 @@
   // "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
   "collection.edit.tabs.authorizations.title": "Édition de collection - Autorisations",
 
+   //"collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
+  "collection.edit.item.authorizations.load-bundle-button": "Charger plus de Bundles",
+  
+  //"collection.edit.item.authorizations.load-more-button": "Load more",
+  "collection.edit.item.authorizations.load-more-button": "Charger plus",
+  
+  //"collection.edit.item.authorizations.show-bitstreams-button": "Show bitstream policies for bundle",
+  "collection.edit.item.authorizations.show-bitstreams-button": "Afficher les politiques de Bitstream pour le Bundle",
+
+  
+  
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
   "collection.edit.tabs.metadata.head": "Éditer les Métadonnées",
 
@@ -1795,7 +1806,7 @@
   "curation.form.handle.hint": "Aide : Saisir [votre-préfixe-handle]/0 afin de lancer une tâche de conservation sur l'entièreté du site (ceci peut ne pas être supporté pour toutes les tâches)",
 
   // "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
-  "deny-request-copy.email.message": "Cher {{ recipientName }},\NEn réponse à votre demande, j'ai le regret de vous informer qu'il n'est pas possible de vous envoyer une copie du ou des fichiers que vous avez demandés, concernant le document : \"{{ itemUrl }}\" ({{ itemName }}), dont je suis l'auteur(e).\n\nCordialement,\n{{ authorName }} <{{ auteurEmail }}>",
+  "deny-request-copy.email.message": "Bonjour {{ recipientName }},\nEn réponse à votre demande, j'ai le regret de vous informer qu'il nous est impossible de vous envoyer une copie du document que vous avez demandé: ({{ itemName }})  \"{{ itemUrl }}\".\n\nCordialement,\n{{ authorName }} <{{ auteurEmail }}>",
 
   // "deny-request-copy.email.subject": "Request copy of document",
   "deny-request-copy.email.subject": "Demander une copie du document",
@@ -2909,6 +2920,13 @@
 
   // "item.search.title": "Item Search",
   "item.search.title": "Recherche d'Items",
+  
+  // "item.truncatable-part.show-more": "Show more",
+  "item.truncatable-part.show-more": "Voir plus",
+
+  //"item.truncatable-part.show-less": "Collapse",
+  "item.truncatable-part.show-less": "Réduire",
+  
 
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Résumé",
@@ -3572,6 +3590,9 @@
 
   // "menu.section.processes": "Processes",
   "menu.section.processes": "Processus",
+  
+  // "menu.section.health": "Health",
+  "menu.section.health": "Santé du système",
 
   // "menu.section.registries": "Registries",
   "menu.section.registries": "Registres",
@@ -3626,9 +3647,6 @@
 
   // "mydspace.description": "",
   "mydspace.description": "",
-
-  // "mydspace.general.text-here": "here",
-  "mydspace.general.text-here": "ici",
 
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
   "mydspace.messages.controller-help": "Sélectionner cette option pour envoyer un message au déposant.",
@@ -3709,7 +3727,7 @@
   "mydspace.search-form.placeholder": "Rechercher dans mon compte DSpace...",
 
   // "mydspace.show.workflow": "Workflow tasks",
-  "mydspace.show.workflow": "Tâches du Workflow",
+  "mydspace.show.workflow": "Tableau de suivi",
 
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Vos dépôts",
@@ -3724,10 +3742,10 @@
   "mydspace.status.waiting-for-controller": "En attente d'assignation",
 
   // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Workflow",
+  "mydspace.status.workflow": "En traitement",
 
   // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Espace de travail",
+  "mydspace.status.workspace": "Dépôts en cours",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Mon compte DSpace",
@@ -3743,9 +3761,6 @@
 
   // "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
   "mydspace.upload.upload-multiple-successful": "{{qty}} nouveaux Items créés dans l'espace de travail.",
-
-  // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
-  "mydspace.upload.upload-successful": "Nouvel item créé dans l'espace de travail. Cliquer {{here}} pour l'éditer.",
 
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Afficher",
@@ -4808,6 +4823,9 @@
 
   // "default.search.results.head": "Search Results",
   "default.search.results.head": "Résultats de recherche",
+  
+  // "default-relationships.search.results.head": "Search Results",
+   "default-relationships.search.results.head": "Résultats de recherche",
 
   // "search.sidebar.close": "Back to results",
   "search.sidebar.close": "Retour aux résultats",
@@ -5802,7 +5820,8 @@
   // "uploader.or": ", or ",
   "uploader.or": ", ou ",
 
-  // "uploader.processing": "Processing",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
+  // TODO Source message changed - Revise the translation
   "uploader.processing": "En cours de traitement",
 
   // "uploader.queue-length": "Queue length",
@@ -5824,7 +5843,7 @@
   "workflowAdmin.search.results.head": "Workflow Administrateur",
 
   // "workflow.search.results.head": "Workflow tasks",
-  "workflow.search.results.head": "tâches du Workflow",
+  "workflow.search.results.head": "Tableau de suivi",
 
   // "workflow-item.edit.breadcrumbs": "Edit workflowitem",
   "workflow-item.edit.breadcrumbs": "Éditer l'Item du Workflow",

@@ -181,7 +181,7 @@ describe('ProfilePageComponent', () => {
 
         beforeEach(() => {
           component.setPasswordValue('');
-
+          component.setCurrentPasswordValue('current-password');
           result = component.updateSecurity();
         });
 
@@ -200,6 +200,7 @@ describe('ProfilePageComponent', () => {
         beforeEach(() => {
           component.setPasswordValue('test');
           component.setInvalid(true);
+          component.setCurrentPasswordValue('current-password');
           result = component.updateSecurity();
         });
 
@@ -216,8 +217,11 @@ describe('ProfilePageComponent', () => {
         beforeEach(() => {
           component.setPasswordValue('testest');
           component.setInvalid(false);
+          component.setCurrentPasswordValue('current-password');
 
-          operations = [{ op: 'add', path: '/password', value: 'testest' }];
+          operations = [
+            { 'op': 'add', 'path': '/password', 'value': { 'new_password': 'testest', 'current_password': 'current-password' } }
+          ];
           result = component.updateSecurity();
         });
 
@@ -227,6 +231,28 @@ describe('ProfilePageComponent', () => {
 
         it('should return call epersonService.patch', () => {
           expect(epersonService.patch).toHaveBeenCalledWith(user, operations);
+        });
+      });
+
+      describe('when password is filled in, and is valid but return 403', () => {
+        let result;
+        let operations;
+
+        it('should return call epersonService.patch', (done) => {
+          epersonService.patch.and.returnValue(observableOf(Object.assign(new RestResponse(false, 403, 'Error'))));
+          component.setPasswordValue('testest');
+          component.setInvalid(false);
+          component.setCurrentPasswordValue('current-password');
+          operations = [
+            { 'op': 'add', 'path': '/password', 'value': {'new_password': 'testest', 'current_password': 'current-password'  }}
+          ];
+          result = component.updateSecurity();
+          epersonService.patch(user, operations).subscribe((response) => {
+            expect(response.statusCode).toEqual(403);
+            done();
+          });
+          expect(epersonService.patch).toHaveBeenCalledWith(user, operations);
+          expect(result).toEqual(true);
         });
       });
     });

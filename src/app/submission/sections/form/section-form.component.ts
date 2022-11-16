@@ -10,7 +10,7 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { SectionModelComponent } from '../models/section.model';
-import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
+import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { hasValue, isEmpty, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
@@ -132,7 +132,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    * @param {FormBuilderService} formBuilderService
    * @param {SectionFormOperationsService} formOperationsService
    * @param {FormService} formService
-   * @param {SubmissionFormsConfigService} formConfigService
+   * @param {SubmissionFormsConfigDataService} formConfigService
    * @param {NotificationsService} notificationsService
    * @param {SectionsService} sectionService
    * @param {SubmissionService} submissionService
@@ -149,7 +149,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
               protected formBuilderService: FormBuilderService,
               protected formOperationsService: SectionFormOperationsService,
               protected formService: FormService,
-              protected formConfigService: SubmissionFormsConfigService,
+              protected formConfigService: SubmissionFormsConfigDataService,
               protected notificationsService: NotificationsService,
               protected sectionService: SectionsService,
               protected submissionService: SubmissionService,

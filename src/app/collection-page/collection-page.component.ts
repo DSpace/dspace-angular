@@ -26,6 +26,7 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { getCollectionPageRoute } from './collection-page-routing-paths';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
+import { BROWSE_LINKS_TO_FOLLOW } from '../core/browse/browse.service';
 
 @Component({
   selector: 'ds-collection-page',
@@ -72,6 +73,7 @@ export class CollectionPageComponent implements OnInit {
     this.paginationConfig.pageSize = 5;
     this.paginationConfig.currentPage = 1;
     this.sortConfig = new SortOptions('dc.date.accessioned', SortDirection.DESC);
+
   }
 
   ngOnInit(): void {
@@ -100,14 +102,15 @@ export class CollectionPageComponent implements OnInit {
         getFirstSucceededRemoteData(),
         map((rd) => rd.payload.id),
         switchMap((id: string) => {
-          return this.searchService.search(
+          return this.searchService.search<Item>(
             new PaginatedSearchOptions({
               scope: id,
               pagination: currentPagination,
               sort: currentSort,
-                dsoTypes: [DSpaceObjectType.ITEM],
-                forcedEmbeddedKeys: ['metrics']
-            })).pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
+              dsoTypes: [DSpaceObjectType.ITEM],
+              forcedEmbeddedKeys: ['metrics']
+            }), null, true, true, ...BROWSE_LINKS_TO_FOLLOW)
+            .pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
         }),
         startWith(undefined) // Make sure switching pages shows loading component
       )

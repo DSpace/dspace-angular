@@ -17,4 +17,15 @@ import {
  * The component for displaying a list element for an item search result of the type Organisation Unit
  */
 export class OrgUnitSearchResultListElementComponent extends ItemSearchResultListElementComponent {
+
+  /**
+   * Display thumbnail if required by configuration
+   */
+  showThumbnails: boolean;
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
+  }
+
 }

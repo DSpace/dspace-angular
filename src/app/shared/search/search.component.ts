@@ -41,8 +41,9 @@ import { SelectionConfig } from './search-results/search-results.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { environment } from 'src/environments/environment';
-import { SearchManager } from '../../core/browse/search-manager';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
+import { SearchManager } from '../../core/browse/search-manager';
 
 @Component({
   selector: 'ds-search',
@@ -195,6 +196,11 @@ export class SearchComponent implements OnInit, OnDestroy {
    * Defines whether to show the toggle button to Show/Hide chart
    */
   @Input() showChartsToggle = false;
+
+  /**
+   * Whether or not to track search statistics by sending updates to the rest api
+   */
+  @Input() trackStatistics = false;
 
   /**
    * For chart regular expression
@@ -451,7 +457,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   private retrieveFilters(searchOptions: PaginatedSearchOptions) {
     this.filtersRD$.next(null);
     this.chartFiltersRD$.next(null);
-    this.service.getConfig(searchOptions.scope, searchOptions.configuration).pipe(
+    this.searchConfigService.getConfig(searchOptions.scope, searchOptions.configuration).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((filtersRD: RemoteData<SearchFilterConfig[]>) => {
       const filtersPayload = filtersRD.payload.filter((entry: SearchFilterConfig) =>
@@ -506,11 +512,17 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.useCachedVersionIfAvailable,
       true,
       followLink<Item>('thumbnail', { isOptional: true }),
+      followLink<SubmissionObject>('item', { isOptional: true }, followLink<Item>('thumbnail', { isOptional: true })) as any,
       followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
     ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
-        if (results.hasSucceeded && results.payload?.page?.length > 0) {
-          this.resultFound.emit(results.payload);
+        if (results.hasSucceeded) {
+          if (this.trackStatistics) {
+            this.service.trackSearch(searchOptions, results.payload);
+          }
+          if (results.payload?.page?.length > 0) {
+            this.resultFound.emit(results.payload);
+          }
         }
         this.resultsRD$.next(results);
       });
@@ -540,6 +552,5 @@ export class SearchComponent implements OnInit, OnDestroy {
   toggleSidebar() {
     this.sidebarService.toggle();
   }
-
 
 }

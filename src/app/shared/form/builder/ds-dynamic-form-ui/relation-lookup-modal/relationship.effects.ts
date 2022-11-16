@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { RelationshipService } from '../../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
 import {
   DEBOUNCE_TIME_OPERATOR,
   getFirstSucceededRemoteData,
@@ -19,7 +19,7 @@ import { Item } from '../../../../../core/shared/item.model';
 import { hasNoValue, hasValue, hasValueOperator } from '../../../../empty.util';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
-import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
+import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
 import { SaveSubmissionSectionFormSuccessAction } from '../../../../../submission/objects/submission-objects.actions';
 import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
@@ -151,8 +151,8 @@ export class RelationshipEffects {
     ));
 
   constructor(private actions$: Actions,
-              private relationshipService: RelationshipService,
-              private relationshipTypeService: RelationshipTypeService,
+              private relationshipService: RelationshipDataService,
+              private relationshipTypeService: RelationshipTypeDataService,
               private submissionObjectService: SubmissionObjectDataService,
               private store: Store<SubmissionState>,
               private objectCache: ObjectCacheService,

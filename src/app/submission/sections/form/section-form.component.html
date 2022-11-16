@@ -1,4 +1,4 @@
-<ds-loading *ngIf="isLoading" message="Loading..."></ds-loading>
+<ds-themed-loading *ngIf="isLoading" message="Loading..."></ds-themed-loading>
 <ds-form *ngIf="!isLoading && formModel" #formRef="formComponent"
          [formId]="formId"
          [formModel]="formModel"

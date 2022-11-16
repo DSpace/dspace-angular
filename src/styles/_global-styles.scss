@@ -162,3 +162,69 @@ button.switch {
     border-bottom: inherit !important;
   }
 }
+
+.preserve-line-breaks {
+  white-space: pre-line;
+}
+
+/* Thumbnail styles */
+.hide-placeholder-text {
+  .thumbnail-placeholder {
+    color: transparent !important;
+  }
+}
+
+/* Used to hide the thumbnail column in modals. */
+.hide-modal-thumbnail-column {
+  .modal-body ds-listable-object-component-loader div.row > div:first-child {
+    display: none;
+  }
+  .modal-body ds-listable-object-component-loader div.row > div:nth-child(2) {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* The font sizes used in "no thumbnail" placeholder */
+.thumb-font-0 {
+  .thumbnail-placeholder {
+    @media screen and (max-width: map-get($grid-breakpoints, lg)) {
+      font-size: 0.7rem;
+      padding: 0.2rem;
+    }
+    @media screen and (max-width: map-get($grid-breakpoints, sm)) {
+      font-size: 0.6rem;
+      padding: 0.1rem;
+    }
+    font-size: 0.4rem;
+    padding: 0.1rem;
+  }
+}
+.thumb-font-1 {
+  .thumbnail-placeholder {
+    @media screen and (max-width: map-get($grid-breakpoints, sm)) {
+      font-size: 0.9rem;
+      padding: 0.1rem;
+    }
+    @media screen and (max-width: 950px) {
+      font-size: 0.4rem;
+      padding: 0.1rem;
+    }
+    font-size: 0.5rem;
+    padding: 0.125rem;
+  }
+}
+.thumb-font-2 {
+  .thumbnail-placeholder {
+    font-size: 0.9rem;
+    padding: 0.125rem;
+  }
+}
+.thumb-font-3 {
+  .thumbnail-placeholder {
+    font-size: 1.25rem;
+    padding: 0.5rem;
+  }
+}
+
+

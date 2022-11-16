@@ -98,7 +98,7 @@ describe('ItemPageComponent', () => {
     });
 
     it('should display a loading component', () => {
-      const loading = fixture.debugElement.query(By.css('ds-loading'));
+      const loading = fixture.debugElement.query(By.css('ds-themed-loading'));
       expect(loading.nativeElement).toBeDefined();
     });
   });

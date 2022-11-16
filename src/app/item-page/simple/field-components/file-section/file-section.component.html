@@ -6,7 +6,7 @@
         <span>({{(file?.sizeBytes) | dsFileSize }})</span>
         <span *ngIf="!last" innerHTML="{{separator}}"></span>
       </ds-file-download-link>
-      <ds-loading *ngIf="isLoading" message="{{'loading.default' | translate}}" [showMessage]="false"></ds-loading>
+      <ds-themed-loading *ngIf="isLoading" message="{{'loading.default' | translate}}" [showMessage]="false"></ds-themed-loading>
       <div *ngIf="!isLastPage" class="mt-1" id="view-more">
         <a class="bitstream-view-more btn btn-outline-secondary btn-sm" [routerLink]="[]" (click)="getNextPage()">{{'item.page.bitstreams.view-more' | translate}}</a>
       </div>

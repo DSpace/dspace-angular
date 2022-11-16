@@ -79,7 +79,7 @@ export class EndUserAgreementService {
 
   /**
    * Set the current user's accepted agreement status
-   * When a user is authenticated, set his/her metadata to the provided value
+   * When a user is authenticated, set their metadata to the provided value
    * When no user is authenticated, set the cookie to the provided value
    * @param accepted
    */
