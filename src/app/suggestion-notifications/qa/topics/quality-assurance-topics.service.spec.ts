@@ -2,7 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { QualityAssuranceTopicRestService } from '../../../core/suggestion-notifications/qa/topics/quality-assurance-topic-rest.service';
+import {
+  QualityAssuranceTopicDataService
+} from '../../../core/suggestion-notifications/qa/topics/quality-assurance-topic-data.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import {
   getMockQualityAssuranceTopicRestService,
@@ -13,11 +15,11 @@ import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.ut
 import { cold } from 'jasmine-marbles';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
-import {FindListOptions} from '../../../core/data/find-list-options.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 describe('QualityAssuranceTopicsService', () => {
   let service: QualityAssuranceTopicsService;
-  let restService: QualityAssuranceTopicRestService;
+  let restService: QualityAssuranceTopicDataService;
   let serviceAsAny: any;
   let restServiceAsAny: any;
 
@@ -31,14 +33,14 @@ describe('QualityAssuranceTopicsService', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       providers: [
-        { provide: QualityAssuranceTopicRestService, useClass: getMockQualityAssuranceTopicRestService },
+        { provide: QualityAssuranceTopicDataService, useClass: getMockQualityAssuranceTopicRestService },
         { provide: QualityAssuranceTopicsService, useValue: service }
       ]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    restService = TestBed.get(QualityAssuranceTopicRestService);
+    restService = TestBed.inject(QualityAssuranceTopicDataService);
     restServiceAsAny = restService;
     restServiceAsAny.getTopics.and.returnValue(observableOf(paginatedListRD));
     service = new QualityAssuranceTopicsService(restService);

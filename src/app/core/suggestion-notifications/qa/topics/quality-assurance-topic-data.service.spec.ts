@@ -13,16 +13,16 @@ import { PageInfo } from '../../../shared/page-info.model';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
+import { QualityAssuranceTopicDataService } from './quality-assurance-topic-data.service';
 import {
-  qualityAssuranceSourceObjectMoreAbstract,
-  qualityAssuranceSourceObjectMorePid
+  qualityAssuranceTopicObjectMoreAbstract,
+  qualityAssuranceTopicObjectMorePid
 } from '../../../../shared/mocks/notifications.mock';
 import { RequestEntry } from '../../../data/request-entry.model';
-import { QualityAssuranceSourceRestService } from './quality-assurance-source-rest.service';
 
-describe('QualityAssuranceSourceRestService', () => {
+describe('QualityAssuranceTopicDataService', () => {
   let scheduler: TestScheduler;
-  let service: QualityAssuranceSourceRestService;
+  let service: QualityAssuranceTopicDataService;
   let responseCacheEntry: RequestEntry;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
@@ -32,13 +32,13 @@ describe('QualityAssuranceSourceRestService', () => {
   let http: HttpClient;
   let comparator: any;
 
-  const endpointURL = 'https://rest.api/rest/api/integration/qualityassurancesources';
+  const endpointURL = 'https://rest.api/rest/api/integration/qualityassurancetopics';
   const requestUUID = '8b3c913a-5a4b-438b-9181-be1a5b4a1c8a';
 
   const pageInfo = new PageInfo();
-  const array = [qualityAssuranceSourceObjectMorePid, qualityAssuranceSourceObjectMoreAbstract];
+  const array = [qualityAssuranceTopicObjectMorePid, qualityAssuranceTopicObjectMoreAbstract];
   const paginatedList = buildPaginatedList(pageInfo, array);
-  const qaSourceObjectRD = createSuccessfulRemoteDataObject(qualityAssuranceSourceObjectMorePid);
+  const qaTopicObjectRD = createSuccessfulRemoteDataObject(qualityAssuranceTopicObjectMorePid);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
   beforeEach(() => {
@@ -56,7 +56,7 @@ describe('QualityAssuranceSourceRestService', () => {
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('(a)', {
-        a: qaSourceObjectRD
+        a: qaTopicObjectRD
       }),
       buildList: cold('(a)', {
         a: paginatedListRD
@@ -72,7 +72,7 @@ describe('QualityAssuranceSourceRestService', () => {
     http = {} as HttpClient;
     comparator = {} as any;
 
-    service = new QualityAssuranceSourceRestService(
+    service = new QualityAssuranceTopicDataService(
       requestService,
       rdbService,
       objectCache,
@@ -80,22 +80,22 @@ describe('QualityAssuranceSourceRestService', () => {
       notificationsService
     );
 
-    spyOn((service as any), 'findListByHref').and.callThrough();
-    spyOn((service as any), 'findByHref').and.callThrough();
+    spyOn((service as any).findAllData, 'findAll').and.callThrough();
+    spyOn((service as any), 'findById').and.callThrough();
   });
 
-  describe('getSources', () => {
+  describe('getTopics', () => {
     it('should call findListByHref', (done) => {
-      service.getSources().subscribe(
+      service.getTopics().subscribe(
         (res) => {
-          expect((service as any).findListByHref).toHaveBeenCalledWith(endpointURL, {}, true, true);
+          expect((service as any).findAllData.findAll).toHaveBeenCalledWith({}, true, true);
         }
       );
       done();
     });
 
-    it('should return a RemoteData<PaginatedList<QualityAssuranceSourceObject>> for the object with the given URL', () => {
-      const result = service.getSources();
+    it('should return a RemoteData<PaginatedList<QualityAssuranceTopicObject>> for the object with the given URL', () => {
+      const result = service.getTopics();
       const expected = cold('(a)', {
         a: paginatedListRD
       });
@@ -103,20 +103,20 @@ describe('QualityAssuranceSourceRestService', () => {
     });
   });
 
-  describe('getSource', () => {
+  describe('getTopic', () => {
     it('should call findByHref', (done) => {
-      service.getSource(qualityAssuranceSourceObjectMorePid.id).subscribe(
+      service.getTopic(qualityAssuranceTopicObjectMorePid.id).subscribe(
         (res) => {
-          expect((service as any).findByHref).toHaveBeenCalledWith(endpointURL + '/' + qualityAssuranceSourceObjectMorePid.id, true, true);
+          expect((service as any).findById).toHaveBeenCalledWith(qualityAssuranceTopicObjectMorePid.id, true, true);
         }
       );
       done();
     });
 
-    it('should return a RemoteData<QualityAssuranceSourceObject> for the object with the given URL', () => {
-      const result = service.getSource(qualityAssuranceSourceObjectMorePid.id);
+    it('should return a RemoteData<QualityAssuranceTopicObject> for the object with the given URL', () => {
+      const result = service.getTopic(qualityAssuranceTopicObjectMorePid.id);
       const expected = cold('(a)', {
-        a: qaSourceObjectRD
+        a: qaTopicObjectRD
       });
       expect(result).toBeObservable(expected);
     });

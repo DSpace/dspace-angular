@@ -1,9 +1,17 @@
 import { of as observableOf } from 'rxjs';
 import { ResourceType } from '../../core/shared/resource-type';
-import { QualityAssuranceTopicObject } from '../../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
-import { QualityAssuranceEventObject } from '../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
-import { QualityAssuranceTopicRestService } from '../../core/suggestion-notifications/qa/topics/quality-assurance-topic-rest.service';
-import { QualityAssuranceEventRestService } from '../../core/suggestion-notifications/qa/events/quality-assurance-event-rest.service';
+import {
+  QualityAssuranceTopicObject
+} from '../../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
+import {
+  QualityAssuranceEventObject
+} from '../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
+import {
+  QualityAssuranceTopicDataService
+} from '../../core/suggestion-notifications/qa/topics/quality-assurance-topic-data.service';
+import {
+  QualityAssuranceEventDataService
+} from '../../core/suggestion-notifications/qa/events/quality-assurance-event-data.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import {
@@ -12,7 +20,9 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../remote-data.utils';
 import { SearchResult } from '../search/models/search-result.model';
-import { QualityAssuranceSourceObject } from '../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
+import {
+  QualityAssuranceSourceObject
+} from '../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
@@ -1814,30 +1824,30 @@ export function getMockNotificationsStateService(): any {
 }
 
 /**
- * Mock for [[QualityAssuranceSourceRestService]]
+ * Mock for [[QualityAssuranceSourceDataService]]
  */
- export function getMockQualityAssuranceSourceRestService(): QualityAssuranceTopicRestService {
-  return jasmine.createSpyObj('QualityAssuranceSourceRestService', {
+ export function getMockQualityAssuranceSourceRestService(): QualityAssuranceTopicDataService {
+  return jasmine.createSpyObj('QualityAssuranceSourceDataService', {
     getSources: jasmine.createSpy('getSources'),
     getSource: jasmine.createSpy('getSource'),
   });
 }
 
 /**
- * Mock for [[QualityAssuranceTopicRestService]]
+ * Mock for [[QualityAssuranceTopicDataService]]
  */
-export function getMockQualityAssuranceTopicRestService(): QualityAssuranceTopicRestService {
-  return jasmine.createSpyObj('QualityAssuranceTopicRestService', {
+export function getMockQualityAssuranceTopicRestService(): QualityAssuranceTopicDataService {
+  return jasmine.createSpyObj('QualityAssuranceTopicDataService', {
     getTopics: jasmine.createSpy('getTopics'),
     getTopic: jasmine.createSpy('getTopic'),
   });
 }
 
 /**
- * Mock for [[QualityAssuranceEventRestService]]
+ * Mock for [[QualityAssuranceEventDataService]]
  */
-export function getMockQualityAssuranceEventRestService(): QualityAssuranceEventRestService {
-  return jasmine.createSpyObj('QualityAssuranceEventRestService', {
+export function getMockQualityAssuranceEventRestService(): QualityAssuranceEventDataService {
+  return jasmine.createSpyObj('QualityAssuranceEventDataService', {
     getEventsByTopic: jasmine.createSpy('getEventsByTopic'),
     getEvent: jasmine.createSpy('getEvent'),
     patchEvent: jasmine.createSpy('patchEvent'),
@@ -1848,7 +1858,7 @@ export function getMockQualityAssuranceEventRestService(): QualityAssuranceEvent
 }
 
 /**
- * Mock for [[QualityAssuranceEventRestService]]
+ * Mock for [[QualityAssuranceEventDataService]]
  */
 export function getMockSuggestionsService(): any {
   return jasmine.createSpyObj('SuggestionsService', {

@@ -31,7 +31,7 @@ import { DeleteByIDRequest, PostRequest } from '../../../data/request.models';
  */
 @Injectable()
 @dataService(QUALITY_ASSURANCE_EVENT_OBJECT)
-export class QualityAssuranceEventRestService extends IdentifiableDataService<QualityAssuranceEventObject> {
+export class QualityAssuranceEventDataService extends IdentifiableDataService<QualityAssuranceEventObject> {
 
   private createData: CreateData<QualityAssuranceEventObject>;
   private searchData: SearchData<QualityAssuranceEventObject>;

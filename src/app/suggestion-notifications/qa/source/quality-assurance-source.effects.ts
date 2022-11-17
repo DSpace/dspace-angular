@@ -19,8 +19,8 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { QualityAssuranceSourceService } from './quality-assurance-source.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
-  QualityAssuranceSourceRestService
-} from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-rest.service';
+  QualityAssuranceSourceDataService
+} from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
 
 /**
  * Provides effect methods for the Quality Assurance source actions.
@@ -79,7 +79,7 @@ export class QualityAssuranceSourceEffects {
    * @param {TranslateService} translate
    * @param {NotificationsService} notificationsService
    * @param {QualityAssuranceSourceService} qualityAssuranceSourceService
-   * @param {QualityAssuranceSourceRestService} qualityAssuranceSourceDataService
+   * @param {QualityAssuranceSourceDataService} qualityAssuranceSourceDataService
    */
   constructor(
     private actions$: Actions,
@@ -87,7 +87,7 @@ export class QualityAssuranceSourceEffects {
     private translate: TranslateService,
     private notificationsService: NotificationsService,
     private qualityAssuranceSourceService: QualityAssuranceSourceService,
-    private qualityAssuranceSourceDataService: QualityAssuranceSourceRestService
+    private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService
   ) {
   }
 }

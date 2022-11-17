@@ -6,8 +6,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { of as observableOf } from 'rxjs';
 import {
-  QualityAssuranceEventRestService
-} from '../../../core/suggestion-notifications/qa/events/quality-assurance-event-rest.service';
+  QualityAssuranceEventDataService
+} from '../../../core/suggestion-notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceEventsComponent } from './quality-assurance-events.component';
 import {
   getMockQualityAssuranceEventRestService,
@@ -113,7 +113,7 @@ describe('QualityAssuranceEventsComponent test suite', () => {
       ],
       providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub(activatedRouteParamsMap, activatedRouteParams) },
-        { provide: QualityAssuranceEventRestService, useValue: qualityAssuranceEventRestServiceStub },
+        { provide: QualityAssuranceEventDataService, useValue: qualityAssuranceEventRestServiceStub },
         { provide: NgbModal, useValue: modalStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: TranslateService, useValue: getMockTranslateService() },

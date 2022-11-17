@@ -19,8 +19,8 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
-  QualityAssuranceTopicRestService
-} from '../../../core/suggestion-notifications/qa/topics/quality-assurance-topic-rest.service';
+  QualityAssuranceTopicDataService
+} from '../../../core/suggestion-notifications/qa/topics/quality-assurance-topic-data.service';
 
 /**
  * Provides effect methods for the Quality Assurance topics actions.
@@ -79,7 +79,7 @@ export class QualityAssuranceTopicsEffects {
    * @param {TranslateService} translate
    * @param {NotificationsService} notificationsService
    * @param {QualityAssuranceTopicsService} qualityAssuranceTopicService
-   * @param {QualityAssuranceTopicRestService} qualityAssuranceTopicDataService
+   * @param {QualityAssuranceTopicDataService} qualityAssuranceTopicDataService
    */
   constructor(
     private actions$: Actions,
@@ -87,6 +87,6 @@ export class QualityAssuranceTopicsEffects {
     private translate: TranslateService,
     private notificationsService: NotificationsService,
     private qualityAssuranceTopicService: QualityAssuranceTopicsService,
-    private qualityAssuranceTopicDataService: QualityAssuranceTopicRestService
+    private qualityAssuranceTopicDataService: QualityAssuranceTopicDataService
   ) { }
 }

@@ -13,7 +13,7 @@ import { PageInfo } from '../../../shared/page-info.model';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
-import { QualityAssuranceEventRestService } from './quality-assurance-event-rest.service';
+import { QualityAssuranceEventDataService } from './quality-assurance-event-data.service';
 import {
   qualityAssuranceEventObjectMissingPid,
   qualityAssuranceEventObjectMissingPid2,
@@ -23,9 +23,9 @@ import { ReplaceOperation } from 'fast-json-patch';
 import { RequestEntry } from '../../../data/request-entry.model';
 import { FindListOptions } from '../../../data/find-list-options.model';
 
-describe('QualityAssuranceEventRestService', () => {
+describe('QualityAssuranceEventDataService', () => {
   let scheduler: TestScheduler;
-  let service: QualityAssuranceEventRestService;
+  let service: QualityAssuranceEventDataService;
   let serviceASAny: any;
   let responseCacheEntry: RequestEntry;
   let responseCacheEntryB: RequestEntry;
@@ -100,7 +100,7 @@ describe('QualityAssuranceEventRestService', () => {
     http = {} as HttpClient;
     comparator = {} as any;
 
-    service = new QualityAssuranceEventRestService(
+    service = new QualityAssuranceEventDataService(
       requestService,
       rdbService,
       objectCache,

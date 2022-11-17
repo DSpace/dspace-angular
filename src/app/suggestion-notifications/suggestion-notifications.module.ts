@@ -13,19 +13,19 @@ import { suggestionNotificationsReducers, SuggestionNotificationsState } from '.
 import { suggestionNotificationsEffects } from './suggestion-notifications-effects';
 import { QualityAssuranceTopicsService } from './qa/topics/quality-assurance-topics.service';
 import {
-  QualityAssuranceTopicRestService
-} from '../core/suggestion-notifications/qa/topics/quality-assurance-topic-rest.service';
+  QualityAssuranceTopicDataService
+} from '../core/suggestion-notifications/qa/topics/quality-assurance-topic-data.service';
 import {
-  QualityAssuranceEventRestService
-} from '../core/suggestion-notifications/qa/events/quality-assurance-event-rest.service';
+  QualityAssuranceEventDataService
+} from '../core/suggestion-notifications/qa/events/quality-assurance-event-data.service';
 import { ProjectEntryImportModalComponent } from './qa/project-entry-import-modal/project-entry-import-modal.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchModule } from '../shared/search/search.module';
 import { QualityAssuranceSourceComponent } from './qa/source/quality-assurance-source.component';
 import { QualityAssuranceSourceService } from './qa/source/quality-assurance-source.service';
 import {
-  QualityAssuranceSourceRestService
-} from '../core/suggestion-notifications/qa/source/quality-assurance-source-rest.service';
+  QualityAssuranceSourceDataService
+} from '../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
 
 const MODULES = [
   CommonModule,
@@ -53,9 +53,9 @@ const PROVIDERS = [
   SuggestionNotificationsStateService,
   QualityAssuranceTopicsService,
   QualityAssuranceSourceService,
-  QualityAssuranceTopicRestService,
-  QualityAssuranceSourceRestService,
-  QualityAssuranceEventRestService
+  QualityAssuranceTopicDataService,
+  QualityAssuranceSourceDataService,
+  QualityAssuranceEventDataService
 ];
 
 @NgModule({

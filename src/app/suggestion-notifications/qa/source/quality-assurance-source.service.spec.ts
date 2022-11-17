@@ -12,13 +12,13 @@ import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.ut
 import { cold } from 'jasmine-marbles';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import {
-  QualityAssuranceSourceRestService
-} from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-rest.service';
+  QualityAssuranceSourceDataService
+} from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 describe('QualityAssuranceSourceService', () => {
   let service: QualityAssuranceSourceService;
-  let restService: QualityAssuranceSourceRestService;
+  let restService: QualityAssuranceSourceDataService;
   let serviceAsAny: any;
   let restServiceAsAny: any;
 
@@ -32,14 +32,14 @@ describe('QualityAssuranceSourceService', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       providers: [
-        { provide: QualityAssuranceSourceRestService, useClass: getMockQualityAssuranceSourceRestService },
+        { provide: QualityAssuranceSourceDataService, useClass: getMockQualityAssuranceSourceRestService },
         { provide: QualityAssuranceSourceService, useValue: service }
       ]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    restService = TestBed.get(QualityAssuranceSourceRestService);
+    restService = TestBed.inject(QualityAssuranceSourceDataService);
     restServiceAsAny = restService;
     restServiceAsAny.getSources.and.returnValue(observableOf(paginatedListRD));
     service = new QualityAssuranceSourceService(restService);

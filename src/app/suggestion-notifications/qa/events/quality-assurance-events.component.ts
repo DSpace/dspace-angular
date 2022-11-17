@@ -14,8 +14,8 @@ import {
   QualityAssuranceEventObject
 } from '../../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
 import {
-  QualityAssuranceEventRestService
-} from '../../../core/suggestion-notifications/qa/events/quality-assurance-event-rest.service';
+  QualityAssuranceEventDataService
+} from '../../../core/suggestion-notifications/qa/events/quality-assurance-event-data.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -110,7 +110,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    * @param {ActivatedRoute} activatedRoute
    * @param {NgbModal} modalService
    * @param {NotificationsService} notificationsService
-   * @param {QualityAssuranceEventRestService} qualityAssuranceEventRestService
+   * @param {QualityAssuranceEventDataService} qualityAssuranceEventRestService
    * @param {PaginationService} paginationService
    * @param {TranslateService} translateService
    */
@@ -118,7 +118,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private notificationsService: NotificationsService,
-    private qualityAssuranceEventRestService: QualityAssuranceEventRestService,
+    private qualityAssuranceEventRestService: QualityAssuranceEventDataService,
     private paginationService: PaginationService,
     private translateService: TranslateService
   ) {

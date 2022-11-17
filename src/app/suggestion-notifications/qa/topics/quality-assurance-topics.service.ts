@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
-  QualityAssuranceTopicRestService
-} from '../../../core/suggestion-notifications/qa/topics/quality-assurance-topic-rest.service';
+  QualityAssuranceTopicDataService
+} from '../../../core/suggestion-notifications/qa/topics/quality-assurance-topic-data.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
@@ -22,10 +22,10 @@ export class QualityAssuranceTopicsService {
 
   /**
    * Initialize the service variables.
-   * @param {QualityAssuranceTopicRestService} qualityAssuranceTopicRestService
+   * @param {QualityAssuranceTopicDataService} qualityAssuranceTopicRestService
    */
   constructor(
-    private qualityAssuranceTopicRestService: QualityAssuranceTopicRestService
+    private qualityAssuranceTopicRestService: QualityAssuranceTopicDataService
   ) { }
 
   /**

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { mergeMap, take } from 'rxjs/operators';
 
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
@@ -16,13 +15,16 @@ import { FindListOptions } from '../../../data/find-list-options.model';
 import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
 import { dataService } from '../../../data/base/data-service.decorator';
 import { QUALITY_ASSURANCE_TOPIC_OBJECT } from '../models/quality-assurance-topic-object.resource-type';
+import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';
 
 /**
  * The service handling all Quality Assurance topic REST requests.
  */
 @Injectable()
 @dataService(QUALITY_ASSURANCE_TOPIC_OBJECT)
-export class QualityAssuranceTopicRestService extends IdentifiableDataService<QualityAssuranceTopicObject> {
+export class QualityAssuranceTopicDataService extends IdentifiableDataService<QualityAssuranceTopicObject> {
+
+  private findAllData: FindAllData<QualityAssuranceTopicObject>;
 
   /**
    * Initialize service variables
@@ -40,23 +42,24 @@ export class QualityAssuranceTopicRestService extends IdentifiableDataService<Qu
     protected notificationsService: NotificationsService
   ) {
     super('qualityassurancetopics', requestService, rdbService, objectCache, halService);
+    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
    * Return the list of Quality Assurance topics.
    *
-   * @param options
-   *    Find list options object.
-   * @param linksToFollow
-   *    List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
+   * @param options                     Find list options object.
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
+   *
    * @return Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>>
    *    The list of Quality Assurance topics.
    */
-  public getTopics(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>> {
-    return this.getBrowseEndpoint(options).pipe(
-      take(1),
-      mergeMap((href: string) => this.findListByHref(href, options, true, true, ...linksToFollow)),
-    );
+  public getTopics(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>> {
+    return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -69,18 +72,17 @@ export class QualityAssuranceTopicRestService extends IdentifiableDataService<Qu
   /**
    * Return a single Quality Assurance topic.
    *
-   * @param id
-   *    The Quality Assurance topic id
-   * @param linksToFollow
-   *    List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
+   * @param id                          The Quality Assurance topic id
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
+   *
    * @return Observable<RemoteData<QualityAssuranceTopicObject>>
    *    The Quality Assurance topic.
    */
-  public getTopic(id: string, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<QualityAssuranceTopicObject>> {
-    const options = {};
-    return this.getBrowseEndpoint(options).pipe(
-      take(1),
-      mergeMap((href: string) => this.findByHref(href + '/' + id, true, true, ...linksToFollow))
-    );
+  public getTopic(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<QualityAssuranceTopicObject>> {
+    return this.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }
