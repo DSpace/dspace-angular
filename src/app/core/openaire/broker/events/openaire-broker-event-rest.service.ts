@@ -1,74 +1,45 @@
 /* eslint-disable max-classes-per-file */
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
+import { find, take } from 'rxjs/operators';
+import { ReplaceOperation } from 'fast-json-patch';
 
-import { CoreState } from '../../../core-state.model';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { RestResponse } from '../../../cache/response.models';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
-import { dataService } from '../../../cache/builders/build-decorators';
+import { dataService } from '../../../data/base/data-service.decorator';
 import { RequestService } from '../../../data/request.service';
 import { FindListOptions } from '../../../data/find-list-options.model';
-import { DataService } from '../../../data/data.service';
-import { ChangeAnalyzer } from '../../../data/change-analyzer';
 import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
 import { RemoteData } from '../../../data/remote-data';
 import { OpenaireBrokerEventObject } from '../models/openaire-broker-event.model';
 import { OPENAIRE_BROKER_EVENT_OBJECT } from '../models/openaire-broker-event-object.resource-type';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../../data/paginated-list.model';
-import { ReplaceOperation } from 'fast-json-patch';
 import { NoContent } from '../../../shared/NoContent.model';
-
-/**
- * A private DataService implementation to delegate specific methods to.
- */
-class DataServiceImpl extends DataService<OpenaireBrokerEventObject> {
-  /**
-   * The REST endpoint.
-   */
-  protected linkPath = 'nbevents';
-
-  /**
-   * Initialize service variables
-   * @param {RequestService} requestService
-   * @param {RemoteDataBuildService} rdbService
-   * @param {Store<CoreState>} store
-   * @param {ObjectCacheService} objectCache
-   * @param {HALEndpointService} halService
-   * @param {NotificationsService} notificationsService
-   * @param {HttpClient} http
-   * @param {ChangeAnalyzer<OpenaireBrokerEventObject>} comparator
-   */
-  constructor(
-    protected requestService: RequestService,
-    protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
-    protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<OpenaireBrokerEventObject>) {
-    super();
-  }
-}
+import { CreateData, CreateDataImpl } from '../../../data/base/create-data';
+import { DeleteData, DeleteDataImpl } from '../../../data/base/delete-data';
+import { SearchData, SearchDataImpl } from '../../../data/base/search-data';
+import { PatchData, PatchDataImpl } from '../../../data/base/patch-data';
+import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
+import { DeleteByIDRequest, PostRequest } from '../../../data/request.models';
+import { hasValue } from '../../../../shared/empty.util';
 
 /**
  * The service handling all OpenAIRE Broker topic REST requests.
  */
 @Injectable()
 @dataService(OPENAIRE_BROKER_EVENT_OBJECT)
-export class OpenaireBrokerEventRestService {
-  /**
-   * A private DataService implementation to delegate specific methods to.
-   */
-  private dataService: DataServiceImpl;
+export class OpenaireBrokerEventRestService extends IdentifiableDataService<OpenaireBrokerEventObject> {
+
+  private createData: CreateData<OpenaireBrokerEventObject>;
+  private searchData: SearchData<OpenaireBrokerEventObject>;
+  private patchData: PatchData<OpenaireBrokerEventObject>;
+  private deleteData: DeleteData<OpenaireBrokerEventObject>;
 
   /**
    * Initialize service variables
@@ -77,7 +48,6 @@ export class OpenaireBrokerEventRestService {
    * @param {ObjectCacheService} objectCache
    * @param {HALEndpointService} halService
    * @param {NotificationsService} notificationsService
-   * @param {HttpClient} http
    * @param {DefaultChangeAnalyzer<OpenaireBrokerEventObject>} comparator
    */
   constructor(
@@ -86,9 +56,13 @@ export class OpenaireBrokerEventRestService {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<OpenaireBrokerEventObject>) {
-      this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
+    protected comparator: DefaultChangeAnalyzer<OpenaireBrokerEventObject>
+  ) {
+    super('nbevents', requestService, rdbService, objectCache, halService);
+    this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
+    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.patchData = new PatchDataImpl<OpenaireBrokerEventObject>(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
@@ -110,14 +84,14 @@ export class OpenaireBrokerEventRestService {
         fieldValue: topic
       }
     ];
-    return this.dataService.searchBy('findByTopic', options, true, true, ...linksToFollow);
+    return this.searchData.searchBy('findByTopic', options, true, true, ...linksToFollow);
   }
 
   /**
    * Clear findByTopic requests from cache
    */
   public clearFindByTopicRequests() {
-    this.requestService.removeByHrefSubstring('findByTopic');
+    this.requestService.setStaleByHrefSubstring('findByTopic');
   }
 
   /**
@@ -131,7 +105,7 @@ export class OpenaireBrokerEventRestService {
    *    The OpenAIRE Broker event.
    */
   public getEvent(id: string, ...linksToFollow: FollowLinkConfig<OpenaireBrokerEventObject>[]): Observable<RemoteData<OpenaireBrokerEventObject>> {
-    return this.dataService.findById(id, true, true, ...linksToFollow);
+    return this.findById(id, true, true, ...linksToFollow);
   }
 
   /**
@@ -154,7 +128,7 @@ export class OpenaireBrokerEventRestService {
         value: status
       }
     ];
-    return this.dataService.patch(dso, operation);
+    return this.patchData.patch(dso, operation);
   }
 
   /**
@@ -168,7 +142,7 @@ export class OpenaireBrokerEventRestService {
    *    The REST response.
    */
   public boundProject(itemId: string, projectId: string): Observable<RemoteData<OpenaireBrokerEventObject>> {
-    return this.dataService.postOnRelated(itemId, projectId);
+    return this.postOnRelated(itemId, projectId);
   }
 
   /**
@@ -180,6 +154,54 @@ export class OpenaireBrokerEventRestService {
    *    The REST response.
    */
   public removeProject(itemId: string): Observable<RemoteData<NoContent>> {
-    return this.dataService.deleteOnRelated(itemId);
+    return this.deleteOnRelated(itemId);
+  }
+
+
+  /**
+   * Perform a delete operation on an endpoint related item. Ex.: endpoint/<itemId>/related
+   * @param objectId The item id
+   * @return the RestResponse as an Observable
+   */
+  private deleteOnRelated(objectId: string): Observable<RemoteData<NoContent>> {
+    const requestId = this.requestService.generateRequestId();
+
+    const hrefObs = this.getIDHrefObs(objectId);
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+    ).subscribe((href: string) => {
+      const request = new DeleteByIDRequest(requestId, href + '/related', objectId);
+      if (hasValue(this.responseMsToLive)) {
+        request.responseMsToLive = this.responseMsToLive;
+      }
+      this.requestService.send(request);
+    });
+
+    return this.rdbService.buildFromRequestUUID<OpenaireBrokerEventObject>(requestId);
+  }
+
+  /**
+   * Perform a post on an endpoint related item with ID. Ex.: endpoint/<itemId>/related?item=<relatedItemId>
+   * @param objectId The item id
+   * @param relatedItemId The related item Id
+   * @param body The optional POST body
+   * @return the RestResponse as an Observable
+   */
+  private postOnRelated(objectId: string, relatedItemId: string, body?: any) {
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getIDHrefObs(objectId);
+
+    hrefObs.pipe(
+      take(1)
+    ).subscribe((href: string) => {
+      const request = new PostRequest(requestId, href + '/related?item=' + relatedItemId, body);
+      if (hasValue(this.responseMsToLive)) {
+        request.responseMsToLive = this.responseMsToLive;
+      }
+      this.requestService.send(request);
+    });
+
+    return this.rdbService.buildFromRequestUUID<OpenaireBrokerEventObject>(requestId);
   }
 }

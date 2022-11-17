@@ -6,7 +6,6 @@ import { cold, getTestScheduler } from 'jasmine-marbles';
 
 import { RequestService } from '../../../data/request.service';
 import { buildPaginatedList } from '../../../data/paginated-list.model';
-import { RequestEntry } from '../../../data/request-entry.model';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
 import { RestResponse } from '../../../cache/response.models';
@@ -14,15 +13,16 @@ import { PageInfo } from '../../../shared/page-info.model';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
-import { OpenaireBrokerTopicRestService } from './openaire-broker-topic-rest.service';
 import {
   openaireBrokerTopicObjectMoreAbstract,
   openaireBrokerTopicObjectMorePid
 } from '../../../../shared/mocks/openaire.mock';
+import { RequestEntry } from '../../../data/request-entry.model';
+import { QualityAssuranceSourceDataService } from './quality-assurance-source-data.service';
 
-describe('OpenaireBrokerTopicRestService', () => {
+describe('QualityAssuranceSourceDataService', () => {
   let scheduler: TestScheduler;
-  let service: OpenaireBrokerTopicRestService;
+  let service: QualityAssuranceSourceDataService;
   let responseCacheEntry: RequestEntry;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
@@ -32,13 +32,13 @@ describe('OpenaireBrokerTopicRestService', () => {
   let http: HttpClient;
   let comparator: any;
 
-  const endpointURL = 'https://rest.api/rest/api/integration/nbtopics';
+  const endpointURL = 'https://rest.api/rest/api/integration/qualityassurancesources';
   const requestUUID = '8b3c913a-5a4b-438b-9181-be1a5b4a1c8a';
 
   const pageInfo = new PageInfo();
-  const array = [ openaireBrokerTopicObjectMorePid, openaireBrokerTopicObjectMoreAbstract ];
+  const array = [openaireBrokerTopicObjectMorePid, openaireBrokerTopicObjectMoreAbstract];
   const paginatedList = buildPaginatedList(pageInfo, array);
-  const brokerTopicObjectRD = createSuccessfulRemoteDataObject(openaireBrokerTopicObjectMorePid);
+  const qaSourceObjectRD = createSuccessfulRemoteDataObject(openaireBrokerTopicObjectMorePid);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
   beforeEach(() => {
@@ -56,7 +56,7 @@ describe('OpenaireBrokerTopicRestService', () => {
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('(a)', {
-        a: brokerTopicObjectRD
+        a: qaSourceObjectRD
       }),
       buildList: cold('(a)', {
         a: paginatedListRD
@@ -65,14 +65,14 @@ describe('OpenaireBrokerTopicRestService', () => {
 
     objectCache = {} as ObjectCacheService;
     halService = jasmine.createSpyObj('halService', {
-       getEndpoint: cold('a|', { a: endpointURL })
+      getEndpoint: cold('a|', { a: endpointURL })
     });
 
     notificationsService = {} as NotificationsService;
     http = {} as HttpClient;
     comparator = {} as any;
 
-    service = new OpenaireBrokerTopicRestService(
+    service = new QualityAssuranceSourceDataService(
       requestService,
       rdbService,
       objectCache,
@@ -80,22 +80,22 @@ describe('OpenaireBrokerTopicRestService', () => {
       notificationsService
     );
 
-    spyOn((service as any), 'findAllByHref').and.callThrough();
-    spyOn((service as any), 'findByHref').and.callThrough();
+    spyOn((service as any).findAllData, 'findAll').and.callThrough();
+    spyOn((service as any), 'findById').and.callThrough();
   });
 
-  describe('getTopics', () => {
-    it('should call findListByHref', (done) => {
-      service.getTopics().subscribe(
+  describe('getSources', () => {
+    it('should call findAll', (done) => {
+      service.getSources().subscribe(
         (res) => {
-          expect((service as any).findListByHref).toHaveBeenCalledWith(endpointURL, {}, true, true);
+          expect((service as any).findAllData.findAll).toHaveBeenCalledWith({}, true, true);
         }
       );
       done();
     });
 
-    it('should return a RemoteData<PaginatedList<OpenaireBrokerTopicObject>> for the object with the given URL', () => {
-      const result = service.getTopics();
+    it('should return a RemoteData<PaginatedList<QualityAssuranceSourceObject>> for the object with the given URL', () => {
+      const result = service.getSources();
       const expected = cold('(a)', {
         a: paginatedListRD
       });
@@ -103,20 +103,20 @@ describe('OpenaireBrokerTopicRestService', () => {
     });
   });
 
-  describe('getTopic', () => {
-    it('should call findByHref', (done) => {
-      service.getTopic(openaireBrokerTopicObjectMorePid.id).subscribe(
+  describe('getSource', () => {
+    it('should call findById', (done) => {
+      service.getSource(openaireBrokerTopicObjectMorePid.id).subscribe(
         (res) => {
-          expect((service as any).findByHref).toHaveBeenCalledWith(endpointURL + '/' + openaireBrokerTopicObjectMorePid.id, true, true);
+          expect((service as any).findById).toHaveBeenCalledWith(openaireBrokerTopicObjectMorePid.id, true, true);
         }
       );
       done();
     });
 
-    it('should return a RemoteData<OpenaireBrokerTopicObject> for the object with the given URL', () => {
-      const result = service.getTopic(openaireBrokerTopicObjectMorePid.id);
+    it('should return a RemoteData<QualityAssuranceSourceObject> for the object with the given URL', () => {
+      const result = service.getSource(openaireBrokerTopicObjectMorePid.id);
       const expected = cold('(a)', {
-        a: brokerTopicObjectRD
+        a: qaSourceObjectRD
       });
       expect(result).toBeObservable(expected);
     });
