@@ -51,7 +51,7 @@ describe('SubmissionSectionAccessesComponent', () => {
 
   const sectionsServiceStub = new SectionsServiceStub();
   const builderService: FormBuilderService = getMockFormBuilderService();
-  const submissionAccessesConfigService: jasmine.SpyObj<SubmissionAccessesConfigService> = getSubmissionAccessesConfigService();
+  const submissionAccessesConfigService: jasmine.SpyObj<SubmissionAccessesConfigDataService> = getSubmissionAccessesConfigService();
   const sectionAccessesService = getSectionAccessesService();
   const sectionFormOperationsService = getMockFormOperationsService();
   const operationsBuilder = jasmine.createSpyObj('operationsBuilder', {

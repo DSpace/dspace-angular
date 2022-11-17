@@ -33,7 +33,7 @@ import { BrowseService } from './browse/browse.service';
 import { RemoteDataBuildService } from './cache/builders/remote-data-build.service';
 import { ObjectCacheService } from './cache/object-cache.service';
 import { SubmissionDefinitionsModel } from './config/models/config-submission-definitions.model';
-import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
+import { SubmissionDefinitionsConfigDataService } from './config/submission-definitions-config-data.service';
 import { SubmissionFormsModel } from './config/models/config-submission-forms.model';
 import { SubmissionSectionModel } from './config/models/config-submission-section.model';
 import { SubmissionUploadsModel } from './config/models/config-submission-uploads.model';
@@ -166,7 +166,6 @@ import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { UsageReport } from './statistics/models/usage-report.model';
 import { SectionDataService } from './layout/section-data.service';
 import { Section } from './layout/models/section.model';
-import { OrcidHistoryService } from './orcid/orcid-history.service';
 import { EditItem } from './submission/models/edititem.model';
 import { EditItemDataService } from './submission/edititem-data.service';
 import { EditItemMode } from './submission/models/edititem-mode.model';
@@ -176,7 +175,6 @@ import { ItemExportFormat } from './itemexportformat/model/item-export-format.mo
 import { MetricsComponentsDataService } from './layout/metrics-components-data.service';
 import { MetricsComponent } from './layout/models/metrics-component.model';
 import { Metric } from './shared/metric.model';
-import { MetricService } from './data/metric.service';
 import { Root } from './data/root.model';
 import { ItemExportFormatService } from './itemexportformat/item-export-format.service';
 import { OpenaireBrokerTopicObject } from './openaire/broker/models/openaire-broker-topic.model';
@@ -299,7 +297,7 @@ const PROVIDERS = [
   SubmissionCcLicenseDataService,
   SubmissionCcLicenseUrlDataService,
   SubmissionFormsConfigDataService,
-  SubmissionDefinitionsConfigService,
+  SubmissionDefinitionsConfigDataService,
   SubmissionRestService,
   SubmissionResponseParsingService,
   SubmissionJsonPatchOperationsService,
@@ -363,7 +361,6 @@ const PROVIDERS = [
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
   TabDataService,
   MetricsComponentsDataService,
-  MetricService,
   VocabularyService,
   VocabularyDataService,
   VocabularyEntryDetailsDataService,

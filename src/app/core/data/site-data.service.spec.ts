@@ -51,11 +51,12 @@ describe('SiteDataService', () => {
       rdbService,
       objectCache,
       halService,
+      null
     );
   });
 
   describe('composition', () => {
-    const initService = () => new SiteDataService(null, null, null, null);
+    const initService = () => new SiteDataService(null, null, null, null, null);
 
     testFindAllDataImplementation(initService);
   });

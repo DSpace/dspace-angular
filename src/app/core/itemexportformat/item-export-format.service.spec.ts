@@ -7,7 +7,6 @@ import { ItemExportFormat } from './model/item-export-format.model';
 import { ItemExportFormatsMap } from '../../shared/item-export/item-export.service.spec';
 import { RequestParam } from '../cache/models/request-param.model';
 import { Process } from '../../process-page/processes/process.model';
-import createSpyObj = jasmine.createSpyObj;
 import { EventEmitter } from '@angular/core';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import {
@@ -21,10 +20,12 @@ import { PaginatedSearchOptions } from '../../shared/search/models/paginated-sea
 import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import createSpyObj = jasmine.createSpyObj;
 
 describe('ItemExportFormatService', () => {
 
   let service: ItemExportFormatService;
+  let serviceAsAny: any;
   const notificationsService: NotificationsService = new NotificationsServiceStub() as any;
   const translateService: TranslateService = {
     get: () => of('test-message'),
@@ -45,9 +46,7 @@ describe('ItemExportFormatService', () => {
       null,
       null,
       null,
-      null,
       notificationsService,
-      null,
       null,
       null,
       translateService,
@@ -59,7 +58,7 @@ describe('ItemExportFormatService', () => {
     beforeEach(() => {
       const searchResult: any = [...ItemExportFormatsMap.Publication, ...ItemExportFormatsMap.Project];
       const paginatedList: PaginatedList<ItemExportFormat> = createPaginatedList(searchResult);
-      spyOn(service.dataService, 'searchBy').and.returnValue(createSuccessfulRemoteDataObject$(paginatedList));
+      spyOn(serviceAsAny.searchData, 'searchBy').and.returnValue(createSuccessfulRemoteDataObject$(paginatedList));
     });
 
     it('should configure and call dataService.searchBy and map results by entityType', (done) => {
@@ -72,7 +71,7 @@ describe('ItemExportFormatService', () => {
       ];
 
       service.byEntityTypeAndMolteplicity(entityTypeId, molteplicity).subscribe((result) => {
-        expect(service.dataService.searchBy).toHaveBeenCalledWith('byEntityTypeAndMolteplicity', { searchParams, elementsPerPage: 100 });
+        expect(serviceAsAny.searchData.searchBy).toHaveBeenCalledWith('byEntityTypeAndMolteplicity', { searchParams, elementsPerPage: 100 });
         expect(result).toEqual(ItemExportFormatsMap);
         done();
       });

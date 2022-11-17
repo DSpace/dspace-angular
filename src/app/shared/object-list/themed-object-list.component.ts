@@ -1,14 +1,14 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ObjectListComponent } from './object-list.component';
 import { ThemedComponent } from '../theme-support/themed.component';
-import {ViewMode} from '../../core/shared/view-mode.model';
-import {PaginationComponentOptions} from '../pagination/pagination-component-options.model';
-import {SortDirection, SortOptions} from '../../core/cache/models/sort-options.model';
-import {CollectionElementLinkType} from '../object-collection/collection-element-link.type';
-import {Context} from '../../core/shared/context.model';
-import {RemoteData} from '../../core/data/remote-data';
-import {PaginatedList} from '../../core/data/paginated-list.model';
-import {ListableObject} from '../object-collection/shared/listable-object.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { Context } from '../../core/shared/context.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
 
 /**
  * Themed wrapper for ObjectListComponent
@@ -72,9 +72,14 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   @Input() importable = false;
 
   /**
+   * Pass custom data to the component for custom utilization
+   */
+  @Input() customData: any;
+
+  /**
    * Config used for the import button
    */
-  @Input() importConfig: { importLabel: string };
+  @Input() importConfig: { buttonLabel: string };
 
   /**
    * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
@@ -82,9 +87,19 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   @Input() showPaginator = true;
 
   /**
+   * Whether or not to show an alert for hidden related items
+   */
+  @Input() showHiddenRelatedItemsAlert = false;
+
+  /**
    * Emit when one of the listed object has changed.
    */
   @Output() contentChange = new EventEmitter<any>();
+
+  /**
+   * Emit custom event for listable object custom actions.
+   */
+  @Output() customEvent = new EventEmitter<any>();
 
   /**
    * If showPaginator is set to true, emit when the previous button is clicked
@@ -193,6 +208,9 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'selectObject',
     'importObject',
     'sortFieldChange',
+    'customData',
+    'customEvent',
+    'showHiddenRelatedItemsAlert'
   ];
 
   protected getComponentName(): string {

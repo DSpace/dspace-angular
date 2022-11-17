@@ -123,9 +123,7 @@ describe('TabDataService', () => {
       rdbService,
       objectCache,
       halService,
-      notificationsService,
-      http,
-      comparator
+      notificationsService
     );
 
     spyOn((service as any).dataService, 'findById').and.callThrough();

@@ -6,7 +6,7 @@ import { map, switchMap, take, tap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
-import { UsageReportService } from '../../core/statistics/usage-report-data.service';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -80,7 +80,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
-    protected usageReportService: UsageReportService,
+    protected usageReportService: UsageReportDataService,
     protected statisticsCategoriesService: StatisticsCategoriesService,
     protected nameService: DSONameService,
     protected authService: AuthService,

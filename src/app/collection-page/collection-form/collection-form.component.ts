@@ -30,7 +30,7 @@ import {
   collectionFormSharedWorkspaceCheckboxConfig,
   collectionFormSubmissionDefinitionSelectionConfig
 } from './collection-form.models';
-import { SubmissionDefinitionsConfigService } from '../../core/config/submission-definitions-config.service';
+import { SubmissionDefinitionsConfigDataService } from '../../core/config/submission-definitions-config-data.service';
 import { ConfigObject } from '../../core/config/models/config.model';
 import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 
@@ -87,7 +87,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService,
                      protected entityTypeService: EntityTypeDataService,
-                     protected submissionDefinitionService: SubmissionDefinitionsConfigService) {
+                     protected submissionDefinitionService: SubmissionDefinitionsConfigDataService) {
     super(formService, translate, notificationsService, authService, requestService, objectCache);
   }
 

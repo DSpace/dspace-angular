@@ -7,7 +7,7 @@ import { map, switchMap, take, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 
-import { RelationshipService } from '../core/data/relationship.service';
+import { RelationshipDataService } from '../core/data/relationship-data.service';
 import { RelationshipType } from '../core/shared/item-relationships/relationship-type.model';
 import { Relationship } from '../core/shared/item-relationships/relationship.model';
 import { hasValue } from '../shared/empty.util';
@@ -19,7 +19,7 @@ import {
 } from '../core/shared/operators';
 import { RemoteData } from '../core/data/remote-data';
 import { Item } from '../core/shared/item.model';
-import { EntityTypeService } from '../core/data/entity-type.service';
+import { EntityTypeDataService } from '../core/data/entity-type-data.service';
 import { Context } from '../core/shared/context.model';
 import { HostWindowService } from '../shared/host-window.service';
 import { getItemPageRoute } from '../item-page/item-page-routing-paths';
@@ -147,10 +147,10 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    */
   private subs: Subscription[] = [];
 
-  constructor(protected relationshipService: RelationshipService,
+  constructor(protected relationshipService: RelationshipDataService,
               private route: ActivatedRoute,
               private router: Router,
-              protected entityTypeService: EntityTypeService,
+              protected entityTypeService: EntityTypeDataService,
               private windowService: HostWindowService,
               private translate: TranslateService,
               private title: Title,

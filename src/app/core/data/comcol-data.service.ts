@@ -223,7 +223,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
    * @param {T} object The object to send a patch request for
    * @param {Operation[]} operations The patch operations to be performed
    */
-  public patch(object: T, operations: []): Observable<RemoteData<T>> {
+  public patch(object: T, operations: Operation[]): Observable<RemoteData<T>> {
     return this.patchData.patch(object, operations);
   }
 

@@ -86,9 +86,9 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
     ]).pipe(
       switchMap(([isAdmin, config]) => {
         if (isAdmin) {
-          return this.processService.findAll(config, true, false);
+          return this.processService.findAll(config, false, true);
         } else {
-          return this.processService.searchBy('own', config);
+          return this.processService.searchItsOwnProcesses(config, false, true);
         }
       }),
       getFirstCompletedRemoteData(),

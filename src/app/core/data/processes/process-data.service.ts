@@ -19,12 +19,16 @@ import { dataService } from '../base/data-service.decorator';
 import { DeleteData, DeleteDataImpl } from '../base/delete-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NoContent } from '../../shared/NoContent.model';
+import { SearchData } from '../base/search-data';
 
 @Injectable()
 @dataService(PROCESS)
 export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process>, DeleteData<Process> {
+  protected findOwnLink = 'own';
+
   private findAllData: FindAllData<Process>;
   private deleteData: DeleteData<Process>;
+  private searchData: SearchData<Process>;
 
   constructor(
     protected requestService: RequestService,
@@ -119,6 +123,23 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
   getProcess(processId: string): Observable<RemoteData<Process>> {
     const href$ = this.getProcessEndpoint(processId);
     return this.findByHref(href$,false);
+  }
+
+  /**
+   * Returns list of user own processes
+   *
+   * @param options                     Find list options object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<Process>>>}
+   *    Return an observable that emits object list
+   */
+  searchItsOwnProcesses(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Process>[]): Observable<RemoteData<PaginatedList<Process>>> {
+    return this.searchData.searchBy(this.findOwnLink, options);
   }
 
   /**

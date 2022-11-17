@@ -51,7 +51,6 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { ItemSearchParams } from './item-search-params';
 import { validate as uuidValidate } from 'uuid';
 import { SearchDataImpl } from './base/search-data';
-import { Vocabulary } from '../submission/vocabularies/models/vocabulary.model';
 
 /**
  * An abstract service for CRUD operations on Items
@@ -488,10 +487,10 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    *                                    {@link HALLink}s should be automatically resolved
    * @param projections                 List of {@link projections} used to pass as parameters
    */
-  findByIdWithProjection(id: string, projections: string[], useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
+  findByIdWithProjections(id: string, projections: string[], useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
 
     if (uuidValidate(id)) {
-      return this.findByIdWithProjection(id, projections, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+      return this.findByIdWithProjections(id, projections, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
     } else {
       return this.findByCustomUrl(id, useCachedVersionIfAvailable, reRequestOnStale, linksToFollow, projections);
     }

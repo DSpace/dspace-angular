@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Operation } from 'fast-json-patch';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstSucceededRemoteData } from '../shared/operators';
@@ -9,30 +12,35 @@ import { SITE } from '../shared/site.resource-type';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
-import { BaseDataService } from './base/base-data.service';
 import { FindAllData, FindAllDataImpl } from './base/find-all-data';
 import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 import { FindListOptions } from './find-list-options.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { dataService } from './base/data-service.decorator';
+import { PatchData, PatchDataImpl } from './base/patch-data';
+import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { IdentifiableDataService } from './base/identifiable-data.service';
 
 /**
  * Service responsible for handling requests related to the Site object
  */
 @Injectable()
 @dataService(SITE)
-export class SiteDataService extends BaseDataService<Site> implements FindAllData<Site> {
+export class SiteDataService extends IdentifiableDataService<Site> implements FindAllData<Site> {
   private findAllData: FindAllData<Site>;
+  private patchData: PatchData<Site>;
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
+    protected comparator: DefaultChangeAnalyzer<Site>
   ) {
     super('sites', requestService, rdbService, objectCache, halService);
 
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.patchData = new PatchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
   }
 
   /**
@@ -62,6 +70,15 @@ export class SiteDataService extends BaseDataService<Site> implements FindAllDat
    */
   public findAll(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Site>[]): Observable<RemoteData<PaginatedList<Site>>> {
     return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Send a patch request for a specified object
+   * @param {Site} object The object to send a patch request for
+   * @param {Operation[]} operations The patch operations to be performed
+   */
+  patch(object: Site, operations: Operation[]): Observable<RemoteData<Site>> {
+    return this.patchData.patch(object, operations);
   }
 
   /**

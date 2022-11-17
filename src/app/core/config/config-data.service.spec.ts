@@ -1,4 +1,4 @@
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { ConfigDataService } from './config-data.service';
@@ -74,21 +74,13 @@ describe('ConfigDataService', () => {
     });
   });
 
-  describe('findAll', () => {
+  describe('findListByHref', () => {
     it('should proxy the call to vocabularyDataService.findVocabularyById', () => {
-      scheduler.schedule(() => service.findAll());
+      scheduler.schedule(() => service.findListByHref('href'));
       scheduler.flush();
 
-      expect((service as any).dataService.findAll).toHaveBeenCalledWith( {}, true, true);
+      expect((service as any).super.findListByHref).toHaveBeenCalledWith( 'href', {}, true, true);
     });
   });
 
-  describe('findByName', () => {
-    it('should proxy the call to vocabularyDataService.findVocabularyById', () => {
-      scheduler.schedule(() => service.findByName('testConfig'));
-      scheduler.flush();
-
-      expect((service as any).dataService.findById).toHaveBeenCalledWith('testConfig', true, true);
-    });
-  });
 });
