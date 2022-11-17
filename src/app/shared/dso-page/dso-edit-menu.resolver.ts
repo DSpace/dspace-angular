@@ -9,7 +9,7 @@ import { Item } from '../../core/shared/item.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OnClickMenuItemModel } from '../menu/menu-item/models/onclick.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
