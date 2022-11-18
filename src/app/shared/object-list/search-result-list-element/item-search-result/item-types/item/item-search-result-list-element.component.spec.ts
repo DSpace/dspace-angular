@@ -205,6 +205,18 @@ describe('ItemSearchResultListElementComponent', () => {
     });
   });
 
+  describe('When the item has title', () => {
+    beforeEach(() => {
+      publicationListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should show the title', () => {
+      const titleField = fixture.debugElement.query(By.css('.item-list-title'));
+      expect(titleField).not.toBeNull();
+    });
+  });
+
   describe('When the item has no title', () => {
     beforeEach(() => {
       publicationListElementComponent.object = mockItemWithoutMetadata;
