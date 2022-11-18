@@ -1,6 +1,6 @@
 import { Component, HostListener, Injector, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, first, map, take, withLatestFrom } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, first, map, withLatestFrom } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { slideHorizontal, slideSidebar } from '../../shared/animations/slide';
 import { MenuComponent } from '../../shared/menu/menu.component';
@@ -72,12 +72,9 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     combineLatest([
       this.authService.isAuthenticated(),
       this.menuService.getMenuTopSections(this.menuID).pipe(
-        map((topSections: MenuSection[]) => topSections
-          .filter((topSection: MenuSection) => topSection.visible).length > 0
-        )
+        map((topSections: MenuSection[]) => topSections.length > 0)
       )
-    ]).pipe(take(1))
-      .subscribe(([loggedIn, hasTopSections]: [boolean, boolean]) => {
+    ]).subscribe(([loggedIn, hasTopSections]: [boolean, boolean]) => {
       // admin sidebar menu hidden by default when no visible top sections are found
       if (loggedIn && hasTopSections) {
         this.menuService.showMenu(this.menuID);
