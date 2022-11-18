@@ -13,7 +13,7 @@ import { APP_CONFIG } from '../../../../../../../config/app-config.interface';
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
-
+const dcTitle = 'This is just another <em>title</em>';
 const mockItemWithMetadata: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   indexableObject:
     Object.assign(new Item(), {
@@ -22,7 +22,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(new ItemSearchResul
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
+            value: dcTitle
           }
         ],
         'dc.contributor.author': [
@@ -211,9 +211,9 @@ describe('ItemSearchResultListElementComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should show the title', () => {
+    it('should show highlighted title', () => {
       const titleField = fixture.debugElement.query(By.css('.item-list-title'));
-      expect(titleField).not.toBeNull();
+      expect(titleField.nativeNode.innerHTML).toEqual(dcTitle);
     });
   });
 
