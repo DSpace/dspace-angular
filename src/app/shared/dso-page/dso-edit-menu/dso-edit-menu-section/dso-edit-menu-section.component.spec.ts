@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MenuServiceStub } from '../../../testing/menu-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { MenuService } from '../../../menu/menu.service';
-import { CSSVariableService } from '../../../sass-helper/sass-helper.service';
+import { CSSVariableService } from '../../../sass-helper/css-variable.service';
 import { CSSVariableServiceStub } from '../../../testing/css-variable-service.stub';
 import { Router } from '@angular/router';
 import { RouterStub } from '../../../testing/router.stub';
