@@ -18,7 +18,9 @@ import {
   DynamicPathable,
   parseReviver,
 } from '@ng-dynamic-forms/core';
-import { isObject, isString, mergeWith } from 'lodash';
+import isObject from 'lodash/isObject';
+import isString from 'lodash/isString';
+import mergeWith from 'lodash/mergeWith';
 
 import {
   hasNoValue,

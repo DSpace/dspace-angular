@@ -10,7 +10,7 @@ import {
 } from '@ng-dynamic-forms/core';
 
 import {
-  mockInputWithTypeBindModel, MockRelationModel, mockDcTypeInputModel
+  mockInputWithTypeBindModel, MockRelationModel
 } from '../../../mocks/form-models.mock';
 import {DsDynamicTypeBindRelationService} from './ds-dynamic-type-bind-relation.service';
 import {FormFieldMetadataValueObject} from '../models/form-field-metadata-value.model';
