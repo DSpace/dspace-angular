@@ -2801,7 +2801,7 @@
   // "menu.section.browse_community_by_title": "By Title",
   "menu.section.browse_community_by_title": "Nimekkeen mukaan",
 
-  // "menu.section.browse_global": "All of DSpace",
+  // "menu.section.browse_global": "ALl of Central Metatada Repository",
   "menu.section.browse_global": "Koko julkaisuarkisto",
 
   // "menu.section.browse_global_by_author": "By Author",
@@ -3101,7 +3101,7 @@
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Näytä",
 
-  // "nav.browse.header": "All of DSpace",
+  // "nav.browse.header": "ALl of Central Metatada Repository",
   "nav.browse.header": "Koko julkaisuarkisto",
 
   // "nav.community-browse.header": "By Community",

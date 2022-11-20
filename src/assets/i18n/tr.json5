@@ -2804,7 +2804,7 @@
   // "menu.section.browse_community_by_title": "By Title",
   "menu.section.browse_community_by_title": "Başlığa göre",
 
-  // "menu.section.browse_global": "All of DSpace",
+  // "menu.section.browse_global": "ALl of Central Metatada Repository",
   "menu.section.browse_global": "Tümü",
 
   // "menu.section.browse_global_by_author": "By Author",
@@ -3104,7 +3104,7 @@
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Görünüm",
 
-  // "nav.browse.header": "All of DSpace",
+  // "nav.browse.header": "ALl of Central Metatada Repository",
   "nav.browse.header": "DSpace'in tümü",
 
   // "nav.community-browse.header": "By Community",

@@ -3302,7 +3302,7 @@
   // "menu.section.browse_community_by_title": "By Title",
   "menu.section.browse_community_by_title": "Op titel",
 
-  // "menu.section.browse_global": "All of DSpace",
+  // "menu.section.browse_global": "ALl of Central Metatada Repository",
   "menu.section.browse_global": "Heel DSpace",
 
   // "menu.section.browse_global_by_author": "By Author",
@@ -3612,7 +3612,7 @@
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Bekijk",
 
-  // "nav.browse.header": "All of DSpace",
+  // "nav.browse.header": "ALl of Central Metatada Repository",
   "nav.browse.header": "Heel DSpace",
 
   // "nav.community-browse.header": "By Community",

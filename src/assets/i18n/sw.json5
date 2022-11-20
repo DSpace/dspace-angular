@@ -3735,9 +3735,9 @@
   // TODO New key - Add a translation
   "menu.section.browse_community_by_title": "By Title",
 
-  // "menu.section.browse_global": "All of DSpace",
+  // "menu.section.browse_global": "ALl of Central Metatada Repository",
   // TODO New key - Add a translation
-  "menu.section.browse_global": "All of DSpace",
+  "menu.section.browse_global": "ALl of Central Metatada Repository",
 
   // "menu.section.browse_global_by_author": "By Author",
   // TODO New key - Add a translation
@@ -4135,9 +4135,9 @@
   // TODO New key - Add a translation
   "mydspace.view-btn": "View",
 
-  // "nav.browse.header": "All of DSpace",
+  // "nav.browse.header": "ALl of Central Metatada Repository",
   // TODO New key - Add a translation
-  "nav.browse.header": "All of DSpace",
+  "nav.browse.header": "ALl of Central Metatada Repository",
 
   // "nav.community-browse.header": "By Community",
   // TODO New key - Add a translation

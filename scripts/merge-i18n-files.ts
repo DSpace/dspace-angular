@@ -1,4 +1,4 @@
-import { projectRoot} from '../webpack/helpers';
+import { projectRoot } from '../webpack/helpers';
 const commander = require('commander');
 const fs = require('fs');
 const JSON5 = require('json5');
@@ -14,7 +14,7 @@ parseCliInput();
 
 /**
  * Purpose: Allows customization of i18n labels from within themes
- * e.g. Customize the label "menu.section.browse_global" to display "Browse DSpace" rather than "All of DSpace"
+ * e.g. Customize the label "menu.section.browse_global" to display "Browse DSpace" rather than "ALl of Central Metatada Repository"
  *
  * This script uses the i18n files found in a source directory to override settings in files with the same
  * name in a destination directory. Only the i18n labels to be overridden need be in the source files.
@@ -43,18 +43,18 @@ function parseCliInput() {
     .parse(process.argv);
 
   if (program.outputDir && program.sourceDir) {
-    if (!fs.existsSync(program.outputDir) && !fs.lstatSync(program.outputDir).isDirectory() ) {
+    if (!fs.existsSync(program.outputDir) && !fs.lstatSync(program.outputDir).isDirectory()) {
       console.error('Output does not exist or is not a directory.');
       console.log(program.outputHelp());
       process.exit(1);
     }
-    if (!fs.existsSync(program.sourceDir) && !fs.lstatSync(program.sourceDir).isDirectory() ) {
+    if (!fs.existsSync(program.sourceDir) && !fs.lstatSync(program.sourceDir).isDirectory()) {
       console.error('Source does not exist or is not a directory.');
       console.log(program.outputHelp());
       process.exit(1);
     }
     fs.readdirSync(projectRoot(program.sourceDir)).forEach(file => {
-      if (fs.existsSync(program.outputDir + '/' + file) ) {
+      if (fs.existsSync(program.outputDir + '/' + file)) {
         console.log('Merging: ' + program.outputDir + '/' + file + ' with ' + program.sourceDir + '/' + file);
         mergeFileWithSource(program.sourceDir + '/' + file, program.outputDir + '/' + file);
       }
@@ -92,7 +92,7 @@ function mergeFileWithSource(pathToSourceFile, pathToOutputFile) {
     parsedOutput[key] = parsedSource[key];
   }
   progressBar.update(80);
-  fs.writeFileSync(pathToOutputFile,JSON5.stringify(parsedOutput,{ space:'\n  ', quote: '"' }), { encoding:'utf8' });
+  fs.writeFileSync(pathToOutputFile, JSON5.stringify(parsedOutput, { space: '\n  ', quote: '"' }), { encoding: 'utf8' });
 
   progressBar.update(100);
   progressBar.stop();

@@ -2055,9 +2055,9 @@
   // TODO New key - Add a translation
   "dso-selector.set-scope.community.head": "Select a search scope",
 
-  // "dso-selector.set-scope.community.button": "Search all of DSpace",
+  // "dso-selector.set-scope.community.button": "Search ALl of Central Metatada Repository",
   // TODO New key - Add a translation
-  "dso-selector.set-scope.community.button": "Search all of DSpace",
+  "dso-selector.set-scope.community.button": "Search ALl of Central Metatada Repository",
 
   // "dso-selector.set-scope.community.input-header": "Search for a community or collection",
   // TODO New key - Add a translation
@@ -3963,7 +3963,7 @@
   // "menu.section.browse_community_by_title": "By Title",
   "menu.section.browse_community_by_title": "Тақырып бойынша",
 
-  // "menu.section.browse_global": "All of DSpace",
+  // "menu.section.browse_global": "ALl of Central Metatada Repository",
   "menu.section.browse_global": "Барлық DSpace",
 
   // "menu.section.browse_global_by_author": "By Author",
@@ -4296,7 +4296,7 @@
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Көру",
 
-  // "nav.browse.header": "All of DSpace",
+  // "nav.browse.header": "ALl of Central Metatada Repository",
   "nav.browse.header": "Барлық DSpace",
 
   // "nav.community-browse.header": "By Community",
@@ -5502,9 +5502,9 @@
   // TODO Source message changed - Revise the translation
   "search.form.search_dspace": "Іздеу кеңістігі",
 
-  // "search.form.scope.all": "All of DSpace",
+  // "search.form.scope.all": "ALl of Central Metatada Repository",
   // TODO New key - Add a translation
-  "search.form.scope.all": "All of DSpace",
+  "search.form.scope.all": "ALl of Central Metatada Repository",
 
   // "search.results.head": "Search Results",
   "search.results.head": "Іздеу нәтижелері",

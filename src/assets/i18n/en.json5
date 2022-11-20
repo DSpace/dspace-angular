@@ -1282,7 +1282,7 @@
 
   "dso-selector.set-scope.community.head": "Select a search scope",
 
-  "dso-selector.set-scope.community.button": "Search all of DSpace",
+  "dso-selector.set-scope.community.button": "Search ALl of Central Metatada Repository",
 
   "dso-selector.set-scope.community.input-header": "Search for a community or collection",
 
@@ -2434,7 +2434,7 @@
 
   "menu.section.browse_community_by_title": "By Title",
 
-  "menu.section.browse_global": "All of DSpace",
+  "menu.section.browse_global": "ALl of Central Metatada Repository",
 
   "menu.section.browse_global_by_author": "By Author",
 
@@ -2646,7 +2646,7 @@
 
   "mydspace.view-btn": "View",
 
-  "nav.browse.header": "All of DSpace",
+  "nav.browse.header": "ALl of Central Metatada Repository",
 
   "nav.community-browse.header": "By Community",
 
@@ -3398,7 +3398,7 @@
 
   "search.form.search_dspace": "All repository",
 
-  "search.form.scope.all": "All of DSpace",
+  "search.form.scope.all": "ALl of Central Metatada Repository",
 
   "search.results.head": "Search Results",
 
