@@ -156,7 +156,7 @@ export const environment: BuildConfig = {
   // Default Language in which the UI will be rendered if the user's browser language is not an active language
   defaultLanguage: 'en',
 
-  // Languages. DSpace Angular holds a message catalog for each of the following languages.
+  // Languages. Central Metatada Repository holds a message catalog for each of the following languages.
   // When set to active, users will be able to switch to the use of this language in the user interface.
   languages: [{
     code: 'en',

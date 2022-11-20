@@ -1,12 +1,9 @@
 {
-
   "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
 
   "401.link.home-page": "Take me to the home page",
 
   "401.unauthorized": "unauthorized",
-
-
 
   "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
 
@@ -19,7 +16,6 @@
   "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
 
   "500.link.home-page": "Take me to the home page",
-
 
   "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
 
@@ -143,8 +139,6 @@
 
   "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
 
-
-
   "admin.registries.metadata.breadcrumbs": "Metadata registry",
 
   "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
@@ -171,11 +165,9 @@
 
   "admin.registries.metadata.title": "Metadata Registry",
 
-
-
   "admin.registries.schema.breadcrumbs": "Metadata schema",
 
-  "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
+  "admin.registries.schema.description": 'This is the metadata schema for "{{namespace}}".',
 
   "admin.registries.schema.fields.head": "Schema metadata fields",
 
@@ -199,31 +191,29 @@
 
   "admin.registries.schema.head": "Metadata Schema",
 
-  "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
+  "admin.registries.schema.notification.created": 'Successfully created metadata schema "{{prefix}}"',
 
   "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
 
   "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
 
-  "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
+  "admin.registries.schema.notification.edited": 'Successfully edited metadata schema "{{prefix}}"',
 
   "admin.registries.schema.notification.failure": "Error",
 
-  "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
+  "admin.registries.schema.notification.field.created": 'Successfully created metadata field "{{field}}"',
 
   "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
 
   "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
 
-  "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
+  "admin.registries.schema.notification.field.edited": 'Successfully edited metadata field "{{field}}"',
 
   "admin.registries.schema.notification.success": "Success",
 
   "admin.registries.schema.return": "Back",
 
   "admin.registries.schema.title": "Metadata Schema Registry",
-
-
 
   "admin.access-control.epeople.actions.delete": "Delete EPerson",
 
@@ -261,11 +251,11 @@
 
   "admin.access-control.epeople.table.edit": "Edit",
 
-  "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.edit": 'Edit "{{name}}"',
 
   "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
 
-  "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove": 'Delete "{{name}}"',
 
   "admin.access-control.epeople.no-items": "No EPeople to show.",
 
@@ -287,21 +277,21 @@
 
   "admin.access-control.epeople.form.return": "Back",
 
-  "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.success": 'Successfully created EPerson "{{name}}"',
 
-  "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.failure": 'Failed to create EPerson "{{name}}"',
 
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": 'Failed to create EPerson "{{name}}", email "{{email}}" already in use.',
 
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": 'Failed to edit EPerson "{{name}}", email "{{email}}" already in use.',
 
-  "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.success": 'Successfully edited EPerson "{{name}}"',
 
-  "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.failure": 'Failed to edit EPerson "{{name}}"',
 
-  "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.success": 'Successfully deleted EPerson "{{name}}"',
 
-  "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.failure": 'Failed to delete EPerson "{{name}}"',
 
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
 
@@ -315,11 +305,9 @@
 
   "admin.access-control.epeople.form.goToGroups": "Add to groups",
 
-  "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": 'Failed to delete EPerson: "{{name}}"',
 
-  "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
-
-
+  "admin.access-control.epeople.notification.deleted.success": 'Successfully deleted EPerson: "{{name}}"',
 
   "admin.access-control.groups.title": "Groups",
 
@@ -355,23 +343,21 @@
 
   "admin.access-control.groups.table.edit": "Edit",
 
-  "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.edit": 'Edit "{{name}}"',
 
-  "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.remove": 'Delete "{{name}}"',
 
   "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
 
-  "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.success": 'Successfully deleted group "{{name}}"',
 
-  "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.failure.title": 'Failed to delete group "{{name}}"',
 
-  "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
-
-
+  "admin.access-control.groups.notification.deleted.failure.content": 'Cause: "{{cause}}"',
 
   "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
 
-  "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
+  "admin.access-control.groups.form.alert.workflowGroup": 'This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the "{{name}}" {{comcol}}. You can delete it from the <a href=\'{{comcolEditRolesRoute}}\'>"assign roles"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.',
 
   "admin.access-control.groups.form.head.create": "Create group",
 
@@ -383,33 +369,33 @@
 
   "admin.access-control.groups.form.groupDescription": "Description",
 
-  "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.success": 'Successfully created Group "{{name}}"',
 
-  "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.failure": 'Failed to create Group "{{name}}"',
 
-  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": 'Failed to create Group with name: "{{name}}", make sure the name is not already in use.',
 
-  "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.failure": 'Failed to edit Group "{{name}}"',
 
-  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": 'Name "{{name}}" already in use!',
 
-  "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.success": 'Successfully edited Group "{{name}}"',
 
   "admin.access-control.groups.form.actions.delete": "Delete Group",
 
-  "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.header": 'Delete Group "{{ dsoName }}"',
 
-  "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.info": 'Are you sure you want to delete Group "{{ dsoName }}"',
 
   "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
 
   "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
 
-  "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.success": 'Successfully deleted group "{{ name }}"',
 
-  "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.title": 'Failed to delete group "{{ name }}"',
 
-  "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.content": 'Cause: "{{ cause }}"',
 
   "admin.access-control.groups.form.members-list.head": "EPeople",
 
@@ -437,17 +423,17 @@
 
   "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
 
-  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": 'Remove member with name "{{name}}"',
 
-  "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.addMember": 'Successfully added member: "{{name}}"',
 
-  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.addMember": 'Failed to add member: "{{name}}"',
 
-  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.deleteMember": 'Successfully deleted member: "{{name}}"',
 
-  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": 'Failed to delete member: "{{name}}"',
 
-  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.add": 'Add member with name "{{name}}"',
 
   "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
 
@@ -455,7 +441,7 @@
 
   "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
 
-  "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure": 'Something went wrong: "{{cause}}"',
 
   "admin.access-control.groups.form.subgroups-list.head": "Groups",
 
@@ -475,19 +461,19 @@
 
   "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
 
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": 'Remove subgroup with name "{{name}}"',
 
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": 'Add subgroup with name "{{name}}"',
 
   "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
 
-  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": 'Successfully added subgroup: "{{name}}"',
 
-  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": 'Failed to add subgroup: "{{name}}"',
 
-  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": 'Successfully deleted subgroup: "{{name}}"',
 
-  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": 'Failed to delete subgroup: "{{name}}"',
 
   "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
 
@@ -498,8 +484,6 @@
   "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
 
   "admin.access-control.groups.form.return": "Back",
-
-
 
   "admin.search.breadcrumbs": "Administrative Search",
 
@@ -525,9 +509,6 @@
 
   "administrativeView.search.results.head": "Administrative Search",
 
-
-
-
   "admin.workflow.breadcrumbs": "Administer Workflow",
 
   "admin.workflow.title": "Administer Workflow",
@@ -537,8 +518,6 @@
   "admin.workflow.item.delete": "Delete",
 
   "admin.workflow.item.send-back": "Send back",
-
-
 
   "admin.metadata-import.breadcrumbs": "Import Metadata",
 
@@ -588,12 +567,9 @@
 
   "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
 
+  "bitstream.download.page": "Now downloading {{bitstream}}...",
 
-
-  "bitstream.download.page": "Now downloading {{bitstream}}..." ,
-
-  "bitstream.download.page.back": "Back" ,
-
+  "bitstream.download.page.back": "Back",
 
   "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
 
@@ -603,7 +579,7 @@
 
   "bitstream.edit.bitstream": "Bitstream: ",
 
-  "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
+  "bitstream.edit.form.description.hint": 'Optionally, provide a brief description of the file, for example "<i>Main article</i>" or "<i>Experiment data readings</i>".',
 
   "bitstream.edit.form.description.label": "Description",
 
@@ -617,11 +593,11 @@
 
   "bitstream.edit.form.newFormat.label": "Describe new format",
 
-  "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
+  "bitstream.edit.form.newFormat.hint": 'The application you used to create the file, and the version number (for example, "<i>ACMESoft SuperApp version 1.5</i>").',
 
   "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
 
-  "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
+  "bitstream.edit.form.selectedFormat.hint": 'If the format is not in the above list, <b>select "format not in list" above</b> and describe it under "Describe new format".',
 
   "bitstream.edit.form.selectedFormat.label": "Selected Format",
 
@@ -644,7 +620,6 @@
   "bitstream.edit.form.iiifHeight.label": "IIIF Canvas Height",
 
   "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
-
 
   "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
 
@@ -688,8 +663,6 @@
   "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
 
   "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
-
-
 
   "browse.back.all-results": "All browse results",
 
@@ -777,10 +750,7 @@
 
   "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
 
-
   "chips.remove": "Remove chip",
-
-
 
   "collection.create.head": "Create a Collection",
 
@@ -802,9 +772,7 @@
 
   "collection.delete.notification.success": "Successfully deleted collection",
 
-  "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
-
-
+  "collection.delete.text": 'Are you sure you want to delete collection "{{ dso }}"',
 
   "collection.edit.delete": "Delete this collection",
 
@@ -812,15 +780,13 @@
 
   "collection.edit.breadcrumbs": "Edit Collection",
 
-
-
   "collection.edit.tabs.mapper.head": "Item Mapper",
 
   "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
 
   "collection.edit.item-mapper.cancel": "Cancel",
 
-  "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
+  "collection.edit.item-mapper.collection": 'Collection: "<b>{{name}}</b>"',
 
   "collection.edit.item-mapper.confirm": "Map selected items",
 
@@ -854,7 +820,6 @@
 
   "collection.edit.item-mapper.tabs.map": "Map new items",
 
-
   "collection.edit.logo.delete.title": "Delete logo",
 
   "collection.edit.logo.delete-undo.title": "Undo delete",
@@ -873,13 +838,9 @@
 
   "collection.edit.logo.upload": "Drop a Collection Logo to upload",
 
-
-
   "collection.edit.notifications.success": "Successfully edited the Collection",
 
   "collection.edit.return": "Back",
-
-
 
   "collection.edit.tabs.curate.head": "Curate",
 
@@ -939,8 +900,6 @@
 
   "collection.edit.tabs.source.title": "Collection Edit - Content Source",
 
-
-
   "collection.edit.template.add-button": "Add",
 
   "collection.edit.template.breadcrumbs": "Item template",
@@ -953,7 +912,7 @@
 
   "collection.edit.template.error": "An error occurred retrieving the template item",
 
-  "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
+  "collection.edit.template.head": 'Edit Template Item for Collection "{{ collection }}"',
 
   "collection.edit.template.label": "Template item",
 
@@ -964,8 +923,6 @@
   "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
 
   "collection.edit.template.title": "Edit Template Item",
-
-
 
   "collection.form.abstract": "Short Description",
 
@@ -985,11 +942,7 @@
 
   "collection.form.entityType": "Entity Type",
 
-
-
   "collection.listelement.badge": "Collection",
-
-
 
   "collection.page.browse.recent.head": "Recent Submissions",
 
@@ -1003,14 +956,11 @@
 
   "collection.page.news": "News",
 
-
-
   "collection.select.confirm": "Confirm selected",
 
   "collection.select.empty": "No collections to show",
 
   "collection.select.table.title": "Title",
-
 
   "collection.source.controls.head": "Harvest Controls",
   "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
@@ -1036,12 +986,9 @@
   "collection.source.controls.harvest.message": "Harvest info:",
   "collection.source.controls.harvest.no-information": "N/A",
 
-
   "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
 
   "collection.source.update.notifications.error.title": "Server Error",
-
-
 
   "communityList.breadcrumbs": "Community List",
 
@@ -1050,8 +997,6 @@
   "communityList.title": "List of Communities",
 
   "communityList.showMore": "Show More",
-
-
 
   "community.create.head": "Create a Community",
 
@@ -1073,14 +1018,13 @@
 
   "community.delete.notification.success": "Successfully deleted community",
 
-  "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
+  "community.delete.text": 'Are you sure you want to delete community "{{ dso }}"',
 
   "community.edit.delete": "Delete this community",
 
   "community.edit.head": "Edit Community",
 
   "community.edit.breadcrumbs": "Edit Community",
-
 
   "community.edit.logo.delete.title": "Delete logo",
 
@@ -1100,8 +1044,6 @@
 
   "community.edit.logo.upload": "Drop a Community Logo to upload",
 
-
-
   "community.edit.notifications.success": "Successfully edited the Community",
 
   "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
@@ -1109,8 +1051,6 @@
   "community.edit.notifications.error": "An error occured while editing the Community",
 
   "community.edit.return": "Back",
-
-
 
   "community.edit.tabs.curate.head": "Curate",
 
@@ -1128,11 +1068,7 @@
 
   "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
 
-
-
   "community.listelement.badge": "Community",
-
-
 
   "comcol-role.edit.no-group": "None",
 
@@ -1146,21 +1082,17 @@
 
   "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
 
-
   "comcol-role.edit.community-admin.name": "Administrators",
 
   "comcol-role.edit.collection-admin.name": "Administrators",
-
 
   "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
 
   "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
 
-
   "comcol-role.edit.submitters.name": "Submitters",
 
   "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
-
 
   "comcol-role.edit.item_read.name": "Default item read access",
 
@@ -1168,29 +1100,23 @@
 
   "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
 
-
   "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
 
   "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
 
   "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
 
-
   "comcol-role.edit.editor.name": "Editors",
 
   "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
-
 
   "comcol-role.edit.finaleditor.name": "Final editors",
 
   "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
 
-
   "comcol-role.edit.reviewer.name": "Reviewers",
 
   "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
-
-
 
   "community.form.abstract": "Short Description",
 
@@ -1217,8 +1143,6 @@
   "community.sub-collection-list.head": "Collections of this Community",
 
   "community.sub-community-list.head": "Communities of this Community",
-
-
 
   "cookies.consent.accept-all": "Accept all",
 
@@ -1254,38 +1178,29 @@
 
   "cookies.consent.content-modal.title": "Information that we collect",
 
-
-
   "cookies.consent.app.title.authentication": "Authentication",
 
   "cookies.consent.app.description.authentication": "Required for signing you in",
-
 
   "cookies.consent.app.title.preferences": "Preferences",
 
   "cookies.consent.app.description.preferences": "Required for saving your preferences",
 
-
-
   "cookies.consent.app.title.acknowledgement": "Acknowledgement",
 
   "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
-
-
 
   "cookies.consent.app.title.google-analytics": "Google Analytics",
 
   "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
 
-
-
   "cookies.consent.purpose.functional": "Functional",
 
   "cookies.consent.purpose.statistical": "Statistical",
 
-  "curation-task.task.citationpage.label":  "Generate Citation Page",
+  "curation-task.task.citationpage.label": "Generate Citation Page",
 
-  "curation-task.task.checklinks.label":  "Check Links in Metadata",
+  "curation-task.task.checklinks.label": "Check Links in Metadata",
 
   "curation-task.task.noop.label": "NOOP",
 
@@ -1296,8 +1211,6 @@
   "curation-task.task.translate.label": "Microsoft Translator",
 
   "curation-task.task.vscan.label": "Virus Scan",
-
-
 
   "curation.form.task-select.label": "Task:",
 
@@ -1317,9 +1230,7 @@
 
   "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
 
-
-
-  "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+  "deny-request-copy.email.message": 'Dear {{ recipientName }},\nIn response to your request I regret to inform you that it\'s not possible to send you a copy of the file(s) you have requested, concerning the document: "{{ itemUrl }}" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>',
 
   "deny-request-copy.email.subject": "Request copy of document",
 
@@ -1331,11 +1242,7 @@
 
   "deny-request-copy.success": "Successfully denied item request",
 
-
-
   "dso.name.untitled": "Untitled",
-
-
 
   "dso-selector.create.collection.head": "New collection",
 
@@ -1403,9 +1310,9 @@
 
   "confirmation-modal.export-batch.confirm": "Export",
 
-  "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.header": 'Delete EPerson "{{ dsoName }}"',
 
-  "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.info": 'Are you sure you want to delete EPerson "{{ dsoName }}"',
 
   "confirmation-modal.delete-eperson.cancel": "Cancel",
 
@@ -1418,7 +1325,6 @@
   "confirmation-modal.delete-profile.cancel": "Cancel",
 
   "confirmation-modal.delete-profile.confirm": "Delete",
-
 
   "error.bitstream": "Error fetching bitstream",
 
@@ -1444,7 +1350,7 @@
 
   "error.search-results": "Error fetching search results",
 
-  "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
+  "error.invalid-search-query": 'Search query is not valid. Please check <a href="https://solr.apache.org/guide/query-syntax-and-parsing.html" target="_blank">Solr query syntax</a> best practices for further information about this error.',
 
   "error.sub-collections": "Error fetching sub-collections",
 
@@ -1468,13 +1374,9 @@
 
   "error.validation.groupExists": "This group already exists",
 
-
   "feed.description": "Syndication feed",
 
-
   "file-section.error.header": "Error obtaining files for this item",
-
-
 
   "footer.copyright": "copyright © 2002-{{ year }}",
 
@@ -1486,11 +1388,9 @@
 
   "footer.link.privacy-policy": "Privacy policy",
 
-  "footer.link.end-user-agreement":"End User Agreement",
+  "footer.link.end-user-agreement": "End User Agreement",
 
-  "footer.link.feedback":"Send Feedback",
-
-
+  "footer.link.feedback": "Send Feedback",
 
   "forgot-email.form.header": "Forgot Password",
 
@@ -1513,8 +1413,6 @@
   "forgot-email.form.error.head": "Error when trying to reset password",
 
   "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
-
-
 
   "forgot-password.title": "Forgot Password",
 
@@ -1543,7 +1441,6 @@
   "forgot-password.form.notification.success.title": "Password reset completed",
 
   "forgot-password.form.submit": "Submit password",
-
 
   "form.add": "Add more",
 
@@ -1601,8 +1498,6 @@
 
   "form.repeatable.sort.tip": "Drop the item in the new position",
 
-
-
   "grant-deny-request-copy.deny": "Don't send copy",
 
   "grant-deny-request-copy.email.back": "Back",
@@ -1633,9 +1528,7 @@
 
   "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
 
-
-
-  "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+  "grant-request-copy.email.message": 'Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: "{{ itemUrl }}" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>',
 
   "grant-request-copy.email.subject": "Request copy of document",
 
@@ -1647,14 +1540,13 @@
 
   "grant-request-copy.success": "Successfully granted item request",
 
-
   "health.breadcrumbs": "Health",
 
-  "health-page.heading" : "Health",
+  "health-page.heading": "Health",
 
-  "health-page.info-tab" : "Info",
+  "health-page.info-tab": "Info",
 
-  "health-page.status-tab" : "Status",
+  "health-page.status-tab": "Status",
 
   "health-page.error.msg": "The health check service is temporarily unavailable",
 
@@ -1688,7 +1580,6 @@
 
   "health-page.section.no-issues": "No issues detected",
 
-
   "home.description": "",
 
   "home.breadcrumbs": "Home",
@@ -1700,8 +1591,6 @@
   "home.top-level-communities.head": "Communities in DSpace",
 
   "home.top-level-communities.help": "Select a community to browse its collections.",
-
-
 
   "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
 
@@ -1741,35 +1630,27 @@
 
   "info.feedback.email-label": "Your Email",
 
-  "info.feedback.create.success" : "Feedback Sent Successfully!",
+  "info.feedback.create.success": "Feedback Sent Successfully!",
 
-  "info.feedback.error.email.required" : "A valid email address is required",
+  "info.feedback.error.email.required": "A valid email address is required",
 
-  "info.feedback.error.message.required" : "A comment is required",
+  "info.feedback.error.message.required": "A comment is required",
 
-  "info.feedback.page-label" : "Page",
+  "info.feedback.page-label": "Page",
 
-  "info.feedback.page_help" : "Tha page related to your feedback",
-
-
+  "info.feedback.page_help": "Tha page related to your feedback",
 
   "item.alerts.private": "This item is non-discoverable",
 
   "item.alerts.withdrawn": "This item has been withdrawn",
 
-
-
   "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
 
   "item.edit.authorizations.title": "Edit item's Policies",
 
-
-
   "item.badge.private": "Non-discoverable",
 
   "item.badge.withdrawn": "Withdrawn",
-
-
 
   "item.bitstreams.upload.bundle": "Bundle",
 
@@ -1777,7 +1658,7 @@
 
   "item.bitstreams.upload.bundle.new": "Create bundle",
 
-  "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
 
   "item.bitstreams.upload.cancel": "Cancel",
 
@@ -1792,8 +1673,6 @@
   "item.bitstreams.upload.notifications.upload.failed": "Upload failed. Please verify the content before retrying.",
 
   "item.bitstreams.upload.title": "Upload bitstream",
-
-
 
   "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
 
@@ -1855,8 +1734,6 @@
 
   "item.edit.bitstreams.upload-button": "Upload",
 
-
-
   "item.edit.delete.cancel": "Cancel",
 
   "item.edit.delete.confirm": "Delete",
@@ -1875,7 +1752,6 @@
 
   "item.edit.tabs.disabled.tooltip": "You're not authorized to access this tab",
 
-
   "item.edit.tabs.mapper.head": "Collection Mapper",
 
   "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
@@ -1890,7 +1766,7 @@
 
   "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
 
-  "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
+  "item.edit.item-mapper.item": 'Item: "<b>{{name}}</b>"',
 
   "item.edit.item-mapper.no-search": "Please enter a query to search",
 
@@ -1915,8 +1791,6 @@
   "item.edit.item-mapper.tabs.browse": "Browse mapped collections",
 
   "item.edit.item-mapper.tabs.map": "Map new collections",
-
-
 
   "item.edit.metadata.add-button": "Add",
 
@@ -1964,15 +1838,11 @@
 
   "item.edit.metadata.save-button": "Save",
 
-
-
   "item.edit.modify.overview.field": "Field",
 
   "item.edit.modify.overview.language": "Language",
 
   "item.edit.modify.overview.value": "Value",
-
-
 
   "item.edit.move.cancel": "Back",
 
@@ -2000,8 +1870,6 @@
 
   "item.edit.move.title": "Move item",
 
-
-
   "item.edit.private.cancel": "Cancel",
 
   "item.edit.private.confirm": "Make it non-discoverable",
@@ -2013,8 +1881,6 @@
   "item.edit.private.header": "Make item non-discoverable: {{ id }}",
 
   "item.edit.private.success": "The item is now non-discoverable",
-
-
 
   "item.edit.public.cancel": "Cancel",
 
@@ -2028,8 +1894,6 @@
 
   "item.edit.public.success": "The item is now discoverable",
 
-
-
   "item.edit.reinstate.cancel": "Cancel",
 
   "item.edit.reinstate.confirm": "Reinstate",
@@ -2041,8 +1905,6 @@
   "item.edit.reinstate.header": "Reinstate item: {{ id }}",
 
   "item.edit.reinstate.success": "The item was reinstated successfully",
-
-
 
   "item.edit.relationships.discard-button": "Discard",
 
@@ -2074,9 +1936,7 @@
 
   "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
 
-
   "item.edit.return": "Back",
-
 
   "item.edit.tabs.bitstreams.head": "Bitstreams",
 
@@ -2152,8 +2012,6 @@
 
   "item.edit.tabs.view.title": "Item Edit -  View",
 
-
-
   "item.edit.withdraw.cancel": "Cancel",
 
   "item.edit.withdraw.confirm": "Withdraw",
@@ -2167,7 +2025,6 @@
   "item.edit.withdraw.success": "The item was withdrawn successfully",
 
   "item.orcid.return": "Back",
-
 
   "item.listelement.badge": "Item",
 
@@ -2190,8 +2047,6 @@
   "item.truncatable-part.show-more": "Show more",
 
   "item.truncatable-part.show-less": "Collapse",
-
-
 
   "item.page.abstract": "Abstract",
 
@@ -2253,9 +2108,9 @@
 
   "item.page.bitstreams.collapse": "Collapse",
 
-  "item.page.filesection.original.bundle" : "Original bundle",
+  "item.page.filesection.original.bundle": "Original bundle",
 
-  "item.page.filesection.license.bundle" : "License bundle",
+  "item.page.filesection.license.bundle": "License bundle",
 
   "item.page.return": "Back",
 
@@ -2285,19 +2140,19 @@
 
   "item.preview.dc.type": "Type:",
 
-  "item.preview.oaire.citation.issue" : "Issue",
+  "item.preview.oaire.citation.issue": "Issue",
 
-  "item.preview.oaire.citation.volume" : "Volume",
+  "item.preview.oaire.citation.volume": "Volume",
 
-  "item.preview.dc.relation.issn" : "ISSN",
+  "item.preview.dc.relation.issn": "ISSN",
 
-  "item.preview.dc.identifier.isbn" : "ISBN",
+  "item.preview.dc.identifier.isbn": "ISBN",
 
   "item.preview.dc.identifier": "Identifier:",
 
-  "item.preview.dc.relation.ispartof" : "Journal or Serie",
+  "item.preview.dc.relation.ispartof": "Journal or Serie",
 
-  "item.preview.dc.identifier.doi" : "DOI",
+  "item.preview.dc.identifier.doi": "DOI",
 
   "item.preview.person.familyName": "Surname:",
 
@@ -2317,8 +2172,6 @@
 
   "item.preview.oaire.fundingStream": "Funding Stream:",
 
-
-
   "item.select.confirm": "Confirm selected",
 
   "item.select.empty": "No items to show",
@@ -2328,7 +2181,6 @@
   "item.select.table.collection": "Collection",
 
   "item.select.table.title": "Title",
-
 
   "item.version.history.empty": "There are no other versions for this item yet.",
 
@@ -2370,9 +2222,7 @@
 
   "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
 
-
   "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
-
 
   "item.version.create.modal.header": "New version",
 
@@ -2396,12 +2246,11 @@
 
   "item.version.create.modal.submitted.text": "The new version is being created. This may take some time if the item has a lot of relationships.",
 
-  "item.version.create.notification.success" : "New version has been created with version number {{version}}",
+  "item.version.create.notification.success": "New version has been created with version number {{version}}",
 
-  "item.version.create.notification.failure" : "New version has not been created",
+  "item.version.create.notification.failure": "New version has not been created",
 
-  "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
-
+  "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
 
   "item.version.delete.modal.header": "Delete version",
 
@@ -2415,16 +2264,13 @@
 
   "item.version.delete.modal.button.cancel.tooltip": "Do not delete this version",
 
-  "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
+  "item.version.delete.notification.success": "Version number {{version}} has been deleted",
 
-  "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
+  "item.version.delete.notification.failure": "Version number {{version}} has not been deleted",
 
+  "item.version.edit.notification.success": "The summary of version number {{version}} has been changed",
 
-  "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
-
-  "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
-
-
+  "item.version.edit.notification.failure": "The summary of version number {{version}} has not been changed",
 
   "journal.listelement.badge": "Journal",
 
@@ -2446,8 +2292,6 @@
 
   "journal.search.title": "Journal Search",
 
-
-
   "journalissue.listelement.badge": "Journal Issue",
 
   "journalissue.page.description": "Description",
@@ -2466,8 +2310,6 @@
 
   "journalissue.page.titleprefix": "Journal Issue: ",
 
-
-
   "journalvolume.listelement.badge": "Journal Volume",
 
   "journalvolume.page.description": "Description",
@@ -2479,7 +2321,6 @@
   "journalvolume.page.titleprefix": "Journal Volume: ",
 
   "journalvolume.page.volume": "Volume",
-
 
   "iiifsearchable.listelement.badge": "Document Media",
 
@@ -2502,7 +2343,6 @@
   "iiif.page.issue": "Issue: ",
 
   "iiif.page.description": "Description: ",
-
 
   "loading.bitstream": "Loading bitstream...",
 
@@ -2540,8 +2380,6 @@
 
   "loading.top-level-communities": "Loading top-level communities...",
 
-
-
   "login.form.email": "Email address",
 
   "login.form.forgot-password": "Have you forgotten your password?",
@@ -2566,23 +2404,17 @@
 
   "login.breadcrumbs": "Login",
 
-
-
   "logout.form.header": "Log out from DSpace",
 
   "logout.form.submit": "Log out",
 
   "logout.title": "Logout",
 
-
-
   "menu.header.admin": "Management",
 
   "menu.header.image.logo": "Repository logo",
 
   "menu.header.admin.description": "Management menu",
-
-
 
   "menu.section.access_control": "Access Control",
 
@@ -2592,11 +2424,7 @@
 
   "menu.section.access_control_people": "People",
 
-
-
   "menu.section.admin_search": "Admin Search",
-
-
 
   "menu.section.browse_community": "This Community",
 
@@ -2618,13 +2446,9 @@
 
   "menu.section.browse_global_communities_and_collections": "Communities & Collections",
 
-
-
   "menu.section.control_panel": "Control Panel",
 
   "menu.section.curation_task": "Curation Task",
-
-
 
   "menu.section.edit": "Edit",
 
@@ -2633,8 +2457,6 @@
   "menu.section.edit_community": "Community",
 
   "menu.section.edit_item": "Item",
-
-
 
   "menu.section.export": "Export",
 
@@ -2647,7 +2469,6 @@
   "menu.section.export_metadata": "Metadata",
 
   "menu.section.export_batch": "Batch Export (ZIP)",
-
 
   "menu.section.icon.access_control": "Access Control menu section",
 
@@ -2681,15 +2502,11 @@
 
   "menu.section.icon.unpin": "Unpin sidebar",
 
-
-
   "menu.section.import": "Import",
 
   "menu.section.import_batch": "Batch Import (ZIP)",
 
   "menu.section.import_metadata": "Metadata",
-
-
 
   "menu.section.new": "New",
 
@@ -2703,19 +2520,13 @@
 
   "menu.section.new_process": "Process",
 
-
-
   "menu.section.pin": "Pin sidebar",
 
   "menu.section.unpin": "Unpin sidebar",
 
-
-
   "menu.section.processes": "Processes",
 
   "menu.section.health": "Health",
-
-
 
   "menu.section.registries": "Registries",
 
@@ -2723,13 +2534,9 @@
 
   "menu.section.registries_metadata": "Metadata",
 
-
-
   "menu.section.statistics": "Statistics",
 
   "menu.section.statistics_task": "Statistics Task",
-
-
 
   "menu.section.toggle.access_control": "Toggle Access Control section",
 
@@ -2751,14 +2558,11 @@
 
   "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
 
-
   "menu.section.workflow": "Administer Workflow",
-
 
   "metadata-export-search.tooltip": "Export search results as CSV",
   "metadata-export-search.submit.success": "The export was started successfully",
   "metadata-export-search.submit.error": "Starting the export has failed",
-
 
   "mydspace.breadcrumbs": "MyDSpace",
 
@@ -2842,8 +2646,6 @@
 
   "mydspace.view-btn": "View",
 
-
-
   "nav.browse.header": "All of DSpace",
 
   "nav.community-browse.header": "By Community",
@@ -2866,12 +2668,11 @@
 
   "nav.stop-impersonating": "Stop impersonating EPerson",
 
-  "nav.toggle" : "Toggle navigation",
+  "nav.toggle": "Toggle navigation",
 
-  "nav.user.description" : "User profile bar",
+  "nav.user.description": "User profile bar",
 
   "none.listelement.badge": "Item",
-
 
   "orgunit.listelement.badge": "Organizational Unit",
 
@@ -2889,8 +2690,6 @@
 
   "orgunit.page.titleprefix": "Organizational Unit: ",
 
-
-
   "pagination.options.description": "Pagination options",
 
   "pagination.results-per-page": "Results Per Page",
@@ -2900,8 +2699,6 @@
   "pagination.showing.label": "Now showing ",
 
   "pagination.sort-direction": "Sort Options",
-
-
 
   "person.listelement.badge": "Person",
 
@@ -2934,8 +2731,6 @@
   "person-relationships.search.results.head": "Person Search Results",
 
   "person.search.title": "Person Search",
-
-
 
   "process.new.select-parameters": "Parameters",
 
@@ -2975,15 +2770,13 @@
 
   "process.new.breadcrumbs": "Create a new process",
 
+  "process.detail.arguments": "Arguments",
 
+  "process.detail.arguments.empty": "This process doesn't contain any arguments",
 
-  "process.detail.arguments" : "Arguments",
+  "process.detail.back": "Back",
 
-  "process.detail.arguments.empty" : "This process doesn't contain any arguments",
-
-  "process.detail.back" : "Back",
-
-  "process.detail.output" : "Process Output",
+  "process.detail.output": "Process Output",
 
   "process.detail.logs.button": "Retrieve process output",
 
@@ -2991,21 +2784,21 @@
 
   "process.detail.logs.none": "This process has no output",
 
-  "process.detail.output-files" : "Output Files",
+  "process.detail.output-files": "Output Files",
 
-  "process.detail.output-files.empty" : "This process doesn't contain any output files",
+  "process.detail.output-files.empty": "This process doesn't contain any output files",
 
-  "process.detail.script" : "Script",
+  "process.detail.script": "Script",
 
-  "process.detail.title" : "Process: {{ id }} - {{ name }}",
+  "process.detail.title": "Process: {{ id }} - {{ name }}",
 
-  "process.detail.start-time" : "Start time",
+  "process.detail.start-time": "Start time",
 
-  "process.detail.end-time" : "Finish time",
+  "process.detail.end-time": "Finish time",
 
-  "process.detail.status" : "Status",
+  "process.detail.status": "Status",
 
-  "process.detail.create" : "Create similar process",
+  "process.detail.create": "Create similar process",
 
   "process.detail.actions": "Actions",
 
@@ -3023,19 +2816,17 @@
 
   "process.detail.delete.error": "Something went wrong when deleting the process",
 
+  "process.overview.table.finish": "Finish time (UTC)",
 
+  "process.overview.table.id": "Process ID",
 
-  "process.overview.table.finish" : "Finish time (UTC)",
+  "process.overview.table.name": "Name",
 
-  "process.overview.table.id" : "Process ID",
+  "process.overview.table.start": "Start time (UTC)",
 
-  "process.overview.table.name" : "Name",
+  "process.overview.table.status": "Status",
 
-  "process.overview.table.start" : "Start time (UTC)",
-
-  "process.overview.table.status" : "Status",
-
-  "process.overview.table.user" : "User",
+  "process.overview.table.user": "User",
 
   "process.overview.title": "Processes Overview",
 
@@ -3060,8 +2851,6 @@
   "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
 
   "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
-
-
 
   "profile.breadcrumbs": "Update Profile",
 
@@ -3149,8 +2938,6 @@
 
   "project-relationships.search.results.head": "Project Search Results",
 
-
-
   "publication.listelement.badge": "Publication",
 
   "publication.page.description": "Description",
@@ -3173,13 +2960,11 @@
 
   "publication.search.title": "Publication Search",
 
-
   "media-viewer.next": "Next",
 
   "media-viewer.previous": "Previous",
 
   "media-viewer.playlist": "Playlist",
-
 
   "register-email.title": "New user registration",
 
@@ -3223,7 +3008,6 @@
 
   "register-page.create-profile.submit.success.head": "Registration completed",
 
-
   "register-page.registration.header": "New user registration",
 
   "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
@@ -3245,8 +3029,6 @@
   "register-page.registration.error.head": "Error when trying to register email",
 
   "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
-
-
 
   "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
 
@@ -3290,13 +3072,11 @@
 
   "relationships.isFundingAgencyOf.OrgUnit": "Funder",
 
-
   "repository.image.logo": "Repository logo",
 
-  "repository.title.prefix": "DSpace Angular :: ",
+  "repository.title.prefix": "Central Metatada Repository",
 
-  "repository.title.prefixDSpace": "DSpace Angular ::",
-
+  "repository.title.prefixDSpace": "Central Metatada Repository :::",
 
   "resource-policies.add.button": "Add",
 
@@ -3412,8 +3192,6 @@
 
   "resource-policies.table.headers.title.for.collection": "Policies for Collection",
 
-
-
   "search.description": "",
 
   "search.switch-configuration.title": "Show",
@@ -3423,7 +3201,6 @@
   "search.breadcrumbs": "Search",
 
   "search.search-form.placeholder": "Search the repository ...",
-
 
   "search.filters.applied.f.author": "Author",
 
@@ -3454,8 +3231,6 @@
   "search.filters.applied.f.birthDate.min": "Start birth date",
 
   "search.filters.applied.f.withdrawn": "Withdrawn",
-
-
 
   "search.filters.filter.author.head": "Author",
 
@@ -3595,8 +3370,6 @@
 
   "search.filters.filter.submitter.label": "Search submitter",
 
-
-
   "search.filters.entityType.JournalIssue": "Journal Issue",
 
   "search.filters.entityType.JournalVolume": "Journal Volume",
@@ -3615,22 +3388,17 @@
 
   "search.filters.withdrawn.false": "No",
 
-
   "search.filters.head": "Filters",
 
   "search.filters.reset": "Reset filters",
 
   "search.filters.search.submit": "Submit",
 
-
-
   "search.form.search": "Search",
 
   "search.form.search_dspace": "All repository",
 
   "search.form.scope.all": "All of DSpace",
-
-
 
   "search.results.head": "Search Results",
 
@@ -3648,7 +3416,6 @@
 
   "default-relationships.search.results.head": "Search Results",
 
-
   "search.sidebar.close": "Back to results",
 
   "search.sidebar.filters.title": "Filters",
@@ -3663,15 +3430,11 @@
 
   "search.sidebar.settings.title": "Settings",
 
-
-
   "search.view-switch.show-detail": "Show detail",
 
   "search.view-switch.show-grid": "Show as grid",
 
   "search.view-switch.show-list": "Show as list",
-
-
 
   "sorting.ASC": "Ascending",
 
@@ -3697,7 +3460,6 @@
 
   "sorting.lastModified.DESC": "Last modified Descending",
 
-
   "statistics.title": "Statistics",
 
   "statistics.header": "Statistics for {{ scope }}",
@@ -3719,8 +3481,6 @@
   "statistics.table.title.TopCities": "Top city views",
 
   "statistics.table.header.views": "Views",
-
-
 
   "submission.edit.breadcrumbs": "Edit Submission",
 
@@ -3749,7 +3509,6 @@
   "submission.general.save": "Save",
 
   "submission.general.save-later": "Save for later",
-
 
   "submission.import-external.page.title": "Import metadata from an external source",
 
@@ -4008,9 +3767,6 @@
 
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
 
-
-
-
   "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
 
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
@@ -4105,7 +3861,7 @@
 
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 
-  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  "submission.sections.describe.relationship-lookup.name-variant.notification.content": 'Would you like to save "{{ value }}" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.',
 
   "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
 
@@ -4155,8 +3911,6 @@
 
   "submission.sections.general.sections_not_valid": "There are incomplete sections.",
 
-
-
   "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
 
   "submission.sections.submit.progressbar.CClicense": "Creative commons license",
@@ -4178,7 +3932,6 @@
   "submission.sections.submit.progressbar.upload": "Upload files",
 
   "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
-
 
   "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
 
@@ -4300,8 +4053,7 @@
 
   "submission.sections.license.required": "You must accept the license",
 
-  "submission.sections.license.notgranted":  "You must accept the license",
-
+  "submission.sections.license.notgranted": "You must accept the license",
 
   "submission.sections.sherpa.publication.information": "Publication information",
 
@@ -4355,17 +4107,13 @@
 
   "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
 
-
-
   "submission.submit.breadcrumbs": "New submission",
 
   "submission.submit.title": "New submission",
 
-
-
   "submission.workflow.generic.delete": "Delete",
 
-  "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
+  "submission.workflow.generic.delete-help": 'If you would to discard this item, select "Delete".  You will then be asked to confirm it.',
 
   "submission.workflow.generic.edit": "Edit",
 
@@ -4375,11 +4123,9 @@
 
   "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
 
-
-
   "submission.workflow.tasks.claimed.approve": "Approve",
 
-  "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
+  "submission.workflow.tasks.claimed.approve_help": 'If you have reviewed the item and it is suitable for inclusion in the collection, select "Approve".',
 
   "submission.workflow.tasks.claimed.edit": "Edit",
 
@@ -4395,13 +4141,11 @@
 
   "submission.workflow.tasks.claimed.reject.submit": "Reject",
 
-  "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  "submission.workflow.tasks.claimed.reject_help": 'If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select "Reject".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.',
 
   "submission.workflow.tasks.claimed.return": "Return to pool",
 
   "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
-
-
 
   "submission.workflow.tasks.generic.error": "Error occurred during operation...",
 
@@ -4411,8 +4155,6 @@
 
   "submission.workflow.tasks.generic.success": "Operation successful",
 
-
-
   "submission.workflow.tasks.pool.claim": "Claim",
 
   "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
@@ -4421,11 +4163,9 @@
 
   "submission.workflow.tasks.pool.show-detail": "Show detail",
 
-
   "submission.workspace.generic.view": "View",
 
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
-
 
   "thumbnail.default.alt": "Thumbnail Image",
 
@@ -4443,11 +4183,7 @@
 
   "thumbnail.person.placeholder": "No Profile Picture Available",
 
-
-
-  "title": "DSpace",
-
-
+  title: "DSpace",
 
   "vocabulary-treeview.header": "Hierarchical tree view",
 
@@ -4462,8 +4198,6 @@
   "vocabulary-treeview.tree.description.nsi": "The Norwegian Science Index",
 
   "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
-
-
 
   "uploader.browse": "browse",
 
@@ -4483,15 +4217,11 @@
 
   "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
 
-
-
   "workspace.search.results.head": "Your submissions",
 
   "workflowAdmin.search.results.head": "Administer Workflow",
 
   "workflow.search.results.head": "Workflow tasks",
-
-
 
   "workflow-item.edit.breadcrumbs": "Edit workflowitem",
 
@@ -4512,7 +4242,6 @@
   "workflow-item.delete.button.cancel": "Cancel",
 
   "workflow-item.delete.button.confirm": "Delete",
-
 
   "workflow-item.send-back.notification.success.title": "Sent back to submitter",
 
@@ -4544,7 +4273,7 @@
 
   "idle-modal.extend-session": "Extend session",
 
-  "researcher.profile.action.processing" : "Processing...",
+  "researcher.profile.action.processing": "Processing...",
 
   "researcher.profile.associated": "Researcher profile associated",
 
@@ -4566,27 +4295,27 @@
 
   "researcher.profile.view": "View",
 
-  "researcher.profile.private.visibility" : "PRIVATE",
+  "researcher.profile.private.visibility": "PRIVATE",
 
-  "researcher.profile.public.visibility" : "PUBLIC",
+  "researcher.profile.public.visibility": "PUBLIC",
 
   "researcher.profile.status": "Status:",
 
   "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
 
-  "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
+  "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
 
-  "researcherprofile.error.claim.title" : "Error",
+  "researcherprofile.error.claim.title": "Error",
 
-  "researcherprofile.success.claim.body" : "Profile claimed with success",
+  "researcherprofile.success.claim.body": "Profile claimed with success",
 
-  "researcherprofile.success.claim.title" : "Success",
+  "researcherprofile.success.claim.title": "Success",
 
   "person.page.orcid.create": "Create an ORCID ID",
 
   "person.page.orcid.granted-authorizations": "Granted authorizations",
 
-  "person.page.orcid.grant-authorizations" : "Grant authorizations",
+  "person.page.orcid.grant-authorizations": "Grant authorizations",
 
   "person.page.orcid.link": "Connect to ORCID ID",
 
@@ -4618,31 +4347,31 @@
 
   "person.page.orcid.save.preference.changes": "Update settings",
 
-  "person.page.orcid.sync-profile.affiliation" : "Affiliation",
+  "person.page.orcid.sync-profile.affiliation": "Affiliation",
 
-  "person.page.orcid.sync-profile.biographical" : "Biographical data",
+  "person.page.orcid.sync-profile.biographical": "Biographical data",
 
-  "person.page.orcid.sync-profile.education" : "Education",
+  "person.page.orcid.sync-profile.education": "Education",
 
-  "person.page.orcid.sync-profile.identifiers" : "Identifiers",
+  "person.page.orcid.sync-profile.identifiers": "Identifiers",
 
-  "person.page.orcid.sync-fundings.all" : "All fundings",
+  "person.page.orcid.sync-fundings.all": "All fundings",
 
-  "person.page.orcid.sync-fundings.mine" : "My fundings",
+  "person.page.orcid.sync-fundings.mine": "My fundings",
 
-  "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
+  "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
 
-  "person.page.orcid.sync-fundings.disabled" : "Disabled",
+  "person.page.orcid.sync-fundings.disabled": "Disabled",
 
-  "person.page.orcid.sync-publications.all" : "All publications",
+  "person.page.orcid.sync-publications.all": "All publications",
 
-  "person.page.orcid.sync-publications.mine" : "My publications",
+  "person.page.orcid.sync-publications.mine": "My publications",
 
-  "person.page.orcid.sync-publications.my_selected" : "Selected publications",
+  "person.page.orcid.sync-publications.my_selected": "Selected publications",
 
-  "person.page.orcid.sync-publications.disabled" : "Disabled",
+  "person.page.orcid.sync-publications.disabled": "Disabled",
 
-  "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
+  "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
 
   "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
 
@@ -4650,11 +4379,11 @@
 
   "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
 
-  "person.page.orcid.sync-queue.table.header.type" : "Type",
+  "person.page.orcid.sync-queue.table.header.type": "Type",
 
-  "person.page.orcid.sync-queue.table.header.description" : "Description",
+  "person.page.orcid.sync-queue.table.header.description": "Description",
 
-  "person.page.orcid.sync-queue.table.header.action" : "Action",
+  "person.page.orcid.sync-queue.table.header.action": "Action",
 
   "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
 
@@ -4698,7 +4427,7 @@
 
   "person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
 
-  "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
+  "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
 
   "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
 
@@ -4734,7 +4463,7 @@
 
   "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
 
-  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
 
   "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
 
@@ -4756,7 +4485,7 @@
 
   "person.page.orcid.synchronization-mode.label": "Synchronization mode",
 
-  "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
+  "person.page.orcid.synchronization-mode-message": 'Please select how you would like synchronization to ORCID to occur. The options include "Manual" (you must send your data to ORCID manually), or "Batch" (the system will send your data to ORCID via a scheduled script).',
 
   "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
 
@@ -4788,5 +4517,4 @@
 
   "person.orcid.registry.auth": "ORCID Authorizations",
   "home.recent-submissions.head": "Recent Submissions",
-
 }

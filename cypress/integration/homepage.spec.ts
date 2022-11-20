@@ -6,8 +6,8 @@ describe('Homepage', () => {
     cy.visit('/');
   });
 
-  it('should display translated title "DSpace Angular :: Home"', () => {
-    cy.title().should('eq', 'DSpace Angular :: Home');
+  it('should display translated title "Central Metatada RepositoryHome"', () => {
+    cy.title().should('eq', 'Central Metatada RepositoryHome');
   });
 
   it('should contain a news section', () => {

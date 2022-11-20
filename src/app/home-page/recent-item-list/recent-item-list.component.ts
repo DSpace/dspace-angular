@@ -37,7 +37,7 @@ export class RecentItemListComponent implements OnInit {
  * The view-mode we're currently on
  * @type {ViewMode}
  */
-  viewMode = ViewMode.ListElement;
+  viewMode = ViewMode.DetailedListElement;
 
   private _placeholderFontClass: string;
 

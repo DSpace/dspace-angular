@@ -1,5 +1,4 @@
 {
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Vous n'êtes pas autorisé à accéder à cette page. Vous pouvez utiliser le bouton ci-dessous pour revenir à la page d'accueil.",
 
@@ -364,13 +363,13 @@
   "admin.access-control.epeople.table.edit": "Éditer",
 
   // "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
-  "admin.access-control.epeople.table.edit.buttons.edit": "Éditer \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.edit": 'Éditer "{{name}}"',
 
   // "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
   "admin.access-control.epeople.table.edit.buttons.edit-disabled": "Vous n'êtes pas autorisé à modifier ce groupe",
 
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  "admin.access-control.epeople.table.edit.buttons.remove": "Supprimer \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove": 'Supprimer "{{name}}"',
 
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
   "admin.access-control.epeople.no-items": "Aucun(e) EPerson ne correspond à votre recherche",
@@ -403,28 +402,28 @@
   "admin.access-control.epeople.form.return": "Retour",
 
   // "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.created.success": "EPerson \"{{name}}\" créé(e) avec succès",
+  "admin.access-control.epeople.form.notification.created.success": 'EPerson "{{name}}" créé(e) avec succès',
 
   // "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.created.failure": "Erreur lors de la création de l'EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.failure": 'Erreur lors de la création de l\'EPerson "{{name}}"',
 
   // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Erreur lors de la création de l'EPerson \"{{name}}\", l'adresse électronique \"{{email}}\" est déjà utilisée.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": 'Erreur lors de la création de l\'EPerson "{{name}}", l\'adresse électronique "{{email}}" est déjà utilisée.',
 
   // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Erreur lors de la modification de l'EPerson \"{{name}}\", l'adresse électronique \"{{email}}\" est déjà utilisée.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": 'Erreur lors de la modification de l\'EPerson "{{name}}", l\'adresse électronique "{{email}}" est déjà utilisée.',
 
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.edited.success": "EPerson \"{{name}}\" modifié(e) avec succès",
+  "admin.access-control.epeople.form.notification.edited.success": 'EPerson "{{name}}" modifié(e) avec succès',
 
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.edited.failure": "Erreur lors de la modification de l'EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.failure": 'Erreur lors de la modification de l\'EPerson "{{name}}"',
 
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.deleted.success": "EPerson \"{{name}}\" supprimé(e) avec succès",
+  "admin.access-control.epeople.form.notification.deleted.success": 'EPerson "{{name}}" supprimé(e) avec succès',
 
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.deleted.failure": "Erreur lors de la suppression de l'EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.failure": 'Erreur lors de la suppression de l\'EPerson "{{name}}"',
 
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Membre des groupes suivants :",
@@ -445,10 +444,10 @@
   "admin.access-control.epeople.form.goToGroups": "Ajouter au(x) groupe(s)",
 
   // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
-  "admin.access-control.epeople.notification.deleted.failure": "Erreur lors de la suppression de l'EPerson \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": 'Erreur lors de la suppression de l\'EPerson "{{name}}"',
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
-  "admin.access-control.epeople.notification.deleted.success": "EPerson \"{{name}}\" supprimé(e) avec succès",
+  "admin.access-control.epeople.notification.deleted.success": 'EPerson "{{name}}" supprimé(e) avec succès',
 
   // "admin.access-control.groups.title": "Groups",
   "admin.access-control.groups.title": "Groupes",
@@ -502,22 +501,22 @@
   "admin.access-control.groups.table.edit": "Éditer",
 
   // "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
-  "admin.access-control.groups.table.edit.buttons.edit": "Éditer \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.edit": 'Éditer "{{name}}"',
 
   // "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  "admin.access-control.groups.table.edit.buttons.remove": "Supprimer \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.remove": 'Supprimer "{{name}}"',
 
   // "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
   "admin.access-control.groups.no-items": "Aucun groupe ne correspond à ce nom ou cet identifiant UUID",
 
   // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
-  "admin.access-control.groups.notification.deleted.success": "Groupe \"{{name}}\" supprimé avec succès",
+  "admin.access-control.groups.notification.deleted.success": 'Groupe "{{name}}" supprimé avec succès',
 
   // "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
-  "admin.access-control.groups.notification.deleted.failure.title": "Erreur lors de la suppression du groupe \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.failure.title": 'Erreur lors de la suppression du groupe "{{name}}"',
 
   // "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
-  "admin.access-control.groups.notification.deleted.failure.content": "Cause : \"{{cause}}\"",
+  "admin.access-control.groups.notification.deleted.failure.content": 'Cause : "{{cause}}"',
 
   // "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
   "admin.access-control.groups.form.alert.permanent": "Ce groupe est permanent et ne peut être édité ni supprimé. Vous pouvez toutefois ajouter ou retirer ici des membres au groupe.",
@@ -541,31 +540,31 @@
   "admin.access-control.groups.form.groupDescription": "Description",
 
   // "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.created.success": "Groupe \"{{name}}\" créé avec succès",
+  "admin.access-control.groups.form.notification.created.success": 'Groupe "{{name}}" créé avec succès',
 
   // "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.created.failure": "Erreur lors de la création du groupe \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.failure": 'Erreur lors de la création du groupe "{{name}}"',
 
   // "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
-  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Erreur lors de la création du groupe \"{{name}}\", veuillez vérifier que ce nom n'est pas déjà utilisé.",
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": 'Erreur lors de la création du groupe "{{name}}", veuillez vérifier que ce nom n\'est pas déjà utilisé.',
 
   // "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.edited.failure": "Erreur lors de la modification du groupe \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.failure": 'Erreur lors de la modification du groupe "{{name}}"',
 
   // "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
-  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Le nom \"{{name}}\" est déjà utilisé!",
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": 'Le nom "{{name}}" est déjà utilisé!',
 
   // "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.edited.success": "Groupe \"{{name}}\" édité avec succès",
+  "admin.access-control.groups.form.notification.edited.success": 'Groupe "{{name}}" édité avec succès',
 
   // "admin.access-control.groups.form.actions.delete": "Delete Group",
   "admin.access-control.groups.form.actions.delete": "Supprimer le groupe",
 
   // "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
-  "admin.access-control.groups.form.delete-group.modal.header": "Supprimer le groupe \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.header": 'Supprimer le groupe "{{ dsoName }}"',
 
   // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
-  "admin.access-control.groups.form.delete-group.modal.info": "Êtes-vous certain(e) de vouloir supprimer le groupe \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.info": 'Êtes-vous certain(e) de vouloir supprimer le groupe "{{ dsoName }}"',
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
   "admin.access-control.groups.form.delete-group.modal.cancel": "Annuler",
@@ -574,13 +573,13 @@
   "admin.access-control.groups.form.delete-group.modal.confirm": "Supprimer",
 
   // "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
-  "admin.access-control.groups.form.notification.deleted.success": "Groupe \"{{ name }}\" supprimé avec succès",
+  "admin.access-control.groups.form.notification.deleted.success": 'Groupe "{{ name }}" supprimé avec succès',
 
   // "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
-  "admin.access-control.groups.form.notification.deleted.failure.title": "Erreur lors de la suppression du groupe \"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.title": 'Erreur lors de la suppression du groupe "{{ name }}"',
 
   // "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
-  "admin.access-control.groups.form.notification.deleted.failure.content": "Cause : \"{{ cause }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.content": 'Cause : "{{ cause }}"',
 
   // "admin.access-control.groups.form.members-list.head": "EPeople",
   "admin.access-control.groups.form.members-list.head": "EPeople",
@@ -622,22 +621,22 @@
   "admin.access-control.groups.form.members-list.table.edit": "Supprimer / Ajouter",
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Supprimer le membre \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": 'Supprimer le membre "{{name}}"',
 
   // "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.success.addMember": "Membre \"{{name}}\" ajouté avec succès",
+  "admin.access-control.groups.form.members-list.notification.success.addMember": 'Membre "{{name}}" ajouté avec succès',
 
   // "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Erreur lors de l'ajout de \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.addMember": 'Erreur lors de l\'ajout de "{{name}}"',
 
   // "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Membre \"{{name}}\" supprimé avec succès",
+  "admin.access-control.groups.form.members-list.notification.success.deleteMember": 'Membre "{{name}}" supprimé avec succès',
 
   // "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Erreur lors de la suppression de \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": 'Erreur lors de la suppression de "{{name}}"',
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Ajouter le membre \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.add": 'Ajouter le membre "{{name}}"',
 
   // "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
   "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "Pas de groupe actif, veuillez d'abord entrer un nom.",
@@ -649,7 +648,7 @@
   "admin.access-control.groups.form.members-list.no-items": "Aucun(e) EPerson ne correspond à cette recherche",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.failure": "Une erreur s'est produite : \"{{cause}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure": 'Une erreur s\'est produite : "{{cause}}"',
 
   // "admin.access-control.groups.form.subgroups-list.head": "Groups",
   "admin.access-control.groups.form.subgroups-list.head": "Groupes",
@@ -679,25 +678,25 @@
   "admin.access-control.groups.form.subgroups-list.table.edit": "Supprimer / Ajouter",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Supprimer le sous-groupe \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": 'Supprimer le sous-groupe "{{name}}"',
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Ajouter le sous-groupe \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": 'Ajouter le sous-groupe "{{name}}"',
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
   "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Groupe actuel",
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Sous-groupe \"{{name}}\" ajouté avec succès",
+  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": 'Sous-groupe "{{name}}" ajouté avec succès',
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Erreur lors de la création du sous-groupe \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": 'Erreur lors de la création du sous-groupe "{{name}}"',
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Sous-groupe \"{{name}}\" supprimé avec succès",
+  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": 'Sous-groupe "{{name}}" supprimé avec succès',
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Erreur lors de la suppression du sous-groupe \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": 'Erreur lors de la suppression du sous-groupe "{{name}}"',
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
   "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "Pas de groupe actif, veuillez d'abord entrer un nom.",
@@ -820,7 +819,7 @@
   "bitstream.edit.bitstream": "Bitstream : ",
 
   // "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
-  "bitstream.edit.form.description.hint": "Il vous est possible d'entrer une description facultative pour le fichier, par exemple \"<i>Article principal</i>\" ou \"<i>Données expérimentales</i>\".",
+  "bitstream.edit.form.description.hint": 'Il vous est possible d\'entrer une description facultative pour le fichier, par exemple "<i>Article principal</i>" ou "<i>Données expérimentales</i>".',
 
   // "bitstream.edit.form.description.label": "Description",
   "bitstream.edit.form.description.label": "Description",
@@ -841,13 +840,13 @@
   "bitstream.edit.form.newFormat.label": "Décrire un nouveau format",
 
   // "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
-  "bitstream.edit.form.newFormat.hint": "L'application utilisée pour créer le fichier et le numéro de version (par exemple, \"<i>ACMESoft SuperApp version 1.5</i>\").",
+  "bitstream.edit.form.newFormat.hint": 'L\'application utilisée pour créer le fichier et le numéro de version (par exemple, "<i>ACMESoft SuperApp version 1.5</i>").',
 
   // "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
   "bitstream.edit.form.primaryBitstream.label": "Bitstream principal",
 
   // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
-  "bitstream.edit.form.selectedFormat.hint": "Si le format souhaité ne se trouve pas dans la liste ci-dessus, <b>sélectionner \"Format non disponible dans la liste\" ci-dessus</b> et le décrire via \"Décrire un nouveau format\".",
+  "bitstream.edit.form.selectedFormat.hint": 'Si le format souhaité ne se trouve pas dans la liste ci-dessus, <b>sélectionner "Format non disponible dans la liste" ci-dessus</b> et le décrire via "Décrire un nouveau format".',
 
   // "bitstream.edit.form.selectedFormat.label": "Selected Format",
   "bitstream.edit.form.selectedFormat.label": "Format sélectionné",
@@ -899,13 +898,13 @@
 
   // "bitstream-request-a-copy.header": "Request a copy of the file",
   "bitstream-request-a-copy.header": "Demander une copie du fichier",
-  
-   // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
+
+  // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
   "bitstream-request-a-copy.intro": "Entrer les informations suivantes pour demander une copie de l'élément suivant : ",
 
   // "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
   "bitstream-request-a-copy.intro.bitstream.one": "Demander les fichiers suivants : ",
-  
+
   // "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
   "bitstream-request-a-copy.intro.bitstream.all": "Demander tous les fichiers",
 
@@ -1215,17 +1214,15 @@
   // "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
   "collection.edit.tabs.authorizations.title": "Édition de collection - Autorisations",
 
-   //"collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
+  //"collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
   "collection.edit.item.authorizations.load-bundle-button": "Charger plus de Bundles",
-  
+
   //"collection.edit.item.authorizations.load-more-button": "Load more",
   "collection.edit.item.authorizations.load-more-button": "Charger plus",
-  
+
   //"collection.edit.item.authorizations.show-bitstreams-button": "Show bitstream policies for bundle",
   "collection.edit.item.authorizations.show-bitstreams-button": "Afficher les politiques de Bitstream pour le Bundle",
 
-  
-  
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
   "collection.edit.tabs.metadata.head": "Éditer les Métadonnées",
 
@@ -1311,7 +1308,7 @@
   "collection.edit.template.error": "Une erreur s'est produite lors de la récupération du modèle d'Item",
 
   // "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
-  "collection.edit.template.head": "Éditer le modèle d'Item pour la collection \"{{ collection }}\"",
+  "collection.edit.template.head": 'Éditer le modèle d\'Item pour la collection "{{ collection }}"',
 
   // "collection.edit.template.label": "Template item",
   "collection.edit.template.label": "Modèle modèle d'Item",
@@ -1387,70 +1384,70 @@
 
   // "collection.source.controls.head": "Harvest Controls",
   "collection.source.controls.head": "Paramétrage du moissonnage",
-  
+
   // "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
   "collection.source.controls.test.submit.error": "Un problème est survenu lors du lancement du test des paramètres.",
-  
+
   // "collection.source.controls.test.failed": "The script to test the settings has failed",
   "collection.source.controls.test.failed": "Le script pour tester les paramètres a échoué",
-  
+
   // "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
   "collection.source.controls.test.completed": "Le script pour tester les paramètres s'est terminé avec succès",
-  
+
   // "collection.source.controls.test.submit": "Test configuration",
   "collection.source.controls.test.submit": "Test de configuration",
-  
+
   // "collection.source.controls.test.running": "Testing configuration...",
   "collection.source.controls.test.running": "Test de la configuration lancé...",
-  
+
   // "collection.source.controls.import.submit.success": "The import has been successfully initiated",
   "collection.source.controls.import.submit.success": "L'importation a été lancée avec succès",
-  
+
   // "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
   "collection.source.controls.import.submit.error": "Un problème est survenu lors du lancement de l'importation",
 
   // "collection.source.controls.import.submit": "Import now",
   "collection.source.controls.import.submit": "Lancer l'importation",
-  
+
   // "collection.source.controls.import.running": "Importing...",
   "collection.source.controls.import.running": "Importation lancée...",
-  
+
   // "collection.source.controls.import.failed": "An error occurred during the import",
   "collection.source.controls.import.failed": "Un problème est survenu lors de l'importation",
-  
+
   // "collection.source.controls.import.completed": "The import completed",
   "collection.source.controls.import.completed": "Importation complétée",
-  
+
   // "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
   "collection.source.controls.reset.submit.success": "La réinitialisation et la réimportation ont été lancées avec succès.",
-  
+
   // "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
   "collection.source.controls.reset.submit.error": "Un problème est survenu lors du lancement de la réinitialisation et de la réimportation. ",
-  
+
   // "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
   "collection.source.controls.reset.failed": "Une erreur s'est produite pendant la réinitialisation et la réimportation.",
-  
+
   // "collection.source.controls.reset.completed": "The reset and reimport completed",
   "collection.source.controls.reset.completed": "La réinitialisation et la réimportation sont terminées",
-  
+
   // "collection.source.controls.reset.submit": "Reset and reimport",
   "collection.source.controls.reset.submit": "Réinitialisation et réimportation",
-  
+
   // "collection.source.controls.reset.running": "Resetting and reimporting...",
   "collection.source.controls.reset.running": "Réinitialisation et réimportation...",
-  
+
   // "collection.source.controls.harvest.status": "Harvest status:",
   "collection.source.controls.harvest.status": "État du moissonnage",
-  
+
   // "collection.source.controls.harvest.start": "Harvest start time:",
   "collection.source.controls.harvest.start": "Heure de début du moissonnage :",
-  
+
   // "collection.source.controls.harvest.last": "Last time harvested:",
   "collection.source.controls.harvest.last": "Dernier moissonnage en date du :",
-  
+
   // "collection.source.controls.harvest.message": "Harvest info:",
   "collection.source.controls.harvest.message": "Détails du moissonnage :",
-  
+
   // "collection.source.controls.harvest.no-information": "N/A",
   "collection.source.controls.harvest.no-information": "Non disponible",
 
@@ -1764,7 +1761,7 @@
   "cookies.consent.purpose.statistical": "Statistique",
 
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  "curation-task.task.checklinks.label":  "Vérification des liens dans les métadonnées",
+  "curation-task.task.checklinks.label": "Vérification des liens dans les métadonnées",
 
   // "curation-task.task.noop.label": "NOOP",
   "curation-task.task.noop.label": "NOOP",
@@ -1896,10 +1893,10 @@
   "confirmation-modal.export-metadata.confirm": "Exporter",
 
   // "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
-  "confirmation-modal.delete-eperson.header": "Supprimer l'EPerson \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.header": 'Supprimer l\'EPerson "{{ dsoName }}"',
 
   // "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
-  "confirmation-modal.delete-eperson.info": "Êtes-vous certain(e) de vouloir supprimer l'EPerson \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.info": 'Êtes-vous certain(e) de vouloir supprimer l\'EPerson "{{ dsoName }}"',
 
   // "confirmation-modal.delete-eperson.cancel": "Cancel",
   "confirmation-modal.delete-eperson.cancel": "Annuler",
@@ -1944,7 +1941,7 @@
   "error.search-results": "Erreur lors de la récupération des résultats de recherche",
 
   // "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
-  "error.invalid-search-query": "La requête de recherche n'est pas valide. Veuillez consulter les meilleures pratiques de la syntaxe des <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">requêtes Solr</a> pour plus d'informations sur cette erreur.",
+  "error.invalid-search-query": 'La requête de recherche n\'est pas valide. Veuillez consulter les meilleures pratiques de la syntaxe des <a href="https://solr.apache.org/guide/query-syntax-and-parsing.html" target="_blank">requêtes Solr</a> pour plus d\'informations sur cette erreur.',
 
   // "error.sub-collections": "Error fetching sub-collections",
   "error.sub-collections": "Erreur lors de la récupération des sous-collections",
@@ -1998,7 +1995,7 @@
   "footer.link.privacy-policy": "Politique de protection de la vie privée",
 
   // "footer.link.end-user-agreement":"End User Agreement",
-  "footer.link.end-user-agreement":"Licence de l'utilisateur final",
+  "footer.link.end-user-agreement": "Licence de l'utilisateur final",
 
   // "footer.link.feedback":"Send Feedback",
   "footer.link.feedback": "Envoyer un commentaire",
@@ -2313,8 +2310,8 @@
   "info.feedback.error.message.required": "Un contenu est requis",
 
   // "info.feedback.page-label": "Page",
- "info.feedback.page-label": "Page",
- 
+  "info.feedback.page-label": "Page",
+
   // "info.feedback.page_help": "The page related to your feedback",
   "info.feedback.page_help": "La page relative à vos commentaires",
 
@@ -2920,13 +2917,12 @@
 
   // "item.search.title": "Item Search",
   "item.search.title": "Recherche d'Items",
-  
+
   // "item.truncatable-part.show-more": "Show more",
   "item.truncatable-part.show-more": "Voir plus",
 
   //"item.truncatable-part.show-less": "Collapse",
   "item.truncatable-part.show-less": "Réduire",
-  
 
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Résumé",
@@ -3015,7 +3011,7 @@
   // "item.page.filesection.original.bundle": "Original bundle",
   "item.page.filesection.original.bundle": "Bundle original",
 
- // "item.page.filesection.license.bundle": "License bundle",
+  // "item.page.filesection.license.bundle": "License bundle",
   "item.page.filesection.license.bundle": "Bundle de license",
 
   // "item.page.return": "Back",
@@ -3188,7 +3184,7 @@
 
   // "item.version.create.notification.failure": "New version has not been created",
   "item.version.create.notification.failure": "La nouvelle version n'a pas été créée",
-  
+
   // "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
   "item.version.create.notification.inProgress": "Une nouvelle version ne peut pas être créée parce qu'il y a une soumission en cours dans l'historique des versions.",
 
@@ -3590,7 +3586,7 @@
 
   // "menu.section.processes": "Processes",
   "menu.section.processes": "Processus",
-  
+
   // "menu.section.health": "Health",
   "menu.section.health": "Santé du système",
 
@@ -3800,7 +3796,7 @@
 
   // "nav.toggle": "Toggle navigation",
   "nav.toggle": "Basculer la navigation",
-  
+
   // "nav.user.description": "User profile bar",
   "nav.user.description": "Barre de profil utilisateur",
 
@@ -3950,13 +3946,13 @@
 
   // "process.detail.arguments.empty": "This process doesn't contain any arguments",
   "process.detail.arguments.empty": "Ce processus ne contient pas d'arguments",
-  
+
   // "process.detail.back": "Back",
   "process.detail.back": "Retour",
-  
+
   // "process.detail.output": "Process Output",
   "process.detail.output": "Sortie du processus",
-  
+
   // "process.detail.logs.button": "Retrieve process output",
   "process.detail.logs.button": "Récupérer la sortie du processus",
 
@@ -3968,46 +3964,46 @@
 
   // "process.detail.output-files": "Output Files",
   "process.detail.output-files": "Fichiers de sortie",
-  
+
   // "process.detail.output-files.empty": "This process doesn't contain any output files",
   "process.detail.output-files.empty": "Ce processus ne contient pas de fichiers de sortie",
-  
+
   // "process.detail.script": "Script",
   "process.detail.script": "Script",
-  
+
   // "process.detail.title": "Process: {{ id }} - {{ name }}",
   "process.detail.title": "Processus : {{ id }} - {{ name }}",
-  
+
   // "process.detail.start-time": "Start time",
   "process.detail.start-time": "Début",
-  
+
   // "process.detail.end-time": "Finish time",
   "process.detail.end-time": "Fin",
-  
+
   // "process.detail.status": "Status",
   "process.detail.status": "Statut",
-  
+
   // "process.detail.create": "Create similar process",
   "process.detail.create": "Créer un processus similaire",
 
   // "process.overview.table.finish": "Finish time (UTC)",
   "process.overview.table.finish": "Heure de fin (TUC)",
-  
+
   // "process.overview.table.id": "Process ID",
   "process.overview.table.id": "ID du processus",
-  
+
   // "process.overview.table.name": "Name",
   "process.overview.table.name": "Nom",
 
   // "process.overview.table.start": "Start time (UTC)",
   "process.overview.table.start": "Heure de début (TUC)",
-  
+
   // "process.overview.table.status": "Status",
   "process.overview.table.status": "Statut",
-  
+
   // "process.overview.table.user": "User",
   "process.overview.table.user": "Utilisateur",
-  
+
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "Sommaire des processus",
 
@@ -4187,7 +4183,7 @@
 
   // "register-page.create-profile.identification.first-name": "First Name *",
   "register-page.create-profile.identification.first-name": "Prénom *",
-  
+
   // "register-page.create-profile.identification.first-name.error": "Please fill in a First Name",
   "register-page.create-profile.identification.first-name.error": "Veuillez saisir un prénom",
 
@@ -4338,11 +4334,11 @@
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Logo du dépôt",
 
-  // "repository.title.prefix": "DSpace Angular :: ",
-  "repository.title.prefix": "DSpace Angular :: ",
+  // "repository.title.prefix": "Central Metatada Repository",
+  "repository.title.prefix": "Central Metatada Repository",
 
-  // "repository.title.prefixDSpace": "DSpace Angular ::",
-  "repository.title.prefixDSpace": "DSpace Angular :: ",
+  // "repository.title.prefixDSpace": "Central Metatada Repository :::",
+  "repository.title.prefixDSpace": "Central Metatada Repository",
 
   // "resource-policies.add.button": "Add",
   "resource-policies.add.button": "Ajouter",
@@ -4610,7 +4606,7 @@
 
   // "search.filters.filter.creativeWorkPublisher.label": "Search publisher",
   "search.filters.filter.creativeWorkPublisher.label": "Recherche d'un éditeur",
- 
+
   // "search.filters.filter.dateIssued.head": "Date",
   "search.filters.filter.dateIssued.head": "Date",
 
@@ -4817,15 +4813,15 @@
 
   // "search.results.empty": "Your search returned no results.",
   "search.results.empty": "Votre recherche n'a retourné aucun résultat.",
-  
+
   // "search.results.view-result": "View",
   "search.results.view-result": "Afficher",
 
   // "default.search.results.head": "Search Results",
   "default.search.results.head": "Résultats de recherche",
-  
+
   // "default-relationships.search.results.head": "Search Results",
-   "default-relationships.search.results.head": "Résultats de recherche",
+  "default-relationships.search.results.head": "Résultats de recherche",
 
   // "search.sidebar.close": "Back to results",
   "search.sidebar.close": "Retour aux résultats",
@@ -5198,7 +5194,7 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Revues locales ({{ count }})",
-  
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Local Projects ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Projects locaux ({{ count }})",
 
@@ -5222,13 +5218,13 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Numéros de revue locaux ({{ count }})",
-  
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Numéros de revue locaux ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Volumes de revues locaux ({{ count }})",
-  
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Volumes de revues locaux ({{ count }})",
 
@@ -5237,7 +5233,7 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Éditeurs SHERPA ({{ count }})",
-  
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
 
@@ -5288,13 +5284,13 @@
 
   // "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Numéros de revue",
-  
+
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Numéros de revue",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Volumes de revue",
-  
+
   // "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.JournalVolume": "Volumes de revue",
 
@@ -5306,7 +5302,7 @@
 
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Agence de financement",
-  
+
   // "submission.sections.describe.relationship-lookup.title.Project": "Projects",
   "submission.sections.describe.relationship-lookup.title.Project": "Projets",
 
@@ -5351,7 +5347,7 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Volumes de revue sélectionnés",
-  
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
   "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Projets sélectionnés",
 
@@ -5375,7 +5371,7 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Numéro sélectionné",
-  
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Volume de revue sélectionné",
 
@@ -5384,7 +5380,7 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Financement sélectionné",
-  
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Selected Issue",
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Numéro sélectionné",
 
@@ -5485,7 +5481,7 @@
   "submission.sections.general.sections_not_valid": "Sections incomplètes.",
 
   // "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
-  "submission.sections.submit.progressbar.accessCondition": "Autorisations d'accès à l'Item",  
+  "submission.sections.submit.progressbar.accessCondition": "Autorisations d'accès à l'Item",
 
   // "submission.sections.submit.progressbar.CClicense": "Creative commons license",
   "submission.sections.submit.progressbar.CClicense": "Licence Creative Commons",
@@ -5785,7 +5781,7 @@
   "thumbnail.person.placeholder": "Aucune photo de profil disponible",
 
   // "title": "DSpace",
-  "title": "DSpace",
+  title: "DSpace",
 
   // "vocabulary-treeview.header": "Hierarchical tree view",
   "vocabulary-treeview.header": "Arborescence hiérarchique",
@@ -5912,6 +5908,5 @@
   "idle-modal.log-out": "Déconnexion",
 
   // "idle-modal.extend-session": "Extend session"
-  "idle-modal.extend-session": "Prolonger la session"
+  "idle-modal.extend-session": "Prolonger la session",
 }
-

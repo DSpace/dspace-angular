@@ -16,11 +16,11 @@ export class AuthMethod {
         this.authMethodType = AuthMethodType.Ldap;
         break;
       }
-      case 'shibboleth': {
-        this.authMethodType = AuthMethodType.Shibboleth;
-        this.location = location;
-        break;
-      }
+      // case 'shibboleth': {
+      //   this.authMethodType = AuthMethodType.Shibboleth;
+      //   this.location = location;
+      //   break;
+      // }
       case 'x509': {
         this.authMethodType = AuthMethodType.X509;
         break;
@@ -34,11 +34,11 @@ export class AuthMethod {
         this.location = location;
         break;
       }
-      case 'orcid': {
-        this.authMethodType = AuthMethodType.Orcid;
-        this.location = location;
-        break;
-      }
+      // case 'orcid': {
+      //   this.authMethodType = AuthMethodType.Orcid;
+      //   this.location = location;
+      //   break;
+      // }
 
       default: {
         break;

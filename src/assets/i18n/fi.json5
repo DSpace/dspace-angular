@@ -1,5 +1,4 @@
 {
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Sinulla ei ole valtuuksia nähdä sivua. Voit palata etusivulle alla olevalla painikkeella.",
 
@@ -9,8 +8,6 @@
   // "401.unauthorized": "unauthorized",
   "401.unauthorized": "valtuuttamaton",
 
-
-
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
   "403.help": "Sinulla ei ole oikeutta nähdä sivua. Voit palata etusivulle alla olevalla painikkeella.",
 
@@ -19,8 +16,6 @@
 
   // "403.forbidden": "forbidden",
   "403.forbidden": "kielletty",
-
-
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   "404.help": "Hakemaasi sivua ei löytynyt. Sivu on voitu siirtää tai poistaa. Painamalla alapuolella olevaa nappia palaat etusivulle. ",
@@ -172,10 +167,8 @@
   // "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
   "admin.registries.bitstream-formats.table.supportLevel.head": "Tukitaso",
 
-  // "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
-  "admin.registries.bitstream-formats.title": "DSpace Angular :: Tiedostoformaattirekisteri",
-
-
+  // "admin.registries.bitstream-formats.title": "Central Metatada RepositoryBitstream Format Registry",
+  "admin.registries.bitstream-formats.title": "Central Metatada RepositoryTiedostoformaattirekisteri",
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   "admin.registries.metadata.breadcrumbs": "Metadatarekisteri",
@@ -213,16 +206,14 @@
   // "admin.registries.metadata.schemas.table.namespace": "Namespace",
   "admin.registries.metadata.schemas.table.namespace": "Nimiavaruus",
 
-  // "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
-  "admin.registries.metadata.title": "DSpace Angular :: Metadatarekisteri",
-
-
+  // "admin.registries.metadata.title": "Central Metatada RepositoryMetadata Registry",
+  "admin.registries.metadata.title": "Central Metatada RepositoryMetadatarekisteri",
 
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
   "admin.registries.schema.breadcrumbs": "Metadataskeema",
 
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
-  "admin.registries.schema.description": "Tämä on metadataskeema \"{{namespace}}\"-nimiavaruudelle.",
+  "admin.registries.schema.description": 'Tämä on metadataskeema "{{namespace}}"-nimiavaruudelle.',
 
   // "admin.registries.schema.fields.head": "Schema metadata fields",
   "admin.registries.schema.fields.head": "Skeeman metadatakentät",
@@ -258,7 +249,7 @@
   "admin.registries.schema.head": "Metadataskeema",
 
   // "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
-  "admin.registries.schema.notification.created": "\"{{prefix}}\"-metadataskeema luotu",
+  "admin.registries.schema.notification.created": '"{{prefix}}"-metadataskeema luotu',
 
   // "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
   "admin.registries.schema.notification.deleted.failure": "{{amount}} metadataskeeman poisto epäonnistui ",
@@ -267,13 +258,13 @@
   "admin.registries.schema.notification.deleted.success": "{{amount}} metadataskeemaa poistettu",
 
   // "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
-  "admin.registries.schema.notification.edited": "\"{{prefix}}\"-metadaskeemaa muokattu",
+  "admin.registries.schema.notification.edited": '"{{prefix}}"-metadaskeemaa muokattu',
 
   // "admin.registries.schema.notification.failure": "Error",
   "admin.registries.schema.notification.failure": "Virhe",
 
   // "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.created": "\"{{field}}\"-metadatakenttä luotu",
+  "admin.registries.schema.notification.field.created": '"{{field}}"-metadatakenttä luotu',
 
   // "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
   "admin.registries.schema.notification.field.deleted.failure": "{{amount}} metadatakentän poisto epäonnistui",
@@ -282,7 +273,7 @@
   "admin.registries.schema.notification.field.deleted.success": "{{amount}} metadatakenttää poistettu",
 
   // "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.edited": "\"{{field}}\"-metadatakentää muokattu",
+  "admin.registries.schema.notification.field.edited": '"{{field}}"-metadatakentää muokattu',
 
   // "admin.registries.schema.notification.success": "Success",
   "admin.registries.schema.notification.success": "Valmis",
@@ -290,10 +281,8 @@
   // "admin.registries.schema.return": "Return",
   "admin.registries.schema.return": "Palaa",
 
-  // "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
-  "admin.registries.schema.title": "DSpace Angular :: Metadataskeemarekisteri",
-
-
+  // "admin.registries.schema.title": "Central Metatada RepositoryMetadata Schema Registry",
+  "admin.registries.schema.title": "Central Metatada RepositoryMetadataskeemarekisteri",
 
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
   "admin.access-control.epeople.actions.delete": "Poista käyttäjä",
@@ -307,8 +296,8 @@
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
   "admin.access-control.epeople.actions.stop-impersonating": "Lopeta käyttäjänä esiintyminen",
 
-  // "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
-  "admin.access-control.epeople.title": "DSpace Angular :: Käyttäjät",
+  // "admin.access-control.epeople.title": "Central Metatada RepositoryEPeople",
+  "admin.access-control.epeople.title": "Central Metatada RepositoryKäyttäjät",
 
   // "admin.access-control.epeople.head": "EPeople",
   "admin.access-control.epeople.head": "Käyttäjät",
@@ -344,10 +333,10 @@
   "admin.access-control.epeople.table.edit": "Muokkaa",
 
   // "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
-  "admin.access-control.epeople.table.edit.buttons.edit": "Muokkaa \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.edit": 'Muokkaa "{{name}}"',
 
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  "admin.access-control.epeople.table.edit.buttons.remove": "Poista \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove": 'Poista "{{name}}"',
 
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
   "admin.access-control.epeople.no-items": "Ei näytettäviä käyttäjiä.",
@@ -377,28 +366,28 @@
   "admin.access-control.epeople.form.requireCertificate": "Vaatii sertifikaatin",
 
   // "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.created.success": "Käyttäjä \"{{name}}\" luotu",
+  "admin.access-control.epeople.form.notification.created.success": 'Käyttäjä "{{name}}" luotu',
 
   // "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.created.failure": "Käyttäjän \"{{name}}\" luonti epäonnistui",
+  "admin.access-control.epeople.form.notification.created.failure": 'Käyttäjän "{{name}}" luonti epäonnistui',
 
   // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Käyttäjän \"{{name}}\" luonti epäonnistui, sähköpostiosoite \"{{email}}\" on jo käytössä.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": 'Käyttäjän "{{name}}" luonti epäonnistui, sähköpostiosoite "{{email}}" on jo käytössä.',
 
   // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Käyttäjän \"{{name}}\" muokkaus epäonnistui, sähköpostiosoite \"{{email}}\" on jo käytössä.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": 'Käyttäjän "{{name}}" muokkaus epäonnistui, sähköpostiosoite "{{email}}" on jo käytössä.',
 
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.edited.success": "Käyttäjä \"{{name}}\" muokattu",
+  "admin.access-control.epeople.form.notification.edited.success": 'Käyttäjä "{{name}}" muokattu',
 
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.edited.failure": "Käyttäjän \"{{name}}\" muokkaus epäonnistui",
+  "admin.access-control.epeople.form.notification.edited.failure": 'Käyttäjän "{{name}}" muokkaus epäonnistui',
 
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.deleted.success": "Käyttäjä \"{{name}}\" poistettu",
+  "admin.access-control.epeople.form.notification.deleted.success": 'Käyttäjä "{{name}}" poistettu',
 
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.deleted.failure": "Käyttäjän \"{{name}}\" poisto epäonnistui",
+  "admin.access-control.epeople.form.notification.deleted.failure": 'Käyttäjän "{{name}}" poisto epäonnistui',
 
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Jäsenenä näissä ryhmissä:",
@@ -416,21 +405,19 @@
   "admin.access-control.epeople.form.goToGroups": "Lisää ryhmiin",
 
   // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
-  "admin.access-control.epeople.notification.deleted.failure": "Käyttäjän poisto epäonnistui: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": 'Käyttäjän poisto epäonnistui: "{{name}}"',
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
-  "admin.access-control.epeople.notification.deleted.success": "Käyttäjä poistettu: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.success": 'Käyttäjä poistettu: "{{name}}"',
 
+  // "admin.access-control.groups.title": "Central Metatada RepositoryGroups",
+  "admin.access-control.groups.title": "Central Metatada RepositoryRyhmät",
 
+  // "admin.access-control.groups.title.singleGroup": "Central Metatada RepositoryEdit Group",
+  "admin.access-control.groups.title.singleGroup": "Central Metatada RepositoryRyhmän muokkaus",
 
-  // "admin.access-control.groups.title": "DSpace Angular :: Groups",
-  "admin.access-control.groups.title": "DSpace Angular :: Ryhmät",
-
-  // "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
-  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Ryhmän muokkaus",
-
-  // "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
-  "admin.access-control.groups.title.addGroup": "DSpace Angular :: Uusi ryhmä",
+  // "admin.access-control.groups.title.addGroup": "Central Metatada RepositoryNew Group",
+  "admin.access-control.groups.title.addGroup": "Central Metatada RepositoryUusi ryhmä",
 
   // "admin.access-control.groups.head": "Groups",
   "admin.access-control.groups.head": "Ryhmät",
@@ -460,30 +447,28 @@
   "admin.access-control.groups.table.edit": "Muokkaa",
 
   // "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
-  "admin.access-control.groups.table.edit.buttons.edit": "Muokkaa ryhmää \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.edit": 'Muokkaa ryhmää "{{name}}"',
 
   // "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  "admin.access-control.groups.table.edit.buttons.remove": "Poista \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.remove": 'Poista "{{name}}"',
 
   // "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
   "admin.access-control.groups.no-items": "Ei ryhmiä, joiden nimi tai UUID täsmää",
 
   // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
-  "admin.access-control.groups.notification.deleted.success": "Ryhmä \"{{name}}\" poistettu",
+  "admin.access-control.groups.notification.deleted.success": 'Ryhmä "{{name}}" poistettu',
 
   // "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
-  "admin.access-control.groups.notification.deleted.failure.title": "Ryhmän \"{{name}}\" poisto epäonnistui",
+  "admin.access-control.groups.notification.deleted.failure.title": 'Ryhmän "{{name}}" poisto epäonnistui',
 
   // "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
-  "admin.access-control.groups.notification.deleted.failure.content": "Syy: \"{{cause}}\"",
-
-
+  "admin.access-control.groups.notification.deleted.failure.content": 'Syy: "{{cause}}"',
 
   // "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
   "admin.access-control.groups.form.alert.permanent": "Tämä ryhmä on pysyvä, eikä sitä voi muokata tai poistaa. Ryhmään voi kuitenkin lisätä ja poistaa jäseniä tällä sivulla.",
 
   // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
-  "admin.access-control.groups.form.alert.workflowGroup": "Tätä ryhmää ei voi muokata eikä poistaa, koska siihen liittyy rooli tallennus- ja työnkulkuprosessissa \"{{name}}\" {{comcol}}. Voit poistaa sen <a href='{{comcolEditRolesRoute}}'>\"Määritä rooleja\"</a> -välilehdellä {{comcol}}-muokkaussivulla. Ryhmään voi kuitenkin lisätä ja poistaa jäseniä tällä sivulla.",
+  "admin.access-control.groups.form.alert.workflowGroup": 'Tätä ryhmää ei voi muokata eikä poistaa, koska siihen liittyy rooli tallennus- ja työnkulkuprosessissa "{{name}}" {{comcol}}. Voit poistaa sen <a href=\'{{comcolEditRolesRoute}}\'>"Määritä rooleja"</a> -välilehdellä {{comcol}}-muokkaussivulla. Ryhmään voi kuitenkin lisätä ja poistaa jäseniä tällä sivulla.',
 
   // "admin.access-control.groups.form.head.create": "Create group",
   "admin.access-control.groups.form.head.create": "Luo ryhmä",
@@ -498,31 +483,31 @@
   "admin.access-control.groups.form.groupDescription": "Kuvaus",
 
   // "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.created.success": "Ryhmä \"{{name}}\" luotu",
+  "admin.access-control.groups.form.notification.created.success": 'Ryhmä "{{name}}" luotu',
 
   // "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.created.failure": "Ryhmän \"{{name}}\" luonti epäonnistui",
+  "admin.access-control.groups.form.notification.created.failure": 'Ryhmän "{{name}}" luonti epäonnistui',
 
   // "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
-  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Ryhmän \"{{name}}\" luonti epäonnistui. Tarkista, että nimi ei ole käytössä.",
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": 'Ryhmän "{{name}}" luonti epäonnistui. Tarkista, että nimi ei ole käytössä.',
 
   // "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.edited.failure": "Ryhmän \"{{name}}\" muokkaus epäonnistui",
+  "admin.access-control.groups.form.notification.edited.failure": 'Ryhmän "{{name}}" muokkaus epäonnistui',
 
   // "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
-  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Nimi \"{{name}}\" on jo käytössä!",
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": 'Nimi "{{name}}" on jo käytössä!',
 
   // "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.edited.success": "Ryhmää \"{{name}}\" muokattu",
+  "admin.access-control.groups.form.notification.edited.success": 'Ryhmää "{{name}}" muokattu',
 
   // "admin.access-control.groups.form.actions.delete": "Delete Group",
   "admin.access-control.groups.form.actions.delete": "Poista ryhmä",
 
   // "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
-  "admin.access-control.groups.form.delete-group.modal.header": "Poista ryhmä \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.header": 'Poista ryhmä "{{ dsoName }}"',
 
   // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
-  "admin.access-control.groups.form.delete-group.modal.info": "Haluatko varmasti poistaa ryhmän \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.info": 'Haluatko varmasti poistaa ryhmän "{{ dsoName }}"',
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
   "admin.access-control.groups.form.delete-group.modal.cancel": "Peruuta",
@@ -531,13 +516,13 @@
   "admin.access-control.groups.form.delete-group.modal.confirm": "Poista",
 
   // "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
-  "admin.access-control.groups.form.notification.deleted.success": "Ryhmä \"{{ name }}\" poistettu",
+  "admin.access-control.groups.form.notification.deleted.success": 'Ryhmä "{{ name }}" poistettu',
 
   // "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
-  "admin.access-control.groups.form.notification.deleted.failure.title": "Ryhmän \"{{ name }}\" poisto epäonnistui",
+  "admin.access-control.groups.form.notification.deleted.failure.title": 'Ryhmän "{{ name }}" poisto epäonnistui',
 
   // "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
-  "admin.access-control.groups.form.notification.deleted.failure.content": "Syy: \"{{ cause }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.content": 'Syy: "{{ cause }}"',
 
   // "admin.access-control.groups.form.members-list.head": "EPeople",
   "admin.access-control.groups.form.members-list.head": "Käyttäjät",
@@ -570,22 +555,22 @@
   "admin.access-control.groups.form.members-list.table.edit": "Poista / Lisää",
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Poista jäsen \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": 'Poista jäsen "{{name}}"',
 
   // "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.success.addMember": "Jäsen lisätty: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.addMember": 'Jäsen lisätty: "{{name}}"',
 
   // "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Jäsenen lisäys epäonnistui: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.addMember": 'Jäsenen lisäys epäonnistui: "{{name}}"',
 
   // "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Jäsen poistettu: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.deleteMember": 'Jäsen poistettu: "{{name}}"',
 
   // "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Jäsenen poisto epäonnistui: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": 'Jäsenen poisto epäonnistui: "{{name}}"',
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Lisää jäsen \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.add": 'Lisää jäsen "{{name}}"',
 
   // "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
   "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "Ei aktiivista ryhmää, syötä ensin nimi.",
@@ -597,7 +582,7 @@
   "admin.access-control.groups.form.members-list.no-items": "Haku ei palauttanut käyttäjiä",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.failure": "Tapahtui  virhe: \"{{cause}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure": 'Tapahtui  virhe: "{{cause}}"',
 
   // "admin.access-control.groups.form.subgroups-list.head": "Groups",
   "admin.access-control.groups.form.subgroups-list.head": "Ryhmät",
@@ -624,25 +609,25 @@
   "admin.access-control.groups.form.subgroups-list.table.edit": "Poista / Lisää",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Poista alaryhmä nimeltään \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": 'Poista alaryhmä nimeltään "{{name}}"',
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Lisää alarymä nimellä \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": 'Lisää alarymä nimellä "{{name}}"',
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
   "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Nykyinen ryhmä",
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Lisätty alaryhmä: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": 'Lisätty alaryhmä: "{{name}}"',
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Alaryhmän lisäys epäonnistui: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": 'Alaryhmän lisäys epäonnistui: "{{name}}"',
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Alaryhmä poistettu: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": 'Alaryhmä poistettu: "{{name}}"',
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Alaryhmän poisto epäonnistui: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": 'Alaryhmän poisto epäonnistui: "{{name}}"',
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
   "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "Ei nykyistä aktiivista ryhmää, tallenna ensin nimi.",
@@ -658,8 +643,6 @@
 
   // "admin.access-control.groups.form.return": "Return to groups",
   "admin.access-control.groups.form.return": "Palaa ryhmiin",
-
-
 
   // "admin.search.breadcrumbs": "Administrative Search",
   "admin.search.breadcrumbs": "Ylläpitäjän haku",
@@ -697,9 +680,6 @@
   // "administrativeView.search.results.head": "Administrative Search",
   "administrativeView.search.results.head": "Ylläpitäjän haku",
 
-
-
-
   // "admin.workflow.breadcrumbs": "Administer Workflow",
   "admin.workflow.breadcrumbs": "Hallinnoi työnkulkua",
 
@@ -714,8 +694,6 @@
 
   // "admin.workflow.item.send-back": "Send back",
   "admin.workflow.item.send-back": "Lähetä takaisin",
-
-
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
   "admin.metadata-import.breadcrumbs": "Importoi metadata",
@@ -744,22 +722,17 @@
   // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "Valitse ensin tiedosto!",
 
-
-
-
   // "auth.errors.invalid-user": "Invalid email address or password.",
   "auth.errors.invalid-user": "Virheellinen sähköpostiosoite tai salasana.",
 
   // "auth.messages.expired": "Your session has expired. Please log in again.",
   "auth.messages.expired": "Istuntosi on vanhentunut. Kirjaudu uudelleen.",
 
-
-
   // "bitstream.edit.bitstream": "Bitstream: ",
   "bitstream.edit.bitstream": "Tiedosto: ",
 
   // "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
-  "bitstream.edit.form.description.hint": "Voit lisätä lyhyen kuvauksen tiedostosta, esimerkiksi \"<i>Pääartikkeli</i>\" tai \"<i>Testidatan tulkinta</i>\".",
+  "bitstream.edit.form.description.hint": 'Voit lisätä lyhyen kuvauksen tiedostosta, esimerkiksi "<i>Pääartikkeli</i>" tai "<i>Testidatan tulkinta</i>".',
 
   // "bitstream.edit.form.description.label": "Description",
   "bitstream.edit.form.description.label": "Kuvaus",
@@ -780,13 +753,13 @@
   "bitstream.edit.form.newFormat.label": "Kuvaile uusi formaatti",
 
   // "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
-  "bitstream.edit.form.newFormat.hint": "Tiedoston luonnissa käytetty sovellus ja versionumero (esim. \"<i>ACMESoft SuperApp version 1.5</i>\").",
+  "bitstream.edit.form.newFormat.hint": 'Tiedoston luonnissa käytetty sovellus ja versionumero (esim. "<i>ACMESoft SuperApp version 1.5</i>").',
 
   // "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
   "bitstream.edit.form.primaryBitstream.label": "Ensisijainen tiedosto",
 
   // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
-  "bitstream.edit.form.selectedFormat.hint": "Jos formaatti ei ole yllä olevassa luettelossa,  <b>valitse yltä \"Formaatti ei ole luettelossa\"</b> ja kuvaile se kohdassa \"Kuvaile uusi formaatti\".",
+  "bitstream.edit.form.selectedFormat.hint": 'Jos formaatti ei ole yllä olevassa luettelossa,  <b>valitse yltä "Formaatti ei ole luettelossa"</b> ja kuvaile se kohdassa "Kuvaile uusi formaatti".',
 
   // "bitstream.edit.form.selectedFormat.label": "Selected Format",
   "bitstream.edit.form.selectedFormat.label": "Valittu formaatti",
@@ -805,8 +778,6 @@
 
   // "bitstream.edit.title": "Edit bitstream",
   "bitstream.edit.title": "Muokkaa tiedostoa",
-
-
 
   // "browse.comcol.by.author": "By Author",
   "browse.comcol.by.author": "Tekijän mukaan",
@@ -910,11 +881,8 @@
   // "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
   "browse.title": "Selataan {{ collection }}-kokoelmaa {{ field }}-kentän arvolla {{ value }}",
 
-
   // "chips.remove": "Remove chip",
   "chips.remove": "Poista chip",
-
-
 
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Luo kokoelma",
@@ -944,9 +912,7 @@
   "collection.delete.notification.success": "Kokoelma poistettu",
 
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
-  "collection.delete.text": "Haluatko varmasti poistaa kokoelman \"{{ dso }}\"",
-
-
+  "collection.delete.text": 'Haluatko varmasti poistaa kokoelman "{{ dso }}"',
 
   // "collection.edit.delete": "Delete this collection",
   "collection.edit.delete": "Poista kokoelma",
@@ -956,8 +922,6 @@
 
   // "collection.edit.breadcrumbs": "Edit Collection",
   "collection.edit.breadcrumbs": "Muokkaa kokoelmaa",
-
-
 
   // "collection.edit.tabs.mapper.head": "Item Mapper",
   "collection.edit.tabs.mapper.head": "Tietueliitosväline",
@@ -969,7 +933,7 @@
   "collection.edit.item-mapper.cancel": "Peruuta",
 
   // "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
-  "collection.edit.item-mapper.collection": "Kokoelma: \"<b>{{name}}</b>\"",
+  "collection.edit.item-mapper.collection": 'Kokoelma: "<b>{{name}}</b>"',
 
   // "collection.edit.item-mapper.confirm": "Map selected items",
   "collection.edit.item-mapper.confirm": "Liitä valitut tietueet",
@@ -1016,8 +980,6 @@
   // "collection.edit.item-mapper.tabs.map": "Map new items",
   "collection.edit.item-mapper.tabs.map": "Liitä uusia tietueita",
 
-
-
   // "collection.edit.logo.label": "Collection logo",
   "collection.edit.logo.label": "Kokoelman logo",
 
@@ -1039,15 +1001,11 @@
   // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
   "collection.edit.logo.upload": "Pudota kokoelman logo ladattavaksi",
 
-
-
   // "collection.edit.notifications.success": "Successfully edited the Collection",
   "collection.edit.notifications.success": "Kokoelman muokkaus onnistui",
 
   // "collection.edit.return": "Return",
   "collection.edit.return": "Palaa",
-
-
 
   // "collection.edit.tabs.curate.head": "Curate",
   "collection.edit.tabs.curate.head": "Kuratoi",
@@ -1127,8 +1085,6 @@
   // "collection.edit.tabs.source.title": "Collection Edit - Content Source",
   "collection.edit.tabs.source.title": "Kokoelman muokkaus - Sisältölähde",
 
-
-
   // "collection.edit.template.add-button": "Add",
   "collection.edit.template.add-button": "Lisää",
 
@@ -1145,7 +1101,7 @@
   "collection.edit.template.edit-button": "Muokkaa",
 
   // "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
-  "collection.edit.template.head": "Muokkaa kokoelman \"{{ collection }}\" mallitietuetta",
+  "collection.edit.template.head": 'Muokkaa kokoelman "{{ collection }}" mallitietuetta',
 
   // "collection.edit.template.label": "Template item",
   "collection.edit.template.label": "Mallitietue",
@@ -1158,8 +1114,6 @@
 
   // "collection.edit.template.title": "Edit Template Item",
   "collection.edit.template.title": "Muokkaa mallitietuetta",
-
-
 
   // "collection.form.abstract": "Short Description",
   "collection.form.abstract": "Lyhyt kuvaus",
@@ -1185,12 +1139,8 @@
   // "collection.form.title": "Name",
   "collection.form.title": "Nimi",
 
-
-
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "Kokoelma",
-
-
 
   // "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.browse.recent.head": "Viimeksi lisätyt",
@@ -1210,8 +1160,6 @@
   // "collection.page.news": "News",
   "collection.page.news": "Uutiset",
 
-
-
   // "collection.select.confirm": "Confirm selected",
   "collection.select.confirm": "Vahvista valinta",
 
@@ -1221,15 +1169,11 @@
   // "collection.select.table.title": "Title",
   "collection.select.table.title": "Nimeke",
 
-
-
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
   "collection.source.update.notifications.error.content": "Annetut asetukset on testattu. Ne eivät toimi.",
 
   // "collection.source.update.notifications.error.title": "Server Error",
   "collection.source.update.notifications.error.title": "Palvelinvirhe",
-
-
 
   // "communityList.tabTitle": "DSpace - Community List",
   "communityList.tabTitle": "DSpace - Yhteisöluettelo",
@@ -1239,8 +1183,6 @@
 
   // "communityList.showMore": "Show More",
   "communityList.showMore": "Näytä lisää",
-
-
 
   // "community.create.head": "Create a Community",
   "community.create.head": "Luo yhteisö",
@@ -1270,7 +1212,7 @@
   "community.delete.notification.success": "Yhteisö poistettu",
 
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
-  "community.delete.text": "Haluatko varmasti poistaa yhteisön \"{{ dso }}\"",
+  "community.delete.text": 'Haluatko varmasti poistaa yhteisön "{{ dso }}"',
 
   // "community.edit.delete": "Delete this community",
   "community.edit.delete": "Poista tämä yhteisö",
@@ -1280,7 +1222,6 @@
 
   // "community.edit.breadcrumbs": "Edit Community",
   "community.edit.breadcrumbs": "Muokkaa yhteisöä",
-
 
   // "community.edit.logo.label": "Community logo",
   "community.edit.logo.label": "Yhteisön logo",
@@ -1303,8 +1244,6 @@
   // "community.edit.logo.upload": "Drop a Community Logo to upload",
   "community.edit.logo.upload": "Pudota yhteisön logo ladattavaksi",
 
-
-
   // "community.edit.notifications.success": "Successfully edited the Community",
   "community.edit.notifications.success": "Yhteisön muokkaus onnistui",
 
@@ -1316,8 +1255,6 @@
 
   // "community.edit.return": "Return",
   "community.edit.return": "Palaa",
-
-
 
   // "community.edit.tabs.curate.head": "Curate",
   "community.edit.tabs.curate.head": "Kuratoi",
@@ -1343,12 +1280,8 @@
   // "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
   "community.edit.tabs.authorizations.title": "Yhteisön muokkaus - Käyttöoikeudet",
 
-
-
   // "community.listelement.badge": "Community",
   "community.listelement.badge": "Yhteisö",
-
-
 
   // "comcol-role.edit.no-group": "None",
   "comcol-role.edit.no-group": "Ei mitään",
@@ -1362,13 +1295,11 @@
   // "comcol-role.edit.delete": "Delete",
   "comcol-role.edit.delete": "Poista",
 
-
   // "comcol-role.edit.community-admin.name": "Administrators",
   "comcol-role.edit.community-admin.name": "Ylläpitäjät",
 
   // "comcol-role.edit.collection-admin.name": "Administrators",
   "comcol-role.edit.collection-admin.name": "Ylläpitäjät",
-
 
   // "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
   "comcol-role.edit.community-admin.description": "Yhteisön ylläpitäjät voivat luoda alayhteisöjä tai kokoelmia ja hallita niitä sekä myöntää niihin hallintaoikeuksia. He päättävät, kuka saa tallentaa tietueita alakokoelmiin, muokata metadataa (tallennuksen jälkeen) ja lisätä (liittää) olemassa olevia tietueita muista kokoelmista (käyttöoikeuksien puitteissa).",
@@ -1376,13 +1307,11 @@
   // "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
   "comcol-role.edit.collection-admin.description": "Kokoelman ylläpitäjät päättävät, kuka saa tallentaa tietueita alakokoelmiin, muokata metadataa (tallennuksen jälkeen) ja lisätä (liittää) olemassa olevia tietueita muista kokoelmista (k.o. kokoelman käyttöoikeuksien puitteissa).",
 
-
   // "comcol-role.edit.submitters.name": "Submitters",
   "comcol-role.edit.submitters.name": "Tallentajat",
 
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
   "comcol-role.edit.submitters.description": "Käyttäjät ja ryhmät, joilla on oikeus tallentaa uusia tietueita tähän kokoelmaan",
-
 
   // "comcol-role.edit.item_read.name": "Default item read access",
   "comcol-role.edit.item_read.name": "Tietueen oletuslukuoikeus",
@@ -1393,7 +1322,6 @@
   // "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
   "comcol-role.edit.item_read.anonymous-group": "Uusien tietuiden oletuslukuoikeus on tällä hetkellä Anonymous.",
 
-
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
   "comcol-role.edit.bitstream_read.name": "Tiedostojen oletuslukuoikeus",
 
@@ -1403,13 +1331,11 @@
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
   "comcol-role.edit.bitstream_read.anonymous-group": "Uusien tiedostojen oletuslukuoikeus on tällä hetkellä Anonymous.",
 
-
   // "comcol-role.edit.editor.name": "Editors",
   "comcol-role.edit.editor.name": "Muokkaajat",
 
   // "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
   "comcol-role.edit.editor.description": "Muokkaajat voivat muokata uusien tallennusten metadataa sekä hyväksyä tai hylätä tallennukset.",
-
 
   // "comcol-role.edit.finaleditor.name": "Final editors",
   "comcol-role.edit.finaleditor.name": "Loppumuokkaajat",
@@ -1417,14 +1343,11 @@
   // "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
   "comcol-role.edit.finaleditor.description": "Loppumuokkaajat voivat muokata uusien tallennusten metadataa. He eivät voi hylätä tallennuksia.",
 
-
   // "comcol-role.edit.reviewer.name": "Reviewers",
   "comcol-role.edit.reviewer.name": "Tarkastajat",
 
   // "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
   "comcol-role.edit.reviewer.description": "Tarkastajat voivat hyväksyä tai hylätä uudet tallennukset. He eivät voi muokata tallennusten metadataa.",
-
-
 
   // "community.form.abstract": "Short Description",
   "community.form.abstract": "Lyhyt kuvaus",
@@ -1464,8 +1387,6 @@
 
   // "community.sub-community-list.head": "Communities of this Community",
   "community.sub-community-list.head": "Yhteisön alayhteisöt",
-
-
 
   // "cookies.consent.accept-all": "Accept all",
   "cookies.consent.accept-all": "Hyväksy kaikki",
@@ -1515,14 +1436,11 @@
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Keräämämme tieto",
 
-
-
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Todentaminen",
 
   // "cookies.consent.app.description.authentication": "Required for signing you in",
   "cookies.consent.app.description.authentication": "Vaadittu kirjautumista varten",
-
 
   // "cookies.consent.app.title.preferences": "Preferences",
   "cookies.consent.app.title.preferences": "Asetukset",
@@ -1530,15 +1448,11 @@
   // "cookies.consent.app.description.preferences": "Required for saving your preferences",
   "cookies.consent.app.description.preferences": "Vaadittu asetustesi tallentamista varten",
 
-
-
   // "cookies.consent.app.title.acknowledgement": "Acknowledgement",
   "cookies.consent.app.title.acknowledgement": "Kuittaus",
 
   // "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
   "cookies.consent.app.description.acknowledgement": "Vaadittu kuittaustesi ja hyväksyntäsi tallentamista varten",
-
-
 
   // "cookies.consent.app.title.google-analytics": "Google Analytics",
   "cookies.consent.app.title.google-analytics": "Google Analytics",
@@ -1546,17 +1460,14 @@
   // "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
   "cookies.consent.app.description.google-analytics": "Sallii tilastollisen datan seurannan",
 
-
-
   // "cookies.consent.purpose.functional": "Functional",
   "cookies.consent.purpose.functional": "Toiminnallinen",
 
   // "cookies.consent.purpose.statistical": "Statistical",
   "cookies.consent.purpose.statistical": "Tilastollinen",
 
-
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  "curation-task.task.checklinks.label":  "Tarkista metadatan linkit",
+  "curation-task.task.checklinks.label": "Tarkista metadatan linkit",
 
   // "curation-task.task.noop.label": "NOOP",
   "curation-task.task.noop.label": "Ei toimintaa",
@@ -1572,8 +1483,6 @@
 
   // "curation-task.task.vscan.label": "Virus Scan",
   "curation-task.task.vscan.label": "Virusskannaus",
-
-
 
   // "curation.form.task-select.label": "Task:",
   "curation.form.task-select.label": "Tehtävä:",
@@ -1598,8 +1507,6 @@
 
   // "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
   "curation.form.handle.hint": "Vinkki: Syötä [oma-handle-prefix]/0 suorittaaksesi tehtävän koko sivustolla (kaikki tehtävät eivät tue tätä toimintoa)",
-
-
 
   // "dso-selector.create.collection.head": "New collection",
   "dso-selector.create.collection.head": "Uusi kokoelma",
@@ -1643,8 +1550,6 @@
   // "dso-selector.placeholder": "Search for a {{ type }}",
   "dso-selector.placeholder": "Hae {{ type }}-tyyppiä",
 
-
-
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
   "confirmation-modal.export-metadata.header": "Eksportoi {{ dsoName }}:n metadata",
 
@@ -1658,17 +1563,16 @@
   "confirmation-modal.export-metadata.confirm": "Eksportoi",
 
   // "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
-  "confirmation-modal.delete-eperson.header": "Poista käyttäjä \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.header": 'Poista käyttäjä "{{ dsoName }}"',
 
   // "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
-  "confirmation-modal.delete-eperson.info": "Haluatko varmasti poistaa käyttäjän \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.info": 'Haluatko varmasti poistaa käyttäjän "{{ dsoName }}"',
 
   // "confirmation-modal.delete-eperson.cancel": "Cancel",
   "confirmation-modal.delete-eperson.cancel": "Peruuta",
 
   // "confirmation-modal.delete-eperson.confirm": "Delete",
   "confirmation-modal.delete-eperson.confirm": "Poista",
-
 
   // "error.bitstream": "Error fetching bitstream",
   "error.bitstream": "Virhe tiedostoa noudettaessa",
@@ -1727,12 +1631,8 @@
   // "error.validation.filerequired": "The file upload is mandatory",
   "error.validation.filerequired": "Tiedoston lataus on pakollinen",
 
-
-
   // "file-section.error.header": "Error obtaining files for this item",
   "file-section.error.header": "Virhe tietueen tiedostoja noudettaessa",
-
-
 
   // "footer.copyright": "copyright © 2002-{{ year }}",
   "footer.copyright": "tekijänoikeus © 2002-{{ year }}",
@@ -1750,9 +1650,7 @@
   "footer.link.privacy-policy": "Yksilönsuoja",
 
   // "footer.link.end-user-agreement":"End User Agreement",
-  "footer.link.end-user-agreement":"Käyttöehdot",
-
-
+  "footer.link.end-user-agreement": "Käyttöehdot",
 
   // "forgot-email.form.header": "Forgot Password",
   "forgot-email.form.header": "Unohtunut salasana",
@@ -1786,8 +1684,6 @@
 
   // "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
   "forgot-email.form.error.content": "Virhe rekisteröitäessä tätä sähköpostiosoitetta: {{ email }}",
-
-
 
   // "forgot-password.title": "Forgot Password",
   "forgot-password.title": "Unohtunut salasana",
@@ -1833,8 +1729,6 @@
 
   // "forgot-password.form.submit": "Submit password",
   "forgot-password.form.submit": "Lähetä salasana",
-
-
 
   // "form.add": "Add",
   "form.add": "Lisää",
@@ -1911,24 +1805,20 @@
   // "form.submit": "Submit",
   "form.submit": "Lähetä",
 
-
-
   // "home.description": "",
   "home.description": "",
 
   // "home.breadcrumbs": "Home",
   "home.breadcrumbs": "Etusivu",
 
-  // "home.title": "DSpace Angular :: Home",
-  "home.title": "DSpace Angular :: Etusivu",
+  // "home.title": "Central Metatada RepositoryHome",
+  "home.title": "Central Metatada RepositoryEtusivu",
 
   // "home.top-level-communities.head": "Communities in DSpace",
   "home.top-level-communities.head": "Julkaisuarkiston yhteisöt",
 
   // "home.top-level-communities.help": "Select a community to browse its collections.",
   "home.top-level-communities.help": "Valitse yhteisö, jonka kokoelmia haluat selata.",
-
-
 
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
   "info.end-user-agreement.accept": "Olen lukenut ja hyväksyn käyttöehdot",
@@ -1963,33 +1853,23 @@
   // "info.privacy.title": "Privacy Statement",
   "info.privacy.title": "Tietosuojalauseke",
 
-
-
   // "item.alerts.private": "This item is private",
   "item.alerts.private": "Tietue on yksityinen",
 
   // "item.alerts.withdrawn": "This item has been withdrawn",
   "item.alerts.withdrawn": "Tietue on poistettu käytöstä",
 
-
-
   // "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
   "item.edit.authorizations.heading": "Tässä voit tarkastella ja muokata tietuekäytäntöjä sekä tietueen yksittäisten komponenttien eli nippujen ja tiedostojen käytäntöjä. Tietue on nippujen säiliö ja niput ovat tiedostojen säiliöitä. Säiliöillä on yleensä LISÄYS/POISTO/LUKU/KIRJOITUS-käytännöt, mutta tiedostoihin sovelletaan vain LUKU/KIRJOITUS-käytäntöjä.",
 
-
-
   // "item.edit.authorizations.title": "Edit item's Policies",
   "item.edit.authorizations.title": "Muokkaa tietuekäytäntöjä",
-
-
 
   // "item.badge.private": "Private",
   "item.badge.private": "Yksityinen",
 
   // "item.badge.withdrawn": "Withdrawn",
   "item.badge.withdrawn": "Poistettu käytöstä",
-
-
 
   // "item.bitstreams.upload.bundle": "Bundle",
   "item.bitstreams.upload.bundle": "Nippu",
@@ -2023,8 +1903,6 @@
 
   // "item.bitstreams.upload.title": "Upload bitstream",
   "item.bitstreams.upload.title": "Lataa tiedosto",
-
-
 
   // "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
   "item.edit.bitstreams.bundle.edit.buttons.upload": "Lataus",
@@ -2116,8 +1994,6 @@
   // "item.edit.bitstreams.upload-button": "Upload",
   "item.edit.bitstreams.upload-button": "Lataa",
 
-
-
   // "item.edit.delete.cancel": "Cancel",
   "item.edit.delete.cancel": "Peruuta",
 
@@ -2142,7 +2018,6 @@
   // "item.edit.breadcrumbs": "Edit Item",
   "item.edit.breadcrumbs": "Muokkaa tietuetta",
 
-
   // "item.edit.tabs.mapper.head": "Collection Mapper",
   "item.edit.tabs.mapper.head": "Kokoelmaliitosväline",
 
@@ -2165,7 +2040,7 @@
   "item.edit.item-mapper.head": "Tietueliitosväline - Liitä tietue kokoelmiin",
 
   // "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
-  "item.edit.item-mapper.item": "Tietue: \"<b>{{name}}</b>\"",
+  "item.edit.item-mapper.item": 'Tietue: "<b>{{name}}</b>"',
 
   // "item.edit.item-mapper.no-search": "Please enter a query to search",
   "item.edit.item-mapper.no-search": "Anna hakulauseke",
@@ -2199,8 +2074,6 @@
 
   // "item.edit.item-mapper.tabs.map": "Map new collections",
   "item.edit.item-mapper.tabs.map": "Liitä uusia kokoelmia",
-
-
 
   // "item.edit.metadata.add-button": "Add",
   "item.edit.metadata.add-button": "Lisää",
@@ -2271,8 +2144,6 @@
   // "item.edit.metadata.save-button": "Save",
   "item.edit.metadata.save-button": "Tallenna",
 
-
-
   // "item.edit.modify.overview.field": "Field",
   "item.edit.modify.overview.field": "Kenttä",
 
@@ -2281,8 +2152,6 @@
 
   // "item.edit.modify.overview.value": "Value",
   "item.edit.modify.overview.value": "Arvo",
-
-
 
   // "item.edit.move.cancel": "Cancel",
   "item.edit.move.cancel": "Peruuta",
@@ -2317,8 +2186,6 @@
   // "item.edit.move.title": "Move item",
   "item.edit.move.title": "Siirrä tietue",
 
-
-
   // "item.edit.private.cancel": "Cancel",
   "item.edit.private.cancel": "Peruuta",
 
@@ -2336,8 +2203,6 @@
 
   // "item.edit.private.success": "The item is now private",
   "item.edit.private.success": "Tietue on yksityinen",
-
-
 
   // "item.edit.public.cancel": "Cancel",
   "item.edit.public.cancel": "Peruuta",
@@ -2357,8 +2222,6 @@
   // "item.edit.public.success": "The item is now public",
   "item.edit.public.success": "Tietue on julkinen",
 
-
-
   // "item.edit.reinstate.cancel": "Cancel",
   "item.edit.reinstate.cancel": "Peruuta",
 
@@ -2376,8 +2239,6 @@
 
   // "item.edit.reinstate.success": "The item was reinstated successfully",
   "item.edit.reinstate.success": "Tietue palautettu käyttöön",
-
-
 
   // "item.edit.relationships.discard-button": "Discard",
   "item.edit.relationships.discard-button": "Hylkää",
@@ -2532,8 +2393,6 @@
   // "item.edit.tabs.view.title": "Item Edit -  View",
   "item.edit.tabs.view.title": "Tietueen muokkaus -  Näytä",
 
-
-
   // "item.edit.withdraw.cancel": "Cancel",
   "item.edit.withdraw.cancel": "Peruuta",
 
@@ -2551,8 +2410,6 @@
 
   // "item.edit.withdraw.success": "The item was withdrawn successfully",
   "item.edit.withdraw.success": "Tietue poistettu käytöstä",
-
-
 
   // "item.listelement.badge": "Item",
   "item.listelement.badge": "Tietue",
@@ -2581,10 +2438,8 @@
   // "item.search.results.head": "Item Search Results",
   "item.search.results.head": "Tietuehaun tulokset",
 
-  // "item.search.title": "DSpace Angular :: Item Search",
-  "item.search.title": "DSpace Angular :: Tietuehaku",
-
-
+  // "item.search.title": "Central Metatada RepositoryItem Search",
+  "item.search.title": "Central Metatada RepositoryTietuehaku",
 
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Tiivistelmä",
@@ -2665,10 +2520,10 @@
   "item.page.bitstreams.collapse": "Sulje",
 
   // "item.page.filesection.original.bundle" : "Original bundle",
-  "item.page.filesection.original.bundle" : "Alkuperäinen nippu",
+  "item.page.filesection.original.bundle": "Alkuperäinen nippu",
 
   // "item.page.filesection.license.bundle" : "License bundle",
-  "item.page.filesection.license.bundle" : "Lisenssinippu",
+  "item.page.filesection.license.bundle": "Lisenssinippu",
 
   // "item.preview.dc.identifier.uri": "Identifier:",
   "item.preview.dc.identifier.uri": "Tunnus:",
@@ -2703,7 +2558,6 @@
   // "item.preview.person.identifier.orcid": "ORCID:",
   "item.preview.person.identifier.orcid": "ORCID-tunniste:",
 
-
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Vahvista valinta",
 
@@ -2718,7 +2572,6 @@
 
   // "item.select.table.title": "Title",
   "item.select.table.title": "Nimeke",
-
 
   // "item.version.history.empty": "There are no other versions for this item yet.",
   "item.version.history.empty": "Tietueesta ei ole muita versioita.",
@@ -2747,12 +2600,8 @@
   // "item.version.history.table.summary": "Summary",
   "item.version.history.table.summary": "Yhteenveto",
 
-
-
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
   "item.version.notice": "Tämä ei ole tietueen uusin versio. Uusin versio löytyy <a href='{{destination}}'>täältä</a>.",
-
-
 
   // "journal.listelement.badge": "Journal",
   "journal.listelement.badge": "Kausijulkaisu",
@@ -2778,10 +2627,8 @@
   // "journal.search.results.head": "Journal Search Results",
   "journal.search.results.head": "Kausijulkaisuhaun tulokset",
 
-  // "journal.search.title": "DSpace Angular :: Journal Search",
-  "journal.search.title": "DSpace Angular :: Kausijulkaisuhaku",
-
-
+  // "journal.search.title": "Central Metatada RepositoryJournal Search",
+  "journal.search.title": "Central Metatada RepositoryKausijulkaisuhaku",
 
   // "journalissue.listelement.badge": "Journal Issue",
   "journalissue.listelement.badge": "Kausijulkaisun numero",
@@ -2810,8 +2657,6 @@
   // "journalissue.page.titleprefix": "Journal Issue: ",
   "journalissue.page.titleprefix": "Kausijulkaisun numero: ",
 
-
-
   // "journalvolume.listelement.badge": "Journal Volume",
   "journalvolume.listelement.badge": "Kausijulkaisun vuosikerta",
 
@@ -2829,8 +2674,6 @@
 
   // "journalvolume.page.volume": "Volume",
   "journalvolume.page.volume": "Vuosikerta",
-
-
 
   // "loading.bitstream": "Loading bitstream...",
   "loading.bitstream": "Ladataan tiedostoa...",
@@ -2886,8 +2729,6 @@
   // "loading.top-level-communities": "Loading top-level communities...",
   "loading.top-level-communities": "Ladataan ylätason yhteisöjä...",
 
-
-
   // "login.form.email": "Email address",
   "login.form.email": "Sähköpostiosoite",
 
@@ -2918,8 +2759,6 @@
   // "login.breadcrumbs": "Login",
   "login.breadcrumbs": "Sisäänkirjautuminen",
 
-
-
   // "logout.form.header": "Log out from DSpace",
   "logout.form.header": "Kirjaudu ulos",
 
@@ -2929,15 +2768,11 @@
   // "logout.title": "Logout",
   "logout.title": "Uloskirjautuminen",
 
-
-
   // "menu.header.admin": "Admin",
   "menu.header.admin": "Ylläpitäjä",
 
   // "menu.header.image.logo": "Repository logo",
   "menu.header.image.logo": "Arkiston logo",
-
-
 
   // "menu.section.access_control": "Access Control",
   "menu.section.access_control": "Pääsyoikeudet",
@@ -2951,12 +2786,8 @@
   // "menu.section.access_control_people": "People",
   "menu.section.access_control_people": "Käyttäjät",
 
-
-
   // "menu.section.admin_search": "Admin Search",
   "menu.section.admin_search": "Ylläpitäjän haku",
-
-
 
   // "menu.section.browse_community": "This Community",
   "menu.section.browse_community": "Tämä yhteisö",
@@ -2988,15 +2819,11 @@
   // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
   "menu.section.browse_global_communities_and_collections": "Yhteisöt & kokoelmat",
 
-
-
   // "menu.section.control_panel": "Control Panel",
   "menu.section.control_panel": "Hallintapaneeli",
 
   // "menu.section.curation_task": "Curation Task",
   "menu.section.curation_task": "Kuratointitehtävä",
-
-
 
   // "menu.section.edit": "Edit",
   "menu.section.edit": "Muokkaa",
@@ -3009,8 +2836,6 @@
 
   // "menu.section.edit_item": "Item",
   "menu.section.edit_item": "Tietue",
-
-
 
   // "menu.section.export": "Export",
   "menu.section.export": "Eksportoi",
@@ -3026,8 +2851,6 @@
 
   // "menu.section.export_metadata": "Metadata",
   "menu.section.export_metadata": "Metadata",
-
-
 
   // "menu.section.icon.access_control": "Access Control menu section",
   "menu.section.icon.access_control": "Pääsyoikeudet",
@@ -3071,8 +2894,6 @@
   // "menu.section.icon.unpin": "Unpin sidebar",
   "menu.section.icon.unpin": "Vapauta sivupalkki",
 
-
-
   // "menu.section.import": "Import",
   "menu.section.import": "Importoi",
 
@@ -3081,8 +2902,6 @@
 
   // "menu.section.import_metadata": "Metadata",
   "menu.section.import_metadata": "Metadata",
-
-
 
   // "menu.section.new": "New",
   "menu.section.new": "Uusi",
@@ -3102,20 +2921,14 @@
   // "menu.section.new_process": "Process",
   "menu.section.new_process": "Prosessi",
 
-
-
   // "menu.section.pin": "Pin sidebar",
   "menu.section.pin": "Kiinnitä sivupalkki",
 
   // "menu.section.unpin": "Unpin sidebar",
   "menu.section.unpin": "Vapauta sivupalkki",
 
-
-
   // "menu.section.processes": "Processes",
   "menu.section.processes": "Prosessit",
-
-
 
   // "menu.section.registries": "Registries",
   "menu.section.registries": "Rekisterit",
@@ -3126,15 +2939,11 @@
   // "menu.section.registries_metadata": "Metadata",
   "menu.section.registries_metadata": "Metadata",
 
-
-
   // "menu.section.statistics": "Statistics",
   "menu.section.statistics": "Tilastot",
 
   // "menu.section.statistics_task": "Statistics Task",
   "menu.section.statistics_task": "Tilastointitehtävä",
-
-
 
   // "menu.section.toggle.access_control": "Toggle Access Control section",
   "menu.section.toggle.access_control": "Vaihda Pääsyoikeudet-osion tilaa",
@@ -3166,10 +2975,8 @@
   // "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
   "menu.section.toggle.statistics_task": "Vaihda Tilastointitehtävä-osion tilaa",
 
-
   // "menu.section.workflow": "Administer Workflow",
   "menu.section.workflow": "Hallinnoi työnkulkua",
-
 
   // "mydspace.description": "",
   "mydspace.description": "",
@@ -3280,7 +3087,7 @@
   "mydspace.upload.upload-failed": "Virhe uutta työtilaa luotaessa. Tarkista ladattava sisältö ennen kuin yrität uudelleen.",
 
   // "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
-    "mydspace.upload.upload-failed-manyentries": "Tiedostoa ei voida käsitellä. Vain yksi kohde on sallittu, mutta niitä on useita.",
+  "mydspace.upload.upload-failed-manyentries": "Tiedostoa ei voida käsitellä. Vain yksi kohde on sallittu, mutta niitä on useita.",
 
   // "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
   "mydspace.upload.upload-failed-moreonefile": "Pyyntöä ei voida käsitellä. Vain yksi tiedosto sallittu.",
@@ -3293,8 +3100,6 @@
 
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Näytä",
-
-
 
   // "nav.browse.header": "All of DSpace",
   "nav.browse.header": "Koko julkaisuarkisto",
@@ -3326,8 +3131,6 @@
   // "nav.stop-impersonating": "Stop impersonating EPerson",
   "nav.stop-impersonating": "Lopeta käyttäjänä esiintyminen",
 
-
-
   // "orgunit.listelement.badge": "Organizational Unit",
   "orgunit.listelement.badge": "Organisaatioyksikkö",
 
@@ -3352,8 +3155,6 @@
   // "orgunit.page.titleprefix": "Organizational Unit: ",
   "orgunit.page.titleprefix": "Organisaatioyksikkö: ",
 
-
-
   // "pagination.results-per-page": "Results Per Page",
   "pagination.results-per-page": "Tuloksia sivulla",
 
@@ -3365,8 +3166,6 @@
 
   // "pagination.sort-direction": "Sort Options",
   "pagination.sort-direction": "Lajitteluvalinnat",
-
-
 
   // "person.listelement.badge": "Person",
   "person.listelement.badge": "Käyttäjä",
@@ -3407,10 +3206,8 @@
   // "person.search.results.head": "Person Search Results",
   "person.search.results.head": "Käyttäjähaun tulokset",
 
-  // "person.search.title": "DSpace Angular :: Person Search",
-  "person.search.title": "DSpace Angular :: Käyttäjähaku",
-
-
+  // "person.search.title": "Central Metatada RepositoryPerson Search",
+  "person.search.title": "Central Metatada RepositoryKäyttäjähaku",
 
   // "process.new.select-parameters": "Parameters",
   "process.new.select-parameters": "Parametrit",
@@ -3469,19 +3266,17 @@
   // "process.new.breadcrumbs": "Create a new process",
   "process.new.breadcrumbs": "Luo uusi prosessi",
 
-
-
   // "process.detail.arguments" : "Arguments",
-  "process.detail.arguments" : "Muuttujat",
+  "process.detail.arguments": "Muuttujat",
 
   // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
-  "process.detail.arguments.empty" : "Prosessiin ei liity muuttujia",
+  "process.detail.arguments.empty": "Prosessiin ei liity muuttujia",
 
   // "process.detail.back" : "Back",
-  "process.detail.back" : "Paluu",
+  "process.detail.back": "Paluu",
 
   // "process.detail.output" : "Process Output",
-  "process.detail.output" : "Prosessin tulos",
+  "process.detail.output": "Prosessin tulos",
 
   // "process.detail.logs.button": "Retrieve process output",
   "process.detail.logs.button": "Nouda prosessin tulos",
@@ -3493,48 +3288,46 @@
   "process.detail.logs.none": "Prosessilla ei tulosta",
 
   // "process.detail.output-files" : "Output Files",
-  "process.detail.output-files" : "Tulostiedostot",
+  "process.detail.output-files": "Tulostiedostot",
 
   // "process.detail.output-files.empty" : "This process doesn't contain any output files",
-  "process.detail.output-files.empty" : "Prosessilla ei ole tulostiedostoja",
+  "process.detail.output-files.empty": "Prosessilla ei ole tulostiedostoja",
 
   // "process.detail.script" : "Script",
-  "process.detail.script" : "Skripti",
+  "process.detail.script": "Skripti",
 
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  "process.detail.title" : "Prosessi: {{ id }} - {{ name }}",
+  "process.detail.title": "Prosessi: {{ id }} - {{ name }}",
 
   // "process.detail.start-time" : "Start time",
-  "process.detail.start-time" : "Aloitusaika",
+  "process.detail.start-time": "Aloitusaika",
 
   // "process.detail.end-time" : "Finish time",
-  "process.detail.end-time" : "Lopetusaika",
+  "process.detail.end-time": "Lopetusaika",
 
   // "process.detail.status" : "Status",
-  "process.detail.status" : "Tila",
+  "process.detail.status": "Tila",
 
   // "process.detail.create" : "Create similar process",
-  "process.detail.create" : "Luo vastaava prosessi",
-
-
+  "process.detail.create": "Luo vastaava prosessi",
 
   // "process.overview.table.finish" : "Finish time",
-  "process.overview.table.finish" : "Lopetusaika",
+  "process.overview.table.finish": "Lopetusaika",
 
   // "process.overview.table.id" : "Process ID",
-  "process.overview.table.id" : "Prosessin ID",
+  "process.overview.table.id": "Prosessin ID",
 
   // "process.overview.table.name" : "Name",
-  "process.overview.table.name" : "Nimi",
+  "process.overview.table.name": "Nimi",
 
   // "process.overview.table.start" : "Start time",
-  "process.overview.table.start" : "Aloitusaika",
+  "process.overview.table.start": "Aloitusaika",
 
   // "process.overview.table.status" : "Status",
-  "process.overview.table.status" : "Tila",
+  "process.overview.table.status": "Tila",
 
   // "process.overview.table.user" : "User",
-  "process.overview.table.user" : "Käyttäjä",
+  "process.overview.table.user": "Käyttäjä",
 
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "Prosessien yleiskatsaukset",
@@ -3544,7 +3337,6 @@
 
   // "process.overview.new": "New",
   "process.overview.new": "Uusi",
-
 
   // "profile.breadcrumbs": "Update Profile",
   "profile.breadcrumbs": "Päivitä profiili",
@@ -3630,8 +3422,6 @@
   // "profile.title": "Update Profile",
   "profile.title": "Päivitä profiili",
 
-
-
   // "project.listelement.badge": "Research Project",
   "project.listelement.badge": "Tutkimusprojekti",
 
@@ -3665,8 +3455,6 @@
   // "project.search.results.head": "Project Search Results",
   "project.search.results.head": "Projektihaun tulokset",
 
-
-
   // "publication.listelement.badge": "Publication",
   "publication.listelement.badge": "Julkaisu",
 
@@ -3694,9 +3482,8 @@
   // "publication.search.results.head": "Publication Search Results",
   "publication.search.results.head": "Aineistohaun tulokset",
 
-  // "publication.search.title": "DSpace Angular :: Publication Search",
-  "publication.search.title": "DSpace Angular :: Aineistohaku",
-
+  // "publication.search.title": "Central Metatada RepositoryPublication Search",
+  "publication.search.title": "Central Metatada RepositoryAineistohaku",
 
   // "register-email.title": "New user registration",
   "register-email.title": "Uuden käyttäjän rekisteröinti",
@@ -3764,7 +3551,6 @@
   // "register-page.create-profile.submit.success.head": "Registration completed",
   "register-page.create-profile.submit.success.head": "Rekisteröinti valmis",
 
-
   // "register-page.registration.header": "New user registration",
   "register-page.registration.header": "Uuden käyttäjän rekisteröinti",
 
@@ -3797,8 +3583,6 @@
 
   // "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
   "register-page.registration.error.content": "Virhe rekisteröitäessä tätä sähköpostiosoitetta: {{ email }}",
-
-
 
   // "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
   "relationships.add.error.relationship-type.content": "Ei {{ type }}-tyyppistä yhteysvastaavuutta kahden tietueen välillä",
@@ -3853,8 +3637,6 @@
 
   // "relationships.isContributorOf": "Contributors",
   "relationships.isContributorOf": "Muut tekijät",
-
-
 
   // "resource-policies.add.button": "Add",
   "resource-policies.add.button": "Lisää",
@@ -4006,20 +3788,17 @@
   // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
   "resource-policies.table.headers.title.for.collection": "Kokoelmakäytännöt",
 
-
-
   // "search.description": "",
   "search.description": "",
 
   // "search.switch-configuration.title": "Show",
   "search.switch-configuration.title": "Näytä",
 
-  // "search.title": "DSpace Angular :: Search",
-  "search.title": "DSpace Angular :: Hae",
+  // "search.title": "Central Metatada RepositorySearch",
+  "search.title": "Central Metatada RepositoryHae",
 
   // "search.breadcrumbs": "Search",
   "search.breadcrumbs": "Hae",
-
 
   // "search.filters.applied.f.author": "Author",
   "search.filters.applied.f.author": "Tekijä",
@@ -4065,8 +3844,6 @@
 
   // "search.filters.applied.f.withdrawn": "Withdrawn",
   "search.filters.applied.f.withdrawn": "Poistettu käytöstä",
-
-
 
   // "search.filters.filter.author.head": "Author",
   "search.filters.filter.author.head": "Tekijä",
@@ -4206,8 +3983,6 @@
   // "search.filters.filter.submitter.placeholder": "Submitter",
   "search.filters.filter.submitter.placeholder": "Tallentaja",
 
-
-
   // "search.filters.entityType.JournalIssue": "Journal Issue",
   "search.filters.entityType.JournalIssue": "Kausijulkaisun numero",
 
@@ -4235,14 +4010,11 @@
   // "search.filters.withdrawn.false": "No",
   "search.filters.withdrawn.false": "Ei",
 
-
   // "search.filters.head": "Filters",
   "search.filters.head": "Suodattimet",
 
   // "search.filters.reset": "Reset filters",
   "search.filters.reset": "Tyhjennä suodattimet",
-
-
 
   // "search.form.search": "Search",
   "search.form.search": "Hae",
@@ -4252,8 +4024,6 @@
 
   // "search.form.search_mydspace": "Search MyDSpace",
   "search.form.search_mydspace": "Hae omista tiedoista",
-
-
 
   // "search.results.head": "Search Results",
   "search.results.head": "Hakutulokset",
@@ -4266,8 +4036,6 @@
 
   // "search.results.empty": "Your search returned no results.",
   "search.results.empty": "Ei hakutuloksia.",
-
-
 
   // "search.sidebar.close": "Back to results",
   "search.sidebar.close": "Paluu tuloksiin",
@@ -4290,8 +4058,6 @@
   // "search.sidebar.settings.title": "Settings",
   "search.sidebar.settings.title": "Asetukset",
 
-
-
   // "search.view-switch.show-detail": "Show detail",
   "search.view-switch.show-detail": "Näytä lisätiedot",
 
@@ -4300,8 +4066,6 @@
 
   // "search.view-switch.show-list": "Show as list",
   "search.view-switch.show-list": "Näytä luettelona",
-
-
 
   // "sorting.ASC": "Ascending",
   "sorting.ASC": "Laskeva",
@@ -4317,8 +4081,6 @@
 
   // "sorting.score.DESC": "Relevance",
   "sorting.score.DESC": "Relevanssi",
-
-
 
   // "statistics.title": "Statistics",
   "statistics.title": "Tilastot",
@@ -4353,8 +4115,6 @@
   // "statistics.table.header.views": "Views",
   "statistics.table.header.views": "Katseluita",
 
-
-
   // "submission.edit.title": "Edit Submission",
   "submission.edit.title": "Muokkaa tallennusta",
 
@@ -4384,7 +4144,6 @@
 
   // "submission.general.save-later": "Save for later",
   "submission.general.save-later": "Tallenna myöhemmäksi",
-
 
   // "submission.import-external.page.title": "Import metadata from an external source",
   "submission.import-external.page.title": "Importoi metadata ulkoisesta lähteestä",
@@ -4638,7 +4397,6 @@
   // "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Kausijulkaisun numerot",
 
-
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Kausijulkaisun numerot",
 
@@ -4763,7 +4521,7 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Hakutulokset",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
-  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Haluatko tallentaa nimen \"{{ value }}\" käyttäjän vaihtoehtoiseksi nimeksi, jota muutkin voivat käyttää uudelleen myös tulevissa tallennuksissa? Ellet tallenna nimeä, voit silti käyttää sitä tässä tallennuksessa.",
+  "submission.sections.describe.relationship-lookup.name-variant.notification.content": 'Haluatko tallentaa nimen "{{ value }}" käyttäjän vaihtoehtoiseksi nimeksi, jota muutkin voivat käyttää uudelleen myös tulevissa tallennuksissa? Ellet tallenna nimeä, voit silti käyttää sitä tässä tallennuksessa.',
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
   "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Tallenna uusi vaihtoehtoinen nimi",
@@ -4834,8 +4592,6 @@
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
   "submission.sections.general.sections_not_valid": "Tallennuksessa keskeneräisiä osioita.",
 
-
-
   // "submission.sections.submit.progressbar.CClicense": "Creative commons license",
   "submission.sections.submit.progressbar.CClicense": "Creative commons -lisenssi",
 
@@ -4859,8 +4615,6 @@
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Lataa tiedostoja",
-
-
 
   // "submission.sections.upload.delete.confirm.cancel": "Cancel",
   "submission.sections.upload.delete.confirm.cancel": "Peruuta",
@@ -4931,18 +4685,14 @@
   // "submission.sections.upload.upload-successful": "Upload successful",
   "submission.sections.upload.upload-successful": "Lataus valmis",
 
-
-
   // "submission.submit.title": "Tallennus",
   "submission.submit.title": "Julkaisu",
-
-
 
   // "submission.workflow.generic.delete": "Delete",
   "submission.workflow.generic.delete": "Poista",
 
   // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
-  "submission.workflow.generic.delete-help": "Valitse \"Poista\" hylätäksesi tietueen. Poisto pyydetään vielä vahvistamaan.",
+  "submission.workflow.generic.delete-help": 'Valitse "Poista" hylätäksesi tietueen. Poisto pyydetään vielä vahvistamaan.',
 
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Muokkaa",
@@ -4956,13 +4706,11 @@
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
   "submission.workflow.generic.view-help": "Valitse tämä katsoaksesi tietueen metadataa.",
 
-
-
   // "submission.workflow.tasks.claimed.approve": "Approve",
   "submission.workflow.tasks.claimed.approve": "Hyväksy",
 
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
-  "submission.workflow.tasks.claimed.approve_help": "Jos olet tarkistanut tietueen, ja se on kelvollinen kokoelmaan lisättäväksi, valitse \"Hyväksy\".",
+  "submission.workflow.tasks.claimed.approve_help": 'Jos olet tarkistanut tietueen, ja se on kelvollinen kokoelmaan lisättäväksi, valitse "Hyväksy".',
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "Muokkaa",
@@ -4986,15 +4734,13 @@
   "submission.workflow.tasks.claimed.reject.submit": "Hylkää",
 
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  "submission.workflow.tasks.claimed.reject_help": "Jos olet tarkistanut tietueen, ja se <strong>ei</strong> on kelvollinen kokoelmaan lisättäväksi, valitse \"Hylkää\". Tämän jälkeen sinua pyydetään kertomaan, miksi tietue ei ole kelvollinen sekä voiko tallentaja tehdä muutoksia ja lähettää aineiston uudelleen.",
+  "submission.workflow.tasks.claimed.reject_help": 'Jos olet tarkistanut tietueen, ja se <strong>ei</strong> on kelvollinen kokoelmaan lisättäväksi, valitse "Hylkää". Tämän jälkeen sinua pyydetään kertomaan, miksi tietue ei ole kelvollinen sekä voiko tallentaja tehdä muutoksia ja lähettää aineiston uudelleen.',
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Palauta tehtäväjonoon",
 
   // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
   "submission.workflow.tasks.claimed.return_help": "Palauta tehtävä tehtäväjonoon, jotta toinen käyttäjä voi suorittaa tehtävän.",
-
-
 
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
   "submission.workflow.tasks.generic.error": "Virhe toimintoa suoritettaessa...",
@@ -5008,8 +4754,6 @@
   // "submission.workflow.tasks.generic.success": "Operation successful",
   "submission.workflow.tasks.generic.success": "Toiminto onnistui",
 
-
-
   // "submission.workflow.tasks.pool.claim": "Claim",
   "submission.workflow.tasks.pool.claim": "Ota itsellesi",
 
@@ -5022,12 +4766,8 @@
   // "submission.workflow.tasks.pool.show-detail": "Show detail",
   "submission.workflow.tasks.pool.show-detail": "Näytä lisätiedot",
 
-
-
   // "title": "DSpace",
-  "title": "Julkaisuarkisto",
-
-
+  title: "Julkaisuarkisto",
 
   // "vocabulary-treeview.header": "Hierarchical tree view",
   "vocabulary-treeview.header": "Hierarkkinen puunäkymä",
@@ -5049,8 +4789,6 @@
 
   // "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
   "vocabulary-treeview.tree.description.srsc": "Tutkimusaiheiden kategoriat",
-
-
 
   // "uploader.browse": "browse",
   "uploader.browse": "selaa",
@@ -5077,12 +4815,8 @@
   // "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
   "virtual-metadata.delete-relationship.modal-head": "Valitse tietueet, joiden virtuaalisen metadatan haluat tallentaa varsinaiseksi metadataksi",
 
-
-
   // "workflowAdmin.search.results.head": "Administer Workflow",
   "workflowAdmin.search.results.head": "Hallinnoi työnkulkua",
-
-
 
   // "workflow-item.delete.notification.success.title": "Deleted",
   "workflow-item.delete.notification.success.title": "Poistettu",
@@ -5108,7 +4842,6 @@
   // "workflow-item.delete.button.confirm": "Delete",
   "workflow-item.delete.button.confirm": "Poista",
 
-
   // "workflow-item.send-back.notification.success.title": "Sent back to submitter",
   "workflow-item.send-back.notification.success.title": "Lähetetty takaisin tallentajalle",
 
@@ -5131,7 +4864,5 @@
   "workflow-item.send-back.button.cancel": "Peruuta",
 
   // "workflow-item.send-back.button.confirm": "Send back"
-  "workflow-item.send-back.button.confirm": "Lähetä takaisin"
-
-
+  "workflow-item.send-back.button.confirm": "Lähetä takaisin",
 }

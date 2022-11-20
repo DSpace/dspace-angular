@@ -1,5 +1,4 @@
 {
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Сіз бұл бетке өтуге тіркелемегенсіз. Басты бетке оралу үшін төмендегі батырманы пайдалануға болады",
 
@@ -8,8 +7,6 @@
 
   // "401.unauthorized": "unauthorized",
   "401.unauthorized": "Тіркелмеген",
-
-
 
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
   "403.help": "Сізде бұл параққа кіруге рұқсат жоқ. Басты бетке оралу үшін төмендегі батырманы пайдалануға болады.",
@@ -28,7 +25,6 @@
 
   // "500.link.home-page": "Take me to the home page",
   "500.link.home-page": "Басты бетке өту",
-
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   "404.help": "Сіз іздеген бет табылмады. Бұл бет алмастырылған немесе жойылған болуы мүмкін. Басты бетке оралу үшін төмендегі батырманы пайдалануға болады. ",
@@ -109,7 +105,7 @@
   "admin.registries.bitstream-formats.delete.failure.head": "Сәтсіздік",
 
   // "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
-  "admin.registries.bitstream-formats.delete.success.amount":"{{ amount }} пішімі (лері) сәтті жойылды",
+  "admin.registries.bitstream-formats.delete.success.amount": "{{ amount }} пішімі (лері) сәтті жойылды",
 
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
   "admin.registries.bitstream-formats.delete.success.head": "Сәтті",
@@ -157,7 +153,7 @@
   "admin.registries.bitstream-formats.edit.mimetype.label": "Пантомима түрі",
 
   // "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
-  "admin.registries.bitstream-formats.edit.shortDescription.hint":"Бұл форматтың ерекше атауы,(e.g. Microsoft Word XP or Microsoft Word 2000)",
+  "admin.registries.bitstream-formats.edit.shortDescription.hint": "Бұл форматтың ерекше атауы,(e.g. Microsoft Word XP or Microsoft Word 2000)",
 
   // "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
   "admin.registries.bitstream-formats.edit.shortDescription.label": "Аты",
@@ -202,7 +198,7 @@
   "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Белгілі",
 
   // "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supported",
-  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED":"Қолдау",
+  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Қолдау",
 
   // "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
   "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Белгісіз",
@@ -212,9 +208,7 @@
 
   // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
   // TODO Source message changed - Revise the translation
-  "admin.registries.bitstream-formats.title": "DSpace Angular ::Бит ағыны форматтарының тізілімі",
-
-
+  "admin.registries.bitstream-formats.title": "Central Metatada Repository :::Бит ағыны форматтарының тізілімі",
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   "admin.registries.metadata.breadcrumbs": "Метадеректер тізілімі",
@@ -226,7 +220,7 @@
   "admin.registries.metadata.form.create": "Метадеректер схемасын құру",
 
   // "admin.registries.metadata.form.edit": "Edit metadata schema",
-  "admin.registries.metadata.form.edit":"Метадеректер схемасын өңдеу",
+  "admin.registries.metadata.form.edit": "Метадеректер схемасын өңдеу",
 
   // "admin.registries.metadata.form.name": "Name",
   "admin.registries.metadata.form.name": "Аты",
@@ -238,7 +232,7 @@
   "admin.registries.metadata.head": "Метадеректер тізілімі",
 
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
-  "admin.registries.metadata.schemas.no-items":"Көрсету үшін метадеректер схемасы жоқ",
+  "admin.registries.metadata.schemas.no-items": "Көрсету үшін метадеректер схемасы жоқ",
 
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   "admin.registries.metadata.schemas.table.delete": "Жою таңдалған",
@@ -254,15 +248,13 @@
 
   // "admin.registries.metadata.title": "Metadata Registry",
   // TODO Source message changed - Revise the translation
-  "admin.registries.metadata.title": "DSpace Angular :: Метадеректер тізілімі",
-
-
+  "admin.registries.metadata.title": "Central Metatada RepositoryМетадеректер тізілімі",
 
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
-  "admin.registries.schema.breadcrumbs":"Метадеректер схемасы",
+  "admin.registries.schema.breadcrumbs": "Метадеректер схемасы",
 
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
-  "admin.registries.schema.description": "Бұл \" {{аттар кеңістігі}} \" үшін метадеректер схемасы.",
+  "admin.registries.schema.description": 'Бұл " {{аттар кеңістігі}} " үшін метадеректер схемасы.',
 
   // "admin.registries.schema.fields.head": "Schema metadata fields",
   "admin.registries.schema.fields.head": "Схема метадеректерінің өрістері",
@@ -298,7 +290,7 @@
   "admin.registries.schema.head": "Метадеректер схемасы",
 
   // "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
-  "admin.registries.schema.notification.created": "Сәтті құрылған метадеректер схемасы \"{{prefix}}\"",
+  "admin.registries.schema.notification.created": 'Сәтті құрылған метадеректер схемасы "{{prefix}}"',
 
   // "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
   "admin.registries.schema.notification.deleted.failure": "Жою мүмкін емес{{amount}} метадеректер схемалары",
@@ -307,22 +299,22 @@
   "admin.registries.schema.notification.deleted.success": "Сәтті жойылды{{amount}} метадеректер схемалары",
 
   // "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
-  "admin.registries.schema.notification.edited": "Сәтті өңделген метадеректер схемасы \"{{prefix}}\"",
+  "admin.registries.schema.notification.edited": 'Сәтті өңделген метадеректер схемасы "{{prefix}}"',
 
   // "admin.registries.schema.notification.failure": "Error",
   "admin.registries.schema.notification.failure": "Қате",
 
   // "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.created": "Сәтті құрылған метадеректер өрісі\"{{field}}\"",
+  "admin.registries.schema.notification.field.created": 'Сәтті құрылған метадеректер өрісі"{{field}}"',
 
   // "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
   "admin.registries.schema.notification.field.deleted.failure": "Жою мүмкін емес {{amount}}метадеректер өрісі",
 
   // "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
-  "admin.registries.schema.notification.field.deleted.success":"Сәтті жойылды {{amount}} метадеректер өрісі",
+  "admin.registries.schema.notification.field.deleted.success": "Сәтті жойылды {{amount}} метадеректер өрісі",
 
   // "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.edited": "Сәтті өңделген метадеректер өрісі\"{{field}}\"",
+  "admin.registries.schema.notification.field.edited": 'Сәтті өңделген метадеректер өрісі"{{field}}"',
 
   // "admin.registries.schema.notification.success": "Success",
   "admin.registries.schema.notification.success": "Успех",
@@ -333,9 +325,7 @@
 
   // "admin.registries.schema.title": "Metadata Schema Registry",
   // TODO Source message changed - Revise the translation
-  "admin.registries.schema.title": "DSpace Angular:: метадеректер тізбегінің тізілімі",
-
-
+  "admin.registries.schema.title": "Central Metatada Repository:: метадеректер тізбегінің тізілімі",
 
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
   "admin.access-control.epeople.actions.delete": "Адамды жою",
@@ -355,7 +345,7 @@
 
   // "admin.access-control.epeople.title": "EPeople",
   // TODO Source message changed - Revise the translation
-  "admin.access-control.epeople.title": "DSpace Angular :: Адамдар",
+  "admin.access-control.epeople.title": "Central Metatada RepositoryАдамдар",
 
   // "admin.access-control.epeople.head": "EPeople",
   "admin.access-control.epeople.head": "Адамдар",
@@ -395,14 +385,14 @@
   "admin.access-control.epeople.table.edit": "Өңдеу",
 
   // "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
-  "admin.access-control.epeople.table.edit.buttons.edit": "Өңдеу \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.edit": 'Өңдеу "{{name}}"',
 
   // "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
   // TODO New key - Add a translation
   "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
 
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  "admin.access-control.epeople.table.edit.buttons.remove": "Жою\"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove": 'Жою"{{name}}"',
 
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
   "admin.access-control.epeople.no-items": "Көрсетуге болатын адамдар жоқ",
@@ -436,28 +426,28 @@
   "admin.access-control.epeople.form.return": "Back",
 
   // "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.created.success": "Сәтті құрылған Эпперсон \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.success": 'Сәтті құрылған Эпперсон "{{name}}"',
 
   // "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.created.failure": "Адамды құру мүмкін емес \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.failure": 'Адамды құру мүмкін емес "{{name}}"',
 
   // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Адамды құру мүмкін емес\"{{name}}\", email \"{{email}}\" қазірдің өзінде қолданылады.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": 'Адамды құру мүмкін емес"{{name}}", email "{{email}}" қазірдің өзінде қолданылады.',
 
   // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Адамды өңдеу мүмкін емес\"{{name}}\", email \"{{email}}\" қазірдің өзінде қолданылады.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": 'Адамды өңдеу мүмкін емес"{{name}}", email "{{email}}" қазірдің өзінде қолданылады.',
 
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.edited.success": "Сәтті өңделген адам \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.success": 'Сәтті өңделген адам "{{name}}"',
 
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.edited.failure":"Адамды өңдеу мүмкін емес\"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.failure": 'Адамды өңдеу мүмкін емес"{{name}}"',
 
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.deleted.success": "Сәтті жойылған тұлға \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.success": 'Сәтті жойылған тұлға "{{name}}"',
 
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.deleted.failure": "Пайдаланушыны жою мүмкін емес\"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.failure": 'Пайдаланушыны жою мүмкін емес"{{name}}"',
 
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Осы топтардың мүшесі:",
@@ -479,16 +469,14 @@
   "admin.access-control.epeople.form.goToGroups": "Топтарға қосу",
 
   // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
-  "admin.access-control.epeople.notification.deleted.failure": "Пайдаланушыны өшіру мүмкін емес: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": 'Пайдаланушыны өшіру мүмкін емес: "{{name}}"',
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
-  "admin.access-control.epeople.notification.deleted.success": "Сәтті жойылған тұлға: \"{{name}}\"",
-
-
+  "admin.access-control.epeople.notification.deleted.success": 'Сәтті жойылған тұлға: "{{name}}"',
 
   // "admin.access-control.groups.title": "Groups",
   // TODO Source message changed - Revise the translation
-  "admin.access-control.groups.title": "DSpace Angular :: Топтар",
+  "admin.access-control.groups.title": "Central Metatada RepositoryТоптар",
 
   // "admin.access-control.groups.breadcrumbs": "Groups",
   // TODO New key - Add a translation
@@ -500,11 +488,11 @@
 
   // "admin.access-control.groups.title.singleGroup": "Edit Group",
   // TODO Source message changed - Revise the translation
-  "admin.access-control.groups.title.singleGroup": "DSpace Angular:: редакциялау тобы",
+  "admin.access-control.groups.title.singleGroup": "Central Metatada Repository:: редакциялау тобы",
 
   // "admin.access-control.groups.title.addGroup": "New Group",
   // TODO Source message changed - Revise the translation
-  "admin.access-control.groups.title.addGroup": "DSpace Angular :: Жаңа топ",
+  "admin.access-control.groups.title.addGroup": "Central Metatada RepositoryЖаңа топ",
 
   // "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
   // TODO New key - Add a translation
@@ -546,30 +534,28 @@
   "admin.access-control.groups.table.edit": "Өңдеу",
 
   // "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
-  "admin.access-control.groups.table.edit.buttons.edit": "Редакциялау \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.edit": 'Редакциялау "{{name}}"',
 
   // "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  "admin.access-control.groups.table.edit.buttons.remove": "Өшіру \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.remove": 'Өшіру "{{name}}"',
 
   // "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
   "admin.access-control.groups.no-items": "Бұл атаумен немесе UUID сияқты топтар табылған жоқ",
 
   // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
-  "admin.access-control.groups.notification.deleted.success": "Сәтті қашықтағы топ \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.success": 'Сәтті қашықтағы топ "{{name}}"',
 
   // "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
-  "admin.access-control.groups.notification.deleted.failure.title": "Топты жою мүмкін емес \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.failure.title": 'Топты жою мүмкін емес "{{name}}"',
 
   // "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
-  "admin.access-control.groups.notification.deleted.failure.content": "Себебі: \"{{cause}}\"",
-
-
+  "admin.access-control.groups.notification.deleted.failure.content": 'Себебі: "{{cause}}"',
 
   // "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
   "admin.access-control.groups.form.alert.permanent": "Бұл топ тұрақты, сондықтан оны өңдеуге немесе жоюға болмайды. Осы бетті қолдана отырып, топ мүшелерін қосуға және жоюға болады.",
 
   // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
-  "admin.access-control.groups.form.alert.workflowGroup": "Бұл топты өзгерту немесе жою мүмкін емес, өйткені ол жіберу және жұмыс процесінің рөліне сәйкес келеді \"{{name}}\" {{comcol}}. Сіз оны <a href-тен жоя аласыз='{{comcolEditRolesRoute}}'>\"рөлдерді тағайындау\"</a> өңдеу қойындысы {{comcol}} page. You can still add and remove group members using this page.",
+  "admin.access-control.groups.form.alert.workflowGroup": 'Бұл топты өзгерту немесе жою мүмкін емес, өйткені ол жіберу және жұмыс процесінің рөліне сәйкес келеді "{{name}}" {{comcol}}. Сіз оны <a href-тен жоя аласыз=\'{{comcolEditRolesRoute}}\'>"рөлдерді тағайындау"</a> өңдеу қойындысы {{comcol}} page. You can still add and remove group members using this page.',
 
   // "admin.access-control.groups.form.head.create": "Create group",
   "admin.access-control.groups.form.head.create": "Топ құру",
@@ -585,34 +571,34 @@
   "admin.access-control.groups.form.groupCommunity": "Community or Collection",
 
   // "admin.access-control.groups.form.groupDescription": "Description",
-  "admin.access-control.groups.form.groupDescription":"Сипаттама",
+  "admin.access-control.groups.form.groupDescription": "Сипаттама",
 
   // "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.created.success": "Сәтті құрылған топ \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.success": 'Сәтті құрылған топ "{{name}}"',
 
   // "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.created.failure": "Топ құру мүмкін емес \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.failure": 'Топ құру мүмкін емес "{{name}}"',
 
   // "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
-  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Аты бар топ құру мүмкін емес: \"{{name}}\", бұл атау әлі қолданылмағанына көз жеткізіңіз.",
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": 'Аты бар топ құру мүмкін емес: "{{name}}", бұл атау әлі қолданылмағанына көз жеткізіңіз.',
 
   // "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.edited.failure": "Топты өңдеу мүмкін емес\"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.failure": 'Топты өңдеу мүмкін емес"{{name}}"',
 
   // "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
-  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Аты \"{{name}}\" қазірдің өзінде қолданылады",
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": 'Аты "{{name}}" қазірдің өзінде қолданылады',
 
   // "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.edited.success": "Сәтті өңделген топ \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.success": 'Сәтті өңделген топ "{{name}}"',
 
   // "admin.access-control.groups.form.actions.delete": "Delete Group",
   "admin.access-control.groups.form.actions.delete": "Топты өшіру",
 
   // "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
-  "admin.access-control.groups.form.delete-group.modal.header": "Топты жою \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.header": 'Топты жою "{{ dsoName }}"',
 
   // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
-  "admin.access-control.groups.form.delete-group.modal.info": "Сіз топты жойғыңыз келетініне сенімдісіз \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.info": 'Сіз топты жойғыңыз келетініне сенімдісіз "{{ dsoName }}"',
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
   "admin.access-control.groups.form.delete-group.modal.cancel": "Болдырмау",
@@ -621,13 +607,13 @@
   "admin.access-control.groups.form.delete-group.modal.confirm": "Жою",
 
   // "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
-  "admin.access-control.groups.form.notification.deleted.success": "Сәтті қашықтағы топ \"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.success": 'Сәтті қашықтағы топ "{{ name }}"',
 
   // "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
-  "admin.access-control.groups.form.notification.deleted.failure.title": "Топты жою мүмкін емес\"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.title": 'Топты жою мүмкін емес"{{ name }}"',
 
   // "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
-  "admin.access-control.groups.form.notification.deleted.failure.content": "Өйткені: \"{{ cause }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.content": 'Өйткені: "{{ cause }}"',
 
   // "admin.access-control.groups.form.members-list.head": "EPeople",
   "admin.access-control.groups.form.members-list.head": "Адамдар",
@@ -672,22 +658,22 @@
   "admin.access-control.groups.form.members-list.table.edit": "Жою/ Add",
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Қатысушыны аты-жөнімен жою \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": 'Қатысушыны аты-жөнімен жою "{{name}}"',
 
   // "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.success.addMember":"Сәтті қосылған мүше: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.addMember": 'Сәтті қосылған мүше: "{{name}}"',
 
   // "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.failure.addMember":"Қатысушыны қосу мүмкін емес: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.addMember": 'Қатысушыны қосу мүмкін емес: "{{name}}"',
 
   // "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Сәтті қашықтағы мүше: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.deleteMember": 'Сәтті қашықтағы мүше: "{{name}}"',
 
   // "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Қатысушыны жою мүмкін емес: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": 'Қатысушыны жою мүмкін емес: "{{name}}"',
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Аты бар мүшені қосу\"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.add": 'Аты бар мүшені қосу"{{name}}"',
 
   // "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
   "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "Ағымдағы белсенді топ жоқ, алдымен атын енгізіңіз.",
@@ -699,13 +685,13 @@
   "admin.access-control.groups.form.members-list.no-items": "Бұл іздеу барысында бірде-бір адам табылған жоқ",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.failure": "Бір нәрсе дұрыс болмады: \"{{cause}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure": 'Бір нәрсе дұрыс болмады: "{{cause}}"',
 
   // "admin.access-control.groups.form.subgroups-list.head": "Groups",
   "admin.access-control.groups.form.subgroups-list.head": "Топтар",
 
   // "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
-  "admin.access-control.groups.form.subgroups-list.search.head":"Кіші топты қосу",
+  "admin.access-control.groups.form.subgroups-list.search.head": "Кіші топты қосу",
 
   // "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
   "admin.access-control.groups.form.subgroups-list.button.see-all": "Барлығын Қарау",
@@ -730,26 +716,26 @@
   "admin.access-control.groups.form.subgroups-list.table.edit": "Жою / Қосу",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Аты бар кіші топты жою \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": 'Аты бар кіші топты жою "{{name}}"',
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
   // TODO Source message changed - Revise the translation
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Атауы бар кіші топты қосыңыз \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": 'Атауы бар кіші топты қосыңыз "{{name}}"',
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
   "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Ағымдағы топ",
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": 'Successfully added subgroup: "{{name}}"',
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Кіші топ қосу мүмкін емес: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": 'Кіші топ қосу мүмкін емес: "{{name}}"',
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Сәтті жойылған кіші топ: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": 'Сәтті жойылған кіші топ: "{{name}}"',
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Кіші топты жою мүмкін емес: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": 'Кіші топты жою мүмкін емес: "{{name}}"',
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
   "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "Ағымдағы белсенді топ жоқ, алдымен атын енгізіңіз.",
@@ -767,8 +753,6 @@
   // TODO Source message changed - Revise the translation
   "admin.access-control.groups.form.return": "Топтарға оралу",
 
-
-
   // "admin.search.breadcrumbs": "Administrative Search",
   "admin.search.breadcrumbs": "Әкімшілік іздеу",
 
@@ -776,7 +760,7 @@
   "admin.search.collection.edit": "Өңдеу",
 
   // "admin.search.community.edit": "Edit",
-  "admin.search.community.edit":"Өңдеу",
+  "admin.search.community.edit": "Өңдеу",
 
   // "admin.search.item.delete": "Delete",
   "admin.search.item.delete": "Жою",
@@ -796,7 +780,7 @@
   "admin.search.item.move": "Жылжыту",
 
   // "admin.search.item.reinstate": "Reinstate",
-  "admin.search.item.reinstate":"Қалпына келтіру",
+  "admin.search.item.reinstate": "Қалпына келтіру",
 
   // "admin.search.item.withdraw": "Withdraw",
   "admin.search.item.withdraw": "Шақыру",
@@ -806,9 +790,6 @@
 
   // "administrativeView.search.results.head": "Administrative Search",
   "administrativeView.search.results.head": "Әкімшілік іздеу",
-
-
-
 
   // "admin.workflow.breadcrumbs": "Administer Workflow",
   "admin.workflow.breadcrumbs": "Жұмыс процесін басқару",
@@ -824,8 +805,6 @@
 
   // "admin.workflow.item.send-back": "Send back",
   "admin.workflow.item.send-back": "Кері жіберу",
-
-
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
   "admin.metadata-import.breadcrumbs": "Метадеректерді импорттау",
@@ -863,9 +842,6 @@
   // TODO New key - Add a translation
   "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
 
-
-
-
   // "auth.errors.invalid-user": "Invalid email address or password.",
   // TODO New key - Add a translation
   "auth.errors.invalid-user": "Invalid email address or password.",
@@ -878,16 +854,13 @@
   // TODO New key - Add a translation
   "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
 
-
-
   // "bitstream.download.page": "Now downloading {{bitstream}}..." ,
   // TODO New key - Add a translation
-  "bitstream.download.page": "Now downloading {{bitstream}}..." ,
+  "bitstream.download.page": "Now downloading {{bitstream}}...",
 
   // "bitstream.download.page.back": "Back" ,
   // TODO New key - Add a translation
-  "bitstream.download.page.back": "Back" ,
-
+  "bitstream.download.page.back": "Back",
 
   // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
   // TODO New key - Add a translation
@@ -905,7 +878,7 @@
   "bitstream.edit.bitstream": "Битстрим: ",
 
   // "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
-  "bitstream.edit.form.description.hint": "Қажет болса, файлдың қысқаша сипаттамасын беріңіз, мысалы \"<i>Негізгі мақала</i>\" немесе \"<i>Тәжірибелік деректер көрсеткіштері</i>\".",
+  "bitstream.edit.form.description.hint": 'Қажет болса, файлдың қысқаша сипаттамасын беріңіз, мысалы "<i>Негізгі мақала</i>" немесе "<i>Тәжірибелік деректер көрсеткіштері</i>".',
 
   // "bitstream.edit.form.description.label": "Description",
   "bitstream.edit.form.description.label": "Сипаттамасы",
@@ -926,13 +899,13 @@
   "bitstream.edit.form.newFormat.label": "Жаңа форматты сипаттаңыз",
 
   // "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
-  "bitstream.edit.form.newFormat.hint": "Файлды жасау үшін пайдаланған бағдарлама, және нұсқа нөмірі (мысалы, \"<i>ACMESoft SuperApp version 1.5</i>\").",
+  "bitstream.edit.form.newFormat.hint": 'Файлды жасау үшін пайдаланған бағдарлама, және нұсқа нөмірі (мысалы, "<i>ACMESoft SuperApp version 1.5</i>").',
 
   // "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
   "bitstream.edit.form.primaryBitstream.label": "Негізгі бит ағыны",
 
   // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
-  "bitstream.edit.form.selectedFormat.hint": "Егер формат жоғарыда көрсетілген тізімде болмаса, <b>таңдау \"формат тізімде жоқ\" жоғары</b> және оны бөлімде сипаттаңыз \"Жаңа форматты сипаттаңыз\".",
+  "bitstream.edit.form.selectedFormat.hint": 'Егер формат жоғарыда көрсетілген тізімде болмаса, <b>таңдау "формат тізімде жоқ" жоғары</b> және оны бөлімде сипаттаңыз "Жаңа форматты сипаттаңыз".',
 
   // "bitstream.edit.form.selectedFormat.label": "Selected Format",
   "bitstream.edit.form.selectedFormat.label": "Таңдалған Формат",
@@ -974,7 +947,6 @@
   // "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
   // TODO New key - Add a translation
   "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
-
 
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
   "bitstream.edit.notifications.saved.content": "Осы бит ағынында сіз енгізген өзгерістер сақталды.",
@@ -1059,8 +1031,6 @@
   // "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
   // TODO New key - Add a translation
   "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
-
-
 
   // "browse.back.all-results": "All browse results",
   // TODO New key - Add a translation
@@ -1205,11 +1175,8 @@
   // TODO New key - Add a translation
   "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
 
-
   // "chips.remove": "Remove chip",
   "chips.remove": "Чипті жою",
-
-
 
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Топтама Жасау",
@@ -1243,9 +1210,7 @@
   "collection.delete.notification.success": "Топтама сәтті жойылды",
 
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
-  "collection.delete.text": "Сіз шынымен топтаманы жойғыңыз келеді ме\"{{ dso }}\"",
-
-
+  "collection.delete.text": 'Сіз шынымен топтаманы жойғыңыз келеді ме"{{ dso }}"',
 
   // "collection.edit.delete": "Delete this collection",
   "collection.edit.delete": "Осы топтаманы жою",
@@ -1255,8 +1220,6 @@
 
   // "collection.edit.breadcrumbs": "Edit Collection",
   "collection.edit.breadcrumbs": "Топтаманы Өңдеу",
-
-
 
   // "collection.edit.tabs.mapper.head": "Item Mapper",
   "collection.edit.tabs.mapper.head": "Элементті Түрлендіру",
@@ -1268,7 +1231,7 @@
   "collection.edit.item-mapper.cancel": "Бас тарту",
 
   // "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
-  "collection.edit.item-mapper.collection": "Топтама: \"<b>{{name}}</b>\"",
+  "collection.edit.item-mapper.collection": 'Топтама: "<b>{{name}}</b>"',
 
   // "collection.edit.item-mapper.confirm": "Map selected items",
   "collection.edit.item-mapper.confirm": "Таңдалған элементтерді көрсету",
@@ -1319,7 +1282,6 @@
   // "collection.edit.item-mapper.tabs.map": "Map new items",
   "collection.edit.item-mapper.tabs.map": "Жаңа элементтерді көрсету",
 
-
   // "collection.edit.logo.delete.title": "Delete logo",
   // TODO New key - Add a translation
   "collection.edit.logo.delete.title": "Delete logo",
@@ -1349,16 +1311,12 @@
   // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
   "collection.edit.logo.upload": "Жүктеу үшін топтама логотипін жойыңыз",
 
-
-
   // "collection.edit.notifications.success": "Successfully edited the Collection",
   "collection.edit.notifications.success": "Сәтті өзгертілген топтама",
 
   // "collection.edit.return": "Back",
   // TODO Source message changed - Revise the translation
   "collection.edit.return": "Қайтару",
-
-
 
   // "collection.edit.tabs.curate.head": "Curate",
   "collection.edit.tabs.curate.head": "Куратор",
@@ -1450,8 +1408,6 @@
   // "collection.edit.tabs.source.title": "Collection Edit - Content Source",
   "collection.edit.tabs.source.title": "Топтаманы Өзгерту - Мазмұн Дереккөзі",
 
-
-
   // "collection.edit.template.add-button": "Add",
   "collection.edit.template.add-button": "Қосу",
 
@@ -1472,7 +1428,7 @@
   "collection.edit.template.error": "An error occurred retrieving the template item",
 
   // "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
-  "collection.edit.template.head": "Топтамаға арналған үлгі элементін өзгерту \"{{ collection }}\"",
+  "collection.edit.template.head": 'Топтамаға арналған үлгі элементін өзгерту "{{ collection }}"',
 
   // "collection.edit.template.label": "Template item",
   "collection.edit.template.label": "Үлгі элементі",
@@ -1489,8 +1445,6 @@
 
   // "collection.edit.template.title": "Edit Template Item",
   "collection.edit.template.title": "Үлгі элементін өзгерту",
-
-
 
   // "collection.form.abstract": "Short Description",
   "collection.form.abstract": "Қысқаша сипаттамасы",
@@ -1520,12 +1474,8 @@
   // TODO New key - Add a translation
   "collection.form.entityType": "Entity Type",
 
-
-
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "Топтама",
-
-
 
   // "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.browse.recent.head": "Соңғы Материалдар",
@@ -1546,8 +1496,6 @@
   // "collection.page.news": "News",
   "collection.page.news": "Жаңалықтар",
 
-
-
   // "collection.select.confirm": "Confirm selected",
   "collection.select.confirm": "Таңдалғанды растау",
 
@@ -1556,7 +1504,6 @@
 
   // "collection.select.table.title": "Title",
   "collection.select.table.title": "Тақырыбы",
-
 
   // "collection.source.controls.head": "Harvest Controls",
   // TODO New key - Add a translation
@@ -1628,14 +1575,11 @@
   // TODO New key - Add a translation
   "collection.source.controls.harvest.no-information": "N/A",
 
-
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
   "collection.source.update.notifications.error.content": "Берілген параметрлер тексерілді және жұмыс істемеді.",
 
   // "collection.source.update.notifications.error.title": "Server Error",
   "collection.source.update.notifications.error.title": "Сервер қатесі",
-
-
 
   // "communityList.breadcrumbs": "Community List",
   // TODO New key - Add a translation
@@ -1650,8 +1594,6 @@
 
   // "communityList.showMore": "Show More",
   "communityList.showMore": "Көбірек Көрсету",
-
-
 
   // "community.create.head": "Create a Community",
   "community.create.head": "Қауымдастық Құру",
@@ -1685,7 +1627,7 @@
   "community.delete.notification.success": "Қауымдастық сәтті жойылды",
 
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
-  "community.delete.text": "Қауымдастықты жойғыңыз келетініне сенімдісіз бе \"{{ dso }}\"",
+  "community.delete.text": 'Қауымдастықты жойғыңыз келетініне сенімдісіз бе "{{ dso }}"',
 
   // "community.edit.delete": "Delete this community",
   "community.edit.delete": "Бұл қауымдастықты жойыңыз",
@@ -1695,7 +1637,6 @@
 
   // "community.edit.breadcrumbs": "Edit Community",
   "community.edit.breadcrumbs": "Edit Community",
-
 
   // "community.edit.logo.delete.title": "Delete logo",
   // TODO New key - Add a translation
@@ -1726,8 +1667,6 @@
   // "community.edit.logo.upload": "Drop a Community Logo to upload",
   "community.edit.logo.upload": "Жүктеу үшін Қауымдастық Логотипін жойыңыз",
 
-
-
   // "community.edit.notifications.success": "Successfully edited the Community",
   "community.edit.notifications.success": "Сәтті өзгертілген Қауымдастық",
 
@@ -1740,8 +1679,6 @@
   // "community.edit.return": "Back",
   // TODO Source message changed - Revise the translation
   "community.edit.return": "Қайтару",
-
-
 
   // "community.edit.tabs.curate.head": "Curate",
   "community.edit.tabs.curate.head": "Куратор",
@@ -1767,12 +1704,8 @@
   // "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
   "community.edit.tabs.authorizations.title": "Қауымдастықты Өзгерту - Рұқсаттар",
 
-
-
   // "community.listelement.badge": "Community",
   "community.listelement.badge": "Қауымдастық",
-
-
 
   // "comcol-role.edit.no-group": "None",
   // TODO New key - Add a translation
@@ -1798,7 +1731,6 @@
   // TODO New key - Add a translation
   "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
 
-
   // "comcol-role.edit.community-admin.name": "Administrators",
   // TODO New key - Add a translation
   "comcol-role.edit.community-admin.name": "Administrators",
@@ -1806,7 +1738,6 @@
   // "comcol-role.edit.collection-admin.name": "Administrators",
   // TODO New key - Add a translation
   "comcol-role.edit.collection-admin.name": "Administrators",
-
 
   // "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
   // TODO New key - Add a translation
@@ -1816,7 +1747,6 @@
   // TODO New key - Add a translation
   "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
 
-
   // "comcol-role.edit.submitters.name": "Submitters",
   // TODO New key - Add a translation
   "comcol-role.edit.submitters.name": "Submitters",
@@ -1824,7 +1754,6 @@
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
   // TODO New key - Add a translation
   "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
-
 
   // "comcol-role.edit.item_read.name": "Default item read access",
   // TODO New key - Add a translation
@@ -1838,7 +1767,6 @@
   // TODO New key - Add a translation
   "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
 
-
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
   // TODO New key - Add a translation
   "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
@@ -1851,7 +1779,6 @@
   // TODO New key - Add a translation
   "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
 
-
   // "comcol-role.edit.editor.name": "Editors",
   // TODO New key - Add a translation
   "comcol-role.edit.editor.name": "Editors",
@@ -1859,7 +1786,6 @@
   // "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
   // TODO New key - Add a translation
   "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
-
 
   // "comcol-role.edit.finaleditor.name": "Final editors",
   // TODO New key - Add a translation
@@ -1869,7 +1795,6 @@
   // TODO New key - Add a translation
   "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
 
-
   // "comcol-role.edit.reviewer.name": "Reviewers",
   // TODO New key - Add a translation
   "comcol-role.edit.reviewer.name": "Reviewers",
@@ -1877,8 +1802,6 @@
   // "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
   // TODO New key - Add a translation
   "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
-
-
 
   // "community.form.abstract": "Short Description",
   "community.form.abstract": "Қысқаша Сипаттамасы",
@@ -1918,8 +1841,6 @@
 
   // "community.sub-community-list.head": "Communities of this Community",
   "community.sub-community-list.head": "Осы қоғамдастық шеңберіндегі қауымдастықтар",
-
-
 
   // "cookies.consent.accept-all": "Accept all",
   // TODO New key - Add a translation
@@ -1976,14 +1897,11 @@
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Біз жинайтын ақпарат",
 
-
-
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Аутентификация",
 
   // "cookies.consent.app.description.authentication": "Required for signing you in",
   "cookies.consent.app.description.authentication": "Жүйеге кіру үшін қажет",
-
 
   // "cookies.consent.app.title.preferences": "Preferences",
   "cookies.consent.app.title.preferences": "Параметрлері",
@@ -1991,15 +1909,11 @@
   // "cookies.consent.app.description.preferences": "Required for saving your preferences",
   "cookies.consent.app.description.preferences": "Параметрлерді сақтау үшін қажет",
 
-
-
   // "cookies.consent.app.title.acknowledgement": "Acknowledgement",
   "cookies.consent.app.title.acknowledgement": "Растау",
 
   // "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
   "cookies.consent.app.description.acknowledgement": "Сіздің растауыңызбен келісімдеріңізді сақтау үшін қажет",
-
-
 
   // "cookies.consent.app.title.google-analytics": "Google Analytics",
   "cookies.consent.app.title.google-analytics": "Google Аналитикасы",
@@ -2007,17 +1921,14 @@
   // "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
   "cookies.consent.app.description.google-analytics": "Бізге статистикалық мәліметтерді бақылауға мүмкіндік береді",
 
-
-
   // "cookies.consent.purpose.functional": "Functional",
   "cookies.consent.purpose.functional": "Функционалды",
 
   // "cookies.consent.purpose.statistical": "Statistical",
   "cookies.consent.purpose.statistical": "Статистикалық",
 
-
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  "curation-task.task.checklinks.label":  "Метадеректердегі Сілтемелерді Тексеріңіз",
+  "curation-task.task.checklinks.label": "Метадеректердегі Сілтемелерді Тексеріңіз",
 
   // "curation-task.task.noop.label": "NOOP",
   "curation-task.task.noop.label": "NOOP бағдарлама тілі",
@@ -2033,8 +1944,6 @@
 
   // "curation-task.task.vscan.label": "Virus Scan",
   "curation-task.task.vscan.label": "Вирустарды тексеру",
-
-
 
   // "curation.form.task-select.label": "Task:",
   "curation.form.task-select.label": "Міндет(Тапсырма):",
@@ -2064,11 +1973,9 @@
   // "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
   "curation.form.handle.hint": "Кеңес: Енгізіңіз [your-handle-prefix]/0 бүкіл сайт бойынша тапсырманы орындау үшін(барлық тапсырмалар бұл мүмкіндікті қолдамауы мүмкін)",
 
-
-
   // "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
   // TODO New key - Add a translation
-  "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+  "deny-request-copy.email.message": 'Dear {{ recipientName }},\nIn response to your request I regret to inform you that it\'s not possible to send you a copy of the file(s) you have requested, concerning the document: "{{ itemUrl }}" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>',
 
   // "deny-request-copy.email.subject": "Request copy of document",
   // TODO New key - Add a translation
@@ -2090,13 +1997,9 @@
   // TODO New key - Add a translation
   "deny-request-copy.success": "Successfully denied item request",
 
-
-
   // "dso.name.untitled": "Untitled",
   // TODO New key - Add a translation
   "dso.name.untitled": "Untitled",
-
-
 
   // "dso-selector.create.collection.head": "New collection",
   "dso-selector.create.collection.head": "Жаңа топтама",
@@ -2183,16 +2086,16 @@
   "confirmation-modal.export-metadata.info": "{{ dsoName }} метадеректерін экспорттағыңыз келетініне сенімдісіз бе",
 
   // "confirmation-modal.export-metadata.cancel": "Cancel",
-  "confirmation-modal.export-metadata.cancel":"Болдырмау",
+  "confirmation-modal.export-metadata.cancel": "Болдырмау",
 
   // "confirmation-modal.export-metadata.confirm": "Export",
-  "confirmation-modal.export-metadata.confirm":"Экспорт",
+  "confirmation-modal.export-metadata.confirm": "Экспорт",
 
   // "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
-  "confirmation-modal.delete-eperson.header": "EPerson \"{{ dsoName }}\" жою",
+  "confirmation-modal.delete-eperson.header": 'EPerson "{{ dsoName }}" жою',
 
   // "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
-  "confirmation-modal.delete-eperson.info": "EPerson \"{{ dsoName }}\" қолданбасын жойғыңыз келетініне сенімдісіз бе",
+  "confirmation-modal.delete-eperson.info": 'EPerson "{{ dsoName }}" қолданбасын жойғыңыз келетініне сенімдісіз бе',
 
   // "confirmation-modal.delete-eperson.cancel": "Cancel",
   "confirmation-modal.delete-eperson.cancel": "Болдырмау",
@@ -2215,7 +2118,6 @@
   // "confirmation-modal.delete-profile.confirm": "Delete",
   // TODO New key - Add a translation
   "confirmation-modal.delete-profile.confirm": "Delete",
-
 
   // "error.bitstream": "Error fetching bitstream",
   "error.bitstream": "Бақыттық ағынды алу қатесі",
@@ -2245,26 +2147,26 @@
   "error.items": "Элементтерді алу қатесі",
 
   // "error.objects": "Error fetching objects",
-  "error.objects":"Нысандарды алу қатесі",
+  "error.objects": "Нысандарды алу қатесі",
 
   // "error.recent-submissions": "Error fetching recent submissions",
-  "error.recent-submissions":"Соңғы жіберілімдерді алу қатесі",
+  "error.recent-submissions": "Соңғы жіберілімдерді алу қатесі",
 
   // "error.search-results": "Error fetching search results",
   "error.search-results": "Іздеу нәтижелерін алу қатесі",
 
   // "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
   // TODO New key - Add a translation
-  "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
+  "error.invalid-search-query": 'Search query is not valid. Please check <a href="https://solr.apache.org/guide/query-syntax-and-parsing.html" target="_blank">Solr query syntax</a> best practices for further information about this error.',
 
   // "error.sub-collections": "Error fetching sub-collections",
-  "error.sub-collections":"Ішкі жинақтарды алу қатесі",
+  "error.sub-collections": "Ішкі жинақтарды алу қатесі",
 
   // "error.sub-communities": "Error fetching sub-communities",
   "error.sub-communities": "Қосымша қауымдастықтарды алу қатесі",
 
   // "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
-  "error.submission.sections.init-form-error":"Бөлімді инициализациялау кезінде қате орын алды, енгізу пішінінің конфигурациясын тексеріңіз. Мәліметтер төменде берілген: <br> <br>",
+  "error.submission.sections.init-form-error": "Бөлімді инициализациялау кезінде қате орын алды, енгізу пішінінің конфигурациясын тексеріңіз. Мәліметтер төменде берілген: <br> <br>",
 
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "Жоғары деңгейлі қауымдастықтарды алу қатесі",
@@ -2294,16 +2196,12 @@
   // TODO New key - Add a translation
   "error.validation.groupExists": "This group already exists",
 
-
   // "feed.description": "Syndication feed",
   // TODO New key - Add a translation
   "feed.description": "Syndication feed",
 
-
   // "file-section.error.header": "Error obtaining files for this item",
   "file-section.error.header": "Осы элемент үшін файлдарды алу қатесі",
-
-
 
   // "footer.copyright": "copyright © 2002-{{ year }}",
   "footer.copyright": "Авторлық құқық © 2002-{{ year }}",
@@ -2321,13 +2219,11 @@
   "footer.link.privacy-policy": "Құпиялылық саясаты",
 
   // "footer.link.end-user-agreement":"End User Agreement",
-  "footer.link.end-user-agreement":"Соңғы пайдаланушы келісімі",
+  "footer.link.end-user-agreement": "Соңғы пайдаланушы келісімі",
 
   // "footer.link.feedback":"Send Feedback",
   // TODO New key - Add a translation
-  "footer.link.feedback":"Send Feedback",
-
-
+  "footer.link.feedback": "Send Feedback",
 
   // "forgot-email.form.header": "Forgot Password",
   "forgot-email.form.header": "Парольді Ұмыттыңыз Ба",
@@ -2368,8 +2264,6 @@
   // TODO New key - Add a translation
   "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
 
-
-
   // "forgot-password.title": "Forgot Password",
   "forgot-password.title": "Құпия сөзді ұмыттыңыз ба",
 
@@ -2401,7 +2295,7 @@
   "forgot-password.form.error.matching-passwords": "Құпия сөздер сәйкес келмейді.",
 
   // "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
-  "forgot-password.form.error.password-length":"Құпия сөз кемінде 6 таңбадан тұруы керек.",
+  "forgot-password.form.error.password-length": "Құпия сөз кемінде 6 таңбадан тұруы керек.",
 
   // "forgot-password.form.notification.error.title": "Error when trying to submit new password",
   "forgot-password.form.notification.error.title": "Жаңа құпия сөзді жіберу әрекеті кезіндегі қате",
@@ -2414,8 +2308,6 @@
 
   // "forgot-password.form.submit": "Submit password",
   "forgot-password.form.submit": "Құпия сөзді жіберу",
-
-
 
   // "form.add": "Add more",
   // TODO Source message changed - Revise the translation
@@ -2506,8 +2398,6 @@
   // TODO New key - Add a translation
   "form.repeatable.sort.tip": "Drop the item in the new position",
 
-
-
   // "grant-deny-request-copy.deny": "Don't send copy",
   // TODO New key - Add a translation
   "grant-deny-request-copy.deny": "Don't send copy",
@@ -2568,11 +2458,9 @@
   // TODO New key - Add a translation
   "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
 
-
-
   // "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
   // TODO New key - Add a translation
-  "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+  "grant-request-copy.email.message": 'Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: "{{ itemUrl }}" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>',
 
   // "grant-request-copy.email.subject": "Request copy of document",
   // TODO New key - Add a translation
@@ -2594,22 +2482,21 @@
   // TODO New key - Add a translation
   "grant-request-copy.success": "Successfully granted item request",
 
-
   // "health.breadcrumbs": "Health",
   // TODO New key - Add a translation
   "health.breadcrumbs": "Health",
 
   // "health-page.heading" : "Health",
   // TODO New key - Add a translation
-  "health-page.heading" : "Health",
+  "health-page.heading": "Health",
 
   // "health-page.info-tab" : "Info",
   // TODO New key - Add a translation
-  "health-page.info-tab" : "Info",
+  "health-page.info-tab": "Info",
 
   // "health-page.status-tab" : "Status",
   // TODO New key - Add a translation
-  "health-page.status-tab" : "Status",
+  "health-page.status-tab": "Status",
 
   // "health-page.error.msg": "The health check service is temporarily unavailable",
   // TODO New key - Add a translation
@@ -2675,7 +2562,6 @@
   // TODO New key - Add a translation
   "health-page.section.no-issues": "No issues detected",
 
-
   // "home.description": "",
   "home.description": "",
 
@@ -2696,8 +2582,6 @@
   // "home.top-level-communities.help": "Select a community to browse its collections.",
   "home.top-level-communities.help": "Оның жинақтарын шолу үшін қауымдастықты таңдаңыз.",
 
-
-
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
   "info.end-user-agreement.accept": "Мен Түпкі пайдаланушы келісімін оқыдым және келісемін",
 
@@ -2708,7 +2592,7 @@
   "info.end-user-agreement.accept.success": "Соңғы пайдаланушы келісімі сәтті жаңартылды",
 
   // "info.end-user-agreement.breadcrumbs": "End User Agreement",
-  "info.end-user-agreement.breadcrumbs":"Соңғы пайдаланушы келісімі",
+  "info.end-user-agreement.breadcrumbs": "Соңғы пайдаланушы келісімі",
 
   // "info.end-user-agreement.buttons.cancel": "Cancel",
   "info.end-user-agreement.buttons.cancel": "Болдырмау",
@@ -2765,25 +2649,23 @@
 
   // "info.feedback.create.success" : "Feedback Sent Successfully!",
   // TODO New key - Add a translation
-  "info.feedback.create.success" : "Feedback Sent Successfully!",
+  "info.feedback.create.success": "Feedback Sent Successfully!",
 
   // "info.feedback.error.email.required" : "A valid email address is required",
   // TODO New key - Add a translation
-  "info.feedback.error.email.required" : "A valid email address is required",
+  "info.feedback.error.email.required": "A valid email address is required",
 
   // "info.feedback.error.message.required" : "A comment is required",
   // TODO New key - Add a translation
-  "info.feedback.error.message.required" : "A comment is required",
+  "info.feedback.error.message.required": "A comment is required",
 
   // "info.feedback.page-label" : "Page",
   // TODO New key - Add a translation
-  "info.feedback.page-label" : "Page",
+  "info.feedback.page-label": "Page",
 
   // "info.feedback.page_help" : "Tha page related to your feedback",
   // TODO New key - Add a translation
-  "info.feedback.page_help" : "Tha page related to your feedback",
-
-
+  "info.feedback.page_help": "Tha page related to your feedback",
 
   // "item.alerts.private": "This item is non-discoverable",
   // TODO Source message changed - Revise the translation
@@ -2792,15 +2674,11 @@
   // "item.alerts.withdrawn": "This item has been withdrawn",
   "item.alerts.withdrawn": "Бұл тармақ алынып тасталды",
 
-
-
   // "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
   "item.edit.authorizations.heading": "Осы өңдегіштің көмегімен элементтің саясаттарын көруге және өзгертуге, сонымен қатар жеке элемент құрамдастарының саясаттарын өзгертуге болады: байламдар және бит ағындары. Қысқаша айтқанда, элемент - бумалардың контейнері, ал бумалар - биттік ағындардың контейнерлері. Контейнерлерде әдетте ҚОСУ/ЖОЮ мүмкіндігі болады. /READ/WRITE саясаттары, ал биттік ағындарда тек ОҚУ/ЖАЗУ саясаттары бар.",
 
   // "item.edit.authorizations.title": "Edit item's Policies",
   "item.edit.authorizations.title": "Элемент саясаттарын өңдеу",
-
-
 
   // "item.badge.private": "Non-discoverable",
   // TODO Source message changed - Revise the translation
@@ -2808,8 +2686,6 @@
 
   // "item.badge.withdrawn": "Withdrawn",
   "item.badge.withdrawn": "Шығарылды",
-
-
 
   // "item.bitstreams.upload.bundle": "Bundle",
   "item.bitstreams.upload.bundle": "Бума",
@@ -2831,7 +2707,7 @@
   "item.bitstreams.upload.drop-message": "Жүктеп салу үшін файлды тастаңыз",
 
   // "item.bitstreams.upload.item": "Item: ",
-  "item.bitstreams.upload.item":"Элемент:",
+  "item.bitstreams.upload.item": "Элемент:",
 
   // "item.bitstreams.upload.notifications.bundle.created.content": "Successfully created new bundle.",
   "item.bitstreams.upload.notifications.bundle.created.content": "Жаңа топтама сәтті жасалды.",
@@ -2845,8 +2721,6 @@
   // "item.bitstreams.upload.title": "Upload bitstream",
   "item.bitstreams.upload.title": "Бақыттық ағынды жүктеп салу",
 
-
-
   // "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
   "item.edit.bitstreams.bundle.edit.buttons.upload": "Жүктеп салу",
 
@@ -2857,7 +2731,7 @@
   "item.edit.bitstreams.bundle.load.all": "Барлығын жүктеу ({{ total }})",
 
   // "item.edit.bitstreams.bundle.load.more": "Load more",
-  "item.edit.bitstreams.bundle.load.more":"Көбірек жүктеңіз",
+  "item.edit.bitstreams.bundle.load.more": "Көбірек жүктеңіз",
 
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   "item.edit.bitstreams.bundle.name": "БАНДЛ: {{ name }}",
@@ -2881,10 +2755,10 @@
   "item.edit.bitstreams.edit.buttons.undo": "Өзгерістерді болдырмау",
 
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
-  "item.edit.bitstreams.empty":"Бұл элементте биттік ағындар жоқ. Біреуін жасау үшін жүктеп салу түймесін басыңыз.",
+  "item.edit.bitstreams.empty": "Бұл элементте биттік ағындар жоқ. Біреуін жасау үшін жүктеп салу түймесін басыңыз.",
 
   // "item.edit.bitstreams.headers.actions": "Actions",
-  "item.edit.bitstreams.headers.actions":"Әрекеттер",
+  "item.edit.bitstreams.headers.actions": "Әрекеттер",
 
   // "item.edit.bitstreams.headers.bundle": "Bundle",
   "item.edit.bitstreams.headers.bundle": "Бума",
@@ -2896,7 +2770,7 @@
   "item.edit.bitstreams.headers.format": "Формат",
 
   // "item.edit.bitstreams.headers.name": "Name",
-  "item.edit.bitstreams.headers.name":"Аты",
+  "item.edit.bitstreams.headers.name": "Аты",
 
   // "item.edit.bitstreams.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
   "item.edit.bitstreams.notifications.discarded.content": "Өзгертулеріңіз жойылды. Өзгерістерді қалпына келтіру үшін 'Болдырмау' түймесін басыңыз",
@@ -2937,8 +2811,6 @@
   // "item.edit.bitstreams.upload-button": "Upload",
   "item.edit.bitstreams.upload-button": "Жүктеп салу",
 
-
-
   // "item.edit.delete.cancel": "Cancel",
   "item.edit.delete.cancel": "Болдырмау",
 
@@ -2967,7 +2839,6 @@
   // TODO New key - Add a translation
   "item.edit.tabs.disabled.tooltip": "You're not authorized to access this tab",
 
-
   // "item.edit.tabs.mapper.head": "Collection Mapper",
   "item.edit.tabs.mapper.head": "Коллекция картасы",
 
@@ -2981,16 +2852,16 @@
   "item.edit.item-mapper.buttons.remove": "Таңдалған жинақтар үшін элементтің салыстыруын жою",
 
   // "item.edit.item-mapper.cancel": "Cancel",
-  "item.edit.item-mapper.cancel":"Болдырмау",
+  "item.edit.item-mapper.cancel": "Болдырмау",
 
   // "item.edit.item-mapper.description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
   "item.edit.item-mapper.description": "Бұл әкімшілерге осы элементті басқа жинақтармен салыстыруға мүмкіндік беретін элементті салыстыру құралы. Жинақтарды іздеуге және оларды салыстыруға немесе элемент қазіргі уақытта салыстырылған жинақтар тізімін шолуға болады.",
 
   // "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
-  "item.edit.item-mapper.head":"Элемент салыстырушы - Элементті коллекциялармен салыстыру",
+  "item.edit.item-mapper.head": "Элемент салыстырушы - Элементті коллекциялармен салыстыру",
 
   // "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
-  "item.edit.item-mapper.item": "Элемент: \"<b>{{name}}</b>\"",
+  "item.edit.item-mapper.item": 'Элемент: "<b>{{name}}</b>"',
 
   // "item.edit.item-mapper.no-search": "Please enter a query to search",
   "item.edit.item-mapper.no-search": "Іздеу үшін сұрауды енгізіңіз",
@@ -3005,7 +2876,7 @@
   "item.edit.item-mapper.notifications.add.success.content": "Элемент {{amount}} жинаққа сәтті салыстырылды.",
 
   // "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
-  "item.edit.item-mapper.notifications.add.success.head":"Карталау аяқталды",
+  "item.edit.item-mapper.notifications.add.success.head": "Карталау аяқталды",
 
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
   "item.edit.item-mapper.notifications.remove.error.content": "{{amount}} жинаққа салыстыруды жою кезінде қателер орын алды.",
@@ -3028,8 +2899,6 @@
 
   // "item.edit.item-mapper.tabs.map": "Map new collections",
   "item.edit.item-mapper.tabs.map": "Жаңа жинақтарды картаға түсіру",
-
-
 
   // "item.edit.metadata.add-button": "Add",
   "item.edit.metadata.add-button": "Қосу",
@@ -3098,9 +2967,7 @@
   "item.edit.metadata.reinstate-button": "Болдырмау",
 
   // "item.edit.metadata.save-button": "Save",
-  "item.edit.metadata.save-button":"Сақтау",
-
-
+  "item.edit.metadata.save-button": "Сақтау",
 
   // "item.edit.modify.overview.field": "Field",
   "item.edit.modify.overview.field": "Өріс",
@@ -3110,8 +2977,6 @@
 
   // "item.edit.modify.overview.value": "Value",
   "item.edit.modify.overview.value": "Құндылық",
-
-
 
   // "item.edit.move.cancel": "Back",
   // TODO Source message changed - Revise the translation
@@ -3155,10 +3020,8 @@
   // "item.edit.move.title": "Move item",
   "item.edit.move.title": "Элементті жылжыту",
 
-
-
   // "item.edit.private.cancel": "Cancel",
-  "item.edit.private.cancel":"Болдырмау",
+  "item.edit.private.cancel": "Болдырмау",
 
   // "item.edit.private.confirm": "Make it non-discoverable",
   // TODO Source message changed - Revise the translation
@@ -3179,8 +3042,6 @@
   // "item.edit.private.success": "The item is now non-discoverable",
   // TODO Source message changed - Revise the translation
   "item.edit.private.success": "Тауар қазір жеке",
-
-
 
   // "item.edit.public.cancel": "Cancel",
   "item.edit.public.cancel": "Болдырмау",
@@ -3205,8 +3066,6 @@
   // TODO Source message changed - Revise the translation
   "item.edit.public.success": "Тауар қазір көпшілікке қол жетімді",
 
-
-
   // "item.edit.reinstate.cancel": "Cancel",
   "item.edit.reinstate.cancel": "Болдырмау",
 
@@ -3226,13 +3085,11 @@
   // "item.edit.reinstate.success": "The item was reinstated successfully",
   "item.edit.reinstate.success": "Элемент сәтті қалпына келтірілді",
 
-
-
   // "item.edit.relationships.discard-button": "Discard",
   "item.edit.relationships.discard-button": "Тастау",
 
   // "item.edit.relationships.edit.buttons.add": "Add",
-  "item.edit.relationships.edit.buttons.add":"Қосу",
+  "item.edit.relationships.edit.buttons.add": "Қосу",
 
   // "item.edit.relationships.edit.buttons.remove": "Remove",
   "item.edit.relationships.edit.buttons.remove": "Жою",
@@ -3265,7 +3122,7 @@
   "item.edit.relationships.notifications.saved.title": "Сақталған қатынастар",
 
   // "item.edit.relationships.reinstate-button": "Undo",
-  "item.edit.relationships.reinstate-button":"Болдырмау",
+  "item.edit.relationships.reinstate-button": "Болдырмау",
 
   // "item.edit.relationships.save-button": "Save",
   "item.edit.relationships.save-button": "Сақтау",
@@ -3273,11 +3130,9 @@
   // "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
   "item.edit.relationships.no-entity-type": "Метадеректерін элемент үшін байланыстарды қосу үшін 'dspace.entity.type' басыныз",
 
-
   // "item.edit.return": "Back",
   // TODO New key - Add a translation
   "item.edit.return": "Back",
-
 
   // "item.edit.tabs.bitstreams.head": "Bitstreams",
   "item.edit.tabs.bitstreams.head": "Бит ағындары",
@@ -3307,10 +3162,10 @@
   "item.edit.tabs.status.buttons.authorizations.button": "Рұқсат...",
 
   // "item.edit.tabs.status.buttons.authorizations.label": "Edit item's authorization policies",
-  "item.edit.tabs.status.buttons.authorizations.label":"Элементті авторизациялау саясатын өзгерту",
+  "item.edit.tabs.status.buttons.authorizations.label": "Элементті авторизациялау саясатын өзгерту",
 
   // "item.edit.tabs.status.buttons.delete.button": "Permanently delete",
-  "item.edit.tabs.status.buttons.delete.button":"Біржола жою",
+  "item.edit.tabs.status.buttons.delete.button": "Біржола жою",
 
   // "item.edit.tabs.status.buttons.delete.label": "Completely expunge item",
   "item.edit.tabs.status.buttons.delete.label": "Элементті толығымен алып тастаңыз",
@@ -3363,7 +3218,7 @@
   "item.edit.tabs.status.description": "Тауарларды басқару бетіне қош келдіңіз. Осы жерден элементті алып тастауға, қалпына келтіруге, жылжытуға немесе жоюға болады. Басқа қойындыларда жаңа метадеректерді / бит ағындарын жаңартуға немесе қосуға болады.",
 
   // "item.edit.tabs.status.head": "Status",
-  "item.edit.tabs.status.head":"Мәртебе",
+  "item.edit.tabs.status.head": "Мәртебе",
 
   // "item.edit.tabs.status.labels.handle": "Handle",
   "item.edit.tabs.status.labels.handle": "Қалам",
@@ -3395,8 +3250,6 @@
   // "item.edit.tabs.view.title": "Item Edit -  View",
   "item.edit.tabs.view.title": "Элементті өңдеу-қарау",
 
-
-
   // "item.edit.withdraw.cancel": "Cancel",
   "item.edit.withdraw.cancel": "Болдырмау",
 
@@ -3418,7 +3271,6 @@
   // "item.orcid.return": "Back",
   // TODO New key - Add a translation
   "item.orcid.return": "Back",
-
 
   // "item.listelement.badge": "Item",
   "item.listelement.badge": "Пән",
@@ -3446,7 +3298,7 @@
 
   // "item.search.title": "Item Search",
   // TODO Source message changed - Revise the translation
-  "item.search.title": "DSpace Angular :: элементтерді іздеу",
+  "item.search.title": "Central Metatada Repositoryэлементтерді іздеу",
 
   // "item.truncatable-part.show-more": "Show more",
   // TODO New key - Add a translation
@@ -3456,8 +3308,6 @@
   // TODO New key - Add a translation
   "item.truncatable-part.show-less": "Collapse",
 
-
-
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Дерексіз",
 
@@ -3465,7 +3315,7 @@
   "item.page.author": "Авторлар",
 
   // "item.page.citation": "Citation",
-  "item.page.citation":"Дәйексөз",
+  "item.page.citation": "Дәйексөз",
 
   // "item.page.collections": "Collections",
   "item.page.collections": "Жинақтар",
@@ -3553,10 +3403,10 @@
   "item.page.bitstreams.collapse": "Коллапс",
 
   // "item.page.filesection.original.bundle" : "Original bundle",
-  "item.page.filesection.original.bundle" : "Түпнұсқа жинақ",
+  "item.page.filesection.original.bundle": "Түпнұсқа жинақ",
 
   // "item.page.filesection.license.bundle" : "License bundle",
-  "item.page.filesection.license.bundle" : "Лицензиялық пакет",
+  "item.page.filesection.license.bundle": "Лицензиялық пакет",
 
   // "item.page.return": "Back",
   // TODO New key - Add a translation
@@ -3582,7 +3432,7 @@
   "item.preview.dc.identifier.uri": "Идентификатор:",
 
   // "item.preview.dc.contributor.author": "Authors:",
-  "item.preview.dc.contributor.author":"Авторлар:",
+  "item.preview.dc.contributor.author": "Авторлар:",
 
   // "item.preview.dc.date.issued": "Published date:",
   "item.preview.dc.date.issued": "Жарияланған күні:",
@@ -3608,19 +3458,19 @@
 
   // "item.preview.oaire.citation.issue" : "Issue",
   // TODO New key - Add a translation
-  "item.preview.oaire.citation.issue" : "Issue",
+  "item.preview.oaire.citation.issue": "Issue",
 
   // "item.preview.oaire.citation.volume" : "Volume",
   // TODO New key - Add a translation
-  "item.preview.oaire.citation.volume" : "Volume",
+  "item.preview.oaire.citation.volume": "Volume",
 
   // "item.preview.dc.relation.issn" : "ISSN",
   // TODO New key - Add a translation
-  "item.preview.dc.relation.issn" : "ISSN",
+  "item.preview.dc.relation.issn": "ISSN",
 
   // "item.preview.dc.identifier.isbn" : "ISBN",
   // TODO New key - Add a translation
-  "item.preview.dc.identifier.isbn" : "ISBN",
+  "item.preview.dc.identifier.isbn": "ISBN",
 
   // "item.preview.dc.identifier": "Identifier:",
   // TODO New key - Add a translation
@@ -3628,11 +3478,11 @@
 
   // "item.preview.dc.relation.ispartof" : "Journal or Serie",
   // TODO New key - Add a translation
-  "item.preview.dc.relation.ispartof" : "Journal or Serie",
+  "item.preview.dc.relation.ispartof": "Journal or Serie",
 
   // "item.preview.dc.identifier.doi" : "DOI",
   // TODO New key - Add a translation
-  "item.preview.dc.identifier.doi" : "DOI",
+  "item.preview.dc.identifier.doi": "DOI",
 
   // "item.preview.person.familyName": "Surname:",
   "item.preview.person.familyName": "Тегі:",
@@ -3667,13 +3517,11 @@
   // TODO New key - Add a translation
   "item.preview.oaire.fundingStream": "Funding Stream:",
 
-
-
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Таңдауды растау",
 
   // "item.select.empty": "No items to show",
-  "item.select.empty":"Көрсету үшін элементтер жоқ",
+  "item.select.empty": "Көрсету үшін элементтер жоқ",
 
   // "item.select.table.author": "Author",
   "item.select.table.author": "Автор",
@@ -3683,7 +3531,6 @@
 
   // "item.select.table.title": "Title",
   "item.select.table.title": "Атауы",
-
 
   // "item.version.history.empty": "There are no other versions for this item yet.",
   "item.version.history.empty": "Бұл тақырыпқа арналған басқа нұсқалар әлі жоқ.",
@@ -3712,7 +3559,7 @@
   "item.version.history.table.editor": "Редакторы",
 
   // "item.version.history.table.date": "Date",
-  "item.version.history.table.date":"Кездесуге",
+  "item.version.history.table.date": "Кездесуге",
 
   // "item.version.history.table.summary": "Summary",
   "item.version.history.table.summary": "Қысқаша мазмұны",
@@ -3757,10 +3604,8 @@
   // TODO New key - Add a translation
   "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
 
-
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
   "item.version.notice": "Бұл өнімнің соңғы нұсқасы емес. Соңғы нұсқаны <a href='{{destination}}'>мына жерден</a>табуға болады.",
-
 
   // "item.version.create.modal.header": "New version",
   // TODO New key - Add a translation
@@ -3808,16 +3653,15 @@
 
   // "item.version.create.notification.success" : "New version has been created with version number {{version}}",
   // TODO New key - Add a translation
-  "item.version.create.notification.success" : "New version has been created with version number {{version}}",
+  "item.version.create.notification.success": "New version has been created with version number {{version}}",
 
   // "item.version.create.notification.failure" : "New version has not been created",
   // TODO New key - Add a translation
-  "item.version.create.notification.failure" : "New version has not been created",
+  "item.version.create.notification.failure": "New version has not been created",
 
   // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
   // TODO New key - Add a translation
-  "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
-
+  "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
 
   // "item.version.delete.modal.header": "Delete version",
   // TODO New key - Add a translation
@@ -3845,22 +3689,19 @@
 
   // "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
   // TODO New key - Add a translation
-  "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
+  "item.version.delete.notification.success": "Version number {{version}} has been deleted",
 
   // "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
   // TODO New key - Add a translation
-  "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
-
+  "item.version.delete.notification.failure": "Version number {{version}} has not been deleted",
 
   // "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
   // TODO New key - Add a translation
-  "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
+  "item.version.edit.notification.success": "The summary of version number {{version}} has been changed",
 
   // "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
   // TODO New key - Add a translation
-  "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
-
-
+  "item.version.edit.notification.failure": "The summary of version number {{version}} has not been changed",
 
   // "journal.listelement.badge": "Journal",
   "journal.listelement.badge": "Журнал",
@@ -3884,7 +3725,7 @@
   "journal.page.titleprefix": "Күнделік:",
 
   // "journal.search.results.head": "Journal Search Results",
-  "journal.search.results.head":"Журналдағы іздеу нәтижелері",
+  "journal.search.results.head": "Журналдағы іздеу нәтижелері",
 
   // "journal-relationships.search.results.head": "Journal Search Results",
   // TODO New key - Add a translation
@@ -3892,9 +3733,7 @@
 
   // "journal.search.title": "Journal Search",
   // TODO Source message changed - Revise the translation
-  "journal.search.title": "DSpace Angular :: Журналдағы іздеу",
-
-
+  "journal.search.title": "Central Metatada RepositoryЖурналдағы іздеу",
 
   // "journalissue.listelement.badge": "Journal Issue",
   "journalissue.listelement.badge": "Журнал шығару",
@@ -3909,13 +3748,13 @@
   "journalissue.page.issuedate": "Шығарылған күні",
 
   // "journalissue.page.journal-issn": "Journal ISSN",
-  "journalissue.page.journal-issn":"ISSN журналы",
+  "journalissue.page.journal-issn": "ISSN журналы",
 
   // "journalissue.page.journal-title": "Journal Title",
   "journalissue.page.journal-title": "Журнал атауы",
 
   // "journalissue.page.keyword": "Keywords",
-  "journalissue.page.keyword":"Түйінді сөздер",
+  "journalissue.page.keyword": "Түйінді сөздер",
 
   // "journalissue.page.number": "Number",
   "journalissue.page.number": "Саны",
@@ -3923,10 +3762,8 @@
   // "journalissue.page.titleprefix": "Journal Issue: ",
   "journalissue.page.titleprefix": "Журнал нөмірі:",
 
-
-
   // "journalvolume.listelement.badge": "Journal Volume",
-  "journalvolume.listelement.badge":"Журнал көлемі",
+  "journalvolume.listelement.badge": "Журнал көлемі",
 
   // "journalvolume.page.description": "Description",
   "journalvolume.page.description": "Сипаттама",
@@ -3938,11 +3775,10 @@
   "journalvolume.page.issuedate": "Шығарылған күні",
 
   // "journalvolume.page.titleprefix": "Journal Volume: ",
-  "journalvolume.page.titleprefix":"Журнал көлемі:",
+  "journalvolume.page.titleprefix": "Журнал көлемі:",
 
   // "journalvolume.page.volume": "Volume",
   "journalvolume.page.volume": "Көлемі",
-
 
   // "iiifsearchable.listelement.badge": "Document Media",
   // TODO New key - Add a translation
@@ -3988,7 +3824,6 @@
   // TODO New key - Add a translation
   "iiif.page.description": "Description: ",
 
-
   // "loading.bitstream": "Loading bitstream...",
   "loading.bitstream": "Бит ағынын жүктеу...",
 
@@ -4005,7 +3840,7 @@
   "loading.collection": "Жинақты жүктеу...",
 
   // "loading.collections": "Loading collections...",
-  "loading.collections":"Топтамаларды жүктеу...",
+  "loading.collections": "Топтамаларды жүктеу...",
 
   // "loading.content-source": "Loading content source...",
   "loading.content-source": "Мазмұн көзін жүктеу...",
@@ -4026,7 +3861,7 @@
   "loading.mydspace-results": "Заттарды жүктеу...",
 
   // "loading.objects": "Loading...",
-  "loading.objects":"Жүктеу...",
+  "loading.objects": "Жүктеу...",
 
   // "loading.recent-submissions": "Loading recent submissions...",
   "loading.recent-submissions": "Соңғы жіберілімдер жүктелуде...",
@@ -4038,24 +3873,22 @@
   "loading.sub-collections": "Ішкі жинақтар жүктелуде...",
 
   // "loading.sub-communities": "Loading sub-communities...",
-  "loading.sub-communities":"Қосымша қауымдастықтар жүктелуде...",
+  "loading.sub-communities": "Қосымша қауымдастықтар жүктелуде...",
 
   // "loading.top-level-communities": "Loading top-level communities...",
   "loading.top-level-communities": "Жоғарғы деңгейдегі қауымдастықтар жүктелуде...",
-
-
 
   // "login.form.email": "Email address",
   "login.form.email": "Электрондық пошта",
 
   // "login.form.forgot-password": "Have you forgotten your password?",
-  "login.form.forgot-password":"Сіз парольді ұмыттыңыз ба?",
+  "login.form.forgot-password": "Сіз парольді ұмыттыңыз ба?",
 
   // "login.form.header": "Please log in to DSpace",
-  "login.form.header":"DSpace жүйесіне кіріңіз",
+  "login.form.header": "DSpace жүйесіне кіріңіз",
 
   // "login.form.new-user": "New user? Click here to register.",
-  "login.form.new-user":"Жаңа пайдаланушы? Тіркелу үшін осы жерді басыңыз.",
+  "login.form.new-user": "Жаңа пайдаланушы? Тіркелу үшін осы жерді басыңыз.",
 
   // "login.form.or-divider": "or",
   "login.form.or-divider": "немесе",
@@ -4069,7 +3902,7 @@
   "login.form.orcid": "Log in with ORCID",
 
   // "login.form.password": "Password",
-  "login.form.password":"Пароль",
+  "login.form.password": "Пароль",
 
   // "login.form.shibboleth": "Log in with Shibboleth",
   "login.form.shibboleth": "Шибболетпен кіру",
@@ -4083,8 +3916,6 @@
   // "login.breadcrumbs": "Login",
   "login.breadcrumbs": "Кіру",
 
-
-
   // "logout.form.header": "Log out from DSpace",
   "logout.form.header": "DSpace жүйесінен шығу",
 
@@ -4092,9 +3923,7 @@
   "logout.form.submit": "Шығу",
 
   // "logout.title": "Logout",
-  "logout.title":"Шығу",
-
-
+  "logout.title": "Шығу",
 
   // "menu.header.admin": "Management",
   // TODO Source message changed - Revise the translation
@@ -4107,13 +3936,11 @@
   // TODO New key - Add a translation
   "menu.header.admin.description": "Management menu",
 
-
-
   // "menu.section.access_control": "Access Control",
   "menu.section.access_control": "Қатынасты басқару",
 
   // "menu.section.access_control_authorizations": "Authorizations",
-  "menu.section.access_control_authorizations":"Рұқсаттар",
+  "menu.section.access_control_authorizations": "Рұқсаттар",
 
   // "menu.section.access_control_groups": "Groups",
   "menu.section.access_control_groups": "Топтар",
@@ -4121,12 +3948,8 @@
   // "menu.section.access_control_people": "People",
   "menu.section.access_control_people": "Адамдар",
 
-
-
   // "menu.section.admin_search": "Admin Search",
-  "menu.section.admin_search":"Әкімші іздеу",
-
-
+  "menu.section.admin_search": "Әкімші іздеу",
 
   // "menu.section.browse_community": "This Community",
   "menu.section.browse_community": "Бұл қауымдастық",
@@ -4158,18 +3981,14 @@
   // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
   "menu.section.browse_global_communities_and_collections": "Қауымдастықтар мен коллекциялар",
 
-
-
   // "menu.section.control_panel": "Control Panel",
-  "menu.section.control_panel":"Басқару панелі",
+  "menu.section.control_panel": "Басқару панелі",
 
   // "menu.section.curation_task": "Curation Task",
   "menu.section.curation_task": "Тапсырма",
 
-
-
   // "menu.section.edit": "Edit",
-  "menu.section.edit":"Өңдеу",
+  "menu.section.edit": "Өңдеу",
 
   // "menu.section.edit_collection": "Collection",
   "menu.section.edit_collection": "Жинақ",
@@ -4179,8 +3998,6 @@
 
   // "menu.section.edit_item": "Item",
   "menu.section.edit_item": "Жол",
-
-
 
   // "menu.section.export": "Export",
   "menu.section.export": "Экспорт",
@@ -4196,8 +4013,6 @@
 
   // "menu.section.export_metadata": "Metadata",
   "menu.section.export_metadata": "Метадеректер",
-
-
 
   // "menu.section.icon.access_control": "Access Control menu section",
   "menu.section.icon.access_control": "Қатынасты басқару мәзірі бөлімі",
@@ -4251,8 +4066,6 @@
   // "menu.section.icon.unpin": "Unpin sidebar",
   "menu.section.icon.unpin": "Бүйірлік тақтаны босату",
 
-
-
   // "menu.section.import": "Import",
   "menu.section.import": "Импорттау",
 
@@ -4261,8 +4074,6 @@
 
   // "menu.section.import_metadata": "Metadata",
   "menu.section.import_metadata": "Метадеректер",
-
-
 
   // "menu.section.new": "New",
   "menu.section.new": "Жаңа",
@@ -4282,15 +4093,11 @@
   // "menu.section.new_process": "Process",
   "menu.section.new_process": "Процесс",
 
-
-
   // "menu.section.pin": "Pin sidebar",
   "menu.section.pin": "Бүйірлік тақтаны бекіту",
 
   // "menu.section.unpin": "Unpin sidebar",
   "menu.section.unpin": "Бүйірлік тақтаны босату",
-
-
 
   // "menu.section.processes": "Processes",
   "menu.section.processes": "процестер",
@@ -4298,8 +4105,6 @@
   // "menu.section.health": "Health",
   // TODO New key - Add a translation
   "menu.section.health": "Health",
-
-
 
   // "menu.section.registries": "Registries",
   "menu.section.registries": "Тіркеулер",
@@ -4310,15 +4115,11 @@
   // "menu.section.registries_metadata": "Metadata",
   "menu.section.registries_metadata": "Метадеректер",
 
-
-
   // "menu.section.statistics": "Statistics",
   "menu.section.statistics": "Статистика",
 
   // "menu.section.statistics_task": "Statistics Task",
   "menu.section.statistics_task": "Статистика тапсырмасы",
-
-
 
   // "menu.section.toggle.access_control": "Toggle Access Control section",
   "menu.section.toggle.access_control": "Қатынасты басқару бөлімін ауыстырып-қосқыш",
@@ -4350,10 +4151,8 @@
   // "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
   "menu.section.toggle.statistics_task": "Статистика тапсырмасы бөлімін ауыстыру",
 
-
   // "menu.section.workflow": "Administer Workflow",
   "menu.section.workflow": "Жұмыс процесін басқару",
-
 
   // "metadata-export-search.tooltip": "Export search results as CSV",
   // TODO New key - Add a translation
@@ -4365,7 +4164,6 @@
   // TODO New key - Add a translation
   "metadata-export-search.submit.error": "Starting the export has failed",
 
-
   // "mydspace.breadcrumbs": "MyDSpace",
   // TODO New key - Add a translation
   "mydspace.breadcrumbs": "MyDSpace",
@@ -4374,7 +4172,7 @@
   "mydspace.description": "",
 
   // "mydspace.general.text-here": "here",
-  "mydspace.general.text-here":"Мұнда",
+  "mydspace.general.text-here": "Мұнда",
 
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
   "mydspace.messages.controller-help": "Элемент жіберушіге хабарлама жіберу үшін осы опцияны таңдаңыз.",
@@ -4392,7 +4190,7 @@
   "mydspace.messages.mark-as-unread": "Оқылмаған деп белгілеу",
 
   // "mydspace.messages.no-content": "No content.",
-  "mydspace.messages.no-content":"Мазмұн жоқ.",
+  "mydspace.messages.no-content": "Мазмұн жоқ.",
 
   // "mydspace.messages.no-messages": "No messages yet.",
   "mydspace.messages.no-messages": "Әлі хабарлар жоқ.",
@@ -4410,7 +4208,7 @@
   "mydspace.messages.submitter-help": "Контроллерге хабарлама жіберу үшін осы опцияны таңдаңыз.",
 
   // "mydspace.messages.title": "Messages",
-  "mydspace.messages.title":"Хабарлар",
+  "mydspace.messages.title": "Хабарлар",
 
   // "mydspace.messages.to": "To",
   "mydspace.messages.to": "Кімге",
@@ -4460,7 +4258,7 @@
   "mydspace.show.workflow": "Барлық тапсырмалар",
 
   // "mydspace.show.workspace": "Your Submissions",
-  "mydspace.show.workspace":"Сіздің өтініштеріңіз",
+  "mydspace.show.workspace": "Сіздің өтініштеріңіз",
 
   // "mydspace.status.archived": "Archived",
   "mydspace.status.archived": "Мұрағатталған",
@@ -4472,13 +4270,13 @@
   "mydspace.status.waiting-for-controller": "Контроллерді күтуде",
 
   // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow":"Жұмыс барысы",
+  "mydspace.status.workflow": "Жұмыс барысы",
 
   // "mydspace.status.workspace": "Workspace",
   "mydspace.status.workspace": "Жұмыс кеңістігі",
 
   // "mydspace.title": "MyDSpace",
-  "mydspace.title":"MyDSpace",
+  "mydspace.title": "MyDSpace",
 
   // "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
   "mydspace.upload.upload-failed": "Жаңа жұмыс кеңістігін жасау қатесі. Қайталаудан бұрын жүктеп салынған мазмұнды тексеріңіз.",
@@ -4498,8 +4296,6 @@
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Көру",
 
-
-
   // "nav.browse.header": "All of DSpace",
   "nav.browse.header": "Барлық DSpace",
 
@@ -4514,7 +4310,7 @@
 
   // "nav.logout": "User profile menu and Log Out",
   // TODO Source message changed - Revise the translation
-  "nav.logout":   "Шығу",
+  "nav.logout": "Шығу",
 
   // "nav.main.description": "Main navigation bar",
   // TODO New key - Add a translation
@@ -4537,16 +4333,15 @@
 
   // "nav.toggle" : "Toggle navigation",
   // TODO New key - Add a translation
-  "nav.toggle" : "Toggle navigation",
+  "nav.toggle": "Toggle navigation",
 
   // "nav.user.description" : "User profile bar",
   // TODO New key - Add a translation
-  "nav.user.description" : "User profile bar",
+  "nav.user.description": "User profile bar",
 
   // "none.listelement.badge": "Item",
   // TODO New key - Add a translation
   "none.listelement.badge": "Item",
-
 
   // "orgunit.listelement.badge": "Organizational Unit",
   "orgunit.listelement.badge": "Ұйымдық бөлімше",
@@ -4561,7 +4356,7 @@
   "orgunit.page.dateestablished": "Орнатылған күні",
 
   // "orgunit.page.description": "Description",
-  "orgunit.page.description":"Сипаттамасы",
+  "orgunit.page.description": "Сипаттамасы",
 
   // "orgunit.page.edit": "Edit this item",
   "orgunit.page.edit": "Осы элементті өңдеу",
@@ -4571,8 +4366,6 @@
 
   // "orgunit.page.titleprefix": "Organizational Unit: ",
   "orgunit.page.titleprefix": "Ұйымдық бөлімше:",
-
-
 
   // "pagination.options.description": "Pagination options",
   // TODO New key - Add a translation
@@ -4590,13 +4383,11 @@
   // "pagination.sort-direction": "Sort Options",
   "pagination.sort-direction": "Сұрыптау опциялары",
 
-
-
   // "person.listelement.badge": "Person",
   "person.listelement.badge": "Адам",
 
   // "person.listelement.no-title": "No name found",
-  "person.listelement.no-title":"Ешқандай атау табылмады",
+  "person.listelement.no-title": "Ешқандай атау табылмады",
 
   // "person.page.birthdate": "Birth Date",
   "person.page.birthdate": "Туылған күні",
@@ -4608,7 +4399,7 @@
   "person.page.email": "Электрондық мекенжайы",
 
   // "person.page.firstname": "First Name",
-  "person.page.firstname":"Имя",
+  "person.page.firstname": "Имя",
 
   // "person.page.jobtitle": "Job Title",
   "person.page.jobtitle": "Жұмыс атауы",
@@ -4630,7 +4421,7 @@
   "person.page.staffid": "Қызметкерлердің жеке куәлігі",
 
   // "person.page.titleprefix": "Person: ",
-  "person.page.titleprefix":"Адам: ",
+  "person.page.titleprefix": "Адам: ",
 
   // "person.search.results.head": "Person Search Results",
   "person.search.results.head": "Тұлға іздеу нәтижелері",
@@ -4641,12 +4432,10 @@
 
   // "person.search.title": "Person Search",
   // TODO Source message changed - Revise the translation
-  "person.search.title": "DSpace Angular :: Адамды іздеу",
-
-
+  "person.search.title": "Central Metatada RepositoryАдамды іздеу",
 
   // "process.new.select-parameters": "Parameters",
-  "process.new.select-parameters":"Параметрлер",
+  "process.new.select-parameters": "Параметрлер",
 
   // "process.new.cancel": "Cancel",
   "process.new.cancel": "Болдырмау",
@@ -4665,10 +4454,10 @@
   "process.new.select-script.required": "Сценарий қажет",
 
   // "process.new.parameter.file.upload-button": "Select file...",
-  "process.new.parameter.file.upload-button":"Файлды таңдау...",
+  "process.new.parameter.file.upload-button": "Файлды таңдау...",
 
   // "process.new.parameter.file.required": "Please select a file",
-  "process.new.parameter.file.required":"Файлды таңдаңыз",
+  "process.new.parameter.file.required": "Файлды таңдаңыз",
 
   // "process.new.parameter.string.required": "Parameter value is required",
   "process.new.parameter.string.required": "Параметр мәні қажет",
@@ -4703,19 +4492,17 @@
   // "process.new.breadcrumbs": "Create a new process",
   "process.new.breadcrumbs": "Жаңа процесс жасау",
 
-
-
   // "process.detail.arguments" : "Arguments",
-  "process.detail.arguments" :"Аргументтер",
+  "process.detail.arguments": "Аргументтер",
 
   // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
-  "process.detail.arguments.empty" : "Бұл процесс ешқандай аргументтерді қамтымайды",
+  "process.detail.arguments.empty": "Бұл процесс ешқандай аргументтерді қамтымайды",
 
   // "process.detail.back" : "Back",
-  "process.detail.back" : "Артқа",
+  "process.detail.back": "Артқа",
 
   // "process.detail.output" : "Process Output",
-  "process.detail.output" : "Процесс шығысы",
+  "process.detail.output": "Процесс шығысы",
 
   // "process.detail.logs.button": "Retrieve process output",
   "process.detail.logs.button": "Процесс шығысын шығарып алу",
@@ -4727,28 +4514,28 @@
   "process.detail.logs.none": "Бұл процесте нәтиже жоқ",
 
   // "process.detail.output-files" : "Output Files",
-  "process.detail.output-files" : "Шығару файлдары",
+  "process.detail.output-files": "Шығару файлдары",
 
   // "process.detail.output-files.empty" : "This process doesn't contain any output files",
-  "process.detail.output-files.empty" : "Бұл процесте ешқандай шығыс файлдары жоқ",
+  "process.detail.output-files.empty": "Бұл процесте ешқандай шығыс файлдары жоқ",
 
   // "process.detail.script" : "Script",
-  "process.detail.script" : "Сценарий",
+  "process.detail.script": "Сценарий",
 
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  "process.detail.title" :"Процесс: {{ id }} - {{ name }}",
+  "process.detail.title": "Процесс: {{ id }} - {{ name }}",
 
   // "process.detail.start-time" : "Start time",
-  "process.detail.start-time" : "Бастау уақыты",
+  "process.detail.start-time": "Бастау уақыты",
 
   // "process.detail.end-time" : "Finish time",
-  "process.detail.end-time" : "Аяқтау уақыты",
+  "process.detail.end-time": "Аяқтау уақыты",
 
   // "process.detail.status" : "Status",
-  "process.detail.status" : "Мәртебе",
+  "process.detail.status": "Мәртебе",
 
   // "process.detail.create" : "Create similar process",
-  "process.detail.create" : "Ұқсас процесті жасау",
+  "process.detail.create": "Ұқсас процесті жасау",
 
   // "process.detail.actions": "Actions",
   // TODO New key - Add a translation
@@ -4782,33 +4569,31 @@
   // TODO New key - Add a translation
   "process.detail.delete.error": "Something went wrong when deleting the process",
 
-
-
   // "process.overview.table.finish" : "Finish time (UTC)",
   // TODO Source message changed - Revise the translation
-  "process.overview.table.finish" :"Аяқтау уақыты",
+  "process.overview.table.finish": "Аяқтау уақыты",
 
   // "process.overview.table.id" : "Process ID",
-  "process.overview.table.id" :"Процесс идентификаторы",
+  "process.overview.table.id": "Процесс идентификаторы",
 
   // "process.overview.table.name" : "Name",
-  "process.overview.table.name" :"Аты",
+  "process.overview.table.name": "Аты",
 
   // "process.overview.table.start" : "Start time (UTC)",
   // TODO Source message changed - Revise the translation
-  "process.overview.table.start" : "Бастау уақыты",
+  "process.overview.table.start": "Бастау уақыты",
 
   // "process.overview.table.status" : "Status",
-  "process.overview.table.status" : "Мәртебе",
+  "process.overview.table.status": "Мәртебе",
 
   // "process.overview.table.user" : "User",
-  "process.overview.table.user" : "Пайдаланушы",
+  "process.overview.table.user": "Пайдаланушы",
 
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "Процестерге шолу",
 
   // "process.overview.breadcrumbs": "Processes Overview",
-  "process.overview.breadcrumbs":"Процестерге шолу",
+  "process.overview.breadcrumbs": "Процестерге шолу",
 
   // "process.overview.new": "New",
   "process.overview.new": "Жаңа",
@@ -4849,13 +4634,11 @@
   // TODO New key - Add a translation
   "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
 
-
-
   // "profile.breadcrumbs": "Update Profile",
   "profile.breadcrumbs": "Профильді жаңарту",
 
   // "profile.card.identify": "Identify",
-  "profile.card.identify":"Анықтау",
+  "profile.card.identify": "Анықтау",
 
   // "profile.card.security": "Security",
   "profile.card.security": "Қауіпсіздік",
@@ -4920,7 +4703,7 @@
   "profile.security.form.label.password": "Құпия сөз",
 
   // "profile.security.form.label.passwordrepeat": "Retype to confirm",
-  "profile.security.form.label.passwordrepeat":"Растау үшін қайта теріңіз",
+  "profile.security.form.label.passwordrepeat": "Растау үшін қайта теріңіз",
 
   // "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
   "profile.security.form.notifications.success.content": "Құпия сөзге енгізілген өзгертулеріңіз сақталды.",
@@ -4938,14 +4721,14 @@
   "profile.security.form.notifications.error.not-same": "Берілген құпия сөздер бірдей емес.",
 
   // "profile.title": "Update Profile",
-  "profile.title":"Профильді жаңарту",
+  "profile.title": "Профильді жаңарту",
 
   // "profile.card.researcher": "Researcher Profile",
   // TODO New key - Add a translation
   "profile.card.researcher": "Researcher Profile",
 
   // "project.listelement.badge": "Research Project",
-  "project.listelement.badge":"Зерттеу жобасы",
+  "project.listelement.badge": "Зерттеу жобасы",
 
   // "project.page.contributor": "Contributors",
   "project.page.contributor": "Қалымдар",
@@ -4981,8 +4764,6 @@
   // TODO New key - Add a translation
   "project-relationships.search.results.head": "Project Search Results",
 
-
-
   // "publication.listelement.badge": "Publication",
   "publication.listelement.badge": "Басылым",
 
@@ -5016,8 +4797,7 @@
 
   // "publication.search.title": "Publication Search",
   // TODO Source message changed - Revise the translation
-  "publication.search.title": "DSpace Angular :: Жарияланымдарды іздеу",
-
+  "publication.search.title": "Central Metatada RepositoryЖарияланымдарды іздеу",
 
   // "media-viewer.next": "Next",
   // TODO New key - Add a translation
@@ -5031,12 +4811,11 @@
   // TODO New key - Add a translation
   "media-viewer.playlist": "Playlist",
 
-
   // "register-email.title": "New user registration",
   "register-email.title": "Жаңа пайдаланушыны тіркеу",
 
   // "register-page.create-profile.header": "Create Profile",
-  "register-page.create-profile.header":"Профиль жасау",
+  "register-page.create-profile.header": "Профиль жасау",
 
   // "register-page.create-profile.identification.header": "Identify",
   "register-page.create-profile.identification.header": "Анықтау",
@@ -5051,10 +4830,10 @@
   "register-page.create-profile.identification.first-name.error": "Аты-жөніңізді толтырыңыз",
 
   // "register-page.create-profile.identification.last-name": "Last Name *",
-  "register-page.create-profile.identification.last-name":"Тек *",
+  "register-page.create-profile.identification.last-name": "Тек *",
 
   // "register-page.create-profile.identification.last-name.error": "Please fill in a Last Name",
-  "register-page.create-profile.identification.last-name.error":"Тегін енгізіңіз",
+  "register-page.create-profile.identification.last-name.error": "Тегін енгізіңіз",
 
   // "register-page.create-profile.identification.contact": "Contact Telephone",
   "register-page.create-profile.identification.contact": "Байланыс телефоны",
@@ -5072,7 +4851,7 @@
   "register-page.create-profile.security.label.password": "Пароль *",
 
   // "register-page.create-profile.security.label.passwordrepeat": "Retype to confirm *",
-  "register-page.create-profile.security.label.passwordrepeat":"Растау үшін қайта енгізіңіз*",
+  "register-page.create-profile.security.label.passwordrepeat": "Растау үшін қайта енгізіңіз*",
 
   // "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
   "register-page.create-profile.security.error.empty-password": "Төмендегі өріске құпия сөзді енгізіңіз.",
@@ -5093,17 +4872,16 @@
   "register-page.create-profile.submit.error.head": "Тіркеу сәтсіз аяқталды",
 
   // "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
-  "register-page.create-profile.submit.success.content":"Тіркеу сәтті өтті. Сіз құрылған пайдаланушы ретінде кірдіңіз.",
+  "register-page.create-profile.submit.success.content": "Тіркеу сәтті өтті. Сіз құрылған пайдаланушы ретінде кірдіңіз.",
 
   // "register-page.create-profile.submit.success.head": "Registration completed",
-  "register-page.create-profile.submit.success.head":"Тіркеу аяқталды",
-
+  "register-page.create-profile.submit.success.head": "Тіркеу аяқталды",
 
   // "register-page.registration.header": "New user registration",
   "register-page.registration.header": "Жаңа пайдаланушыны тіркеу",
 
   // "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
-  "register-page.registration.info":"Электрондық пошта арқылы жаңартулар алу және DSpace-ке жаңа өнімдер жіберу үшін жинақтарға жазылу үшін есептік жазбаны тіркеңіз.",
+  "register-page.registration.info": "Электрондық пошта арқылы жаңартулар алу және DSpace-ке жаңа өнімдер жіберу үшін жинақтарға жазылу үшін есептік жазбаны тіркеңіз.",
 
   // "register-page.registration.email": "Email Address *",
   "register-page.registration.email": "Электрондық пошта мекенжайы *",
@@ -5115,7 +4893,7 @@
   "register-page.registration.email.error.pattern": "Жарамды электрондық пошта мекенжайын енгізіңіз",
 
   // "register-page.registration.email.hint": "This address will be verified and used as your login name.",
-  "register-page.registration.email.hint":"Бұл мекен-жай тексеріліп, сіздің логиніңіз ретінде пайдаланылады.",
+  "register-page.registration.email.hint": "Бұл мекен-жай тексеріліп, сіздің логиніңіз ретінде пайдаланылады.",
 
   // "register-page.registration.submit": "Register",
   "register-page.registration.submit": "Тіркелу",
@@ -5130,12 +4908,10 @@
   "register-page.registration.error.head": "Электрондық поштаны тіркеу кезінде қате",
 
   // "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
-  "register-page.registration.error.content":"Келесі электрондық пошта мекенжайын тіркеу кезінде қате пайда болды: {{ email }}",
-
-
+  "register-page.registration.error.content": "Келесі электрондық пошта мекенжайын тіркеу кезінде қате пайда болды: {{ email }}",
 
   // "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
-  "relationships.add.error.relationship-type.content":"Екі элемент арасындағы байланыс түрі {{ type }} үшін сәйкес сәйкестікті табу мүмкін емес",
+  "relationships.add.error.relationship-type.content": "Екі элемент арасындағы байланыс түрі {{ type }} үшін сәйкес сәйкестікті табу мүмкін емес",
 
   // "relationships.add.error.server.content": "The server returned an error",
   "relationships.add.error.server.content": "Сервер қате туралы хабарламаны қайтарды",
@@ -5144,7 +4920,7 @@
   "relationships.add.error.title": "Байланыс қосу мүмкін емес",
 
   // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf":"Авторлар",
+  "relationships.isAuthorOf": "Авторлар",
 
   // "relationships.isAuthorOf.Person": "Authors (persons)",
   "relationships.isAuthorOf.Person": "Авторлар (тұлғалар)",
@@ -5156,7 +4932,7 @@
   "relationships.isIssueOf": "Журналдың шығарылымдары",
 
   // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf":"Журнал шығару",
+  "relationships.isJournalIssueOf": "Журнал шығару",
 
   // "relationships.isJournalOf": "Journals",
   "relationships.isJournalOf": "Күнделіктер",
@@ -5177,7 +4953,7 @@
   "relationships.isPublicationOfJournalIssue": "Мақалалар",
 
   // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf":"Күнделік",
+  "relationships.isSingleJournalOf": "Күнделік",
 
   // "relationships.isSingleVolumeOf": "Journal Volume",
   "relationships.isSingleVolumeOf": "Журнал көлемі",
@@ -5197,18 +4973,16 @@
   // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
   "relationships.isFundingAgencyOf.OrgUnit": "Жасаушы",
 
-
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Repository logo",
 
-  // "repository.title.prefix": "DSpace Angular :: ",
+  // "repository.title.prefix": "Central Metatada Repository",
   // TODO New key - Add a translation
-  "repository.title.prefix": "DSpace Angular :: ",
+  "repository.title.prefix": "Central Metatada Repository",
 
-  // "repository.title.prefixDSpace": "DSpace Angular ::",
+  // "repository.title.prefixDSpace": "Central Metatada Repository :::",
   // TODO New key - Add a translation
-  "repository.title.prefixDSpace": "DSpace Angular ::",
-
+  "repository.title.prefixDSpace": "Central Metatada Repository :::",
 
   // "resource-policies.add.button": "Add",
   "resource-policies.add.button": "Қосу",
@@ -5223,13 +4997,13 @@
   "resource-policies.add.for.bundle": "Жаңа пакет саясатын қосу",
 
   // "resource-policies.add.for.item": "Add a new Item policy",
-  "resource-policies.add.for.item":"Жаңа элемент саясатын қосу",
+  "resource-policies.add.for.item": "Жаңа элемент саясатын қосу",
 
   // "resource-policies.add.for.community": "Add a new Community policy",
   "resource-policies.add.for.community": "Жаңа қауымдастық саясатын қосу",
 
   // "resource-policies.add.for.collection": "Add a new Collection policy",
-  "resource-policies.add.for.collection":"Жаңа деректерді жинау саясатын қосу",
+  "resource-policies.add.for.collection": "Жаңа деректерді жинау саясатын қосу",
 
   // "resource-policies.create.page.heading": "Create new resource policy for ",
   "resource-policies.create.page.heading": "Ресурстарға қатысты жаңа саясат құру ",
@@ -5238,7 +5012,7 @@
   "resource-policies.create.page.failure.content": "Ресурстық саясатты құру кезінде қате пайда болды.",
 
   // "resource-policies.create.page.success.content": "Operation successful",
-  "resource-policies.create.page.success.content":"Операция сәтті өтті",
+  "resource-policies.create.page.success.content": "Операция сәтті өтті",
 
   // "resource-policies.create.page.title": "Create new resource policy",
   "resource-policies.create.page.title": "Ресурстар саласында жаңа саясат құру",
@@ -5259,7 +5033,7 @@
   "resource-policies.edit.page.heading": "Ресурстар саясатын өзгерту",
 
   // "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
-  "resource-policies.edit.page.failure.content":"Ресурстар саясатын өңдеуде қате пайда болды.",
+  "resource-policies.edit.page.failure.content": "Ресурстар саясатын өңдеуде қате пайда болды.",
 
   // "resource-policies.edit.page.target-failure.content": "An error occurred while editing the target (ePerson or group) of the resource policy.",
   // TODO New key - Add a translation
@@ -5279,7 +5053,7 @@
   "resource-policies.form.action-type.label": "Әрекет түрін таңдаңыз",
 
   // "resource-policies.form.action-type.required": "You must select the resource policy action.",
-  "resource-policies.form.action-type.required":"Сіз ресурстар саясатының әрекетін таңдауыңыз керек.",
+  "resource-policies.form.action-type.required": "Сіз ресурстар саясатының әрекетін таңдауыңыз керек.",
 
   // "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
   "resource-policies.form.eperson-group-list.label": "Рұқсат берілетін тұлға немесе топ",
@@ -5291,7 +5065,7 @@
   "resource-policies.form.eperson-group-list.tab.eperson": "Адамды іздеу",
 
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
-  "resource-policies.form.eperson-group-list.tab.group":"Топты іздеу",
+  "resource-policies.form.eperson-group-list.tab.group": "Топты іздеу",
 
   // "resource-policies.form.eperson-group-list.table.headers.action": "Action",
   "resource-policies.form.eperson-group-list.table.headers.action": "Әрекет",
@@ -5326,7 +5100,7 @@
   "resource-policies.form.date.end.label": "Аяқталу күні",
 
   // "resource-policies.form.date.start.label": "Start Date",
-  "resource-policies.form.date.start.label":"Басталу күні",
+  "resource-policies.form.date.start.label": "Басталу күні",
 
   // "resource-policies.form.description.label": "Description",
   "resource-policies.form.description.label": "Сипаттама",
@@ -5388,8 +5162,6 @@
   // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
   "resource-policies.table.headers.title.for.collection": "Деректерді жинау саясаты",
 
-
-
   // "search.description": "",
   "search.description": "",
 
@@ -5398,7 +5170,7 @@
 
   // "search.title": "Search",
   // TODO Source message changed - Revise the translation
-  "search.title": "DSpace Angular :: Іздеу",
+  "search.title": "Central Metatada RepositoryІздеу",
 
   // "search.breadcrumbs": "Search",
   "search.breadcrumbs": "Іздеу",
@@ -5406,7 +5178,6 @@
   // "search.search-form.placeholder": "Search the repository ...",
   // TODO New key - Add a translation
   "search.search-form.placeholder": "Search the repository ...",
-
 
   // "search.filters.applied.f.author": "Author",
   "search.filters.applied.f.author": "Автор",
@@ -5428,13 +5199,13 @@
   "search.filters.applied.f.entityType": "Өнім түрі",
 
   // "search.filters.applied.f.has_content_in_original_bundle": "Has files",
-  "search.filters.applied.f.has_content_in_original_bundle":"Файлдар бар",
+  "search.filters.applied.f.has_content_in_original_bundle": "Файлдар бар",
 
   // "search.filters.applied.f.itemtype": "Type",
   "search.filters.applied.f.itemtype": "Түрі",
 
   // "search.filters.applied.f.namedresourcetype": "Status",
-  "search.filters.applied.f.namedresourcetype":"Мәртебе",
+  "search.filters.applied.f.namedresourcetype": "Мәртебе",
 
   // "search.filters.applied.f.subject": "Subject",
   "search.filters.applied.f.subject": "Тақырып",
@@ -5449,12 +5220,10 @@
   "search.filters.applied.f.birthDate.max": "Соңғы туған күні",
 
   // "search.filters.applied.f.birthDate.min": "Start birth date",
-  "search.filters.applied.f.birthDate.min":"Бастауыш туған күні",
+  "search.filters.applied.f.birthDate.min": "Бастауыш туған күні",
 
   // "search.filters.applied.f.withdrawn": "Withdrawn",
   "search.filters.applied.f.withdrawn": "Алып тасталынды",
-
-
 
   // "search.filters.filter.author.head": "Author",
   "search.filters.filter.author.head": "Автор",
@@ -5470,7 +5239,7 @@
   "search.filters.filter.birthDate.head": "Туған күні",
 
   // "search.filters.filter.birthDate.placeholder": "Birth Date",
-  "search.filters.filter.birthDate.placeholder":"Туған күні",
+  "search.filters.filter.birthDate.placeholder": "Туған күні",
 
   // "search.filters.filter.birthDate.label": "Search birth date",
   // TODO New key - Add a translation
@@ -5514,7 +5283,7 @@
   "search.filters.filter.creativeWorkPublisher.head": "Баспагер",
 
   // "search.filters.filter.creativeWorkPublisher.placeholder": "Publisher",
-  "search.filters.filter.creativeWorkPublisher.placeholder":"Баспагер",
+  "search.filters.filter.creativeWorkPublisher.placeholder": "Баспагер",
 
   // "search.filters.filter.creativeWorkPublisher.label": "Search publisher",
   // TODO New key - Add a translation
@@ -5533,7 +5302,7 @@
 
   // "search.filters.filter.dateIssued.min.placeholder": "Minimum Date",
   // TODO Source message changed - Revise the translation
-  "search.filters.filter.dateIssued.min.placeholder":"Максималды күн",
+  "search.filters.filter.dateIssued.min.placeholder": "Максималды күн",
 
   // "search.filters.filter.dateIssued.min.label": "Start",
   // TODO New key - Add a translation
@@ -5577,7 +5346,7 @@
   "search.filters.filter.itemtype.head": "Түрі",
 
   // "search.filters.filter.itemtype.placeholder": "Type",
-  "search.filters.filter.itemtype.placeholder":"Түрі",
+  "search.filters.filter.itemtype.placeholder": "Түрі",
 
   // "search.filters.filter.itemtype.label": "Search type",
   // TODO New key - Add a translation
@@ -5587,7 +5356,7 @@
   "search.filters.filter.jobTitle.head": "Лауазымы",
 
   // "search.filters.filter.jobTitle.placeholder": "Job Title",
-  "search.filters.filter.jobTitle.placeholder":"Лауазымы",
+  "search.filters.filter.jobTitle.placeholder": "Лауазымы",
 
   // "search.filters.filter.jobTitle.label": "Search job title",
   // TODO New key - Add a translation
@@ -5667,10 +5436,10 @@
   "search.filters.filter.show-less": "Коллапс",
 
   // "search.filters.filter.show-more": "Show more",
-  "search.filters.filter.show-more":"Көбірек көрсету",
+  "search.filters.filter.show-more": "Көбірек көрсету",
 
   // "search.filters.filter.subject.head": "Subject",
-  "search.filters.filter.subject.head":"Тақырып",
+  "search.filters.filter.subject.head": "Тақырып",
 
   // "search.filters.filter.subject.placeholder": "Subject",
   "search.filters.filter.subject.placeholder": "Тақырып",
@@ -5683,22 +5452,20 @@
   "search.filters.filter.submitter.head": "Жіберуші",
 
   // "search.filters.filter.submitter.placeholder": "Submitter",
-  "search.filters.filter.submitter.placeholder":"Жіберуші",
+  "search.filters.filter.submitter.placeholder": "Жіберуші",
 
   // "search.filters.filter.submitter.label": "Search submitter",
   // TODO New key - Add a translation
   "search.filters.filter.submitter.label": "Search submitter",
 
-
-
   // "search.filters.entityType.JournalIssue": "Journal Issue",
   "search.filters.entityType.JournalIssue": "Журналдың нөмірі",
 
   // "search.filters.entityType.JournalVolume": "Journal Volume",
-  "search.filters.entityType.JournalVolume":"Журнал көлемі",
+  "search.filters.entityType.JournalVolume": "Журнал көлемі",
 
   // "search.filters.entityType.OrgUnit": "Organizational Unit",
-  "search.filters.entityType.OrgUnit":"Ұйымдастыру бөлімшесі",
+  "search.filters.entityType.OrgUnit": "Ұйымдастыру бөлімшесі",
 
   // "search.filters.has_content_in_original_bundle.true": "Yes",
   "search.filters.has_content_in_original_bundle.true": "Иә",
@@ -5718,9 +5485,8 @@
   // "search.filters.withdrawn.false": "No",
   "search.filters.withdrawn.false": "Жоқ",
 
-
   // "search.filters.head": "Filters",
-  "search.filters.head":"Сүзгілер",
+  "search.filters.head": "Сүзгілер",
 
   // "search.filters.reset": "Reset filters",
   "search.filters.reset": "Сүзгілерді қалпына келтіру",
@@ -5729,10 +5495,8 @@
   // TODO New key - Add a translation
   "search.filters.search.submit": "Submit",
 
-
-
   // "search.form.search": "Search",
-  "search.form.search":"Іздеу",
+  "search.form.search": "Іздеу",
 
   // "search.form.search_dspace": "All repository",
   // TODO Source message changed - Revise the translation
@@ -5741,8 +5505,6 @@
   // "search.form.scope.all": "All of DSpace",
   // TODO New key - Add a translation
   "search.form.scope.all": "All of DSpace",
-
-
 
   // "search.results.head": "Search Results",
   "search.results.head": "Іздеу нәтижелері",
@@ -5772,7 +5534,6 @@
   // TODO New key - Add a translation
   "default-relationships.search.results.head": "Search Results",
 
-
   // "search.sidebar.close": "Back to results",
   "search.sidebar.close": "Нәтижелерге оралайық",
 
@@ -5783,7 +5544,7 @@
   "search.sidebar.open": "Іздеу құралдары",
 
   // "search.sidebar.results": "results",
-  "search.sidebar.results":"нәтижелер",
+  "search.sidebar.results": "нәтижелер",
 
   // "search.sidebar.settings.rpp": "Results per page",
   "search.sidebar.settings.rpp": "Беттегі нәтижелер",
@@ -5794,8 +5555,6 @@
   // "search.sidebar.settings.title": "Settings",
   "search.sidebar.settings.title": "Параметрлер",
 
-
-
   // "search.view-switch.show-detail": "Show detail",
   "search.view-switch.show-detail": "Толығырақ көрсету",
 
@@ -5804,8 +5563,6 @@
 
   // "search.view-switch.show-list": "Show as list",
   "search.view-switch.show-list": "Тізім ретінде көрсету",
-
-
 
   // "sorting.ASC": "Ascending",
   "sorting.ASC": "Жоғарылайтын",
@@ -5851,9 +5608,8 @@
   // TODO New key - Add a translation
   "sorting.lastModified.DESC": "Last modified Descending",
 
-
   // "statistics.title": "Statistics",
-  "statistics.title":"Статистика",
+  "statistics.title": "Статистика",
 
   // "statistics.header": "Statistics for {{ scope }}",
   "statistics.header": "{{ scope }} үшін статистика",
@@ -5885,8 +5641,6 @@
   // "statistics.table.header.views": "Views",
   "statistics.table.header.views": "Түрлері",
 
-
-
   // "submission.edit.breadcrumbs": "Edit Submission",
   // TODO New key - Add a translation
   "submission.edit.breadcrumbs": "Edit Submission",
@@ -5908,7 +5662,7 @@
   "submission.general.discard.confirm.cancel": "Болдырмау",
 
   // "submission.general.discard.confirm.info": "This operation can't be undone. Are you sure?",
-  "submission.general.discard.confirm.info":"Бұл операцияны болдырмау мүмкін емес. Сен сенімді?",
+  "submission.general.discard.confirm.info": "Бұл операцияны болдырмау мүмкін емес. Сен сенімді?",
 
   // "submission.general.discard.confirm.submit": "Yes, I'm sure",
   "submission.general.discard.confirm.submit": "Ия, мен сенімдімін",
@@ -5933,12 +5687,11 @@
   // "submission.general.save-later": "Save for later",
   "submission.general.save-later": "Кейінірек сақтаңыз",
 
-
   // "submission.import-external.page.title": "Import metadata from an external source",
-  "submission.import-external.page.title":"Метадеректерді сыртқы көзден импорттау",
+  "submission.import-external.page.title": "Метадеректерді сыртқы көзден импорттау",
 
   // "submission.import-external.title": "Import metadata from an external source",
-  "submission.import-external.title":"Метадеректерді сыртқы көзден импорттау",
+  "submission.import-external.title": "Метадеректерді сыртқы көзден импорттау",
 
   // "submission.import-external.title.Journal": "Import a journal from an external source",
   // TODO New key - Add a translation
@@ -6102,7 +5855,7 @@
   "submission.sections.describe.relationship-lookup.close": "Жабу",
 
   // "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.added":"Үлгіге жергілікті жазба сәтті қосылды",
+  "submission.sections.describe.relationship-lookup.external-source.added": "Үлгіге жергілікті жазба сәтті қосылды",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Қашықтағы авторды импорттау",
@@ -6188,7 +5941,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority.new": "Импорт жергілікті биліктің жаңа жазбасы ретінде",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Cancel",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel":"Болдырмау",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Болдырмау",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Select a collection to import new entries to",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Жаңа жазбаларды импорттау үшін коллекцияны таңдаңыз",
@@ -6200,7 +5953,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.entities.new": "Импорт Жаңа жергілікті нысан ретінде",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importing from LC Name",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname":"LC Name-ден импорттау",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "LC Name-ден импорттау",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "ORCID-тен Импорт",
@@ -6257,7 +6010,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Бетті таңдаудан бас тарту",
 
   // "submission.sections.describe.relationship-lookup.search-tab.loading": "Loading...",
-  "submission.sections.describe.relationship-lookup.search-tab.loading":"Жүктеу...",
+  "submission.sections.describe.relationship-lookup.search-tab.loading": "Жүктеу...",
 
   // "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
   "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Іздеу сұранысы",
@@ -6315,7 +6068,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Жергілікті журнал томдары ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal":"Sherpa журналдары ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa журналдары ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
@@ -6327,7 +6080,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC атаулары ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.pubmed": "PubMed ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.pubmed":"PubMed ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.pubmed": "PubMed ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.arxiv": "arXiv ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.arxiv": "arXiv ({{ count }})",
@@ -6336,7 +6089,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Қаржыландыру агенттіктерін іздеу",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication":"Қаржыландыруды іздеу",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Қаржыландыруды іздеу",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Ұйымдастырушылық бірліктерді іздеу",
@@ -6369,23 +6122,20 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
 
-
-
-
   // "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
-  "submission.sections.describe.relationship-lookup.selection-tab.tab-title":"Ағымдағы таңдау ({{ count }})",
+  "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Ағымдағы таңдау ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Журналдың шығарылымдары",
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
-  "submission.sections.describe.relationship-lookup.title.JournalIssue":"Журналдың шығарылымдары",
+  "submission.sections.describe.relationship-lookup.title.JournalIssue": "Журналдың шығарылымдары",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
-  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication":"Журнал томдары",
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Журнал томдары",
   // "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.JournalVolume": "Журнал томдары",
 
@@ -6416,7 +6166,7 @@
   "submission.sections.describe.relationship-lookup.title.DataFile": "Деректер файлдары",
 
   // "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
-  "submission.sections.describe.relationship-lookup.title.Funding Agency":"Қаржыландыру агенттігі",
+  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Қаржыландыру агенттігі",
 
   // "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
   "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Қаржыландыру",
@@ -6445,7 +6195,7 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Таңдаулы жобалар",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Selected Publications",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Publication":"Таңдамалы Жарияланымдар",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Таңдамалы Жарияланымдар",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Selected Authors",
   "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Таңдалған авторлар",
@@ -6465,7 +6215,7 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Таңдалған сұрақ",
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume":"Журналдың таңдалған көлемі",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Журналдың таңдалған көлемі",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Selected Funding Agency",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Таңдалған қаржыландыру агенттігі",
@@ -6479,7 +6229,7 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Таңдалған ұйымдастыру бөлімі",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal":"Іздеу нәтижелері",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Іздеу нәтижелері",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Іздеу нәтижелері",
@@ -6518,7 +6268,7 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Іздеу нәтижелері",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
-  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Сіз \"{{ value }}\" сол адамға арналған атау опциясы ретінде сақтағыңыз келе ме, сондықтан сіз және басқалар оны болашақ жіберу үшін қайта пайдалана аласыз ба? Егер жоқ болса, сіз оны осы жіберу үшін пайдалана аласыз.",
+  "submission.sections.describe.relationship-lookup.name-variant.notification.content": 'Сіз "{{ value }}" сол адамға арналған атау опциясы ретінде сақтағыңыз келе ме, сондықтан сіз және басқалар оны болашақ жіберу үшін қайта пайдалана аласыз ба? Егер жоқ болса, сіз оны осы жіберу үшін пайдалана аласыз.',
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
   "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Атаудың жаңа нұсқасын сақтау",
@@ -6591,9 +6341,7 @@
   "submission.sections.general.search-collection": "Коллекцияны іздеу",
 
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
-  "submission.sections.general.sections_not_valid":"Толық емес бөлімдер бар.",
-
-
+  "submission.sections.general.sections_not_valid": "Толық емес бөлімдер бар.",
 
   // "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
   "submission.sections.submit.progressbar.accessCondition": "Элементке кіру шарттары",
@@ -6629,7 +6377,6 @@
   // "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
   // TODO New key - Add a translation
   "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
-
 
   // "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   // TODO New key - Add a translation
@@ -6748,7 +6495,7 @@
   "submission.sections.upload.form.until-hint": "Select the date until which the related access condition is applied",
 
   // "submission.sections.upload.form.until-placeholder": "Until",
-  "submission.sections.upload.form.until-placeholder":"Әзірге",
+  "submission.sections.upload.form.until-placeholder": "Әзірге",
 
   // "submission.sections.upload.header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
   "submission.sections.upload.header.policy.default.nolist": "{{collectionName}} жинағына жүктелген файлдар келесі топқа (топтарға) сәйкес қол жетімді болады:",
@@ -6760,7 +6507,7 @@
   "submission.sections.upload.info": "Мұнда сіз осы элементтегі барлық файлдарды таба аласыз. Файл метадеректерін және кіру шарттарын жаңартуға немесе <strong>қосымша файлдарды оларды</strong>бетінде сүйреп апару арқылы жүктеуге болады.",
 
   // "submission.sections.upload.no-entry": "No",
-  "submission.sections.upload.no-entry":"Жоқ",
+  "submission.sections.upload.no-entry": "Жоқ",
 
   // "submission.sections.upload.no-file-uploaded": "No file uploaded yet.",
   "submission.sections.upload.no-file-uploaded": "Файл әлі жүктелмеген.",
@@ -6847,8 +6594,7 @@
 
   // "submission.sections.license.notgranted":  "You must accept the license",
   // TODO New key - Add a translation
-  "submission.sections.license.notgranted":  "You must accept the license",
-
+  "submission.sections.license.notgranted": "You must accept the license",
 
   // "submission.sections.sherpa.publication.information": "Publication information",
   // TODO New key - Add a translation
@@ -6954,17 +6700,13 @@
   // TODO New key - Add a translation
   "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
 
-
-
   // "submission.submit.breadcrumbs": "New submission",
   // TODO New key - Add a translation
   "submission.submit.breadcrumbs": "New submission",
 
   // "submission.submit.title": "New submission",
   // TODO Source message changed - Revise the translation
-  "submission.submit.title":"Бағыну",
-
-
+  "submission.submit.title": "Бағыну",
 
   // "submission.workflow.generic.delete": "Delete",
   "submission.workflow.generic.delete": "Өшіру",
@@ -6984,13 +6726,11 @@
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
   "submission.workflow.generic.view-help": "Элемент метадеректерін көру үшін осы параметрді таңдаңыз.",
 
-
-
   // "submission.workflow.tasks.claimed.approve": "Approve",
   "submission.workflow.tasks.claimed.approve": "Мақұлдансын",
 
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
-  "submission.workflow.tasks.claimed.approve_help":"Егер сіз тауармен танысқан болсаңыз және ол коллекцияға қосуға жарамды болса, \"Мақұлдау\" таңдаңыз.",
+  "submission.workflow.tasks.claimed.approve_help": 'Егер сіз тауармен танысқан болсаңыз және ол коллекцияға қосуға жарамды болса, "Мақұлдау" таңдаңыз.',
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "Редакциялау",
@@ -7014,15 +6754,13 @@
   "submission.workflow.tasks.claimed.reject.submit": "Қабылдамау",
 
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  "submission.workflow.tasks.claimed.reject_help": "Егер сіз затты қарап шығып, оның <strong></strong> емес екенін байқасаңыз, \"Қабылдамау\" таңдаңыз.  Содан кейін сізден тауардың неге сәйкес келмейтінін және жіберуші бірдеңені өзгертіп, қайта жіберуі керек екенін көрсететін хабарлама енгізу сұралады.",
+  "submission.workflow.tasks.claimed.reject_help": 'Егер сіз затты қарап шығып, оның <strong></strong> емес екенін байқасаңыз, "Қабылдамау" таңдаңыз.  Содан кейін сізден тауардың неге сәйкес келмейтінін және жіберуші бірдеңені өзгертіп, қайта жіберуі керек екенін көрсететін хабарлама енгізу сұралады.',
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Бассейнге оралу",
 
   // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
   "submission.workflow.tasks.claimed.return_help": "Басқа пайдаланушы бұл тапсырманы орындай алатындай етіп тапсырманы бассейнге қайтарыңыз.",
-
-
 
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
   "submission.workflow.tasks.generic.error": "Жұмыс кезінде қате пайда болды...",
@@ -7036,8 +6774,6 @@
   // "submission.workflow.tasks.generic.success": "Operation successful",
   "submission.workflow.tasks.generic.success": "Операция сәтті өтті",
 
-
-
   // "submission.workflow.tasks.pool.claim": "Claim",
   "submission.workflow.tasks.pool.claim": "Талап",
 
@@ -7050,7 +6786,6 @@
   // "submission.workflow.tasks.pool.show-detail": "Show detail",
   "submission.workflow.tasks.pool.show-detail": "Толығырақ көрсету",
 
-
   // "submission.workspace.generic.view": "View",
   // TODO New key - Add a translation
   "submission.workspace.generic.view": "View",
@@ -7058,7 +6793,6 @@
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
   // TODO New key - Add a translation
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
-
 
   // "thumbnail.default.alt": "Thumbnail Image",
   // TODO New key - Add a translation
@@ -7092,12 +6826,8 @@
   // TODO New key - Add a translation
   "thumbnail.person.placeholder": "No Profile Picture Available",
 
-
-
   // "title": "DSpace",
-  "title": "DSpace",
-
-
+  title: "DSpace",
 
   // "vocabulary-treeview.header": "Hierarchical tree view",
   "vocabulary-treeview.header": "Иерархиялық ағаш көрінісі",
@@ -7119,8 +6849,6 @@
 
   // "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
   "vocabulary-treeview.tree.description.srsc": "Зерттеудің пәндік санаттары",
-
-
 
   // "uploader.browse": "browse",
   "uploader.browse": "көру",
@@ -7151,8 +6879,6 @@
   // "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
   "virtual-metadata.delete-relationship.modal-head": "Виртуалды метадеректерді нақты метадеректер ретінде сақтағыңыз келетін элементтерді таңдаңыз",
 
-
-
   // "workspace.search.results.head": "Your submissions",
   // TODO New key - Add a translation
   "workspace.search.results.head": "Your submissions",
@@ -7164,8 +6890,6 @@
   // TODO New key - Add a translation
   "workflow.search.results.head": "Workflow tasks",
 
-
-
   // "workflow-item.edit.breadcrumbs": "Edit workflowitem",
   // TODO New key - Add a translation
   "workflow-item.edit.breadcrumbs": "Edit workflowitem",
@@ -7175,7 +6899,7 @@
   "workflow-item.edit.title": "Edit workflowitem",
 
   // "workflow-item.delete.notification.success.title": "Deleted",
-  "workflow-item.delete.notification.success.title":"Жойылды",
+  "workflow-item.delete.notification.success.title": "Жойылды",
 
   // "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
   "workflow-item.delete.notification.success.content": "Жұмыс процесінің бұл элементі сәтті жойылды",
@@ -7197,7 +6921,6 @@
 
   // "workflow-item.delete.button.confirm": "Delete",
   "workflow-item.delete.button.confirm": "Жою",
-
 
   // "workflow-item.send-back.notification.success.title": "Sent back to submitter",
   "workflow-item.send-back.notification.success.title": "Жіберушіге қайта жіберілді",
@@ -7254,7 +6977,7 @@
 
   // "researcher.profile.action.processing" : "Processing...",
   // TODO New key - Add a translation
-  "researcher.profile.action.processing" : "Processing...",
+  "researcher.profile.action.processing": "Processing...",
 
   // "researcher.profile.associated": "Researcher profile associated",
   // TODO New key - Add a translation
@@ -7298,11 +7021,11 @@
 
   // "researcher.profile.private.visibility" : "PRIVATE",
   // TODO New key - Add a translation
-  "researcher.profile.private.visibility" : "PRIVATE",
+  "researcher.profile.private.visibility": "PRIVATE",
 
   // "researcher.profile.public.visibility" : "PUBLIC",
   // TODO New key - Add a translation
-  "researcher.profile.public.visibility" : "PUBLIC",
+  "researcher.profile.public.visibility": "PUBLIC",
 
   // "researcher.profile.status": "Status:",
   // TODO New key - Add a translation
@@ -7314,19 +7037,19 @@
 
   // "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
   // TODO New key - Add a translation
-  "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
+  "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
 
   // "researcherprofile.error.claim.title" : "Error",
   // TODO New key - Add a translation
-  "researcherprofile.error.claim.title" : "Error",
+  "researcherprofile.error.claim.title": "Error",
 
   // "researcherprofile.success.claim.body" : "Profile claimed with success",
   // TODO New key - Add a translation
-  "researcherprofile.success.claim.body" : "Profile claimed with success",
+  "researcherprofile.success.claim.body": "Profile claimed with success",
 
   // "researcherprofile.success.claim.title" : "Success",
   // TODO New key - Add a translation
-  "researcherprofile.success.claim.title" : "Success",
+  "researcherprofile.success.claim.title": "Success",
 
   // "person.page.orcid.create": "Create an ORCID ID",
   // TODO New key - Add a translation
@@ -7338,7 +7061,7 @@
 
   // "person.page.orcid.grant-authorizations" : "Grant authorizations",
   // TODO New key - Add a translation
-  "person.page.orcid.grant-authorizations" : "Grant authorizations",
+  "person.page.orcid.grant-authorizations": "Grant authorizations",
 
   // "person.page.orcid.link": "Connect to ORCID ID",
   // TODO New key - Add a translation
@@ -7401,55 +7124,55 @@
 
   // "person.page.orcid.sync-profile.affiliation" : "Affiliation",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.affiliation" : "Affiliation",
+  "person.page.orcid.sync-profile.affiliation": "Affiliation",
 
   // "person.page.orcid.sync-profile.biographical" : "Biographical data",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.biographical" : "Biographical data",
+  "person.page.orcid.sync-profile.biographical": "Biographical data",
 
   // "person.page.orcid.sync-profile.education" : "Education",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.education" : "Education",
+  "person.page.orcid.sync-profile.education": "Education",
 
   // "person.page.orcid.sync-profile.identifiers" : "Identifiers",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.identifiers" : "Identifiers",
+  "person.page.orcid.sync-profile.identifiers": "Identifiers",
 
   // "person.page.orcid.sync-fundings.all" : "All fundings",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.all" : "All fundings",
+  "person.page.orcid.sync-fundings.all": "All fundings",
 
   // "person.page.orcid.sync-fundings.mine" : "My fundings",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.mine" : "My fundings",
+  "person.page.orcid.sync-fundings.mine": "My fundings",
 
   // "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
+  "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
 
   // "person.page.orcid.sync-fundings.disabled" : "Disabled",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.disabled" : "Disabled",
+  "person.page.orcid.sync-fundings.disabled": "Disabled",
 
   // "person.page.orcid.sync-publications.all" : "All publications",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.all" : "All publications",
+  "person.page.orcid.sync-publications.all": "All publications",
 
   // "person.page.orcid.sync-publications.mine" : "My publications",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.mine" : "My publications",
+  "person.page.orcid.sync-publications.mine": "My publications",
 
   // "person.page.orcid.sync-publications.my_selected" : "Selected publications",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.my_selected" : "Selected publications",
+  "person.page.orcid.sync-publications.my_selected": "Selected publications",
 
   // "person.page.orcid.sync-publications.disabled" : "Disabled",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.disabled" : "Disabled",
+  "person.page.orcid.sync-publications.disabled": "Disabled",
 
   // "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
+  "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
 
   // "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
   // TODO New key - Add a translation
@@ -7465,15 +7188,15 @@
 
   // "person.page.orcid.sync-queue.table.header.type" : "Type",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.type" : "Type",
+  "person.page.orcid.sync-queue.table.header.type": "Type",
 
   // "person.page.orcid.sync-queue.table.header.description" : "Description",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.description" : "Description",
+  "person.page.orcid.sync-queue.table.header.description": "Description",
 
   // "person.page.orcid.sync-queue.table.header.action" : "Action",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.action" : "Action",
+  "person.page.orcid.sync-queue.table.header.action": "Action",
 
   // "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
   // TODO New key - Add a translation
@@ -7561,7 +7284,7 @@
 
   // "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
+  "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
   // TODO New key - Add a translation
@@ -7633,7 +7356,7 @@
 
   // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
   // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
   // TODO New key - Add a translation
@@ -7677,7 +7400,7 @@
 
   // "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
   // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
+  "person.page.orcid.synchronization-mode-message": 'Please select how you would like synchronization to ORCID to occur. The options include "Manual" (you must send your data to ORCID manually), or "Batch" (the system will send your data to ORCID via a scheduled script).',
 
   // "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
   // TODO New key - Add a translation
@@ -7740,7 +7463,4 @@
   // "home.recent-submissions.head": "Recent Submissions",
   // TODO New key - Add a translation
   "home.recent-submissions.head": "Recent Submissions",
-
-
-
 }

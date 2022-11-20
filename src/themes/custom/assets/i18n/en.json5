@@ -2,6 +2,6 @@
   // DSpace default: "All of DSpace"
   "menu.section.browse_global": "Browse DSpace",
 
-  // DSpace default: "DSpace Angular :: "
+  // DSpace default: "Central Metatada Repository"
   "repository.title.prefix": "DSpace :: ",
 }
