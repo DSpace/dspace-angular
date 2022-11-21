@@ -44,6 +44,7 @@ import { environment } from 'src/environments/environment';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { SearchManager } from '../../core/browse/search-manager';
+import { AlertType } from '../alert/aletr-type';
 
 @Component({
   selector: 'ds-search',
@@ -163,6 +164,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showExport = true;
 
   /**
+   * A boolean representing if show search result notice
+   */
+  @Input() showSearchResultNotice = false;
+
+  /**
    * A boolean representing if show search sidebar button
    */
   @Input() showSidebar = true;
@@ -181,6 +187,16 @@ export class SearchComponent implements OnInit, OnDestroy {
    * List of available view mode
    */
   @Input() viewModeList: ViewMode[];
+
+  /**
+   * Contains a notice to show before result list if any
+   */
+  @Input() searchResultNotice: string = null;
+
+  /**
+   * The alert type to use for the notice
+   */
+  @Input() searchResultNoticeType: AlertType = AlertType.Info;
 
   /**
    * Defines whether to show the scope selector

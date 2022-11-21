@@ -55,6 +55,17 @@ export interface ManageRelationshipCustomData {
 })
 export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
 
+
+  /**
+   * A boolean representing if hidden relationships are present
+   */
+  hasHiddenRelationship$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  /**
+   * Contain the hidden relationship notice message
+   */
+  hiddenRelationshipMsg: string;
+
   /**
    * A boolean representing if component is active
    * @type {boolean}
@@ -167,7 +178,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    * Get all results of the relation to manage
    */
   ngOnInit() {
-
+    this.hiddenRelationshipMsg = this.translate.instant('manage.relationships.hidden-related-items-alert');
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.info),
       getFirstSucceededRemoteData()
@@ -226,6 +237,8 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
       tap((relationships: Relationship[]) => {
         const relations = relationships
           .filter((relation) => !!relation.leftwardValue && relation.leftwardValue.toLowerCase().includes('is' + this.relationshipType));
+        const hiddenRelationships = relationships.filter(filteredRelationship => filteredRelationship.leftwardValue.toLowerCase().includes('hidden'));
+        this.hasHiddenRelationship$.next(hiddenRelationships.length > 0);
         this.relationshipResults$.next(relations);
 
         let itemId = null;

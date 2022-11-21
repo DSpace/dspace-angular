@@ -11,6 +11,7 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { AlertType } from '../../alert/aletr-type';
 
 /**
  * Themed wrapper for SearchResultsComponent
@@ -21,13 +22,18 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
   templateUrl: '../../theme-support/themed.component.html',
 })
 export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsComponent> {
-  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject'];
-
+  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject', 'customData', 'customEvent', 'searchResultNotice', 'searchResultNoticeType', 'showSearchResultNotice'];
   @Input() linkType: CollectionElementLinkType;
+
+  @Input() searchResultNotice: string = null;
+
+  @Input() searchResultNoticeType: AlertType = AlertType.Info;
 
   @Input() searchResults: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>;
 
   @Input() searchConfig: PaginatedSearchOptions;
+
+  @Input() showSearchResultNotice = false;
 
   @Input() sortConfig: SortOptions;
 
@@ -45,7 +51,11 @@ export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsC
 
   @Input() selectionConfig: SelectionConfig = null;
 
+  @Input() customData: any;
+
   @Output() contentChange: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
+  @Output() customEvent = new EventEmitter<any>();
 
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 

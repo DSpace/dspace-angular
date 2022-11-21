@@ -87,11 +87,6 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   @Input() showPaginator = true;
 
   /**
-   * Whether or not to show an alert for hidden related items
-   */
-  @Input() showHiddenRelatedItemsAlert = false;
-
-  /**
    * Emit when one of the listed object has changed.
    */
   @Output() contentChange = new EventEmitter<any>();
@@ -209,8 +204,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'importObject',
     'sortFieldChange',
     'customData',
-    'customEvent',
-    'showHiddenRelatedItemsAlert'
+    'customEvent'
   ];
 
   protected getComponentName(): string {
