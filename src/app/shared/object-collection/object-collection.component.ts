@@ -1,10 +1,13 @@
 import {
   ChangeDetectorRef,
-  Component, ElementRef,
-  EventEmitter, Inject,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
   Input,
   OnInit,
-  Output, PLATFORM_ID,
+  Output,
+  PLATFORM_ID,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -175,9 +178,6 @@ export class ObjectCollectionComponent implements OnInit {
    * Placeholder class (defined in global-styles)
    */
   placeholderFontClass: string;
-
-
-
 
   /**
    * @param cdRef

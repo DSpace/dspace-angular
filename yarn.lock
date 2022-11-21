@@ -1926,6 +1926,15 @@
     "@oozcitak/url" "1.0.0"
     "@oozcitak/util" "8.0.0"
 
+"@oozcitak/dom@1.15.6":
+  version "1.15.6"
+  resolved "https://registry.yarnpkg.com/@oozcitak/dom/-/dom-1.15.6.tgz#b8423d7bbc0a2e98f3a924e068332a4bc7330314"
+  integrity sha512-k4uEIa6DI3FCrFJMGq/05U/59WnS9DjME0kaPqBRCJAqBTkmopbYV1Xs4qFKbDJ/9wOg8W97p+1E0heng/LH7g==
+  dependencies:
+    "@oozcitak/infra" "1.0.5"
+    "@oozcitak/url" "1.0.0"
+    "@oozcitak/util" "8.3.4"
+
 "@oozcitak/infra@1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@oozcitak/infra/-/infra-1.0.3.tgz#a83f912872c717783a5705d39c9c8d371fd28a9d"
@@ -1967,6 +1976,11 @@
   version "8.3.3"
   resolved "https://registry.yarnpkg.com/@oozcitak/util/-/util-8.3.3.tgz#1f6dbb6cd83dc21973adc62e0d725585853e38d2"
   integrity sha512-Ufpab7G5PfnEhQyy5kDg9C8ltWJjsVT1P/IYqacjstaqydG4Q21HAT2HUZQYBrC/a1ZLKCz87pfydlDvv8y97w==
+
+"@oozcitak/util@8.3.4":
+  version "8.3.4"
+  resolved "https://registry.yarnpkg.com/@oozcitak/util/-/util-8.3.4.tgz#34b996b1688db21c5d65d806445aab2b93e95cb5"
+  integrity sha512-6gH/bLQJSJEg7OEpkH4wGQdA8KXHRbzL1YkGyUO12YNAgV3jxKy4K9kvfXj4+9T0OLug5k58cnPCKSSIKzp7pg==
 
 "@polka/url@^1.0.0-next.20":
   version "1.0.0-next.21"
@@ -7222,10 +7236,12 @@ html-parse-stringify@^3.0.1:
     void-elements "3.1.0"
 
 html-to-docx@^1.2.4:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/html-to-docx/-/html-to-docx-1.6.1.tgz#1f76df773228b103ffe578f4cbc062d4c7bbb578"
-  integrity sha512-2q4lMVAEFdBqMa8vHRjfgCAgr3sLHtc8XbmAmiNhKSR2JUCUqVmGLB+YB1g9xpom/KVentUqmY3HJpmEziexJQ==
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/html-to-docx/-/html-to-docx-1.6.4.tgz#aa99f8e216d31b5b23e8f95c4823e348b4a64ccd"
+  integrity sha512-bo/nL47GcBXxsephyC9HpIjd8VZoOKKZHxOLENxFwsM29RU1vpgEEFbrtI6OeJemSVUWKHys0avOGZlGv1cH6Q==
   dependencies:
+    "@oozcitak/dom" "1.15.6"
+    "@oozcitak/util" "8.3.4"
     color-name "^1.1.4"
     escape-html "^1.0.3"
     html-to-vdom "^0.7.0"
@@ -7238,7 +7254,7 @@ html-to-docx@^1.2.4:
     virtual-dom "^2.1.1"
     xmlbuilder2 "2.1.2"
 
-html-to-image@^1.9.0:
+html-to-image@^1.10.8:
   version "1.10.8"
   resolved "https://registry.yarnpkg.com/html-to-image/-/html-to-image-1.10.8.tgz#a7875154f972868897dbda2b837c195245e23682"
   integrity sha512-t+JyFJwKDCp4ZwBp4iC/wqw0meQDDc77Qs8OFl5P7RGlIP3LQMvwpD7VXxqQfC7/TfC+GKYlFP6WDYfXTmXHfw==
@@ -11648,9 +11664,9 @@ regenerator-runtime@0.13.9, regenerator-runtime@^0.13.4:
   integrity sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==
 
 regenerator-runtime@^0.13.10, regenerator-runtime@^0.13.7:
-  version "0.13.10"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.10.tgz#ed07b19616bcbec5da6274ebc75ae95634bfc2ee"
-  integrity sha512-KepLsg4dU12hryUO7bp/axHAKvwGOCV0sGloQtpagJ12ai+ojVDqkeGSiRX1zlq+kjIMZ1t7gpze+26QqtdGqw==
+  version "0.13.11"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz#f6dca3e7ceec20590d07ada785636a90cdca17f9"
+  integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
 
 regenerator-transform@^0.14.2:
   version "0.14.5"

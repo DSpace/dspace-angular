@@ -175,6 +175,7 @@ import { ItemExportFormat } from './itemexportformat/model/item-export-format.mo
 import { MetricsComponentsDataService } from './layout/metrics-components-data.service';
 import { MetricsComponent } from './layout/models/metrics-component.model';
 import { Metric } from './shared/metric.model';
+import { MetricsDataService } from './data/metrics-data.service';
 import { Root } from './data/root.model';
 import { ItemExportFormatService } from './itemexportformat/item-export-format.service';
 import { OpenaireBrokerTopicObject } from './openaire/broker/models/openaire-broker-topic.model';
@@ -204,9 +205,9 @@ import { OrcidAuthService } from './orcid/orcid-auth.service';
 import { VocabularyDataService } from './submission/vocabularies/vocabulary.data.service';
 import { VocabularyEntryDetailsDataService } from './submission/vocabularies/vocabulary-entry-details.data.service';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
-import { WorkflowStepStatisticsService } from './statistics/workflow-step-statistics.service';
+import { WorkflowStepStatisticsDataService } from './statistics/workflow-step-statistics-data.service';
 import { WorkflowStepStatistics } from './statistics/models/workflow-step-statistics.model';
-import { WorkflowOwnerStatisticsService } from './statistics/workflow-owner-statistics.service';
+import { WorkflowOwnerStatisticsDataService } from './statistics/workflow-owner-statistics-data.service';
 import { WorkflowOwnerStatistics } from './statistics/models/workflow-owner-statistics.model';
 import { LoginStatisticsService } from './statistics/login-statistics.service';
 import { LoginStatistics } from './statistics/models/login-statistics.model';
@@ -361,6 +362,7 @@ const PROVIDERS = [
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
   TabDataService,
   MetricsComponentsDataService,
+  MetricsDataService,
   VocabularyService,
   VocabularyDataService,
   VocabularyEntryDetailsDataService,
@@ -377,8 +379,8 @@ const PROVIDERS = [
   OrcidAuthService,
   OrcidQueueDataService,
   OrcidHistoryDataService,
-  WorkflowStepStatisticsService,
-  WorkflowOwnerStatisticsService,
+  WorkflowStepStatisticsDataService,
+  WorkflowOwnerStatisticsDataService,
   LoginStatisticsService,
 ];
 
@@ -475,7 +477,8 @@ export const models =
     Subscription,
     WorkflowStepStatistics,
     WorkflowOwnerStatistics,
-    LoginStatistics
+    LoginStatistics,
+    Metric
   ];
 
 @NgModule({

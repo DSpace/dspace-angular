@@ -26,6 +26,7 @@ import { SearchDataImpl } from '../data/base/search-data';
 @dataService(SECTION)
 export class SectionDataService extends IdentifiableDataService<Section> {
 
+  protected linkPath = 'sections';
   private findAllData: FindAllData<Section>;
   private searchData: SearchDataImpl<Section>;
 
@@ -38,6 +39,8 @@ export class SectionDataService extends IdentifiableDataService<Section> {
     protected dsoNameService: DSONameService
   ) {
     super('sections', requestService, rdbService, objectCache, halService);
+
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**

@@ -13,12 +13,13 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { StatisticsCategory } from '../../core/statistics/models/statistics-category.model';
-import { StatisticsCategoriesService } from '../../core/statistics/statistics-categories.service';
+import { StatisticsCategoriesDataService } from '../../core/statistics/statistics-categories-data.service';
 import { SiteDataService } from '../../core/data/site-data.service';
 import { getCategoryId, getReportId } from '../../core/statistics/statistics-selector';
 import { CleanCategoryReportAction, SetCategoryReportAction } from '../../core/statistics/statistics.action';
 import { AppState } from '../../app.reducer';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 
 @Component({
   selector: 'ds-cris-statistics-page',
@@ -81,7 +82,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
     protected route: ActivatedRoute,
     protected router: Router,
     protected usageReportService: UsageReportDataService,
-    protected statisticsCategoriesService: StatisticsCategoriesService,
+    protected statisticsCategoriesService: StatisticsCategoriesDataService,
     protected nameService: DSONameService,
     protected authService: AuthService,
     protected siteService: SiteDataService,
@@ -130,6 +131,9 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
     return this.scope$.pipe(
       switchMap((scope) => {
         return this.statisticsCategoriesService.getCategoriesStatistics(scope._links.self.href,0,50,this.parseDate(this.dateFrom),this.parseDate(this.dateTo));
+      }),
+      map((resultRD: RemoteData<PaginatedList<StatisticsCategory>>) => {
+        return resultRD.hasSucceeded ? resultRD.payload.page : [];
       }),
       tap((categories: StatisticsCategory[]) => {
         this.categorieList = categories;
