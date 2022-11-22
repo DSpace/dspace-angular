@@ -79,6 +79,11 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   @Input() showPaginator: boolean;
 
   /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
+
+  /**
    * Emit when one of the listed object has changed.
    */
   @Output() contentChange: EventEmitter<any> = new EventEmitter();
@@ -156,6 +161,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'importable',
     'importConfig',
     'showPaginator',
+    'showThumbnails',
     'contentChange',
     'prev',
     'next',
