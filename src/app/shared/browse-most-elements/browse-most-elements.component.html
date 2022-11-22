@@ -2,10 +2,13 @@
     <ng-container *ngIf="searchResults">
         <ul *ngIf="searchResults?.hasSucceeded" class="list-unstyled">
             <li *ngFor="let object of searchResults?.payload?.page; let i = index; let last = last" class="mt-4 mb-4 d-flex" [class.border-bottom]="true && !last">
-                <ds-listable-object-component-loader
-                        [object]="object" [viewMode]="paginatedSearchOptions.view" [index]="i" [context]="context"
-                        [listID]="paginatedSearchOptions.configuration"
-                ></ds-listable-object-component-loader>
+                <ds-listable-object-component-loader [context]="context"
+                                                     [index]="i"
+                                                     [listID]="paginatedSearchOptions.configuration"
+                                                     [object]="object"
+                                                     [showMetrics]="showMetrics"
+                                                     [showThumbnails]="showThumbnails"
+                                                     [viewMode]="paginatedSearchOptions.view"></ds-listable-object-component-loader>
             </li>
         </ul>
         <div *ngIf="searchResults?.hasFailed">
