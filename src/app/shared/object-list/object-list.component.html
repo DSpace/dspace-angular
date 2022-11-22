@@ -28,6 +28,8 @@
           <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode" [index]="i" [context]="context" [linkType]="linkType"
                                                [listID]="selectionConfig?.listId"
                                                [customData]="customData"
+                                               [showMetrics]="showMetrics"
+                                               [showThumbnails]="showThumbnails"
                                                (contentChange)="contentChange.emit()"
                                                (customEvent)="customEvent.emit($event)"
                                                (contentChange)="contentChange.emit($event)"></ds-listable-object-component-loader>

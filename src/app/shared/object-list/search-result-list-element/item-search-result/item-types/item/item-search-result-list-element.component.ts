@@ -22,21 +22,19 @@ import { Context } from '../../../../../../core/shared/context.model';
  */
 export class ItemSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
 
-  @Input() hideMetrics = false;
+  /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics = true;
 
   /**
    * Route to the item's page
    */
   itemPageRoute: string;
 
-  /**
-   * Display thumbnails if required by configuration
-   */
-  showThumbnails: boolean;
-
   ngOnInit(): void {
     super.ngOnInit();
-    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
+    this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
     this.itemPageRoute = getItemPageRoute(this.dso);
   }
 }
