@@ -17,9 +17,9 @@
       </ds-thumbnail>
     </span>
   </div>
-  <div class="d-flex">
+  <div class="d-flex" [ngClass]="showThumbnails ? 'col-9 col-md-10' : 'col-12'">
     <div class="truncatable-content">
-      <div [ngClass]="showThumbnails ? 'col-9 col-md-10' : 'col-12'">
+      <div>
         <ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
         <ds-truncatable [id]="dso.id">
           <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
