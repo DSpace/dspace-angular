@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
+
 import { EntityIconDirective } from './entity-icon.directive';
 
 describe('EntityIconDirective', () => {
@@ -64,6 +65,40 @@ describe('EntityIconDirective', () => {
     });
   });
 
+  describe('when given type doesn\'t exist and fallback on default disabled', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(TestComponent);
+      component = fixture.componentInstance;
+      component.fallbackOnDefault = false
+      component.metadata.entityType = 'TESTFAKE';
+      component.metadata.entityStyle = 'personFallback';
+      component.iconPosition = 'before';
+      fixture.detectChanges();
+    });
+
+    it('should not display a text-primary icon', () => {
+      const primaryIcon = fixture.debugElement.query(By.css('[data-test="entityTestComponent"]')).query(By.css('i'));
+      expect(primaryIcon).toBeFalsy();
+    });
+  });
+
+  describe('when given style doesn\'t exist and fallback on default disabled', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(TestComponent);
+      component = fixture.componentInstance;
+      component.fallbackOnDefault = false
+      component.metadata.entityType = 'person';
+      component.metadata.entityStyle = 'personFallback';
+      component.iconPosition = 'before';
+      fixture.detectChanges();
+    });
+
+    it('should not display a text-primary icon', () => {
+      const primaryIcon = fixture.debugElement.query(By.css('[data-test="entityTestComponent"]')).query(By.css('i'));
+      expect(primaryIcon).toBeFalsy();
+    });
+  });
+
 });
 
 // declare a test component
@@ -73,7 +108,8 @@ describe('EntityIconDirective', () => {
               <span dsEntityIcon
                    [iconPosition]="iconPosition"
                    [entityType]="metadata.entityType"
-                   [entityStyle]="metadata.entityStyle">{{metadata.value}}</span></div>`
+                   [entityStyle]="metadata.entityStyle"
+                   [fallbackOnDefault]="fallbackOnDefault">{{metadata.value}}</span></div>`
 })
 class TestComponent {
 
@@ -85,5 +121,6 @@ class TestComponent {
     entityStyle: 'default'
   };
   iconPosition = 'after';
+  fallbackOnDefault = true;
 
 }

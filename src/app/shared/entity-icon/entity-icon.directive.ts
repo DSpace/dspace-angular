@@ -1,6 +1,8 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+
 import { environment } from '../../../environments/environment';
-import { CrisRefEntityStyleConfig } from 'src/config/layout-config.interfaces';
+import { CrisRefConfig, CrisRefEntityStyleConfig } from 'src/config/layout-config.interfaces';
+import { isEmpty, isNotEmpty } from '../empty.util';
 
 /**
  * Directive to add to the element a entity icon based on metadata entity type and entity style
@@ -21,6 +23,11 @@ export class EntityIconDirective implements OnInit {
   @Input() entityStyle = 'default';
 
   /**
+   * A boolean representing if to fallback on default style if the given one is not found
+   */
+  @Input() fallbackOnDefault = true;
+
+  /**
    * A boolean representing if to show html icon before or after
    */
   @Input() iconPosition = 'after';
@@ -35,17 +42,61 @@ export class EntityIconDirective implements OnInit {
    *
    * @param {ElementRef} elem
    */
-  constructor( private elem: ElementRef ) { }
+  constructor(private elem: ElementRef) {
+  }
 
   /**
    * Adding icon to element oninit
    */
   ngOnInit() {
-    const filteredEntity = this.confValue.find((config) => config.entityType.toUpperCase() === this.entityType.toUpperCase()) ??
-                           this.confValue.find((config) => config.entityType.toUpperCase() === 'DEFAULT');
-    this.confValue.find((config) => config.entityType.toUpperCase() === this.entityType.toUpperCase());
-    const iconStyle: CrisRefEntityStyleConfig = filteredEntity.entityStyle[this.entityStyle] ?? filteredEntity.entityStyle.default;
-    const iconElement = `<i class="${iconStyle.icon} ${iconStyle.style}"></i>`;
+    const crisRefConfig: CrisRefConfig = this.getCrisRefConfigByType(this.entityType);
+    if (isNotEmpty(crisRefConfig)) {
+      const crisStyle: CrisRefEntityStyleConfig = this.getCrisRefEntityStyleConfig(crisRefConfig, this.entityStyle);
+      if (isNotEmpty(crisStyle)) {
+        this.addIcon(crisStyle);
+      }
+    }
+  }
+
+  /**
+   * Return the CrisRefConfig by the given type
+   *
+   * @param type
+   * @private
+   */
+  private getCrisRefConfigByType(type: string): CrisRefConfig {
+    let filteredConf: CrisRefConfig = this.confValue.find((config) => config.entityType.toUpperCase() === type.toUpperCase());
+    if (isEmpty(filteredConf) && this.fallbackOnDefault) {
+      filteredConf = this.confValue.find((config) => config.entityType.toUpperCase() === 'DEFAULT');
+    }
+
+    return filteredConf;
+  }
+
+  /**
+   * Return the CrisRefEntityStyleConfig by the given style
+   *
+   * @param crisConfig
+   * @param style
+   * @private
+   */
+  private getCrisRefEntityStyleConfig(crisConfig: CrisRefConfig, style: string): CrisRefEntityStyleConfig {
+    let filteredConf: CrisRefEntityStyleConfig = crisConfig.entityStyle[style];
+    if (isEmpty(filteredConf) && this.fallbackOnDefault) {
+      filteredConf = crisConfig.entityStyle.default;
+    }
+
+    return filteredConf;
+  }
+
+  /**
+   * Attach icon to HTML element
+   *
+   * @param crisStyle
+   * @private
+   */
+  private addIcon(crisStyle: CrisRefEntityStyleConfig): void {
+    const iconElement = `<i class="${crisStyle.icon} ${crisStyle.style}"></i>`;
     if (this.iconPosition === 'after') {
       this.elem.nativeElement.insertAdjacentHTML('afterend', '&nbsp;' + iconElement);
     } else {

@@ -291,12 +291,37 @@ crisLayout:
     - name: mailto
       baseUrl: "mailto:"
   crisRef:
+    - entityType: PRIVATE
+      entityStyle:
+        "dc.contributor.author":
+          icon: fa fa-user
+          style: text-muted
     - entityType: DEFAULT
-      icon: "fa fa-info"
+      entityStyle:
+        default:
+          icon: fa fa-user
+          style: text-info
     - entityType: PERSON
-      icon: "fa fa-user"
+      entityStyle:
+        person:
+          icon: fa fa-user
+          style: text-success
+        personStaff:
+          icon: fa fa-user
+          style: text-danger
+        default:
+          icon: fa fa-user
+          style: text-info
     - entityType: ORGUNIT
-      icon: "fa fa-university"
+      entityStyle:
+        default:
+          icon: fa fa-university
+          style: text-success
+    - entityType: PROJECT
+      entityStyle:
+        default:
+          icon: fas fa-project-diagram
+          style: text-success
   itemPage:
     OrgUnit:
       orientation: vertical

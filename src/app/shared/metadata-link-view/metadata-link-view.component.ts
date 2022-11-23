@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
+
+import { Observable, of as observableOf } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
+
 import { isNotEmpty } from '../empty.util';
 import { Item } from '../../core/shared/item.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { PLACEHOLDER_PARENT_METADATA } from '../form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { RemoteData } from '../../core/data/remote-data';
-
-import { Observable, of as observableOf } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-
 import { ItemDataService } from '../../core/data/item-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { Metadata } from '../../core/shared/metadata.utils';
@@ -33,14 +33,19 @@ export class MetadataLinkViewComponent implements OnInit {
   @Input() metadata: MetadataValue;
 
   /**
+   * Metadata name that we need to show in the template
+   */
+  @Input() metadataName: string;
+
+  /**
    * Item of the metadata value
    */
   @Input() item: Item;
 
   /**
-   * Processed metadata to create MetadataOrcid with the informations needed to show
+   * Processed metadata to create MetadataOrcid with the information needed to show
    */
-  metadata$: Observable<MetadataView>;
+  metadataView$: Observable<MetadataView>;
 
   /**
    * Position of the Icon before/after the element
@@ -48,15 +53,15 @@ export class MetadataLinkViewComponent implements OnInit {
   iconPosition = 'after';
 
   /**
-   * Map all entities with the icons specified in the envoirment configuration file
+   * Map all entities with the icons specified in the environment configuration file
    */
   constructor(private itemService: ItemDataService) { }
 
   /**
-   * On init process metadata to get the informations and form MetadataOrcid model
+   * On init process metadata to get the information and form MetadataOrcid model
    */
   ngOnInit(): void {
-    this.metadata$ = observableOf(this.metadata).pipe(
+    this.metadataView$ = observableOf(this.metadata).pipe(
       switchMap((metadataValue: MetadataValue) => {
         if (Metadata.hasValidAuthority(metadataValue.authority)) {
           return this.itemService.findById(metadataValue.authority).pipe(
@@ -67,16 +72,16 @@ export class MetadataLinkViewComponent implements OnInit {
                   authority: metadataValue.authority,
                   value: metadataValue.value,
                   orcidAuthenticated: this.getOrcid(itemRD.payload),
-                  entityType: itemRD.payload.firstMetadataValue('dspace.entity.type'),
-                  entityStyle: itemRD.payload.firstMetadataValue('cris.entity.style')
+                  entityType: itemRD.payload?.entityType,
+                  entityStyle: itemRD.payload?.firstMetadataValue('cris.entity.style')
                 };
               } else {
                 return {
                   authority: null,
                   value: metadataValue.value,
                   orcidAuthenticated: null,
-                  entityType: null,
-                  entityStyle: null
+                  entityType: 'PRIVATE',
+                  entityStyle: this.metadataName
                 };
               }
             })
@@ -90,17 +95,19 @@ export class MetadataLinkViewComponent implements OnInit {
             entityStyle: null
           });
         }
-      })
+      }),
+      take(1),
+      tap(console.log)
     );
   }
 
   /**
-   * Returns the orcid for given item, or
-   * null if there is no metadata authenticated for persion
+   * Returns the orcid for given item, or null if there is no metadata authenticated for person
+   *
    * @param referencedItem Item of the metadata being shown
    */
   getOrcid(referencedItem: Item): string {
-    if (referencedItem.hasMetadata('dspace.orcid.authenticated')) {
+    if (referencedItem?.hasMetadata('dspace.orcid.authenticated')) {
       return referencedItem.firstMetadataValue('person.identifier.orcid');
     }
     return null;
@@ -108,6 +115,7 @@ export class MetadataLinkViewComponent implements OnInit {
 
   /**
    * Normalize value to display
+   *
    * @param value
    */
   normalizeValue(value: string): string {

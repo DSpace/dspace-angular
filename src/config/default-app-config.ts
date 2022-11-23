@@ -22,7 +22,10 @@ import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-confi
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
-import { AdvancedAttachmentRenderingConfig, AdvancedAttachmentElementType } from './advanced-attachment-rendering.config';
+import {
+  AdvancedAttachmentElementType,
+  AdvancedAttachmentRenderingConfig
+} from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 
 export class DefaultAppConfig implements AppConfig {
@@ -410,25 +413,17 @@ export class DefaultAppConfig implements AppConfig {
         entityType: 'DEFAULT',
         entityStyle: {
           default: {
-            icon: 'fa fa-user',
-            style: 'text-success'
+            icon: 'fa fa-info',
+            style: 'text-info'
           }
         }
       },
       {
         entityType: 'PERSON',
         entityStyle: {
-          person: {
-            icon: 'fa fa-user',
-            style: 'text-success'
-          },
-          personStaff: {
-            icon: 'fa fa-user',
-            style: 'text-primary'
-          },
           default: {
             icon: 'fa fa-user',
-            style: 'text-success'
+            style: 'text-info'
           }
         }
       },
@@ -437,7 +432,16 @@ export class DefaultAppConfig implements AppConfig {
         entityStyle: {
           default: {
             icon: 'fa fa-university',
-            style: 'text-success'
+            style: 'text-info'
+          }
+        }
+      },
+      {
+        entityType: 'PROJECT',
+        entityStyle: {
+          default: {
+            icon: 'fas fa-project-diagram',
+            style: 'text-info'
           }
         }
       }
