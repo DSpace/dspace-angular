@@ -295,7 +295,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
         'dc.title': [new FormFieldMetadataValueObject('test')]
       };
       compAsAny.formData = {};
-      compAsAny.sectionMetadata = ['dc.title'];
+      compAsAny.sectionData.data = {
+        'dc.title': [new FormFieldMetadataValueObject('test')]
+      };
 
       expect(comp.hasMetadataEnrichment(newSectionData)).toBeTruthy();
     });
