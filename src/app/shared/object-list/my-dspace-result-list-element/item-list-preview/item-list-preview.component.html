@@ -14,15 +14,15 @@
           (<span *ngIf="item.hasMetadata('dc.publisher')" class="item-list-publisher"
                  [innerHTML]="item.firstMetadataValue('dc.publisher') + ', '"></span>
           <span class="item-list-date" [innerHTML]="item.firstMetadataValue('dc.date.issued') || ('mydspace.results.no-date' | translate)"></span>)
-          <span *ngIf="item.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);"
-                class="item-list-authors">
-              <span *ngIf="item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length === 0">{{'mydspace.results.no-authors' | translate}}</span>
-              <span *ngFor="let author of item.allMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
-                <!-- <span [innerHTML]="author"><span [innerHTML]="author"></span></span> -->
-                <ds-metadata-link-view *ngIf="!!item && !!author" [item]="item" [metadata]="author"></ds-metadata-link-view>
-              </span>
-          </span>
-
+          <ng-container *ngVar="['dc.contributor.author', 'dc.creator', 'dc.contributor.*'] as mdList">
+            <span *ngIf="item.hasMetadata(mdList);"
+                  class="item-list-authors">
+                <span *ngIf="item.allMetadataValues(mdList).length === 0">{{'mydspace.results.no-authors' | translate}}</span>
+                <span *ngFor="let author of item.allMetadata(mdList); let i=index; let last=last;">
+                  <ds-metadata-link-view *ngIf="!!item && !!author" [item]="item" [metadata]="author" [metadataName]="mdList"></ds-metadata-link-view>
+                </span>
+            </span>
+          </ng-container>
           </ds-truncatable-part>
       </span>
 

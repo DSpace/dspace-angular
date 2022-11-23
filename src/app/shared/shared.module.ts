@@ -327,6 +327,7 @@ import { ItemCorrectionComponent } from './object-collection/shared/mydspace-ite
 import { MetricsModule } from './metric/metrics.module';
 import { SearchChartBarHorizontalComponent } from './search/search-charts/search-chart/search-chart-bar-horizontal/search-chart-bar-horizontal.component';
 import { ThumbnailService } from './thumbnail/thumbnail.service';
+import { EntityIconDirective } from './entity-icon/entity-icon.directive';
 
 const MODULES = [
   CommonModule,
@@ -640,6 +641,7 @@ const DIRECTIVES = [
   NgForTrackByIdDirective,
   MetadataFieldValidator,
   HoverClassDirective,
+  EntityIconDirective
 ];
 
 @NgModule({
