@@ -19,7 +19,7 @@
                   class="item-list-authors">
                 <span *ngIf="item.allMetadataValues(mdList).length === 0">{{'mydspace.results.no-authors' | translate}}</span>
                 <span *ngFor="let author of item.allMetadata(mdList); let i=index; let last=last;">
-                  <ds-metadata-link-view *ngIf="!!item && !!author" [item]="item" [metadata]="author" [metadataName]="mdList[i]"></ds-metadata-link-view>
+                  <ds-metadata-link-view *ngIf="!!item && !!author" [item]="item" [metadata]="author" [metadataName]="mdList"></ds-metadata-link-view>
                 </span>
             </span>
           </ng-container>

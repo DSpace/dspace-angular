@@ -20,7 +20,7 @@ export class EntityIconDirective implements OnInit {
   /**
    * The metadata entity style
    */
-  @Input() entityStyle = 'default';
+  @Input() entityStyle: string|string[] = 'default';
 
   /**
    * A boolean representing if to fallback on default style if the given one is not found
@@ -77,11 +77,21 @@ export class EntityIconDirective implements OnInit {
    * Return the CrisRefEntityStyleConfig by the given style
    *
    * @param crisConfig
-   * @param style
+   * @param styles
    * @private
    */
-  private getCrisRefEntityStyleConfig(crisConfig: CrisRefConfig, style: string): CrisRefEntityStyleConfig {
-    let filteredConf: CrisRefEntityStyleConfig = crisConfig.entityStyle[style];
+  private getCrisRefEntityStyleConfig(crisConfig: CrisRefConfig, styles: string|string[]): CrisRefEntityStyleConfig {
+    let filteredConf: CrisRefEntityStyleConfig;
+    if (Array.isArray(styles)) {
+      styles.forEach((style) => {
+        if (Object.keys(crisConfig.entityStyle).includes(style)) {
+          filteredConf = crisConfig.entityStyle[style]
+        }
+      })
+    } else {
+      filteredConf = crisConfig.entityStyle[styles];
+    }
+
     if (isEmpty(filteredConf) && this.fallbackOnDefault) {
       filteredConf = crisConfig.entityStyle.default;
     }

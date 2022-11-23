@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 
 import { isNotEmpty } from '../empty.util';
 import { Item } from '../../core/shared/item.model';
@@ -17,7 +17,7 @@ interface MetadataView {
   value: string;
   orcidAuthenticated: string;
   entityType: string;
-  entityStyle: string;
+  entityStyle: string|string[];
 }
 
 @Component({
@@ -35,7 +35,7 @@ export class MetadataLinkViewComponent implements OnInit {
   /**
    * Metadata name that we need to show in the template
    */
-  @Input() metadataName: string;
+  @Input() metadataName: string|string[];
 
   /**
    * Item of the metadata value
@@ -96,8 +96,7 @@ export class MetadataLinkViewComponent implements OnInit {
           });
         }
       }),
-      take(1),
-      tap(console.log)
+      take(1)
     );
   }
 
