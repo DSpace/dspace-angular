@@ -60,6 +60,7 @@ import { PublisherPolicyComponent } from './sections/sherpa-policies/publisher-p
 import {
   PublicationInformationComponent
 } from './sections/sherpa-policies/publication-information/publication-information.component';
+import { UploadModule } from '../shared/upload/upload.module';
 import {
   MetadataInformationComponent
 } from './sections/sherpa-policies/metadata-information/metadata-information.component';
@@ -115,7 +116,8 @@ const DECLARATIONS = [
     FormModule,
     NgbModalModule,
     NgbCollapseModule,
-    NgbAccordionModule
+    NgbAccordionModule,
+    UploadModule,
   ],
   declarations: DECLARATIONS,
   exports: [

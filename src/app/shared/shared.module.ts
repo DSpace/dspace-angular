@@ -17,7 +17,6 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FileUploadModule } from 'ng2-file-upload';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MomentModule } from 'ngx-moment';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
@@ -30,7 +29,6 @@ import {
 import {
   ImportBatchSelectorComponent
 } from './dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
-import { FileDropzoneNoUploaderComponent } from './file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { ItemListElementComponent } from './object-list/item-list-element/item-types/item/item-list-element.component';
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
 import { FileSizePipe } from './utils/file-size-pipe';
@@ -73,7 +71,6 @@ import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';
 import { TruncatableService } from './truncatable/truncatable.service';
 import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
-import { UploaderComponent } from './uploader/uploader.component';
 import { MockAdminGuard } from './mocks/admin-guard.service.mock';
 import { AlertComponent } from './alert/alert.component';
 import {
@@ -322,7 +319,6 @@ import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha
 
 const MODULES = [
   CommonModule,
-  FileUploadModule,
   FormsModule,
   InfiniteScrollModule,
   NgbNavModule,
@@ -393,8 +389,6 @@ const COMPONENTS = [
   SidebarFilterComponent,
   SidebarFilterSelectedOptionComponent,
   ThumbnailComponent,
-  UploaderComponent,
-  FileDropzoneNoUploaderComponent,
   ItemListPreviewComponent,
   ThemedItemListPreviewComponent,
   MyDSpaceItemStatusComponent,
@@ -479,7 +473,6 @@ const COMPONENTS = [
   ImportBatchSelectorComponent,
   ExportBatchSelectorComponent,
   ConfirmationModalComponent,
-  VocabularyTreeviewComponent,
   AuthorizedCollectionSelectorComponent,
   CurationFormComponent,
   SearchResultListElementComponent,
@@ -560,7 +553,6 @@ const ENTRY_COMPONENTS = [
   ImportBatchSelectorComponent,
   ExportBatchSelectorComponent,
   ConfirmationModalComponent,
-  VocabularyTreeviewComponent,
   SidebarSearchListElementComponent,
   PublicationSidebarSearchListElementComponent,
   CollectionSidebarSearchListElementComponent,

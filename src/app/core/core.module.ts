@@ -23,7 +23,6 @@ import { ObjectSelectService } from '../shared/object-select/object-select.servi
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { UploaderService } from '../shared/uploader/uploader.service';
 import { SectionFormOperationsService } from '../submission/sections/form/section-form-operations.service';
 import { AuthenticatedGuard } from './auth/authenticated.guard';
 import { AuthStatus } from './auth/models/auth-status.model';
@@ -233,12 +232,10 @@ const PROVIDERS = [
   SubmissionResponseParsingService,
   SubmissionJsonPatchOperationsService,
   JsonPatchOperationsBuilder,
-  UploaderService,
   UUIDService,
   NotificationsService,
   WorkspaceitemDataService,
   WorkflowItemDataService,
-  UploaderService,
   DSpaceObjectDataService,
   ConfigurationDataService,
   DSOChangeAnalyzer,
