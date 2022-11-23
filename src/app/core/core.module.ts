@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 
-import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
 
 import { Action, StoreConfig, StoreModule } from '@ngrx/store';
@@ -23,7 +22,6 @@ import { ObjectSelectService } from '../shared/object-select/object-select.servi
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { SectionFormOperationsService } from '../submission/sections/form/section-form-operations.service';
 import { AuthenticatedGuard } from './auth/authenticated.guard';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { BrowseService } from './browse/browse.service';
