@@ -285,9 +285,6 @@ import {
   MetadataRepresentationListComponent
 } from '../item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { RelatedItemsComponent } from '../item-page/simple/related-items/related-items-component';
-import { LinkMenuItemComponent } from './menu/menu-item/link-menu-item.component';
-import { OnClickMenuItemComponent } from './menu/menu-item/onclick-menu-item.component';
-import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import {
@@ -304,7 +301,6 @@ import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { RSSComponent } from './rss-feed/rss.component';
-import { ExternalLinkMenuItemComponent } from './menu/menu-item/external-link-menu-item.component';
 import { DsoPageOrcidButtonComponent } from './dso-page/dso-page-orcid-button/dso-page-orcid-button.component';
 import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 import { BrowserOnlyPipe } from './utils/browser-only.pipe';
@@ -316,6 +312,7 @@ import {
 } from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 import { MarkdownPipe } from './utils/markdown.pipe';
 import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
+import { MenuModule } from './menu/menu.module';
 
 const MODULES = [
   CommonModule,
@@ -336,6 +333,7 @@ const MODULES = [
   DragDropModule,
   CdkTreeModule,
   GoogleRecaptchaModule,
+  MenuModule,
 ];
 
 const ROOT_MODULES = [
@@ -557,11 +555,7 @@ const ENTRY_COMPONENTS = [
   PublicationSidebarSearchListElementComponent,
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
-  LinkMenuItemComponent,
-  OnClickMenuItemComponent,
-  TextMenuItemComponent,
   ScopeSelectorModalComponent,
-  ExternalLinkMenuItemComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
