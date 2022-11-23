@@ -36,6 +36,8 @@ import { VersionDataService } from '../../../../core/data/version-data.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { BrowseLinkDataService } from '../../../../core/browse/browse-link-data.service';
+import { browseLinkDataServiceStub } from '../../../../shared/testing/browse-link-data-service.stub';
 
 const noMetadata = new MetadataMap();
 
@@ -87,7 +89,8 @@ describe('PublicationComponent', () => {
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         { provide: WorkspaceitemDataService, useValue: {} },
         { provide: SearchService, useValue: {} },
-        { provide: RouteService, useValue: mockRouteService }
+        { provide: RouteService, useValue: mockRouteService },
+        { provide: BrowseLinkDataService, useValue: browseLinkDataServiceStub }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

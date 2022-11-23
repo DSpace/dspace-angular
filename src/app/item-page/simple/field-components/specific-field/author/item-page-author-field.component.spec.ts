@@ -7,6 +7,8 @@ import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component
 import { ItemPageAuthorFieldComponent } from './item-page-author-field.component';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
+import { BrowseLinkDataService } from '../../../../../core/browse/browse-link-data.service';
+import { browseLinkDataServiceStub } from '../../../../../shared/testing/browse-link-data-service.stub';
 
 let comp: ItemPageAuthorFieldComponent;
 let fixture: ComponentFixture<ItemPageAuthorFieldComponent>;
@@ -25,6 +27,7 @@ describe('ItemPageAuthorFieldComponent', () => {
       })],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
+        { provide: BrowseLinkDataService, useValue: browseLinkDataServiceStub }
       ],
       declarations: [ItemPageAuthorFieldComponent, MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA]

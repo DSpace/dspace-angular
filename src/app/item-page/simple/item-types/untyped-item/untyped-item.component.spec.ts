@@ -36,6 +36,8 @@ import { VersionDataService } from '../../../../core/data/version-data.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { BrowseLinkDataService } from '../../../../core/browse/browse-link-data.service';
+import { browseLinkDataServiceStub } from '../../../../shared/testing/browse-link-data-service.stub';
 import { ItemVersionsSharedService } from '../../../versions/item-versions-shared.service';
 
 const noMetadata = new MetadataMap();
@@ -90,7 +92,8 @@ describe('UntypedItemComponent', () => {
         { provide: SearchService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: ItemVersionsSharedService, useValue: {} },
-        { provide: RouteService, useValue: mockRouteService }
+        { provide: RouteService, useValue: mockRouteService },
+        { provide: BrowseLinkDataService, useValue: browseLinkDataServiceStub }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(UntypedItemComponent, {

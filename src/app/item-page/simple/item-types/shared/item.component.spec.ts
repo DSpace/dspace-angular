@@ -38,6 +38,8 @@ import { VersionHistoryDataService } from '../../../../core/data/version-history
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { ResearcherProfileDataService } from '../../../../core/profile/researcher-profile-data.service';
+import { BrowseLinkDataService } from '../../../../core/browse/browse-link-data.service';
+import { browseLinkDataServiceStub } from '../../../../shared/testing/browse-link-data-service.stub';
 
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
@@ -125,7 +127,8 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           { provide: SearchService, useValue: {} },
           { provide: RouteService, useValue: mockRouteService },
           { provide: AuthorizationDataService, useValue: authorizationService },
-          { provide: ResearcherProfileDataService, useValue: {} }
+          { provide: ResearcherProfileDataService, useValue: {} },
+          { provide: BrowseLinkDataService, useValue: browseLinkDataServiceStub }
         ],
 
         schemas: [NO_ERRORS_SCHEMA]

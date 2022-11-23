@@ -7,6 +7,8 @@ import { SharedModule } from '../../../../../shared/shared.module';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { By } from '@angular/platform-browser';
+import { BrowseLinkDataService } from '../../../../../core/browse/browse-link-data.service';
+import { browseLinkDataServiceStub } from '../../../../../shared/testing/browse-link-data-service.stub';
 
 let comp: ItemPageAbstractFieldComponent;
 let fixture: ComponentFixture<ItemPageAbstractFieldComponent>;
@@ -25,6 +27,7 @@ describe('ItemPageAbstractFieldComponent', () => {
       ],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
+        { provide: BrowseLinkDataService, useValue: browseLinkDataServiceStub }
       ],
       declarations: [ItemPageAbstractFieldComponent],
       schemas: [NO_ERRORS_SCHEMA]

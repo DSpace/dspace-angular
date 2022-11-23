@@ -29,8 +29,10 @@ describe('BrowseLinkMetadataListElementComponent', () => {
     fixture.detectChanges();
   }));
 
-  it('should contain the value as a browse link', () => {
-    expect(fixture.debugElement.nativeElement.textContent).toContain(mockMetadataRepresentation.value);
-  });
+  waitForAsync(() => {
+    it('should contain the value as a browse link', () => {
+      expect(fixture.debugElement.nativeElement.textContent).toContain(mockMetadataRepresentation.value);
+    });
+  })
 
 });
