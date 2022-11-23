@@ -223,8 +223,8 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
 
     const sectionDataToCheck = {};
     Object.keys(sectionData).forEach((key) => {
-      if (this.sectionMetadata && this.sectionMetadata.includes(key)) {
-        sectionDataToCheck[key] = sectionData[key];
+      if (this.sectionData.data && hasValue(this.sectionData.data[key])) {
+        sectionDataToCheck[key] = this.sectionData.data[key];
       }
     });
 
