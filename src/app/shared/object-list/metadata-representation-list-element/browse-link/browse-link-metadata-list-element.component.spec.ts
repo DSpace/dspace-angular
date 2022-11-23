@@ -33,6 +33,6 @@ describe('BrowseLinkMetadataListElementComponent', () => {
     it('should contain the value as a browse link', () => {
       expect(fixture.debugElement.nativeElement.textContent).toContain(mockMetadataRepresentation.value);
     });
-  })
+  });
 
 });
