@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import * as Klaro from 'klaro';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -43,6 +42,17 @@ const cookiePurposeMessagePrefix = 'cookies.consent.purpose.';
 const updateDebounce = 300;
 
 /**
+ * By using this injection token instead of importing directly we can keep Klaro out of the main bundle
+ */
+const LAZY_KLARO = new InjectionToken<Promise<any>>(
+  'Lazily loaded Klaro',
+  {
+    providedIn: 'root',
+    factory: async () => (await import('klaro')),
+  }
+);
+
+/**
  * Browser implementation for the KlaroService, representing a service for handling Klaro consent preferences and UI
  */
 @Injectable()
@@ -64,7 +74,9 @@ export class BrowserKlaroService extends KlaroService {
     private authService: AuthService,
     private ePersonService: EPersonDataService,
     private configService: ConfigurationDataService,
-    private cookieService: CookieService) {
+    private cookieService: CookieService,
+    @Inject(LAZY_KLARO) private lazyKlaro: Promise<any>,
+  ) {
     super();
   }
 
@@ -134,8 +146,7 @@ export class BrowserKlaroService extends KlaroService {
         this.translateConfiguration();
 
         this.klaroConfig.services = this.filterConfigServices(servicesToHide);
-
-        Klaro.setup(this.klaroConfig);
+        this.lazyKlaro.then(({ setup }) => setup(this.klaroConfig));
       });
   }
 
@@ -219,7 +230,7 @@ export class BrowserKlaroService extends KlaroService {
    * Show the cookie consent form
    */
   showSettings() {
-    Klaro.show(this.klaroConfig);
+    this.lazyKlaro.then(({show}) => show(this.klaroConfig));
   }
 
   /**
