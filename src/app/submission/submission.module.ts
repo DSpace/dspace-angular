@@ -63,6 +63,7 @@ import {
 import {
   MetadataInformationComponent
 } from './sections/sherpa-policies/metadata-information/metadata-information.component';
+import { SectionFormOperationsService } from './sections/form/section-form-operations.service';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -117,13 +118,17 @@ const DECLARATIONS = [
     NgbAccordionModule
   ],
   declarations: DECLARATIONS,
-  exports: DECLARATIONS,
+  exports: [
+    ...DECLARATIONS,
+    FormModule,
+  ],
   providers: [
     SectionUploadService,
     SectionsService,
     SubmissionUploadsConfigDataService,
     SubmissionAccessesConfigDataService,
     SectionAccessesService,
+    SectionFormOperationsService,
   ]
 })
 

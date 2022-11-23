@@ -9,8 +9,6 @@ import { Action, StoreConfig, StoreModule } from '@ngrx/store';
 import { MyDSpaceGuard } from '../my-dspace-page/my-dspace.guard';
 
 import { isNotEmpty } from '../shared/empty.util';
-import { FormBuilderService } from '../shared/form/builder/form-builder.service';
-import { FormService } from '../shared/form/form.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { EndpointMockingRestService } from '../shared/mocks/dspace-rest/endpoint-mocking-rest.service';
@@ -138,9 +136,6 @@ import {
 import { Registration } from './shared/registration.model';
 import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
 import { MetadataFieldDataService } from './data/metadata-field-data.service';
-import {
-  DsDynamicTypeBindRelationService
-} from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { TokenResponseParsingService } from './auth/token-response-parsing.service';
 import { SubmissionCcLicenseDataService } from './submission/submission-cc-license-data.service';
 import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
@@ -150,7 +145,6 @@ import { VocabularyEntry } from './submission/vocabularies/models/vocabulary-ent
 import { Vocabulary } from './submission/vocabularies/models/vocabulary.model';
 import { VocabularyEntryDetail } from './submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from './submission/vocabularies/vocabulary.service';
-import { VocabularyTreeviewService } from '../shared/vocabulary-treeview/vocabulary-treeview.service';
 import { ConfigurationDataService } from './data/configuration-data.service';
 import { ConfigurationProperty } from './shared/configuration-property.model';
 import { ReloadGuard } from './reload/reload.guard';
@@ -211,12 +205,6 @@ const PROVIDERS = [
   DSOResponseParsingService,
   { provide: MOCK_RESPONSE_MAP, useValue: mockResponseMap },
   { provide: DspaceRestService, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient] },
-  DynamicFormLayoutService,
-  DynamicFormService,
-  DynamicFormValidationService,
-  FormBuilderService,
-  SectionFormOperationsService,
-  FormService,
   EPersonDataService,
   LinkHeadService,
   HALEndpointService,
@@ -268,7 +256,6 @@ const PROVIDERS = [
   ClaimedTaskDataService,
   PoolTaskDataService,
   BitstreamDataService,
-  DsDynamicTypeBindRelationService,
   EntityTypeDataService,
   ContentSourceResponseParsingService,
   ItemTemplateDataService,
@@ -304,7 +291,6 @@ const PROVIDERS = [
   VocabularyService,
   VocabularyDataService,
   VocabularyEntryDetailsDataService,
-  VocabularyTreeviewService,
   SequenceService,
   GroupDataService,
   FeedbackDataService,

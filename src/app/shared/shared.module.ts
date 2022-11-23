@@ -74,8 +74,6 @@ import { TruncatableComponent } from './truncatable/truncatable.component';
 import { TruncatableService } from './truncatable/truncatable.service';
 import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
 import { UploaderComponent } from './uploader/uploader.component';
-import { ChipsComponent } from './chips/chips.component';
-import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { MockAdminGuard } from './mocks/admin-guard.service.mock';
 import { AlertComponent } from './alert/alert.component';
 import {
@@ -111,7 +109,6 @@ import { EmphasizePipe } from './utils/emphasize.pipe';
 import { InputSuggestionsComponent } from './input-suggestions/input-suggestions.component';
 import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
-import { AuthorityConfidenceStateDirective } from './authority-confidence/authority-confidence-state.directive';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import {
   PlainTextMetadataListElementComponent
@@ -232,7 +229,6 @@ import {
   ImportableListItemControlComponent
 } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
 import { ItemVersionsComponent } from './item/item-versions/item-versions.component';
-import { SortablejsModule } from 'ngx-sortablejs';
 import { LogInContainerComponent } from './log-in/container/log-in-container.component';
 import { LogInShibbolethComponent } from './log-in/methods/shibboleth/log-in-shibboleth.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
@@ -258,7 +254,6 @@ import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
 import { FileDownloadLinkComponent } from './file-download-link/file-download-link.component';
 import { CollectionDropdownComponent } from './collection-dropdown/collection-dropdown.component';
 import { EntityDropdownComponent } from './entity-dropdown/entity-dropdown.component';
-import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
 import {
   PublicationSidebarSearchListElementComponent
@@ -327,7 +322,6 @@ import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha
 
 const MODULES = [
   CommonModule,
-  SortablejsModule,
   FileUploadModule,
   FormsModule,
   InfiniteScrollModule,
@@ -377,7 +371,6 @@ const COMPONENTS = [
   AuthNavMenuComponent,
   ThemedAuthNavMenuComponent,
   UserMenuComponent,
-  ChipsComponent,
   DsSelectComponent,
   ErrorComponent,
   FileSectionComponent,
@@ -386,7 +379,6 @@ const COMPONENTS = [
   ThemedLoadingComponent,
   LogInComponent,
   LogOutComponent,
-  NumberPickerComponent,
   ObjectListComponent,
   ThemedObjectListComponent,
   ObjectDetailComponent,
@@ -605,7 +597,6 @@ const DIRECTIVES = [
   DragClickDirective,
   DebounceDirective,
   ClickOutsideDirective,
-  AuthorityConfidenceStateDirective,
   InListValidator,
   AutoFocusDirective,
   RoleDirective,
