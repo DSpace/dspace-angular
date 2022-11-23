@@ -1,6 +1,6 @@
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Item } from '../../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { ItemPageFieldComponent } from './item-page-field.component';
