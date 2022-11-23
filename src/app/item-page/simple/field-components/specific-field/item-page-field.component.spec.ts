@@ -139,8 +139,10 @@ describe('ItemPageFieldComponent', () => {
     beforeEach(() => {
       fixture.detectChanges();
     });
-    it('should have a browse link', () => {
-      expect(fixture.debugElement.query(By.css('a.ds-browse-link')).nativeElement.innerHTML).toContain(mockValue);
+    waitForAsync(() => {
+      it('should have a browse link', () => {
+        expect(fixture.debugElement.query(By.css('a.ds-browse-link')).nativeElement.innerHTML).toContain(mockValue);
+      });
     });
   });
 
@@ -149,11 +151,11 @@ describe('ItemPageFieldComponent', () => {
       comp.urlRegex = '^test';
       fixture.detectChanges();
     });
-    beforeEach(waitForAsync(() => {
+    waitForAsync(() => {
       it('should have a rendered (non-browse) link since the value matches ^test', () => {
         expect(fixture.debugElement.query(By.css('a.ds-simple-metadata-link')).nativeElement.innerHTML).toContain(mockValue);
       });
-    }));
+    });
   });
 
   describe('test skipping of configured links that do NOT match regex', () => {
