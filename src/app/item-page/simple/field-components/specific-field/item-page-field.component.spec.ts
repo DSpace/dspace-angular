@@ -135,37 +135,37 @@ describe('ItemPageFieldComponent', () => {
 
   });
 
-  describe("test rendering of configured browse links", () => {
+  describe('test rendering of configured browse links', () => {
     beforeEach(() => {
       fixture.detectChanges();
     });
     it('should have a browse link', () => {
       expect(fixture.debugElement.query(By.css('a.ds-browse-link')).nativeElement.innerHTML).toContain(mockValue);
-    })
+    });
   });
 
-  describe("test rendering of configured regex-based links", () => {
+  describe('test rendering of configured regex-based links', () => {
     beforeEach(() => {
-      comp.urlRegex = '^test'
+      comp.urlRegex = '^test';
       fixture.detectChanges();
     });
     beforeEach(waitForAsync(() => {
       it('should have a rendered (non-browse) link since the value matches ^test', () => {
         expect(fixture.debugElement.query(By.css('a.ds-simple-metadata-link')).nativeElement.innerHTML).toContain(mockValue);
-      })
-    }))
+      });
+    }));
   });
 
-  describe("test skipping of configured links that do NOT match regex", () => {
+  describe('test skipping of configured links that do NOT match regex', () => {
     beforeEach(() => {
-      comp.urlRegex = '^nope'
+      comp.urlRegex = '^nope';
       fixture.detectChanges();
     });
     beforeEach(waitForAsync(() => {
       it('should NOT have a rendered (non-browse) link since the value matches ^test', () => {
-        expect(fixture.debugElement.query(By.css('a.ds-simple-metadata-link'))).toBeNull()
-      })
-    }))
+        expect(fixture.debugElement.query(By.css('a.ds-simple-metadata-link'))).toBeNull();
+      });
+    }));
   });
 
 
@@ -181,6 +181,6 @@ export function mockItemWithMetadataFieldsAndValue(fields: string[], value: stri
       language: 'en_US',
       value: value
     }] as MetadataValue[];
-  })
+  });
   return item;
 }

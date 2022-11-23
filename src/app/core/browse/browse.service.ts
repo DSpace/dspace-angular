@@ -229,7 +229,6 @@ export class BrowseService {
    * @param linkPath
    */
   getBrowseURLFor(metadataKey: string, linkPath: string): Observable<string> {
-    console.log("Looking for " + metadataKey + " in link path " + linkPath);
     const searchKeyArray = BrowseService.toSearchKeyArray(metadataKey);
     return this.getBrowseDefinitions().pipe(
       getRemoteDataPayload(),
@@ -261,7 +260,7 @@ export class BrowseService {
     let searchKeyArray: string[] = [];
     metadataKeys.forEach((metadataKey) => {
       searchKeyArray = searchKeyArray.concat(BrowseService.toSearchKeyArray(metadataKey));
-    })
+    });
     return this.getBrowseDefinitions().pipe(
       getRemoteDataPayload(),
       getPaginatedListPayload(),

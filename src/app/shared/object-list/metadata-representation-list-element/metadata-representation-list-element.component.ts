@@ -16,7 +16,7 @@ export class MetadataRepresentationListElementComponent {
 
   isLink(): boolean {
     // Match any http:// or https://
-    const linkPattern: RegExp = /^https?\/\//;
+    const linkPattern = /^https?\/\//;
     return linkPattern.test(this.metadataRepresentation.getValue());
   }
 

@@ -55,7 +55,7 @@ export class BrowseLinkDataService extends IdentifiableDataService<BrowseDefinit
     let searchKeyArray: string[] = [];
     metadataKeys.forEach((metadataKey) => {
       searchKeyArray = searchKeyArray.concat(BrowseService.toSearchKeyArray(metadataKey));
-    })
+    });
     return this.getBrowseLinks().pipe(
       getRemoteDataPayload(),
       getPaginatedListPayload(),

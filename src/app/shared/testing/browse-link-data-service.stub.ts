@@ -15,24 +15,24 @@ import { PageInfo } from '../../core/shared/page-info.model';
 // This data is in post-serialized form (metadata -> metadataKeys)
 export const mockData: BrowseDefinition[] = [
       Object.assign(new BrowseDefinition, {
-      "id" : "dateissued",
-      "metadataBrowse" : false,
-      "dataType" : "date",
-      "sortOptions" : EMPTY,
-      "order" : "ASC",
-      "type" : "browse",
-      "metadataKeys" : [ "dc.date.issued" ],
-      "_links" : EMPTY
+      'id' : 'dateissued',
+      'metadataBrowse' : false,
+      'dataType' : 'date',
+      'sortOptions' : EMPTY,
+      'order' : 'ASC',
+      'type' : 'browse',
+      'metadataKeys' : [ 'dc.date.issued' ],
+      '_links' : EMPTY
      }),
      Object.assign(new BrowseDefinition, {
-      "id" : "author",
-      "metadataBrowse" : true,
-      "dataType" : "text",
-      "sortOptions" : EMPTY,
-      "order" : "ASC",
-      "type" : "browse",
-      "metadataKeys" : [ "dc.contributor.*", "dc.creator" ],
-      "_links" : EMPTY
+      'id' : 'author',
+      'metadataBrowse' : true,
+      'dataType' : 'text',
+      'sortOptions' : EMPTY,
+      'order' : 'ASC',
+      'type' : 'browse',
+      'metadataKeys' : [ 'dc.contributor.*', 'dc.creator' ],
+      '_links' : EMPTY
     })
 ];
 
@@ -53,7 +53,7 @@ export const browseLinkDataServiceStub: any = {
     let searchKeyArray: string[] = [];
     metadataKeys.forEach((metadataKey) => {
       searchKeyArray = searchKeyArray.concat(BrowseService.toSearchKeyArray(metadataKey));
-    })
+    });
     return this.getBrowseLinks().pipe(
       getRemoteDataPayload(),
       getPaginatedListPayload(),
@@ -74,4 +74,4 @@ export const browseLinkDataServiceStub: any = {
       distinctUntilChanged()
     );
   }
-}
+};

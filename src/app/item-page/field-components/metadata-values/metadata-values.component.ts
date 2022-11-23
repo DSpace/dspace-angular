@@ -71,7 +71,7 @@ export class MetadataValuesComponent implements OnChanges {
    */
   hasLink(value): boolean {
     if (hasValue(this.urlRegex)) {
-      const pattern: RegExp = new RegExp(this.urlRegex);
+      const pattern = new RegExp(this.urlRegex);
       return pattern.test(value.value);
     }
     return false;
