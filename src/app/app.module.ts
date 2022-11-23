@@ -8,7 +8,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { MetaReducer, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
-import { DYNAMIC_ERROR_MESSAGES_MATCHER, DYNAMIC_MATCHER_PROVIDERS, DynamicErrorMessagesMatcher } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,7 +27,6 @@ import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
 import { LogInterceptor } from './core/log/log.interceptor';
 import { EagerThemesModule } from '../themes/eager-themes.module';
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
-import { NgxMaskModule } from 'ngx-mask';
 import { StoreDevModules } from '../config/store/devtools';
 import { RootModule } from './root.module';
 
@@ -46,14 +44,6 @@ export function getMetaReducers(appConfig: AppConfig): MetaReducer<AppState>[] {
   return appConfig.debug ? [...appMetaReducers, ...debugMetaReducers] : appMetaReducers;
 }
 
-/**
- * Condition for displaying error messages on email form field
- */
-export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
-  (control: AbstractControl, model: any, hasFocus: boolean) => {
-    return (control.touched && !hasFocus) || (control.errors?.emailTaken && hasFocus);
-  };
-
 const IMPORTS = [
   CommonModule,
   SharedModule,
@@ -64,7 +54,6 @@ const IMPORTS = [
   ScrollToModule.forRoot(),
   NgbModule,
   TranslateModule.forRoot(),
-  NgxMaskModule.forRoot(),
   EffectsModule.forRoot(appEffects),
   StoreModule.forRoot(appReducers, storeModuleConfig),
   StoreRouterConnectingModule.forRoot(),
@@ -113,11 +102,6 @@ const PROVIDERS = [
     useClass: LogInterceptor,
     multi: true
   },
-  {
-    provide: DYNAMIC_ERROR_MESSAGES_MATCHER,
-    useValue: ValidateEmailErrorStateMatcher
-  },
-  ...DYNAMIC_MATCHER_PROVIDERS,
 ];
 
 const DECLARATIONS = [
