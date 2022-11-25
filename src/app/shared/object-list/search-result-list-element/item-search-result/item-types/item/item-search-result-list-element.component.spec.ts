@@ -9,6 +9,7 @@ import { TruncatableService } from '../../../../../truncatable/truncatable.servi
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock, UNDEFINED_NAME } from '../../../../../mocks/dso-name.service.mock';
+import { VarDirective } from '../../../../../utils/var.directive';
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
@@ -63,7 +64,7 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(new ItemSearchRe
 describe('ItemListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ItemSearchResultListElementComponent, TruncatePipe],
+      declarations: [ItemSearchResultListElementComponent, TruncatePipe, VarDirective],
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock }

@@ -17,15 +17,15 @@
               <span *ngIf="dso.firstMetadataValue('dc.date.issued')" class="item-list-date"
                 [innerHTML]="firstMetadataValue('dc.date.issued')"></span>)
             </ng-container>
-            <span *ngIf="dso.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0"
-              class="item-list-authors">
-              <span
-                *ngFor="let author of dso.allMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
-                <!-- <span [innerHTML]="author"><span [innerHTML]="author"></span></span> -->
-                <ds-metadata-link-view [item]="dso" [metadata]="author"></ds-metadata-link-view>
-                <span *ngIf="!last">; </span>
+            <ng-container *ngVar="['dc.contributor.author', 'dc.creator', 'dc.contributor.*'] as mdList">
+              <span *ngIf="dso.allMetadataValues(mdList).length > 0"
+                class="item-list-authors">
+                <span *ngFor="let author of dso.allMetadata(mdList); let i=index; let last=last;">
+                  <ds-metadata-link-view [item]="dso" [metadata]="author" [metadataName]="mdList"></ds-metadata-link-view>
+                  <span *ngIf="!last">; </span>
+                </span>
               </span>
-            </span>
+            </ng-container>
           </ds-truncatable-part>
         </span>
         <div *ngIf="dso.firstMetadataValue('dc.description.abstract')" class="item-list-abstract">

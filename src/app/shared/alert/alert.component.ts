@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { trigger } from '@angular/animations';
 
 import { AlertType } from './aletr-type';
 import { fadeOutLeave, fadeOutState } from '../animations/fade';
+import { UUIDService } from '../../core/shared/uuid.service';
 
 /**
  * This component allow to create div that uses the Bootstrap's Alerts component.
@@ -45,6 +46,11 @@ export class AlertComponent implements OnInit {
   @Input() type: AlertType|string;
 
   /**
+   * A string used as id for trunctable-part
+   */
+  @Input() truncatableId: string;
+
+  /**
    * An event fired when alert is dismissed.
    */
   @Output() close: EventEmitter<any> = new EventEmitter<any>();
@@ -68,8 +74,9 @@ export class AlertComponent implements OnInit {
    * Initialize instance variables
    *
    * @param {ChangeDetectorRef} cdr
+   * @param {UUIDService} uuidService
    */
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private cdr: ChangeDetectorRef, private uuidService: UUIDService) {
   }
 
   /**
@@ -77,6 +84,9 @@ export class AlertComponent implements OnInit {
    */
   ngOnInit() {
     this.isCollapsed = this.collapsed;
+    if (this.truncatableId == null) {
+      this.truncatableId = this.uuidService.generate();
+    }
   }
 
   /**
