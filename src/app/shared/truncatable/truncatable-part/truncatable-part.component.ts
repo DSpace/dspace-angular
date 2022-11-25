@@ -1,7 +1,6 @@
-import { AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { TruncatableService } from '../truncatable.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { hasValue } from '../../empty.util';
 
 @Component({
   selector: 'ds-truncatable-part',
@@ -13,7 +12,7 @@ import { map } from 'rxjs/operators';
  * Component that truncates/clamps a piece of text
  * It needs a TruncatableComponent parent to identify it's current state
  */
-export class TruncatablePartComponent implements AfterViewChecked, OnInit {
+export class TruncatablePartComponent implements AfterViewChecked, OnInit, OnDestroy {
   /**
    * Number of lines shown when the part is collapsed
    */
@@ -55,20 +54,20 @@ export class TruncatablePartComponent implements AfterViewChecked, OnInit {
   /**
    * Current amount of lines shown of this part
    */
-  public lines$: Observable<string>;
+  lines: string;
 
+  /**
+   * Subscription to unsubscribe from
+   */
+  private sub;
   /**
    * store variable used for local to expand collapse
    */
-  public showCollapse$: Observable<boolean>;
-
+  expand = false;
   /**
-   * Observable used internally that reflects global state of the
-   * truncatable part (true when collapsed, false otherwise).
-   *
-   * @private
+   * variable to check if expandable
    */
-  private isCollapsed$: Observable<boolean>;
+  expandable = false;
 
   public constructor(private service: TruncatableService) {}
 
@@ -83,29 +82,19 @@ export class TruncatablePartComponent implements AfterViewChecked, OnInit {
    * Subscribe to the current state to determine how much lines should be shown of this part
    */
   private setLines() {
-    this.isCollapsed$ = this.service.isCollapsed(this.id);
-    this.lines$ =
-      this.isCollapsed$
-        .pipe(
-          map(collapsed => this.computeLines(collapsed))
-        );
-    this.showCollapse$ =
-      this.isCollapsed$
-        .pipe(
-          map(collapsed => !collapsed)
-        );
+    this.sub = this.service.isCollapsed(this.id).subscribe((collapsed: boolean) => {
+      if (collapsed) {
+        this.lines = this.minLines.toString();
+        this.expand = false;
+      } else {
+        this.lines = this.maxLines < 0 ? 'none' : this.maxLines.toString();
+        this.expand = true;
+      }
+    });
   }
 
   ngAfterViewChecked() {
     this.truncateElement();
-  }
-
-  private computeLines(collapsed: boolean): string {
-    let lines = this.minLines.toString();
-    if (!collapsed) {
-      lines = this.maxLines < 0 ? 'none' : this.maxLines.toString();
-    }
-    return lines;
   }
 
   /**
@@ -113,6 +102,7 @@ export class TruncatablePartComponent implements AfterViewChecked, OnInit {
    */
   public toggle() {
     this.service.toggle(this.id);
+    this.expandable = !this.expandable;
   }
 
   /**
@@ -143,6 +133,15 @@ export class TruncatablePartComponent implements AfterViewChecked, OnInit {
         entry.classList.remove('truncated');
         entry.classList.add('removeFaded');
       }
+    }
+  }
+
+  /**
+   * Unsubscribe from the subscription
+   */
+  ngOnDestroy(): void {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
     }
   }
 }
