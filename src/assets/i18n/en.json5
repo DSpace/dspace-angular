@@ -2296,13 +2296,13 @@
 
   "health-page.section.geoIp.title": "GeoIp",
 
-  "health-page.section.solrAuthorityCore.title": "Sor: authority core",
+  "health-page.section.solrAuthorityCore.title": "Solr: authority core",
 
-  "health-page.section.solrOaiCore.title": "Sor: oai core",
+  "health-page.section.solrOaiCore.title": "Solr: oai core",
 
-  "health-page.section.solrSearchCore.title": "Sor: search core",
+  "health-page.section.solrSearchCore.title": "Solr: search core",
 
-  "health-page.section.solrStatisticsCore.title": "Sor: statistics core",
+  "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
 
   "health-page.section-info.app.title": "Application Backend",
 
@@ -3388,6 +3388,8 @@
 
   "manage.relationships.error.sort" : "An unexpected error occurs while sorting entities.",
 
+  "manage.relationships.hidden-related-items-alert" : "Please note that hidden related items will always be visible among Item’s relations to administrators and owner of the Item",
+
 
   "menu.header.admin": "Management",
 
@@ -3833,7 +3835,9 @@
 
   "nav.login": "Log In",
 
-  "nav.logout": "User profile menu and Log Out",
+  "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+
+  "nav.logout": "Log Out",
 
   "nav.main.description": "Main navigation bar",
 

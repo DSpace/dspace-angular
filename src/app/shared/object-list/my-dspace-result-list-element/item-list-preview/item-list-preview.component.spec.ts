@@ -10,6 +10,7 @@ import { ItemListPreviewComponent } from './item-list-preview.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { VarDirective } from '../../../utils/var.directive';
 
 let component: ItemListPreviewComponent;
 let fixture: ComponentFixture<ItemListPreviewComponent>;
@@ -78,7 +79,7 @@ describe('ItemListPreviewComponent', () => {
         }),
         NoopAnimationsModule
       ],
-      declarations: [ItemListPreviewComponent, TruncatePipe],
+      declarations: [ItemListPreviewComponent, TruncatePipe, VarDirective],
       providers: [
         { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } }
 

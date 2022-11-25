@@ -579,8 +579,7 @@
   "admin.access-control.epeople.form.notification.deleted.failure": "Impossibile eliminare EPerson \"{{name}}\"",
 
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
+  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Membro dei seguenti gruppi:",
 
   // "admin.access-control.epeople.form.roles": "Roles",
   "admin.access-control.epeople.form.roles": "Ruoli",
@@ -604,12 +603,10 @@
   "admin.access-control.epeople.form.goToGroups": "Aggiungi ai gruppi",
 
   // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "Impossibile eliminare l'EPerson: \"{{name}}\"",
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.success": "EPerson eliminata con successo: \"{{name}}\"",
 
 
   // "admin.access-control.groups.badge.disabled": "Disabled",
@@ -768,8 +765,7 @@
   "admin.access-control.groups.form.notification.created.failure": "Impossibile creare il gruppo \"{{name}}\"",
 
   // "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Impossibile creare il Gruppo con nome: \"{{name}}\", assicurarsi che il nome non sia già in uso.",
 
   // "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
   "admin.access-control.groups.form.notification.edited.failure": "Impossibile modificare il gruppo \"{{name}}\"",
@@ -847,20 +843,16 @@
   "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Rimuovi membro con nome \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.addMember": "Membro aggiunto con successo: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Impossibile aggiungere il membro: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Membro eliminato con successo: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Impossibile eliminare il membro: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
   "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Aggiungi membro con nome \"{{name}}\"",
@@ -875,8 +867,7 @@
   "admin.access-control.groups.form.members-list.no-items": "Nessun EPeople trovato in quella ricerca",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure": "Qualcosa è andato storto: \"{{cause}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.head": "Groups",
   "admin.access-control.groups.form.subgroups-list.head": "Gruppi",
@@ -915,20 +906,16 @@
   "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Gruppo attuale",
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Sottogruppo aggiunto con successo: \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Impossibile aggiungere il sottogruppo: \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Sottogruppo eliminato con successo: \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Impossibile eliminare il sottogruppo: \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
   "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "Al momento nessun gruppo attivo, invia prima un nome.",
@@ -982,11 +969,9 @@
   "admin.search.item.edit": "Editare",
 
   // "admin.search.item.make-private": "Make non-discoverable",
-  // TODO Source message changed - Revise the translation
   "admin.search.item.make-private": "Rendi privato",
 
   // "admin.search.item.make-public": "Make discoverable",
-  // TODO Source message changed - Revise the translation
   "admin.search.item.make-public": "Rendi pubblico",
 
   // "admin.search.item.move": "Move",
@@ -1052,12 +1037,10 @@
   "admin.metadata-import.page.error.addFile": "Seleziona prima il file!",
 
   // "admin.metadata-import.page.validateOnly": "Validate Only",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.validateOnly": "Validate Only",
+  "admin.metadata-import.page.validateOnly": "Solo Validazione",
 
   // "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
+  "admin.metadata-import.page.validateOnly.hint": "Una volta selezionato, il CSV caricato sarà validato. Riceverai un report delle modifiche rilevate, ma nessuna modifica verrà salvata.",
 
 
 
@@ -1087,12 +1070,10 @@
   "bitstream.download.page": "Sto scaricando {{bitstream}}...",
 
   // "bitstream.download.page.back": "Back",
-  // TODO Source message changed - Revise the translation
   "bitstream.download.page.back": "Indietro",
 
   // "bitstream.download.page.close": "Close",
-  // TODO New key - Add a translation
-  "bitstream.download.page.close": "Close",
+  "bitstream.download.page.close": "Chiudere",
 
 
   // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
@@ -1178,7 +1159,7 @@
 
 
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
-  "bitstream.edit.notifications.saved.content": "Le modifiche apportate a questo flusso di bit sono state salvate.",
+  "bitstream.edit.notifications.saved.content": "Le modifiche apportate a questo bitstream sono state salvate.",
 
   // "bitstream.edit.notifications.saved.title": "Bitstream saved",
   "bitstream.edit.notifications.saved.title": "Bitstream salvato",
@@ -1196,12 +1177,10 @@
   "bitstream-request-a-copy.header": "Richiedi una copia del file",
 
   // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
+  "bitstream-request-a-copy.intro": "Inserisci le seguenti informazioni per richiedere una copia per l'item seguente: ",
 
   // "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
+  "bitstream-request-a-copy.intro.bitstream.one": "Richiesta del seguente file: ",
   // "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
   "bitstream-request-a-copy.intro.bitstream.all": "Richiesta di tutti i file.",
 
@@ -1247,8 +1226,7 @@
 
 
   // "browse.back.all-results": "All browse results",
-  // TODO New key - Add a translation
-  "browse.back.all-results": "All browse results",
+  "browse.back.all-results": "Tutti i risultati",
 
   // "browse.comcol.by.author": "By Author",
   "browse.comcol.by.author": "Per Autore",
@@ -1303,12 +1281,10 @@
   "browse.metadata.eqtitle": "Titolo",
 
   // "browse.metadata.ouname" : "Name",
-  // TODO New key - Add a translation
-  "browse.metadata.ouname" : "Name",
+  "browse.metadata.ouname" : "Nome",
 
   // "browse.metadata.pjtitle" : "Title",
-  // TODO New key - Add a translation
-  "browse.metadata.pjtitle" : "Title",
+  "browse.metadata.pjtitle" : "Titolo",
 
   // "browse.metadata.rodept": "Department",
   "browse.metadata.rodept": "Dipartimento",
@@ -1332,55 +1308,49 @@
   "browse.metadata.author.breadcrumbs": "Sfoglia per Autore",
 
   // "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
-  "browse.metadata.dateissued.breadcrumbs": "Sfoglia per data",
+  "browse.metadata.dateissued.breadcrumbs": "Sfoglia per Data",
 
   // "browse.metadata.eqdatecreated.breadcrumbs": "Browse by Creation Date",
-  "browse.metadata.eqdatecreated.breadcrumbs": "Sfoglia per data di creazione",
+  "browse.metadata.eqdatecreated.breadcrumbs": "Sfoglia per Data di creazione",
 
   // "browse.metadata.eqdatemodified.breadcrumbs": "Browse by Modification Date",
-  "browse.metadata.eqdatemodified.breadcrumbs": "Sfoglia per data di modifica",
+  "browse.metadata.eqdatemodified.breadcrumbs": "Sfoglia per Data di modifica",
 
   // "browse.metadata.eqtitle.breadcrumbs": "Browse by Title",
-  "browse.metadata.eqtitle.breadcrumbs": "Sfoglia per titolo",
+  "browse.metadata.eqtitle.breadcrumbs": "Sfoglia per Titolo",
 
   // "browse.metadata.ouname.breadcrumbs" : "Browse by Name",
-  // TODO New key - Add a translation
-  "browse.metadata.ouname.breadcrumbs" : "Browse by Name",
+  "browse.metadata.ouname.breadcrumbs" : "Sfoglia per Nome",
 
   // "browse.metadata.pjtitle.breadcrumbs" : "Browse by Title",
-  // TODO New key - Add a translation
-  "browse.metadata.pjtitle.breadcrumbs" : "Browse by Title",
+  "browse.metadata.pjtitle.breadcrumbs" : "Sfoglia per Titolo",
 
   // "browse.metadata.rodept.breadcrumbs": "Browse by Department",
   "browse.metadata.rodept.breadcrumbs": "Sfoglia per Dipartimento",
 
   // "browse.metadata.rpdept.breadcrumbs" : "Browse by Department",
-  // TODO New key - Add a translation
-  "browse.metadata.rpdept.breadcrumbs" : "Browse by Department",
+  "browse.metadata.rpdept.breadcrumbs" : "Sfoglia per Dipartimento",
 
   // "browse.metadata.rpname.breadcrumbs": "Browse by Name",
   "browse.metadata.rpname.breadcrumbs": "Sfoglia per Nome",
 
   // "browse.metadata.subject.breadcrumbs": "Browse by Subject",
-  "browse.metadata.subject.breadcrumbs": "Sfoglia per argomento",
+  "browse.metadata.subject.breadcrumbs": "Sfoglia per Argomento",
 
   // "browse.metadata.type.breadcrumbs": "Browse by Type",
   "browse.metadata.type.breadcrumbs": "Sfoglia per Tipo",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
-  "browse.metadata.title.breadcrumbs": "Sfoglia per titolo",
+  "browse.metadata.title.breadcrumbs": "Sfoglia per Titolo",
 
   // "pagination.next.button": "Next",
-  // TODO New key - Add a translation
-  "pagination.next.button": "Next",
+  "pagination.next.button": "Avanti",
 
   // "pagination.previous.button": "Previous",
-  // TODO New key - Add a translation
-  "pagination.previous.button": "Previous",
+  "pagination.previous.button": "Precedente",
 
   // "pagination.next.button.disabled.tooltip": "No more pages of results",
-  // TODO New key - Add a translation
-  "pagination.next.button.disabled.tooltip": "No more pages of results",
+  "pagination.next.button.disabled.tooltip": "Non ci sono ulteriori pagine di risultati",
 
   // "browse.startsWith": ", starting with {{ startsWith }}",
   // TODO New key - Add a translation
@@ -1396,8 +1366,7 @@
   "browse.startsWith.choose_year.label": "Scegli l'anno di pubblicazione",
 
   // "browse.startsWith.jump": "Filter results by year or month",
-  // TODO New key - Add a translation
-  "browse.startsWith.jump": "Filter results by year or month",
+  "browse.startsWith.jump": "Filtra i risultati per anno o mese",
 
   // "browse.startsWith.months.april": "April",
   "browse.startsWith.months.april": "Aprile",
@@ -1462,8 +1431,7 @@
 
 
   // "bulk-import.abort-on-error" : "Abort on first error",
-  // TODO New key - Add a translation
-  "bulk-import.abort-on-error" : "Abort on first error",
+  "bulk-import.abort-on-error" : "Interrompere al primo errore",
 
   // "bulk-import.back": "Back",
   "bulk-import.back": "Indietro",
@@ -1473,8 +1441,7 @@
   "bulk-import.breadcrumbs" : "Bulk import",
 
   // "bulk-import.collection-name" : "Collection",
-  // TODO New key - Add a translation
-  "bulk-import.collection-name" : "Collection",
+  "bulk-import.collection-name" : "Collezione",
 
   // "bulk-import.error": "An error occurred while creating the import process",
   "bulk-import.error": "Si è verificato un errore durante la creazione del processo di importazione",
@@ -1519,8 +1486,7 @@
   "collection.create.sub-head": "Creare una collection per la Community {{ parent }}",
 
   // "collection.curate.header": "Curate Collection: {{collection}}",
-  // TODO New key - Add a translation
-  "collection.curate.header": "Curate Collection: {{collection}}",
+  "collection.curate.header": "Curate della collezione: {{collection}}",
 
   // "collection.delete.cancel": "Cancel",
   "collection.delete.cancel": "Annulla",
@@ -1566,8 +1532,7 @@
   "collection.edit.item-mapper.cancel": "Annulla",
 
   // "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
+  "collection.edit.item-mapper.collection": "Collezione: \"<b>{{name}}</b>\"",
 
   // "collection.edit.item-mapper.confirm": "Map selected items",
   "collection.edit.item-mapper.confirm": "Mappare gli item selezionati",
@@ -1666,8 +1631,7 @@
   "collection.edit.tabs.authorizations.title": "Collection Edit - Autorizzazioni",
 
   // "collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
-  // TODO New key - Add a translation
-  "collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
+  "collection.edit.item.authorizations.load-bundle-button": "Carica più bundles",
 
   // "collection.edit.item.authorizations.load-more-button": "Load more",
   "collection.edit.item.authorizations.load-more-button": "Carica più risorse",
@@ -1849,8 +1813,7 @@
   "collection.form.submissionDefinition": "Definizione di submission",
 
   // "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
-  // TODO New key - Add a translation
-  "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
+  "collection.form.correctionSubmissionDefinition": "Definizione di submission per richiesta di correzioni",
 
 
 
@@ -1976,8 +1939,7 @@
   "community.create.sub-head": "Creare una sotto-Community per la Community {{ parent }}",
 
   // "community.curate.header": "Curate Community: {{community}}",
-  // TODO New key - Add a translation
-  "community.curate.header": "Curate Community: {{community}}",
+  "community.curate.header": "Curate della Community: {{community}}",
 
   // "community.delete.cancel": "Cancel",
   "community.delete.cancel": "Annulla",
@@ -2401,8 +2363,7 @@
   "cookies.consent.app.title.add-this": "AddThis",
 
   // "cookies.consent.app.description.add-this" : "Allows us to enable sharing via AddThis",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.add-this" : "Allows us to enable sharing via AddThis",
+  "cookies.consent.app.description.add-this" : "Ci permette di abilitare la condivisione tramite AddThis",
 
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Ci sono stati dei cambiamenti dal tuo ultimo accesso, aggiorna il tuo consenso.",
@@ -2414,8 +2375,7 @@
   "cookies.consent.decline": "Declinare",
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
-  // TODO New key - Add a translation
-  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Raccogliamo e processiamo le tue informazioni personali per i seguenti scopi: <strong>Autenticazione, Preferenze, Accettazione e Statistiche</strong>. <br/> Per saperne di più, leggi la nostra {privacyPolicy}.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Personalizza",
@@ -2487,44 +2447,34 @@
   "cris-layout.toggle.aria.close": "Riduci la sezione {{sectionHeader}}",
 
   // "cris-layout.advanced-attachment.dc.title": "Name",
-  // TODO New key - Add a translation
-  "cris-layout.advanced-attachment.dc.title": "Name",
+  "cris-layout.advanced-attachment.dc.title": "Nome",
 
   // "cris-layout.advanced-attachment.size": "Size",
-  // TODO New key - Add a translation
-  "cris-layout.advanced-attachment.size": "Size",
+  "cris-layout.advanced-attachment.size": "Dimensione",
 
   // "cris-layout.advanced-attachment.format": "Format",
-  // TODO New key - Add a translation
-  "cris-layout.advanced-attachment.format": "Format",
+  "cris-layout.advanced-attachment.format": "Formato",
 
   // "cris-layout.advanced-attachment.dc.type": "Type",
-  // TODO New key - Add a translation
-  "cris-layout.advanced-attachment.dc.type": "Type",
+  "cris-layout.advanced-attachment.dc.type": "Tipologia",
 
   // "cris-layout.advanced-attachment.dc.description": "Description",
-  // TODO New key - Add a translation
-  "cris-layout.advanced-attachment.dc.description": "Description",
+  "cris-layout.advanced-attachment.dc.description": "Descrizione",
 
   // "cris-layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
-  // TODO New key - Add a translation
-  "cris-layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
+  "cris-layout.advanced-attachment.no_thumbnail": "Nessuna immagine disponibile",
 
   // "cris-layout.advanced-attachment.download": "Download",
-  // TODO New key - Add a translation
   "cris-layout.advanced-attachment.download": "Download",
 
   // "cris-layout.advanced-attachment.requestACopy": "Request a copy",
-  // TODO New key - Add a translation
-  "cris-layout.advanced-attachment.requestACopy": "Request a copy",
+  "cris-layout.advanced-attachment.requestACopy": "Richiedi una copia",
 
   // "cris-layout.advanced-attachment.viewMore": "View More",
-  // TODO New key - Add a translation
-  "cris-layout.advanced-attachment.viewMore": "View More",
+  "cris-layout.advanced-attachment.viewMore": "Vedi altro",
 
   // "cris-layout.attachment.viewMore": "View More",
-  // TODO New key - Add a translation
-  "cris-layout.attachment.viewMore": "View More",
+  "cris-layout.attachment.viewMore": "Vedi altro",
 
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
   "curation-task.task.checklinks.label": "Controllare i collegamenti nei metadati",
@@ -2567,21 +2517,18 @@
   "curation.form.submit.error.content": "Si è verificato un errore durante il tentativo di avviare la curation task",
 
   // "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
-  // TODO New key - Add a translation
-  "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
+  "curation.form.submit.error.invalid-handle": "Non è stato possibile determinare l'handle per questo oggetto",
 
   // "curation.form.handle.label": "Handle:",
   "curation.form.handle.label": "Handle:",
 
   // "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
-  // TODO New key - Add a translation
-  "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
+  "curation.form.handle.hint": "Suggerimento: Inserisci [your-handle-prefix]/0 per eseguire il task in tutto il sito (non tutti i task supportano questa funzionalità)",
 
 
 
   // "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
-  // TODO New key - Add a translation
-  "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+  "deny-request-copy.email.message": "Gentile {{ recipientName }},\nIn risposta alla tua richiesta, mi dispiace informarti che non è possibile inviarti una copia del file(s) richiesto, riguardante il documento: \"{{ itemUrl }}\" ({{ itemName }}), di cui sono uno degli autori. \n\nCordiali saluti,\n{{ authorName }} <{{ authorEmail }}>",
 
   // "deny-request-copy.email.subject": "Request copy of document",
   "deny-request-copy.email.subject": "Richiedi copia del documento",
@@ -2748,7 +2695,6 @@
 
 
   // "dataset.listelement.badge" : "Dataset",
-  // TODO New key - Add a translation
   "dataset.listelement.badge" : "Dataset",
 
   // "equipment.listelement.badge": "Equipment",
@@ -2791,8 +2737,7 @@
   "error.search-results": "Errore durante il recupero dei risultati della ricerca",
 
   // "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
-  // TODO New key - Add a translation
-  "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
+  "error.invalid-search-query": "La query di ricerca non è valida. Controllare <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> per ulteriori informazioni riguardo questo errore.",
 
   // "error.sub-collections": "Error fetching sub-collections",
   "error.sub-collections": "Errore durante il recupero delle sottoreti",
@@ -2801,8 +2746,7 @@
   "error.sub-communities": "Errore durante il recupero delle sottocomitarie",
 
   // "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
-  // TODO New key - Add a translation
-  "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
+  "error.submission.sections.init-form-error": "Si è verificato un errore durante l'inizializzazione della sezione, controllare la configurazione dell'input-form. Dettagli: <br> <br>",
 
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "Errore durante il recupero delle community di primo livello",
@@ -2817,7 +2761,7 @@
   "error.validation.custom-url.invalid-characters": "L'URL personalizzato contiene caratteri non validi.",
 
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "È necessario concedere questa licenza per completare l'submission. Se non sei in grado di concedere questa licenza in questo momento, puoi salvare il tuo lavoro e tornare più tardi o rimuovere l'submission.",
+  "error.validation.license.notgranted": "È necessario concedere questa licenza per completare la submission. Se non sei in grado di concedere questa licenza in questo momento, puoi salvare il tuo lavoro e tornare più tardi o rimuovere la submission.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   // TODO New key - Add a translation
@@ -3451,21 +3395,21 @@
   // TODO New key - Add a translation
   "health-page.section.geoIp.title": "GeoIp",
 
-  // "health-page.section.solrAuthorityCore.title": "Sor: authority core",
+  // "health-page.section.solrAuthorityCore.title": "Solr: authority core",
   // TODO New key - Add a translation
-  "health-page.section.solrAuthorityCore.title": "Sor: authority core",
+  "health-page.section.solrAuthorityCore.title": "Solr: authority core",
 
-  // "health-page.section.solrOaiCore.title": "Sor: oai core",
+  // "health-page.section.solrOaiCore.title": "Solr: oai core",
   // TODO New key - Add a translation
-  "health-page.section.solrOaiCore.title": "Sor: oai core",
+  "health-page.section.solrOaiCore.title": "Solr: oai core",
 
-  // "health-page.section.solrSearchCore.title": "Sor: search core",
+  // "health-page.section.solrSearchCore.title": "Solr: search core",
   // TODO New key - Add a translation
-  "health-page.section.solrSearchCore.title": "Sor: search core",
+  "health-page.section.solrSearchCore.title": "Solr: search core",
 
-  // "health-page.section.solrStatisticsCore.title": "Sor: statistics core",
+  // "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
   // TODO New key - Add a translation
-  "health-page.section.solrStatisticsCore.title": "Sor: statistics core",
+  "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
 
   // "health-page.section-info.app.title": "Application Backend",
   "health-page.section-info.app.title": "Backend dell'applicativo",

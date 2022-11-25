@@ -48,6 +48,7 @@ import { Section } from './core/layout/models/section.model';
 import {
   ExportBatchSelectorComponent
 } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
+import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
 
 /**
  * Creates all of the app's menus
@@ -242,7 +243,7 @@ export class MenuResolver implements Resolve<boolean> {
         {
           id: 'new',
           active: false,
-          visible: true,
+          visible: isCollectionAdmin || isCommunityAdmin || isSiteAdmin,
           model: {
             type: MenuItemType.TEXT,
             text: 'menu.section.new'
@@ -317,7 +318,7 @@ export class MenuResolver implements Resolve<boolean> {
         {
           id: 'edit',
           active: false,
-          visible: true,
+          visible: isCollectionAdmin || isCommunityAdmin || isSiteAdmin,
           model: {
             type: MenuItemType.TEXT,
             text: 'menu.section.edit'
@@ -591,6 +592,40 @@ export class MenuResolver implements Resolve<boolean> {
   createSiteAdministratorMenuSections() {
     this.authorizationService.isAuthorized(FeatureID.AdministratorOf).subscribe((authorized) => {
       const menuList = [
+        /* Notifications */
+        {
+          id: 'notifications',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.notifications'
+          } as TextMenuItemModel,
+          icon: 'bell',
+          index: 4
+        },
+        {
+          id: 'notifications_openair_broker',
+          parentID: 'notifications',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.notifications_openaire_broker',
+            link: '/admin/notifications/openaire-broker'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'notifications_reciter',
+          parentID: 'notifications',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.notifications_reciter',
+            link: '/admin/notifications/' + NOTIFICATIONS_RECITER_SUGGESTION_PATH
+          } as LinkMenuItemModel,
+        },
         /*  Admin Search */
         {
           id: 'admin_search',

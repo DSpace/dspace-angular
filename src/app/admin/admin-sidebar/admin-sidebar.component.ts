@@ -9,6 +9,7 @@ import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
 import { ActivatedRoute } from '@angular/router';
+import { MenuSection } from '../../shared/menu/menu-section.model';
 
 /**
  * Component representing the admin sidebar
@@ -68,12 +69,18 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
   ngOnInit(): void {
     super.ngOnInit();
     this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
-    this.authService.isAuthenticated()
-      .subscribe((loggedIn: boolean) => {
-        if (loggedIn) {
-          this.menuService.showMenu(this.menuID);
-        }
-      });
+    combineLatest([
+      this.authService.isAuthenticated(),
+      this.menuService.getMenuTopSections(this.menuID).pipe(
+        map((topSections: MenuSection[]) => topSections.length > 0)
+      )
+    ]).subscribe(([loggedIn, hasTopSections]: [boolean, boolean]) => {
+      // admin sidebar menu hidden by default when no visible top sections are found
+      if (loggedIn && hasTopSections) {
+        this.menuService.showMenu(this.menuID);
+      }
+    });
+
     this.menuCollapsed.pipe(first())
       .subscribe((collapsed: boolean) => {
         this.sidebarOpen = !collapsed;

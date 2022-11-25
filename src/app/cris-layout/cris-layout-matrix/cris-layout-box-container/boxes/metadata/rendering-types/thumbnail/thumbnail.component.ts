@@ -92,20 +92,6 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
   }
 
   /**
-   * Filter bitstreams by size
-   */
-  getFilteredBySize(maxSize: number, bitstreams: Bitstream[]) {
-    if (isNotEmpty(maxSize)) {
-      return bitstreams.filter((bitstream: Bitstream) => {
-        // max size is in KB, so we need to multiply with 1000
-        return bitstream.sizeBytes <= maxSize * 1000;
-      });
-    }
-
-    return bitstreams;
-  }
-
-  /**
    * Set the default image src depending on item entity type
    */
   setDefaultImage(): void {

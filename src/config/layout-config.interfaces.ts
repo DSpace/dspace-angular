@@ -5,9 +5,17 @@ export interface UrnConfig extends Config {
   baseUrl: string;
 }
 
+export interface CrisRefEntityStyleConfig extends Config {
+  icon: string;
+  style: string;
+}
+
 export interface CrisRefConfig extends Config {
   entityType: string;
-  icon: string;
+  entityStyle: {
+    default: CrisRefEntityStyleConfig;
+    [entity: string]: CrisRefEntityStyleConfig;
+  };
 }
 
 export interface CrisLayoutMetadataBoxConfig extends Config {

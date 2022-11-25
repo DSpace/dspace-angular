@@ -22,16 +22,6 @@
   }
 }
 
-header {
-  li > .navbar-section,
-  li > .expandable-navbar-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-  }
-}
-
 // ds-metric-donuts a, ds-metric-donuts a img {
 //   height: 3.5rem !important;
 //   width: 3.5rem !important;
