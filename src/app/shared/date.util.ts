@@ -121,3 +121,17 @@ export function dateToString(date: Date | NgbDateStruct): string {
 export function isValidDate(date: string) {
   return moment(date).isValid();
 }
+
+export function localeDate(date: string, locale?: string) {
+
+  const tokens = date.split('-').length;
+
+  const options: Intl.DateTimeFormatOptions  = {
+    year: 'numeric',
+    month: tokens >= 2 ? 'long' : undefined,
+    day: tokens >= 3 ? 'numeric' : undefined,
+  };
+
+  return new Date(date).toLocaleDateString(locale, options);
+
+}
