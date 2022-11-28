@@ -1,6 +1,6 @@
 import { Inject, InjectionToken } from '@angular/core';
 
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import { DynamicFormControlLayout, DynamicFormControlRelation, MATCH_VISIBLE, OR_OPERATOR } from '@ng-dynamic-forms/core';
 
 import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
@@ -22,7 +22,7 @@ export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>(
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
 export const INIT_FORM_VALUES: InjectionToken<any> = new InjectionToken<any>('initFormValues');
 export const PARSER_OPTIONS: InjectionToken<ParserOptions> = new InjectionToken<ParserOptions>('parserOptions');
-export const REGEX_FIELD_VALIDATOR: RegExp = new RegExp('(\\/?)(.+)\\1([gimsuy]*)', 'i');
+export const REGEX_FIELD_VALIDATOR = new RegExp('(\\/?)(.+)\\1([gimsuy]*)', 'i');
 
 export abstract class FieldParser {
 
