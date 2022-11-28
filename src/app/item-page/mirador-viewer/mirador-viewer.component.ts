@@ -32,6 +32,11 @@ export class MiradorViewerComponent implements OnInit {
   @Input() searchable: boolean;
 
   /**
+   * Is used as index of the element to show.
+   */
+  @Input() canvasIndex: number;
+
+  /**
    * Hides embedded viewer in dev mode.
    */
   isViewerAvailable = true;
@@ -86,6 +91,9 @@ export class MiradorViewerComponent implements OnInit {
     }
     if (this.notMobile) {
       viewerPath += '&notMobile=true';
+    }
+    if (this.canvasIndex) {
+      viewerPath += `&canvasId=${this.canvasIndex}`;
     }
 
     // TODO: Should the query term be trusted here?
