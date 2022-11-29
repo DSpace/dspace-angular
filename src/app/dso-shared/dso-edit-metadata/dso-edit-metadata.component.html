@@ -1,0 +1,126 @@
+<div class="item-metadata" *ngIf="form">
+  <div class="button-row top d-flex my-2 space-children-mr">
+    <button class="mr-auto btn btn-success" [disabled]="form.newValue"
+            (click)="add()"><i class="fas fa-plus"></i>
+      <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.add-button' | translate }}</span>
+    </button>
+    <button class="btn btn-warning" *ngIf="isReinstatable"
+            (click)="reinstate()"><i class="fas fa-undo-alt"></i>
+      <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.reinstate-button' | translate }}</span>
+    </button>
+    <button class="btn btn-primary" [disabled]="!hasChanges"
+            (click)="submit()"><i class="fas fa-save"></i>
+      <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.save-button' | translate }}</span>
+    </button>
+    <button class="btn btn-danger" *ngIf="!isReinstatable"
+            [disabled]="!hasChanges"
+            (click)="discard()"><i class="fas fa-times"></i>
+      <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.discard-button' | translate }}</span>
+    </button>
+  </div>
+
+  <div class="d-flex flex-row ds-field-row ds-header-row">
+    <div class="lbl-cell">Field</div>
+    <div class="flex-grow-1">
+      <div class="d-flex flex-row">
+        <div class="flex-grow-1 ds-flex-cell ds-value-cell"><b class="dont-break-out preserve-line-breaks">Value</b></div>
+        <div class="ds-flex-cell ds-lang-cell"><b>Lang</b></div>
+        <div class="text-center ds-flex-cell ds-edit-cell"><b>Edit</b></div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex flex-row ds-field-row" *ngIf="form.newValue">
+    <div class="lbl-cell ds-success">
+      <ds-metadata-field-selector [(mdField)]="newMdField"></ds-metadata-field-selector>
+    </div>
+    <div class="flex-grow-1 ds-drop-list">
+      <div class="d-flex flex-row ds-value-row ds-success">
+        <div class="flex-grow-1 ds-flex-cell ds-value-cell d-flex align-items-center">
+          <input class="form-control" type="text" [(ngModel)]="form.newValue.newValue.value" />
+        </div>
+        <div class="ds-flex-cell ds-lang-cell">
+          <input class="form-control" type="text" [(ngModel)]="form.newValue.newValue.language" />
+        </div>
+        <div class="text-center ds-flex-cell ds-edit-cell">
+          <div class="btn-group edit-field">
+            <button class="btn btn-outline-success btn-sm ng-star-inserted" ngbTooltip="Confirm changes"
+                    [disabled]="!newMdField" (click)="form.setMetadataField(newMdField)">
+              <i class="fas fa-check fa-fw"></i>
+            </button>
+            <button class="btn btn-outline-danger btn-sm" ngbTooltip="Remove" [disabled]="true">
+              <i class="fas fa-trash-alt fa-fw"></i>
+            </button>
+            <button class="btn btn-outline-warning btn-sm" ngbTooltip="Undo changes" (click)="form.newValue = undefined">
+              <i class="fas fa-undo-alt fa-fw"></i>
+            </button>
+            <button class="btn btn-outline-secondary ds-drag-handle btn-sm" ngbTooltip="Drag to reorder" [disabled]="true">
+              <i class="fas fa-grip-vertical fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex flex-row ds-field-row" *ngFor="let mdField of form.fieldKeys">
+    <div class="lbl-cell">
+      <span>{{ mdField }}</span>
+    </div>
+    <div class="flex-grow-1 ds-drop-list">
+      <div class="d-flex flex-row ds-value-row"
+           [ngClass]="{ 'ds-warning': mdValue.change === DsoEditMetadataChangeTypeEnum.UPDATE, 'ds-danger': mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE, 'ds-success': mdValue.change === DsoEditMetadataChangeTypeEnum.ADD }"
+           *ngFor="let mdValue of form.fields[mdField]; let idx = index">
+        <div class="flex-grow-1 ds-flex-cell ds-value-cell d-flex align-items-center">
+          <div class="dont-break-out preserve-line-breaks" *ngIf="!mdValue.editing">{{ mdValue.newValue.value }}</div>
+          <input class="form-control" type="text" *ngIf="mdValue.editing" [(ngModel)]="mdValue.newValue.value" />
+        </div>
+        <div class="ds-flex-cell ds-lang-cell">
+          <div class="dont-break-out preserve-line-breaks" *ngIf="!mdValue.editing">{{ mdValue.newValue.language }}</div>
+          <input class="form-control" type="text" *ngIf="mdValue.editing" [(ngModel)]="mdValue.newValue.language" />
+        </div>
+        <div class="text-center ds-flex-cell ds-edit-cell">
+          <div class="btn-group edit-field">
+            <button class="btn btn-outline-primary btn-sm ng-star-inserted" ngbTooltip="Edit" *ngIf="!mdValue.editing"
+                    [disabled]="mdValue.change && mdValue.change !== DsoEditMetadataChangeTypeEnum.UPDATE" (click)="mdValue.editing = true">
+              <i class="fas fa-edit fa-fw"></i>
+            </button>
+            <button class="btn btn-outline-success btn-sm ng-star-inserted" ngbTooltip="Confirm changes" *ngIf="mdValue.editing"
+                    (click)="mdValue.confirmChanges()">
+              <i class="fas fa-check fa-fw"></i>
+            </button>
+            <button class="btn btn-outline-danger btn-sm" ngbTooltip="Remove"
+                    [disabled]="mdValue.change || mdValue.editing" (click)="mdValue.change = DsoEditMetadataChangeTypeEnum.REMOVE">
+              <i class="fas fa-trash-alt fa-fw"></i>
+            </button>
+            <button class="btn btn-outline-warning btn-sm" ngbTooltip="Undo changes"
+                    [disabled]="!mdValue.change && !mdValue.editing" (click)="mdValue.change === DsoEditMetadataChangeTypeEnum.ADD ? form.remove(mdField, idx) : mdValue.discard()">
+              <i class="fas fa-undo-alt fa-fw"></i>
+            </button>
+            <!-- TODO: Enable drag -->
+            <button class="btn btn-outline-secondary ds-drag-handle btn-sm" ngbTooltip="Drag to reorder" [disabled]="true">
+              <i class="fas fa-grip-vertical fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isEmpty">
+    <ds-alert [content]="dsoType + '.edit.metadata.empty'" [type]="AlertTypeEnum.Info"></ds-alert>
+  </div>
+  <div class="button-row bottom">
+    <div class="mt-2 float-right space-children-mr ml-gap">
+      <button class="btn btn-warning" *ngIf="isReinstatable"
+              (click)="reinstate()"><i class="fas fa-undo-alt"></i> {{ dsoType + '.edit.metadata.reinstate-button' | translate }}
+      </button>
+      <button class="btn btn-primary" [disabled]="!hasChanges"
+              (click)="submit()"><i class="fas fa-save"></i> {{ dsoType + '.edit.metadata.save-button' | translate }}
+      </button>
+      <button class="btn btn-danger" *ngIf="!isReinstatable"
+              [disabled]="!hasChanges"
+              (click)="discard()"><i class="fas fa-times"></i> {{ dsoType + '.edit.metadata.discard-button' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+<ds-loading *ngIf="!form"></ds-loading>

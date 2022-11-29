@@ -35,6 +35,7 @@ import { ItemVersionHistoryComponent } from './item-version-history/item-version
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
 import { ObjectValuesPipe } from '../../shared/utils/object-values-pipe';
 import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-policies.module';
+import { DsoSharedModule } from '../../dso-shared/dso-shared.module';
 
 
 /**
@@ -48,7 +49,8 @@ import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-
     EditItemPageRoutingModule,
     SearchPageModule,
     DragDropModule,
-    ResourcePoliciesModule
+    ResourcePoliciesModule,
+    DsoSharedModule,
   ],
   declarations: [
     EditItemPageComponent,
