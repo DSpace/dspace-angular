@@ -4811,7 +4811,5 @@
   "person.orcid.registry.auth": "ORCID Authorizations",
   "home.recent-submissions.head": "Recent Submissions",
 
-  "idle-modal.extend-session": "Extend session",
-
   "listable-notification-object.default-message": "This object couldn't be retrieved",
 }
