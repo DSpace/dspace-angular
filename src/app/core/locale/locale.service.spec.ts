@@ -10,8 +10,9 @@ import { AuthService } from '../auth/auth.service';
 import { NativeWindowRef } from '../services/window.service';
 import { RouteService } from '../services/route.service';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
+import { of as observableOf } from 'rxjs';
 
-describe('LocaleService test suite', () => {
+fdescribe('LocaleService test suite', () => {
   let service: LocaleService;
   let serviceAsAny: any;
   let cookieService: CookieService;
@@ -22,13 +23,25 @@ describe('LocaleService test suite', () => {
   let authService;
   let routeService;
   let document;
+  let spyOnGetLanguage;
 
   authService = jasmine.createSpyObj('AuthService', {
     isAuthenticated: jasmine.createSpy('isAuthenticated'),
     isAuthenticationLoaded: jasmine.createSpy('isAuthenticationLoaded')
   });
 
-  const langList = ['en', 'xx', 'de'];
+  const translateServiceStub: any = {
+    getLangs: () => {
+      return langList;
+    },
+    getBrowserLang: () => {
+      return langList;
+    },
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    use: (param: string) => {}
+  };
+
+  const langList = ['en', 'it', 'de'];
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
@@ -44,6 +57,7 @@ describe('LocaleService test suite', () => {
         { provide: CookieService, useValue: new CookieServiceMock() },
         { provide: AuthService, userValue: authService },
         { provide: RouteService, useValue: routeServiceStub },
+        { provide: TranslateService, useValue: translateServiceStub },
         { provide: Document, useValue: document },
       ]
     });
@@ -59,36 +73,29 @@ describe('LocaleService test suite', () => {
     serviceAsAny = service;
     spyOnGet = spyOn(cookieService, 'get');
     spyOnSet = spyOn(cookieService, 'set');
+    spyOnGetLanguage = spyOn(routeService, 'getQueryParameterValue').withArgs('lang');
   });
 
   describe('getCurrentLanguageCode', () => {
-    beforeEach(() => {
-      spyOn(translateService, 'getLangs').and.returnValue(langList);
-    });
-
-    it('should return the language saved on cookie if it\'s a valid & active language', () => {
+    it('should return language saved on cookie', () => {
       spyOnGet.and.returnValue('de');
       expect(service.getCurrentLanguageCode()).toBe('de');
     });
 
-    it('should return the default language if the cookie language is disabled', () => {
-      spyOnGet.and.returnValue('disabled');
-      expect(service.getCurrentLanguageCode()).toBe('en');
-    });
+    describe('', () => {
+      beforeEach(() => {
+        spyOn(translateService, 'getLangs').and.returnValue(langList);
+      });
 
-    it('should return the default language if the cookie language does not exist', () => {
-      spyOnGet.and.returnValue('does-not-exist');
-      expect(service.getCurrentLanguageCode()).toBe('en');
-    });
+      it('should return language from browser setting', () => {
+        spyOn(translateService, 'getBrowserLang').and.returnValue('it');
+        expect(service.getCurrentLanguageCode()).toBe('it');
+      });
 
-    it('should return language from browser setting', () => {
-      spyOn(translateService, 'getBrowserLang').and.returnValue('xx');
-      expect(service.getCurrentLanguageCode()).toBe('xx');
-    });
-
-    it('should return default language from config', () => {
-      spyOn(translateService, 'getBrowserLang').and.returnValue('fr');
-      expect(service.getCurrentLanguageCode()).toBe('en');
+      it('should return default language from config', () => {
+        spyOn(translateService, 'getBrowserLang').and.returnValue('fr');
+        expect(service.getCurrentLanguageCode()).toBe('en');
+      });
     });
   });
 
@@ -114,9 +121,9 @@ describe('LocaleService test suite', () => {
     });
 
     it('should set the given language', () => {
-      service.setCurrentLanguageCode('xx');
-      expect(translateService.use).toHaveBeenCalledWith('xx');
-      expect(service.saveLanguageCodeToCookie).toHaveBeenCalledWith('xx');
+      service.setCurrentLanguageCode('it');
+      expect(translateService.use).toHaveBeenCalledWith('it');
+      expect(service.saveLanguageCodeToCookie).toHaveBeenCalledWith('it');
     });
 
     it('should set the current language', () => {
@@ -131,11 +138,36 @@ describe('LocaleService test suite', () => {
       service.setCurrentLanguageCode();
       expect((service as any).document.documentElement.lang).toEqual('es');
     });
+
+    describe('should set language on init', () => {
+      beforeEach(() => {
+        spyOn(translateService, 'getLangs').and.returnValue(langList);
+        spyOn(service, 'setCurrentLanguageCode');
+      });
+      describe('whith correct lang query param ', () => {
+        beforeEach(() => {
+          spyOnGetLanguage.and.returnValue(observableOf('en'));
+          service.initDefaults();
+        });
+        it('should set correct lang', () => {
+          expect(service.setCurrentLanguageCode).toHaveBeenCalledWith('en');
+        });
+      });
+      describe('whith wrong lang query param ', () => {
+        beforeEach(() => {
+          spyOnGetLanguage.and.returnValue(observableOf('abcd'));
+          service.initDefaults();
+        });
+        it('should not set lang', () => {
+          expect(service.setCurrentLanguageCode).not.toHaveBeenCalled();
+        });
+      });
+    });
   });
 
   describe('', () => {
     it('should set quality to current language list', () => {
-      const langListWithQuality = ['en;q=1', 'xx;q=0.9', 'de;q=0.8'];
+      const langListWithQuality = ['en;q=1', 'it;q=0.9', 'de;q=0.8'];
       spyOn(service, 'setQuality').and.returnValue(langListWithQuality);
       service.setQuality(langList, LANG_ORIGIN.BROWSER, false);
       expect(service.setQuality).toHaveBeenCalledWith(langList, LANG_ORIGIN.BROWSER, false);
