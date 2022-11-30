@@ -1,0 +1,19 @@
+.predicate {
+    height: 26px;
+}
+
+.num {
+    text-align: center;
+}
+
+.stats tbody tr:nth-child(even) {
+    background: #CCC
+}
+.stats tbody tr:nth-child(odd) {
+    background: #FFF
+}
+
+.stats thead tr {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}

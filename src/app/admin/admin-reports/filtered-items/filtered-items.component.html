@@ -1,0 +1,156 @@
+<div class="container">
+    <div class="metadata-registry row">
+        <div class="col-12">
+
+            <h2 id="header" class="border-bottom pb-2">{{'admin.reports.items.head' | translate}}</h2>
+
+            <div id="querydiv" [formGroup]="queryForm">
+                <ngb-accordion [closeOthers]="true" activeIds="collectionSelector" #acc="ngbAccordion">
+                    <ngb-panel id="collectionSelector">
+                        <ng-template ngbPanelTitle>
+                            {{'admin.reports.items.section.collectionSelector' | translate}}
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                            <select id="collSel" name="collSel" multiple="multiple" size="10" formControlName="collections">
+                                <option *ngFor="let item of collections" [value]="item.id" [disabled]="item.disabled">{{item.name$ | async}}</option>
+                            </select>
+                            <div>
+                                <button class="query-button" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                            </div>
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel id="metadataFieldQueries">
+                        <ng-template ngbPanelTitle>
+                            {{'admin.reports.items.section.metadataFieldQueries' | translate}}
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                            <fieldset id="predefqueries">
+                                <label>
+                                    {{'admin.reports.items.predefinedQueries' | translate}}
+                                </label>
+                                <select id="predefselect" formControlName="presetQuery" (change)="setPresetQuery()">
+                                    <option *ngFor="let item of presetQueries" [value]="item.id" [selected]="item.isDefault">{{item.label | translate}}</option>
+                                </select>
+                            </fieldset>
+                            <div id="queries">
+                                <div class="metadata" *ngFor="let pred of queryPredicatesArray().controls; let i = index">
+                                    <div [formGroup]="pred">
+                                    <select class="query-tool" formControlName="field" class="predicate">
+                                        <option *ngFor="let item of metadataFieldsWithAny" [value]="item.id">{{item.name$ | async}}</option>
+                                    </select>
+                                    <span>&nbsp;</span>
+                                    <select class="query-tool" formControlName="operator" class="predicate">
+                                        <option *ngFor="let item of predicates" [value]="item.id">{{item.name$ | async | translate}}</option>
+                                    </select>
+                                    <span>&nbsp;</span>
+                                    <input class="predicate" formControlName="value"/>
+                                    <span>&nbsp;</span>
+                                    <button class="predicate" (click)="addQueryPredicate()">+</button>
+                                    <button class="predicate" [disabled]="deleteQueryPredicateDisabled()" (click)="deleteQueryPredicate(i)">–</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="query-button" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                            </div>
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel id="limitPaginateQueries">
+                          <ng-template ngbPanelTitle>
+                              {{'admin.reports.items.section.limitPaginateQueries' | translate}}
+                          </ng-template>
+                          <ng-template ngbPanelContent>
+                              <div>
+                                  <label for="limit">
+                                    {{'admin.reports.items.limit' | translate}}:
+                                  </label>
+                                  <select id="limit" name="limit" formControlName="pageLimit">
+                                      <option *ngFor="let item of pageLimits" value="{{item.id}}" [selected]="item.isDefault">{{item.name$ | async}}</option>
+                                  </select>
+                                  <label for="offset">Offset:</label>
+                                  <input id="offset" name="offset" value="0">
+                              </div>
+                              <div>
+                                  <button class="query-button" (click)="submit()">{{'admin.reports.items.run' | translate }}</button>
+                              </div>
+                          </ng-template>
+                    </ngb-panel>
+                    <ngb-panel id="filters">
+                        <ng-template ngbPanelTitle>
+                            {{'admin.reports.commons.filters' | translate}}
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                            <div>
+                                <button class="query-button" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                            </div>
+                            <ds-filters [filtersForm]="filtersFormGroup()"></ds-filters>
+                            <div>
+                                <button class="query-button" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                            </div>
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel id="additionalData">
+                        <ng-template ngbPanelTitle>
+                            {{'admin.reports.commons.additional-data' | translate}}
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                            <div id="show-fields">
+                                <select class="query-tool" name="show_fields" multiple="multiple" size="8" formControlName="additionalFields">
+                                    <option *ngFor="let item of metadataFields" [value]="item.id">{{item.name$ | async}}</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button class="query-button" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                            </div>
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel id="itemResults">
+                        <ng-template ngbPanelTitle>
+                            {{'admin.reports.collections.item-results' | translate}}
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                            <table id="table" class="stats">
+                                <thead>
+                                    <tr class="header">
+                                        <th>{{ "admin.reports.items.number" | translate }}</th>
+                                        <th>{{ "admin.reports.items.id" | translate }}</th>
+                                        <th>{{ "admin.reports.items.collection" | translate }}</th>
+                                        <th>{{ "admin.reports.items.handle" | translate }}</th>
+                                        <th>{{ "admin.reports.items.title" | translate }}</th>
+                                        <th *ngFor="let field of queryForm.value['additionalFields']">{{ field }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of results$ | async">
+                                        <td class="num">{{ item.index }}</td>
+                                        <td>{{ item.uuid }}</td>
+                                        <td><a *ngIf="item.owningCollection" href="/handle/{{ item.owningCollection.handle }}" target="_blank">{{ item.owningCollection.name }}</a></td>
+                                        <td><a *ngIf="item.handle" href="/handle/{{ item.handle }}" target="_blank">{{ item.handle }}</a></td>
+                                        <td>{{ item.name }}</td>
+                                        <td class="num" *ngFor="let field of queryForm.value['additionalFields']">
+                                            <span *ngFor="let mdvalue of item.metadata[field]">
+                                                {{ mdvalue.value || "" }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                {{'admin.reports.commons.page' | translate}} {{ currentPage + 1 }} {{'admin.reports.commons.of' | translate}} {{ pageCount() }}
+                            </div>
+                            <div>
+                                <button id="prev" (click)="prevPage()" [disabled]="!canNavigatePrevious()">{{'admin.reports.commons.previous-page' | translate}}</button>
+                                <button id="next" (click)="nextPage()" [disabled]="!canNavigateNext()">{{'admin.reports.commons.next-page' | translate}}</button>
+<!--
+                                <button id="export">{{'admin.reports.commons.export' | translate}}</button>
+-->
+                            </div>
+                            <table id="itemtable" class="sortable"></table>
+                        </ng-template>
+                    </ngb-panel>
+                </ngb-accordion>
+            </div>
+
+        </div>
+    </div>
+</div>
