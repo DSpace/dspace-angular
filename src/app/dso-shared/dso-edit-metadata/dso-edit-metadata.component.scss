@@ -1,5 +1,6 @@
 .lbl-cell {
   min-width: 210px;
+  max-width: 210px;
   background-color: var(--bs-gray-100);
   font-weight: bold;
 
@@ -16,7 +17,8 @@
 }
 
 .ds-lang-cell {
-  min-width: 72px;
+  min-width: 90px;
+  max-width: 90px;
 }
 
 .ds-edit-cell {
@@ -68,6 +70,6 @@
   background-color: var(--bs-gray-100);
 }
 
-.ds-drag-handle {
+.ds-drag-handle:not(.disabled) {
   cursor: grab;
 }

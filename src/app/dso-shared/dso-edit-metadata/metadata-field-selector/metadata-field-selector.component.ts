@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { startWith, switchMap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { switchMap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
   getAllSucceededRemoteData,
-  getFirstSucceededRemoteData,
   metadataFieldsToString
 } from '../../../core/shared/operators';
 import { Observable } from 'rxjs/internal/Observable';
@@ -26,7 +25,8 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy {
   public input: FormControl = new FormControl();
 
   query$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-  debounceTime = 500;
+  debounceTime = 300;
+  selectedValueLoading = false;
 
   subs: Subscription[] = [];
 
@@ -38,7 +38,10 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy {
       this.input.valueChanges.pipe(
         debounceTime(this.debounceTime),
       ).subscribe((valueChange) => {
-        this.query$.next(valueChange);
+        if (!this.selectedValueLoading) {
+          this.query$.next(valueChange);
+        }
+        this.selectedValueLoading = false;
         this.mdField = valueChange;
         this.mdFieldChange.emit(this.mdField);
       }),
@@ -59,7 +62,8 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy {
   }
 
   select(mdFieldOption: string) {
-    this.mdField = mdFieldOption;
+    this.selectedValueLoading = true;
+    this.input.setValue(mdFieldOption);
   }
 
   ngOnDestroy(): void {

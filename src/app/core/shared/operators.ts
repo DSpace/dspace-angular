@@ -349,7 +349,7 @@ export const metadataFieldsToString = () =>
             map((schema: MetadataSchema) => ({ field, schema }))
           );
         });
-        return observableCombineLatest(fieldSchemaArray);
+        return isNotEmpty(fieldSchemaArray) ? observableCombineLatest(fieldSchemaArray) : [[]];
       }),
       map((fieldSchemaArray: { field: MetadataField, schema: MetadataSchema }[]): string[] => {
         return fieldSchemaArray.map((fieldSchema: { field: MetadataField, schema: MetadataSchema }) => fieldSchema.schema.prefix + '.' + fieldSchema.field.toString());

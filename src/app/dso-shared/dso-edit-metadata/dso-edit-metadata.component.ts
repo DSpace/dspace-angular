@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injector, Input, OnDestroy, OnInit } from '@angular/core';
 import { AlertType } from '../../shared/alert/aletr-type';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DsoEditMetadataChangeType, DsoEditMetadataForm } from './dso-edit-metadata-form';
@@ -12,7 +12,17 @@ import { RegistryService } from '../../core/registry/registry.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs/internal/Observable';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { getFirstSucceededRemoteData, metadataFieldsToString } from '../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  metadataFieldsToString
+} from '../../core/shared/operators';
+import { UpdateDataService } from '../../core/data/update-data.service';
+import { getDataServiceFor } from '../../core/cache/builders/build-decorators';
+import { ResourceType } from '../../core/shared/resource-type';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { DataService } from '../../core/data/data.service';
 
 @Component({
   selector: 'ds-dso-edit-metadata',
@@ -21,6 +31,7 @@ import { getFirstSucceededRemoteData, metadataFieldsToString } from '../../core/
 })
 export class DsoEditMetadataComponent implements OnInit, OnDestroy {
   @Input() dso: DSpaceObject;
+  updateDataService: UpdateDataService<DSpaceObject>;
   dsoType: string;
 
   form: DsoEditMetadataForm;
@@ -29,6 +40,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
   isReinstatable: boolean;
   hasChanges: boolean;
   isEmpty: boolean;
+  saving$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
    * The AlertType enumeration for access in the component's template
@@ -44,7 +56,10 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
 
   dsoUpdateSubscription: Subscription;
 
-  constructor(protected route: ActivatedRoute) {
+  constructor(protected route: ActivatedRoute,
+              protected notificationsService: NotificationsService,
+              protected translateService: TranslateService,
+              protected parentInjector: Injector) {
   }
 
   ngOnInit(): void {
@@ -54,27 +69,55 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
         map((data: any) => data.dso)
       ).subscribe((rd: RemoteData<DSpaceObject>) => {
         this.dso = rd.payload;
+        this.initDataService();
         this.initForm();
       });
     } else {
+      this.initDataService();
       this.initForm();
     }
   }
 
-  initForm(): void {
-    this.dsoType = typeof this.dso.type === 'string' ? this.dso.type as any : this.dso.type.value;
-    this.form = new DsoEditMetadataForm(this.dso.metadata);
-    this.onDebounce();
+  initDataService(): void {
+    let type: ResourceType;
+    if (typeof this.dso.type === 'string') {
+      type = new ResourceType(this.dso.type);
+    } else {
+      type = this.dso.type;
+    }
+    const provider = getDataServiceFor(type);
+    this.updateDataService = Injector.create({
+      providers: [],
+      parent: this.parentInjector
+    }).get(provider);
+    this.dsoType = type.value;
   }
 
-  onDebounce(): void {
+  initForm(): void {
+    this.form = new DsoEditMetadataForm(this.dso.metadata);
+    this.onValueSaved();
+  }
+
+  onValueSaved(): void {
     this.hasChanges = this.form.hasChanges();
     this.isReinstatable = this.form.isReinstatable();
     this.isEmpty = Object.keys(this.form.fields).length === 0;
   }
 
   submit(): void {
-
+    this.saving$.next(true);
+    this.updateDataService.patch(this.dso, this.form.getOperations()).pipe(
+      getFirstCompletedRemoteData()
+    ).subscribe((rd: RemoteData<DSpaceObject>) => {
+      this.saving$.next(false);
+      if (rd.hasFailed) {
+        this.notificationsService.error('error', rd.errorMessage);
+      } else {
+        this.notificationsService.success('saved', 'saved');
+        this.dso = rd.payload;
+        this.initForm();
+      }
+    });
   }
 
   add(): void {
@@ -84,10 +127,12 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
 
   discard(): void {
     this.form.discard();
+    this.onValueSaved();
   }
 
   reinstate(): void {
     this.form.reinstate();
+    this.onValueSaved();
   }
 
   ngOnDestroy() {
