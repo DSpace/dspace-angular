@@ -172,17 +172,6 @@ export class MenuResolver implements Resolve<boolean> {
       const menuList = [
         /* News */
         {
-          id: 'new',
-          active: false,
-          visible: true,
-          model: {
-            type: MenuItemType.TEXT,
-            text: 'menu.section.new'
-          } as TextMenuItemModel,
-          icon: 'plus',
-          index: 0
-        },
-        {
           id: 'new_community',
           parentID: 'new',
           active: false,
@@ -232,6 +221,17 @@ export class MenuResolver implements Resolve<boolean> {
             link: '/processes/new'
           } as LinkMenuItemModel,
         },
+        {
+          id: 'new',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.new'
+          } as TextMenuItemModel,
+          icon: 'plus',
+          index: 0
+        },
         // TODO: enable this menu item once the feature has been implemented
         // {
         //   id: 'new_item_version',
@@ -246,17 +246,6 @@ export class MenuResolver implements Resolve<boolean> {
         // },
 
         /* Edit */
-        {
-          id: 'edit',
-          active: false,
-          visible: true,
-          model: {
-            type: MenuItemType.TEXT,
-            text: 'menu.section.edit'
-          } as TextMenuItemModel,
-          icon: 'pencil-alt',
-          index: 1
-        },
         {
           id: 'edit_community',
           parentID: 'edit',
@@ -295,6 +284,17 @@ export class MenuResolver implements Resolve<boolean> {
               this.modalService.open(ThemedEditItemSelectorComponent);
             }
           } as OnClickMenuItemModel,
+        },
+        {
+          id: 'edit',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.edit'
+          } as TextMenuItemModel,
+          icon: 'pencil-alt',
+          index: 1
         },
 
         /* Statistics */
