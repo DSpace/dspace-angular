@@ -186,21 +186,25 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
         );
       })
     ).subscribe((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
-      this.loading = false;
-      const currentEntries = this.listEntries$.getValue();
-      if (rd.hasSucceeded) {
-        if (hasNoValue(currentEntries)) {
-          this.listEntries$.next(rd.payload.page);
-        } else {
-          this.listEntries$.next([...currentEntries, ...rd.payload.page]);
-        }
-        // Check if there are more pages available after the current one
-        this.hasNextPage = rd.payload.totalElements > this.listEntries$.getValue().length;
-      } else {
-        this.listEntries$.next([...(hasNoValue(currentEntries) ? [] : this.listEntries$.getValue()), new ListableNotificationObject(NotificationType.Error, 'dso-selector.results-could-not-be-retrieved', LISTABLE_NOTIFICATION_OBJECT.value)]);
-        this.hasNextPage = false;
-      }
+      this.updateList(rd);
     }));
+  }
+
+  updateList(rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) {
+    this.loading = false;
+    const currentEntries = this.listEntries$.getValue();
+    if (rd.hasSucceeded) {
+      if (hasNoValue(currentEntries)) {
+        this.listEntries$.next(rd.payload.page);
+      } else {
+        this.listEntries$.next([...currentEntries, ...rd.payload.page]);
+      }
+      // Check if there are more pages available after the current one
+      this.hasNextPage = rd.payload.totalElements > this.listEntries$.getValue().length;
+    } else {
+      this.listEntries$.next([...(hasNoValue(currentEntries) ? [] : this.listEntries$.getValue()), new ListableNotificationObject(NotificationType.Error, 'dso-selector.results-could-not-be-retrieved', LISTABLE_NOTIFICATION_OBJECT.value)]);
+      this.hasNextPage = false;
+    }
   }
 
   /**
@@ -214,8 +218,9 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    * Perform a search for the current query and page
    * @param query Query to search objects for
    * @param page  Page to retrieve
+   * @param useCache Whether or not to use the cache
    */
-  search(query: string, page: number): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+  search(query: string, page: number, useCache: boolean = true): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     return this.searchService.search(
       new PaginatedSearchOptions({
         query: query,
@@ -223,7 +228,9 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
         pagination: Object.assign({}, this.defaultPagination, {
           currentPage: page
         })
-      })
+      }),
+      null,
+      useCache,
     ).pipe(
       getFirstCompletedRemoteData()
     );
@@ -266,12 +273,21 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Emits only when the {@link listableObject} is a {@link DSpaceObject}.
+   * Handles the user clicks on the {@link ListableObject}s. When the {@link listableObject} is a
+   * {@link ListableObject} it will retry the error when the user clicks it. Otherwise it will emit the {@link onSelect}.
    *
    * @param listableObject The {@link ListableObject} to evaluate
    */
   onClick(listableObject: ListableObject): void {
     if (listableObject.getRenderTypes().includes(LISTABLE_NOTIFICATION_OBJECT.value)) {
+      this.listEntries$.value.pop();
+      this.hasNextPage = true;
+      this.search(this.input.value ? this.input.value : '', this.currentPage$.value, false).pipe(
+        getFirstCompletedRemoteData(),
+      ).subscribe((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
+        this.updateList(rd);
+      });
+    } else {
       this.onSelect.emit((listableObject as SearchResult<DSpaceObject>).indexableObject);
     }
   }
