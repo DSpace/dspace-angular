@@ -35,6 +35,14 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import {
+  ListableNotificationObject
+} from '../../object-list/listable-notification-object/listable-notification-object.model';
+import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { NotificationType } from '../../notifications/models/notification-type';
+import {
+  LISTABLE_NOTIFICATION_OBJECT
+} from '../../object-list/listable-notification-object/listable-notification-object.resource-type';
 
 @Component({
   selector: 'ds-dso-selector',
@@ -82,7 +90,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   /**
    * List with search results of DSpace objects for the current query
    */
-  listEntries$: BehaviorSubject<SearchResult<DSpaceObject>[]> = new BehaviorSubject(null);
+  listEntries$: BehaviorSubject<ListableObject[]> = new BehaviorSubject(null);
 
   /**
    * The current page to load
@@ -115,11 +123,6 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    * The available link types
    */
   linkTypes = CollectionElementLinkType;
-
-  /**
-   * Track whether the element has the mouse over it
-   */
-  isMouseOver = false;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -182,10 +185,10 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
           })
         );
       })
-    ).subscribe((rd) => {
+    ).subscribe((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
       this.loading = false;
+      const currentEntries = this.listEntries$.getValue();
       if (rd.hasSucceeded) {
-        const currentEntries = this.listEntries$.getValue();
         if (hasNoValue(currentEntries)) {
           this.listEntries$.next(rd.payload.page);
         } else {
@@ -194,7 +197,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
         // Check if there are more pages available after the current one
         this.hasNextPage = rd.payload.totalElements > this.listEntries$.getValue().length;
       } else {
-        this.listEntries$.next(null);
+        this.listEntries$.next([...(hasNoValue(currentEntries) ? [] : this.listEntries$.getValue()), new ListableNotificationObject(NotificationType.Error, 'dso-selector.results-could-not-be-retrieved', LISTABLE_NOTIFICATION_OBJECT.value)]);
         this.hasNextPage = false;
       }
     }));
@@ -262,7 +265,19 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
-  getName(searchResult: SearchResult<DSpaceObject>): string {
-    return this.dsoNameService.getName(searchResult.indexableObject);
+  /**
+   * Emits only when the {@link listableObject} is a {@link DSpaceObject}.
+   *
+   * @param listableObject The {@link ListableObject} to evaluate
+   */
+  onClick(listableObject: ListableObject): void {
+    if (listableObject.getRenderTypes().includes(LISTABLE_NOTIFICATION_OBJECT.value)) {
+      this.onSelect.emit((listableObject as SearchResult<DSpaceObject>).indexableObject);
+    }
+  }
+
+  getName(listableObject: ListableObject): string {
+    return listableObject.getRenderTypes().includes(LISTABLE_NOTIFICATION_OBJECT.value) ?
+      'error' : this.dsoNameService.getName((listableObject as SearchResult<DSpaceObject>).indexableObject);
   }
 }
