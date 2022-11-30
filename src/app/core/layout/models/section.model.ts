@@ -29,6 +29,8 @@ export class Section extends CacheableObject {
   @autoserialize
   componentRows: SectionComponent[][];
 
+  nestedSections: Section[];
+
   /**
    * The {@link HALLink}s for this section
    */
