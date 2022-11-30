@@ -721,7 +721,7 @@
 
   "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
 
-  "bitstream.edit.form.iiifAnnotation.label": "Image Annotations",
+  "bitstream.edit.form.iiifAnnotation.label": "IIIF Image Annotations",
 
   "bitstream.edit.form.iiifAnnotation.hint": "Add image annotation list in json format.",
 
