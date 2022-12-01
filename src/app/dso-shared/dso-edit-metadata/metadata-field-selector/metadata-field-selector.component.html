@@ -6,7 +6,7 @@
          (focusin)="query$.next(mdField)"
          (dsClickOutside)="query$.next(null)"
          (click)="$event.stopPropagation();" />
-  <div class="invalid-feedback show-feedback" *ngIf="showInvalid">Invalid metadata field, please pick an existing one from the suggestions when searching</div>
+  <div class="invalid-feedback show-feedback" *ngIf="showInvalid">{{ dsoType + '.edit.metadata.metadatafield.invalid' | translate }}</div>
   <div class="autocomplete dropdown-menu" [ngClass]="{'show': (mdFieldOptions$ | async)?.length > 0}">
     <div class="dropdown-list">
       <div *ngFor="let mdFieldOption of (mdFieldOptions$ | async)">

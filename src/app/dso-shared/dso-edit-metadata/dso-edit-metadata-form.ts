@@ -6,19 +6,50 @@ import { MetadataPatchRemoveOperation } from '../../core/data/object-updates/pat
 import { MetadataPatchAddOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-add-operation.model';
 import { MetadataPatchOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-operation.model';
 
+/* tslint:disable:max-classes-per-file */
+
+/**
+ * Enumeration for the type of change occurring on a metadata value
+ */
 export enum DsoEditMetadataChangeType {
   UPDATE = 1,
   ADD = 2,
   REMOVE = 3
 }
 
+/**
+ * Class holding information about a metadata value and its changes within an edit form
+ */
 export class DsoEditMetadataValue {
+  /**
+   * The original metadata value (should stay the same!) used to compare changes with
+   */
   originalValue: MetadataValue;
+
+  /**
+   * The new value, dynamically changing
+   */
   newValue: MetadataValue;
+
+  /**
+   * A value that can be used to undo any discarding that took place
+   */
   reinstatableValue: MetadataValue;
 
+  /**
+   * Whether or not this value is currently being edited or not
+   */
   editing = false;
+
+  /**
+   * The type of change that's taking place on this metadata value
+   * Empty if no changes are made
+   */
   change: DsoEditMetadataChangeType;
+
+  /**
+   * A type or change that can be used to undo any discarding that took place
+   */
   reinstatableChange: DsoEditMetadataChangeType;
 
   constructor(value: MetadataValue, added = false) {
@@ -30,6 +61,12 @@ export class DsoEditMetadataValue {
     }
   }
 
+  /**
+   * Save the current changes made to the metadata value
+   * This will set the type of change to UPDATE if the new metadata value's value and/or language are different from
+   * the original value
+   * It will also set the editing flag to false
+   */
   confirmChanges() {
     if (hasNoValue(this.change) || this.change === DsoEditMetadataChangeType.UPDATE) {
       if ((this.originalValue.value !== this.newValue.value || this.originalValue.language !== this.newValue.language)) {
@@ -41,10 +78,19 @@ export class DsoEditMetadataValue {
     this.editing = false;
   }
 
+  /**
+   * Returns if the current value contains changes or not
+   * If the metadata value contains changes, but they haven't been confirmed yet through confirmChanges(), this might
+   * return false (which is desired)
+   */
   hasChanges(): boolean {
     return hasValue(this.change);
   }
 
+  /**
+   * Discard the current changes and mark the value and change type re-instatable by storing them in their relevant
+   * properties
+   */
   discardAndMarkReinstatable(): void {
     if (this.change === DsoEditMetadataChangeType.UPDATE) {
       this.reinstatableValue = this.newValue;
@@ -53,12 +99,19 @@ export class DsoEditMetadataValue {
     this.discard();
   }
 
+  /**
+   * Discard the current changes
+   * Call discardAndMarkReinstatable() instead, if the discard should be re-instatable
+   */
   discard(): void {
     this.change = undefined;
     this.newValue = Object.assign(new MetadataValue(), this.originalValue);
     this.editing = false;
   }
 
+  /**
+   * Re-instate (undo) the last discard by replacing the value and change type with their reinstate properties (if present)
+   */
   reinstate(): void {
     if (hasValue(this.reinstatableValue)) {
       this.newValue = this.reinstatableValue;
@@ -70,20 +123,50 @@ export class DsoEditMetadataValue {
     }
   }
 
+  /**
+   * Returns if either the value or change type have a re-instatable property
+   * This will be the case if a discard has taken place that undid changes to the value or type
+   */
   isReinstatable(): boolean {
     return hasValue(this.reinstatableValue) || hasValue(this.reinstatableChange);
   }
 }
 
+/**
+ * Class holding information about the metadata of a DSpaceObject and its changes within an edit form
+ */
 export class DsoEditMetadataForm {
+  /**
+   * List of original metadata field keys (before any changes took place)
+   */
   originalFieldKeys: string[];
+
+  /**
+   * List of current metadata field keys (includes new fields for values added by the user)
+   */
   fieldKeys: string[];
+
+  /**
+   * Current state of the form
+   * Key: Metadata field
+   * Value: List of {@link DsoEditMetadataValue}s for the metadata field
+   */
   fields: {
     [mdField: string]: DsoEditMetadataValue[],
   };
+
+  /**
+   * A map of previously added metadata values before a discard of the form took place
+   * This can be used to re-instate the entire form to before the discard taking place
+   */
   reinstatableNewValues: {
     [mdField: string]: DsoEditMetadataValue[],
   };
+
+  /**
+   * A (temporary) new metadata value added by the user, not belonging to a metadata field yet
+   * This value will be finalised and added to a field using setMetadataField()
+   */
   newValue: DsoEditMetadataValue;
 
   constructor(metadata: MetadataMap) {
@@ -98,18 +181,32 @@ export class DsoEditMetadataForm {
     });
   }
 
+  /**
+   * Add a new temporary value for the user to edit
+   */
   add(): void {
     if (hasNoValue(this.newValue)) {
       this.newValue = new DsoEditMetadataValue(new MetadataValue(), true);
     }
   }
 
+  /**
+   * Add the temporary value to a metadata field
+   * Clear the temporary value afterwards
+   * @param mdField
+   */
   setMetadataField(mdField: string) {
     this.newValue.editing = false;
     this.addValueToField(this.newValue, mdField);
     this.newValue = undefined;
   }
 
+  /**
+   * Add a value to a metadata field within the map
+   * @param value
+   * @param mdField
+   * @private
+   */
   private addValueToField(value: DsoEditMetadataValue, mdField: string) {
     if (isEmpty(this.fields[mdField])) {
       this.fieldKeys.push(mdField);
@@ -118,6 +215,11 @@ export class DsoEditMetadataForm {
     this.fields[mdField].push(value);
   }
 
+  /**
+   * Remove a value from a metadata field on a given index (this actually removes the value, not just marking it deleted)
+   * @param mdField
+   * @param index
+   */
   remove(mdField: string, index: number) {
     if (isNotEmpty(this.fields[mdField])) {
       this.fields[mdField].splice(index, 1);
@@ -128,10 +230,17 @@ export class DsoEditMetadataForm {
     }
   }
 
+  /**
+   * Returns if at least one value within the form contains a change
+   */
   hasChanges(): boolean {
     return Object.values(this.fields).some((values) => values.some((value) => value.hasChanges()));
   }
 
+  /**
+   * Discard all changes within the form and store their current values within re-instatable properties so they can be
+   * undone afterwards
+   */
   discard(): void {
     Object.entries(this.fields).forEach(([field, values]) => {
       let removeFromIndex = -1;
@@ -174,6 +283,9 @@ export class DsoEditMetadataForm {
     this.reinstatableNewValues = {};
   }
 
+  /**
+   * Returns if at least one value contains a re-instatable property, meaning a discard can be reversed
+   */
   isReinstatable(): boolean {
     return isNotEmpty(this.reinstatableNewValues) ||
       Object.values(this.fields)
@@ -181,6 +293,9 @@ export class DsoEditMetadataForm {
           .some((value) => value.isReinstatable()));
   }
 
+  /**
+   * Get the json PATCH operations for the current changes within this form
+   */
   getOperations(): Operation[] {
     const operations: Operation[] = [];
     Object.entries(this.fields).forEach(([field, values]) => {
@@ -211,3 +326,4 @@ export class DsoEditMetadataForm {
     return operations;
   }
 }
+/* tslint:enable:max-classes-per-file */

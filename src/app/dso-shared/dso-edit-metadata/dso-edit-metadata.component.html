@@ -20,12 +20,12 @@
   </div>
 
   <div class="d-flex flex-row ds-field-row ds-header-row">
-    <div class="lbl-cell">Field</div>
+    <div class="lbl-cell">{{ dsoType + '.edit.metadata.headers.field' | translate }}</div>
     <div class="flex-grow-1">
       <div class="d-flex flex-row">
-        <div class="flex-grow-1 ds-flex-cell ds-value-cell"><b class="dont-break-out preserve-line-breaks">Value</b></div>
-        <div class="ds-flex-cell ds-lang-cell"><b>Lang</b></div>
-        <div class="text-center ds-flex-cell ds-edit-cell"><b>Edit</b></div>
+        <div class="flex-grow-1 ds-flex-cell ds-value-cell"><b class="dont-break-out preserve-line-breaks">{{ dsoType + '.edit.metadata.headers.value' | translate }}</b></div>
+        <div class="ds-flex-cell ds-lang-cell"><b>{{ dsoType + '.edit.metadata.headers.language' | translate }}</b></div>
+        <div class="text-center ds-flex-cell ds-edit-cell"><b>{{ dsoType + '.edit.metadata.headers.edit' | translate }}</b></div>
       </div>
     </div>
   </div>
@@ -43,19 +43,19 @@
         </div>
         <div class="text-center ds-flex-cell ds-edit-cell">
           <div class="btn-group edit-field">
-            <button class="btn btn-outline-success btn-sm ng-star-inserted" ngbTooltip="Confirm changes"
+            <button class="btn btn-outline-success btn-sm ng-star-inserted" ngbTooltip="{{ dsoType + '.edit.buttons.confirm' | translate }}"
                     [disabled]="!newMdField || (saving$ | async) || (loadingFieldValidation$ | async)" (click)="setMetadataField()">
               <i class="fas fa-check fa-fw"></i>
             </button>
-            <button class="btn btn-outline-danger btn-sm" ngbTooltip="Remove"
+            <button class="btn btn-outline-danger btn-sm" ngbTooltip="{{ dsoType + '.edit.buttons.remove' | translate }}"
                     [disabled]="true">
               <i class="fas fa-trash-alt fa-fw"></i>
             </button>
-            <button class="btn btn-outline-warning btn-sm" ngbTooltip="Undo changes"
+            <button class="btn btn-outline-warning btn-sm" ngbTooltip="{{ dsoType + '.edit.buttons.undo' | translate }}"
                     [disabled]="(saving$ | async) || (loadingFieldValidation$ | async)" (click)="form.newValue = undefined">
               <i class="fas fa-undo-alt fa-fw"></i>
             </button>
-            <button class="btn btn-outline-secondary ds-drag-handle btn-sm disabled" ngbTooltip="Drag to reorder"
+            <button class="btn btn-outline-secondary ds-drag-handle btn-sm disabled" ngbTooltip="{{ dsoType + '.edit.buttons.drag' | translate }}"
                     [disabled]="true">
               <i class="fas fa-grip-vertical fa-fw"></i>
             </button>
@@ -82,25 +82,25 @@
         </div>
         <div class="text-center ds-flex-cell ds-edit-cell">
           <div class="btn-group edit-field">
-            <button class="btn btn-outline-primary btn-sm ng-star-inserted" ngbTooltip="Edit" *ngIf="!mdValue.editing"
+            <button class="btn btn-outline-primary btn-sm ng-star-inserted" ngbTooltip="{{ dsoType + '.edit.buttons.edit' | translate }}" *ngIf="!mdValue.editing"
                     [disabled]="mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE || (saving$ | async)" (click)="mdValue.editing = true">
               <i class="fas fa-edit fa-fw"></i>
             </button>
-            <button class="btn btn-outline-success btn-sm ng-star-inserted" ngbTooltip="Confirm changes" *ngIf="mdValue.editing"
+            <button class="btn btn-outline-success btn-sm ng-star-inserted" ngbTooltip="{{ dsoType + '.edit.buttons.confirm' | translate }}" *ngIf="mdValue.editing"
                     [disabled]="(saving$ | async)" (click)="mdValue.confirmChanges(); onValueSaved()">
               <i class="fas fa-check fa-fw"></i>
             </button>
-            <button class="btn btn-outline-danger btn-sm" ngbTooltip="Remove"
+            <button class="btn btn-outline-danger btn-sm" ngbTooltip="{{ dsoType + '.edit.buttons.remove' | translate }}"
                     [disabled]="mdValue.change || mdValue.editing || (saving$ | async)" (click)="mdValue.change = DsoEditMetadataChangeTypeEnum.REMOVE; onValueSaved()">
               <i class="fas fa-trash-alt fa-fw"></i>
             </button>
-            <button class="btn btn-outline-warning btn-sm" ngbTooltip="Undo changes"
+            <button class="btn btn-outline-warning btn-sm" ngbTooltip="{{ dsoType + '.edit.buttons.undo' | translate }}"
                     [disabled]="(!mdValue.change && !mdValue.editing) || (saving$ | async)" (click)="mdValue.change === DsoEditMetadataChangeTypeEnum.ADD ? form.remove(mdField, idx) : mdValue.discard(); onValueSaved()">
               <i class="fas fa-undo-alt fa-fw"></i>
             </button>
             <!-- TODO: Enable drag -->
             <button class="btn btn-outline-secondary ds-drag-handle btn-sm"
-                    [ngClass]="{'disabled': form.fields[mdField].length === 1 || (saving$ | async)}" ngbTooltip="Drag to reorder" [disabled]="form.fields[mdField].length === 1 || (saving$ | async)">
+                    [ngClass]="{'disabled': form.fields[mdField].length === 1 || (saving$ | async)}" ngbTooltip="{{ dsoType + '.edit.buttons.drag' | translate }}" [disabled]="form.fields[mdField].length === 1 || (saving$ | async)">
               <i class="fas fa-grip-vertical fa-fw"></i>
             </button>
           </div>
