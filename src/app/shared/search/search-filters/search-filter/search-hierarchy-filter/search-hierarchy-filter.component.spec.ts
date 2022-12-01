@@ -26,14 +26,14 @@ import { VocabularyEntryDetail } from '../../../../../core/submission/vocabulari
 import { FacetValue} from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 
-describe('OkrSearchHierarchyFilterComponent', () => {
+fdescribe('SearchHierarchyFilterComponent', () => {
 
   let fixture: ComponentFixture<SearchHierarchyFilterComponent>;
   let showVocabularyTreeLink: DebugElement;
 
   const testSearchLink = 'test-search';
   const testSearchFilter = 'test-search-filter';
-  const okrVocabularyTreeViewComponent = {
+  const VocabularyTreeViewComponent = {
     select: new EventEmitter<VocabularyEntryDetail>(),
   };
 
@@ -47,7 +47,7 @@ describe('OkrSearchHierarchyFilterComponent', () => {
   const router = new RouterStub();
   const ngbModal = jasmine.createSpyObj('modal', {
     open: {
-      componentInstance: okrVocabularyTreeViewComponent,
+      componentInstance: VocabularyTreeViewComponent,
     }
   });
   const vocabularyService = {
@@ -134,7 +134,7 @@ describe('OkrSearchHierarchyFilterComponent', () => {
           fixture.componentInstance.selectedValues$ = observableOf(
             alreadySelectedValues.map(value => Object.assign(new FacetValue(), { value }))
           );
-          okrVocabularyTreeViewComponent.select.emit(Object.assign(new VocabularyEntryDetail(), {
+          VocabularyTreeViewComponent.select.emit(Object.assign(new VocabularyEntryDetail(), {
             value: newSelectedValue,
           }));
         });
