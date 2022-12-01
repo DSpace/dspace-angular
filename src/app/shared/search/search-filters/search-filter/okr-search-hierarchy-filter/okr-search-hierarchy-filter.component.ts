@@ -23,6 +23,7 @@ import { filter, map, take } from 'rxjs/operators';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { Observable } from 'rxjs';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
+import { environment } from '../../../../../../environments/environment';
 
 /**
  * Component that represents a hierarchy facet for a specific filter configuration.
@@ -63,7 +64,7 @@ export class OkrSearchHierarchyFilterComponent extends SearchHierarchyFilterComp
   ngOnInit() {
     super.ngOnInit();
     this.vocabularyExists$ = this.vocabularyService.searchTopEntries(
-      this.filterConfig.name, new PageInfo(), true, false,
+      this.getVocabularyEntry(), new PageInfo(), true, false,
     ).pipe(
       filter(rd => rd.hasCompleted),
       take(1),
@@ -83,7 +84,7 @@ export class OkrSearchHierarchyFilterComponent extends SearchHierarchyFilterComp
       windowClass: 'treeview'
     });
     modalRef.componentInstance.vocabularyOptions = {
-      name: this.filterConfig.name,
+      name: this.getVocabularyEntry(),
       closed: true
     };
     modalRef.componentInstance.select.subscribe((detail: VocabularyEntryDetail) => {
@@ -102,5 +103,16 @@ export class OkrSearchHierarchyFilterComponent extends SearchHierarchyFilterComp
           );
         });
     });
+  }
+
+  /**
+   * Returns the matching vocabulary entry for the given search filter.
+   * These are configurable in the config file.
+   */
+  getVocabularyEntry() {
+    const foundVocabularyConfig = environment.vocabularies.filter((v) => v.filter === this.filterConfig.name);
+    if (foundVocabularyConfig.length > 0 && foundVocabularyConfig[0].enabled === true) {
+      return foundVocabularyConfig[0].vocabulary;
+    }
   }
 }

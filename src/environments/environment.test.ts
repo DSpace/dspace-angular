@@ -227,5 +227,13 @@ export const environment: AppConfig = {
   mediaViewer: {
     image: true,
     video: true
-  }
+  },
+
+  vocabularies: [
+    {
+      filter: 'subject',
+      vocabulary: 'srsc',
+      enabled: true
+    }
+  ]
 };

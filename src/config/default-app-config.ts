@@ -15,6 +15,7 @@ import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.model';
 import { UIServerConfig } from './ui-server-config.interface';
 import { UniversalConfig } from './universal-config.interface';
+import { FilterVocabularyConfig } from './FilterVocabularyConfig';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -314,4 +315,12 @@ export class DefaultAppConfig implements AppConfig {
     image: false,
     video: false
   };
+
+  vocabularies: FilterVocabularyConfig[] = [
+    {
+      filter: 'subject',
+      vocabulary: 'srsc',
+      enabled: true
+    }
+    ];
 }
