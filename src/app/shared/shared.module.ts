@@ -60,6 +60,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { SearchFormComponent } from './search-form/search-form.component';
+import { ThemedSearchFormComponent } from './search-form/themed-search-form.component';
 import {
   SearchResultGridElementComponent
 } from './object-grid/search-result-grid-element/search-result-grid-element.component';
@@ -396,6 +397,7 @@ const COMPONENTS = [
   PaginationComponent,
   RSSComponent,
   SearchFormComponent,
+  ThemedSearchFormComponent,
   PageWithSidebarComponent,
   SidebarDropdownComponent,
   SidebarFilterComponent,
