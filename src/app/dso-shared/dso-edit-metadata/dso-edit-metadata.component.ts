@@ -1,7 +1,7 @@
-import { Component, Injector, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injector, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AlertType } from '../../shared/alert/aletr-type';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { DsoEditMetadataChangeType, DsoEditMetadataForm } from './dso-edit-metadata-form';
+import { DsoEditMetadataChangeType, DsoEditMetadataForm, DsoEditMetadataValue } from './dso-edit-metadata-form';
 import { map, switchMap } from 'rxjs/operators';
 import { ActivatedRoute, Data } from '@angular/router';
 import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
@@ -23,6 +23,7 @@ import { ResourceType } from '../../core/shared/resource-type';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DataService } from '../../core/data/data.service';
+import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
 
 @Component({
   selector: 'ds-dso-edit-metadata',
@@ -31,6 +32,7 @@ import { DataService } from '../../core/data/data.service';
 })
 export class DsoEditMetadataComponent implements OnInit, OnDestroy {
   @Input() dso: DSpaceObject;
+  @ViewChild(MetadataFieldSelectorComponent) metadataFieldSelectorComponent: MetadataFieldSelectorComponent;
   updateDataService: UpdateDataService<DSpaceObject>;
   dsoType: string;
 
@@ -41,6 +43,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
   hasChanges: boolean;
   isEmpty: boolean;
   saving$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  loadingFieldValidation$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
    * The AlertType enumeration for access in the component's template
@@ -116,6 +119,17 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
         this.notificationsService.success('saved', 'saved');
         this.dso = rd.payload;
         this.initForm();
+      }
+    });
+  }
+
+  setMetadataField() {
+    this.loadingFieldValidation$.next(true);
+    this.metadataFieldSelectorComponent.validate().subscribe((valid) => {
+      this.loadingFieldValidation$.next(false);
+      if (valid) {
+        this.form.setMetadataField(this.newMdField);
+        this.onValueSaved();
       }
     });
   }

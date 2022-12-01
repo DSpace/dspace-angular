@@ -1,18 +1,18 @@
 <div class="item-metadata" *ngIf="form">
-  <div class="button-row top d-flex my-2 space-children-mr">
+  <div class="button-row top d-flex my-2 space-children-mr ml-gap">
     <button class="mr-auto btn btn-success" [disabled]="form.newValue || (saving$ | async)"
             (click)="add()"><i class="fas fa-plus"></i>
       <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.add-button' | translate }}</span>
     </button>
-    <button class="btn btn-warning ml-2" *ngIf="isReinstatable" [disabled]="(saving$ | async)"
+    <button class="btn btn-warning ml-1" *ngIf="isReinstatable" [disabled]="(saving$ | async)"
             (click)="reinstate()"><i class="fas fa-undo-alt"></i>
       <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.reinstate-button' | translate }}</span>
     </button>
-    <button class="btn btn-primary ml-2" [disabled]="!hasChanges || (saving$ | async)"
+    <button class="btn btn-primary ml-1" [disabled]="!hasChanges || (saving$ | async)"
             (click)="submit()"><i class="fas fa-save"></i>
       <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.save-button' | translate }}</span>
     </button>
-    <button class="btn btn-danger ml-2" *ngIf="!isReinstatable"
+    <button class="btn btn-danger ml-1" *ngIf="!isReinstatable"
             [disabled]="!hasChanges || (saving$ | async)"
             (click)="discard()"><i class="fas fa-times"></i>
       <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.discard-button' | translate }}</span>
@@ -31,10 +31,10 @@
   </div>
   <div class="d-flex flex-row ds-field-row" *ngIf="form.newValue">
     <div class="lbl-cell ds-success">
-      <ds-metadata-field-selector [(mdField)]="newMdField"></ds-metadata-field-selector>
+      <ds-metadata-field-selector [(mdField)]="newMdField" [autofocus]="true"></ds-metadata-field-selector>
     </div>
     <div class="flex-grow-1 ds-drop-list">
-      <div class="d-flex flex-row ds-value-row ds-success">
+      <div class="d-flex flex-row ds-value-row ds-success h-100">
         <div class="flex-grow-1 ds-flex-cell ds-value-cell d-flex align-items-center">
           <textarea class="form-control" rows="2" [(ngModel)]="form.newValue.newValue.value"></textarea>
         </div>
@@ -44,16 +44,19 @@
         <div class="text-center ds-flex-cell ds-edit-cell">
           <div class="btn-group edit-field">
             <button class="btn btn-outline-success btn-sm ng-star-inserted" ngbTooltip="Confirm changes"
-                    [disabled]="!newMdField || (saving$ | async)" (click)="form.setMetadataField(newMdField); onValueSaved()">
+                    [disabled]="!newMdField || (saving$ | async) || (loadingFieldValidation$ | async)" (click)="setMetadataField()">
               <i class="fas fa-check fa-fw"></i>
             </button>
-            <button class="btn btn-outline-danger btn-sm" ngbTooltip="Remove" [disabled]="true">
+            <button class="btn btn-outline-danger btn-sm" ngbTooltip="Remove"
+                    [disabled]="true">
               <i class="fas fa-trash-alt fa-fw"></i>
             </button>
-            <button class="btn btn-outline-warning btn-sm" ngbTooltip="Undo changes" [disabled]="(saving$ | async)" (click)="form.newValue = undefined">
+            <button class="btn btn-outline-warning btn-sm" ngbTooltip="Undo changes"
+                    [disabled]="(saving$ | async) || (loadingFieldValidation$ | async)" (click)="form.newValue = undefined">
               <i class="fas fa-undo-alt fa-fw"></i>
             </button>
-            <button class="btn btn-outline-secondary ds-drag-handle btn-sm disabled" ngbTooltip="Drag to reorder" [disabled]="true">
+            <button class="btn btn-outline-secondary ds-drag-handle btn-sm disabled" ngbTooltip="Drag to reorder"
+                    [disabled]="true">
               <i class="fas fa-grip-vertical fa-fw"></i>
             </button>
           </div>
@@ -109,15 +112,15 @@
   <div *ngIf="isEmpty">
     <ds-alert [content]="dsoType + '.edit.metadata.empty'" [type]="AlertTypeEnum.Info"></ds-alert>
   </div>
-  <div class="button-row bottom">
+  <div class="button-row bottom d-inline-block w-100">
     <div class="mt-2 float-right space-children-mr ml-gap">
-      <button class="btn btn-warning ml-2" *ngIf="isReinstatable" [disabled]="(saving$ | async)"
+      <button class="btn btn-warning" *ngIf="isReinstatable" [disabled]="(saving$ | async)"
               (click)="reinstate()"><i class="fas fa-undo-alt"></i> {{ dsoType + '.edit.metadata.reinstate-button' | translate }}
       </button>
-      <button class="btn btn-primary ml-2" [disabled]="!hasChanges || (saving$ | async)"
+      <button class="btn btn-primary" [disabled]="!hasChanges || (saving$ | async)"
               (click)="submit()"><i class="fas fa-save"></i> {{ dsoType + '.edit.metadata.save-button' | translate }}
       </button>
-      <button class="btn btn-danger ml-2" *ngIf="!isReinstatable"
+      <button class="btn btn-danger" *ngIf="!isReinstatable"
               [disabled]="!hasChanges || (saving$ | async)"
               (click)="discard()"><i class="fas fa-times"></i> {{ dsoType + '.edit.metadata.discard-button' | translate }}
       </button>
