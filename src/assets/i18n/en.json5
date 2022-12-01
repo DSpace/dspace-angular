@@ -3372,7 +3372,9 @@
 
   "manage.relationships.unhide": "Unhide",
 
-  "manage.relationships.title" : "Selected items",
+  "manage.relationships.search-list.title" : "All your items",
+
+  "manage.relationships.selected-list.title" : "Selected items",
 
   "manage.relationships.no.relationships.found" : "Empty selection",
 
