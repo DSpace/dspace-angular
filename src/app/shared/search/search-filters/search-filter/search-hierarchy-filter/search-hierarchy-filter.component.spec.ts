@@ -26,7 +26,7 @@ import { VocabularyEntryDetail } from '../../../../../core/submission/vocabulari
 import { FacetValue} from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 
-fdescribe('SearchHierarchyFilterComponent', () => {
+describe('SearchHierarchyFilterComponent', () => {
 
   let fixture: ComponentFixture<SearchHierarchyFilterComponent>;
   let showVocabularyTreeLink: DebugElement;
