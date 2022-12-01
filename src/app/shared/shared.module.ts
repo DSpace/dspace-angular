@@ -177,10 +177,6 @@ import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
-import { OkrVocabularyTreeviewComponent } from './okr-vocabulary-treeview/okr-vocabulary-treeview.component';
-import {
-  OkrSearchHierarchyFilterComponent
-} from './search/search-filters/search-filter/okr-search-hierarchy-filter/okr-search-hierarchy-filter.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -350,7 +346,6 @@ const COMPONENTS = [
   CommunitySidebarSearchListElementComponent,
   SearchNavbarComponent,
   ScopeSelectorModalComponent,
-  OkrVocabularyTreeviewComponent
 ];
 
 const ENTRY_COMPONENTS = [

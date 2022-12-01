@@ -2,7 +2,7 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { filter, find, startWith } from 'rxjs/operators';
+import { filter, find, startWith, map } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -18,6 +18,7 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
+import { lowerCase } from 'lodash';
 
 /**
  * Component that show a hierarchical vocabulary in a tree view
@@ -98,7 +99,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    */
-  protected subs: Subscription[] = [];
+  private subs: Subscription[] = [];
 
   /**
    * Initialize instance variables
@@ -110,9 +111,9 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    */
   constructor(
     public activeModal: NgbActiveModal,
-    protected vocabularyTreeviewService: VocabularyTreeviewService,
-    protected store: Store<CoreState>,
-    protected translate: TranslateService
+    private vocabularyTreeviewService: VocabularyTreeviewService,
+    private store: Store<CoreState>,
+    private translate: TranslateService
   ) {
     this.treeFlattener = new VocabularyTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
@@ -203,23 +204,15 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
       })
     );
 
-    const descriptionLabel = 'vocabulary-treeview.tree.description.' + this.vocabularyOptions.name;
-    this.description = this.translate.get(descriptionLabel).pipe(
-      filter((msg) => msg !== descriptionLabel),
-      startWith('')
+    this.translate.get(`search.filters.filter.${this.vocabularyOptions.name}.head`).pipe(
+      map((type) => lowerCase(type)),
+    ).subscribe(
+      (type) => this.description = this.translate.get('okr-vocabulary-treeview.info', { type })
     );
-
-    // set isAuthenticated
-    this.isAuthenticated = this.store.pipe(select(isAuthenticated));
 
     this.loading = this.vocabularyTreeviewService.isLoading();
 
-    this.isAuthenticated.pipe(
-      find((isAuth) => isAuth)
-    ).subscribe(() => {
-      const entryId: string = (this.selectedItem) ? this.getEntryId(this.selectedItem) : null;
-      this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), entryId);
-    });
+    this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), null);
   }
 
   /**
@@ -301,7 +294,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
   /**
    * Return an id for a given {@link VocabularyEntry}
    */
-  protected getEntryId(entry: VocabularyEntry): string {
+  private getEntryId(entry: VocabularyEntry): string {
     return entry.authority || entry.otherInformation.id || undefined;
   }
 }

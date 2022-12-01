@@ -1,4 +1,4 @@
-import { OkrSearchHierarchyFilterComponent } from './okr-search-hierarchy-filter.component';
+import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -23,12 +23,12 @@ import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { FacetValue } from '../../../../../../../../app/shared/search/facet-value.model';
-import { SearchFilterConfig } from '../../../../../../../../app/shared/search/search-filter-config.model';
+import { FacetValue} from '../../../models/facet-value.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 
 describe('OkrSearchHierarchyFilterComponent', () => {
 
-  let fixture: ComponentFixture<OkrSearchHierarchyFilterComponent>;
+  let fixture: ComponentFixture<SearchHierarchyFilterComponent>;
   let showVocabularyTreeLink: DebugElement;
 
   const testSearchLink = 'test-search';
@@ -62,7 +62,7 @@ describe('OkrSearchHierarchyFilterComponent', () => {
         TranslateModule.forRoot(),
       ],
       declarations: [
-        OkrSearchHierarchyFilterComponent,
+        SearchHierarchyFilterComponent,
       ],
       providers: [
         { provide: SearchService, useValue: searchService },
@@ -80,7 +80,7 @@ describe('OkrSearchHierarchyFilterComponent', () => {
   });
 
   function init() {
-    fixture = TestBed.createComponent(OkrSearchHierarchyFilterComponent);
+    fixture = TestBed.createComponent(SearchHierarchyFilterComponent);
     fixture.detectChanges();
     showVocabularyTreeLink = fixture.debugElement.query(By.css('a#show-test-search-filter-tree'));
   }
