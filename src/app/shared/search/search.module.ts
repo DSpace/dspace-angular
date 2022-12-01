@@ -28,6 +28,9 @@ import { MissingTranslationHelper } from '../translate/missing-translation.helpe
 import { SharedModule } from '../shared.module';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { SearchComponent } from './search.component';
+import {
+  OkrSearchHierarchyFilterComponent
+} from './search-filters/search-filter/okr-search-hierarchy-filter/okr-search-hierarchy-filter.component';
 
 const COMPONENTS = [
   SearchComponent,
@@ -50,7 +53,8 @@ const COMPONENTS = [
   SearchAuthorityFilterComponent,
   SearchSwitchConfigurationComponent,
   ConfigurationSearchPageComponent,
-  ThemedConfigurationSearchPageComponent
+  ThemedConfigurationSearchPageComponent,
+  OkrSearchHierarchyFilterComponent
 ];
 
 const ENTRY_COMPONENTS = [

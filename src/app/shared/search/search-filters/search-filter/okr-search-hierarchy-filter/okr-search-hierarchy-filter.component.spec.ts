@@ -2,27 +2,27 @@ import { OkrSearchHierarchyFilterComponent } from './okr-search-hierarchy-filter
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { VocabularyService } from '../../../../../../../../app/core/submission/vocabularies/vocabulary.service';
+import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { of as observableOf } from 'rxjs';
-import { RemoteData } from '../../../../../../../../app/core/data/remote-data';
-import { RequestEntryState } from '../../../../../../../../app/core/data/request.reducer';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { RequestEntryState } from '../../../../../core/data/request.reducer';
 import { TranslateModule } from '@ngx-translate/core';
-import { RouterStub } from '../../../../../../../../app/shared/testing/router.stub';
-import { buildPaginatedList } from '../../../../../../../../app/core/data/paginated-list.model';
-import { PageInfo } from '../../../../../../../../app/core/shared/page-info.model';
+import { RouterStub } from '../../../../testing/router.stub';
+import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
+import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { CommonModule } from '@angular/common';
-import { SearchService } from '../../../../../../../../app/core/shared/search/search.service';
+import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   SearchFilterService
-} from '../../../../../../../../app/core/shared/search/search-filter.service';
-import { RemoteDataBuildService } from '../../../../../../../../app/core/cache/builders/remote-data-build.service';
+} from '../../../../../core/shared/search/search-filter.service';
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../app/my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationServiceStub } from '../../../../../../../../app/shared/testing/search-configuration-service.stub';
-import { VocabularyEntryDetail } from '../../../../../../../../app/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
+import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { FacetValue } from '../../../../../../../../app/shared/search/facet-value.model';
 import { SearchFilterConfig } from '../../../../../../../../app/shared/search/search-filter-config.model';
 

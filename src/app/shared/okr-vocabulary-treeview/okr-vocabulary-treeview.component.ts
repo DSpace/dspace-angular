@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { VocabularyTreeviewComponent } from '../../../../../app/shared/vocabulary-treeview/vocabulary-treeview.component';
+import { VocabularyTreeviewComponent } from '../vocabulary-treeview/vocabulary-treeview.component';
 import { filter, map, startWith } from 'rxjs/operators';
-import { PageInfo } from '../../../../../app/core/shared/page-info.model';
+import { PageInfo } from '../../core/shared/page-info.model';
 import { lowerCase } from 'lodash';
 
 /**
@@ -10,10 +10,10 @@ import { lowerCase } from 'lodash';
  */
 @Component({
   selector: 'ds-okr-vocabulary-treeview',
-  templateUrl: '../../../../../app/shared/vocabulary-treeview/vocabulary-treeview.component.html',
+  templateUrl: '../vocabulary-treeview/vocabulary-treeview.component.html',
   styleUrls: [
     './okr-vocabulary-treeview.component.scss',
-    '../../../../../app/shared/vocabulary-treeview/vocabulary-treeview.component.scss',
+    '../vocabulary-treeview/vocabulary-treeview.component.scss',
   ]
 })
 export class OkrVocabularyTreeviewComponent extends VocabularyTreeviewComponent {
