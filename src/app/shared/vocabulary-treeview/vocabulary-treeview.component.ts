@@ -2,14 +2,13 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { filter, find, startWith, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
-import { isAuthenticated } from '../../core/auth/selectors';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import { LOAD_MORE, LOAD_MORE_ROOT, TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
@@ -18,7 +17,7 @@ import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocab
 import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
 import { CoreState } from '../../core/core-state.model';
-import { lowerCase } from 'lodash';
+import { lowerCase } from 'lodash/string';
 
 /**
  * Component that show a hierarchical vocabulary in a tree view
