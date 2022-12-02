@@ -12,7 +12,6 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
-import { CoreState } from '../../core/core.reducers';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { RouterStub } from '../../shared/testing/router.stub';
@@ -21,7 +20,12 @@ import {
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService
 } from '../../core/end-user-agreement/end-user-agreement.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/remote-data.utils';
+import { CoreState } from '../../core/core-state.model';
 
 describe('CreateProfileComponent', () => {
   let comp: CreateProfileComponent;
@@ -106,7 +110,7 @@ describe('CreateProfileComponent', () => {
     };
     epersonWithAgreement = Object.assign(new EPerson(), valuesWithAgreement);
 
-    route = {data: observableOf({registration: registration})};
+    route = {data: observableOf({registration: createSuccessfulRemoteDataObject(registration)})};
     router = new RouterStub();
     notificationsService = new NotificationsServiceStub();
 
@@ -234,6 +238,7 @@ describe('CreateProfileComponent', () => {
       expect(router.navigate).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();
     });
+
     it('should submit not create an eperson when the user info form is invalid', () => {
 
       (ePersonDataService.createEPersonForToken as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Error', 500));

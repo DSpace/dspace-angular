@@ -1,8 +1,4 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import {
-  FieldUpdate,
-  FieldUpdates
-} from '../../../core/data/object-updates/object-updates.reducer';
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { Item } from '../../../core/shared/item.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -18,6 +14,8 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
 import { getAllSucceededRemoteData } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item.resolver';
+import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
 
 @Component({
   selector: 'ds-abstract-item-update',

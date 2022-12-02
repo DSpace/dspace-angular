@@ -5,6 +5,10 @@ interface AutosaveConfig extends Config {
   timer: number;
 }
 
+interface TypeBindConfig extends Config {
+  field: string;
+}
+
 interface IconsConfig extends Config {
   metadata: MetadataIconConfig[];
   authority: {
@@ -24,5 +28,6 @@ export interface ConfidenceIconConfig extends Config {
 
 export interface SubmissionConfig extends Config {
   autosave: AutosaveConfig;
+  typeBind: TypeBindConfig;
   icons: IconsConfig;
 }

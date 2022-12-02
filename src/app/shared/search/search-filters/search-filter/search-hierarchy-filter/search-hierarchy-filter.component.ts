@@ -25,16 +25,18 @@ import { VocabularyService } from '../../../../../core/submission/vocabularies/v
 import { Observable } from 'rxjs';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { environment } from '../../../../../../environments/environment';
+import { addOperatorToFilterValue } from '../../../search.utils';
 
-/**
- * Component that represents a hierarchy facet for a specific filter configuration.
- */
 @Component({
   selector: 'ds-search-hierarchy-filter',
   styleUrls: ['./search-hierarchy-filter.component.scss'],
   templateUrl: './search-hierarchy-filter.component.html',
   animations: [facetLoad]
 })
+
+/**
+ * Component that represents a hierarchy facet for a specific filter configuration
+ */
 @renderFacetFor(FilterType.hierarchy)
 export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnInit {
 
@@ -52,6 +54,15 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
   }
 
   vocabularyExists$: Observable<boolean>;
+
+  /**
+   * Submits a new active custom value to the filter from the input field
+   * Overwritten method from parent component, adds the "query" operator to the received data before passing it on
+   * @param data The string from the input field
+   */
+  onSubmit(data: any) {
+    super.onSubmit(addOperatorToFilterValue(data, 'query'));
+  }
 
   ngOnInit() {
     super.ngOnInit();

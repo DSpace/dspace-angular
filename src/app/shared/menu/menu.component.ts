@@ -1,17 +1,18 @@
 import { ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
 import { MenuService } from './menu.service';
-import { MenuID } from './initial-menus-state';
-import { MenuSection } from './menu.reducer';
 import { distinctUntilChanged, map, mergeMap, switchMap } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { hasValue, isNotEmptyOperator } from '../empty.util';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 import { getComponentForMenu } from './menu-section.decorator';
 import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
+import { MenuSection } from './menu-section.model';
+import { MenuID } from './menu-id.model';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { ThemeService } from '../theme-support/theme.service';
 
 /**
  * A basic implementation of a MenuComponent
@@ -72,7 +73,9 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   private activatedRouteLastChild: ActivatedRoute;
 
-  constructor(protected menuService: MenuService, protected injector: Injector, public authorizationService: AuthorizationDataService, public route: ActivatedRoute) {
+  constructor(protected menuService: MenuService, protected injector: Injector, public authorizationService: AuthorizationDataService,
+              public route: ActivatedRoute, protected themeService: ThemeService
+  ) {
   }
 
   /**
@@ -215,7 +218,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   private getSectionComponent(section: MenuSection): Observable<GenericConstructor<MenuSectionComponent>> {
     return this.menuService.hasSubSections(this.menuID, section.id).pipe(
       map((expandable: boolean) => {
-        return getComponentForMenu(this.menuID, expandable);
+        return getComponentForMenu(this.menuID, expandable, this.themeService.getThemeName());
       }
       ),
     );

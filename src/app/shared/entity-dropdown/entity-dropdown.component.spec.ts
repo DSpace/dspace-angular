@@ -4,12 +4,12 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { ChangeDetectorRef, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
-import { EntityTypeService } from '../../core/data/entity-type.service';
+import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
 import { TestScheduler } from 'rxjs/testing';
 import { By } from '@angular/platform-browser';
 import { createPaginatedList } from '../testing/utils.test';
 
-// tslint:disable-next-line:pipe-prefix
+// eslint-disable-next-line @angular-eslint/pipe-prefix
 @Pipe({ name: 'translate' })
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {
@@ -75,7 +75,7 @@ describe('EntityDropdownComponent', () => {
       imports: [],
       declarations: [EntityDropdownComponent, MockTranslatePipe],
       providers: [
-        { provide: EntityTypeService, useValue: entityTypeServiceMock },
+        { provide: EntityTypeDataService, useValue: entityTypeServiceMock },
         ChangeDetectorRef
       ],
       schemas: [NO_ERRORS_SCHEMA]

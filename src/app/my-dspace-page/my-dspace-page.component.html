@@ -2,9 +2,9 @@
   <ds-my-dspace-new-submission *dsShowOnlyForRole="[roleTypeEnum.Submitter]"></ds-my-dspace-new-submission>
 </div>
 
-<ds-search *ngIf="configuration && context"
+<ds-themed-search *ngIf="configuration && context"
            [configuration]="configuration"
            [configurationList]="(configurationList$ | async)"
            [context]="context"
            [viewModeList]="viewModeList"
-></ds-search>
+></ds-themed-search>

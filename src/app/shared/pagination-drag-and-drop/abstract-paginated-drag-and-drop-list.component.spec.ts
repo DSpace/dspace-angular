@@ -5,16 +5,14 @@ import { Component, ElementRef } from '@angular/core';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { FieldUpdates } from '../../core/data/object-updates/object-updates.reducer';
 import { take } from 'rxjs/operators';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { createPaginatedList } from '../testing/utils.test';
 import { ObjectValuesPipe } from '../utils/object-values-pipe';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { FieldUpdates } from '../../core/data/object-updates/field-updates.model';
 
 @Component({
   selector: 'ds-mock-paginated-drag-drop-abstract',

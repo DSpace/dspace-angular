@@ -1,24 +1,17 @@
 import { Injectable } from '@angular/core';
 import {
+  AsyncSubject,
   combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
-  race as observableRace
 } from 'rxjs';
-import { map, switchMap, filter, distinctUntilKeyChanged } from 'rxjs/operators';
+import { map, switchMap, filter, distinctUntilKeyChanged, startWith } from 'rxjs/operators';
 import { hasValue, isEmpty, isNotEmpty, hasNoValue, isUndefined } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { FollowLinkConfig, followLink } from '../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
-import {
-  RequestEntry,
-  ResponseState,
-  RequestEntryState,
-  hasSucceeded
-} from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
-import { getRequestFromRequestHref, getRequestFromRequestUUID } from '../../shared/operators';
 import { ObjectCacheService } from '../object-cache.service';
 import { LinkService } from './link.service';
 import { HALLink } from '../../shared/hal-link.model';
@@ -28,6 +21,11 @@ import { HALResource } from '../../shared/hal-resource.model';
 import { PAGINATED_LIST } from '../../data/paginated-list.resource-type';
 import { getUrlWithoutEmbedParams } from '../../index/index.selectors';
 import { getResourceTypeValueFor } from '../object-cache.reducer';
+import { hasSucceeded, isStale, RequestEntryState } from '../../data/request-entry-state.model';
+import { getRequestFromRequestHref, getRequestFromRequestUUID } from '../../shared/request.operators';
+import { RequestEntry } from '../../data/request-entry.model';
+import { ResponseState } from '../../data/response-state.model';
+import { getFirstCompletedRemoteData } from '../../shared/operators';
 
 @Injectable()
 export class RemoteDataBuildService {
@@ -194,6 +192,49 @@ export class RemoteDataBuildService {
 
   /**
    * Creates a {@link RemoteData} object for a rest request and its response
+   * and emits it only after the callback function is completed.
+   *
+   * @param requestUUID$    The UUID of the request we want to retrieve
+   * @param callback        A function that returns an Observable. It will only be called once the request has succeeded.
+   *                        Then, the response will only be emitted after this callback function has emitted.
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  buildFromRequestUUIDAndAwait<T>(requestUUID$: string | Observable<string>, callback: (rd?: RemoteData<T>) => Observable<unknown>, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<T>> {
+    const response$ = this.buildFromRequestUUID(requestUUID$, ...linksToFollow);
+
+    const callbackDone$ = new AsyncSubject<boolean>();
+    response$.pipe(
+      getFirstCompletedRemoteData(),
+      switchMap((rd: RemoteData<any>) => {
+        if (rd.hasSucceeded) {
+          // if the request succeeded, execute the callback
+          return callback(rd);
+        } else {
+          // otherwise, emit right away so the subscription doesn't stick around
+          return [true];
+        }
+      }),
+    ).subscribe(() => {
+      callbackDone$.next(true);
+      callbackDone$.complete();
+    });
+
+    return response$.pipe(
+      switchMap((rd: RemoteData<any>) => {
+        if (rd.hasSucceeded) {
+          // if the request succeeded, wait for the callback to finish
+          return callbackDone$.pipe(
+            map(() => rd),
+          );
+        } else {
+          return [rd];
+        }
+      })
+    );
+  }
+
+  /**
+   * Creates a {@link RemoteData} object for a rest request and its response
    *
    * @param href$             self link of object we want to retrieve
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
@@ -210,10 +251,27 @@ export class RemoteDataBuildService {
         this.objectCache.getRequestUUIDBySelfLink(href)),
     );
 
-    const requestEntry$ = observableRace(
-      href$.pipe(getRequestFromRequestHref(this.requestService)),
-      requestUUID$.pipe(getRequestFromRequestUUID(this.requestService)),
-    ).pipe(
+    const requestEntry$ = observableCombineLatest([
+      href$.pipe(getRequestFromRequestHref(this.requestService), startWith(undefined)),
+      requestUUID$.pipe(getRequestFromRequestUUID(this.requestService), startWith(undefined)),
+    ]).pipe(
+      filter(([r1, r2]) => hasValue(r1) || hasValue(r2)),
+      map(([r1, r2]) => {
+        // If one of the two requests has no value, return the other (both is impossible due to the filter above)
+        if (hasNoValue(r2)) {
+          return r1;
+        } else if (hasNoValue(r1)) {
+          return r2;
+        }
+
+        if ((isStale(r1.state) && isStale(r2.state)) || (!isStale(r1.state) && !isStale(r2.state))) {
+          // Neither or both are stale, pick the most recent request
+          return r1.lastUpdated >= r2.lastUpdated ? r1 : r2;
+        } else {
+          // One of the two is stale, return the not stale request
+          return isStale(r2.state) ? r1 : r2;
+        }
+      }),
       distinctUntilKeyChanged('lastUpdated')
     );
 

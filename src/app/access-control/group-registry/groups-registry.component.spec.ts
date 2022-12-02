@@ -31,6 +31,7 @@ import { RouterMock } from '../../shared/mocks/router.mock';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { NoContent } from '../../core/shared/NoContent.model';
 
 describe('GroupRegistryComponent', () => {
   let component: GroupsRegistryComponent;
@@ -68,7 +69,7 @@ describe('GroupRegistryComponent', () => {
     mockGroups = [GroupMock, GroupMock2];
     mockEPeople = [EPersonMock, EPersonMock2];
     ePersonDataServiceStub = {
-      findAllByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
+      findListByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         switch (href) {
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/epersons':
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
@@ -96,7 +97,7 @@ describe('GroupRegistryComponent', () => {
     };
     groupsDataServiceStub = {
       allGroups: mockGroups,
-      findAllByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
+      findListByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
         switch (href) {
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/groups':
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
@@ -145,7 +146,10 @@ describe('GroupRegistryComponent', () => {
           totalPages: 1,
           currentPage: 1
         }), [result]));
-      }
+      },
+      delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
+        return createSuccessfulRemoteDataObject$({});
+      },
     };
     dsoDataServiceStub = {
       findByHref(href: string): Observable<RemoteData<DSpaceObject>> {
@@ -299,6 +303,31 @@ describe('GroupRegistryComponent', () => {
           return (foundEl.nativeElement.textContent.trim() === GroupMock2.uuid);
         })).toBeTruthy();
       });
+    });
+  });
+
+  describe('delete', () => {
+    let deleteButton;
+
+    beforeEach(fakeAsync(() => {
+      spyOn(groupsDataServiceStub, 'delete').and.callThrough();
+
+      setIsAuthorized(true, true);
+
+      // force rerender after setup changes
+      component.search({ query: '' });
+      tick();
+      fixture.detectChanges();
+
+      // only mockGroup[0] is deletable, so we should only get one button
+      deleteButton = fixture.debugElement.query(By.css('.btn-delete')).nativeElement;
+    }));
+
+    it('should call GroupDataService.delete', () => {
+      deleteButton.click();
+      fixture.detectChanges();
+
+      expect(groupsDataServiceStub.delete).toHaveBeenCalledWith(mockGroups[0].id);
     });
   });
 });
