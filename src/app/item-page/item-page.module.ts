@@ -46,6 +46,7 @@ import { ThemedFileSectionComponent } from './simple/field-components/file-secti
 import { TombstoneComponent } from './tombstone/tombstone.component';
 import { ReplacedTombstoneComponent } from './tombstone/replaced-tombstone/replaced-tombstone.component';
 import { WithdrawnTombstoneComponent } from './tombstone/withdrawn-tombstone/withdrawn-tombstone.component';
+import { ClarinLicenseInfoComponent } from './clarin-license-info/clarin-license-info.component';
 
 
 const ENTRY_COMPONENTS = [
@@ -85,7 +86,8 @@ const DECLARATIONS = [
   VersionPageComponent,
   TombstoneComponent,
   ReplacedTombstoneComponent,
-  WithdrawnTombstoneComponent
+  WithdrawnTombstoneComponent,
+  ClarinLicenseInfoComponent
 ];
 
 @NgModule({

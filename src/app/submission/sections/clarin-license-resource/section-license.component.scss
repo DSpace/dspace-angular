@@ -1,0 +1,38 @@
+@import "ufal-theme.css";
+
+.container {
+  max-width: none;
+}
+
+#aspect_submission_StepTransformer_item_ {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.alert-warning {
+  background-color: #fcf8e3 !important;
+  border: 1px solid #fbeed5 !important;
+  color: #c09853 !important;
+  background-image: none;
+}
+
+.alert-danger {
+  color: #6c2323;
+  background-color: #f5dada;
+  border-color: #f2cbcb;
+  background-image: none;
+  box-shadow: none;
+  padding-bottom: 12px;
+  padding-top: 12px;
+}
+
+.alert-primary {
+  color: #004085;
+  background-color: #cce5ff;
+  border-color: #b8daff;
+}
+
+.licenseselector {
+  box-shadow: none;
+  background-image: none;
+}

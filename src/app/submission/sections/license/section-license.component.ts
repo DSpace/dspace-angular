@@ -39,7 +39,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./section-license.component.scss'],
   templateUrl: './section-license.component.html',
 })
-@renderSectionFor(SectionsType.License)
+// @renderSectionFor(SectionsType.License)
 export class SubmissionSectionLicenseComponent extends SectionModelComponent {
 
   /**

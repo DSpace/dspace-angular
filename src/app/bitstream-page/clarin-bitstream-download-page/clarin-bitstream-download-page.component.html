@@ -1,0 +1,13 @@
+<div class="container">
+  <div *ngIf="(downloadStatus | async) === 'Success'">
+    <h3>{{'bitstream.download.page' | translate:{bitstream: (bitstream$ | async)?.name} }}</h3>
+  </div>
+  <ds-clarin-license-agreement-page
+    *ngIf="(downloadStatus | async) === 'MissingLicenseAgreementException'"
+    [bitstream$]="bitstream$">
+  </ds-clarin-license-agreement-page>
+  <ds-clarin-bitstream-token-expired
+    *ngIf="(downloadStatus | async) === 'DownloadTokenExpiredException'"
+    [bitstream$]="bitstream$">
+  </ds-clarin-bitstream-token-expired>
+</div>

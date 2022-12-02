@@ -61,8 +61,10 @@
                 "bundleName": "dspace-theme"
               }
             ],
-            "scripts": [],
-            "baseHref": "/"
+            "scripts": [
+              "src/license-selector.js",
+              "src/license-selector-creation.js"
+            ]
           },
           "configurations": {
             "development": {

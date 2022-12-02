@@ -236,54 +236,12 @@ import { SearchNavbarComponent } from '../search-navbar/search-navbar.component'
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
-import { ContextHelpDirective } from './context-help.directive';
-import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
-import { RSSComponent } from './rss-feed/rss.component';
-import { BrowserOnlyPipe } from './utils/browser-only.pipe';
-import { ThemedLoadingComponent } from './loading/themed-loading.component';
-import { SearchExportCsvComponent } from './search/search-export-csv/search-export-csv.component';
-import {
-  ItemPageTitleFieldComponent
-} from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
-import { MarkdownPipe } from './utils/markdown.pipe';
-import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
-import { MenuModule } from './menu/menu.module';
-import {
-  ListableNotificationObjectComponent
-} from './object-list/listable-notification-object/listable-notification-object.component';
-import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
-import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
-
-import { StatusBadgeComponent } from './object-collection/shared/badges/status-badge/status-badge.component';
-import { BadgesComponent } from './object-collection/shared/badges/badges.component';
-import { ThemedBadgesComponent } from './object-collection/shared/badges/themed-badges.component';
-import { ThemedStatusBadgeComponent } from './object-collection/shared/badges/status-badge/themed-status-badge.component';
-import { ThemedTypeBadgeComponent } from './object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { ThemedMyDSpaceStatusBadgeComponent } from './object-collection/shared/badges/my-dspace-status-badge/themed-my-dspace-status-badge.component';
-import { ThemedAccessStatusBadgeComponent } from './object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
-import { MyDSpaceStatusBadgeComponent } from './object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
-
-import { ShortNumberPipe } from './utils/short-number.pipe';
-import {
-  LogInExternalProviderComponent
-} from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
-import {
-  AdvancedClaimedTaskActionSelectReviewerComponent
-} from './mydspace-actions/claimed-task/select-reviewer/advanced-claimed-task-action-select-reviewer.component';
-import {
-  AdvancedClaimedTaskActionRatingComponent
-} from './mydspace-actions/claimed-task/rating/advanced-claimed-task-action-rating.component';
-import { ClaimedTaskActionsDeclineTaskComponent } from './mydspace-actions/claimed-task/decline-task/claimed-task-actions-decline-task.component';
-import { EpersonGroupListComponent } from './eperson-group-list/eperson-group-list.component';
-import { EpersonSearchBoxComponent } from './eperson-group-list/eperson-search-box/eperson-search-box.component';
-import { GroupSearchBoxComponent } from './eperson-group-list/group-search-box/group-search-box.component';
-import {
-  ThemedItemPageTitleFieldComponent
-} from '../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
-import { BitstreamListItemComponent } from './object-list/bitstream-list-item/bitstream-list-item.component';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.component';
-import {ThemedUserMenuComponent} from './auth-nav-menu/user-menu/themed-user-menu.component';
+import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
+import { ClarinExtendedLicensePipe } from './utils/clarin-extended-license.pipe';
+import { ClarinLicenseCheckedPipe } from './utils/clarin-license-checked.pipe';
+import { ClarinLicenseLabelRadioValuePipe } from './utils/clarin-license-label-radio-value.pipe';
+import { CharToEndPipe } from './utils/char-to-end.pipe';
+import { ClarinLicenseRequiredInfoPipe } from './utils/clarin-license-required-info.pipe';
 
 const MODULES = [
   CommonModule,
@@ -321,9 +279,11 @@ const PIPES = [
   ObjectValuesPipe,
   ConsolePipe,
   ObjNgFor,
-  BrowserOnlyPipe,
-  MarkdownPipe,
-  ShortNumberPipe
+  ClarinExtendedLicensePipe,
+  ClarinLicenseCheckedPipe,
+  ClarinLicenseLabelRadioValuePipe,
+  ClarinLicenseRequiredInfoPipe,
+  CharToEndPipe
 ];
 
 const COMPONENTS = [

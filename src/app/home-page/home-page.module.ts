@@ -9,10 +9,12 @@ import { TopLevelCommunityListComponent } from './top-level-community-list/top-l
 import { StatisticsModule } from '../statistics/statistics.module';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 import { ThemedHomePageComponent } from './themed-home-page.component';
-import { RecentItemListComponent } from './recent-item-list/recent-item-list.component';
-import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
-import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
-import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
+import { DevTableComponent } from '../dev-table/dev-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -21,7 +23,7 @@ const DECLARATIONS = [
   ThemedTopLevelCommunityListComponent,
   ThemedHomeNewsComponent,
   HomeNewsComponent,
-  RecentItemListComponent
+  DevTableComponent
 ];
 
 @NgModule({
@@ -31,7 +33,12 @@ const DECLARATIONS = [
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
     HomePageRoutingModule,
-    StatisticsModule.forRoot()
+    StatisticsModule.forRoot(),
+    MatTableModule,
+    MatTreeModule,
+    MatIconModule,
+    MatButtonModule,
+    ScrollingModule,
   ],
   declarations: [
     ...DECLARATIONS,
