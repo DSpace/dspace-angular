@@ -112,7 +112,7 @@ jobs:
           start: yarn run serve:ssr
           # Wait for backend & frontend to be available
           # NOTE: We use the 'sites' REST endpoint to also ensure the database is ready
-          wait-on: http://localhost:8080/server/api/core/sites, http://localhost:4000
+          wait-on: http://127.0.0.1:8080/server/api/core/sites, http://127.0.0.1:4000
           # Wait for 2 mins max for everything to respond
           wait-on-timeout: 120
 
