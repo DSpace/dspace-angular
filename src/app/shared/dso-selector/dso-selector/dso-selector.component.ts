@@ -279,7 +279,9 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    * @param listableObject The {@link ListableObject} to evaluate
    */
   onClick(listableObject: ListableObject): void {
-    if (listableObject.getRenderTypes().includes(LISTABLE_NOTIFICATION_OBJECT.value)) {
+    if (hasValue((listableObject as SearchResult<DSpaceObject>).indexableObject)) {
+      this.onSelect.emit((listableObject as SearchResult<DSpaceObject>).indexableObject);
+    } else {
       this.listEntries$.value.pop();
       this.hasNextPage = true;
       this.search(this.input.value ? this.input.value : '', this.currentPage$.value, false).pipe(
@@ -287,13 +289,11 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
       ).subscribe((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
         this.updateList(rd);
       });
-    } else {
-      this.onSelect.emit((listableObject as SearchResult<DSpaceObject>).indexableObject);
     }
   }
 
   getName(listableObject: ListableObject): string {
-    return listableObject.getRenderTypes().includes(LISTABLE_NOTIFICATION_OBJECT.value) ?
-      'error' : this.dsoNameService.getName((listableObject as SearchResult<DSpaceObject>).indexableObject);
+    return hasValue((listableObject as SearchResult<DSpaceObject>).indexableObject) ?
+      this.dsoNameService.getName((listableObject as SearchResult<DSpaceObject>).indexableObject) : null;
   }
 }
