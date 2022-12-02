@@ -1,10 +1,12 @@
 import {
+  TEST_ADMIN_PASSWORD,
+  TEST_ADMIN_USER,
   TEST_WITHDRAWN_AUTHORS,
   TEST_WITHDRAWN_ITEM,
   TEST_WITHDRAWN_ITEM_WITH_REASON, TEST_WITHDRAWN_ITEM_WITH_REASON_AND_AUTHORS, TEST_WITHDRAWN_REASON,
   TEST_WITHDRAWN_REPLACED_ITEM, TEST_WITHDRAWN_REPLACED_ITEM_WITH_AUTHORS, TEST_WITHDRAWN_REPLACEMENT
 } from '../support';
-import { loginProcess } from './submission-ui.spec';
+import { loginProcess } from '../support/commands';
 
 const ITEMPAGE_WITHDRAWN = '/items/' + TEST_WITHDRAWN_ITEM;
 const ITEMPAGE_WITHDRAWN_REASON = '/items/' + TEST_WITHDRAWN_ITEM_WITH_REASON;
@@ -62,16 +64,13 @@ describe('Admin Tombstone  Page', () => {
   beforeEach(() => {
     cy.visit('/');
     // Login as admin
-    loginProcess.clickOnLoginDropdown();
-    loginProcess.typeEmail();
-    loginProcess.typePassword();
-    loginProcess.submit();
+    loginProcess.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
   });
 
   it('the admin should see ds-item-page',{
       retries: {
-        runMode: 6,
-        openMode: 6,
+        runMode: 8,
+        openMode: 8,
       },
       defaultCommandTimeout: 10000
     }, () => {
@@ -81,8 +80,8 @@ describe('Admin Tombstone  Page', () => {
 
   it('the admin should see the withdrawn message on the withdrawn item', {
       retries: {
-        runMode: 6,
-        openMode: 6,
+        runMode: 8,
+        openMode: 8,
       },
     defaultCommandTimeout: 10000
     }, () => {
@@ -92,8 +91,8 @@ describe('Admin Tombstone  Page', () => {
 
   it('the admin should see the withdrawn message on the replaced item', {
       retries: {
-        runMode: 6,
-        openMode: 6,
+        runMode: 8,
+        openMode: 8,
       },
     defaultCommandTimeout: 10000
     }, () => {

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 
+import { NgToggleModule } from '@nth-cloud/ng-toggle';
 import { SubmissionSectionFormComponent } from './sections/form/section-form.component';
 import { SectionsDirective } from './sections/sections.directive';
 import { SectionsService } from './sections/sections.service';
@@ -19,6 +20,7 @@ import { SubmissionSectionUploadComponent } from './sections/upload/section-uplo
 import { SectionUploadService } from './sections/upload/section-upload.service';
 import { SubmissionUploadFilesComponent } from './form/submission-upload-files/submission-upload-files.component';
 import { SubmissionSectionLicenseComponent } from './sections/license/section-license.component';
+import { SubmissionSectionClarinLicenseComponent } from './sections/clarin-license-resource/section-license.component';
 import { SubmissionUploadsConfigService } from '../core/config/submission-uploads-config.service';
 import { SubmissionEditComponent } from './edit/submission-edit.component';
 import { SubmissionSectionUploadFileComponent } from './sections/upload/file/section-upload-file.component';
@@ -42,15 +44,18 @@ import { NgbAccordionModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionSectionAccessesComponent } from './sections/accesses/section-accesses.component';
 import { SubmissionAccessesConfigService } from '../core/config/submission-accesses-config.service';
 import { SectionAccessesService } from './sections/accesses/section-accesses.service';
+import {SubmissionSectionClarinLicenseDistributionComponent} from './sections/clarin-license-distribution/clarin-license-distribution.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
   SubmissionSectionUploadComponent,
   SubmissionSectionFormComponent,
   SubmissionSectionLicenseComponent,
+  SubmissionSectionClarinLicenseComponent,
   SubmissionSectionCcLicensesComponent,
   SubmissionSectionAccessesComponent,
-  SubmissionSectionUploadFileEditComponent
+  SubmissionSectionUploadFileEditComponent,
+  SubmissionSectionClarinLicenseDistributionComponent
 ];
 
 const DECLARATIONS = [
@@ -88,7 +93,8 @@ const DECLARATIONS = [
     ResearchEntitiesModule.withEntryComponents(),
     FormModule,
     NgbAccordionModule,
-    NgbModalModule
+    NgbModalModule,
+    NgToggleModule
   ],
   declarations: DECLARATIONS,
   exports: DECLARATIONS,

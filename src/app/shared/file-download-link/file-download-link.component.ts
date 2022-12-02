@@ -65,9 +65,9 @@ export class FileDownloadLinkComponent implements OnInit {
   }
 
   getBitstreamPath(canDownload: boolean, canRequestACopy: boolean) {
-    if (!canDownload && canRequestACopy && hasValue(this.item)) {
-      return getBitstreamRequestACopyRoute(this.item, this.bitstream);
-    }
+    // if (!canDownload && canRequestACopy && hasValue(this.item)) {
+    //   return getBitstreamRequestACopyRoute(this.item, this.bitstream);
+    // }
     return this.getBitstreamDownloadPath();
   }
 

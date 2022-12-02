@@ -4,7 +4,9 @@
     <a class="navbar-brand my-2" routerLink="/home">
       <img src="assets/images/dspace-logo.svg" [attr.alt]="'menu.header.image.logo' | translate" />
     </a>
-
+    <a href="https://www.clarin.eu/">
+      <img class="clarin-logo" src="assets/images/clarin-logo.svg" alt="Clarin logo" >
+    </a>
     <div id="collapsingNav" class="w-100 h-100">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 h-100">
         <ng-container *ngFor="let section of (sections | async)">

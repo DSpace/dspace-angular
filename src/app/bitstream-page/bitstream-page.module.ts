@@ -6,6 +6,10 @@ import { BitstreamPageRoutingModule } from './bitstream-page-routing.module';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
 import { FormModule } from '../shared/form/form.module';
 import { ResourcePoliciesModule } from '../shared/resource-policies/resource-policies.module';
+import { HttpClientModule } from '@angular/common/http';
+import { ClarinBitstreamDownloadPageComponent } from './clarin-bitstream-download-page/clarin-bitstream-download-page.component';
+import { ClarinLicenseAgreementPageComponent } from './clarin-license-agreement-page/clarin-license-agreement-page.component';
+import { ClarinBitstreamTokenExpiredComponent } from './clarin-bitstream-token-expired/clarin-bitstream-token-expired.component';
 
 /**
  * This module handles all components that are necessary for Bitstream related pages
@@ -16,11 +20,15 @@ import { ResourcePoliciesModule } from '../shared/resource-policies/resource-pol
     SharedModule,
     BitstreamPageRoutingModule,
     FormModule,
-    ResourcePoliciesModule
+    ResourcePoliciesModule,
+    HttpClientModule
   ],
   declarations: [
     BitstreamAuthorizationsComponent,
-    EditBitstreamPageComponent
+    EditBitstreamPageComponent,
+    ClarinBitstreamDownloadPageComponent,
+    ClarinLicenseAgreementPageComponent,
+    ClarinBitstreamTokenExpiredComponent
   ]
 })
 export class BitstreamPageModule {

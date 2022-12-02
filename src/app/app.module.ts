@@ -59,6 +59,7 @@ import { PageInternalServerErrorComponent } from './page-internal-server-error/p
 import { DtqTestExampleComponent } from './dtq-test-example/dtq-test-example.component';
 
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
+import { ClarinNavbarTopComponent } from './clarin-navbar-top/clarin-navbar-top.component';
 
 export function getConfig() {
   return environment;
@@ -187,7 +188,8 @@ const DECLARATIONS = [
   IdleModalComponent,
   ThemedPageInternalServerErrorComponent,
   PageInternalServerErrorComponent,
-  DtqTestExampleComponent
+  DtqTestExampleComponent,
+  ClarinNavbarTopComponent,
 ];
 
 const EXPORTS = [
@@ -195,7 +197,7 @@ const EXPORTS = [
 
 @NgModule({
   imports: [
-    BrowserModule.withServerTransition({ appId: 'dspace-angular' }),
+    BrowserModule.withServerTransition({appId: 'dspace-angular'}),
     ...IMPORTS
   ],
   providers: [

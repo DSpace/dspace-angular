@@ -5,6 +5,11 @@ nav.navbar {
   color: var(--ds-header-icon-color);
 }
 
+.clarin-logo {
+  height: var(--ds-login-logo-height);
+  width: var(--ds-login-logo-width);
+}
+
 /** Mobile menu styling **/
 @media screen and (max-width: map-get($grid-breakpoints, md)) {
   .navbar {

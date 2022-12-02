@@ -1,2 +1,38 @@
 :host {
+  .clarin-home-page-color {
+    background-color: #f2f2f2;
+
+  }
+
+  .clarin-home-page-borders {
+    border-left: 1px solid silver;
+    border-right: 1px solid silver;
+  }
+
+  .clarin-shadow {
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 6px silver;
+  }
+
+  .remove-padding {
+    padding: 0;
+  }
+
+  .lindat-color-line {
+    background-image: url('../../assets/images/lindat_color_line.png');
+    height: 3px;
+  }
+
+  .lindat-logo-big {
+    background-image: url('../../assets/images/lindat-logo-new-sm.png');
+    position: absolute;
+    height: 60%;
+    top: 0px;
+    bottom: 0px;
+    margin: auto;
+  }
+
+  .clarin-logo-big {
+    background-image: url('../../assets/images/clarin-logo.png');
+  }
+
 }

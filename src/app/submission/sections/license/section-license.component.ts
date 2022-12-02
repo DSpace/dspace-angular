@@ -38,7 +38,7 @@ import { SECTION_LICENSE_FORM_LAYOUT, SECTION_LICENSE_FORM_MODEL } from './secti
   styleUrls: ['./section-license.component.scss'],
   templateUrl: './section-license.component.html',
 })
-@renderSectionFor(SectionsType.License)
+// @renderSectionFor(SectionsType.License)
 export class SubmissionSectionLicenseComponent extends SectionModelComponent {
 
   /**

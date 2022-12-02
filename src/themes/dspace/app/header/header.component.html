@@ -1,24 +1,69 @@
 <header class="header">
-  <nav role="navigation" [attr.aria-label]="'nav.user.description' | translate" class="container navbar navbar-expand-md px-0">
-    <div class="d-flex flex-grow-1">
-      <a class="navbar-brand m-2" routerLink="/home">
-        <img src="assets/images/dspace-logo.svg" [attr.alt]="'menu.header.image.logo' | translate"/>
-      </a>
-    </div>
-    <div class="d-flex flex-grow-1 ml-auto justify-content-end align-items-center">
-      <ds-search-navbar class="navbar-search"></ds-search-navbar>
-      <ds-lang-switch></ds-lang-switch>
-      <ds-auth-nav-menu></ds-auth-nav-menu>
-      <ds-impersonate-navbar></ds-impersonate-navbar>
-      <div class="pl-2">
-        <button class="navbar-toggler" type="button" (click)="toggleNavbar()"
-                aria-controls="collapsingNav"
-                aria-expanded="false" [attr.aria-label]="'nav.toggle' | translate">
-          <span class="navbar-toggler-icon fas fa-bars fa-fw" aria-hidden="true"></span>
+  <ds-clarin-navbar-top></ds-clarin-navbar-top>
+  <div class="lindat-common2 lindat-common-header">
+    <header data-version="3.0.5" data-build="05eff1186f12528f221a63b021c7b7dc81301429">
+      <nav class="lindat-navbar lindat-navbar-expand-lg lindat-justify-content-between lindat-navbar-dark ">
+        <div class="lindat-block lindat-block--clariah-theme-branding">
+          <a href="/home" class="lindat-navbar-brand lindat-d-flex lindat-align-items-center " aria-label="">
+            <img src="https://lindat.mff.cuni.cz/sites/default/files/LINDAT-CLARIAH-cz-gray_0.svg" width="auto" height="53" style="height: 53px !important;" alt="LINDAT/CLARIAH-CZ logo" class="" />
+          </a>
+        </div>
+        <button class="lindat-navbar-toggler" type="button" data-toggle="collapse" data-target=".lindat-navbar-collapse" aria-controls="lindat-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation"
+                onclick="this.parentNode.querySelector('.lindat-navbar-toggler+div.lindat-collapse.lindat-navbar-collapse').classList.toggle('lindat-show')">
+          <span class="lindat-navbar-toggler-icon"></span>
         </button>
-      </div>
-    </div>
-  </nav>
-  <ds-themed-navbar></ds-themed-navbar>
-
+        <div class="lindat-collapse lindat-navbar-collapse">
+          <div class="">
+            <div class="lindat-block lindat-block--clariah-theme-main-menu">
+              <ul class="lindat-nav lindat-navbar-nav">
+                <li class="lindat-nav-item ">
+                  <a href="/search" class="lindat-nav-link">Search</a>
+                </li>
+                <li class="lindat-nav-item ">
+                  <a href="/community-list" class="lindat-nav-link">Catalogue</a>
+                </li>
+                <li class="lindat-nav-item ">
+                  <a href="/#education" class="lindat-nav-link">Education</a>
+                </li>
+                <li class="lindat-nav-item ">
+                  <a href="/#projects" class="lindat-nav-link">Projects</a>
+                </li>
+                <li class="lindat-nav-item ">
+                  <a href="/#tools" class="lindat-nav-link ">Tools</a>
+                </li>
+                <li class="lindat-nav-item ">
+                  <a href="/en/services" class="lindat-nav-link ">Services</a>
+                </li>
+                <li class="lindat-nav-item lindat-dropdown">
+                  <a href="/" class="lindat-nav-link lindat-dropdown-toggle"
+                     data-toggle="dropdown"
+                     onclick="this.parentNode.querySelector('.lindat-dropdown-toggle+div.lindat-dropdown-menu').classList.toggle('lindat-show'); return false;">About</a>
+                  <div class="lindat-dropdown-menu">
+                    <a href="/partners" class="lindat-dropdown-item">Partners</a>
+                    <a href="/files/mission-en.pdf" class="lindat-dropdown-item">Mission Statement</a>
+                    <a href="https://www.clarin.eu/" class="lindat-dropdown-item">CLARIN</a>
+                    <a href="https://www.dariah.eu/" class="lindat-dropdown-item">DARIAH</a>
+                    <a href="/integration" class="lindat-dropdown-item">Service integrations</a>
+                    <a href="/partnership" class="lindat-dropdown-item">Project partnerships</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="lindat-block lindat-block--clariah-theme-account-menu">
+            <ul class="lindat-nav lindat-navbar-nav">
+              <li class="lindat-nav-item" id="margin-filler"></li>
+              <li class="lindat-nav-item  ">
+                <a class="lindat-nav-link lindat-nav-link-dariah" href="https://www.dariah.eu/"><img src="https://lindat.mff.cuni.cz/images/dariah-eu.png" alt="DARIAH logo" /></a>
+              </li>
+              <li class="lindat-nav-item  ">
+                <a class="lindat-nav-link lindat-nav-link-clarin" href="https://www.clarin.eu/"><img src="https://lindat.mff.cuni.cz/images/clarin.png" alt="CLARIN logo" /></a>
+              </li>
+            </ul>
+          </div>
+          <slot name="languageswitcher"></slot>
+        </div>
+      </nav>
+    </header>
+  </div>
 </header>

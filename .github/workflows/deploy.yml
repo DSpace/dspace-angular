@@ -13,7 +13,8 @@ jobs:
     runs-on: dspace-dep-1
     steps:
       - uses: actions/checkout@v3
-
+        with:
+          submodules: false
       - name: deploy
         run: |
           cd $GITHUB_WORKSPACE/build-scripts/run/
@@ -30,8 +31,3 @@ jobs:
 
           export ENVFILE=$(pwd)/.env.dev-5
           ./start.sh
-      - name: import licenses
-        run: |
-          cd ~
-          ./import_licenses.sh
-

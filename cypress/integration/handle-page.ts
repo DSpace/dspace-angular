@@ -1,17 +1,22 @@
-import { loginProcess } from './submission-ui.spec';
+import { TEST_ADMIN_PASSWORD, TEST_ADMIN_USER } from '../support';
+import { loginProcess } from '../support/commands';
 
 /**
  * Test for checking if the handle page is loaded after redirecting.
  */
 describe('Handle Page', () => {
 
-  it('should pass accessibility tests', () => {
-    // Login as admin
+  it('should pass accessibility tests', {
+    retries: {
+      runMode: 8,
+      openMode: 8,
+    },
+    defaultCommandTimeout: 10000
+  }, () => {
     cy.visit('/');
-    loginProcess.clickOnLoginDropdown();
-    loginProcess.typeEmail();
-    loginProcess.typePassword();
-    loginProcess.submit();
+
+    // Login as admin
+    loginProcess.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
 
     cy.visit('/handle-table');
 

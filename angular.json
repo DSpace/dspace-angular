@@ -64,7 +64,10 @@
                 "bundleName": "dspace-theme"
               }
             ],
-            "scripts": []
+            "scripts": [
+              "src/license-selector.js",
+              "src/license-selector-creation.js"
+            ]
           },
           "configurations": {
             "development": {

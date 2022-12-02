@@ -1,4 +1,21 @@
 :root {
+
+  --lt-common-navbar-height: 80px;
+  --lt-clarin-purple: #7479b8;
+
+  --lt-clarin-yellow-bg: #fcf8e3;;
+  --lt-clarin-yellow-border: #fbeed5;
+
+  --lt-clarin-red-bg: #f2dede;
+  --lt-clarin-red-text: #b94a48;
+  --lt-clarin-red-border: #eed3d7;
+
+  --lt-clarin-blue-bg: #d9edf7;
+  --lt-clarin-blue-text: #3a87ad;
+  --lt-clarin-blue-border: #bce8f1;
+
+  --lt-clarin-gray-border: #d7d7d7;
+
   --ds-content-spacing: #{$spacer * 1.5};
 
   --ds-button-height: #{$input-btn-padding-y * 2 + $input-btn-line-height + calculateRem($input-btn-border-width*2)};

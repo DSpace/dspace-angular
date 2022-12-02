@@ -1,16 +1,24 @@
-import { loginProcess } from './submission-ui.spec';
+import { TEST_ADMIN_PASSWORD, TEST_ADMIN_USER, TEST_SUBMIT_COLLECTION_UUID } from '../support';
+import { loginProcess } from '../support/commands';
 
-describe('Community Page', () => {
+/**
+ * Test menu options for admin
+ */
+describe('Admin Menu Page', () => {
+  beforeEach(() => {
+    cy.visit('/');
+    // Login as admin
+    loginProcess.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+
+    // Create a new submission
+    cy.visit('/submit?collection=' + TEST_SUBMIT_COLLECTION_UUID + '&entityType=none');
+  });
 
   it('should pass accessibility tests', () => {
-    // Login as admin
-    cy.visit('/');
-    loginProcess.clickOnLoginDropdown();
-    loginProcess.typeEmail();
-    loginProcess.typePassword();
-    loginProcess.submit();
-
-    // check handles redirect url in the <a> tag
+    // Check handles redirect url in the <a> tag
     cy.get('.sidebar-top-level-items a[href = "/handle-table"]').scrollIntoView().should('be.visible');
+
+    // Check licenses redirect url in the <a> tag
+    cy.get('.sidebar-top-level-items a[href = "/licenses"]').scrollIntoView().should('be.visible');
   });
 });

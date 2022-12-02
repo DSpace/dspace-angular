@@ -13,37 +13,38 @@ const page = {
     }
 };
 
-describe('Search from Navigation Bar', () => {
-    // NOTE: these tests currently assume this query will return results!
-    const query = 'test';
-
-    it('should go to search page with correct query if submitted (from home)', () => {
-        cy.visit('/');
-        page.fillOutQueryInNavBar(query);
-        page.submitQueryByPressingEnter();
-        // New URL should include query param
-        cy.url().should('include', 'query=' + query);
-        // At least one search result should be displayed
-        cy.get('ds-item-search-result-list-element').should('be.visible');
-    });
-
-    it('should go to search page with correct query if submitted (from search)', () => {
-        cy.visit('/search');
-        page.fillOutQueryInNavBar(query);
-        page.submitQueryByPressingEnter();
-        // New URL should include query param
-        cy.url().should('include', 'query=' + query);
-        // At least one search result should be displayed
-        cy.get('ds-item-search-result-list-element').should('be.visible');
-    });
-
-    it('should allow user to also submit query by clicking icon', () => {
-        cy.visit('/');
-        page.fillOutQueryInNavBar(query);
-        page.submitQueryByPressingIcon();
-        // New URL should include query param
-        cy.url().should('include', 'query=' + query);
-        // At least one search result should be displayed
-        cy.get('ds-item-search-result-list-element').should('be.visible');
-    });
-});
+// NOTE: search was removed from the navbar - these tests are not actual
+// describe('Search from Navigation Bar', () => {
+//     // NOTE: these tests currently assume this query will return results!
+//     const query = 'test';
+//
+//     it('should go to search page with correct query if submitted (from home)', () => {
+//         cy.visit('/');
+//         page.fillOutQueryInNavBar(query);
+//         page.submitQueryByPressingEnter();
+//         // New URL should include query param
+//         cy.url().should('include', 'query=' + query);
+//         // At least one search result should be displayed
+//         cy.get('ds-item-search-result-list-element').should('be.visible');
+//     });
+//
+//     it('should go to search page with correct query if submitted (from search)', () => {
+//         cy.visit('/search');
+//         page.fillOutQueryInNavBar(query);
+//         page.submitQueryByPressingEnter();
+//         // New URL should include query param
+//         cy.url().should('include', 'query=' + query);
+//         // At least one search result should be displayed
+//         cy.get('ds-item-search-result-list-element').should('be.visible');
+//     });
+//
+//     it('should allow user to also submit query by clicking icon', () => {
+//         cy.visit('/');
+//         page.fillOutQueryInNavBar(query);
+//         page.submitQueryByPressingIcon();
+//         // New URL should include query param
+//         cy.url().should('include', 'query=' + query);
+//         // At least one search result should be displayed
+//         cy.get('ds-item-search-result-list-element').should('be.visible');
+//     });
+// });

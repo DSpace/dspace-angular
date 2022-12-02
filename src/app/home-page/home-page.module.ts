@@ -9,6 +9,12 @@ import { TopLevelCommunityListComponent } from './top-level-community-list/top-l
 import { StatisticsModule } from '../statistics/statistics.module';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 import { ThemedHomePageComponent } from './themed-home-page.component';
+import { DevTableComponent } from '../dev-table/dev-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -16,6 +22,7 @@ const DECLARATIONS = [
   TopLevelCommunityListComponent,
   ThemedHomeNewsComponent,
   HomeNewsComponent,
+  DevTableComponent
 ];
 
 @NgModule({
@@ -23,7 +30,12 @@ const DECLARATIONS = [
     CommonModule,
     SharedModule,
     HomePageRoutingModule,
-    StatisticsModule.forRoot()
+    StatisticsModule.forRoot(),
+    MatTableModule,
+    MatTreeModule,
+    MatIconModule,
+    MatButtonModule,
+    ScrollingModule,
   ],
   declarations: [
     ...DECLARATIONS,

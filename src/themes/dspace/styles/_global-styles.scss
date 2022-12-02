@@ -21,6 +21,45 @@
     font-size: 1.1rem
   }
 }
+.btn-secondary {
+  background-color: var(--lt-clarin-purple) !important;
+}
+
+.btn-success {
+  background-color: var(--lt-clarin-purple) !important;
+}
+
+.btn-danger, .btn-success, .btn-warning, .btn-info, .btn-primary, .btn-outline-secondary, .btn-secondary {
+  background-color: var(--lt-clarin-purple) !important;
+  border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25) !important;
+  color: white !important;
+}
+
+.alert-warning {
+  background-color: #fcf8e3 !important;
+  border: 1px solid #fbeed5 !important;
+  color: #c09853 !important;
+}
+
+.ng-toggle-on {
+  color: #fff !important;
+  background-color: #28a745 !important;
+  border-color: #28a745 !important;
+}
+
+.ng-toggle-off {
+  color: #fff !important;
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+}
+
+.page-item.active .page-link{
+  z-index: 2 !important;
+  color: #fff !important;
+  cursor: default !important;
+  background-color: #428bca !important;
+  border-color: #428bca !important;
+}
 
 header {
   li > .navbar-section,

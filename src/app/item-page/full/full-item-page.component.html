@@ -29,6 +29,7 @@
       <ds-item-page-full-file-section [item]="item"></ds-item-page-full-file-section>
       <ds-item-page-collections [item]="item"></ds-item-page-collections>
       <ds-item-versions class="mt-2" [item]="item"></ds-item-versions>
+      <ds-clarin-license-info class="mt-2" [item]="item"></ds-clarin-license-info>
       <div class="button-row bottom" *ngIf="fromWfi">
         <div class="text-right">
           <button class="btn btn-outline-secondary mr-1" (click)="back()"><i class="fas fa-arrow-left"></i> {{'item.page.return' | translate}}</button>

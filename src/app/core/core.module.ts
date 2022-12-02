@@ -164,8 +164,14 @@ import { SearchConfig } from './shared/search/search-filters/search-config.model
 import { SequenceService } from './shared/sequence.service';
 import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
+import { ClarinLicenseDataService } from './data/clarin/clarin-license-data.service';
+import { ClarinLicenseLabelDataService } from './data/clarin/clarin-license-label-data.service';
 import { HandleDataService } from './data/handle-data.service';
 import { Handle } from './handle/handle.model';
+import {ClruaDataService} from './data/clarin/clrua-data.service';
+import {ClarinUserRegistrationDataService} from './data/clarin/clarin-user-registration.service';
+import {ClarinUserMetadataDataService} from './data/clarin/clarin-user-metadata.service';
+import {ClarinLicenseResourceMappingService} from './data/clarin/clarin-license-resource-mapping-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -196,6 +202,12 @@ const PROVIDERS = [
   CollectionDataService,
   SiteDataService,
   MetadataValueDataService,
+  ClarinLicenseDataService,
+  ClarinLicenseLabelDataService,
+  ClruaDataService,
+  ClarinUserRegistrationDataService,
+  ClarinUserMetadataDataService,
+  ClarinLicenseResourceMappingService,
   DSOResponseParsingService,
   { provide: MOCK_RESPONSE_MAP, useValue: mockResponseMap },
   { provide: DspaceRestService, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient] },

@@ -551,6 +551,35 @@
 
   "bitstream.download.page": "Now downloading {{bitstream}}..." ,
 
+  "clarin.license.agreement.breadcrumbs": "License Agreement",
+
+  "clarin.license.agreement.title": "License Agreement",
+
+  "clarin.license.agreement.header.info": "The requested content is distributed under one or more licence(s). You have to agree to the licence(s) below before you can obtain the content. Please, view the licence(s) by clicking on the button(s) and read it carefully. The data filled below might be shared with the submitter of the item and/or for creating statistics.",
+
+  "clarin.license.agreement.signer.header.info": ["The information below identifies you, the SIGNER. If the information is incorrect, please contact our", "Help Desk.", "This information will be stored as part of the electronic signatures."],
+
+  "clarin.license.agreement.item.handle": "Item handle",
+
+  "clarin.license.agreement.bitstream.name": "Bitstream",
+
+  "clarin.license.agreement.signer.name": "Signer",
+
+  "clarin.license.agreement.signer.id": "User ID",
+
+  "clarin.license.agreement.token.info": "You will receive an email with download instructions.",
+
+  "clarin.license.agreement.signer.ip.address": "Ip Address",
+
+  "clarin.license.agreement.button.agree": "I AGREE",
+
+  "clarin.license.agreement.warning": "By clicking on the button below I, SIGNER with the above ID, agree to the LICENCE(s) restricting the usage of requested BITSTREAM(s).",
+
+  "clarin.license.agreement.notification.error.required.info": "You must fill in required info.",
+
+  "clarin.license.agreement.error.message.cannot.download": ["Something went wrong and you cannot download this bitstream, please contact", " Help Desk."],
+
+  "clarin.license.agreement.notification.check.email": "You will receive email with download link.",
 
 
   "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
@@ -1365,6 +1394,8 @@
 
   "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
 
+  "error.validation.clarin-license.notgranted": "You must choose one of the resource licenses.",
+
   "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
 
   "error.validation.filerequired": "The file upload is mandatory",
@@ -1675,6 +1706,10 @@
   "handle-table.change-handle-prefix.notify.error": "Server Error - Cannot change the global prefix",
 
   "handle-table.change-handle-prefix.notify.error.empty-table": "Server Error - Cannot change the global prefix because no Handle exist.",
+
+
+
+  "licenses.breadcrumbs": "License administration",
 
 
 
@@ -2229,6 +2264,8 @@
 
   "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
 
+  "item.page.license.message": ['This item is', 'and licensed under:'],
+
   "item.preview.dc.identifier.uri": "Identifier:",
 
   "item.preview.dc.contributor.author": "Authors:",
@@ -2704,9 +2741,15 @@
   "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
 
 
+
   "menu.section.workflow": "Administer Workflow",
 
   "menu.section.handle": "Manage Handles",
+
+
+  "menu.section.licenses": "License Administration",
+
+
 
 
   "autocomplete.suggestion.sponsor.funding-code": "Funding code",
@@ -3316,6 +3359,76 @@
   "resource-policies.table.headers.title.for.collection": "Policies for Collection",
 
 
+  "clarin-license-table.title": "License Administration",
+
+  "clarin-license.table.name": "License Name",
+
+  "clarin-license.table.definition": "Definition (URL)",
+
+  "clarin-license.table.confirmation": "Confirmation",
+
+  "clarin-license.table.required-user-info": "Required user info",
+
+  "clarin-license.table.label": "License Label",
+
+  "clarin-license.table.extended-labels": "Extended Labels",
+
+  "clarin-license.table.bitstreams": "Used by Bitstreams",
+
+  "clarin-license.button.define": "Define",
+
+  "clarin-license.button.define-license": "Define License",
+
+  "clarin-license.button.define-license-label": "Define License Label",
+
+  "clarin-license.button.edit-license": "Edit License",
+
+  "clarin-license.button.delete-license": "Delete License",
+
+
+  "clarin-license.define-license-form.form-name": "Define new license",
+
+  "clarin-license.define-license-form.input-name": "License name",
+
+  "clarin-license.define-license-form.input-definition-url": "License Definition URL",
+
+  "clarin-license.define-license-form.input-confirmation": "License requires confirmation",
+
+  "clarin-license.define-license-form.license-labels": "License Labels",
+
+  "clarin-license.define-license-form.extended-license-labels": "Extended License Labels",
+
+  "clarin-license.define-license-form.required-info": "Additional required user info",
+
+  "clarin-license.define-license-form.submit-button": "Save",
+
+  "clarin-license.define-license.notification.successful-content": "License was defined successfully",
+
+  "clarin-license.define-license.notification.error-content": "Error: cannot define new License",
+
+  "clarin-license.edit-license.notification.successful-content": "License was updated successfully",
+
+  "clarin-license.edit-license.notification.error-content": "Error: cannot edit the License",
+
+  "clarin-license.delete-license.notification.successful-content": "License was deleted successfully",
+
+  "clarin-license.delete-license.notification.error-content": "Error: cannot delete License",
+
+
+
+  "clarin-license-label.define-license-label.input-label": "Short Label (max 5. chars)",
+
+  "clarin-license-label.define-license-label.input-title": "Label Title",
+
+  "clarin-license-label.define-license-label.input-is-extended": "Is extended",
+
+  "clarin-license-label.define-license-label.input-icon": "Icon",
+
+  "clarin-license-label.define-license-label.notification.successful-content": "License Label was defined successfully",
+
+  "clarin-license-label.define-license-label.notification.error-content": "Error: cannot define new License Label",
+
+
 
   "search.description": "",
 
@@ -3357,6 +3470,8 @@
   "search.filters.applied.f.birthDate.min": "Start birth date",
 
   "search.filters.applied.f.withdrawn": "Withdrawn",
+
+  "search.filters.applied.f.rights": "Rights",
 
 
 
@@ -3497,6 +3612,9 @@
   "search.filters.filter.submitter.placeholder": "Submitter",
 
   "search.filters.filter.submitter.label": "Search submitter",
+
+  "search.filters.filter.rights.head": "Rights",
+
 
 
 
@@ -4005,6 +4123,8 @@
 
   "submission.sections.submit.progressbar.license": "Deposit license",
 
+  "submission.sections.submit.progressbar.clarin-license": "Pick license",
+
   "submission.sections.submit.progressbar.upload": "Upload files",
 
 
@@ -4118,6 +4238,52 @@
   "submission.sections.accesses.form.until-hint": "Select the date until which the related access condition is applied",
 
   "submission.sections.accesses.form.until-placeholder": "Until",
+
+
+  "contract.breadcrumbs": "Distribution License Agreement",
+
+  "contract.message.distribution-license-agreement": "Distribution License Agreement",
+
+  "submission.sections.clarin-license.head.read-accept": "Read and accept the ",
+
+  "submission.sections.clarin-license.head.license-agreement": "Distribution License Agreement",
+
+  "submission.sections.clarin-license.head.license-decision-message": "By checking this box, you agree to the Distribution License Agreement for this repository to reproduce, translate and distribute your submissions worldwide.",
+
+  "submission.sections.clarin-license.head.license-question-help-desk": ["If you have questions regarding this licence please contact the", "Help Desk"],
+
+  "submission.sections.clarin-license.head.license-select-resource": "Select the resource license",
+
+  "submission.sections.clarin-license.head.license-select-providing": ["The License Selector will provide you visual assistance to select the most appropriate license for your data or software. For the list of all supported licenses and their details visit ", "License List Page", "."],
+
+  "submission.sections.clarin-license.head.license-open-selector": "OPEN License Selector",
+
+  "submission.sections.clarin-license.head.license-select-or": "- OR -",
+
+  "submission.sections.clarin-license.head.license-dropdown-info": "If you already know under which license you want to distribute your work, please select from the dropdown below.",
+
+  "submission.sections.clarin-license.head.license-not-supported-message": "The selected license is not supported at the moment. Please follow the procedure described under section \"None of these licenses suits your needs\".",
+
+  "submission.sections.clarin-license.head.license-select-default-value": "Select a License ...",
+
+  "submission.sections.clarin-license.head.license-more-details": "See more details for the licenses",
+
+  "submission.sections.clarin-license.head.license-do-not-suits-needs": "None of these licenses suits your needs",
+
+  "submission.sections.clarin-license.head.license-not-offer-proceeds": "If you need to use a license we currently do not offer, proceed as follows:",
+
+  "submission.sections.clarin-license.head.license-not-offer-proceed-link": "Obtain a link (or a copy) to the license.",
+
+  "submission.sections.clarin-license.head.license-not-offer-proceed-email": ["Send an email to", "Help Desk", "with the license details."],
+
+  "submission.sections.clarin-license.head.license-not-offer-proceed-wait": "Save the unfinished submission and wait. We will add the license to the selection list and contact you.",
+
+  "submission.sections.clarin-license.head.license-not-offer-proceed-continue": "You will be able to continue the submission afterwards.",
+
+  "submission.sections.clarin-license.toggle.off-text": "Click to accept",
+
+  "submission.sections.clarin-license.toggle.on-text": "Accepted",
+
 
 
   "submission.submit.breadcrumbs": "New submission",
@@ -4298,5 +4464,9 @@
 
   "idle-modal.log-out": "Log out",
 
-  "idle-modal.extend-session": "Extend session"
+  "idle-modal.extend-session": "Extend session",
+
+  "language.english": "English",
+
+  "language.czech": "Czech"
 }

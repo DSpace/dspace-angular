@@ -10,6 +10,8 @@ import { ResourcePolicyResolver } from '../shared/resource-policies/resolvers/re
 import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
 import { LegacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
+import { ClarinBitstreamDownloadPageComponent } from './clarin-bitstream-download-page/clarin-bitstream-download-page.component';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
@@ -39,10 +41,13 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
       {
         // Resolve angular bitstream download URLs
         path: ':id/download',
-        component: BitstreamDownloadPageComponent,
+        component: ClarinBitstreamDownloadPageComponent,
+        // component: BitstreamDownloadPageComponent,
         resolve: {
-          bitstream: BitstreamPageResolver
+          bitstream: BitstreamPageResolver,
+          breadcrumb: I18nBreadcrumbResolver
         },
+        data: { breadcrumbKey: 'clarin.license.agreement' },
       },
       {
         path: EDIT_BITSTREAM_PATH,

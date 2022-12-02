@@ -1,8 +1,25 @@
-<ds-themed-home-news></ds-themed-home-news>
-<div class="container">
-  <ng-container *ngIf="(site$ | async) as site">
-    <ds-view-tracker [object]="site"></ds-view-tracker>
-  </ng-container>
-  <ds-search-form [inPlaceSearch]="false" [searchPlaceholder]="'home.search-form.placeholder' | translate"></ds-search-form>
-  <ds-top-level-community-list></ds-top-level-community-list>
+<div class="container clarin-shadow remove-padding clarin-home-page-borders">
+    <div class="container bg-white" >
+      <div class="row hidden-xs">
+        <div class="col-md-8 pt-3 mt-2 justify-content-center align-self-center pl-3 pb-3">
+            <h5 class="display-3 ">CLARIN-DSpace 7</h5>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <div class="col-md-7" style="height: 160px; position: relative;">
+              <img alt="LINDAT/CLARIAH-CZ logo" class="logo" style="position: absolute; height: 50%; top: 0px; bottom: 0px; margin: auto;" src="../../assets/images/lindat-logo-new-sm.png">
+            </div>
+            <div class="col-md-5" style="height: 160px; position: relative;">
+              <img alt="LINDAT/CLARIAH-CZ logo" class="logo" style="position: absolute; height: 50%; top: 0px; bottom: 0px; margin: auto;" src="../../assets/images/clarin-logo.png">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row hidden-xs lindat-color-line">&nbsp;</div>
+    </div>
+    <div class="container clarin-home-page-color pt-3">
+        <ds-dev-table></ds-dev-table>
+    </div>
 </div>

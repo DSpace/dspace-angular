@@ -67,7 +67,7 @@ export class AuthorizationDataService extends DataService<Authorization> {
    * @param featureId     ID of the {@link Feature} to check {@link Authorization} for
    */
   isAuthorized(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string): Observable<boolean> {
-    return this.searchByObject(featureId, objectUrl, ePersonUuid, {}, true, true, followLink('feature')).pipe(
+    return this.searchByObject(featureId, objectUrl, ePersonUuid, {}, false, true, followLink('feature')).pipe(
       getFirstCompletedRemoteData(),
       map((authorizationRD) => {
         if (authorizationRD.statusCode !== 401 && hasValue(authorizationRD.payload) && isNotEmpty(authorizationRD.payload.page)) {
