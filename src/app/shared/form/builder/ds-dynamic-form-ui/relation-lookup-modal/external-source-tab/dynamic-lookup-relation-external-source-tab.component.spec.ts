@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, BehaviorSubject, EMPTY } from 'rxjs';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
@@ -27,6 +27,10 @@ import { createPaginatedList } from '../../../../../testing/utils.test';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
+import {
+  ThemedExternalSourceEntryImportModalComponent
+} from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
+import { ThemedComponent } from '../../../../../theme-support/themed.component';
 
 describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let component: DsDynamicLookupRelationExternalSourceTabComponent;
@@ -187,12 +191,13 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
 
   describe('import', () => {
     beforeEach(() => {
-      spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ importedObject: new EventEmitter<any>() }) }));
+      spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ importedObject: new EventEmitter<any>(), compRef$: EMPTY }) }));
+      component.modalRef = modalService.open(ThemedExternalSourceEntryImportModalComponent, { size: 'lg', container: 'ds-dynamic-lookup-relation-modal' });
       component.import(externalEntries[0]);
     });
 
     it('should open a new ExternalSourceEntryImportModalComponent', () => {
-      expect(modalService.open).toHaveBeenCalledWith(ExternalSourceEntryImportModalComponent, jasmine.any(Object));
+      expect(modalService.open).toHaveBeenCalledWith(ThemedExternalSourceEntryImportModalComponent, jasmine.any(Object));
     });
   });
 });
