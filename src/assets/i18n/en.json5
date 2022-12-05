@@ -4828,25 +4828,5 @@
 
   "search.filters.filter.show-tree": "Browse {{ name }} tree",
 
-  "search.filters.filter.supportedlanguage.placeholder": "Supported Language",
-
-  "search.filters.filter.supportedlanguage.label": "Search supported Language",
-
-  "search.filters.filter.topic.placeholder": "Topic",
-
-  "search.filters.filter.topic.label": "Search topic",
-
-  "search.filters.filter.doctype.placeholder": "Document type",
-
-  "search.filters.filter.doctype.label": "Search document type",
-
-  "search.filters.filter.region.placeholder": "Region",
-
-  "search.filters.filter.region.label": "Search region",
-
-  "search.filters.filter.country.placeholder": "Country",
-
-  "search.filters.filter.country.label": "Search country",
-
-  "okr-vocabulary-treeview.info": "Click a {{ type }} to add a search filter"
+  "vocabulary-treeview.info": "Select a subject to add as search filter"
 }

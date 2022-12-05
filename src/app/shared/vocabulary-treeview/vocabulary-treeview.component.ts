@@ -206,7 +206,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
     this.translate.get(`search.filters.filter.${this.vocabularyOptions.name}.head`).pipe(
       map((type) => lowerCase(type)),
     ).subscribe(
-      (type) => this.description = this.translate.get('okr-vocabulary-treeview.info', { type })
+      (type) => this.description = this.translate.get('vocabulary-treeview.info', { type })
     );
 
     this.loading = this.vocabularyTreeviewService.isLoading();
