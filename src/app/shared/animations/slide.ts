@@ -12,7 +12,7 @@ export const slide = trigger('slide', [
 
 export const slideMobileNav = trigger('slideMobileNav', [
 
-  state('expanded', style({ height: '100vh' })),
+  state('expanded', style({ height: 'auto', 'min-height': '100vh' })),
 
   state('collapsed', style({ height: 0 })),
 

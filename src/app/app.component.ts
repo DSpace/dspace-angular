@@ -31,7 +31,6 @@ import { models } from './core/core.module';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { distinctNext } from './core/shared/distinct-next';
-import { ModalBeforeDismiss } from './shared/interfaces/modal-before-dismiss.interface';
 
 @Component({
   selector: 'ds-app',
