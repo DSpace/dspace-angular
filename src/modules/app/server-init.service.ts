@@ -21,6 +21,7 @@ import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { CSSVariableService } from '../../app/shared/sass-helper/sass-helper.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { take } from 'rxjs/operators';
+import { MenuService } from '../../app/shared/menu/menu.service';
 
 /**
  * Performs server-side initialization.
@@ -39,6 +40,7 @@ export class ServerInitService extends InitService {
     protected breadcrumbsService: BreadcrumbsService,
     protected cssService: CSSVariableService,
     protected themeService: ThemeService,
+    protected menuService: MenuService,
   ) {
     super(
       store,
@@ -50,6 +52,7 @@ export class ServerInitService extends InitService {
       metadata,
       breadcrumbsService,
       themeService,
+      menuService,
     );
   }
 
