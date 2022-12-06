@@ -1853,7 +1853,7 @@
   dependencies:
     tslib "^2.0.0"
 
-"@nicky-lenaers/ngx-scroll-to@13":
+"@nicky-lenaers/ngx-scroll-to@^13.0.0":
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/@nicky-lenaers/ngx-scroll-to/-/ngx-scroll-to-13.0.0.tgz#da81253dafc872002786a26e1b82e29be1ca22a1"
   integrity sha512-sF/F4yoHvOtEGkt58VJYbQVITbW0ivmQA+CJGzc9mnJS6XHFnc4be9rlCX3mz7mOn3FfEs+K80MnUivZ/EHfkQ==
@@ -2242,7 +2242,7 @@
   resolved "https://registry.yarnpkg.com/@types/file-saver/-/file-saver-2.0.5.tgz#9ee342a5d1314bb0928375424a2f162f97c310c7"
   integrity sha512-zv9kNf3keYegP5oThGLaPk8E081DFDuwfqjtiTzm6PoxChdJ1raSuADf2YGCVIyrSynLrgc8JWv296s7Q7pQSQ==
 
-"@types/grecaptcha@3.0.4":
+"@types/grecaptcha@^3.0.4":
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/@types/grecaptcha/-/grecaptcha-3.0.4.tgz#3de601f3b0cd0298faf052dd5bd62aff64c2be2e"
   integrity sha512-7l1Y8DTGXkx/r4pwU1nMVAR+yD/QC+MCHKXAyEX/7JZhwcN1IED09aZ9vCjjkcGdhSQiu/eJqcXInpl6eEEEwg==
@@ -8797,7 +8797,7 @@ ngx-sortablejs@^11.1.0:
   dependencies:
     tslib "^2.0.0"
 
-ngx-ui-switch@13.0.2:
+ngx-ui-switch@^13.0.2:
   version "13.0.2"
   resolved "https://registry.yarnpkg.com/ngx-ui-switch/-/ngx-ui-switch-13.0.2.tgz#67aa548c06d0bbaa23f57a8d4bce2b88789aeeb5"
   integrity sha512-dhRAQZmrSH8l8VVtce/jD0PIwQjagSYPSln9I6A6gda1HIhvU/M6bqOVJLComWX32aVIBewdJP625wp/S3FdTA==
@@ -11044,13 +11044,6 @@ sass-resources-loader@^2.1.1:
     glob "^7.1.6"
     loader-utils "^2.0.0"
 
-sass@1.33:
-  version "1.33.0"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.33.0.tgz#a26186902ee56585b9db6751fd151237f561dbc2"
-  integrity sha512-9v0MUXnSi62FtfjqcwZ+b8B9FIxdwFEb3FPUkjEPXWd0b5KcnPGSp2XF9WrzcH1ZxedfgJVTdA3A1j4eEj53xg==
-  dependencies:
-    chokidar ">=3.0.0 <4.0.0"
-
 sass@1.49.9:
   version "1.49.9"
   resolved "https://registry.yarnpkg.com/sass/-/sass-1.49.9.tgz#b15a189ecb0ca9e24634bae5d1ebc191809712f9"
@@ -11059,6 +11052,13 @@ sass@1.49.9:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
     source-map-js ">=0.6.2 <2.0.0"
+
+sass@~1.33.0:
+  version "1.33.0"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.33.0.tgz#a26186902ee56585b9db6751fd151237f561dbc2"
+  integrity sha512-9v0MUXnSi62FtfjqcwZ+b8B9FIxdwFEb3FPUkjEPXWd0b5KcnPGSp2XF9WrzcH1ZxedfgJVTdA3A1j4eEj53xg==
+  dependencies:
+    chokidar ">=3.0.0 <4.0.0"
 
 sax@>=0.6.0, sax@^1.2.4, sax@~1.2.4:
   version "1.2.4"
