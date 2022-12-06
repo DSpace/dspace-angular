@@ -167,10 +167,11 @@ export class MenuResolver implements Resolve<boolean> {
     combineLatest([
       this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
       this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
-      this.authorizationService.isAuthorized(FeatureID.AdministratorOf)
-    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin]) => {
-      const menuList = [
-        /* News */
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+      this.authorizationService.isAuthorized(FeatureID.CanSubmit),
+      this.authorizationService.isAuthorized(FeatureID.CanEditItem),
+    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, canEditItem]) => {
+      const newSubMenuList = [
         {
           id: 'new_community',
           parentID: 'new',
@@ -201,7 +202,7 @@ export class MenuResolver implements Resolve<boolean> {
           id: 'new_item',
           parentID: 'new',
           active: false,
-          visible: true,
+          visible: canSubmit,
           model: {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_item',
@@ -221,30 +222,8 @@ export class MenuResolver implements Resolve<boolean> {
             link: '/processes/new'
           } as LinkMenuItemModel,
         },
-        {
-          id: 'new',
-          active: false,
-          visible: true,
-          model: {
-            type: MenuItemType.TEXT,
-            text: 'menu.section.new'
-          } as TextMenuItemModel,
-          icon: 'plus',
-          index: 0
-        },
-        // TODO: enable this menu item once the feature has been implemented
-        // {
-        //   id: 'new_item_version',
-        //   parentID: 'new',
-        //   active: false,
-        //   visible: true,
-        //   model: {
-        //     type: MenuItemType.LINK,
-        //     text: 'menu.section.new_item_version',
-        //     link: ''
-        //   } as LinkMenuItemModel,
-        // },
-
+      ];
+      const editSubMenuList = [
         /* Edit */
         {
           id: 'edit_community',
@@ -276,7 +255,7 @@ export class MenuResolver implements Resolve<boolean> {
           id: 'edit_item',
           parentID: 'edit',
           active: false,
-          visible: true,
+          visible: canEditItem,
           model: {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.edit_item',
@@ -285,17 +264,47 @@ export class MenuResolver implements Resolve<boolean> {
             }
           } as OnClickMenuItemModel,
         },
-        {
-          id: 'edit',
-          active: false,
-          visible: true,
-          model: {
-            type: MenuItemType.TEXT,
-            text: 'menu.section.edit'
-          } as TextMenuItemModel,
-          icon: 'pencil-alt',
-          index: 1
-        },
+      ];
+      const newSubMenu = {
+        id: 'new',
+        active: false,
+        visible: newSubMenuList.map(subMenu => subMenu.visible).reduce((x,y) => x || y),
+        model: {
+          type: MenuItemType.TEXT,
+          text: 'menu.section.new'
+        } as TextMenuItemModel,
+        icon: 'plus',
+        index: 0
+      }
+      const editSubMenu = {
+        id: 'edit',
+        active: false,
+        visible: editSubMenuList.map(subMenu => subMenu.visible).reduce((x,y) => x || y),
+        model: {
+          type: MenuItemType.TEXT,
+          text: 'menu.section.edit'
+        } as TextMenuItemModel,
+        icon: 'pencil-alt',
+        index: 1
+      }
+
+      const menuList = [
+        ...newSubMenuList,
+        newSubMenu,
+        ...editSubMenuList,
+        editSubMenu,
+        // TODO: enable this menu item once the feature has been implemented
+        // {
+        //   id: 'new_item_version',
+        //   parentID: 'new',
+        //   active: false,
+        //   visible: true,
+        //   model: {
+        //     type: MenuItemType.LINK,
+        //     text: 'menu.section.new_item_version',
+        //     link: ''
+        //   } as LinkMenuItemModel,
+        // },
 
         /* Statistics */
         // TODO: enable this menu item once the feature has been implemented

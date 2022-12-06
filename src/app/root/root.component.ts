@@ -61,7 +61,7 @@ export class RootComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sidebarVisible = this.menuService.isMenuVisible(MenuID.ADMIN);
+    this.sidebarVisible = this.menuService.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
 
     this.collapsedSidebarWidth = this.cssService.getVariable('collapsedSidebarWidth');
     this.totalSidebarWidth = this.cssService.getVariable('totalSidebarWidth');
