@@ -9,6 +9,7 @@ import { WorkflowItemDataService } from '../../../core/submission/workflowitem-d
 import { NotificationsService } from '../../notifications/notifications.service';
 import { RequestService } from '../../../core/data/request.service';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 
 /**
  * This component represents actions related to WorkflowItem object.
@@ -42,6 +43,13 @@ export class WorkflowitemActionsComponent extends MyDSpaceActionsComponent<Workf
               protected searchService: SearchService,
               protected requestService: RequestService) {
     super(WorkflowItem.type, injector, router, notificationsService, translate, searchService, requestService);
+  }
+
+  /**
+   * Get the workflowitem view route.
+   */
+  getWorkflowItemViewRoute(workflowitem: WorkflowItem): string {
+    return getWorkflowItemViewRoute(workflowitem?.id);
   }
 
   /**

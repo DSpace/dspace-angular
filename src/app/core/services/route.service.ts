@@ -4,14 +4,14 @@ import { ActivatedRoute, NavigationEnd, Params, Router, RouterStateSnapshot, } f
 
 import { combineLatest, Observable } from 'rxjs';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 import { AddParameterAction, SetParameterAction, SetParametersAction, SetQueryParameterAction, SetQueryParametersAction } from './route.actions';
-import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
 import { hasValue } from '../../shared/empty.util';
 import { historySelector } from '../history/selectors';
 import { AddUrlToHistoryAction } from '../history/history.actions';
+import { CoreState } from '../core-state.model';
 
 /**
  * Selector to select all route parameters from the store

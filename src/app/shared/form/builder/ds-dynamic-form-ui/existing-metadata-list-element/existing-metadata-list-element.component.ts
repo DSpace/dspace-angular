@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
@@ -5,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { AppState } from '../../../../../app.reducer';
-import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ItemMetadataRepresentation } from '../../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
@@ -22,7 +22,6 @@ import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
 
-// tslint:disable:max-classes-per-file
 /**
  * Abstract class that defines objects that can be reordered
  */
@@ -103,7 +102,6 @@ export class ReorderableRelationship extends Reorderable {
   constructor(
     public relationship: Relationship,
     public useLeftItem: boolean,
-    protected relationshipService: RelationshipService,
     protected store: Store<AppState>,
     protected submissionID: string,
     oldIndex?: number,
@@ -218,4 +216,3 @@ export class ExistingMetadataListElementComponent implements OnInit, OnChanges, 
 
 }
 
-// tslint:enable:max-classes-per-file

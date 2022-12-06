@@ -3,7 +3,7 @@ import { SiteStatisticsPageComponent } from './site-statistics-page.component';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UsageReportService } from '../../core/statistics/usage-report-data.service';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 import { of as observableOf } from 'rxjs';
 import { Site } from '../../core/shared/site.model';
 import { DebugElement } from '@angular/core';
@@ -74,7 +74,7 @@ describe('SiteStatisticsPageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: Router, useValue: router },
-        { provide: UsageReportService, useValue: usageReportService },
+        { provide: UsageReportDataService, useValue: usageReportService },
         { provide: DSpaceObjectDataService, useValue: {} },
         { provide: DSONameService, useValue: nameService },
         { provide: SiteDataService, useValue: siteService },

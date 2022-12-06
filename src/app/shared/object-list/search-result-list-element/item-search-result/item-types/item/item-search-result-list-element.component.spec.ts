@@ -9,6 +9,7 @@ import { TruncatableService } from '../../../../../truncatable/truncatable.servi
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock, UNDEFINED_NAME } from '../../../../../mocks/dso-name.service.mock';
+import { APP_CONFIG } from '../../../../../../../config/app-config.interface';
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
@@ -59,14 +60,26 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(new ItemSearchRe
     })
 });
 
+const environmentUseThumbs = {
+  browseBy: {
+    showThumbnails: true
+  }
+};
 
-describe('ItemListElementComponent', () => {
+const enviromentNoThumbs = {
+  browseBy: {
+    showThumbnails: false
+  }
+};
+
+describe('ItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ItemSearchResultListElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} },
-        { provide: DSONameService, useClass: DSONameServiceMock }
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -80,6 +93,21 @@ describe('ItemListElementComponent', () => {
     publicationListElementComponent = fixture.componentInstance;
 
   }));
+
+  describe('with environment.browseBy.showThumbnails set to true', () => {
+    beforeEach(() => {
+      publicationListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+    it('should set showThumbnails to true', () => {
+      expect(publicationListElementComponent.showThumbnails).toBeTrue();
+    });
+
+    it('should add ds-thumbnail element', () => {
+      const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
+      expect(thumbnailElement).toBeTruthy();
+    });
+  });
 
   describe('When the item has an author', () => {
     beforeEach(() => {
@@ -186,6 +214,42 @@ describe('ItemListElementComponent', () => {
     it('should show the fallback untitled translation', () => {
       const titleField = fixture.debugElement.query(By.css('.item-list-title'));
       expect(titleField.nativeElement.textContent.trim()).toEqual(UNDEFINED_NAME);
+    });
+  });
+});
+
+describe('ItemSearchResultListElementComponent', () => {
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [ItemSearchResultListElementComponent, TruncatePipe],
+      providers: [
+        {provide: TruncatableService, useValue: {}},
+        {provide: DSONameService, useClass: DSONameServiceMock},
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+      ],
+
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(ItemSearchResultListElementComponent, {
+      set: {changeDetection: ChangeDetectionStrategy.Default}
+    }).compileComponents();
+  }));
+
+  beforeEach(waitForAsync(() => {
+    fixture = TestBed.createComponent(ItemSearchResultListElementComponent);
+    publicationListElementComponent = fixture.componentInstance;
+  }));
+
+  describe('with environment.browseBy.showThumbnails set to false', () => {
+    beforeEach(() => {
+
+      publicationListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should not add ds-thumbnail element', () => {
+      const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
+      expect(thumbnailElement).toBeFalsy();
     });
   });
 });

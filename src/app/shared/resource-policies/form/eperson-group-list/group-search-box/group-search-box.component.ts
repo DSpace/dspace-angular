@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { SearchEvent } from '../eperson-group-list.component';
+import { isNotNull } from '../../../../empty.util';
 
 /**
  * A component used to show a search box for groups.
@@ -54,7 +55,7 @@ export class GroupSearchBoxComponent {
   submit(data: any) {
     const event: SearchEvent = {
       scope: '',
-      query: data.query
+      query: isNotNull(data) ? data.query : ''
     };
     this.search.emit(event);
   }

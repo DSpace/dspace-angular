@@ -48,5 +48,9 @@ describe('ObjectCollectionComponent', () => {
     expect(fixture.debugElement.query(By.css('ds-object-list'))).toBeDefined();
     expect(fixture.debugElement.query(By.css('ds-object-grid'))).toBeNull();
   });
+  it('should set fallback placeholder font size during test', () => {
+    objectCollectionComponent.currentMode$ = observableOf(ViewMode.ListElement);
+    expect(fixture.debugElement.query(By.css('thumb-font-3'))).toBeDefined();
 
+  });
 });
