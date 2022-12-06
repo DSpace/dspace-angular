@@ -245,7 +245,7 @@ describe('MenuService', () => {
 
   describe('isMenuVisibleWithVisibleSections', () => {
     it('should return false when the menu is empty', () => {
-      const fakeMenu = {
+      const testMenu = {
         id: MenuID.ADMIN,
         collapsed: false,
         visible: true,
@@ -253,7 +253,7 @@ describe('MenuService', () => {
         previewCollapsed: false,
         sectionToSubsectionIndex: {}
       } as any;
-      spyOn(service, 'getMenu').and.returnValue(observableOf(fakeMenu));
+      spyOn(service, 'getMenu').and.returnValue(observableOf(testMenu));
 
       const result = service.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
       const expected = cold('(b|)', {
@@ -269,8 +269,8 @@ describe('MenuService', () => {
         section_3: {id: 's3', visible: false},
         section_4: {id: 's1_1', visible: true, parentID: 's1'},
         section_5: {id: 's2_1', visible: true, parentID: 's2'},
-      }
-      const fakeMenu = {
+      };
+      const testMenu = {
         id: MenuID.ADMIN,
         collapsed: false,
         visible: true,
@@ -281,7 +281,7 @@ describe('MenuService', () => {
           'section_2': ['section_5'],
         }
       } as any;
-      spyOn(service, 'getMenu').and.returnValue(observableOf(fakeMenu));
+      spyOn(service, 'getMenu').and.returnValue(observableOf(testMenu));
 
       const result = service.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
       const expected = cold('(b|)', {
@@ -298,8 +298,8 @@ describe('MenuService', () => {
         section_3: {id: 's3', visible: false},
         section_4: {id: 's1_1', visible: true, parentID: 's1'},
         section_5: {id: 's2_1', visible: true, parentID: 's2'},
-      }
-      const fakeMenu = {
+      };
+      const testMenu = {
         id: MenuID.ADMIN,
         collapsed: false,
         visible: true,
@@ -310,7 +310,7 @@ describe('MenuService', () => {
           'section_2': ['section_5'],
         }
       } as any;
-      spyOn(service, 'getMenu').and.returnValue(observableOf(fakeMenu));
+      spyOn(service, 'getMenu').and.returnValue(observableOf(testMenu));
 
       const result = service.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
       const expected = cold('(b|)', {

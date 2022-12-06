@@ -275,7 +275,7 @@ export class MenuResolver implements Resolve<boolean> {
         } as TextMenuItemModel,
         icon: 'plus',
         index: 0
-      }
+      };
       const editSubMenu = {
         id: 'edit',
         active: false,
@@ -286,7 +286,7 @@ export class MenuResolver implements Resolve<boolean> {
         } as TextMenuItemModel,
         icon: 'pencil-alt',
         index: 1
-      }
+      };
 
       const menuList = [
         ...newSubMenuList,

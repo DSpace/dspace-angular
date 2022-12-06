@@ -208,7 +208,7 @@ export class MenuService {
    * Check if a menu has at least one top-level (!) section that is visible.
    * @param {MenuID} menuID The ID of the menu that is to be checked
    * @returns {Observable<boolean>} Emits true if the given menu has visible sections, emits false otherwise
-   */ 
+   */
   menuHasVisibleSections(menuID: MenuID): Observable<boolean> {
     return this.getMenu(menuID).pipe(
       map((state: MenuState) => hasValue(state)
