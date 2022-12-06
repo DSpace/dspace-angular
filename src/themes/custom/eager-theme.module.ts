@@ -45,6 +45,12 @@ import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-b
 import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 import { StartsWithDateComponent } from './app/shared/starts-with/date/starts-with-date.component';
 import { StartsWithTextComponent } from './app/shared/starts-with/text/starts-with-text.component';
+import {
+  PublicationSidebarSearchListElementComponent
+} from './app/shared/object-list/sidebar-search-list-element/item-types/publication-sidebar-search-list-element.component';
+import {
+  ItemSearchResultListElementComponent
+} from './app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
@@ -61,6 +67,8 @@ const ENTRY_COMPONENTS = [
   CollectionDropdownComponent,
   StartsWithDateComponent,
   StartsWithTextComponent,
+  PublicationSidebarSearchListElementComponent,
+  ItemSearchResultListElementComponent,
 ];
 
 const DECLARATIONS = [
@@ -80,20 +88,20 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SharedModule,
-        RootModule,
-        NavbarModule,
-        SharedBrowseByModule,
-        ResultsBackButtonModule,
-        ItemPageModule,
-        ItemSharedModule,
-    ],
-    declarations: DECLARATIONS,
-    providers: [
-        ...ENTRY_COMPONENTS.map((component) => ({provide: component}))
-    ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    RootModule,
+    NavbarModule,
+    SharedBrowseByModule,
+    ResultsBackButtonModule,
+    ItemPageModule,
+    ItemSharedModule,
+  ],
+  declarations: DECLARATIONS,
+  providers: [
+    ...ENTRY_COMPONENTS.map((component) => ({provide: component}))
+  ],
 })
 /**
  * This module is included in the main bundle that gets downloaded at first page load. So it should
