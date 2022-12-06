@@ -124,6 +124,7 @@ describe('InitService', () => {
     let transferStateSpy;
     let metadataServiceSpy;
     let breadcrumbsServiceSpy;
+    let menuServiceSpy;
 
     const BLOCKING = {
       t: {  core: { auth: { blocking: true } } },
@@ -150,6 +151,9 @@ describe('InitService', () => {
       metadataServiceSpy = jasmine.createSpyObj('metadataService', [
         'listenForRouteChange',
       ]);
+      menuServiceSpy = jasmine.createSpyObj('menuServiceSpy', [
+        'listenForRouteChanges',
+      ]);
 
 
       TestBed.resetTestingModule();
@@ -175,7 +179,7 @@ describe('InitService', () => {
           { provide: AuthService, useValue: new AuthServiceMock() },
           { provide: Router, useValue: new RouterMock() },
           { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
-          { provide: MenuService, useValue: new MenuServiceStub() },
+          { provide: MenuService, useValue: menuServiceSpy },
           { provide: ThemeService, useValue: getMockThemeService() },
           provideMockStore({ initialState }),
           AppComponent,
@@ -189,6 +193,7 @@ describe('InitService', () => {
         // @ts-ignore
         service.initRouteListeners();
         expect(metadataServiceSpy.listenForRouteChange).toHaveBeenCalledTimes(1);
+        expect(breadcrumbsServiceSpy.listenForRouteChanges).toHaveBeenCalledTimes(1);
         expect(breadcrumbsServiceSpy.listenForRouteChanges).toHaveBeenCalledTimes(1);
       }));
     });

@@ -1,4 +1,5 @@
 import { StoreActionTypes } from './store.actions';
+import { initialMenusState } from './shared/menu/initial-menus-state';
 
 // fallback ngrx debugger
 let actionCounter = 0;
@@ -18,7 +19,14 @@ export function universalMetaReducer(reducer) {
   return (state, action) => {
     switch (action.type) {
       case StoreActionTypes.REHYDRATE:
-        state = Object.assign({}, state, action.payload);
+        state = Object.assign({}, state, action.payload, {
+          /**
+           * Reset menus after the store is rehydrated, in order to force them to be recreated client side.
+           * The reason is that menu options stored on the server may contain methods that don't survive the
+           * (de)serialization to/from JSON
+           */
+          menus: initialMenusState
+        });
         break;
       case StoreActionTypes.REPLAY:
       default:
