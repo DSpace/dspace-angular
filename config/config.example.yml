@@ -170,6 +170,9 @@ languages:
   - code: el
     label: Ελληνικά
     active: true
+  - code: uk
+    label: Yкраї́нська
+    active: true
 
 # Browse-By Pages
 browseBy:
