@@ -1410,6 +1410,8 @@
 
   "dso-selector.claim.item.create-from-scratch": "Create a new one",
 
+  "dso-selector.results-could-not-be-retrieved": "Something went wrong, please refresh again ↻",
+
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
 
   "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
@@ -4826,4 +4828,5 @@
   "person.orcid.registry.auth": "ORCID Authorizations",
   "home.recent-submissions.head": "Recent Submissions",
 
+  "listable-notification-object.default-message": "This object couldn't be retrieved",
 }
