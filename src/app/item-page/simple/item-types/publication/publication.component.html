@@ -1,3 +1,11 @@
+<div class="row" *ngIf="showBackButton | async" (click)="back()">
+  <div class="col-12">
+    <button class="btn btn-secondary ng-tns-c242-28" >
+      <i _ngcontent-dspace-angular-c242="" class="fas fa-arrow-left ng-tns-c242-3"></i>
+      {{"search-browse-item-return" | translate}}</button>
+  </div>
+</div>
+
 <div class="row" *ngIf="iiifEnabled">
   <div class="col-12">
     <ds-mirador-viewer  id="iiif-viewer"

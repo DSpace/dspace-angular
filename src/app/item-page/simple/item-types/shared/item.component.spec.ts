@@ -39,6 +39,12 @@ import { VersionHistoryDataService } from '../../../../core/data/version-history
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { ResearcherProfileDataService } from '../../../../core/profile/researcher-profile-data.service';
+import { Router } from '@angular/router';
+
+import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
+import { PageInfo } from '../../../../core/shared/page-info.model';
+import { ItemComponent } from './item.component';
+import { ItemVersionsSharedService } from '../../../../shared/item/item-versions/item-versions-shared.service';
 
 export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
   return Object.assign(new MetadataValue(), {
@@ -60,7 +66,11 @@ export function getIIIFEnabled(enabled: boolean): MetadataValue {
   });
 }
 
-export const mockRouteService = jasmine.createSpyObj('RouteService', ['getPreviousUrl']);
+export const mockRouteService = {
+  getPreviousUrl(): Observable<string> {
+    return observableOf('');
+  }
+};
 
 /**
  * Create a generic test for an item-page-fields component using a mockItem and the type of component
@@ -115,7 +125,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
           { provide: WorkspaceitemDataService, useValue: {} },
           { provide: SearchService, useValue: {} },
-          { provide: RouteService, useValue: {} },
+          { provide: RouteService, useValue: mockRouteService },
           { provide: AuthorizationDataService, useValue: authorizationService },
           { provide: ResearcherProfileDataService, useValue: {} }
         ],
@@ -374,6 +384,118 @@ describe('ItemComponent', () => {
 
     it('should return false when the sizes don\'t match', () => {
       expect(compare(arr1 as any, arrWithOneMore as any)).toBeFalsy();
+    });
+  });
+
+  const mockItem: Item = Object.assign(new Item(), {
+    bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
+    metadata: {
+      'publicationissue.issueNumber': [
+        {
+          language: 'en_US',
+          value: '1234'
+        }
+      ],
+      'dc.description': [
+        {
+          language: 'en_US',
+          value: 'desc'
+        }
+      ]
+    },
+  });
+
+  describe('back to results', () => {
+    let comp: ItemComponent;
+    let fixture: ComponentFixture<any>;
+    let router: Router;
+
+    const searchUrl = '/search?query=test&spc.page=2';
+    const browseUrl = '/browse/title?scope=0cc&bbm.page=3';
+    const recentSubmissionsUrl = '/collections/be7b8430-77a5-4016-91c9-90863e50583a?cp.page=3';
+
+    beforeEach(waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          TranslateModule.forRoot({
+            loader: {
+              provide: TranslateLoader,
+              useClass: TranslateLoaderMock
+            }
+          }),
+          RouterTestingModule,
+        ],
+        declarations: [ItemComponent, GenericItemPageFieldComponent, TruncatePipe ],
+        providers: [
+          { provide: ItemDataService, useValue: {} },
+          { provide: TruncatableService, useValue: {} },
+          { provide: RelationshipDataService, useValue: {} },
+          { provide: ObjectCacheService, useValue: {} },
+          { provide: UUIDService, useValue: {} },
+          { provide: Store, useValue: {} },
+          { provide: RemoteDataBuildService, useValue: {} },
+          { provide: CommunityDataService, useValue: {} },
+          { provide: HALEndpointService, useValue: {} },
+          { provide: NotificationsService, useValue: {} },
+          { provide: HttpClient, useValue: {} },
+          { provide: DSOChangeAnalyzer, useValue: {} },
+          { provide: DefaultChangeAnalyzer, useValue: {} },
+          { provide: VersionHistoryDataService, useValue: {} },
+          { provide: VersionDataService, useValue: {} },
+          { provide: BitstreamDataService, useValue: {} },
+          { provide: WorkspaceitemDataService, useValue: {} },
+          { provide: SearchService, useValue: {} },
+          { provide: ItemDataService, useValue: {} },
+          { provide: ItemVersionsSharedService, useValue: {} },
+          { provide: RouteService, useValue: mockRouteService }
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).overrideComponent(ItemComponent, {
+        set: {changeDetection: ChangeDetectionStrategy.Default}
+      });
+    }));
+
+    beforeEach(waitForAsync(() => {
+      router = TestBed.inject(Router);
+      spyOn(router, 'navigateByUrl');
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(''));
+      TestBed.compileComponents();
+      fixture = TestBed.createComponent(ItemComponent);
+      comp = fixture.componentInstance;
+      comp.object = mockItem;
+      fixture.detectChanges();
+    }));
+
+    it('should hide back button',() => {
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(''));
+      comp.showBackButton.subscribe((val) => {
+        expect(val).toBeFalse();
+      });
+    });
+    it('should show back button', () => {
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(searchUrl));
+      comp.ngOnInit();
+      comp.showBackButton.subscribe((val) => {
+        expect(val).toBeTrue();
+      });
+    });
+    it('should navigate back to the search list', () => {
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(searchUrl));
+      comp.back();
+      expect(mockRouteService.getPreviousUrl).toHaveBeenCalled();
+      expect(router.navigateByUrl).toHaveBeenCalledWith(searchUrl);
+    });
+    it('should navigate back to the browse list', () => {
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(browseUrl));
+      comp.back();
+      expect(mockRouteService.getPreviousUrl).toHaveBeenCalled();
+      expect(router.navigateByUrl).toHaveBeenCalledWith(browseUrl);
+    });
+    it('should navigate back to the recent submissions list', () => {
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(recentSubmissionsUrl));
+      comp.back();
+      expect(mockRouteService.getPreviousUrl).toHaveBeenCalled();
+      expect(router.navigateByUrl).toHaveBeenCalledWith(recentSubmissionsUrl);
     });
   });
 

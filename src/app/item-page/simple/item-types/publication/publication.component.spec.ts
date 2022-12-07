@@ -163,12 +163,12 @@ describe('PublicationComponent', () => {
 
   describe('with IIIF viewer and search', () => {
 
+    const localMockRouteService = {
+      getPreviousUrl(): Observable<string> {
+        return of('/search?query=test%20query&fakeParam=true');
+      }
+    };
     beforeEach(waitForAsync(() => {
-      const localMockRouteService = {
-        getPreviousUrl(): Observable<string> {
-          return of('/search?query=test%20query&fakeParam=true');
-        }
-      };
       const iiifEnabledMap: MetadataMap = {
         'dspace.iiif.enabled': [getIIIFEnabled(true)],
         'iiif.search.enabled': [getIIIFSearchEnabled(true)],
@@ -193,13 +193,12 @@ describe('PublicationComponent', () => {
   });
 
   describe('with IIIF viewer and search but no previous search query', () => {
-
+    const localMockRouteService = {
+      getPreviousUrl(): Observable<string> {
+        return of('/item');
+      }
+    };
     beforeEach(waitForAsync(() => {
-      const localMockRouteService = {
-        getPreviousUrl(): Observable<string> {
-          return of('/item');
-        }
-      };
       const iiifEnabledMap: MetadataMap = {
         'dspace.iiif.enabled': [getIIIFEnabled(true)],
         'iiif.search.enabled': [getIIIFSearchEnabled(true)],

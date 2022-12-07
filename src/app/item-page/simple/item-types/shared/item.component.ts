@@ -5,6 +5,8 @@ import { getItemPageRoute } from '../../../item-page-routing-paths';
 import { RouteService } from '../../../../core/services/route.service';
 import { Observable } from 'rxjs';
 import { getDSpaceQuery, isIiifEnabled, isIiifSearchEnabled } from './item-iiif-utils';
+import { filter, map, take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-item',
@@ -36,10 +38,27 @@ export class ItemComponent implements OnInit {
    */
   iiifQuery$: Observable<string>;
 
+  /**
+   * Used to configure search in mirador.
+   */
+  showBackButton: Observable<boolean>;
+
   mediaViewer;
 
-  constructor(protected routeService: RouteService) {
+  constructor(protected routeService: RouteService,
+              protected router: Router) {
     this.mediaViewer = environment.mediaViewer;
+  }
+
+  /**
+   * Navigate back from the item to the previous pagination url.
+   */
+  public back() {
+    this.routeService.getPreviousUrl().pipe(
+      take(1)
+    ).subscribe(
+      (url => this.router.navigateByUrl(url))
+    );
   }
 
   ngOnInit(): void {
@@ -50,5 +69,12 @@ export class ItemComponent implements OnInit {
     if (this.iiifSearchEnabled) {
       this.iiifQuery$ = getDSpaceQuery(this.object, this.routeService);
     }
+    // Show the back to results button when the previous context was search, browse,
+    // or recent submissions pagination.
+    this.showBackButton = this.routeService.getPreviousUrl().pipe(
+      filter(url => /^(\/search|\/browse|\/collections)/.test(url)),
+      take(1),
+      map(() => true)
+    );
   }
 }
