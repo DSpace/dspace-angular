@@ -1,4 +1,4 @@
-import { TEST_COMMUNITY } from 'cypress/support';
+import { TEST_COMMUNITY } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
 describe('Community Statistics Page', () => {

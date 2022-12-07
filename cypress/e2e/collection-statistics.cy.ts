@@ -1,4 +1,4 @@
-import { TEST_COLLECTION } from 'cypress/support';
+import { TEST_COLLECTION } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
 describe('Collection Statistics Page', () => {

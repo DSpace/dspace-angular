@@ -1,6 +1,4 @@
-import { Options } from 'cypress-axe';
-import { TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD, TEST_SUBMIT_COLLECTION_NAME, TEST_SUBMIT_COLLECTION_UUID } from 'cypress/support';
-import { testA11y } from 'cypress/support/utils';
+import { TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD, TEST_SUBMIT_COLLECTION_NAME, TEST_SUBMIT_COLLECTION_UUID } from 'cypress/support/e2e';
 
 describe('New Submission page', () => {
     // NOTE: We already test that new submissions can be started from MyDSpace in my-dspace.spec.ts

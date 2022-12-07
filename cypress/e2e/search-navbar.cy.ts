@@ -1,4 +1,4 @@
-import { TEST_SEARCH_TERM } from 'cypress/support';
+import { TEST_SEARCH_TERM } from 'cypress/support/e2e';
 
 const page = {
     fillOutQueryInNavBar(query) {

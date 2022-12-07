@@ -1,4 +1,4 @@
-import { TEST_ENTITY_PUBLICATION } from 'cypress/support';
+import { TEST_ENTITY_PUBLICATION } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
 describe('Breadcrumbs', () => {

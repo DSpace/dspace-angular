@@ -4,7 +4,7 @@
 // ***********************************************
 
 import { AuthTokenInfo, TOKENITEM } from 'src/app/core/auth/models/auth-token-info.model';
-import { FALLBACK_TEST_REST_BASE_URL } from '.';
+import { FALLBACK_TEST_REST_BASE_URL } from './e2e';
 
 // Declare Cypress namespace to help with Intellisense & code completion in IDEs
 // ALL custom commands MUST be listed here for code completion to work

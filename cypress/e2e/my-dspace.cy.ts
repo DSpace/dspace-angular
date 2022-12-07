@@ -1,5 +1,5 @@
 import { Options } from 'cypress-axe';
-import { TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD, TEST_SUBMIT_COLLECTION_NAME } from 'cypress/support';
+import { TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD, TEST_SUBMIT_COLLECTION_NAME } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
 describe('My DSpace page', () => {
