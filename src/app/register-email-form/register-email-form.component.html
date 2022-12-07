@@ -1,6 +1,8 @@
 <div class="container">
     <h2>{{MESSAGE_PREFIX + '.header'|translate}}</h2>
     <p>{{MESSAGE_PREFIX + '.info' | translate}}</p>
+  {{valid_mail_domains.length}}
+  <p *ngIf="valid_mail_domains.length!= 0">Accounts can be registered for mail addresses of the domanins <span *ngFor="let valid_domain of valid_mail_domains">{{valid_domain}}</span> </p>
 
     <form [class]="'ng-invalid'" [formGroup]="form" (ngSubmit)="register()">
 
@@ -29,7 +31,7 @@
 
         </div>
     </form>
-    
+
     <button class="btn btn-primary"
             [disabled]="form.invalid"
             (click)="register()">{{MESSAGE_PREFIX + '.submit'| translate}}</button>

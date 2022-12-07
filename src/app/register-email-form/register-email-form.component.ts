@@ -1,11 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Registration } from '../core/shared/registration.model';
-import { RemoteData } from '../core/data/remote-data';
+import {Component, Input, OnInit} from '@angular/core';
+import {EpersonRegistrationService} from '../core/data/eperson-registration.service';
+import {NotificationsService} from '../shared/notifications/notifications.service';
+import {TranslateService} from '@ngx-translate/core';
+import {Router} from '@angular/router';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Registration} from '../core/shared/registration.model';
+import {RemoteData} from '../core/data/remote-data';
+import {ConfigurationDataService} from "../core/data/configuration-data.service";
+import {getFirstCompletedRemoteData} from "../core/shared/operators";
 
 @Component({
   selector: 'ds-register-email-form',
@@ -27,14 +29,16 @@ export class RegisterEmailFormComponent implements OnInit {
   @Input()
   MESSAGE_PREFIX: string;
 
+  valid_mail_domains: string[];
+
   constructor(
     private epersonRegistrationService: EpersonRegistrationService,
     private notificationService: NotificationsService,
     private translateService: TranslateService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private configurationService: ConfigurationDataService
   ) {
-
   }
 
   ngOnInit(): void {
@@ -45,7 +49,13 @@ export class RegisterEmailFormComponent implements OnInit {
         ],
       })
     });
-
+    this.valid_mail_domains = [];
+    this.configurationService.findByPropertyName('authentication-password.domain.valid')
+      .pipe(getFirstCompletedRemoteData())
+      .subscribe((remoteData) =>{
+          this.valid_mail_domains.push(remoteData.payload.values[0]);
+        }
+      );
   }
 
   /**
