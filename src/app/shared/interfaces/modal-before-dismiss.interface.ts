@@ -1,4 +1,3 @@
-import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 /**
  * If a component implementing this interface is used to create a modal (i.e. it is passed to {@link NgbModal#open}),

@@ -8,8 +8,7 @@ import {
   DynamicInputModel,
   DynamicOptionControlModel,
   DynamicRadioGroupModel,
-  DynamicSelectModel,
-  DynamicTextAreaModel
+  DynamicSelectModel
 } from '@ng-dynamic-forms/core';
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
