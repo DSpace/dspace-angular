@@ -186,6 +186,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
    * Validate the metadata field first
    */
   setMetadataField() {
+    this.form.resetReinstatable();
     this.loadingFieldValidation$.next(true);
     this.metadataFieldSelectorComponent.validate().subscribe((valid) => {
       this.loadingFieldValidation$.next(false);

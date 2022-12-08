@@ -130,6 +130,14 @@ export class DsoEditMetadataValue {
   isReinstatable(): boolean {
     return hasValue(this.reinstatableValue) || hasValue(this.reinstatableChange);
   }
+
+  /**
+   * Reset the state of the re-instatable properties
+   */
+  resetReinstatable() {
+    this.reinstatableValue = undefined;
+    this.reinstatableChange = undefined;
+  }
 }
 
 /**
@@ -242,6 +250,7 @@ export class DsoEditMetadataForm {
    * undone afterwards
    */
   discard(): void {
+    this.resetReinstatable();
     Object.entries(this.fields).forEach(([field, values]) => {
       let removeFromIndex = -1;
       values.forEach((value, index) => {
@@ -291,6 +300,18 @@ export class DsoEditMetadataForm {
       Object.values(this.fields)
         .some((values) => values
           .some((value) => value.isReinstatable()));
+  }
+
+  /**
+   * Reset the state of the re-instatable properties and values
+   */
+  resetReinstatable() {
+    this.reinstatableNewValues = {};
+    Object.values(this.fields).forEach((values) => {
+      values.forEach((value) => {
+        value.resetReinstatable();
+      });
+    });
   }
 
   /**
