@@ -323,6 +323,9 @@ import {
 } from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 import { MarkdownPipe } from './utils/markdown.pipe';
 import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
+import {
+  ListableNotificationObjectComponent
+} from './object-list/listable-notification-object/listable-notification-object.component';
 
 const MODULES = [
   CommonModule,
@@ -510,6 +513,7 @@ const COMPONENTS = [
   ScopeSelectorModalComponent,
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,
+  ListableNotificationObjectComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -575,7 +579,8 @@ const ENTRY_COMPONENTS = [
   OnClickMenuItemComponent,
   TextMenuItemComponent,
   ScopeSelectorModalComponent,
-  ExternalLinkMenuItemComponent
+  ExternalLinkMenuItemComponent,
+  ListableNotificationObjectComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
