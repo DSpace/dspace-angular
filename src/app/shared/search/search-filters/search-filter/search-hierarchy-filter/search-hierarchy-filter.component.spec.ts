@@ -1,5 +1,5 @@
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
@@ -89,12 +89,12 @@ describe('SearchHierarchyFilterComponent', () => {
 
   describe('if the vocabulary doesn\'t exist', () => {
 
-    beforeEach(() => {
+    beforeEach(waitForAsync(() => {
       spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
         undefined, 0, 0, RequestEntryState.Error, undefined, undefined, 404
       )));
       init();
-    });
+    }));
 
     it('should not show the vocabulary tree link', () => {
       expect(showVocabularyTreeLink).toBeNull();
@@ -103,12 +103,12 @@ describe('SearchHierarchyFilterComponent', () => {
 
   describe('if the vocabulary exists', () => {
 
-    beforeEach(() => {
+    beforeEach(waitForAsync(() => {
       spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
         undefined, 0, 0, RequestEntryState.Success, undefined, buildPaginatedList(new PageInfo(), []), 200
       )));
       init();
-    });
+    }));
 
     it('should show the vocabulary tree link', () => {
       expect(showVocabularyTreeLink).toBeTruthy();
