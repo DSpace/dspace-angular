@@ -5,7 +5,7 @@ import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dyna
 import { Observable, of as observableOf } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, merge, switchMap, tap } from 'rxjs/operators';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { DynamicTagModel } from './dynamic-tag.model';

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { map, merge, mergeMap, scan } from 'rxjs/operators';
-import { findIndex } from 'lodash';
+import findIndex from 'lodash/findIndex';
 
 import {
   LOAD_MORE_NODE,

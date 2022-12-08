@@ -6,7 +6,7 @@ import { ScriptDataService } from '../../core/data/processes/script-data.service
 import { AdminSidebarComponent } from './admin-sidebar.component';
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
-import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
+import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
 import { CSSVariableServiceStub } from '../../shared/testing/css-variable-service.stub';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { AuthService } from '../../core/auth/auth.service';
@@ -16,7 +16,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import createSpy = jasmine.createSpy;
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { Item } from '../../core/shared/item.model';

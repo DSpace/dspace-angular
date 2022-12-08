@@ -18,7 +18,6 @@ import {
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { MomentModule } from 'ngx-moment';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import {
   ExportMetadataSelectorComponent
@@ -313,6 +312,9 @@ import {
 import { MarkdownPipe } from './utils/markdown.pipe';
 import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
 import { MenuModule } from './menu/menu.module';
+import {
+  ListableNotificationObjectComponent
+} from './object-list/listable-notification-object/listable-notification-object.component';
 
 const MODULES = [
   CommonModule,
@@ -329,7 +331,6 @@ const MODULES = [
   ReactiveFormsModule,
   RouterModule,
   NouisliderModule,
-  MomentModule,
   DragDropModule,
   CdkTreeModule,
   GoogleRecaptchaModule,
@@ -434,6 +435,7 @@ const COMPONENTS = [
   SearchNavbarComponent,
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,
+  ListableNotificationObjectComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -495,6 +497,7 @@ const ENTRY_COMPONENTS = [
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
   ScopeSelectorModalComponent,
+  ListableNotificationObjectComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

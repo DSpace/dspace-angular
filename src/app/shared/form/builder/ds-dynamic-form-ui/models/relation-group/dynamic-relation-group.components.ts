@@ -11,7 +11,8 @@ import {
   DynamicFormValidationService,
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
-import { isEqual, isObject } from 'lodash';
+import isEqual from 'lodash/isEqual';
+import isObject from 'lodash/isObject';
 
 import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
 import { FormBuilderService } from '../../../form-builder.service';

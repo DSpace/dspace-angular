@@ -20,7 +20,6 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
 import { ObjectSelectService } from '../shared/object-select/object-select.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { AuthenticatedGuard } from './auth/authenticated.guard';
 import { AuthStatus } from './auth/models/auth-status.model';
@@ -240,7 +239,6 @@ const PROVIDERS = [
   DefaultChangeAnalyzer,
   ArrayMoveChangeAnalyzer,
   ObjectSelectService,
-  CSSVariableService,
   MenuService,
   ObjectUpdatesService,
   SearchService,
