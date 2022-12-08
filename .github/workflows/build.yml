@@ -15,10 +15,12 @@ jobs:
     env:
       # The ci step will test the dspace-angular code against DSpace REST.
       # Direct that step to utilize a DSpace REST service that has been started in docker.
-      DSPACE_REST_HOST: localhost
+      DSPACE_REST_HOST: 127.0.0.1
       DSPACE_REST_PORT: 8080
       DSPACE_REST_NAMESPACE: '/server'
       DSPACE_REST_SSL: false
+      # Spin up UI on 127.0.0.1 to avoid host resolution issues in e2e tests with Node 18+
+      DSPACE_UI_HOST: 127.0.0.1
       # When Chrome version is specified, we pin to a specific version of Chrome
       # Comment this out to use the latest release
       #CHROME_VERSION: "90.0.4430.212-1"
@@ -147,7 +149,7 @@ jobs:
         run: |
           nohup yarn run serve:ssr &
           printf 'Waiting for app to start'
-          until curl --output /dev/null --silent --head --fail http://localhost:4000/home; do
+          until curl --output /dev/null --silent --head --fail http://127.0.0.1:4000/home; do
             printf '.'
             sleep 2
           done
@@ -158,7 +160,7 @@ jobs:
       # This step also prints entire HTML of homepage for easier debugging if grep fails.
       - name: Verify SSR (server-side rendering)
         run: |
-          result=$(wget -O- -q http://localhost:4000/home)
+          result=$(wget -O- -q http://127.0.0.1:4000/home)
           echo "$result"
           echo "$result" | grep -oE "<meta name=\"title\" [^>]*>" | grep DSpace
 
