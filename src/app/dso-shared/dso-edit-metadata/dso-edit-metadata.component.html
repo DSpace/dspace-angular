@@ -91,7 +91,7 @@
               <i class="fas fa-check fa-fw"></i>
             </button>
             <button class="btn btn-outline-danger btn-sm" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.remove' | translate }}"
-                    [disabled]="mdValue.change || mdValue.editing || (saving$ | async)" (click)="mdValue.change = DsoEditMetadataChangeTypeEnum.REMOVE; onValueSaved()">
+                    [disabled]="mdValue.change || mdValue.editing || (saving$ | async)" (click)="mdValue.change = DsoEditMetadataChangeTypeEnum.REMOVE; form.resetReinstatable(); onValueSaved()">
               <i class="fas fa-trash-alt fa-fw"></i>
             </button>
             <button class="btn btn-outline-warning btn-sm" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.undo' | translate }}"
