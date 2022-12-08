@@ -4,12 +4,15 @@
 // ***********************************************
 
 import { AuthTokenInfo, TOKENITEM } from 'src/app/core/auth/models/auth-token-info.model';
-import { FALLBACK_TEST_REST_BASE_URL } from './e2e';
+
+// NOTE: FALLBACK_TEST_REST_BASE_URL is only used if Cypress cannot read the REST API BaseURL
+// from the Angular UI's config.json. See 'login()'.
+export const FALLBACK_TEST_REST_BASE_URL = 'http://localhost:8080/server';
 
 // Declare Cypress namespace to help with Intellisense & code completion in IDEs
 // ALL custom commands MUST be listed here for code completion to work
-// tslint:disable-next-line:no-namespace
 declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace Cypress {
         interface Chainable<Subject = any> {
             /**
