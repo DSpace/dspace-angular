@@ -6657,5 +6657,17 @@
 
   "curation-task.task.iiifallowfiledownload.label": "Allow file download for files uploaded on image server",
 
-  "curation-task.task.iiifpdfmultipages.label": "Create multipages PDF from IIIF images"
+  "curation-task.task.iiifpdfmultipages.label": "Create multipages PDF from IIIF images",
+
+  "curation-task.task.pdftoimagecmyk.label": "Extract images from PDF (CMYK)",
+
+  "curation-task.task.pdftoimagergb.label": "Extract images from PDF (RGB)",
+
+  "curation-task.task.scannedpdf.label": "Extract images from a Scanned PDF",
+
+  "curation-task.task.rawimagesinpdf.label": "Extract raw images inside the PDF (no OCR)",
+
+  "curation-task.task.undopdfiiif.label": "Undo PDF 2 IIIF Images",
+
+  "curation-task.task.rebuildpdftoc.label": "Rebuild the PDF ToC"
 }
