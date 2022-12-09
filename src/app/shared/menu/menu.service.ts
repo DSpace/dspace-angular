@@ -213,8 +213,7 @@ export class MenuService {
     return this.getMenu(menuID).pipe(
       map((state: MenuState) => hasValue(state)
         ? Object.values(state.sections)
-          .map(section => section.visible && section.parentID === undefined)
-          .reduce((x,y) => x || y, false)
+          .some(section => section.visible && section.parentID === undefined)
         : undefined)
     );
   }

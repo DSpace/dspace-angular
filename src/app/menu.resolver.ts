@@ -215,7 +215,7 @@ export class MenuResolver implements Resolve<boolean> {
           id: 'new_process',
           parentID: 'new',
           active: false,
-          visible: isCollectionAdmin,
+          visible: isSiteAdmin,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.new_process',
@@ -268,7 +268,7 @@ export class MenuResolver implements Resolve<boolean> {
       const newSubMenu = {
         id: 'new',
         active: false,
-        visible: newSubMenuList.map(subMenu => subMenu.visible).reduce((x,y) => x || y),
+        visible: newSubMenuList.some(subMenu => subMenu.visible),
         model: {
           type: MenuItemType.TEXT,
           text: 'menu.section.new'
@@ -279,7 +279,7 @@ export class MenuResolver implements Resolve<boolean> {
       const editSubMenu = {
         id: 'edit',
         active: false,
-        visible: editSubMenuList.map(subMenu => subMenu.visible).reduce((x,y) => x || y),
+        visible: editSubMenuList.some(subMenu => subMenu.visible),
         model: {
           type: MenuItemType.TEXT,
           text: 'menu.section.edit'
