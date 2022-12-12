@@ -60,7 +60,7 @@ export class SearchComponent implements OnInit {
    * The configuration to use for the search options
    * If empty, 'default' is used
    */
-  @Input() configuration = 'default';
+  @Input() configuration;
 
   /**
    * The actual query for the fixed filter.
