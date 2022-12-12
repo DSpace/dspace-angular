@@ -19,7 +19,6 @@ import { cold } from 'jasmine-marbles';
 import createSpy = jasmine.createSpy;
 import { createSuccessfulRemoteDataObject$ } from './shared/remote-data.utils';
 import { createPaginatedList } from './shared/testing/utils.test';
-import { Feature } from './core/shared/feature.model';
 
 const BOOLEAN = { t: true, f: false };
 const MENU_STATE = {
