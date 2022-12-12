@@ -89,29 +89,31 @@ describe('SearchHierarchyFilterComponent', () => {
 
   describe('if the vocabulary doesn\'t exist', () => {
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
       spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
         undefined, 0, 0, RequestEntryState.Error, undefined, undefined, 404
       )));
       init();
-    }));
+    });
 
-    it('should not show the vocabulary tree link', () => {
+    it('should not show the vocabulary tree link', (done) => {
       expect(showVocabularyTreeLink).toBeNull();
+      done();
     });
   });
 
   describe('if the vocabulary exists', () => {
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
       spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
         undefined, 0, 0, RequestEntryState.Success, undefined, buildPaginatedList(new PageInfo(), []), 200
       )));
       init();
-    }));
+    });
 
-    it('should show the vocabulary tree link', () => {
+    it('should show the vocabulary tree link', (done) => {
       expect(showVocabularyTreeLink).toBeTruthy();
+      done();
     });
 
     describe('when clicking the vocabulary tree link', () => {
@@ -120,8 +122,9 @@ describe('SearchHierarchyFilterComponent', () => {
         showVocabularyTreeLink.nativeElement.click();
       });
 
-      it('should open the vocabulary tree modal', () => {
+      it('should open the vocabulary tree modal', (done) => {
         expect(ngbModal.open).toHaveBeenCalled();
+        done();
       });
 
       describe('when selecting a value from the vocabulary tree', () => {
@@ -141,7 +144,7 @@ describe('SearchHierarchyFilterComponent', () => {
           }));
         });
 
-        it('should add a new search filter to the existing search filters', () => {
+        it('should add a new search filter to the existing search filters', (done) => {
           expect(router.navigate).toHaveBeenCalledWith([testSearchLink], {
             queryParams: {
               [`f.${testSearchFilter}`]: [
@@ -151,6 +154,7 @@ describe('SearchHierarchyFilterComponent', () => {
             },
             queryParamsHandling: 'merge',
           });
+          done();
         });
       });
     });
