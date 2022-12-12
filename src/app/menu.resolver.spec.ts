@@ -322,7 +322,7 @@ describe('MenuResolver', () => {
       it('should show new_process', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(MenuID.ADMIN, jasmine.objectContaining({
           id: 'new_process', visible: true,
-        }))
+        }));
       });
 
       it('should contain site admin section', () => {
