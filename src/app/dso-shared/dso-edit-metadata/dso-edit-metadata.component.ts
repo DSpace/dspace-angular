@@ -1,7 +1,7 @@
 import { Component, Injector, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AlertType } from '../../shared/alert/aletr-type';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { DsoEditMetadataChangeType, DsoEditMetadataForm } from './dso-edit-metadata-form';
+import { DsoEditMetadataForm } from './dso-edit-metadata-form';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Data } from '@angular/router';
 import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
@@ -18,6 +18,7 @@ import { ResourceType } from '../../core/shared/resource-type';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'ds-dso-edit-metadata',
@@ -77,16 +78,16 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
   loadingFieldValidation$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
+   * Combination of saving$ and loadingFieldValidation$
+   * Emits true when any of the two emit true
+   */
+  savingOrLoadingFieldValidation$: Observable<boolean>;
+
+  /**
    * The AlertType enumeration for access in the component's template
    * @type {AlertType}
    */
   public AlertTypeEnum = AlertType;
-
-  /**
-   * The DsoEditMetadataChangeType enumeration for access in the component's template
-   * @type {DsoEditMetadataChangeType}
-   */
-  public DsoEditMetadataChangeTypeEnum = DsoEditMetadataChangeType;
 
   /**
    * Subscription for updating the current DSpaceObject
@@ -118,6 +119,9 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
       this.initDataService();
       this.initForm();
     }
+    this.savingOrLoadingFieldValidation$ = observableCombineLatest([this.saving$, this.loadingFieldValidation$]).pipe(
+      map(([saving, loading]) => saving || loading),
+    );
   }
 
   /**
@@ -178,6 +182,16 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
         this.initForm();
       }
     });
+  }
+
+  /**
+   * Confirm the newly added value
+   * @param saved Whether or not the value was manually saved (only then, add the value to its metadata field)
+   */
+  confirmNewValue(saved: boolean) {
+    if (saved) {
+      this.setMetadataField();
+    }
   }
 
   /**
