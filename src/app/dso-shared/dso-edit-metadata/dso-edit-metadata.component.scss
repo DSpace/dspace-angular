@@ -1,6 +1,6 @@
 .lbl-cell {
-  min-width: 210px;
-  max-width: 210px;
+  min-width: var(--ds-dso-edit-field-width);
+  max-width: var(--ds-dso-edit-field-width);
   background-color: var(--bs-gray-100);
   font-weight: bold;
 
@@ -17,12 +17,12 @@
 }
 
 .ds-lang-cell {
-  min-width: 90px;
-  max-width: 90px;
+  min-width: var(--ds-dso-edit-lang-width);
+  max-width: var(--ds-dso-edit-lang-width);
 }
 
 .ds-edit-cell {
-  min-width: 173px;
+  min-width: var(--ds-dso-edit-actions-width);
 }
 
 .ds-value-row {

@@ -31,7 +31,7 @@
   </div>
   <div class="d-flex flex-row ds-field-row" *ngIf="form.newValue">
     <div class="lbl-cell ds-success">
-      <ds-metadata-field-selector [(mdField)]="newMdField" [autofocus]="true"></ds-metadata-field-selector>
+      <ds-metadata-field-selector [dsoType]="dsoType" [(mdField)]="newMdField" [autofocus]="true"></ds-metadata-field-selector>
     </div>
     <div class="flex-grow-1 ds-drop-list">
       <div class="d-flex flex-row ds-value-row ds-success h-100">
@@ -74,7 +74,8 @@
            *ngFor="let mdValue of form.fields[mdField]; let idx = index">
         <div class="flex-grow-1 ds-flex-cell ds-value-cell d-flex align-items-center">
           <div class="dont-break-out preserve-line-breaks" *ngIf="!mdValue.editing">{{ mdValue.newValue.value }}</div>
-          <textarea class="form-control" rows="2" *ngIf="mdValue.editing" [(ngModel)]="mdValue.newValue.value" ></textarea>
+          <textarea class="form-control" rows="2" *ngIf="mdValue.editing" [(ngModel)]="mdValue.newValue.value"
+                    [dsDebounce]="300" (onDebounce)="mdValue.confirmChanges(); form.resetReinstatable(); onValueSaved()"></textarea>
         </div>
         <div class="ds-flex-cell ds-lang-cell">
           <div class="dont-break-out preserve-line-breaks" *ngIf="!mdValue.editing">{{ mdValue.newValue.language }}</div>
@@ -87,7 +88,7 @@
               <i class="fas fa-edit fa-fw"></i>
             </button>
             <button class="btn btn-outline-success btn-sm ng-star-inserted" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.confirm' | translate }}" *ngIf="mdValue.editing"
-                    [disabled]="(saving$ | async)" (click)="mdValue.confirmChanges(); form.resetReinstatable(); onValueSaved()">
+                    [disabled]="(saving$ | async)" (click)="mdValue.confirmChanges(true); form.resetReinstatable(); onValueSaved()">
               <i class="fas fa-check fa-fw"></i>
             </button>
             <button class="btn btn-outline-danger btn-sm" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.remove' | translate }}"

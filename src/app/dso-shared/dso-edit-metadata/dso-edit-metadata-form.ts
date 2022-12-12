@@ -67,7 +67,7 @@ export class DsoEditMetadataValue {
    * the original value
    * It will also set the editing flag to false
    */
-  confirmChanges() {
+  confirmChanges(finishEditing = false) {
     if (hasNoValue(this.change) || this.change === DsoEditMetadataChangeType.UPDATE) {
       if ((this.originalValue.value !== this.newValue.value || this.originalValue.language !== this.newValue.language)) {
         this.change = DsoEditMetadataChangeType.UPDATE;
@@ -75,7 +75,9 @@ export class DsoEditMetadataValue {
         this.change = undefined;
       }
     }
-    this.editing = false;
+    if (finishEditing) {
+      this.editing = false;
+    }
   }
 
   /**
