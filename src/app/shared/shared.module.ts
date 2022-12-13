@@ -324,6 +324,7 @@ import {
 } from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 import { MarkdownPipe } from './utils/markdown.pipe';
 import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
+import { EditableItemSelectorComponent } from './dso-selector/dso-selector/editable-item-selector/editable-item-selector.component';
 
 const MODULES = [
   CommonModule,
@@ -489,6 +490,7 @@ const COMPONENTS = [
   ConfirmationModalComponent,
   VocabularyTreeviewComponent,
   AuthorizedCollectionSelectorComponent,
+  EditableItemSelectorComponent,
   CurationFormComponent,
   SearchResultListElementComponent,
   SearchResultGridElementComponent,

@@ -3,7 +3,7 @@ import { DSOSelectorComponent } from '../dso-selector.component';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { Observable } from 'rxjs';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { getFirstCompletedRemoteData, mapRemoteDataPayload } from '../../../../core/shared/operators';
 import { map } from 'rxjs/operators';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { SearchResult } from '../../../search/models/search-result.model';
@@ -73,9 +73,14 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
     }
     return searchListService$.pipe(
       getFirstCompletedRemoteData(),
-      map((rd) => Object.assign(new RemoteData(null, null, null, null), rd, {
-        payload: hasValue(rd.payload) ? buildPaginatedList(rd.payload.pageInfo, rd.payload.page.map((col) => Object.assign(new CollectionSearchResult(), { indexableObject: col }))) : null,
-      }))
-    );
+      mapRemoteDataPayload((payload) => hasValue(payload)
+        ? buildPaginatedList(payload.pageInfo, payload.page.map((col) =>
+            Object.assign(new CollectionSearchResult(), { indexableObject: col })))
+        : null));
+
+      // getFirstCompletedRemoteData(),
+      // map((rd) => Object.assign(new RemoteData(null, null, null, null), rd, {
+      //   payload: hasValue(rd.payload) ? buildPaginatedList(rd.payload.pageInfo, rd.payload.page.map((col) => Object.assign(new CollectionSearchResult(), { indexableObject: col }))) : null,
+      // }))
   }
 }

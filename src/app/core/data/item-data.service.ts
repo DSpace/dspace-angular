@@ -46,6 +46,7 @@ import { RestRequestMethod } from './rest-request-method';
 import { CreateData, CreateDataImpl } from './base/create-data';
 import { RequestParam } from '../cache/models/request-param.model';
 import { dataService } from './base/data-service.decorator';
+import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 
 /**
  * An abstract service for CRUD operations on Items
@@ -386,6 +387,30 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public create(object: Item, ...params: RequestParam[]): Observable<RemoteData<Item>> {
     return this.createData.create(object, ...params);
+  }
+
+  public getSearchEndpoint(topic: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      switchMap((url: string) => this.halService.getEndpoint('search', `${topic}`))
+    );
+  }
+
+  // K: currently missing: reRequestOnState, useCachedVersion, ...
+  public findItemsWithEdit(...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {
+    const hrefObs = this.getSearchEndpoint("findItemsWithEdit");
+    hrefObs.pipe(
+      isNotEmptyOperator(),
+      take(1)
+    ).subscribe((href) => {
+      const request = new GetRequest(this.requestService.generateRequestId(), href);
+      this.requestService.send(request);
+    });
+    // K: don't fully understand how this works:
+    //    we filter out items where the response is pending
+    //    but the take(1) operator in the hrefObs pipe seems to guarantee that we never get back to this?
+    return this.rdbService.buildList<Item>(hrefObs, ...linksToFollow).pipe(
+      filter((items: RemoteData<PaginatedList<Item>>) => !items.isResponsePending)
+    );
   }
 
 }
