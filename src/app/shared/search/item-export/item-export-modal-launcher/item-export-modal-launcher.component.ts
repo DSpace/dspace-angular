@@ -3,16 +3,17 @@ import { Component, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
+
 import { Item } from '../../../../core/shared/item.model';
 import { SearchOptions } from '../../models/search-options.model';
+import { ItemExportComponent } from '../item-export/item-export.component';
 import { AuthService } from '../../../../core/auth/auth.service';
+import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { ItemExportComponent } from '../item-export/item-export.component';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { hasValue, isNotEmpty } from '../../../empty.util';
-import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
 
 @Component({
   selector: 'ds-item-export-modal-launcher',

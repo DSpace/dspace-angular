@@ -10,11 +10,11 @@ import { ItemExportComponent } from '../item-export/item-export.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ItemExportModalLauncherComponent } from './item-export-modal-launcher.component';
-import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
+import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 
 describe('ItemExportModalWrapperComponent', () => {
   let component: ItemExportModalLauncherComponent;

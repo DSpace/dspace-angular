@@ -13,6 +13,7 @@ import { ItemExportFormConfiguration, ItemExportService } from '../item-export.s
 import { ItemExportAlertStubComponent } from '../item-export-alert/item-export-alert.component.spec';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';

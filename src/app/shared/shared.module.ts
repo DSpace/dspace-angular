@@ -302,12 +302,8 @@ import {
   SearchChartFilterComponent
 } from './search/search-charts/search-chart/search-chart-filter/search-chart-filter.component';
 import { VocabularyExternalSourceComponent } from './vocabulary-external-source/vocabulary-external-source.component';
-import {
-  BulkImportSelectorComponent
-} from './dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
-import {
-  AdministeredCollectionSelectorComponent
-} from './dso-selector/dso-selector/administered-collection-selector/administered-collection-selector.component';
+import { BulkImportSelectorComponent } from './dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
+import { AdministeredCollectionSelectorComponent } from './dso-selector/dso-selector/administered-collection-selector/administered-collection-selector.component';
 import { RelationshipsListComponent } from './object-list/relationships-list/relationships-list.component';
 import {
   RelationshipsItemsActionsComponent
@@ -551,10 +547,6 @@ const COMPONENTS = [
   CommunitySidebarSearchListElementComponent,
   SearchNavbarComponent,
   ScopeSelectorModalComponent,
-  ItemExportComponent,
-  ItemExportAlertComponent,
-  ItemExportModalLauncherComponent,
-  ItemExportListComponent,
   SearchChartsComponent,
   SearchChartBarComponent,
   SearchChartBarToLeftComponent,
@@ -667,9 +659,7 @@ const PROVIDERS = [
   TruncatableService,
   MockAdminGuard,
   AbstractTrackableComponent,
-  ThumbnailService,
-  //ChangeSubmitterService,
-  //ChangeSubmitterRestService,
+  ThumbnailService
 ];
 
 const DIRECTIVES = [
@@ -706,8 +696,6 @@ const DIRECTIVES = [
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ItemVersionsSummaryModalComponent,
     ItemVersionsDeleteModalComponent,
-    ItemExportAlertComponent,
-    //AdditionalMetadataComponent,
   ],
   providers: [
     ...PROVIDERS
