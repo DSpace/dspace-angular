@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
 import {
   compareArraysUsingIds, PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
@@ -44,6 +44,11 @@ import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './requ
 import { RequestService } from './request.service';
 import { RequestEntryState } from './request.reducer';
 import { NoContent } from '../shared/NoContent.model';
+import { MetadataValue } from '../shared/metadata.models';
+import { MetadataRepresentation } from '../shared/metadata-representation/metadata-representation.model';
+import { MetadatumRepresentation } from '../shared/metadata-representation/metadatum/metadatum-representation.model';
+import { ItemMetadataRepresentation } from '../shared/metadata-representation/item/item-metadata-representation.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 
@@ -522,5 +527,35 @@ export class RelationshipService extends DataService<Relationship> {
         searchParams: searchParams
       }) as Observable<RemoteData<PaginatedList<Relationship>>>;
 
+  }
+
+  /**
+   * Resolve a {@link MetadataValue} into a {@link MetadataRepresentation} of the correct type
+   * @param metadatum   {@link MetadataValue} to resolve
+   * @param parentItem  Parent dspace object the metadata value belongs to
+   * @param itemType    The type of item this metadata value represents (will only be used when no related item can be found, as a fallback)
+   */
+  resolveMetadataRepresentation(metadatum: MetadataValue, parentItem: DSpaceObject, itemType: string): Observable<MetadataRepresentation> {
+    if (metadatum.isVirtual) {
+      return this.findById(metadatum.virtualValue, true, false, followLink('leftItem'), followLink('rightItem')).pipe(
+        getFirstSucceededRemoteData(),
+        switchMap((relRD: RemoteData<Relationship>) =>
+          observableCombineLatest(relRD.payload.leftItem, relRD.payload.rightItem).pipe(
+            filter(([leftItem, rightItem]) => leftItem.hasCompleted && rightItem.hasCompleted),
+            map(([leftItem, rightItem]) => {
+              if (!leftItem.hasSucceeded || !rightItem.hasSucceeded) {
+                return observableOf(Object.assign(new MetadatumRepresentation(itemType), metadatum));
+              } else if (rightItem.hasSucceeded && leftItem.payload.id === parentItem.id) {
+                return rightItem.payload;
+              } else if (rightItem.payload.id === parentItem.id) {
+                return leftItem.payload;
+              }
+            }),
+            map((item: Item) => Object.assign(new ItemMetadataRepresentation(metadatum), item))
+          )
+        ));
+    } else {
+      return observableOf(Object.assign(new MetadatumRepresentation(itemType), metadatum));
+    }
   }
 }

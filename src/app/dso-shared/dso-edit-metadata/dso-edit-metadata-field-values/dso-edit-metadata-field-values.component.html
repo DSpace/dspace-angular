@@ -1,5 +1,6 @@
-<div class="flex-grow-1 ds-drop-list">
+<div class="flex-grow-1 ds-drop-list h-100">
   <ds-dso-edit-metadata-value *ngFor="let mdValue of form.fields[mdField]; let idx = index"
+                              [dso]="dso"
                               [mdValue]="mdValue"
                               [dsoType]="dsoType"
                               [saving$]="saving$"

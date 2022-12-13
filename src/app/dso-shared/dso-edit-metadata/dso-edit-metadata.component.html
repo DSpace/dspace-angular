@@ -28,7 +28,8 @@
       </ds-metadata-field-selector>
     </div>
     <div class="flex-grow-1 ds-drop-list">
-      <ds-dso-edit-metadata-value [mdValue]="form.newValue"
+      <ds-dso-edit-metadata-value [dso]="dso"
+                                  [mdValue]="form.newValue"
                                   [dsoType]="dsoType"
                                   [saving$]="savingOrLoadingFieldValidation$"
                                   [isOnlyValue]="true"
@@ -43,6 +44,7 @@
       <span class="dont-break-out preserve-line-breaks">{{ mdField }}</span>
     </div>
     <ds-dso-edit-metadata-field-values class="flex-grow-1"
+                                       [dso]="dso"
                                        [form]="form"
                                        [dsoType]="dsoType"
                                        [saving$]="saving$"

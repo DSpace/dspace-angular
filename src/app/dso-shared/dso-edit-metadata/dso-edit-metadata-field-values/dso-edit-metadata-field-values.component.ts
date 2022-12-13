@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DsoEditMetadataChangeType, DsoEditMetadataForm } from '../dso-edit-metadata-form';
 import { Observable } from 'rxjs/internal/Observable';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 
 @Component({
   selector: 'ds-dso-edit-metadata-field-values',
@@ -11,6 +12,11 @@ import { Observable } from 'rxjs/internal/Observable';
  * Component displaying table rows for each value for a certain metadata field within a form
  */
 export class DsoEditMetadataFieldValuesComponent {
+  /**
+   * The parent {@link DSpaceObject} to display a metadata form for
+   * Also used to determine metadata-representations in case of virtual metadata
+   */
+  @Input() dso: DSpaceObject;
   /**
    * A dynamic form object containing all information about the metadata and the changes made to them, see {@link DsoEditMetadataForm}
    */
