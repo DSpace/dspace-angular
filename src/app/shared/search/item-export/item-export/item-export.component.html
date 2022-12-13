@@ -19,16 +19,34 @@
         </select>
       </div>
 
-      <div class="form-group" *ngIf="configurationLoaded; else loader">
-        <label for="format">{{ 'item-export.form.format' | translate }}</label>
-        <select id="format" class="custom-select" formControlName="format">
-          <option [ngValue]="null" disabled>{{ 'item-export.form.format.tip' | translate }}</option>
-          <option *ngFor="let format of configuration.formats" [ngValue]="format">
-            {{ format.id }}
-          </option>
-        </select>
+      <div *ngIf="configurationLoaded; else loader">
+        <div class="form-group">
+          <label for="format">{{ 'item-export.form.format' | translate }}</label>
+          <select id="format" class="custom-select" formControlName="format">
+            <option [ngValue]="null" disabled>{{ 'item-export.form.format.tip' | translate }}</option>
+            <option *ngFor="let format of configuration.formats" [ngValue]="format">
+              {{ format.id }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Export mode</label>
+          <div class="custom-control custom-radio">
+            <input type="radio" id="selectionMode-all" formControlName="selectionMode" value="all" class="custom-control-input">
+            <label class="custom-control-label" for="selectionMode-all">Export all</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input type="radio" id="selectionMode-sel" formControlName="selectionMode" value="onlySelection" class="custom-control-input">
+            <label class="custom-control-label" for="selectionMode-sel">Export only selected</label>
+          </div>
+        </div>
       </div>
+
     </form>
+
+    <ds-item-export-list *ngIf="exportSelectionMode.value === 'onlySelection'"
+                         [itemEntityType]="itemType.label"
+                         [searchOptions]="searchOptions" ></ds-item-export-list>
 
   </ng-container>
 

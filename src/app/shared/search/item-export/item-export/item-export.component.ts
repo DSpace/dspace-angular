@@ -1,24 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
-import { Item } from '../../../core/shared/item.model';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { SearchOptions } from '../../search/models/search-options.model';
+import { Item } from '../../../../core/shared/item.model';
+import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
+import { SearchOptions } from '../../models/search-options.model';
 import { ItemExportFormConfiguration, ItemExportService } from '../item-export.service';
-import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
-import { NotificationsService } from '../../notifications/notifications.service';
+import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
+import { NotificationsService } from '../../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ItemExportFormat } from '../../../core/itemexportformat/model/item-export-format.model';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { isNotEmpty } from '../../empty.util';
+import { ItemExportFormat } from '../../../../core/itemexportformat/model/item-export-format.model';
+import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+import { isNotEmpty } from '../../../empty.util';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+
+export enum ExportSelectionMode {
+  All = 'all',
+  OnlySelection = 'onlySelection'
+}
 
 @Component({
   selector: 'ds-item-export',
   templateUrl: './item-export.component.html'
 })
-export class ItemExportComponent implements OnInit {
+export class ItemExportComponent implements OnInit, OnDestroy {
 
   /**
    * Export format suitable for bulk import
@@ -59,6 +65,10 @@ export class ItemExportComponent implements OnInit {
    */
   configurationLoaded = false;
 
+  exportSelectionMode: BehaviorSubject<ExportSelectionMode> = new BehaviorSubject<ExportSelectionMode>(ExportSelectionMode.All);
+
+  currentUrl: string;
+
   constructor(protected itemExportService: ItemExportService,
     protected router: Router,
     protected notificationsService: NotificationsService,
@@ -67,6 +77,7 @@ export class ItemExportComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentUrl = this.router.url;
     this.itemExportService.initialItemExportFormConfiguration(this.item).pipe(take(1))
       .subscribe((configuration: ItemExportFormConfiguration) => {
         this.configuration = configuration;
@@ -77,12 +88,18 @@ export class ItemExportComponent implements OnInit {
         } else if (!!this.itemType) {
           this.exportForm = this.initFormItemType(configuration);
           this.onEntityTypeChange(this.itemType.label);
+          this.exportForm.controls.selectionMode.valueChanges.subscribe((selectionMode) => {
+            this.showSelectionList(selectionMode);
+          });
         } else {
           this.exportForm = this.initForm(configuration);
           this.onEntityTypeChange(configuration.entityType);
           // listen for entityType selections in order to update the available formats
           this.exportForm.controls.entityType.valueChanges.subscribe((entityType) => {
             this.onEntityTypeChange(entityType);
+          });
+          this.exportForm.controls.selectionMode.valueChanges.subscribe((selectionMode) => {
+            this.showSelectionList(selectionMode);
           });
         }
       });
@@ -113,7 +130,7 @@ export class ItemExportComponent implements OnInit {
   initForm(configuration: ItemExportFormConfiguration): FormGroup {
     return new FormGroup({
       format: new FormControl(configuration.format, [Validators.required]),
-      entityType: new FormControl(configuration.entityType, [Validators.required]),
+      entityType: new FormControl(configuration.entityType, [Validators.required])
     });
   }
 
@@ -121,6 +138,7 @@ export class ItemExportComponent implements OnInit {
     return new FormGroup({
       format: new FormControl(configuration.format, [Validators.required]),
       entityType: new FormControl({ value: this.itemType.label, disabled: true }, [Validators.required]),
+      selectionMode: new FormControl(this.exportSelectionMode.value, [Validators.required]),
     });
   }
 
@@ -170,4 +188,11 @@ export class ItemExportComponent implements OnInit {
     }
   }
 
+  private showSelectionList(selectionMode: any) {
+    this.exportSelectionMode.next(selectionMode);
+  }
+
+  ngOnDestroy(): void {
+    this.router.navigateByUrl(this.currentUrl);
+  }
 }

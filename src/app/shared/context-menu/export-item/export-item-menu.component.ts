@@ -4,11 +4,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
-import { ItemExportComponent } from '../../item-export/item-export/item-export.component';
+import { ItemExportComponent } from '../../search/item-export/item-export/item-export.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
-import { ItemExportFormConfiguration, ItemExportService } from '../../item-export/item-export.service';
+import { ItemExportFormConfiguration, ItemExportService } from '../../search/item-export/item-export.service';
 import { take } from 'rxjs/operators';
 import { Item } from '../../../core/shared/item.model';
 

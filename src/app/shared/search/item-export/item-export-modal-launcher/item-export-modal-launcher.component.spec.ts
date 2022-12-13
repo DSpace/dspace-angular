@@ -4,14 +4,14 @@ import { ViewContainerRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { of, of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../core/auth/auth.service';
+import { AuthService } from '../../../../core/auth/auth.service';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { ItemExportComponent } from '../item-export/item-export.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ItemExportModalLauncherComponent } from './item-export-modal-launcher.component';
-import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
+import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 
 describe('ItemExportModalWrapperComponent', () => {
   let component: ItemExportModalLauncherComponent;

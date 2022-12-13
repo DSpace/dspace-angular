@@ -1,10 +1,10 @@
-import { ItemExportService } from '../../shared/item-export/item-export.service';
+import { ItemExportService } from './item-export.service';
 import {
   ItemExportFormatMolteplicity,
   ItemExportFormatService
-} from '../../core/itemexportformat/item-export-format.service';
-import { Item } from '../../core/shared/item.model';
-import { ItemExportFormat } from '../../core/itemexportformat/model/item-export-format.model';
+} from '../../../core/itemexportformat/item-export-format.service';
+import { Item } from '../../../core/shared/item.model';
+import { ItemExportFormat } from '../../../core/itemexportformat/model/item-export-format.model';
 import { of } from 'rxjs';
 
 

@@ -2,11 +2,11 @@ import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { Item } from '../../../core/shared/item.model';
-import { SearchOptions } from '../../search/models/search-options.model';
+import { Item } from '../../../../core/shared/item.model';
+import { SearchOptions } from '../../models/search-options.model';
 import { ItemExportComponent } from '../item-export/item-export.component';
-import { AuthService } from '../../../core/auth/auth.service';
-import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
 
 @Component({
   selector: 'ds-item-export-modal-launcher',
@@ -44,7 +44,7 @@ export class ItemExportModalLauncherComponent implements OnInit {
 
       // open a bulk-item-export modal
       this.searchOptions$.pipe(take(1)).subscribe((searchOptions) => {
-        const modalRef = this.modalService.open(ItemExportComponent);
+        const modalRef = this.modalService.open(ItemExportComponent, {size: 'lg', scrollable: true });
         modalRef.componentInstance.molteplicity = ItemExportFormatMolteplicity.MULTIPLE;
         modalRef.componentInstance.searchOptions = searchOptions;
         modalRef.componentInstance.itemType = event;

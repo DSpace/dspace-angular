@@ -2,11 +2,11 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { ItemExportAlertComponent } from './item-export-alert.component';
 import { Component, Input } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
+import { Item } from '../../../../core/shared/item.model';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
 
 describe('ItemExportAlertComponent', () => {
   let component: ItemExportAlertComponent;
