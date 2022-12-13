@@ -12,7 +12,7 @@ import { NotificationsService } from '../../../notifications/notifications.servi
 import { TranslateService } from '@ngx-translate/core';
 import { ItemExportFormat } from '../../../../core/itemexportformat/model/item-export-format.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { isNotEmpty } from '../../../empty.util';
+import { isEmpty, isNotEmpty } from '../../../empty.util';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { Observable } from 'rxjs/internal/Observable';
@@ -78,6 +78,8 @@ export class ItemExportComponent implements OnInit, OnDestroy {
 
   listId = 'export-list';
 
+  @Input() showListSelection: boolean;
+
   isMyDspace: boolean;
 
   constructor(
@@ -91,7 +93,9 @@ export class ItemExportComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.currentUrl = this.router.url;
-    this.isMyDspace = this.currentUrl.includes(MYDSPACE_ROUTE);
+    if (isEmpty(this.showListSelection)) {
+      this.showListSelection = !this.currentUrl.includes(MYDSPACE_ROUTE);
+    }
     this.itemExportService.initialItemExportFormConfiguration(this.item).pipe(take(1))
       .subscribe((configuration: ItemExportFormConfiguration) => {
         this.configuration = configuration;

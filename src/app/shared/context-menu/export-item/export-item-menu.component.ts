@@ -62,6 +62,7 @@ export class ExportItemMenuComponent extends ContextMenuEntryComponent {
       const modalRef = this.modalService.open(ItemExportComponent);
       modalRef.componentInstance.molteplicity = ItemExportFormatMolteplicity.SINGLE;
       modalRef.componentInstance.item = this.contextMenuObject;
+      modalRef.componentInstance.showListSelection = false;
     }
   }
 
