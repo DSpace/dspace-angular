@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { RelationshipService } from '../../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
 import {
   getRemoteDataPayload,
   getFirstSucceededRemoteData, DEBOUNCE_TIME_OPERATOR
@@ -18,7 +18,7 @@ import { Item } from '../../../../../core/shared/item.model';
 import { hasNoValue, hasValue, hasValueOperator } from '../../../../empty.util';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
-import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
+import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
 import { SaveSubmissionSectionFormSuccessAction } from '../../../../../submission/objects/submission-objects.actions';
 import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
@@ -61,7 +61,7 @@ export class RelationshipEffects {
   /**
    * Effect that makes sure all last fired RelationshipActions' types are stored in the map of this service, with the object uuid as their key
    */
-  @Effect({ dispatch: false }) mapLastActions$ = this.actions$
+   mapLastActions$ = createEffect(() => this.actions$
     .pipe(
       ofType(RelationshipActionTypes.ADD_RELATIONSHIP, RelationshipActionTypes.REMOVE_RELATIONSHIP),
       map((action: RelationshipAction) => {
@@ -97,14 +97,14 @@ export class RelationshipEffects {
           }
         }
       )
-    );
+    ), { dispatch: false });
 
   /**
    * Updates the namevariant in a relationship
    * If the relationship is currently being added or removed, it will add the name variant to an update map so it will be sent with the next add request instead
    * Otherwise the update is done immediately
    */
-  @Effect({ dispatch: false }) updateNameVariantsActions$ = this.actions$
+   updateNameVariantsActions$ = createEffect(() => this.actions$
     .pipe(
       ofType(RelationshipActionTypes.UPDATE_NAME_VARIANT),
       map((action: UpdateRelationshipNameVariantAction) => {
@@ -125,33 +125,33 @@ export class RelationshipEffects {
           }
         }
       )
-    );
+    ), { dispatch: false });
 
   /**
    * Save the latest submission ID, to make sure it's updated when the patch is finished
    */
-  @Effect({ dispatch: false }) updateRelationshipActions$ = this.actions$
+   updateRelationshipActions$ = createEffect(() => this.actions$
     .pipe(
       ofType(RelationshipActionTypes.UPDATE_RELATIONSHIP),
       map((action: UpdateRelationshipAction) => {
         this.updateAfterPatchSubmissionId = action.payload.submissionId;
       })
-    );
+    ), { dispatch: false });
 
   /**
    * Save the submission object with ID updateAfterPatchSubmissionId
    */
-  @Effect() saveSubmissionSection = this.actions$
+   saveSubmissionSection = createEffect(() => this.actions$
     .pipe(
       ofType(ServerSyncBufferActionTypes.EMPTY, JsonPatchOperationsActionTypes.COMMIT_JSON_PATCH_OPERATIONS),
       filter(() => hasValue(this.updateAfterPatchSubmissionId)),
       switchMap(() => this.refreshWorkspaceItemInCache(this.updateAfterPatchSubmissionId)),
       map((submissionObject) => new SaveSubmissionSectionFormSuccessAction(this.updateAfterPatchSubmissionId, [submissionObject], false))
-    );
+    ));
 
   constructor(private actions$: Actions,
-              private relationshipService: RelationshipService,
-              private relationshipTypeService: RelationshipTypeService,
+              private relationshipService: RelationshipDataService,
+              private relationshipTypeService: RelationshipTypeDataService,
               private submissionObjectService: SubmissionObjectDataService,
               private store: Store<SubmissionState>,
               private objectCache: ObjectCacheService,

@@ -1,4 +1,4 @@
-import * as fromRouter from '@ngrx/router-store';
+import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import { ActionReducerMap, createSelector, MemoizedSelector } from '@ngrx/store';
 import {
   ePeopleRegistryReducer,
@@ -22,7 +22,7 @@ import {
   nameVariantReducer
 } from './shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 import { formReducer, FormState } from './shared/form/form.reducer';
-import { menusReducer, MenusState } from './shared/menu/menu.reducer';
+import { menusReducer} from './shared/menu/menu.reducer';
 import {
   notificationsReducer,
   NotificationsState
@@ -35,7 +35,7 @@ import {
   ObjectSelectionListState,
   objectSelectionReducer
 } from './shared/object-select/object-select.reducer';
-import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/sass-helper.reducer';
+import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/css-variable.reducer';
 
 import { hostWindowReducer, HostWindowState } from './shared/search/host-window.reducer';
 import {
@@ -49,10 +49,11 @@ import {
 import { sidebarReducer, SidebarState } from './shared/sidebar/sidebar.reducer';
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
 import { ThemeState, themeReducer } from './shared/theme-support/theme.reducer';
+import { MenusState } from './shared/menu/menus-state.model';
 import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
 
 export interface AppState {
-  router: fromRouter.RouterReducerState;
+  router: RouterReducerState;
   hostWindow: HostWindowState;
   forms: FormState;
   metadataRegistry: MetadataRegistryState;
@@ -74,7 +75,7 @@ export interface AppState {
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
-  router: fromRouter.routerReducer,
+  router: routerReducer,
   hostWindow: hostWindowReducer,
   forms: formReducer,
   metadataRegistry: metadataRegistryReducer,

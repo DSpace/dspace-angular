@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { map } from 'rxjs/operators';
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
 
 import {
   CommitPatchOperationsAction, FlushPatchOperationsAction,
@@ -17,11 +17,11 @@ export class JsonPatchOperationsEffects {
   /**
    * Dispatches a FlushPatchOperationsAction for every dispatched CommitPatchOperationsAction
    */
-  @Effect() commit$ = this.actions$.pipe(
+   commit$ = createEffect(() => this.actions$.pipe(
     ofType(JsonPatchOperationsActionTypes.COMMIT_JSON_PATCH_OPERATIONS),
     map((action: CommitPatchOperationsAction) => {
       return new FlushPatchOperationsAction(action.payload.resourceType, action.payload.resourceId);
-    }));
+    })));
 
   constructor(private actions$: Actions) {}
 

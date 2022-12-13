@@ -2,9 +2,9 @@ import {Directive} from '@angular/core';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 @Directive({
-    // tslint:disable-next-line:directive-selector
+    // eslint-disable-next-line @angular-eslint/directive-selector
     selector: 'input[type=file]',
-    // tslint:disable-next-line:no-host-metadata-property
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
     host : {
         '(change)' : 'onChange($event.target.files)',
         '(blur)': 'onTouched()'

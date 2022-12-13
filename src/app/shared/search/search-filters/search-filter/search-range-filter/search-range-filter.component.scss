@@ -28,4 +28,13 @@
   .noUi-connect {
       background: var(--ds-slider-color);
   }
+
+  .noUi-target {
+    padding: 0 calc((var(--ds-slider-handle-width) / 2) - 1.5px);
+    margin: 0 1px;
+  }
+  .noUi-connect {
+    margin: 0 calc(-1 * (var(--ds-slider-handle-width) / 2));
+    width: calc(100% + var(--ds-slider-handle-width));
+  }
 }

@@ -3,7 +3,7 @@
     <p>{{MESSAGE_PREFIX + '.info' | translate}}</p>
   <p *ngIf="valid_mail_domains.length!= 0">Accounts can be registered for mail addresses of the domanins {{ valid_mail_domains.join(", ")}} </p>
 
-    <form [class]="'ng-invalid'" [formGroup]="form" (ngSubmit)="register()">
+    <form [class]="'ng-invalid'" [formGroup]="form">
 
         <div class="form-group">
             <div class="row">
@@ -29,9 +29,29 @@
             </div>
 
         </div>
+
+    <ds-alert [type]="AlertTypeEnum.Warning" *ngIf="registrationVerification && !isRecaptchaCookieAccepted()">
+      <p class="m-0" [innerHTML]="MESSAGE_PREFIX + '.google-recaptcha.must-accept-cookies' | translate"></p>
+      <p class="m-0"><a href="javascript:void(0);" (click)="this.klaroService.showSettings()">{{ MESSAGE_PREFIX + '.google-recaptcha.open-cookie-settings' | translate }}</a></p>
+    </ds-alert>
+
+    <div class="my-3" *ngIf="isRecaptchaCookieAccepted() && (googleRecaptchaService.captchaVersion() | async) === 'v2'">
+      <ds-google-recaptcha [captchaMode]="(googleRecaptchaService.captchaMode() | async)"
+                           (executeRecaptcha)="register($event)" (checkboxChecked)="onCheckboxChecked($event)"
+                           (showNotification)="showNotification($event)"></ds-google-recaptcha>
+    </div>
+
+    <ng-container *ngIf="!((googleRecaptchaService.captchaVersion() | async) === 'v2' && (googleRecaptchaService.captchaMode() | async) === 'invisible'); else v2Invisible">
+      <button class="btn btn-primary" [disabled]="form.invalid || registrationVerification && !isRecaptchaCookieAccepted() || disableUntilChecked" (click)="register()">
+        {{ MESSAGE_PREFIX + '.submit' | translate }}
+      </button>
+    </ng-container>
+
+    <ng-template #v2Invisible>
+      <button class="btn btn-primary" [disabled]="form.invalid" (click)="executeRecaptcha()">
+        {{ MESSAGE_PREFIX + '.submit' | translate }}
+      </button>
+    </ng-template>
     </form>
 
-    <button class="btn btn-primary"
-            [disabled]="form.invalid"
-            (click)="register()">{{MESSAGE_PREFIX + '.submit'| translate}}</button>
 </div>

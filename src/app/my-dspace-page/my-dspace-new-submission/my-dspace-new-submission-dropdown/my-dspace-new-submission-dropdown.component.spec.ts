@@ -7,13 +7,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { of as observableOf } from 'rxjs';
 import { createPaginatedList, createTestComponent } from '../../../shared/testing/utils.test';
 import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission-dropdown.component';
-import { EntityTypeService } from '../../../core/data/entity-type.service';
+import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
 
-export function getMockEntityTypeService(): EntityTypeService {
+export function getMockEntityTypeService(): EntityTypeDataService {
   const type1: ItemType = {
     id: '1',
     label: 'Publication',
@@ -42,7 +43,7 @@ export function getMockEntityTypeService(): EntityTypeService {
   });
 }
 
-export function getMockEmptyEntityTypeService(): EntityTypeService {
+export function getMockEmptyEntityTypeService(): EntityTypeDataService {
   const pageInfo = { elementsPerPage: 20, totalElements: 1, totalPages: 1, currentPage: 0 } as PageInfo;
   const type1: ItemType = {
     id: '1',
@@ -87,10 +88,11 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         ],
         declarations: [
           MyDSpaceNewSubmissionDropdownComponent,
-          TestComponent
+          TestComponent,
+          BrowserOnlyMockPipe,
         ],
         providers: [
-          { provide: EntityTypeService, useValue: getMockEmptyEntityTypeService() },
+          { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
           { provide: NgbModal, useValue: modalStub },
           MyDSpaceNewSubmissionDropdownComponent
         ],
@@ -138,10 +140,11 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         ],
         declarations: [
           MyDSpaceNewSubmissionDropdownComponent,
-          TestComponent
+          TestComponent,
+          BrowserOnlyMockPipe,
         ],
         providers: [
-          { provide: EntityTypeService, useValue: getMockEntityTypeService() },
+          { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
           { provide: NgbModal, useValue: modalStub },
           MyDSpaceNewSubmissionDropdownComponent
         ],
@@ -190,5 +193,5 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
 class TestComponent {
   reload = (event) => {
     return;
-  }
+  };
 }

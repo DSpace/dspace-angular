@@ -7,13 +7,16 @@ import { SortDirection, SortOptions } from '../core/cache/models/sort-options.mo
 import { buildPaginatedList } from '../core/data/paginated-list.model';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { StoreMock } from '../shared/testing/store.mock';
-import { CommunityListService, FlatNode, toFlatNode } from './community-list-service';
+import { CommunityListService, toFlatNode } from './community-list-service';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { Community } from '../core/shared/community.model';
 import { Collection } from '../core/shared/collection.model';
-import { FindListOptions } from '../core/data/request.models';
 import { PageInfo } from '../core/shared/page-info.model';
+import { FlatNode } from './flat-node.model';
+import { FindListOptions } from '../core/data/find-list-options.model';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
 
 describe('CommunityListService', () => {
   let store: StoreMock<AppState>;
@@ -190,13 +193,14 @@ describe('CommunityListService', () => {
     };
     TestBed.configureTestingModule({
       providers: [CommunityListService,
+        { provide: APP_CONFIG, useValue: environment },
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: Store, useValue: StoreMock },
       ],
     });
     store = TestBed.inject(Store as any);
-    service = new CommunityListService(communityDataServiceStub, collectionDataServiceStub, store);
+    service = new CommunityListService(environment, communityDataServiceStub, collectionDataServiceStub, store);
   });
 
   it('should create', inject([CommunityListService], (serviceIn: CommunityListService) => {

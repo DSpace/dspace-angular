@@ -1,62 +1,67 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { Bitstream } from '../shared/bitstream.model';
 import { BITSTREAM } from '../shared/bitstream.resource-type';
 import { Bundle } from '../shared/bundle.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { BundleDataService } from './bundle-data.service';
-import { DataService } from './data.service';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { buildPaginatedList, PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { FindListOptions, PutRequest } from './request.models';
+import { PutRequest } from './request.models';
 import { RequestService } from './request.service';
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { sendRequest } from '../shared/operators';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PageInfo } from '../shared/page-info.model';
 import { RequestParam } from '../cache/models/request-param.model';
+import { sendRequest } from '../shared/request.operators';
+import { FindListOptions } from './find-list-options.model';
+import { SearchData, SearchDataImpl } from './base/search-data';
+import { PatchData, PatchDataImpl } from './base/patch-data';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { RestRequestMethod } from './rest-request-method';
+import { DeleteData, DeleteDataImpl } from './base/delete-data';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NoContent } from '../shared/NoContent.model';
+import { IdentifiableDataService } from './base/identifiable-data.service';
+import { dataService } from './base/data-service.decorator';
+import { Operation } from 'fast-json-patch';
 
 /**
  * A service to retrieve {@link Bitstream}s from the REST API
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 @dataService(BITSTREAM)
-export class BitstreamDataService extends DataService<Bitstream> {
-
-  /**
-   * The HAL path to the bitstream endpoint
-   */
-  protected linkPath = 'bitstreams';
+export class BitstreamDataService extends IdentifiableDataService<Bitstream> implements SearchData<Bitstream>, PatchData<Bitstream>, DeleteData<Bitstream> {
+  private searchData: SearchDataImpl<Bitstream>;
+  private patchData: PatchDataImpl<Bitstream>;
+  private deleteData: DeleteDataImpl<Bitstream>;
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer<Bitstream>,
     protected bundleService: BundleDataService,
-    protected bitstreamFormatService: BitstreamFormatDataService
+    protected bitstreamFormatService: BitstreamFormatDataService,
+    protected comparator: DSOChangeAnalyzer<Bitstream>,
+    protected notificationsService: NotificationsService,
   ) {
-    super();
+    super('bitstreams', requestService, rdbService, objectCache, halService);
+
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.patchData = new PatchDataImpl<Bitstream>(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
+    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
   }
 
   /**
@@ -72,7 +77,7 @@ export class BitstreamDataService extends DataService<Bitstream> {
    *                                    {@link HALLink}s should be automatically resolved
    */
   findAllByBundle(bundle: Bundle, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
-    return this.findAllByHref(bundle._links.bitstreams.href, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    return this.findListByHref(bundle._links.bitstreams.href, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -179,8 +184,97 @@ export class BitstreamDataService extends DataService<Bitstream> {
       hrefObs,
       useCachedVersionIfAvailable,
       reRequestOnStale,
-      ...linksToFollow
+      ...linksToFollow,
     );
   }
 
+  /**
+   * Create the HREF for a specific object's search method with given options object
+   *
+   * @param searchMethod The search method for the object
+   * @param options The [[FindListOptions]] object
+   * @return {Observable<string>}
+   *    Return an observable that emits created HREF
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  public getSearchByHref(searchMethod: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<string> {
+    return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
+  }
+
+  /**
+   * Make a new FindListRequest with given search method
+   *
+   * @param searchMethod                The search method for the object
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
+  public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Commit current object changes to the server
+   * @param method The RestRequestMethod for which de server sync buffer should be committed
+   */
+  public commitUpdates(method?: RestRequestMethod): void {
+    this.patchData.commitUpdates(method);
+  }
+
+  /**
+   * Send a patch request for a specified object
+   * @param {T} object The object to send a patch request for
+   * @param {Operation[]} operations The patch operations to be performed
+   */
+  public patch(object: Bitstream, operations: []): Observable<RemoteData<Bitstream>> {
+    return this.patchData.patch(object, operations);
+  }
+
+  /**
+   * Add a new patch to the object cache
+   * The patch is derived from the differences between the given object and its version in the object cache
+   * @param {DSpaceObject} object The given object
+   */
+  public update(object: Bitstream): Observable<RemoteData<Bitstream>> {
+    return this.patchData.update(object);
+  }
+
+  /**
+   * Return a list of operations representing the difference between an object and its latest value in the cache.
+   * @param object  the object to resolve to a list of patch operations
+   */
+  public createPatchFromCache(object: Bitstream): Observable<Operation[]> {
+    return this.patchData.createPatchFromCache(object);
+  }
+
+  /**
+   * Delete an existing object on the server
+   * @param   objectId The id of the object to be removed
+   * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
+   *                            metadata should be saved as real metadata
+   * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
+   *          errorMessage, timeCompleted, etc
+   */
+  delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
+    return this.deleteData.delete(objectId, copyVirtualMetadata);
+  }
+
+  /**
+   * Delete an existing object on the server
+   * @param   href The self link of the object to be removed
+   * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
+   *                            metadata should be saved as real metadata
+   * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
+   *          errorMessage, timeCompleted, etc
+   *          Only emits once all request related to the DSO has been invalidated.
+   */
+  deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
+    return this.deleteData.deleteByHref(href, copyVirtualMetadata);
+  }
 }

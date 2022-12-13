@@ -1,7 +1,7 @@
+/* eslint-disable max-classes-per-file */
 import { v4 as uuidv4 } from 'uuid';
 import { autoserialize, Serialize, Deserialize } from 'cerialize';
 import { hasValue } from '../../shared/empty.util';
-/* tslint:disable:max-classes-per-file */
 
 export const VIRTUAL_METADATA_PREFIX = 'virtual::';
 
@@ -39,7 +39,7 @@ export class MetadataValue implements MetadataValueInterface {
   value: string;
 
   /**
-   * The place of this MetadataValue within his list of metadata
+   * The place of this MetadataValue within its list of metadata
    * This is used to render metadata in a specific custom order
    */
   @autoserialize
@@ -105,7 +105,7 @@ export class MetadatumViewModel {
   value: string;
 
   /**
-   * The place of this MetadataValue within his list of metadata
+   * The place of this MetadataValue within its list of metadata
    * This is used to render metadata in a specific custom order
    */
   place: number;
@@ -138,4 +138,3 @@ export const MetadataMapSerializer = {
     return metadataMap;
   }
 };
-/* tslint:enable:max-classes-per-file */

@@ -15,19 +15,26 @@ import {
 } from '@angular/core/testing';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ProcessDetailFieldComponent } from './process-detail-field/process-detail-field.component';
 import { Process } from '../processes/process.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { getProcessListRoute } from '../process-page-routing.paths';
 
 describe('ProcessDetailComponent', () => {
   let component: ProcessDetailComponent;
@@ -43,6 +50,11 @@ describe('ProcessDetailComponent', () => {
   let files: Bitstream[];
 
   let processOutput;
+
+  let modalService;
+  let notificationsService;
+
+  let router;
 
   function init() {
     processOutput = 'Process Started';
@@ -93,7 +105,8 @@ describe('ProcessDetailComponent', () => {
       }
     });
     processService = jasmine.createSpyObj('processService', {
-      getFiles: createSuccessfulRemoteDataObject$(createPaginatedList(files))
+      getFiles: createSuccessfulRemoteDataObject$(createPaginatedList(files)),
+      delete: createSuccessfulRemoteDataObject$(null)
     });
     bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
       findByHref: createSuccessfulRemoteDataObject$(logBitstream)
@@ -104,13 +117,23 @@ describe('ProcessDetailComponent', () => {
     httpClient = jasmine.createSpyObj('httpClient', {
       get: observableOf(processOutput)
     });
+
+    modalService = jasmine.createSpyObj('modalService', {
+      open: {}
+    });
+
+    notificationsService = new NotificationsServiceStub();
+
+    router = jasmine.createSpyObj('router', {
+      navigateByUrl:{}
+    });
   }
 
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [ProcessDetailComponent, ProcessDetailFieldComponent, VarDirective, FileSizePipe],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot()],
       providers: [
         {
           provide: ActivatedRoute,
@@ -121,6 +144,9 @@ describe('ProcessDetailComponent', () => {
         { provide: DSONameService, useValue: nameService },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: HttpClient, useValue: httpClient },
+        { provide: NgbModal, useValue: modalService },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: Router, useValue: router },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -204,6 +230,36 @@ describe('ProcessDetailComponent', () => {
     it('should display message saying there are no output logs', () => {
       const noOutputProcess = fixture.debugElement.query(By.css('#no-output-logs-message')).nativeElement;
       expect(noOutputProcess).toBeDefined();
+    });
+  });
+
+  describe('openDeleteModal', () => {
+    it('should open the modal', () => {
+      component.openDeleteModal({});
+      expect(modalService.open).toHaveBeenCalledWith({});
+    });
+  });
+
+  describe('deleteProcess', () => {
+    it('should delete the process and navigate back to the overview page on success', () => {
+      spyOn(component, 'closeModal');
+      component.deleteProcess(process);
+
+      expect(processService.delete).toHaveBeenCalledWith(process.processId);
+      expect(notificationsService.success).toHaveBeenCalled();
+      expect(component.closeModal).toHaveBeenCalled();
+      expect(router.navigateByUrl).toHaveBeenCalledWith(getProcessListRoute());
+    });
+    it('should delete the process and not navigate on error', () => {
+      (processService.delete as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$());
+      spyOn(component, 'closeModal');
+
+      component.deleteProcess(process);
+
+      expect(processService.delete).toHaveBeenCalledWith(process.processId);
+      expect(notificationsService.error).toHaveBeenCalled();
+      expect(component.closeModal).not.toHaveBeenCalled();
+      expect(router.navigateByUrl).not.toHaveBeenCalled();
     });
   });
 
