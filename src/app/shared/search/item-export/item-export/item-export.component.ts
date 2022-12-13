@@ -19,6 +19,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SearchResult } from '../../models/search-result.model';
+import { MYDSPACE_ROUTE } from '../../../../my-dspace-page/my-dspace-page.component';
 
 export enum ExportSelectionMode {
   All = 'all',
@@ -76,6 +77,8 @@ export class ItemExportComponent implements OnInit, OnDestroy {
 
   listId = 'export-list';
 
+  isMyDspace: boolean;
+
   constructor(
     protected itemExportService: ItemExportService,
     protected router: Router,
@@ -87,6 +90,7 @@ export class ItemExportComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.currentUrl = this.router.url;
+    this.isMyDspace = this.currentUrl.includes(MYDSPACE_ROUTE);
     this.itemExportService.initialItemExportFormConfiguration(this.item).pipe(take(1))
       .subscribe((configuration: ItemExportFormConfiguration) => {
         this.configuration = configuration;
@@ -97,9 +101,11 @@ export class ItemExportComponent implements OnInit, OnDestroy {
         } else if (!!this.itemType) {
           this.exportForm = this.initFormItemType(configuration);
           this.onEntityTypeChange(this.itemType.label);
-          this.exportForm.controls.selectionMode.valueChanges.subscribe((selectionMode) => {
-            this.showSelectionList(selectionMode);
-          });
+          if (!this.isMyDspace) {
+            this.exportForm.controls.selectionMode.valueChanges.subscribe((selectionMode) => {
+              this.showSelectionList(selectionMode);
+            });
+          }
         } else {
           this.exportForm = this.initForm(configuration);
           this.onEntityTypeChange(configuration.entityType);
@@ -144,11 +150,18 @@ export class ItemExportComponent implements OnInit, OnDestroy {
   }
 
   initFormItemType(configuration: ItemExportFormConfiguration): FormGroup {
-    return new FormGroup({
-      format: new FormControl(configuration.format, [Validators.required]),
-      entityType: new FormControl({ value: this.itemType.label, disabled: true }, [Validators.required]),
-      selectionMode: new FormControl(this.exportSelectionMode.value, [Validators.required]),
-    });
+    if (this.isMyDspace) {
+      return new FormGroup({
+        format: new FormControl(configuration.format, [Validators.required]),
+        entityType: new FormControl({ value: this.itemType.label, disabled: true }, [Validators.required]),
+      });
+    } else {
+      return new FormGroup({
+        format: new FormControl(configuration.format, [Validators.required]),
+        entityType: new FormControl({ value: this.itemType.label, disabled: true }, [Validators.required]),
+        selectionMode: new FormControl(this.exportSelectionMode.value, [Validators.required]),
+      });
+    }
   }
 
   isFormValid(): Observable<boolean> {
@@ -179,7 +192,7 @@ export class ItemExportComponent implements OnInit, OnDestroy {
           this.searchOptions.scope = this.bulkImportXlsEntityTypeCollectionUUID;
         }
 
-        const list$: Observable<string[]> = (this.exportForm?.value?.selectionMode !== ExportSelectionMode.OnlySelection) ?
+        const list$: Observable<string[]> = (this.isMyDspace || this.exportForm?.value?.selectionMode !== ExportSelectionMode.OnlySelection) ?
           of([]) :
           this.selectableListService.getSelectableList(this.listId).pipe(
             take(1),
