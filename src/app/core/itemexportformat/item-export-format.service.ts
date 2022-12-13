@@ -148,7 +148,7 @@ export class ItemExportFormatService {
     let parameterValues = [];
     parameterValues = this.formatParameter(format, parameterValues);
     if (isNotEmpty(itemList)) {
-      parameterValues = this.listUUIDParameter(itemList, parameterValues);
+      parameterValues = this.listUUIDParameter(itemList.join(';'), parameterValues);
     } else {
       parameterValues = this.entityTypeParameter(entityType, parameterValues);
       parameterValues = this.queryParameter(searchOptions, parameterValues);
@@ -190,7 +190,7 @@ export class ItemExportFormatService {
     return [...parameterValues, Object.assign(new ProcessParameter(), { name: '-f', value: format.id })];
   }
 
-  private listUUIDParameter(list: string[], parameterValues: ProcessParameter[]): ProcessParameter[] {
+  private listUUIDParameter(list: string, parameterValues: ProcessParameter[]): ProcessParameter[] {
     return [...parameterValues, Object.assign(new ProcessParameter(), { name: '-si', value: list })];
   }
 
