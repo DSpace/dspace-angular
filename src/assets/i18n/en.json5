@@ -3201,7 +3201,7 @@
 
   "item-export.alert.multiple": "Export all items of a particular entity type belonging to the current search.",
 
-  "item-export.alert.export.limit": "This export will be limited to {{limit}} items.",
+  "item-export.alert.export.limit": "This export will be limited to a maximum of {{limit}} items.",
 
   "item-export.form.entityType": "Entity Type",
 

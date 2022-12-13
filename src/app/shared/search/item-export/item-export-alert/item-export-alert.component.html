@@ -6,7 +6,7 @@
       {{ 'item-export.alert.multiple' | translate }}
   </span>
 
-  <span style="white-space: nowrap;" *ngIf="bulkExportLimit !== '0' && bulkExportLimit !== '-1'">
+  <span *ngIf="bulkExportLimit !== '0' && bulkExportLimit !== '-1'">
     {{ 'item-export.alert.export.limit' | translate:{limit: bulkExportLimit} }}
   </span>
 </div>
