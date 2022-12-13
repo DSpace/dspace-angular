@@ -9,7 +9,7 @@ import isEqual from 'lodash/isEqual';
 
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { DynamicTagModel } from './dynamic-tag.model';
-import { Chips } from '../../../../../chips/models/chips.model';
+import { Chips } from '../../../../chips/models/chips.model';
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { environment } from '../../../../../../../environments/environment';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';

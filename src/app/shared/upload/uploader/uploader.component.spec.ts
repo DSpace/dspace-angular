@@ -4,16 +4,16 @@ import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/
 
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
-import { UploaderService } from './uploader.service';
+import { DragService } from '../../../core/drag.service';
 import { UploaderOptions } from './uploader-options.model';
 import { UploaderComponent } from './uploader.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { TranslateModule } from '@ngx-translate/core';
-import { createTestComponent } from '../testing/utils.test';
+import { createTestComponent } from '../../testing/utils.test';
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
-import { CookieService } from '../../core/services/cookie.service';
-import { CookieServiceMock } from '../mocks/cookie.service.mock';
-import { HttpXsrfTokenExtractorMock } from '../mocks/http-xsrf-token-extractor.mock';
+import { CookieService } from '../../../core/services/cookie.service';
+import { CookieServiceMock } from '../../mocks/cookie.service.mock';
+import { HttpXsrfTokenExtractorMock } from '../../mocks/http-xsrf-token-extractor.mock';
 
 describe('Chips component', () => {
 
@@ -37,7 +37,7 @@ describe('Chips component', () => {
         ChangeDetectorRef,
         ScrollToService,
         UploaderComponent,
-        UploaderService,
+        DragService,
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock('mock-token') },
         { provide: CookieService, useValue: new CookieServiceMock() },
       ],

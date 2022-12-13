@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { isEmpty } from '../empty.util';
+import { isEmpty } from '../../empty.util';
 
 @Component({
   selector: 'ds-number-picker',
