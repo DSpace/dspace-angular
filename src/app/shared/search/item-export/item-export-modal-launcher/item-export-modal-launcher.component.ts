@@ -44,13 +44,13 @@ export class ItemExportModalLauncherComponent implements OnInit, OnDestroy {
       if (isAuthenticated) {
         this.subs.push(this.isCurrentUserAdmin().subscribe(isAdmin => {
           if (isAdmin) {
-            this.findByPropertyName('bulk-export.limit.admin');
+            this.findByPropertyName(BULK_EXPORT_LIMIT_ADMIN);
           } else {
-            this.findByPropertyName('bulk-export.limit.loggedIn');
+            this.findByPropertyName(BULK_EXPORT_LIMIT_LOGGEDIN);
           }
         }));
       } else {
-        this.findByPropertyName('bulk-export.limit.notLoggedIn');
+        this.findByPropertyName(BULK_EXPORT_LIMIT_NOTLOGGEDIN);
       }
     }));
   }
@@ -124,3 +124,7 @@ export class ItemExportModalLauncherComponent implements OnInit, OnDestroy {
   }
 
 }
+
+export const BULK_EXPORT_LIMIT_ADMIN = 'bulk-export.limit.admin';
+export const BULK_EXPORT_LIMIT_LOGGEDIN = 'bulk-export.limit.loggedIn';
+export const BULK_EXPORT_LIMIT_NOTLOGGEDIN = 'bulk-export.limit.notLoggedIn';
