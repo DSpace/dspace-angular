@@ -19,7 +19,7 @@
                             [hideGear]="true"
                             [context]="context"
                             [selectable]="true"
-                            [selectionConfig]="{ repeatable: true, listId: 'export-list' }">
+                            [selectionConfig]="{ repeatable: true, listId: listId }">
     </ds-viewable-collection>
     <ds-loading *ngIf="!resultsRD || resultsRD?.isLoading"
                 message="{{'loading.search-results' | translate}}"></ds-loading>

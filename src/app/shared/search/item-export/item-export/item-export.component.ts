@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { take } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { SearchOptions } from '../../models/search-options.model';
@@ -14,6 +14,11 @@ import { ItemExportFormat } from '../../../../core/itemexportformat/model/item-e
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { isNotEmpty } from '../../../empty.util';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { of } from 'rxjs/internal/observable/of';
+import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
+import { SearchResult } from '../../models/search-result.model';
 
 export enum ExportSelectionMode {
   All = 'all',
@@ -69,11 +74,15 @@ export class ItemExportComponent implements OnInit, OnDestroy {
 
   currentUrl: string;
 
-  constructor(protected itemExportService: ItemExportService,
+  listId = 'export-list';
+
+  constructor(
+    protected itemExportService: ItemExportService,
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
-    public activeModal: NgbActiveModal) {
+    public activeModal: NgbActiveModal,
+    private selectableListService: SelectableListService,) {
   }
 
   ngOnInit() {
@@ -142,6 +151,15 @@ export class ItemExportComponent implements OnInit, OnDestroy {
     });
   }
 
+  isFormValid(): Observable<boolean> {
+    if (this.exportForm?.value?.selectionMode === ExportSelectionMode.OnlySelection) {
+      return this.selectableListService.getSelectableList(this.listId).pipe(
+        map((list: SelectableListState) => list?.selection?.length > 0)
+      );
+    } else {
+      return of(this.exportForm.valid);
+    }
+  }
 
   onCollectionSelect(collection) {
     this.bulkImportXlsEntityTypeCollectionUUID = collection.uuid;
@@ -162,12 +180,22 @@ export class ItemExportComponent implements OnInit, OnDestroy {
           this.searchOptions.scope = this.bulkImportXlsEntityTypeCollectionUUID;
         }
 
-        this.itemExportService.submitForm(
-          this.molteplicity,
-          this.item,
-          this.searchOptions,
-          this.itemType ? this.exportForm.controls.entityType.value : this.exportForm.value.entityType,
-          this.exportForm.value.format
+        const list$: Observable<string[]> = (this.exportForm?.value?.selectionMode !== ExportSelectionMode.OnlySelection) ?
+          of([]) :
+          this.selectableListService.getSelectableList(this.listId).pipe(
+            take(1),
+            map((list: SelectableListState) => (list?.selection || []).map((entry: SearchResult<any>) => entry.indexableObject.id))
+          );
+        console.log(this.searchOptions);
+        list$.pipe(
+          switchMap((list: string[]) => this.itemExportService.submitForm(
+            this.molteplicity,
+            this.item,
+            this.searchOptions,
+            this.itemType ? this.exportForm.controls.entityType.value : this.exportForm.value.entityType,
+            this.exportForm.value.format,
+            list
+          ))
         ).pipe(take(1)).subscribe((processId) => {
           const title = this.translate.get('item-export.process.title');
           this.notificationsService.process(processId.toString(), 5000, title);

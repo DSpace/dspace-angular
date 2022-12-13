@@ -15,7 +15,6 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Context } from '../../../../../core/shared/context.model';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { fadeIn } from '../../../../animations/fade';
-import { SearchService } from '../../../../../core/shared/search/search.service';
 import { PaginatedSearchOptions } from '../../../models/paginated-search-options.model';
 
 @Component({
@@ -28,11 +27,12 @@ import { PaginatedSearchOptions } from '../../../models/paginated-search-options
       useClass: SearchConfigurationService
     }
   ],
-  animations:[fadeIn]
+  animations: [fadeIn]
 })
 export class ItemExportListComponent implements OnInit {
 
   @Input() itemEntityType: string;
+  @Input() listId: string;
 
   @Input() searchOptions: SearchOptions;
 
@@ -57,7 +57,7 @@ export class ItemExportListComponent implements OnInit {
    */
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'el',
-    pageSize: 5
+    pageSize: 10
   });
 
   /**
@@ -67,8 +67,7 @@ export class ItemExportListComponent implements OnInit {
 
   constructor(
     private paginationService: PaginationService,
-    private searchManager: SearchManager,
-    private searchService: SearchService) {
+    private searchManager: SearchManager) {
   }
 
   ngOnInit(): void {
@@ -77,6 +76,7 @@ export class ItemExportListComponent implements OnInit {
     this.currentPagination$.subscribe((paginationOptions: PaginationComponentOptions) => {
       console.log(paginationOptions);
       this.searchOptions = Object.assign(new PaginatedSearchOptions({}), this.searchOptions, {
+        // filters: [],
         fixedFilter: `f.entityType=${this.itemEntityType},equals`,
         pagination: paginationOptions
       });
@@ -89,7 +89,7 @@ export class ItemExportListComponent implements OnInit {
     console.log(searchOptions);
     this.searchManager.search(searchOptions).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
-      this.resultsRD$.next(results);
-    });
+        this.resultsRD$.next(results);
+      });
   }
 }

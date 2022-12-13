@@ -8,6 +8,7 @@ import {
   ItemExportFormatMolteplicity,
   ItemExportFormatService
 } from '../../../core/itemexportformat/item-export-format.service';
+import { SearchOptions } from '../models/search-options.model';
 
 export interface ItemExportFormConfiguration {
   entityType: string;
@@ -56,12 +57,22 @@ export class ItemExportService {
    * @param searchOptions
    * @param entityType
    * @param format
+   * @param itemList
    */
-  public submitForm(molteplicity, item, searchOptions, entityType, format): Observable<number> {
+  public submitForm(
+    molteplicity: ItemExportFormatMolteplicity,
+    item: Item,
+    searchOptions: SearchOptions,
+    entityType: string,
+    format: ItemExportFormat,
+    itemList: string[] = []
+  ): Observable<number> {
     if (molteplicity === ItemExportFormatMolteplicity.SINGLE) {
+      console.log('doExport');
       return this.itemExportFormatService.doExport(item.uuid, format);
     } else {
-      return this.itemExportFormatService.doExportMulti(entityType, format, searchOptions);
+      console.log('doExportMulti');
+      return this.itemExportFormatService.doExportMulti(entityType, format, searchOptions, itemList);
     }
   }
 
