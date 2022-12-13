@@ -1,5 +1,28 @@
+ui:
+  ssl: false
+  host: 0.0.0.0
+  port: 4000
+  nameSpace: /
+
 rest:
   ssl: true
   host: ecommons7-dev.library.cornell.edu
   port: 443
   nameSpace: /server
+
+themes:
+  - name: ecommons
+    headTags:
+      - tagName: link
+        attributes:
+          rel: icon
+          href: assets/ecommons/images/favicons/favicon.ico
+          sizes: any
+      - tagName: link
+        attributes:
+          rel: apple-touch-icon
+          href: assets/ecommons/images/favicons/apple-touch-icon-152x152.png
+      - tagName: link
+        attributes:
+          rel: manifest
+          href: assets/ecommons/images/favicons/manifest.webmanifest
