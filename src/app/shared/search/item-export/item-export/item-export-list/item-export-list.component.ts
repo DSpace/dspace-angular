@@ -74,9 +74,7 @@ export class ItemExportListComponent implements OnInit {
     this.configuration = this.searchOptions.configuration;
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.initialPagination.id, this.initialPagination);
     this.currentPagination$.subscribe((paginationOptions: PaginationComponentOptions) => {
-      console.log(paginationOptions);
       this.searchOptions = Object.assign(new PaginatedSearchOptions({}), this.searchOptions, {
-        // filters: [],
         fixedFilter: `f.entityType=${this.itemEntityType},equals`,
         pagination: paginationOptions
       });
@@ -86,7 +84,6 @@ export class ItemExportListComponent implements OnInit {
 
   retrieveResultList(searchOptions: PaginatedSearchOptions): void {
     this.resultsRD$.next(null);
-    console.log(searchOptions);
     this.searchManager.search(searchOptions).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         this.resultsRD$.next(results);

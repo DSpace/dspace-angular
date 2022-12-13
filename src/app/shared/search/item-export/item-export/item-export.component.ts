@@ -169,7 +169,6 @@ export class ItemExportComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.exportForm.valid) {
-      console.log(`${this.exportForm.value.format.id} === ${ItemExportComponent.BULK_IMPORT_READY_XLS}`);
       if (!!this.exportForm.value.format.id && this.exportForm.value.format.id === ItemExportComponent.BULK_IMPORT_READY_XLS && !this.selectCollection) {
         // if the "bulk import" format has been chosen, show the collection selection form
         this.selectCollection = true;
@@ -186,7 +185,6 @@ export class ItemExportComponent implements OnInit, OnDestroy {
             take(1),
             map((list: SelectableListState) => (list?.selection || []).map((entry: SearchResult<any>) => entry.indexableObject.id))
           );
-        console.log(this.searchOptions);
         list$.pipe(
           switchMap((list: string[]) => this.itemExportService.submitForm(
             this.molteplicity,
@@ -222,5 +220,6 @@ export class ItemExportComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.router.navigateByUrl(this.currentUrl);
+    this.selectableListService.removeSelection(this.listId);
   }
 }

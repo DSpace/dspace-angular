@@ -68,10 +68,8 @@ export class ItemExportService {
     itemList: string[] = []
   ): Observable<number> {
     if (molteplicity === ItemExportFormatMolteplicity.SINGLE) {
-      console.log('doExport');
       return this.itemExportFormatService.doExport(item.uuid, format);
     } else {
-      console.log('doExportMulti');
       return this.itemExportFormatService.doExportMulti(entityType, format, searchOptions, itemList);
     }
   }
