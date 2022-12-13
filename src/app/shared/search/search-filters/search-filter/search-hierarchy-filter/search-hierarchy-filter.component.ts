@@ -3,7 +3,7 @@ import { renderFacetFor } from '../search-filter-type-decorator';
 import { FilterType } from '../../../models/filter-type.model';
 import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
+import { VocabularyTreeviewComponent } from '../../../../form/vocabulary-treeview/vocabulary-treeview.component';
 import {
   VocabularyEntryDetail
 } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
