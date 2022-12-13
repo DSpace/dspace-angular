@@ -10,13 +10,18 @@ import {
   Output
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { hasValue } from '../empty.util';
-import { reduce, startWith, switchMap } from 'rxjs/operators';
+import { hasValue, isNotNull } from '../empty.util';
+import { map, reduce, startWith, switchMap, take } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { EntityTypeService } from '../../core/data/entity-type.service';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { getFirstSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
+import {
+  ItemExportFormatMolteplicity,
+  ItemExportFormatService
+} from '../../core/itemexportformat/item-export-format.service';
+import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 
 @Component({
@@ -89,6 +94,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private entityTypeService: EntityTypeService,
+    private itemExportFormatService: ItemExportFormatService,
     private el: ElementRef
   ) { }
 
@@ -160,7 +166,21 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
     if (this.isSubmission) {
       searchListEntity$ = this.entityTypeService.getAllAuthorizedRelationshipType(findOptions);
     } else {
-      searchListEntity$ = this.entityTypeService.getAllAuthorizedRelationshipTypeImport(findOptions);
+      // searchListEntity$ = this.entityTypeService.getAllAuthorizedRelationshipTypeImport(findOptions);
+      // temporary retrieve entity list by using byEntityTypeAndMolteplicity method
+      searchListEntity$ = this.itemExportFormatService.byEntityTypeAndMolteplicity(null, ItemExportFormatMolteplicity.MULTIPLE).pipe(
+        take(1),
+        map((formatTypes: any) => {
+          const entityList: ItemType[] = Object.keys(formatTypes)
+            .filter((entityType: string) => isNotNull(entityType) && entityType !== 'null')
+            .map((entityType: string) => ({
+              id: entityType,
+              label: entityType
+            } as any));
+
+          return createSuccessfulRemoteDataObject(buildPaginatedList(null, entityList));
+        })
+      );
     }
     this.searchListEntity$ = searchListEntity$.pipe(
         getFirstSucceededRemoteWithNotEmptyData(),
