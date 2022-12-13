@@ -166,8 +166,6 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
     if (this.isSubmission) {
       searchListEntity$ = this.entityTypeService.getAllAuthorizedRelationshipType(findOptions);
     } else {
-      // searchListEntity$ = this.entityTypeService.getAllAuthorizedRelationshipTypeImport(findOptions);
-      // temporary retrieve entity list by using byEntityTypeAndMolteplicity method
       searchListEntity$ = this.itemExportFormatService.byEntityTypeAndMolteplicity(null, ItemExportFormatMolteplicity.MULTIPLE).pipe(
         take(1),
         map((formatTypes: any) => {
@@ -177,7 +175,6 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
               id: entityType,
               label: entityType
             } as any));
-
           return createSuccessfulRemoteDataObject(buildPaginatedList(null, entityList));
         })
       );

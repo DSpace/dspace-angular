@@ -42,6 +42,7 @@ export class ItemExportComponent implements OnInit, OnDestroy {
   @Input() searchOptions: SearchOptions;
   @Input() itemType: ItemType;
   @Input() bulkExportLimit: string;
+  @Input() showListSelection: boolean;
 
   public configuration: ItemExportFormConfiguration;
   public exportForm: FormGroup;
@@ -77,8 +78,6 @@ export class ItemExportComponent implements OnInit, OnDestroy {
   currentUrl: string;
 
   listId = 'export-list';
-
-  @Input() showListSelection: boolean;
 
   isMyDspace: boolean;
 
@@ -223,12 +222,6 @@ export class ItemExportComponent implements OnInit, OnDestroy {
           this.activeModal.close();
         });
       }
-    }
-  }
-
-  routeToProcess(processNumber: number) {
-    if (processNumber !== null) {
-      this.router.navigateByUrl('/processes/' + processNumber).then();
     }
   }
 
