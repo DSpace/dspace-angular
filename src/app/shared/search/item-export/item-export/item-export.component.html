@@ -5,7 +5,7 @@
 
   <ng-container *ngIf="!selectCollection; else selectCollectionForm">
 
-    <ds-item-export-alert [item]="item"></ds-item-export-alert>
+          <ds-item-export-alert [item]="item" [bulkExportLimit]="bulkExportLimit"></ds-item-export-alert>
 
     <form *ngIf="exportForm; else loader" [formGroup]="exportForm">
 

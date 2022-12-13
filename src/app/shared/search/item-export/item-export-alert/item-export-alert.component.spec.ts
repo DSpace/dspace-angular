@@ -40,4 +40,5 @@ describe('ItemExportAlertComponent', () => {
 export class ItemExportAlertStubComponent {
   @Input() molteplicity: ItemExportFormatMolteplicity;
   @Input() item: Item;
+  @Input() bulkExportLimit: string;
 }

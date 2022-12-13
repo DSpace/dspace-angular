@@ -9,6 +9,7 @@ import { Item } from '../../../../core/shared/item.model';
 export class ItemExportAlertComponent {
 
   @Input() item: Item;
+  @Input() bulkExportLimit: string;
 
   constructor(private dsoNameService: DSONameService) {
   }

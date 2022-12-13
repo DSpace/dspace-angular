@@ -1,5 +1,5 @@
 <ng-template #template>
-  <ng-container *ngIf="(isAuthenticated() | async) as authenticated">
+  <ng-container *ngIf="bulkExportLimit !== '0'">
 
     <div class="add" display="dynamic" placement="bottom-right"
          ngbDropdown >

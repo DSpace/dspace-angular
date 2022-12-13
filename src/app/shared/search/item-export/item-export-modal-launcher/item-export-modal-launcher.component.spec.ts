@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ViewContainerRef } from '@angular/core';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,8 +10,11 @@ import { ItemExportComponent } from '../item-export/item-export.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ItemExportModalLauncherComponent } from './item-export-modal-launcher.component';
-import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
-import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
+import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 
 describe('ItemExportModalWrapperComponent', () => {
   let component: ItemExportModalLauncherComponent;
@@ -19,6 +22,15 @@ describe('ItemExportModalWrapperComponent', () => {
   let fixture: ComponentFixture<ItemExportModalLauncherComponent>;
 
   const modalService = jasmine.createSpyObj('modalService', ['open']);
+
+  let authorizationService: AuthorizationDataService;
+  authorizationService = jasmine.createSpyObj('authorizationService', {
+    isAuthorized: observableOf(true)
+  });
+
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: jasmine.createSpy('findByPropertyName')
+  });
 
   const authServiceMock: any = jasmine.createSpyObj('AuthService', {
     isAuthenticated: jasmine.createSpy('isAuthenticated')
@@ -39,7 +51,10 @@ describe('ItemExportModalWrapperComponent', () => {
     }
   });
 
-  beforeEach(async(() => {
+  const confResponseDisabled$ = createSuccessfulRemoteDataObject$({ values: ['0'] });
+  const confResponseEnabled$ = createSuccessfulRemoteDataObject$({ values: ['100'] });
+
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
@@ -49,6 +64,8 @@ describe('ItemExportModalWrapperComponent', () => {
       providers: [
         { provide: AuthService, useValue: authServiceMock },
         { provide: NgbModal, useValue: modalService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
         ViewContainerRef
       ]
     }).compileComponents();
@@ -60,12 +77,13 @@ describe('ItemExportModalWrapperComponent', () => {
     componentAsAny = fixture.componentInstance;
   });
 
-  // USER NOT AUTHENTICATED
+  // EXPORT LIMIT IS 0
 
-  describe('when the user is not authenticated', () => {
+  describe('when export limit is 0', () => {
     beforeEach(() => {
       authServiceMock.isAuthenticated.and.returnValue(observableOf(false));
-    });
+      configurationDataService.findByPropertyName.and.returnValues(confResponseDisabled$);
+  });
 
     it('should not display the open modal button', () => {
       fixture.detectChanges();
@@ -74,14 +92,15 @@ describe('ItemExportModalWrapperComponent', () => {
     });
   });
 
-  // USER AUTHENTICATED
+  // EXPORT LIMIT IS NOT 0
 
-  describe('when the user is authenticated', () => {
+  describe('when export limit is not 0', () => {
 
     let btnDebugElement;
 
     beforeEach(() => {
       authServiceMock.isAuthenticated.and.returnValue(observableOf(true));
+      configurationDataService.findByPropertyName.and.returnValues(confResponseEnabled$);
       fixture.detectChanges();
       btnDebugElement = fixture.debugElement.query(By.css('.btn'));
     });

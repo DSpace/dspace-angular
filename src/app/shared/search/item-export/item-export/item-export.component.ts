@@ -41,6 +41,7 @@ export class ItemExportComponent implements OnInit, OnDestroy {
   @Input() item: Item;
   @Input() searchOptions: SearchOptions;
   @Input() itemType: ItemType;
+  @Input() bulkExportLimit: string;
 
   public configuration: ItemExportFormConfiguration;
   public exportForm: FormGroup;
