@@ -9,7 +9,6 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { hasValue, isEmpty, isNotEmpty } from '../../empty.util';
-import { isAuthenticated } from '../../../core/auth/selectors';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import { LOAD_MORE, LOAD_MORE_ROOT, TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
