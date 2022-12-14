@@ -154,6 +154,7 @@ describe('SearchHierarchyFilterComponent', () => {
             },
             queryParamsHandling: 'merge',
           }));
+          fixture.destroy();
         });
       });
     });
