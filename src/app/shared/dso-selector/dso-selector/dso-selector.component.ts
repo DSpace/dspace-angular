@@ -171,9 +171,10 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
             if (rd.hasSucceeded) {
               // If it's the first page and no query is entered, add the current DSO to the start of the list
               // If no query is entered, filter out the current DSO from the results, as it'll be displayed at the start of the list already
+              const part1 = ((isEmpty(query) && page === 1) ? currentDSOResult.page : []);
+              const part2 = rd.payload.page.filter((result) => isNotEmpty(query) || result.indexableObject.id !== this.currentDSOId);
               rd.payload.page = [
-                ...((isEmpty(query) && page === 1) ? currentDSOResult.page : []),
-                ...rd.payload.page.filter((result) => isNotEmpty(query) || result.indexableObject.id !== this.currentDSOId)
+                ...part1, ...part2
               ];
             } else if (rd.hasFailed) {
               this.notifcationsService.error(this.translate.instant('dso-selector.error.title', { type: this.typesString }), rd.errorMessage);

@@ -426,7 +426,8 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which
    *                      {@link HALLink}s should be automatically resolved
    */
-  public findItemsWithEdit(options: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {
+  public findItemsWithEdit(query: string, options: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {
+    options = { ...options, searchParams: [new RequestParam('query', query)] };
     return this.searchBy('findItemsWithEdit', options, useCachedVersionIfAvailable, reRequestOnStale );
   }
 }

@@ -46,7 +46,7 @@ export class EditableItemSelectorComponent extends DSOSelectorComponent {
       currentPage: page,
       elementsPerPage: this.defaultPagination.pageSize
     };
-    return this.itemDataService.findItemsWithEdit(findOptions, false, false, followLink('owningCollection')).pipe(
+    return this.itemDataService.findItemsWithEdit(query, findOptions, true, true, followLink('owningCollection')).pipe(
       getFirstCompletedRemoteData(),
       tap((rdata) => console.log('TAPPEDITAP:', rdata)), // XXX
       mapRemoteDataPayload((payload) => hasValue(payload)
