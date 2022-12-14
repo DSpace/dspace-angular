@@ -391,11 +391,15 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
 
   public getSearchEndpoint(topic: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      switchMap((url: string) => this.halService.getEndpoint('search', `${topic}`))
+      map((endpoint: string) => {
+        let result = `${endpoint}/search/${topic}`;
+        console.log(result);
+        return result;
+      })
+      // switchMap((url: string) => this.halService.getEndpoint('search', `${topic}`))
     );
   }
 
-  // K: currently missing: reRequestOnState, useCachedVersion, ...
   public findItemsWithEdit(...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {
     const hrefObs = this.getSearchEndpoint("findItemsWithEdit");
     hrefObs.pipe(
@@ -405,9 +409,6 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
       const request = new GetRequest(this.requestService.generateRequestId(), href);
       this.requestService.send(request);
     });
-    // K: don't fully understand how this works:
-    //    we filter out items where the response is pending
-    //    but the take(1) operator in the hrefObs pipe seems to guarantee that we never get back to this?
     return this.rdbService.buildList<Item>(hrefObs, ...linksToFollow).pipe(
       filter((items: RemoteData<PaginatedList<Item>>) => !items.isResponsePending)
     );

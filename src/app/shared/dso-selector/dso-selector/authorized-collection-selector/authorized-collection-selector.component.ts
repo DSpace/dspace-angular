@@ -77,10 +77,5 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
         ? buildPaginatedList(payload.pageInfo, payload.page.map((col) =>
             Object.assign(new CollectionSearchResult(), { indexableObject: col })))
         : null));
-
-      // getFirstCompletedRemoteData(),
-      // map((rd) => Object.assign(new RemoteData(null, null, null, null), rd, {
-      //   payload: hasValue(rd.payload) ? buildPaginatedList(rd.payload.pageInfo, rd.payload.page.map((col) => Object.assign(new CollectionSearchResult(), { indexableObject: col }))) : null,
-      // }))
   }
 }

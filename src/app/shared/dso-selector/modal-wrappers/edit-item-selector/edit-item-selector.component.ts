@@ -14,7 +14,7 @@ import { Item } from '../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-edit-item-selector',
-  templateUrl: '../edit-item-selector.component.html',
+  templateUrl: './edit-item-selector.component.html',
   // templateUrl: '../dso-selector-modal-wrapper.component.html',
 })
 export class EditItemSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
