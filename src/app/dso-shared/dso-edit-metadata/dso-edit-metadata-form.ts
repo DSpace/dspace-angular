@@ -187,7 +187,7 @@ export class DsoEditMetadataForm {
     Object.entries(metadata).forEach(([mdField, values]: [string, MetadataValue[]]) => {
       this.originalFieldKeys.push(mdField);
       this.fieldKeys.push(mdField);
-      this.fields[mdField] = values.map((value) => new DsoEditMetadataValue(value));
+      this.fields[mdField] = values.map((value: MetadataValue) => new DsoEditMetadataValue(value));
     });
   }
 
@@ -205,7 +205,7 @@ export class DsoEditMetadataForm {
    * Clear the temporary value afterwards
    * @param mdField
    */
-  setMetadataField(mdField: string) {
+  setMetadataField(mdField: string): void {
     this.newValue.editing = false;
     this.addValueToField(this.newValue, mdField);
     this.newValue = undefined;
@@ -217,7 +217,7 @@ export class DsoEditMetadataForm {
    * @param mdField
    * @private
    */
-  private addValueToField(value: DsoEditMetadataValue, mdField: string) {
+  private addValueToField(value: DsoEditMetadataValue, mdField: string): void {
     if (isEmpty(this.fields[mdField])) {
       this.fieldKeys.push(mdField);
       this.fields[mdField] = [];
@@ -230,7 +230,7 @@ export class DsoEditMetadataForm {
    * @param mdField
    * @param index
    */
-  remove(mdField: string, index: number) {
+  remove(mdField: string, index: number): void {
     if (isNotEmpty(this.fields[mdField])) {
       this.fields[mdField].splice(index, 1);
       if (this.fields[mdField].length === 0) {
@@ -244,7 +244,7 @@ export class DsoEditMetadataForm {
    * Returns if at least one value within the form contains a change
    */
   hasChanges(): boolean {
-    return Object.values(this.fields).some((values) => values.some((value) => value.hasChanges()));
+    return Object.values(this.fields).some((values: DsoEditMetadataValue[]) => values.some((value: DsoEditMetadataValue) => value.hasChanges()));
   }
 
   /**
@@ -253,9 +253,9 @@ export class DsoEditMetadataForm {
    */
   discard(): void {
     this.resetReinstatable();
-    Object.entries(this.fields).forEach(([field, values]) => {
+    Object.entries(this.fields).forEach(([field, values]: [string, DsoEditMetadataValue[]]) => {
       let removeFromIndex = -1;
-      values.forEach((value, index) => {
+      values.forEach((value: DsoEditMetadataValue, index: number) => {
         if (value.change === DsoEditMetadataChangeType.ADD) {
           if (isEmpty(this.reinstatableNewValues[field])) {
             this.reinstatableNewValues[field] = [];
@@ -272,7 +272,7 @@ export class DsoEditMetadataForm {
         this.fields[field].splice(removeFromIndex, this.fields[field].length - removeFromIndex);
       }
     });
-    this.fieldKeys.forEach((field) => {
+    this.fieldKeys.forEach((field: string) => {
       if (this.originalFieldKeys.indexOf(field) < 0) {
         delete this.fields[field];
       }
@@ -281,13 +281,13 @@ export class DsoEditMetadataForm {
   }
 
   reinstate(): void {
-    Object.values(this.fields).forEach((values) => {
-      values.forEach((value) => {
+    Object.values(this.fields).forEach((values: DsoEditMetadataValue[]) => {
+      values.forEach((value: DsoEditMetadataValue) => {
         value.reinstate();
       });
     });
-    Object.entries(this.reinstatableNewValues).forEach(([field, values]) => {
-      values.forEach((value) => {
+    Object.entries(this.reinstatableNewValues).forEach(([field, values]: [string, DsoEditMetadataValue[]]) => {
+      values.forEach((value: DsoEditMetadataValue) => {
         this.addValueToField(value, field);
       });
     });
@@ -300,17 +300,17 @@ export class DsoEditMetadataForm {
   isReinstatable(): boolean {
     return isNotEmpty(this.reinstatableNewValues) ||
       Object.values(this.fields)
-        .some((values) => values
-          .some((value) => value.isReinstatable()));
+        .some((values: DsoEditMetadataValue[]) => values
+          .some((value: DsoEditMetadataValue) => value.isReinstatable()));
   }
 
   /**
    * Reset the state of the re-instatable properties and values
    */
-  resetReinstatable() {
+  resetReinstatable(): void {
     this.reinstatableNewValues = {};
-    Object.values(this.fields).forEach((values) => {
-      values.forEach((value) => {
+    Object.values(this.fields).forEach((values: DsoEditMetadataValue[]) => {
+      values.forEach((value: DsoEditMetadataValue) => {
         value.resetReinstatable();
       });
     });
@@ -321,8 +321,8 @@ export class DsoEditMetadataForm {
    */
   getOperations(): Operation[] {
     const operations: Operation[] = [];
-    Object.entries(this.fields).forEach(([field, values]) => {
-      values.forEach((value, place) => {
+    Object.entries(this.fields).forEach(([field, values]: [string, DsoEditMetadataValue[]]) => {
+      values.forEach((value: DsoEditMetadataValue, place: number) => {
         if (value.hasChanges()) {
           let operation: MetadataPatchOperation;
           if (value.change === DsoEditMetadataChangeType.UPDATE) {

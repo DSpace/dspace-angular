@@ -120,7 +120,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
       this.initForm();
     }
     this.savingOrLoadingFieldValidation$ = observableCombineLatest([this.saving$, this.loadingFieldValidation$]).pipe(
-      map(([saving, loading]) => saving || loading),
+      map(([saving, loading]: [boolean, boolean]) => saving || loading),
     );
   }
 
@@ -188,7 +188,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
    * Confirm the newly added value
    * @param saved Whether or not the value was manually saved (only then, add the value to its metadata field)
    */
-  confirmNewValue(saved: boolean) {
+  confirmNewValue(saved: boolean): void {
     if (saved) {
       this.setMetadataField();
     }
@@ -199,10 +199,10 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
    * This will move the new value to its respective parent metadata field
    * Validate the metadata field first
    */
-  setMetadataField() {
+  setMetadataField(): void {
     this.form.resetReinstatable();
     this.loadingFieldValidation$.next(true);
-    this.metadataFieldSelectorComponent.validate().subscribe((valid) => {
+    this.metadataFieldSelectorComponent.validate().subscribe((valid: boolean) => {
       this.loadingFieldValidation$.next(false);
       if (valid) {
         this.form.setMetadataField(this.newMdField);
@@ -238,7 +238,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
   /**
    * Unsubscribe from any open subscriptions
    */
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (hasValue(this.dsoUpdateSubscription)) {
       this.dsoUpdateSubscription.unsubscribe();
     }

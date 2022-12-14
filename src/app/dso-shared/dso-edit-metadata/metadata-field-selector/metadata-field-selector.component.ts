@@ -119,7 +119,7 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
     );
     this.mdFieldOptions$ = this.query$.pipe(
       distinctUntilChanged(),
-      switchMap((query) => {
+      switchMap((query: string) => {
         this.showInvalid = false;
         if (query !== null) {
           return this.registryService.queryMetadataFields(query, null, true, false, followLink('schema')).pipe(
@@ -152,7 +152,7 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
       metadataFieldsToString(),
       take(1),
       map((fields: string[]) => fields.indexOf(this.mdField) > -1),
-      tap((exists) => this.showInvalid = !exists),
+      tap((exists: boolean) => this.showInvalid = !exists),
     );
   }
 
@@ -160,7 +160,7 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
    * Select a metadata field from the dropdown optipons
    * @param mdFieldOption
    */
-  select(mdFieldOption: string) {
+  select(mdFieldOption: string): void {
     this.selectedValueLoading = true;
     this.input.setValue(mdFieldOption);
   }
@@ -169,6 +169,6 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
    * Unsubscribe from any open subscriptions
    */
   ngOnDestroy(): void {
-    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+    this.subs.filter((sub: Subscription) => hasValue(sub)).forEach((sub: Subscription) => sub.unsubscribe());
   }
 }

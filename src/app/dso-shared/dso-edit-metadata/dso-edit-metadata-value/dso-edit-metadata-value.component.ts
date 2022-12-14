@@ -1,14 +1,17 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
 import { Observable } from 'rxjs/internal/Observable';
-import { MetadataRepresentationType } from '../../../core/shared/metadata-representation/metadata-representation.model';
+import {
+  MetadataRepresentation,
+  MetadataRepresentationType
+} from '../../../core/shared/metadata-representation/metadata-representation.model';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { of } from 'rxjs/internal/observable/of';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { map } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { EMPTY } from 'rxjs/internal/observable/empty';
 
 @Component({
   selector: 'ds-dso-edit-metadata-value',
@@ -100,15 +103,19 @@ export class DsoEditMetadataValueComponent implements OnInit {
   /**
    * Initialise potential properties of a virtual metadata value
    */
-  initVirtualProperties() {
+  initVirtualProperties(): void {
     this.mdRepresentation$ = this.mdValue.newValue.isVirtual ?
       this.relationshipService.resolveMetadataRepresentation(this.mdValue.newValue, this.dso, 'Item')
-        .pipe(map((mdRepresentation) => mdRepresentation.representationType === MetadataRepresentationType.Item ? mdRepresentation : null)) : of(null);
+        .pipe(
+          map((mdRepresentation: MetadataRepresentation) =>
+            mdRepresentation.representationType === MetadataRepresentationType.Item ? mdRepresentation as ItemMetadataRepresentation : null
+          )
+        ) : EMPTY;
     this.mdRepresentationItemRoute$ = this.mdRepresentation$.pipe(
-      map((mdRepresentation) => mdRepresentation ? getItemPageRoute(mdRepresentation) : null),
+      map((mdRepresentation: ItemMetadataRepresentation) => mdRepresentation ? getItemPageRoute(mdRepresentation) : null),
     );
     this.mdRepresentationName$ = this.mdRepresentation$.pipe(
-      map((mdRepresentation) => mdRepresentation ? this.dsoNameService.getName(mdRepresentation) : null),
+      map((mdRepresentation: ItemMetadataRepresentation) => mdRepresentation ? this.dsoNameService.getName(mdRepresentation) : null),
     );
   }
 }

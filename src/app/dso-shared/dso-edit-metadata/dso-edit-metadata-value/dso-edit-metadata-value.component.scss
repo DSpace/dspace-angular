@@ -6,3 +6,7 @@
 .ds-drag-handle:not(.disabled) {
   cursor: grab;
 }
+
+::ng-deep .tooltip-inner {
+  min-width: var(--ds-dso-edit-virtual-tooltip-min-width);
+}
