@@ -173,6 +173,10 @@ languages:
   - code: uk
     label: Yкраї́нська
     active: true
+  - code: pl
+    label: Polski
+    active: true
+
 
 # Browse-By Pages
 browseBy:
