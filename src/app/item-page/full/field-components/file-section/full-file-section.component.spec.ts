@@ -16,11 +16,10 @@ import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
 import { By } from '@angular/platform-browser';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment';
 
 describe('FullFileSectionComponent', () => {
   let comp: FullFileSectionComponent;
@@ -72,7 +71,8 @@ describe('FullFileSectionComponent', () => {
       providers: [
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
+        { provide: APP_CONFIG, useValue: environment },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

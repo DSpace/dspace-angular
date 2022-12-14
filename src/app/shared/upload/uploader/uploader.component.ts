@@ -6,12 +6,12 @@ import uniqueId from 'lodash/uniqueId';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { UploaderOptions } from './uploader-options.model';
-import { hasValue, isNotEmpty, isUndefined } from '../empty.util';
-import { UploaderService } from './uploader.service';
+import { hasValue, isNotEmpty, isUndefined } from '../../empty.util';
 import { UploaderProperties } from './uploader-properties.model';
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
-import { XSRF_COOKIE, XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER } from '../../core/xsrf/xsrf.interceptor';
-import { CookieService } from '../../core/services/cookie.service';
+import { XSRF_COOKIE, XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER } from '../../../core/xsrf/xsrf.interceptor';
+import { CookieService } from '../../../core/services/cookie.service';
+import { DragService } from '../../../core/drag.service';
 
 @Component({
   selector: 'ds-uploader',
@@ -76,7 +76,7 @@ export class UploaderComponent {
   @HostListener('window:dragover', ['$event'])
   onDragOver(event: any) {
 
-    if (this.enableDragOverDocument && this.uploaderService.isAllowedDragOverPage()) {
+    if (this.enableDragOverDocument && this.dragService.isAllowedDragOverPage()) {
       // Show drop area on the page
       event.preventDefault();
       if ((event.target as any).tagName !== 'HTML') {
@@ -85,9 +85,13 @@ export class UploaderComponent {
     }
   }
 
-  constructor(private cdr: ChangeDetectorRef, private scrollToService: ScrollToService,
-    private uploaderService: UploaderService, private tokenExtractor: HttpXsrfTokenExtractor,
-    private cookieService: CookieService) {
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private scrollToService: ScrollToService,
+    private dragService: DragService,
+    private tokenExtractor: HttpXsrfTokenExtractor,
+    private cookieService: CookieService
+  ) {
   }
 
   /**

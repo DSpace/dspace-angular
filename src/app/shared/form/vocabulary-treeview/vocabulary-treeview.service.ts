@@ -10,17 +10,17 @@ import {
   TreeviewFlatNode,
   TreeviewNode
 } from './vocabulary-treeview-node.model';
-import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '../../core/submission/vocabularies/vocabulary.service';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { isEmpty, isNotEmpty } from '../empty.util';
-import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { isEmpty, isNotEmpty } from '../../empty.util';
+import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload
-} from '../../core/shared/operators';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+} from '../../../core/shared/operators';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
 /**
  * A service that provides methods to deal with vocabulary tree
