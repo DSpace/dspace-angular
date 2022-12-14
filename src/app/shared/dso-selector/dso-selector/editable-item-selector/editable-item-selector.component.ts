@@ -14,12 +14,16 @@ import { followLink } from '../../../utils/follow-link-config.model';
 import { getFirstCompletedRemoteData, mapRemoteDataPayload } from 'src/app/core/shared/operators';
 import { hasValue } from 'src/app/shared/empty.util';
 import { ItemSearchResult } from 'src/app/shared/object-collection/shared/item-search-result.model';
+import { FindListOptions } from 'src/app/core/data/find-list-options.model';
 
 @Component({
   selector: 'ds-editable-item-selector',
   templateUrl: '../dso-selector.component.html',
   styleUrls: ['../dso-selector.component.scss']
 })
+/**
+ * Component rendering a list of items that are editable by the current user.
+ */
 export class EditableItemSelectorComponent extends DSOSelectorComponent {
 
   constructor(
@@ -32,12 +36,19 @@ export class EditableItemSelectorComponent extends DSOSelectorComponent {
     super(searchService, notificationsService, translate, dsoNameService);
   }
 
+  /*
+   * Find the list of items that can be edited by the current user.
+   */
   search(query: string, page: number):
     Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>
   {
-    return this.itemDataService.findItemsWithEdit(followLink('owningCollection')).pipe(
+    const findOptions: FindListOptions = {
+      currentPage: page,
+      elementsPerPage: this.defaultPagination.pageSize
+    };
+    return this.itemDataService.findItemsWithEdit(findOptions, false, false, followLink('owningCollection')).pipe(
       getFirstCompletedRemoteData(),
-      tap((rdata) => console.log('TEST:', rdata)),
+      tap((rdata) => console.log('TAPPEDITAP:', rdata)), // XXX
       mapRemoteDataPayload((payload) => hasValue(payload)
         ? buildPaginatedList(payload.pageInfo, payload.page.map((item) =>
             Object.assign(new ItemSearchResult(), { indexableObject: item })))

@@ -47,16 +47,18 @@ import { CreateData, CreateDataImpl } from './base/create-data';
 import { RequestParam } from '../cache/models/request-param.model';
 import { dataService } from './base/data-service.decorator';
 import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
+import { SearchData, SearchDataImpl } from './base/search-data';
 
 /**
  * An abstract service for CRUD operations on Items
  * Doesn't specify an endpoint because multiple endpoints support Item-like functionality (e.g. items, itemtemplates)
  * Extend this class to implement data services for Items
  */
-export abstract class BaseItemDataService extends IdentifiableDataService<Item> implements CreateData<Item>, PatchData<Item>, DeleteData<Item> {
+export abstract class BaseItemDataService extends IdentifiableDataService<Item> implements CreateData<Item>, PatchData<Item>, DeleteData<Item>, SearchData<Item> {
   private createData: CreateData<Item>;
   private patchData: PatchData<Item>;
   private deleteData: DeleteData<Item>;
+  private searchData: SearchData<Item>;
 
   protected constructor(
     protected linkPath,
@@ -75,6 +77,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
     this.patchData = new PatchDataImpl<Item>(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
@@ -389,31 +392,43 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     return this.createData.create(object, ...params);
   }
 
-  public getSearchEndpoint(topic: string): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => {
-        let result = `${endpoint}/search/${topic}`;
-        console.log(result);
-        return result;
-      })
-      // switchMap((url: string) => this.halService.getEndpoint('search', `${topic}`))
-    );
+  // private getSearchEndpoint(topic: string): Observable<string> {
+  //   return this.halService.getEndpoint(this.linkPath).pipe(
+  //     map((endpoint: string) => {
+  //       let result = `${endpoint}/search/${topic}`;
+  //       console.log(result);
+  //       return result;
+  //     })
+  //   );
+  // }
+
+  /**
+   * Make a new FindListRequest with given search method
+   *
+   * @param searchMethod                The search method for the object
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
+  public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
-  public findItemsWithEdit(...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {
-    const hrefObs = this.getSearchEndpoint("findItemsWithEdit");
-    hrefObs.pipe(
-      isNotEmptyOperator(),
-      take(1)
-    ).subscribe((href) => {
-      const request = new GetRequest(this.requestService.generateRequestId(), href);
-      this.requestService.send(request);
-    });
-    return this.rdbService.buildList<Item>(hrefObs, ...linksToFollow).pipe(
-      filter((items: RemoteData<PaginatedList<Item>>) => !items.isResponsePending)
-    );
+  /**
+   * Find the list of items for which the current user has editing rights.
+   *
+   * @param linksToFollow List of {@link FollowLinkConfig} that indicate which
+   *                      {@link HALLink}s should be automatically resolved
+   */
+  public findItemsWithEdit(options: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {
+    return this.searchBy('findItemsWithEdit', options, useCachedVersionIfAvailable, reRequestOnStale );
   }
-
 }
 
 /**
