@@ -1,5 +1,5 @@
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
@@ -144,8 +144,8 @@ describe('SearchHierarchyFilterComponent', () => {
           }));
         });
 
-        it('should add a new search filter to the existing search filters', (done) => {
-          expect(router.navigate).toHaveBeenCalledWith([testSearchLink], {
+        it('should add a new search filter to the existing search filters', () => {
+          waitForAsync(() => expect(router.navigate).toHaveBeenCalledWith([testSearchLink], {
             queryParams: {
               [`f.${testSearchFilter}`]: [
                 ...alreadySelectedValues,
@@ -153,8 +153,7 @@ describe('SearchHierarchyFilterComponent', () => {
               ].map((value => `${value},equals`)),
             },
             queryParamsHandling: 'merge',
-          });
-          done();
+          }));
         });
       });
     });
