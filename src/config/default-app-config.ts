@@ -204,7 +204,8 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'kk', label: 'Қазақ', active: true },
     { code: 'bn', label: 'বাংলা', active: true },
     { code: 'hi', label: 'हिंदी', active: true},
-    { code: 'el', label: 'Ελληνικά', active: true }
+    { code: 'el', label: 'Ελληνικά', active: true },
+    { code: 'uk', label: 'Yкраї́нська', active: true}
   ];
 
   // Browse-By Pages
@@ -245,7 +246,13 @@ export class DefaultAppConfig implements AppConfig {
       undoTimeout: 10000 // 10 seconds
     },
     // Show the item access status label in items lists
-    showAccessStatuses: false
+    showAccessStatuses: false,
+    bitstream: {
+      // Number of entries in the bitstream list in the item view page.
+      // Rounded to the nearest size in the list of selectable sizes on the
+      // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
+      pageSize: 5
+    }
   };
 
   // Collection Page Config

@@ -8,18 +8,18 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { provideMockStore } from '@ngrx/store/testing';
 
-import { createTestComponent } from '../testing/utils.test';
+import { createTestComponent } from '../../testing/utils.test';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview.component';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
-import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { TreeviewFlatNode } from './vocabulary-treeview-node.model';
-import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
-import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
-import { authReducer } from '../../core/auth/auth.reducer';
-import { storeModuleConfig } from '../../app.reducer';
+import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
+import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
+import { authReducer } from '../../../core/auth/auth.reducer';
+import { storeModuleConfig } from '../../../app.reducer';
 
 describe('VocabularyTreeviewComponent test suite', () => {
 

@@ -2,12 +2,11 @@
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 
-import { UploaderService } from '../uploader/uploader.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { By } from '@angular/platform-browser';
 import { NumberPickerComponent } from './number-picker.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { createTestComponent } from '../testing/utils.test';
+import { createTestComponent } from '../../testing/utils.test';
 
 describe('NumberPickerComponent test suite', () => {
 
@@ -33,7 +32,6 @@ describe('NumberPickerComponent test suite', () => {
       providers: [
         ChangeDetectorRef,
         NumberPickerComponent,
-        UploaderService
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

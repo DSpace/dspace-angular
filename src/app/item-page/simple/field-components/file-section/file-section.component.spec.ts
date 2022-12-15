@@ -17,6 +17,8 @@ import { MetadataFieldWrapperComponent } from '../../../field-components/metadat
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment';
 
 describe('FileSectionComponent', () => {
   let comp: FileSectionComponent;
@@ -65,7 +67,8 @@ describe('FileSectionComponent', () => {
       declarations: [FileSectionComponent, VarDirective, FileSizePipe, MetadataFieldWrapperComponent],
       providers: [
         { provide: BitstreamDataService, useValue: bitstreamDataService },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: APP_CONFIG, useValue: environment }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

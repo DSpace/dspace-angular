@@ -11,6 +11,7 @@ import { AdminSidebarSectionComponent } from './admin-sidebar/admin-sidebar-sect
 import { ExpandableAdminSidebarSectionComponent } from './admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 import { AdminReportsModule } from './admin-reports/admin-reports.module';
+import { UploadModule } from '../shared/upload/upload.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -27,7 +28,8 @@ const ENTRY_COMPONENTS = [
     AccessControlModule,
     AdminSearchModule.withEntryComponents(),
     AdminWorkflowModuleModule.withEntryComponents(),
-    SharedModule
+    SharedModule,
+    UploadModule,
   ],
   declarations: [
     AdminCurationTasksComponent,

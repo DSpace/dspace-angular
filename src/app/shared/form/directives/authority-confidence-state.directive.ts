@@ -1,3 +1,11 @@
+/**
+ * The contents of this file are subject to the license and copyright
+ * detailed in the LICENSE and NOTICE files at the root of the source
+ * tree and available online at
+ *
+ * http://www.dspace.org/license/
+ */
+
 import {
   AfterViewInit,
   Directive,
@@ -13,13 +21,13 @@ import {
 
 import findIndex from 'lodash/findIndex';
 
-import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
-import { ConfidenceType } from '../../core/shared/confidence-type';
-import { isNotEmpty, isNull } from '../empty.util';
-import { ConfidenceIconConfig } from '../../../config/submission-config.interface';
-import { environment } from '../../../environments/environment';
-import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
+import { ConfidenceType } from '../../../core/shared/confidence-type';
+import { isNotEmpty, isNull } from '../../empty.util';
+import { ConfidenceIconConfig } from '../../../../config/submission-config.interface';
+import { environment } from '../../../../environments/environment';
+import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
 /**
  * Directive to add to the element a bootstrap utility class based on metadata confidence value
