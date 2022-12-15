@@ -52,7 +52,6 @@ export class MediaViewerVideoComponent implements OnInit {
       filteredCapMedias
         .forEach((media, index) => {
           let srclang: string = media.bitstream.name.slice(-6, -4).toLowerCase();
-          //capInfos[index] = new CaptionInfo(
           capInfos.push(new CaptionInfo(
             media.bitstream._links.content.href,
             srclang,

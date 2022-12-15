@@ -10,7 +10,6 @@
   preload="none"
   controls
 >
-<!--  <track default kind="captions" src="./assets/vtt/JusticeAndTransformation_caption.mp4-en.vtt" label="English" type="text/vtt"/>-->
   <ng-container *ngIf="getMediaCap(filteredMedias[currentIndex].bitstream.name) as capInfos">
     <ng-container *ngFor="let capInfo of capInfos">
       <track [src]="capInfo.src" [label]="capInfo.langLabel" [srclang]="capInfo.srclang" />
