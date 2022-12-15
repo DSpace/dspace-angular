@@ -1,7 +1,7 @@
 # This image will be published as dspace/dspace-angular
 # See https://github.com/DSpace/dspace-angular/tree/main/docker for usage details
 
-FROM node:14-alpine
+FROM node:18-alpine
 WORKDIR /app
 ADD . /app/
 EXPOSE 4000

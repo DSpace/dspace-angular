@@ -7,17 +7,17 @@ import { Observable, Subscription } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
-import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
-import { isAuthenticated } from '../../core/auth/selectors';
+import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { hasValue, isEmpty, isNotEmpty } from '../../empty.util';
+import { isAuthenticated } from '../../../core/auth/selectors';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import { LOAD_MORE, LOAD_MORE_ROOT, TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
-import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
-import { CoreState } from '../../core/core-state.model';
+import { CoreState } from '../../../core/core-state.model';
 
 /**
  * Component that show a hierarchical vocabulary in a tree view
