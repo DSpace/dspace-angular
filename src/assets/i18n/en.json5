@@ -1320,6 +1320,8 @@
 
   "curation-task.task.vscan.label": "Virus Scan",
 
+  "curation-task.task.registerdoi.label": "Register DOI",
+
 
 
   "curation.form.task-select.label": "Task:",
@@ -1366,6 +1368,8 @@
 
   "dso-selector.create.community.head": "New community",
 
+  "dso-selector.create.community.or-divider": "or",
+
   "dso-selector.create.community.sub-level": "Create a new community in",
 
   "dso-selector.create.community.top-level": "Create a new top-level community",
@@ -1400,6 +1404,8 @@
 
   "dso-selector.set-scope.community.button": "Search all of DSpace",
 
+  "dso-selector.set-scope.community.or-divider": "or",
+
   "dso-selector.set-scope.community.input-header": "Search for a community or collection",
 
   "dso-selector.claim.item.head": "Profile tips",
@@ -1409,6 +1415,8 @@
   "dso-selector.claim.item.not-mine-label": "None of these are mine",
 
   "dso-selector.claim.item.create-from-scratch": "Create a new one",
+
+  "dso-selector.results-could-not-be-retrieved": "Something went wrong, please refresh again ↻",
 
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
 
@@ -4037,6 +4045,8 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publication of the Author",
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
@@ -4080,6 +4090,8 @@
   "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
 
   "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
+
+  "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Publication",
 
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
 
@@ -4826,4 +4838,5 @@
   "person.orcid.registry.auth": "ORCID Authorizations",
   "home.recent-submissions.head": "Recent Submissions",
 
+  "listable-notification-object.default-message": "This object couldn't be retrieved",
 }

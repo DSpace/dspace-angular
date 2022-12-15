@@ -79,7 +79,9 @@ export class RegisterEmailFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       email: new FormControl('', {
         validators: [Validators.required,
-          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')
+          // Regex pattern borrowed from HTML5 specs for a valid email address:
+          // https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
+          Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$')
         ],
       })
     });

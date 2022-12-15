@@ -3,17 +3,16 @@ import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/c
 import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
 
 import { Chips } from './models/chips.model';
-import { UploaderService } from '../uploader/uploader.service';
 import { ChipsComponent } from './chips.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { By } from '@angular/platform-browser';
-import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
-import { createTestComponent } from '../testing/utils.test';
-import { AuthorityConfidenceStateDirective } from '../authority-confidence/authority-confidence-state.directive';
+import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
+import { createTestComponent } from '../../testing/utils.test';
+import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 import { TranslateModule } from '@ngx-translate/core';
-import { ConfidenceType } from '../../core/shared/confidence-type';
+import { ConfidenceType } from '../../../core/shared/confidence-type';
 import { SortablejsModule } from 'ngx-sortablejs';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 describe('ChipsComponent test suite', () => {
 
@@ -41,7 +40,6 @@ describe('ChipsComponent test suite', () => {
       providers: [
         ChangeDetectorRef,
         ChipsComponent,
-        UploaderService
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

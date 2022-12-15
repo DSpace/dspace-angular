@@ -1,6 +1,6 @@
 import { Chips } from './chips.model';
 import { ChipsItem } from './chips-item.model';
-import { FormFieldMetadataValueObject } from '../../form/builder/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
 
 describe('Chips model test suite', () => {
   let items: any[];

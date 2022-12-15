@@ -1,4 +1,4 @@
-import { MetadataMap } from '../../core/shared/metadata.models';
+import { MetadataMap } from '../../../core/shared/metadata.models';
 
 /**
  * Properties to send to the REST API for uploading a bitstream
