@@ -5,15 +5,15 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
-import { VocabularyService } from '../../core/submission/vocabularies/vocabulary.service';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { LOAD_MORE_NODE, LOAD_MORE_ROOT_NODE, TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
-import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { expand, map, switchMap } from 'rxjs/operators';
 import { from as observableFrom } from 'rxjs';
 

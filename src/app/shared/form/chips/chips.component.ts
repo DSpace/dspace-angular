@@ -5,7 +5,7 @@ import isObject from 'lodash/isObject';
 
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
-import { UploaderService } from '../uploader/uploader.service';
+import { DragService } from '../../../core/drag.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Options } from 'sortablejs';
 import { BehaviorSubject } from 'rxjs';
@@ -33,7 +33,7 @@ export class ChipsComponent implements OnChanges {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private uploaderService: UploaderService,
+    private dragService: DragService,
     private translate: TranslateService) {
 
     this.options = {
@@ -76,12 +76,12 @@ export class ChipsComponent implements OnChanges {
 
   onDragStart(index) {
     this.isDragging.next(true);
-    this.uploaderService.overrideDragOverPage();
+    this.dragService.overrideDragOverPage();
     this.dragged = index;
   }
 
   onDragEnd(event) {
-    this.uploaderService.allowDragOverPage();
+    this.dragService.allowDragOverPage();
     this.dragged = -1;
     this.chips.updateOrder();
     this.isDragging.next(false);

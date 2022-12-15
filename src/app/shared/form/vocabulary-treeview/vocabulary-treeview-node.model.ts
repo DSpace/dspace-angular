@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { BehaviorSubject } from 'rxjs';
-import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { PageInfo } from '../../core/shared/page-info.model';
+import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
 
 export const LOAD_MORE = 'LOAD_MORE';
 export const LOAD_MORE_ROOT = 'LOAD_MORE_ROOT';
