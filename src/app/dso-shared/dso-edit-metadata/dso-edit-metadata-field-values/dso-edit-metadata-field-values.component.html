@@ -1,4 +1,4 @@
-<div class="flex-grow-1 ds-drop-list h-100">
+<div class="flex-grow-1 ds-drop-list h-100" [class.disabled]="(draggingMdField$ | async) && (draggingMdField$ | async) !== mdField" cdkDropList (cdkDropListDropped)="drop($event)">
   <ds-dso-edit-metadata-value *ngFor="let mdValue of form.fields[mdField]; let idx = index"
                               [dso]="dso"
                               [mdValue]="mdValue"
@@ -8,6 +8,7 @@
                               (edit)="mdValue.editing = true"
                               (confirm)="mdValue.confirmChanges($event); form.resetReinstatable(); valueSaved.emit()"
                               (remove)="mdValue.change = DsoEditMetadataChangeTypeEnum.REMOVE; form.resetReinstatable(); valueSaved.emit()"
-                              (undo)="mdValue.change === DsoEditMetadataChangeTypeEnum.ADD ? form.remove(mdField, idx) : mdValue.discard(); valueSaved.emit()">
+                              (undo)="mdValue.change === DsoEditMetadataChangeTypeEnum.ADD ? form.remove(mdField, idx) : mdValue.discard(); valueSaved.emit()"
+                              (dragging)="$event ? draggingMdField$.next(mdField) : draggingMdField$.next(null)">
   </ds-dso-edit-metadata-value>
 </div>

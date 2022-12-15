@@ -1,10 +1,11 @@
 import { MetadataMap, MetadataValue } from '../../core/shared/metadata.models';
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { Operation } from 'fast-json-patch';
+import { MoveOperation, Operation } from 'fast-json-patch';
 import { MetadataPatchReplaceOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-replace-operation.model';
 import { MetadataPatchRemoveOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-remove-operation.model';
 import { MetadataPatchAddOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-add-operation.model';
-import { MetadataPatchOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-operation.model';
+import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
+import { MetadataPatchMoveOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-move-operation.model';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -69,7 +70,7 @@ export class DsoEditMetadataValue {
    */
   confirmChanges(finishEditing = false) {
     if (hasNoValue(this.change) || this.change === DsoEditMetadataChangeType.UPDATE) {
-      if ((this.originalValue.value !== this.newValue.value || this.originalValue.language !== this.newValue.language)) {
+      if ((this.originalValue.value !== this.newValue.value || this.originalValue.language !== this.newValue.language || this.originalValue.place !== this.newValue.place)) {
         this.change = DsoEditMetadataChangeType.UPDATE;
       } else {
         this.change = undefined;
@@ -187,7 +188,7 @@ export class DsoEditMetadataForm {
     Object.entries(metadata).forEach(([mdField, values]: [string, MetadataValue[]]) => {
       this.originalFieldKeys.push(mdField);
       this.fieldKeys.push(mdField);
-      this.fields[mdField] = values.map((value: MetadataValue) => new DsoEditMetadataValue(value));
+      this.setValuesForFieldSorted(mdField, values.map((value: MetadataValue) => new DsoEditMetadataValue(value)));
     });
   }
 
@@ -208,6 +209,10 @@ export class DsoEditMetadataForm {
   setMetadataField(mdField: string): void {
     this.newValue.editing = false;
     this.addValueToField(this.newValue, mdField);
+    // Set the place property to match the new value's position within its field
+    const place = this.fields[mdField].length - 1;
+    this.fields[mdField][place].originalValue.place = place;
+    this.fields[mdField][place].newValue.place = place;
     this.newValue = undefined;
   }
 
@@ -253,6 +258,7 @@ export class DsoEditMetadataForm {
    */
   discard(): void {
     this.resetReinstatable();
+    // Discard changes from each value from each field
     Object.entries(this.fields).forEach(([field, values]: [string, DsoEditMetadataValue[]]) => {
       let removeFromIndex = -1;
       values.forEach((value: DsoEditMetadataValue, index: number) => {
@@ -272,24 +278,38 @@ export class DsoEditMetadataForm {
         this.fields[field].splice(removeFromIndex, this.fields[field].length - removeFromIndex);
       }
     });
+    // Delete new metadata fields
     this.fieldKeys.forEach((field: string) => {
       if (this.originalFieldKeys.indexOf(field) < 0) {
         delete this.fields[field];
       }
     });
     this.fieldKeys = [...this.originalFieldKeys];
+    // Reset the order of values within their fields to match their place property
+    this.fieldKeys.forEach((field: string) => {
+      this.setValuesForFieldSorted(field, this.fields[field]);
+    });
   }
 
+  /**
+   * Undo any previously discarded changes
+   */
   reinstate(): void {
+    // Reinstate each value
     Object.values(this.fields).forEach((values: DsoEditMetadataValue[]) => {
       values.forEach((value: DsoEditMetadataValue) => {
         value.reinstate();
       });
     });
+    // Re-add new values
     Object.entries(this.reinstatableNewValues).forEach(([field, values]: [string, DsoEditMetadataValue[]]) => {
       values.forEach((value: DsoEditMetadataValue) => {
         this.addValueToField(value, field);
       });
+    });
+    // Reset the order of values within their fields to match their place property
+    this.fieldKeys.forEach((field: string) => {
+      this.setValuesForFieldSorted(field, this.fields[field]);
     });
     this.reinstatableNewValues = {};
   }
@@ -317,34 +337,73 @@ export class DsoEditMetadataForm {
   }
 
   /**
-   * Get the json PATCH operations for the current changes within this form
+   * Set the values of a metadata field and sort them by their newValue's place property
+   * @param mdField
+   * @param values
    */
-  getOperations(): Operation[] {
+  private setValuesForFieldSorted(mdField: string, values: DsoEditMetadataValue[]) {
+    this.fields[mdField] = values.sort((a: DsoEditMetadataValue, b: DsoEditMetadataValue) => a.newValue.place - b.newValue.place);
+  }
+
+  /**
+   * Get the json PATCH operations for the current changes within this form
+   * For each metadata field, it'll return operations in the following order: replace, remove (from last to first place), add and move
+   * This order is important, as each operation is executed in succession of the previous one
+   */
+  getOperations(moveAnalyser: ArrayMoveChangeAnalyzer<number>): Operation[] {
     const operations: Operation[] = [];
     Object.entries(this.fields).forEach(([field, values]: [string, DsoEditMetadataValue[]]) => {
-      values.forEach((value: DsoEditMetadataValue, place: number) => {
-        if (value.hasChanges()) {
-          let operation: MetadataPatchOperation;
-          if (value.change === DsoEditMetadataChangeType.UPDATE) {
-            operation = new MetadataPatchReplaceOperation(field, place, {
-              value: value.newValue.value,
-              language: value.newValue.language,
-            });
-          } else if (value.change === DsoEditMetadataChangeType.REMOVE) {
-            operation = new MetadataPatchRemoveOperation(field, place);
-          } else if (value.change === DsoEditMetadataChangeType.ADD) {
-            operation = new MetadataPatchAddOperation(field, {
-              value: value.newValue.value,
-              language: value.newValue.language,
-            });
-          } else {
-            console.warn('Illegal metadata change state detected for', value);
+      const replaceOperations: MetadataPatchReplaceOperation[] = [];
+      const removeOperations: MetadataPatchRemoveOperation[] = [];
+      const addOperations: MetadataPatchAddOperation[] = [];
+      values
+        .sort((a: DsoEditMetadataValue, b: DsoEditMetadataValue) => a.originalValue.place - b.originalValue.place)
+        .forEach((value: DsoEditMetadataValue) => {
+          if (value.hasChanges()) {
+            if (value.change === DsoEditMetadataChangeType.UPDATE) {
+              // Only changes to value or language are considered "replace" operations. Changes to place are considered "move", which is processed below.
+              if (value.originalValue.value !== value.newValue.value || value.originalValue.language !== value.newValue.language) {
+                replaceOperations.push(new MetadataPatchReplaceOperation(field, value.originalValue.place, {
+                  value: value.newValue.value,
+                  language: value.newValue.language,
+                }));
+              }
+            } else if (value.change === DsoEditMetadataChangeType.REMOVE) {
+              removeOperations.push(new MetadataPatchRemoveOperation(field, value.originalValue.place));
+            } else if (value.change === DsoEditMetadataChangeType.ADD) {
+              addOperations.push(new MetadataPatchAddOperation(field, {
+                value: value.newValue.value,
+                language: value.newValue.language,
+              }));
+            } else {
+              console.warn('Illegal metadata change state detected for', value);
+            }
           }
-          if (hasValue(operation)) {
-            operations.push(operation.toOperation());
-          }
-        }
-      });
+        });
+
+      operations.push(...replaceOperations
+        .map((operation: MetadataPatchReplaceOperation) => operation.toOperation()));
+      operations.push(...removeOperations
+        // Sort remove operations backwards first, because they get executed in order. This avoids one removal affecting the next.
+        .sort((a: MetadataPatchRemoveOperation, b: MetadataPatchRemoveOperation) => b.place - a.place)
+        .map((operation: MetadataPatchRemoveOperation) => operation.toOperation()));
+      operations.push(...addOperations
+        .map((operation: MetadataPatchAddOperation) => operation.toOperation()));
+    });
+    // Calculate and add the move operations that need to happen in order to move value from their old place to their new within the field
+    // This uses an ArrayMoveChangeAnalyzer
+    Object.entries(this.fields).forEach(([field, values]: [string, DsoEditMetadataValue[]]) => {
+      // Exclude values marked for removal, because operations are executed in order (remove first, then move)
+      const valuesWithoutRemoved = values.filter((value: DsoEditMetadataValue) => value.change !== DsoEditMetadataChangeType.REMOVE);
+      const moveOperations = moveAnalyser
+        .diff(
+          valuesWithoutRemoved
+            .map((value: DsoEditMetadataValue) => value.originalValue.place),
+          valuesWithoutRemoved
+            .sort((a: DsoEditMetadataValue, b: DsoEditMetadataValue) => a.newValue.place - b.newValue.place)
+            .map((value: DsoEditMetadataValue) => value.originalValue.place))
+        .map((operation: MoveOperation) => new MetadataPatchMoveOperation(field, +operation.from.substr(1), +operation.path.substr(1)).toOperation());
+      operations.push(...moveOperations);
     });
     return operations;
   }

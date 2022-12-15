@@ -72,6 +72,11 @@ export class DsoEditMetadataValueComponent implements OnInit {
   @Output() undo: EventEmitter<any> = new EventEmitter<any>();
 
   /**
+   * Emits true when the user starts dragging a value, false when the user stops dragging
+   */
+  @Output() dragging: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  /**
    * The DsoEditMetadataChangeType enumeration for access in the component's template
    * @type {DsoEditMetadataChangeType}
    */

@@ -19,6 +19,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
 import { Observable } from 'rxjs/internal/Observable';
+import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
 
 @Component({
   selector: 'ds-dso-edit-metadata',
@@ -73,6 +74,13 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
   saving$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
+   * Tracks for which metadata-field a drag operation is taking place
+   * Null when no drag is currently happening for any field
+   * This is a BehaviorSubject that is passed down to child components, to give them the power to alter the state
+   */
+  draggingMdField$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+
+  /**
    * Whether or not the metadata field is currently being validated
    */
   loadingFieldValidation$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -98,7 +106,8 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
   constructor(protected route: ActivatedRoute,
               protected notificationsService: NotificationsService,
               protected translateService: TranslateService,
-              protected parentInjector: Injector) {
+              protected parentInjector: Injector,
+              protected arrayMoveChangeAnalyser: ArrayMoveChangeAnalyzer<number>) {
   }
 
   /**
@@ -167,7 +176,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
    */
   submit(): void {
     this.saving$.next(true);
-    this.updateDataService.patch(this.dso, this.form.getOperations()).pipe(
+    this.updateDataService.patch(this.dso, this.form.getOperations(this.arrayMoveChangeAnalyser)).pipe(
       getFirstCompletedRemoteData()
     ).subscribe((rd: RemoteData<DSpaceObject>) => {
       this.saving$.next(false);

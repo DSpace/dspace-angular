@@ -10,3 +10,7 @@
 ::ng-deep .tooltip-inner {
   min-width: var(--ds-dso-edit-virtual-tooltip-min-width);
 }
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}

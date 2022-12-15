@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DsoEditMetadataChangeType, DsoEditMetadataForm } from '../dso-edit-metadata-form';
+import { DsoEditMetadataChangeType, DsoEditMetadataForm, DsoEditMetadataValue } from '../dso-edit-metadata-form';
 import { Observable } from 'rxjs/internal/Observable';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'ds-dso-edit-metadata-field-values',
@@ -39,6 +41,12 @@ export class DsoEditMetadataFieldValuesComponent {
   @Input() saving$: Observable<boolean>;
 
   /**
+   * Tracks for which metadata-field a drag operation is taking place
+   * Null when no drag is currently happening for any field
+   */
+  @Input() draggingMdField$: BehaviorSubject<string>;
+
+  /**
    * Emit when the value has been saved within the form
    */
   @Output() valueSaved: EventEmitter<any> = new EventEmitter<any>();
@@ -48,4 +56,26 @@ export class DsoEditMetadataFieldValuesComponent {
    * @type {DsoEditMetadataChangeType}
    */
   public DsoEditMetadataChangeTypeEnum = DsoEditMetadataChangeType;
+
+  /**
+   * Drop a value into a new position
+   * Update the form's value array for the current field to match the dropped position
+   * Update the values their place property to match the new order
+   * Send an update to the parent
+   * @param event
+   */
+  drop(event: CdkDragDrop<any>) {
+    const dragIndex = event.previousIndex;
+    const dropIndex = event.currentIndex;
+    // Move the value within its field
+    moveItemInArray(this.form.fields[this.mdField], dragIndex, dropIndex);
+    // Update all the values in this field their place property
+    this.form.fields[this.mdField].forEach((value: DsoEditMetadataValue, index: number) => {
+      value.newValue.place = index;
+      value.confirmChanges();
+    });
+    // Update the form statuses
+    this.form.resetReinstatable();
+    this.valueSaved.emit();
+  }
 }
