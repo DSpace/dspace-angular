@@ -4162,5 +4162,8 @@
 
   "idle-modal.log-out": "Log out",
 
-  "idle-modal.extend-session": "Extend session"
+  "idle-modal.extend-session": "Extend session",
+
+  "context-help.multi-para.test": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In facilisis ac metus ut tristique. Integer eros risus, efficitur non urna eu, ultrices mollis felis. Nullam mi sapien, mattis eu nunc in, rhoncus vulputate risus. \n\nDuis pharetra et nibh aliquam sodales. Integer ut rutrum dolor, ut maximus quam. Nunc sit amet maximus urna. In nec erat vulputate, facilisis nulla a, scelerisque orci. Ut pellentesque sapien et eros euismod scelerisque finibus at sem. Duis egestas convallis ligula nec laoreet. \n\nProin ut magna sit amet libero consequat ultrices et sed mi. Nam congue sed risus ac fringilla. Suspendisse potenti. Cras mattis, est non laoreet elementum, erat enim interdum tortor, eu placerat enim metus sit amet enim.",
+
 }

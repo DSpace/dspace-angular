@@ -177,6 +177,8 @@ import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
+import { ContextHelpDirective } from './context-help.directive';
+import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -454,6 +456,8 @@ const DIRECTIVES = [
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ItemVersionsSummaryModalComponent,
     ItemVersionsDeleteModalComponent,
+    ContextHelpDirective,
+    ContextHelpWrapperComponent,
   ],
   providers: [
     ...PROVIDERS
@@ -464,7 +468,8 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ...DIRECTIVES,
-    TranslateModule
+    TranslateModule,
+    ContextHelpDirective
   ]
 })
 
