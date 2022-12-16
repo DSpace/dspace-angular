@@ -11,7 +11,7 @@ import {
   OnChanges
 } from '@angular/core';
 import { hasValue, isNotEmpty } from '../empty.util';
-import { from as fromPromise, Observable, of as observableOf, Subscription } from 'rxjs';
+import { from as fromPromise, Observable, of as observableOf, Subscription, BehaviorSubject } from 'rxjs';
 import { ThemeService } from './theme.service';
 import { catchError, switchMap, map } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
@@ -24,6 +24,12 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
 export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges {
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   protected compRef: ComponentRef<T>;
+
+  /**
+   * A reference to the themed component. Will start as undefined and emit every time the themed
+   * component is rendered
+   */
+  public compRef$: BehaviorSubject<ComponentRef<T>> = new BehaviorSubject(undefined);
 
   protected lazyLoadSub: Subscription;
   protected themeSub: Subscription;
@@ -90,6 +96,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
       const factory = this.resolver.resolveComponentFactory(constructor);
       this.compRef = this.vcr.createComponent(factory);
       this.connectInputsAndOutputs();
+      this.compRef$.next(this.compRef);
       this.cdr.markForCheck();
     });
   }
