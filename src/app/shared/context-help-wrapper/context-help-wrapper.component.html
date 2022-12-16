@@ -1,26 +1,12 @@
-<!-- Set tooltip text. -->
 <ng-template #help>
   <div class="preserve-line-breaks ds-context-help-content">{{ content | translate }}</div>
 </ng-template>
-
-<!-- Help icon, add tooltip to help icon. -->
-<i class="ds-context-help-icon fas fa-question-circle shadow-sm"
+<i [ngClass]="{'ds-context-help-icon fas fa-question-circle shadow-sm': true,
+              'ds-context-help-icon-right': iconPlacement == 'right',
+              'ds-context-help-icon-left': iconPlacement == 'left'}"
    [ngbTooltip]="help"
+   [placement]="tooltipPlacement"
    container="'body'"
    triggers="click:blur">
 </i>
-
-<!-- Indicate where to put the template (that is, the contents of
-     whatever component the context help directive was used on).
--->
 <ng-container *ngTemplateOutlet="templateRef"></ng-container>
-
-
-
-<!-- <i class="ds-context-help-icon fas fa-question-circle shadow-sm"></i> -->
-<!-- <ng-container *ngTemplateOutlet="templateRef"></ng-container> -->
-
-
-<!--    *ngClass="{'ds-context-help-icon-right': tooltipPlacement === 'right', 'ds-context-help-icon-left': tooltipPlacement === 'left'}" -->
-
-
