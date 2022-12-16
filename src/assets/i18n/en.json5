@@ -1837,6 +1837,8 @@
 
   "item.edit.metadata.reinstate-button": "Undo",
 
+  "item.edit.metadata.reset-order-button": "Reset value order",
+
   "item.edit.metadata.save-button": "Save",
 
 

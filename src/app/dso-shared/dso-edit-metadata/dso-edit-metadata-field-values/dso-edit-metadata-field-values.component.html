@@ -7,7 +7,7 @@
                               [isOnlyValue]="form.fields[mdField].length === 1"
                               (edit)="mdValue.editing = true"
                               (confirm)="mdValue.confirmChanges($event); form.resetReinstatable(); valueSaved.emit()"
-                              (remove)="mdValue.change = DsoEditMetadataChangeTypeEnum.REMOVE; form.resetReinstatable(); valueSaved.emit()"
+                              (remove)="mdValue.change === DsoEditMetadataChangeTypeEnum.ADD ? form.remove(mdField, idx) : mdValue.change = DsoEditMetadataChangeTypeEnum.REMOVE; form.resetReinstatable(); valueSaved.emit()"
                               (undo)="mdValue.change === DsoEditMetadataChangeTypeEnum.ADD ? form.remove(mdField, idx) : mdValue.discard(); valueSaved.emit()"
                               (dragging)="$event ? draggingMdField$.next(mdField) : draggingMdField$.next(null)">
   </ds-dso-edit-metadata-value>

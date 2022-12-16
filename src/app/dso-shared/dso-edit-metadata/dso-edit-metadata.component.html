@@ -42,6 +42,10 @@
   <div class="d-flex flex-row ds-field-row" *ngFor="let mdField of form.fieldKeys">
     <div class="lbl-cell">
       <span class="dont-break-out preserve-line-breaks">{{ mdField }}</span>
+      <div class="btn btn-warning reset-order-button mt-2 w-100" *ngIf="form.hasOrderChanges(mdField)"
+           (click)="form.resetOrder(mdField); onValueSaved()">
+        {{ dsoType + '.edit.metadata.reset-order-button' | translate }}
+      </div>
     </div>
     <ds-dso-edit-metadata-field-values class="flex-grow-1"
                                        [dso]="dso"

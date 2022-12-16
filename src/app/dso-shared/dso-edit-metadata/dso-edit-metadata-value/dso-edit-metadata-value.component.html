@@ -1,6 +1,6 @@
 <div class="d-flex flex-row ds-value-row" *ngVar="mdValue.newValue.isVirtual as isVirtual"
      cdkDrag (cdkDragStarted)="dragging.emit(true)" (cdkDragEnded)="dragging.emit(false)"
-     [ngClass]="{ 'ds-warning': mdValue.change === DsoEditMetadataChangeTypeEnum.UPDATE, 'ds-danger': mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE, 'ds-success': mdValue.change === DsoEditMetadataChangeTypeEnum.ADD, 'h-100': isOnlyValue }">
+     [ngClass]="{ 'ds-warning': mdValue.reordered || mdValue.change === DsoEditMetadataChangeTypeEnum.UPDATE, 'ds-danger': mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE, 'ds-success': mdValue.change === DsoEditMetadataChangeTypeEnum.ADD, 'h-100': isOnlyValue }">
   <div class="flex-grow-1 ds-flex-cell ds-value-cell d-flex align-items-center" *ngVar="(mdRepresentation$ | async) as mdRepresentation">
     <div class="dont-break-out preserve-line-breaks" *ngIf="!mdValue.editing && !mdRepresentation">{{ mdValue.newValue.value }}</div>
     <textarea class="form-control" rows="2" *ngIf="mdValue.editing && !mdRepresentation" [(ngModel)]="mdValue.newValue.value"
@@ -27,11 +27,11 @@
           <i class="fas fa-check fa-fw"></i>
         </button>
         <button class="btn btn-outline-danger btn-sm" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.remove' | translate }}"
-                [disabled]="isVirtual || mdValue.change || mdValue.editing || (saving$ | async)" (click)="remove.emit()">
+                [disabled]="isVirtual || (mdValue.change && mdValue.change !== DsoEditMetadataChangeTypeEnum.ADD) || mdValue.editing || (saving$ | async)" (click)="remove.emit()">
           <i class="fas fa-trash-alt fa-fw"></i>
         </button>
         <button class="btn btn-outline-warning btn-sm" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.undo' | translate }}"
-                [disabled]="isVirtual || (!mdValue.change && !mdValue.editing) || (saving$ | async)" (click)="undo.emit()">
+                [disabled]="isVirtual || (!mdValue.change && mdValue.reordered) || (!mdValue.change && !mdValue.editing) || (saving$ | async)" (click)="undo.emit()">
           <i class="fas fa-undo-alt fa-fw"></i>
         </button>
       </div>
