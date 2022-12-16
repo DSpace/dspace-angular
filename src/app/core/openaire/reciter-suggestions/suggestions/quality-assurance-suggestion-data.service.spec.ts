@@ -17,11 +17,11 @@ import { openaireSuggestion, } from '../../../../shared/mocks/openaire.mock';
 import { RequestEntry } from '../../../data/request-entry.model';
 import { QualityAssuranceSuggestionDataService } from './quality-assurance-suggestion-data.service';
 import { FindListOptions } from '../../../data/find-list-options.model';
+import { RequestParam } from '../../../cache/models/request-param.model';
 
 describe('QualityAssuranceSuggestionDataService', () => {
   let scheduler: TestScheduler;
   let service: QualityAssuranceSuggestionDataService;
-  let serviceASAny: any;
   let responseCacheEntry: RequestEntry;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
@@ -62,6 +62,8 @@ describe('QualityAssuranceSuggestionDataService', () => {
       buildList: cold('(a)', {
         a: paginatedListRD
       }),
+      buildFromRequestUUID: jasmine.createSpy('buildFromRequestUUID'),
+      buildFromRequestUUIDAndAwait: jasmine.createSpy('buildFromRequestUUIDAndAwait')
     });
 
     objectCache = {} as ObjectCacheService;
@@ -81,30 +83,22 @@ describe('QualityAssuranceSuggestionDataService', () => {
       notificationsService
     );
 
-    spyOn((service as any).findAllData, 'findAll').and.callThrough();
-    spyOn((service as any).deleteData, 'delete').and.callThrough();
+    spyOn((service as any).searchData, 'searchBy').and.callThrough();
+    spyOn((service as any).deleteData, 'delete');
     spyOn((service as any), 'findById').and.callThrough();
   });
 
   describe('deleteSuggestion', () => {
-    it('should call findById', (done) => {
-      service.getSuggestion(openaireSuggestion.id).subscribe(
-        (res) => {
-          expect((service as any).deleteData.delete).toHaveBeenCalledWith(openaireSuggestion.id);
-        }
-      );
-      done();
+    it('should call delete', () => {
+      service.deleteSuggestion(openaireSuggestion.id);
+      expect((service as any).deleteData.delete).toHaveBeenCalledWith(openaireSuggestion.id);
     });
   });
 
   describe('getSuggestion', () => {
-    it('should call findById', (done) => {
-      service.getSuggestion(openaireSuggestion.id).subscribe(
-        (res) => {
-          expect((service as any).findById).toHaveBeenCalledWith(openaireSuggestion.id, true, true);
-        }
-      );
-      done();
+    it('should call findById', () => {
+      service.getSuggestion(openaireSuggestion.id);
+      expect((service as any).findById).toHaveBeenCalledWith(openaireSuggestion.id, true, true);
     });
 
     it('should return a RemoteData<OpenaireSuggestionTarget> for the object with the given URL', () => {
@@ -118,26 +112,22 @@ describe('QualityAssuranceSuggestionDataService', () => {
 
   describe('getSuggestionsByTargetAndSource', () => {
     beforeEach(() => {
-      serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntry));
-      serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntry));
-      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(qaSuggestionObjectRD));
+      (service as any).requestService.getByHref.and.returnValue(observableOf(responseCacheEntry));
+      (service as any).requestService.getByUUID.and.returnValue(observableOf(responseCacheEntry));
+      (service as any).rdbService.buildFromRequestUUID.and.returnValue(observableOf(qaSuggestionObjectRD));
+      (service as any).rdbService.buildFromRequestUUIDAndAwait.and.returnValue(observableOf(qaSuggestionObjectRD));
     });
 
     it('should proxy the call to searchData.searchBy', () => {
       const options: FindListOptions = {
         searchParams: [
-          {
-            fieldName: 'target',
-            fieldValue: target
-          },
-          {
-            fieldName: 'source',
-            fieldValue: source
-          }
+          new RequestParam('target', target),
+          new RequestParam('source', source)
         ]
       };
+
       service.getSuggestionsByTargetAndSource(target, source);
-      expect(serviceASAny.searchData.searchBy).toHaveBeenCalledWith('findByTargetAndSource', options, true, true);
+      expect((service as any).searchData.searchBy).toHaveBeenCalledWith('findByTargetAndSource', options, true, true);
     });
 
     it('should return a RemoteData<PaginatedList<OpenaireSuggestionTarget>> for the object with the given Topic', () => {

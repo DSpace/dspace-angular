@@ -26,7 +26,6 @@ import { SearchDataImpl } from '../data/base/search-data';
 export class TabDataService extends IdentifiableDataService<CrisLayoutTab> {
   protected searchFindByItem = 'findByItem';
   protected searchFindByEntityType = 'findByEntityType';
-
   private searchData: SearchDataImpl<CrisLayoutTab>;
 
   constructor(

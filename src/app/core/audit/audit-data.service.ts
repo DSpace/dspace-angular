@@ -25,7 +25,7 @@ import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-con
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { SearchDataImpl } from '../data/base/search-data';
 import { DeleteDataImpl } from '../data/base/delete-data';
-import { FindAllData } from '../data/base/find-all-data';
+import { FindAllData, FindAllDataImpl } from '../data/base/find-all-data';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 
 export const AUDIT_PERSON_NOT_AVAILABLE = 'n/a';
@@ -50,6 +50,7 @@ export class AuditDataService extends IdentifiableDataService<Audit>{
   ) {
     super('auditevents', requestService, rdbService, objectCache, halService);
 
+    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
   }

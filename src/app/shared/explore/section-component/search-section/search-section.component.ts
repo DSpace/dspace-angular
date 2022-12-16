@@ -39,7 +39,7 @@ export class SearchSectionComponent implements OnInit {
               private router: Router,
               private searchService: SearchService,
               private searchConfigurationService: SearchConfigurationService,
-              ) {
+  ) {
 
   }
 
