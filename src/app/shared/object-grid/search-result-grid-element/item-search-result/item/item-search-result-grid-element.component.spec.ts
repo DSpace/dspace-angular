@@ -28,13 +28,14 @@ import { ItemSearchResultGridElementComponent } from './item-search-result-grid-
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
 mockItemWithMetadata.hitHighlights = {};
+const dcTitle = 'This is just another <em>title</em>';
 mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
   metadata: {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
+        value: dcTitle
       }
     ],
     'dc.contributor.author': [
@@ -152,6 +153,17 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
         it(`should not show the "${field}" field`, () => {
           const itemAuthorField = fixture.debugElement.query(By.css(`.item-${field}`));
           expect(itemAuthorField).toBeNull();
+        });
+      });
+
+      describe('When the item has title', () => {
+        beforeEach(() => {
+          comp.object = mockItemWithMetadata;
+          fixture.detectChanges();
+        });
+        it('should show highlighted title', () => {
+          const titleField = fixture.debugElement.query(By.css('.card-title'));
+          expect(titleField.nativeNode.innerHTML).toEqual(dcTitle);
         });
       });
     });

@@ -42,6 +42,7 @@ export class ItemSearchResultGridElementComponent extends SearchResultGridElemen
   ngOnInit(): void {
     super.ngOnInit();
     this.itemPageRoute = getItemPageRoute(this.dso);
-    this.dsoTitle = this.dsoNameService.getName(this.dso);
+    this.dsoTitle = this.firstMetadataValue('dc.title') ??
+      (this.dso ? this.dsoNameService.getName(this.dso) : undefined);
   }
 }
