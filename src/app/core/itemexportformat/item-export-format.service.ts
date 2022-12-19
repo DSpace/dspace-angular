@@ -57,7 +57,7 @@ export class ItemExportFormatService extends IdentifiableDataService<ItemExportF
     protected scriptDataService: ScriptDataService) {
 
     super('itemexportformats', requestService, rdbService, objectCache, halService);
-
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
