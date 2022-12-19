@@ -44,9 +44,11 @@ export class RelationshipsSortListComponent implements OnChanges {
     }
   }
 
-  drop(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    this.itemDrop.emit({ relationship: event.container.data[event.currentIndex], place: event.currentIndex });
+  drop(event: CdkDragDrop<any>): void {
+    if (event.previousIndex !== event.currentIndex) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      this.itemDrop.emit({ relationship: event.container.data[event.currentIndex], place: event.currentIndex });
+    }
   }
 
 

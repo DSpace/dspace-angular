@@ -1,5 +1,7 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { trigger } from '@angular/animations';
+
+import { uniqueId } from 'lodash';
 
 import { AlertType } from './aletr-type';
 import { fadeOutLeave, fadeOutState } from '../animations/fade';
@@ -45,6 +47,11 @@ export class AlertComponent implements OnInit {
   @Input() type: AlertType|string;
 
   /**
+   * A string used as id for trunctable-part
+   */
+  @Input() truncatableId: string;
+
+  /**
    * An event fired when alert is dismissed.
    */
   @Output() close: EventEmitter<any> = new EventEmitter<any>();
@@ -77,6 +84,9 @@ export class AlertComponent implements OnInit {
    */
   ngOnInit() {
     this.isCollapsed = this.collapsed;
+    if (this.truncatableId == null) {
+      this.truncatableId = uniqueId('alert-trunc-id-');
+    }
   }
 
   /**

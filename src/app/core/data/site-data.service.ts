@@ -12,8 +12,9 @@ import { SITE } from '../shared/site.resource-type';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { FindAllData, FindAllDataImpl } from './base/find-all-data';
-import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { FindListOptions } from './find-list-options.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { dataService } from './base/data-service.decorator';
@@ -47,7 +48,9 @@ export class SiteDataService extends IdentifiableDataService<Site> implements Fi
    * Retrieve the Site Object
    */
   find(): Observable<Site> {
-    return this.findAll().pipe(
+    const searchParams: RequestParam[] = [new RequestParam('projection', 'allLanguages')];
+    const options = Object.assign(new FindListOptions(), { searchParams });
+    return this.findAll(options).pipe(
       getFirstSucceededRemoteData(),
       map((remoteData: RemoteData<PaginatedList<Site>>) => remoteData.payload),
       map((list: PaginatedList<Site>) => list.page[0]),
