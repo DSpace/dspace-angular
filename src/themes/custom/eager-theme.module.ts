@@ -44,6 +44,7 @@ import {
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent} from './app/shared/object-list/collection-list-element/collection-list-element.component';
 import { ItemBackButtonComponent } from './app/shared/item-back-button/item-back-button.component';
+import { CollectionDropdownComponent } from './app/shared/collection-dropdown/collection-dropdown.component';
 
 
 /**
@@ -59,6 +60,7 @@ const ENTRY_COMPONENTS = [
 
   CommunityListElementComponent,
   CollectionListElementComponent,
+  CollectionDropdownComponent,
 ];
 
 const DECLARATIONS = [

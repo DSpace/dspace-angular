@@ -21,11 +21,11 @@ import { DsDynamicOneboxComponent } from './dynamic-onebox.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
-import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
+import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
-import { VocabularyTreeviewComponent } from '../../../../../vocabulary-treeview/vocabulary-treeview.component';
+import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService

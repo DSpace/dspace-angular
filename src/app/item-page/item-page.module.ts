@@ -46,6 +46,7 @@ import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrcidSyncSettingsComponent } from './orcid-page/orcid-sync-settings/orcid-sync-settings.component';
 import { OrcidQueueComponent } from './orcid-page/orcid-queue/orcid-queue.component';
+import { UploadModule } from '../shared/upload/upload.module';
 
 
 const ENTRY_COMPONENTS = [
@@ -94,7 +95,8 @@ const DECLARATIONS = [
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
     NgxGalleryModule,
-    NgbAccordionModule
+    NgbAccordionModule,
+    UploadModule,
   ],
   declarations: [
     ...DECLARATIONS,
