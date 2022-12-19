@@ -5,15 +5,35 @@ import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PlacementDir } from './placement-dir.model';
 
+/*
+ * This component renders an info icon next to the wrapped element which
+ * produces a tooltip when clicked.
+ */
 @Component({
   selector: 'ds-context-help-wrapper',
   templateUrl: './context-help-wrapper.component.html',
   styleUrls: ['./context-help-wrapper.component.scss'],
 })
 export class ContextHelpWrapperComponent {
+  /*
+   * Template reference for the wrapped element.
+   */
   @Input() templateRef: TemplateRef<any>;
+
+  /*
+   * Indicate where the tooltip should show up, relative to the info icon.
+   */
   @Input() tooltipPlacement?: PlacementArray;
+
+  /*
+   * Indicate whether the info icon should appear to the left or to
+   * the right of the wrapped element.
+   */
   @Input() iconPlacement?: PlacementDir;
+
+  /*
+   * If true, don't process text to render links.
+   */
   @Input() dontParseLinks?: boolean;
 
   // TODO: dependent on evaluation order of input setters?

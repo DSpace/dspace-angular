@@ -1,5 +1,3 @@
-
-
 <ng-template #help>
     <div class="preserve-line-breaks ds-context-help-content">
         <ng-container *ngFor="let elem of (parsedContent$ | async)">
@@ -10,7 +8,6 @@
                 {{ elem }}
             </ng-container>
         </ng-container>
-        <!--         {{ content | translate }} -->
     </div>
 </ng-template>
 <i [ngClass]="{'ds-context-help-icon fas fa-question-circle shadow-sm': true,
