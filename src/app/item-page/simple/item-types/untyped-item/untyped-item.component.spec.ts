@@ -196,11 +196,6 @@ describe('UntypedItemComponent', () => {
     it('should retrieve the query term for previous route', (): void => {
       expect(comp.iiifQuery$.subscribe(result => expect(result).toEqual('test query')));
     });
-    it('should navigate back to the browse list', () => {
-      comp.back();
-      expect(localMockRouteService.getPreviousUrl).toHaveBeenCalled();
-      //expect(routerSpy.navigateByUrl).toHaveBeenCalledWith(url);
-    });
   });
 
   describe('with IIIF viewer and search but no previous search query', () => {

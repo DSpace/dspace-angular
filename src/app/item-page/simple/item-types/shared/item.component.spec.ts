@@ -478,24 +478,6 @@ describe('ItemComponent', () => {
         expect(val).toBeTrue();
       });
     });
-    it('should navigate back to the search list', () => {
-      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(searchUrl));
-      comp.back();
-      expect(mockRouteService.getPreviousUrl).toHaveBeenCalled();
-      expect(router.navigateByUrl).toHaveBeenCalledWith(searchUrl);
-    });
-    it('should navigate back to the browse list', () => {
-      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(browseUrl));
-      comp.back();
-      expect(mockRouteService.getPreviousUrl).toHaveBeenCalled();
-      expect(router.navigateByUrl).toHaveBeenCalledWith(browseUrl);
-    });
-    it('should navigate back to the recent submissions list', () => {
-      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(recentSubmissionsUrl));
-      comp.back();
-      expect(mockRouteService.getPreviousUrl).toHaveBeenCalled();
-      expect(router.navigateByUrl).toHaveBeenCalledWith(recentSubmissionsUrl);
-    });
   });
 
 });

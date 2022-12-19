@@ -6,7 +6,6 @@ import { RouteService } from '../../../../core/services/route.service';
 import { Observable } from 'rxjs';
 import { getDSpaceQuery, isIiifEnabled, isIiifSearchEnabled } from './item-iiif-utils';
 import { filter, map, take } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-item',
@@ -45,22 +44,9 @@ export class ItemComponent implements OnInit {
 
   mediaViewer;
 
-  constructor(protected routeService: RouteService,
-              protected router: Router) {
+  constructor(protected routeService: RouteService) {
     this.mediaViewer = environment.mediaViewer;
   }
-
-  /**
-   * Navigate back from the item to the previous pagination url.
-   */
-  public back() {
-    this.routeService.getPreviousUrl().pipe(
-      take(1)
-    ).subscribe(
-      (url => this.router.navigateByUrl(url))
-    );
-  }
-
   ngOnInit(): void {
     this.itemPageRoute = getItemPageRoute(this.object);
     // check to see if iiif viewer is required.
