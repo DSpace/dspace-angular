@@ -124,7 +124,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * IIIF annotations key
    */
-  IMAGE_ANNOTATION_METADATA = 'iiif.image.annotations';
+  MEDIA_ANNOTATION_METADATA = 'iiif.media.annotations';
 
   /**
    * IIIF table of contents metadata key
@@ -508,7 +508,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
           iiifHeight: bitstream.firstMetadataValue(this.IMAGE_HEIGHT_METADATA)
         },
         iiifAnnotationContainer: {
-          iiifAnnotation: bitstream.firstMetadataValue(this.IMAGE_ANNOTATION_METADATA)
+          iiifAnnotation: bitstream.firstMetadataValue(this.MEDIA_ANNOTATION_METADATA)
         }
       });
     }
@@ -672,9 +672,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         Metadata.setFirstValue(newMetadata, this.IMAGE_HEIGHT_METADATA, rawForm.iiifHeightContainer.iiifHeight);
       }
       if (isEmpty(rawForm.iiifAnnotationContainer.iiifAnnotation)) {
-        delete newMetadata[this.IMAGE_ANNOTATION_METADATA];
+        delete newMetadata[this.MEDIA_ANNOTATION_METADATA];
       } else {
-        Metadata.setFirstValue(newMetadata, this.IMAGE_ANNOTATION_METADATA, rawForm.iiifAnnotationContainer.iiifAnnotation);
+        Metadata.setFirstValue(newMetadata, this.MEDIA_ANNOTATION_METADATA, rawForm.iiifAnnotationContainer.iiifAnnotation);
       }
     }
     if (isNotEmpty(rawForm.formatContainer.newFormat)) {

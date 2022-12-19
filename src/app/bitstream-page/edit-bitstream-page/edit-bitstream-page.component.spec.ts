@@ -316,7 +316,7 @@ describe('EditBitstreamPageComponent', () => {
             },
 
           ],
-          'iiif.image.annotations': [
+          'iiif.media.annotations': [
             {
               value: '{@id: "test"}'
             }
