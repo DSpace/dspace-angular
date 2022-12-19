@@ -317,6 +317,7 @@ import {
 } from './object-list/listable-notification-object/listable-notification-object.component';
 import { ThemedItemBackButtonComponent } from './item-back-button/themed-item-back-button.component';
 import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
+import { ItemBackButtonComponent } from './item-back-button/item-back-button.component';
 
 
 const MODULES = [
@@ -397,6 +398,7 @@ const COMPONENTS = [
   ItemSubmitterComponent,
   ItemDetailPreviewComponent,
   ItemDetailPreviewFieldComponent,
+  ItemBackButtonComponent,
   ThemedItemBackButtonComponent,
   ClaimedTaskActionsComponent,
   ClaimedTaskActionsLoaderComponent,
