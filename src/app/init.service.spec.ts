@@ -22,7 +22,6 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { AppComponent } from './app.component';
 import { RouteService } from './core/services/route.service';
 import { getMockLocaleService } from './app.component.spec';
-import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from './shared/mocks/translate-loader.mock';
