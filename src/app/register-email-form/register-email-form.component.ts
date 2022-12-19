@@ -6,8 +6,8 @@ import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Registration} from '../core/shared/registration.model';
 import {RemoteData} from '../core/data/remote-data';
-import {ConfigurationDataService} from "../core/data/configuration-data.service";
-import {getAllCompletedRemoteData} from "../core/shared/operators";
+import {ConfigurationDataService} from '../core/data/configuration-data.service';
+import {getAllCompletedRemoteData} from '../core/shared/operators';
 
 @Component({
   selector: 'ds-register-email-form',
@@ -29,7 +29,7 @@ export class RegisterEmailFormComponent implements OnInit {
   @Input()
   MESSAGE_PREFIX: string;
 
-  valid_mail_domains: string[];
+  validMailDomains: string[];
 
   constructor(
     private epersonRegistrationService: EpersonRegistrationService,
@@ -49,12 +49,12 @@ export class RegisterEmailFormComponent implements OnInit {
         ],
       })
     });
-    this.valid_mail_domains = [];
+    this.validMailDomains = [];
     this.configurationService.findByPropertyName('authentication-password.domain.valid')
       .pipe(getAllCompletedRemoteData())
       .subscribe((remoteData) => {
           for (const remoteValue of remoteData.payload.values) {
-            this.valid_mail_domains.push(remoteValue);
+            this.validMailDomains.push(remoteValue);
           }
         }
       );
@@ -70,12 +70,12 @@ export class RegisterEmailFormComponent implements OnInit {
           this.notificationService.success(this.translateService.get(`${this.MESSAGE_PREFIX}.success.head`),
             this.translateService.get(`${this.MESSAGE_PREFIX}.success.content`, {email: this.email.value}));
           this.router.navigate(['/home']);
-        } else if (response.statusCode == 400) {
-          this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`), this.translateService.get(`${this.MESSAGE_PREFIX}.error.maildomain`, { domains: this.valid_mail_domains.join(", ")}));
+        } else if (response.statusCode === 400) {
+          this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`), this.translateService.get(`${this.MESSAGE_PREFIX}.error.maildomain`, { domains: this.validMailDomains.join(', ')}));
         } else {
           this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`),
             this.translateService.get(`${this.MESSAGE_PREFIX}.error.content`, {email: this.email.value}));
-          this.notificationService.error("title", response.errorMessage);
+          this.notificationService.error('title', response.errorMessage);
         }
         }
       );
