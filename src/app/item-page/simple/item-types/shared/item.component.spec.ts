@@ -457,7 +457,6 @@ describe('ItemComponent', () => {
     beforeEach(waitForAsync(() => {
       router = TestBed.inject(Router);
       spyOn(router, 'navigateByUrl');
-      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(''));
       TestBed.compileComponents();
       fixture = TestBed.createComponent(ItemComponent);
       comp = fixture.componentInstance;
