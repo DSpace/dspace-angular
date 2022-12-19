@@ -1,9 +1,21 @@
+
+
 <ng-template #help>
-  <div class="preserve-line-breaks ds-context-help-content">{{ content | translate }}</div>
+    <div class="preserve-line-breaks ds-context-help-content">
+        <ng-container *ngFor="let elem of (parsedContent$ | async)">
+            <ng-container *ngIf="elem.href">
+                <a href="{{elem.href}}" target="_blank">{{elem.text}}</a>
+            </ng-container>
+            <ng-container *ngIf="elem.href === undefined">
+                {{ elem }}
+            </ng-container>
+        </ng-container>
+        <!--         {{ content | translate }} -->
+    </div>
 </ng-template>
 <i [ngClass]="{'ds-context-help-icon fas fa-question-circle shadow-sm': true,
-              'ds-context-help-icon-right': iconPlacement == 'right',
-              'ds-context-help-icon-left': iconPlacement == 'left'}"
+              'ds-context-help-icon-right': iconPlacement !== 'left',
+              'ds-context-help-icon-left': iconPlacement === 'left'}"
    [ngbTooltip]="help"
    [placement]="tooltipPlacement"
    container="'body'"

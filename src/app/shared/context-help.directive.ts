@@ -9,10 +9,21 @@ export type ContextHelpDirectiveInput = {
   iconPlacement?: PlacementDir
 }
 
+/*
+ * Directive to add a clickable tooltip icon to an element.
+ * The tooltip icon's position is configurable ('left' or 'right')
+ * and so is the position of the tooltip itself (PlacementArray).
+ */
 @Directive({
   selector: '[dsContextHelp]',
 })
 export class ContextHelpDirective implements OnChanges {
+  /*
+   * Expects an object with the following fields:
+   * - content: a string referring to an entry in the i18n files
+   * - tooltipPlacement: a PlacementArray describing where the tooltip should expand, relative to the tooltip icon
+   * - iconPlacement: a string 'left' or 'right', describing where the tooltip icon should be placed, relative to the element
+   */
   @Input() dsContextHelp: string | ContextHelpDirectiveInput;
 
   protected wrapper: ComponentRef<ContextHelpWrapperComponent>;
