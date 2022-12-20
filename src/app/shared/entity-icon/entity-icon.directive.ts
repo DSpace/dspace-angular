@@ -85,9 +85,9 @@ export class EntityIconDirective implements OnInit {
     if (Array.isArray(styles)) {
       styles.forEach((style) => {
         if (Object.keys(crisConfig.entityStyle).includes(style)) {
-          filteredConf = crisConfig.entityStyle[style]
+          filteredConf = crisConfig.entityStyle[style];
         }
-      })
+      });
     } else {
       filteredConf = crisConfig.entityStyle[styles];
     }
