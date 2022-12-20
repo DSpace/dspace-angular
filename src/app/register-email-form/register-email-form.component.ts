@@ -58,7 +58,7 @@ export class RegisterEmailFormComponent implements OnInit {
   captchaMode(): Observable<string> {
     return this.googleRecaptchaService.captchaMode();
   }
-  valid_mail_domains: string[];
+  validMailDomains: string[];
 
   constructor(
     private epersonRegistrationService: EpersonRegistrationService,
@@ -85,6 +85,7 @@ export class RegisterEmailFormComponent implements OnInit {
         ],
       })
     });
+    this.validMailDomains = [];
     this.configService.findByPropertyName('registration.verification.enabled').pipe(
       getFirstSucceededRemoteDataPayload(),
       map((res: ConfigurationProperty) => res?.values[0].toLowerCase() === 'true')
@@ -96,16 +97,6 @@ export class RegisterEmailFormComponent implements OnInit {
       this.disableUntilChecked = res;
       this.changeDetectorRef.detectChanges();
     });
-
-    this.valid_mail_domains = [];
-    this.configService.findByPropertyName('authentication-password.domain.valid')
-      .pipe(getAllCompletedRemoteData())
-      .subscribe((remoteData) => {
-          for (const remoteValue of remoteData.payload.values) {
-            this.valid_mail_domains.push(remoteValue);
-          }
-        }
-      );
   }
 
   /**
@@ -154,9 +145,13 @@ export class RegisterEmailFormComponent implements OnInit {
    * Registration of an email address
    */
   registration(captchaToken = null) {
+    let typeMap = new Map<string, string>([
+      ["register-page.registration", "register"],
+      ["forgot-email.form", "forgot"]
+    ]);
     let registerEmail$ = captchaToken ?
-      this.epersonRegistrationService.registerEmail(this.email.value, captchaToken) :
-      this.epersonRegistrationService.registerEmail(this.email.value);
+      this.epersonRegistrationService.registerEmail(this.email.value, captchaToken, typeMap.get(this.MESSAGE_PREFIX)) :
+      this.epersonRegistrationService.registerEmail(this.email.value,typeMap.get(this.MESSAGE_PREFIX));
     registerEmail$.subscribe((response: RemoteData<Registration>) => {
       if (response.hasSucceeded) {
         this.notificationService.success(this.translateService.get(`${this.MESSAGE_PREFIX}.success.head`),

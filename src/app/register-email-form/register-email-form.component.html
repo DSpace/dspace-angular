@@ -1,7 +1,8 @@
 <div class="container">
     <h2>{{MESSAGE_PREFIX + '.header'|translate}}</h2>
     <p>{{MESSAGE_PREFIX + '.info' | translate}}</p>
-  <p *ngIf="valid_mail_domains.length!= 0">Accounts can be registered for mail addresses of the domains {{ valid_mail_domains.join(", ")}} </p>
+  <p
+    *ngIf="validMailDomains.length!= 0 && MESSAGE_PREFIX==='register-page.registration'">{{ MESSAGE_PREFIX + '.info.maildomain' | translate}} {{ validMailDomains.join(", ")}} </p>
 
     <form [class]="'ng-invalid'" [formGroup]="form">
 

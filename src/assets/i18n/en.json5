@@ -3294,6 +3294,7 @@
   "register-page.registration.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
 
   "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.",
+  "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains",
 
   "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
 
