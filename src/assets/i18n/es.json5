@@ -3224,6 +3224,57 @@
 	"item.version.notice": "Esta no es la última versión de este artículo. La última versión se puede encontrar <a href='{{ destination }}'> aquí </a>.",
 
 
+  // "item.version.delete.modal.button.cancel.tooltip": "Do not delete this version",
+  "item.version.delete.modal.button.cancel.tooltip": "No eliminar esta versión",
+
+  // "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
+  "item.version.delete.notification.success" : "La versión número {{version}} ha sido eliminada",
+
+  // "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
+  "item.version.delete.notification.failure" : "La versión número {{version}} no ha sido eliminada",
+
+
+  // "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
+  "item.version.edit.notification.success" : "Se ha cambiado el resumen de la versión número {{version}}",
+
+  // "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
+  "item.version.edit.notification.failure" : "No se ha cambiado el resumen de la versión número {{version}}",
+
+  // "item-export.modal-launcher.single.btn": "Export",
+  "item-export.modal-launcher.single.btn": "Exportar",
+
+  // "item-export.modal-launcher.multiple.btn": "Export",
+  "item-export.modal-launcher.multiple.btn": "Exportar",
+
+  // "item-export.alert.single": "Export item ",
+  "item-export.alert.single": "Exportar item ",
+
+  // "item-export.alert.multiple": "Export all items of a particular entity type belonging to the current search.",
+  "item-export.alert.multiple": "Exportar todos los ítems de un determinado tipo de entidad pertenecientes a la búsqueda actual.",
+
+  // "item-export.alert.export.limit": "This export will be limited to a maximum of {{limit}} items.",
+  "item-export.alert.export.limit": "Esta exportación estará limitada a un máximo de {{limit}} items.",
+
+  // "item-export.form.entityType": "Entity Type",
+  "item-export.form.entityType": "Tipo Entidad",
+
+  // "item-export.form.entityType.tip": "Choose the entity type to export",
+  "item-export.form.entityType.tip": "Elija el tipo de entidad a exportar",
+
+  // "item-export.form.format": "Format",
+  "item-export.form.format": "Formato",
+
+  // "item-export.form.format.tip": "Choose the export format",
+  "item-export.form.format.tip": "Elija el formato de exportación",
+
+  // "item-export.form.btn.submit": "Export",
+  "item-export.form.btn.submit": "Exportar",
+
+  // "item-export.form.btn.cancel": "Cancel",
+  "item-export.form.btn.cancel": "Cancelar",
+
+  // "item-export.process.title": "Bulk export item",
+  "item-export.process.title": "Ítem de exportación masiva",
 
   // "journal.listelement.badge": "Journal",
 	"journal.listelement.badge": "diario",

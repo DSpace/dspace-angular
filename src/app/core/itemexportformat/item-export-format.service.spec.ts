@@ -4,10 +4,9 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PaginatedList } from '../data/paginated-list.model';
 import { ItemExportFormat } from './model/item-export-format.model';
-import { ItemExportFormatsMap } from '../../shared/item-export/item-export.service.spec';
+import { ItemExportFormatsMap } from '../../shared/search/item-export/item-export.service.spec';
 import { RequestParam } from '../cache/models/request-param.model';
 import { Process } from '../../process-page/processes/process.model';
-import createSpyObj = jasmine.createSpyObj;
 import { EventEmitter } from '@angular/core';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import {
@@ -21,6 +20,7 @@ import { PaginatedSearchOptions } from '../../shared/search/models/paginated-sea
 import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import createSpyObj = jasmine.createSpyObj;
 
 describe('ItemExportFormatService', () => {
 

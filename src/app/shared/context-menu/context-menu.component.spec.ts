@@ -27,7 +27,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { NotificationsServiceStub } from '../testing/notifications-service.stub';
 import { AuthService } from '../../core/auth/auth.service';
 import { EPersonMock } from '../testing/eperson.mock';
-import { ItemExportFormConfiguration, ItemExportService } from '../item-export/item-export.service';
+import { ItemExportFormConfiguration, ItemExportService } from '../search/item-export/item-export.service';
 
 describe('ContextMenuComponent', () => {
   let component: ContextMenuComponent;
