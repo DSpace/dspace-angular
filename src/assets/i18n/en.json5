@@ -780,7 +780,7 @@
   "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
 
 
-  "search-browse-item-return": "Back to Results",
+  "search.browse.item-back": "Back to Results",
 
 
   "chips.remove": "Remove chip",

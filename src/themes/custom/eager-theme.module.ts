@@ -43,7 +43,7 @@ import {
 
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent} from './app/shared/object-list/collection-list-element/collection-list-element.component';
-import { ItemBackButtonComponent } from './app/shared/item-back-button/item-back-button.component';
+import { ResultsBackButtonComponent } from './app/shared/results-back-button/results-back-button.component';
 import { CollectionDropdownComponent } from './app/shared/collection-dropdown/collection-dropdown.component';
 
 
@@ -77,24 +77,27 @@ const DECLARATIONS = [
   EditCollectionSelectorComponent,
   EditCommunitySelectorComponent,
   EditItemSelectorComponent,
-  ItemBackButtonComponent
+  ResultsBackButtonComponent
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    SearchModule,
-    FormsModule,
-    RootModule,
-    NavbarModule,
-    ItemPageModule,
-    ItemSharedModule,
-  ],
-  declarations: DECLARATIONS,
-  providers: [
-    ...ENTRY_COMPONENTS.map((component) => ({ provide: component }))
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        SearchModule,
+        FormsModule,
+        RootModule,
+        NavbarModule,
+        ItemPageModule,
+        ItemSharedModule,
+    ],
+    declarations: DECLARATIONS,
+    providers: [
+        ...ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    ],
+    exports: [
+        ResultsBackButtonComponent
+    ]
 })
 /**
  * This module is included in the main bundle that gets downloaded at first page load. So it should
