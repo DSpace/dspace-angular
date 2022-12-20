@@ -12,6 +12,7 @@ import {
     getCommunityCreateRoute,
     COMMUNITY_PARENT_PARAMETER
 } from '../../../../community-page/community-page-routing-paths';
+import {SortDirection, SortOptions} from '../../../../core/cache/models/sort-options.model';
 
 /**
  * Component to wrap a button - for top communities -
@@ -29,6 +30,11 @@ export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrap
   objectType = DSpaceObjectType.COMMUNITY;
   selectorTypes = [DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.CREATE;
+
+  /**
+   * Default DSO ordering
+   */
+  defaultSort = new SortOptions('dc.title', SortDirection.ASC);
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);

@@ -31,6 +31,7 @@ import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from 
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../empty.util';
 import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
 import { SearchResult } from '../../search/models/search-result.model';
+import {SortDirection, SortOptions} from '../../../core/cache/models/sort-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -68,6 +69,11 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    * The types of DSpace objects this components shows a list of
    */
   @Input() types: DSpaceObjectType[];
+
+   /**
+   * The sorting options
+   */
+  @Input() sort: SortOptions;
 
   // list of allowed selectable dsoTypes
   typesString: string;
@@ -227,7 +233,8 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
         dsoTypes: this.types,
         pagination: Object.assign({}, this.defaultPagination, {
           currentPage: page
-        })
+        }),
+        sort: this.sort
       }),
       null,
       useCache,
