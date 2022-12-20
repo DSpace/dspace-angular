@@ -51,6 +51,9 @@ export class RegisterEmailFormComponent implements OnInit {
 
   disableUntilChecked = true;
 
+  validMailDomains: string[];
+
+
   captchaVersion(): Observable<string> {
     return this.googleRecaptchaService.captchaVersion();
   }
@@ -58,7 +61,6 @@ export class RegisterEmailFormComponent implements OnInit {
   captchaMode(): Observable<string> {
     return this.googleRecaptchaService.captchaMode();
   }
-  validMailDomains: string[];
 
   constructor(
     private epersonRegistrationService: EpersonRegistrationService,
