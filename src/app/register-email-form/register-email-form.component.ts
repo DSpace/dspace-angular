@@ -154,8 +154,8 @@ export class RegisterEmailFormComponent implements OnInit {
    */
   registration(captchaToken = null) {
     let typeMap = new Map<string, string>([
-      ["register-page.registration", "register"],
-      ["forgot-email.form", "forgot"]
+      ['register-page.registration', 'register'],
+      ['forgot-email.form', 'forgot']
     ]);
     let registerEmail$ = captchaToken ?
       this.epersonRegistrationService.registerEmail(this.email.value, captchaToken, typeMap.get(this.MESSAGE_PREFIX)) :
