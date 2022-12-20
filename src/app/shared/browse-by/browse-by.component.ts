@@ -184,14 +184,6 @@ export class BrowseByComponent implements OnInit, OnDestroy {
     this.sub = this.routeService.getQueryParameterValue(this.paginationConfig.id + '.return').subscribe(this.previousPage$);
   }
 
-  /**
-   * Navigate back to the previous browse by page
-   */
-  back() {
-    const page = +this.previousPage$.value > 1 ? +this.previousPage$.value : 1;
-    this.paginationService.updateRoute(this.paginationConfig.id, {page: page}, {[this.paginationConfig.id + '.return']: null, value: null, startsWith: null});
-  }
-
   ngOnDestroy(): void {
     if (this.sub) {
       this.sub.unsubscribe();
