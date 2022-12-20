@@ -12,6 +12,7 @@ import { GenericConstructor } from '../shared/generic-constructor';
 import { RegistrationResponseParsingService } from './registration-response-parsing.service';
 import { RemoteData } from './remote-data';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import {HttpParams} from "@angular/common/http";
 
 @Injectable(
   {
@@ -54,7 +55,7 @@ export class EpersonRegistrationService {
    * Register a new email address
    * @param email
    */
-  registerEmail(email: string): Observable<RemoteData<Registration>> {
+  registerEmail(email: string, type?:string): Observable<RemoteData<Registration>> {
     const registration = new Registration();
     registration.email = email;
 
@@ -62,10 +63,12 @@ export class EpersonRegistrationService {
 
     const href$ = this.getRegistrationEndpoint();
 
+    let options = type? {params: new HttpParams({fromString:'type='+type})}: {}
+
     href$.pipe(
       find((href: string) => hasValue(href)),
       map((href: string) => {
-        const request = new PostRequest(requestId, href, registration);
+        const request = new PostRequest(requestId, href, registration, options);
         this.requestService.send(request);
       })
     ).subscribe();
