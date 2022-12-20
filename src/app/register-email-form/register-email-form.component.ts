@@ -64,9 +64,9 @@ export class RegisterEmailFormComponent implements OnInit {
    * Register an email address
    */
   register() {
-    let typeMap = new Map<string, string>([
-      ["register-page.registration", "register"],
-      ["forgot-email.form", "forgot"]
+    const typeMap = new Map<string, string>([
+      ['register-page.registration', 'register'],
+      ['forgot-email.form', 'forgot']
     ]);
     if (!this.form.invalid) {
       this.epersonRegistrationService.registerEmail(this.email.value, typeMap.get(this.MESSAGE_PREFIX)).subscribe((response: RemoteData<Registration>) => {
