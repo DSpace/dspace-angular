@@ -1,21 +1,21 @@
-import { ChangeDetectorRef, Component, Input, OnInit, Optional } from '@angular/core';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Registration } from '../core/shared/registration.model';
-import { RemoteData } from '../core/data/remote-data';
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import {ChangeDetectorRef, Component, Input, OnInit, Optional} from '@angular/core';
+import {EpersonRegistrationService} from '../core/data/eperson-registration.service';
+import {NotificationsService} from '../shared/notifications/notifications.service';
+import {TranslateService} from '@ngx-translate/core';
+import {Router} from '@angular/router';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Registration} from '../core/shared/registration.model';
+import {RemoteData} from '../core/data/remote-data';
+import {ConfigurationDataService} from '../core/data/configuration-data.service';
 import {getAllCompletedRemoteData, getFirstSucceededRemoteDataPayload} from '../core/shared/operators';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { isNotEmpty } from '../shared/empty.util';
-import { BehaviorSubject, combineLatest, Observable, of, switchMap } from 'rxjs';
-import { map, startWith, take } from 'rxjs/operators';
-import { CAPTCHA_NAME, GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptcha.service';
-import { AlertType } from '../shared/alert/aletr-type';
-import { KlaroService } from '../shared/cookies/klaro.service';
-import { CookieService } from '../core/services/cookie.service';
+import {ConfigurationProperty} from '../core/shared/configuration-property.model';
+import {isNotEmpty} from '../shared/empty.util';
+import {BehaviorSubject, combineLatest, Observable, of, switchMap} from 'rxjs';
+import {map, startWith, take} from 'rxjs/operators';
+import {CAPTCHA_NAME, GoogleRecaptchaService} from '../core/google-recaptcha/google-recaptcha.service';
+import {AlertType} from '../shared/alert/aletr-type';
+import {KlaroService} from '../shared/cookies/klaro.service';
+import {CookieService} from '../core/services/cookie.service';
 
 @Component({
   selector: 'ds-register-email-form',
@@ -86,6 +86,14 @@ export class RegisterEmailFormComponent implements OnInit {
       })
     });
     this.validMailDomains = [];
+    this.configService.findByPropertyName('authentication-password.domain.valid')
+      .pipe(getAllCompletedRemoteData())
+      .subscribe((remoteData) => {
+          for (const remoteValue of remoteData.payload.values) {
+            this.validMailDomains.push(remoteValue);
+          }
+        }
+      );
     this.configService.findByPropertyName('registration.verification.enabled').pipe(
       getFirstSucceededRemoteDataPayload(),
       map((res: ConfigurationProperty) => res?.values[0].toLowerCase() === 'true')
@@ -151,12 +159,14 @@ export class RegisterEmailFormComponent implements OnInit {
     ]);
     let registerEmail$ = captchaToken ?
       this.epersonRegistrationService.registerEmail(this.email.value, captchaToken, typeMap.get(this.MESSAGE_PREFIX)) :
-      this.epersonRegistrationService.registerEmail(this.email.value,typeMap.get(this.MESSAGE_PREFIX));
+      this.epersonRegistrationService.registerEmail(this.email.value, null, typeMap.get(this.MESSAGE_PREFIX));
     registerEmail$.subscribe((response: RemoteData<Registration>) => {
       if (response.hasSucceeded) {
         this.notificationService.success(this.translateService.get(`${this.MESSAGE_PREFIX}.success.head`),
           this.translateService.get(`${this.MESSAGE_PREFIX}.success.content`, {email: this.email.value}));
         this.router.navigate(['/home']);
+      } else if (response.statusCode === 400) {
+        this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`), this.translateService.get(`${this.MESSAGE_PREFIX}.error.maildomain`, {domains: this.validMailDomains.join(', ')}));
       } else {
         this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`),
           this.translateService.get(`${this.MESSAGE_PREFIX}.error.content`, {email: this.email.value}));
