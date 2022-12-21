@@ -65,7 +65,7 @@ describe('ThumbnailComponent', () => {
     el = de.nativeElement;
   });
 
-  fdescribe('loading', () => {
+  describe('loading', () => {
     it('should start out with isLoading$ true', () => {
       expect(comp.isLoading$.getValue()).toBeTrue();
     });
