@@ -31,7 +31,7 @@ import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from 
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../empty.util';
 import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
 import { SearchResult } from '../../search/models/search-result.model';
-import {SortDirection, SortOptions} from '../../../core/cache/models/sort-options.model';
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
