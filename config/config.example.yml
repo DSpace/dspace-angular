@@ -145,6 +145,9 @@ languages:
   - code: nl
     label: Nederlands
     active: true
+  - code: pl
+    label: Polski
+    active: true
   - code: pt-PT
     label: Português
     active: true
@@ -174,9 +177,6 @@ languages:
     active: true
   - code: uk
     label: Yкраї́нська
-    active: true
-  - code: pl
-    label: Polski
     active: true
 
 
