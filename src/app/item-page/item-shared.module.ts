@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 import { dsDynamicFormControlMapFn } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
 import { TabbedRelatedEntitiesSearchComponent } from './simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
+import { ResultsBackButtonModule } from '../shared/results-back-button/results-back-button.module';
 
 const COMPONENTS = [
   RelatedEntitiesSearchComponent,
@@ -21,7 +22,8 @@ const COMPONENTS = [
     CommonModule,
     SearchModule,
     SharedModule,
-    TranslateModule
+    TranslateModule,
+    ResultsBackButtonModule
   ],
   exports: [
     ...COMPONENTS

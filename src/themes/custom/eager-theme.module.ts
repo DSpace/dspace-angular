@@ -45,6 +45,8 @@ import { CommunityListElementComponent } from './app/shared/object-list/communit
 import { CollectionListElementComponent} from './app/shared/object-list/collection-list-element/collection-list-element.component';
 import { ResultsBackButtonComponent } from './app/shared/results-back-button/results-back-button.component';
 import { CollectionDropdownComponent } from './app/shared/collection-dropdown/collection-dropdown.component';
+import { SharedBrowseByModule } from '../../app/shared/shared-browse-by/shared-browse-by.module';
+import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 
 
 /**
@@ -84,6 +86,8 @@ const DECLARATIONS = [
     imports: [
         CommonModule,
         SharedModule,
+        SharedBrowseByModule,
+        ResultsBackButtonModule,
         SearchModule,
         FormsModule,
         RootModule,

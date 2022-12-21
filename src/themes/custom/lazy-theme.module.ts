@@ -117,6 +117,8 @@ import { BrowseByTitlePageComponent } from './app/browse-by/browse-by-title-page
 import {
   ExternalSourceEntryImportModalComponent
 } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { SharedBrowseByModule } from '../../app/shared/shared-browse-by/shared-browse-by.module';
+import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -212,6 +214,8 @@ const DECLARATIONS = [
     ScrollToModule,
     SearchPageModule,
     SharedModule,
+    SharedBrowseByModule,
+    ResultsBackButtonModule,
     StatisticsModule,
     StatisticsPageModule,
     StoreModule,

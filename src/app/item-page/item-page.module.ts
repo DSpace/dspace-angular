@@ -96,7 +96,7 @@ const DECLARATIONS = [
     ResearchEntitiesModule.withEntryComponents(),
     NgxGalleryModule,
     NgbAccordionModule,
-    UploadModule,
+    UploadModule
   ],
   declarations: [
     ...DECLARATIONS,

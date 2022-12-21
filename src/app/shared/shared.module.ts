@@ -95,7 +95,6 @@ import {
   ClaimedTaskActionsRejectComponent
 } from './mydspace-actions/claimed-task/reject/claimed-task-actions-reject.component';
 import { ObjNgFor } from './utils/object-ngfor.pipe';
-import { BrowseByComponent } from './browse-by/browse-by.component';
 import {
   BrowseEntryListElementComponent
 } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
@@ -317,7 +316,6 @@ import {
 } from './object-list/listable-notification-object/listable-notification-object.component';
 import { ThemedResultsBackButtonComponent } from './results-back-button/themed-results-back-button.component';
 import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
-import { ResultsBackButtonComponent } from './results-back-button/results-back-button.component';
 
 
 const MODULES = [
@@ -338,7 +336,7 @@ const MODULES = [
   DragDropModule,
   CdkTreeModule,
   GoogleRecaptchaModule,
-  MenuModule,
+  MenuModule
 ];
 
 const ROOT_MODULES = [
@@ -398,7 +396,6 @@ const COMPONENTS = [
   ItemSubmitterComponent,
   ItemDetailPreviewComponent,
   ItemDetailPreviewFieldComponent,
-  ResultsBackButtonComponent,
   ThemedResultsBackButtonComponent,
   ClaimedTaskActionsComponent,
   ClaimedTaskActionsLoaderComponent,
@@ -409,7 +406,7 @@ const COMPONENTS = [
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
-  BrowseByComponent,
+  // BrowseByComponent,
   InputSuggestionsComponent,
   FilterInputSuggestionsComponent,
   ValidationSuggestionsComponent,

@@ -58,7 +58,7 @@ export class ItemComponent implements OnInit {
     // Show the back to results button when the previous context was search, browse,
     // or recent submissions pagination.
     this.showBackButton = this.routeService.getPreviousUrl().pipe(
-      filter(url => /^(\/search|\/browse|\/collections)/.test(url)),
+      filter(url => /^(\/search|\/browse|\/collections|\/admin\/search|\/mydspace)/.test(url)),
       take(1),
       map(() => true)
     );
