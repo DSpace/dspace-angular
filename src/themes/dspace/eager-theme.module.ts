@@ -9,7 +9,7 @@ import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-na
 import { SearchModule } from '../../app/shared/search/search.module';
 import { RootModule } from '../../app/root.module';
 import { NavbarModule } from '../../app/navbar/navbar.module';
-import { SharedBrowseByModule } from '../../app/shared/shared-browse-by/shared-browse-by.module';
+import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
 import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 
 /**

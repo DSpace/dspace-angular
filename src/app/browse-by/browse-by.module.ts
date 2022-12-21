@@ -9,7 +9,7 @@ import { ComcolModule } from '../shared/comcol/comcol.module';
 import { ThemedBrowseByMetadataPageComponent } from './browse-by-metadata-page/themed-browse-by-metadata-page.component';
 import { ThemedBrowseByDatePageComponent } from './browse-by-date-page/themed-browse-by-date-page.component';
 import { ThemedBrowseByTitlePageComponent } from './browse-by-title-page/themed-browse-by-title-page.component';
-import { SharedBrowseByModule } from '../shared/shared-browse-by/shared-browse-by.module';
+import { SharedBrowseByModule } from '../shared/browse-by/shared-browse-by.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
