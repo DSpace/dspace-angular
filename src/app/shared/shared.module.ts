@@ -314,7 +314,6 @@ import { MenuModule } from './menu/menu.module';
 import {
   ListableNotificationObjectComponent
 } from './object-list/listable-notification-object/listable-notification-object.component';
-import { ThemedResultsBackButtonComponent } from './results-back-button/themed-results-back-button.component';
 import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 
 
@@ -396,7 +395,6 @@ const COMPONENTS = [
   ItemSubmitterComponent,
   ItemDetailPreviewComponent,
   ItemDetailPreviewFieldComponent,
-  ThemedResultsBackButtonComponent,
   ClaimedTaskActionsComponent,
   ClaimedTaskActionsLoaderComponent,
   ItemActionsComponent,
@@ -406,7 +404,6 @@ const COMPONENTS = [
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
-  // BrowseByComponent,
   InputSuggestionsComponent,
   FilterInputSuggestionsComponent,
   ValidationSuggestionsComponent,

@@ -47,6 +47,7 @@ import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrcidSyncSettingsComponent } from './orcid-page/orcid-sync-settings/orcid-sync-settings.component';
 import { OrcidQueueComponent } from './orcid-page/orcid-queue/orcid-queue.component';
 import { UploadModule } from '../shared/upload/upload.module';
+import { ResultsBackButtonModule } from '../shared/results-back-button/results-back-button.module';
 
 
 const ENTRY_COMPONENTS = [
@@ -96,6 +97,7 @@ const DECLARATIONS = [
     ResearchEntitiesModule.withEntryComponents(),
     NgxGalleryModule,
     NgbAccordionModule,
+    ResultsBackButtonModule,
     UploadModule
   ],
   declarations: [
