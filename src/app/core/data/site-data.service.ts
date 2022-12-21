@@ -6,7 +6,7 @@ import { Operation } from 'fast-json-patch';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstSucceededRemoteData } from '../shared/operators';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import { Site } from '../shared/site.model';
 import { SITE } from '../shared/site.resource-type';
 import { PaginatedList } from './paginated-list.model';
@@ -51,9 +51,10 @@ export class SiteDataService extends IdentifiableDataService<Site> implements Fi
     const searchParams: RequestParam[] = [new RequestParam('projection', 'allLanguages')];
     const options = Object.assign(new FindListOptions(), { searchParams });
     return this.findAll(options).pipe(
-      getFirstSucceededRemoteData(),
-      map((remoteData: RemoteData<PaginatedList<Site>>) => remoteData.payload),
-      map((list: PaginatedList<Site>) => list.page[0]),
+      getFirstCompletedRemoteData(),
+      map((remoteData: RemoteData<PaginatedList<Site>>) => {
+        return remoteData.hasSucceeded ? remoteData.payload.page[0] : null;
+      })
     );
   }
 
