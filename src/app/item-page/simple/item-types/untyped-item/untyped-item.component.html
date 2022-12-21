@@ -11,9 +11,6 @@
   <ds-item-page-title-field [item]="object" class="mr-auto">
   </ds-item-page-title-field>
   <div class="pl-2 space-children-mr">
-    <ds-dso-page-version-button (newVersionEvent)="onCreateNewVersion()" [dso]="object"
-                                [tooltipMsgCreate]="'item.page.version.create'"
-                                [tooltipMsgHasDraft]="'item.page.version.hasDraft'"></ds-dso-page-version-button>
     <ds-context-menu [contextMenuObject]="object" [contextMenuObjectType]="'ITEM'"></ds-context-menu>
   </div>
 </div>
