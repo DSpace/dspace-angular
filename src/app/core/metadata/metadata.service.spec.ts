@@ -54,7 +54,7 @@ xdescribe('MetadataService', () => {
       findRoot: createSuccessfulRemoteDataObject$({ dspaceVersion: 'mock-dspace-version' })
     });
     bitstreamDataService = jasmine.createSpyObj({
-      findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([MockBitstream3]))
+      findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([MockBitstream3])),
     });
     bundleDataService = jasmine.createSpyObj({
       findByItemAndName: mockBundleRD$([MockBitstream3])
@@ -169,6 +169,22 @@ xdescribe('MetadataService', () => {
       name: 'citation_technical_report_institution',
       content: 'Mock Publisher'
     });
+  }));
+
+  it('route titles should overwrite dso titles', fakeAsync(() => {
+    (translateService.get as jasmine.Spy).and.returnValues(of('DSpace :: '), of('Translated Route Title'));
+    (metadataService as any).processRouteChange({
+      data: {
+        value: {
+          dso: createSuccessfulRemoteDataObject(ItemMock),
+          title: 'route.title.key',
+        }
+      }
+    });
+    tick();
+    expect(title.setTitle).toHaveBeenCalledTimes(2);
+    expect((title.setTitle as jasmine.Spy).calls.argsFor(0)).toEqual(['Test PowerPoint Document']);
+    expect((title.setTitle as jasmine.Spy).calls.argsFor(1)).toEqual(['DSpace :: Translated Route Title']);
   }));
 
   it('other navigation should add title and description', fakeAsync(() => {
@@ -353,7 +369,7 @@ xdescribe('MetadataService', () => {
       it('should link to first Bitstream with allowed format', fakeAsync(() => {
         const bitstreams = [MockBitstream3, MockBitstream3, MockBitstream1];
         (bundleDataService.findByItemAndName as jasmine.Spy).and.returnValue(mockBundleRD$(bitstreams));
-        (bitstreamDataService.findAllByHref as jasmine.Spy).and.returnValues(
+        (bitstreamDataService.findListByHref as jasmine.Spy).and.returnValues(
           ...mockBitstreamPages$(bitstreams).map(bp => createSuccessfulRemoteDataObject$(bp)),
         );
 

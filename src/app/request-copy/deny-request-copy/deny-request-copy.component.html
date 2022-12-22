@@ -5,5 +5,5 @@
 
     <ds-email-request-copy [subject]="subject$ | async" [message]="message$ | async" (send)="deny($event)"></ds-email-request-copy>
   </div>
-  <ds-loading *ngIf="!itemRequestRD || itemRequestRD?.isLoading"></ds-loading>
+  <ds-themed-loading *ngIf="!itemRequestRD || itemRequestRD?.isLoading"></ds-themed-loading>
 </div>

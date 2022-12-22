@@ -1,7 +1,6 @@
 <div class="d-flex flex-row">
-  <h2 class="item-page-title-field mr-auto">
-    {{'person.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="getPersonName()" [separator]="', '"></ds-metadata-values>
-  </h2>
+  <ds-item-page-title-field class="mr-auto" [item]="object">
+  </ds-item-page-title-field>
   <div class="pl-2">
     <ds-context-menu [contextMenuObject]="object" [contextMenuObjectType]="'ITEM'"></ds-context-menu>
   </div>
@@ -19,20 +18,12 @@
       [fields]="['person.email']"
       [label]="'person.page.email'">
     </ds-generic-item-page-field>
-    <!--<ds-generic-item-page-field [item]="object"-->
-      <!--[fields]="['person.identifier.orcid']"-->
-      <!--[label]="'person.page.orcid'">-->
-    <!--</ds-generic-item-page-field>-->
     <ds-generic-item-page-field [item]="object"
       [fields]="['person.birthDate']"
       [label]="'person.page.birthdate'">
     </ds-generic-item-page-field>
-    <!--<ds-generic-item-page-field [item]="object"-->
-      <!--[fields]="['person.identifier.staffid']"-->
-      <!--[label]="'person.page.staffid'">-->
-    <!--</ds-generic-item-page-field>-->
   </div>
-  <div class="col-xs-12 col-md-6">
+  <div class="col-xs-12 col-md-7">
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isProjectOfPerson'"
@@ -55,6 +46,10 @@
       [fields]="['person.givenName']"
       [label]="'person.page.firstname'">
     </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.title']"
+      [label]="'person.page.name'">
+    </ds-generic-item-page-field>
     <div>
       <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']">
         {{"item.page.link.full" | translate}}
@@ -65,7 +60,8 @@
     <ds-tabbed-related-entities-search  [item]="object"
                                         [relationTypes]="[{
                                           label: 'isAuthorOfPublication',
-                                          filter: 'isAuthorOfPublication'
+                                          filter: 'isAuthorOfPublication',
+                                          configuration: 'default-relationships'
                                         }]">
     </ds-tabbed-related-entities-search>
   </div>

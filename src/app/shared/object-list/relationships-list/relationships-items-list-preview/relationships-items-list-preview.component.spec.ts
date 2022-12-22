@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RelationshipsItemsListPreviewComponent } from './relationships-items-list-preview.component';
+import { VarDirective } from '../../../utils/var.directive';
 
 describe('RelationshipsItemsListPreviewComponent', () => {
   let component: RelationshipsItemsListPreviewComponent;
@@ -8,7 +9,7 @@ describe('RelationshipsItemsListPreviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RelationshipsItemsListPreviewComponent ]
+      declarations: [ RelationshipsItemsListPreviewComponent, VarDirective ]
     })
     .compileComponents();
   });

@@ -13,6 +13,7 @@ describe('NumberFieldParser test suite', () => {
     readOnly: false,
     submissionScope: null,
     collectionUUID: null,
+    typeField: 'type',
     isInnerForm: false
   };
 

@@ -5,13 +5,13 @@ import { RegistryService } from '../../../../core/registry/registry.service';
 import { cloneDeep } from 'lodash';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
-import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { NgModel } from '@angular/forms';
 import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
+import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { MetadataSecurityConfiguration } from '../../../../core/submission/models/metadata-security-configuration';
 
 @Component({

@@ -7,8 +7,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { SearchChartsComponent } from './search-charts.component';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { FilterType } from '../models/filter-type.model';
@@ -28,6 +26,8 @@ describe('SearchChartsComponent', () => {
     filterType: FilterType['chart.bar']
   });
 
+  const mockChartFilters$ = createSuccessfulRemoteDataObject$([mockGraphPieChartFilterConfig, mockGraphBarChartFilterConfig]);
+
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
     getConfig: jasmine.createSpy('getConfig')
   });
@@ -36,10 +36,6 @@ describe('SearchChartsComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule],
       declarations: [SearchChartsComponent],
-      providers: [
-        { provide: SearchService, useValue: searchServiceStub },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() }
-      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
@@ -47,8 +43,7 @@ describe('SearchChartsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchChartsComponent);
     comp = fixture.componentInstance; // SearchChartsComponent test instance
-    searchService = (comp as any).searchService;
-    searchServiceStub.getConfig.and.returnValue(createSuccessfulRemoteDataObject$([mockGraphPieChartFilterConfig, mockGraphBarChartFilterConfig]));
+    comp.filters = mockChartFilters$;
     fixture.detectChanges();
   });
 

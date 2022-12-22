@@ -1,17 +1,13 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 
 // Import modules
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '../shared/shared.module';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-
 
 // Import components
 import { SubscriptionsPageComponent } from './subscriptions-page.component';
@@ -20,7 +16,6 @@ import { SubscriptionsPageComponent } from './subscriptions-page.component';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { SubscriptionService } from '../shared/subscriptions/subscription.service';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
-import { RouterStub } from '../shared/testing/router.stub';
 import { AuthService } from '../core/auth/auth.service';
 
 // Import utils
@@ -30,12 +25,19 @@ import { HostWindowServiceStub } from '../shared/testing/host-window-service.stu
 
 // Import mocks
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { findAllSubscriptionRes } from '../shared/testing/subscriptions-data.mock';
+import { mockSubscriptionList } from '../shared/testing/subscriptions-data.mock';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { of as observableOf } from 'rxjs';
-import { SubscriptionsModule } from '../shared/subscriptions/subscriptions.module';
 import { EPersonMock } from '../shared/testing/eperson.mock';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { VarDirective } from '../shared/utils/var.directive';
+import {
+  SubscriptionViewComponent
+} from '../shared/subscriptions/components/subscription-view/subscription-view.component';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
+import { PageInfo } from '../core/shared/page-info.model';
+import { buildPaginatedList } from '../core/data/paginated-list.model';
 
 describe('SubscriptionsPageComponent', () => {
   let component: SubscriptionsPageComponent;
@@ -46,8 +48,14 @@ describe('SubscriptionsPageComponent', () => {
     getAuthenticatedUserFromStore: observableOf(EPersonMock)
   });
 
+  const pageInfo = Object.assign(new PageInfo(), {
+    'elementsPerPage': 10,
+    'totalElements': 10,
+    'totalPages': 1,
+    'currentPage': 1
+  });
   const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionService', {
-    findByEPerson: observableOf(findAllSubscriptionRes)
+    findByEPerson: createSuccessfulRemoteDataObject$(buildPaginatedList(pageInfo, mockSubscriptionList))
   });
   const paginationService = new PaginationServiceStub();
 
@@ -55,12 +63,7 @@ describe('SubscriptionsPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        NgbModule,
-        FormsModule,
-        ReactiveFormsModule,
         BrowserModule,
-        SharedModule,
-        SubscriptionsModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
           loader: {
@@ -68,11 +71,11 @@ describe('SubscriptionsPageComponent', () => {
             useClass: TranslateLoaderMock
           }
         }),
+        NoopAnimationsModule
       ],
-      declarations: [ SubscriptionsPageComponent ],
+      declarations: [ PaginationComponent, SubscriptionsPageComponent, SubscriptionViewComponent, VarDirective ],
       providers:[
         { provide: SubscriptionService, useValue: subscriptionServiceStub },
-        { provide: Router, useValue: new RouterStub() },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: AuthService, useValue: authServiceStub },
@@ -97,12 +100,11 @@ describe('SubscriptionsPageComponent', () => {
 
   describe('when table', () => {
 
-    it('should show table', async() => {
-      await fixture.whenStable();
-      fixture.detectChanges();
+    it('should show table', fakeAsync(() => {
+      flush();
       const table = de.query(By.css('table'));
       expect(table).toBeTruthy();
-    });
+    }));
 
   });
 
@@ -127,6 +129,5 @@ describe('SubscriptionsPageComponent', () => {
     expect(de.query(By.css('.btn-outline-primary'))).toBeTruthy();
     expect(de.query(By.css('.btn-outline-danger'))).toBeTruthy();
   });
-
 
 });

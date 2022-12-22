@@ -2,7 +2,7 @@ import { autoserialize, deserialize } from 'cerialize';
 
 import { HALLink } from '../../../core/shared/hal-link.model';
 import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { CacheableObject } from '../../../core/cache/object-cache.reducer';
+import { CacheableObject } from '../../../core/cache/cacheable-object.model';
 import { SEARCH_CONFIG } from './search-config.resource-type';
 import { ResourceType } from '../../../core/shared/resource-type';
 

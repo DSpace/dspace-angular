@@ -41,6 +41,7 @@ export class RowParser {
                initFormValues: any,
                submissionScope,
                readOnly: boolean,
+               typeField: string,
                isInnerForm: boolean = false,
                securityConfig: any = null): DynamicRowGroupModel {
     let fieldModel: any = null;
@@ -59,6 +60,7 @@ export class RowParser {
       readOnly: readOnly,
       submissionScope: submissionScope,
       collectionUUID: scopeUUID,
+      typeField: typeField,
       isInnerForm: isInnerForm
     };
 

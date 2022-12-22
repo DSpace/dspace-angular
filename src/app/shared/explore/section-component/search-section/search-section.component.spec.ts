@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -14,12 +14,14 @@ import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { SearchSectionComponent } from './search-section.component';
 import { Router } from '@angular/router';
 import { SearchConfig } from '../../../search/search-filters/search-config.model';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 
 describe('SearchSectionComponent', () => {
   let component: SearchSectionComponent;
   let fixture: ComponentFixture<SearchSectionComponent>;
 
   let searchServiceStub: any;
+  let searchConfigurationStub: any;
   let router: any;
 
   const firstFilterConfig: any = {
@@ -40,16 +42,18 @@ describe('SearchSectionComponent', () => {
     type: 'text'
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     searchServiceStub = {
+      getSearchLink(): string {
+        return '/search';
+      }
+    };
+    searchConfigurationStub = {
       getSearchConfigurationFor( scope?: string, configurationName?: string ): Observable<RemoteData<SearchConfig>> {
         const config = new SearchConfig();
         config.filters = [firstFilterConfig, secondFilterConfig];
         return createSuccessfulRemoteDataObject$(config);
-      },
-      getSearchLink(): string {
-        return '/search';
       }
     };
 
@@ -69,6 +73,7 @@ describe('SearchSectionComponent', () => {
       declarations: [SearchSectionComponent],
       providers: [SearchSectionComponent,
         { provide: SearchService, useValue: searchServiceStub },
+        { provide: SearchConfigurationService, useValue: searchConfigurationStub },
         { provide: Router, useValue: router }],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

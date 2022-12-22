@@ -2,7 +2,7 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TestScheduler } from 'rxjs/testing';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { getTestScheduler, hot } from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import { VocabularyService } from '../../core/submission/vocabularies/vocabulary.service';
@@ -14,6 +14,8 @@ import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { expand, map, switchMap } from 'rxjs/operators';
+import { from as observableFrom } from 'rxjs';
 
 describe('VocabularyTreeviewService test suite', () => {
 
@@ -320,10 +322,25 @@ describe('VocabularyTreeviewService test suite', () => {
       scheduler.schedule(() => service.searchByQuery(vocabularyOptions));
       scheduler.flush();
 
-      searchChildNode.childrenChange.next([searchChildNode3]);
-      searchItemNode.childrenChange.next([searchChildNode]);
-      expect(serviceAsAny.dataChange.value.length).toEqual(1);
-      expect(serviceAsAny.dataChange.value).toEqual([searchItemNode]);
+      // We can't check the tree by comparing root TreeviewNodes directly in this particular test;
+      // Since RxJs 7, BehaviorSubjects can no longer be reliably compared because of the new currentObservers property
+      // (see https://github.com/ReactiveX/rxjs/pull/6842)
+      const levels$ = serviceAsAny.dataChange.pipe(
+        expand((nodes: TreeviewNode[]) => {         // recursively apply:
+          return observableFrom(nodes).pipe(        //   for each node in the array...
+            switchMap(node => node.childrenChange)  //   ...map it to the array its child nodes.
+          );                                        // because we only have one child per node in this case,
+        }),                                         // this results in an array of nodes for each level of the tree.
+        map((nodes: TreeviewNode[]) => nodes.map(node => node.item)), // finally, replace nodes with their vocab entries
+      );
+
+      // Confirm that this corresponds to the hierarchy we set up above
+      expect(levels$).toBeObservable(cold('-(abcd)', {
+        a: [item],
+        b: [child],
+        c: [child3],
+        d: []           // ensure that grandchild has no children & the recursion stopped there
+      }));
     });
   });
 

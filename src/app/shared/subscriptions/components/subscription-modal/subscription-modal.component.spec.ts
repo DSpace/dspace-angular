@@ -1,7 +1,5 @@
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 
-import { of as observableOf } from 'rxjs';
-
 // Import modules
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -42,7 +40,7 @@ describe('SubscriptionModalComponent', () => {
     beforeEach(async () => {
 
       subscriptionServiceStub = jasmine.createSpyObj('SubscriptionService', {
-        getSubscriptionByPersonDSO: observableOf(findByEPersonAndDsoResEmpty),
+        getSubscriptionByPersonDSO: createSuccessfulRemoteDataObject$(findByEPersonAndDsoResEmpty),
         createSubscription: createSuccessfulRemoteDataObject$({}),
         updateSubscription: createSuccessfulRemoteDataObject$({}),
       });
@@ -103,7 +101,7 @@ describe('SubscriptionModalComponent', () => {
     beforeEach(async () => {
 
       subscriptionServiceStub = jasmine.createSpyObj('SubscriptionService', {
-        getSubscriptionByPersonDSO: observableOf(findByEPersonAndDsoRes),
+        getSubscriptionByPersonDSO: createSuccessfulRemoteDataObject$(findByEPersonAndDsoRes),
         createSubscription: createSuccessfulRemoteDataObject$({}),
         updateSubscription: createSuccessfulRemoteDataObject$({}),
       });

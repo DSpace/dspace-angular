@@ -12,6 +12,10 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { RouteService } from '../core/services/route.service';
 import { PaginationService } from '../core/pagination/pagination.service';
+import { LinkService } from '../core/cache/builders/link.service';
+import { HALEndpointService } from '../core/shared/hal-endpoint.service';
+import { RequestService } from '../core/data/request.service';
+import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
 import { Context } from '../core/shared/context.model';
 
 export const MyDSpaceConfigurationToContextMap = new Map([
@@ -65,13 +69,21 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
    * @param {RouteService} routeService
    * @param {PaginationService} paginationService
    * @param {ActivatedRoute} route
+   * @param linkService
+   * @param halService
+   * @param requestService
+   * @param rdb
    */
   constructor(protected roleService: RoleService,
               protected routeService: RouteService,
               protected paginationService: PaginationService,
-              protected route: ActivatedRoute) {
+              protected route: ActivatedRoute,
+              protected linkService: LinkService,
+              protected halService: HALEndpointService,
+              protected requestService: RequestService,
+              protected rdb: RemoteDataBuildService) {
 
-    super(routeService, paginationService, route);
+    super(routeService, paginationService, route, linkService, halService, requestService, rdb);
 
     // override parent class initialization
     this._defaults = null;

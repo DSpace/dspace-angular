@@ -25,9 +25,9 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../core/data/request.models';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 describe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;

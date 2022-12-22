@@ -12,6 +12,7 @@ import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
 import { By } from '@angular/platform-browser';
+import { BrowserOnlyMockPipe } from '../../../../shared/testing/browser-only-mock.pipe';
 
 let comp: ItemEditBitstreamComponent;
 let fixture: ComponentFixture<ItemEditBitstreamComponent>;
@@ -72,7 +73,11 @@ describe('ItemEditBitstreamComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [ItemEditBitstreamComponent, VarDirective],
+      declarations: [
+        ItemEditBitstreamComponent,
+        VarDirective,
+        BrowserOnlyMockPipe,
+      ],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService }
       ], schemas: [

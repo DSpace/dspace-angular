@@ -10,11 +10,10 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { SectionModelComponent } from '../models/section.model';
-import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
+import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { hasValue, isEmpty, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { SectionDataObject } from '../models/section-data.model';
 import { renderSectionFor } from '../sections-decorator';
@@ -25,7 +24,6 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { SectionsService } from '../sections.service';
 import { difference } from '../../../shared/object.util';
 import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -34,9 +32,9 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { environment } from '../../../../environments/environment';
 import { ConfigObject } from '../../../core/config/models/config.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
+import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SubmissionVisibility } from '../../utils/visibility.util';
 import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
 import { SubmissionVisibilityType } from '../../../core/config/models/config-submission-section.model';
@@ -134,7 +132,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    * @param {FormBuilderService} formBuilderService
    * @param {SectionFormOperationsService} formOperationsService
    * @param {FormService} formService
-   * @param {SubmissionFormsConfigService} formConfigService
+   * @param {SubmissionFormsConfigDataService} formConfigService
    * @param {NotificationsService} notificationsService
    * @param {SectionsService} sectionService
    * @param {SubmissionService} submissionService
@@ -151,7 +149,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
               protected formBuilderService: FormBuilderService,
               protected formOperationsService: SectionFormOperationsService,
               protected formService: FormService,
-              protected formConfigService: SubmissionFormsConfigService,
+              protected formConfigService: SubmissionFormsConfigDataService,
               protected notificationsService: NotificationsService,
               protected sectionService: SectionsService,
               protected submissionService: SubmissionService,
@@ -274,8 +272,8 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    */
   private inCurrentSubmissionScope(field: string): boolean {
     const visibility: SubmissionVisibilityType = this.formConfig?.rows.find(row => {
-      return row.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
-    }).fields?.[0]?.visibility;
+      return row?.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
+    })?.fields?.[0]?.visibility;
 
     return SubmissionVisibility.isVisible(visibility, this.submissionService.getSubmissionScope());
   }

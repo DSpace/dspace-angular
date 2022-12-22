@@ -9,7 +9,9 @@
 <ds-search-charts *ngIf="showCharts"
                   [configuration]="currentConfiguration$"
                   [collapseChart]="collapseCharts"
+                  [filters]="chartFiltersRD$.asObservable()"
                   [inPlaceSearch]="inPlaceSearch"
+                  [refreshFilters]="refreshFilters"
                   [showChartsToggle]="showChartsToggle"></ds-search-charts>
 
 <div *ngIf="!showSidebar && (initialized$ | async)">
@@ -37,18 +39,22 @@
                   <i class="fas fa-sliders"></i> {{"search.sidebar.open" | translate}}
                 </button>
             </div>
-            <ds-search-results [searchResults]="resultsRD$ | async"
+            <ds-themed-search-results [searchResults]="resultsRD$ | async"
                                [searchConfig]="searchOptions$ | async"
                                [configuration]="(currentConfiguration$ | async)"
                                [disableHeader]="!searchEnabled"
                                [linkType]="linkType"
                                [context]="(currentContext$ | async)"
+                               [searchResultNotice]="searchResultNotice"
+                               [searchResultNoticeType]="searchResultNoticeType"
                                [selectable]="selectable"
                                [selectionConfig]="selectionConfig"
+                               [showSearchResultNotice]="showSearchResultNotice"
                                [customData]="customData"
+                               (contentChange)="onContentChange($event)"
                                (customEvent)="customEvent.emit($event)"
                                (deselectObject)="deselectObject.emit($event)"
-                               (selectObject)="selectObject.emit($event)"></ds-search-results>
+                               (selectObject)="selectObject.emit($event)"></ds-themed-search-results>
         </div>
     </div>
 </ng-template>
@@ -58,6 +64,8 @@
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
+                       [filters]="filtersRD$.asObservable()"
+                       [refreshFilters]="refreshFilters"
                        [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
                        [searchOptions]="(searchOptions$ | async)"
                        [sortOptionsList]="(sortOptionsList$ | async)"
@@ -71,6 +79,8 @@
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
+                       [filters]="filtersRD$.asObservable()"
+                       [refreshFilters]="refreshFilters"
                        [resultCount]="(resultsRD$ | async)?.payload.totalElements"
                        [searchOptions]="(searchOptions$ | async)"
                        [sortOptionsList]="(sortOptionsList$ | async)"

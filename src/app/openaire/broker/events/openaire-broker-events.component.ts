@@ -9,7 +9,7 @@ import { distinctUntilChanged, map, mergeMap, scan, switchMap, take } from 'rxjs
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { FindListOptions } from '../../../core/data/request.models';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 import {
   OpenaireBrokerEventMessageObject,
   OpenaireBrokerEventObject

@@ -11,9 +11,8 @@ import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { environment } from '../../../../../../../../environments/environment';
-import { FindListOptions } from '../../../../../../../core/data/request.models';
+import { FindListOptions } from '../../../../../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
-import { PageInfo } from '../../../../../../../core/shared/page-info.model';
 
 @Component({
   selector: 'ds-attachment',
@@ -27,11 +26,6 @@ import { PageInfo } from '../../../../../../../core/shared/page-info.model';
 export class AttachmentComponent extends BitstreamRenderingModelComponent implements OnInit {
 
   /**
-   * List of all bitstreams that belong to the item
-   */
-  allBitstreams$: BehaviorSubject<Bitstream[]> = new BehaviorSubject<Bitstream[]>([]);
-
-  /**
    * List of bitstreams to show
    */
   bitstreams$: BehaviorSubject<Bitstream[]> = new BehaviorSubject<Bitstream[]>([]);
@@ -40,11 +34,6 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
    * If the list should show view more button
    */
   canViewMore = false;
-
-  /**
-   * The current pagination information
-   */
-  currentPageInfo: PageInfo;
 
   /**
    * Environment variables configuring pagination
@@ -70,9 +59,7 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
   * On init check if we want to show the attachment list with pagination or show all attachments
   */
   ngOnInit() {
-    if (this.envPagination.enabled) {
-      this.initPageOptions();
-    }
+    this.initPageOptions();
     this.retrieveBitstreams();
   }
 
@@ -80,21 +67,15 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
    * Retrieve the list of bitstream to show
    */
   retrieveBitstreams(): void {
-    this.getBitstreams().pipe(
-      map((bitstreamList: PaginatedList<Bitstream>) => this.filterBitstreamsByType(bitstreamList.page)),
+    this.getBitstreamsByItem(this.pageOptions).pipe(
+      map((bitstreamList: PaginatedList<Bitstream>) => {
+        this.canViewMore = this.envPagination.enabled && this.pageOptions?.currentPage !== bitstreamList?.pageInfo?.totalPages;
+        return bitstreamList.page;
+      }),
       take(1)
     ).subscribe((bitstreams: Bitstream[]) => {
       if (this.envPagination.enabled) {
-        this.currentPageInfo = new PageInfo({
-            elementsPerPage: this.pageOptions.elementsPerPage,
-            totalElements: bitstreams.length,
-            totalPages: Math.ceil(bitstreams.length / this.pageOptions.elementsPerPage),
-            currentPage: this.pageOptions.currentPage
-          }
-        );
-        this.allBitstreams$.next(bitstreams);
-
-        this.bitstreams$.next(this.getPaginatedBitstreams(this.pageOptions.currentPage));
+        this.bitstreams$.next([...this.bitstreams$.value, ...bitstreams]);
       } else {
         this.bitstreams$.next(bitstreams);
       }
@@ -105,18 +86,8 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
    * When view more is clicked show the next page and check if view more button should be shown
    */
   viewMore() {
-    this.currentPageInfo.currentPage++;
-    this.bitstreams$.next(this.getPaginatedBitstreams(this.currentPageInfo.currentPage));
-  }
-
-  /**
-   * Get the list of paginated bitstreams that will be shown
-   */
-  protected getPaginatedBitstreams(page: number): Bitstream[] {
-    this.canViewMore = this.currentPageInfo?.currentPage !== this.currentPageInfo?.totalPages;
-    return this.allBitstreams$.value.filter((bitstream: Bitstream, index) => {
-      return index < this.pageOptions.elementsPerPage * page;
-    });
+    this.pageOptions.currentPage++;
+    this.retrieveBitstreams();
   }
 
   /**
@@ -125,7 +96,7 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
    */
   protected initPageOptions(): void {
     this.pageOptions = Object.assign(new FindListOptions(), {
-      elementsPerPage: this.envPagination.elementsPerPage,
+      elementsPerPage: this.envPagination.enabled ? this.envPagination.elementsPerPage : 100,
       currentPage: 1
     });
   }

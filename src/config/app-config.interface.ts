@@ -8,13 +8,19 @@ import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { SubmissionConfig } from './submission-config.interface';
 import { FormConfig } from './form-config.interfaces';
 import { LangConfig } from './lang-config.interface';
-import { ItemPageConfig } from './item-page-config.interface';
+import { ItemConfig } from './item-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { ThemeConfig } from './theme.model';
 import { AuthConfig } from './auth-config.interfaces';
 import { UIServerConfig } from './ui-server-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { BrowseByConfig } from './browse-by-config.interface';
+import { BundleConfig } from './bundle-config.interface';
+import { ActuatorsConfig } from './actuators.config';
+import { InfoConfig } from './info-config.interface';
+import { CommunityListConfig } from './community-list-config.interface';
+import { HomeConfig } from './homepage-config.interface';
+import { MarkdownConfig } from './markdown-config.interface';
 import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-config.interfaces';
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { CmsMetadata } from './cms-metadata';
@@ -36,10 +42,16 @@ interface AppConfig extends Config {
   defaultLanguage: string;
   languages: LangConfig[];
   browseBy: BrowseByConfig;
-  item: ItemPageConfig;
+  communityList: CommunityListConfig;
+  homePage: HomeConfig;
+  item: ItemConfig;
   collection: CollectionPageConfig;
   themes: ThemeConfig[];
   mediaViewer: MediaViewerConfig;
+  bundle: BundleConfig;
+  actuators: ActuatorsConfig
+  info: InfoConfig;
+  markdown: MarkdownConfig;
   crisLayout: CrisLayoutConfig;
   layout: LayoutConfig;
   security: MetadataSecurityConfig;
@@ -52,6 +64,10 @@ interface AppConfig extends Config {
   advancedAttachmentRendering: AdvancedAttachmentRenderingConfig;
 }
 
+/**
+ * Injection token for the app configuration.
+ * Provided in {@link InitService.providers}.
+ */
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
 const APP_CONFIG_STATE = makeStateKey('APP_CONFIG_STATE');

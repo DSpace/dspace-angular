@@ -5,7 +5,7 @@ import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
 import { filter, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { ExternalSourceService } from '../../core/data/external-source.service';
+import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
 import { ExternalSourceData } from './import-external-searchbar/submission-import-external-searchbar.component';
 import { RemoteData } from '../../core/data/remote-data';
 import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
@@ -93,14 +93,14 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
   /**
    * Initialize the component variables.
    * @param {SearchConfigurationService} searchConfigService
-   * @param {ExternalSourceService} externalService
+   * @param {ExternalSourceDataService} externalService
    * @param {RouteService} routeService
    * @param {Router} router
    * @param {NgbModal} modalService
    */
   constructor(
     public searchConfigService: SearchConfigurationService,
-    private externalService: ExternalSourceService,
+    private externalService: ExternalSourceDataService,
     private routeService: RouteService,
     private router: Router,
     private modalService: NgbModal,

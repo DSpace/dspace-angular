@@ -1,13 +1,15 @@
 import { Component, Inject, Input, OnInit, SimpleChanges } from '@angular/core';
-import { Observable, of as observableOf } from 'rxjs';
+
+import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { isNotEmpty } from '../../../empty.util';
 import { SearchFilterConfig } from '../../models/search-filter-config.model';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-search-chart',
@@ -28,6 +30,11 @@ export class SearchChartComponent implements OnInit {
    * True when the search component should show results on the current page
    */
   @Input() inPlaceSearch;
+
+  /**
+   * Emits when the search filters values may be stale, and so they must be refreshed.
+   */
+  @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
    * Emits all currently selected values for this filter

@@ -1,6 +1,6 @@
 import { autoserialize, deserialize } from 'cerialize';
 
-import { CacheableObject } from '../../../cache/object-cache.reducer';
+import { CacheableObject } from '../../../cache/cacheable-object.model';
 import { OPENAIRE_BROKER_TOPIC_OBJECT } from './openaire-broker-topic-object.resource-type';
 import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { ResourceType } from '../../../shared/resource-type';

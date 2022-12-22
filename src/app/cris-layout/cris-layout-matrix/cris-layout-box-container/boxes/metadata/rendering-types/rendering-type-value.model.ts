@@ -33,4 +33,13 @@ export abstract class RenderingTypeValueModelComponent extends RenderingTypeMode
     this.renderingSubType = renderingSubTypeProvider;
   }
 
+  /**
+   * Purge all HTML tags, then replace newline character with <br>
+   * @param text
+   */
+  formatText(text: string): string {
+    const newlineRegex = /\n/g;
+    return text.replace(/>/g, '&gt;').replace(/</g, '&lt;').replace(newlineRegex, '<br>');
+  }
+
 }

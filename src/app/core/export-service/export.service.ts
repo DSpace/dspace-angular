@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { ExportAsConfig, ExportAsService } from 'ngx-export-as';
 import { toJpeg, toPng } from 'html-to-image';
-import { Options } from 'html-to-image/es/options';
+import { Options } from 'html-to-image/es/types';
 import { saveAs } from 'file-saver';
 import { BehaviorSubject } from 'rxjs';
 

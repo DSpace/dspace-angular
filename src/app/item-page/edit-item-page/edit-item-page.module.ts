@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltipModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { SharedModule } from '../../shared/shared.module';
 import { EditItemPageRoutingModule } from './edit-item-page.routing.module';
@@ -15,6 +15,7 @@ import { ItemPrivateComponent } from './item-private/item-private.component';
 import { ItemPublicComponent } from './item-public/item-public.component';
 import { ItemDeleteComponent } from './item-delete/item-delete.component';
 import { ItemMetadataComponent } from './item-metadata/item-metadata.component';
+import { ThemedItemMetadataComponent } from './item-metadata/themed-item-metadata.component';
 import { EditInPlaceFieldComponent } from './item-metadata/edit-in-place-field/edit-in-place-field.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
 import { ItemEditBitstreamComponent } from './item-bitstreams/item-edit-bitstream/item-edit-bitstream.component';
@@ -50,7 +51,8 @@ import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver
     EditItemPageRoutingModule,
     SearchPageModule,
     DragDropModule,
-    ResourcePoliciesModule
+    ResourcePoliciesModule,
+    NgbModule
   ],
   declarations: [
     EditItemPageComponent,
@@ -65,6 +67,7 @@ import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver
     ItemUnlinkOrcidComponent,
     ItemStatusComponent,
     ItemMetadataComponent,
+    ThemedItemMetadataComponent,
     ItemRelationshipsComponent,
     ItemBitstreamsComponent,
     ItemVersionHistoryComponent,
@@ -88,6 +91,8 @@ import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver
     EditItemResolver
   ],
   exports: [
+    EditInPlaceFieldComponent,
+    ThemedItemMetadataComponent,
     ItemMetadataComponent,
     EditMetadataSecurityComponent
   ]

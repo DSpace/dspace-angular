@@ -8,12 +8,12 @@ import {
   isAuthenticated,
   isAuthenticationLoading
 } from '../../core/auth/selectors';
-import { CoreState } from '../../core/core.reducers';
 import { getForgotPasswordRoute, getRegisterRoute } from '../../app-routing-paths';
 import { hasValue } from '../empty.util';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { CoreState } from '../../core/core-state.model';
 
 /**
  * /users/sign-in

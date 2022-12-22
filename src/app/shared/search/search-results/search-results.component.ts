@@ -11,6 +11,7 @@ import { CollectionElementLinkType } from '../../object-collection/collection-el
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { AlertType } from '../../alert/aletr-type';
 
 export interface SelectionConfig {
   repeatable: boolean;
@@ -36,6 +37,16 @@ export class SearchResultsComponent {
    * The link type of the listed search results
    */
   @Input() linkType: CollectionElementLinkType;
+
+  /**
+   * Contains a notice to show before result list if any
+   */
+  @Input() searchResultNotice: string = null;
+
+  /**
+   * The alert type to use for the notice
+   */
+  @Input() searchResultNoticeType: AlertType = AlertType.Info;
 
   /**
    * The actual search result objects
@@ -85,6 +96,16 @@ export class SearchResultsComponent {
    */
   @Input() selectionConfig: SelectionConfig = null;
 
+  /**
+   * A boolean representing if show search result notice
+   */
+  @Input() showSearchResultNotice = false;
+
+  /**
+   * Emit when one of the listed object has changed.
+   */
+  @Output() contentChange = new EventEmitter<any>();
+
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
@@ -126,4 +147,13 @@ export class SearchResultsComponent {
 
     return result;
   }
+
+  /**
+   * Catch the custom event and emit it again
+   * @param $event
+   */
+  emitCustomEvent($event: any) {
+    this.customEvent.emit($event);
+  }
+
 }
