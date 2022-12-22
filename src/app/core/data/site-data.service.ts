@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { Operation } from 'fast-json-patch';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -52,8 +52,15 @@ export class SiteDataService extends IdentifiableDataService<Site> implements Fi
     const options = Object.assign(new FindListOptions(), { searchParams });
     return this.findAll(options).pipe(
       getFirstCompletedRemoteData(),
-      map((remoteData: RemoteData<PaginatedList<Site>>) => {
-        return remoteData.hasSucceeded ? remoteData.payload.page[0] : null;
+      switchMap((remoteData: RemoteData<PaginatedList<Site>>) => {
+        if (remoteData.hasSucceeded) {
+          return of(remoteData.payload.page[0]);
+        } else {
+          return this.findAll().pipe(
+            getFirstCompletedRemoteData(),
+            map((rd: RemoteData<PaginatedList<Site>>) => rd.hasSucceeded ? rd.payload.page[0] : null)
+          );
+        }
       })
     );
   }
