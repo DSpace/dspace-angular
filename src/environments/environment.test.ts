@@ -309,6 +309,7 @@ export const environment: BuildConfig = {
         }
       }
     ],
+    crisRefStyleMetadata: 'cris.entity.style',
     itemPage: {
       Person: {
         orientation: 'horizontal'

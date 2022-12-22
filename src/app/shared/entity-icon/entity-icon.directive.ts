@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
-import { CrisRefConfig, CrisRefEntityStyleConfig } from 'src/config/layout-config.interfaces';
+import { CrisRefConfig, CrisRefEntityStyleConfig } from '../../../config/layout-config.interfaces';
 import { isEmpty, isNotEmpty } from '../empty.util';
 
 /**
@@ -85,9 +85,9 @@ export class EntityIconDirective implements OnInit {
     if (Array.isArray(styles)) {
       styles.forEach((style) => {
         if (Object.keys(crisConfig.entityStyle).includes(style)) {
-          filteredConf = crisConfig.entityStyle[style]
+          filteredConf = crisConfig.entityStyle[style];
         }
-      })
+      });
     } else {
       filteredConf = crisConfig.entityStyle[styles];
     }
