@@ -1,6 +1,6 @@
 <div cdkDropListGroup>
   <div class="relationships-container">
-    <h2>{{ 'manage.relationships.title' | translate }}</h2>
+    <h2>{{ 'manage.relationships.selected-list.title' | translate }}</h2>
     <ds-loading *ngIf="(isLoading | async)"></ds-loading>
     <ng-container *ngIf="!(this.isLoading | async)">
       <div *ngIf="(filteredRelationships && filteredRelationships.length > 0) ; else noData"

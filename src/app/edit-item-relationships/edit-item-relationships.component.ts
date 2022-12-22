@@ -13,6 +13,7 @@ import { Relationship } from '../core/shared/item-relationships/relationship.mod
 import { hasValue } from '../shared/empty.util';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import {
+  getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload
@@ -333,7 +334,9 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    */
   updateRelationship(relationship: Relationship): void {
     this.processing$.next(true);
-    this.relationshipService.updateRightPlace(relationship).pipe(take(1)).pipe(
+    this.relationshipService.updateRightPlace(relationship).pipe(
+      getFirstCompletedRemoteData()
+    ).pipe(
       switchMap((rd: RemoteData<Relationship>) => {
         if (rd.hasSucceeded) {
           return this.retrieveRelationships();

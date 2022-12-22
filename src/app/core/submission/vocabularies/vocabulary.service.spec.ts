@@ -9,10 +9,7 @@ import { RequestService } from '../../data/request.service';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { PageInfo } from '../../shared/page-info.model';
 import { buildPaginatedList } from '../../data/paginated-list.model';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { RestResponse } from '../../cache/response.models';
 import { VocabularyService } from './vocabulary.service';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
@@ -248,6 +245,7 @@ describe('VocabularyService', () => {
           buildList: hot('a|', {
             a: paginatedListRD,
           }),
+          setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring')
         });
 
         service = initTestService();
@@ -256,6 +254,7 @@ describe('VocabularyService', () => {
         spyOn((service as any).vocabularyDataService, 'findAll').and.callThrough();
         spyOn((service as any).vocabularyDataService, 'findByHref').and.callThrough();
         spyOn((service as any).vocabularyDataService.findAllData, 'getFindAllHref').and.returnValue(observableOf(entriesRequestURL));
+        spyOn((service as any).vocabularyDataService.searchData, 'getSearchByHref').and.returnValue(observableOf(searchRequestURL));
       });
 
       afterEach(() => {
@@ -421,7 +420,7 @@ describe('VocabularyService', () => {
       requestService = jasmine.createSpyObj('requestService', {
         generateRequestId: requestUUID,
         send: true,
-        removeByHrefSubstring: {},
+        setStaleByHrefSubstring: {},
         getByHref: observableOf(responseCacheEntry),
         getByUUID: observableOf(responseCacheEntry),
       });
@@ -432,6 +431,7 @@ describe('VocabularyService', () => {
         buildList: hot('a|', {
           a: vocabularyEntryChildrenRD
         }),
+        setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring')
       });
 
       service = initTestService();
@@ -561,7 +561,7 @@ describe('VocabularyService', () => {
       it('should remove requests on the data service\'s endpoint', (done) => {
         service.clearSearchTopRequests();
 
-        expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(`search/${(service as any).searchTopMethod}`);
+        expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(`search/${(service as any).searchTopMethod}`);
         done();
       });
     });

@@ -4,11 +4,10 @@ import { BehaviorSubject, Observable, Subscription as rxSubscription } from 'rxj
 import { switchMap, take, tap } from 'rxjs/operators';
 
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
-import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
+import { PaginatedList } from '../core/data/paginated-list.model';
 import { SubscriptionService } from '../shared/subscriptions/subscription.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../core/pagination/pagination.service';
-import { PageInfo } from '../core/shared/page-info.model';
 import { AuthService } from '../core/auth/auth.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
@@ -24,7 +23,7 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
   /**
    * The subscriptions to show on this page, as an Observable list.
    */
-  subscriptions$: BehaviorSubject<PaginatedList<Subscription>> = new BehaviorSubject(buildPaginatedList<Subscription>(new PageInfo(), []));
+  subscriptions$: BehaviorSubject<PaginatedList<Subscription>> = new BehaviorSubject(null);
 
   /**
    * The current pagination configuration for the page used by the FindAll method

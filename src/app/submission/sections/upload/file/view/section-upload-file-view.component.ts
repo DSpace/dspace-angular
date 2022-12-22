@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
+import {
+  WorkspaceitemSectionUploadFileObject
+} from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { isNotEmpty } from '../../../../../shared/empty.util';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { MetadataMap, MetadataValue } from '../../../../../core/shared/metadata.models';
@@ -10,6 +12,7 @@ import { MetadataMap, MetadataValue } from '../../../../../core/shared/metadata.
  */
 @Component({
   selector: 'ds-submission-section-upload-file-view',
+  styleUrls: ['section-upload-file-view.component.scss'],
   templateUrl: './section-upload-file-view.component.html',
 })
 export class SubmissionSectionUploadFileViewComponent implements OnInit {
@@ -37,6 +40,12 @@ export class SubmissionSectionUploadFileViewComponent implements OnInit {
    * @type {string}
    */
   public fileDescrKey = 'Description';
+
+  /**
+   * The bitstream's description key
+   * @type {string}
+   */
+  public fileCheckSumKey = 'CheckSum';
 
   /**
    * Initialize instance variables

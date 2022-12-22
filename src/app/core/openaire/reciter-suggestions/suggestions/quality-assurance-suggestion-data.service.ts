@@ -77,7 +77,7 @@ export class QualityAssuranceSuggestionDataService extends IdentifiableDataServi
    *
    * @param id                          The user id to retrieve.
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
-   *                                    no valid cached version. Defaults to true
+   *                                    no valid-cached version. Defaults to true
    * @param reRequestOnStale            Whether or not the request should automatically be re-requested
    *                                    after the response becomes stale
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
@@ -96,7 +96,7 @@ export class QualityAssuranceSuggestionDataService extends IdentifiableDataServi
    * @param source                      The source for which to find suggestions.
    * @param options                     Find list options object.
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
-   *                                    no valid cached version. Defaults to true
+   *                                    no valid-cached version. Defaults to true
    * @param reRequestOnStale            Whether or not the request should automatically be re-requested
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
    *

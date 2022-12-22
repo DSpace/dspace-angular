@@ -307,15 +307,38 @@ export const environment: BuildConfig = {
     crisRef: [
       {
         entityType: 'DEFAULT',
-        icon: 'fa fa-info'
+        entityStyle: {
+          default: {
+            icon: 'fa fa-user',
+            style: 'text-success'
+          }
+        }
       },
       {
         entityType: 'PERSON',
-        icon: 'fa fa-user'
+        entityStyle: {
+          person: {
+            icon: 'fa fa-user',
+            style: 'text-success'
+          },
+          personStaff: {
+            icon: 'fa fa-user',
+            style: 'text-primary'
+          },
+          default: {
+            icon: 'fa fa-user',
+            style: 'text-success'
+          }
+        }
       },
       {
         entityType: 'ORGUNIT',
-        icon: 'fa fa-university'
+        entityStyle: {
+          default: {
+            icon: 'fa fa-university',
+            style: 'text-success'
+          }
+        }
       }
     ],
     itemPage: {
@@ -449,6 +472,10 @@ export const environment: BuildConfig = {
       },
       {
         name: 'format',
+        type: AdvancedAttachmentElementType.Attribute,
+      },
+      {
+        name: 'checksum',
         type: AdvancedAttachmentElementType.Attribute,
       }
     ]

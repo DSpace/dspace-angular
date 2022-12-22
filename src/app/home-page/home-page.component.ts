@@ -60,7 +60,7 @@ export class HomePageComponent implements OnInit {
     );
     this.siteService.find().pipe(take(1)).subscribe(
       (site: Site) => {
-        this.hasHomeHeaderMetadata = !isEmpty(site.firstMetadataValue('cris.cms.home-header',
+        this.hasHomeHeaderMetadata = !isEmpty(site?.firstMetadataValue('cris.cms.home-header',
           { language: this.locale.getCurrentLanguageCode() }));
       }
     );

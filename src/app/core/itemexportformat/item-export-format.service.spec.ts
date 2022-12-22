@@ -25,7 +25,6 @@ import createSpyObj = jasmine.createSpyObj;
 describe('ItemExportFormatService', () => {
 
   let service: ItemExportFormatService;
-  let serviceAsAny: any;
   const notificationsService: NotificationsService = new NotificationsServiceStub() as any;
   const translateService: TranslateService = {
     get: () => of('test-message'),
@@ -58,7 +57,7 @@ describe('ItemExportFormatService', () => {
     beforeEach(() => {
       const searchResult: any = [...ItemExportFormatsMap.Publication, ...ItemExportFormatsMap.Project];
       const paginatedList: PaginatedList<ItemExportFormat> = createPaginatedList(searchResult);
-      spyOn(serviceAsAny.searchData, 'searchBy').and.returnValue(createSuccessfulRemoteDataObject$(paginatedList));
+      spyOn((service as any).searchData, 'searchBy').and.returnValue(createSuccessfulRemoteDataObject$(paginatedList));
     });
 
     it('should configure and call dataService.searchBy and map results by entityType', (done) => {
@@ -71,7 +70,7 @@ describe('ItemExportFormatService', () => {
       ];
 
       service.byEntityTypeAndMolteplicity(entityTypeId, molteplicity).subscribe((result) => {
-        expect(serviceAsAny.searchData.searchBy).toHaveBeenCalledWith('byEntityTypeAndMolteplicity', { searchParams, elementsPerPage: 100 });
+        expect((service as any).searchData.searchBy).toHaveBeenCalledWith('byEntityTypeAndMolteplicity', { searchParams, elementsPerPage: 100 });
         expect(result).toEqual(ItemExportFormatsMap);
         done();
       });

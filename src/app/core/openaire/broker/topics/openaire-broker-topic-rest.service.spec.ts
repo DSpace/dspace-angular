@@ -80,7 +80,7 @@ describe('OpenaireBrokerTopicRestService', () => {
       notificationsService
     );
 
-    spyOn((service as any), 'findAllByHref').and.callThrough();
+    spyOn((service as any), 'findListByHref').and.callThrough();
     spyOn((service as any), 'findByHref').and.callThrough();
   });
 

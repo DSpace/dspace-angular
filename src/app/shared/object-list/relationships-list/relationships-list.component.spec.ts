@@ -16,7 +16,8 @@ import { Item } from '../../../core/shared/item.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.reducer';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
 
 describe('RelationshipsListComponent', () => {
   let component: RelationshipsListComponent;
@@ -51,6 +52,7 @@ describe('RelationshipsListComponent', () => {
         provideMockStore({ initialState }),
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environment }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

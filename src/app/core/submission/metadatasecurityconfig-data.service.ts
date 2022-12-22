@@ -34,7 +34,7 @@ export class MetadataSecurityConfigurationService extends IdentifiableDataServic
    * @param entityType
    */
   findById(entityType: string): Observable<RemoteData<MetadataSecurityConfiguration>> {
-    return this.findById(entityType);
+    return super.findById(entityType);
   }
 }
 
