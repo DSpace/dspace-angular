@@ -82,7 +82,7 @@ export class AuditDataService extends IdentifiableDataService<Audit>{
    *                                    {@link HALLink}s should be automatically resolved
    */
   findById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Audit>[]): Observable<RemoteData<Audit>> {
-    return this.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    return super.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   findAll(options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Audit>[]): Observable<RemoteData<PaginatedList<Audit>>> {
