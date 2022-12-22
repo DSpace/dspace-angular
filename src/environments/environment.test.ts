@@ -473,6 +473,10 @@ export const environment: BuildConfig = {
       {
         name: 'format',
         type: AdvancedAttachmentElementType.Attribute,
+      },
+      {
+        name: 'checksum',
+        type: AdvancedAttachmentElementType.Attribute,
       }
     ]
   }

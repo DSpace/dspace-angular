@@ -1590,6 +1590,9 @@
 
   "datapackage.listelement.badge": "Data Package",
 
+
+  "checksum-tooltip.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
+
   "cookies.consent.accept-all": "Accept all",
 
   "cookies.consent.accept-selected": "Accept selected",
@@ -1682,6 +1685,10 @@
   "cris-layout.advanced-attachment.dc.title": "Name",
 
   "cris-layout.advanced-attachment.size": "Size",
+
+  "cris-layout.advanced-attachment.checksum": "Checksum",
+
+  "cris-layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
 
   "cris-layout.advanced-attachment.format": "Format",
 
@@ -5918,6 +5925,8 @@
   "submission.sections.toggle.aria.open": "Expand {{sectionHeader}} section",
 
   "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
+
+  "submission.sections.upload.checksum": "Checksum",
 
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
 

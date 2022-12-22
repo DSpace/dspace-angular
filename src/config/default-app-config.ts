@@ -642,6 +642,10 @@ export class DefaultAppConfig implements AppConfig {
       {
         name: 'format',
         type: AdvancedAttachmentElementType.Attribute,
+      },
+      {
+        name: 'checksum',
+        type: AdvancedAttachmentElementType.Attribute,
       }
     ]
   };

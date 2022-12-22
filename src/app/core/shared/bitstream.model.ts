@@ -7,9 +7,14 @@ import { BITSTREAM_FORMAT } from './bitstream-format.resource-type';
 import { BITSTREAM } from './bitstream.resource-type';
 import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
-import {BUNDLE} from './bundle.resource-type';
-import {Bundle} from './bundle.model';
+import { BUNDLE } from './bundle.resource-type';
+import { Bundle } from './bundle.model';
 import { ChildHALResource } from './child-hal-resource.model';
+
+export interface ChecksumInfo {
+  checkSumAlgorithm: string;
+  value: string;
+}
 
 @typedObject
 @inheritSerialization(DSpaceObject)
@@ -27,6 +32,12 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
    */
   @autoserialize
   description: string;
+
+  /**
+   * The checksum information of this Bitstream
+   */
+  @autoserialize
+  checkSum: ChecksumInfo;
 
   /**
    * The name of the Bundle this Bitstream is part of
