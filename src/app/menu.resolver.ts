@@ -128,10 +128,10 @@ export class MenuResolver implements Resolve<boolean> {
             active: false,
             visible: true,
           };
-          if (section.nestedSections) {
+          if (section.nestedSections && section.nestedSections.length) {
             section.nestedSections.forEach((nested) => {
               menuList.push({
-                id: `explore_${nested.id}`,
+                id: `explore_nested_${nested.id}`,
                 parentID: `explore_${section.id}`,
                 active: false,
                 visible: true,

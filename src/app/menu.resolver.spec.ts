@@ -29,8 +29,8 @@ const EXPLORE_SECTIONS_DEFINITIONS = [
   {
     id: 'definition2',
     nestedSections: [
-      { id: 'nested_definition1' },
-      { id: 'nested_definition2' }
+      { id: 'definition1' },
+      { id: 'definition2' }
     ]
   },
   { id: 'definition3' },
@@ -45,17 +45,17 @@ const ALL_NESTED_MENUS = [
   {
     id: 'definition1',
     nestedSections: [
-      { id: 'nested_definition1' },
+      { id: 'definition1' },
     ]
   },{
     id: 'definition2',
     nestedSections: [
-      { id: 'nested_definition2' },
+      { id: 'definition2' },
     ]
   },{
     id: 'definition3',
     nestedSections: [
-      { id: 'nested_definition3' },
+      { id: 'definition3' },
     ]
   }
 ];

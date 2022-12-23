@@ -29,6 +29,7 @@ export class Section extends CacheableObject {
   @autoserialize
   componentRows: SectionComponent[][];
 
+  @autoserialize
   nestedSections: Section[];
 
   /**
