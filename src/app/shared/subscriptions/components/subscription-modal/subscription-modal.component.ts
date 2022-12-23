@@ -1,38 +1,23 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import {
-  AbstractControl,
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ValidatorFn,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Subscription } from '../../models/subscription.model';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, shareReplay } from 'rxjs';
 
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 
 import { SubscriptionService } from '../../subscription.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationType } from '../../../notifications/models/notification-type';
-import { NotificationOptions } from '../../../notifications/models/notification-options.model';
 
-import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 
-import { hasValue } from '../../../empty.util';
-import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
-import { NoContent } from '../../../../core/shared/NoContent.model';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { AuthService } from '../../../../core/auth/auth.service';
 
 @Component({
@@ -70,6 +55,8 @@ export class SubscriptionModalComponent implements OnInit {
 
   ePersonId$: Observable<string>;
 
+  ePersonId: string;
+
   /**
    * Types of subscription to be shown on select
    */
@@ -98,6 +85,10 @@ export class SubscriptionModalComponent implements OnInit {
     this.ePersonId$ = this.authService.getAuthenticatedUserFromStore().pipe(
       take(1),
       map((ePerson) => ePerson.uuid),
+      tap((res) => {
+        this.ePersonId = res;
+      }),
+      shareReplay(),
     );
 
     this.subscriptionForm = this.formBuilder.group({});
@@ -138,9 +129,9 @@ export class SubscriptionModalComponent implements OnInit {
 
           // TODO loop over subscription types
           // for (let type of this.subscriptionTypes) {
-            const type = 'content'; // remove
+            const type = 'content'; // TODO remove
             const subscription = this.subscriptions.find((s) => s.subscriptionType === type);
-            // TODO manage multiple subscriptions with same tipe (there should be only one)
+            // TODO manage multiple subscriptions with same type (there should be only one)
             for (let parameter of subscription.subscriptionParameterList.filter((p) => p.name === 'frequency')) {
               this.subscriptionForm.controls[parameter.value]?.setValue(true);
             }
@@ -169,29 +160,45 @@ export class SubscriptionModalComponent implements OnInit {
 
   submit() {
 
-    // TODO
+    // for (let type of this.subscriptionTypes) {
 
-    /*
-        - remove subscription if no checkbox is selected
-        - add subscription if it does not exist
-        - edit subscription if it already exists
-     */
+      const type = 'content'; // TODO remove
 
-    const body = {
-      type: 'content',
-      subscriptionParameterList: []
-    };
+      const currentSubscription =  this.subscriptions?.find((s) => s.subscriptionType === type);
 
-    for (let frequency of this.frequencies) {
-      if (this.subscriptionForm.value[frequency]) {
-        body.subscriptionParameterList.push(
-          {
-            name: 'frequency',
-            value: frequency,
-          }
-        );
+      const body = {
+        id: currentSubscription?.id,
+        type,
+        subscriptionParameterList: []
+      };
+
+      let someCheckboxSelected = false;
+
+      for (let frequency of this.frequencies) {
+        if (this.subscriptionForm.value[frequency]) { // TODO read the value for the type
+          someCheckboxSelected = true;
+          body.subscriptionParameterList.push(
+            {
+              name: 'frequency',
+              value: frequency,
+            }
+          );
+        }
       }
-    }
+
+      if (currentSubscription && someCheckboxSelected) {
+        console.log('UPDATE');
+        this.subscriptionService.updateSubscription(body, this.ePersonId, this.dso.uuid).subscribe(console.log);
+      } else if (currentSubscription && !someCheckboxSelected) {
+        console.log('DELETE');
+        this.subscriptionService.deleteSubscription(currentSubscription.id).subscribe(console.log);
+      } else if (someCheckboxSelected) {
+        console.log('CREATE');
+        this.subscriptionService.createSubscription(body, this.ePersonId, this.dso.uuid).subscribe(console.log);
+      }
+
+
+    // }
 
     // this.subscriptionService.createSubscription(body, this.ePersonId, this.dso.uuid).subscribe((res) => {
     //     // this.refresh();
@@ -206,43 +213,6 @@ export class SubscriptionModalComponent implements OnInit {
   }
 
 
-  /**
-   * Sends request to create a new subscription, refreshes the table of subscriptions and notifies about summary page
-   */
-  /*createForm(body): void {
-    this.subscriptionService.createSubscription(body, this.ePersonId, this.dso.uuid).subscribe((res) => {
-        this.refresh();
-        this.notify();
-        this.processing$.next(false);
-      },
-      err => {
-        this.processing$.next(false);
-      }
-    );
-  }*/
-
-  /**
-   * Sends request to update a subscription, refreshes the table of subscriptions and notifies about summary page
-   */
-  /*updateForm(body) {
-    this.subscriptionService.updateSubscription(body, this.ePersonId, this.dso.uuid).subscribe((res) => {
-        this.refresh();
-        this.notify();
-        this.processing$.next(false);
-      },
-      err => {
-        this.processing$.next(false);
-      }
-    );
-  }*/
-
-
-  /**
-   * Sends the request to delete the subscription with a specific id
-   */
-  /*deleteSubscription(id): Observable<NoContent> {
-    return this.subscriptionService.deleteSubscription(id);
-  }*/
 
   /**
    * Creates a notification with the link to the subscription summary page
@@ -261,46 +231,4 @@ export class SubscriptionModalComponent implements OnInit {
     );
   }*/
 
-  /**
-   * When an action is done it will reinitialize the table and remove subscription form
-   */
-  /*refresh(): void {
-    this.initSubscription();
-    this.subscriptionForm = null;
-    this.submitted = false;
-  }*/
-
-  /**
-   * Returns if a specific frequency exists in the subscriptionParameterList
-   */
-  getIsChecked(frequency): boolean {
-    return !!this.subscriptionForm.get('subscriptionParameterList').value.find(el => el.value === frequency.value);
-  }
-
-  /**
-   * Deletes Subscription, show notification on success/failure & updates list
-   *
-   * @param subscription Subscription to be deleted
-   */
-  /*deleteSubscriptionPopup(subscription: Subscription): void {
-    if (hasValue(subscription.id)) {
-      const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = this.dso;
-      modalRef.componentInstance.headerLabel = 'confirmation-modal.delete-subscription.header';
-      modalRef.componentInstance.infoLabel = 'confirmation-modal.delete-subscription.info';
-      modalRef.componentInstance.cancelLabel = 'confirmation-modal.delete-subscription.cancel';
-      modalRef.componentInstance.confirmLabel = 'confirmation-modal.delete-subscription.confirm';
-      modalRef.componentInstance.brandColor = 'danger';
-      modalRef.componentInstance.confirmIcon = 'fas fa-trash';
-
-      modalRef.componentInstance.response.pipe(
-        take(1),
-        filter((confirm: boolean) => confirm),
-        switchMap(() => this.deleteSubscription(subscription.id))
-      ).subscribe(() => {
-        this.refresh();
-      });
-
-    }
-  }*/
 }

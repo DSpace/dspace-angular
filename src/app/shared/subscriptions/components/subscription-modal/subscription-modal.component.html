@@ -17,9 +17,8 @@
 
         <div class="col-md-8">
 
-          <div class="form-check" *ngFor="let frequency of this.subscriptionForm.controls | keyvalue">
-            <input type="checkbox" [id]="'checkbox-' + frequency" class="form-check-input" [disabled]="processing$ | async"
-                   [formControlName]="frequency.key"/>
+          <div class="form-check" *ngFor="let frequency of subscriptionForm.controls | keyvalue">
+            <input type="checkbox" [id]="'checkbox-' + frequency" class="form-check-input" [formControlName]="frequency.key"/>
             <label class="form-check-label"
                    [for]="'checkbox-' + frequency.key">{{ 'item.page.subscriptions.modal.new-subscription-form.frequency.' + frequency.key | translate }}</label>
           </div>
