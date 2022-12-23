@@ -64,6 +64,7 @@ export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
           const date = zonedTimeToUtc(alert.countdownTo, 'UTC');
           const timeDifference = date.getTime() - new Date().getTime();
           if (timeDifference > 0) {
+            this.allocateTimeUnits(timeDifference);
             return interval(1000);
           }
         }
