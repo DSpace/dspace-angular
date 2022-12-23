@@ -17,8 +17,10 @@ import { PaginatedList } from '../../../../core/data/paginated-list.model';
 
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { AuthService } from '../../../../core/auth/auth.service';
+import { NotificationType } from '../../../notifications/models/notification-type';
+import { NotificationOptions } from '../../../notifications/models/notification-options.model';
 
 @Component({
   selector: 'ds-subscription-modal',
@@ -188,7 +190,17 @@ export class SubscriptionModalComponent implements OnInit {
 
       if (currentSubscription && someCheckboxSelected) {
         console.log('UPDATE');
-        this.subscriptionService.updateSubscription(body, this.ePersonId, this.dso.uuid).subscribe(console.log);
+        this.subscriptionService.updateSubscription(body, this.ePersonId, this.dso.uuid).pipe(
+          getFirstCompletedRemoteData(),
+        ).subscribe((res) => {
+            if (res.hasSucceeded) {
+              this.notifySuccess();
+              this.activeModal.close();
+            } else {
+              this.notifyFailure();
+            }
+          }
+        );
       } else if (currentSubscription && !someCheckboxSelected) {
         console.log('DELETE');
         this.subscriptionService.deleteSubscription(currentSubscription.id).subscribe(console.log);
@@ -217,7 +229,7 @@ export class SubscriptionModalComponent implements OnInit {
   /**
    * Creates a notification with the link to the subscription summary page
    */
-  /*notify(): void {
+  notifySuccess(): void {
     const options = new NotificationOptions();
     options.timeOut = 0;
     const link = '/subscriptions';
@@ -229,6 +241,11 @@ export class SubscriptionModalComponent implements OnInit {
       'context-menu.actions.subscription.notification.content',
       'here'
     );
-  }*/
+  }
+
+  notifyFailure() {
+    console.error('error');
+    // TODO
+  }
 
 }
