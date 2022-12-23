@@ -114,6 +114,7 @@ import { ObjectListComponent } from './app/shared/object-list/object-list.compon
 import { BrowseByMetadataPageComponent } from './app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component';
 import { BrowseByDatePageComponent } from './app/browse-by/browse-by-date-page/browse-by-date-page.component';
 import { BrowseByTitlePageComponent } from './app/browse-by/browse-by-title-page/browse-by-title-page.component';
+import { SystemWideAlertModule } from '../../app/system-wide-alert/system-wide-alert.module';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -220,6 +221,7 @@ const DECLARATIONS = [
     FormsModule,
     ResourcePoliciesModule,
     ComcolModule,
+    SystemWideAlertModule
   ],
   declarations: DECLARATIONS,
   exports: [
