@@ -129,7 +129,7 @@ describe('ItemExportService', () => {
 
         service.submitForm(ItemExportFormatMolteplicity.MULTIPLE, null, searchOptions, selectedEntityType, selectedFormat).subscribe((processNumber) => {
           expect(itemExportFormatService.doExport).not.toHaveBeenCalled();
-          expect(itemExportFormatService.doExportMulti).toHaveBeenCalledWith(selectedEntityType, selectedFormat, searchOptions);
+          expect(itemExportFormatService.doExportMulti).toHaveBeenCalledWith(selectedEntityType, selectedFormat, searchOptions, []);
           expect(processNumber).toEqual(2222);
           done();
         });
