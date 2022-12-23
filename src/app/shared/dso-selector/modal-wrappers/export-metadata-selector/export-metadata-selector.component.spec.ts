@@ -21,7 +21,6 @@ import {
 } from '../../../remote-data.utils';
 import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { SharedModule } from '../../../shared.module';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
 @NgModule({
@@ -33,10 +32,9 @@ import { SharedModule } from '../../../shared.module';
                 useClass: TranslateLoaderMock
             }
         }),
-      SharedModule
     ],
     exports: [],
-    declarations: [],
+    declarations: [ConfirmationModalComponent],
     providers: []
 })
 class ModelTestModule {
@@ -104,7 +102,7 @@ describe('ExportMetadataSelectorComponent', () => {
       isAuthorized: observableOf(true)
     });
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), SharedModule, ModelTestModule],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule],
       declarations: [ExportMetadataSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },

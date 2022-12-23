@@ -9,7 +9,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { ItemDataService } from '../data/item-data.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { ItemExportFormat } from './model/item-export-format.model';
+import { ItemExportFormat, ItemExportFormatMap } from './model/item-export-format.model';
 import { ITEM_EXPORT_FORMAT } from './model/item-export-format.resource-type';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
@@ -69,7 +69,7 @@ export class ItemExportFormatService extends IdentifiableDataService<ItemExportF
    * @return Observable<{ [entityType: string]: ItemExportFormat[]}>
    *    dictionary which map for the requested entityTypesId all the allowed export formats
    */
-  byEntityTypeAndMolteplicity(entityTypeId: string, molteplicity: ItemExportFormatMolteplicity): Observable<{ [entityType: string]: ItemExportFormat[] }> {
+  byEntityTypeAndMolteplicity(entityTypeId: string, molteplicity: ItemExportFormatMolteplicity): Observable<ItemExportFormatMap> {
     const searchHref = 'byEntityTypeAndMolteplicity';
 
     const searchParams = [];

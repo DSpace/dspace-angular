@@ -23,6 +23,7 @@ import {
 } from '../../core/itemexportformat/item-export-format.service';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { ItemExportFormatMap } from '../../core/itemexportformat/model/item-export-format.model';
 
 @Component({
   selector: 'ds-entity-dropdown',
@@ -89,6 +90,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
    *
    * @param {ChangeDetectorRef} changeDetectorRef
    * @param {EntityTypeDataService} entityTypeService
+   * @param {ItemExportFormatService} itemExportFormatService
    * @param {ElementRef} el
    */
   constructor(
@@ -128,7 +130,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
    * @param event
    */
   public onScroll(event) {
-    this.scrollableBottom = (event.target.scrollTop + event.target.clientHeight === event.target.scrollHeight);
+    this.scrollableBottom = ((event.target.scrollTop + event.target.clientHeight) === event.target.scrollHeight);
     this.scrollableTop = (event.target.scrollTop === 0);
   }
 
@@ -168,7 +170,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
     } else {
       searchListEntity$ = this.itemExportFormatService.byEntityTypeAndMolteplicity(null, ItemExportFormatMolteplicity.MULTIPLE).pipe(
         take(1),
-        map((formatTypes: any) => {
+        map((formatTypes: ItemExportFormatMap) => {
           const entityList: ItemType[] = Object.keys(formatTypes)
             .filter((entityType: string) => isNotNull(entityType) && entityType !== 'null')
             .map((entityType: string) => ({
@@ -191,10 +193,10 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
         startWith([])
     );
     this.subs.push(
-      this.searchListEntity$.subscribe(
-        (next) => { this.searchListEntity.push(...next); }, undefined,
-        () => { this.hideShowLoader(false); this.changeDetectorRef.detectChanges(); }
-      )
+      this.searchListEntity$.subscribe({
+        next: (result: ItemType[]) => { this.searchListEntity.push(...result); },
+        complete: () => { this.hideShowLoader(false); this.changeDetectorRef.detectChanges(); }
+      })
     );
   }
 
