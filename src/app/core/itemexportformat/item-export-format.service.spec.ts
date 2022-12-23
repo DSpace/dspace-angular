@@ -4,7 +4,7 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PaginatedList } from '../data/paginated-list.model';
 import { ItemExportFormat } from './model/item-export-format.model';
-import { ItemExportFormatsMap } from '../../shared/item-export/item-export.service.spec';
+import { ItemExportFormatsMap } from '../../shared/search/item-export/item-export.service.spec';
 import { RequestParam } from '../cache/models/request-param.model';
 import { Process } from '../../process-page/processes/process.model';
 import { EventEmitter } from '@angular/core';

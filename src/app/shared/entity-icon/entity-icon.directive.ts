@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
-import { CrisRefConfig, CrisRefEntityStyleConfig } from 'src/config/layout-config.interfaces';
+import { CrisRefConfig, CrisRefEntityStyleConfig } from '../../../config/layout-config.interfaces';
 import { isEmpty, isNotEmpty } from '../empty.util';
 
 /**

@@ -1,22 +1,22 @@
-import { Item } from './../../../core/shared/item.model';
+import { Item } from '../../../../core/shared/item.model';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserModule, By } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { of, of as observableOf } from 'rxjs';
 
 import { ItemExportComponent } from './item-export.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { RouterMock } from '../../mocks/router.mock';
+import { RouterMock } from '../../../mocks/router.mock';
 import { Router } from '@angular/router';
 import { ItemExportFormConfiguration, ItemExportService } from '../item-export.service';
 import { ItemExportAlertStubComponent } from '../item-export-alert/item-export-alert.component.spec';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 
 describe('ItemExportComponent', () => {
   let component: ItemExportComponent;
@@ -97,6 +97,7 @@ describe('ItemExportComponent', () => {
       component.molteplicity = 'molteplicity' as any;
       component.item = mockItem;
       component.itemType = itemType;
+      component.bulkExportLimit = '-1' as any;
 
       // data
       configuration = { format: 'format', entityType: 'entityType' } as any;
@@ -170,6 +171,7 @@ describe('ItemExportComponent', () => {
       component.searchOptions = 'searchOptions' as any;
       component.molteplicity = 'molteplicity' as any;
       component.itemType = itemType;
+      component.bulkExportLimit = '-1' as any;
       component.exportForm = new FormGroup({
         format: new FormControl('format', [Validators.required]),
         entityType: new FormControl('Person', [Validators.required]),

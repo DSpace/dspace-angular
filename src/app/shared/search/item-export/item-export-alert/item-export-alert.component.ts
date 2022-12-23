@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { Item } from '../../../core/shared/item.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { Item } from '../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-item-export-alert',
@@ -9,6 +9,7 @@ import { Item } from '../../../core/shared/item.model';
 export class ItemExportAlertComponent {
 
   @Input() item: Item;
+  @Input() bulkExportLimit: string;
 
   constructor(private dsoNameService: DSONameService) {
   }

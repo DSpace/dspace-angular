@@ -28,6 +28,7 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { SearchDataImpl } from '../data/base/search-data';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { isNotEmpty } from '../../shared/empty.util';
 
 export enum ItemExportFormatMolteplicity {
   SINGLE = 'SINGLE',
@@ -110,19 +111,24 @@ export class ItemExportFormatService extends IdentifiableDataService<ItemExportF
    * @param entityType The requested entityType
    * @param format The requested export format
    * @param searchOptions the state of the search to model into a bulk-item-export process
+   * @param itemList If not empty contains the list of item to export only
    *
    * @return an Observable containing the processNumber if the script starts successfully, or null in case of errors
    */
-  public doExportMulti(entityType: string, format: ItemExportFormat, searchOptions: SearchOptions): Observable<number> {
+  public doExportMulti(entityType: string, format: ItemExportFormat, searchOptions: SearchOptions, itemList: string[] = []): Observable<number> {
 
     let parameterValues = [];
-    parameterValues = this.entityTypeParameter(entityType, parameterValues);
     parameterValues = this.formatParameter(format, parameterValues);
-    parameterValues = this.queryParameter(searchOptions, parameterValues);
-    parameterValues = this.filtersParameter(searchOptions, parameterValues);
-    parameterValues = this.scopeParameter(searchOptions, parameterValues);
-    parameterValues = this.configurationParameter(searchOptions, parameterValues);
-    parameterValues = this.sortParameter(searchOptions, parameterValues);
+    if (isNotEmpty(itemList)) {
+      parameterValues = this.listUUIDParameter(itemList.join(';'), parameterValues);
+    } else {
+      parameterValues = this.entityTypeParameter(entityType, parameterValues);
+      parameterValues = this.queryParameter(searchOptions, parameterValues);
+      parameterValues = this.filtersParameter(searchOptions, parameterValues);
+      parameterValues = this.scopeParameter(searchOptions, parameterValues);
+      parameterValues = this.configurationParameter(searchOptions, parameterValues);
+      parameterValues = this.sortParameter(searchOptions, parameterValues);
+    }
 
     return this.launchScript(BULK_ITEM_EXPORT_SCRIPT_NAME, parameterValues);
   }
@@ -154,6 +160,10 @@ export class ItemExportFormatService extends IdentifiableDataService<ItemExportF
 
   private formatParameter(format: ItemExportFormat, parameterValues: ProcessParameter[]): ProcessParameter[] {
     return [...parameterValues, Object.assign(new ProcessParameter(), { name: '-f', value: format.id })];
+  }
+
+  private listUUIDParameter(list: string, parameterValues: ProcessParameter[]): ProcessParameter[] {
+    return [...parameterValues, Object.assign(new ProcessParameter(), { name: '-si', value: list })];
   }
 
   private queryParameter(searchOptions: SearchOptions, parameterValues: ProcessParameter[]): ProcessParameter[] {

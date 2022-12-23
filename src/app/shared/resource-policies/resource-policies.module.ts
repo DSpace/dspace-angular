@@ -22,10 +22,7 @@ const COMPONENTS = [
   ResourcePolicyEntryComponent,
   ResourcePolicyFormComponent,
   ResourcePolicyEditComponent,
-  ResourcePolicyCreateComponent,
-  EpersonGroupListComponent,
-  EpersonSearchBoxComponent,
-  GroupSearchBoxComponent
+  ResourcePolicyCreateComponent
 ];
 
 const PROVIDERS = [
