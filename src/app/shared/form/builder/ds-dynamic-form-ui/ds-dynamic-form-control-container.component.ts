@@ -4,7 +4,7 @@ import {
   Component,
   ComponentFactoryResolver,
   ContentChildren,
-  EventEmitter,
+  EventEmitter, Inject,
   Input,
   NgZone,
   OnChanges,
@@ -118,6 +118,8 @@ import { RelationshipOptions } from '../models/relationship-options.model';
 import { FormBuilderService } from '../form-builder.service';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
+import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -231,6 +233,11 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   private showErrorMessagesPreviousStage: boolean;
 
+  /**
+   * Determines whether to request embedded thumbnail.
+   */
+  fetchThumbnail: boolean;
+
   get componentType(): Type<DynamicFormControl> | null {
     return dsDynamicFormControlMapFn(this.model);
   }
@@ -253,9 +260,11 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private ref: ChangeDetectorRef,
     private formService: FormService,
     private formBuilderService: FormBuilderService,
-    private submissionService: SubmissionService
+    private submissionService: SubmissionService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
+    this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
   }
 
   /**
@@ -285,7 +294,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               followLink('rightItem'),
               followLink('relationshipType')
             );
-
             relationshipsRD$.pipe(
               getFirstSucceededRemoteDataPayload(),
               getPaginatedListPayload()
@@ -317,8 +325,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       }
 
       if (hasValue(this.value) && this.value.isVirtual) {
-        const relationship$ = this.relationshipService.findById(this.value.virtualValue, true, true, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType'))
-          .pipe(
+        const relationship$ = this.relationshipService.findById(this.value.virtualValue,
+          true,
+          true,
+          ... itemLinksToFollow(this.fetchThumbnail)).pipe(
             getAllSucceededRemoteData(),
             getRemoteDataPayload());
         this.relationshipValue$ = observableCombineLatest([this.item$.pipe(take(1)), relationship$]).pipe(
