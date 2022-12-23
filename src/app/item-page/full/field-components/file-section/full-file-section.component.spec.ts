@@ -18,6 +18,8 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment';
 
 describe('FullFileSectionComponent', () => {
   let comp: FullFileSectionComponent;
@@ -69,7 +71,8 @@ describe('FullFileSectionComponent', () => {
       providers: [
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
+        { provide: APP_CONFIG, useValue: environment },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

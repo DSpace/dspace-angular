@@ -55,6 +55,8 @@ auth:
 
 # Form settings
 form:
+  # Sets the spellcheck textarea attribute value
+  spellCheck: true
   # NOTE: Map server-side validators to comparative Angular form validators
   validatorMap:
     required: required
@@ -143,6 +145,9 @@ languages:
   - code: nl
     label: Nederlands
     active: true
+  - code: pl
+    label: Polski
+    active: true
   - code: pt-PT
     label: Português
     active: true
@@ -170,6 +175,10 @@ languages:
   - code: el
     label: Ελληνικά
     active: true
+  - code: uk
+    label: Yкраї́нська
+    active: true
+
 
 # Browse-By Pages
 browseBy:
@@ -207,6 +216,11 @@ item:
     undoTimeout: 10000 # 10 seconds
   # Show the item access status label in items lists
   showAccessStatuses: false
+  bitstream:
+    # Number of entries in the bitstream list in the item view page.
+    # Rounded to the nearest size in the list of selectable sizes on the
+    # settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
+    pageSize: 5
 
 # Collection Page Config
 collection:

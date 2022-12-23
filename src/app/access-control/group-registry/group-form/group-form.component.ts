@@ -46,6 +46,7 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { Operation } from 'fast-json-patch';
 import { ValidateGroupExists } from './validators/group-exists.validator';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'ds-group-form',
@@ -194,6 +195,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         label: groupDescription,
         name: 'groupDescription',
         required: false,
+        spellCheck: environment.form.spellCheck,
       });
       this.formModel = [
         this.groupName,

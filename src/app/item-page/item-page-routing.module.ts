@@ -67,6 +67,7 @@ import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
               id: 'statistics_item_:id',
               active: true,
               visible: true,
+              index: 2,
               model: {
                 type: MenuItemType.LINK,
                 text: 'menu.section.statistics',
