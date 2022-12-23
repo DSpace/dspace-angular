@@ -2915,6 +2915,8 @@
 
   "nav.stop-impersonating": "Stop impersonating EPerson",
 
+  "nav.subscriptions" : "Subscriptions",
+
   "nav.toggle" : "Toggle navigation",
 
   "nav.user.description" : "User profile bar",
@@ -4490,6 +4492,36 @@
   "submission.workspace.generic.view": "View",
 
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+
+
+  "subscriptions.title": "Subscriptions",
+
+  "subscriptions.item": "Subscriptions for items",
+
+  "subscriptions.collection": "Subscriptions for collections",
+
+  "subscriptions.community": "Subscriptions for communities",
+
+  "subscriptions.subscription_type": "Subscription type",
+
+  "subscriptions.frequency": "Subscription frequency",
+
+  "subscriptions.frequency.D": "Daily",
+
+  "subscriptions.frequency.M": "Monthly",
+
+  "subscriptions.frequency.W": "Weekly",
+
+  "subscriptions.table.dso": "Subject",
+
+  "subscriptions.table.subscription_type": "Subscription Type",
+
+  "subscriptions.table.subscription_frequency": "Subscription Frequency",
+
+  "subscriptions.table.action": "Action",
+
+  "subscriptions.table.empty.message": "You have not subscribed any notification yet. To subscribe notification about an object please use the contextual menu in the object detail view",
+
 
 
   "thumbnail.default.alt": "Thumbnail Image",

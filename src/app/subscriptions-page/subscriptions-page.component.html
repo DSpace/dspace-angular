@@ -10,7 +10,7 @@
             <ds-pagination
               *ngIf="subscriptions?.pageInfo?.totalElements > 0 && !(loading$ | async)"
               [paginationOptions]="config"
-              [pageInfoState]="subscriptions?.pageInfo"
+              [pageInfoState]="obs(subscriptions?.pageInfo)"
               [collectionSize]="subscriptions?.pageInfo?.totalPages"
               [hideGear]="true"
               [hidePagerWhenSinglePage]="true">

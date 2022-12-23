@@ -188,25 +188,44 @@ export class SubscriptionModalComponent implements OnInit {
         }
       }
 
-      if (currentSubscription && someCheckboxSelected) {
-        console.log('UPDATE');
-        this.subscriptionService.updateSubscription(body, this.ePersonId, this.dso.uuid).pipe(
-          getFirstCompletedRemoteData(),
-        ).subscribe((res) => {
+      if (currentSubscription) {
+        const subscriptionsToBeRemobed = this.subscriptions?.filter(
+          (s) => s.subscriptionType === type && s.id !== currentSubscription.id
+        );
+        for (let s of subscriptionsToBeRemobed) {
+          this.subscriptionService.deleteSubscription(currentSubscription.id).pipe(
+            getFirstCompletedRemoteData(),
+          ).subscribe((res) => {
             if (res.hasSucceeded) {
-              this.notifySuccess();
-              this.activeModal.close();
+              console.warn(`An additional subscription with type=${type} and id=${s.id} has been removed`);
             } else {
               this.notifyFailure();
             }
+          });
+        }
+      }
+
+
+      if (currentSubscription && someCheckboxSelected) {
+        // Update the existing subscription
+        this.subscriptionService.updateSubscription(body, this.ePersonId, this.dso.uuid).pipe(
+          getFirstCompletedRemoteData(),
+        ).subscribe((res) => {
+          if (res.hasSucceeded) {
+            this.notifySuccess();
+            this.activeModal.close();
+          } else {
+            this.notifyFailure();
           }
-        );
+        });
       } else if (currentSubscription && !someCheckboxSelected) {
-        console.log('DELETE');
+        // Delete the existing subscription
         this.subscriptionService.deleteSubscription(currentSubscription.id).subscribe(console.log);
+        // TODO handle notifications
       } else if (someCheckboxSelected) {
-        console.log('CREATE');
+        // Create a new subscription
         this.subscriptionService.createSubscription(body, this.ePersonId, this.dso.uuid).subscribe(console.log);
+        // TODO handle notifications
       }
 
 
