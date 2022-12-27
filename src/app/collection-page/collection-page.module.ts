@@ -25,7 +25,7 @@ import { ComcolModule } from '../shared/comcol/comcol.module';
     StatisticsModule.forRoot(),
     EditItemPageModule,
     CollectionFormModule,
-    ComcolModule
+    ComcolModule,
   ],
   declarations: [
     CollectionPageComponent,
@@ -38,7 +38,7 @@ import { ComcolModule } from '../shared/comcol/comcol.module';
   ],
   providers: [
     SearchService,
-  ]
+  ],
 })
 export class CollectionPageModule {
 
