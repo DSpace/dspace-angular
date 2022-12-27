@@ -6,27 +6,27 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '../../../shared.module';
+import { SharedModule } from '../../shared.module';
 import { DebugElement } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { SubscriptionViewComponent } from './subscription-view.component';
 
 // Import mocks
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { ItemInfo } from '../../../testing/relationships-mocks';
-import { findByEPersonAndDsoResEmpty, subscription } from '../../../testing/subscriptions-data.mock';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { findByEPersonAndDsoResEmpty, subscriptionMock } from '../../testing/subscriptions-data.mock';
 
 // Import utils
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { SubscriptionService } from '../../subscription.service';
-import { Subscription } from '../../models/subscription.model';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { SubscriptionService } from '../subscription.service';
+import { Subscription } from '../models/subscription.model';
 
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
-
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { Item } from '../../../core/shared/item.model';
+import { ITEM } from '../../../core/shared/item.resource-type';
 
 describe('SubscriptionViewComponent', () => {
   let component: SubscriptionViewComponent;
@@ -38,6 +38,19 @@ describe('SubscriptionViewComponent', () => {
     getSubscriptionByPersonDSO: observableOf(findByEPersonAndDsoResEmpty),
     deleteSubscription: createSuccessfulRemoteDataObject$({}),
     updateSubscription: createSuccessfulRemoteDataObject$({}),
+  });
+
+  const mockItem = Object.assign(new Item(), {
+    id: 'fake-id',
+    uuid: 'fake-id',
+    handle: 'fake/handle',
+    lastModified: '2018',
+    type: ITEM,
+    _links: {
+      self: {
+        href: 'https://localhost:8000/items/fake-id'
+      }
+    }
   });
 
   beforeEach(async () => {
@@ -70,8 +83,8 @@ describe('SubscriptionViewComponent', () => {
     fixture = TestBed.createComponent(SubscriptionViewComponent);
     component = fixture.componentInstance;
     component.eperson = 'testid123';
-    component.dso = ItemInfo.payload;
-    component.subscription = Object.assign(new Subscription(), subscription);
+    component.dso = mockItem;
+    component.subscription = Object.assign(new Subscription(), subscriptionMock);
     de = fixture.debugElement;
     fixture.detectChanges();
   });

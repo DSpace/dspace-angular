@@ -1,13 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Subscription } from '../../models/subscription.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { Subscription } from '../models/subscription.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 
 import { take } from 'rxjs/operators';
-
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { hasValue } from '../../../empty.util';
-import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-import { SubscriptionService } from '../../subscription.service';
+
+import { hasValue } from '../../empty.util';
+import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
+import { SubscriptionService } from '../subscription.service';
+import { getCommunityModuleRoute } from '../../../community-page/community-page-routing-paths';
+import { getCollectionModuleRoute } from '../../../collection-page/collection-page-routing-paths';
+import { getItemModuleRoute } from '../../../item-page/item-page-routing-paths';
+import { SubscriptionModalComponent } from '../subscription-modal/subscription-modal.component';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -47,16 +51,6 @@ export class SubscriptionViewComponent {
     private subscriptionService: SubscriptionService,
   ) { }
 
-
-  /**
-   * Open modal
-   *
-   * @param content
-   */
-  public openSubscription(content: any) {
-    this.modalRef = this.modalService.open(content);
-  }
-
   /**
    * Return the prefix of the route to the dso object page ( e.g. "items")
    */
@@ -64,13 +58,13 @@ export class SubscriptionViewComponent {
     let routePrefix;
     switch (this.dso.type.toString()) {
       case 'community':
-        routePrefix = '/communities';
+        routePrefix = getCommunityModuleRoute();
         break;
       case 'collection':
-        routePrefix = '/collections';
+        routePrefix = getCollectionModuleRoute();
         break;
       case 'item':
-        routePrefix = '/items';
+        routePrefix = getItemModuleRoute();
         break;
     }
     return routePrefix;
@@ -98,5 +92,15 @@ export class SubscriptionViewComponent {
         }
       });
     }
+  }
+
+  public openSubscriptionModal() {
+    this.modalRef = this.modalService.open(SubscriptionModalComponent);
+    this.modalRef.componentInstance.dso = this.dso;
+    this.modalRef.componentInstance.subscription = this.subscription;
+    this.modalRef.componentInstance.updateSubscription.pipe(take(1)).subscribe((subscription: Subscription) => {
+      this.subscription = subscription;
+    })
+
   }
 }

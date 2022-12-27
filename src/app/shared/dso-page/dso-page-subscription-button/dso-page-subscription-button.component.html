@@ -1,4 +1,4 @@
-<button *ngIf="isAuthorized$ | async"
+<button *ngIf="isAuthorized$ | async" data-test="subscription-button"
         (click)="openSubscriptionModal()"
         [ngbTooltip]="'item.page.subscriptions.tooltip' | translate"
         class="subscription-button btn btn-dark btn-sm">

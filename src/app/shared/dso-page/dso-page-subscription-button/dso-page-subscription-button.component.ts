@@ -3,12 +3,7 @@ import { Observable, of } from 'rxjs';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from '../../../core/auth/auth.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { take } from 'rxjs/operators';
-import {
-  SubscriptionModalComponent
-} from '../../subscriptions/components/subscription-modal/subscription-modal.component';
+import { SubscriptionModalComponent } from '../../subscriptions/subscription-modal/subscription-modal.component';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 
 @Component({

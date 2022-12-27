@@ -1,6 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatestWith, Observable, of, shareReplay, Subscription as rxSubscription } from 'rxjs';
-import { combineLatest, map, switchMap, take, tap } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+
+import { BehaviorSubject, combineLatestWith, Observable, shareReplay } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
+
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
 import { SubscriptionService } from '../shared/subscriptions/subscription.service';
@@ -16,7 +18,7 @@ import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
   templateUrl: './subscriptions-page.component.html',
   styleUrls: ['./subscriptions-page.component.scss']
 })
-export class SubscriptionsPageComponent implements OnInit, OnDestroy {
+export class SubscriptionsPageComponent implements OnInit {
 
   /**
    * The subscriptions to show on this page, as an Observable list.
@@ -32,11 +34,6 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
     pageSize: 10,
     currentPage: 1
   });
-
-  /**
-   * Subscription to be unsubscribed
-   */
-  sub: rxSubscription;
 
   /**
    * A boolean representing if is loading
@@ -69,7 +66,11 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
         this.ePersonId = ePersonId;
       }),*/
     );
-    const currentPagination$ = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
+    this.retrieveSubscriptions();
+  }
+
+  private retrieveSubscriptions() {
+    this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
       tap(console.log),
       combineLatestWith(this.ePersonId$),
       tap(() => {this.loading$.next(true);}),
@@ -77,10 +78,12 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
         currentPage: currentPagination.currentPage,
         elementsPerPage: currentPagination.pageSize
       })),
+      getFirstSucceededRemoteDataPayload(),
       tap((x) => console.log('find', x)),
       // getFirstSucceededRemoteDataPayload(),
     ).subscribe({
       next: (res: any) => {
+        console.log('next',res);
         this.subscriptions$.next(res);
         this.loading$.next(false);
       },
@@ -89,41 +92,11 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
       }
     });
   }
-
   /**
    * When an action is made and the information is changed refresh the information
    */
   refresh(): void {
-    /*this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
-      take(1),
-      switchMap((findListOptions) => {
-          this.loading$.next(true);
-          return this.subscriptionService.findByEPerson(this.ePersonId,{
-            currentPage: findListOptions.currentPage,
-            elementsPerPage: findListOptions.pageSize
-          });
-        }
-      )
-    ).subscribe({
-      next: (res: any) => {
-        this.subscriptions$.next(res);
-        this.loading$.next(false);
-      },
-      error: () => {
-        this.loading$.next(false);
-      }
-    });*/
-  }
-
-  /**
-   * Unsubscribe from pagination subscription
-   */
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
-
-  obs(v) {
-    return of(v);
+    this.retrieveSubscriptions();
   }
 
 }

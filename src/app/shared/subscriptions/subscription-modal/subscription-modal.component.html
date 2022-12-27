@@ -1,4 +1,4 @@
-<form [formGroup]="subscriptionForm" (ngSubmit)="submit()">
+<form *ngIf="subscriptionForm" [formGroup]="subscriptionForm" (ngSubmit)="submit()" data-test="subscription-form">
   <div class="modal-header">
     <h4 class="modal-title">{{'item.page.subscriptions.modal.title' | translate}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
@@ -9,22 +9,23 @@
 
     <div>
 
-      <fieldset class="form-group form-row">
+      <fieldset *ngFor="let subscriptionType of subscriptionForm?.controls | keyvalue" formGroupName="{{subscriptionType.key}}" class="form-group form-row">
 
         <legend class="col-md-4 col-form-label float-md-left pt-0">
-          {{ 'item.page.subscriptions.modal.new-subscription-form.type.content' | translate }}:
+          {{ 'item.page.subscriptions.modal.new-subscription-form.type.' + subscriptionType.key | translate }}:
         </legend>
 
         <div class="col-md-8">
-
-          <div class="form-check" *ngFor="let frequency of subscriptionForm.controls | keyvalue">
+          <input type="hidden" formControlName="subscriptionId" [value]="subscriptionType?.value?.controls['subscriptionId'].value" >
+          <div class="form-check" formGroupName="frequencies" *ngFor="let frequency of subscriptionType?.value?.controls['frequencies'].controls | keyvalue">
             <input type="checkbox" [id]="'checkbox-' + frequency" class="form-check-input" [formControlName]="frequency.key"/>
             <label class="form-check-label"
                    [for]="'checkbox-' + frequency.key">{{ 'item.page.subscriptions.modal.new-subscription-form.frequency.' + frequency.key | translate }}</label>
           </div>
-
         </div>
-
+        <ds-alert *ngIf="!!submitted && subscriptionType?.value?.controls['frequencies'].errors?.required" [type]="'alert-danger'">
+          {{ 'context-menu.actions.subscription.frequency.required' | translate }}
+        </ds-alert>
       </fieldset>
 
 

@@ -1450,6 +1450,13 @@
 
   "confirmation-modal.delete-profile.confirm": "Delete",
 
+  "confirmation-modal.delete-subscription.header": "Delete Subscription",
+
+  "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"",
+
+  "confirmation-modal.delete-subscription.cancel": "Cancel",
+
+  "confirmation-modal.delete-subscription.confirm": "Delete",
 
   "error.bitstream": "Error fetching bitstream",
 
@@ -4511,6 +4518,20 @@
   "subscriptions.frequency.M": "Monthly",
 
   "subscriptions.frequency.W": "Weekly",
+
+
+
+  "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
+
+  "subscriptions.modal.delete.success": "Subscription deleted successfully",
+
+  "subscriptions.modal.update.success": "Subscription to {{ type }} updated successfully",
+
+  "subscriptions.modal.create.error": "An error occurs during the subscription creation",
+
+  "subscriptions.modal.delete.error": "An error occurs during the subscription delete",
+
+  "subscriptions.modal.update.error": "An error occurs during the subscription update",
 
   "subscriptions.table.dso": "Subject",
 

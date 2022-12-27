@@ -70,7 +70,7 @@ export class SubscriptionService extends IdentifiableDataService<Subscription> {
    * @param eperson The eperson to search for
    * @param uuid The uuid of the dsobjcet to search for
    */
-  getSubscriptionByPersonDSO(eperson: string, uuid: string): Observable<RemoteData<PaginatedList<Subscription>>> {
+  getSubscriptionsByPersonDSO(eperson: string, uuid: string): Observable<RemoteData<PaginatedList<Subscription>>> {
 
     const optionsWithObject = Object.assign(new FindListOptions(), {
       searchParams: [
@@ -160,7 +160,14 @@ export class SubscriptionService extends IdentifiableDataService<Subscription> {
       ]
     });
 
-    return this.searchData.searchBy(this.findByEpersonLinkPath, optionsWithObject, true, true, followLink('dSpaceObject'), followLink('ePerson'));
+    // return this.searchData.searchBy(this.findByEpersonLinkPath, optionsWithObject, true, true, followLink('dSpaceObject'), followLink('ePerson'));
+
+    return this.getEndpoint().pipe(
+      map(href => `${href}/search/${this.findByEpersonLinkPath}`),
+      switchMap(href => this.findListByHref(href, optionsWithObject, true, true, followLink('dSpaceObject'), followLink('ePerson')))
+    );
+
+
   }
 
 }

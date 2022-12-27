@@ -1,11 +1,14 @@
+import { Observable } from 'rxjs';
 import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
-import { typedObject } from '../../../core/cache/builders/build-decorators';
 
+import { link, typedObject } from '../../../core/cache/builders/build-decorators';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { HALLink } from '../../../core/shared/hal-link.model';
 import { SUBSCRIPTION } from './subscription.resource-type';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
-
+import { RemoteData } from '../../../core/data/remote-data';
+import { EPERSON } from '../../../core/eperson/models/eperson.resource-type';
+import { DSPACE_OBJECT } from '../../../core/shared/dspace-object.resource-type';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
@@ -41,13 +44,26 @@ export class Subscription extends DSpaceObject {
   };
 
   /**
+   * The logo for this Community
+   * Will be undefined unless the logo {@link HALLink} has been resolved.
+   */
+  @link(EPERSON)
+  ePerson?: Observable<RemoteData<EPerson>>;
+
+  /**
+   * The logo for this Community
+   * Will be undefined unless the logo {@link HALLink} has been resolved.
+   */
+  @link(DSPACE_OBJECT)
+  dSpaceObject?: Observable<RemoteData<DSpaceObject>>;
+  /**
    * The embedded ePerson & dSpaceObject for this Subscription
    */
-  @deserialize
-  _embedded: {
-    ePerson: EPerson;
-    dSpaceObject: DSpaceObject;
-  };
+  /*  @deserialize
+    _embedded: {
+      ePerson: EPerson;
+      dSpaceObject: DSpaceObject;
+    };*/
 }
 
 export interface SubscriptionParameterList {

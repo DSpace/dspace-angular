@@ -4,13 +4,12 @@
       <h2>{{'subscriptions.title' | translate}}</h2>
       <div class="row">
         <div class="col-md-12 m-40">
-          <ds-loading *ngIf="loading$ | async"></ds-loading>
+          <ds-themed-loading *ngIf="loading$ | async"></ds-themed-loading>
           <ng-container *ngVar="(subscriptions$ | async) as subscriptions">
 
             <ds-pagination
               *ngIf="subscriptions?.pageInfo?.totalElements > 0 && !(loading$ | async)"
               [paginationOptions]="config"
-              [pageInfoState]="obs(subscriptions?.pageInfo)"
               [collectionSize]="subscriptions?.pageInfo?.totalPages"
               [hideGear]="true"
               [hidePagerWhenSinglePage]="true">
@@ -25,16 +24,20 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ds-subscription-view *ngFor="let subscription of subscriptions?.page" [eperson]="subscription?._embedded?.ePerson.id" [dso]="subscription?._embedded?.dSpaceObject" [subscription]="subscription" (reload)="refresh()">
+                    <tr ds-subscription-view *ngFor="let subscription of subscriptions?.page"
+                                             [dso]="(subscription?.dSpaceObject | async)?.payload"
+                                             [eperson]="(subscription?.ePerson | async)?.payload?.id"
+                                             [subscription]="subscription"
+                                             (reload)="refresh()">
                     </tr>
                   </tbody>
                 </table>
               </div>
             </ds-pagination>
 
-            <div *ngIf="subscriptions?.pageInfo?.totalElements == 0 && !(loading$ | async)">
+            <ds-alert *ngIf="subscriptions?.pageInfo?.totalElements == 0 && !(loading$ | async)" [type]="'alert-info'">
               {{ 'subscriptions.table.empty.message' | translate }}
-            </div>
+            </ds-alert>
 
           </ng-container>
         </div>
