@@ -29,6 +29,12 @@ export class RegisterEmailFormComponent implements OnInit {
   @Input()
   MESSAGE_PREFIX: string;
 
+  /**
+   * Type of register request to be done, register new email or forgot password (same endpoint)
+   */
+  @Input()
+  typeRequest: string = null;
+
   validMailDomains: string[];
 
   constructor(
@@ -64,12 +70,8 @@ export class RegisterEmailFormComponent implements OnInit {
    * Register an email address
    */
   register() {
-    const typeMap = new Map<string, string>([
-      ['register-page.registration', 'register'],
-      ['forgot-email.form', 'forgot']
-    ]);
     if (!this.form.invalid) {
-      this.epersonRegistrationService.registerEmail(this.email.value, typeMap.get(this.MESSAGE_PREFIX)).subscribe((response: RemoteData<Registration>) => {
+      this.epersonRegistrationService.registerEmail(this.email.value, this.typeRequest).subscribe((response: RemoteData<Registration>) => {
         if (response.hasSucceeded) {
           this.notificationService.success(this.translateService.get(`${this.MESSAGE_PREFIX}.success.head`),
             this.translateService.get(`${this.MESSAGE_PREFIX}.success.content`, {email: this.email.value}));
