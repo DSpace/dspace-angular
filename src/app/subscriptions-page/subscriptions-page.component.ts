@@ -11,7 +11,8 @@ import { PaginationService } from '../core/pagination/pagination.service';
 import { PageInfo } from '../core/shared/page-info.model';
 import { AuthService } from '../core/auth/auth.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
-import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { RemoteData } from '../core/data/remote-data';
 
 @Component({
   selector: 'ds-subscriptions-page',
@@ -43,7 +44,7 @@ export class SubscriptionsPageComponent implements OnInit {
   ePersonId$: Observable<string>;
 
   /**
-   * EPerson id of the logged in user
+   * EPerson id of the logged-in user
    */
   // ePersonId: string;
 
@@ -61,35 +62,26 @@ export class SubscriptionsPageComponent implements OnInit {
     this.ePersonId$ = this.authService.getAuthenticatedUserFromStore().pipe(
       take(1),
       map((ePerson: EPerson) => ePerson.id),
-      shareReplay(),
-      /*tap((ePersonId: string) => { // TODO unused
-        this.ePersonId = ePersonId;
-      }),*/
+      shareReplay()
     );
     this.retrieveSubscriptions();
   }
 
   private retrieveSubscriptions() {
     this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
-      tap(console.log),
       combineLatestWith(this.ePersonId$),
-      tap(() => {this.loading$.next(true);}),
+      tap(() => this.loading$.next(true)),
       switchMap(([currentPagination, ePersonId]) => this.subscriptionService.findByEPerson(ePersonId,{
         currentPage: currentPagination.currentPage,
         elementsPerPage: currentPagination.pageSize
       })),
-      getFirstSucceededRemoteDataPayload(),
-      tap((x) => console.log('find', x)),
-      // getFirstSucceededRemoteDataPayload(),
-    ).subscribe({
-      next: (res: any) => {
-        console.log('next',res);
-        this.subscriptions$.next(res);
-        this.loading$.next(false);
-      },
-      error: () => {
-        this.loading$.next(false);
+      getFirstCompletedRemoteData()
+
+    ).subscribe((res: RemoteData<PaginatedList<Subscription>>) => {
+      if (res.hasSucceeded) {
+        this.subscriptions$.next(res.payload);
       }
+      this.loading$.next(false);
     });
   }
   /**

@@ -2,11 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
 import { BehaviorSubject, combineLatest, from, shareReplay } from 'rxjs';
 import { map, mergeMap, take, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import findIndex from 'lodash/findIndex';
 
 import { Subscription } from '../models/subscription.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -17,7 +17,6 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { AuthService } from '../../../core/auth/auth.service';
 import { isNotEmpty } from '../../empty.util';
-import { findIndex } from 'lodash';
 
 @Component({
   selector: 'ds-subscription-modal',
