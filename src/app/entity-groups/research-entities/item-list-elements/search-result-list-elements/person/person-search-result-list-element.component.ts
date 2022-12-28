@@ -6,8 +6,6 @@ import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import {
   ItemSearchResultListElementComponent
 } from '../../../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement)
 @Component({
@@ -20,14 +18,4 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
  */
 export class PersonSearchResultListElementComponent extends ItemSearchResultListElementComponent {
 
-  public constructor(protected truncatableService: TruncatableService, protected dsoNameService: DSONameService) {
-    super(truncatableService, dsoNameService);
-  }
-
-  /**
-   * Return the person name
-   */
-  get name() {
-    return this.dsoNameService.getName(this.dso);
-  }
 }

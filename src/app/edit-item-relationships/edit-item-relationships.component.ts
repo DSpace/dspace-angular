@@ -7,7 +7,7 @@ import { map, switchMap, take, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 
-import { RelationshipService } from '../core/data/relationship.service';
+import { RelationshipDataService } from '../core/data/relationship-data.service';
 import { RelationshipType } from '../core/shared/item-relationships/relationship-type.model';
 import { Relationship } from '../core/shared/item-relationships/relationship.model';
 import { hasValue } from '../shared/empty.util';
@@ -20,7 +20,7 @@ import {
 } from '../core/shared/operators';
 import { RemoteData } from '../core/data/remote-data';
 import { Item } from '../core/shared/item.model';
-import { EntityTypeService } from '../core/data/entity-type.service';
+import { EntityTypeDataService } from '../core/data/entity-type-data.service';
 import { Context } from '../core/shared/context.model';
 import { HostWindowService } from '../shared/host-window.service';
 import { getItemPageRoute } from '../item-page/item-page-routing-paths';
@@ -55,6 +55,17 @@ export interface ManageRelationshipCustomData {
   styleUrls: ['./edit-item-relationships.component.scss'],
 })
 export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
+
+
+  /**
+   * A boolean representing if hidden relationships are present
+   */
+  hasHiddenRelationship$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  /**
+   * Contain the hidden relationship notice message
+   */
+  hiddenRelationshipMsg: string;
 
   /**
    * A boolean representing if component is active
@@ -148,10 +159,10 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    */
   private subs: Subscription[] = [];
 
-  constructor(protected relationshipService: RelationshipService,
+  constructor(protected relationshipService: RelationshipDataService,
               private route: ActivatedRoute,
               private router: Router,
-              protected entityTypeService: EntityTypeService,
+              protected entityTypeService: EntityTypeDataService,
               private windowService: HostWindowService,
               private translate: TranslateService,
               private title: Title,
@@ -168,7 +179,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    * Get all results of the relation to manage
    */
   ngOnInit() {
-
+    this.hiddenRelationshipMsg = this.translate.instant('manage.relationships.hidden-related-items-alert');
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.info),
       getFirstSucceededRemoteData()
@@ -227,6 +238,8 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
       tap((relationships: Relationship[]) => {
         const relations = relationships
           .filter((relation) => !!relation.leftwardValue && relation.leftwardValue.toLowerCase().includes('is' + this.relationshipType));
+        const hiddenRelationships = relationships.filter(filteredRelationship => filteredRelationship.leftwardValue.toLowerCase().includes('hidden'));
+        this.hasHiddenRelationship$.next(hiddenRelationships.length > 0);
         this.relationshipResults$.next(relations);
 
         let itemId = null;

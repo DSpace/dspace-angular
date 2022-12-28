@@ -15,5 +15,14 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
  */
 @listableObjectComponent(CommunitySearchResult, ViewMode.ListElement)
 export class CommunitySearchResultListElementComponent extends SearchResultListElementComponent<CommunitySearchResult, Community> {
+  /**
+   * Display thumbnails if required by configuration
+   */
+  showThumbnails: boolean;
 
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
+  }
 }

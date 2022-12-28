@@ -10,7 +10,6 @@ import { ItemExportFormConfiguration, ItemExportService } from '../item-export.s
 import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ItemExportFormat } from '../../../../core/itemexportformat/model/item-export-format.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { isEmpty, isNotEmpty } from '../../../empty.util';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
@@ -79,8 +78,6 @@ export class ItemExportComponent implements OnInit, OnDestroy {
 
   listId = 'export-list';
 
-  isMyDspace: boolean;
-
   constructor(
     protected itemExportService: ItemExportService,
     protected router: Router,
@@ -103,9 +100,9 @@ export class ItemExportComponent implements OnInit, OnDestroy {
         if (!!this.item) {
           this.exportForm = this.initForm(configuration);
         } else if (!!this.itemType) {
-          this.exportForm = this.initFormItemType(configuration);
+          this.exportForm = this.initForm(configuration, true);
           this.onEntityTypeChange(this.itemType.label);
-          if (!this.isMyDspace) {
+          if (this.showListSelection) {
             this.exportForm.controls.selectionMode.valueChanges.subscribe((selectionMode) => {
               this.showSelectionList(selectionMode);
             });
@@ -117,9 +114,11 @@ export class ItemExportComponent implements OnInit, OnDestroy {
           this.exportForm.controls.entityType.valueChanges.subscribe((entityType) => {
             this.onEntityTypeChange(entityType);
           });
-          this.exportForm.controls.selectionMode.valueChanges.subscribe((selectionMode) => {
-            this.showSelectionList(selectionMode);
-          });
+          if (this.showListSelection) {
+            this.exportForm.controls.selectionMode.valueChanges.subscribe((selectionMode) => {
+              this.showSelectionList(selectionMode);
+            });
+          }
         }
       });
   }
@@ -131,14 +130,14 @@ export class ItemExportComponent implements OnInit, OnDestroy {
 
       // Add a new Excel export format suitable for bulk import
       this.selectedEntityType = entityType;
-      const xlsConfigurationFormat: ItemExportFormat = Object.assign(new ItemExportFormat(), {
+/*      const xlsConfigurationFormat: ItemExportFormat = Object.assign(new ItemExportFormat(), {
         type: 'itemexportformat',
         id: ItemExportComponent.BULK_IMPORT_READY_XLS,
         mimeType: 'application/vnd.ms-excel',
         entityType: entityType,
         molteplicity: 'MULTIPLE',
       });
-      this.configuration.formats.push(xlsConfigurationFormat);
+      this.configuration.formats.push(xlsConfigurationFormat);*/
 
       this.exportForm.controls.format.patchValue(this.configuration.format);
 
@@ -146,26 +145,20 @@ export class ItemExportComponent implements OnInit, OnDestroy {
     });
   }
 
-  initForm(configuration: ItemExportFormConfiguration): FormGroup {
-    return new FormGroup({
+  initForm(configuration: ItemExportFormConfiguration, fromItemType = false): FormGroup {
+    const formGroup = new FormGroup({
       format: new FormControl(configuration.format, [Validators.required]),
-      entityType: new FormControl(configuration.entityType, [Validators.required])
-    });
-  }
 
-  initFormItemType(configuration: ItemExportFormConfiguration): FormGroup {
-    if (this.isMyDspace) {
-      return new FormGroup({
-        format: new FormControl(configuration.format, [Validators.required]),
-        entityType: new FormControl({ value: this.itemType.label, disabled: true }, [Validators.required]),
-      });
+    });
+    if (fromItemType) {
+      formGroup.addControl('entityType', new FormControl({ value: this.itemType.label, disabled: true }, [Validators.required]));
     } else {
-      return new FormGroup({
-        format: new FormControl(configuration.format, [Validators.required]),
-        entityType: new FormControl({ value: this.itemType.label, disabled: true }, [Validators.required]),
-        selectionMode: new FormControl(this.exportSelectionMode.value, [Validators.required]),
-      });
+      formGroup.addControl('entityType', new FormControl(configuration.entityType, [Validators.required]));
     }
+    if (this.showListSelection) {
+      formGroup.addControl('selectionMode', new FormControl(this.exportSelectionMode.value, [Validators.required]));
+    }
+    return formGroup;
   }
 
   isFormValid(): Observable<boolean> {
@@ -192,15 +185,17 @@ export class ItemExportComponent implements OnInit, OnDestroy {
       } else {
         // select the collection and submit
         if (isNotEmpty(this.bulkImportXlsEntityTypeCollectionUUID)) {
-          this.searchOptions.query = `location.coll:${this.bulkImportXlsEntityTypeCollectionUUID}`;
-          this.searchOptions.scope = this.bulkImportXlsEntityTypeCollectionUUID;
+          this.searchOptions = Object.assign(new SearchOptions({}), this.searchOptions, {
+            query: `location.coll:${this.bulkImportXlsEntityTypeCollectionUUID}`,
+            scope: this.bulkImportXlsEntityTypeCollectionUUID
+          });
         }
 
-        const list$: Observable<string[]> = (this.isMyDspace || this.exportForm?.value?.selectionMode !== ExportSelectionMode.OnlySelection) ?
+        const list$: Observable<string[]> = (this.showListSelection || this.exportForm?.value?.selectionMode !== ExportSelectionMode.OnlySelection) ?
           of([]) :
           this.selectableListService.getSelectableList(this.listId).pipe(
             take(1),
-            map((list: SelectableListState) => (list?.selection || []).map((entry: SearchResult<any>) => entry.indexableObject.id))
+            map((list: SelectableListState) => (list?.selection || []).map((entry: SearchResult<any>) => entry?.indexableObject?.id))
           );
         list$.pipe(
           switchMap((list: string[]) => this.itemExportService.submitForm(

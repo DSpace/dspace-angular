@@ -253,6 +253,7 @@ describe('CreateProfileComponent', () => {
         expect(router.navigate).not.toHaveBeenCalled();
         expect(notificationsService.error).toHaveBeenCalled();
       });
+
       it('should submit not create an eperson when the user info form is invalid', () => {
 
         (ePersonDataService.createEPersonForToken as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Error', 500));

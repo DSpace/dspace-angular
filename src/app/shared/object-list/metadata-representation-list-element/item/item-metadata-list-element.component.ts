@@ -12,7 +12,7 @@ import { metadataRepresentationComponent } from '../../../metadata-representatio
 /**
  * A component for displaying MetadataRepresentation objects in the form of items
  * It will send the MetadataRepresentation object along with ElementViewMode.SetElement to the ItemTypeSwitcherComponent,
- * which will in his turn decide how to render the item as metadata.
+ * which will in its turn decide how to render the item as metadata.
  */
 export class ItemMetadataListElementComponent extends MetadataRepresentationListElementComponent {
   /**

@@ -45,9 +45,7 @@ describe('ItemExportFormatService', () => {
       null,
       null,
       null,
-      null,
       notificationsService,
-      null,
       null,
       null,
       translateService,
@@ -59,7 +57,7 @@ describe('ItemExportFormatService', () => {
     beforeEach(() => {
       const searchResult: any = [...ItemExportFormatsMap.Publication, ...ItemExportFormatsMap.Project];
       const paginatedList: PaginatedList<ItemExportFormat> = createPaginatedList(searchResult);
-      spyOn(service.dataService, 'searchBy').and.returnValue(createSuccessfulRemoteDataObject$(paginatedList));
+      spyOn((service as any).searchData, 'searchBy').and.returnValue(createSuccessfulRemoteDataObject$(paginatedList));
     });
 
     it('should configure and call dataService.searchBy and map results by entityType', (done) => {
@@ -72,7 +70,7 @@ describe('ItemExportFormatService', () => {
       ];
 
       service.byEntityTypeAndMolteplicity(entityTypeId, molteplicity).subscribe((result) => {
-        expect(service.dataService.searchBy).toHaveBeenCalledWith('byEntityTypeAndMolteplicity', { searchParams, elementsPerPage: 100 });
+        expect((service as any).searchData.searchBy).toHaveBeenCalledWith('byEntityTypeAndMolteplicity', { searchParams, elementsPerPage: 100 });
         expect(result).toEqual(ItemExportFormatsMap);
         done();
       });
@@ -127,8 +125,8 @@ describe('ItemExportFormatService', () => {
       });
 
       const expectedParameters = [
-        Object.assign(new ProcessParameter(), { name: '-t', value: 'Publication' }),
         Object.assign(new ProcessParameter(), { name: '-f', value: 'publication-xml' }),
+        Object.assign(new ProcessParameter(), { name: '-t', value: 'Publication' }),
         Object.assign(new ProcessParameter(), { name: '-q', value: 'queryX' }),
         Object.assign(new ProcessParameter(), { name: '-sf', value: 'name=nameX&type=typeX' }),
         Object.assign(new ProcessParameter(), { name: '-s', value: 'scopeX' }),
@@ -137,6 +135,34 @@ describe('ItemExportFormatService', () => {
       ];
 
       service.doExportMulti(entityType, format, searchOptions).subscribe((result) => {
+        expect(result).toEqual(1234);
+        expect((service as any).scriptDataService.invoke).toHaveBeenCalledWith(BULK_ITEM_EXPORT_SCRIPT_NAME, expectedParameters, []);
+        done();
+      });
+
+    });
+
+    it('should invoke a configured bulk item export with a list', (done) => {
+      const entityType = 'Publication';
+      const format = Object.assign(new ItemExportFormat(), { id: 'publication-xml'});
+      const searchOptions = new PaginatedSearchOptions({
+        query: 'queryX',
+        filters: [
+          new SearchFilter('f.name', ['nameX']),
+          new SearchFilter('f.type', ['typeX']),
+          new SearchFilter('other.name', ['nameY'])
+        ],
+        fixedFilter: 'scope=scopeX',
+        configuration: 'configurationX',
+        sort: new SortOptions('fieldX', SortDirection.ASC)
+      });
+
+      const expectedParameters = [
+        Object.assign(new ProcessParameter(), { name: '-f', value: 'publication-xml' }),
+        Object.assign(new ProcessParameter(), { name: '-si', value: 'item1;item2' }),
+      ];
+
+      service.doExportMulti(entityType, format, searchOptions, ['item1', 'item2']).subscribe((result) => {
         expect(result).toEqual(1234);
         expect((service as any).scriptDataService.invoke).toHaveBeenCalledWith(BULK_ITEM_EXPORT_SCRIPT_NAME, expectedParameters, []);
         done();

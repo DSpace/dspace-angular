@@ -20,6 +20,16 @@ export class BrowseMostElementsComponent implements OnInit {
 
   @Input() context: Context;
 
+  /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics;
+
+  /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
+
   searchResults: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>;
 
   constructor(private searchService: SearchService, private cdr: ChangeDetectorRef) { /* */ }

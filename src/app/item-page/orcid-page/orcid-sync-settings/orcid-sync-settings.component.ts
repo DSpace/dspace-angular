@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { RemoteData } from '../../../core/data/remote-data';
-import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
+import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -70,7 +70,7 @@ export class OrcidSyncSettingsComponent implements OnInit {
    */
   @Output() settingsUpdated: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private researcherProfileService: ResearcherProfileService,
+  constructor(private researcherProfileService: ResearcherProfileDataService,
               private notificationsService: NotificationsService,
               private translateService: TranslateService) {
   }
@@ -148,8 +148,8 @@ export class OrcidSyncSettingsComponent implements OnInit {
       getFirstCompletedRemoteData(),
       switchMap((profileRD: RemoteData<ResearcherProfile>) => {
         if (profileRD.hasSucceeded) {
-          return this.researcherProfileService.updateByOrcidOperations(profileRD.payload, operations).pipe(
-            getFirstCompletedRemoteData()
+          return this.researcherProfileService.patch(profileRD.payload, operations).pipe(
+            getFirstCompletedRemoteData(),
           );
         } else {
           return of(profileRD);

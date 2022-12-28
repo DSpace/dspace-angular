@@ -21,9 +21,11 @@
         <ds-listable-object-component-loader [object]="object"
                                              [viewMode]="viewMode"
                                              [context]="context"
+                                             [showMetrics]="showMetrics"
+                                             [showThumbnails]="showThumbnails"
                                              (contentChange)="contentChange.emit($event)"></ds-listable-object-component-loader>
       </div>
     </div>
   <ds-error *ngIf="objects.hasFailed" message="{{'error.objects' | translate}}"></ds-error>
-  <ds-loading *ngIf="objects.isLoading" message="{{'loading.objects' | translate}}"></ds-loading>
+  <ds-themed-loading *ngIf="objects.isLoading" message="{{'loading.objects' | translate}}"></ds-themed-loading>
 </ds-pagination>

@@ -1,7 +1,7 @@
-import { SubmissionFormsConfigService } from '../../core/config/submission-forms-config.service';
+import { SubmissionFormsConfigDataService } from '../../core/config/submission-forms-config-data.service';
 import { SubmissionFormsModel } from '../../core/config/models/config-submission-forms.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { SubmissionAccessesConfigService } from '../../core/config/submission-accesses-config.service';
+import { SubmissionAccessesConfigDataService } from '../../core/config/submission-accesses-config-data.service';
 
 export const accessConditionSectionConfigRes = Object.assign(new SubmissionFormsModel(), {
   'id': 'AccessConditionDefaultConfiguration',
@@ -109,14 +109,14 @@ const configResNotChangeDiscoverable = Object.assign(new SubmissionFormsModel(),
   }
 });
 
-export function getSubmissionAccessesConfigService(): jasmine.SpyObj<SubmissionAccessesConfigService> {
+export function getSubmissionAccessesConfigService(): jasmine.SpyObj<SubmissionAccessesConfigDataService> {
   return jasmine.createSpyObj('SubmissionAccessesConfigService', {
     findByHref: jasmine.createSpy('findByHref')
   });
 }
 
 
-export function getSubmissionAccessesConfigNotChangeDiscoverableService(): SubmissionFormsConfigService {
+export function getSubmissionAccessesConfigNotChangeDiscoverableService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('SubmissionAccessesConfigService', {
     findByHref: createSuccessfulRemoteDataObject$(configResNotChangeDiscoverable),
   });

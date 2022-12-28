@@ -10,11 +10,11 @@ export enum SelectorActionType {
   CREATE = 'create',
   EDIT = 'edit',
   EXPORT_METADATA = 'export-metadata',
-  IMPORT_ITEM = 'import-item',
-  EXPORT_ITEM = 'export-item',
   IMPORT_BATCH = 'import-batch',
   SET_SCOPE = 'set-scope',
-  EXPORT_BATCH = 'export-batch'
+  EXPORT_BATCH = 'export-batch',
+  IMPORT_ITEM = 'import-item',
+  EXPORT_ITEM = 'export-item'
 }
 
 /**

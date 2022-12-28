@@ -14,6 +14,10 @@ import {
 } from '../remote-data.utils';
 import { SearchResult } from '../search/models/search-result.model';
 import { SuggestionsService } from '../../openaire/reciter-suggestions/suggestions.service';
+import {
+  OpenaireSuggestionTarget
+} from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+import { OpenaireSuggestion } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
@@ -1736,6 +1740,145 @@ export const openaireBrokerEventObjectMissingProjectNotFound: OpenaireBrokerEven
   },
   target: createSuccessfulRemoteDataObject$(ItemMockPid9),
   related: createNoContentRemoteDataObject$()
+};
+
+export const openaireSuggestionTargetScopusOne: OpenaireSuggestionTarget = {
+  'id': 'scopus:nhy567-9d6d-ty67-b905-fef0f8cae26',
+  'display': 'Digilio, Giuseppe',
+  'source': 'scopus',
+  'total': 4,
+  'type': new ResourceType('suggestiontarget'),
+  '_links': {
+    'target': {
+      'href': 'https://dspace7.4science.cloud/server/api/core/items/nhy567-9d6d-ty67-b905-fef0f8cae26'
+    },
+    'suggestions': {
+      'href': 'https://dspace7.4science.cloud/server/api/integration/suggestions/search/findByTargetAndSource?target=nhy567-9d6d-ty67-b905-fef0f8cae26'
+    },
+    'self': {
+      'href': 'https://dspace7.4science.cloud/server/api/integration/suggestiontargets/scopus:nhy567-9d6d-ty67-b905-fef0f8cae26'
+    }
+  }
+};
+
+export const openaireSuggestionTargetReciterOne: OpenaireSuggestionTarget = {
+  'id': 'reciter:gf3d657-9d6d-4a87-b905-fef0f8cae26',
+  'display': 'Bollini, Andrea',
+  'source': 'reciter',
+  'total': 3,
+  'type': new ResourceType('suggestiontarget'),
+  '_links': {
+    'target': {
+      'href': 'https://dspace7.4science.cloud/server/api/core/items/gf3d657-9d6d-4a87-b905-fef0f8cae26'
+    },
+    'suggestions': {
+      'href': 'https://dspace7.4science.cloud/server/api/integration/suggestions/search/findByTargetAndSource?target=gf3d657-9d6d-4a87-b905-fef0f8cae26'
+    },
+    'self': {
+      'href': 'https://dspace7.4science.cloud/server/api/integration/suggestiontargets/scopus:gf3d657-9d6d-4a87-b905-fef0f8cae26'
+    }
+  }
+};
+
+export const openaireSuggestionTargetScopusTwo: OpenaireSuggestionTarget = {
+  'id': 'scopus:gf3d657-9d6d-4a87-b905-fef0f8cae26',
+  'display': 'Bollini, Andrea',
+  'source': 'scopus',
+  'total': 11,
+  'type': new ResourceType('suggestiontarget'),
+  '_links': {
+    'target': {
+      'href': 'https://dspace7.4science.cloud/server/api/core/items/gf3d657-9d6d-4a87-b905-fef0f8cae26'
+    },
+    'suggestions': {
+      'href': 'https://dspace7.4science.cloud/server/api/integration/suggestions/search/findByTargetAndSource?target=gf3d657-9d6d-4a87-b905-fef0f8cae26&source=scopus'
+    },
+    'self': {
+      'href': 'https://dspace7.4science.cloud/server/api/integration/suggestiontargets/scopus:gf3d657-9d6d-4a87-b905-fef0f8cae26'
+    }
+  }
+};
+
+export const openaireSuggestion: OpenaireSuggestion = {
+  'id': 'reciter:gf3d657-9d6d-4a87-b905-fef0f8cae26:24694772',
+  'display': 'publication one',
+  'source': 'reciter',
+  'score': '62.7',
+  'externalSourceUri': 'https://dspace7.4science.cloud/server/api/integration/reciterSourcesEntry/pubmed/entryValues/24694772',
+  'evidences': {
+    'acceptedRejectedEvidence': {
+      'score': '2.7',
+      'notes': 'some notes, eventually empty or null'
+    },
+    'authorNameEvidence': {
+      'score': '0',
+      'notes': 'some notes, eventually empty or null'
+    },
+    'journalCategoryEvidence': {
+      'score': '6',
+      'notes': 'some notes, eventually empty or null'
+    },
+    'affiliationEvidence': {
+      'score': '23.7',
+      'notes': 'some notes, eventually empty or null'
+    },
+    'relationshipEvidence': {
+      'score': '9',
+      'notes': 'some notes, eventually empty or null'
+    },
+    'educationYearEvidence': {
+      'score': '3.6',
+      'notes': 'some notes, eventually empty or null'
+    },
+    'personTypeEvidence': {
+      'score': '4',
+      'notes': 'some notes, eventually empty or null'
+    },
+    'articleCountEvidence': {
+      'score': '6.7',
+      'notes': 'some notes, eventually empty or null'
+    },
+    'averageClusteringEvidence': {
+      'score': '7',
+      'notes': 'some notes, eventually empty or null'
+    }
+  },
+  'metadata': {
+    'dc.identifier.uri': [
+      {
+        'value': 'https://publication/0000-0003-3681-2038',
+        'language': null,
+        'authority': null,
+        'confidence': -1,
+        'place': -1
+      } as any
+    ],
+    'dc.title' : [
+      {
+        'value' : 'publication one',
+        'language' : null,
+        'authority' : null,
+        'confidence' : -1
+      } as any
+    ],
+    'dc.date.issued' : [
+      {
+        'value' : '2010-11-03',
+        'language' : null,
+        'authority' : null,
+        'confidence' : -1
+      } as any
+    ]
+  },
+  'type': new ResourceType('suggestion'),
+  '_links': {
+    'target': {
+      'href': 'https://dspace7.4science.cloud/server/api/core/items/gf3d657-9d6d-4a87-b905-fef0f8cae26'
+    },
+    'self': {
+      'href': 'https://dspace7.4science.cloud/server/api/integration/suggestions/reciter:gf3d657-9d6d-4a87-b905-fef0f8cae26:24694772'
+    }
+  }
 };
 
 // Classes

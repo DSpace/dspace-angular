@@ -27,7 +27,7 @@
 <td class="w-100">
   <div class="value-field">
     <div *ngIf="!(editable | async)">
-            <span class="dont-break-out">{{metadata?.value}}</span>
+            <span class="dont-break-out preserve-line-breaks">{{metadata?.value}}</span>
     </div>
     <div *ngIf="(editable | async)" class="field-container">
             <textarea class="form-control" type="textarea" attr.aria-labelledby="fieldValue" [(ngModel)]="metadata.value" [dsDebounce]

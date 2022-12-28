@@ -15,10 +15,6 @@
         (paginationChange)="onPaginationChange($event)"
         (prev)="goPrev()"
         (next)="goNext()">
-    <ds-alert [content]="'manage.relationships.hidden-related-items-alert'"
-              [type]="AlertTypeEnum.Info"
-              [dismissible]="true"
-              *ngIf="isHidden && showHiddenRelatedItemsAlert"></ds-alert>
     <ul *ngIf="objects?.hasSucceeded" class="list-unstyled" [ngClass]="{'ml-4': selectable}">
         <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4 d-flex" [class.border-bottom]="hasBorder && !last" [attr.data-test]="'list-object' | dsBrowserOnly">
           <ds-selectable-list-item-control *ngIf="selectable" [index]="i"
@@ -32,6 +28,8 @@
           <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode" [index]="i" [context]="context" [linkType]="linkType"
                                                [listID]="selectionConfig?.listId"
                                                [customData]="customData"
+                                               [showMetrics]="showMetrics"
+                                               [showThumbnails]="showThumbnails"
                                                (contentChange)="contentChange.emit()"
                                                (customEvent)="customEvent.emit($event)"
                                                (contentChange)="contentChange.emit($event)"></ds-listable-object-component-loader>

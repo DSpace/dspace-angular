@@ -1,16 +1,3 @@
-
-<!--<ds-themed-search *ngIf="configuration"
-                  [configuration]="configuration"
-                  [searchEnabled]="false"
-                  [selectable]="true"
-                  [selectionConfig]="{ repeatable: true, listId: 'export-list' }"
-                  [showCharts]="false"
-                  [showExport]="false"
-                  [showViewModes]="false"
-                  [showSidebar]="false"
-                  [useCachedVersionIfAvailable]="false">
-</ds-themed-search>-->
-
 <div>
   <ng-container *ngVar="(resultsRD$ | async) as resultsRD">
     <ds-viewable-collection *ngIf="resultsRD?.hasSucceeded && !resultsRD?.isLoading && resultsRD?.payload?.page?.length > 0" @fadeIn

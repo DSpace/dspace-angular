@@ -17,12 +17,14 @@ import { StoreModule } from '@ngrx/store';
 import { authReducer } from '../../../../core/auth/auth.reducer';
 import { storeModuleConfig } from '../../../../app.reducer';
 import { isNotNull } from '../../../empty.util';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 
 describe('FacetSectionComponent', () => {
   let component: FacetSectionComponent;
   let fixture: ComponentFixture<FacetSectionComponent>;
 
   let searchServiceStub: any;
+  let searchConfigurationStub: any;
 
   const dateIssuedValue: FacetValue = {
     label: '1996 - 1999',
@@ -112,9 +114,17 @@ describe('FacetSectionComponent', () => {
   beforeEach(waitForAsync(() => {
 
     searchServiceStub = {
+      getSearchLink(): string {
+        return '/search';
+      }
+    };
+    searchConfigurationStub = {
       searchFacets(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
         return createSuccessfulRemoteDataObject$([mockAuthorFilterConfig, mockSubjectFilterConfig, mockDateIssuedFilterConfig, mockGraphBarChartFilterConfig, mockGraphPieChartFilterConfig]);
       },
+    };
+
+    searchServiceStub = {
       getSearchLink(): string {
         return '/search';
       }
@@ -134,7 +144,8 @@ describe('FacetSectionComponent', () => {
       ],
       declarations: [FacetSectionComponent],
       providers: [
-        { provide: SearchService, useValue: searchServiceStub }
+        { provide: SearchService, useValue: searchServiceStub },
+        { provide: SearchConfigurationService, useValue: searchConfigurationStub }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

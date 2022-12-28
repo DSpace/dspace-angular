@@ -4,12 +4,14 @@ import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { catchError, map, switchMap, take } from 'rxjs/operators';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { ExternalSourceService } from '../../core/data/external-source.service';
+import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
 import { MetadatumViewModel } from '../../core/shared/metadata.models';
 import { getFinishedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { Metadata } from '../../core/shared/metadata.utils';
-import { CreateItemParentSelectorComponent } from '../dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import {
+  CreateItemParentSelectorComponent
+} from '../dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
 import { followLink } from '../utils/follow-link-config.model';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
@@ -59,7 +61,7 @@ export class VocabularyExternalSourceComponent implements OnInit {
 
   constructor(
     private activeModal: NgbActiveModal,
-    private externalSourceService: ExternalSourceService,
+    private externalSourceService: ExternalSourceDataService,
     private itemService: ItemDataService,
     private modalService: NgbModal,
     private notificationService: NotificationsService,

@@ -4,7 +4,7 @@ import {
   ItemExportFormatService
 } from '../../../core/itemexportformat/item-export-format.service';
 import { Item } from '../../../core/shared/item.model';
-import { ItemExportFormat } from '../../../core/itemexportformat/model/item-export-format.model';
+import { ItemExportFormat, ItemExportFormatMap } from '../../../core/itemexportformat/model/item-export-format.model';
 import { of } from 'rxjs';
 
 
@@ -16,7 +16,7 @@ const ThePublication = Object.assign(new Item(), {
   }
 });
 
-export const ItemExportFormatsMap: { [entityType: string]: ItemExportFormat[] } = {
+export const ItemExportFormatsMap: ItemExportFormatMap = {
   'Publication': [
     Object.assign(new ItemExportFormat(), { id: 'publication-xml', entityType: 'Publication'}),
     Object.assign(new ItemExportFormat(), { id: 'publication-json', entityType: 'Publication'}),
@@ -129,7 +129,7 @@ describe('ItemExportService', () => {
 
         service.submitForm(ItemExportFormatMolteplicity.MULTIPLE, null, searchOptions, selectedEntityType, selectedFormat).subscribe((processNumber) => {
           expect(itemExportFormatService.doExport).not.toHaveBeenCalled();
-          expect(itemExportFormatService.doExportMulti).toHaveBeenCalledWith(selectedEntityType, selectedFormat, searchOptions);
+          expect(itemExportFormatService.doExportMulti).toHaveBeenCalledWith(selectedEntityType, selectedFormat, searchOptions, []);
           expect(processNumber).toEqual(2222);
           done();
         });

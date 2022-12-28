@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { RegisterEmailComponent } from './register-email/register-email.component';
+import { ThemedRegisterEmailComponent } from './register-email/themed-register-email.component';
 import { RegistrationResolver } from '../register-email-form/registration.resolver';
 import { ThemedCreateProfileComponent } from './create-profile/themed-create-profile.component';
 import { RegistrationGuard } from './registration.guard';
@@ -10,7 +10,7 @@ import { RegistrationGuard } from './registration.guard';
     RouterModule.forChild([
       {
         path: '',
-        component: RegisterEmailComponent,
+        component: ThemedRegisterEmailComponent,
         data: {title: 'register-email.title'},
       },
       {
