@@ -59,7 +59,9 @@ export class SubscriptionService extends IdentifiableDataService<Subscription> {
     protected halService: HALEndpointService,
     protected nameService: DSONameService,
   ) {
-    super('auditevents', requestService, rdbService, objectCache, halService);
+    super('subscriptions', requestService, rdbService, objectCache, halService);
+
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
   }
   /**
@@ -142,19 +144,6 @@ export class SubscriptionService extends IdentifiableDataService<Subscription> {
    */
   findAllSubscriptions(options?): Observable<RemoteData<PaginatedList<Subscription>>> {
     return this.findAllData.findAll(options, true, true, followLink('dSpaceObject'), followLink('ePerson'));
-
-/*    const optionsWithObject = Object.assign(new FindListOptions(), options, {
-      searchParams: [new RequestParam('embed', 'dSpaceObject'),new RequestParam('embed', 'ePerson')]
-    });
-
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      filter((href: string) => isNotEmpty(href)),
-      distinctUntilChanged(),
-      switchMap((endpointUrl) => this.findListByHref(endpointUrl, optionsWithObject, false, true)),
-      getFirstCompletedRemoteData(),
-      getRemoteDataPayload()
-    );*/
-
   }
 
 
@@ -171,16 +160,12 @@ export class SubscriptionService extends IdentifiableDataService<Subscription> {
       ]
     });
 
-     return this.searchData.searchBy(this.findByEpersonLinkPath, optionsWithObject, true, true, followLink('dSpaceObject'), followLink('ePerson'));
-/*    const endpoint = this.searchData.getSearchByHref('findByEPerson');
+    return this.getEndpoint().pipe(
+      map(href => `${href}/search/${this.findByEpersonLinkPath}`),
+      switchMap(href => this.findListByHref(href, optionsWithObject, true, true, followLink('dSpaceObject'), followLink('ePerson')))
+    );
 
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      filter((href: string) => isNotEmpty(href)),
-      distinctUntilChanged(),
-      switchMap((endpointUrl) => this.findListByHref(endpoint, optionsWithObject, false, true)),
-      getFirstCompletedRemoteData(),
-      getRemoteDataPayload()
-    );*/
+
   }
 
 }

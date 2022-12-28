@@ -12,6 +12,7 @@ import { AuthService } from '../core/auth/auth.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { RemoteData } from '../core/data/remote-data';
+import { hasValue } from '../shared/empty.util';
 
 @Component({
   selector: 'ds-subscriptions-page',
@@ -117,7 +118,9 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
    * Unsubscribe from pagination subscription
    */
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
   }
 
 }
