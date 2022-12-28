@@ -19,7 +19,7 @@ import { GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptch
 import { CookieService } from '../core/services/cookie.service';
 import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
 
-describe('RegisterEmailComponent', () => {
+describe('RegisterEmailFormComponent', () => {
 
   let comp: RegisterEmailFormComponent;
   let fixture: ComponentFixture<RegisterEmailFormComponent>;
@@ -105,7 +105,7 @@ describe('RegisterEmailComponent', () => {
       comp.form.patchValue({email: 'valid@email.org'});
 
       comp.register();
-      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org');
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', null, null);
       expect(notificationsService.success).toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
     });
@@ -115,7 +115,7 @@ describe('RegisterEmailComponent', () => {
       comp.form.patchValue({email: 'valid@email.org'});
 
       comp.register();
-      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org');
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', null, null);
       expect(notificationsService.error).toHaveBeenCalled();
       expect(router.navigate).not.toHaveBeenCalled();
     });
@@ -133,7 +133,7 @@ describe('RegisterEmailComponent', () => {
       comp.form.patchValue({email: 'valid@email.org'});
       comp.register();
       tick();
-      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', 'googleRecaptchaToken');
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', 'googleRecaptchaToken', null);
       expect(notificationsService.success).toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
     }));
@@ -144,7 +144,7 @@ describe('RegisterEmailComponent', () => {
 
       comp.register();
       tick();
-      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', 'googleRecaptchaToken');
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', 'googleRecaptchaToken', null);
       expect(notificationsService.error).toHaveBeenCalled();
       expect(router.navigate).not.toHaveBeenCalled();
     }));

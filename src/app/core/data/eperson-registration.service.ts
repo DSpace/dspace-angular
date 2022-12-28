@@ -14,7 +14,7 @@ import { RemoteData } from './remote-data';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HttpHeaders } from '@angular/common/http';
-import {HttpParams} from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -70,7 +70,10 @@ export class EpersonRegistrationService {
       headers = headers.append('x-recaptcha-token', captchaToken);
     }
     options.headers = headers;
-    options.params = type ? new HttpParams({fromString:'type=' + type}) : new HttpParams();
+
+    if (hasValue(type)) {
+      options.params = type ? new HttpParams({ fromString: 'type=' + type }) : new HttpParams();
+    }
 
     href$.pipe(
       find((href: string) => hasValue(href)),

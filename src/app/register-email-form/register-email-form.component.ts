@@ -37,6 +37,12 @@ export class RegisterEmailFormComponent implements OnInit {
   @Input()
   MESSAGE_PREFIX: string;
 
+  /**
+   * Type of register request to be done, register new email or forgot password (same endpoint)
+   */
+  @Input()
+  typeRequest: string = null;
+
   public AlertTypeEnum = AlertType;
 
   /**
@@ -155,13 +161,9 @@ export class RegisterEmailFormComponent implements OnInit {
    * Registration of an email address
    */
   registration(captchaToken = null) {
-    let typeMap = new Map<string, string>([
-      ['register-page.registration', 'register'],
-      ['forgot-email.form', 'forgot']
-    ]);
     let registerEmail$ = captchaToken ?
-      this.epersonRegistrationService.registerEmail(this.email.value, captchaToken, typeMap.get(this.MESSAGE_PREFIX)) :
-      this.epersonRegistrationService.registerEmail(this.email.value, null, typeMap.get(this.MESSAGE_PREFIX));
+      this.epersonRegistrationService.registerEmail(this.email.value, captchaToken, this.typeRequest) :
+      this.epersonRegistrationService.registerEmail(this.email.value, null, this.typeRequest);
     registerEmail$.subscribe((response: RemoteData<Registration>) => {
       if (response.hasSucceeded) {
         this.notificationService.success(this.translateService.get(`${this.MESSAGE_PREFIX}.success.head`),
