@@ -11,6 +11,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { Metadata } from '../../core/shared/metadata.utils';
+import { environment } from '../../../environments/environment';
 
 interface MetadataView {
   authority: string;
@@ -43,6 +44,11 @@ export class MetadataLinkViewComponent implements OnInit {
   @Input() item: Item;
 
   /**
+   * The metadata name from where to take the value of the cris style
+   */
+  crisRefMetadata = environment.crisLayout.crisRefStyleMetadata || 'cris.entity.style';
+
+  /**
    * Processed metadata to create MetadataOrcid with the information needed to show
    */
   metadataView$: Observable<MetadataView>;
@@ -73,7 +79,7 @@ export class MetadataLinkViewComponent implements OnInit {
                   value: metadataValue.value,
                   orcidAuthenticated: this.getOrcid(itemRD.payload),
                   entityType: itemRD.payload?.entityType,
-                  entityStyle: itemRD.payload?.firstMetadataValue('cris.entity.style')
+                  entityStyle: itemRD.payload?.firstMetadataValue(this.crisRefMetadata)
                 };
               } else {
                 return {

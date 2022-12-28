@@ -4,7 +4,7 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PaginatedList } from '../data/paginated-list.model';
 import { ItemExportFormat } from './model/item-export-format.model';
-import { ItemExportFormatsMap } from '../../shared/item-export/item-export.service.spec';
+import { ItemExportFormatsMap } from '../../shared/search/item-export/item-export.service.spec';
 import { RequestParam } from '../cache/models/request-param.model';
 import { Process } from '../../process-page/processes/process.model';
 import { EventEmitter } from '@angular/core';
@@ -125,8 +125,8 @@ describe('ItemExportFormatService', () => {
       });
 
       const expectedParameters = [
-        Object.assign(new ProcessParameter(), { name: '-t', value: 'Publication' }),
         Object.assign(new ProcessParameter(), { name: '-f', value: 'publication-xml' }),
+        Object.assign(new ProcessParameter(), { name: '-t', value: 'Publication' }),
         Object.assign(new ProcessParameter(), { name: '-q', value: 'queryX' }),
         Object.assign(new ProcessParameter(), { name: '-sf', value: 'name=nameX&type=typeX' }),
         Object.assign(new ProcessParameter(), { name: '-s', value: 'scopeX' }),
@@ -135,6 +135,34 @@ describe('ItemExportFormatService', () => {
       ];
 
       service.doExportMulti(entityType, format, searchOptions).subscribe((result) => {
+        expect(result).toEqual(1234);
+        expect((service as any).scriptDataService.invoke).toHaveBeenCalledWith(BULK_ITEM_EXPORT_SCRIPT_NAME, expectedParameters, []);
+        done();
+      });
+
+    });
+
+    it('should invoke a configured bulk item export with a list', (done) => {
+      const entityType = 'Publication';
+      const format = Object.assign(new ItemExportFormat(), { id: 'publication-xml'});
+      const searchOptions = new PaginatedSearchOptions({
+        query: 'queryX',
+        filters: [
+          new SearchFilter('f.name', ['nameX']),
+          new SearchFilter('f.type', ['typeX']),
+          new SearchFilter('other.name', ['nameY'])
+        ],
+        fixedFilter: 'scope=scopeX',
+        configuration: 'configurationX',
+        sort: new SortOptions('fieldX', SortDirection.ASC)
+      });
+
+      const expectedParameters = [
+        Object.assign(new ProcessParameter(), { name: '-f', value: 'publication-xml' }),
+        Object.assign(new ProcessParameter(), { name: '-si', value: 'item1;item2' }),
+      ];
+
+      service.doExportMulti(entityType, format, searchOptions, ['item1', 'item2']).subscribe((result) => {
         expect(result).toEqual(1234);
         expect((service as any).scriptDataService.invoke).toHaveBeenCalledWith(BULK_ITEM_EXPORT_SCRIPT_NAME, expectedParameters, []);
         done();

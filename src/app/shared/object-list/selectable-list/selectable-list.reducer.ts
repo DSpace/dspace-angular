@@ -2,10 +2,11 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
 import {
   SelectableListAction,
   SelectableListActionTypes,
+  SelectableListDeselectAction,
+  SelectableListDeselectSingleAction,
   SelectableListSelectAction,
   SelectableListSelectSingleAction,
-  SelectableListDeselectAction,
-  SelectableListDeselectSingleAction, SelectableListSetSelectionAction
+  SelectableListSetSelectionAction
 } from './selectable-list.actions';
 import { hasNoValue } from '../../empty.util';
 
@@ -52,6 +53,11 @@ export function selectableListReducer(state: SelectableListsState = {}, action: 
     case SelectableListActionTypes.SET_SELECTION: {
       const newListState = setList(listState, action as SelectableListSetSelectionAction);
       return Object.assign({}, state, { [action.id]: newListState });
+    }
+    case SelectableListActionTypes.REMOVE_SELECTION: {
+      const newState = Object.assign({}, state);
+      delete newState[action.id];
+      return newState;
     }
     case SelectableListActionTypes.DESELECT_ALL: {
       const newListState = clearSelection(action.id);

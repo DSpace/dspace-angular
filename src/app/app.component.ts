@@ -9,13 +9,7 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import {
-  NavigationCancel,
-  NavigationEnd,
-  NavigationStart,
-  Router,
-  RouterEvent,
-} from '@angular/router';
+import { NavigationCancel, NavigationEnd, NavigationStart, Router, RouterEvent, } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
@@ -34,7 +28,7 @@ import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { distinctNext } from './core/shared/distinct-next';
 import { ModalBeforeDismiss } from './shared/interfaces/modal-before-dismiss.interface';
 import { RouteService } from './core/services/route.service';
-import { getWorkflowItemModuleRoute } from './app-routing-paths';
+import { getEditItemPageRoute, getWorkflowItemModuleRoute, getWorkspaceItemModuleRoute } from './app-routing-paths';
 
 @Component({
   selector: 'ds-app',
@@ -130,13 +124,16 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.router.events.pipe(
-      switchMap((event) => this.routeService.getCurrentUrl().pipe(
+      switchMap((event: RouterEvent) => this.routeService.getCurrentUrl().pipe(
         take(1),
         map((currentUrl) => [currentUrl, event])
       ))
-    ).subscribe((event) => {
+    ).subscribe(([currentUrl, event]: [string, RouterEvent]) => {
       if (event instanceof NavigationStart) {
-        distinctNext(this.isRouteLoading$, true);
+        if (!(currentUrl.startsWith(getEditItemPageRoute()) || currentUrl.startsWith(getWorkspaceItemModuleRoute()) || currentUrl.startsWith(getWorkflowItemModuleRoute()))) {
+          distinctNext(this.isRouteLoading$, true);
+        }
+        // distinctNext(this.isRouteLoading$, true);
       } else if (
         event instanceof NavigationEnd ||
         event instanceof NavigationCancel
