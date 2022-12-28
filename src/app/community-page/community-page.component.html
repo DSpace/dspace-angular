@@ -22,6 +22,7 @@
         </header>
         <div class="pl-2 space-children-mr">
           <ds-dso-page-edit-button *ngIf="isCommunityAdmin$ | async" [pageRoute]="communityPageRoute$ | async" [dso]="communityPayload" [tooltipMsg]="'community.page.edit'"></ds-dso-page-edit-button>
+          <ds-dso-page-subscription-button [dso]="communityPayload"></ds-dso-page-subscription-button>
         </div>
       </div>
       <section class="comcol-page-browse-section">

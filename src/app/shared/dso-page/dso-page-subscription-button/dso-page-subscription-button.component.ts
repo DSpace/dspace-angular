@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import { Observable, of } from 'rxjs';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SubscriptionModalComponent } from '../../subscriptions/subscription-modal/subscription-modal.component';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 
@@ -24,15 +26,9 @@ export class DsoPageSubscriptionButtonComponent implements OnInit {
   public modalRef: NgbModalRef;
 
   /**
-   * EPerson id of the logged user
-   */
-  ePersonId: string;
-
-  /**
    * DSpaceObject that is being viewed
    */
-  @Input()
-  dso: DSpaceObject;
+  @Input() dso: DSpaceObject;
 
   constructor(
     protected authorizationService: AuthorizationDataService,
@@ -40,10 +36,16 @@ export class DsoPageSubscriptionButtonComponent implements OnInit {
   ) {
   }
 
+  /**
+   * check if the current DSpaceObject can be subscribed by the user
+   */
   ngOnInit(): void {
     this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanSubscribe, this.dso.self);
   }
 
+  /**
+   * Open the modal to subscribe to the related DSpaceObject
+   */
   public openSubscriptionModal() {
     this.modalRef = this.modalService.open(SubscriptionModalComponent);
     this.modalRef.componentInstance.dso = this.dso;
