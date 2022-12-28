@@ -14,8 +14,10 @@ import { RouterStub } from '../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { RegisterEmailFormComponent } from './register-email-form.component';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 
-describe('RegisterEmailComponent', () => {
+describe('RegisterEmailFormComponent', () => {
 
   let comp: RegisterEmailFormComponent;
   let fixture: ComponentFixture<RegisterEmailFormComponent>;
@@ -23,6 +25,7 @@ describe('RegisterEmailComponent', () => {
   let router;
   let epersonRegistrationService: EpersonRegistrationService;
   let notificationsService;
+  let configurationDataService: ConfigurationDataService;
 
   beforeEach(waitForAsync(() => {
 
@@ -33,6 +36,15 @@ describe('RegisterEmailComponent', () => {
       registerEmail: createSuccessfulRemoteDataObject$({})
     });
 
+    configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'authentication-password.domain.valid',
+        values: [
+          'example.com, @gmail.com'
+        ]
+      }))
+    });
+
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
       declarations: [RegisterEmailFormComponent],
@@ -41,6 +53,7 @@ describe('RegisterEmailComponent', () => {
         {provide: EpersonRegistrationService, useValue: epersonRegistrationService},
         {provide: FormBuilder, useValue: new FormBuilder()},
         {provide: NotificationsService, useValue: notificationsService},
+        {provide: ConfigurationDataService, useValue: configurationDataService},
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -75,7 +88,7 @@ describe('RegisterEmailComponent', () => {
       comp.form.patchValue({email: 'valid@email.org'});
 
       comp.register();
-      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org');
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', null);
       expect(notificationsService.success).toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
     });
@@ -85,7 +98,7 @@ describe('RegisterEmailComponent', () => {
       comp.form.patchValue({email: 'valid@email.org'});
 
       comp.register();
-      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org');
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith('valid@email.org', null);
       expect(notificationsService.error).toHaveBeenCalled();
       expect(router.navigate).not.toHaveBeenCalled();
     });

@@ -13,6 +13,7 @@ import { RegistrationResponseParsingService } from './registration-response-pars
 import { RemoteData } from './remote-data';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import {HttpParams} from '@angular/common/http';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 
 @Injectable(
   {
@@ -63,7 +64,10 @@ export class EpersonRegistrationService {
 
     const href$ = this.getRegistrationEndpoint();
 
-    const options = type ? {params: new HttpParams({fromString:'type=' + type})} : {};
+    const options: HttpOptions = Object.create({});
+    if (hasValue(type)) {
+      options.params = type ? new HttpParams({ fromString: 'type=' + type }) : new HttpParams();
+    }
 
     href$.pipe(
       find((href: string) => hasValue(href)),

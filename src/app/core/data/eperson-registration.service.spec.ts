@@ -9,6 +9,7 @@ import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-servic
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 
 describe('EpersonRegistrationService', () => {
   let testScheduler;
@@ -79,8 +80,9 @@ describe('EpersonRegistrationService', () => {
     it('should send an email registration', () => {
 
       const expected = service.registerEmail('test@mail.org');
+      const options: HttpOptions = Object.create({});
 
-      expect(requestService.send).toHaveBeenCalledWith(new PostRequest('request-id', 'rest-url/registrations', registration));
+      expect(requestService.send).toHaveBeenCalledWith(new PostRequest('request-id', 'rest-url/registrations', registration, options));
       expect(expected).toBeObservable(cold('(a|)', { a: rd }));
     });
   });
