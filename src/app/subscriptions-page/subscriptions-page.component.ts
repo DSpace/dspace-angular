@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { BehaviorSubject, combineLatestWith, Observable, shareReplay } from 'rxjs';
+import { BehaviorSubject, combineLatestWith, Observable, shareReplay, Subscription as rxjsSubscription } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
@@ -11,15 +11,16 @@ import { PaginationService } from '../core/pagination/pagination.service';
 import { PageInfo } from '../core/shared/page-info.model';
 import { AuthService } from '../core/auth/auth.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { getAllCompletedRemoteData } from '../core/shared/operators';
 import { RemoteData } from '../core/data/remote-data';
+import { hasValue } from '../shared/empty.util';
 
 @Component({
   selector: 'ds-subscriptions-page',
   templateUrl: './subscriptions-page.component.html',
   styleUrls: ['./subscriptions-page.component.scss']
 })
-export class SubscriptionsPageComponent implements OnInit {
+export class SubscriptionsPageComponent implements OnInit, OnDestroy {
 
   /**
    * The subscriptions to show on this page, as an Observable list.
@@ -27,8 +28,7 @@ export class SubscriptionsPageComponent implements OnInit {
   subscriptions$: BehaviorSubject<PaginatedList<Subscription>> = new BehaviorSubject(buildPaginatedList<Subscription>(new PageInfo(), []));
 
   /**
-   * The current pagination configuration for the page used by the FindAll method
-   * Currently simply renders subscriptions
+   * The current pagination configuration for the page
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'elp',
@@ -41,22 +41,26 @@ export class SubscriptionsPageComponent implements OnInit {
    */
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  /**
+   * The current eperson id
+   */
   ePersonId$: Observable<string>;
 
   /**
-   * EPerson id of the logged-in user
+   * The rxjs subscription used to retrieve the result list
    */
-  // ePersonId: string;
+  sub: rxjsSubscription = null;
 
   constructor(
     private paginationService: PaginationService,
     private authService: AuthService,
     private subscriptionService: SubscriptionService
-  ) { }
+  ) {
+
+  }
 
   /**
-   * Subscribe the pagination service to send a request with specific pagination
-   * When page is changed it will request the new subscriptions for the new page config
+   * Retrieve the current eperson id and call method to retrieve the subscriptions
    */
   ngOnInit(): void {
     this.ePersonId$ = this.authService.getAuthenticatedUserFromStore().pipe(
@@ -67,16 +71,21 @@ export class SubscriptionsPageComponent implements OnInit {
     this.retrieveSubscriptions();
   }
 
-  private retrieveSubscriptions() {
-    this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
+  /**
+   * Retrieve subscription list related to the current user.
+   * When page is changed it will request the new subscriptions for the new page config
+   * @private
+   */
+  private retrieveSubscriptions(): void {
+    this.sub = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
+      tap(console.log),
       combineLatestWith(this.ePersonId$),
       tap(() => this.loading$.next(true)),
       switchMap(([currentPagination, ePersonId]) => this.subscriptionService.findByEPerson(ePersonId,{
         currentPage: currentPagination.currentPage,
         elementsPerPage: currentPagination.pageSize
       })),
-      getFirstCompletedRemoteData()
-
+      getAllCompletedRemoteData()
     ).subscribe((res: RemoteData<PaginatedList<Subscription>>) => {
       if (res.hasSucceeded) {
         this.subscriptions$.next(res.payload);
@@ -85,10 +94,20 @@ export class SubscriptionsPageComponent implements OnInit {
     });
   }
   /**
-   * When an action is made and the information is changed refresh the information
+   * When a subscription is deleted refresh the subscription list
    */
   refresh(): void {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
+
     this.retrieveSubscriptions();
+  }
+
+  ngOnDestroy(): void {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
   }
 
 }

@@ -6,15 +6,11 @@
     </button>
   </div>
   <div class="modal-body">
-
     <div>
-
       <fieldset *ngFor="let subscriptionType of subscriptionForm?.controls | keyvalue" formGroupName="{{subscriptionType.key}}" class="form-group form-row">
-
         <legend class="col-md-4 col-form-label float-md-left pt-0">
           {{ 'item.page.subscriptions.modal.new-subscription-form.type.' + subscriptionType.key | translate }}:
         </legend>
-
         <div class="col-md-8">
           <input type="hidden" formControlName="subscriptionId" [value]="subscriptionType?.value?.controls['subscriptionId'].value" >
           <div class="form-check" formGroupName="frequencies" *ngFor="let frequency of subscriptionType?.value?.controls['frequencies'].controls | keyvalue">
@@ -27,20 +23,20 @@
           {{ 'context-menu.actions.subscription.frequency.required' | translate }}
         </ds-alert>
       </fieldset>
-
-
     </div>
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-success" [disabled]="(processing$ | async)">
-        <span *ngIf="(processing$ | async)"><i
-          class='fas fa-circle-notch fa-spin'></i> {{'item.page.subscriptions.modal.new-subscription-form.processing' | translate}}</span>
-      <span
-        *ngIf="!(processing$ | async)">{{'item.page.subscriptions.modal.new-subscription-form.submit' | translate}}</span>
-    </button>
     <button type="button" class="btn btn-outline-secondary"
-            (click)="activeModal.close()">{{'item.page.subscriptions.modal.close' | translate}}</button>
-
+            (click)="activeModal.close()">
+      {{'item.page.subscriptions.modal.close' | translate}}
+    </button>
+    <button type="submit" class="btn btn-success" [disabled]="(processing$ | async)">
+        <span *ngIf="(processing$ | async)">
+          <i class='fas fa-circle-notch fa-spin'></i> {{'item.page.subscriptions.modal.new-subscription-form.processing' | translate}}
+        </span>
+      <span *ngIf="!(processing$ | async)">
+        {{'item.page.subscriptions.modal.new-subscription-form.submit' | translate}}
+      </span>
+    </button>
   </div>
-
 </form>
