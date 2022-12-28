@@ -29,7 +29,7 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
                 provide: TranslateLoader,
                 useClass: TranslateLoaderMock
             }
-        }),
+        })
     ],
     exports: [],
     declarations: [ConfirmationModalComponent],

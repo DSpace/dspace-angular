@@ -1590,6 +1590,9 @@
 
   "datapackage.listelement.badge": "Data Package",
 
+
+  "checksum-tooltip.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
+
   "cookies.consent.accept-all": "Accept all",
 
   "cookies.consent.accept-selected": "Accept selected",
@@ -1682,6 +1685,10 @@
   "cris-layout.advanced-attachment.dc.title": "Name",
 
   "cris-layout.advanced-attachment.size": "Size",
+
+  "cris-layout.advanced-attachment.checksum": "Checksum",
+
+  "cris-layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
 
   "cris-layout.advanced-attachment.format": "Format",
 
@@ -3213,6 +3220,8 @@
 
   "item-export.alert.multiple": "Export all items of a particular entity type belonging to the current search.",
 
+  "item-export.alert.export.limit": "This export will be limited to a maximum of {{limit}} items.",
+
   "item-export.form.entityType": "Entity Type",
 
   "item-export.form.entityType.tip": "Choose the entity type to export",
@@ -3384,7 +3393,9 @@
 
   "manage.relationships.unhide": "Unhide",
 
-  "manage.relationships.title" : "Selected items",
+  "manage.relationships.search-list.title" : "All your items",
+
+  "manage.relationships.selected-list.title" : "Selected items",
 
   "manage.relationships.no.relationships.found" : "Empty selection",
 
@@ -5917,6 +5928,8 @@
 
   "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
 
+  "submission.sections.upload.checksum": "Checksum",
+
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
 
   "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
@@ -6614,5 +6627,15 @@
 
   "curation-task.task.pushocr.label": "Send OCR to the Annotation Server",
 
-  "curation-task.task.ocrclean.label": "Remove all metadata bundles and uploaded ocr created by a previous upload to the ocr server"
+  "curation-task.task.ocrclean.label": "Remove all metadata bundles and uploaded ocr created by a previous upload to the ocr server",
+
+  "curation-task.task.iiifuploader.label": "Upload images to the IIIF Image Server (photo gallery)",
+
+  "curation-task.task.iiifuploader.primary.label": "Upload images to the IIIF Image Server (digitized book)",
+
+  "curation-task.task.iiifforbidfiledownload.label": "Forbid file download for files uploaded on image server",
+
+  "curation-task.task.iiifallowfiledownload.label": "Allow file download for files uploaded on image server",
+
+  "curation-task.task.iiifpdfmultipages.label": "Create multipages PDF from IIIF images"
 }

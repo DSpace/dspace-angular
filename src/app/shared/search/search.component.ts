@@ -528,8 +528,10 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.useCachedVersionIfAvailable,
       true,
       followLink<Item>('thumbnail', { isOptional: true }),
-      followLink<SubmissionObject>('item', { isOptional: true }, followLink<Item>('thumbnail', { isOptional: true })) as any,
-      followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
+      followLink<SubmissionObject>('item', { isOptional: true },
+        followLink<Item>('thumbnail', { isOptional: true }),
+        followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
+      ) as any
     ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded) {

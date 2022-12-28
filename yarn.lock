@@ -1926,15 +1926,6 @@
     "@oozcitak/url" "1.0.0"
     "@oozcitak/util" "8.0.0"
 
-"@oozcitak/dom@1.15.6":
-  version "1.15.6"
-  resolved "https://registry.yarnpkg.com/@oozcitak/dom/-/dom-1.15.6.tgz#b8423d7bbc0a2e98f3a924e068332a4bc7330314"
-  integrity sha512-k4uEIa6DI3FCrFJMGq/05U/59WnS9DjME0kaPqBRCJAqBTkmopbYV1Xs4qFKbDJ/9wOg8W97p+1E0heng/LH7g==
-  dependencies:
-    "@oozcitak/infra" "1.0.5"
-    "@oozcitak/url" "1.0.0"
-    "@oozcitak/util" "8.3.4"
-
 "@oozcitak/infra@1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@oozcitak/infra/-/infra-1.0.3.tgz#a83f912872c717783a5705d39c9c8d371fd28a9d"
@@ -1976,11 +1967,6 @@
   version "8.3.3"
   resolved "https://registry.yarnpkg.com/@oozcitak/util/-/util-8.3.3.tgz#1f6dbb6cd83dc21973adc62e0d725585853e38d2"
   integrity sha512-Ufpab7G5PfnEhQyy5kDg9C8ltWJjsVT1P/IYqacjstaqydG4Q21HAT2HUZQYBrC/a1ZLKCz87pfydlDvv8y97w==
-
-"@oozcitak/util@8.3.4":
-  version "8.3.4"
-  resolved "https://registry.yarnpkg.com/@oozcitak/util/-/util-8.3.4.tgz#34b996b1688db21c5d65d806445aab2b93e95cb5"
-  integrity sha512-6gH/bLQJSJEg7OEpkH4wGQdA8KXHRbzL1YkGyUO12YNAgV3jxKy4K9kvfXj4+9T0OLug5k58cnPCKSSIKzp7pg==
 
 "@polka/url@^1.0.0-next.20":
   version "1.0.0-next.21"
@@ -7235,21 +7221,17 @@ html-parse-stringify@^3.0.1:
   dependencies:
     void-elements "3.1.0"
 
-html-to-docx@^1.2.4:
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/html-to-docx/-/html-to-docx-1.6.4.tgz#aa99f8e216d31b5b23e8f95c4823e348b4a64ccd"
-  integrity sha512-bo/nL47GcBXxsephyC9HpIjd8VZoOKKZHxOLENxFwsM29RU1vpgEEFbrtI6OeJemSVUWKHys0avOGZlGv1cH6Q==
+html-to-docx@^1.2.4, html-to-docx@~1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/html-to-docx/-/html-to-docx-1.4.0.tgz#5eed2575b3961e8f065c180b98556db0c408be95"
+  integrity sha512-VEbwMb5lwQZiJcnRZLofhziNtQ9UbVE7MQGICZKp896gC6P0ikfU6XRc8g4Z5qmYRBqLBXnY7b6iFYJ72yqNrw==
   dependencies:
-    "@oozcitak/dom" "1.15.6"
-    "@oozcitak/util" "8.3.4"
     color-name "^1.1.4"
     escape-html "^1.0.3"
     html-to-vdom "^0.7.0"
     image-size "^1.0.0"
-    image-to-base64 "^2.2.0"
     jszip "^3.7.1"
     lodash "^4.17.21"
-    mime-types "^2.1.35"
     nanoid "^3.1.25"
     virtual-dom "^2.1.1"
     xmlbuilder2 "2.1.2"
@@ -7554,13 +7536,6 @@ image-size@~0.5.0:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/image-size/-/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
   integrity sha1-Cd/Uq50g4p6xw+gLiZA3jfnjy5w=
-
-image-to-base64@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/image-to-base64/-/image-to-base64-2.2.0.tgz#743039f59dee15a5953a621ea8beeacbc487f99d"
-  integrity sha512-Z+aMwm/91UOQqHhrz7Upre2ytKhWejZlWV/JxUTD1sT7GWWKFDJUEV5scVQKnkzSgPHFuQBUEWcanO+ma0PSVw==
-  dependencies:
-    node-fetch "^2.6.0"
 
 immediate@~3.0.5:
   version "3.0.6"
@@ -9227,7 +9202,7 @@ mime-db@1.51.0:
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.51.0.tgz#d9ff62451859b18342d960850dc3cfb77e63fb0c"
   integrity sha512-5y8A56jg7XVQx2mbv1lu49NR4dokRnhZYTtL+KGfaa27uq4pSTXkwQkFJl4pkRMyNFz/EtYDSkiiEHx3F7UN6g==
 
-mime-db@1.52.0, "mime-db@>= 1.43.0 < 2":
+"mime-db@>= 1.43.0 < 2":
   version "1.52.0"
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.52.0.tgz#bbabcdc02859f4987301c856e3387ce5ec43bf70"
   integrity sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==
@@ -9238,13 +9213,6 @@ mime-types@^2.1.12, mime-types@^2.1.27, mime-types@^2.1.31, mime-types@~2.1.17, 
   integrity sha512-6cP692WwGIs9XXdOO4++N+7qjqv0rqxxVvJ3VHPh/Sc9mVZcQP+ZGhkKiTvWMQRr2tbHkJP/Yn7Y0npb3ZBs4A==
   dependencies:
     mime-db "1.51.0"
-
-mime-types@^2.1.35:
-  version "2.1.35"
-  resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.35.tgz#381a871b62a734450660ae3deee44813f70d959a"
-  integrity sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==
-  dependencies:
-    mime-db "1.52.0"
 
 mime@1.4.1:
   version "1.4.1"

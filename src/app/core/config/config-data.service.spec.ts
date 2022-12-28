@@ -59,8 +59,6 @@ describe('ConfigDataService', () => {
     rdbService = getMockRemoteDataBuildService();
     halService = new HALEndpointServiceStub(configEndpoint);
     service = initTestService();
-    spyOn((service as any).dataService, 'findById');
-    spyOn((service as any).dataService, 'findAll');
   });
 
   describe('findByHref', () => {
@@ -76,10 +74,11 @@ describe('ConfigDataService', () => {
 
   describe('findListByHref', () => {
     it('should proxy the call to vocabularyDataService.findVocabularyById', () => {
-      scheduler.schedule(() => service.findListByHref('href'));
+      const expected = new GetRequest(requestService.generateRequestId(), scopedEndpoint);
+      scheduler.schedule(() => service.findListByHref(scopedEndpoint).subscribe());
       scheduler.flush();
 
-      expect((service as any).super.findListByHref).toHaveBeenCalledWith( 'href', {}, true, true);
+      expect(requestService.send).toHaveBeenCalledWith(expected, true);
     });
   });
 

@@ -100,7 +100,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
       switchMap((url) => {
         if (hasNoValue(url)) {
           return this.siteService.find().pipe(
-            map((site) => site.self)
+            map((site) => site?.self)
           );
         } else {
           return observableOf(url);

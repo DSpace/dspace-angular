@@ -491,7 +491,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   findByIdWithProjections(id: string, projections: string[], useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
 
     if (uuidValidate(id)) {
-      return this.findByIdWithProjections(id, projections, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+      return super.findByIdWithProjections(id, projections, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
     } else {
       return this.findByCustomUrl(id, useCachedVersionIfAvailable, reRequestOnStale, linksToFollow, projections);
     }

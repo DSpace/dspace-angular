@@ -18,7 +18,6 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
 
 describe('AuditDataService', () => {
   let service: AuditDataService;
-  let serviceAsAny: any;
   let store: Store<CoreState>;
   let requestService: RequestService;
 
@@ -78,7 +77,7 @@ describe('AuditDataService', () => {
 
   describe('findByObject', () => {
     beforeEach(() => {
-      spyOn(serviceAsAny.searchData, 'searchBy').and.returnValue(paginatedAudits$);
+      spyOn((service as any).searchData, 'searchBy').and.returnValue(paginatedAudits$);
     });
 
     it('should call searchBy with the objectId and follow eperson link', (done) => {
@@ -87,7 +86,7 @@ describe('AuditDataService', () => {
       options.searchParams = [new RequestParam('object', objectId)];
       service.findByObject(objectId).subscribe((result) => {
         expect(result.payload.page).toEqual(audits);
-        expect(serviceAsAny.searchData.searchBy).toHaveBeenCalledWith(
+        expect((service as any).searchData.searchBy).toHaveBeenCalledWith(
           AUDIT_FIND_BY_OBJECT_SEARCH_METHOD,
           options,
           true,
@@ -105,7 +104,7 @@ describe('AuditDataService', () => {
 
     it('should call findById with id and linksToFollow', (done) => {
       const linksToFollow: any = 'linksToFollow';
-      service.findById(audit.id, linksToFollow).subscribe((result) => {
+      service.findById(audit.id, true, true, linksToFollow).subscribe((result) => {
         expect(result.payload).toEqual(audit);
         expect(service.findById).toHaveBeenCalledWith(audit.id, true, true, linksToFollow);
         done();
@@ -115,15 +114,15 @@ describe('AuditDataService', () => {
 
   describe('findAll', () => {
     beforeEach(() => {
-      spyOn(serviceAsAny.findAllData, 'findAll').and.returnValue(paginatedAudits$);
+      spyOn((service as any).findAllData, 'findAll').and.returnValue(paginatedAudits$);
     });
 
     it('should call findAll with with paginated options and followLinks', (done) => {
       const linksToFollow: any = 'linksToFollow';
       const options = new FindListOptions();
-      service.findAll(options, linksToFollow).subscribe((result) => {
+      service.findAll(options, true, true, linksToFollow).subscribe((result) => {
         expect(result.payload.page).toEqual(audits);
-        expect(serviceAsAny.findAllData.findAll).toHaveBeenCalledWith(options, true, true, linksToFollow);
+        expect((service as any).findAllData.findAll).toHaveBeenCalledWith(options, true, true, linksToFollow);
         done();
       });
     });

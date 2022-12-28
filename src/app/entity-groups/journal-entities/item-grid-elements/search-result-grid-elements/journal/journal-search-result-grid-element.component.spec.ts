@@ -55,7 +55,8 @@ mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
         value: 'This is just another title'
       }
     ]
-  }
+  },
+  thumbnail: createNoContentRemoteDataObject$()
 });
 
 describe('JournalSearchResultGridElementComponent', getEntityGridElementTestComponent(JournalSearchResultGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['editor', 'publisher', 'description']));

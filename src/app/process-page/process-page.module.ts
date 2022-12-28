@@ -17,6 +17,7 @@ import { ProcessDetailFieldComponent } from './detail/process-detail-field/proce
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
 import { ProcessBreadcrumbResolver } from './process-breadcrumb.resolver';
 import { ProcessFormComponent } from './form/process-form.component';
+import { NumberValueInputComponent } from './form/process-parameters/parameter-value-input/number-value-input/number-value-input.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { ProcessFormComponent } from './form/process-form.component';
     ProcessOverviewComponent,
     ProcessDetailComponent,
     ProcessDetailFieldComponent,
-    ProcessFormComponent
+    ProcessFormComponent,
+    NumberValueInputComponent
   ],
   providers: [
     ProcessBreadcrumbResolver,

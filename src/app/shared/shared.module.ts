@@ -10,6 +10,7 @@ import {
   NgbCollapseModule,
   NgbDatepickerModule,
   NgbDropdownModule,
+  NgbModule,
   NgbNavModule,
   NgbPaginationModule,
   NgbTimepickerModule,
@@ -297,7 +298,6 @@ import { RelatedItemsComponent } from '../item-page/simple/related-items/related
 import { LinkMenuItemComponent } from './menu/menu-item/link-menu-item.component';
 import { OnClickMenuItemComponent } from './menu/menu-item/onclick-menu-item.component';
 import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component';
-import { ItemExportComponent } from './item-export/item-export/item-export.component';
 import { SearchChartsComponent } from './search/search-charts/search-charts.component';
 import { SearchChartBarComponent } from './search/search-charts/search-chart/search-chart-bar/search-chart-bar.component';
 import { SearchChartBarToLeftComponent } from './search/search-charts/search-chart/search-chart-bar-to-left/search-chart-bar-to-left.component';
@@ -309,8 +309,6 @@ import { SearchChartComponent } from './search/search-charts/search-chart/search
 import { ChartsModule } from '../charts/charts.module';
 import { SearchChartFilterComponent } from './search/search-charts/search-chart/search-chart-filter/search-chart-filter.component';
 import { VocabularyExternalSourceComponent } from './vocabulary-external-source/vocabulary-external-source.component';
-import { ItemExportAlertComponent } from './item-export/item-export-alert/item-export-alert.component';
-import { ItemExportModalLauncherComponent } from './item-export/item-export-modal-launcher/item-export-modal-launcher.component';
 import { BulkImportSelectorComponent } from './dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
 import { AdministeredCollectionSelectorComponent } from './dso-selector/dso-selector/administered-collection-selector/administered-collection-selector.component';
 import { RelationshipsListComponent } from './object-list/relationships-list/relationships-list.component';
@@ -354,6 +352,20 @@ import { ItemCorrectionComponent } from './object-collection/shared/mydspace-ite
 import { MetricsModule } from './metric/metrics.module';
 import { SearchChartBarHorizontalComponent } from './search/search-charts/search-chart/search-chart-bar-horizontal/search-chart-bar-horizontal.component';
 import { ThumbnailService } from './thumbnail/thumbnail.service';
+import { ItemExportAlertComponent } from './search/item-export/item-export-alert/item-export-alert.component';
+import {
+  ItemExportModalLauncherComponent
+} from './search/item-export/item-export-modal-launcher/item-export-modal-launcher.component';
+import { ItemExportComponent } from './search/item-export/item-export/item-export.component';
+import { EpersonGroupListComponent } from './resource-policies/form/eperson-group-list/eperson-group-list.component';
+import {
+  EpersonSearchBoxComponent
+} from './resource-policies/form/eperson-group-list/eperson-search-box/eperson-search-box.component';
+import {
+  GroupSearchBoxComponent
+} from './resource-policies/form/eperson-group-list/group-search-box/group-search-box.component';
+import { EntityIconDirective } from './entity-icon/entity-icon.directive';
+import { ItemExportListComponent } from './search/item-export/item-export/item-export-list/item-export-list.component';
 
 const MODULES = [
   CommonModule,
@@ -376,7 +388,8 @@ const MODULES = [
   DragDropModule,
   CdkTreeModule,
   GoogleRecaptchaModule,
-  MetricsModule
+  MetricsModule,
+  NgbModule
 ];
 
 const ROOT_MODULES = [
@@ -547,9 +560,6 @@ const COMPONENTS = [
   ScopeSelectorModalComponent,
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,
-  ItemExportComponent,
-  ItemExportAlertComponent,
-  ItemExportModalLauncherComponent,
   SearchChartsComponent,
   SearchChartBarComponent,
   SearchChartBarToLeftComponent,
@@ -569,7 +579,10 @@ const COMPONENTS = [
   MetadataLinkViewComponent,
   ExportExcelSelectorComponent,
   ThemedBrowseMostElementsComponent,
-  SearchChartBarHorizontalComponent
+  SearchChartBarHorizontalComponent,
+  EpersonGroupListComponent,
+  EpersonSearchBoxComponent,
+  GroupSearchBoxComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -686,6 +699,7 @@ const DIRECTIVES = [
   NgForTrackByIdDirective,
   MetadataFieldValidator,
   HoverClassDirective,
+  EntityIconDirective
 ];
 
 @NgModule({
@@ -701,7 +715,6 @@ const DIRECTIVES = [
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ItemVersionsSummaryModalComponent,
     ItemVersionsDeleteModalComponent,
-    ItemExportAlertComponent,
   ],
   providers: [
     ...PROVIDERS

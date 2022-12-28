@@ -126,9 +126,8 @@ describe('TabDataService', () => {
       notificationsService
     );
 
-    spyOn((service as any).dataService, 'findById').and.callThrough();
-    spyOn((service as any).dataService, 'searchBy').and.callThrough();
-    spyOn((service as any).dataService, 'getSearchByHref').and.returnValue(of(requestURL));
+    spyOn((service as any), 'findById').and.callThrough();
+    spyOn((service as any).searchData, 'searchBy').and.callThrough();
   });
 
   describe('findById', () => {
@@ -136,7 +135,7 @@ describe('TabDataService', () => {
       scheduler.schedule(() => service.findById(tabId));
       scheduler.flush();
 
-      expect((service as any).dataService.findById).toHaveBeenCalledWith(tabId);
+      expect((service as any).findById).toHaveBeenCalledWith(tabId);
     });
 
     it('should return a RemoteData<CrisLayoutTab> for the object with the given id', () => {
@@ -157,7 +156,7 @@ describe('TabDataService', () => {
       scheduler.schedule(() => service.findByItem(itemUUID, true));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchFindByItem, options, true);
+      expect((service as any).searchData.searchBy).toHaveBeenCalledWith((service as any).searchFindByItem, options, true);
     });
 
     it('should return a RemoteData<PaginatedList<CrisLayoutTab>> for the search', () => {
@@ -179,7 +178,7 @@ describe('TabDataService', () => {
       scheduler.schedule(() => service.findByEntityType(entityType));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchFindByEntityType, options);
+      expect((service as any).searchData.searchBy).toHaveBeenCalledWith((service as any).searchFindByEntityType, options);
     });
 
     it('should return a RemoteData<PaginatedList<CrisLayoutTab>> for the search', () => {

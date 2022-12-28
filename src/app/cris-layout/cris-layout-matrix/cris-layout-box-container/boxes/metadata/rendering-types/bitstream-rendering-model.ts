@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
-import { Bitstream } from '../../../../../../core/shared/bitstream.model';
+import { Bitstream, ChecksumInfo } from '../../../../../../core/shared/bitstream.model';
 import { hasValue, isNotEmpty } from '../../../../../../shared/empty.util';
 import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
 import { BitstreamDataService, MetadataFilter } from '../../../../../../core/data/bitstream-data.service';
@@ -64,6 +64,14 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   fileName(bitstream: Bitstream): string {
     const title = bitstream.firstMetadataValue(this.TITLE_METADATA);
     return hasValue(title) ? title : bitstream.firstMetadataValue(this.SOURCE_METADATA);
+  }
+
+  /**
+   * Returns the size of given bitstreams in bytes
+   * @param bitstream
+   */
+  getChecksum(bitstream: Bitstream): ChecksumInfo {
+    return bitstream.checkSum;
   }
 
   /**

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../data/base/data-service.decorator';
@@ -9,7 +9,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { ItemDataService } from '../data/item-data.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { ItemExportFormat } from './model/item-export-format.model';
+import { ItemExportFormat, ItemExportFormatMap } from './model/item-export-format.model';
 import { ITEM_EXPORT_FORMAT } from './model/item-export-format.resource-type';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
@@ -24,10 +24,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { SearchOptions } from '../../shared/search/models/search-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { Process } from '../../process-page/processes/process.model';
-import { getFirstCompletedRemoteData } from '../shared/operators';
+import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../shared/operators';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { SearchDataImpl } from '../data/base/search-data';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { findIndex } from 'lodash';
 
 export enum ItemExportFormatMolteplicity {
   SINGLE = 'SINGLE',
@@ -57,7 +59,7 @@ export class ItemExportFormatService extends IdentifiableDataService<ItemExportF
     protected scriptDataService: ScriptDataService) {
 
     super('itemexportformats', requestService, rdbService, objectCache, halService);
-
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
@@ -68,7 +70,7 @@ export class ItemExportFormatService extends IdentifiableDataService<ItemExportF
    * @return Observable<{ [entityType: string]: ItemExportFormat[]}>
    *    dictionary which map for the requested entityTypesId all the allowed export formats
    */
-  byEntityTypeAndMolteplicity(entityTypeId: string, molteplicity: ItemExportFormatMolteplicity): Observable<{ [entityType: string]: ItemExportFormat[] }> {
+  byEntityTypeAndMolteplicity(entityTypeId: string, molteplicity: ItemExportFormatMolteplicity): Observable<ItemExportFormatMap> {
     const searchHref = 'byEntityTypeAndMolteplicity';
 
     const searchParams = [];
@@ -80,12 +82,26 @@ export class ItemExportFormatService extends IdentifiableDataService<ItemExportF
     }
 
     return this.searchData.searchBy(searchHref, { searchParams, elementsPerPage: 100 }).pipe(
-      filter((itemExportFormats: RemoteData<PaginatedList<ItemExportFormat>>) => !itemExportFormats.isResponsePending),
-      map((response) => {
-        const page = {};
-        response.payload.page.forEach((format) => page[format.entityType] = page[format.entityType] ? [...page[format.entityType], format] : [format]);
-        return page;
-      }));
+      getAllCompletedRemoteData(),
+      map((itemExportFormatsRD: RemoteData<PaginatedList<ItemExportFormat>>) => {
+        const formatMap = {};
+        const sharedFormat = [];
+        itemExportFormatsRD.payload.page.forEach((format) => {
+          if (isEmpty(format.entityType)) {
+            if (findIndex(sharedFormat, (entry) => entry.id === format.id) === -1) {
+              sharedFormat.push(format);
+            }
+          } else {
+            formatMap[format.entityType] = formatMap[format.entityType] ? [...formatMap[format.entityType], format] : [format];
+          }
+        });
+
+        Object.keys(formatMap).forEach((itemType) => {
+          formatMap[itemType] = [...formatMap[itemType], ...sharedFormat];
+        });
+        return formatMap;
+      })
+    );
   }
 
   /**
@@ -110,19 +126,24 @@ export class ItemExportFormatService extends IdentifiableDataService<ItemExportF
    * @param entityType The requested entityType
    * @param format The requested export format
    * @param searchOptions the state of the search to model into a bulk-item-export process
+   * @param itemList If not empty contains the list of item to export only
    *
    * @return an Observable containing the processNumber if the script starts successfully, or null in case of errors
    */
-  public doExportMulti(entityType: string, format: ItemExportFormat, searchOptions: SearchOptions): Observable<number> {
+  public doExportMulti(entityType: string, format: ItemExportFormat, searchOptions: SearchOptions, itemList: string[] = []): Observable<number> {
 
     let parameterValues = [];
-    parameterValues = this.entityTypeParameter(entityType, parameterValues);
     parameterValues = this.formatParameter(format, parameterValues);
-    parameterValues = this.queryParameter(searchOptions, parameterValues);
-    parameterValues = this.filtersParameter(searchOptions, parameterValues);
-    parameterValues = this.scopeParameter(searchOptions, parameterValues);
-    parameterValues = this.configurationParameter(searchOptions, parameterValues);
-    parameterValues = this.sortParameter(searchOptions, parameterValues);
+    if (isNotEmpty(itemList)) {
+      parameterValues = this.listUUIDParameter(itemList.join(';'), parameterValues);
+    } else {
+      parameterValues = this.entityTypeParameter(entityType, parameterValues);
+      parameterValues = this.queryParameter(searchOptions, parameterValues);
+      parameterValues = this.filtersParameter(searchOptions, parameterValues);
+      parameterValues = this.scopeParameter(searchOptions, parameterValues);
+      parameterValues = this.configurationParameter(searchOptions, parameterValues);
+      parameterValues = this.sortParameter(searchOptions, parameterValues);
+    }
 
     return this.launchScript(BULK_ITEM_EXPORT_SCRIPT_NAME, parameterValues);
   }
@@ -154,6 +175,10 @@ export class ItemExportFormatService extends IdentifiableDataService<ItemExportF
 
   private formatParameter(format: ItemExportFormat, parameterValues: ProcessParameter[]): ProcessParameter[] {
     return [...parameterValues, Object.assign(new ProcessParameter(), { name: '-f', value: format.id })];
+  }
+
+  private listUUIDParameter(list: string, parameterValues: ProcessParameter[]): ProcessParameter[] {
+    return [...parameterValues, Object.assign(new ProcessParameter(), { name: '-si', value: list })];
   }
 
   private queryParameter(searchOptions: SearchOptions, parameterValues: ProcessParameter[]): ProcessParameter[] {
