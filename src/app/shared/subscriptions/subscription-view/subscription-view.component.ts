@@ -100,7 +100,7 @@ export class SubscriptionViewComponent {
     this.modalRef.componentInstance.subscription = this.subscription;
     this.modalRef.componentInstance.updateSubscription.pipe(take(1)).subscribe((subscription: Subscription) => {
       this.subscription = subscription;
-    })
+    });
 
   }
 }

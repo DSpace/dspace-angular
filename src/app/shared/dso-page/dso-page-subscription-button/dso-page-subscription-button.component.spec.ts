@@ -61,7 +61,7 @@ describe('DsoPageSubscriptionButtonComponent', () => {
 
   describe('when is authorized', () => {
     beforeEach(() => {
-      authorizationService.isAuthorized.and.returnValue(observableOf(true))
+      authorizationService.isAuthorized.and.returnValue(observableOf(true));
       fixture.detectChanges();
     });
 
@@ -72,7 +72,7 @@ describe('DsoPageSubscriptionButtonComponent', () => {
 
   describe('when is not authorized', () => {
     beforeEach(() => {
-      authorizationService.isAuthorized.and.returnValue(observableOf(false))
+      authorizationService.isAuthorized.and.returnValue(observableOf(false));
       fixture.detectChanges();
     });
 

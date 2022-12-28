@@ -106,7 +106,7 @@ describe('SubscriptionModalComponent', () => {
       fixture = TestBed.createComponent(SubscriptionModalComponent);
       component = fixture.componentInstance;
       component.dso = mockItem;
-      (component as any).subscriptionDefaultTypes = ['test1', 'test2']
+      (component as any).subscriptionDefaultTypes = ['test1', 'test2'];
       de = fixture.debugElement;
     });
 
@@ -128,7 +128,7 @@ describe('SubscriptionModalComponent', () => {
         (component as any).frequencyDefaultValues.forEach((frequency) => {
           expect(component.subscriptionForm.get('test1').get('frequencies').get(frequency)).toBeTruthy();
           expect(component.subscriptionForm.get('test2').get('frequencies').get(frequency)).toBeTruthy();
-        })
+        });
       });
     });
 
@@ -151,7 +151,7 @@ describe('SubscriptionModalComponent', () => {
           expect(component.subscriptionForm.get('test1').get('frequencies').get(frequency)).toBeTruthy();
 
           expect(component.subscriptionForm.get('test2').get('frequencies').get(frequency)).toBeTruthy();
-        })
+        });
         expect(component.subscriptionForm.get('test1').get('frequencies').get('D').value).toBeTrue();
         expect(component.subscriptionForm.get('test1').get('frequencies').get('M').value).toBeTrue();
         expect(component.subscriptionForm.get('test1').get('frequencies').get('W').value).toBeFalse();
@@ -169,7 +169,7 @@ describe('SubscriptionModalComponent', () => {
       component = fixture.componentInstance;
       component.dso = mockItem;
       component.subscription = subscriptionMock as any;
-      (component as any).subscriptionDefaultTypes = ['test1', 'test2']
+      (component as any).subscriptionDefaultTypes = ['test1', 'test2'];
       de = fixture.debugElement;
       fixture.detectChanges();
     });
@@ -184,7 +184,7 @@ describe('SubscriptionModalComponent', () => {
       expect(component.subscriptionForm.get('test1')).toBeTruthy();
       (component as any).frequencyDefaultValues.forEach((frequency) => {
         expect(component.subscriptionForm.get('test1').get('frequencies').get(frequency)).toBeTruthy();
-      })
+      });
       expect(component.subscriptionForm.get('test1').get('frequencies').get('D').value).toBeTrue();
       expect(component.subscriptionForm.get('test1').get('frequencies').get('M').value).toBeTrue();
       expect(component.subscriptionForm.get('test1').get('frequencies').get('W').value).toBeFalse();

@@ -104,13 +104,13 @@ export class SubscriptionModalComponent implements OnInit {
   private initFormByAllSubscriptions(): void {
     this.subscriptionForm = new FormGroup({});
     for (let t of this.subscriptionDefaultTypes) {
-      const formGroup = new FormGroup({})
+      const formGroup = new FormGroup({});
       formGroup.addControl('subscriptionId', this.formBuilder.control(''));
       formGroup.addControl('frequencies', this.formBuilder.group({}));
       for (let f of this.frequencyDefaultValues) {
-        (formGroup.controls['frequencies'] as FormGroup).addControl(f, this.formBuilder.control(false));
+        (formGroup.controls.frequencies as FormGroup).addControl(f, this.formBuilder.control(false));
       }
-      this.subscriptionForm.addControl(t, formGroup)
+      this.subscriptionForm.addControl(t, formGroup);
     }
 
     this.initFormDataBySubscriptions();
@@ -120,13 +120,13 @@ export class SubscriptionModalComponent implements OnInit {
    * If the subscription is passed start the form with the information of subscription
    */
   initFormByGivenSubscription(): void {
-    const formGroup = new FormGroup({})
+    const formGroup = new FormGroup({});
     formGroup.addControl('subscriptionId', this.formBuilder.control(this.subscription.id));
     formGroup.addControl('frequencies', this.formBuilder.group({}));
     (formGroup.get('frequencies') as FormGroup).addValidators(Validators.required);
     for (let f of this.frequencyDefaultValues) {
       const value = findIndex(this.subscription.subscriptionParameterList, ['value', f]) !== -1;
-      (formGroup.controls['frequencies'] as FormGroup).addControl(f, this.formBuilder.control(value));
+      (formGroup.controls.frequencies as FormGroup).addControl(f, this.formBuilder.control(value));
     }
 
     this.subscriptionForm = this.formBuilder.group({
@@ -149,9 +149,9 @@ export class SubscriptionModalComponent implements OnInit {
             const type = subscription.subscriptionType;
             const subscriptionGroup: FormGroup = this.subscriptionForm.get(type) as FormGroup;
             if (isNotEmpty(subscriptionGroup)) {
-              subscriptionGroup.controls['subscriptionId'].setValue(subscription.id);
+              subscriptionGroup.controls.subscriptionId.setValue(subscription.id);
               for (let parameter of subscription.subscriptionParameterList.filter((p) => p.name === 'frequency')) {
-                (subscriptionGroup.controls['frequencies'] as FormGroup).controls[parameter.value]?.setValue(true);
+                (subscriptionGroup.controls.frequencies as FormGroup).controls[parameter.value]?.setValue(true);
               }
             }
           }
@@ -177,9 +177,9 @@ export class SubscriptionModalComponent implements OnInit {
       const subscriptionGroup: FormGroup = this.subscriptionForm.controls[subscriptionType] as FormGroup;
       if (subscriptionGroup.touched && subscriptionGroup.dirty) {
         const body = this.createBody(
-          subscriptionGroup.controls['subscriptionId'].value,
+          subscriptionGroup.controls.subscriptionId.value,
           subscriptionType,
-          subscriptionGroup.controls['frequencies'] as FormGroup
+          subscriptionGroup.controls.frequencies as FormGroup
         );
 
         if (isNotEmpty(body.id)) {
@@ -197,7 +197,7 @@ export class SubscriptionModalComponent implements OnInit {
         mergeMap((subscriptionBody) => {
           return this.subscriptionService.createSubscription(subscriptionBody, this.ePersonId, this.dso.uuid).pipe(
             getFirstCompletedRemoteData()
-          )
+          );
         }),
         tap((res: RemoteData<Subscription>) => {
           if (res.hasSucceeded) {
@@ -215,7 +215,7 @@ export class SubscriptionModalComponent implements OnInit {
         mergeMap((subscriptionBody) => {
           return this.subscriptionService.updateSubscription(subscriptionBody, this.ePersonId, this.dso.uuid).pipe(
             getFirstCompletedRemoteData()
-          )
+          );
         }),
         tap((res: RemoteData<Subscription>) => {
           if (res.hasSucceeded) {
