@@ -37,3 +37,20 @@ img {
     }
   }
 }
+
+
+.thumbnail-placeholder {
+  font-size: 0.6rem;
+}
+
+@include media-breakpoint-up(sm) {
+  .thumbnail-placeholder {
+    font-size: 0.7rem;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .thumbnail-placeholder {
+    font-size: 0.75rem;
+  }
+}
