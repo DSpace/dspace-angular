@@ -50,7 +50,7 @@ export class QualityAssuranceSuggestionDataService extends IdentifiableDataServi
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService
   ) {
-    super('suggestiontargets', requestService, rdbService, objectCache, halService);
+    super('suggestions', requestService, rdbService, objectCache, halService);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
