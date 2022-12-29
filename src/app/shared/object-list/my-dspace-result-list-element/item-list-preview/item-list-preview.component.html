@@ -1,9 +1,9 @@
 <div class="row">
-  <div *ngIf="showThumbnails" class="col-3 col-md-2">
+  <div *ngIf="showThumbnails" class="col-3 col-xl-2 pr-sm-0">
     <ds-thumbnail [thumbnail]="item?.thumbnail | async" [limitWidth]="true">
     </ds-thumbnail>
   </div>
-  <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
+  <div [ngClass]="showThumbnails ? 'col-9 col-xl-10' : 'col-md-12'">
     <div *ngIf="item" @fadeInOut>
       <ng-container *ngIf="status">
         <ds-mydspace-item-status [status]="status"></ds-mydspace-item-status>

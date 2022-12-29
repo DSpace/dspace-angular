@@ -102,7 +102,7 @@ export class BrowserKlaroService extends KlaroService {
         if (hideRegistrationVerification) {
           servicesToHideArray.push(CAPTCHA_NAME);
         }
-        console.log(servicesToHideArray);
+
         return servicesToHideArray;
       })
     );
