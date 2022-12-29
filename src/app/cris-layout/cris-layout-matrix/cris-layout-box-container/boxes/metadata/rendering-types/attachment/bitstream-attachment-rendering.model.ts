@@ -32,14 +32,14 @@ export abstract class BitstreamAttachmentRenderingModelComponent extends Bitstre
     super(fieldProvider, itemProvider, renderingSubTypeProvider, bitstreamDataService, translateService);
   }
 
-    getBitstreamsByItem(options?: FindListOptions): Observable<PaginatedList<Bitstream>> {
-        return this.bitstreamDataService
-            .showableByItem(this.item.uuid, this.field.bitstream.bundle, this.getMetadataFilters(), options, false, false, followLink('thumbnail'))
-            .pipe(
-                getFirstCompletedRemoteData(),
-                map((response: RemoteData<PaginatedList<Bitstream>>) => {
-                    return response.hasSucceeded ? response.payload : buildPaginatedList(null, []);
-                })
-            );
-    }
+  getBitstreamsByItem(options?: FindListOptions): Observable<PaginatedList<Bitstream>> {
+    return this.bitstreamDataService
+      .findShowableBitstreamsByItem(this.item.uuid, this.field.bitstream.bundle, this.getMetadataFilters(), options, false, false, followLink('thumbnail'))
+      .pipe(
+        getFirstCompletedRemoteData(),
+        map((response: RemoteData<PaginatedList<Bitstream>>) => {
+          return response.hasSucceeded ? response.payload : buildPaginatedList(null, []);
+        })
+      );
+  }
 }

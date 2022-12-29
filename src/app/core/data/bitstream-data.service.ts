@@ -348,7 +348,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
    *                                    {@link HALLink}s should be automatically resolved
    */
-  showableByItem(
+  findShowableBitstreamsByItem(
     uuid: string,
     bundlename: string,
     metadataFilters: MetadataFilter[],
