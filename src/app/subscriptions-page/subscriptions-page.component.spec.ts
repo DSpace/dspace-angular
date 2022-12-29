@@ -11,7 +11,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { SubscriptionsPageComponent } from './subscriptions-page.component';
 import { PaginationService } from '../core/pagination/pagination.service';
-import { SubscriptionService } from '../shared/subscriptions/subscription.service';
+import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
 import { AuthService } from '../core/auth/auth.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
@@ -36,7 +36,7 @@ describe('SubscriptionsPageComponent', () => {
     getAuthenticatedUserFromStore: observableOf(mockSubscriptionEperson)
   });
 
-  const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionService', {
+  const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionsDataService', {
     findByEPerson: jasmine.createSpy('findByEPerson')
   });
 
@@ -68,7 +68,7 @@ describe('SubscriptionsPageComponent', () => {
       ],
       declarations: [SubscriptionsPageComponent, SubscriptionViewComponent, VarDirective],
       providers: [
-        { provide: SubscriptionService, useValue: subscriptionServiceStub },
+        { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: AuthService, useValue: authServiceStub },
         { provide: PaginationService, useValue: paginationService }

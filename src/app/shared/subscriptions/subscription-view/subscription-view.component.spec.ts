@@ -19,7 +19,7 @@ import { findByEPersonAndDsoResEmpty, subscriptionMock } from '../../testing/sub
 // Import utils
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { SubscriptionService } from '../subscription.service';
+import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { Subscription } from '../models/subscription.model';
 
 import { of as observableOf } from 'rxjs';
@@ -34,7 +34,7 @@ describe('SubscriptionViewComponent', () => {
   let de: DebugElement;
   let modalService;
 
-  const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionService', {
+  const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionsDataService', {
     getSubscriptionByPersonDSO: observableOf(findByEPersonAndDsoResEmpty),
     deleteSubscription: createSuccessfulRemoteDataObject$({}),
     updateSubscription: createSuccessfulRemoteDataObject$({}),
@@ -73,7 +73,7 @@ describe('SubscriptionViewComponent', () => {
       providers: [
         { provide: ComponentFixtureAutoDetect, useValue: true },
         { provide: NotificationsService, useValue: NotificationsServiceStub },
-        { provide: SubscriptionService, useValue: subscriptionServiceStub },
+        { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
       ]
     })
     .compileComponents();

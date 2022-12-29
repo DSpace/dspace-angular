@@ -41,7 +41,7 @@ import { followLink } from '../utils/follow-link-config.model';
   providedIn: 'root'
 })
 @dataService(SUBSCRIPTION)
-export class SubscriptionService extends IdentifiableDataService<Subscription> {
+export class SubscriptionsDataService extends IdentifiableDataService<Subscription> {
   protected findByEpersonLinkPath = 'findByEPerson';
 
   private deleteData: DeleteDataImpl<Subscription>;
@@ -89,7 +89,7 @@ export class SubscriptionService extends IdentifiableDataService<Subscription> {
    * @param ePerson The ePerson to create for
    * @param uuid The uuid of the dsobjcet to create for
    */
-  createSubscription(subscription, ePerson: string, uuid: string): Observable<RemoteData<Subscription>> {
+  createSubscription(subscription: Subscription, ePerson: string, uuid: string): Observable<RemoteData<Subscription>> {
 
     return this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),

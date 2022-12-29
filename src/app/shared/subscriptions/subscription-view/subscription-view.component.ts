@@ -7,7 +7,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { hasValue } from '../../empty.util';
 import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
-import { SubscriptionService } from '../subscription.service';
+import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { getCommunityModuleRoute } from '../../../community-page/community-page-routing-paths';
 import { getCollectionModuleRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getItemModuleRoute } from '../../../item-page/item-page-routing-paths';
@@ -48,7 +48,7 @@ export class SubscriptionViewComponent {
 
   constructor(
     private modalService: NgbModal,
-    private subscriptionService: SubscriptionService,
+    private subscriptionService: SubscriptionsDataService,
   ) { }
 
   /**

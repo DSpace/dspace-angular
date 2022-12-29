@@ -5,7 +5,7 @@ import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
-import { SubscriptionService } from '../shared/subscriptions/subscription.service';
+import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { PageInfo } from '../core/shared/page-info.model';
@@ -54,7 +54,7 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
   constructor(
     private paginationService: PaginationService,
     private authService: AuthService,
-    private subscriptionService: SubscriptionService
+    private subscriptionService: SubscriptionsDataService
   ) {
 
   }
@@ -78,7 +78,6 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
    */
   private retrieveSubscriptions(): void {
     this.sub = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
-      tap(console.log),
       combineLatestWith(this.ePersonId$),
       tap(() => this.loading$.next(true)),
       switchMap(([currentPagination, ePersonId]) => this.subscriptionService.findByEPerson(ePersonId,{

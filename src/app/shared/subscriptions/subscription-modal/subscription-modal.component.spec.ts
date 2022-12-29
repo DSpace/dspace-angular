@@ -8,7 +8,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { SubscriptionModalComponent } from './subscription-modal.component';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { SubscriptionService } from '../subscription.service';
+import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { Item } from '../../../core/shared/item.model';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -67,7 +67,7 @@ describe('SubscriptionModalComponent', () => {
     getAuthenticatedUserFromStore: createSuccessfulRemoteDataObject$(mockEperson)
   });
 
-  subscriptionServiceStub = jasmine.createSpyObj('SubscriptionService', {
+  subscriptionServiceStub = jasmine.createSpyObj('SubscriptionsDataService', {
     getSubscriptionsByPersonDSO: jasmine.createSpy('getSubscriptionsByPersonDSO'),
     createSubscription: createSuccessfulRemoteDataObject$({}),
     updateSubscription: createSuccessfulRemoteDataObject$({}),
@@ -92,7 +92,7 @@ describe('SubscriptionModalComponent', () => {
         NgbActiveModal,
         { provide: AuthService, useValue: authService },
         { provide: NotificationsService, useValue: notificationServiceStub },
-        { provide: SubscriptionService, useValue: subscriptionServiceStub },
+        { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
       ],
       schemas: [
         NO_ERRORS_SCHEMA

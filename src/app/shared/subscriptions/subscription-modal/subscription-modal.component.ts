@@ -10,7 +10,7 @@ import findIndex from 'lodash/findIndex';
 
 import { Subscription } from '../models/subscription.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { SubscriptionService } from '../subscription.service';
+import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -59,7 +59,7 @@ export class SubscriptionModalComponent implements OnInit {
   /**
    * Types of subscription to be shown on select
    */
-  private subscriptionDefaultTypes = ['content', 'statistics'];
+  private subscriptionDefaultTypes = ['content'];
 
   /**
    * Frequencies to be shown as checkboxes
@@ -75,7 +75,7 @@ export class SubscriptionModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private notificationsService: NotificationsService,
-    private subscriptionService: SubscriptionService,
+    private subscriptionService: SubscriptionsDataService,
     public activeModal: NgbActiveModal,
     private authService: AuthService,
     private translate: TranslateService,
@@ -239,7 +239,7 @@ export class SubscriptionModalComponent implements OnInit {
   private createBody(subscriptionId: string, subscriptionType: string, frequencies: FormGroup): Partial<any> {
     const body = {
       id: (isNotEmpty(subscriptionId) ? subscriptionId : null),
-      type: subscriptionType,
+      subscriptionType: subscriptionType,
       subscriptionParameterList: []
     };
 
