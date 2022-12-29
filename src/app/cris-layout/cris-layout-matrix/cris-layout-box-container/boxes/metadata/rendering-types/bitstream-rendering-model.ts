@@ -124,6 +124,23 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
    * @param options The {@link FindListOptions} for the request
    */
   getBitstreamsByItem(options?: FindListOptions): Observable<PaginatedList<Bitstream>> {
+    return this.bitstreamDataService
+      .findByItem(this.item.uuid, this.field.bitstream.bundle, this.getMetadataFilters(), options, false, false, followLink('thumbnail'))
+      .pipe(
+        getFirstCompletedRemoteData(),
+        map((response: RemoteData<PaginatedList<Bitstream>>) => {
+          return response.hasSucceeded ? response.payload : buildPaginatedList(null, []);
+        })
+      );
+  }
+
+  /**
+   * Composes the {@link MetadataFilter} array used as filter
+   * while retrieving bitstream from remote services.
+   *
+   * @protected
+   */
+  protected getMetadataFilters(): MetadataFilter[] {
     let filters: MetadataFilter[] = [];
     if (isNotEmpty(this.field.bitstream.metadataValue)) {
       filters.push({
@@ -131,15 +148,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
         metadataValue: this.field.bitstream.metadataValue
       });
     }
-
-    return this.bitstreamDataService
-      .findByItem(this.item.uuid, this.field.bitstream.bundle, filters, options, false, false, followLink('thumbnail'))
-      .pipe(
-        getFirstCompletedRemoteData(),
-        map((response: RemoteData<PaginatedList<Bitstream>>) => {
-          return response.hasSucceeded ? response.payload : buildPaginatedList(null, []);
-        })
-      );
+    return filters;
   }
 
 
