@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -18,7 +18,9 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { SuggestionsService } from '../suggestions.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AuthActionTypes, RetrieveAuthenticatedEpersonSuccessAction } from '../../../core/auth/auth.actions';
-import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+import {
+  OpenaireSuggestionTarget
+} from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 
 /**
@@ -30,7 +32,7 @@ export class SuggestionTargetsEffects {
   /**
    * Retrieve all Suggestion Targets managing pagination and errors.
    */
-  @Effect() retrieveTargetsBySource$ = this.actions$.pipe(
+  retrieveTargetsBySource$ = createEffect(() => this.actions$.pipe(
     ofType(SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE),
     switchMap((action: RetrieveTargetsBySourceAction) => {
       return this.suggestionsService.getTargets(
@@ -49,33 +51,33 @@ export class SuggestionTargetsEffects {
         })
       );
     })
-  );
+  ));
 
   /**
    * Show a notification on error.
    */
-  @Effect({ dispatch: false }) retrieveAllTargetsErrorAction$ = this.actions$.pipe(
+  retrieveAllTargetsErrorAction$ = createEffect(() => this.actions$.pipe(
     ofType(SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE_ERROR),
     tap(() => {
       this.notificationsService.error(null, this.translate.get('reciter.suggestion.target.error.service.retrieve'));
     })
-  );
+  ), { dispatch: false });
 
   /**
    * Show a notification on error.
    */
-  @Effect() retrieveUserTargets$ = this.actions$.pipe(
+  retrieveUserTargets$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS),
     switchMap((action: RetrieveAuthenticatedEpersonSuccessAction) => {
       return this.suggestionsService.retrieveCurrentUserSuggestions(action.payload).pipe(
         map((suggestionTargets: OpenaireSuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets))
       );
-    }));
+    })));
 
   /**
    * Fetch the current user suggestion
    */
-  @Effect() refreshUserTargets$ = this.actions$.pipe(
+  refreshUserTargets$ = createEffect(() => this.actions$.pipe(
     ofType(SuggestionTargetActionTypes.REFRESH_USER_SUGGESTIONS),
     switchMap((action: RefreshUserSuggestionsAction) => {
       return this.store$.select((state: any) => state.core.auth.user)
@@ -89,7 +91,7 @@ export class SuggestionTargetsEffects {
           }),
           catchError((errors) => of(errors))
         );
-    }));
+    })));
 
   /**
    * Initialize the effect class variables.

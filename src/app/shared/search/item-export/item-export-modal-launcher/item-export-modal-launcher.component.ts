@@ -39,7 +39,6 @@ export class ItemExportModalLauncherComponent implements OnInit {
               private viewContainerRef: ViewContainerRef) { }
 
   ngOnInit() {
-    console.log('ItemExportModalLauncherComponent');
     this.viewContainerRef.createEmbeddedView(this.template);
 
     combineLatest([this.isAuthenticated(), this.isCurrentUserAdmin()]).pipe(
@@ -59,7 +58,6 @@ export class ItemExportModalLauncherComponent implements OnInit {
         return this.findByPropertyName(propertyName);
       })
     ).subscribe((bulkExportLimit: string) => {
-      console.log(bulkExportLimit);
       this.bulkExportLimit = bulkExportLimit;
     });
   }

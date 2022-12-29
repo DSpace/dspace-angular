@@ -4052,6 +4052,8 @@
 
   "reciter.suggestion.hideEvidence": "Hide evidence",
 
+  "reciter.suggestion.not-found": "No suggestion found with the given identifier.",
+
   "reciter.suggestion.suggestionFor": "Suggestion for",
 
   "reciter.suggestion.source.oaire": "OpenAIRE Graph",
@@ -4063,6 +4065,8 @@
   "reciter.suggestion.totalScore": "Total Score",
 
   "reciter.suggestion.type.oaire": "Publications",
+
+  "reciter.suggestion.type.orcidWorks": "Publications",
 
 
   "orgunit.listelement.badge": "Organizational Unit",

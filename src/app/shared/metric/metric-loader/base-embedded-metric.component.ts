@@ -77,7 +77,7 @@ export abstract class BaseEmbeddedMetricComponent extends BaseMetricComponent im
       notifier.next(null);
       notifier.complete();
     } catch (error) {
-      console.log('Error applying script for ' + this.metric.metricType + '. Retry');
+      console.error('Error applying script for ' + this.metric.metricType + '. Retry');
     }
   }
 

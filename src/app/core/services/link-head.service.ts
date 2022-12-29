@@ -1,4 +1,4 @@
-import { Injectable, RendererFactory2, ViewEncapsulation, Inject } from '@angular/core';
+import { Inject, Injectable, RendererFactory2, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 /**
@@ -68,7 +68,7 @@ export class LinkHeadService {
           renderer.removeChild(head, link);
         }
       } catch (e) {
-        console.log('Error while removing tag ' + e.message);
+        console.error('Error while removing tag ' + e.message);
       }
     }
   }

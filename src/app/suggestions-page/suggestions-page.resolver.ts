@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { find } from 'rxjs/operators';
 
 import { RemoteData } from '../core/data/remote-data';
-import { hasValue } from '../shared/empty.util';
 import { OpenaireSuggestionTarget } from '../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { SuggestionsService } from '../openaire/reciter-suggestions/suggestions.service';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 /**
  * This class represents a resolver that requests a specific collection before the route is activated
@@ -26,7 +25,7 @@ export class SuggestionsPageResolver implements Resolve<RemoteData<OpenaireSugge
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<OpenaireSuggestionTarget>> {
     return this.suggestionService.getTargetById(route.params.targetId).pipe(
-      find((RD) => hasValue(RD.hasFailed) || RD.hasSucceeded),
+      getFirstCompletedRemoteData(),
     );
   }
 }

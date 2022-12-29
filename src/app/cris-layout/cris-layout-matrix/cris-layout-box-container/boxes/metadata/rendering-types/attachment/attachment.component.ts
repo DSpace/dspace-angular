@@ -5,7 +5,6 @@ import { BehaviorSubject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
-import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
@@ -13,6 +12,7 @@ import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { environment } from '../../../../../../../../environments/environment';
 import { FindListOptions } from '../../../../../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
+import { BitstreamAttachmentRenderingModelComponent } from './bitstream-attachment-rendering.model';
 
 @Component({
   selector: 'ds-attachment',
@@ -23,7 +23,7 @@ import { PaginatedList } from '../../../../../../../core/data/paginated-list.mod
 /**
  * The component for displaying a thumbnail rendered metadata box
  */
-export class AttachmentComponent extends BitstreamRenderingModelComponent implements OnInit {
+export class AttachmentComponent extends BitstreamAttachmentRenderingModelComponent implements OnInit {
 
   /**
    * List of bitstreams to show

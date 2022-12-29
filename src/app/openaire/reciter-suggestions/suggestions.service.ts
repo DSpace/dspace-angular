@@ -15,7 +15,6 @@ import { AuthService } from '../../core/auth/auth.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import {
-  getAllSucceededRemoteDataPayload,
   getFinishedRemoteData,
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload
@@ -131,7 +130,7 @@ export class SuggestionsService {
    * @return Observable<RemoteData<PaginatedList<OpenaireSuggestion>>>
    *    The list of Suggestion.
    */
-  public getSuggestions(targetId: string, elementsPerPage, currentPage, sortOptions: SortOptions): Observable<PaginatedList<OpenaireSuggestion>> {
+  public getSuggestions(targetId: string, elementsPerPage, currentPage, sortOptions: SortOptions): Observable<RemoteData<PaginatedList<OpenaireSuggestion>>> {
     const [source, target] = targetId.split(':');
 
     const findListOptions: FindListOptions = {
@@ -140,9 +139,7 @@ export class SuggestionsService {
       sort: sortOptions
     };
 
-    return this.suggestionsDataService.getSuggestionsByTargetAndSource(target, source, findListOptions).pipe(
-      getAllSucceededRemoteDataPayload()
-    );
+    return this.suggestionsDataService.getSuggestionsByTargetAndSource(target, source, findListOptions);
   }
 
   /**
@@ -176,12 +173,12 @@ export class SuggestionsService {
    *   The EPerson object for which to retrieve suggestion targets
    */
   public retrieveCurrentUserSuggestions(user: EPerson): Observable<OpenaireSuggestionTarget[]> {
-    return this.researcherProfileService.findById(user.id, false, true, followLink('item')).pipe(
+    return this.researcherProfileService.findById(user.id, true, true, followLink('item')).pipe(
       getFirstSucceededRemoteDataPayload(),
       mergeMap((researcherProfile) => this.researcherProfileService.findRelatedItemId(researcherProfile).pipe(
         mergeMap((itemId: string) => {
           if (isNotEmpty(itemId)) {
-            return this.suggestionTargetsDataService.getTargetsByUser(itemId).pipe(
+            return this.suggestionTargetsDataService.getTargetsByUser(itemId, {}, false).pipe(
               getFirstSucceededRemoteListPayload()
             );
           } else {
