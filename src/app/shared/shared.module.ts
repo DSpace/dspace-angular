@@ -319,6 +319,7 @@ import { SupervisionGroupSelectorComponent } from './dso-selector/modal-wrappers
 import { EpersonGroupListComponent } from './form/eperson-group-list/eperson-group-list.component';
 import { EpersonSearchBoxComponent } from './form/eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './form/eperson-group-list/group-search-box/group-search-box.component';
+import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 
 const MODULES = [
   CommonModule,
@@ -492,6 +493,7 @@ const ENTRY_COMPONENTS = [
   ClaimedTaskActionsReturnToPoolComponent,
   ClaimedTaskActionsEditMetadataComponent,
   CollectionDropdownComponent,
+  ThemedCollectionDropdownComponent,
   FileDownloadLinkComponent,
   BitstreamDownloadPageComponent,
   BitstreamRequestACopyPageComponent,

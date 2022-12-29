@@ -122,7 +122,7 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       fixture.detectChanges();
 
       fixture.whenStable().then(() => {
-        const dropdownMenu = fixture.debugElement.query(By.css('ds-collection-dropdown')).nativeElement;
+        const dropdownMenu = fixture.debugElement.query(By.css('ds-themed-collection-dropdown')).nativeElement;
         expect(dropdownMenu.classList).toContain('d-none');
       });
     }));
