@@ -34,6 +34,7 @@ import { CollectionElementLinkType } from '../object-collection/collection-eleme
 import { environment } from 'src/environments/environment';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
+import { WorkspaceItem } from '../..//core/submission/models/workspaceitem.model';
 
 @Component({
   selector: 'ds-search',
@@ -405,8 +406,9 @@ export class SearchComponent implements OnInit {
       true,
       followLink<Item>('thumbnail', { isOptional: true }),
       followLink<SubmissionObject>('item', { isOptional: true }, followLink<Item>('thumbnail', { isOptional: true })) as any,
-      followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
-    ).pipe(getFirstCompletedRemoteData())
+      followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any,
+      followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses }),
+      ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded) {
           if (this.trackStatistics) {

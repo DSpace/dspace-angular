@@ -12,9 +12,19 @@ import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
+import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
+import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject } from '../../../../../shared/remote-data.utils';
+import { hot } from 'jasmine-marbles';
+import { PageInfo } from '../../../../../core/shared/page-info.model';
+import { GroupMock } from '../../../../../shared/testing/group-mock';
+import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 
 let personListElementComponent: PersonSearchResultListElementComponent;
 let fixture: ComponentFixture<PersonSearchResultListElementComponent>;
+const supervisionOrderDataService: any = jasmine.createSpyObj('supervisionOrderDataService', {
+  searchByItem: jasmine.createSpy('searchByItem'),
+});
 
 const mockItemWithMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
@@ -65,6 +75,48 @@ const enviromentNoThumbs = {
   }
 };
 
+const supervisionOrder: any = {
+  id: '1',
+  type: 'supervisionOrder',
+  uuid: 'supervision-order-1',
+  _links: {
+    item: {
+      href: 'https://rest.api/rest/api/eperson'
+    },
+    group: {
+      href: 'https://rest.api/rest/api/group'
+    },
+    self: {
+      href: 'https://rest.api/rest/api/supervisionorders/1'
+    },
+  },
+  item: observableOf(createSuccessfulRemoteDataObject({})),
+  group: observableOf(createSuccessfulRemoteDataObject(GroupMock))
+};
+const anothersupervisionOrder: any = {
+  id: '2',
+  type: 'supervisionOrder',
+  uuid: 'supervision-order-2',
+  _links: {
+    item: {
+      href: 'https://rest.api/rest/api/eperson'
+    },
+    group: {
+      href: 'https://rest.api/rest/api/group'
+    },
+    self: {
+      href: 'https://rest.api/rest/api/supervisionorders/1'
+    },
+  },
+  item: observableOf(createSuccessfulRemoteDataObject({})),
+  group: observableOf(createSuccessfulRemoteDataObject(GroupMock))
+};
+
+const pageInfo = new PageInfo();
+const array = [supervisionOrder, anothersupervisionOrder];
+const paginatedList = buildPaginatedList(pageInfo, array);
+const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
+
 describe('PersonSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -78,6 +130,8 @@ describe('PersonSearchResultListElementComponent', () => {
       declarations: [PersonSearchResultListElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} },
+        { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
+        { provide: NotificationsService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
@@ -89,6 +143,9 @@ describe('PersonSearchResultListElementComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
+    supervisionOrderDataService.searchByItem.and.returnValue(hot('a|', {
+      a: paginatedListRD
+    }));
     fixture = TestBed.createComponent(PersonSearchResultListElementComponent);
     personListElementComponent = fixture.componentInstance;
 
@@ -148,6 +205,8 @@ describe('PersonSearchResultListElementComponent', () => {
       declarations: [PersonSearchResultListElementComponent, TruncatePipe],
       providers: [
         {provide: TruncatableService, useValue: {}},
+        {provide: SupervisionOrderDataService, useValue: supervisionOrderDataService},
+        {provide: NotificationsService, useValue: {}},
         {provide: DSONameService, useClass: DSONameServiceMock},
         { provide: APP_CONFIG, useValue: enviromentNoThumbs }
       ],
@@ -165,7 +224,9 @@ describe('PersonSearchResultListElementComponent', () => {
 
   describe('with environment.browseBy.showThumbnails set to false', () => {
     beforeEach(() => {
-
+      supervisionOrderDataService.searchByItem.and.returnValue(hot('a|', {
+        a: paginatedListRD
+      }));
       personListElementComponent.object = mockItemWithMetadata;
       fixture.detectChanges();
     });

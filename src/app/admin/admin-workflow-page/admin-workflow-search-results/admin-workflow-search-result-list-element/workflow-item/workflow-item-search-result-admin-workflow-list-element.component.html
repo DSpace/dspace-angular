@@ -1,5 +1,8 @@
-<div class="workflow-badge">
+<div class="workflow-badge" *ngIf="dso?.type === 'workflowitem'">
     <span class="badge badge-info">{{ "admin.workflow.item.workflow" | translate }}</span>
+</div>
+<div class="workspace-badge" *ngIf="dso?.type === 'workspaceitem'">
+    <span class="badge badge-info">{{ "admin.workflow.item.workspace" | translate }}</span>
 </div>
 <ds-listable-object-component-loader *ngIf="item$ | async"
                                      [object]="item$ | async"

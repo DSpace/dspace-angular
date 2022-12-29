@@ -14,8 +14,10 @@ import { TruncatableService } from '../../../../../shared/truncatable/truncatabl
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
+import { WorkspaceItemSearchResult } from '../../../../../shared/object-collection/shared/workspace-item-search-result.model';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.ListElement, Context.AdminWorkflowSearch)
+@listableObjectComponent(WorkspaceItemSearchResult, ViewMode.ListElement, Context.AdminWorkflowSearch)
 @Component({
   selector: 'ds-workflow-item-search-result-admin-workflow-list-element',
   styleUrls: ['./workflow-item-search-result-admin-workflow-list-element.component.scss'],

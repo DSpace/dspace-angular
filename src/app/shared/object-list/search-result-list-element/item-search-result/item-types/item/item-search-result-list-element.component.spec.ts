@@ -10,6 +10,14 @@ import { ItemSearchResult } from '../../../../../object-collection/shared/item-s
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock, UNDEFINED_NAME } from '../../../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../../../config/app-config.interface';
+import { SupervisionOrderDataService } from '../../../../../../core/supervision-order/supervision-order-data.service';
+import { NotificationsService } from '../../../../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { createSuccessfulRemoteDataObject } from '../../../../../../shared/remote-data.utils';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { buildPaginatedList } from '../../../../../../core/data/paginated-list.model';
+import { GroupMock } from '../../../../../../shared/testing/group-mock';
+import { hot } from 'jasmine-marbles';
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
@@ -72,12 +80,61 @@ const enviromentNoThumbs = {
   }
 };
 
+const supervisionOrderDataService: any = jasmine.createSpyObj('supervisionOrderDataService', {
+  searchByItem: jasmine.createSpy('searchByItem'),
+});
+
+const supervisionOrder: any = {
+  id: '1',
+  type: 'supervisionOrder',
+  uuid: 'supervision-order-1',
+  _links: {
+    item: {
+      href: 'https://rest.api/rest/api/eperson'
+    },
+    group: {
+      href: 'https://rest.api/rest/api/group'
+    },
+    self: {
+      href: 'https://rest.api/rest/api/supervisionorders/1'
+    },
+  },
+  item: observableOf(createSuccessfulRemoteDataObject({})),
+  group: observableOf(createSuccessfulRemoteDataObject(GroupMock))
+};
+const anothersupervisionOrder: any = {
+  id: '2',
+  type: 'supervisionOrder',
+  uuid: 'supervision-order-2',
+  _links: {
+    item: {
+      href: 'https://rest.api/rest/api/eperson'
+    },
+    group: {
+      href: 'https://rest.api/rest/api/group'
+    },
+    self: {
+      href: 'https://rest.api/rest/api/supervisionorders/1'
+    },
+  },
+  item: observableOf(createSuccessfulRemoteDataObject({})),
+  group: observableOf(createSuccessfulRemoteDataObject(GroupMock))
+};
+
+const pageInfo = new PageInfo();
+const array = [supervisionOrder, anothersupervisionOrder];
+const paginatedList = buildPaginatedList(pageInfo, array);
+const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
+
 describe('ItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ItemSearchResultListElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} },
+        { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
+        { provide: NotificationsService, useValue: {}},
+        { provide: TranslateService, useValue: {}},
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
@@ -89,6 +146,9 @@ describe('ItemSearchResultListElementComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
+    supervisionOrderDataService.searchByItem.and.returnValue(hot('a|', {
+      a: paginatedListRD
+    }));
     fixture = TestBed.createComponent(ItemSearchResultListElementComponent);
     publicationListElementComponent = fixture.componentInstance;
 
@@ -225,6 +285,9 @@ describe('ItemSearchResultListElementComponent', () => {
       declarations: [ItemSearchResultListElementComponent, TruncatePipe],
       providers: [
         {provide: TruncatableService, useValue: {}},
+        {provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
+        {provide: NotificationsService, useValue: {}},
+        {provide: TranslateService, useValue: {}},
         {provide: DSONameService, useClass: DSONameServiceMock},
         { provide: APP_CONFIG, useValue: enviromentNoThumbs }
       ],
@@ -236,6 +299,9 @@ describe('ItemSearchResultListElementComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
+    supervisionOrderDataService.searchByItem.and.returnValue(hot('a|', {
+      a: paginatedListRD
+    }));
     fixture = TestBed.createComponent(ItemSearchResultListElementComponent);
     publicationListElementComponent = fixture.componentInstance;
   }));

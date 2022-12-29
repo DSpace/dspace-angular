@@ -11,17 +11,25 @@ import {
   getWorkflowItemDeleteRoute,
   getWorkflowItemSendBackRoute
 } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { of } from 'rxjs';
+import { Item } from 'src/app/core/shared/item.model';
+import { RemoteData } from 'src/app/core/data/remote-data';
+import { RequestEntryState } from 'src/app/core/data/request-entry-state.model';
 
 describe('WorkflowItemAdminWorkflowActionsComponent', () => {
   let component: WorkflowItemAdminWorkflowActionsComponent;
   let fixture: ComponentFixture<WorkflowItemAdminWorkflowActionsComponent>;
   let id;
   let wfi;
+  let item = new Item();
+  item.uuid = 'itemUUID1111';
+  const rd = new RemoteData(undefined, undefined, undefined, RequestEntryState.Success, undefined, item, 200);
 
   function init() {
     id = '780b2588-bda5-4112-a1cd-0b15000a5339';
     wfi = new WorkflowItem();
     wfi.id = id;
+    wfi.item = of(rd);
   }
 
   beforeEach(waitForAsync(() => {
@@ -59,4 +67,11 @@ describe('WorkflowItemAdminWorkflowActionsComponent', () => {
     const link = a.nativeElement.href;
     expect(link).toContain(new URLCombiner(getWorkflowItemSendBackRoute(wfi.id)).toString());
   });
+
+  it('should render a policies button with the correct link', () => {
+    const a = fixture.debugElement.query(By.css('a.policies-link'));
+    const link = a.nativeElement.href;
+    expect(link).toContain(new URLCombiner('/items/itemUUID1111/edit/bitstreams').toString());
+  });
+
 });

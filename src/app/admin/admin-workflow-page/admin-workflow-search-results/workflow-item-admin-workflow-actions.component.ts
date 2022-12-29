@@ -1,4 +1,9 @@
 import { Component, Input } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { map, Observable } from 'rxjs';
+import { Item } from '../../../core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { SupervisionGroupSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/supervision-group-selector/supervision-group-selector.component';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import {
     getWorkflowItemSendBackRoute,
@@ -25,6 +30,10 @@ export class WorkflowItemAdminWorkflowActionsComponent {
    */
   @Input() public small: boolean;
 
+  constructor(
+    private modalService: NgbModal
+  ) { }
+
   /**
    * Returns the path to the delete page of this workflow item
    */
@@ -38,5 +47,29 @@ export class WorkflowItemAdminWorkflowActionsComponent {
    */
   getSendBackRoute(): string {
     return getWorkflowItemSendBackRoute(this.wfi.id);
+  }
+
+  /**
+   * Returns the path to the to administrative edit page policies tab
+   */
+  getPoliciesRoute(): Observable<string> {
+    return this.wfi.item.pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map((item: Item) => {
+        return '/items/' + item.uuid + '/edit/bitstreams';
+      })
+    );
+  }
+
+  /**
+   * Opens the Supervision Modal to create a supervision order
+   */
+  openSupervisionModal() {
+    this.wfi.item.pipe(
+      getFirstSucceededRemoteDataPayload(),
+    ).subscribe((item: Item) => {
+      const supervisionModal = this.modalService.open(SupervisionGroupSelectorComponent, { size: 'lg', backdrop: 'static' });
+      supervisionModal.componentInstance.itemUUID = item.uuid;
+    });
   }
 }

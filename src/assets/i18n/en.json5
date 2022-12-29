@@ -536,9 +536,15 @@
 
   "admin.workflow.item.workflow": "Workflow",
 
+  "admin.workflow.item.workspace": "Workspace",
+
   "admin.workflow.item.delete": "Delete",
 
   "admin.workflow.item.send-back": "Send back",
+
+  "admin.workflow.item.policies": "Policies",
+
+  "admin.workflow.item.supervision": "Supervision",
 
 
 
@@ -1418,6 +1424,28 @@
 
   "dso-selector.results-could-not-be-retrieved": "Something went wrong, please refresh again ↻",
 
+  "supervision-group-selector.header": "Supervision Group Selector",
+
+  "supervision-group-selector.select.type-of-order.label": "Select a type of Order",
+
+  "supervision-group-selector.select.type-of-order.option.none": "NONE",
+
+  "supervision-group-selector.select.type-of-order.option.editor": "EDITOR",
+
+  "supervision-group-selector.select.type-of-order.option.observer": "OBSERVER",
+
+  "supervision-group-selector.select.group.label": "Select a Group",
+
+  "supervision-group-selector.button.save": "Save",
+
+  "supervision-group-selector.select.type-of-order.error": "Please select a type of order",
+
+  "supervision-group-selector.select.group.error": "Please select a group",
+
+  "supervision-group-selector.notification.create.success.title": "Successfully created supervision order for group {{ name }}",
+
+  "supervision-group-selector.notification.create.failure.title": "Error",
+
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
 
   "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
@@ -2222,6 +2250,22 @@
 
   "item.truncatable-part.show-less": "Collapse",
 
+  "item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
+
+  "item.search.result.delete-supervision.modal.info": "Are you sure you want to delete Supervision Order",
+
+  "item.search.result.delete-supervision.modal.cancel": "Cancel",
+
+  "item.search.result.delete-supervision.modal.confirm": "Delete",
+
+  "item.search.result.notification.deleted.success": "Successfully deleted supervision order \"{{name}}\"",
+
+  "item.search.result.notification.deleted.failure.title": "Failed to delete supervision order \"{{name}}\"",
+
+  "item.search.result.notification.deleted.failure.content": "Failed to delete supervision order",
+
+  "item.search.result.list.element.supervised-by": "Supervised by:",
+
 
 
   "item.page.abstract": "Abstract",
@@ -2850,6 +2894,8 @@
   "mydspace.show.workflow": "Workflow tasks",
 
   "mydspace.show.workspace": "Your Submissions",
+
+  "mydspace.show.otherworkspace": "Supervised items",
 
   "mydspace.status.archived": "Archived",
 
@@ -3639,6 +3685,12 @@
   "search.filters.filter.submitter.placeholder": "Submitter",
 
   "search.filters.filter.submitter.label": "Search submitter",
+
+  "search.filters.filter.supervisedBy.head": "Supervised By",
+
+  "search.filters.filter.supervisedBy.placeholder": "Supervised By",
+
+  "search.filters.filter.supervisedBy.label": "Search Supervised By",
 
 
 
@@ -4534,11 +4586,15 @@
 
 
 
+  "otherworkspace.search.results.head": "Supervised Items",
+
   "workspace.search.results.head": "Your submissions",
 
   "workflowAdmin.search.results.head": "Administer Workflow",
 
   "workflow.search.results.head": "Workflow tasks",
+
+  "supervision.search.results.head": "Supervision tasks",
 
 
 

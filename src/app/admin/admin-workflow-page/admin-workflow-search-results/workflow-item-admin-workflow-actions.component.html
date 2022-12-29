@@ -5,4 +5,11 @@
   <a [ngClass]="{'btn-sm': small}" class="btn btn-light my-1 send-back-link" [routerLink]="[getSendBackRoute()]" [title]="'admin.workflow.item.send-back' | translate">
     <i class="fa fa-hand-point-left"></i><span *ngIf="!small" class="d-none d-sm-inline"> {{"admin.workflow.item.send-back" | translate}}</span>
   </a>
+  <a [ngClass]="{'btn-sm': small}" class="btn btn-light my-1 policies-link" [routerLink]="[getPoliciesRoute() | async]" [title]="'admin.workflow.item.policies' | translate">
+    <i class="fas fa-edit"></i><span *ngIf="!small" class="d-none d-sm-inline"> {{'admin.workflow.item.policies' | translate}}</span>
+  </a>
+  <a [ngClass]="{'btn-sm': small}" class="btn btn-light my-1 supervision-group-selector" [title]="'admin.workflow.item.supervision' | translate"
+     *ngIf="wfi?.type === 'workspaceitem'" (click)="openSupervisionModal()">
+    <i class="fas fa-users-cog"></i><span *ngIf="!small" class="d-none d-sm-inline"> {{'admin.workflow.item.supervision' | translate}}</span>
+  </a>
 </div>

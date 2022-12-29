@@ -315,6 +315,10 @@ import { MenuModule } from './menu/menu.module';
 import {
   ListableNotificationObjectComponent
 } from './object-list/listable-notification-object/listable-notification-object.component';
+import { SupervisionGroupSelectorComponent } from './dso-selector/modal-wrappers/supervision-group-selector/supervision-group-selector.component';
+import { EpersonGroupListComponent } from './form/eperson-group-list/eperson-group-list.component';
+import { EpersonSearchBoxComponent } from './form/eperson-group-list/eperson-search-box/eperson-search-box.component';
+import { GroupSearchBoxComponent } from './form/eperson-group-list/group-search-box/group-search-box.component';
 
 const MODULES = [
   CommonModule,
@@ -436,6 +440,10 @@ const COMPONENTS = [
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,
   ListableNotificationObjectComponent,
+  EpersonGroupListComponent,
+  EpersonSearchBoxComponent,
+  GroupSearchBoxComponent,
+  SupervisionGroupSelectorComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -498,6 +506,10 @@ const ENTRY_COMPONENTS = [
   CommunitySidebarSearchListElementComponent,
   ScopeSelectorModalComponent,
   ListableNotificationObjectComponent,
+  EpersonGroupListComponent,
+  EpersonSearchBoxComponent,
+  GroupSearchBoxComponent,
+  SupervisionGroupSelectorComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

@@ -9,6 +9,10 @@ import {
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
+import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement)
 @Component({
@@ -24,9 +28,13 @@ export class PersonSearchResultListElementComponent extends ItemSearchResultList
   public constructor(
     protected truncatableService: TruncatableService,
     protected dsoNameService: DSONameService,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    protected supervisionOrderDataService: SupervisionOrderDataService,
+    protected modalService: NgbModal,
+    protected notificationsService: NotificationsService,
+    protected translateService: TranslateService,
   ) {
-    super(truncatableService, dsoNameService, appConfig);
+    super(truncatableService, dsoNameService, appConfig, supervisionOrderDataService, modalService, notificationsService, translateService);
   }
 
   /**
