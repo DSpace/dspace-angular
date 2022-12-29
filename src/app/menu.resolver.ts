@@ -14,24 +14,24 @@ import { filter, find, map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from './shared/empty.util';
 import { FeatureID } from './core/data/feature-authorization/feature-id';
 import {
-  CreateCommunityParentSelectorComponent
-} from './shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
+  ThemedCreateCommunityParentSelectorComponent
+} from './shared/dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
 import { OnClickMenuItemModel } from './shared/menu/menu-item/models/onclick.model';
 import {
-  CreateCollectionParentSelectorComponent
-} from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
+  ThemedCreateCollectionParentSelectorComponent
+} from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import {
-  CreateItemParentSelectorComponent
-} from './shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+  ThemedCreateItemParentSelectorComponent
+} from './shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import {
-  EditCommunitySelectorComponent
-} from './shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
+  ThemedEditCommunitySelectorComponent
+} from './shared/dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
 import {
-  EditCollectionSelectorComponent
-} from './shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
+  ThemedEditCollectionSelectorComponent
+} from './shared/dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
 import {
-  EditItemSelectorComponent
-} from './shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
+  ThemedEditItemSelectorComponent
+} from './shared/dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
 import {
   ExportMetadataSelectorComponent
 } from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
@@ -42,9 +42,13 @@ import {
   METADATA_IMPORT_SCRIPT_NAME,
   ScriptDataService
 } from './core/data/processes/script-data.service';
+import {
+  ExportBatchSelectorComponent
+} from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
 import { environment } from '../environments/environment';
 import { SectionDataService } from './core/layout/section-data.service';
 import { Section } from './core/layout/models/section.model';
+import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
 
 /**
  * Creates all of the app's menus
@@ -239,7 +243,7 @@ export class MenuResolver implements Resolve<boolean> {
         {
           id: 'new',
           active: false,
-          visible: true,
+          visible: isCollectionAdmin || isCommunityAdmin || isSiteAdmin,
           model: {
             type: MenuItemType.TEXT,
             text: 'menu.section.new'
@@ -256,7 +260,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_community',
             function: () => {
-              this.modalService.open(CreateCommunityParentSelectorComponent);
+              this.modalService.open(ThemedCreateCommunityParentSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -269,7 +273,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_collection',
             function: () => {
-              this.modalService.open(CreateCollectionParentSelectorComponent);
+              this.modalService.open(ThemedCreateCollectionParentSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -282,7 +286,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_item',
             function: () => {
-              this.modalService.open(CreateItemParentSelectorComponent);
+              this.modalService.open(ThemedCreateItemParentSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -314,7 +318,7 @@ export class MenuResolver implements Resolve<boolean> {
         {
           id: 'edit',
           active: false,
-          visible: true,
+          visible: isCollectionAdmin || isCommunityAdmin || isSiteAdmin,
           model: {
             type: MenuItemType.TEXT,
             text: 'menu.section.edit'
@@ -331,7 +335,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.edit_community',
             function: () => {
-              this.modalService.open(EditCommunitySelectorComponent);
+              this.modalService.open(ThemedEditCommunitySelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -344,7 +348,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.edit_collection',
             function: () => {
-              this.modalService.open(EditCollectionSelectorComponent);
+              this.modalService.open(ThemedEditCollectionSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -357,7 +361,7 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.edit_item',
             function: () => {
-              this.modalService.open(EditItemSelectorComponent);
+              this.modalService.open(ThemedEditItemSelectorComponent);
             }
           } as OnClickMenuItemModel,
         },
@@ -508,6 +512,34 @@ export class MenuResolver implements Resolve<boolean> {
         } as OnClickMenuItemModel,
         shouldPersistOnRouteChange: true
       });
+      this.menuService.addSection(MenuID.ADMIN, {
+        id: 'export_batch',
+        parentID: 'export',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.ONCLICK,
+          text: 'menu.section.export_batch',
+          function: () => {
+            this.modalService.open(ExportBatchSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
+        shouldPersistOnRouteChange: true
+      });
+      this.menuService.addSection(MenuID.ADMIN, {
+        id: 'export_batch',
+        parentID: 'export',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.ONCLICK,
+          text: 'menu.section.export_batch',
+          function: () => {
+            this.modalService.open(ExportBatchSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
+        shouldPersistOnRouteChange: true
+      });
     });
   }
 
@@ -516,20 +548,7 @@ export class MenuResolver implements Resolve<boolean> {
    * the import scripts exist and the current user is allowed to execute them
    */
   createImportMenuSections() {
-    const menuList = [
-      // TODO: enable this menu item once the feature has been implemented
-      // {
-      //   id: 'import_batch',
-      //   parentID: 'import',
-      //   active: false,
-      //   visible: true,
-      //   model: {
-      //     type: MenuItemType.LINK,
-      //     text: 'menu.section.import_batch',
-      //     link: ''
-      //   } as LinkMenuItemModel,
-      // }
-    ];
+    const menuList = [];
     menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, menuSection));
 
     observableCombineLatest([
@@ -566,6 +585,18 @@ export class MenuResolver implements Resolve<boolean> {
         } as LinkMenuItemModel,
         shouldPersistOnRouteChange: true
       });
+      this.menuService.addSection(MenuID.ADMIN, {
+        id: 'import_batch',
+        parentID: 'import',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: 'menu.section.import_batch',
+          link: '/admin/batch-import'
+        } as LinkMenuItemModel,
+        shouldPersistOnRouteChange: true
+      });
     });
   }
 
@@ -575,6 +606,40 @@ export class MenuResolver implements Resolve<boolean> {
   createSiteAdministratorMenuSections() {
     this.authorizationService.isAuthorized(FeatureID.AdministratorOf).subscribe((authorized) => {
       const menuList = [
+        /* Notifications */
+        {
+          id: 'notifications',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.notifications'
+          } as TextMenuItemModel,
+          icon: 'bell',
+          index: 4
+        },
+        {
+          id: 'notifications_openair_broker',
+          parentID: 'notifications',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.notifications_openaire_broker',
+            link: '/admin/notifications/openaire-broker'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'notifications_reciter',
+          parentID: 'notifications',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.notifications_reciter',
+            link: '/admin/notifications/' + NOTIFICATIONS_RECITER_SUGGESTION_PATH
+          } as LinkMenuItemModel,
+        },
         /*  Admin Search */
         {
           id: 'admin_search',
@@ -649,6 +714,32 @@ export class MenuResolver implements Resolve<boolean> {
           } as LinkMenuItemModel,
           icon: 'user-check',
           index: 11
+        },
+        /* User agreement edit*/
+        {
+          id: 'user_agreement_edit',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.edit_user_agreement',
+            link: '/admin/edit-user-agreement'
+          } as LinkMenuItemModel,
+          icon: 'list-alt',
+          index: 13
+        },
+        /* CMS edit menu entry */
+        {
+          id: 'metadata_cms_edit',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.cms_metadata_edit',
+            link: '/admin/edit-cms-metadata'
+          } as LinkMenuItemModel,
+          icon: 'edit',
+          index: 14
         },
       ];
 

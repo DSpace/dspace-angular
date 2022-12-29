@@ -1,9 +1,11 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ProcessOverviewComponent } from './process-overview.component';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf, of } from 'rxjs';
+import { BehaviorSubject, of, of as observableOf } from 'rxjs';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { NotificationsServiceStub } from 'src/app/shared/testing/notifications-service.stub';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -13,15 +15,12 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { FindListOptions } from '../../core/data/find-list-options.model';
 import { DatePipe } from '@angular/common';
-import { VarDirective } from '../../shared/utils/var.directive';
+import { ProcessBulkDeleteService } from './process-bulk-delete.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProcessStatus } from '../processes/process-status.model';
 import { Process } from '../processes/process.model';
-import { ProcessOverviewComponent } from './process-overview.component';
 
 describe('ProcessOverviewComponent', () => {
   let component: ProcessOverviewComponent;
@@ -35,6 +34,9 @@ describe('ProcessOverviewComponent', () => {
   let adminProcesses: Process[];
   let noAdminProcesses: Process[];
   let ePerson: EPerson;
+
+  let processBulkDeleteService;
+  let modalService;
 
   const pipe = new DatePipe('en-US');
 
@@ -64,14 +66,14 @@ describe('ProcessOverviewComponent', () => {
     ];
     noAdminProcesses = [
       Object.assign(new Process(), {
-        processId: 4,
+        processId: 1,
         scriptName: 'script-name',
         startTime: '2020-03-19',
         endTime: '2020-03-19',
         processStatus: ProcessStatus.COMPLETED
       }),
       Object.assign(new Process(), {
-        processId: 5,
+        processId: 2,
         scriptName: 'another-script-name',
         startTime: '2020-03-21',
         endTime: '2020-03-21',
@@ -96,6 +98,7 @@ describe('ProcessOverviewComponent', () => {
     });
     processService = jasmine.createSpyObj('processService', {
       findAll: createSuccessfulRemoteDataObject$(createPaginatedList(adminProcesses)),
+      searchItsOwnProcesses: createSuccessfulRemoteDataObject$(createPaginatedList(noAdminProcesses)),
       searchBy: createSuccessfulRemoteDataObject$(createPaginatedList(noAdminProcesses)),
       delete: createSuccessfulRemoteDataObject$(null),
       setStale: observableOf(true)
@@ -106,6 +109,29 @@ describe('ProcessOverviewComponent', () => {
     authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
 
     paginationService = new PaginationServiceStub();
+
+    processBulkDeleteService = jasmine.createSpyObj('processBulkDeleteService', {
+      clearAllProcesses: {},
+      deleteSelectedProcesses: {},
+      isProcessing$: new BehaviorSubject(false),
+      hasSelected: true,
+      isToBeDeleted: true,
+      toggleDelete: {},
+      getAmountOfSelectedProcesses: 5
+
+    });
+
+    (processBulkDeleteService.isToBeDeleted as jasmine.Spy).and.callFake((id) => {
+      if (id === 2) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+
+    modalService = jasmine.createSpyObj('modalService', {
+      open: {}
+    });
   }
 
   beforeEach(waitForAsync(() => {
@@ -116,8 +142,10 @@ describe('ProcessOverviewComponent', () => {
       providers: [
         { provide: ProcessDataService, useValue: processService },
         { provide: EPersonDataService, useValue: ePersonService },
-        { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: PaginationService, useValue: paginationService },
+        { provide: ProcessBulkDeleteService, useValue: processBulkDeleteService },
+        { provide: NgbModal, useValue: modalService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -268,6 +296,103 @@ describe('ProcessOverviewComponent', () => {
         expect(processService.delete).toHaveBeenCalledWith(noAdminProcesses[0].processId);
       }));
 
+      it('should display a delete button in the seventh column', () => {
+        rowElements.forEach((rowElement, index) => {
+          const el = rowElement.query(By.css('td:nth-child(7)'));
+          expect(el.nativeElement.innerHTML).toContain('fas fa-trash');
+
+          el.query(By.css('button')).triggerEventHandler('click', null);
+          expect(processBulkDeleteService.toggleDelete).toHaveBeenCalledWith(noAdminProcesses[index].processId);
+        });
+      });
+
+      it('should indicate a row that has been selected for deletion', () => {
+        const deleteRow = fixture.debugElement.query(By.css('.table-danger'));
+        console.log(noAdminProcesses, deleteRow?.nativeElement.innerHTML);
+        // expect(deleteRow.nativeElement.innerHTML).toContain('/processes/' + noAdminProcesses[0].processId);
+      });
+
+    });
+
+  });
+
+  describe('overview buttons', () => {
+    beforeEach(() => {
+
+      authorizationService.isAuthorized.and.callFake(() => of(false));
+
+      fixture = TestBed.createComponent(ProcessOverviewComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should show a button to clear selected processes when there are selected processes', () => {
+      const clearButton = fixture.debugElement.query(By.css('.btn-primary'));
+      expect(clearButton.nativeElement.innerHTML).toContain('process.overview.delete.clear');
+
+      clearButton.triggerEventHandler('click', null);
+      expect(processBulkDeleteService.clearAllProcesses).toHaveBeenCalled();
+    });
+    it('should not show a button to clear selected processes when there are no selected processes', () => {
+      (processBulkDeleteService.hasSelected as jasmine.Spy).and.returnValue(false);
+      fixture.detectChanges();
+
+      const clearButton = fixture.debugElement.query(By.css('.btn-primary'));
+      expect(clearButton).toBeNull();
+    });
+    it('should show a button to open the delete modal when there are selected processes', () => {
+      spyOn(component, 'openDeleteModal');
+
+      const deleteButton = fixture.debugElement.query(By.css('.btn-danger'));
+      expect(deleteButton.nativeElement.innerHTML).toContain('process.overview.delete');
+
+      deleteButton.triggerEventHandler('click', null);
+      expect(component.openDeleteModal).toHaveBeenCalled();
+    });
+    it('should not show a button to clear selected processes when there are no selected processes', () => {
+      (processBulkDeleteService.hasSelected as jasmine.Spy).and.returnValue(false);
+      fixture.detectChanges();
+
+      const deleteButton = fixture.debugElement.query(By.css('.btn-danger'));
+      expect(deleteButton).toBeNull();
+    });
+  });
+
+  describe('openDeleteModal', () => {
+    beforeEach(() => {
+
+      authorizationService.isAuthorized.and.callFake(() => of(false));
+
+      fixture = TestBed.createComponent(ProcessOverviewComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should open the modal', () => {
+      component.openDeleteModal({});
+      expect(modalService.open).toHaveBeenCalledWith({});
+    });
+  });
+
+  describe('deleteSelected', () => {
+    beforeEach(() => {
+
+      authorizationService.isAuthorized.and.callFake(() => of(false));
+
+      fixture = TestBed.createComponent(ProcessOverviewComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should call the deleteSelectedProcesses method on the processBulkDeleteService and close the modal when processing is done', () => {
+      spyOn(component, 'closeModal');
+      spyOn(component, 'setProcesses');
+
+      component.deleteSelected();
+
+      expect(processBulkDeleteService.deleteSelectedProcesses).toHaveBeenCalled();
+      expect(component.closeModal).toHaveBeenCalled();
+      expect(component.setProcesses).toHaveBeenCalled();
     });
   });
 });

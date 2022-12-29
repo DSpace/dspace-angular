@@ -13,7 +13,7 @@ import {
 } from '../../access-control/epeople-registry/epeople-registry.actions';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ChangeAnalyzer } from '../data/change-analyzer';
-import { DeleteRequest, PatchRequest, PostRequest } from '../data/request.models';
+import { PatchRequest, PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
@@ -47,12 +47,11 @@ describe('EPersonDataService', () => {
     return new EPersonDataService(
       requestService,
       rdbService,
-      store,
       null,
       halService,
+      new DummyChangeAnalyzer() as any,
       null,
-      null,
-      new DummyChangeAnalyzer() as any
+      store,
     );
   }
 
@@ -119,24 +118,24 @@ describe('EPersonDataService', () => {
     });
 
     it('search email scope and no query', () => {
-      spyOn(service, 'getSearchByHref').and.returnValue(epersonsEndpoint);
+      spyOn((service as any).searchData, 'getSearchByHref').and.returnValue(epersonsEndpoint);
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(null));
       service.searchByScope('email', '');
       const options = Object.assign(new FindListOptions(), {
         searchParams: [Object.assign(new RequestParam('email', encodeURIComponent('')))]
       });
-      expect(service.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
+      expect((service as any).searchData.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
       expect(service.findByHref).toHaveBeenCalledWith(epersonsEndpoint, true, true);
     });
 
     it('search email scope with a query', () => {
-      spyOn(service, 'getSearchByHref').and.returnValue(epersonsEndpoint);
+      spyOn((service as any).searchData, 'getSearchByHref').and.returnValue(epersonsEndpoint);
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMock));
       service.searchByScope('email', EPersonMock.email);
       const options = Object.assign(new FindListOptions(), {
         searchParams: [Object.assign(new RequestParam('email', encodeURIComponent(EPersonMock.email)))]
       });
-      expect(service.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
+      expect((service as any).searchData.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
       expect(service.findByHref).toHaveBeenCalledWith(epersonsEndpoint, true, true);
     });
   });
@@ -308,7 +307,7 @@ describe('EPersonDataService', () => {
     it('should sent a patch request with an uuid, token and new password to the epersons endpoint', () => {
       service.patchPasswordWithToken('test-uuid', 'test-token', 'test-password');
 
-      const operation = Object.assign({ op: 'add', path: '/password', value: 'test-password' });
+      const operation = Object.assign({ op: 'add', path: '/password', value: { new_password: 'test-password' } });
       const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/test-uuid?token=test-token', [operation]);
 
       expect(requestService.send).toHaveBeenCalledWith(expected);

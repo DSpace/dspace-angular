@@ -28,6 +28,7 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   hasSelectableMetadata: boolean;
   metadataValue?: FormFieldMetadataValueObject;
   isModelOfInnerForm?: boolean;
+  hideErrorMessages?: boolean;
   securityLevel?: number;
   securityConfigLevel?: number[];
   toggleSecurityVisibility?: boolean;
@@ -49,6 +50,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() hasSelectableMetadata: boolean;
   @serializable() metadataValue: FormFieldMetadataValueObject;
   @serializable() isModelOfInnerForm: boolean;
+  @serializable() hideErrorMessages?: boolean;
   @serializable() securityLevel?: number;
   @serializable() securityConfigLevel?: number[];
   @serializable() toggleSecurityVisibility = true;
@@ -73,6 +75,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
       this.toggleSecurityVisibility = config.toggleSecurityVisibility;
     }
     this.isModelOfInnerForm = (hasValue(config.isModelOfInnerForm) ? config.isModelOfInnerForm : false);
+    this.hideErrorMessages = config.hideErrorMessages;
 
     this.language = config.language;
     if (!this.language) {

@@ -1,4 +1,3 @@
-import { DataService } from '../../core/data/data.service';
 import { ResourceType } from '../../core/shared/resource-type';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { ClaimedTaskDataService } from '../../core/tasks/claimed-task-data.service';
@@ -11,11 +10,12 @@ import { ClaimedTask } from '../../core/tasks/models/claimed-task-object.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { CacheableObject } from '../../core/cache/cacheable-object.model';
+import { IdentifiableDataService } from '../../core/data/base/identifiable-data.service';
 
 /**
  * Class to return DataService for given ResourceType
  */
-export class MydspaceActionsServiceFactory<T extends CacheableObject, TService extends DataService<T>> {
+export class MyDSpaceActionsServiceFactory<T extends CacheableObject, TService extends IdentifiableDataService<T>> {
   public getConstructor(type: ResourceType): TService {
     switch (type) {
       case Item.type: {

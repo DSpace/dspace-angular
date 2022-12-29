@@ -1,0 +1,12 @@
+<div class="alert alert-info">
+  <span *ngIf="item">
+      {{ 'item-export.alert.single' | translate }} <strong>{{ getItemName() }}</strong>
+  </span>
+  <span *ngIf="!item">
+      {{ 'item-export.alert.multiple' | translate }}
+  </span>
+
+  <span *ngIf="bulkExportLimit !== '0' && bulkExportLimit !== '-1'">
+    {{ 'item-export.alert.export.limit' | translate:{limit: bulkExportLimit} }}
+  </span>
+</div>

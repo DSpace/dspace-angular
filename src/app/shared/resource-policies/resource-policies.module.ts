@@ -15,15 +15,14 @@ import { GroupSearchBoxComponent } from './form/eperson-group-list/group-search-
 import { EpersonSearchBoxComponent } from './form/eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared.module';
+import { ResourcePolicyEntryComponent } from './entry/resource-policy-entry.component';
 
 const COMPONENTS = [
   ResourcePoliciesComponent,
+  ResourcePolicyEntryComponent,
   ResourcePolicyFormComponent,
   ResourcePolicyEditComponent,
-  ResourcePolicyCreateComponent,
-  EpersonGroupListComponent,
-  EpersonSearchBoxComponent,
-  GroupSearchBoxComponent
+  ResourcePolicyCreateComponent
 ];
 
 const PROVIDERS = [

@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Injector, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { fadeIn, fadeInOut } from '../animations/fade';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { getStartsWithComponent, StartsWithType } from '../starts-with/starts-with-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -25,7 +25,7 @@ import { hasValue } from '../empty.util';
 /**
  * Component to display a browse-by page for any ListableObject
  */
-export class BrowseByComponent implements OnInit {
+export class BrowseByComponent implements OnInit, OnDestroy {
 
   /**
    * ViewMode that should be passed to {@link ListableObjectComponentLoaderComponent}.
@@ -112,6 +112,16 @@ export class BrowseByComponent implements OnInit {
    */
   shouldDisplayResetButton$: Observable<boolean>;
 
+  /**
+   * Page number of the previous page
+   */
+  previousPage$ = new BehaviorSubject<string>('1');
+
+  /**
+   * Subscription that has to be unsubscribed from on destroy
+   */
+  sub: Subscription;
+
   public constructor(private injector: Injector,
                      protected paginationService: PaginationService,
                      private routeService: RouteService,
@@ -171,9 +181,20 @@ export class BrowseByComponent implements OnInit {
     this.shouldDisplayResetButton$ = observableCombineLatest([startsWith$, value$]).pipe(
       map(([startsWith, value]) => hasValue(startsWith) || hasValue(value))
     );
+    this.sub = this.routeService.getQueryParameterValue(this.paginationConfig.id + '.return').subscribe(this.previousPage$);
   }
 
+  /**
+   * Navigate back to the previous browse by page
+   */
   back() {
-    this.paginationService.updateRoute(this.paginationConfig.id, {page: 1}, {value: null, startsWith: null});
+    const page = +this.previousPage$.value > 1 ? +this.previousPage$.value : 1;
+    this.paginationService.updateRoute(this.paginationConfig.id, {page: page}, {[this.paginationConfig.id + '.return']: null, value: null, startsWith: null});
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }

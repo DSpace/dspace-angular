@@ -24,6 +24,7 @@ export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPrev
 
   @Input() showSubmitter = false;
 
+
   protected getComponentName(): string {
     return 'ItemListPreviewComponent';
   }

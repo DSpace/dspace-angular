@@ -1,9 +1,8 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import {
   BrowseByMetadataPageComponent,
-  browseParamsToOptions
+  browseParamsToOptions, getBrowseSearchOptions
 } from '../browse-by-metadata-page/browse-by-metadata-page.component';
-import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
@@ -12,13 +11,12 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { BrowseService } from '../../core/browse/browse.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
-import { BrowseByDataType, rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
-import { environment } from '../../../environments/environment';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { isValidDate } from '../../shared/date.util';
+import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 import { SearchManager } from '../../core/browse/search-manager';
 
 @Component({
@@ -31,7 +29,6 @@ import { SearchManager } from '../../core/browse/search-manager';
  * A metadata definition (a.k.a. browse id) is a short term used to describe one or multiple metadata fields.
  * An example would be 'dateissued' for 'dc.date.issued'
  */
-@rendersBrowseBy(BrowseByDataType.Date)
 export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
 
   /**
@@ -45,14 +42,16 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
                      protected dsoService: DSpaceObjectDataService,
                      protected router: Router,
                      protected paginationService: PaginationService,
-                     protected cdRef: ChangeDetectorRef) {
-    super(route, browseService, searchManager, dsoService, paginationService, router);
+                     protected cdRef: ChangeDetectorRef,
+                     @Inject(APP_CONFIG) public appConfig: AppConfig) {
+    super(route, browseService, searchManager, dsoService, paginationService, router, appConfig);
   }
 
   ngOnInit(): void {
     const sortConfig = new SortOptions('default', SortDirection.ASC);
     this.startsWithType = StartsWithType.date;
-    this.updatePage(new BrowseEntrySearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig));
+    // include the thumbnail configuration in browse search options
+    this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig, this.fetchThumbnails));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
     this.subs.push(
@@ -65,7 +64,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         const metadataKeys = params.browseDefinition ? params.browseDefinition.metadataKeys : this.defaultMetadataKeys;
         this.browseId = params.id || this.defaultBrowseId;
         this.startsWith = +params.startsWith || params.startsWith;
-        const searchOptions = browseParamsToOptions(params, currentPage, currentSort, this.browseId);
+        const searchOptions = browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.fetchThumbnails);
         this.updatePageWithItems(searchOptions, this.value, undefined);
         this.updateParent(params.scope);
         this.updateStartsWithOptions(this.browseId, metadataKeys, params.scope);
@@ -85,7 +84,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
   updateStartsWithOptions(definition: string, metadataKeys: string[], scope?: string) {
     this.subs.push(
       this.browseService.getFirstItemFor(definition, scope).subscribe((firstItemRD: RemoteData<Item>) => {
-        let lowerLimit = environment.browseBy.defaultLowerLimit;
+        let lowerLimit = this.appConfig.browseBy.defaultLowerLimit;
         if (hasValue(firstItemRD.payload)) {
           const date = firstItemRD.payload.firstMetadataValue(metadataKeys);
           if (isNotEmpty(date) && isValidDate(date)) {
@@ -96,8 +95,8 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         }
         const options = [];
         const currentYear = new Date().getUTCFullYear();
-        const oneYearBreak = Math.floor((currentYear - environment.browseBy.oneYearLimit) / 5) * 5;
-        const fiveYearBreak = Math.floor((currentYear - environment.browseBy.fiveYearLimit) / 10) * 10;
+        const oneYearBreak = Math.floor((currentYear - this.appConfig.browseBy.oneYearLimit) / 5) * 5;
+        const fiveYearBreak = Math.floor((currentYear - this.appConfig.browseBy.fiveYearLimit) / 10) * 10;
         if (lowerLimit <= fiveYearBreak) {
           lowerLimit -= 10;
         } else if (lowerLimit <= oneYearBreak) {

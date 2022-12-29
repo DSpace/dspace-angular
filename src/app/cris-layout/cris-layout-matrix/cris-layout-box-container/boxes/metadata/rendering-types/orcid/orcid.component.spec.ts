@@ -24,7 +24,7 @@ export const testItem: Item = Object.assign(new Item(), {
         value: '0000-0001-8918-3592'
       }
     ],
-    'cris.orcid.authenticated': [
+    'dspace.orcid.authenticated': [
       {
         language: null,
         value: 'authenticated'
@@ -149,7 +149,7 @@ describe('OrcidComponent', () => {
       type: 'item',
       metadata: {
         'person.identifier.orcid': [metadataValue],
-        'cris.orcid.authenticated': [
+        'dspace.orcid.authenticated': [
           {
             language: null,
             value: 'authenticated'

@@ -33,11 +33,11 @@ import { BrowseService } from './browse/browse.service';
 import { RemoteDataBuildService } from './cache/builders/remote-data-build.service';
 import { ObjectCacheService } from './cache/object-cache.service';
 import { SubmissionDefinitionsModel } from './config/models/config-submission-definitions.model';
-import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
+import { SubmissionDefinitionsConfigDataService } from './config/submission-definitions-config-data.service';
 import { SubmissionFormsModel } from './config/models/config-submission-forms.model';
 import { SubmissionSectionModel } from './config/models/config-submission-section.model';
 import { SubmissionUploadsModel } from './config/models/config-submission-uploads.model';
-import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
+import { SubmissionFormsConfigDataService } from './config/submission-forms-config-data.service';
 import { coreEffects } from './core.effects';
 import { coreReducers } from './core.reducers';
 import { BitstreamFormatDataService } from './data/bitstream-format-data.service';
@@ -50,8 +50,8 @@ import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
 import { DSOResponseParsingService } from './data/dso-response-parsing.service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
 import { EndpointMapResponseParsingService } from './data/endpoint-map-response-parsing.service';
-import { EntityTypeService } from './data/entity-type.service';
-import { ExternalSourceService } from './data/external-source.service';
+import { EntityTypeDataService } from './data/entity-type-data.service';
+import { ExternalSourceDataService } from './data/external-source-data.service';
 import { FacetConfigResponseParsingService } from './data/facet-config-response-parsing.service';
 import { FacetValueResponseParsingService } from './data/facet-value-response-parsing.service';
 import { FilteredDiscoveryPageResponseParsingService } from './data/filtered-discovery-page-response-parsing.service';
@@ -59,9 +59,9 @@ import { ItemDataService } from './data/item-data.service';
 import { LookupRelationService } from './data/lookup-relation.service';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
-import { RelationshipTypeService } from './data/relationship-type.service';
-import { RelationshipService } from './data/relationship.service';
-import { ResourcePolicyService } from './resource-policy/resource-policy.service';
+import { RelationshipTypeDataService } from './data/relationship-type-data.service';
+import { RelationshipDataService } from './data/relationship-data.service';
+import { ResourcePolicyDataService } from './resource-policy/resource-policy-data.service';
 import { SearchResponseParsingService } from './data/search-response-parsing.service';
 import { SiteDataService } from './data/site-data.service';
 import { DspaceRestService } from './dspace-rest/dspace-rest.service';
@@ -166,7 +166,6 @@ import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { UsageReport } from './statistics/models/usage-report.model';
 import { SectionDataService } from './layout/section-data.service';
 import { Section } from './layout/models/section.model';
-import { OrcidHistoryService } from './orcid/orcid-history.service';
 import { EditItem } from './submission/models/edititem.model';
 import { EditItemDataService } from './submission/edititem-data.service';
 import { EditItemMode } from './submission/models/edititem-mode.model';
@@ -176,7 +175,7 @@ import { ItemExportFormat } from './itemexportformat/model/item-export-format.mo
 import { MetricsComponentsDataService } from './layout/metrics-components-data.service';
 import { MetricsComponent } from './layout/models/metrics-component.model';
 import { Metric } from './shared/metric.model';
-import { MetricService } from './data/metric.service';
+import { MetricsDataService } from './data/metrics-data.service';
 import { Root } from './data/root.model';
 import { ItemExportFormatService } from './itemexportformat/item-export-format.service';
 import { OpenaireBrokerTopicObject } from './openaire/broker/models/openaire-broker-topic.model';
@@ -195,18 +194,20 @@ import { SubmissionAccessesModel } from './config/models/config-submission-acces
 import { AccessStatusObject } from '../shared/object-list/access-status-badge/access-status.model';
 import { AccessStatusDataService } from './data/access-status-data.service';
 import { LinkHeadService } from './services/link-head.service';
-import { ResearcherProfileService } from './profile/researcher-profile.service';
+import { ResearcherProfileDataService } from './profile/researcher-profile-data.service';
 import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
 import { ResearcherProfile } from './profile/model/researcher-profile.model';
-import { OrcidQueueService } from './orcid/orcid-queue.service';
+import { OrcidQueueDataService } from './orcid/orcid-queue-data.service';
 import { OrcidHistoryDataService } from './orcid/orcid-history-data.service';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
 import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { OrcidAuthService } from './orcid/orcid-auth.service';
+import { VocabularyDataService } from './submission/vocabularies/vocabulary.data.service';
+import { VocabularyEntryDetailsDataService } from './submission/vocabularies/vocabulary-entry-details.data.service';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
-import { WorkflowStepStatisticsService } from './statistics/workflow-step-statistics.service';
+import { WorkflowStepStatisticsDataService } from './statistics/workflow-step-statistics-data.service';
 import { WorkflowStepStatistics } from './statistics/models/workflow-step-statistics.model';
-import { WorkflowOwnerStatisticsService } from './statistics/workflow-owner-statistics.service';
+import { WorkflowOwnerStatisticsDataService } from './statistics/workflow-owner-statistics-data.service';
 import { WorkflowOwnerStatistics } from './statistics/models/workflow-owner-statistics.model';
 import { LoginStatisticsService } from './statistics/login-statistics.service';
 import { LoginStatistics } from './statistics/models/login-statistics.model';
@@ -281,7 +282,7 @@ const PROVIDERS = [
   SchemaJsonLDService,
   ObjectCacheService,
   PaginationComponentOptions,
-  ResourcePolicyService,
+  ResourcePolicyDataService,
   RegistryService,
   BitstreamFormatDataService,
   RemoteDataBuildService,
@@ -296,8 +297,8 @@ const PROVIDERS = [
   AccessStatusDataService,
   SubmissionCcLicenseDataService,
   SubmissionCcLicenseUrlDataService,
-  SubmissionFormsConfigService,
-  SubmissionDefinitionsConfigService,
+  SubmissionFormsConfigDataService,
+  SubmissionDefinitionsConfigDataService,
   SubmissionRestService,
   SubmissionResponseParsingService,
   SubmissionJsonPatchOperationsService,
@@ -318,7 +319,7 @@ const PROVIDERS = [
   MenuService,
   ObjectUpdatesService,
   SearchService,
-  RelationshipService,
+  RelationshipDataService,
   MyDSpaceGuard,
   RoleService,
   TaskResponseParsingService,
@@ -326,7 +327,7 @@ const PROVIDERS = [
   PoolTaskDataService,
   BitstreamDataService,
   DsDynamicTypeBindRelationService,
-  EntityTypeService,
+  EntityTypeDataService,
   ContentSourceResponseParsingService,
   ItemTemplateDataService,
   SearchService,
@@ -335,8 +336,8 @@ const PROVIDERS = [
   SearchFilterService,
   SearchConfigurationService,
   SelectableListService,
-  RelationshipTypeService,
-  ExternalSourceService,
+  RelationshipTypeDataService,
+  ExternalSourceDataService,
   LookupRelationService,
   VersionDataService,
   VersionHistoryDataService,
@@ -361,8 +362,10 @@ const PROVIDERS = [
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
   TabDataService,
   MetricsComponentsDataService,
-  MetricService,
+  MetricsDataService,
   VocabularyService,
+  VocabularyDataService,
+  VocabularyEntryDetailsDataService,
   VocabularyTreeviewService,
   ItemExportFormatService,
   SectionDataService,
@@ -371,13 +374,13 @@ const PROVIDERS = [
   SequenceService,
   GroupDataService,
   FeedbackDataService,
-  ResearcherProfileService,
+  ResearcherProfileDataService,
   ProfileClaimService,
   OrcidAuthService,
-  OrcidQueueService,
+  OrcidQueueDataService,
   OrcidHistoryDataService,
-  WorkflowStepStatisticsService,
-  WorkflowOwnerStatisticsService,
+  WorkflowStepStatisticsDataService,
+  WorkflowOwnerStatisticsDataService,
   LoginStatisticsService,
 ];
 
@@ -474,7 +477,8 @@ export const models =
     Subscription,
     WorkflowStepStatistics,
     WorkflowOwnerStatistics,
-    LoginStatistics
+    LoginStatistics,
+    Metric
   ];
 
 @NgModule({

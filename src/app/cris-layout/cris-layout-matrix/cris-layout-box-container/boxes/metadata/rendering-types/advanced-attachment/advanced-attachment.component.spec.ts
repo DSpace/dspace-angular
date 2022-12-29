@@ -205,6 +205,7 @@ describe('AdvancedAttachmentComponent', () => {
         expect(entries[0].query(By.css('[data-test="dc.type"]'))).toBeTruthy();
         expect(entries[0].query(By.css('[data-test="format"]'))).toBeTruthy();
         expect(entries[0].query(By.css('[data-test="size"]'))).toBeTruthy();
+        expect(entries[0].query(By.css('[data-test="checksum"]'))).toBeTruthy();
       });
 
       describe('and the field has metadata key and value set as value', () => {
@@ -310,6 +311,7 @@ describe('AdvancedAttachmentComponent', () => {
         expect(entries[0].query(By.css('[data-test="dc.type"]'))).toBeFalsy();
         expect(entries[0].query(By.css('[data-test="format"]'))).toBeFalsy();
         expect(entries[0].query(By.css('[data-test="size"]'))).toBeFalsy();
+        expect(entries[0].query(By.css('[data-test="checksum"]'))).toBeFalsy();
       });
 
       describe('and the field has metadata key and value set as value', () => {

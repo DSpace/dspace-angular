@@ -17,7 +17,7 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { RequestService } from '../../core/data/request.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { EntityTypeService } from '../../core/data/entity-type.service';
+import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
@@ -30,7 +30,7 @@ import {
   collectionFormSharedWorkspaceCheckboxConfig,
   collectionFormSubmissionDefinitionSelectionConfig
 } from './collection-form.models';
-import { SubmissionDefinitionsConfigService } from '../../core/config/submission-definitions-config.service';
+import { SubmissionDefinitionsConfigDataService } from '../../core/config/submission-definitions-config-data.service';
 import { ConfigObject } from '../../core/config/models/config.model';
 import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 
@@ -86,8 +86,8 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected dsoService: CommunityDataService,
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService,
-                     protected entityTypeService: EntityTypeService,
-                     protected submissionDefinitionService: SubmissionDefinitionsConfigService) {
+                     protected entityTypeService: EntityTypeDataService,
+                     protected submissionDefinitionService: SubmissionDefinitionsConfigDataService) {
     super(formService, translate, notificationsService, authService, requestService, objectCache);
   }
 

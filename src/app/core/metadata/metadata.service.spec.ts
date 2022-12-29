@@ -54,7 +54,7 @@ xdescribe('MetadataService', () => {
       findRoot: createSuccessfulRemoteDataObject$({ dspaceVersion: 'mock-dspace-version' })
     });
     bitstreamDataService = jasmine.createSpyObj({
-      findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([MockBitstream3]))
+      findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([MockBitstream3])),
     });
     bundleDataService = jasmine.createSpyObj({
       findByItemAndName: mockBundleRD$([MockBitstream3])
@@ -369,7 +369,7 @@ xdescribe('MetadataService', () => {
       it('should link to first Bitstream with allowed format', fakeAsync(() => {
         const bitstreams = [MockBitstream3, MockBitstream3, MockBitstream1];
         (bundleDataService.findByItemAndName as jasmine.Spy).and.returnValue(mockBundleRD$(bitstreams));
-        (bitstreamDataService.findAllByHref as jasmine.Spy).and.returnValues(
+        (bitstreamDataService.findListByHref as jasmine.Spy).and.returnValues(
           ...mockBitstreamPages$(bitstreams).map(bp => createSuccessfulRemoteDataObject$(bp)),
         );
 

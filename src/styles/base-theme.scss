@@ -1,8 +1,6 @@
 @import './helpers/font_awesome_imports.scss';
-@import '../../node_modules/bootstrap/scss/bootstrap.scss';
-@import '../../node_modules/nouislider/distribute/nouislider.min';
+@import './_vendor.scss';
 @import './_custom_variables.scss';
 @import './bootstrap_variables_mapping.scss';
 @import './_truncatable-part.component.scss';
 @import './_global-styles.scss';
-@import '../../node_modules/ngx-ui-switch/ui-switch.component.scss';

@@ -65,7 +65,7 @@ describe('SubgroupsListComponent', () => {
       getSubgroups(): Group {
         return this.activeGroup;
       },
-      findAllByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
+      findListByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
         return this.subgroups$.pipe(
           map((currentGroups: Group[]) => {
             return createSuccessfulRemoteDataObject(buildPaginatedList<Group>(new PageInfo(), currentGroups));

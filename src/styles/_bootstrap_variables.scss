@@ -12,6 +12,9 @@ $fa-font-path: "^assets/fonts" !default;
 /* Images */
 $image-path: "../assets/images" !default;
 
+// enable-responsive-font-sizes allows text to scale more naturally across device and viewport sizes
+$enable-responsive-font-sizes: true;
+
 /** Bootstrap Variables **/
 /* Colors */
 $gray-700: #495057 !default;  // Bootstrap $gray-700

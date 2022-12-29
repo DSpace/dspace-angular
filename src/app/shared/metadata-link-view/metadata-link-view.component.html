@@ -1,21 +1,34 @@
-<div class="d-inline-block" *ngVar="(metadata$ | async) as metadata">
-	<ng-container *ngIf="metadata" [ngTemplateOutlet]="metadata?.authority ? withAuthority : withoutAuthority"
-                  [ngTemplateOutletContext]="{metadata:metadata}"></ng-container>
+<div class="d-inline-block" *ngVar="(metadataView$ | async) as metadataView">
+	<ng-container *ngIf="metadataView" [ngTemplateOutlet]="metadataView?.authority ? linkToAuthority : (metadataView?.entityType ? textWithIcon : textWithoutIcon)"
+                  [ngTemplateOutletContext]="{metadataView: metadataView}"></ng-container>
 </div>
 
-<ng-template style="display:flex;" #withAuthority let-metadata="metadata">
-  <a rel="noopener noreferrer"
-     [routerLink]="['/items/' + metadata.authority]">
-     <span>{{metadata.value}}</span>&nbsp;<i class="{{metadata.icon}}"></i>
+<ng-template class="d-flex" #linkToAuthority let-metadataView="metadataView">
+  <a rel="noopener noreferrer" data-test="linkToAuthority"
+     [routerLink]="['/items/' + metadataView.authority]">
+     <span dsEntityIcon
+           [iconPosition]="iconPosition"
+           [entityType]="metadataView.entityType"
+           [entityStyle]="metadataView.entityStyle">{{metadataView.value}}</span>
   </a>
-  <img *ngIf="metadata.orcidAuthenticated"
+  <img *ngIf="metadataView.orcidAuthenticated"
        placement="top"
-       ngbTooltip="{{ metadata.orcidAuthenticated }}"
+       ngbTooltip="{{ metadataView.orcidAuthenticated }}"
        class="orcid-icon"
        alt="orcid-logo"
-       src="assets/images/orcid.logo.icon.svg"/>
+       src="assets/images/orcid.logo.icon.svg"
+       data-test="orcidIcon"/>
 </ng-template>
 
-<ng-template #withoutAuthority let-metadata="metadata">
-  <span>{{normalizeValue(metadata.value)}}</span>
+<ng-template #textWithIcon let-metadataView="metadataView">
+  <span dsEntityIcon
+        data-test="textWithIcon"
+        [iconPosition]="iconPosition"
+        [entityType]="metadataView.entityType"
+        [entityStyle]="metadataView.entityStyle"
+        [fallbackOnDefault]="false">{{normalizeValue(metadataView.value)}}</span>
+</ng-template>
+
+<ng-template #textWithoutIcon let-metadataView="metadataView">
+  <span data-test="textWithoutIcon">{{normalizeValue(metadataView.value)}}</span>
 </ng-template>

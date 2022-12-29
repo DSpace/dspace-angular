@@ -31,6 +31,8 @@ export class DSONameService {
       const givenName = dso.firstMetadataValue('person.givenName');
       if (isEmpty(familyName) && isEmpty(givenName)) {
         return dso.firstMetadataValue('dc.title') || dso.name;
+      } else if (isEmpty(familyName) || isEmpty(givenName)) {
+        return familyName || givenName;
       } else {
         return `${familyName}, ${givenName}`;
       }
@@ -55,11 +57,14 @@ export class DSONameService {
       .filter((type) => typeof type === 'string')
       .find((type: string) => Object.keys(this.factories).includes(type)) as string;
 
+    let name;
     if (hasValue(match)) {
-      return this.factories[match](dso);
-    } else {
-      return  this.factories.Default(dso);
+      name = this.factories[match](dso);
     }
+    if (isEmpty(name)) {
+      name = this.factories.Default(dso);
+    }
+    return name;
   }
 
 }

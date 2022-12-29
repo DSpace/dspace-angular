@@ -10,10 +10,7 @@ import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { Store } from '@ngrx/store';
 import { RemoteData } from '../../core/data/remote-data';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../core/shared/operators';
 import { CoreState } from '../../core/core-state.model';
 import { AuthService } from '../../core/auth/auth.service';
 

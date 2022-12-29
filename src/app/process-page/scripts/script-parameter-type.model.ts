@@ -4,6 +4,7 @@
 export enum ScriptParameterType {
   STRING = 'String',
   DATE = 'date',
+  NUMBER = 'Integer',
   BOOLEAN = 'boolean',
   FILE = 'InputStream',
   OUTPUT = 'OutputStream'
