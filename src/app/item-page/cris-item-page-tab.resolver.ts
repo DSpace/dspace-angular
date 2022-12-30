@@ -45,7 +45,7 @@ export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList
                 // By splitting the url with uuid we can understand if the item is primary item page or a tab
                 const urlSplit = state.url.split(route.params.id);
                 // If a no or wrong tab is given redirect to the first tab available
-                if (!urlSplit[1] || !tabsRD.payload.page.some((tab: CrisLayoutTab) => `/${tab.shortname}` === urlSplit[1])) {
+                if (!!tabsRD.payload && !!tabsRD.payload.page && tabsRD.payload.page.length > 0 && !urlSplit[1]) {
                   const selectedTab = tabsRD.payload.page.filter((tab) => !tab.leading)[0];
                   if (!!selectedTab) {
                     let tabName = selectedTab.shortname;
