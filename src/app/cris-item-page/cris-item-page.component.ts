@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { RemoteData } from '../core/data/remote-data';
 import { Item } from '../core/shared/item.model';
-import { redirectOn4xx } from '../core/shared/authorized.operators';
+import { redirectOn204, redirectOn4xx } from '../core/shared/authorized.operators';
 import { fadeInOut } from '../shared/animations/fade';
 import { AuthService } from '../core/auth/auth.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
@@ -41,7 +41,8 @@ export class CrisItemPageComponent implements OnInit {
       map((data) => {
         return data.dso as RemoteData<Item>;
       }),
-      redirectOn4xx(this.router, this.authService)
+      redirectOn204<Item>(this.router, this.authService),
+      redirectOn4xx<Item>(this.router, this.authService)
     );
 
     this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);

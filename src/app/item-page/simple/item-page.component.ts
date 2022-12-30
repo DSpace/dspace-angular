@@ -12,7 +12,7 @@ import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { AuthService } from '../../core/auth/auth.service';
 import { getItemPageRoute } from '../item-page-routing-paths';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { redirectOn204, redirectOn4xx } from '../../core/shared/authorized.operators';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { CrisLayoutTab } from '../../core/layout/models/tab.model';
@@ -79,7 +79,8 @@ export class ItemPageComponent implements OnInit {
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Item>),
-      redirectOn4xx(this.router, this.authService)
+      redirectOn204<Item>(this.router, this.authService),
+      redirectOn4xx<Item>(this.router, this.authService)
     );
     this.tabsRD$ = this.route.data.pipe(
       map((data) => data.tabs as RemoteData<PaginatedList<CrisLayoutTab>>),
