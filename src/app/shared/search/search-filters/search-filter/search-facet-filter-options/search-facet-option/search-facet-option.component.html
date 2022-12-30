@@ -2,9 +2,9 @@
    [tabIndex]="-1"
    [routerLink]="[searchLink]"
    [queryParams]="addQueryParams" queryParamsHandling="merge">
-  <label class="mb-0">
-    <input type="checkbox" [checked]="false" class="my-1 align-self-stretch"/>
-    <span class="filter-value px-1 break-facet">
+  <label class="mb-0 d-flex w-100">
+    <input type="checkbox" [checked]="false" class="my-1 align-self-stretch filter-checkbox"/>
+    <span class="w-100 filter-value px-1 break-facet">
       {{ 'search.filters.' + filterConfig.name + '.' + filterValue.value | translate: {default: filterValue.value} }}
     </span>
   </label>
