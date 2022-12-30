@@ -13,7 +13,14 @@ module.exports = {
     './dist/server/main': 'require("./server/main")'
   },
   target: 'node',
-  resolve: { extensions: ['.ts', '.js'] },
+  resolve: {
+    extensions: ['.ts', '.js'],
+    // Workaround for broken import in fastify-reply-from v5
+    // We can't use a more up-to-date version because undici v4+ is es2020 and can't be used with Webpack 4
+    alias: {
+      'tiny-lru': path.join(__dirname, "./node_modules/tiny-lru/lib/tiny-lru.cjs.js"),
+    }
+  },
   optimization: {
     minimize: false
   },

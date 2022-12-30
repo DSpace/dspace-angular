@@ -22,20 +22,17 @@ import 'rxjs';
 import * as fs from 'fs';
 import * as pem from 'pem';
 import * as https from 'https';
-import * as morgan from 'morgan';
-import * as express from 'express';
-import * as bodyParser from 'body-parser';
-import * as compression from 'compression';
 import { join } from 'path';
 
 import { enableProdMode } from '@angular/core';
 import { existsSync } from 'fs';
-import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { environment } from './src/environments/environment';
-import { createProxyMiddleware } from 'http-proxy-middleware';
 import { hasValue, hasNoValue } from './src/app/shared/empty.util';
 import { APP_BASE_HREF } from '@angular/common';
 import { UIServerConfig } from './src/config/ui-server-config.interface';
+
+import Fastify from 'fastify';
+import type { FastifyInstance } from 'fastify';
 
 /*
  * Set path for the browser application's dist folder
@@ -45,99 +42,98 @@ const DIST_FOLDER = join(process.cwd(), 'dist/browser');
 const indexHtml = existsSync(join(DIST_FOLDER, 'index.html')) ? 'index.html' : 'index';
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-const { ServerAppModule, ngExpressEngine } = require('./dist/server/main');
+const { ServerAppModule, ngFastifyEngine } = require('./dist/server/main');
 
-const cookieParser = require('cookie-parser');
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
 
   /*
-   * Create a new express application
+   * Create a new Fastify application
    */
-  const server = express();
-
+  const server: any = Fastify({
+    logger: true,
+  });
 
   /*
    * If production mode is enabled in the environment file:
    * - Enable Angular's production mode
-   * - Enable compression for response bodies. See [compression](https://github.com/expressjs/compression)
+   * - Enable compression, see https://github.com/fastify/fastify-compress
    */
   if (environment.production) {
     enableProdMode();
-    server.use(compression());
+    server.register(require('@fastify/compress'), {
+      global: false,  // only compress SSR responses (static files should be pre-compressed)
+    });
   }
 
   /*
-   * Enable request logging
-   * See [morgan](https://github.com/expressjs/morgan)
+   * Add cookie parser plugin
+   * See https://github.com/fastify/fastify-cookie
    */
-  server.use(morgan('dev'));
-
-  /*
-   * Add cookie parser middleware
-   * See [morgan](https://github.com/expressjs/cookie-parser)
-   */
-  server.use(cookieParser());
-
-  /*
-   * Add parser for request bodies
-   * See [morgan](https://github.com/expressjs/body-parser)
-   */
-  server.use(bodyParser.json());
-
-  // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
-  server.engine('html', (_, options, callback) =>
-    ngExpressEngine({
-      bootstrap: ServerAppModule,
-      providers: [
-        {
-          provide: REQUEST,
-          useValue: (options as any).req,
-        },
-        {
-          provide: RESPONSE,
-          useValue: (options as any).req.res,
-        },
-      ],
-    })(_, (options as any), callback)
-  );
-
-  /*
-   * Register the view engines for html and ejs
-   */
-  server.set('view engine', 'html');
-
-  /*
-   * Set views folder path to directory where template files are stored
-   */
-  server.set('views', DIST_FOLDER);
+  server.register(require('@fastify/cookie'), {});
 
   /**
    * Proxy the sitemaps
+   * See https://github.com/fastify/fastify-reply-from
    */
-  server.use('/sitemap**', createProxyMiddleware({ target: `${environment.rest.baseUrl}/sitemaps`, changeOrigin: true }));
+  server.register(require('fastify-reply-from'));
+  server.all('/sitemap**', (req, res: any) => {
+    res.from(environment.rest.baseUrl + '/sitemaps' + req.url, {
+      onResponse(req, res, proxiedRes) {
+        res.send(proxiedRes);
+      }
+    })
+  });
 
   /**
    * Checks if the rateLimiter property is present
    * When it is present, the rateLimiter will be enabled. When it is undefined, the rateLimiter will be disabled.
    */
   if (hasValue((environment.ui as UIServerConfig).rateLimiter)) {
-    const RateLimit = require('express-rate-limit');
-    const limiter = new RateLimit({
-      windowMs: (environment.ui as UIServerConfig).rateLimiter.windowMs,
-      max: (environment.ui as UIServerConfig).rateLimiter.max
-    });
-    server.use(limiter);
+    server.register(require('@fastify/rate-limit'), {
+      max: (environment.ui as UIServerConfig).rateLimiter.max,
+      timeWindow: (environment.ui as UIServerConfig).rateLimiter.windowMs,
+    })
   }
 
   /*
    * Serve static resources (images, i18n messages, …)
+   * See https://github.com/fastify/fastify-static
    */
-  server.get('*.*', cacheControl, express.static(DIST_FOLDER, { index: false }));
+  server.register(require('@fastify/static'), {
+    root: DIST_FOLDER,
+    index: false,
+    preCompressed: true,
+    wildcard: false,      // we need a more limited wildcard route
+    cacheControl: false,  // we set the Cache-Control header directly, so this needs to be disabled
+  });
+  server.get('*.*', (req, res: any) => {
+    res.header('Cache-Control', environment.cache.control || 'max-age=60')
+       .sendFile(req.url);
+  });
 
-  // Register the ngApp callback function to handle incoming requests
-  server.get('*', ngApp);
+  /**
+   * Serve Angular application
+   *   - SSR (if enabled)
+   *   - Fall back to CSR
+   */
+  server.register(async (fastify: FastifyInstance, setupOptions: any) => {
+    const render = ngFastifyEngine(setupOptions);
+
+    fastify.decorateReply('render', (filePath, options, callback) => {
+      render(filePath, options, callback);
+    });
+
+    // Register the ngApp callback function to handle incoming requests
+    (fastify as any).get('*', {
+        compress: { encodings: ['br', 'gzip'] },
+      },
+      ngApp
+    );
+  }, {
+    bootstrap: ServerAppModule,
+  });
 
   return server;
 }
@@ -147,7 +143,7 @@ export function app() {
  */
 function ngApp(req, res) {
   if (environment.universal.preboot) {
-    res.render(indexHtml, {
+    res.render(join(DIST_FOLDER, 'index.html'), {
       req,
       res,
       preboot: environment.universal.preboot,
@@ -159,7 +155,8 @@ function ngApp(req, res) {
       providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }]
     }, (err, data) => {
       if (hasNoValue(err) && hasValue(data)) {
-        res.send(data);
+        res.header('Content-Type', 'text/html; charset=UTF-8')
+           .send(data);
       } else if (hasValue(err) && err.code === 'ERR_HTTP_HEADERS_SENT') {
         // When this error occurs we can't fall back to CSR because the response has already been
         // sent. These errors occur for various reasons in universal, not all of which are in our
@@ -170,24 +167,14 @@ function ngApp(req, res) {
         if (hasValue(err)) {
           console.warn('Error details : ', err);
         }
-        res.sendFile(DIST_FOLDER + '/index.html');
+        res.sendFile(indexHtml);
       }
     });
   } else {
     // If preboot is disabled, just serve the client
     console.log('Universal off, serving for direct CSR');
-    res.sendFile(DIST_FOLDER + '/index.html');
+    res.sendFile(indexHtml);
   }
-}
-
-/*
- * Adds a cache control header to the response
- * The cache control value can be configured in the environments file and defaults to max-age=60
- */
-function cacheControl(req, res, next) {
-  // instruct browser to revalidate
-  res.header('Cache-Control', environment.cache.control || 'max-age=60');
-  next();
 }
 
 /*
@@ -212,7 +199,7 @@ function createHttpsServer(keys) {
 
 function run() {
   const port = environment.ui.port || 4000;
-  const host = environment.ui.host || '/';
+  const host = environment.ui.host || 'localhost';
 
   // Start up the Node server
   const server = app();
@@ -228,6 +215,8 @@ function run() {
  * When SSL is disabled
  * - Start an HTTP server on the configured port and host
  */
+// todo: Fastify has built-in support for HTTPS, consider porting this bit as well
+//       https://www.fastify.io/docs/latest/Reference/HTTP2/#secure-https
 if (environment.ui.ssl) {
   let serviceKey;
   try {

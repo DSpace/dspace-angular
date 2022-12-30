@@ -16,5 +16,5 @@ if (environment.production) {
 }
 
 export { ServerAppModule } from './modules/app/server-app.module';
-export { ngExpressEngine } from '@nguniversal/express-engine';
+export { ngFastifyEngine } from './ssr.engine';
 export { renderModule, renderModuleFactory } from '@angular/platform-server';

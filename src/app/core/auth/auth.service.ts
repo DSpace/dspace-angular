@@ -52,6 +52,7 @@ import { RemoteData } from '../data/remote-data';
 import { environment } from '../../../environments/environment';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { FastifyReply, FastifyRequest } from 'fastify';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -75,18 +76,19 @@ export class AuthService {
    */
   private tokenRefreshTimer;
 
-  constructor(@Inject(REQUEST) protected req: any,
-              @Inject(NativeWindowService) protected _window: NativeWindowRef,
-              @Optional() @Inject(RESPONSE) private response: any,
-              protected authRequestService: AuthRequestService,
-              protected epersonService: EPersonDataService,
-              protected router: Router,
-              protected routeService: RouteService,
-              protected storage: CookieService,
-              protected store: Store<AppState>,
-              protected hardRedirectService: HardRedirectService,
-              private notificationService: NotificationsService,
-              private translateService: TranslateService
+  constructor(
+    @Optional() @Inject(REQUEST) protected req: FastifyRequest,
+    @Optional() @Inject(RESPONSE) private response: FastifyReply,
+    @Inject(NativeWindowService) protected _window: NativeWindowRef,
+    protected authRequestService: AuthRequestService,
+    protected epersonService: EPersonDataService,
+    protected router: Router,
+    protected routeService: RouteService,
+    protected storage: CookieService,
+    protected store: Store<AppState>,
+    protected hardRedirectService: HardRedirectService,
+    private notificationService: NotificationsService,
+    private translateService: TranslateService
   ) {
     this.store.pipe(
       select(isAuthenticated),
@@ -433,8 +435,8 @@ export class AuthService {
     if (this._window.nativeWindow.location) {
       // Hard redirect to login page, so that all state is definitely lost
       this._window.nativeWindow.location.href = redirectUrl;
-    } else if (this.response) {
-      if (!this.response._headerSent) {
+    } else if (hasValue(this.response)) {
+      if (!this.response.sent) {
         this.response.redirect(302, redirectUrl);
       }
     } else {

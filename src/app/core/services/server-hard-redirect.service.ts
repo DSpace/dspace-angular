@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Request, Response } from 'express';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { HardRedirectService } from './hard-redirect.service';
+import { FastifyReply, FastifyRequest } from 'fastify';
 
 /**
  * Service for performing hard redirects within the server app module
@@ -10,8 +11,8 @@ import { HardRedirectService } from './hard-redirect.service';
 export class ServerHardRedirectService extends HardRedirectService {
 
   constructor(
-    @Inject(REQUEST) protected req: Request,
-    @Inject(RESPONSE) protected res: Response,
+    @Inject(REQUEST) protected req: FastifyRequest,
+    @Inject(RESPONSE) protected res: FastifyReply,
   ) {
     super();
   }
@@ -26,7 +27,7 @@ export class ServerHardRedirectService extends HardRedirectService {
       return;
     }
 
-    if (this.res.finished) {
+    if (this.res.sent) {
       const req: any = this.req;
       req._r_count = (req._r_count || 0) + 1;
 
@@ -47,7 +48,7 @@ export class ServerHardRedirectService extends HardRedirectService {
 
       console.log(`Redirecting from ${this.req.url} to ${url} with ${status}`);
       this.res.redirect(status, url);
-      this.res.end();
+      this.res.raw.end();
       // I haven't found a way to correctly stop Angular rendering.
       // So we just let it end its work, though we have already closed
       // the response.
@@ -58,7 +59,7 @@ export class ServerHardRedirectService extends HardRedirectService {
    * Get the URL of the current route
    */
   getCurrentRoute(): string {
-    return this.req.originalUrl;
+    return this.req.url;
   }
 
   /**
