@@ -108,9 +108,9 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
         const availableConf: MyDSpaceConfigurationValueType[] = [];
         if (isSubmitter) {
           availableConf.push(MyDSpaceConfigurationValueType.Workspace);
-          availableConf.push(MyDSpaceConfigurationValueType.SupervisedItems);
         }
         if (isController || isAdmin) {
+          availableConf.push(MyDSpaceConfigurationValueType.SupervisedItems);
           availableConf.push(MyDSpaceConfigurationValueType.Workflow);
         }
         return availableConf;
