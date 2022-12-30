@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {combineLatest, combineLatest as observableCombineLatest, Observable, of as observableOf, zip} from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable} from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
 import { map, mergeMap, switchMap, take, toArray } from 'rxjs/operators';
-import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
