@@ -62,7 +62,7 @@ export class CollectionRolesComponent implements OnInit {
           name: 'bitstream_read',
           href: collection._links.bitstreamReadGroup.href,
         },
-        ...collection._links.workflowGroups,
+        ...(collection._links.workflowGroups ? collection._links.workflowGroups : []),
       ]),
     );
   }
