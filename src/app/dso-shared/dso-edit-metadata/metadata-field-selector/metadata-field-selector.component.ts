@@ -157,7 +157,7 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
   }
 
   /**
-   * Select a metadata field from the dropdown optipons
+   * Select a metadata field from the dropdown options
    * @param mdFieldOption
    */
   select(mdFieldOption: string): void {

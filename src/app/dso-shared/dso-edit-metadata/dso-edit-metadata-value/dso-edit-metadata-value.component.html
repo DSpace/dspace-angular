@@ -18,24 +18,24 @@
   <div class="text-center ds-flex-cell ds-edit-cell">
     <div class="btn-group edit-field">
       <div class="btn-group" [ngbTooltip]="isVirtual ? (dsoType + '.edit.metadata.edit.buttons.virtual' | translate) : null">
-        <button class="btn btn-outline-primary btn-sm ng-star-inserted" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.edit' | translate }}" *ngIf="!mdValue.editing"
+        <button class="btn btn-outline-primary btn-sm ng-star-inserted" id="metadata-edit-btn" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.edit' | translate }}" *ngIf="!mdValue.editing"
                 [disabled]="isVirtual || mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE || (saving$ | async)" (click)="edit.emit()">
           <i class="fas fa-edit fa-fw"></i>
         </button>
-        <button class="btn btn-outline-success btn-sm ng-star-inserted" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.confirm' | translate }}" *ngIf="mdValue.editing"
+        <button class="btn btn-outline-success btn-sm ng-star-inserted" id="metadata-confirm-btn" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.confirm' | translate }}" *ngIf="mdValue.editing"
                 [disabled]="isVirtual || (saving$ | async)" (click)="confirm.emit(true)">
           <i class="fas fa-check fa-fw"></i>
         </button>
-        <button class="btn btn-outline-danger btn-sm" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.remove' | translate }}"
+        <button class="btn btn-outline-danger btn-sm" id="metadata-remove-btn" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.remove' | translate }}"
                 [disabled]="isVirtual || (mdValue.change && mdValue.change !== DsoEditMetadataChangeTypeEnum.ADD) || mdValue.editing || (saving$ | async)" (click)="remove.emit()">
           <i class="fas fa-trash-alt fa-fw"></i>
         </button>
-        <button class="btn btn-outline-warning btn-sm" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.undo' | translate }}"
+        <button class="btn btn-outline-warning btn-sm" id="metadata-undo-btn" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.undo' | translate }}"
                 [disabled]="isVirtual || (!mdValue.change && mdValue.reordered) || (!mdValue.change && !mdValue.editing) || (saving$ | async)" (click)="undo.emit()">
           <i class="fas fa-undo-alt fa-fw"></i>
         </button>
       </div>
-      <button class="btn btn-outline-secondary ds-drag-handle btn-sm" cdkDragHandle
+      <button class="btn btn-outline-secondary ds-drag-handle btn-sm" id="metadata-drag-btn" cdkDragHandle
               [ngClass]="{'disabled': isOnlyValue || (saving$ | async)}" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.drag' | translate }}" [disabled]="isOnlyValue || (saving$ | async)">
         <i class="fas fa-grip-vertical fa-fw"></i>
       </button>
