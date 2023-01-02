@@ -87,6 +87,10 @@ describe('SearchHierarchyFilterComponent', () => {
     showVocabularyTreeLink = fixture.debugElement.query(By.css('a#show-test-search-filter-tree'));
   }
 
+  afterEach(() => {
+    fixture.destroy();
+  });
+
   describe('if the vocabulary doesn\'t exist', () => {
 
     beforeEach(() => {
@@ -154,7 +158,6 @@ describe('SearchHierarchyFilterComponent', () => {
             },
             queryParamsHandling: 'merge',
           }));
-          fixture.destroy();
         });
       });
     });
