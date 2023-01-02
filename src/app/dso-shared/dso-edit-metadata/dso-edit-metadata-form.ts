@@ -440,11 +440,12 @@ export class DsoEditMetadataForm {
       const valuesWithoutRemoved = values.filter((value: DsoEditMetadataValue) => value.change !== DsoEditMetadataChangeType.REMOVE);
       const moveOperations = moveAnalyser
         .diff(
-          valuesWithoutRemoved
-            .map((value: DsoEditMetadataValue) => value.newValue.place),
           [...valuesWithoutRemoved]
             .sort((a: DsoEditMetadataValue, b: DsoEditMetadataValue) => a.originalValue.place - b.originalValue.place)
-            .map((value: DsoEditMetadataValue) => value.newValue.place))
+            .map((value: DsoEditMetadataValue) => value.originalValue.place),
+          [...valuesWithoutRemoved]
+            .sort((a: DsoEditMetadataValue, b: DsoEditMetadataValue) => a.newValue.place - b.newValue.place)
+            .map((value: DsoEditMetadataValue) => value.originalValue.place))
         .map((operation: MoveOperation) => new MetadataPatchMoveOperation(field, +operation.from.substr(1), +operation.path.substr(1)).toOperation());
       operations.push(...moveOperations);
     });
