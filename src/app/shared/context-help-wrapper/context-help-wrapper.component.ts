@@ -53,7 +53,7 @@ export class ContextHelpWrapperComponent {
    * into link-free pieces of text and objects of the form
    * {href: string, text: string} (which represent links).
    * This function makes no effort to check whether the href is a
-   * correct URL. Currently this function does not support escape
+   * correct URL. Currently, this function does not support escape
    * characters: its behavior when given a string containing square
    * brackets that do not deliminate a link is undefined.
    * Regular parentheses outside of links do work, however.
@@ -66,7 +66,7 @@ export class ContextHelpWrapperComponent {
    *   " is a link, and ",
    *   {href: "https://youtube.com", text: "so is this"}
    * ]
-   */ 
+   */
   private parseLinks(content: string): (string | {href: string, text: string})[] {
     // Implementation note: due to unavailability of `matchAll` method on strings,
     // separate "split" and "parse" steps are needed.
@@ -93,4 +93,4 @@ export class ContextHelpWrapperComponent {
 }
 
 
-  
+

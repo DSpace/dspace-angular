@@ -3,10 +3,10 @@ import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 import { PlacementDir } from './context-help-wrapper/placement-dir.model';
 
-export type ContextHelpDirectiveInput = {
-  content: string,
-  tooltipPlacement?: PlacementArray,
-  iconPlacement?: PlacementDir
+export interface ContextHelpDirectiveInput {
+  content: string;
+  tooltipPlacement?: PlacementArray;
+  iconPlacement?: PlacementDir;
 }
 
 /*
