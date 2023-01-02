@@ -87,10 +87,6 @@ describe('SearchHierarchyFilterComponent', () => {
     showVocabularyTreeLink = fixture.debugElement.query(By.css('a#show-test-search-filter-tree'));
   }
 
-  afterEach(() => {
-    fixture.destroy();
-  });
-
   describe('if the vocabulary doesn\'t exist', () => {
 
     beforeEach(() => {
@@ -100,9 +96,8 @@ describe('SearchHierarchyFilterComponent', () => {
       init();
     });
 
-    it('should not show the vocabulary tree link', (done) => {
+    it('should not show the vocabulary tree link', () => {
       expect(showVocabularyTreeLink).toBeNull();
-      done();
     });
   });
 
@@ -115,38 +110,33 @@ describe('SearchHierarchyFilterComponent', () => {
       init();
     });
 
-    it('should show the vocabulary tree link', (done) => {
+    it('should show the vocabulary tree link', () => {
       expect(showVocabularyTreeLink).toBeTruthy();
-      done();
     });
 
     describe('when clicking the vocabulary tree link', () => {
 
+      const alreadySelectedValues = [
+        'already-selected-value-1',
+        'already-selected-value-2',
+      ];
+      const newSelectedValue = 'new-selected-value';
+
       beforeEach(async () => {
         showVocabularyTreeLink.nativeElement.click();
+        fixture.componentInstance.selectedValues$ = observableOf(
+          alreadySelectedValues.map(value => Object.assign(new FacetValue(), { value }))
+        );
+        VocabularyTreeViewComponent.select.emit(Object.assign(new VocabularyEntryDetail(), {
+          value: newSelectedValue,
+        }));
       });
 
-      it('should open the vocabulary tree modal', (done) => {
+      it('should open the vocabulary tree modal', () => {
         expect(ngbModal.open).toHaveBeenCalled();
-        done();
       });
 
       describe('when selecting a value from the vocabulary tree', () => {
-
-        const alreadySelectedValues = [
-          'already-selected-value-1',
-          'already-selected-value-2',
-        ];
-        const newSelectedValue = 'new-selected-value';
-
-        beforeEach(() => {
-          fixture.componentInstance.selectedValues$ = observableOf(
-            alreadySelectedValues.map(value => Object.assign(new FacetValue(), { value }))
-          );
-          VocabularyTreeViewComponent.select.emit(Object.assign(new VocabularyEntryDetail(), {
-            value: newSelectedValue,
-          }));
-        });
 
         it('should add a new search filter to the existing search filters', () => {
           waitForAsync(() => expect(router.navigate).toHaveBeenCalledWith([testSearchLink], {
