@@ -95,6 +95,10 @@ describe('RegisterEmailComponent', () => {
       comp.form.patchValue({email: 'valid@email.org'});
       expect(comp.form.invalid).toBeFalse();
     });
+    it('should be valid when uppercase letters are used', () => {
+      comp.form.patchValue({email: 'VALID@email.org'});
+      expect(comp.form.invalid).toBeFalse();
+    });
   });
   describe('register', () => {
     it('should send a registration to the service and on success display a message and return to home', () => {

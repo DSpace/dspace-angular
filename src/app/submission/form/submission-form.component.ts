@@ -10,7 +10,7 @@ import { SubmissionObject } from '../../core/submission/models/submission-object
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
+import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { SectionDataObject } from '../sections/models/section-data.model';
 import { SubmissionService } from '../submission.service';

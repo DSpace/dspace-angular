@@ -36,7 +36,7 @@ const DECLARATIONS = [CommunityPageComponent,
     CommunityPageRoutingModule,
     StatisticsModule.forRoot(),
     CommunityFormModule,
-    ComcolModule
+    ComcolModule,
   ],
   declarations: [
     ...DECLARATIONS
