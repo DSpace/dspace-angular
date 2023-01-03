@@ -186,8 +186,6 @@ import {
 } from './object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
 import { PageWithSidebarComponent } from './sidebar/page-with-sidebar.component';
 import { SidebarDropdownComponent } from './sidebar/sidebar-dropdown.component';
-import { SidebarFilterComponent } from './sidebar/filter/sidebar-filter.component';
-import { SidebarFilterSelectedOptionComponent } from './sidebar/filter/sidebar-filter-selected-option.component';
 import {
   SelectableListItemControlComponent
 } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
@@ -322,8 +320,6 @@ const COMPONENTS = [
   SearchFormComponent,
   PageWithSidebarComponent,
   SidebarDropdownComponent,
-  SidebarFilterComponent,
-  SidebarFilterSelectedOptionComponent,
   ThumbnailComponent,
   ViewModeSwitchComponent,
   TruncatableComponent,

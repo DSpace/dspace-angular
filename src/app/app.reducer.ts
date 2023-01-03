@@ -42,10 +42,6 @@ import {
   filterReducer,
   SearchFiltersState
 } from './shared/search/search-filters/search-filter/search-filter.reducer';
-import {
-  sidebarFilterReducer,
-  SidebarFiltersState
-} from './shared/sidebar/filter/sidebar-filter.reducer';
 import { sidebarReducer, SidebarState } from './shared/sidebar/sidebar.reducer';
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
 import { ThemeState, themeReducer } from './shared/theme-support/theme.reducer';
@@ -59,7 +55,6 @@ export interface AppState {
   metadataRegistry: MetadataRegistryState;
   notifications: NotificationsState;
   sidebar: SidebarState;
-  sidebarFilter: SidebarFiltersState;
   searchFilter: SearchFiltersState;
   truncatable: TruncatablesState;
   cssVariables: CSSVariablesState;
@@ -81,7 +76,6 @@ export const appReducers: ActionReducerMap<AppState> = {
   metadataRegistry: metadataRegistryReducer,
   notifications: notificationsReducer,
   sidebar: sidebarReducer,
-  sidebarFilter: sidebarFilterReducer,
   searchFilter: filterReducer,
   truncatable: truncatableReducer,
   cssVariables: cssVariablesReducer,
