@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
-import { ModalBeforeDismiss } from '../../../interfaces/modal-before-dismiss.interface';
+import { ModalBeforeDismiss } from '../../../shared/interfaces/modal-before-dismiss.interface';
 
 @Component({
   selector: 'ds-item-versions-summary-modal',

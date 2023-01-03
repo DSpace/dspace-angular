@@ -225,17 +225,14 @@ import {
 import {
   ImportableListItemControlComponent
 } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
-import { ItemVersionsComponent } from './item/item-versions/item-versions.component';
 import { LogInContainerComponent } from './log-in/container/log-in-container.component';
 import { LogInShibbolethComponent } from './log-in/methods/shibboleth/log-in-shibboleth.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { BundleListElementComponent } from './object-list/bundle-list-element/bundle-list-element.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
-import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
 import { FileValidator } from './utils/require-file.validator';
 import { FileValueAccessorDirective } from './utils/file-value-accessor.directive';
-import { FileSectionComponent } from '../item-page/simple/field-components/file-section/file-section.component';
 import {
   ModifyItemOverviewComponent
 } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
@@ -268,44 +265,23 @@ import {
   AuthorizedCollectionSelectorComponent
 } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { DsoPageEditButtonComponent } from './dso-page/dso-page-edit-button/dso-page-edit-button.component';
-import { DsoPageVersionButtonComponent } from './dso-page/dso-page-version-button/dso-page-version-button.component';
 import { HoverClassDirective } from './hover-class.directive';
 import {
   ValidationSuggestionsComponent
 } from './input-suggestions/validation-suggestions/validation-suggestions.component';
-import { ItemAlertsComponent } from './item/item-alerts/item-alerts.component';
 import {
   ItemSearchResultGridElementComponent
 } from './object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
-import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
-import {
-  GenericItemPageFieldComponent
-} from '../item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
-import {
-  MetadataRepresentationListComponent
-} from '../item-page/simple/metadata-representation-list/metadata-representation-list.component';
-import { RelatedItemsComponent } from '../item-page/simple/related-items/related-items-component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
-import {
-  ItemVersionsSummaryModalComponent
-} from './item/item-versions/item-versions-summary-modal/item-versions-summary-modal.component';
-import {
-  ItemVersionsDeleteModalComponent
-} from './item/item-versions/item-versions-delete-modal/item-versions-delete-modal.component';
 import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
-import {
-  BitstreamRequestACopyPageComponent
-} from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { RSSComponent } from './rss-feed/rss.component';
-import { DsoPageOrcidButtonComponent } from './dso-page/dso-page-orcid-button/dso-page-orcid-button.component';
 import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 import { BrowserOnlyPipe } from './utils/browser-only.pipe';
 import { ThemedLoadingComponent } from './loading/themed-loading.component';
-import { PersonPageClaimButtonComponent } from './dso-page/person-page-claim-button/person-page-claim-button.component';
 import { SearchExportCsvComponent } from './search/search-export-csv/search-export-csv.component';
 import {
   ItemPageTitleFieldComponent
@@ -367,7 +343,6 @@ const COMPONENTS = [
   UserMenuComponent,
   DsSelectComponent,
   ErrorComponent,
-  FileSectionComponent,
   LangSwitchComponent,
   LoadingComponent,
   ThemedLoadingComponent,
@@ -421,8 +396,6 @@ const COMPONENTS = [
   SelectableListItemControlComponent,
   ImportableListItemControlComponent,
   LogInContainerComponent,
-  ItemVersionsComponent,
-  ItemVersionsNoticeComponent,
   ModifyItemOverviewComponent,
   ImpersonateNavbarComponent,
   EntityDropdownComponent,
@@ -434,6 +407,8 @@ const COMPONENTS = [
   SearchNavbarComponent,
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,
+  DsoPageEditButtonComponent,
+  MetadataFieldWrapperComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -484,7 +459,6 @@ const ENTRY_COMPONENTS = [
   CollectionDropdownComponent,
   FileDownloadLinkComponent,
   BitstreamDownloadPageComponent,
-  BitstreamRequestACopyPageComponent,
   CurationFormComponent,
   ExportMetadataSelectorComponent,
   ImportBatchSelectorComponent,
@@ -495,20 +469,6 @@ const ENTRY_COMPONENTS = [
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
   ScopeSelectorModalComponent,
-];
-
-const SHARED_ITEM_PAGE_COMPONENTS = [
-  MetadataFieldWrapperComponent,
-  MetadataValuesComponent,
-  DsoPageEditButtonComponent,
-  DsoPageVersionButtonComponent,
-  PersonPageClaimButtonComponent,
-  ItemAlertsComponent,
-  GenericItemPageFieldComponent,
-  MetadataRepresentationListComponent,
-  RelatedItemsComponent,
-  DsoPageOrcidButtonComponent
-
 ];
 
 const PROVIDERS = [
@@ -546,9 +506,6 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...ENTRY_COMPONENTS,
     ...DIRECTIVES,
-    ...SHARED_ITEM_PAGE_COMPONENTS,
-    ItemVersionsSummaryModalComponent,
-    ItemVersionsDeleteModalComponent,
   ],
   providers: [
     ...PROVIDERS
@@ -558,7 +515,6 @@ const DIRECTIVES = [
     ...PIPES,
     ...COMPONENTS,
     ...ENTRY_COMPONENTS,
-    ...SHARED_ITEM_PAGE_COMPONENTS,
     ...DIRECTIVES,
     TranslateModule,
   ]

@@ -13,7 +13,7 @@ import { of as observableOf } from 'rxjs';
 import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { MetadataFieldWrapperComponent } from '../../../field-components/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
