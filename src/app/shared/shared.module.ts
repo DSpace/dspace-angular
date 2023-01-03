@@ -2,21 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CdkTreeModule } from '@angular/cdk/tree';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
-import { NouisliderModule } from 'ng2-nouislider';
 import {
-  NgbDatepickerModule,
   NgbDropdownModule,
   NgbNavModule,
   NgbPaginationModule,
-  NgbTimepickerModule,
   NgbTooltipModule,
   NgbTypeaheadModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MomentModule } from 'ngx-moment';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
@@ -256,19 +250,14 @@ const MODULES = [
   FormsModule,
   InfiniteScrollModule,
   NgbNavModule,
-  NgbDatepickerModule,
-  NgbTimepickerModule,
   NgbTypeaheadModule,
-  NgxPaginationModule,
   NgbPaginationModule,
   NgbDropdownModule,
   NgbTooltipModule,
   ReactiveFormsModule,
   RouterModule,
-  NouisliderModule,
   MomentModule,
   DragDropModule,
-  CdkTreeModule,
   GoogleRecaptchaModule,
   MenuModule,
 ];

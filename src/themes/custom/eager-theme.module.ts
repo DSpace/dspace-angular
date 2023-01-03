@@ -7,7 +7,6 @@ import { NavbarComponent } from './app/navbar/navbar.component';
 import { SearchNavbarComponent } from './app/search-navbar/search-navbar.component';
 import { HeaderComponent } from './app/header/header.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
-import { SearchModule } from '../../app/shared/search/search.module';
 import { RootModule } from '../../app/root.module';
 import { NavbarModule } from '../../app/navbar/navbar.module';
 import { PublicationComponent } from './app/item-page/simple/item-types/publication/publication.component';
@@ -42,7 +41,7 @@ import {
 } from './app/shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
-import { CollectionListElementComponent} from './app/shared/object-list/collection-list-element/collection-list-element.component';
+import { CollectionListElementComponent } from './app/shared/object-list/collection-list-element/collection-list-element.component';
 
 
 /**
@@ -80,8 +79,6 @@ const DECLARATIONS = [
   imports: [
     CommonModule,
     SharedModule,
-    SearchModule,
-    FormsModule,
     RootModule,
     NavbarModule,
     ItemPageModule,

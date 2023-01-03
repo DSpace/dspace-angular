@@ -29,8 +29,6 @@ const DECLARATIONS = [
   imports: [
     CommonModule,
     SharedModule,
-    SearchModule,
-    FormsModule,
     RootModule,
     NavbarModule,
   ],
