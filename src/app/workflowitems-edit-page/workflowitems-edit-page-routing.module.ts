@@ -7,7 +7,9 @@ import {
   WORKFLOW_ITEM_DELETE_PATH,
   WORKFLOW_ITEM_EDIT_PATH,
   WORKFLOW_ITEM_SEND_BACK_PATH,
-  WORKFLOW_ITEM_VIEW_PATH
+  WORKFLOW_ITEM_VIEW_PATH,
+  WORKFLOW_SELECT_REVIEWER_PATH,
+  WORKFLOW_RATING_REVIEWER_PATH,
 } from './workflowitems-edit-page-routing-paths';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed-workflow-item-delete.component';
@@ -59,7 +61,25 @@ import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-
               breadcrumb: I18nBreadcrumbResolver
             },
             data: { title: 'workflow-item.send-back.title', breadcrumbKey: 'workflow-item.edit' }
-          }
+          },
+          {
+            canActivate: [AuthenticatedGuard],
+            path: WORKFLOW_SELECT_REVIEWER_PATH,
+            component: ThemedWorkflowItemSendBackComponent,
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'workflow-item.select-reviewer.title', breadcrumbKey: 'workflow-item.edit' }
+          },
+          {
+            canActivate: [AuthenticatedGuard],
+            path: WORKFLOW_RATING_REVIEWER_PATH,
+            component: ThemedWorkflowItemSendBackComponent,
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'workflow-item.rating-reviewer.title', breadcrumbKey: 'workflow-item.edit' }
+          },
         ]
       }]
     )

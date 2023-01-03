@@ -4003,6 +4003,15 @@
   "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
 
 
+  "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
+
+  "submission.workflow.generic.submit_select_reviewer-help": "",
+
+
+  "submission.workflow.generic.submit_rating_reviewer": "Rating Reviewer",
+
+  "submission.workflow.generic.submit_rating_reviewer-help": "",
+
 
   "submission.workflow.tasks.claimed.approve": "Approve",
 
@@ -4154,6 +4163,12 @@
   "workflow-item.send-back.button.confirm": "Send back",
 
   "workflow-item.view.breadcrumbs": "Workflow View",
+
+
+  "workflow-item.select-reviewer.title": "Select Reviewer",
+
+
+  "workflow-item.rating-reviewer.title": "Rating Reviewer",
 
 
   "idle-modal.header": "Session will expire soon",

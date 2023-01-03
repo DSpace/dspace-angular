@@ -177,6 +177,10 @@ import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
+import { AdvancedClaimedTaskActionSelectReviewerComponent } from './mydspace-actions/claimed-task/select-reviewer/advanced-claimed-task-action-select-reviewer.component';
+import {
+  AdvancedClaimedTaskActionRatingReviewerComponent
+} from './mydspace-actions/claimed-task/rating-reviewer/advanced-claimed-task-action-rating-reviewer.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -346,6 +350,8 @@ const COMPONENTS = [
   CommunitySidebarSearchListElementComponent,
   SearchNavbarComponent,
   ScopeSelectorModalComponent,
+  AdvancedClaimedTaskActionSelectReviewerComponent,
+  AdvancedClaimedTaskActionRatingReviewerComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -402,6 +408,8 @@ const ENTRY_COMPONENTS = [
   OnClickMenuItemComponent,
   TextMenuItemComponent,
   ScopeSelectorModalComponent,
+  AdvancedClaimedTaskActionSelectReviewerComponent,
+  AdvancedClaimedTaskActionRatingReviewerComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -436,7 +444,6 @@ const DIRECTIVES = [
   ClaimedTaskActionsDirective,
   FileValueAccessorDirective,
   FileValidator,
-  ClaimedTaskActionsDirective,
   NgForTrackByIdDirective,
   MetadataFieldValidator,
   HoverClassDirective
