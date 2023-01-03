@@ -40,15 +40,13 @@ export class EditableItemSelectorComponent extends DSOSelectorComponent {
    * Find the list of items that can be edited by the current user.
    */
   search(query: string, page: number):
-    Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>
-  {
+    Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     const findOptions: FindListOptions = {
       currentPage: page,
       elementsPerPage: this.defaultPagination.pageSize
     };
     return this.itemDataService.findItemsWithEdit(query, findOptions, true, true, followLink('owningCollection')).pipe(
       getFirstCompletedRemoteData(),
-      tap((rdata) => console.log('TAPPEDITAP:', rdata)), // XXX
       mapRemoteDataPayload((payload) => hasValue(payload)
         ? buildPaginatedList(payload.pageInfo, payload.page.map((item) =>
             Object.assign(new ItemSearchResult(), { indexableObject: item })))

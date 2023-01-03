@@ -392,16 +392,6 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     return this.createData.create(object, ...params);
   }
 
-  // private getSearchEndpoint(topic: string): Observable<string> {
-  //   return this.halService.getEndpoint(this.linkPath).pipe(
-  //     map((endpoint: string) => {
-  //       let result = `${endpoint}/search/${topic}`;
-  //       console.log(result);
-  //       return result;
-  //     })
-  //   );
-  // }
-
   /**
    * Make a new FindListRequest with given search method
    *
