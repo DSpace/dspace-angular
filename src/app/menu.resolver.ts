@@ -171,7 +171,6 @@ export class MenuResolver implements Resolve<boolean> {
       this.authorizationService.isAuthorized(FeatureID.CanSubmit),
       this.authorizationService.isAuthorized(FeatureID.CanEditItem),
     ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, canEditItem]) => {
-      console.log(isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, canEditItem);
       const newSubMenuList = [
         {
           id: 'new_community',
