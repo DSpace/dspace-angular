@@ -458,7 +458,6 @@ const ENTRY_COMPONENTS = [
   ClaimedTaskActionsEditMetadataComponent,
   CollectionDropdownComponent,
   FileDownloadLinkComponent,
-  BitstreamDownloadPageComponent,
   CurationFormComponent,
   ExportMetadataSelectorComponent,
   ImportBatchSelectorComponent,
