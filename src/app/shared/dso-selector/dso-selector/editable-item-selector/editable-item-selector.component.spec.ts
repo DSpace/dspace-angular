@@ -41,18 +41,31 @@ describe('EditableItemSelectorComponent', () => {
     ['1','2','3'].map(createFindItemsResult),
     ['4','5','6'].map(createFindItemsResult),
   ];
-  const itemDataService = {
-    findItemsWithEdit: (query: string, options: FindListOptions,
-                        useCachedVersionIfAvailable = true, reRequestOnStale = true) => {
-      return createSuccessfulRemoteDataObject$(createPaginatedList(
-        query.startsWith('search.resourceid') ? [currentResult] : pages[options.currentPage - 1]
-      ));
-    }
-  };
+
+/*
+    beforeEach(() => {
+    dsoService = {
+      findByIdAndIDType: jasmine.createSpy('findByIdAndIDType').and.returnValue(observableOf({ hasFailed: false,
+        hasSucceeded: true }))
+    };
+    guard = new LookupGuard(dsoService);
+  });
+ */
+  let itemDataService;
   let notificationsService: NotificationsService;
 
   beforeEach(waitForAsync( () => {
     notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
+    itemDataService = {
+      findItemsWithEdit: jasmine.createSpy('findItemsWithEdit').and.callFake(
+        (query: string, options: FindListOptions,
+         useCachedVersionIfAvailable = true, reRequestOnStale = true) => {
+          return createSuccessfulRemoteDataObject$(createPaginatedList(
+            query.startsWith('search.resourceid') ? [currentResult] : pages[options.currentPage - 1]
+          ));
+        }
+      )
+    };
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [EditableItemSelectorComponent],
@@ -109,7 +122,7 @@ describe('EditableItemSelectorComponent', () => {
 
     describe('when search returns an error', () => {
       beforeEach(() => {
-        spyOn(itemDataService, 'findItemsWithEdit').and.returnValue(createFailedRemoteDataObject$());
+        itemDataService.findItemsWithEdit.and.returnValue(createFailedRemoteDataObject$());
         component.ngOnInit();
       });
 
