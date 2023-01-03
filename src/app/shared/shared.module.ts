@@ -76,25 +76,7 @@ import { AlertComponent } from './alert/alert.component';
 import {
   SearchResultDetailElementComponent
 } from './object-detail/my-dspace-result-detail-element/search-result-detail-element.component';
-import { ClaimedTaskActionsComponent } from './mydspace-actions/claimed-task/claimed-task-actions.component';
-import { PoolTaskActionsComponent } from './mydspace-actions/pool-task/pool-task-actions.component';
 import { ObjectDetailComponent } from './object-detail/object-detail.component';
-import {
-  ItemDetailPreviewComponent
-} from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview.component';
-import {
-  MyDSpaceItemStatusComponent
-} from './object-collection/shared/mydspace-item-status/my-dspace-item-status.component';
-import { WorkspaceitemActionsComponent } from './mydspace-actions/workspaceitem/workspaceitem-actions.component';
-import { WorkflowitemActionsComponent } from './mydspace-actions/workflowitem/workflowitem-actions.component';
-import { ItemSubmitterComponent } from './object-collection/shared/mydspace-item-submitter/item-submitter.component';
-import { ItemActionsComponent } from './mydspace-actions/item/item-actions.component';
-import {
-  ClaimedTaskActionsApproveComponent
-} from './mydspace-actions/claimed-task/approve/claimed-task-actions-approve.component';
-import {
-  ClaimedTaskActionsRejectComponent
-} from './mydspace-actions/claimed-task/reject/claimed-task-actions-reject.component';
 import { ObjNgFor } from './utils/object-ngfor.pipe';
 import { BrowseByComponent } from './browse-by/browse-by.component';
 import {
@@ -164,21 +146,8 @@ import {
 import {
     ThemedEditCollectionSelectorComponent
 } from './dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
-import {
-  ItemListPreviewComponent
-} from './object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
-import {
-  MetadataFieldWrapperComponent
-} from '../item-page/field-components/metadata-field-wrapper/metadata-field-wrapper.component';
-import { MetadataValuesComponent } from '../item-page/field-components/metadata-values/metadata-values.component';
 import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
-import {
-  ClaimedTaskActionsReturnToPoolComponent
-} from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
-import {
-  ItemDetailPreviewFieldComponent
-} from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
 import {
   CollectionSearchResultGridElementComponent
 } from './object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
@@ -236,13 +205,7 @@ import { FileValueAccessorDirective } from './utils/file-value-accessor.directiv
 import {
   ModifyItemOverviewComponent
 } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import {
-  ClaimedTaskActionsLoaderComponent
-} from './mydspace-actions/claimed-task/switcher/claimed-task-actions-loader.component';
 import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
-import {
-  ClaimedTaskActionsEditMetadataComponent
-} from './mydspace-actions/claimed-task/edit-metadata/claimed-task-actions-edit-metadata.component';
 import { ImpersonateNavbarComponent } from './impersonate-navbar/impersonate-navbar.component';
 import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
 import { FileDownloadLinkComponent } from './file-download-link/file-download-link.component';
@@ -277,7 +240,6 @@ import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navb
 import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
-import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { RSSComponent } from './rss-feed/rss.component';
 import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 import { BrowserOnlyPipe } from './utils/browser-only.pipe';
@@ -289,6 +251,7 @@ import {
 import { MarkdownPipe } from './utils/markdown.pipe';
 import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
 import { MenuModule } from './menu/menu.module';
+import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
 
 const MODULES = [
   CommonModule,
@@ -362,18 +325,6 @@ const COMPONENTS = [
   SidebarFilterComponent,
   SidebarFilterSelectedOptionComponent,
   ThumbnailComponent,
-  ItemListPreviewComponent,
-  ThemedItemListPreviewComponent,
-  MyDSpaceItemStatusComponent,
-  ItemSubmitterComponent,
-  ItemDetailPreviewComponent,
-  ItemDetailPreviewFieldComponent,
-  ClaimedTaskActionsComponent,
-  ClaimedTaskActionsLoaderComponent,
-  ItemActionsComponent,
-  PoolTaskActionsComponent,
-  WorkflowitemActionsComponent,
-  WorkspaceitemActionsComponent,
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
@@ -451,11 +402,6 @@ const ENTRY_COMPONENTS = [
   LogInShibbolethComponent,
   LogInOidcComponent,
   LogInOrcidComponent,
-  BundleListElementComponent,
-  ClaimedTaskActionsApproveComponent,
-  ClaimedTaskActionsRejectComponent,
-  ClaimedTaskActionsReturnToPoolComponent,
-  ClaimedTaskActionsEditMetadataComponent,
   CollectionDropdownComponent,
   FileDownloadLinkComponent,
   CurationFormComponent,
