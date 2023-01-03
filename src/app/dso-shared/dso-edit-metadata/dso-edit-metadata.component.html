@@ -1,18 +1,18 @@
 <div class="item-metadata" *ngIf="form">
   <div class="button-row top d-flex my-2 space-children-mr ml-gap">
-    <button class="mr-auto btn btn-success" [disabled]="form.newValue || (saving$ | async)"
+    <button class="mr-auto btn btn-success" id="dso-add-btn" [disabled]="form.newValue || (saving$ | async)"
             (click)="add()"><i class="fas fa-plus"></i>
       <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.add-button' | translate }}</span>
     </button>
-    <button class="btn btn-warning ml-1" *ngIf="isReinstatable" [disabled]="(saving$ | async)"
+    <button class="btn btn-warning ml-1" id="dso-reinstate-btn" *ngIf="isReinstatable" [disabled]="(saving$ | async)"
             (click)="reinstate()"><i class="fas fa-undo-alt"></i>
       <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.reinstate-button' | translate }}</span>
     </button>
-    <button class="btn btn-primary ml-1" [disabled]="!hasChanges || (saving$ | async)"
+    <button class="btn btn-primary ml-1" id="dso-save-btn" [disabled]="!hasChanges || (saving$ | async)"
             (click)="submit()"><i class="fas fa-save"></i>
       <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.save-button' | translate }}</span>
     </button>
-    <button class="btn btn-danger ml-1" *ngIf="!isReinstatable"
+    <button class="btn btn-danger ml-1" id="dso-discard-btn" *ngIf="!isReinstatable"
             [disabled]="!hasChanges || (saving$ | async)"
             (click)="discard()"><i class="fas fa-times"></i>
       <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.discard-button' | translate }}</span>

@@ -544,14 +544,20 @@ export class RelationshipService extends DataService<Relationship> {
             filter(([leftItem, rightItem]) => leftItem.hasCompleted && rightItem.hasCompleted),
             map(([leftItem, rightItem]) => {
               if (!leftItem.hasSucceeded || !rightItem.hasSucceeded) {
-                return observableOf(Object.assign(new MetadatumRepresentation(itemType), metadatum));
+                return null;
               } else if (rightItem.hasSucceeded && leftItem.payload.id === parentItem.id) {
                 return rightItem.payload;
               } else if (rightItem.payload.id === parentItem.id) {
                 return leftItem.payload;
               }
             }),
-            map((item: Item) => Object.assign(new ItemMetadataRepresentation(metadatum), item))
+            map((item: Item) => {
+              if (hasValue(item)) {
+                return Object.assign(new ItemMetadataRepresentation(metadatum), item);
+              } else {
+                return Object.assign(new MetadatumRepresentation(itemType), metadatum);
+              }
+            })
           )
         ));
     } else {
