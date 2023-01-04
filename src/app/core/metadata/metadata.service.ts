@@ -476,7 +476,7 @@ export class MetadataService {
           return EMPTY;
         } else {
           // Otherwise retrieve the next page
-          return this.bitstreamDataService.findAllByHref(
+          return this.bitstreamDataService.findListByHref(
             paginatedList.next,
             undefined,
             true,

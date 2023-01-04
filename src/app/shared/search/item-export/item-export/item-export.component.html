@@ -20,7 +20,7 @@
       </div>
 
       <div *ngIf="configurationLoaded; else loader">
-        <div class="form-group">
+        <div class="form-group" data-test="format-select">
           <label for="format">{{ 'item-export.form.format' | translate }}</label>
           <select id="format" class="custom-select" formControlName="format">
             <option [ngValue]="null" disabled>{{ 'item-export.form.format.tip' | translate }}</option>
@@ -29,7 +29,7 @@
             </option>
           </select>
         </div>
-        <div *ngIf="showListSelection" class="form-group">
+        <div *ngIf="showListSelection" class="form-group" data-test="selection-radio">
           <label>Export mode</label>
           <div class="custom-control custom-radio">
             <input type="radio" id="selectionMode-all" formControlName="selectionMode" value="all" class="custom-control-input">

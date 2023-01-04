@@ -24,7 +24,7 @@ export class BrowserHardRedirectService extends HardRedirectService {
    * @param url
    */
   redirect(url: string) {
-    this.location.href = url;
+    this.location.replace(url);
   }
 
   /**

@@ -1,7 +1,6 @@
 <div class="d-flex flex-row">
-  <h2 class="item-page-title-field mr-auto">
-    {{'journalvolume.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="object?.allMetadata(['dc.title'])"></ds-metadata-values>
-  </h2>
+  <ds-item-page-title-field [item]="object" class="mr-auto">
+  </ds-item-page-title-field>
   <div class="pl-2">
     <ds-context-menu [contextMenuObject]="object" [contextMenuObjectType]="'ITEM'"></ds-context-menu>
   </div>

@@ -9,8 +9,8 @@ import { EditItemRelationshipsComponent } from './edit-item-relationships.compon
 import { By } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
-import { RelationshipService } from '../core/data/relationship.service';
-import { EntityTypeService } from '../core/data/entity-type.service';
+import { RelationshipDataService } from '../core/data/relationship-data.service';
+import { EntityTypeDataService } from '../core/data/entity-type-data.service';
 import { RelationshipsServiceStub } from '../shared/testing/relationships-service.stub';
 import { ActivatedRoute } from '@angular/router';
 import { RouteService } from '../core/services/route.service';
@@ -78,8 +78,8 @@ describe('EditItemRelationshipsComponent', () => {
       declarations: [EditItemRelationshipsComponent, RelationshipsSortListComponent],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: RelationshipService, useValue: relationshipsServiceStub },
-        { provide: EntityTypeService, useValue: {} },
+        { provide: RelationshipDataService, useValue: relationshipsServiceStub },
+        { provide: EntityTypeDataService, useValue: {} },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Store, useValue: store },
         {

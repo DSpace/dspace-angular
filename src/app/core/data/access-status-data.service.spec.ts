@@ -76,6 +76,6 @@ describe('AccessStatusDataService', () => {
     });
     halService = new HALEndpointServiceStub(url);
     notificationsService = new NotificationsServiceStub();
-    service = new AccessStatusDataService(null, halService, null, notificationsService, objectCache, rdbService, requestService, null);
+    service = new AccessStatusDataService(requestService, rdbService, objectCache, halService);
   }
 });

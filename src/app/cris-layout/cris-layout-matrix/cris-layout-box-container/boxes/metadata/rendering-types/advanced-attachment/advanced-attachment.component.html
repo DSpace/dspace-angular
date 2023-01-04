@@ -1,5 +1,8 @@
 <div class="{{valueStyle}}">
   <ng-container *ngFor="let attachment of (bitstreams$ | async); let last = last;">
+    <ng-template #tipContent>
+      <span [innerHTML]="('checksum-tooltip.info.' + attachment.checkSum.checkSumAlgorithm | translate)"></span>
+    </ng-template>
     <div class="row mt-1 mb-2" data-test="attachment-info">
       <div class="col-3">
         <ds-thumbnail [thumbnail]="attachment.thumbnail | async"></ds-thumbnail>
@@ -10,7 +13,9 @@
 
           <div class="content" [attr.data-test]="attachmentConf.name"
             *ngIf="attachment.firstMetadataValue(attachmentConf.name) || attachmentConf.type == AdvancedAttachmentElementType.Attribute">
-            <strong>{{ 'cris-layout.advanced-attachment.'+attachmentConf.name | translate }}</strong>
+            <strong *ngIf="attachmentConf.type != AdvancedAttachmentElementType.Attribute">
+              {{ 'cris-layout.advanced-attachment.'+attachmentConf.name | translate }}
+            </strong>
 
             <ng-container *ngIf="attachmentConf.type == AdvancedAttachmentElementType.Metadata">
 
@@ -27,12 +32,34 @@
             </ng-container>
 
             <ng-container *ngIf="attachmentConf.type == AdvancedAttachmentElementType.Attribute">
-              <ng-container *ngIf="attachmentConf.name == 'format'">
+              <ng-container *ngIf="attachmentConf.name == 'format' && (getFormat(attachment) | async)">
+                <strong>
+                  {{ 'cris-layout.advanced-attachment.'+attachmentConf.name | translate }}
+                </strong>
                 <p class="word-break m-0">{{getFormat(attachment) | async}}</p>
               </ng-container>
 
-              <ng-container *ngIf="attachmentConf.name == 'size'">
+              <ng-container *ngIf="attachmentConf.name == 'size' && getSize(attachment)">
+                <strong>
+                  {{ 'cris-layout.advanced-attachment.'+attachmentConf.name | translate }}
+                </strong>
                 <p class="word-break m-0">{{getSize(attachment) | dsFileSize}}</p>
+              </ng-container>
+
+              <ng-container *ngIf="attachmentConf.name == 'checksum' && getChecksum(attachment)">
+                <ng-container *ngVar="getChecksum(attachment) as checksum">
+                  <strong>
+                    {{ 'cris-layout.advanced-attachment.'+ attachmentConf.name | translate }}
+                    ({{checksum.checkSumAlgorithm}}) <i class="far fa-question-circle text-info hint" #hint="ngbTooltip"
+                                                        container="body"
+                                                        placement="top"
+                                                        [ngbTooltip]="tipContent"
+                                                        triggers="manual"
+                                                        [autoClose]="false"
+                                                        (click)="hint.toggle();$event.preventDefault();"></i>
+                  </strong>
+                  <p class="word-break m-0">{{checksum.value}}</p>
+                </ng-container>
               </ng-container>
             </ng-container>
 
@@ -53,3 +80,5 @@
     </button>
   </div>
 </div>
+
+

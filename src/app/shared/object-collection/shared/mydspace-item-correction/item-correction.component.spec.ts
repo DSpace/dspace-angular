@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ItemCorrectionComponent } from './item-correction.component';
 import { TranslateLoaderMock } from '../../../testing/translate-loader.mock';
-import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
@@ -34,13 +34,13 @@ const relationship = Object.assign(new Relationship(), {
   rightId: 'publication',
 });
 
-const relationshipPaginatedList =  buildPaginatedList(new PageInfo(), [relationship]);
+const relationshipPaginatedList = buildPaginatedList(new PageInfo(), [relationship]);
 const relationshipPaginatedListEmpty = buildPaginatedList(new PageInfo(), [relationship]);
 const relationshipPaginatedListRD = createSuccessfulRemoteDataObject(relationshipPaginatedList);
 const relationshipPaginatedListEmptyRD = createSuccessfulRemoteDataObject(relationshipPaginatedListEmpty);
 
 describe('ItemCorrectionComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -52,7 +52,7 @@ describe('ItemCorrectionComponent', () => {
       ],
       declarations: [ItemCorrectionComponent],
       providers: [
-        { provide: RelationshipService, useValue: mockRelationshipService },
+        { provide: RelationshipDataService, useValue: mockRelationshipService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemCorrectionComponent, {
@@ -60,13 +60,13 @@ describe('ItemCorrectionComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ItemCorrectionComponent);
     component = fixture.componentInstance;
   }));
 
   beforeEach(() => {
-    relationshipService = TestBed.get(RelationshipService);
+    relationshipService = TestBed.inject(RelationshipDataService);
 
   });
 

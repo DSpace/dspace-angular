@@ -117,14 +117,13 @@ export class ItemCollectionMapperComponent implements OnInit {
    * Load mappedCollectionsRD$ to only obtain collections that don't own this item
    */
   loadCollectionLists() {
-    console.log('loadCollectionLists');
     this.shouldUpdate$ = new BehaviorSubject<boolean>(true);
     this.itemCollectionsRD$ = observableCombineLatest(this.itemRD$.pipe(getFirstSucceededRemoteDataPayload()), this.shouldUpdate$).pipe(
       switchMap(([item, shouldUpdate]) => {
         if (shouldUpdate === true) {
           this.shouldUpdate$.next(false);
         }
-        return this.collectionDataService.findAllByHref(
+        return this.collectionDataService.findListByHref(
           this.itemDataService.getMappedCollectionsEndpoint(item.id),
           undefined,
           !shouldUpdate,

@@ -22,6 +22,7 @@ import { ConfirmationModalComponent } from '../../../confirmation-modal/confirma
 
 import { filter, switchMap, take } from 'rxjs/operators';
 import { NoContent } from '../../../../core/shared/NoContent.model';
+import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../../core/shared/operators';
 
 @Component({
   selector: 'ds-subscription-modal',
@@ -138,7 +139,10 @@ export class SubscriptionModalComponent implements OnInit {
    * @param uuid DSpaceObject id that subscriptions are related to
    */
   getSubscription(epersonId: string, uuid: string): Observable<PaginatedList<Subscription>> {
-    return this.subscriptionService.getSubscriptionByPersonDSO(epersonId, uuid);
+    return this.subscriptionService.getSubscriptionByPersonDSO(epersonId, uuid).pipe(
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload(),
+    );
   }
 
   /**

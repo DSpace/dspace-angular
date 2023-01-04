@@ -3,13 +3,11 @@ import { SearchOptions } from '../../../models/search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { BehaviorSubject } from 'rxjs';
 import { getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
 import { SearchObjects } from '../../../models/search-objects.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { SearchManager } from '../../../../../core/browse/search-manager';
-import { SearchResult } from '../../../models/search-result.model';
 import { PaginationComponentOptions } from '../../../../pagination/pagination-component-options.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { Context } from '../../../../../core/shared/context.model';
@@ -63,7 +61,7 @@ export class ItemExportListComponent implements OnInit {
   /**
    * The displayed list of entries
    */
-  resultsRD$: BehaviorSubject<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> = new BehaviorSubject(null);
+  resultsRD$: BehaviorSubject<RemoteData<SearchObjects<DSpaceObject>>> = new BehaviorSubject(null);
 
   constructor(
     private paginationService: PaginationService,

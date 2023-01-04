@@ -10,12 +10,16 @@ import { MyDSpaceGuard } from './my-dspace.guard';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { CollectionSelectorComponent } from './collection-selector/collection-selector.component';
 import { MyDspaceSearchModule } from './my-dspace-search.module';
-import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission/my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component';
-import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-submission/my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component';
-import { SuggestionsService } from '../openaire/reciter-suggestions/suggestions.service';
-import { OpenaireSuggestionsDataService } from '../core/openaire/reciter-suggestions/openaire-suggestions-data.service';
+import {
+  MyDSpaceNewSubmissionDropdownComponent
+} from './my-dspace-new-submission/my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component';
+import {
+  MyDSpaceNewExternalDropdownComponent
+} from './my-dspace-new-submission/my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component';
 import { OpenaireModule } from '../openaire/openaire.module';
-import { MyDSpaceNewBulkImportComponent } from './my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
+import {
+  MyDSpaceNewBulkImportComponent
+} from './my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
 import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
 import { SearchModule } from '../shared/search/search.module';
 
@@ -41,9 +45,7 @@ const DECLARATIONS = [
   declarations: DECLARATIONS,
   providers: [
     MyDSpaceGuard,
-    MyDSpaceConfigurationService,
-    SuggestionsService,
-    OpenaireSuggestionsDataService
+    MyDSpaceConfigurationService
   ],
   exports: DECLARATIONS,
 })

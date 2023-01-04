@@ -19,6 +19,7 @@ import {
   SECURITY_CONFIG,
   SUBMISSION_ID
 } from './field-parser';
+import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 
 export class ConcatFieldParser extends FieldParser {
 
@@ -60,7 +61,7 @@ export class ConcatFieldParser extends FieldParser {
     concatGroup.group = [];
     concatGroup.separator = this.separator;
 
-    const input1ModelConfig: DynamicInputModelConfig = this.initModel(
+    const input1ModelConfig: DsDynamicInputModelConfig = this.initModel(
       id + CONCAT_FIRST_INPUT_SUFFIX,
       false,
       true,
@@ -68,13 +69,16 @@ export class ConcatFieldParser extends FieldParser {
       false
     );
     input1ModelConfig.name = this.getFieldId();
-    const input2ModelConfig: DynamicInputModelConfig = this.initModel(
+    const input2ModelConfig: DsDynamicInputModelConfig = this.initModel(
       id + CONCAT_SECOND_INPUT_SUFFIX,
       false,
       true,
       false,
       false
     );
+
+    input1ModelConfig.hideErrorMessages = true;
+    input2ModelConfig.hideErrorMessages = true;
 
     if (hasNoValue(concatGroup.hint) && hasValue(input1ModelConfig.hint) && hasNoValue(input2ModelConfig.hint)) {
       concatGroup.hint = input1ModelConfig.hint;
@@ -95,8 +99,9 @@ export class ConcatFieldParser extends FieldParser {
       input1ModelConfig.placeholder = placeholder[0];
       input2ModelConfig.placeholder = placeholder[1];
     }
-    const model1 = new DynamicInputModel(input1ModelConfig, clsInput1);
-    const model2 = new DynamicInputModel(input2ModelConfig, clsInput2);
+
+    const model1 = new DsDynamicInputModel(input1ModelConfig, clsInput1);
+    const model2 = new DsDynamicInputModel(input2ModelConfig, clsInput2);
     // only for the first input add security visibility
     (model1 as any).toggleSecurityVisibility = false;
     (model2 as any).toggleSecurityVisibility = false;

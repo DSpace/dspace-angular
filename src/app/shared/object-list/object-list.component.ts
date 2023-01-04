@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
@@ -9,10 +9,6 @@ import { SelectableListService } from './selectable-list/selectable-list.service
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { Context } from '../../core/shared/context.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { Subscription } from 'rxjs';
-import { Relationship } from '../../core/shared/item-relationships/relationship.model';
-import { AlertType } from '../alert/aletr-type';
-import { hasValue } from '../empty.util';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -22,7 +18,7 @@ import { hasValue } from '../empty.util';
   templateUrl: './object-list.component.html',
   animations: [fadeIn]
 })
-export class ObjectListComponent implements OnInit, OnDestroy {
+export class ObjectListComponent {
   /**
    * The view mode of the this component
    */
@@ -86,14 +82,19 @@ export class ObjectListComponent implements OnInit, OnDestroy {
   @Input() importConfig: { buttonLabel: string };
 
   /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics = true;
+
+  /**
    * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
    */
   @Input() showPaginator = true;
 
   /**
-   * Whether or not to show an alert for hidden related items
+   * Whether to show the thumbnail preview
    */
-  @Input() showHiddenRelatedItemsAlert = false;
+  @Input() showThumbnails;
 
   /**
    * Emit when one of the listed object has changed.
@@ -185,28 +186,7 @@ export class ObjectListComponent implements OnInit, OnDestroy {
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
 
-  /**
-   * The subscription to be unsubscribed
-   */
-  sub: Subscription;
-
-  /**
-   * If this item exists in the hidden relation
-   */
-  isHidden = false;
-
-  public AlertTypeEnum = AlertType;
-
   constructor(protected selectionService: SelectableListService) {
-  }
-
-  ngOnInit () {
-    if (!!this.customData?.relationships$) {
-      this.sub = this.customData.relationships$.subscribe( (relationships: Relationship[]) => {
-        const filteredRelationships = relationships.filter(filteredRelationship => filteredRelationship.leftwardValue.toLowerCase().includes('hidden'));
-        this.isHidden = relationships.length > 0 && filteredRelationships.length > 0;
-      });
-    }
   }
 
   /**
@@ -260,15 +240,6 @@ export class ObjectListComponent implements OnInit, OnDestroy {
    */
   goNext() {
       this.next.emit(true);
-  }
-
-  /**
-   * Unsubscribe from the subscription
-   */
-  ngOnDestroy(): void {
-    if (hasValue(this.sub)) {
-      this.sub.unsubscribe();
-    }
   }
 
 }

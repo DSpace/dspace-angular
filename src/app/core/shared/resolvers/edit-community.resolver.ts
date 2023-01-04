@@ -10,9 +10,9 @@ import { EditDsoResolver } from './edit-dso.resolver';
 @Injectable()
 export class EditCommunityResolver extends EditDsoResolver<Community> {
   constructor(
-    protected communitydataService: CommunityDataService,
+    protected communityDataService: CommunityDataService,
   ) {
-    super(communitydataService);
+    super(communityDataService);
   }
 
   getFollowLinks(): FollowLinkConfig<Community>[] {

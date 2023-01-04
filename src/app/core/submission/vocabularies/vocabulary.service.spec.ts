@@ -1,10 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
@@ -12,10 +9,7 @@ import { RequestService } from '../../data/request.service';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { PageInfo } from '../../shared/page-info.model';
 import { buildPaginatedList } from '../../data/paginated-list.model';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { RestResponse } from '../../cache/response.models';
 import { VocabularyService } from './vocabulary.service';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
@@ -26,6 +20,8 @@ import { HrefOnlyDataService } from '../../data/href-only-data.service';
 import { getMockHrefOnlyDataService } from '../../../shared/mocks/href-only-data.service.mock';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestEntry } from '../../data/request-entry.model';
+import { VocabularyDataService } from './vocabulary.data.service';
+import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
 
 describe('VocabularyService', () => {
   let scheduler: TestScheduler;
@@ -205,24 +201,14 @@ describe('VocabularyService', () => {
       response: { isSuccessful: successful, payload: arrayEntries } as any
     } as RequestEntry);
   };
-  objectCache = {} as ObjectCacheService;
-  const notificationsService = {} as NotificationsService;
-  const http = {} as HttpClient;
-  const comparator = {} as any;
-  const comparatorEntry = {} as any;
 
   function initTestService() {
     hrefOnlyDataService = getMockHrefOnlyDataService();
+
     return new VocabularyService(
       requestService,
-      rdbService,
-      objectCache,
-      halService,
-      notificationsService,
-      hrefOnlyDataService,
-      http,
-      comparator,
-      comparatorEntry
+      new VocabularyDataService(requestService, rdbService, objectCache, halService),
+      new VocabularyEntryDetailsDataService(requestService, rdbService, objectCache, halService),
     );
   }
 
@@ -231,7 +217,7 @@ describe('VocabularyService', () => {
       scheduler = getTestScheduler();
 
       halService = jasmine.createSpyObj('halService', {
-        getEndpoint: cold('a', { a: endpointURL })
+        getEndpoint: cold('a', { a: endpointURL }),
       });
     });
 
@@ -239,7 +225,7 @@ describe('VocabularyService', () => {
       service = null;
     });
 
-    describe('', () => {
+    describe('vocabularies', () => {
       beforeEach(() => {
         responseCacheEntry = new RequestEntry();
         responseCacheEntry.request = { href: 'https://rest.api/' } as any;
@@ -257,8 +243,9 @@ describe('VocabularyService', () => {
             a: vocabularyRD
           }),
           buildList: hot('a|', {
-            a: paginatedListRD
+            a: paginatedListRD,
           }),
+          setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring')
         });
 
         service = initTestService();
@@ -266,9 +253,8 @@ describe('VocabularyService', () => {
         spyOn((service as any).vocabularyDataService, 'findById').and.callThrough();
         spyOn((service as any).vocabularyDataService, 'findAll').and.callThrough();
         spyOn((service as any).vocabularyDataService, 'findByHref').and.callThrough();
-        spyOn((service as any).vocabularyDataService, 'searchBy').and.callThrough();
-        spyOn((service as any).vocabularyDataService, 'getSearchByHref').and.returnValue(observableOf(searchRequestURL));
-        spyOn((service as any).vocabularyDataService, 'getFindAllHref').and.returnValue(observableOf(entriesRequestURL));
+        spyOn((service as any).vocabularyDataService.findAllData, 'getFindAllHref').and.returnValue(observableOf(entriesRequestURL));
+        spyOn((service as any).vocabularyDataService.searchData, 'getSearchByHref').and.returnValue(observableOf(searchRequestURL));
       });
 
       afterEach(() => {
@@ -276,7 +262,7 @@ describe('VocabularyService', () => {
       });
 
       describe('findVocabularyById', () => {
-        it('should proxy the call to vocabularyDataService.findVocabularyById', () => {
+        it('should proxy the call to vocabularyDataService.findById', () => {
           scheduler.schedule(() => service.findVocabularyById(vocabularyId));
           scheduler.flush();
 
@@ -345,7 +331,7 @@ describe('VocabularyService', () => {
       });
     });
 
-    describe('', () => {
+    describe('vocabulary entries', () => {
 
       beforeEach(() => {
         requestService = getMockRequestService(getRequestEntries$(true));
@@ -434,7 +420,7 @@ describe('VocabularyService', () => {
       requestService = jasmine.createSpyObj('requestService', {
         generateRequestId: requestUUID,
         send: true,
-        removeByHrefSubstring: {},
+        setStaleByHrefSubstring: {},
         getByHref: observableOf(responseCacheEntry),
         getByUUID: observableOf(responseCacheEntry),
       });
@@ -445,6 +431,7 @@ describe('VocabularyService', () => {
         buildList: hot('a|', {
           a: vocabularyEntryChildrenRD
         }),
+        setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring')
       });
 
       service = initTestService();
@@ -452,10 +439,10 @@ describe('VocabularyService', () => {
       spyOn((service as any).vocabularyEntryDetailDataService, 'findById').and.callThrough();
       spyOn((service as any).vocabularyEntryDetailDataService, 'findAll').and.callThrough();
       spyOn((service as any).vocabularyEntryDetailDataService, 'findByHref').and.callThrough();
-      spyOn((service as any).vocabularyEntryDetailDataService, 'findAllByHref').and.callThrough();
+      spyOn((service as any).vocabularyEntryDetailDataService, 'findListByHref').and.callThrough();
       spyOn((service as any).vocabularyEntryDetailDataService, 'searchBy').and.callThrough();
-      spyOn((service as any).vocabularyEntryDetailDataService, 'getSearchByHref').and.returnValue(observableOf(searchRequestURL));
-      spyOn((service as any).vocabularyEntryDetailDataService, 'getFindAllHref').and.returnValue(observableOf(entryDetailChildrenRequestURL));
+      spyOn((service as any).vocabularyEntryDetailDataService.searchData, 'getSearchByHref').and.returnValue(observableOf(searchRequestURL));
+      spyOn((service as any).vocabularyEntryDetailDataService.findAllData, 'getFindAllHref').and.returnValue(observableOf(entryDetailChildrenRequestURL));
       spyOn((service as any).vocabularyEntryDetailDataService, 'getBrowseEndpoint').and.returnValue(observableOf(entryDetailEndpointURL));
     });
 
@@ -529,7 +516,7 @@ describe('VocabularyService', () => {
         scheduler.schedule(() => service.getEntryDetailChildren('testValue', hierarchicalVocabulary.id, pageInfo).subscribe());
         scheduler.flush();
 
-        expect((service as any).vocabularyEntryDetailDataService.findAllByHref).toHaveBeenCalledWith(entryDetailChildrenRequestURL, options, true, true);
+        expect((service as any).vocabularyEntryDetailDataService.findListByHref).toHaveBeenCalledWith(entryDetailChildrenRequestURL, options, true, true);
       });
 
       it('should return a RemoteData<PaginatedList<ResourcePolicy>> for the object with the given URL', () => {
@@ -574,7 +561,7 @@ describe('VocabularyService', () => {
       it('should remove requests on the data service\'s endpoint', (done) => {
         service.clearSearchTopRequests();
 
-        expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(`search/${(service as any).searchTopMethod}`);
+        expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(`search/${(service as any).searchTopMethod}`);
         done();
       });
     });

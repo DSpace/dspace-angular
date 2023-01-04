@@ -1,8 +1,8 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 
 import { Item } from '../../../../core/shared/item.model';
 import { SearchOptions } from '../../models/search-options.model';
@@ -13,13 +13,17 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { hasValue, isNotEmpty } from '../../../empty.util';
+import { isNotEmpty } from '../../../empty.util';
+
+export const BULK_EXPORT_LIMIT_ADMIN = 'bulk-export.limit.admin';
+export const BULK_EXPORT_LIMIT_LOGGEDIN = 'bulk-export.limit.loggedIn';
+export const BULK_EXPORT_LIMIT_NOTLOGGEDIN = 'bulk-export.limit.notLoggedIn';
 
 @Component({
   selector: 'ds-item-export-modal-launcher',
   templateUrl: './item-export-modal-launcher.component.html'
 })
-export class ItemExportModalLauncherComponent implements OnInit, OnDestroy {
+export class ItemExportModalLauncherComponent implements OnInit {
 
   @ViewChild('template', {static: true}) template;
 
@@ -27,11 +31,6 @@ export class ItemExportModalLauncherComponent implements OnInit, OnDestroy {
   @Input() searchOptions$: Observable<SearchOptions>;
 
   bulkExportLimit = '0';
-
-  /**
-   * List of subscriptions
-   */
-  subs: Subscription[] = [];
 
   constructor(private modalService: NgbModal,
               private authService: AuthService,
@@ -41,19 +40,26 @@ export class ItemExportModalLauncherComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.viewContainerRef.createEmbeddedView(this.template);
-    this.subs.push(this.isAuthenticated().subscribe(isAuthenticated => {
-      if (isAuthenticated) {
-        this.subs.push(this.isCurrentUserAdmin().subscribe(isAdmin => {
+
+    combineLatest([this.isAuthenticated(), this.isCurrentUserAdmin()]).pipe(
+      take(1),
+      switchMap(([isAuthenticated, isAdmin]) => {
+        let propertyName ;
+        if (isAuthenticated) {
           if (isAdmin) {
-            this.findByPropertyName(BULK_EXPORT_LIMIT_ADMIN);
+            propertyName = BULK_EXPORT_LIMIT_ADMIN;
           } else {
-            this.findByPropertyName(BULK_EXPORT_LIMIT_LOGGEDIN);
+            propertyName = BULK_EXPORT_LIMIT_LOGGEDIN;
           }
-        }));
-      } else {
-        this.findByPropertyName(BULK_EXPORT_LIMIT_NOTLOGGEDIN);
-      }
-    }));
+        } else {
+          propertyName = BULK_EXPORT_LIMIT_NOTLOGGEDIN;
+        }
+
+        return this.findByPropertyName(propertyName);
+      })
+    ).subscribe((bulkExportLimit: string) => {
+      this.bulkExportLimit = bulkExportLimit;
+    });
   }
 
   getLabel() {
@@ -87,7 +93,7 @@ export class ItemExportModalLauncherComponent implements OnInit, OnDestroy {
   /**
    * Return if the user is authenticated
    */
-  isAuthenticated() {
+  isAuthenticated(): Observable<boolean> {
     return this.authService.isAuthenticated();
   }
 
@@ -101,31 +107,13 @@ export class ItemExportModalLauncherComponent implements OnInit, OnDestroy {
   /**
    * it will fetch the export limit according to property
    */
-  findByPropertyName(property) {
-    this.subs.push(this.configService.findByPropertyName(property).pipe(
-      getFirstCompletedRemoteData()
-    ).subscribe(res => {
-      if (res.hasSucceeded && res.payload && isNotEmpty(res.payload.values)) {
-        this.bulkExportLimit = res.payload.values[0];
-      } else {
-        this.bulkExportLimit = '0';
-      }
+  findByPropertyName(property): Observable<string> {
+    return this.configService.findByPropertyName(property).pipe(
+      getFirstCompletedRemoteData(),
+      map((res) => {
+        return (res.hasSucceeded && res.payload && isNotEmpty(res.payload.values)) ? res.payload.values[0] : '0';
     }));
-  }
-
-  cleanupSubscribes() {
-    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
-  }
-
-  /**
-   * Unsub all subscriptions
-   */
-  ngOnDestroy(): void {
-    this.cleanupSubscribes();
   }
 
 }
 
-export const BULK_EXPORT_LIMIT_ADMIN = 'bulk-export.limit.admin';
-export const BULK_EXPORT_LIMIT_LOGGEDIN = 'bulk-export.limit.loggedIn';
-export const BULK_EXPORT_LIMIT_NOTLOGGEDIN = 'bulk-export.limit.notLoggedIn';

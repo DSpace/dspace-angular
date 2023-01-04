@@ -42,6 +42,16 @@ export class AbstractListableElementComponent<T extends ListableObject> {
   @Input() showLabel = true;
 
   /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics = true;
+
+  /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
+
+  /**
    * The context we matched on to get this component
    */
   @Input() context: Context;

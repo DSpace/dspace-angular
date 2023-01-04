@@ -3,11 +3,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   BulkImportSelectorComponent
 } from '../../../shared/dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
-import { EntityTypeService } from '../../../core/data/entity-type.service';
+import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { hasValue } from '../../../shared/empty.util';
-import { mergeMap, map, take } from 'rxjs/operators';
+import { map, mergeMap, take } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
@@ -48,7 +48,7 @@ export class MyDSpaceNewBulkImportComponent {
    */
   public subs: Subscription[] = [];
 
-  constructor(private modalService: NgbModal,private entityTypeService: EntityTypeService) { }
+  constructor(private modalService: NgbModal,private entityTypeService: EntityTypeDataService) { }
 
 
   /**

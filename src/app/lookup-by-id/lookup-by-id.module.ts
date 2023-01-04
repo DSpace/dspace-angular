@@ -4,7 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 import { LookupRoutingModule } from './lookup-by-id-routing.module';
 import { ObjectNotFoundComponent } from './objectnotfound/objectnotfound.component';
 import { ObjectGoneComponent } from './objectgone/objectgone.component';
-import { DsoRedirectDataService } from '../core/data/dso-redirect-data.service';
+import { DsoRedirectService } from '../core/data/dso-redirect.service';
 import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnotfound.component';
 import { ThemedObjectGoneComponent } from './objectgone/themed-objectgone.component';
 
@@ -21,7 +21,7 @@ import { ThemedObjectGoneComponent } from './objectgone/themed-objectgone.compon
     ThemedObjectGoneComponent
   ],
   providers: [
-    DsoRedirectDataService
+    DsoRedirectService,
   ]
 })
 export class LookupIdModule {

@@ -19,7 +19,7 @@ import { SubmissionSectionUploadComponent } from './sections/upload/section-uplo
 import { SectionUploadService } from './sections/upload/section-upload.service';
 import { SubmissionUploadFilesComponent } from './form/submission-upload-files/submission-upload-files.component';
 import { SubmissionSectionLicenseComponent } from './sections/license/section-license.component';
-import { SubmissionUploadsConfigService } from '../core/config/submission-uploads-config.service';
+import { SubmissionUploadsConfigDataService } from '../core/config/submission-uploads-config-data.service';
 import { SubmissionEditComponent } from './edit/submission-edit.component';
 import { SubmissionSectionUploadFileComponent } from './sections/upload/file/section-upload-file.component';
 import {
@@ -56,7 +56,7 @@ import { SubmissionSectionCustomUrlComponent } from './sections/custom-url/submi
 import { FormModule } from '../shared/form/form.module';
 import { NgbAccordionModule, NgbCollapseModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionSectionAccessesComponent } from './sections/accesses/section-accesses.component';
-import { SubmissionAccessesConfigService } from '../core/config/submission-accesses-config.service';
+import { SubmissionAccessesConfigDataService } from '../core/config/submission-accesses-config-data.service';
 import { SectionAccessesService } from './sections/accesses/section-accesses.service';
 import { SubmissionSectionSherpaPoliciesComponent } from './sections/sherpa-policies/section-sherpa-policies.component';
 import { ContentAccordionComponent } from './sections/sherpa-policies/content-accordion/content-accordion.component';
@@ -130,8 +130,8 @@ const DECLARATIONS = [
   providers: [
     SectionUploadService,
     SectionsService,
-    SubmissionUploadsConfigService,
-    SubmissionAccessesConfigService,
+    SubmissionUploadsConfigDataService,
+    SubmissionAccessesConfigDataService,
     SectionAccessesService,
     DetectDuplicateService
   ]

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { UsageReportService } from '../../core/statistics/usage-report-data.service';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 import { map, switchMap } from 'rxjs/operators';
 import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { RemoteData } from '../../core/data/remote-data';
@@ -43,7 +43,7 @@ export abstract class StatisticsPageComponent<T extends DSpaceObject> {
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
-    protected usageReportService: UsageReportService,
+    protected usageReportService: UsageReportDataService,
     protected nameService: DSONameService,
     protected authService: AuthService,
   ) {

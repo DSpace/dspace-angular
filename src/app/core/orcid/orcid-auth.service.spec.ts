@@ -11,14 +11,14 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { NativeWindowRefMock } from '../../shared/mocks/mock-native-window-ref';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { OrcidAuthService } from './orcid-auth.service';
-import { ResearcherProfileService } from '../profile/researcher-profile.service';
+import { ResearcherProfileDataService } from '../profile/researcher-profile-data.service';
 
 describe('OrcidAuthService', () => {
   let scheduler: TestScheduler;
   let service: OrcidAuthService;
   let serviceAsAny: any;
 
-  let researcherProfileService: jasmine.SpyObj<ResearcherProfileService>;
+  let researcherProfileService: jasmine.SpyObj<ResearcherProfileDataService>;
   let configurationDataService: ConfigurationDataService;
   let nativeWindowService: NativeWindowRefMock;
   let routerStub: any;
@@ -165,7 +165,8 @@ describe('OrcidAuthService', () => {
     routerStub = new RouterMock();
     researcherProfileService = jasmine.createSpyObj('ResearcherProfileService', {
       findById: jasmine.createSpy('findById'),
-      updateByOrcidOperations: jasmine.createSpy('updateByOrcidOperations')
+      patch: jasmine.createSpy('patch'),
+      updateByOrcidOperations: jasmine.createSpy('updateByOrcidOperations'),
     });
     configurationDataService = jasmine.createSpyObj('configurationDataService', {
       findByPropertyName: jasmine.createSpy('findByPropertyName')
@@ -237,7 +238,7 @@ describe('OrcidAuthService', () => {
   describe('linkOrcidByItem', () => {
     beforeEach(() => {
       scheduler = getTestScheduler();
-      researcherProfileService.updateByOrcidOperations.and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
+      researcherProfileService.patch.and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
       researcherProfileService.findById.and.returnValue(createSuccessfulRemoteDataObject$(researcherProfile));
     });
 
@@ -251,14 +252,14 @@ describe('OrcidAuthService', () => {
       scheduler.schedule(() => service.linkOrcidByItem(mockItemUnlinkedToOrcid, 'test-code').subscribe());
       scheduler.flush();
 
-      expect(researcherProfileService.updateByOrcidOperations).toHaveBeenCalledWith(researcherProfile, operations);
+      expect(researcherProfileService.patch).toHaveBeenCalledWith(researcherProfile, operations);
     });
   });
 
   describe('unlinkOrcidByItem', () => {
     beforeEach(() => {
       scheduler = getTestScheduler();
-      researcherProfileService.updateByOrcidOperations.and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
+      researcherProfileService.patch.and.returnValue(createSuccessfulRemoteDataObject$(researcherProfilePatched));
       researcherProfileService.findById.and.returnValue(createSuccessfulRemoteDataObject$(researcherProfile));
     });
 
@@ -271,7 +272,7 @@ describe('OrcidAuthService', () => {
       scheduler.schedule(() => service.unlinkOrcidByItem(mockItemLinkedToOrcid).subscribe());
       scheduler.flush();
 
-      expect(researcherProfileService.updateByOrcidOperations).toHaveBeenCalledWith(researcherProfile, operations);
+      expect(researcherProfileService.patch).toHaveBeenCalledWith(researcherProfile, operations);
     });
   });
 

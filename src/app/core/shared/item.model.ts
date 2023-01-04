@@ -23,6 +23,7 @@ import { BITSTREAM } from './bitstream.resource-type';
 import { Bitstream } from './bitstream.model';
 import { ACCESS_STATUS } from 'src/app/shared/object-list/access-status-badge/access-status.resource-type';
 import { AccessStatusObject } from 'src/app/shared/object-list/access-status-badge/access-status.model';
+import { HandleObject } from './handle-object.model';
 import { Metric } from './metric.model';
 import { METRIC } from './metric.resource-type';
 
@@ -31,7 +32,7 @@ import { METRIC } from './metric.resource-type';
  */
 @typedObject
 @inheritSerialization(DSpaceObject)
-export class Item extends DSpaceObject implements ChildHALResource {
+export class Item extends DSpaceObject implements ChildHALResource, HandleObject {
   static type = ITEM;
 
   /**

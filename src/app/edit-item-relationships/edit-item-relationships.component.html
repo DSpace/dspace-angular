@@ -18,6 +18,8 @@
                                     [collapseFilters]="true"
                                     [showFilterToggle]="true"
                                     [showExport]="false"
+                                      [showSearchResultNotice]="hasHiddenRelationship$ | async"
+                                      [searchResultNotice]="hiddenRelationshipMsg"
                                     [customData]="{relationships$ : relationshipResults$, entityType: relationshipType, updateStatusByItemId$: updateStatusByItemId$}"
                                     [showScopeSelector]="false"
                                     (customEvent)="manageRelationship($event)"></ds-configuration-search-page>

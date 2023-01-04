@@ -1,37 +1,15 @@
-/* eslint-disable max-classes-per-file */
-
 import { Injectable } from '@angular/core';
-import { dataService } from '../cache/builders/build-decorators';
-import { DataService } from '../data/data.service';
+
+import { Observable } from 'rxjs';
+
+import { dataService } from '../data/base/data-service.decorator';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { HttpClient } from '@angular/common/http';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { Store } from '@ngrx/store';
-import { CoreState } from '../core-state.model';
-import { ChangeAnalyzer } from '../data/change-analyzer';
-import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { MetadataSecurityConfiguration } from './models/metadata-security-configuration';
-
-class DataServiceImpl extends DataService<MetadataSecurityConfiguration> {
-  protected linkPath = 'securitysettings';
-
-  constructor(
-    protected requestService: RequestService,
-    protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
-    protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<MetadataSecurityConfiguration>) {
-    super();
-  }
-}
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 
 /**
  * A service that provides methods to make REST requests with securitysettings endpoint.
@@ -40,19 +18,15 @@ class DataServiceImpl extends DataService<MetadataSecurityConfiguration> {
   providedIn: 'root'
 })
 @dataService(MetadataSecurityConfiguration.type)
-export class MetadataSecurityConfigurationService {
-  private dataService: DataServiceImpl;
+export class MetadataSecurityConfigurationService extends IdentifiableDataService<MetadataSecurityConfiguration> {
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<MetadataSecurityConfiguration>) {
-    this.dataService = new DataServiceImpl(requestService, rdbService,
-      null, objectCache, halService, notificationsService, http, comparator);
+    protected halService: HALEndpointService
+  ) {
+    super('securitysettings', requestService, rdbService, objectCache, halService);
   }
 
   /**
@@ -60,7 +34,7 @@ export class MetadataSecurityConfigurationService {
    * @param entityType
    */
   findById(entityType: string): Observable<RemoteData<MetadataSecurityConfiguration>> {
-    return this.dataService.findById(entityType);
+    return super.findById(entityType);
   }
 }
 

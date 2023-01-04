@@ -3,6 +3,7 @@ import { map, take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Site } from '../core/shared/site.model';
+import { environment } from '../../environments/environment';
 import { SectionComponent, TextRowSection } from '../core/layout/models/section.model';
 import { SectionDataService } from '../core/layout/section-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
@@ -18,6 +19,7 @@ import { LocaleService } from '../core/locale/locale.service';
 export class HomePageComponent implements OnInit {
 
   site$: BehaviorSubject<Site> = new BehaviorSubject<Site>(null);
+  recentSubmissionspageSize: number;
 
   sectionId = 'site';
 
@@ -41,6 +43,7 @@ export class HomePageComponent implements OnInit {
     private siteService: SiteDataService,
     private locale: LocaleService,
   ) {
+    this.recentSubmissionspageSize = environment.homePage.recentSubmissions.pageSize;
   }
 
   ngOnInit(): void {
@@ -57,7 +60,7 @@ export class HomePageComponent implements OnInit {
     );
     this.siteService.find().pipe(take(1)).subscribe(
       (site: Site) => {
-        this.hasHomeHeaderMetadata = !isEmpty(site.firstMetadataValue('cris.cms.home-header',
+        this.hasHomeHeaderMetadata = !isEmpty(site?.firstMetadataValue('cris.cms.home-header',
           { language: this.locale.getCurrentLanguageCode() }));
       }
     );

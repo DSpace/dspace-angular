@@ -14,7 +14,7 @@ import { BitstreamDataService } from '../../../../../core/data/bitstream-data.se
 import { CommunityDataService } from '../../../../../core/data/community-data.service';
 import { DefaultChangeAnalyzer } from '../../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../../core/data/dso-change-analyzer.service';
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.service';
@@ -23,10 +23,17 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { UUIDService } from '../../../../../core/shared/uuid.service';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../../remote-data.utils';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
+import { FindListOptions } from '../../../../../core/data/find-list-options.model';
+import { FollowLinkConfig } from '../../../../utils/follow-link-config.model';
+import { createPaginatedList } from '../../../../testing/utils.test';
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
 mockItemWithMetadata.hitHighlights = {};
@@ -57,7 +64,8 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
         value: 'This is an abstract'
       }
     ]
-  }
+  },
+  thumbnail: createNoContentRemoteDataObject$()
 });
 
 const mockItemWithoutMetadata: ItemSearchResult = new ItemSearchResult();
@@ -71,7 +79,8 @@ mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
         value: 'This is just another title'
       }
     ]
-  }
+  },
+  thumbnail: createNoContentRemoteDataObject$()
 });
 
 describe('ItemGridElementComponent', getEntityGridElementTestComponent(ItemSearchResultGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['authors', 'date', 'abstract']));
@@ -97,6 +106,9 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
     const mockBitstreamDataService = {
       getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
         return createSuccessfulRemoteDataObject$(new Bitstream());
+      },
+      findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
+        return createSuccessfulRemoteDataObject$(createPaginatedList([new Bitstream()]));
       }
     };
 

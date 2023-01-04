@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { RouteService } from '../services/route.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
@@ -125,15 +125,22 @@ export class PaginationService {
    * @param params - The page related params to update in the route
    * @param extraParams - Addition params unrelated to the pagination that need to be added to the route
    * @param retainScrollPosition - Scroll to the pagination component after updating the route instead of the top of the page
+   * @param navigationExtras - Extra parameters to pass on to `router.navigate`. Can be used to override values set by this service.
    */
-  updateRoute(paginationId: string, params: {
-    page?: number
-    pageSize?: number
-    sortField?: string
-    sortDirection?: SortDirection
-  }, extraParams?, retainScrollPosition?: boolean) {
+  updateRoute(
+    paginationId: string,
+    params: {
+      page?: number
+      pageSize?: number
+      sortField?: string
+      sortDirection?: SortDirection
+    },
+    extraParams?,
+    retainScrollPosition?: boolean,
+    navigationExtras?: NavigationExtras,
+  ) {
 
-    this.updateRouteWithUrl(paginationId, [], params, extraParams, retainScrollPosition);
+    this.updateRouteWithUrl(paginationId, [], params, extraParams, retainScrollPosition, navigationExtras);
   }
 
   /**
@@ -143,13 +150,21 @@ export class PaginationService {
    * @param params - The page related params to update in the route
    * @param extraParams - Addition params unrelated to the pagination that need to be added to the route
    * @param retainScrollPosition - Scroll to the pagination component after updating the route instead of the top of the page
+   * @param navigationExtras - Extra parameters to pass on to `router.navigate`. Can be used to override values set by this service.
    */
-  updateRouteWithUrl(paginationId: string, url: string[], params: {
-    page?: number
-    pageSize?: number
-    sortField?: string
-    sortDirection?: SortDirection
-  }, extraParams?, retainScrollPosition?: boolean) {
+  updateRouteWithUrl(
+    paginationId: string,
+    url: string[],
+    params: {
+      page?: number
+      pageSize?: number
+      sortField?: string
+      sortDirection?: SortDirection
+    },
+    extraParams?,
+    retainScrollPosition?: boolean,
+    navigationExtras?: NavigationExtras,
+  ) {
     this.getCurrentRouting(paginationId).subscribe((currentFindListOptions) => {
       const currentParametersWithIdName = this.getParametersWithIdName(paginationId, currentFindListOptions);
       const parametersWithIdName = this.getParametersWithIdName(paginationId, params);
@@ -160,12 +175,14 @@ export class PaginationService {
           this.router.navigate(url, {
             queryParams: queryParams,
             queryParamsHandling: 'merge',
-            fragment: `p-${paginationId}`
+            fragment: `p-${paginationId}`,
+            ...navigationExtras,
           });
         } else {
           this.router.navigate(url, {
             queryParams: queryParams,
-            queryParamsHandling: 'merge'
+            queryParamsHandling: 'merge',
+            ...navigationExtras,
           });
         }
         this.clearParams = {};

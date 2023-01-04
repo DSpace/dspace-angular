@@ -8,9 +8,8 @@
   </div>
 </div>
 <div class="d-flex flex-row">
-  <h2 class="item-page-title-field mr-auto">
-    {{'publication.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="object?.allMetadata(['dc.title'])"></ds-metadata-values>
-  </h2>
+  <ds-item-page-title-field [item]="object" class="mr-auto">
+  </ds-item-page-title-field>
   <div class="pl-2">
     <ds-context-menu [contextMenuObject]="object" [contextMenuObjectType]="'ITEM'"></ds-context-menu>
   </div>
@@ -50,7 +49,7 @@
       [label]="'publication.page.publisher'">
     </ds-generic-item-page-field>
   </div>
-  <div class="col-xs-12 col-md-6">
+  <div class="col-xs-12 col-md-7">
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isProjectOfPublication'"
