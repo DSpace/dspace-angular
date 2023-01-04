@@ -69,10 +69,11 @@ export class ContextHelpWrapperComponent implements OnInit, AfterViewInit, OnDes
 
   ngOnInit() {
     this.shouldShowIcon$ = this.contextHelpService.shouldShowIcons$();
+    this.subs.push(this.shouldShowIcon$.subscribe());
   }
 
   ngAfterViewInit() {
-    this.subs = [
+    this.subs.push(
       this.contextHelpService.getContextHelp$(this.id)
         .pipe(hasValueOperator())
         .subscribe((ch: ContextHelp) => {
@@ -90,7 +91,7 @@ export class ContextHelpWrapperComponent implements OnInit, AfterViewInit, OnDes
       this.tooltip.hidden.subscribe(() => {
         this.contextHelpService.hideTooltip(this.id);
       })
-    ];
+    );
   }
 
   ngOnDestroy() {

@@ -16,7 +16,7 @@ const initialState: ContextHelpState = {allIconsVisible: true, models: {}};
 export function contextHelpReducer(state: ContextHelpState = initialState, action: ContextHelpAction): ContextHelpState {
   switch (action.type) {
     case ContextHelpActionTypes.CONTEXT_HELP_TOGGLE_ICONS: {
-      return {...state, allIconsVisible: true};
+      return {...state, allIconsVisible: !state.allIconsVisible};
     }
     case ContextHelpActionTypes.CONTEXT_HELP_ADD: {
       const newModels = {...state.models, [action.model.id]: action.model};

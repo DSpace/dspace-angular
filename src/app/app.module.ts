@@ -58,6 +58,7 @@ import { ThemedPageInternalServerErrorComponent } from './page-internal-server-e
 import { PageInternalServerErrorComponent } from './page-internal-server-error/page-internal-server-error.component';
 
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
+import { ContextHelpToggleComponent } from './header/context-help-toggle/context-help-toggle.component';
 
 export function getConfig() {
   return environment;
@@ -167,6 +168,7 @@ const DECLARATIONS = [
   RootComponent,
   ThemedRootComponent,
   HeaderComponent,
+  ContextHelpToggleComponent,
   ThemedHeaderComponent,
   HeaderNavbarWrapperComponent,
   ThemedHeaderNavbarWrapperComponent,
