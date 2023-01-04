@@ -10,7 +10,6 @@ import { ItemExportFormConfiguration, ItemExportService } from '../item-export.s
 import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ItemExportFormat } from '../../../../core/itemexportformat/model/item-export-format.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { isEmpty, isNotEmpty } from '../../../empty.util';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
@@ -218,7 +217,7 @@ export class ItemExportComponent implements OnInit, OnDestroy {
               filter(rd => rd?.payload?.totalElements > 0),
               map(() => [])
             );
-        if (!this.showListSelection && this.exportForm?.value?.selectionMode === ExportSelectionMode.OnlySelection) {
+        if (!!this.showListSelection && this.exportForm?.value?.selectionMode === ExportSelectionMode.OnlySelection) {
           list$ =
             this.selectableListService.getSelectableList(this.listId)
               .pipe(
