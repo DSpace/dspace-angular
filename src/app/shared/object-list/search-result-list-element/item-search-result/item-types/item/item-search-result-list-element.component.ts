@@ -10,7 +10,7 @@ import { TruncatableService } from '../../../../../../shared/truncatable/truncat
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
 import { AppConfig, APP_CONFIG } from '../../../../../../../config/app-config.interface';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest, map, Observable, switchMap, take } from 'rxjs';
+import { combineLatest, filter, map, Observable, switchMap, take } from 'rxjs';
 import { ConfirmationModalComponent } from '../../../../../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../../../../../shared/empty.util';
 import { NotificationsService } from '../../../../../../shared/notifications/notifications.service';
@@ -19,6 +19,13 @@ import { followLink } from '../../../../../../shared/utils/follow-link-config.mo
 import { getAllSucceededRemoteListPayload, getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
 import { Group } from '../../../../../../core/eperson/models/group.model';
+import { ResourcePolicyDataService } from '../../../../../../core/resource-policy/resource-policy-data.service';
+import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../../core/shared/operators';
+import { AuthService } from '../../../../../../core/auth/auth.service';
+import { EPerson } from '../../../../../../core/eperson/models/eperson.model';
+import { EPersonDataService } from '../../../../../../core/eperson/eperson-data.service';
+import { AuthorizationDataService } from '../../../../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../../../core/data/feature-authorization/feature-id';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement)
@@ -48,6 +55,11 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
    */
   supervisionOrder$: Observable<{ supervisionOrder: SupervisionOrder; group: Group; }[]>;
 
+  /**
+   * The groups the user belongs to
+   */
+  groups: Group[];
+
   constructor(
     protected truncatableService: TruncatableService,
     protected dsoNameService: DSONameService,
@@ -56,24 +68,63 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
     protected modalService: NgbModal,
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
+    protected resourcePolicyService: ResourcePolicyDataService,
+    protected authService: AuthService,
+    protected epersonService: EPersonDataService,
+    protected authorizationService: AuthorizationDataService
   ) { super(truncatableService, dsoNameService, appConfig); }
 
   ngOnInit(): void {
     super.ngOnInit();
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
+    let isAdmin = false;
+    this.authorizationService.isAuthorized(FeatureID.AdministratorOf).subscribe(isadmin => {
+      isAdmin = isadmin;
+    });
+
+    this.authService.getAuthenticatedUserFromStore().pipe(
+      filter((user: EPerson) => hasValue(user.id)),
+      switchMap((user: EPerson) => this.epersonService.findById(user.id, true, true, followLink('groups'))),
+      getAllSucceededRemoteData(),
+      getRemoteDataPayload(),
+      switchMap((user: EPerson) => user.groups),
+    ).subscribe(groups => {
+      this.groups = groups?.payload?.page;
+    });
+
     this.itemPageRoute = getItemPageRoute(this.dso);
-    this.supervisionOrder$ = this.supervisionOrderDataService.searchByItem(this.dso.uuid, null, null, followLink('group')).pipe(
-      getAllSucceededRemoteListPayload(),
-      switchMap((supervisionOrders: SupervisionOrder[]) => {
-        const supervisionOrdersArray = supervisionOrders.map((supervisionOrder: SupervisionOrder) => {
-          return supervisionOrder.group.pipe(
-            getFirstSucceededRemoteDataPayload(),
-            map((group: Group) => ({ supervisionOrder, group }))
-          );
-        });
-        return combineLatest(supervisionOrdersArray);
-      })
-    );
+    if (this.supervisionOrders) {
+      this.resourcePolicyService.searchByResource(
+        this.dso.uuid, null, false, true,
+        followLink('eperson'), followLink('group')
+      ).pipe(
+        getAllSucceededRemoteData(),
+      ).subscribe((result) => {
+        this.supervisionOrder$ = this.supervisionOrderDataService.searchByItem(this.dso.uuid, null, null, followLink('group')).pipe(
+          getAllSucceededRemoteListPayload(),
+          switchMap((supervisionOrders: SupervisionOrder[]) => {
+            const supervisionOrdersArray = supervisionOrders.map((supervisionOrder: SupervisionOrder) => {
+              return supervisionOrder.group.pipe(
+                getFirstSucceededRemoteDataPayload(),
+                map((group: Group) => {
+                  let isAuthorized = false;
+                  result.payload.page.forEach(resourcePolicy => {
+                    resourcePolicy.group.subscribe(res => {
+                      if (isAdmin || (res.payload && res.payload.uuid === group.uuid && this.groups.find(groups => groups.uuid === group.uuid))) {
+                        isAuthorized = true;
+                      }
+                    });
+                  });
+                  return isAuthorized ? ({ supervisionOrder, group }) : null;
+                }),
+              );
+            });
+            return combineLatest(supervisionOrdersArray).pipe(
+              map(array => array.filter(hasValue))
+            );
+          }));
+      });
+    }
   }
 
   /**
@@ -95,6 +146,7 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
           this.supervisionOrderDataService.delete(supervisionOrder.supervisionOrder.id)
             .subscribe((rd: boolean) => {
               if (rd) {
+                this.supervisionOrderDataService.searchByItem(this.dso.uuid, null, null, followLink('group'));
                 this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.deleted.success', { name: supervisionOrder.group._name }));
               } else {
                 this.notificationsService.error(

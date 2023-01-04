@@ -13,6 +13,10 @@ import { SupervisionOrderDataService } from '../../../../../core/supervision-ord
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ResourcePolicyDataService } from '../../../../../core/resource-policy/resource-policy-data.service';
+import { AuthService } from '../../../../../core/auth/auth.service';
+import { EPersonDataService } from '../../../../../core/eperson/eperson-data.service';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement)
 @Component({
@@ -33,8 +37,12 @@ export class PersonSearchResultListElementComponent extends ItemSearchResultList
     protected modalService: NgbModal,
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
+    protected resourcePolicyService: ResourcePolicyDataService,
+    protected authService: AuthService,
+    protected epersonService: EPersonDataService,
+    protected authorizationService: AuthorizationDataService
   ) {
-    super(truncatableService, dsoNameService, appConfig, supervisionOrderDataService, modalService, notificationsService, translateService);
+    super(truncatableService, dsoNameService, appConfig, supervisionOrderDataService, modalService, notificationsService, translateService, resourcePolicyService, authService, epersonService, authorizationService);
   }
 
   /**

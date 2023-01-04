@@ -17,6 +17,11 @@ export class AbstractListableElementComponent<T extends ListableObject> {
   @Input() object: T;
 
   /**
+   * The supervision orders to render in this list element
+   */
+  @Input() supervisionOrders: T;
+
+  /**
    * The link type to determine the type of link rendered in this element
    */
   @Input() linkType: CollectionElementLinkType;

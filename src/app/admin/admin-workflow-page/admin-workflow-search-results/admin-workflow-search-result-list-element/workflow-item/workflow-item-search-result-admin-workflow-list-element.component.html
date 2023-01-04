@@ -6,6 +6,7 @@
 </div>
 <ds-listable-object-component-loader *ngIf="item$ | async"
                                      [object]="item$ | async"
+                                     [supervisionOrders]="supervisionOrder$ | async"
                                      [viewMode]="viewModes.ListElement"
                                      [index]="index"
                                      [linkType]="linkType"

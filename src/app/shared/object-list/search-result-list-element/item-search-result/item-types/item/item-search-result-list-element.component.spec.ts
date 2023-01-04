@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, of } from 'rxjs';
 import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
 import { Item } from '../../../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../../utils/truncate.pipe';
@@ -13,14 +13,39 @@ import { APP_CONFIG } from '../../../../../../../config/app-config.interface';
 import { SupervisionOrderDataService } from '../../../../../../core/supervision-order/supervision-order-data.service';
 import { NotificationsService } from '../../../../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { createSuccessfulRemoteDataObject } from '../../../../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../../../../shared/remote-data.utils';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { buildPaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { GroupMock } from '../../../../../../shared/testing/group-mock';
 import { hot } from 'jasmine-marbles';
+import { AuthService } from '../../../../../../core/auth/auth.service';
+import { AuthorizationDataService } from '../../../../../../core/data/feature-authorization/authorization-data.service';
+import { EPersonDataService } from '../../../../../../core/eperson/eperson-data.service';
+import { ResourcePolicyDataService } from '../../../../../../core/resource-policy/resource-policy-data.service';
+import { AuthServiceStub } from '../../../../../../shared/testing/auth-service.stub';
+import { EPersonMock } from '../../../../../../shared/testing/eperson.mock';
+import { EPerson } from 'src/app/core/eperson/models/eperson.model';
+import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
+let authorizationService = jasmine.createSpyObj('authorizationService', {
+  isAuthorized: observableOf(true)
+});
+
+const authService: AuthServiceStub = Object.assign(new AuthServiceStub(), {
+  getAuthenticatedUserFromStore: () => {
+    return of(EPersonMock);
+  }
+});
+const user = Object.assign(new EPerson(), {
+  id: 'userId',
+  groups: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+  _links: { self: { href: 'test.com/uuid/1234567654321' } }
+});
+const epersonService = jasmine.createSpyObj('epersonService', {
+  findById: createSuccessfulRemoteDataObject$(user),
+});
 
 const mockItemWithMetadata: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   indexableObject:
@@ -135,6 +160,10 @@ describe('ItemSearchResultListElementComponent', () => {
         { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
         { provide: NotificationsService, useValue: {}},
         { provide: TranslateService, useValue: {}},
+        { provide: ResourcePolicyDataService, useValue: {}},
+        { provide: AuthService, useValue: authService},
+        { provide: EPersonDataService, useValue: epersonService},
+        { provide: AuthorizationDataService, useValue: authorizationService},
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
@@ -288,6 +317,10 @@ describe('ItemSearchResultListElementComponent', () => {
         {provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
         {provide: NotificationsService, useValue: {}},
         {provide: TranslateService, useValue: {}},
+        {provide: ResourcePolicyDataService, useValue: {}},
+        {provide: AuthService, useValue: authService},
+        {provide: EPersonDataService, useValue: epersonService},
+        {provide: AuthorizationDataService, useValue: authorizationService},
         {provide: DSONameService, useClass: DSONameServiceMock},
         { provide: APP_CONFIG, useValue: enviromentNoThumbs }
       ],

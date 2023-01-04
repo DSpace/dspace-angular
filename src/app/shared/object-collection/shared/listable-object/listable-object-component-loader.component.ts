@@ -13,7 +13,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { ListableObject } from '../listable-object.model';
@@ -40,6 +40,11 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
    * The item or metadata to determine the component for
    */
   @Input() object: ListableObject;
+
+  /**
+   * The supervision order to determine supervision orders
+   */
+  @Input() supervisionOrders: Observable<any>;
 
   /**
    * The index of the object in the list
@@ -123,6 +128,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
    */
   protected inAndOutputNames: string[] = [
     'object',
+    'supervisionOrders',
     'index',
     'linkType',
     'listID',

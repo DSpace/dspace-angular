@@ -15,6 +15,7 @@ import { WorkflowItemSearchResult } from '../../../../../shared/object-collectio
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
 import { WorkspaceItemSearchResult } from '../../../../../shared/object-collection/shared/workspace-item-search-result.model';
+import { SupervisionOrder } from '../../../../../core/supervision-order/models/supervision-order.model';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.ListElement, Context.AdminWorkflowSearch)
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.ListElement, Context.AdminWorkflowSearch)
@@ -33,6 +34,11 @@ export class WorkflowItemSearchResultAdminWorkflowListElementComponent extends S
    */
   public item$: Observable<Item>;
 
+  /**
+   * The supervision orders linked to the workflow item
+   */
+  public supervisionOrder$: Observable<SupervisionOrder>;
+
   constructor(private linkService: LinkService,
               protected truncatableService: TruncatableService,
               protected dsoNameService: DSONameService,
@@ -47,6 +53,7 @@ export class WorkflowItemSearchResultAdminWorkflowListElementComponent extends S
   ngOnInit(): void {
     super.ngOnInit();
     this.dso = this.linkService.resolveLink(this.dso, followLink('item'));
+    this.supervisionOrder$ = (this.dso.supervisionOrders as Observable<RemoteData<SupervisionOrder>>)?.pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
     this.item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
   }
 }

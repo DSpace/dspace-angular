@@ -399,15 +399,20 @@ export class SearchComponent implements OnInit {
   private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
     this.lastSearchOptions = searchOptions;
+    let followLinks = [
+      followLink<Item>('thumbnail', { isOptional: true }),
+      followLink<SubmissionObject>('item', { isOptional: true }, followLink<Item>('thumbnail', { isOptional: true })) as any,
+      followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses }),
+    ];
+    if (this.configuration === 'supervision') {
+      followLinks.push(followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any);
+    }
     this.service.search(
       searchOptions,
       undefined,
       this.useCachedVersionIfAvailable,
       true,
-      followLink<Item>('thumbnail', { isOptional: true }),
-      followLink<SubmissionObject>('item', { isOptional: true }, followLink<Item>('thumbnail', { isOptional: true })) as any,
-      followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any,
-      followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses }),
+      ...followLinks
       ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded) {

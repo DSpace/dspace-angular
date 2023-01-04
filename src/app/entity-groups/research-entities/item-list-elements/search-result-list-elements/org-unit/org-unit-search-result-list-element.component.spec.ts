@@ -1,7 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, of } from 'rxjs';
 import { OrgUnitSearchResultListElementComponent } from './org-unit-search-result-list-element.component';
 import { Item } from '../../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
@@ -19,9 +19,24 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { GroupMock } from '../../../../../shared/testing/group-mock';
 import { hot } from 'jasmine-marbles';
+import { AuthService } from '../../../../../core/auth/auth.service';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
+import { EPersonDataService } from '../../../../../core/eperson/eperson-data.service';
+import { ResourcePolicyDataService } from '../../../../../core/resource-policy/resource-policy-data.service';
+import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
+import { EPersonMock } from '../../../../../shared/testing/eperson.mock';
 
 let orgUnitListElementComponent: OrgUnitSearchResultListElementComponent;
 let fixture: ComponentFixture<OrgUnitSearchResultListElementComponent>;
+let authorizationService = jasmine.createSpyObj('authorizationService', {
+  isAuthorized: observableOf(true)
+});
+
+const authService: AuthServiceStub = Object.assign(new AuthServiceStub(), {
+  getAuthenticatedUserFromStore: () => {
+    return of(EPersonMock);
+  }
+});
 
 const mockItemWithMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
@@ -131,8 +146,12 @@ describe('OrgUnitSearchResultListElementComponent', () => {
       declarations: [ OrgUnitSearchResultListElementComponent , TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} },
-        {provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
-        {provide: NotificationsService, useValue: {}},
+        { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
+        { provide: NotificationsService, useValue: {}},
+        { provide: ResourcePolicyDataService, useValue: {}},
+        { provide: AuthService, useValue: authService},
+        { provide: EPersonDataService, useValue: {}},
+        { provide: AuthorizationDataService, useValue: authorizationService},
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
@@ -208,6 +227,10 @@ describe('OrgUnitSearchResultListElementComponent', () => {
         {provide: TruncatableService, useValue: {}},
         {provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
         {provide: NotificationsService, useValue: {}},
+        {provide: ResourcePolicyDataService, useValue: {}},
+        {provide: AuthService, useValue: authService},
+        {provide: EPersonDataService, useValue: {}},
+        {provide: AuthorizationDataService, useValue: authorizationService},
         {provide: DSONameService, useClass: DSONameServiceMock},
         { provide: APP_CONFIG, useValue: enviromentNoThumbs }
       ],
