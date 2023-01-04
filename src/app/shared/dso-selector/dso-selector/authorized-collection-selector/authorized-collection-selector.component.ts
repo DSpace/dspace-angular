@@ -53,8 +53,9 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
    * Perform a search for authorized collections with the current query and page
    * @param query Query to search objects for
    * @param page  Page to retrieve
+   * @param useCache Whether or not to use the cache
    */
-  search(query: string, page: number): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+  search(query: string, page: number, useCache: boolean = true): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     let searchListService$: Observable<RemoteData<PaginatedList<Collection>>> = null;
     const findOptions: FindListOptions = {
       currentPage: page,
@@ -69,7 +70,7 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
           findOptions);
     } else {
       searchListService$ = this.collectionDataService
-        .getAuthorizedCollection(query, findOptions, true, false, followLink('parentCommunity'));
+        .getAuthorizedCollection(query, findOptions, useCache, false, followLink('parentCommunity'));
     }
     return searchListService$.pipe(
       getFirstCompletedRemoteData(),

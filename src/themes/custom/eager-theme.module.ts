@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../app/shared/shared.module';
 import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
@@ -42,6 +41,7 @@ import {
 
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent } from './app/shared/object-list/collection-list-element/collection-list-element.component';
+import { CollectionDropdownComponent } from './app/shared/collection-dropdown/collection-dropdown.component';
 
 
 /**
@@ -57,6 +57,7 @@ const ENTRY_COMPONENTS = [
 
   CommunityListElementComponent,
   CollectionListElementComponent,
+  CollectionDropdownComponent,
 ];
 
 const DECLARATIONS = [

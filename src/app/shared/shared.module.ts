@@ -12,7 +12,6 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { MomentModule } from 'ngx-moment';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import {
   ExportMetadataSelectorComponent
@@ -190,7 +189,6 @@ import { LogInContainerComponent } from './log-in/container/log-in-container.com
 import { LogInShibbolethComponent } from './log-in/methods/shibboleth/log-in-shibboleth.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
 import { LogInComponent } from './log-in/log-in.component';
-import { BundleListElementComponent } from './object-list/bundle-list-element/bundle-list-element.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
 import { FileValidator } from './utils/require-file.validator';
 import { FileValueAccessorDirective } from './utils/file-value-accessor.directive';
@@ -243,6 +241,10 @@ import {
 import { MarkdownPipe } from './utils/markdown.pipe';
 import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
 import { MenuModule } from './menu/menu.module';
+import {
+  ListableNotificationObjectComponent
+} from './object-list/listable-notification-object/listable-notification-object.component';
+import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
 
 const MODULES = [
@@ -256,7 +258,6 @@ const MODULES = [
   NgbTooltipModule,
   ReactiveFormsModule,
   RouterModule,
-  MomentModule,
   DragDropModule,
   GoogleRecaptchaModule,
   MenuModule,
@@ -343,6 +344,7 @@ const COMPONENTS = [
   SearchNavbarComponent,
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,
+  ListableNotificationObjectComponent,
   DsoPageEditButtonComponent,
   MetadataFieldWrapperComponent,
 ];
@@ -388,6 +390,7 @@ const ENTRY_COMPONENTS = [
   LogInOidcComponent,
   LogInOrcidComponent,
   CollectionDropdownComponent,
+  ThemedCollectionDropdownComponent,
   FileDownloadLinkComponent,
   CurationFormComponent,
   ExportMetadataSelectorComponent,
@@ -399,6 +402,7 @@ const ENTRY_COMPONENTS = [
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
   ScopeSelectorModalComponent,
+  ListableNotificationObjectComponent,
 ];
 
 const PROVIDERS = [

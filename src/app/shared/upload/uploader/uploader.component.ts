@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Ho
 
 import { of as observableOf } from 'rxjs';
 import { FileUploader } from 'ng2-file-upload';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { UploaderOptions } from './uploader-options.model';

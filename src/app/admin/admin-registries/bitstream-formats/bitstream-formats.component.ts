@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable, zip } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable} from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
 import { map, mergeMap, switchMap, take, toArray } from 'rxjs/operators';
-import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -30,20 +29,13 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
   bitstreamFormats: Observable<RemoteData<PaginatedList<BitstreamFormat>>>;
 
   /**
-   * The current pagination configuration for the page used by the FindAll method
-   * Currently simply renders all bitstream formats
-   */
-  config: FindListOptions = Object.assign(new FindListOptions(), {
-    elementsPerPage: 20
-  });
-
-  /**
    * The current pagination configuration for the page
    * Currently simply renders all bitstream formats
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'rbp',
-    pageSize: 20
+    pageSize: 20,
+    pageSizeOptions: [20, 40, 60, 80, 100]
   });
 
   constructor(private notificationsService: NotificationsService,
@@ -51,7 +43,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
               private translateService: TranslateService,
               private bitstreamFormatService: BitstreamFormatDataService,
               private paginationService: PaginationService,
-              ) {
+  ) {
   }
 
 
@@ -149,7 +141,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.bitstreamFormats = this.paginationService.getFindListOptions(this.pageConfig.id, this.config).pipe(
+    this.bitstreamFormats = this.paginationService.getFindListOptions(this.pageConfig.id, this.pageConfig).pipe(
       switchMap((findListOptions: FindListOptions) => {
         return this.bitstreamFormatService.findAll(findListOptions);
       })

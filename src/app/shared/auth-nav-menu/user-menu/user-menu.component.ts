@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
@@ -19,6 +19,11 @@ import { getProfileModuleRoute } from '../../../app-routing-paths';
   styleUrls: ['./user-menu.component.scss']
 })
 export class UserMenuComponent implements OnInit {
+
+  /**
+   * The input flag to show user details in navbar expandable menu
+   */
+  @Input() inExpandableNavbar = false;
 
   /**
    * True if the authentication is loading.

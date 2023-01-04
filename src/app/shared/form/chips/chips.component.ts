@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
 
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { isObject } from 'lodash';
+import isObject from 'lodash/isObject';
 
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';

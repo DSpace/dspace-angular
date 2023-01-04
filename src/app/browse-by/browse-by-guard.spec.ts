@@ -1,7 +1,6 @@
 import { first } from 'rxjs/operators';
 import { BrowseByGuard } from './browse-by-guard';
 import { of as observableOf } from 'rxjs';
-import { BrowseDefinitionDataService } from '../core/browse/browse-definition-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { BrowseDefinition } from '../core/shared/browse-definition.model';
 import { BrowseByDataType } from './browse-by-switcher/browse-by-decorator';

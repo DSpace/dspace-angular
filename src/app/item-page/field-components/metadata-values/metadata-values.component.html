@@ -1,18 +1,16 @@
 <ds-metadata-field-wrapper [label]="label | translate">
     <ng-container *ngFor="let mdValue of mdValues; let last=last;">
-      <ng-container *ngTemplateOutlet="(renderMarkdown ? markdown : simple); context: {value: mdValue.value, classes: 'dont-break-out preserve-line-breaks'}">
+      <ng-container *ngTemplateOutlet="(renderMarkdown ? markdown : simple); context: {value: mdValue.value}">
       </ng-container>
       <span class="separator" *ngIf="!last" [innerHTML]="separator"></span>
     </ng-container>
 </ds-metadata-field-wrapper>
 
-<ng-template #markdown let-value="value" let-classes="classes">
-  <span class="{{classes}}" [innerHTML]="value | dsMarkdown | async">
+<ng-template #markdown let-value="value">
+  <span class="dont-break-out" [innerHTML]="value | dsMarkdown | async">
   </span>
 </ng-template>
 
-<ng-template #simple let-value="value" let-classes="classes">
-  <span class="{{classes}}">
-    {{value}}
-  </span>
+<ng-template #simple let-value="value">
+  <span class="dont-break-out preserve-line-breaks">{{value}}</span>
 </ng-template>
