@@ -45,7 +45,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
    * Resolved update data-service for the given DSpaceObject (depending on its type, e.g. ItemDataService for an Item)
    * Used to send the PATCH request
    */
-  updateDataService: UpdateDataService<DSpaceObject>;
+  @Input() updateDataService: UpdateDataService<DSpaceObject>;
 
   /**
    * Type of the DSpaceObject in String
@@ -143,11 +143,13 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
     } else {
       type = this.dso.type;
     }
-    const provider = getDataServiceFor(type);
-    this.updateDataService = Injector.create({
-      providers: [],
-      parent: this.parentInjector
-    }).get(provider);
+    if (hasNoValue(this.updateDataService)) {
+      const provider = getDataServiceFor(type);
+      this.updateDataService = Injector.create({
+        providers: [],
+        parent: this.parentInjector
+      }).get(provider);
+    }
     this.dsoType = type.value;
   }
 

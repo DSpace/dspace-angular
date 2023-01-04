@@ -58,7 +58,7 @@
     </ds-dso-edit-metadata-field-values>
   </div>
 
-  <div *ngIf="isEmpty">
+  <div *ngIf="isEmpty && !form.newValue">
     <ds-alert [content]="dsoType + '.edit.metadata.empty'" [type]="AlertTypeEnum.Info"></ds-alert>
   </div>
   <div class="button-row bottom d-inline-block w-100">

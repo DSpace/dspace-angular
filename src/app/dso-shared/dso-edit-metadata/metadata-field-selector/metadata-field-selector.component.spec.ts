@@ -7,16 +7,18 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { By } from '@angular/platform-browser';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 describe('MetadataFieldSelectorComponent', () => {
   let component: MetadataFieldSelectorComponent;
   let fixture: ComponentFixture<MetadataFieldSelectorComponent>;
 
   let registryService: RegistryService;
+  let notificationsService: NotificationsService;
 
   let metadataSchema: MetadataSchema;
   let metadataFields: MetadataField[];
@@ -45,12 +47,14 @@ describe('MetadataFieldSelectorComponent', () => {
     registryService = jasmine.createSpyObj('registryService', {
       queryMetadataFields: createSuccessfulRemoteDataObject$(createPaginatedList(metadataFields)),
     });
+    notificationsService = jasmine.createSpyObj('notificationsService', ['error', 'success']);
 
     TestBed.configureTestingModule({
       declarations: [MetadataFieldSelectorComponent, VarDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: RegistryService, useValue: registryService },
+        { provide: NotificationsService, useValue: notificationsService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -97,6 +101,21 @@ describe('MetadataFieldSelectorComponent', () => {
         fixture.detectChanges();
         expect(fixture.debugElement.query(By.css('.invalid-feedback'))).toBeTruthy();
         done();
+      });
+    });
+
+    describe('when querying the metadata fields returns an error response', () => {
+      beforeEach(() => {
+        (registryService.queryMetadataFields as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Failed'));
+      });
+
+      it('should return an observable false and show a notification', (done) => {
+        component.mdField = 'dc.description.abstract';
+        component.validate().subscribe((result) => {
+          expect(result).toBeFalse();
+          expect(notificationsService.error).toHaveBeenCalled();
+          done();
+        });
       });
     });
   });

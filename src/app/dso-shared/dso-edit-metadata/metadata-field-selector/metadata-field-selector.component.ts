@@ -12,7 +12,7 @@ import {
 import { switchMap, debounceTime, distinctUntilChanged, map, tap, take } from 'rxjs/operators';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
-  getAllSucceededRemoteData, getFirstSucceededRemoteData,
+  getAllSucceededRemoteData, getFirstCompletedRemoteData, getFirstSucceededRemoteData,
   metadataFieldsToString
 } from '../../../core/shared/operators';
 import { Observable } from 'rxjs/internal/Observable';
@@ -21,6 +21,9 @@ import { FormControl } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { hasValue } from '../../../shared/empty.util';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { of } from 'rxjs/internal/observable/of';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-metadata-field-selector',
@@ -97,7 +100,9 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
    */
   subs: Subscription[] = [];
 
-  constructor(protected registryService: RegistryService) {
+  constructor(protected registryService: RegistryService,
+              protected notificationsService: NotificationsService,
+              protected translate: TranslateService) {
   }
 
   /**
@@ -148,11 +153,20 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
    */
   validate(): Observable<boolean> {
     return this.registryService.queryMetadataFields(this.mdField, null, true, false, followLink('schema')).pipe(
-      getFirstSucceededRemoteData(),
-      metadataFieldsToString(),
-      take(1),
-      map((fields: string[]) => fields.indexOf(this.mdField) > -1),
-      tap((exists: boolean) => this.showInvalid = !exists),
+      getFirstCompletedRemoteData(),
+      switchMap((rd) => {
+        if (rd.hasSucceeded) {
+          return of(rd).pipe(
+            metadataFieldsToString(),
+            take(1),
+            map((fields: string[]) => fields.indexOf(this.mdField) > -1),
+            tap((exists: boolean) => this.showInvalid = !exists),
+          );
+        } else {
+          this.notificationsService.error(this.translate.instant(`${this.dsoType}.edit.metadata.metadatafield.error`), rd.errorMessage);
+          return [false];
+        }
+      }),
     );
   }
 
