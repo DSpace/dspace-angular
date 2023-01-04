@@ -1,33 +1,100 @@
 import { Injectable } from '@angular/core';
-import { ContextHelpModel } from './context-help.model';
+import { ContextHelp } from './context-help.model';
+import { Store, createFeatureSelector, createSelector, select, MemoizedSelector } from '@ngrx/store';
+import { ContextHelpState } from './context-help.reducer';
+import {
+  ContextHelpToggleIconsAction,
+  ContextHelpAddAction,
+  ContextHelpRemoveAction,
+  ContextHelpShowTooltipAction,
+  ContextHelpHideTooltipAction,
+  ContextHelpToggleTooltipAction
+} from './context-help.actions';
+import { Observable } from 'rxjs';
+
+const contextHelpStateSelector =
+  createFeatureSelector<ContextHelpState>('contextHelp');
+const allIconsVisibleSelector = createSelector(
+  contextHelpStateSelector,
+  (state: ContextHelpState): boolean => state.allIconsVisible
+);
+const contextHelpSelector =
+  (id: string): MemoizedSelector<ContextHelpState, ContextHelp> => createSelector(
+    contextHelpStateSelector,
+    (state: ContextHelpState) => state.models[id]
+  );
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContextHelpService {
-  constructor() { }
+  constructor(private store: Store<ContextHelpState>) { }
 
+  /**
+   * Observable keeping track of whether context help icons should be visible globally.
+   */
+  shouldShowIcons$(): Observable<boolean> {
+    return this.store.pipe(select(allIconsVisibleSelector));
+  }
+
+  /**
+   * Observable that tracks the state for a specific context help icon.
+   *
+   * @param id: id of the context help icon.
+   */
+  getContextHelp$(id: string): Observable<ContextHelp> {
+    return this.store.pipe(select(contextHelpSelector(id)));
+  }
+
+  /**
+   * Toggles the visibility of all context help icons.
+   */
   toggleIcons() {
-
+    this.store.dispatch(new ContextHelpToggleIconsAction());
   }
 
-  add(contextHelp: ContextHelpModel) {
-
+  /**
+   * Registers a new context help icon to the store.
+   *
+   * @param contextHelp: the initial state of the new help icon.
+   */
+  add(contextHelp: ContextHelp) {
+    this.store.dispatch(new ContextHelpAddAction(contextHelp));
   }
 
+  /**
+   * Removes a context help icon from the store.
+   *
+   * @id: the id of the help icon to be removed.
+   */
   remove(id: string) {
-
+    this.store.dispatch(new ContextHelpRemoveAction(id));
   }
 
-  showTooltip(id: string) {
-
-  }
-
-  hideTooltip(id: string) {
-
-  }
-
+  /**
+   * Toggles the tooltip of a single context help icon.
+   *
+   * @id: the id of the help icon for which the visibility will be toggled.
+   */
   toggleTooltip(id: string) {
+    this.store.dispatch(new ContextHelpToggleTooltipAction(id));
+  }
 
+  /**
+   * Shows the tooltip of a single context help icon.
+   *
+   * @id: the id of the help icon that will be made visible.
+   */
+  showTooltip(id: string) {
+    this.store.dispatch(new ContextHelpShowTooltipAction(id));
+  }
+
+  /**
+   * Hides the tooltip of a single context help icon.
+   *
+   * @id: the id of the help icon that will be made invisible.
+   */
+  hideTooltip(id: string) {
+    this.store.dispatch(new ContextHelpHideTooltipAction(id));
   }
 }

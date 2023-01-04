@@ -1,8 +1,8 @@
-import { ContextHelpModel } from './context-help.model';
+import { ContextHelp } from './context-help.model';
 import { ContextHelpAction, ContextHelpActionTypes } from './context-help.actions';
 
 export type ContextHelpModels = {
-  [id: string]: ContextHelpModel;
+  [id: string]: ContextHelp;
 };
 
 export interface ContextHelpState {
@@ -10,7 +10,10 @@ export interface ContextHelpState {
   models: ContextHelpModels;
 }
 
-export function contextHelpReducer(state: ContextHelpState, action: ContextHelpAction): ContextHelpState {
+// TODO
+const initialState: ContextHelpState = {allIconsVisible: true, models: {}};
+
+export function contextHelpReducer(state: ContextHelpState = initialState, action: ContextHelpAction): ContextHelpState {
   switch (action.type) {
     case ContextHelpActionTypes.CONTEXT_HELP_TOGGLE_ICONS: {
       return {...state, allIconsVisible: true};
@@ -41,7 +44,7 @@ export function contextHelpReducer(state: ContextHelpState, action: ContextHelpA
 function modifyTooltipVisibility(state: ContextHelpState, id: string, modify: (vis: boolean) => boolean)
   : ContextHelpState {
   const {[id]: matchingModel, ...otherModels} = state.models;
-  const modifiedModel = {...matchingModel, tooltipVisible: modify(matchingModel.tooltipVisible)};
+  const modifiedModel = {...matchingModel, isTooltipVisible: modify(matchingModel.isTooltipVisible)};
   const newModels = {...otherModels, [id]: modifiedModel};
   return {...state, models: newModels};
 }

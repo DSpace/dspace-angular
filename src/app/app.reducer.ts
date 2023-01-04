@@ -50,6 +50,7 @@ import { sidebarReducer, SidebarState } from './shared/sidebar/sidebar.reducer';
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
 import { ThemeState, themeReducer } from './shared/theme-support/theme.reducer';
 import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
+import { contextHelpReducer, ContextHelpState } from './shared/context-help.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
@@ -71,6 +72,7 @@ export interface AppState {
   epeopleRegistry: EPeopleRegistryState;
   groupRegistry: GroupRegistryState;
   correlationId: string;
+  contextHelp: ContextHelpState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -92,7 +94,8 @@ export const appReducers: ActionReducerMap<AppState> = {
   communityList: CommunityListReducer,
   epeopleRegistry: ePeopleRegistryReducer,
   groupRegistry: groupRegistryReducer,
-  correlationId: correlationIdReducer
+  correlationId: correlationIdReducer,
+  contextHelp: contextHelpReducer,
 };
 
 export const routerStateSelector = (state: AppState) => state.router;

@@ -10,12 +10,16 @@
         </ng-container>
     </div>
 </ng-template>
-<i [ngClass]="{'ds-context-help-icon fas fa-question-circle shadow-sm': true,
+<i *ngIf="shouldShowIcon$ | async"
+   [ngClass]="{'ds-context-help-icon fas fa-question-circle shadow-sm': true,
               'ds-context-help-icon-right': iconPlacement !== 'left',
               'ds-context-help-icon-left': iconPlacement === 'left'}"
    [ngbTooltip]="help"
    [placement]="tooltipPlacement"
+   autoClose="outside"
+   triggers="manual"
    container="'body'"
-   triggers="click:blur">
+   #tooltip="ngbTooltip"
+   (click)="onClick()">
 </i>
 <ng-container *ngTemplateOutlet="templateRef"></ng-container>

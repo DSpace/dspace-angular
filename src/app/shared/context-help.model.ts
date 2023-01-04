@@ -1,4 +1,4 @@
-export class ContextHelpModel {
+export class ContextHelp {
   id: string;
-  tooltipVisible?: boolean = false;
+  isTooltipVisible?: boolean = false;
 }

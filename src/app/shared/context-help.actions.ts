@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { type } from './ngrx/type';
-import { ContextHelpModel } from './context-help.model';
+import { ContextHelp } from './context-help.model';
 
 export const ContextHelpActionTypes = {
   'CONTEXT_HELP_TOGGLE_ICONS': type('dspace/context-help/CONTEXT_HELP_TOGGLE_ICONS'),
@@ -23,9 +23,9 @@ export class ContextHelpToggleIconsAction implements Action {
  */
 export class ContextHelpAddAction implements Action {
   type = ContextHelpActionTypes.CONTEXT_HELP_ADD;
-  model: ContextHelpModel;
+  model: ContextHelp;
 
-  constructor (model: ContextHelpModel) {
+  constructor (model: ContextHelp) {
     this.model = model;
   }
 }
