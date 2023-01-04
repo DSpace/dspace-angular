@@ -4,7 +4,7 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { RelationshipService } from '../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { of } from 'rxjs/internal/observable/of';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
@@ -22,7 +22,7 @@ describe('DsoEditMetadataValueComponent', () => {
   let component: DsoEditMetadataValueComponent;
   let fixture: ComponentFixture<DsoEditMetadataValueComponent>;
 
-  let relationshipService: RelationshipService;
+  let relationshipService: RelationshipDataService;
   let dsoNameService: DSONameService;
 
   let editMetadataValue: DsoEditMetadataValue;
@@ -52,7 +52,7 @@ describe('DsoEditMetadataValueComponent', () => {
       declarations: [DsoEditMetadataValueComponent, VarDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
-        { provide: RelationshipService, useValue: relationshipService },
+        { provide: RelationshipDataService, useValue: relationshipService },
         { provide: DSONameService, useValue: dsoNameService },
       ],
       schemas: [NO_ERRORS_SCHEMA]

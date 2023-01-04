@@ -3,21 +3,31 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, Injectable, NO_ERRORS_SCHEMA } from '@angular/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
-import { ItemDataService } from '../../core/data/item-data.service';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { By } from '@angular/platform-browser';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
 import { ITEM } from '../../core/shared/item.resource-type';
+import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
+import { Operation } from 'fast-json-patch';
+import { RemoteData } from '../../core/data/remote-data';
+import { Observable } from 'rxjs/internal/Observable';
 
 const ADD_BTN = 'add';
 const REINSTATE_BTN = 'reinstate';
 const SAVE_BTN = 'save';
 const DISCARD_BTN = 'discard';
+
+@Injectable()
+class TestDataService {
+  patch(object: Item, operations: Operation[]): Observable<RemoteData<Item>> {
+    return createSuccessfulRemoteDataObject$(object);
+  }
+}
 
 describe('DsoEditMetadataComponent', () => {
   let component: DsoEditMetadataComponent;
@@ -26,8 +36,6 @@ describe('DsoEditMetadataComponent', () => {
   let notificationsService: NotificationsService;
 
   let dso: DSpaceObject;
-  let updatedDso: DSpaceObject;
-  let dataService: ItemDataService;
 
   beforeEach(waitForAsync(() => {
     dso = Object.assign(new Item(), {
@@ -59,11 +67,6 @@ describe('DsoEditMetadataComponent', () => {
         ],
       },
     });
-    updatedDso = Object.assign(new Item(), dso);
-    updatedDso.metadata['dc.title'][0].value = 'Updated Title';
-    dataService = jasmine.createSpyObj('itemDataService', {
-      patch: createSuccessfulRemoteDataObject$(updatedDso),
-    });
 
     notificationsService = jasmine.createSpyObj('notificationsService', ['error', 'success']);
 
@@ -71,7 +74,8 @@ describe('DsoEditMetadataComponent', () => {
       declarations: [DsoEditMetadataComponent, VarDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
-        { provide: ItemDataService, useValue: dataService },
+        TestDataService,
+        { provide: DATA_SERVICE_FACTORY, useValue: jasmine.createSpy('getDataServiceFor').and.returnValue(TestDataService) },
         { provide: NotificationsService, useValue: notificationsService },
         ArrayMoveChangeAnalyzer,
       ],

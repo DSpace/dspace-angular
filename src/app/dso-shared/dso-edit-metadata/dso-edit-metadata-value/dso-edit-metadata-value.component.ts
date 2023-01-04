@@ -5,7 +5,7 @@ import {
   MetadataRepresentation,
   MetadataRepresentationType
 } from '../../../core/shared/metadata-representation/metadata-representation.model';
-import { RelationshipService } from '../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { map } from 'rxjs/operators';
@@ -97,7 +97,7 @@ export class DsoEditMetadataValueComponent implements OnInit {
    */
   mdRepresentationName$: Observable<string | null>;
 
-  constructor(protected relationshipService: RelationshipService,
+  constructor(protected relationshipService: RelationshipDataService,
               protected dsoNameService: DSONameService) {
   }
 

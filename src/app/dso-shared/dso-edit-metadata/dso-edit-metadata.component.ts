@@ -1,4 +1,4 @@
-import { Component, Injector, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Injector, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AlertType } from '../../shared/alert/aletr-type';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DsoEditMetadataForm } from './dso-edit-metadata-form';
@@ -13,13 +13,15 @@ import {
   getFirstCompletedRemoteData,
 } from '../../core/shared/operators';
 import { UpdateDataService } from '../../core/data/update-data.service';
-import { getDataServiceFor } from '../../core/cache/builders/build-decorators';
 import { ResourceType } from '../../core/shared/resource-type';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
 import { Observable } from 'rxjs/internal/Observable';
 import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
+import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { HALDataService } from '../../core/data/base/hal-data-service.interface';
 
 @Component({
   selector: 'ds-dso-edit-metadata',
@@ -107,7 +109,8 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
               protected notificationsService: NotificationsService,
               protected translateService: TranslateService,
               protected parentInjector: Injector,
-              protected arrayMoveChangeAnalyser: ArrayMoveChangeAnalyzer<number>) {
+              protected arrayMoveChangeAnalyser: ArrayMoveChangeAnalyzer<number>,
+              @Inject(DATA_SERVICE_FACTORY) protected getDataServiceFor: (resourceType: ResourceType) => GenericConstructor<HALDataService<any>>) {
   }
 
   /**
@@ -144,7 +147,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
       type = this.dso.type;
     }
     if (hasNoValue(this.updateDataService)) {
-      const provider = getDataServiceFor(type);
+      const provider = this.getDataServiceFor(type);
       this.updateDataService = Injector.create({
         providers: [],
         parent: this.parentInjector
