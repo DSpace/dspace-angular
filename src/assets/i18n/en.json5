@@ -4164,11 +4164,11 @@
 
   "workflow-item.view.breadcrumbs": "Workflow View",
 
+  "workflow-item.advanced.title": "Advanced workflow",
 
-  "workflow-item.select-reviewer.title": "Select Reviewer",
+  "workflow-item.selectrevieweraction.header": "Select Reviewer",
 
-
-  "workflow-item.rating-reviewer.title": "Rating Reviewer",
+  "workflow-item.ratingrevieweraction.header": "Rating Reviewer",
 
 
   "idle-modal.header": "Session will expire soon",

@@ -8,9 +8,10 @@ import { NotificationsService } from '../../../notifications/notifications.servi
 import { TranslateService } from '@ngx-translate/core';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
+import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import {
-  getWorkflowSelectReviewerRoute
-} from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+  ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER
+} from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
 
 export const WORKFLOW_ADVANCED_TASK_OPTION_SELECT_REVIEWER = 'submit_select_reviewer';
 
@@ -26,6 +27,8 @@ export class AdvancedClaimedTaskActionSelectReviewerComponent extends AdvancedCl
    * This component represents the advanced select option
    */
   option = WORKFLOW_ADVANCED_TASK_OPTION_SELECT_REVIEWER;
+
+  workflowType = ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER;
 
   /**
    * Route to the workflow's task page
@@ -51,7 +54,7 @@ export class AdvancedClaimedTaskActionSelectReviewerComponent extends AdvancedCl
    * Initialise the route to the select reviewer's page
    */
   initPageRoute() {
-    this.workflowTaskPageRoute = getWorkflowSelectReviewerRoute(this.object.id);
+    this.workflowTaskPageRoute = getAdvancedWorkflowRoute(this.object.id);
   }
 
 }

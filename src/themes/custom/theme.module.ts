@@ -178,6 +178,9 @@ const DECLARATIONS = [
     ResourcePoliciesModule,
     ComcolModule
   ],
+  exports: [
+    FullItemPageComponent
+  ],
   declarations: DECLARATIONS
 })
 

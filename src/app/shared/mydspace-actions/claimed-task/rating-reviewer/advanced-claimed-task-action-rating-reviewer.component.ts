@@ -4,12 +4,13 @@ import { NotificationsService } from '../../../notifications/notifications.servi
 import { TranslateService } from '@ngx-translate/core';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
-import {
-  getWorkflowRatingReviewerRoute
-} from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import {
   AdvancedClaimedTaskActionsAbstractComponent
 } from '../abstract/advanced-claimed-task-actions-abstract.component';
+import {
+  ADVANCED_WORKFLOW_ACTION_RATING_REVIEWER
+} from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating-reviewer/advanced-workflow-action-rating-reviewer.component';
 
 export const WORKFLOW_ADVANCED_TASK_OPTION_RATING_REVIEWER = 'submit_rating_reviewer';
 
@@ -24,6 +25,8 @@ export class AdvancedClaimedTaskActionRatingReviewerComponent extends AdvancedCl
    * This component represents the advanced select option
    */
   option = WORKFLOW_ADVANCED_TASK_OPTION_RATING_REVIEWER;
+
+  workflowType = ADVANCED_WORKFLOW_ACTION_RATING_REVIEWER;
 
   /**
    * Route to the workflow's task page
@@ -48,8 +51,8 @@ export class AdvancedClaimedTaskActionRatingReviewerComponent extends AdvancedCl
   /**
    * Initialise the route to the rating reviewer's page
    */
-  initPageRoute() {
-    this.workflowTaskPageRoute = getWorkflowRatingReviewerRoute(this.object.id);
+  initPageRoute(): void {
+    this.workflowTaskPageRoute = getAdvancedWorkflowRoute(this.object.id);
   }
 
 }

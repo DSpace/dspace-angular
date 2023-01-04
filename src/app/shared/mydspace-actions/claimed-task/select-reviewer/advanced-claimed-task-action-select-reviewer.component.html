@@ -1,4 +1,4 @@
 <button class="btn btn-primary" ngbTooltip="{{ 'submission.workflow.generic.' + option + '-help' | translate }}"
-        [routerLink]="workflowTaskPageRoute">
+        [routerLink]="workflowTaskPageRoute" [queryParams]="{ workflow: workflowType }">
   <i class="fa fa-user"></i> {{ 'submission.workflow.generic.' + option | translate}}
 </button>

@@ -9,6 +9,16 @@ import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed
 import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/themed-workflow-item-send-back.component';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { ItemPageModule } from '../item-page/item-page.module';
+import {
+  AdvancedWorkflowActionsLoaderComponent
+} from './advanced-workflow-action/advanced-workflow-actions-loader/advanced-workflow-actions-loader.component';
+import { AdvancedWorkflowActionRatingReviewerComponent } from './advanced-workflow-action/advanced-workflow-action-rating-reviewer/advanced-workflow-action-rating-reviewer.component';
+import { AdvancedWorkflowActionSelectReviewerComponent } from './advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
+import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
+import {
+  AdvancedClaimedTaskActionsDirective
+} from './advanced-workflow-action/advanced-workflow-actions-loader/advanced-claimed-task-actions.directive';
+import { AdvancedWorkflowActionComponent } from './advanced-workflow-action/advanced-workflow-action/advanced-workflow-action.component';
 
 @NgModule({
   imports: [
@@ -23,7 +33,13 @@ import { ItemPageModule } from '../item-page/item-page.module';
     WorkflowItemDeleteComponent,
     ThemedWorkflowItemDeleteComponent,
     WorkflowItemSendBackComponent,
-    ThemedWorkflowItemSendBackComponent
+    ThemedWorkflowItemSendBackComponent,
+    AdvancedWorkflowActionsLoaderComponent,
+    AdvancedWorkflowActionRatingReviewerComponent,
+    AdvancedWorkflowActionSelectReviewerComponent,
+    AdvancedWorkflowActionPageComponent,
+    AdvancedClaimedTaskActionsDirective,
+    AdvancedWorkflowActionComponent,
   ]
 })
 /**
