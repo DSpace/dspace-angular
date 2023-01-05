@@ -1,15 +1,9 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Item } from '../../core/shared/item.model';
-import { Version } from '../../core/shared/version.model';
-import { RemoteData } from '../../core/data/remote-data';
-import {
-  BehaviorSubject,
-  combineLatest,
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
-import { VersionHistory } from '../../core/shared/version-history.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { Item } from '../../../core/shared/item.model';
+import { Version } from '../../../core/shared/version.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
+import { VersionHistory } from '../../../core/shared/version-history.model';
 import {
   getAllSucceededRemoteData,
   getAllSucceededRemoteDataPayload,
@@ -19,14 +13,14 @@ import {
   getRemoteDataPayload
 } from '../../core/shared/operators';
 import { map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { AlertType } from '../../shared/alert/alert-type';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { hasValue, hasValueOperator } from '../../shared/empty.util';
-import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
+import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
+import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
+import { AlertType } from '../../alert/aletr-type';
+import { followLink } from '../../utils/follow-link-config.model';
+import { hasValue, hasValueOperator, isNotNull } from '../../empty.util';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 import {
   getItemEditVersionhistoryRoute,
   getItemPageRoute,
@@ -166,6 +160,11 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
 
   canCreateVersion$: Observable<boolean>;
   createVersionTitle$: Observable<string>;
+
+  /**
+   * Show `Editor` column in the table.
+   */
+  showSubmitter$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
   constructor(private versionHistoryService: VersionHistoryDataService,
               private versionService: VersionDataService,
@@ -381,7 +380,6 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
    * Show submitter in version history table
    */
   showSubmitter() {
-
     const includeSubmitter$ = this.configurationService.findByPropertyName('versioning.item.history.include.submitter').pipe(
       getFirstSucceededRemoteDataPayload(),
       map((configurationProperty) => configurationProperty.values[0]),
@@ -399,12 +397,19 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
       take(1),
     );
 
-    return combineLatest([includeSubmitter$, isAdmin$]).pipe(
+    const result$ = combineLatest([includeSubmitter$, isAdmin$]).pipe(
       map(([includeSubmitter, isAdmin]) => {
         return includeSubmitter && isAdmin;
       })
     );
 
+    if (isNotNull(this.showSubmitter$.value)) {
+      return;
+    }
+
+    result$.subscribe(res => {
+      this.showSubmitter$.next(res);
+    });
   }
 
   /**
@@ -525,6 +530,8 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
           return itemPageRoutes;
         })
       );
+
+      this.showSubmitter();
     }
   }
 
