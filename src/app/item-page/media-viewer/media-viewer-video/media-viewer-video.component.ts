@@ -45,7 +45,7 @@ export class MediaViewerVideoComponent implements OnInit {
     let filteredCapMedias: MediaViewerItem[];
     let capInfos: CaptionInfo[] = [];
     filteredCapMedias = this.medias
-       .filter((media) => media.minetype === 'text/vtt')
+       .filter((media) => media.mimetype === 'text/vtt')
        .filter((media) => media.bitstream.name.substring(0, (media.bitstream.name.length - 7) ).toLowerCase() === name.toLowerCase());
 
     if (filteredCapMedias) {

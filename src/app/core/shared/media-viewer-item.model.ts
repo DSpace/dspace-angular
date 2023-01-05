@@ -17,7 +17,7 @@ export class MediaViewerItem {
   /**
    * Incoming Bitsream format mime type
    */
-  minetype: string;
+  mimetype: string;
 
   /**
    * Incoming Bitsream thumbnail
