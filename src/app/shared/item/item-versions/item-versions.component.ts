@@ -2,13 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { Version } from '../../../core/shared/version.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import {
-  BehaviorSubject,
-  combineLatest,
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
 import { VersionHistory } from '../../../core/shared/version-history.model';
 import {
   getAllSucceededRemoteData,
@@ -25,7 +19,7 @@ import { VersionHistoryDataService } from '../../../core/data/version-history-da
 import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
 import { AlertType } from '../../alert/aletr-type';
 import { followLink } from '../../utils/follow-link-config.model';
-import { hasValue, hasValueOperator } from '../../empty.util';
+import { hasValue, hasValueOperator, isNotNull } from '../../empty.util';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import {
   getItemEditVersionhistoryRoute,
@@ -166,6 +160,11 @@ export class ItemVersionsComponent implements OnInit {
 
   canCreateVersion$: Observable<boolean>;
   createVersionTitle$: Observable<string>;
+
+  /**
+   * Show `Editor` column in the table.
+   */
+  showSubmitter$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
   constructor(private versionHistoryService: VersionHistoryDataService,
               private versionService: VersionDataService,
@@ -380,7 +379,6 @@ export class ItemVersionsComponent implements OnInit {
    * Show submitter in version history table
    */
   showSubmitter() {
-
     const includeSubmitter$ = this.configurationService.findByPropertyName('versioning.item.history.include.submitter').pipe(
       getFirstSucceededRemoteDataPayload(),
       map((configurationProperty) => configurationProperty.values[0]),
@@ -398,12 +396,19 @@ export class ItemVersionsComponent implements OnInit {
       take(1),
     );
 
-    return combineLatest([includeSubmitter$, isAdmin$]).pipe(
+    const result$ = combineLatest([includeSubmitter$, isAdmin$]).pipe(
       map(([includeSubmitter, isAdmin]) => {
         return includeSubmitter && isAdmin;
       })
     );
 
+    if (isNotNull(this.showSubmitter$.value)) {
+      return;
+    }
+
+    result$.subscribe(res => {
+      this.showSubmitter$.next(res);
+    });
   }
 
   /**
@@ -524,6 +529,8 @@ export class ItemVersionsComponent implements OnInit {
           return itemPageRoutes;
         })
       );
+
+      this.showSubmitter();
     }
   }
 

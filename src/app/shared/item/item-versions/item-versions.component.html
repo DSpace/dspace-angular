@@ -17,7 +17,7 @@
           <thead>
           <tr>
             <th scope="col">{{"item.version.history.table.version" | translate}}</th>
-            <th scope="col" *ngIf="(showSubmitter() | async)">{{"item.version.history.table.editor" | translate}}</th>
+            <th scope="col" *ngIf="(showSubmitter$ | async)">{{"item.version.history.table.editor" | translate}}</th>
             <th scope="col">{{"item.version.history.table.date" | translate}}</th>
             <th scope="col">{{"item.version.history.table.summary" | translate}}</th>
           </tr>
@@ -87,7 +87,7 @@
                 </ng-container>
               </ng-container>
             </td>
-            <td class="version-row-element-editor" *ngIf="(showSubmitter() | async)">
+            <td class="version-row-element-editor" *ngIf="(showSubmitter$ | async)">
               {{version?.submitterName}}
             </td>
             <td class="version-row-element-date">
