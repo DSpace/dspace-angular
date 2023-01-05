@@ -10,8 +10,7 @@ export interface ContextHelpState {
   models: ContextHelpModels;
 }
 
-// TODO
-const initialState: ContextHelpState = {allIconsVisible: true, models: {}};
+const initialState: ContextHelpState = {allIconsVisible: false, models: {}};
 
 export function contextHelpReducer(state: ContextHelpState = initialState, action: ContextHelpAction): ContextHelpState {
   switch (action.type) {

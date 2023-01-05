@@ -19,7 +19,7 @@ import { ContextHelp } from '../context-help.model';
   templateUrl: './context-help-wrapper.component.html',
   styleUrls: ['./context-help-wrapper.component.scss'],
 })
-export class ContextHelpWrapperComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
   /**
    * Template reference for the wrapped element.
    */
@@ -46,11 +46,9 @@ export class ContextHelpWrapperComponent implements OnInit, AfterViewInit, OnDes
    */
   @Input() dontParseLinks?: boolean;
 
-  @ViewChild('tooltip', { static: false }) tooltip: NgbTooltip;
-
   shouldShowIcon$: Observable<boolean>;
 
-  private subs: Subscription[] = [];
+  tooltip: NgbTooltip;
 
   // TODO: dependent on evaluation order of input setters?
   parsedContent$: Observable<(string | {href: string, text: string})[]> = observableOf([]);
@@ -62,6 +60,9 @@ export class ContextHelpWrapperComponent implements OnInit, AfterViewInit, OnDes
     );
   }
 
+  private subs: {always: Subscription[], tooltipBound: Subscription[]}
+    = {always: [], tooltipBound: []};
+
   constructor(
     private translateService: TranslateService,
     private contextHelpService: ContextHelpService
@@ -69,35 +70,37 @@ export class ContextHelpWrapperComponent implements OnInit, AfterViewInit, OnDes
 
   ngOnInit() {
     this.shouldShowIcon$ = this.contextHelpService.shouldShowIcons$();
-    this.subs.push(this.shouldShowIcon$.subscribe());
+    this.subs.always = [this.shouldShowIcon$.subscribe()];
   }
 
-  ngAfterViewInit() {
-    this.subs.push(
-      this.contextHelpService.getContextHelp$(this.id)
-        .pipe(hasValueOperator())
-        .subscribe((ch: ContextHelp) => {
-          if (ch.isTooltipVisible && !this.tooltip.isOpen()) {
-            this.tooltip.open();
-          } else if (!ch.isTooltipVisible && this.tooltip.isOpen()) {
-            this.tooltip.close()
-          }
+  @ViewChild('tooltip', { static: false }) set setTooltip(tooltip: NgbTooltip) {
+    this.tooltip = tooltip;
+    this.clearSubs('tooltipBound');
+    if (this.tooltip !== undefined) {
+      this.subs.tooltipBound = [
+        this.contextHelpService.getContextHelp$(this.id)
+          .pipe(hasValueOperator())
+          .subscribe((ch: ContextHelp) => {
+            if (ch.isTooltipVisible && !this.tooltip.isOpen()) {
+              this.tooltip.open();
+            } else if (!ch.isTooltipVisible && this.tooltip.isOpen()) {
+              this.tooltip.close();
+            }
+          }),
+
+        this.tooltip.shown.subscribe(() => {
+          this.contextHelpService.showTooltip(this.id);
         }),
 
-      this.tooltip.shown.subscribe(() => {
-        this.contextHelpService.showTooltip(this.id);
-      }),
-
-      this.tooltip.hidden.subscribe(() => {
-        this.contextHelpService.hideTooltip(this.id);
-      })
-    );
+        this.tooltip.hidden.subscribe(() => {
+          this.contextHelpService.hideTooltip(this.id);
+        })
+      ];
+    }
   }
 
   ngOnDestroy() {
-    for (let sub of this.subs) {
-      sub.unsubscribe();
-    }
+    this.clearSubs();
   }
 
   onClick() {
@@ -146,7 +149,14 @@ export class ContextHelpWrapperComponent implements OnInit, AfterViewInit, OnDes
         : ({href: match[2], text: match[1]});
     });
   }
+
+  private clearSubs(filter: null | 'tooltipBound' = null) {
+    if (filter === null) {
+      [].concat(...Object.values(this.subs)).forEach(sub => sub.unsubscribe());
+      this.subs = {always: [], tooltipBound: []};
+    } else {
+      this.subs[filter].forEach(sub => sub.unsubscribe());
+      this.subs[filter] = [];
+    }
+  }
 }
-
-
-

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContextHelpService } from '../../shared/context-help.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-context-help-toggle',
@@ -9,14 +10,14 @@ import { ContextHelpService } from '../../shared/context-help.service';
 export class ContextHelpToggleComponent implements OnInit {
 
   constructor(
-    private contextHelpService: ContextHelpService
+    private contextHelpService: ContextHelpService,
+    private translateService: TranslateService
   ) { }
 
   ngOnInit(): void {
   }
 
   onClick() {
-    console.log('toggling icons');
     this.contextHelpService.toggleIcons();
   }
 }
