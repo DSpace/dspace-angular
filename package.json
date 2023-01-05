@@ -1,6 +1,6 @@
 {
   "name": "dspace-angular",
-  "version": "1.22.19",
+  "version": "7.5.0-next",
   "scripts": {
     "ng": "ng",
     "config:watch": "nodemon",
