@@ -168,6 +168,8 @@
 
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Namn",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
   "admin.registries.bitstream-formats.table.return": "Tillbaka",
@@ -245,6 +247,8 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Fält",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Anmärkning (scope note)",

@@ -4,7 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter, map, take, tap } from 'rxjs/operators';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { hasValue, isEmpty, isNotEmpty, hasNoValue } from '../../shared/empty.util';
 import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';

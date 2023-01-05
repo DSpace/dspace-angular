@@ -40,7 +40,7 @@ import { DsoSharedModule } from '../dso-shared/dso-shared.module';
   ],
   providers: [
     SearchService,
-  ]
+  ],
 })
 export class CollectionPageModule {
 

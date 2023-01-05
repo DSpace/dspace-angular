@@ -20,7 +20,7 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
-import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
+import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import {
   mockDynamicFormLayoutService,
