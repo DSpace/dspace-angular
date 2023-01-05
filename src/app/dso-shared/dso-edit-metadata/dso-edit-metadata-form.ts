@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { MetadataMap, MetadataValue } from '../../core/shared/metadata.models';
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { MoveOperation, Operation } from 'fast-json-patch';
@@ -6,8 +7,6 @@ import { MetadataPatchRemoveOperation } from '../../core/data/object-updates/pat
 import { MetadataPatchAddOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-add-operation.model';
 import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
 import { MetadataPatchMoveOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-move-operation.model';
-
-/* tslint:disable:max-classes-per-file */
 
 /**
  * Enumeration for the type of change occurring on a metadata value
@@ -452,4 +451,3 @@ export class DsoEditMetadataForm {
     return operations;
   }
 }
-/* tslint:enable:max-classes-per-file */
