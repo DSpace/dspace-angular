@@ -12,7 +12,7 @@ import {
 import { switchMap, debounceTime, distinctUntilChanged, map, tap, take } from 'rxjs/operators';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
-  getAllSucceededRemoteData, getFirstCompletedRemoteData, getFirstSucceededRemoteData,
+  getAllSucceededRemoteData, getFirstCompletedRemoteData,
   metadataFieldsToString
 } from '../../../core/shared/operators';
 import { Observable } from 'rxjs/internal/Observable';

@@ -37,7 +37,6 @@ import { ItemPageBitstreamsGuard } from './item-page-bitstreams.guard';
 import { ItemPageRelationshipsGuard } from './item-page-relationships.guard';
 import { ItemPageVersionHistoryGuard } from './item-page-version-history.guard';
 import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
-import { DsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/dso-edit-metadata.component';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 
 /**
