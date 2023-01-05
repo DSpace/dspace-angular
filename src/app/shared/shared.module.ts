@@ -315,6 +315,7 @@ import { MenuModule } from './menu/menu.module';
 import {
   ListableNotificationObjectComponent
 } from './object-list/listable-notification-object/listable-notification-object.component';
+import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 
 const MODULES = [
   CommonModule,
@@ -484,6 +485,7 @@ const ENTRY_COMPONENTS = [
   ClaimedTaskActionsReturnToPoolComponent,
   ClaimedTaskActionsEditMetadataComponent,
   CollectionDropdownComponent,
+  ThemedCollectionDropdownComponent,
   FileDownloadLinkComponent,
   BitstreamDownloadPageComponent,
   BitstreamRequestACopyPageComponent,
