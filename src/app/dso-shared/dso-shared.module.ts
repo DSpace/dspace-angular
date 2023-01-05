@@ -5,6 +5,7 @@ import { MetadataFieldSelectorComponent } from './dso-edit-metadata/metadata-fie
 import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata/dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
 import { DsoEditMetadataValueComponent } from './dso-edit-metadata/dso-edit-metadata-value/dso-edit-metadata-value.component';
 import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata/dso-edit-metadata-headers/dso-edit-metadata-headers.component';
+import { ThemedDsoEditMetadataComponent } from './dso-edit-metadata/themed-dso-edit-metadata.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata/dso-edit-me
   ],
   declarations: [
     DsoEditMetadataComponent,
+    ThemedDsoEditMetadataComponent,
     MetadataFieldSelectorComponent,
     DsoEditMetadataFieldValuesComponent,
     DsoEditMetadataValueComponent,
@@ -19,6 +21,11 @@ import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata/dso-edit-me
   ],
   exports: [
     DsoEditMetadataComponent,
+    ThemedDsoEditMetadataComponent,
+    MetadataFieldSelectorComponent,
+    DsoEditMetadataFieldValuesComponent,
+    DsoEditMetadataValueComponent,
+    DsoEditMetadataHeadersComponent,
   ],
 })
 export class DsoSharedModule {

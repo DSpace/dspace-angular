@@ -38,6 +38,7 @@ import { ItemPageRelationshipsGuard } from './item-page-relationships.guard';
 import { ItemPageVersionHistoryGuard } from './item-page-version-history.guard';
 import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
 import { DsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/dso-edit-metadata.component';
+import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -75,7 +76,7 @@ import { DsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/dso
               },
               {
                 path: 'metadata',
-                component: DsoEditMetadataComponent,
+                component: ThemedDsoEditMetadataComponent,
                 data: { title: 'item.edit.tabs.metadata.title', showBreadcrumbs: true },
                 canActivate: [ItemPageMetadataGuard]
               },
