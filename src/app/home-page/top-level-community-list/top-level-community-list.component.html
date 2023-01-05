@@ -1,10 +1,7 @@
 <ng-container *ngVar="(communitiesRD$ | async) as communitiesRD">
   <div *ngIf="communitiesRD?.hasSucceeded ">
     <h2>
-        <span *dsContextHelp="{content: 'context-help.multi-para.test',
-                               tooltipPlacement: 'top',
-                               iconPlacement: 'right'}">
-            {{'home.top-level-communities.head' | translate}}</span>
+      {{'home.top-level-communities.head' | translate}}
     </h2>
   <p class="lead">{{'home.top-level-communities.help' | translate}}</p>
   <ds-viewable-collection
