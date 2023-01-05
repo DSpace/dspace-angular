@@ -17,24 +17,12 @@ const mockItem: Item = Object.assign(new Item(), {
         value: 'fake@email.com'
       }
     ],
-    // 'person.identifier.orcid': [
-    //   {
-    //     language: 'en_US',
-    //     value: 'ORCID-1'
-    //   }
-    // ],
     'person.birthDate': [
       {
         language: 'en_US',
         value: '1993'
       }
     ],
-    // 'person.identifier.staffid': [
-    //   {
-    //     language: 'en_US',
-    //     value: '1'
-    //   }
-    // ],
     'person.jobTitle': [
       {
         language: 'en_US',
@@ -54,7 +42,50 @@ const mockItem: Item = Object.assign(new Item(), {
       }
     ]
   },
-  relationships: createRelationshipsObservable()
+  relationships: createRelationshipsObservable(),
+  _links: {
+    self : {
+      href: 'item-href'
+    }
+  }
 });
 
-describe('PersonComponent', getItemPageFieldsTest(mockItem, PersonComponent));
+const mockItemWithTitle: Item = Object.assign(new Item(), {
+  bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
+  metadata: {
+    'person.email': [
+      {
+        language: 'en_US',
+        value: 'fake@email.com'
+      }
+    ],
+    'person.birthDate': [
+      {
+        language: 'en_US',
+        value: '1993'
+      }
+    ],
+    'person.jobTitle': [
+      {
+        language: 'en_US',
+        value: 'Developer'
+      }
+    ],
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'Doe, John'
+      }
+    ]
+  },
+  relationships: createRelationshipsObservable(),
+  _links: {
+    self : {
+      href: 'item-href'
+    }
+  }
+});
+
+describe('PersonComponent with family and given names', getItemPageFieldsTest(mockItem, PersonComponent));
+
+describe('PersonComponent with dc.title', getItemPageFieldsTest(mockItemWithTitle, PersonComponent));

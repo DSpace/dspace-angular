@@ -20,7 +20,7 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { FormService } from '../../../shared/form/form.service';
-import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
+import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsType } from '../sections-type';
 import {
@@ -53,7 +53,7 @@ const mockCollection = Object.assign(new Collection(), {
   license: createSuccessfulRemoteDataObject$(Object.assign(new License(), { text: licenseText }))
 });
 
-function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
+function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('FormOperationsService', {
     getConfigAll: jasmine.createSpy('getConfigAll'),
     getConfigByHref: jasmine.createSpy('getConfigByHref'),
@@ -130,7 +130,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         { provide: SectionFormOperationsService, useValue: getMockFormOperationsService() },
         { provide: FormService, useValue: getMockFormService() },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
-        { provide: SubmissionFormsConfigService, useValue: getMockSubmissionFormsConfigService() },
+        { provide: SubmissionFormsConfigDataService, useValue: getMockSubmissionFormsConfigService() },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },

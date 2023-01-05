@@ -10,9 +10,9 @@ describe('TruncatableService', () => {
   const id2 = '456';
   let service: TruncatableService;
   const store: Store<TruncatablesState> = jasmine.createSpyObj('store', {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
     select: observableOf(true)
   });
   beforeEach(waitForAsync(() => {

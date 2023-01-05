@@ -3,20 +3,13 @@ import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
-import {
-  CacheableObject,
-  TypedObject,
-  getResourceTypeValueFor
-} from '../object-cache.reducer';
+import { getResourceTypeValueFor } from '../object-cache.reducer';
 import { InjectionToken } from '@angular/core';
+import { TypedObject } from '../typed-object.model';
 
-export const DATA_SERVICE_FACTORY = new InjectionToken<(resourceType: ResourceType) => GenericConstructor<any>>('getDataServiceFor', {
-  providedIn: 'root',
-  factory: () => getDataServiceFor
-});
 export const LINK_DEFINITION_FACTORY = new InjectionToken<<T extends HALResource>(source: GenericConstructor<T>, linkName: keyof T['_links']) => LinkDefinition<T>>('getLinkDefinition', {
   providedIn: 'root',
-  factory: () => getLinkDefinition
+  factory: () => getLinkDefinition,
 });
 export const LINK_DEFINITION_MAP_FACTORY = new InjectionToken<<T extends HALResource>(source: GenericConstructor<T>) => Map<keyof T['_links'], LinkDefinition<T>>>('getLinkDefinitions', {
   providedIn: 'root',
@@ -27,7 +20,6 @@ const resolvedLinkKey = Symbol('resolvedLink');
 
 const resolvedLinkMap = new Map();
 const typeMap = new Map();
-const dataServiceMap = new Map();
 const linkMap = new Map();
 
 /**
@@ -44,39 +36,6 @@ export function typedObject(target: TypedObject) {
  */
 export function getClassForType(type: string | ResourceType) {
   return typeMap.get(getResourceTypeValueFor(type));
-}
-
-/**
- * A class decorator to indicate that this class is a dataservice
- * for a given resource type.
- *
- * "dataservice" in this context means that it has findByHref and
- * findAllByHref methods.
- *
- * @param resourceType the resource type the class is a dataservice for
- */
-export function dataService(resourceType: ResourceType): any {
-  return (target: any) => {
-    if (hasNoValue(resourceType)) {
-      throw new Error(`Invalid @dataService annotation on ${target}, resourceType needs to be defined`);
-    }
-    const existingDataservice = dataServiceMap.get(resourceType.value);
-
-    if (hasValue(existingDataservice)) {
-      throw new Error(`Multiple dataservices for ${resourceType.value}: ${existingDataservice} and ${target}`);
-    }
-
-    dataServiceMap.set(resourceType.value, target);
-  };
-}
-
-/**
- * Return the dataservice matching the given resource type
- *
- * @param resourceType the resource type you want the matching dataservice for
- */
-export function getDataServiceFor<T extends CacheableObject>(resourceType: ResourceType) {
-  return dataServiceMap.get(resourceType.value);
 }
 
 /**

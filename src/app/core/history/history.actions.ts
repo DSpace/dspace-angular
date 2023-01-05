@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
@@ -7,7 +8,6 @@ export const HistoryActionTypes = {
   GET_HISTORY: type('dspace/history/GET_HISTORY')
 };
 
-/* tslint:disable:max-classes-per-file */
 
 export class AddUrlToHistoryAction implements Action {
   type = HistoryActionTypes.ADD_TO_HISTORY;
@@ -20,7 +20,6 @@ export class AddUrlToHistoryAction implements Action {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
 
 export type HistoryAction
   = AddUrlToHistoryAction;

@@ -13,6 +13,7 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { RequestService } from '../../core/data/request.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
+import { environment } from '../../../environments/environment';
 
 /**
  * Form used for creating and editing communities
@@ -52,18 +53,22 @@ export class CommunityFormComponent extends ComColFormComponent<Community> {
     new DynamicTextAreaModel({
       id: 'description',
       name: 'dc.description',
+      spellCheck: environment.form.spellCheck,
     }),
     new DynamicTextAreaModel({
       id: 'abstract',
       name: 'dc.description.abstract',
+      spellCheck: environment.form.spellCheck,
     }),
     new DynamicTextAreaModel({
       id: 'rights',
       name: 'dc.rights',
+      spellCheck: environment.form.spellCheck,
     }),
     new DynamicTextAreaModel({
       id: 'tableofcontents',
       name: 'dc.description.tableofcontents',
+      spellCheck: environment.form.spellCheck,
     }),
   ];
 
