@@ -14,4 +14,16 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
  * Component representing a collection search result in list view
  */
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement)
-export class CollectionSearchResultListElementComponent extends SearchResultListElementComponent<CollectionSearchResult, Collection> {}
+export class CollectionSearchResultListElementComponent extends SearchResultListElementComponent<CollectionSearchResult, Collection> {
+
+  /**
+   * Display thumbnails if required by configuration
+   */
+  showThumbnails: boolean;
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
+  }
+
+}

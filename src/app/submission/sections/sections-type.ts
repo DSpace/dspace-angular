@@ -6,4 +6,5 @@ export enum SectionsType {
   CcLicense = 'cclicense',
   collection = 'collection',
   AccessesCondition = 'accessCondition',
+  SherpaPolicies = 'sherpaPolicy',
 }

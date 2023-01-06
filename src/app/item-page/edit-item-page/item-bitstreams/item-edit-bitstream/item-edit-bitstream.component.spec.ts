@@ -10,6 +10,9 @@ import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model'
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
+import { By } from '@angular/platform-browser';
+import { BrowserOnlyMockPipe } from '../../../../shared/testing/browser-only-mock.pipe';
 
 let comp: ItemEditBitstreamComponent;
 let fixture: ComponentFixture<ItemEditBitstreamComponent>;
@@ -29,6 +32,10 @@ const bitstream = Object.assign(new Bitstream(), {
   name: 'Fake Bitstream',
   bundleName: 'ORIGINAL',
   description: 'Description',
+  _links: {
+    content: { href: 'content-link' }
+  },
+
   format: createSuccessfulRemoteDataObject$(format)
 });
 const fieldUpdate = {
@@ -66,7 +73,11 @@ describe('ItemEditBitstreamComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [ItemEditBitstreamComponent, VarDirective],
+      declarations: [
+        ItemEditBitstreamComponent,
+        VarDirective,
+        BrowserOnlyMockPipe,
+      ],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService }
       ], schemas: [
@@ -114,6 +125,21 @@ describe('ItemEditBitstreamComponent', () => {
   describe('when canUndo is called', () => {
     it('should return false', () => {
       expect(comp.canUndo()).toEqual(false);
+    });
+  });
+
+  describe('when the component loads', () => {
+    it('should contain download button with a valid link to the bitstreams download page', () => {
+      fixture.detectChanges();
+      const downloadBtnHref = fixture.debugElement.query(By.css('[data-test="download-button"]')).nativeElement.getAttribute('href');
+      expect(downloadBtnHref).toEqual(comp.bitstreamDownloadUrl);
+    });
+  });
+
+  describe('when the bitstreamDownloadUrl property gets populated', () => {
+    it('should contain the bitstream download page route', () => {
+      expect(comp.bitstreamDownloadUrl).not.toEqual(bitstream._links.content.href);
+      expect(comp.bitstreamDownloadUrl).toEqual(getBitstreamDownloadRoute(bitstream));
     });
   });
 });

@@ -4,8 +4,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { Observable } from 'rxjs';
 import {
-  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload,
-  redirectOn4xx
+  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload
 } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { AuthService } from '../../core/auth/auth.service';
@@ -19,6 +18,7 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { ItemRequestDataService } from '../../core/data/item-request-data.service';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
 
 @Component({
   selector: 'ds-deny-request-copy',

@@ -9,11 +9,11 @@ import { isNotEmpty } from '../empty.util';
  * @param searchFilterConfig
  */
 export function getFacetValueForType(facetValue: FacetValue, searchFilterConfig: SearchFilterConfig): string {
-  const regex = new RegExp(`[?|&]${escapeRegExp(searchFilterConfig.paramName)}=(${escapeRegExp(facetValue.value)}[^&]*)`, 'g');
+  const regex = new RegExp(`[?|&]${escapeRegExp(encodeURIComponent(searchFilterConfig.paramName))}=(${escapeRegExp(encodeURIComponent(facetValue.value))}[^&]*)`, 'g');
   if (isNotEmpty(facetValue._links)) {
     const values = regex.exec(facetValue._links.search.href);
     if (isNotEmpty(values)) {
-      return values[1];
+      return decodeURIComponent(values[1]);
     }
   }
   if (facetValue.authorityKey) {
@@ -33,12 +33,11 @@ export function escapeRegExp(input: string): string {
 }
 
 /**
- * Strip the operator from a filter value
- * Warning: This expects the value to end with an operator, otherwise it might strip unwanted content
- * @param value
+ * Strip the operator (equals, query or authority) from a filter value.
+ * @param value The value from which the operator should be stripped.
  */
 export function stripOperatorFromFilterValue(value: string) {
-  if (value.lastIndexOf(',') > -1) {
+  if (value.match(new RegExp(`.+,(equals|query|authority)$`))) {
     return value.substring(0, value.lastIndexOf(','));
   }
   return value;
@@ -50,7 +49,7 @@ export function stripOperatorFromFilterValue(value: string) {
  * @param operator
  */
 export function addOperatorToFilterValue(value: string, operator: string) {
-  if (!value.endsWith(`,${operator}`)) {
+  if (!value.match(new RegExp(`^.+,(equals|query|authority)$`))) {
     return `${value},${operator}`;
   }
   return value;

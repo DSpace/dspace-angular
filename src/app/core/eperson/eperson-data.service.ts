@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { createSelector, select, Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
@@ -10,25 +9,31 @@ import {
 } from '../../access-control/epeople-registry/epeople-registry.actions';
 import { EPeopleRegistryState } from '../../access-control/epeople-registry/epeople-registry.reducers';
 import { AppState } from '../../app.reducer';
-import { hasValue, hasNoValue } from '../../shared/empty.util';
+import { hasNoValue, hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
-import { PaginatedList, buildPaginatedList } from '../data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import { FindListOptions, PatchRequest, PostRequest, } from '../data/request.models';
+import { PatchRequest, PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getRemoteDataPayload, getFirstSucceededRemoteData, } from '../shared/operators';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { EPERSON } from './models/eperson.resource-type';
 import { NoContent } from '../shared/NoContent.model';
 import { PageInfo } from '../shared/page-info.model';
+import { FindListOptions } from '../data/find-list-options.model';
+import { CreateData, CreateDataImpl } from '../data/base/create-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { SearchData, SearchDataImpl } from '../data/base/search-data';
+import { PatchData, PatchDataImpl } from '../data/base/patch-data';
+import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { dataService } from '../data/base/data-service.decorator';
 
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
 const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
@@ -38,23 +43,30 @@ const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopl
  */
 @Injectable()
 @dataService(EPERSON)
-export class EPersonDataService extends DataService<EPerson> {
-
-  protected linkPath = 'epersons';
+export class EPersonDataService extends IdentifiableDataService<EPerson> implements CreateData<EPerson>, SearchData<EPerson>, PatchData<EPerson>, DeleteData<EPerson> {
   protected searchByEmailPath = 'byEmail';
   protected searchByMetadataPath = 'byMetadata';
+
+  private createData: CreateData<EPerson>;
+  private searchData: SearchDataImpl<EPerson>;
+  private patchData: PatchData<EPerson>;
+  private deleteData: DeleteData<EPerson>;
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected store: Store<any>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
+    protected comparator: DSOChangeAnalyzer<EPerson>,
     protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer<EPerson>
+    protected store: Store<any>,
   ) {
-    super();
+    super('epersons', requestService, rdbService, objectCache, halService);
+
+    this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.patchData = new PatchDataImpl<EPerson>(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
+    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
   }
 
   /**
@@ -119,7 +131,7 @@ export class EPersonDataService extends DataService<EPerson> {
   public getEPersonByEmail(query: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<EPerson | NoContent>> {
     const findListOptions = new FindListOptions();
     findListOptions.searchParams = [new RequestParam('email', encodeURIComponent(query))];
-    const href$ = this.getSearchByHref(this.searchByEmailPath, findListOptions, ...linksToFollow);
+    const href$ = this.searchData.getSearchByHref(this.searchByEmailPath, findListOptions, ...linksToFollow);
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
@@ -309,7 +321,7 @@ export class EPersonDataService extends DataService<EPerson> {
   patchPasswordWithToken(uuid: string, token: string, password: string): Observable<RemoteData<EPerson>> {
     const requestId = this.requestService.generateRequestId();
 
-    const operation = Object.assign({ op: 'add', path: '/password', value: password });
+    const operation = Object.assign({ op: 'add', path: '/password', value: { 'new_password': password } });
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, uuid)),
@@ -325,4 +337,91 @@ export class EPersonDataService extends DataService<EPerson> {
     return this.rdbService.buildFromRequestUUID(requestId);
   }
 
+
+  /**
+   * Create a new object on the server, and store the response in the object cache
+   *
+   * @param object    The object to create
+   * @param params    Array with additional params to combine with query string
+   */
+  public create(object: EPerson, ...params: RequestParam[]): Observable<RemoteData<EPerson>> {
+    return this.createData.create(object, ...params);
+  }
+
+  /**
+   * Make a new FindListRequest with given search method
+   *
+   * @param searchMethod                The search method for the object
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
+  searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Return a list of operations representing the difference between an object and its latest value in the cache.
+   * @param object  the object to resolve to a list of patch operations
+   */
+  public createPatchFromCache(object: EPerson): Observable<Operation[]> {
+    return this.patchData.createPatchFromCache(object);
+  }
+
+  /**
+   * Send a patch request for a specified object
+   * @param {T} object The object to send a patch request for
+   * @param {Operation[]} operations The patch operations to be performed
+   */
+  patch(object: EPerson, operations: Operation[]): Observable<RemoteData<EPerson>> {
+    return this.patchData.patch(object, operations);
+  }
+
+  /**
+   * Add a new patch to the object cache
+   * The patch is derived from the differences between the given object and its version in the object cache
+   * @param {DSpaceObject} object The given object
+   */
+  update(object: EPerson): Observable<RemoteData<EPerson>> {
+    return this.patchData.update(object);
+  }
+
+  /**
+   * Commit current object changes to the server
+   * @param method The RestRequestMethod for which de server sync buffer should be committed
+   */
+  commitUpdates(method?: RestRequestMethod): void {
+    this.patchData.commitUpdates(method);
+  }
+
+  /**
+   * Delete an existing object on the server
+   * @param   objectId The id of the object to be removed
+   * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
+   *                            metadata should be saved as real metadata
+   * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
+   *          errorMessage, timeCompleted, etc
+   */
+  public delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
+    return this.deleteData.delete(objectId, copyVirtualMetadata);
+  }
+
+  /**
+   * Delete an existing object on the server
+   * @param   href The self link of the object to be removed
+   * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
+   *                            metadata should be saved as real metadata
+   * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
+   *          errorMessage, timeCompleted, etc
+   *          Only emits once all request related to the DSO has been invalidated.
+   */
+  public deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
+    return this.deleteData.deleteByHref(href, copyVirtualMetadata);
+  }
 }
