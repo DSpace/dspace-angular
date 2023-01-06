@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action-page.component';
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('AdvancedWorkflowActionPageComponent', () => {
   let component: AdvancedWorkflowActionPageComponent;
@@ -7,8 +9,23 @@ describe('AdvancedWorkflowActionPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot(),
+      ],
       declarations: [
         AdvancedWorkflowActionPageComponent,
+      ],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              queryParams: convertToParamMap({
+                workflow: 'testaction',
+              }),
+            },
+          },
+        },
       ],
     }).compileComponents();
   });

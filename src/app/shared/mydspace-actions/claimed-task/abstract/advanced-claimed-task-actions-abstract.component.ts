@@ -13,4 +13,20 @@ import { ClaimedTaskActionsAbstractComponent } from './claimed-task-actions-abst
   template: ''
 })
 export abstract class AdvancedClaimedTaskActionsAbstractComponent extends ClaimedTaskActionsAbstractComponent {
+
+  workflowType: string;
+
+  /**
+   * Route to the workflow's task page
+   */
+  workflowTaskPageRoute: string;
+
+  openAdvancedClaimedTaskTab(): void {
+    void this.router.navigate([this.workflowTaskPageRoute], {
+      queryParams: {
+        workflow: this.workflowType,
+      },
+    });
+  }
+
 }
