@@ -193,6 +193,8 @@
 
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Nombre",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
   "admin.registries.bitstream-formats.table.return": "Atrás",
@@ -272,6 +274,8 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Campo",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Nota de alcance",
@@ -2426,16 +2430,16 @@
   // "health-page.section.geoIp.title": "GeoIp",
   "health-page.section.geoIp.title": "GeoIp",
 
-  // "health-page.section.solrAuthorityCore.title": "Sor: authority core",
+  // "health-page.section.solrAuthorityCore.title": "Solr: authority core",
   "health-page.section.solrAuthorityCore.title": "Solr: authority core",
 
-  // "health-page.section.solrOaiCore.title": "Sor: oai core",
+  // "health-page.section.solrOaiCore.title": "Solr: oai core",
   "health-page.section.solrOaiCore.title": "Solr: oai core",
 
-  // "health-page.section.solrSearchCore.title": "Sor: search core",
+  // "health-page.section.solrSearchCore.title": "Solr: search core",
   "health-page.section.solrSearchCore.title": "Solr: search core",
 
-  // "health-page.section.solrStatisticsCore.title": "Sor: statistics core",
+  // "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
   "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
 
   // "health-page.section-info.app.title": "Application Backend",
