@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BaseEmbeddedMetricComponent } from '../metric-loader/base-embedded-metric.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { hasValue } from '../../empty.util';
@@ -12,7 +12,13 @@ declare let _altmetric_embed_init: any;
 })
 export class MetricAltmetricComponent extends BaseEmbeddedMetricComponent implements OnInit {
   remark: JSON;
-  constructor(protected sr: DomSanitizer) {
+
+  /**
+   * boolean used to check if the #metricChild child is hidden or not
+   */
+  isAltmetricHidden = false;
+
+  constructor(protected sr: DomSanitizer, private cdr: ChangeDetectorRef) {
     super(sr);
   }
 
@@ -24,6 +30,11 @@ export class MetricAltmetricComponent extends BaseEmbeddedMetricComponent implem
 
   applyScript(): void {
     _altmetric_embed_init(this.metricChild.nativeElement);
+    if (this.metricChild?.nativeElement?.children[0].classList.contains('altmetric-hidden')) {
+        this.isAltmetricHidden = true;
+        this.isVisible$.next(false);
+        this.cdr.detectChanges();
+    }
   }
 
 }
