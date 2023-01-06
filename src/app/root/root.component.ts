@@ -10,7 +10,7 @@ import { MetadataService } from '../core/metadata/metadata.service';
 import { HostWindowState } from '../shared/search/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from '../core/services/window.service';
 import { AuthService } from '../core/auth/auth.service';
-import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
+import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { ThemeConfig } from '../../config/theme.model';
@@ -63,8 +63,8 @@ export class RootComponent implements OnInit {
   ngOnInit() {
     this.sidebarVisible = this.menuService.isMenuVisible(MenuID.ADMIN);
 
-    this.collapsedSidebarWidth = this.cssService.getVariable('collapsedSidebarWidth');
-    this.totalSidebarWidth = this.cssService.getVariable('totalSidebarWidth');
+    this.collapsedSidebarWidth = this.cssService.getVariable('--ds-collapsed-sidebar-width');
+    this.totalSidebarWidth = this.cssService.getVariable('--ds-total-sidebar-width');
 
     const sidebarCollapsed = this.menuService.isMenuCollapsed(MenuID.ADMIN);
     this.slideSidebarOver = combineLatestObservable([sidebarCollapsed, this.windowService.isXsOrSm()])

@@ -207,6 +207,8 @@
   // "admin.registries.bitstream-formats.table.name": "Name",
   // TODO New key - Add a translation
   "admin.registries.bitstream-formats.table.name": "Name",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
   
   // "admin.registries.bitstream-formats.table.return": "Return",
   // TODO New key - Add a translation
@@ -311,6 +313,8 @@
   // "admin.registries.schema.fields.table.field": "Field",
   // TODO New key - Add a translation
   "admin.registries.schema.fields.table.field": "Field",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
   
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   // TODO New key - Add a translation

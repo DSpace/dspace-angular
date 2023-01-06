@@ -15,6 +15,7 @@ import { ThemedComcolPageBrowseByComponent } from './comcol-page-browse-by/theme
 import { ComcolRoleComponent } from './comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 import { SharedModule } from '../shared.module';
 import { FormModule } from '../form/form.module';
+import { UploadModule } from '../upload/upload.module';
 
 const COMPONENTS = [
   ComcolPageContentComponent,
@@ -28,9 +29,7 @@ const COMPONENTS = [
   ComcolPageBrowseByComponent,
   ThemedComcolPageBrowseByComponent,
   ComcolRoleComponent,
-
   ThemedComcolPageHandleComponent
-
 ];
 
 @NgModule({
@@ -40,10 +39,12 @@ const COMPONENTS = [
   imports: [
     CommonModule,
     FormModule,
-    SharedModule
+    SharedModule,
+    UploadModule,
   ],
   exports: [
-    ...COMPONENTS
+    ...COMPONENTS,
+    UploadModule,
   ]
 })
 export class ComcolModule { }

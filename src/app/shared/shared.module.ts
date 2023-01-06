@@ -17,9 +17,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FileUploadModule } from 'ng2-file-upload';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { MomentModule } from 'ngx-moment';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import {
   ExportMetadataSelectorComponent
@@ -30,7 +28,6 @@ import {
 import {
   ImportBatchSelectorComponent
 } from './dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
-import { FileDropzoneNoUploaderComponent } from './file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { ItemListElementComponent } from './object-list/item-list-element/item-types/item/item-list-element.component';
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
 import { FileSizePipe } from './utils/file-size-pipe';
@@ -73,9 +70,6 @@ import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';
 import { TruncatableService } from './truncatable/truncatable.service';
 import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
-import { UploaderComponent } from './uploader/uploader.component';
-import { ChipsComponent } from './chips/chips.component';
-import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { MockAdminGuard } from './mocks/admin-guard.service.mock';
 import { AlertComponent } from './alert/alert.component';
 import {
@@ -111,7 +105,6 @@ import { EmphasizePipe } from './utils/emphasize.pipe';
 import { InputSuggestionsComponent } from './input-suggestions/input-suggestions.component';
 import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
-import { AuthorityConfidenceStateDirective } from './authority-confidence/authority-confidence-state.directive';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import {
   PlainTextMetadataListElementComponent
@@ -232,7 +225,6 @@ import {
   ImportableListItemControlComponent
 } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
 import { ItemVersionsComponent } from './item/item-versions/item-versions.component';
-import { SortablejsModule } from 'ngx-sortablejs';
 import { LogInContainerComponent } from './log-in/container/log-in-container.component';
 import { LogInShibbolethComponent } from './log-in/methods/shibboleth/log-in-shibboleth.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
@@ -258,7 +250,6 @@ import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
 import { FileDownloadLinkComponent } from './file-download-link/file-download-link.component';
 import { CollectionDropdownComponent } from './collection-dropdown/collection-dropdown.component';
 import { EntityDropdownComponent } from './entity-dropdown/entity-dropdown.component';
-import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
 import {
   PublicationSidebarSearchListElementComponent
@@ -293,9 +284,6 @@ import {
   MetadataRepresentationListComponent
 } from '../item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { RelatedItemsComponent } from '../item-page/simple/related-items/related-items-component';
-import { LinkMenuItemComponent } from './menu/menu-item/link-menu-item.component';
-import { OnClickMenuItemComponent } from './menu/menu-item/onclick-menu-item.component';
-import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import {
@@ -314,7 +302,6 @@ import { ContextHelpDirective } from './context-help.directive';
 import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { RSSComponent } from './rss-feed/rss.component';
-import { ExternalLinkMenuItemComponent } from './menu/menu-item/external-link-menu-item.component';
 import { DsoPageOrcidButtonComponent } from './dso-page/dso-page-orcid-button/dso-page-orcid-button.component';
 import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 import { BrowserOnlyPipe } from './utils/browser-only.pipe';
@@ -326,11 +313,14 @@ import {
 } from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 import { MarkdownPipe } from './utils/markdown.pipe';
 import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
+import { MenuModule } from './menu/menu.module';
+import {
+  ListableNotificationObjectComponent
+} from './object-list/listable-notification-object/listable-notification-object.component';
+import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 
 const MODULES = [
   CommonModule,
-  SortablejsModule,
-  FileUploadModule,
   FormsModule,
   InfiniteScrollModule,
   NgbNavModule,
@@ -344,10 +334,10 @@ const MODULES = [
   ReactiveFormsModule,
   RouterModule,
   NouisliderModule,
-  MomentModule,
   DragDropModule,
   CdkTreeModule,
   GoogleRecaptchaModule,
+  MenuModule,
 ];
 
 const ROOT_MODULES = [
@@ -379,7 +369,6 @@ const COMPONENTS = [
   AuthNavMenuComponent,
   ThemedAuthNavMenuComponent,
   UserMenuComponent,
-  ChipsComponent,
   DsSelectComponent,
   ErrorComponent,
   FileSectionComponent,
@@ -388,7 +377,6 @@ const COMPONENTS = [
   ThemedLoadingComponent,
   LogInComponent,
   LogOutComponent,
-  NumberPickerComponent,
   ObjectListComponent,
   ThemedObjectListComponent,
   ObjectDetailComponent,
@@ -403,8 +391,6 @@ const COMPONENTS = [
   SidebarFilterComponent,
   SidebarFilterSelectedOptionComponent,
   ThumbnailComponent,
-  UploaderComponent,
-  FileDropzoneNoUploaderComponent,
   ItemListPreviewComponent,
   ThemedItemListPreviewComponent,
   MyDSpaceItemStatusComponent,
@@ -412,10 +398,6 @@ const COMPONENTS = [
   ItemDetailPreviewComponent,
   ItemDetailPreviewFieldComponent,
   ClaimedTaskActionsComponent,
-  ClaimedTaskActionsApproveComponent,
-  ClaimedTaskActionsRejectComponent,
-  ClaimedTaskActionsReturnToPoolComponent,
-  ClaimedTaskActionsEditMetadataComponent,
   ClaimedTaskActionsLoaderComponent,
   ItemActionsComponent,
   PoolTaskActionsComponent,
@@ -430,90 +412,33 @@ const COMPONENTS = [
   ValidationSuggestionsComponent,
   DsoInputSuggestionsComponent,
   DSOSelectorComponent,
-  CreateCommunityParentSelectorComponent,
-  ThemedCreateCommunityParentSelectorComponent,
-  CreateCollectionParentSelectorComponent,
-  ThemedCreateCollectionParentSelectorComponent,
-  CreateItemParentSelectorComponent,
-  ThemedCreateItemParentSelectorComponent,
-  EditCommunitySelectorComponent,
-  ThemedEditCommunitySelectorComponent,
-  EditCollectionSelectorComponent,
-  ThemedEditCollectionSelectorComponent,
-  EditItemSelectorComponent,
-  ThemedEditItemSelectorComponent,
-  CommunitySearchResultListElementComponent,
-  CollectionSearchResultListElementComponent,
-  BrowseByComponent,
-
-  CollectionSearchResultGridElementComponent,
-  CommunitySearchResultGridElementComponent,
   SearchExportCsvComponent,
   PageSizeSelectorComponent,
   ListableObjectComponentLoaderComponent,
-  CollectionListElementComponent,
-  CommunityListElementComponent,
-  CollectionGridElementComponent,
-  CommunityGridElementComponent,
-  BrowseByComponent,
   AbstractTrackableComponent,
   ComcolMetadataComponent,
   TypeBadgeComponent,
   AccessStatusBadgeComponent,
-  BrowseByComponent,
-  AbstractTrackableComponent,
-
   ItemSelectComponent,
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,
   SelectableListItemControlComponent,
-
   ImportableListItemControlComponent,
-
-  LogInShibbolethComponent,
-  LogInOidcComponent,
-  LogInOrcidComponent,
-  LogInPasswordComponent,
   LogInContainerComponent,
   ItemVersionsComponent,
-  ItemSearchResultListElementComponent,
   ItemVersionsNoticeComponent,
   ModifyItemOverviewComponent,
   ImpersonateNavbarComponent,
-  FileDownloadLinkComponent,
-  BitstreamDownloadPageComponent,
-  BitstreamRequestACopyPageComponent,
-  CollectionDropdownComponent,
   EntityDropdownComponent,
   ExportMetadataSelectorComponent,
   ImportBatchSelectorComponent,
   ExportBatchSelectorComponent,
   ConfirmationModalComponent,
-  VocabularyTreeviewComponent,
   AuthorizedCollectionSelectorComponent,
-  CurationFormComponent,
-  SearchResultListElementComponent,
-  SearchResultGridElementComponent,
-  ItemListElementComponent,
-  ItemGridElementComponent,
-  ItemSearchResultGridElementComponent,
-  BrowseEntryListElementComponent,
-  SearchResultDetailElementComponent,
-  PlainTextMetadataListElementComponent,
-  ItemMetadataListElementComponent,
-  MetadataRepresentationListElementComponent,
-  ItemMetadataRepresentationListElementComponent,
-  BundleListElementComponent,
-  StartsWithDateComponent,
-  StartsWithTextComponent,
-  SidebarSearchListElementComponent,
-  PublicationSidebarSearchListElementComponent,
-  CollectionSidebarSearchListElementComponent,
-  CommunitySidebarSearchListElementComponent,
   SearchNavbarComponent,
-  ScopeSelectorModalComponent,
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,
+  ListableNotificationObjectComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -562,6 +487,7 @@ const ENTRY_COMPONENTS = [
   ClaimedTaskActionsReturnToPoolComponent,
   ClaimedTaskActionsEditMetadataComponent,
   CollectionDropdownComponent,
+  ThemedCollectionDropdownComponent,
   FileDownloadLinkComponent,
   BitstreamDownloadPageComponent,
   BitstreamRequestACopyPageComponent,
@@ -570,16 +496,12 @@ const ENTRY_COMPONENTS = [
   ImportBatchSelectorComponent,
   ExportBatchSelectorComponent,
   ConfirmationModalComponent,
-  VocabularyTreeviewComponent,
   SidebarSearchListElementComponent,
   PublicationSidebarSearchListElementComponent,
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
-  LinkMenuItemComponent,
-  OnClickMenuItemComponent,
-  TextMenuItemComponent,
   ScopeSelectorModalComponent,
-  ExternalLinkMenuItemComponent
+  ListableNotificationObjectComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -607,7 +529,6 @@ const DIRECTIVES = [
   DragClickDirective,
   DebounceDirective,
   ClickOutsideDirective,
-  AuthorityConfidenceStateDirective,
   InListValidator,
   AutoFocusDirective,
   RoleDirective,
@@ -630,6 +551,7 @@ const DIRECTIVES = [
   declarations: [
     ...PIPES,
     ...COMPONENTS,
+    ...ENTRY_COMPONENTS,
     ...DIRECTIVES,
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ItemVersionsSummaryModalComponent,
@@ -644,6 +566,7 @@ const DIRECTIVES = [
     ...MODULES,
     ...PIPES,
     ...COMPONENTS,
+    ...ENTRY_COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ...DIRECTIVES,
     TranslateModule,
