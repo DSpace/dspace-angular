@@ -18,7 +18,6 @@ import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action/
 import {
   AdvancedClaimedTaskActionsDirective
 } from './advanced-workflow-action/advanced-workflow-actions-loader/advanced-claimed-task-actions.directive';
-import { AdvancedWorkflowActionComponent } from './advanced-workflow-action/advanced-workflow-action/advanced-workflow-action.component';
 
 @NgModule({
   imports: [
@@ -39,7 +38,6 @@ import { AdvancedWorkflowActionComponent } from './advanced-workflow-action/adva
     AdvancedWorkflowActionSelectReviewerComponent,
     AdvancedWorkflowActionPageComponent,
     AdvancedClaimedTaskActionsDirective,
-    AdvancedWorkflowActionComponent,
   ]
 })
 /**

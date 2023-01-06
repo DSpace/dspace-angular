@@ -10,11 +10,8 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
 import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import {
-  ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER
+  ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER, WORKFLOW_ADVANCED_TASK_OPTION_SELECT_REVIEWER
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
-
-export const WORKFLOW_ADVANCED_TASK_OPTION_SELECT_REVIEWER = 'submit_select_reviewer';
-
 @rendersWorkflowTaskOption(WORKFLOW_ADVANCED_TASK_OPTION_SELECT_REVIEWER)
 @Component({
   selector: 'ds-advanced-claimed-task-action-select-reviewer',

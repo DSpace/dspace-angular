@@ -4166,7 +4166,23 @@
 
   "workflow-item.advanced.title": "Advanced workflow",
 
+
+  "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer",
+
+  "workflow-item.selectrevieweraction.notification.success.content": "The reviewer for this workflow item has been successfully selected",
+
+  "workflow-item.selectrevieweraction.notification.error.title": "Something went wrong",
+
+  "workflow-item.selectrevieweraction.notification.error.content": "Couldn't select the reviewer for this workflow item",
+
+  "workflow-item.selectrevieweraction.title": "Select Reviewer",
+
   "workflow-item.selectrevieweraction.header": "Select Reviewer",
+
+  "workflow-item.selectrevieweraction.button.cancel": "Cancel",
+
+  "workflow-item.selectrevieweraction.button.confirm": "Confirm",
+
 
   "workflow-item.ratingrevieweraction.header": "Rating Reviewer",
 
