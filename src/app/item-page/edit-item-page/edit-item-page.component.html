@@ -3,8 +3,9 @@
         <div class="col-12">
             <h2 class="border-bottom">{{'item.edit.head' | translate}}</h2>
             <div class="pt-2">
-                <ul class="nav nav-tabs justify-content-start" role="tablist">
-                    <li *ngFor="let page of pages" class="nav-item" [attr.aria-selected]="page.page === currentPage" role="tab">
+                <ul class="nav nav-tabs justify-content-start">
+                    <ng-container *ngFor="let page of pages">
+                    <li *ngIf="page.page != 'relationships'" class="nav-item">
                         <a *ngIf="(page.enabled | async)"
                            class="nav-link"
                            [ngClass]="{'active' : page.page === currentPage}"
@@ -18,6 +19,7 @@
                             </button>
                         </span>
                     </li>
+                    </ng-container>
                 </ul>
                 <div class="tab-pane active">
                     <div class="mb-4">
