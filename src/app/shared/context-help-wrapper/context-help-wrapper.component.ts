@@ -33,13 +33,13 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
   /**
    * Indicate where the tooltip should show up, relative to the info icon.
    */
-  @Input() tooltipPlacement?: PlacementArray;
+  @Input() tooltipPlacement?: PlacementArray = [];
 
   /**
    * Indicate whether the info icon should appear to the left or to
    * the right of the wrapped element.
    */
-  @Input() iconPlacement?: PlacementDir;
+  @Input() iconPlacement?: PlacementDir = 'left';
 
   /**
    * If true, don't process text to render links.
