@@ -539,6 +539,54 @@
   "admin.metadata-import.page.error.addFile": "Select file first!",
 
 
+  "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
+
+  "advanced-workflow-action.select-reviewer.description-multiple": "Please select one or more reviewers below before submitting",
+
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "EPeople",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Add EPeople",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Browse All",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.id": "ID",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Name",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identity",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Email",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remove / Add",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "No members in group yet, search and add.",
+
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "No EPeople found in that search",
 
 
   "auth.errors.invalid-user": "Invalid email address or password.",

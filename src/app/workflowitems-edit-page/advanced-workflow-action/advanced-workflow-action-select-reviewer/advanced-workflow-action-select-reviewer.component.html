@@ -1,5 +1,15 @@
 <div>
-  advancedInfo: {{ (workflowAction$ | async)?.advancedInfo | json }}
+  <p *ngIf="multipleReviewers">{{ 'advanced-workflow-action.select-reviewer.description-multiple' | translate }}</p>
+  <p *ngIf="!multipleReviewers">{{ 'advanced-workflow-action.select-reviewer.description-single' | translate }}</p>
+
+  <ds-reviewers-list *ngIf="groupId !== undefined"
+                     [actionConfig]="reviewersListActionConfig"
+                     [groupId]="groupId"
+                     [ngClass]="groupId ? 'reviewersListWithGroup' : ''"
+                     [multipleReviewers]="multipleReviewers"
+                     (selectedReviewersUpdated)="selectedReviewers = $event"
+                     messagePrefix="advanced-workflow-action-select-reviewer.groups.form.reviewers-list"
+  ></ds-reviewers-list>
 
   <ds-modify-item-overview *ngIf="item$ | async"
                            [item]="item$ | async">

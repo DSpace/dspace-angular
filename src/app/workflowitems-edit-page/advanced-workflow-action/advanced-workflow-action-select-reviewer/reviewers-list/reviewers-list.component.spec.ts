@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -18,9 +18,12 @@ import { PageInfo } from '../../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { GroupMock, GroupMock2 } from '../../../../shared/testing/group-mock';
-import { MembersListComponent } from './members-list.component';
+import { ReviewersListComponent } from './reviewers-list.component';
 import { EPersonMock, EPersonMock2 } from '../../../../shared/testing/eperson.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject$,
+  createNoContentRemoteDataObject$
+} from '../../../../shared/remote-data.utils';
 import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
 import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
@@ -29,9 +32,9 @@ import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 
-describe('MembersListComponent', () => {
-  let component: MembersListComponent;
-  let fixture: ComponentFixture<MembersListComponent>;
+describe('ReviewersListComponent', () => {
+  let component: ReviewersListComponent;
+  let fixture: ComponentFixture<ReviewersListComponent>;
   let translateService: TranslateService;
   let builderService: FormBuilderService;
   let ePersonDataServiceStub: any;
@@ -112,6 +115,18 @@ describe('MembersListComponent', () => {
           this.epersonMembers = [];
         }
         return observableOf(new RestResponse(true, 200, 'Success'));
+      },
+      findById(id: string) {
+        for (const group of allGroups) {
+          if (group.id === id) {
+            console.log('found', group);
+            return createSuccessfulRemoteDataObject$(group);
+          }
+        }
+        return createNoContentRemoteDataObject$();
+      },
+      editGroup() {
+        // empty
       }
     };
     builderService = getMockFormBuilderService();
@@ -127,8 +142,8 @@ describe('MembersListComponent', () => {
           }
         }),
       ],
-      declarations: [MembersListComponent],
-      providers: [MembersListComponent,
+      declarations: [ReviewersListComponent],
+      providers: [ReviewersListComponent,
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -141,7 +156,7 @@ describe('MembersListComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MembersListComponent);
+    fixture = TestBed.createComponent(ReviewersListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -152,94 +167,44 @@ describe('MembersListComponent', () => {
     fixture.debugElement.nativeElement.remove();
   }));
 
-  it('should create MembersListComponent', inject([MembersListComponent], (comp: MembersListComponent) => {
+  it('should create ReviewersListComponent', inject([ReviewersListComponent], (comp: ReviewersListComponent) => {
     expect(comp).toBeDefined();
   }));
 
-  it('should show list of eperson members of current active group', () => {
-    const epersonIdsFound = fixture.debugElement.queryAll(By.css('#ePeopleMembersOfGroup tr td:first-child'));
-    expect(epersonIdsFound.length).toEqual(1);
-    epersonMembers.map((eperson: EPerson) => {
-      expect(epersonIdsFound.find((foundEl) => {
-        return (foundEl.nativeElement.textContent.trim() === eperson.uuid);
-      })).toBeTruthy();
+  describe('when no group is selected', () => {
+    beforeEach(() => {
+      component.ngOnChanges({
+        groupId: new SimpleChange(undefined, null, true)
+      });
+      fixture.detectChanges();
+    });
+
+    it('should show no epersons because no group is selected', () => {
+      const epersonIdsFound = fixture.debugElement.queryAll(By.css('#ePeopleMembersOfGroup tr td:first-child'));
+      expect(epersonIdsFound.length).toEqual(0);
+      epersonMembers.map((eperson: EPerson) => {
+        expect(epersonIdsFound.find((foundEl) => {
+          return (foundEl.nativeElement.textContent.trim() === eperson.uuid);
+        })).not.toBeTruthy();
+      });
     });
   });
 
-  describe('search', () => {
-    describe('when searching without query', () => {
-      let epersonsFound;
-      beforeEach(fakeAsync(() => {
-        component.search({ scope: 'metadata', query: '' });
-        tick();
-        fixture.detectChanges();
-        epersonsFound = fixture.debugElement.queryAll(By.css('#epersonsSearch tbody tr'));
-      }));
-
-      it('should display all epersons', () => {
-        expect(epersonsFound.length).toEqual(2);
+  describe('when group is selected', () => {
+    beforeEach(() => {
+      component.ngOnChanges({
+        groupId: new SimpleChange(undefined, GroupMock.id, true)
       });
+      fixture.detectChanges();
+    });
 
-      describe('if eperson is already a eperson', () => {
-        it('should have delete button, else it should have add button', () => {
-          activeGroup.epersons.map((eperson: EPerson) => {
-            epersonsFound.map((foundEPersonRowElement) => {
-              if (foundEPersonRowElement.debugElement !== undefined) {
-                const epersonId = foundEPersonRowElement.debugElement.query(By.css('td:first-child'));
-                const addButton = foundEPersonRowElement.debugElement.query(By.css('td:last-child .fa-plus'));
-                const deleteButton = foundEPersonRowElement.debugElement.query(By.css('td:last-child .fa-trash-alt'));
-                if (epersonId.nativeElement.textContent === eperson.id) {
-                  expect(addButton).toBeUndefined();
-                  expect(deleteButton).toBeDefined();
-                } else {
-                  expect(deleteButton).toBeUndefined();
-                  expect(addButton).toBeDefined();
-                }
-              }
-            });
-          });
-        });
-      });
-
-      describe('if first add button is pressed', () => {
-        beforeEach(fakeAsync(() => {
-          const addButton = fixture.debugElement.query(By.css('#epersonsSearch tbody .fa-plus'));
-          addButton.nativeElement.click();
-          tick();
-          fixture.detectChanges();
-        }));
-        it('all groups in search member of selected group', () => {
-          epersonsFound = fixture.debugElement.queryAll(By.css('#epersonsSearch tbody tr'));
-          expect(epersonsFound.length).toEqual(2);
-          epersonsFound.map((foundEPersonRowElement) => {
-            if (foundEPersonRowElement.debugElement !== undefined) {
-              const addButton = foundEPersonRowElement.debugElement.query(By.css('td:last-child .fa-plus'));
-              const deleteButton = foundEPersonRowElement.debugElement.query(By.css('td:last-child .fa-trash-alt'));
-              expect(addButton).toBeUndefined();
-              expect(deleteButton).toBeDefined();
-            }
-          });
-        });
-      });
-
-      describe('if first delete button is pressed', () => {
-        beforeEach(fakeAsync(() => {
-          const addButton = fixture.debugElement.query(By.css('#epersonsSearch tbody .fa-trash-alt'));
-          addButton.nativeElement.click();
-          tick();
-          fixture.detectChanges();
-        }));
-        it('first eperson in search delete button, because now member', () => {
-          epersonsFound = fixture.debugElement.queryAll(By.css('#epersonsSearch tbody tr'));
-          epersonsFound.map((foundEPersonRowElement) => {
-            if (foundEPersonRowElement.debugElement !== undefined) {
-              const addButton = foundEPersonRowElement.debugElement.query(By.css('td:last-child .fa-plus'));
-              const deleteButton = foundEPersonRowElement.debugElement.query(By.css('td:last-child .fa-trash-alt'));
-              expect(deleteButton).toBeUndefined();
-              expect(addButton).toBeDefined();
-            }
-          });
-        });
+    it('should show all eperson members of group', () => {
+      const epersonIdsFound = fixture.debugElement.queryAll(By.css('#ePeopleMembersOfGroup tr td:first-child'));
+      expect(epersonIdsFound.length).toEqual(1);
+      epersonMembers.map((eperson: EPerson) => {
+        expect(epersonIdsFound.find((foundEl) => {
+          return (foundEl.nativeElement.textContent.trim() === eperson.uuid);
+        })).toBeTruthy();
       });
     });
   });

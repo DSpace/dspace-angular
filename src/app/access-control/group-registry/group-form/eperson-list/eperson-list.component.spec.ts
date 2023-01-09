@@ -18,7 +18,7 @@ import { PageInfo } from '../../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { GroupMock, GroupMock2 } from '../../../../shared/testing/group-mock';
-import { MembersListComponent } from './members-list.component';
+import { EPersonListComponent } from './eperson-list.component';
 import { EPersonMock, EPersonMock2 } from '../../../../shared/testing/eperson.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
@@ -29,9 +29,9 @@ import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 
-describe('MembersListComponent', () => {
-  let component: MembersListComponent;
-  let fixture: ComponentFixture<MembersListComponent>;
+describe('EPersonListComponent', () => {
+  let component: EPersonListComponent;
+  let fixture: ComponentFixture<EPersonListComponent>;
   let translateService: TranslateService;
   let builderService: FormBuilderService;
   let ePersonDataServiceStub: any;
@@ -127,8 +127,8 @@ describe('MembersListComponent', () => {
           }
         }),
       ],
-      declarations: [MembersListComponent],
-      providers: [MembersListComponent,
+      declarations: [EPersonListComponent],
+      providers: [EPersonListComponent,
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -141,7 +141,7 @@ describe('MembersListComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MembersListComponent);
+    fixture = TestBed.createComponent(EPersonListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -152,7 +152,7 @@ describe('MembersListComponent', () => {
     fixture.debugElement.nativeElement.remove();
   }));
 
-  it('should create MembersListComponent', inject([MembersListComponent], (comp: MembersListComponent) => {
+  it('should create EpeopleListComponent', inject([EPersonListComponent], (comp: EPersonListComponent) => {
     expect(comp).toBeDefined();
   }));
 

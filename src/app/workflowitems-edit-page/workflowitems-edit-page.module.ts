@@ -18,16 +18,21 @@ import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action/
 import {
   AdvancedClaimedTaskActionsDirective
 } from './advanced-workflow-action/advanced-workflow-actions-loader/advanced-claimed-task-actions.directive';
+import { AccessControlModule } from '../access-control/access-control.module';
+import {
+  ReviewersListComponent
+} from './advanced-workflow-action/advanced-workflow-action-select-reviewer/reviewers-list/reviewers-list.component';
 
 @NgModule({
-  imports: [
-    WorkflowItemsEditPageRoutingModule,
-    CommonModule,
-    SharedModule,
-    SubmissionModule,
-    StatisticsModule,
-    ItemPageModule
-  ],
+    imports: [
+        WorkflowItemsEditPageRoutingModule,
+        CommonModule,
+        SharedModule,
+        SubmissionModule,
+        StatisticsModule,
+        ItemPageModule,
+        AccessControlModule
+    ],
   declarations: [
     WorkflowItemDeleteComponent,
     ThemedWorkflowItemDeleteComponent,
@@ -38,6 +43,7 @@ import {
     AdvancedWorkflowActionSelectReviewerComponent,
     AdvancedWorkflowActionPageComponent,
     AdvancedClaimedTaskActionsDirective,
+    ReviewersListComponent,
   ]
 })
 /**

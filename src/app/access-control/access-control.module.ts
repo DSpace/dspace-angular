@@ -10,6 +10,7 @@ import { MembersListComponent } from './group-registry/group-form/members-list/m
 import { SubgroupsListComponent } from './group-registry/group-form/subgroup-list/subgroups-list.component';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
 import { FormModule } from '../shared/form/form.module';
+import { EPersonListComponent } from './group-registry/group-form/eperson-list/eperson-list.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,10 @@ import { FormModule } from '../shared/form/form.module';
     SharedModule,
     RouterModule,
     AccessControlRoutingModule,
-    FormModule
+    FormModule,
+  ],
+  exports: [
+    EPersonListComponent,
   ],
   declarations: [
     EPeopleRegistryComponent,
@@ -25,8 +29,9 @@ import { FormModule } from '../shared/form/form.module';
     GroupsRegistryComponent,
     GroupFormComponent,
     SubgroupsListComponent,
-    MembersListComponent
-  ]
+    MembersListComponent,
+    EPersonListComponent,
+  ],
 })
 /**
  * This module handles all components related to the access control pages
