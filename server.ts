@@ -55,7 +55,6 @@ import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 import { logStartupMessage } from './startup-message';
 import { TOKENITEM } from 'src/app/core/auth/models/auth-token-info.model';
-import { isAuthenticated } from 'src/app/core/auth/selectors';
 
 
 /*
