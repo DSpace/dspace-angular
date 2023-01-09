@@ -59,6 +59,7 @@ export class ContextHelpDirective implements OnChanges, OnDestroy {
         = this.componentFactoryResolver.resolveComponentFactory(ContextHelpWrapperComponent);
       this.wrapper = this.viewContainerRef.createComponent(factory);
     }
+    console.log(this.templateRef);
     this.wrapper.instance.templateRef = this.templateRef;
     this.wrapper.instance.content = this.dsContextHelp.content;
     this.wrapper.instance.id = this.dsContextHelp.id;

@@ -81,6 +81,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
         this.contextHelpService.getContextHelp$(this.id)
           .pipe(hasValueOperator())
           .subscribe((ch: ContextHelp) => {
+
             if (ch.isTooltipVisible && !this.tooltip.isOpen()) {
               this.tooltip.open();
             } else if (!ch.isTooltipVisible && this.tooltip.isOpen()) {

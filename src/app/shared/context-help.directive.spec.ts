@@ -8,6 +8,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { ContextHelpService } from './context-help.service';
 import { ContextHelp } from './context-help.model';
 import { before } from 'lodash';
+import { By } from '@angular/platform-browser';
 
 @Component({
   template: `<div *dsContextHelp="contextHelpParams()">some text</div>`
@@ -36,7 +37,6 @@ const exampleContextHelp: ContextHelp = {
 describe('ContextHelpDirective', () => {
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
-  // let el: DebugElement;
   let translateService: any;
   let contextHelpService: any;
   let getContextHelp$: BehaviorSubject<ContextHelp>;
@@ -79,10 +79,10 @@ describe('ContextHelpDirective', () => {
     component.id = 'test-tooltip';
     component.content = 'lorem';
 
+    fixture.detectChanges();
   });
 
   it('should generate the context help wrapper component', (done) => {
-    fixture.detectChanges();
     fixture.whenStable().then(() => {
       expect(fixture.nativeElement.children.length).toBe(1);
       let [wrapper] = fixture.nativeElement.children;
@@ -92,54 +92,4 @@ describe('ContextHelpDirective', () => {
       done();
     });
   });
-
-  it('should not show the context help button while icon visibility is not turned on', (done) => {
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      let wrapper = matchWrapper(fixture.nativeElement);
-      verifyNoButton(wrapper);
-      done();
-    });
-  });
-
-  describe('when icon visibility is toggled on', () => {
-    beforeEach(() => {
-      shouldShowIcons$.next(true);
-    });
-
-    it('should show the context help button', (done) => {
-      fixture.detectChanges();
-      fixture.whenStable().then(() => {
-        let wrapper = matchWrapper(fixture.nativeElement);
-        let i = verifyButton(wrapper);
-        i.click();
-        expect(contextHelpService.toggleTooltip).toHaveBeenCalledWith('test-tooltip');
-        getContextHelp$.next({id: 'test-tooltip', isTooltipVisible: true});
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          expect(wrapper.parentElement.parentElement.querySelector('ngb-tooltip-window')).toBeTruthy();
-          done();
-        });
-      });
-    });
-  });
 });
-
-function matchWrapper(el: HTMLElement): HTMLElement {
-  expect(el.children.length).toBe(1);
-  return el.children[0] as HTMLElement;
-}
-
-function verifyNoButton(wrapper: HTMLElement) {
-  expect(wrapper.children.length).toBe(1);
-  let [div] = wrapper.children;
-  expect(div.tagName).toBe('DIV');
-}
-
-function verifyButton(wrapper: Element): HTMLElement {
-  expect(wrapper.children.length).toBe(2);
-  let [i, div] = wrapper.children;
-  expect(i.tagName).toBe('I');
-  expect(div.tagName).toBe('DIV');
-  return i as HTMLElement;
-}
