@@ -54,6 +54,8 @@ import { buildAppConfig } from './src/config/config.server';
 import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 import { logStartupMessage } from './startup-message';
+import { TOKENITEM } from 'src/app/core/auth/models/auth-token-info.model';
+import { isAuthenticated } from 'src/app/core/auth/selectors';
 
 
 /*
@@ -113,13 +115,13 @@ export function app() {
 
   /*
    * Add cookie parser middleware
-   * See [morgan](https://github.com/expressjs/cookie-parser)
+   * See [cookie-parser](https://github.com/expressjs/cookie-parser)
    */
   server.use(cookieParser());
 
   /*
-   * Add parser for request bodies
-   * See [morgan](https://github.com/expressjs/body-parser)
+   * Add JSON parser for request bodies
+   * See [body-parser](https://github.com/expressjs/body-parser)
    */
   server.use(json());
 
@@ -258,7 +260,7 @@ function serverSideRender(req, res, sendToUser: boolean = true) {
     if (hasNoValue(err) && hasValue(data)) {
       res.locals.ssr = true;  // mark response as SSR (enables text compression)
       // save server side rendered data to cache
-      saveToCache(getCacheKey(req), data);
+      saveToCache(req, data);
       if (sendToUser) {
         // send rendered page to user
         res.send(data);
@@ -313,7 +315,7 @@ function addCacheControl(req, res, next) {
  */
 function enableCache() {
   if (cacheEnabled()) {
-    // Initialize a new "least-recently-used" item cache.
+    // Initialize a new "least-recently-used" item cache (where least recently used items are removed first)
     // See https://www.npmjs.com/package/lru-cache
     cache = new LRU( {
       max: environment.cache.serverSide.max || 100,            // 100 items in cache maximum
@@ -340,8 +342,10 @@ function cacheCheck(req, res, next) {
   let cacheHit = false;
   let debug = false; // Enable to see cache hits & re-rendering logs
 
-  // Only check cache if cache enabled & SSR is enabled
-  if (cacheEnabled()) {
+  // Only check cache if cache enabled & NOT authenticated.
+  // NOTE: Authenticated users cannot use the SSR cache. Cached pages only show data available to anonymous users.
+  // Only public pages can currently be cached, as the cached data is not user-specific.
+  if (cacheEnabled() && !isUserAuthenticated(req)) {
     const key = getCacheKey(req);
 
     // Check if this page is in our cache
@@ -387,29 +391,25 @@ function getCacheKey(req): string {
 }
 
 /**
- * Save data to server side cache, if enabled. If caching is not enabled, this is a noop
- * @param key page key
+ * Save data to server side cache, if enabled. If caching is not enabled or user is authenticated, this is a noop
+ * @param req current page request
  * @param data page data to save to cache
  */
-function saveToCache(key: string, data: any) {
-  // Only cache if caching is enabled and this path is allowed to be cached
-  if (cacheEnabled() && canCachePage(key)) {
-    cache.set(key, data);
+function saveToCache(req, data: any) {
+  // Only cache if caching is enabled and no one is currently authenticated. This means ONLY public pages can be cached.
+  // NOTE: It's not safe to save page data to the cache when a user is authenticated. In that situation,
+  // the page may include sensitive or user-specific materials. As the cache is shared across all users, it can only contain public info.
+  if (cacheEnabled() && !isUserAuthenticated(req)) {
+    cache.set(getCacheKey(req), data);
   }
 }
 
 /**
- * Whether this path is allowed to be cached. Only public paths can be cached as the cache is shared across all users.
- * @param key page key (corresponds to path of page)
- * @returns true if allowed to be cached, false otherwise.
+ * Whether a user is authenticated or not
  */
-function canCachePage(key: string) {
-  // Only these publicly accessible pages can be cached.
-  // NOTE: Caching pages which require authentication is NOT ALLOWED. The same cache is used by all users & user-specific data must NEVER appear in cache.
-  const allowedPages = [/^\/$/, /^\/home$/, /^\/items\//, /^\/entities\//, /^\/collections\//, /^\/communities\//, /^\/search[\/?]?/, /\/browse\//, /^\/community-list$/];
-
-  // Check whether any of these regexs match with the passed in key
-  return allowedPages.some(regex => regex.test(key));
+function isUserAuthenticated(req): boolean {
+  // Check whether our authentication Cookie exists or not
+  return req.cookies[TOKENITEM];
 }
 
 /*

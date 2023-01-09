@@ -39,11 +39,16 @@ cache:
     maxBufferSize: 100
     timePerMethod:
       PATCH: 3 # time in seconds
-  # In-memory cache of server-side rendered content
+  # In-memory cache of server-side rendered pages. This cache stores the most recently accessed public pages.
+  # Pages are automatically added/dropped from this cache based on how recently they have been used.
   serverSide:
-    # Maximum number of pages (rendered via SSR) to cache. Set to zero to disable server side caching.
+    # Maximum number of pages to cache. Set to zero (0) to disable server side caching. Default is 100, which means
+    # the 100 most recently accessed public pages will be cached. As all pages are cached in server memory,
+    # increasing this value will increase memory needs. Individual cached pages are usually small (<100KB),
+    # so max=100 should only require a maximum of 9-10MB of memory. Restarting the app clears this page cache.
     max: 100
-    # Amount of time after which cached pages are considered stale (in ms)
+    # Amount of time after which cached pages are considered stale (in ms). After becoming stale, the cached
+    # copy is automatically refreshed on the next request.
     timeToLive: 900000 # 15 minutes
 
 # Authentication settings
