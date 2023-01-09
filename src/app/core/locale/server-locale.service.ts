@@ -1,11 +1,30 @@
 import { LANG_ORIGIN, LocaleService } from './locale.service';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { combineLatest, Observable, of as observableOf } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { NativeWindowRef, NativeWindowService } from '../services/window.service';
+import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { CookieService } from '../services/cookie.service';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '../auth/auth.service';
+import { RouteService } from '../services/route.service';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable()
 export class ServerLocaleService extends LocaleService {
+
+  constructor(
+    @Inject(NativeWindowService) protected _window: NativeWindowRef,
+    @Inject(REQUEST) protected req: Request,
+    protected cookie: CookieService,
+    protected translate: TranslateService,
+    protected authService: AuthService,
+    protected routeService: RouteService,
+    @Inject(DOCUMENT) protected document: any
+  ) {
+    super(_window, cookie, translate, authService, routeService, document);
+  }
 
   /**
    * Get the languages list of the user in Accept-Language format
@@ -49,6 +68,10 @@ export class ServerLocaleService extends LocaleService {
             }
             if (isNotEmpty(epersonLang)) {
               languages.push(...epersonLang);
+            }
+            if (hasValue(this.req.headers['accept-language'])) {
+              languages.push(...this.req.headers['accept-language'].split(',')
+              );
             }
             return languages;
           })
