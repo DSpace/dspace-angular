@@ -4069,6 +4069,10 @@
 
   "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
 
+  "submission.workflow.tasks.claimed.decline": "Decline",
+
+  "submission.workflow.tasks.claimed.decline_help": "",
+
   "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
 
   "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describe the reason of reject",

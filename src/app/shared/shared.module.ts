@@ -181,6 +181,7 @@ import { AdvancedClaimedTaskActionSelectReviewerComponent } from './mydspace-act
 import {
   AdvancedClaimedTaskActionRatingReviewerComponent
 } from './mydspace-actions/claimed-task/rating-reviewer/advanced-claimed-task-action-rating-reviewer.component';
+import { ClaimedTaskActionsDeclineTaskComponent } from './mydspace-actions/claimed-task/decline-task/claimed-task-actions-decline-task.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -265,6 +266,7 @@ const COMPONENTS = [
   ClaimedTaskActionsRejectComponent,
   ClaimedTaskActionsReturnToPoolComponent,
   ClaimedTaskActionsEditMetadataComponent,
+  ClaimedTaskActionsDeclineTaskComponent,
   ClaimedTaskActionsLoaderComponent,
   ItemActionsComponent,
   PoolTaskActionsComponent,
@@ -389,6 +391,7 @@ const ENTRY_COMPONENTS = [
   LogInOidcComponent,
   BundleListElementComponent,
   ClaimedTaskActionsApproveComponent,
+  ClaimedTaskActionsDeclineTaskComponent,
   ClaimedTaskActionsRejectComponent,
   ClaimedTaskActionsReturnToPoolComponent,
   ClaimedTaskActionsEditMetadataComponent,
