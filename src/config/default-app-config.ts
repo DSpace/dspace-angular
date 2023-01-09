@@ -68,7 +68,7 @@ export class DefaultAppConfig implements AppConfig {
       default: 15 * 60 * 1000 // 15 minutes
     },
     // Cache-Control HTTP Header
-    control: 'max-age=60', // revalidate browser
+    control: 'max-age=604800', // revalidate browser
     autoSync: {
       defaultTime: 0,
       maxBufferSize: 100,

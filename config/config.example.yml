@@ -32,8 +32,12 @@ cache:
   # NOTE: how long should objects be cached for by default
   msToLive:
     default: 900000 # 15 minutes
-  # Cache-Control HTTP Header
-  control: max-age=60 # revalidate browser
+  # Default 'Cache-Control' HTTP Header to set for all static content (including compiled *.js files)
+  # Defaults to max-age=604,800 seconds (one week). This lets a user's browser know that it can cache these
+  # files for one week, after which they will be "stale" and need to be redownloaded.
+  # NOTE: When updates are made to compiled *.js files, it will automatically bypass this browser cache, because
+  # all compiled *.js files include a unique hash in their name which updates when content is modified.
+  control: max-age=604800 # revalidate browser
   autoSync:
     defaultTime: 0
     maxBufferSize: 100
