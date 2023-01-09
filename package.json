@@ -106,6 +106,7 @@
     "jwt-decode": "^3.1.2",
     "klaro": "^0.7.18",
     "lodash": "^4.17.21",
+    "lru-cache": "^7.14.1",
     "markdown-it": "^13.0.1",
     "markdown-it-mathjax3": "^4.3.1",
     "mirador": "^3.3.0",

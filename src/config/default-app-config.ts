@@ -67,11 +67,19 @@ export class DefaultAppConfig implements AppConfig {
     msToLive: {
       default: 15 * 60 * 1000 // 15 minutes
     },
+    // Cache-Control HTTP Header
     control: 'max-age=60', // revalidate browser
     autoSync: {
       defaultTime: 0,
       maxBufferSize: 100,
       timePerMethod: { [RestRequestMethod.PATCH]: 3 } as any // time in seconds
+    },
+    // In-memory cache of server-side rendered content
+    serverSide: {
+      // Maximum number of pages (rendered via SSR) to cache. Set to zero to disable server side caching.
+      max: 100,
+      // Amount of time after which cached pages are considered stale (in ms)
+      timeToLive: 15 * 60 * 1000 // 15 minutes
     }
   };
 
