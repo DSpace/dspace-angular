@@ -49,7 +49,7 @@ const LAZY_KLARO = new InjectionToken<Promise<any>>(
   'Lazily loaded Klaro',
   {
     providedIn: 'root',
-    factory: async () => (await import('klaro')),
+    factory: async () => (await import('klaro/dist/klaro-no-translations')),
   }
 );
 
