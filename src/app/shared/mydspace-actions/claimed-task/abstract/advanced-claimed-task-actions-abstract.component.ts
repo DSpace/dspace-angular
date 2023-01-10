@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ClaimedTaskActionsAbstractComponent } from './claimed-task-actions-abstract.component';
+import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 
 /**
  * Abstract component for rendering an advanced claimed task's action
@@ -12,7 +15,7 @@ import { ClaimedTaskActionsAbstractComponent } from './claimed-task-actions-abst
   selector: 'ds-advanced-claimed-task-action-abstract',
   template: ''
 })
-export abstract class AdvancedClaimedTaskActionsAbstractComponent extends ClaimedTaskActionsAbstractComponent {
+export abstract class AdvancedClaimedTaskActionsAbstractComponent extends ClaimedTaskActionsAbstractComponent implements OnInit {
 
   workflowType: string;
 
@@ -21,10 +24,27 @@ export abstract class AdvancedClaimedTaskActionsAbstractComponent extends Claime
    */
   workflowTaskPageRoute: string;
 
+  ngOnInit(): void {
+    super.ngOnInit();
+    this.initPageRoute();
+  }
+
+  /**
+   * Initialise the route to the advanced workflow page
+   */
+  initPageRoute() {
+    this.subs.push(this.object.workflowitem.pipe(
+      getFirstSucceededRemoteDataPayload()
+    ).subscribe((workflowItem: WorkflowItem) => {
+      this.workflowTaskPageRoute = getAdvancedWorkflowRoute(workflowItem.id);
+    }));
+  }
+
   openAdvancedClaimedTaskTab(): void {
     void this.router.navigate([this.workflowTaskPageRoute], {
       queryParams: {
         workflow: this.workflowType,
+        claimedTask: this.object.id,
       },
     });
   }

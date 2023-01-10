@@ -8,7 +8,6 @@ import { NotificationsService } from '../../../notifications/notifications.servi
 import { TranslateService } from '@ngx-translate/core';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
-import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import {
   ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER,
   WORKFLOW_ADVANCED_TASK_OPTION_SELECT_REVIEWER
@@ -38,17 +37,6 @@ export class AdvancedClaimedTaskActionSelectReviewerComponent extends AdvancedCl
     protected requestService: RequestService,
   ) {
     super(injector, router, notificationsService, translate, searchService, requestService);
-  }
-
-  ngOnInit(): void {
-    this.initPageRoute();
-  }
-
-  /**
-   * Initialise the route to the select reviewer's page
-   */
-  initPageRoute() {
-    this.workflowTaskPageRoute = getAdvancedWorkflowRoute(this.object.id);
   }
 
 }

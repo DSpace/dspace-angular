@@ -4,7 +4,6 @@ import { NotificationsService } from '../../../notifications/notifications.servi
 import { TranslateService } from '@ngx-translate/core';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
-import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import {
   AdvancedClaimedTaskActionsAbstractComponent
 } from '../abstract/advanced-claimed-task-actions-abstract.component';
@@ -28,11 +27,6 @@ export class AdvancedClaimedTaskActionRatingReviewerComponent extends AdvancedCl
 
   workflowType = ADVANCED_WORKFLOW_ACTION_RATING_REVIEWER;
 
-  /**
-   * Route to the workflow's task page
-   */
-  workflowTaskPageRoute: string;
-
   constructor(
     protected injector: Injector,
     protected router: Router,
@@ -42,17 +36,6 @@ export class AdvancedClaimedTaskActionRatingReviewerComponent extends AdvancedCl
     protected requestService: RequestService,
   ) {
     super(injector, router, notificationsService, translate, searchService, requestService);
-  }
-
-  ngOnInit(): void {
-    this.initPageRoute();
-  }
-
-  /**
-   * Initialise the route to the rating reviewer's page
-   */
-  initPageRoute(): void {
-    this.workflowTaskPageRoute = getAdvancedWorkflowRoute(this.object.id);
   }
 
 }

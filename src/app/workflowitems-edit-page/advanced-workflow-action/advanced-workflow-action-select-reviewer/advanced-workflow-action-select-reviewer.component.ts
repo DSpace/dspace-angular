@@ -26,7 +26,7 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
 
   multipleReviewers = true;
 
-  selectedReviewers: EPerson[];
+  selectedReviewers: EPerson[] = [];
 
   reviewersListActionConfig: EPersonListActionConfig;
 

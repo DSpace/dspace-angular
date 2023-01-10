@@ -19,11 +19,19 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ADVANCED_WORKFLOW_ACTION_RATING_REVIEWER
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating-reviewer/advanced-workflow-action-rating-reviewer.component';
+import { of as observableOf } from 'rxjs';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 
 const taskId = 'claimed-task-1';
+const workflowId = 'workflow-1';
 
 describe('AdvancedClaimedTaskActionRatingReviewerComponent', () => {
-  const object = Object.assign(new ClaimedTask(), { id: taskId });
+  const object = Object.assign(new ClaimedTask(), {
+    id: taskId,
+    workflowitem: observableOf(Object.assign(new WorkflowItem(), {
+      id: workflowId,
+    })),
+  });
   let component: AdvancedClaimedTaskActionRatingReviewerComponent;
   let fixture: ComponentFixture<AdvancedClaimedTaskActionRatingReviewerComponent>;
 
@@ -75,11 +83,13 @@ describe('AdvancedClaimedTaskActionRatingReviewerComponent', () => {
   });
 
   it('should navigate to the advanced workflow page when clicked', () => {
+    component.workflowTaskPageRoute = `/workflowitems/${workflowId}/advanced`;
     fixture.debugElement.query(By.css('.ratingReviewerAction')).nativeElement.click();
 
-    expect(router.navigate).toHaveBeenCalledWith([`/workflowitems/${taskId}/advanced`], {
+    expect(router.navigate).toHaveBeenCalledWith([`/workflowitems/${workflowId}/advanced`], {
       queryParams: {
         workflow: ADVANCED_WORKFLOW_ACTION_RATING_REVIEWER,
+        claimedTask: taskId,
       },
     });
   });

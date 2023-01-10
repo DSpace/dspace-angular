@@ -20,11 +20,19 @@ import { Location } from '@angular/common';
 import {
   ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { of as observableOf } from 'rxjs';
 
 const taskId = 'claimed-task-1';
+const workflowId = 'workflow-1';
 
 describe('AdvancedClaimedTaskActionSelectReviewerComponent', () => {
-  const object = Object.assign(new ClaimedTask(), { id: taskId });
+  const object = Object.assign(new ClaimedTask(), {
+    id: taskId,
+    workflowitem: observableOf(Object.assign(new WorkflowItem(), {
+      id: workflowId,
+    })),
+  });
   let component: AdvancedClaimedTaskActionSelectReviewerComponent;
   let fixture: ComponentFixture<AdvancedClaimedTaskActionSelectReviewerComponent>;
 
@@ -77,11 +85,13 @@ describe('AdvancedClaimedTaskActionSelectReviewerComponent', () => {
   });
 
   it('should navigate to the advanced workflow page when clicked', () => {
+    component.workflowTaskPageRoute = `/workflowitems/${workflowId}/advanced`;
     fixture.debugElement.query(By.css('.selectReviewerAction')).nativeElement.click();
 
-    expect(router.navigate).toHaveBeenCalledWith([`/workflowitems/${taskId}/advanced`], {
+    expect(router.navigate).toHaveBeenCalledWith([`/workflowitems/${workflowId}/advanced`], {
       queryParams: {
         workflow: ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER,
+        claimedTask: taskId,
       },
     });
   });
