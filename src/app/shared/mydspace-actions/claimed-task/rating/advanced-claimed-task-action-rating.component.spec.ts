@@ -1,7 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  AdvancedClaimedTaskActionRatingReviewerComponent
-} from './advanced-claimed-task-action-rating-reviewer.component';
+import { AdvancedClaimedTaskActionRatingComponent } from './advanced-claimed-task-action-rating.component';
 import { By } from '@angular/platform-browser';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ClaimedTaskDataServiceStub } from '../../../testing/claimed-task-data-service.stub';
@@ -17,23 +15,23 @@ import { Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  ADVANCED_WORKFLOW_ACTION_RATING_REVIEWER
-} from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating-reviewer/advanced-workflow-action-rating-reviewer.component';
+  ADVANCED_WORKFLOW_ACTION_RATING
+} from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
 import { of as observableOf } from 'rxjs';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 
 const taskId = 'claimed-task-1';
 const workflowId = 'workflow-1';
 
-describe('AdvancedClaimedTaskActionRatingReviewerComponent', () => {
+describe('AdvancedClaimedTaskActionRatingComponent', () => {
   const object = Object.assign(new ClaimedTask(), {
     id: taskId,
     workflowitem: observableOf(Object.assign(new WorkflowItem(), {
       id: workflowId,
     })),
   });
-  let component: AdvancedClaimedTaskActionRatingReviewerComponent;
-  let fixture: ComponentFixture<AdvancedClaimedTaskActionRatingReviewerComponent>;
+  let component: AdvancedClaimedTaskActionRatingComponent;
+  let fixture: ComponentFixture<AdvancedClaimedTaskActionRatingComponent>;
 
   let claimedTaskDataService: ClaimedTaskDataServiceStub;
   let notificationService: NotificationsServiceStub;
@@ -51,7 +49,7 @@ describe('AdvancedClaimedTaskActionRatingReviewerComponent', () => {
         TranslateModule.forRoot(),
       ],
       declarations: [
-        AdvancedClaimedTaskActionRatingReviewerComponent,
+        AdvancedClaimedTaskActionRatingComponent,
       ],
       providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },
@@ -66,7 +64,7 @@ describe('AdvancedClaimedTaskActionRatingReviewerComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdvancedClaimedTaskActionRatingReviewerComponent);
+    fixture = TestBed.createComponent(AdvancedClaimedTaskActionRatingComponent);
     component = fixture.componentInstance;
     component.object = object;
     fixture.detectChanges();
@@ -88,7 +86,7 @@ describe('AdvancedClaimedTaskActionRatingReviewerComponent', () => {
 
     expect(router.navigate).toHaveBeenCalledWith([`/workflowitems/${workflowId}/advanced`], {
       queryParams: {
-        workflow: ADVANCED_WORKFLOW_ACTION_RATING_REVIEWER,
+        workflow: ADVANCED_WORKFLOW_ACTION_RATING,
         claimedTask: taskId,
       },
     });

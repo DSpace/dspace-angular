@@ -179,8 +179,8 @@ import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 import { AdvancedClaimedTaskActionSelectReviewerComponent } from './mydspace-actions/claimed-task/select-reviewer/advanced-claimed-task-action-select-reviewer.component';
 import {
-  AdvancedClaimedTaskActionRatingReviewerComponent
-} from './mydspace-actions/claimed-task/rating-reviewer/advanced-claimed-task-action-rating-reviewer.component';
+  AdvancedClaimedTaskActionRatingComponent
+} from './mydspace-actions/claimed-task/rating/advanced-claimed-task-action-rating.component';
 import { ClaimedTaskActionsDeclineTaskComponent } from './mydspace-actions/claimed-task/decline-task/claimed-task-actions-decline-task.component';
 
 const MODULES = [
@@ -353,7 +353,7 @@ const COMPONENTS = [
   SearchNavbarComponent,
   ScopeSelectorModalComponent,
   AdvancedClaimedTaskActionSelectReviewerComponent,
-  AdvancedClaimedTaskActionRatingReviewerComponent,
+  AdvancedClaimedTaskActionRatingComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -412,7 +412,7 @@ const ENTRY_COMPONENTS = [
   TextMenuItemComponent,
   ScopeSelectorModalComponent,
   AdvancedClaimedTaskActionSelectReviewerComponent,
-  AdvancedClaimedTaskActionRatingReviewerComponent,
+  AdvancedClaimedTaskActionRatingComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

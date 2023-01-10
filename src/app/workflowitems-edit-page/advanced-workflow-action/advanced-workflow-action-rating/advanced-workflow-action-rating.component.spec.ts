@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdvancedWorkflowActionRatingReviewerComponent } from './advanced-workflow-action-rating-reviewer.component';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { AdvancedWorkflowActionRatingComponent } from './advanced-workflow-action-rating.component';
+import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -12,12 +12,17 @@ import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { WorkflowActionDataServiceStub } from '../../../shared/testing/workflow-action-data-service.stub';
 import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { TranslateModule } from '@ngx-translate/core';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { RatingModule } from 'ngx-bootstrap/rating';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const workflowId = '1';
 
-describe('AdvancedWorkflowActionRatingReviewerComponent', () => {
-  let component: AdvancedWorkflowActionRatingReviewerComponent;
-  let fixture: ComponentFixture<AdvancedWorkflowActionRatingReviewerComponent>;
+describe('AdvancedWorkflowActionRatingComponent', () => {
+  let component: AdvancedWorkflowActionRatingComponent;
+  let fixture: ComponentFixture<AdvancedWorkflowActionRatingComponent>;
 
   let claimedTaskDataService: ClaimedTaskDataServiceStub;
   let notificationService: NotificationsServiceStub;
@@ -31,8 +36,15 @@ describe('AdvancedWorkflowActionRatingReviewerComponent', () => {
     workflowItemDataService = new WorkflowItemDataServiceStub();
 
     await TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+        RatingModule,
+        ReactiveFormsModule,
+        TranslateModule.forRoot(),
+      ],
       declarations: [
-        AdvancedWorkflowActionRatingReviewerComponent,
+        AdvancedWorkflowActionRatingComponent,
+        VarDirective,
       ],
       providers: [
         {
@@ -51,6 +63,7 @@ describe('AdvancedWorkflowActionRatingReviewerComponent', () => {
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },
         { provide: NotificationsService, useValue: notificationService },
         { provide: RouteService, useValue: routeServiceStub },
+        { provide: Router, useValue: new RouterStub() },
         { provide: WorkflowActionDataService, useValue: workflowActionDataService },
         { provide: WorkflowItemDataService, useValue: workflowItemDataService },
       ],
@@ -58,9 +71,13 @@ describe('AdvancedWorkflowActionRatingReviewerComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdvancedWorkflowActionRatingReviewerComponent);
+    fixture = TestBed.createComponent(AdvancedWorkflowActionRatingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    fixture.debugElement.nativeElement.remove();
   });
 
   it('should create', () => {

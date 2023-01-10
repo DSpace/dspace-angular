@@ -44,7 +44,7 @@ export abstract class AdvancedWorkflowActionComponent extends WorkflowItemAction
   /**
    * Performs the action and shows a notification based on the outcome of the action
    */
-  performAction() {
+  performAction(): void {
     this.sendRequest(this.route.snapshot.queryParams.claimedTask).subscribe((successful: boolean) => {
       if (successful) {
         const title = this.translationService.get('workflow-item.' + this.type + '.notification.success.title');

@@ -539,6 +539,17 @@
   "admin.metadata-import.page.error.addFile": "Select file first!",
 
 
+  "advanced-workflow-action.rating.form.rating.label": "Rating",
+
+  "advanced-workflow-action.rating.form.review.label": "Review",
+
+  "advanced-workflow-action.rating.form.review.error": "You must enter a review to submit this rating",
+
+  "advanced-workflow-action.rating.description": "Please select a rating below",
+
+  "advanced-workflow-action.rating.description-requiredDescription": "Please select a rating below and also add a review",
+
+
   "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
 
   "advanced-workflow-action.select-reviewer.description-multiple": "Please select one or more reviewers below before submitting",
@@ -4061,9 +4072,9 @@
   "submission.workflow.generic.submit_select_reviewer-help": "",
 
 
-  "submission.workflow.generic.submit_rating_reviewer": "Rating Reviewer",
+  "submission.workflow.generic.rating": "Rate",
 
-  "submission.workflow.generic.submit_rating_reviewer-help": "",
+  "submission.workflow.generic.rating-help": "",
 
 
   "submission.workflow.tasks.claimed.approve": "Approve",
@@ -4241,8 +4252,21 @@
   "workflow-item.selectrevieweraction.button.confirm": "Confirm",
 
 
-  "workflow-item.ratingrevieweraction.header": "Rating Reviewer",
+  "workflow-item.ratingreviewaction.notification.success.title": "Rating review",
 
+  "workflow-item.ratingreviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted",
+
+  "workflow-item.ratingreviewaction.notification.error.title": "Something went wrong",
+
+  "workflow-item.ratingreviewaction.notification.error.content": "Couldn't rate this item",
+
+  "workflow-item.ratingreviewaction.title": "Rate this item",
+
+  "workflow-item.ratingreviewaction.header": "Rate this item",
+
+  "workflow-item.ratingreviewaction.button.cancel": "Cancel",
+
+  "workflow-item.ratingreviewaction.button.confirm": "Confirm",
 
   "idle-modal.header": "Session will expire soon",
 

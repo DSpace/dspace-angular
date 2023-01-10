@@ -8,24 +8,25 @@ import {
   AdvancedClaimedTaskActionsAbstractComponent
 } from '../abstract/advanced-claimed-task-actions-abstract.component';
 import {
-  ADVANCED_WORKFLOW_ACTION_RATING_REVIEWER
-} from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating-reviewer/advanced-workflow-action-rating-reviewer.component';
+  ADVANCED_WORKFLOW_ACTION_RATING,
+  WORKFLOW_ADVANCED_TASK_OPTION_RATING,
+} from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
+import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
-export const WORKFLOW_ADVANCED_TASK_OPTION_RATING_REVIEWER = 'submit_rating_reviewer';
-
+@rendersWorkflowTaskOption(WORKFLOW_ADVANCED_TASK_OPTION_RATING)
 @Component({
   selector: 'ds-advanced-claimed-task-action-rating-reviewer',
-  templateUrl: './advanced-claimed-task-action-rating-reviewer.component.html',
-  styleUrls: ['./advanced-claimed-task-action-rating-reviewer.component.scss']
+  templateUrl: './advanced-claimed-task-action-rating.component.html',
+  styleUrls: ['./advanced-claimed-task-action-rating.component.scss']
 })
-export class AdvancedClaimedTaskActionRatingReviewerComponent extends AdvancedClaimedTaskActionsAbstractComponent {
+export class AdvancedClaimedTaskActionRatingComponent extends AdvancedClaimedTaskActionsAbstractComponent {
 
   /**
    * This component represents the advanced select option
    */
-  option = WORKFLOW_ADVANCED_TASK_OPTION_RATING_REVIEWER;
+  option = WORKFLOW_ADVANCED_TASK_OPTION_RATING;
 
-  workflowType = ADVANCED_WORKFLOW_ACTION_RATING_REVIEWER;
+  workflowType = ADVANCED_WORKFLOW_ACTION_RATING;
 
   constructor(
     protected injector: Injector,
