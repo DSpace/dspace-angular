@@ -1179,6 +1179,11 @@
   "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
 
 
+  "comcol-role.edit.scorereviewers.name": "Score Reviewers",
+
+  "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
+
+
 
   "community.form.abstract": "Short Description",
 
