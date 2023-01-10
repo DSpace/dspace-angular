@@ -15,6 +15,9 @@ let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
 const dcTitle = 'This is just another <em>title</em>';
 const mockItemWithMetadata: ItemSearchResult = Object.assign(new ItemSearchResult(), {
+  hitHighlights: {
+    'dc.title': [dcTitle],
+  },
   indexableObject:
     Object.assign(new Item(), {
       bundles: observableOf({}),
@@ -22,7 +25,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(new ItemSearchResul
         'dc.title': [
           {
             language: 'en_US',
-            value: dcTitle
+            value: 'This is just another title'
           }
         ],
         'dc.contributor.author': [
