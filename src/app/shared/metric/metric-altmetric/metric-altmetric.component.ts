@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BaseEmbeddedMetricComponent } from '../metric-loader/base-embedded-metric.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { hasValue } from '../../empty.util';
@@ -13,7 +13,7 @@ declare let _altmetric_embed_init: any;
 export class MetricAltmetricComponent extends BaseEmbeddedMetricComponent implements OnInit {
   remark: JSON;
 
-  constructor(protected sr: DomSanitizer, private cdr: ChangeDetectorRef) {
+  constructor(protected sr: DomSanitizer) {
     super(sr);
   }
 
