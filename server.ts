@@ -93,12 +93,12 @@ export function app() {
   /*
    * If production mode is enabled in the environment file:
    * - Enable Angular's production mode
-   * - Enable caching of SSR rendered pages (if enabled in config.yml)
+   * - Initialize caching of SSR rendered pages (if enabled in config.yml)
    * - Enable compression for SSR reponses. See [compression](https://github.com/expressjs/compression)
    */
   if (environment.production) {
     enableProdMode();
-    enableCache();
+    initCache();
     server.use(compression({
       // only compress responses we've marked as SSR
       // otherwise, this middleware may compress files we've chosen not to compress via compression-webpack-plugin
@@ -310,9 +310,9 @@ function addCacheControl(req, res, next) {
 }
 
 /*
- * Enable server-side caching of pages rendered via SSR.
+ * Initialize server-side caching of pages rendered via SSR.
  */
-function enableCache() {
+function initCache() {
   if (cacheEnabled()) {
     // Initialize a new "least-recently-used" item cache (where least recently used items are removed first)
     // See https://www.npmjs.com/package/lru-cache
