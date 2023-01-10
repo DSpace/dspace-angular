@@ -34,19 +34,19 @@ export class MyDSpaceItemStatusComponent implements OnInit {
     this.badgeClass = 'text-light badge ';
     switch (this.status) {
       case MyDspaceItemStatusType.VALIDATION:
-        this.badgeClass += 'badge-warning';
+        this.badgeClass += 'badge-validation';
         break;
       case MyDspaceItemStatusType.WAITING_CONTROLLER:
-        this.badgeClass += 'badge-info';
+        this.badgeClass += 'badge-waiting-controller';
         break;
       case MyDspaceItemStatusType.WORKSPACE:
-        this.badgeClass += 'badge-primary';
+        this.badgeClass += 'badge-workspace';
         break;
       case MyDspaceItemStatusType.ARCHIVED:
-        this.badgeClass += 'badge-success';
+        this.badgeClass += 'badge-archived';
         break;
       case MyDspaceItemStatusType.WORKFLOW:
-        this.badgeClass += 'badge-info';
+        this.badgeClass += 'badge-workflow';
         break;
     }
   }
