@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { BaseEmbeddedMetricComponent } from '../metric-loader/base-embedded-metric.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { hasValue } from '../../empty.util';
@@ -13,11 +13,6 @@ declare let __dimensions_embed: any;
 export class MetricDimensionsComponent extends BaseEmbeddedMetricComponent implements OnInit, OnDestroy {
   remark: JSON;
 
-  /**
-   * boolean used to check if the #metricChild child is hidden or not
-   */
-  isDimensionHidden = false;
-
   private unlistener: () => void;
 
   constructor(private renderer2: Renderer2, private cdr: ChangeDetectorRef, protected sr: DomSanitizer) {
@@ -26,20 +21,22 @@ export class MetricDimensionsComponent extends BaseEmbeddedMetricComponent imple
 
   ngOnInit() {
     if (hasValue(this.metric.remark)) {
-        this.remark = JSON.parse(this.metric.remark);
+      this.remark = JSON.parse(this.metric.remark);
     }
   }
 
   applyScript(): void {
     __dimensions_embed.addBadges();
-    this.unlistener = this.renderer2.listen(this.metricChild?.nativeElement, "dimensions_embed:hide", event => {
-        this.isDimensionHidden = true;
-        this.cdr.detectChanges();
+    this.unlistener = this.renderer2.listen(this.metricChild?.nativeElement, 'dimensions_embed:hide', () => {
+      this.isHidden$.next(true);
+      this.hide.emit(true);
     });
-    
+
   }
 
   ngOnDestroy() {
-    this.unlistener();
+    if (this.unlistener) {
+      this.unlistener();
+    }
   }
 }

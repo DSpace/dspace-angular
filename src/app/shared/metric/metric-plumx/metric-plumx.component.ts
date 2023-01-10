@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, Inject, Injector, OnInit, OnDestroy, Renderer2 } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, Inject, Injector, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+
 import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 import { hasValue } from '../../empty.util';
 import { MetricLoadScriptService } from '../metric-loader/metric-load-script.service';
@@ -14,18 +14,15 @@ export class MetricPlumxComponent extends BaseMetricComponent implements OnInit,
   remark: JSON;
 
   private metricLoaderService: MetricLoadScriptService;
-  /**
-   * boolean used to check if the #metricChild child is hidden or not
-   */
-  isPlumxHidden = false;
 
   private unlistenerEmpty: () => void;
   private unlistenerError: () => void;
   private unlistenerSuccess: () => void;
+
   constructor(
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
     protected injector: Injector,
-    private renderer2: Renderer2, private cdr: ChangeDetectorRef) {
+    private renderer2: Renderer2) {
     super();
   }
 
@@ -40,31 +37,22 @@ export class MetricPlumxComponent extends BaseMetricComponent implements OnInit,
       await this.metricLoaderService.loadScript('plumX', script);
       // use the method to find and render all placeholders that haven't already been initialized
       this._window.nativeWindow.__plumX.widgets.init();
-      
-      this.unlistenerSuccess = this.renderer2.listen(
-        this._window.nativeWindow, 
-        "plum:widget-load", event => {
-          this.isPlumxHidden = false;
-          this.isVisible$.next(true);
-          this.cdr.detectChanges();
-        });
+
       this.unlistenerEmpty = this.renderer2.listen(
-        this._window.nativeWindow, 
-        "plum:widget-empty", event => {
-          this.isPlumxHidden = true;
-          this.isVisible$.next(false);
-          this.cdr.detectChanges();
+        this._window.nativeWindow,
+        'plum:widget-empty', event => {
+          this.isHidden$.next(true);
+          this.hide.emit(true);
         });
       this.unlistenerError = this.renderer2.listen(
-        this._window.nativeWindow, 
-        "plum:widget-error", event => {
-          this.isPlumxHidden = true;
-          this.isVisible$.next(false);
-          this.cdr.detectChanges();
-        });  
+        this._window.nativeWindow,
+        'plum:widget-error', event => {
+          this.isHidden$.next(true);
+          this.hide.emit(true);
+        });
     }
   }
-  
+
   ngOnDestroy() {
     this.unlistenerEmpty();
     this.unlistenerError();

@@ -1,5 +1,5 @@
-<div class="row d-flex align-items-center" 
-     *ngIf="!failed && !isAltmetricHidden && (remark | dsListMetricProps: 'data-badge-enabled':isListElement == true)">
+<div class="row d-flex align-items-center"
+     *ngIf="!failed && !(isHidden$ | async) && (remark | dsListMetricProps: 'data-badge-enabled':isListElement == true)">
   <div class="col-5 text-left">
     <div #metricChild>
       <div

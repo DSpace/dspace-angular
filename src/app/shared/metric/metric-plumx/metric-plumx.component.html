@@ -1,4 +1,4 @@
-<div class="row d-flex align-items-center justify-content-center" *ngIf="remark && !isPlumxHidden">
+<div class="row d-flex align-items-center justify-content-center" *ngIf="remark && !(isHidden$ | async)">
   <div *ngIf="(remark | dsListMetricProps: 'type':isListElement) == 'Person'; else publication" [ngClass]="{'person-type-plumX': isListElement}">
     <a *ngIf="remark && (remark | dsListMetricProps: 'data-person-badge-enabled':isListElement == true)"
       [href]="remark | dsListMetricProps: 'href':isListElement"

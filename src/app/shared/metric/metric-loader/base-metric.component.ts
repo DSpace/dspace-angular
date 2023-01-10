@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { Observable } from 'rxjs';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { Metric } from '../../../core/shared/metric.model';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   template: ''
@@ -14,8 +14,10 @@ export abstract class BaseMetricComponent {
 
   @Input() isListElement = false;
 
-  isVisible$: BehaviorSubject<boolean> = new BehaviorSubject(true);
-  public isVisible(): Observable<boolean> {
-    return this.isVisible$;
-  }
+  @Output() hide: EventEmitter<boolean> = new EventEmitter();
+
+  /**
+   * A boolean representing if the metric content is hidden or not
+   */
+  isHidden$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 }
