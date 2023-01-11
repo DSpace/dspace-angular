@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 
 import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 
 import { isEmpty } from '../../../empty.util';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
@@ -31,7 +31,8 @@ export class RowParser {
                scopeUUID,
                initFormValues: any,
                submissionScope,
-               readOnly: boolean): DynamicRowGroupModel {
+               readOnly: boolean,
+               typeField: string): DynamicRowGroupModel {
     let fieldModel: any = null;
     let parsedResult = null;
     const config: DynamicFormGroupModelConfig = {
@@ -47,7 +48,8 @@ export class RowParser {
     const parserOptions: ParserOptions = {
       readOnly: readOnly,
       submissionScope: submissionScope,
-      collectionUUID: scopeUUID
+      collectionUUID: scopeUUID,
+      typeField: typeField
     };
 
     // Iterate over row's fields

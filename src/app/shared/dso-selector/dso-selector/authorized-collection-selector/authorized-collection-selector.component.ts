@@ -15,7 +15,8 @@ import { hasValue } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Collection } from '../../../../core/shared/collection.model';
-import { FindListOptions } from '../../../../core/data/request.models';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { FindListOptions } from '../../../../core/data/find-list-options.model';
 
 @Component({
   selector: 'ds-authorized-collection-selector',
@@ -31,11 +32,14 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
    */
   @Input() entityType: string;
 
-  constructor(protected searchService: SearchService,
-              protected collectionDataService: CollectionDataService,
-              protected notifcationsService: NotificationsService,
-              protected translate: TranslateService) {
-    super(searchService, notifcationsService, translate);
+  constructor(
+    protected searchService: SearchService,
+    protected collectionDataService: CollectionDataService,
+    protected notifcationsService: NotificationsService,
+    protected translate: TranslateService,
+    protected dsoNameService: DSONameService,
+  ) {
+    super(searchService, notifcationsService, translate, dsoNameService);
   }
 
   /**
@@ -49,8 +53,9 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
    * Perform a search for authorized collections with the current query and page
    * @param query Query to search objects for
    * @param page  Page to retrieve
+   * @param useCache Whether or not to use the cache
    */
-  search(query: string, page: number): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+  search(query: string, page: number, useCache: boolean = true): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     let searchListService$: Observable<RemoteData<PaginatedList<Collection>>> = null;
     const findOptions: FindListOptions = {
       currentPage: page,
@@ -65,7 +70,7 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
           findOptions);
     } else {
       searchListService$ = this.collectionDataService
-        .getAuthorizedCollection(query, findOptions, true, false, followLink('parentCommunity'));
+        .getAuthorizedCollection(query, findOptions, useCache, false, followLink('parentCommunity'));
     }
     return searchListService$.pipe(
       getFirstCompletedRemoteData(),

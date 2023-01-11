@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltipModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { SharedModule } from '../../shared/shared.module';
 import { EditItemPageRoutingModule } from './edit-item-page.routing.module';
@@ -15,6 +15,7 @@ import { ItemPrivateComponent } from './item-private/item-private.component';
 import { ItemPublicComponent } from './item-public/item-public.component';
 import { ItemDeleteComponent } from './item-delete/item-delete.component';
 import { ItemMetadataComponent } from './item-metadata/item-metadata.component';
+import { ThemedItemMetadataComponent } from './item-metadata/themed-item-metadata.component';
 import { EditInPlaceFieldComponent } from './item-metadata/edit-in-place-field/edit-in-place-field.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
 import { ItemEditBitstreamComponent } from './item-bitstreams/item-edit-bitstream/item-edit-bitstream.component';
@@ -35,6 +36,7 @@ import { ItemVersionHistoryComponent } from './item-version-history/item-version
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
 import { ObjectValuesPipe } from '../../shared/utils/object-values-pipe';
 import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-policies.module';
+import { ItemVersionsModule } from '../versions/item-versions.module';
 import { ThemedItemStatusComponent } from './item-status/themed-item-status.component';
 
 
@@ -49,7 +51,9 @@ import { ThemedItemStatusComponent } from './item-status/themed-item-status.comp
     EditItemPageRoutingModule,
     SearchPageModule,
     DragDropModule,
-    ResourcePoliciesModule
+    ResourcePoliciesModule,
+    NgbModule,
+    ItemVersionsModule,
   ],
   declarations: [
     EditItemPageComponent,
@@ -64,6 +68,7 @@ import { ThemedItemStatusComponent } from './item-status/themed-item-status.comp
     ItemStatusComponent,
     ThemedItemStatusComponent,
     ItemMetadataComponent,
+    ThemedItemMetadataComponent,
     ItemRelationshipsComponent,
     ItemBitstreamsComponent,
     ItemVersionHistoryComponent,
@@ -85,7 +90,8 @@ import { ThemedItemStatusComponent } from './item-status/themed-item-status.comp
     ObjectValuesPipe
   ],
   exports: [
-    ItemMetadataComponent,
+    EditInPlaceFieldComponent,
+    ThemedItemMetadataComponent,
     ItemOperationComponent,
   ]
 })

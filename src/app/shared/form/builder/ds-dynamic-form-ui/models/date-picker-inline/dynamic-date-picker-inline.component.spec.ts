@@ -3,7 +3,6 @@ import { DebugElement } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
-import { TextMaskModule } from 'angular2-text-mask';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicDatePickerModel, DynamicFormsCoreModule, DynamicFormService } from '@ng-dynamic-forms/core';
 import { DsDatePickerInlineComponent } from './dynamic-date-picker-inline.component';
@@ -25,7 +24,6 @@ describe('DsDatePickerInlineComponent test suite', () => {
       imports: [
         ReactiveFormsModule,
         NoopAnimationsModule,
-        TextMaskModule,
         NgbDatepickerModule,
         DynamicFormsCoreModule.forRoot()
       ],

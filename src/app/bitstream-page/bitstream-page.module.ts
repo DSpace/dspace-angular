@@ -6,6 +6,7 @@ import { BitstreamPageRoutingModule } from './bitstream-page-routing.module';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
 import { FormModule } from '../shared/form/form.module';
 import { ResourcePoliciesModule } from '../shared/resource-policies/resource-policies.module';
+import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
 import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-edit-bitstream-page.component';
 
 /**
@@ -23,6 +24,7 @@ import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-e
     BitstreamAuthorizationsComponent,
     EditBitstreamPageComponent,
     ThemedEditBitstreamPageComponent,
+    BitstreamDownloadPageComponent,
   ]
 })
 export class BitstreamPageModule {

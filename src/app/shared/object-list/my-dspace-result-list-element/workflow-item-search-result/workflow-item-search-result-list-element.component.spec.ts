@@ -18,6 +18,7 @@ import { WorkflowItemSearchResultListElementComponent } from './workflow-item-se
 import { By } from '@angular/platform-browser';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
 
 let component: WorkflowItemSearchResultListElementComponent;
 let fixture: ComponentFixture<WorkflowItemSearchResultListElementComponent>;
@@ -54,6 +55,13 @@ const item = Object.assign(new Item(), {
     ]
   }
 });
+
+const environmentUseThumbs = {
+  browseBy: {
+    showThumbnails: true
+  }
+};
+
 const rd = createSuccessfulRemoteDataObject(item);
 mockResultObject.indexableObject = Object.assign(new WorkflowItem(), { item: observableOf(rd) });
 
@@ -69,7 +77,8 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
         { provide: TruncatableService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
-        { provide: DSONameService, useClass: DSONameServiceMock }
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(WorkflowItemSearchResultListElementComponent, {
@@ -83,14 +92,15 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
   }));
 
   beforeEach(() => {
-    component.dso = mockResultObject.indexableObject;
+    component.object = mockResultObject;
     fixture.detectChanges();
   });
 
-  it('should init item properly', (done) => {
-    component.item$.pipe(take(1)).subscribe((i) => {
+  it('should init derivedSearchResult$ properly', (done) => {
+    component.derivedSearchResult$.pipe(take(1)).subscribe((i) => {
       expect(linkService.resolveLink).toHaveBeenCalled();
-      expect(i).toBe(item);
+      expect(i.indexableObject).toBe(item);
+      expect(i.hitHighlights).toBe(mockResultObject.hitHighlights);
       done();
     });
   });
@@ -110,4 +120,10 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
     expect(component.reloadedObject.emit).toHaveBeenCalledWith(actionPayload.reloadedObject);
 
   }));
+
+  it('should add an offset to the actions element', () => {
+    const thumbnail = fixture.debugElement.query(By.css('.offset-3'));
+    expect(thumbnail).toBeTruthy();
+  });
+
 });

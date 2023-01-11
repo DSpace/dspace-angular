@@ -7,7 +7,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { MetadataFieldDataService } from '../../../../core/data/metadata-field-data.service';
-import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
@@ -21,6 +20,7 @@ import { EditInPlaceFieldComponent } from './edit-in-place-field.component';
 import { MockComponent, MockDirective } from 'ng-mocks';
 import { DebounceDirective } from '../../../../shared/utils/debounce.directive';
 import { ValidationSuggestionsComponent } from '../../../../shared/input-suggestions/validation-suggestions/validation-suggestions.component';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 
 let comp: EditInPlaceFieldComponent;
 let fixture: ComponentFixture<EditInPlaceFieldComponent>;

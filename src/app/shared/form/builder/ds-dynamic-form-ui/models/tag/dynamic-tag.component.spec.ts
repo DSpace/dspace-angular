@@ -13,7 +13,7 @@ import { VocabularyService } from '../../../../../../core/submission/vocabularie
 import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { DsDynamicTagComponent } from './dynamic-tag.component';
 import { DynamicTagModel } from './dynamic-tag.model';
-import { Chips } from '../../../../../chips/models/chips.model';
+import { Chips } from '../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
@@ -23,13 +23,13 @@ import {
 } from '../../../../../testing/dynamic-form-mock-services';
 
 function createKeyUpEvent(key: number) {
-  /* tslint:disable:no-empty */
+  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   const event = {
     keyCode: key, preventDefault: () => {
     }, stopPropagation: () => {
     }
   };
-  /* tslint:enable:no-empty */
+  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   spyOn(event, 'preventDefault');
   spyOn(event, 'stopPropagation');
   return event;

@@ -5,7 +5,8 @@ import {
   MetadataValueFilter,
   MetadatumViewModel
 } from './metadata.models';
-import { groupBy, sortBy } from 'lodash';
+import groupBy from 'lodash/groupBy';
+import sortBy from 'lodash/sortBy';
 
 /**
  * Utility class for working with DSpace object metadata.

@@ -7,11 +7,11 @@ import { SubmissionObject } from './models/submission-object.model';
 import { SubmissionScopeType } from './submission-scope-type';
 import { WorkflowItemDataService } from './workflowitem-data.service';
 import { WorkspaceitemDataService } from './workspaceitem-data.service';
-import { DataService } from '../data/data.service';
 import { map } from 'rxjs/operators';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { environment } from '../../../environments/environment';
-import { RequestEntryState } from '../data/request.reducer';
+import { RequestEntryState } from '../data/request-entry-state.model';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 
 /**
  * A service to retrieve submission objects (WorkspaceItem/WorkflowItem)
@@ -34,7 +34,7 @@ export class SubmissionObjectDataService {
    * @param id The identifier for the object
    */
   getHrefByID(id): Observable<string> {
-    const dataService: DataService<SubmissionObject> = this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkspaceItem ? this.workspaceitemDataService : this.workflowItemDataService;
+    const dataService: IdentifiableDataService<SubmissionObject> = this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkspaceItem ? this.workspaceitemDataService : this.workflowItemDataService;
 
     return this.halService.getEndpoint(dataService.getLinkPath()).pipe(
       map((endpoint: string) => dataService.getIDHref(endpoint, encodeURIComponent(id))));

@@ -4,7 +4,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BROWSE_BY_COMPONENT_FACTORY, BrowseByDataType } from './browse-by-decorator';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 
 describe('BrowseBySwitcherComponent', () => {
   let comp: BrowseBySwitcherComponent;
@@ -44,11 +45,20 @@ describe('BrowseBySwitcherComponent', () => {
     data
   };
 
+  let themeService: ThemeService;
+  let themeName: string;
+
   beforeEach(waitForAsync(() => {
+    themeName = 'dspace';
+    themeService = jasmine.createSpyObj('themeService', {
+      getThemeName: themeName,
+    });
+
     TestBed.configureTestingModule({
       declarations: [BrowseBySwitcherComponent],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: ThemeService, useValue: themeService },
         { provide: BROWSE_BY_COMPONENT_FACTORY, useValue: jasmine.createSpy('getComponentByBrowseByType').and.returnValue(null) }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -68,7 +78,7 @@ describe('BrowseBySwitcherComponent', () => {
       });
 
       it(`should call getComponentByBrowseByType with type "${type.dataType}"`, () => {
-        expect((comp as any).getComponentByBrowseByType).toHaveBeenCalledWith(type.dataType);
+        expect((comp as any).getComponentByBrowseByType).toHaveBeenCalledWith(type.dataType, themeName);
       });
     });
   });
