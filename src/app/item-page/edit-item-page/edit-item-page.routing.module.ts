@@ -6,7 +6,6 @@ import { ItemReinstateComponent } from './item-reinstate/item-reinstate.componen
 import { ItemPrivateComponent } from './item-private/item-private.component';
 import { ItemPublicComponent } from './item-public/item-public.component';
 import { ItemDeleteComponent } from './item-delete/item-delete.component';
-import { ItemStatusComponent } from './item-status/item-status.component';
 import { ItemMetadataComponent } from './item-metadata/item-metadata.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
 import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
@@ -38,6 +37,7 @@ import { ItemPageBitstreamsGuard } from './item-page-bitstreams.guard';
 import { ItemPageRelationshipsGuard } from './item-page-relationships.guard';
 import { ItemPageVersionHistoryGuard } from './item-page-version-history.guard';
 import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
+import { ThemedItemPageComponent } from '../simple/themed-item-page.component';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -63,7 +63,7 @@ import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.gua
               },
               {
                 path: 'status',
-                component: ItemStatusComponent,
+                component: ThemedItemPageComponent,
                 data: { title: 'item.edit.tabs.status.title', showBreadcrumbs: true },
                 canActivate: [ItemPageStatusGuard]
               },

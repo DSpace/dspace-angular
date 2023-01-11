@@ -35,6 +35,7 @@ import { ItemVersionHistoryComponent } from './item-version-history/item-version
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
 import { ObjectValuesPipe } from '../../shared/utils/object-values-pipe';
 import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-policies.module';
+import { ThemedItemStatusComponent } from './item-status/themed-item-status.component';
 
 
 /**
@@ -61,6 +62,7 @@ import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-
     ItemPublicComponent,
     ItemDeleteComponent,
     ItemStatusComponent,
+    ThemedItemStatusComponent,
     ItemMetadataComponent,
     ItemRelationshipsComponent,
     ItemBitstreamsComponent,
