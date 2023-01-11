@@ -55,6 +55,8 @@ auth:
 
 # Form settings
 form:
+  # Sets the spellcheck textarea attribute value
+  spellCheck: true
   # NOTE: Map server-side validators to comparative Angular form validators
   validatorMap:
     required: required
@@ -143,6 +145,9 @@ languages:
   - code: nl
     label: Nederlands
     active: true
+  - code: pl
+    label: Polski
+    active: true
   - code: pt-PT
     label: Português
     active: true
@@ -173,6 +178,7 @@ languages:
   - code: uk
     label: Yкраї́нська
     active: true
+
 
 # Browse-By Pages
 browseBy:

@@ -2,33 +2,33 @@ import { ItemVersionsComponent } from './item-versions.component';
 import {
   ComponentFixture, TestBed, waitForAsync
 } from '@angular/core/testing';
-import { VarDirective } from '../../utils/var.directive';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
-import { Version } from '../../../core/shared/version.model';
-import { VersionHistory } from '../../../core/shared/version-history.model';
-import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
+import { Item } from '../../core/shared/item.model';
+import { Version } from '../../core/shared/version.model';
+import { VersionHistory } from '../../core/shared/version-history.model';
+import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
 import { BrowserModule, By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { createPaginatedList } from '../../testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 import { EMPTY, of, of as observableOf } from 'rxjs';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { AuthService } from '../../../core/auth/auth.service';
-import { VersionDataService } from '../../../core/data/version-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { AuthService } from '../../core/auth/auth.service';
+import { VersionDataService } from '../../core/data/version-data.service';
+import { ItemDataService } from '../../core/data/item-data.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { Router } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
+import { ItemSharedModule } from '../item-shared.module';
 
 describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
@@ -137,7 +137,7 @@ describe('ItemVersionsComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ItemVersionsComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule],
+      imports: [TranslateModule.forRoot(), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemSharedModule],
       providers: [
         {provide: PaginationService, useValue: new PaginationServiceStub()},
         {provide: FormBuilder, useValue: new FormBuilder()},

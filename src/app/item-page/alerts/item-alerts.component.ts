@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
-import { AlertType } from '../../alert/aletr-type';
+import { Item } from '../../core/shared/item.model';
+import { AlertType } from '../../shared/alert/aletr-type';
 
 @Component({
   selector: 'ds-item-alerts',

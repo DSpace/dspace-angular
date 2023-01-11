@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { hasValue, isNotEmpty } from '../empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { getRemoteDataPayload} from '../../core/shared/operators';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
