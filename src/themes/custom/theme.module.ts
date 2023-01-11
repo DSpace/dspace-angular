@@ -85,6 +85,7 @@ import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resou
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { SearchFiltersComponent } from './app/shared/search/search-filters/search-filters.component';
+import { SearchSidebarComponent } from './app/shared/search/search-sidebar/search-sidebar.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -129,6 +130,7 @@ const DECLARATIONS = [
   BreadcrumbsComponent,
   FeedbackComponent,
   SearchFiltersComponent,
+  SearchSidebarComponent,
 ];
 
 @NgModule({

@@ -30,6 +30,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { SearchComponent } from './search.component';
 import { ThemedSearchComponent } from './themed-search.component';
 import { ThemedSearchFiltersComponent } from './search-filters/themed-search-filters.component';
+import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 
 const COMPONENTS = [
   SearchComponent,
@@ -55,6 +56,7 @@ const COMPONENTS = [
   ConfigurationSearchPageComponent,
   ThemedConfigurationSearchPageComponent,
   ThemedSearchFiltersComponent,
+  ThemedSearchSidebarComponent,
 ];
 
 const ENTRY_COMPONENTS = [
