@@ -85,7 +85,8 @@ import { ThemedItemStatusComponent } from './item-status/themed-item-status.comp
     ObjectValuesPipe
   ],
   exports: [
-    ItemMetadataComponent
+    ItemMetadataComponent,
+    ItemOperationComponent,
   ]
 })
 export class EditItemPageModule {

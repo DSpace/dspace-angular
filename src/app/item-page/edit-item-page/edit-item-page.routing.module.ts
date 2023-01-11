@@ -38,6 +38,7 @@ import { ItemPageRelationshipsGuard } from './item-page-relationships.guard';
 import { ItemPageVersionHistoryGuard } from './item-page-version-history.guard';
 import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
 import { ThemedItemPageComponent } from '../simple/themed-item-page.component';
+import { ThemedItemStatusComponent } from './item-status/themed-item-status.component';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -63,7 +64,7 @@ import { ThemedItemPageComponent } from '../simple/themed-item-page.component';
               },
               {
                 path: 'status',
-                component: ThemedItemPageComponent,
+                component: ThemedItemStatusComponent,
                 data: { title: 'item.edit.tabs.status.title', showBreadcrumbs: true },
                 canActivate: [ItemPageStatusGuard]
               },

@@ -86,6 +86,7 @@ import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { ItemStatusComponent } from './app/item-page/edit-item-page/item-status/item-status.component';
 import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
+import { FormModule } from '../../app/shared/form/form.module';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -180,7 +181,8 @@ const DECLARATIONS = [
     SearchModule,
     FormsModule,
     ResourcePoliciesModule,
-    ComcolModule
+    ComcolModule,
+    FormModule,
   ],
   declarations: DECLARATIONS
 })
