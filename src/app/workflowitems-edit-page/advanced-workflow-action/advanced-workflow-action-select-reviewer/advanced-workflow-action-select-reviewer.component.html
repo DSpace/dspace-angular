@@ -7,9 +7,12 @@
                      [groupId]="groupId"
                      [ngClass]="groupId ? 'reviewersListWithGroup' : ''"
                      [multipleReviewers]="multipleReviewers"
-                     (selectedReviewersUpdated)="selectedReviewers = $event"
+                     (selectedReviewersUpdated)="selectedReviewers = $event; displayError = false"
                      messagePrefix="advanced-workflow-action-select-reviewer.groups.form.reviewers-list"
   ></ds-reviewers-list>
+  <small *ngIf="displayError" class="invalid-feedback d-block mb-3">
+    {{ 'advanced-workflow-action.select-reviewer.no-reviewer-selected.error' | translate }}
+  </small>
 
   <ds-modify-item-overview *ngIf="item$ | async"
                            [item]="item$ | async">
