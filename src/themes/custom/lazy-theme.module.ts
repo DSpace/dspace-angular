@@ -114,6 +114,11 @@ import { ObjectListComponent } from './app/shared/object-list/object-list.compon
 import { BrowseByMetadataPageComponent } from './app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component';
 import { BrowseByDatePageComponent } from './app/browse-by/browse-by-date-page/browse-by-date-page.component';
 import { BrowseByTitlePageComponent } from './app/browse-by/browse-by-title-page/browse-by-title-page.component';
+import {
+  ExternalSourceEntryImportModalComponent
+} from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
+import { ItemSharedModule } from '../../app/item-page/item-shared.module';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -168,6 +173,7 @@ const DECLARATIONS = [
   BrowseByMetadataPageComponent,
   BrowseByDatePageComponent,
   BrowseByTitlePageComponent,
+  ExternalSourceEntryImportModalComponent,
 
 
 ];
@@ -189,8 +195,10 @@ const DECLARATIONS = [
     CommunityPageModule,
     CoreModule,
     DragDropModule,
+    ItemSharedModule,
     ItemPageModule,
     EditItemPageModule,
+    ItemVersionsModule,
     FormsModule,
     HomePageModule,
     HttpClientModule,

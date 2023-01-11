@@ -205,6 +205,9 @@
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Nome",
 
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
+
   // "admin.registries.bitstream-formats.table.return": "Back",
   "admin.registries.bitstream-formats.table.return": "Voltar",
 
@@ -279,6 +282,9 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Campo",
+
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Nota de escopo",
@@ -745,6 +751,33 @@
   // "admin.access-control.groups.form.return": "Back",
   "admin.access-control.groups.form.return": "Voltar",
 
+  //"admin.batch-import.breadcrumbs": "Import Batch",
+  "admin.batch-import.breadcrumbs": "Importar um Lote",
+
+  //"admin.batch-import.title": "Import Batch",
+  "admin.batch-import.title": "Importar um Lote",
+
+  //"admin.batch-import.page.header": "Import Batch",
+  "admin.batch-import.page.header": "Importar um Lote",
+
+  //"admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
+  "admin.batch-import.page.help": "Selecione a Coleção para o qual deseja importar. Arraste ou selecione um arquivo zip no formato Simple Archive Format (SAF) que inclua os Items para importar",
+
+  //"admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
+  "admin.batch-import.page.dropMsg": "Arraste e solte um lote ZIP para importar",
+
+  //"admin.batch-import.page.dropMsgReplace": "Drop to replace the batch ZIP to import",
+  "admin.batch-import.page.dropMsgReplace": "Arraste e solte um lote ZIP para substituir o lote para importar",
+
+  //"admin.batch-import.page.error.addFile": "Select Zip file first!",
+  "admin.batch-import.page.error.addFile": "Selecione um arquivo ZIP primeiro!",
+
+  //"admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
+  "admin.batch-import.page.validateOnly.hint": "Quando selecionado , o ZIP enviado sera validado. Você receberá um relatório das alterações detectadas, mas nenhuma alteração será salva.",
+
+  //"admin.batch-import.page.remove": "remove",
+  "admin.batch-import.page.remove": "remover",
+
   // "admin.search.breadcrumbs": "Administrative Search",
   "admin.search.breadcrumbs": "Pesquisa Administrativa",
 
@@ -819,6 +852,9 @@
 
   // "admin.metadata-import.page.button.proceed": "Proceed",
   "admin.metadata-import.page.button.proceed": "Continuar",
+
+  //"admin.metadata-import.page.button.select-collection": "Select Collection",
+  "admin.metadata-import.page.button.select-collection": "Selecione a  Coleção",
 
   // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "Selecione o arquivo primeiro!",
@@ -1176,7 +1212,7 @@
   "collection.edit.item-mapper.confirm": "Mapear itens selecionados",
 
   // "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
-  "collection.edit.item-mapper.description": "Esta é a ferramenta de mapeação de itens que permite administradores de coleções a mapear itens de outras coleções nesta. VoCẽ pode busca-los em outras coleções para mapeá-los, ou navegar na lista dos itens atualmente mapeados.",
+  "collection.edit.item-mapper.description": "Esta é a ferramenta de mapeação de itens que permite administradores de coleções a mapear itens de outras coleções nesta. Você pode buscar em outras coleções para mapear, ou navegar na lista dos itens atualmente mapeados.",
 
   // "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
   "collection.edit.item-mapper.head": "Mapeador de Itens - Mapear itens em Outras Coleções",
@@ -1230,7 +1266,7 @@
   "collection.edit.logo.label": "Logotipo de Coleção",
 
   // "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
-  "collection.edit.logo.notifications.add.error": "Falha ao carregar o logotipo da coleção. Verifique o ficheiro antes de tentar de novo.",
+  "collection.edit.logo.notifications.add.error": "Falha ao carregar o logotipo da coleção. Verifique o arquivo antes de tentar de novo.",
 
   // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
   "collection.edit.logo.notifications.add.success": "O logotipo da coleção foi carregado com sucesso.",
@@ -1912,6 +1948,12 @@
   // "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
   "dso-selector.export-metadata.dspaceobject.head": "Exportar metadados de",
 
+  //"dso-selector.export-batch.dspaceobject.head": "Export Batch (ZIP) from",
+  "dso-selector.export-batch.dspaceobject.head": "Exportar Lote (ZIP) de",
+
+  //"dso-selector.import-batch.dspaceobject.head": "Import batch from",
+  "dso-selector.import-batch.dspaceobject.head": "Importar lote de",
+
   // "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.no-results": "Nenhum(a) {{ type }} encontrado(a)",
 
@@ -1953,6 +1995,18 @@
 
   // "confirmation-modal.export-metadata.confirm": "Export",
   "confirmation-modal.export-metadata.confirm": "Exportar",
+
+  //"confirmation-modal.export-batch.header": "Export batch (ZIP) for {{ dsoName }}",
+  "confirmation-modal.export-batch.header": "Exportar lote (ZIP) para {{ dsoName }}",
+
+  //"confirmation-modal.export-batch.info": "Are you sure you want to export batch (ZIP) for {{ dsoName }}",
+  "confirmation-modal.export-batch.info": "Você tem certeza que deseja exportar o lote (ZIP) para {{ dsoName }}",
+  
+  //"confirmation-modal.export-batch.cancel": "Cancel",
+  "confirmation-modal.export-batch.cancel": "Cancelar",
+
+  //"confirmation-modal.export-batch.confirm": "Export",
+  "confirmation-modal.export-batch.confirm": "Exportar",
 
   // "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
   "confirmation-modal.delete-eperson.header": "Apagar EPerson \"{{ dsoName }}\"",
@@ -2324,17 +2378,17 @@
   // "health-page.section.geoIp.title": "GeoIp",
   "health-page.section.geoIp.title": "GeoIp",
 
-  // "health-page.section.solrAuthorityCore.title": "Sor: authority core",
+  // "health-page.section.solrAuthorityCore.title": "Solr: authority core",
   "health-page.section.solrAuthorityCore.title": "Solr: authority core",
 
-  // "health-page.section.solrOaiCore.title": "Sor: oai core",
+  // "health-page.section.solrOaiCore.title": "Solr: oai core",
   "health-page.section.solrOaiCore.title": "Solr: oai core",
 
-  // "health-page.section.solrSearchCore.title": "Sor: search core",
+  // "health-page.section.solrSearchCore.title": "Solr: search core",
   "health-page.section.solrSearchCore.title": "Solr: core pesquisa",
 
-  // "health-page.section.solrStatisticsCore.title": "Sor: statistics core",
-  "health-page.section.solrStatisticsCore.title": "Soilr: estatisticas core",
+  // "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
+  "health-page.section.solrStatisticsCore.title": "Solr: estatisticas core",
 
   // "health-page.section-info.app.title": "Application Backend",
   "health-page.section-info.app.title": "Aplicação de Backend",
@@ -2457,7 +2511,7 @@
   "item.alerts.withdrawn": "Este item foi recebido",
 
   // "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
-  "item.edit.authorizations.heading": "Com este editor pode ver e alterar as políticas de um item, assim como alterar políticas de componentes individuais do item: pacotes e ficheiros. Em resumo, um item contém pacotes, e os pacotes contêm de ficheiros. Os pacotes possuem usualmente políticas de ADICIONAR/REMOVER/LER/ESCREVER enquanto que os ficheiros apenas políticas de LER/ESCREVER.",
+  "item.edit.authorizations.heading": "Com este editor pode ver e alterar as políticas de um item, assim como alterar políticas de componentes individuais do item: pacotes e arquivos. Em resumo, um item contém pacotes, e os pacotes contêm de arquivos. Os pacotes possuem usualmente políticas de ADICIONAR/REMOVER/LER/ESCREVER enquanto que os arquivos apenas políticas de LER/ESCREVER.",
 
   // "item.edit.authorizations.title": "Edit item's Policies",
   "item.edit.authorizations.title": "Editar Política de item",
@@ -3748,6 +3802,9 @@
 
   // "menu.section.import_batch": "Batch Import (ZIP)",
   "menu.section.import_batch": "Importação em Lote (ZIP)",
+  
+  // "menu.section.export_batch": "Batch Export (ZIP)",
+  "menu.section.export_batch": "Exportação em Lote (ZIP)",
 
   // "menu.section.import_metadata": "Metadata",
   "menu.section.import_metadata": "Metadados",
