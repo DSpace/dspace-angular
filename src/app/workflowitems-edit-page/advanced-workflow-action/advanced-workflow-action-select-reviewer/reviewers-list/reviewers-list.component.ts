@@ -8,15 +8,14 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import {
-  EPersonListComponent,
-  EPersonListActionConfig
-} from '../../../../access-control/group-registry/group-form/eperson-list/eperson-list.component';
 import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { Observable, of as observableOf } from 'rxjs';
 import { hasValue } from '../../../../shared/empty.util';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import {
+  MembersListComponent, EPersonListActionConfig
+} from '../../../../access-control/group-registry/group-form/members-list/members-list.component';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -30,9 +29,9 @@ enum SubKey {
 @Component({
   selector: 'ds-reviewers-list',
   // templateUrl: './reviewers-list.component.html',
-  templateUrl: '../../../../access-control/group-registry/group-form/eperson-list/eperson-list.component.html',
+  templateUrl: '../../../../access-control/group-registry/group-form/members-list/members-list.component.html',
 })
-export class ReviewersListComponent extends EPersonListComponent implements OnInit, OnChanges, OnDestroy {
+export class ReviewersListComponent extends MembersListComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
   groupId: string | null;

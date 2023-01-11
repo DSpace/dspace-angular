@@ -9,7 +9,7 @@ import {
 } from '../../../core/tasks/models/select-reviewer-action-advanced-info.model';
 import {
   EPersonListActionConfig
-} from '../../../access-control/group-registry/group-form/eperson-list/eperson-list.component';
+} from '../../../access-control/group-registry/group-form/members-list/members-list.component';
 import { Subscription } from 'rxjs';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 
@@ -37,6 +37,8 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
   groupId?: string | null;
 
   subs: Subscription[] = [];
+
+  displayError = false;
 
   ngOnDestroy(): void {
     this.subs.forEach((subscription: Subscription) => subscription.unsubscribe());
@@ -82,6 +84,15 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
 
   getType(): string {
     return ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER;
+  }
+
+  performAction(): void {
+    if (this.selectedReviewers.length > 0) {
+      super.performAction();
+    } else {
+      this.displayError = true;
+    }
+    console.log(this.displayError);
   }
 
   createBody(): any {

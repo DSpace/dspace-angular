@@ -12,7 +12,6 @@ import { GroupsRegistryComponent } from './group-registry/groups-registry.compon
 import { FormModule } from '../shared/form/form.module';
 import { DYNAMIC_ERROR_MESSAGES_MATCHER, DynamicErrorMessagesMatcher } from '@ng-dynamic-forms/core';
 import { AbstractControl } from '@angular/forms';
-import { EPersonListComponent } from './group-registry/group-form/eperson-list/eperson-list.component';
 
 /**
  * Condition for displaying error messages on email form field
@@ -31,7 +30,7 @@ export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
     FormModule,
   ],
   exports: [
-    EPersonListComponent,
+    MembersListComponent,
   ],
   declarations: [
     EPeopleRegistryComponent,
@@ -40,7 +39,6 @@ export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
     GroupFormComponent,
     SubgroupsListComponent,
     MembersListComponent,
-    EPersonListComponent,
   ],
   providers: [
     {
