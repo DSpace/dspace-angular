@@ -29,6 +29,7 @@ import { SharedModule } from '../shared.module';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { SearchComponent } from './search.component';
 import { ThemedSearchComponent } from './themed-search.component';
+import { ThemedSearchFiltersComponent } from './search-filters/themed-search-filters.component';
 
 const COMPONENTS = [
   SearchComponent,
@@ -52,7 +53,8 @@ const COMPONENTS = [
   SearchAuthorityFilterComponent,
   SearchSwitchConfigurationComponent,
   ConfigurationSearchPageComponent,
-  ThemedConfigurationSearchPageComponent
+  ThemedConfigurationSearchPageComponent,
+  ThemedSearchFiltersComponent,
 ];
 
 const ENTRY_COMPONENTS = [
