@@ -35,7 +35,7 @@ describe('ItemRequestDataService', () => {
       getEndpoint: observableOf(restApiEndpoint),
     });
 
-    service = new ItemRequestDataService(requestService, rdbService, null, null, halService, null, null, null);
+    service = new ItemRequestDataService(requestService, rdbService, null, halService);
   });
 
   describe('requestACopy', () => {

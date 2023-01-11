@@ -1,20 +1,17 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { Store } from '@ngrx/store';
+import { HttpHeaders } from '@angular/common/http';
 
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { CoreState } from '../core.reducers';
 import { ClaimedTaskDataService } from './claimed-task-data.service';
-import { of as observableOf } from 'rxjs';
-import { FindListOptions } from '../data/request.models';
+import { of as observableOf } from 'rxjs/internal/observable/of';
 import { RequestParam } from '../cache/models/request-param.model';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { FindListOptions } from '../data/find-list-options.model';
+import { testSearchDataImplementation } from '../data/base/search-data.spec';
 
 describe('ClaimedTaskDataService', () => {
   let scheduler: TestScheduler;
@@ -25,9 +22,6 @@ describe('ClaimedTaskDataService', () => {
   const requestService: any = getMockRequestService();
   const halService: any = new HALEndpointServiceStub(taskEndpoint);
   const rdbService = {} as RemoteDataBuildService;
-  const notificationsService = {} as NotificationsService;
-  const http = {} as HttpClient;
-  const comparator = {} as any;
   const objectCache = {
     addPatch: () => {
       /* empty */
@@ -36,18 +30,13 @@ describe('ClaimedTaskDataService', () => {
       /* empty */
     }
   } as any;
-  const store = {} as Store<CoreState>;
 
   function initTestService(): ClaimedTaskDataService {
     return new ClaimedTaskDataService(
       requestService,
       rdbService,
-      store,
       objectCache,
       halService,
-      notificationsService,
-      http,
-      comparator
     );
   }
 
@@ -58,6 +47,11 @@ describe('ClaimedTaskDataService', () => {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     options.headers = headers;
+  });
+
+  describe('composition', () => {
+    const initService = () => new ClaimedTaskDataService(null, null, null, null);
+    testSearchDataImplementation(initService);
   });
 
   describe('submitTask', () => {

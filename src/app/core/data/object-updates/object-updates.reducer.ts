@@ -1,16 +1,15 @@
 import {
   AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
-  FieldChangeType,
   InitializeFieldsAction,
   ObjectUpdatesAction,
   ObjectUpdatesActionTypes,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
   RemoveObjectUpdatesAction,
+  SelectVirtualMetadataAction,
   SetEditableFieldUpdateAction,
   SetValidFieldUpdateAction,
-  SelectVirtualMetadataAction,
 } from './object-updates.actions';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import { Relationship } from '../../shared/item-relationships/relationship.model';
@@ -18,6 +17,9 @@ import { PatchOperationService } from './patch-operation-service/patch-operation
 import { Item } from '../../shared/item.model';
 import { RelationshipType } from '../../shared/item-relationships/relationship-type.model';
 import { GenericConstructor } from '../../shared/generic-constructor';
+import { Identifiable } from './identifiable.model';
+import { FieldUpdates } from './field-updates.model';
+import { FieldChangeType } from './field-change-type.model';
 
 /**
  * Path where discarded objects are saved
@@ -38,28 +40,6 @@ export interface FieldState {
  */
 export interface FieldStates {
   [uuid: string]: FieldState;
-}
-
-/**
- * Represents every object that has a UUID
- */
-export interface Identifiable {
-  uuid: string;
-}
-
-/**
- * The state of a single field update
- */
-export interface FieldUpdate {
-  field: Identifiable;
-  changeType: FieldChangeType;
-}
-
-/**
- * The states of all field updates available for a single page, mapped by uuid
- */
-export interface FieldUpdates {
-  [uuid: string]: FieldUpdate;
 }
 
 /**

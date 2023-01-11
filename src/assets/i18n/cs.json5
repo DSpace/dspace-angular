@@ -6518,9 +6518,9 @@
   // TODO New key - Add a translation
   "uploader.or": ", or ",
   
-  // "uploader.processing": "Processing",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
   // TODO New key - Add a translation
-  "uploader.processing": "Processing",
+  "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
   
   // "uploader.queue-length": "Queue length",
   // TODO New key - Add a translation
