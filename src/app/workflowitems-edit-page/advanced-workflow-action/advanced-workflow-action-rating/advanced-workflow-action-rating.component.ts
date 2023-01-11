@@ -9,8 +9,8 @@ import {
   RatingReviewerActionAdvancedInfo
 } from '../../../core/tasks/models/rating-reviewer-action-advanced-info.model';
 
-export const WORKFLOW_ADVANCED_TASK_OPTION_RATING = 'rating';
-export const ADVANCED_WORKFLOW_ACTION_RATING = 'ratingreviewaction';
+export const WORKFLOW_ADVANCED_TASK_OPTION_RATING = 'submit_score';
+export const ADVANCED_WORKFLOW_ACTION_RATING = 'scorereviewaction';
 
 @rendersAdvancedWorkflowTaskOption(ADVANCED_WORKFLOW_ACTION_RATING)
 @Component({
@@ -49,8 +49,8 @@ export class AdvancedWorkflowActionRatingComponent extends AdvancedWorkflowActio
       score: this.ratingForm.get('rating').value,
     };
     if (this.ratingForm.get('review').value !== '') {
-      const description: string = this.ratingForm.get('review').value;
-      Object.assign(body, { description });
+      const review: string = this.ratingForm.get('review').value;
+      Object.assign(body, { review: review });
     }
     return body;
   }
