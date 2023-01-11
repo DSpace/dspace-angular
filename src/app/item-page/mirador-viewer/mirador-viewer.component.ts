@@ -32,9 +32,9 @@ export class MiradorViewerComponent implements OnInit {
   @Input() searchable: boolean;
 
   /**
-   * Is used as index of the element to show.
+   * Is used as canvas identifier of the element to show.
    */
-  @Input() canvasIndex: number;
+  @Input() canvasId: string;
 
   /**
    * Hides embedded viewer in dev mode.
@@ -92,8 +92,8 @@ export class MiradorViewerComponent implements OnInit {
     if (this.notMobile) {
       viewerPath += '&notMobile=true';
     }
-    if (this.canvasIndex) {
-      viewerPath += `&canvasId=${this.canvasIndex}`;
+    if (this.canvasId) {
+      viewerPath += `&canvasId=${this.canvasId}`;
     }
 
     // TODO: Should the query term be trusted here?

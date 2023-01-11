@@ -55,9 +55,9 @@ windowSettings.manifestId = manifest;
       }
     }
   }
-  if (canvasId != null && canvasId !== 'null' && +canvasId >= 0) {
+  if (canvasId != null && canvasId !== 'null') {
     windowSettings.canvasId =
-      `${(manifest.replace(MANIFEST_URL_PART, ''))}/canvas/c${canvasId}`;
+      `${(manifest.replace(MANIFEST_URL_PART, ''))}/canvas/${canvasId}`;
   }
 })();
 
