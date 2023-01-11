@@ -21,6 +21,7 @@ import {
 } from '../../shared/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -28,16 +29,24 @@ const mockItem: Item = Object.assign(new Item(), {
   relationships: createRelationshipsObservable()
 });
 
+const mockWithdrawnItem: Item = Object.assign(new Item(), {
+  bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+  metadata: [],
+  relationships: createRelationshipsObservable(),
+  isWithdrawn: true
+});
+
 describe('ItemPageComponent', () => {
   let comp: ItemPageComponent;
   let fixture: ComponentFixture<ItemPageComponent>;
   let authService: AuthService;
+  let authorizationDataService: AuthorizationDataService;
 
   const mockMetadataService = {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     processRemoteData: () => {
     }
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
     data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
@@ -47,6 +56,9 @@ describe('ItemPageComponent', () => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
       setRedirectUrl: {}
+    });
+    authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
+      isAuthorized: observableOf(false),
     });
 
     TestBed.configureTestingModule({
@@ -63,6 +75,7 @@ describe('ItemPageComponent', () => {
         { provide: MetadataService, useValue: mockMetadataService },
         { provide: Router, useValue: {} },
         { provide: AuthService, useValue: authService },
+        { provide: AuthorizationDataService, useValue: authorizationDataService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -85,7 +98,7 @@ describe('ItemPageComponent', () => {
     });
 
     it('should display a loading component', () => {
-      const loading = fixture.debugElement.query(By.css('ds-loading'));
+      const loading = fixture.debugElement.query(By.css('ds-themed-loading'));
       expect(loading.nativeElement).toBeDefined();
     });
   });
@@ -99,6 +112,55 @@ describe('ItemPageComponent', () => {
     it('should display an error component', () => {
       const error = fixture.debugElement.query(By.css('ds-error'));
       expect(error.nativeElement).toBeDefined();
+    });
+  });
+
+  describe('when the item is withdrawn and the user is an admin', () => {
+    beforeEach(() => {
+      comp.isAdmin$ = observableOf(true);
+      comp.itemRD$ = createSuccessfulRemoteDataObject$(mockWithdrawnItem);
+      fixture.detectChanges();
+    });
+
+    it('should display the item', () => {
+      const objectLoader = fixture.debugElement.query(By.css('ds-listable-object-component-loader'));
+      expect(objectLoader.nativeElement).toBeDefined();
+    });
+  });
+  describe('when the item is withdrawn and the user is not an admin', () => {
+    beforeEach(() => {
+      comp.itemRD$ = createSuccessfulRemoteDataObject$(mockWithdrawnItem);
+      fixture.detectChanges();
+    });
+
+    it('should not display the item', () => {
+      const objectLoader = fixture.debugElement.query(By.css('ds-listable-object-component-loader'));
+      expect(objectLoader).toBeNull();
+    });
+  });
+
+  describe('when the item is not withdrawn and the user is an admin', () => {
+    beforeEach(() => {
+      comp.isAdmin$ = observableOf(true);
+      comp.itemRD$ = createSuccessfulRemoteDataObject$(mockItem);
+      fixture.detectChanges();
+    });
+
+    it('should display the item', () => {
+      const objectLoader = fixture.debugElement.query(By.css('ds-listable-object-component-loader'));
+      expect(objectLoader.nativeElement).toBeDefined();
+    });
+  });
+
+  describe('when the item is not withdrawn and the user is not an admin', () => {
+    beforeEach(() => {
+      comp.itemRD$ = createSuccessfulRemoteDataObject$(mockItem);
+      fixture.detectChanges();
+    });
+
+    it('should display the item', () => {
+      const objectLoader = fixture.debugElement.query(By.css('ds-listable-object-component-loader'));
+      expect(objectLoader.nativeElement).toBeDefined();
     });
   });
 

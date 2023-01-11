@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 import { Group } from '../../core/eperson/models/group.model';
 import { type } from '../../shared/ngrx/type';
@@ -16,7 +17,6 @@ export const GroupRegistryActionTypes = {
   CANCEL_EDIT_GROUP: type('dspace/epeople-registry/CANCEL_EDIT_GROUP'),
 };
 
-/* tslint:disable:max-classes-per-file */
 /**
  * Used to edit a Group in the Group registry
  */
@@ -37,7 +37,6 @@ export class GroupRegistryCancelGroupAction implements Action {
   type = GroupRegistryActionTypes.CANCEL_EDIT_GROUP;
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * Export a type alias of all actions in this action group

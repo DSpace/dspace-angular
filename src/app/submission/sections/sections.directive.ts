@@ -2,14 +2,14 @@ import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular
 
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { uniq } from 'lodash';
+import uniq from 'lodash/uniq';
 
 import { SectionsService } from './sections.service';
 import { hasValue, isNotEmpty, isNotNull } from '../../shared/empty.util';
-import { SubmissionSectionError } from '../objects/submission-objects.reducer';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { SubmissionService } from '../submission.service';
 import { SectionsType } from './sections-type';
+import { SubmissionSectionError } from '../objects/submission-section-error.model';
 
 /**
  * Directive for handling generic section functionality
@@ -94,8 +94,8 @@ export class SectionsDirective implements OnDestroy, OnInit {
    * @param {SectionsService} sectionService
    */
   constructor(private changeDetectorRef: ChangeDetectorRef,
-              private submissionService: SubmissionService,
-              private sectionService: SectionsService) {
+    private submissionService: SubmissionService,
+    private sectionService: SectionsService) {
   }
 
   /**
@@ -271,6 +271,19 @@ export class SectionsDirective implements OnDestroy, OnInit {
       this.submissionService.setActiveSection(this.submissionId, this.sectionId);
     }
   }
+
+
+  /**
+   * Check if section is information
+   *
+   * @returns {Observable<boolean>}
+   *    Emits true whenever section is information
+   */
+  public isInfo(): boolean {
+    return this.sectionService.getIsInformational(this.sectionType);
+  }
+
+
 
   /**
    * Remove error from list

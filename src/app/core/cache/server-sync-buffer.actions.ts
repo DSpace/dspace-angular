@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
@@ -12,7 +13,6 @@ export const ServerSyncBufferActionTypes = {
   EMPTY: type('dspace/core/cache/syncbuffer/EMPTY'),
 };
 
-/* tslint:disable:max-classes-per-file */
 
 /**
  * An ngrx action to add a new cached object to the server sync buffer
@@ -71,7 +71,6 @@ export class EmptySSBAction implements Action {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * A type to encompass all ServerSyncBufferActions

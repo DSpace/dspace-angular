@@ -1,4 +1,4 @@
-<ds-loading *ngIf="(dataSource.loading$ | async) && !loadingNode" class="ds-loading"></ds-loading>
+<ds-themed-loading *ngIf="(dataSource.loading$ | async) && !loadingNode" class="ds-themed-loading"></ds-themed-loading>
 <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
   <!-- This is the tree node template for show more node -->
   <cdk-tree-node *cdkTreeNodeDef="let node; when: isShowMore" cdkTreeNodePadding
@@ -8,11 +8,11 @@
         <span class="fa fa-chevron-right invisible" aria-hidden="true"></span>
       </button>
       <div class="align-middle pt-2">
-        <a *ngIf="node!==loadingNode" [routerLink]="" (click)="getNextPage(node)"
+        <a *ngIf="node!==loadingNode" [routerLink]="[]" (click)="getNextPage(node)"
            class="btn btn-outline-primary btn-sm" role="button">
            <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
         </a>
-        <ds-loading *ngIf="node===loadingNode && dataSource.loading$ | async" class="ds-loading"></ds-loading>
+        <ds-themed-loading *ngIf="node===loadingNode && dataSource.loading$ | async" class="ds-themed-loading"></ds-themed-loading>
       </div>
     </div>
     <div class="text-muted" cdkTreeNodePadding>
@@ -57,7 +57,7 @@
         <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
               aria-hidden="true"></span>
       </button>
-      <ds-loading class="ds-loading"></ds-loading>
+      <ds-themed-loading class="ds-themed-loading"></ds-themed-loading>
     </div>
   </cdk-tree-node>
   <!-- This is the tree node template for leaf nodes (collections and (sub)coms without children) -->

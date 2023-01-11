@@ -1,8 +1,8 @@
 import { Directive, Input } from '@angular/core';
 
-/* tslint:disable:directive-class-suffix */
+/* eslint-disable @angular-eslint/directive-class-suffix */
 @Directive({
-  // tslint:disable-next-line:directive-selector
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[queryParams]',
 })
 export class QueryParamsDirectiveStub {
