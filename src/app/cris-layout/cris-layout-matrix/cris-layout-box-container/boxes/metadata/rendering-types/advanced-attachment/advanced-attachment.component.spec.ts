@@ -208,6 +208,11 @@ describe('AdvancedAttachmentComponent', () => {
         expect(entries[0].query(By.css('[data-test="checksum"]'))).toBeTruthy();
       });
 
+      it('should wrap the title', () => {
+        const titleElement = de.query(By.css('[data-test="attachment-name"]')).nativeElement;
+        expect(titleElement.classList).toContain('text-break');
+      });
+
       describe('and the field has metadata key and value set as value', () => {
         beforeEach(() => {
           // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
