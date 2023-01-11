@@ -67,7 +67,7 @@ export class LogInComponent implements OnInit {
       select(getAuthenticationMethods),
     ).subscribe(methods => {
       // ignore the ip authentication method when it's returned by the backend
-      this.authMethods = methods.filter(a => a.authMethodType !== AuthMethodType.Ip)
+      this.authMethods = methods.filter(a => a.authMethodType !== AuthMethodType.Ip);
     });
 
     // set loading
