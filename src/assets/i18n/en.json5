@@ -4497,9 +4497,9 @@
   "submission.workflow.generic.submit_select_reviewer-help": "",
 
 
-  "submission.workflow.generic.rating": "Rate",
+  "submission.workflow.generic.submit_score": "Rate",
 
-  "submission.workflow.generic.rating-help": "",
+  "submission.workflow.generic.submit_score-help": "",
 
 
   "submission.workflow.tasks.claimed.approve": "Approve",
@@ -4686,21 +4686,21 @@
   "workflow-item.selectrevieweraction.button.confirm": "Confirm",
 
 
-  "workflow-item.ratingreviewaction.notification.success.title": "Rating review",
+  "workflow-item.scorereviewaction.notification.success.title": "Rating review",
 
-  "workflow-item.ratingreviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted",
+  "workflow-item.scorereviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted",
 
-  "workflow-item.ratingreviewaction.notification.error.title": "Something went wrong",
+  "workflow-item.scorereviewaction.notification.error.title": "Something went wrong",
 
-  "workflow-item.ratingreviewaction.notification.error.content": "Couldn't rate this item",
+  "workflow-item.scorereviewaction.notification.error.content": "Couldn't rate this item",
 
-  "workflow-item.ratingreviewaction.title": "Rate this item",
+  "workflow-item.scorereviewaction.title": "Rate this item",
 
-  "workflow-item.ratingreviewaction.header": "Rate this item",
+  "workflow-item.scorereviewaction.header": "Rate this item",
 
-  "workflow-item.ratingreviewaction.button.cancel": "Cancel",
+  "workflow-item.scorereviewaction.button.cancel": "Cancel",
 
-  "workflow-item.ratingreviewaction.button.confirm": "Confirm",
+  "workflow-item.scorereviewaction.button.confirm": "Confirm",
 
   "idle-modal.header": "Session will expire soon",
 
