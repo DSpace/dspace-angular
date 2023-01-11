@@ -202,6 +202,8 @@
   // "admin.registries.bitstream-formats.table.name": "Name",
   // TODO New key - Add a translation
   "admin.registries.bitstream-formats.table.name": "Name",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
   
   // "admin.registries.bitstream-formats.table.return": "Return",
   // TODO New key - Add a translation
@@ -294,6 +296,8 @@
   
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Pole",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
   
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Poznámka o rozsahu",
@@ -6518,9 +6522,9 @@
   // TODO New key - Add a translation
   "uploader.or": ", or ",
   
-  // "uploader.processing": "Processing",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
   // TODO New key - Add a translation
-  "uploader.processing": "Processing",
+  "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
   
   // "uploader.queue-length": "Queue length",
   // TODO New key - Add a translation

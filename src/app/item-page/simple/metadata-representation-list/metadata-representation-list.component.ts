@@ -6,7 +6,7 @@ import {
   of as observableOf,
   zip as observableZip
 } from 'rxjs';
-import { RelationshipService } from '../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { filter, map, switchMap } from 'rxjs/operators';
@@ -61,7 +61,7 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
    */
   total: number;
 
-  constructor(public relationshipService: RelationshipService) {
+  constructor(public relationshipService: RelationshipDataService) {
     super();
   }
 

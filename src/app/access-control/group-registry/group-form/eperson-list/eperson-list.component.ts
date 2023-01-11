@@ -1,32 +1,32 @@
-import { Component, OnDestroy, OnInit, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  ObservedValueOf,
+} from 'rxjs';
+import { defaultIfEmpty, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { Group } from '../../../../core/eperson/models/group.model';
 import {
-  getAllCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-  getFirstCompletedRemoteData
+  getFirstCompletedRemoteData,
+  getAllCompletedRemoteData,
+  getRemoteDataPayload
 } from '../../../../core/shared/operators';
-import {
-  BehaviorSubject,
-  Subscription,
-  combineLatest as observableCombineLatest,
-  Observable,
-  ObservedValueOf,
-  of as observableOf
-} from 'rxjs';
-import { PaginatedList, buildPaginatedList } from '../../../../core/data/paginated-list.model';
-import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { switchMap, map, take, mergeMap } from 'rxjs/operators';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
+import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -152,7 +152,7 @@ export class EPersonListComponent implements OnInit, OnDestroy {
     this.subs.set(SubKey.MembersDTO,
       this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
         switchMap((currentPagination) => {
-                  return this.ePersonDataService.findAllByHref(this.groupBeingEdited._links.epersons.href, {
+          return this.ePersonDataService.findListByHref(this.groupBeingEdited._links.epersons.href, {
               currentPage: currentPagination.currentPage,
               elementsPerPage: currentPagination.pageSize
             }
@@ -167,7 +167,7 @@ export class EPersonListComponent implements OnInit, OnDestroy {
           }
         }),
         switchMap((epersonListRD: RemoteData<PaginatedList<EPerson>>) => {
-          const dtos$ = observableCombineLatest(...epersonListRD.payload.page.map((member: EPerson) => {
+          const dtos$ = observableCombineLatest([...epersonListRD.payload.page.map((member: EPerson) => {
             const dto$: Observable<EpersonDtoModel> = observableCombineLatest(
               this.isMemberOfGroup(member), (isMember: ObservedValueOf<Observable<boolean>>) => {
                 const epersonDtoModel: EpersonDtoModel = new EpersonDtoModel();
@@ -176,8 +176,8 @@ export class EPersonListComponent implements OnInit, OnDestroy {
                 return epersonDtoModel;
               });
             return dto$;
-          }));
-          return dtos$.pipe(map((dtos: EpersonDtoModel[]) => {
+          })]);
+          return dtos$.pipe(defaultIfEmpty([]), map((dtos: EpersonDtoModel[]) => {
             return buildPaginatedList(epersonListRD.payload.pageInfo, dtos);
           }));
         }))
@@ -194,7 +194,7 @@ export class EPersonListComponent implements OnInit, OnDestroy {
     return this.groupDataService.getActiveGroup().pipe(take(1),
       mergeMap((group: Group) => {
         if (group != null) {
-          return this.ePersonDataService.findAllByHref(group._links.epersons.href, {
+          return this.ePersonDataService.findListByHref(group._links.epersons.href, {
             currentPage: 1,
             elementsPerPage: 9999
           }, false)
@@ -232,7 +232,6 @@ export class EPersonListComponent implements OnInit, OnDestroy {
       if (activeGroup != null) {
         const response = this.groupDataService.deleteMemberFromGroup(activeGroup, ePerson.eperson);
         this.showNotifications('deleteMember', response, ePerson.eperson.name, activeGroup);
-        this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery });
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
       }
@@ -297,7 +296,7 @@ export class EPersonListComponent implements OnInit, OnDestroy {
           }
         }),
         switchMap((epersonListRD: RemoteData<PaginatedList<EPerson>>) => {
-          const dtos$ = observableCombineLatest(...epersonListRD.payload.page.map((member: EPerson) => {
+          const dtos$ = observableCombineLatest([...epersonListRD.payload.page.map((member: EPerson) => {
             const dto$: Observable<EpersonDtoModel> = observableCombineLatest(
               this.isMemberOfGroup(member), (isMember: ObservedValueOf<Observable<boolean>>) => {
                 const epersonDtoModel: EpersonDtoModel = new EpersonDtoModel();
@@ -306,8 +305,8 @@ export class EPersonListComponent implements OnInit, OnDestroy {
                 return epersonDtoModel;
               });
             return dto$;
-          }));
-          return dtos$.pipe(map((dtos: EpersonDtoModel[]) => {
+          })]);
+          return dtos$.pipe(defaultIfEmpty([]), map((dtos: EpersonDtoModel[]) => {
             return buildPaginatedList(epersonListRD.payload.pageInfo, dtos);
           }));
         }))
@@ -338,7 +337,6 @@ export class EPersonListComponent implements OnInit, OnDestroy {
     response.pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<any>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.success.' + messageSuffix, { name: nameObject }));
-        this.ePersonDataService.clearLinkRequests(activeGroup._links.epersons.href);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.' + messageSuffix, { name: nameObject }));
       }

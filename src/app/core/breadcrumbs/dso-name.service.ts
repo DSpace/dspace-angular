@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isEmpty } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -27,7 +27,15 @@ export class DSONameService {
    */
   private readonly factories = {
     Person: (dso: DSpaceObject): string => {
-      return `${dso.firstMetadataValue('person.familyName')}, ${dso.firstMetadataValue('person.givenName')}`;
+      const familyName = dso.firstMetadataValue('person.familyName');
+      const givenName = dso.firstMetadataValue('person.givenName');
+      if (isEmpty(familyName) && isEmpty(givenName)) {
+        return dso.firstMetadataValue('dc.title') || dso.name;
+      } else if (isEmpty(familyName) || isEmpty(givenName)) {
+        return familyName || givenName;
+      } else {
+        return `${familyName}, ${givenName}`;
+      }
     },
     OrgUnit: (dso: DSpaceObject): string => {
       return dso.firstMetadataValue('organization.legalName');
@@ -49,11 +57,14 @@ export class DSONameService {
       .filter((type) => typeof type === 'string')
       .find((type: string) => Object.keys(this.factories).includes(type)) as string;
 
+    let name;
     if (hasValue(match)) {
-      return this.factories[match](dso);
-    } else {
-      return  this.factories.Default(dso);
+      name = this.factories[match](dso);
     }
+    if (isEmpty(name)) {
+      name = this.factories.Default(dso);
+    }
+    return name;
   }
 
 }

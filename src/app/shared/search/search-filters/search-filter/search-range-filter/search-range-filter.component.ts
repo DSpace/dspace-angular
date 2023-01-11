@@ -1,4 +1,4 @@
-import { combineLatest as observableCombineLatest, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
@@ -10,15 +10,16 @@ import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
+  REFRESH_FILTER,
   SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { Router } from '@angular/router';
-import * as moment from 'moment';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { RouteService } from '../../../../../core/services/route.service';
 import { hasValue } from '../../../../empty.util';
+import { yearFromString } from 'src/app/shared/date.util';
 
 /**
  * The suffix for a range filters' minimum in the frontend URL
@@ -29,11 +30,6 @@ export const RANGE_FILTER_MIN_SUFFIX = '.min';
  * The suffix for a range filters' maximum in the frontend URL
  */
 export const RANGE_FILTER_MAX_SUFFIX = '.max';
-
-/**
- * The date formats that are possible to appear in a date filter
- */
-const dateFormats = ['YYYY', 'YYYY-MM', 'YYYY-MM-DD'];
 
 /**
  * This component renders a simple item page.
@@ -86,8 +82,9 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
               @Inject(PLATFORM_ID) private platformId: any,
+              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
               private route: RouteService) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig);
+    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
 
   }
 
@@ -97,8 +94,8 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
    */
   ngOnInit(): void {
     super.ngOnInit();
-    this.min = moment(this.filterConfig.minValue, dateFormats).year() || this.min;
-    this.max = moment(this.filterConfig.maxValue, dateFormats).year() || this.max;
+    this.min = yearFromString(this.filterConfig.minValue) || this.min;
+    this.max = yearFromString(this.filterConfig.maxValue) || this.max;
     const iniMin = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX).pipe(startWith(undefined));
     const iniMax = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX).pipe(startWith(undefined));
     this.sub = observableCombineLatest(iniMin, iniMax).pipe(

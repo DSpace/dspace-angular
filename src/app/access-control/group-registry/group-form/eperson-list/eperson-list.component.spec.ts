@@ -53,7 +53,7 @@ describe('EPersonListComponent', () => {
       activeGroup: activeGroup,
       epersonMembers: epersonMembers,
       subgroupMembers: subgroupMembers,
-      findAllByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
+      findListByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         return createSuccessfulRemoteDataObject$(buildPaginatedList<EPerson>(new PageInfo(), groupsDataServiceStub.getEPersonMembers()));
       },
       searchByScope(scope: string, query: string): Observable<RemoteData<PaginatedList<EPerson>>> {
@@ -152,7 +152,7 @@ describe('EPersonListComponent', () => {
     fixture.debugElement.nativeElement.remove();
   }));
 
-  it('should create EpeopleListComponent', inject([EPersonListComponent], (comp: EPersonListComponent) => {
+  it('should create EPersonListComponent', inject([EPersonListComponent], (comp: EPersonListComponent) => {
     expect(comp).toBeDefined();
   }));
 

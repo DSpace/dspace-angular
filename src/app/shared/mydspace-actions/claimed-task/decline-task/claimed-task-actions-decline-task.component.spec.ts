@@ -34,7 +34,7 @@ describe('ClaimedTaskActionsDeclineTaskComponent', () => {
   beforeEach(waitForAsync(() => {
     claimedTaskService = new ClaimedTaskDataServiceStub();
 
-    mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
+    mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({

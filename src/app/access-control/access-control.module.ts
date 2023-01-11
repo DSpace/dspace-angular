@@ -10,7 +10,17 @@ import { MembersListComponent } from './group-registry/group-form/members-list/m
 import { SubgroupsListComponent } from './group-registry/group-form/subgroup-list/subgroups-list.component';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
 import { FormModule } from '../shared/form/form.module';
+import { DYNAMIC_ERROR_MESSAGES_MATCHER, DynamicErrorMessagesMatcher } from '@ng-dynamic-forms/core';
+import { AbstractControl } from '@angular/forms';
 import { EPersonListComponent } from './group-registry/group-form/eperson-list/eperson-list.component';
+
+/**
+ * Condition for displaying error messages on email form field
+ */
+export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
+  (control: AbstractControl, model: any, hasFocus: boolean) => {
+    return (control.touched && !hasFocus) || (control.errors?.emailTaken && hasFocus);
+  };
 
 @NgModule({
   imports: [
@@ -32,6 +42,12 @@ import { EPersonListComponent } from './group-registry/group-form/eperson-list/e
     MembersListComponent,
     EPersonListComponent,
   ],
+  providers: [
+    {
+      provide: DYNAMIC_ERROR_MESSAGES_MATCHER,
+      useValue: ValidateEmailErrorStateMatcher
+    },
+  ]
 })
 /**
  * This module handles all components related to the access control pages

@@ -1,5 +1,8 @@
-import { DataServiceStub } from './data-service.stub';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
+import { IdentifiableDataServiceStub } from './identifiable-data-service.stub';
 
-export class WorkflowItemDataServiceStub extends DataServiceStub<WorkflowItem> {
+/**
+ * Stub class for {@link WorkflowItemDataService}
+ */
+export class WorkflowItemDataServiceStub extends IdentifiableDataServiceStub<WorkflowItem> {
 }

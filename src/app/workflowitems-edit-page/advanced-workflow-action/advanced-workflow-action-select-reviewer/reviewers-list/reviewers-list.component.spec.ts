@@ -56,7 +56,7 @@ describe('ReviewersListComponent', () => {
       activeGroup: activeGroup,
       epersonMembers: epersonMembers,
       subgroupMembers: subgroupMembers,
-      findAllByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
+      findListByHref(_href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         return createSuccessfulRemoteDataObject$(buildPaginatedList<EPerson>(new PageInfo(), groupsDataServiceStub.getEPersonMembers()));
       },
       searchByScope(scope: string, query: string): Observable<RemoteData<PaginatedList<EPerson>>> {

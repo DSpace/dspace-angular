@@ -31,15 +31,15 @@
             </div>
 
           <div class="button-row bottom">
-            <div class="float-right">
+            <div class="float-right space-children-mr">
               <button [routerLink]="[(itemPageRoute$ | async), 'edit']" class="btn btn-outline-secondary">
                 <i class="fas fa-arrow-left"></i> {{'item.edit.move.cancel' | translate}}
               </button>
-              <button class="btn btn-primary mr-0" [disabled]="!canMove" (click)="moveToCollection()">
+              <button class="btn btn-primary" [disabled]="!canMove" (click)="moveToCollection()">
               <span *ngIf="!processing">
                 <i class="fas fa-save"></i> {{'item.edit.move.save-button' | translate}}
               </span>
-                <span *ngIf="processing">
+              <span *ngIf="processing">
                 <i class="fas fa-circle-notch fa-spin"></i> {{'item.edit.move.processing' | translate}}
               </span>
               </button>

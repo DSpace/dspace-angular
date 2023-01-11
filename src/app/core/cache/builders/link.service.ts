@@ -3,28 +3,30 @@ import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
+import { DATA_SERVICE_FACTORY } from '../../data/base/data-service.decorator';
 import {
-  DATA_SERVICE_FACTORY,
   LINK_DEFINITION_FACTORY,
   LINK_DEFINITION_MAP_FACTORY,
-  LinkDefinition
+  LinkDefinition,
 } from './build-decorators';
 import { RemoteData } from '../../data/remote-data';
 import { EMPTY, Observable } from 'rxjs';
 import { ResourceType } from '../../shared/resource-type';
+import { HALDataService } from '../../data/base/hal-data-service.interface';
+import { PaginatedList } from '../../data/paginated-list.model';
 
 /**
  * A Service to handle the resolving and removing
  * of resolved {@link HALLink}s on HALResources
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LinkService {
 
   constructor(
     protected parentInjector: Injector,
-    @Inject(DATA_SERVICE_FACTORY) private getDataServiceFor: (resourceType: ResourceType) => GenericConstructor<any>,
+    @Inject(DATA_SERVICE_FACTORY) private getDataServiceFor: (resourceType: ResourceType) => GenericConstructor<HALDataService<any>>,
     @Inject(LINK_DEFINITION_FACTORY) private getLinkDefinition: <T extends HALResource>(source: GenericConstructor<T>, linkName: keyof T['_links']) => LinkDefinition<T>,
     @Inject(LINK_DEFINITION_MAP_FACTORY) private getLinkDefinitions: <T extends HALResource>(source: GenericConstructor<T>) => Map<keyof T['_links'], LinkDefinition<T>>,
   ) {
@@ -51,7 +53,7 @@ export class LinkService {
    * @param model the {@link HALResource} to resolve the link for
    * @param linkToFollow the {@link FollowLinkConfig} to resolve
    */
-  public resolveLinkWithoutAttaching<T extends HALResource, U extends HALResource>(model, linkToFollow: FollowLinkConfig<T>): Observable<RemoteData<U>> {
+  public resolveLinkWithoutAttaching<T extends HALResource, U extends HALResource>(model, linkToFollow: FollowLinkConfig<T>): Observable<RemoteData<U | PaginatedList<U>>> {
     const matchingLinkDef = this.getLinkDefinition(model.constructor, linkToFollow.name);
 
     if (hasValue(matchingLinkDef)) {
@@ -61,9 +63,9 @@ export class LinkService {
         throw new Error(`The @link() for ${linkToFollow.name} on ${model.constructor.name} models uses the resource type ${matchingLinkDef.resourceType.value.toUpperCase()}, but there is no service with an @dataService(${matchingLinkDef.resourceType.value.toUpperCase()}) annotation in order to retrieve it`);
       }
 
-      const service = Injector.create({
+      const service: HALDataService<any> = Injector.create({
         providers: [],
-        parent: this.parentInjector
+        parent: this.parentInjector,
       }).get(provider);
 
       const link = model._links[matchingLinkDef.linkName];
@@ -72,7 +74,7 @@ export class LinkService {
 
         try {
           if (matchingLinkDef.isList) {
-            return service.findAllByHref(href, linkToFollow.findListOptions, linkToFollow.useCachedVersionIfAvailable, linkToFollow.reRequestOnStale, ...linkToFollow.linksToFollow);
+            return service.findListByHref(href, linkToFollow.findListOptions, linkToFollow.useCachedVersionIfAvailable, linkToFollow.reRequestOnStale, ...linkToFollow.linksToFollow);
           } else {
             return service.findByHref(href, linkToFollow.useCachedVersionIfAvailable, linkToFollow.reRequestOnStale, ...linkToFollow.linksToFollow);
           }
