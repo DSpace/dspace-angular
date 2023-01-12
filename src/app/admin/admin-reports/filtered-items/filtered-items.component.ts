@@ -39,7 +39,7 @@ export class FilteredItemsComponent {
   pageLimits: OptionVO[];
 
   queryForm: FormGroup;
-  currentPage: number = 0;
+  currentPage = 0;
   results: FilteredItems = new FilteredItems();
   results$: Observable<Item[]>;
   @ViewChild('acc') accordionComponent: NgbAccordion;
@@ -230,7 +230,7 @@ export class FilteredItemsComponent {
       query.predicates
           .map(qp => qp.toFormGroup(this.formBuilder))
           .forEach(qp => this.addQueryPredicate(qp));
-      if (query.predicates.length == 0) {
+      if (query.predicates.length === 0) {
         this.addQueryPredicate(new QueryPredicate().toFormGroup(this.formBuilder));
       }
     }

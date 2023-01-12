@@ -1,4 +1,4 @@
-import { Item } from "src/app/core/shared/item.model";
+import { Item } from 'src/app/core/shared/item.model';
 
 export class FilteredItems {
 

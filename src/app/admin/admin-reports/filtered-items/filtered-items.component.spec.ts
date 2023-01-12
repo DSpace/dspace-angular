@@ -1,6 +1,6 @@
 import { waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 import { FormBuilder } from '@angular/forms';
 import { FilteredItemsComponent } from './filtered-items.component';
@@ -11,7 +11,7 @@ import { of as observableOf } from 'rxjs';
 import { RawRestResponse } from 'src/app/core/dspace-rest/raw-rest-response.model';
 import { CommunityDataService } from 'src/app/core/data/community-data.service';
 import { ObjectCacheService } from 'src/app/core/cache/object-cache.service';
-import { ActionsSubject, ReducerManager, ReducerManagerDispatcher, StateObservable, Store, StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { UUIDService } from 'src/app/core/shared/uuid.service';
 import { RemoteDataBuildService } from 'src/app/core/cache/builders/remote-data-build.service';
 import { HALEndpointService } from 'src/app/core/shared/hal-endpoint.service';
@@ -21,7 +21,6 @@ import { BitstreamFormatDataService } from 'src/app/core/data/bitstream-format-d
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { MetadataSchemaDataService } from 'src/app/core/data/metadata-schema-data.service';
 import { MetadataFieldDataService } from 'src/app/core/data/metadata-field-data.service';
-import { StoreMock } from 'src/app/shared/testing/store.mock';
 
 describe('FiltersComponent', () => {
   let component: FilteredItemsComponent;
