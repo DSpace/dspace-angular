@@ -49,7 +49,7 @@ const LAZY_KLARO = new InjectionToken<Promise<any>>(
   'Lazily loaded Klaro',
   {
     providedIn: 'root',
-    factory: async () => (await import('klaro')),
+    factory: async () => (await import('klaro/dist/klaro-no-translations')),
   }
 );
 
@@ -115,7 +115,6 @@ export class BrowserKlaroService extends KlaroService {
         if (hideRegistrationVerification) {
           servicesToHideArray.push(CAPTCHA_NAME);
         }
-        console.log(servicesToHideArray);
         return servicesToHideArray;
       })
     );

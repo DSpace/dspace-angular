@@ -15,6 +15,11 @@ export class MediaViewerItem {
   format: string;
 
   /**
+   * Incoming Bitsream format mime type
+   */
+  mimetype: string;
+
+  /**
    * Incoming Bitsream thumbnail
    */
   thumbnail: string;
