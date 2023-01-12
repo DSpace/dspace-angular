@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
-import { Version } from '../../../core/shared/version.model';
-import { RemoteData } from '../../../core/data/remote-data';
+import { Item } from '../../core/shared/item.model';
+import { Version } from '../../core/shared/version.model';
+import { RemoteData } from '../../core/data/remote-data';
 import {
   BehaviorSubject,
   combineLatest,
@@ -9,7 +9,7 @@ import {
   of,
   Subscription,
 } from 'rxjs';
-import { VersionHistory } from '../../../core/shared/version-history.model';
+import { VersionHistory } from '../../core/shared/version-history.model';
 import {
   getAllSucceededRemoteData,
   getAllSucceededRemoteDataPayload,
@@ -17,37 +17,37 @@ import {
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload
-} from '../../../core/shared/operators';
+} from '../../core/shared/operators';
 import { map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
-import { AlertType } from '../../alert/aletr-type';
-import { followLink } from '../../utils/follow-link-config.model';
-import { hasValue, hasValueOperator } from '../../empty.util';
-import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { AlertType } from '../../shared/alert/aletr-type';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { hasValue, hasValueOperator } from '../../shared/empty.util';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import {
   getItemEditVersionhistoryRoute,
   getItemPageRoute,
   getItemVersionRoute
-} from '../../../item-page/item-page-routing-paths';
+} from '../item-page-routing-paths';
 import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
-import { NotificationsService } from '../../notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ItemVersionsDeleteModalComponent } from './item-versions-delete-modal/item-versions-delete-modal.component';
-import { VersionDataService } from '../../../core/data/version-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
+import { VersionDataService } from '../../core/data/version-data.service';
+import { ItemDataService } from '../../core/data/item-data.service';
 import { Router } from '@angular/router';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ItemVersionsSharedService } from './item-versions-shared.service';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 
 @Component({
   selector: 'ds-item-versions',

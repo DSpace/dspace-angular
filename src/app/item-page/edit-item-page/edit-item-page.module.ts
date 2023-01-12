@@ -33,6 +33,7 @@ import { ItemVersionHistoryComponent } from './item-version-history/item-version
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
 import { ObjectValuesPipe } from '../../shared/utils/object-values-pipe';
 import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-policies.module';
+import { ItemVersionsModule } from '../versions/item-versions.module';
 import { DsoSharedModule } from '../../dso-shared/dso-shared.module';
 
 
@@ -49,6 +50,7 @@ import { DsoSharedModule } from '../../dso-shared/dso-shared.module';
     DragDropModule,
     ResourcePoliciesModule,
     NgbModule,
+    ItemVersionsModule,
     DsoSharedModule,
   ],
   declarations: [
