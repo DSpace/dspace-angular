@@ -47,6 +47,11 @@ import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrcidSyncSettingsComponent } from './orcid-page/orcid-sync-settings/orcid-sync-settings.component';
 import { OrcidQueueComponent } from './orcid-page/orcid-queue/orcid-queue.component';
 import { UploadModule } from '../shared/upload/upload.module';
+import { ItemAlertsComponent } from './alerts/item-alerts.component';
+import { ItemVersionsModule } from './versions/item-versions.module';
+import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
+import { FileSectionComponent } from './simple/field-components/file-section/file-section.component';
+import { ItemSharedModule } from './item-shared.module';
 
 
 const ENTRY_COMPONENTS = [
@@ -56,6 +61,7 @@ const ENTRY_COMPONENTS = [
 ];
 
 const DECLARATIONS = [
+  FileSectionComponent,
   ThemedFileSectionComponent,
   ItemPageComponent,
   ThemedItemPageComponent,
@@ -82,7 +88,10 @@ const DECLARATIONS = [
   OrcidPageComponent,
   OrcidAuthComponent,
   OrcidSyncSettingsComponent,
-  OrcidQueueComponent
+  OrcidQueueComponent,
+  ItemAlertsComponent,
+  VersionedItemComponent,
+  BitstreamRequestACopyPageComponent,
 ];
 
 @NgModule({
@@ -91,6 +100,8 @@ const DECLARATIONS = [
     SharedModule.withEntryComponents(),
     ItemPageRoutingModule,
     EditItemPageModule,
+    ItemVersionsModule,
+    ItemSharedModule,
     StatisticsModule.forRoot(),
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
@@ -100,10 +111,10 @@ const DECLARATIONS = [
   ],
   declarations: [
     ...DECLARATIONS,
-    VersionedItemComponent
+
   ],
   exports: [
-    ...DECLARATIONS
+    ...DECLARATIONS,
   ]
 })
 export class ItemPageModule {

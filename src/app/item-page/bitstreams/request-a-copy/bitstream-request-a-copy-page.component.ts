@@ -1,25 +1,25 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { hasValue, isNotEmpty } from '../empty.util';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { AuthService } from '../../core/auth/auth.service';
+import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { Bitstream } from '../../../core/shared/bitstream.model';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { AuthService } from '../../../core/auth/auth.service';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import { getBitstreamDownloadRoute, getForbiddenRoute } from '../../app-routing-paths';
+import { getBitstreamDownloadRoute, getForbiddenRoute } from '../../../app-routing-paths';
 import { TranslateService } from '@ngx-translate/core';
-import { EPerson } from '../../core/eperson/models/eperson.model';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ItemRequestDataService } from '../../core/data/item-request-data.service';
-import { ItemRequest } from '../../core/shared/item-request.model';
-import { Item } from '../../core/shared/item.model';
-import { NotificationsService } from '../notifications/notifications.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ItemRequestDataService } from '../../../core/data/item-request-data.service';
+import { ItemRequest } from '../../../core/shared/item-request.model';
+import { Item } from '../../../core/shared/item.model';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Location } from '@angular/common';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
+import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-bitstream-request-a-copy-page',

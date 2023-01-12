@@ -1,19 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../../../core/shared/item.model';
+import { Item } from '../../../core/shared/item.model';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { VersionHistory } from '../../../../core/shared/version-history.model';
-import { Version } from '../../../../core/shared/version.model';
-import { hasValue, hasValueOperator } from '../../../empty.util';
+import { RemoteData } from '../../../core/data/remote-data';
+import { VersionHistory } from '../../../core/shared/version-history.model';
+import { Version } from '../../../core/shared/version.model';
+import { hasValue, hasValueOperator } from '../../../shared/empty.util';
 import {
   getAllSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload
-} from '../../../../core/shared/operators';
+} from '../../../core/shared/operators';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
-import { AlertType } from '../../../alert/aletr-type';
-import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
+import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
+import { AlertType } from '../../../shared/alert/aletr-type';
+import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-versions-notice',

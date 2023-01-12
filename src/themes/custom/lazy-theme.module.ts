@@ -117,6 +117,8 @@ import { BrowseByTitlePageComponent } from './app/browse-by/browse-by-title-page
 import {
   ExternalSourceEntryImportModalComponent
 } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
+import { ItemSharedModule } from '../../app/item-page/item-shared.module';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -193,8 +195,10 @@ const DECLARATIONS = [
     CommunityPageModule,
     CoreModule,
     DragDropModule,
+    ItemSharedModule,
     ItemPageModule,
     EditItemPageModule,
+    ItemVersionsModule,
     FormsModule,
     HomePageModule,
     HttpClientModule,
