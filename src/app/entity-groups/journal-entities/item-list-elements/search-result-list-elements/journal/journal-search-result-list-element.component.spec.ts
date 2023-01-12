@@ -13,7 +13,7 @@ import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { createSuccessfulRemoteDataObject } from '../../../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { GroupMock } from '../../../../../shared/testing/group-mock';
@@ -24,6 +24,8 @@ import { AuthorizationDataService } from '../../../../../core/data/feature-autho
 import { EPersonDataService } from '../../../../../core/eperson/eperson-data.service';
 import { ResourcePolicyDataService } from '../../../../../core/resource-policy/resource-policy-data.service';
 import { EPersonMock } from '../../../../../shared/testing/eperson.mock';
+import { EPerson } from '../../../../../core/eperson/models/eperson.model';
+import { createPaginatedList } from '../../../../../shared/testing/utils.test';
 
 let journalListElementComponent: JournalSearchResultListElementComponent;
 let fixture: ComponentFixture<JournalSearchResultListElementComponent>;
@@ -35,6 +37,14 @@ const authService: AuthServiceStub = Object.assign(new AuthServiceStub(), {
   getAuthenticatedUserFromStore: () => {
     return of(EPersonMock);
   }
+});
+const user = Object.assign(new EPerson(), {
+  id: 'userId',
+  groups: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+  _links: { self: { href: 'test.com/uuid/1234567654321' } }
+});
+const epersonService = jasmine.createSpyObj('epersonService', {
+  findById: createSuccessfulRemoteDataObject$(user),
 });
 
 const mockItemWithMetadata: ItemSearchResult = Object.assign(
@@ -145,7 +155,7 @@ describe('JournalSearchResultListElementComponent', () => {
         { provide: TranslateService, useValue: {}},
         { provide: ResourcePolicyDataService, useValue: {}},
         { provide: AuthService, useValue: authService},
-        { provide: EPersonDataService, useValue: {}},
+        { provide: EPersonDataService, useValue: epersonService},
         { provide: AuthorizationDataService, useValue: authorizationService},
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
@@ -218,7 +228,7 @@ describe('JournalSearchResultListElementComponent', () => {
         {provide: TranslateService, useValue: {}},
         {provide: ResourcePolicyDataService, useValue: {}},
         {provide: AuthService, useValue: authService},
-        {provide: EPersonDataService, useValue: {}},
+        {provide: EPersonDataService, useValue: epersonService},
         {provide: AuthorizationDataService, useValue: authorizationService},
         {provide: DSONameService, useClass: DSONameServiceMock},
         { provide: APP_CONFIG, useValue: enviromentNoThumbs }

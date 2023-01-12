@@ -14,7 +14,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { hot } from 'jasmine-marbles';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { GroupMock } from '../../../../../shared/testing/group-mock';
@@ -25,6 +25,8 @@ import { ResourcePolicyDataService } from '../../../../../core/resource-policy/r
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { EPersonDataService } from '../../../../../core/eperson/eperson-data.service';
+import { EPerson } from '../../../../../core/eperson/models/eperson.model';
+import { createPaginatedList } from '../../../../../shared/testing/utils.test';
 
 let personListElementComponent: PersonSearchResultListElementComponent;
 let fixture: ComponentFixture<PersonSearchResultListElementComponent>;
@@ -39,6 +41,14 @@ const authService: AuthServiceStub = Object.assign(new AuthServiceStub(), {
   getAuthenticatedUserFromStore: () => {
     return of(EPersonMock);
   }
+});
+const user = Object.assign(new EPerson(), {
+  id: 'userId',
+  groups: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+  _links: { self: { href: 'test.com/uuid/1234567654321' } }
+});
+const epersonService = jasmine.createSpyObj('epersonService', {
+  findById: createSuccessfulRemoteDataObject$(user),
 });
 
 const mockItemWithMetadata: ItemSearchResult = Object.assign(
@@ -149,7 +159,7 @@ describe('PersonSearchResultListElementComponent', () => {
         { provide: NotificationsService, useValue: {} },
         { provide: ResourcePolicyDataService, useValue: {}},
         { provide: AuthService, useValue: authService},
-        { provide: EPersonDataService, useValue: {}},
+        { provide: EPersonDataService, useValue: epersonService},
         { provide: AuthorizationDataService, useValue: authorizationService},
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
@@ -228,7 +238,7 @@ describe('PersonSearchResultListElementComponent', () => {
         {provide: NotificationsService, useValue: {}},
         {provide: ResourcePolicyDataService, useValue: {}},
         {provide: AuthService, useValue: authService},
-        {provide: EPersonDataService, useValue: {}},
+        {provide: EPersonDataService, useValue: epersonService},
         {provide: AuthorizationDataService, useValue: authorizationService},
         {provide: DSONameService, useClass: DSONameServiceMock},
         { provide: APP_CONFIG, useValue: enviromentNoThumbs }
