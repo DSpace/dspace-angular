@@ -53,6 +53,6 @@ export class FilteredCollectionsComponent {
     let form = this.queryForm.value;
     let scheme = environment.rest.ssl ? 'https' : 'http';
     let urlRestApp = `${scheme}://${environment.rest.host}:${environment.rest.port}${environment.rest.nameSpace}`;
-    return this.restService.request(RestRequestMethod.POST, `${urlRestApp}/api/contentreports/filteredcollections`, form);
+    return this.restService.request(RestRequestMethod.POST, `${urlRestApp}/api/contentreport/filteredcollections`, form);
   }
 }

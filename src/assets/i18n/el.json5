@@ -1618,6 +1618,18 @@
 	"menu.section.access_control_authorizations": "Εξουσιοδοτήσεις",
 	"menu.section.access_control_groups": "Ομάδες",
 	"menu.section.access_control_people": "Ανθρωποι",
+    // "menu.section.reports": "Reports",
+    // TODO New key - Add a translation
+    "menu.section.reports": "Reports",
+
+    // "menu.section.reports.collections": "Filtered Collections",
+    // TODO New key - Add a translation
+    "menu.section.reports.collections": "Filtered Collections",
+
+    // "menu.section.reports.queries": "Metadata Query",
+    // TODO New key - Add a translation
+    "menu.section.reports.queries": "Metadata Query",
+
 	"menu.section.admin_search": "Αναζήτηση διαχειριστή",
 	"menu.section.browse_community": "Αυτή η Κοινότητα",
 	"menu.section.browse_community_by_author": "Από Συγγραφέα",
