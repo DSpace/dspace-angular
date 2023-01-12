@@ -9,8 +9,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {
   Angulartics2,
   Angulartics2GoogleAnalytics,
-  Angulartics2GoogleGlobalSiteTag,
-  Angulartics2GoogleTagManager
+  Angulartics2GoogleGlobalSiteTag
 } from 'angulartics2';
 
 import { AppComponent } from '../../app/app.component';
