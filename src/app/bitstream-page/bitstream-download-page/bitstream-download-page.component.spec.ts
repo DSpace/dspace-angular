@@ -6,7 +6,7 @@ import { Bitstream } from '../../core/shared/bitstream.model';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page.component';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { ActivatedRoute, Router } from '@angular/router';
 import { getForbiddenRoute } from '../../app-routing-paths';
 import { TranslateModule } from '@ngx-translate/core';
