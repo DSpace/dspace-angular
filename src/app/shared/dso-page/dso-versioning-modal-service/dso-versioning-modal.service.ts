@@ -1,6 +1,3 @@
-import {
-  ItemVersionsSummaryModalComponent
-} from '../../item/item-versions/item-versions-summary-modal/item-versions-summary-modal.component';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Version } from '../../../core/shared/version.model';
@@ -10,12 +7,15 @@ import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.mod
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VersionDataService } from '../../../core/data/version-data.service';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { ItemVersionsSharedService } from '../../item/item-versions/item-versions-shared.service';
 import { Router } from '@angular/router';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { ItemVersionsSharedService } from '../../../item-page/versions/item-versions-shared.service';
+import {
+  ItemVersionsSummaryModalComponent
+} from '../../../item-page/versions/item-versions-summary-modal/item-versions-summary-modal.component';
 
 /**
  * Service to take care of all the functionality related to the version creation modal
@@ -24,6 +24,7 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class DsoVersioningModalService {
+
 
   constructor(
     protected modalService: NgbModal,

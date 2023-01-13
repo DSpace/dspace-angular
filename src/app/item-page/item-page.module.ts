@@ -51,6 +51,7 @@ import { ItemVersionsModule } from './versions/item-versions.module';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { FileSectionComponent } from './simple/field-components/file-section/file-section.component';
 import { ItemSharedModule } from './item-shared.module';
+import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 
 
 const ENTRY_COMPONENTS = [
@@ -89,7 +90,6 @@ const DECLARATIONS = [
   OrcidSyncSettingsComponent,
   OrcidQueueComponent,
   ItemAlertsComponent,
-  VersionedItemComponent,
   BitstreamRequestACopyPageComponent,
 ];
 
@@ -107,6 +107,7 @@ const DECLARATIONS = [
     NgxGalleryModule,
     NgbAccordionModule,
     UploadModule,
+    DsoPageModule,
   ],
   declarations: [
     ...DECLARATIONS,

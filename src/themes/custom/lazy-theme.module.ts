@@ -119,6 +119,7 @@ import {
 } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
 import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
 import { ItemSharedModule } from '../../app/item-page/item-shared.module';
+import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -206,6 +207,7 @@ const DECLARATIONS = [
     InfoModule,
     JournalEntitiesModule,
     MenuModule,
+    DsoPageModule,
     MyDspaceSearchModule,
     NavbarModule,
     NgbModule,

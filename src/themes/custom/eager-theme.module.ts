@@ -42,6 +42,7 @@ import {
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent } from './app/shared/object-list/collection-list-element/collection-list-element.component';
 import { CollectionDropdownComponent } from './app/shared/collection-dropdown/collection-dropdown.component';
+import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
 
 
 /**
@@ -84,6 +85,7 @@ const DECLARATIONS = [
     NavbarModule,
     ItemPageModule,
     ItemSharedModule,
+    DsoPageModule,
   ],
   declarations: DECLARATIONS,
   providers: [
