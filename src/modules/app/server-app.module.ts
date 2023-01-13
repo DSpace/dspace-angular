@@ -34,6 +34,8 @@ import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { ServerAuthRequestService } from '../../app/core/auth/server-auth-request.service';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { AppConfig, APP_CONFIG_STATE } from '../../config/app-config.interface';
+import { XhrFactory } from '@angular/common';
+import { ServerXhrService } from '../../app/core/services/server-xhr.service';
 
 import { environment } from '../../environments/environment';
 
@@ -120,6 +122,10 @@ export function createTranslateLoader() {
     {
       provide: HardRedirectService,
       useClass: ServerHardRedirectService,
+    },
+    {
+      provide: XhrFactory,
+      useClass: ServerXhrService,
     },
   ]
 })
