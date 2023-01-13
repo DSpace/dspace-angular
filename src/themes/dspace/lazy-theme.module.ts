@@ -55,6 +55,8 @@ import {
 } from '../../app/shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { RootModule } from '../../app/root.module';
+import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
+import { ItemSharedModule } from 'src/app/item-page/item-shared.module';
 
 const DECLARATIONS = [
 ];
@@ -76,8 +78,10 @@ const DECLARATIONS = [
     CommunityPageModule,
     CoreModule,
     DragDropModule,
+    ItemSharedModule,
     ItemPageModule,
     EditItemPageModule,
+    ItemVersionsModule,
     FormsModule,
     HomePageModule,
     HttpClientModule,
