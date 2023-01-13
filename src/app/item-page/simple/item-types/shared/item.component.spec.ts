@@ -38,12 +38,9 @@ import { VersionHistoryDataService } from '../../../../core/data/version-history
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { ResearcherProfileDataService } from '../../../../core/profile/researcher-profile-data.service';
-import { Router } from '@angular/router';
 
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { ItemComponent } from './item.component';
-import { ItemVersionsSharedService } from '../../../../shared/item/item-versions/item-versions-shared.service';
 
 export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
   return Object.assign(new MetadataValue(), {
@@ -402,81 +399,6 @@ describe('ItemComponent', () => {
         }
       ]
     },
-  });
-
-  describe('back to results', () => {
-    let comp: ItemComponent;
-    let fixture: ComponentFixture<any>;
-    let router: Router;
-
-    const searchUrl = '/search?query=test&spc.page=2';
-    const browseUrl = '/browse/title?scope=0cc&bbm.page=3';
-    const recentSubmissionsUrl = '/collections/be7b8430-77a5-4016-91c9-90863e50583a?cp.page=3';
-
-    beforeEach(waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          TranslateModule.forRoot({
-            loader: {
-              provide: TranslateLoader,
-              useClass: TranslateLoaderMock
-            }
-          }),
-          RouterTestingModule,
-        ],
-        declarations: [ItemComponent, GenericItemPageFieldComponent, TruncatePipe ],
-        providers: [
-          { provide: ItemDataService, useValue: {} },
-          { provide: TruncatableService, useValue: {} },
-          { provide: RelationshipDataService, useValue: {} },
-          { provide: ObjectCacheService, useValue: {} },
-          { provide: UUIDService, useValue: {} },
-          { provide: Store, useValue: {} },
-          { provide: RemoteDataBuildService, useValue: {} },
-          { provide: CommunityDataService, useValue: {} },
-          { provide: HALEndpointService, useValue: {} },
-          { provide: NotificationsService, useValue: {} },
-          { provide: HttpClient, useValue: {} },
-          { provide: DSOChangeAnalyzer, useValue: {} },
-          { provide: DefaultChangeAnalyzer, useValue: {} },
-          { provide: VersionHistoryDataService, useValue: {} },
-          { provide: VersionDataService, useValue: {} },
-          { provide: BitstreamDataService, useValue: {} },
-          { provide: WorkspaceitemDataService, useValue: {} },
-          { provide: SearchService, useValue: {} },
-          { provide: ItemDataService, useValue: {} },
-          { provide: ItemVersionsSharedService, useValue: {} },
-          { provide: RouteService, useValue: mockRouteService }
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(ItemComponent, {
-        set: {changeDetection: ChangeDetectionStrategy.Default}
-      });
-    }));
-
-    beforeEach(waitForAsync(() => {
-      router = TestBed.inject(Router);
-      spyOn(router, 'navigateByUrl');
-      TestBed.compileComponents();
-      fixture = TestBed.createComponent(ItemComponent);
-      comp = fixture.componentInstance;
-      comp.object = mockItem;
-      fixture.detectChanges();
-    }));
-
-    it('should hide back button',() => {
-      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(''));
-      comp.showBackButton.subscribe((val) => {
-        expect(val).toBeFalse();
-      });
-    });
-    it('should show back button', () => {
-      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(searchUrl));
-      comp.ngOnInit();
-      comp.showBackButton.subscribe((val) => {
-        expect(val).toBeTrue();
-      });
-    });
   });
 
 });

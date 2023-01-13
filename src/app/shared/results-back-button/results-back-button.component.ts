@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import { RouteService } from '../../core/services/route.service';
 import { Router } from '@angular/router';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -30,6 +30,11 @@ export class ResultsBackButtonComponent {
   @Input() paginationConfig?: PaginationComponentOptions;
 
   /**
+   * Used to configure search in mirador.
+   */
+  showBackButton: Observable<boolean>;
+
+  /**
    * The button text
    */
   buttonLabel: Observable<string>;
@@ -47,13 +52,18 @@ export class ResultsBackButtonComponent {
     } else {
       this.buttonLabel = this.translateService.get('search.browse.item-back');
     }
+    // Show the back to results button when the previous context was a search or browse list.
+    this.showBackButton = this.routeService.getPreviousUrl().pipe(
+      filter(url => /^(\/search|\/browse|\/collections|\/admin\/search|\/mydspace)/.test(url)),
+      take(1),
+      map(() => true)
+    );
   }
 
   /**
    * Navigate back from the item to the previous pagination list.
    */
   public back() {
-
     if (isNotEmpty(this.paginationConfig) && isNotEmpty(this.previousPage$)) {
       // if pagination configuration is provided use it to update the route to the previous browse page.
       const page = +this.previousPage$.value > 1 ? +this.previousPage$.value : 1;
