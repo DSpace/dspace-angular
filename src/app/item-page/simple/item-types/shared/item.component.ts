@@ -36,11 +36,6 @@ export class ItemComponent implements OnInit {
    */
   iiifQuery$: Observable<string>;
 
-  /**
-   * Used to configure search in mirador.
-   */
-  showBackButton: Observable<boolean>;
-
   mediaViewer;
 
   constructor(protected routeService: RouteService) {
