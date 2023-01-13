@@ -16,7 +16,6 @@ import { AccessControlRoutingModule } from '../../access-control/access-control-
     AccessControlRoutingModule,
     CommonModule,
     SharedModule,
-
   ],
   exports: [
     BrowseByComponent,

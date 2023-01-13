@@ -3839,6 +3839,8 @@
 
   "submission.import-external.source.crossref": "CrossRef",
 
+  "submission.import-external.source.datacite": "DataCite",
+
   "submission.import-external.source.scielo": "SciELO",
 
   "submission.import-external.source.scopus": "Scopus",

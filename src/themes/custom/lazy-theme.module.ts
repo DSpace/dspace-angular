@@ -119,6 +119,9 @@ import {
 } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
 import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
+import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
+import { ItemSharedModule } from '../../app/item-page/item-shared.module';
+
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -195,8 +198,10 @@ const DECLARATIONS = [
     CommunityPageModule,
     CoreModule,
     DragDropModule,
+    ItemSharedModule,
     ItemPageModule,
     EditItemPageModule,
+    ItemVersionsModule,
     FormsModule,
     HomePageModule,
     HttpClientModule,

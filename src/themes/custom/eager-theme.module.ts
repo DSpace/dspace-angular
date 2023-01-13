@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../app/shared/shared.module';
 import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { SearchNavbarComponent } from './app/search-navbar/search-navbar.component';
 import { HeaderComponent } from './app/header/header.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
-import { SearchModule } from '../../app/shared/search/search.module';
 import { RootModule } from '../../app/root.module';
 import { NavbarModule } from '../../app/navbar/navbar.module';
 import { PublicationComponent } from './app/item-page/simple/item-types/publication/publication.component';
@@ -83,25 +81,20 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SharedModule,
-        SharedBrowseByModule,
-        ResultsBackButtonModule,
-        SearchModule,
-        FormsModule,
-        RootModule,
-        NavbarModule,
-        ItemPageModule,
-        ItemSharedModule,
-    ],
-    declarations: DECLARATIONS,
-    providers: [
-        ...ENTRY_COMPONENTS.map((component) => ({provide: component}))
-    ],
-    exports: [
-        ResultsBackButtonComponent
-    ]
+  imports: [
+    CommonModule,
+    SharedModule,
+    RootModule,
+    NavbarModule,
+    SharedBrowseByModule,
+    ResultsBackButtonModule,
+    ItemPageModule,
+    ItemSharedModule,
+  ],
+  declarations: DECLARATIONS,
+  providers: [
+    ...ENTRY_COMPONENTS.map((component) => ({ provide: component }))
+  ],
 })
 /**
  * This module is included in the main bundle that gets downloaded at first page load. So it should

@@ -36,7 +36,7 @@ import { VersionDataService } from '../../../../core/data/version-data.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
-import { ItemVersionsSharedService } from '../../../../shared/item/item-versions/item-versions-shared.service';
+import { ItemVersionsSharedService } from '../../../versions/item-versions-shared.service';
 
 const noMetadata = new MetadataMap();
 
