@@ -3640,6 +3640,7 @@
 
   "search.filters.filter.submitter.label": "Search submitter",
 
+  "search.filters.filter.show-tree": "Browse {{ name }} tree",
 
 
   "search.filters.entityType.JournalIssue": "Journal Issue",
@@ -4514,7 +4515,7 @@
 
   "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
 
-
+  "vocabulary-treeview.info": "Select a subject to add as search filter",
 
   "uploader.browse": "browse",
 
@@ -4841,8 +4842,4 @@
   "home.recent-submissions.head": "Recent Submissions",
 
   "listable-notification-object.default-message": "This object couldn't be retrieved",
-
-  "search.filters.filter.show-tree": "Browse {{ name }} tree",
-
-  "vocabulary-treeview.info": "Select a subject to add as search filter"
 }
