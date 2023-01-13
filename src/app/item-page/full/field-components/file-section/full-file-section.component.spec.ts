@@ -7,7 +7,7 @@ import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.m
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
-import { MetadataFieldWrapperComponent } from '../../../field-components/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
@@ -18,6 +18,8 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment';
 
 describe('FullFileSectionComponent', () => {
   let comp: FullFileSectionComponent;
@@ -69,7 +71,8 @@ describe('FullFileSectionComponent', () => {
       providers: [
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
+        { provide: APP_CONFIG, useValue: environment },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

@@ -4,6 +4,7 @@ import { DynamicQualdropModel } from '../ds-dynamic-form-ui/models/ds-dynamic-qu
 import { DynamicOneboxModel } from '../ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
 import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { ParserOptions } from './parser-options';
+import { FieldParser } from './field-parser';
 
 describe('OneboxFieldParser test suite', () => {
   let field1: FormFieldModel;
@@ -99,6 +100,53 @@ describe('OneboxFieldParser test suite', () => {
     const fieldModel = parser.parse();
 
     expect(fieldModel instanceof DynamicOneboxModel).toBe(true);
+  });
+
+  describe('should handle a DynamicOneboxModel with regex', () => {
+    let regexField: FormFieldModel;
+    let parser: FieldParser;
+    let fieldModel: any;
+
+    beforeEach(() => {
+      regexField = {
+        input: { type: 'onebox', regex: '/[a-z]+/mi' },
+        label: 'Title',
+        mandatory: 'false',
+        repeatable: false,
+        hints: 'Enter the name of the events, if any.',
+        selectableMetadata: [
+          {
+            metadata: 'title',
+            controlledVocabulary: 'EVENTAuthority',
+            closed: false
+          }
+        ],
+        languageCodes: []
+      } as FormFieldModel;
+
+      parser = new OneboxFieldParser(submissionId, regexField, initFormValues, parserOptions);
+      fieldModel = parser.parse();
+    });
+
+    it('should have initialized pattern validator', () => {
+      expect(fieldModel instanceof DynamicOneboxModel).toBe(true);
+      expect(fieldModel.validators).not.toBeNull();
+      expect(fieldModel.validators.pattern).not.toBeNull();
+    });
+
+    it('should mark valid not case sensitive basic characters regex in multiline', () => {
+      let pattern = fieldModel.validators.pattern as RegExp;
+      expect(pattern.test('HELLO')).toBe(true);
+      expect(pattern.test('hello')).toBe(true);
+      expect(pattern.test('hello\nhello\nhello')).toBe(true);
+      expect(pattern.test('HeLlO')).toBe(true);
+    });
+
+    it('should be invalid for non-basic alphabet characters', () => {
+      let pattern = fieldModel.validators.pattern as RegExp;
+      expect(pattern.test('12345')).toBe(false);
+      expect(pattern.test('àèìòùáéíóú')).toBe(false);
+    });
   });
 
 });
