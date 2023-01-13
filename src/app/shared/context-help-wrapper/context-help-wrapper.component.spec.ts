@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf, Observable, BehaviorSubject } from 'rxjs';
+import { of as observableOf, BehaviorSubject } from 'rxjs';
 import { ContextHelpWrapperComponent } from './context-help-wrapper.component';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,6 +20,7 @@ import { By } from '@angular/platform-browser';
       [id]="id"
       [tooltipPlacement]="tooltipPlacement"
       [iconPlacement]="iconPlacement"
+      [dontParseLinks]="dontParseLinks"
     >
     </ds-context-help-wrapper>
   `
@@ -29,11 +30,12 @@ class TemplateComponent {
   @Input() id: string;
   @Input() tooltipPlacement?: PlacementArray;
   @Input() iconPlacement?: PlacementDir;
+  @Input() dontParseLinks?: boolean;
 }
 
 const messages = {
   lorem: 'lorem ipsum dolor sit amet',
-  linkTest: 'This is text, [this](https://dspace.lyrasis.org) is a link, and [so is this](https://google.com)'
+  linkTest: 'This is text, [this](https://dspace.lyrasis.org/) is a link, and [so is this](https://google.com/)'
 };
 const exampleContextHelp: ContextHelp = {
   id: 'test-tooltip',
@@ -147,6 +149,55 @@ describe('ContextHelpWrapperComponent', () => {
         fixture.detectChanges();
         expect(wrapperComponent.tooltip.open).toHaveBeenCalled();
         expect(wrapperComponent.tooltip.close).toHaveBeenCalledTimes(0);
+        expect(fixture.debugElement.query(By.css('.ds-context-help-content')).nativeElement.textContent)
+          .toMatch(/\s*lorem ipsum dolor sit amet\s*/);
+      });
+
+      it('should correctly display links', () => {
+        templateComponent.content = 'linkTest';
+        getContextHelp$.next({...exampleContextHelp, isTooltipVisible: true});
+        fixture.detectChanges();
+        const nodeList: NodeList = fixture.debugElement.query(By.css('.ds-context-help-content'))
+          .nativeElement
+          .childNodes;
+        const relevantNodes = Array.from(nodeList).filter(node => node.nodeType != Node.COMMENT_NODE);
+        expect(relevantNodes.length).toBe(4);
+
+        const [text1, link1, text2, link2] = relevantNodes;
+
+        expect(text1.nodeType).toBe(Node.TEXT_NODE);
+        expect(text1.nodeValue).toMatch(/\s* This is text, \s*/);
+
+        expect(link1.nodeName).toBe('A');
+        expect((link1 as any).href).toBe('https://dspace.lyrasis.org/');
+        expect(link1.textContent).toBe('this');
+
+        expect(text2.nodeType).toBe(Node.TEXT_NODE);
+        expect(text2.nodeValue).toMatch(/\s* is a link, and \s*/);
+
+        expect(link2.nodeName).toBe('A');
+        expect((link2 as any).href).toBe('https://google.com/');
+        expect(link2.textContent).toBe('so is this');
+      });
+
+      it('should not display links if specified not to', () => {
+        templateComponent.dontParseLinks = true;
+        templateComponent.content = 'linkTest';
+        getContextHelp$.next({...exampleContextHelp, isTooltipVisible: true});
+        fixture.detectChanges();
+
+
+        const nodeList: NodeList = fixture.debugElement.query(By.css('.ds-context-help-content'))
+          .nativeElement
+          .childNodes;
+        const relevantNodes = Array.from(nodeList).filter(node => node.nodeType != Node.COMMENT_NODE);
+        expect(relevantNodes.length).toBe(1);
+
+        const [text] = relevantNodes;
+
+        expect(text.nodeType).toBe(Node.TEXT_NODE);
+        expect(text.nodeValue).toMatch(
+          /\s* This is text, \[this\]\(https:\/\/dspace.lyrasis.org\/\) is a link, and \[so is this\]\(https:\/\/google.com\/\) \s*/);
       });
 
       describe('after the icon is clicked again', () => {
@@ -165,6 +216,4 @@ describe('ContextHelpWrapperComponent', () => {
       });
     });
   });
-
-  // TODO: link parsing tests
 });
