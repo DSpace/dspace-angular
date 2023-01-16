@@ -13,8 +13,9 @@ describe('ContextHelpToggleComponent', () => {
   const contextHelpEmpty$ = new BehaviorSubject(true);
 
   beforeEach(async () => {
-    contextHelpService = jasmine.createSpyObj('contextHelpService',
-      ['toggleIcons', 'contextHelpEmpty$']);
+    contextHelpService = jasmine.createSpyObj('contextHelpService', [
+      'contextHelpEmpty$', 'toggleIcons'
+    ]);
     contextHelpService.contextHelpEmpty$.and.returnValue(contextHelpEmpty$);
     await TestBed.configureTestingModule({
       declarations: [ ContextHelpToggleComponent ],
@@ -44,6 +45,7 @@ describe('ContextHelpToggleComponent', () => {
 
     it('clicking the button should toggle context help icon visibility', () => {
       fixture.whenStable().then((done) => {
+        spyOn(contextHelpService, 'toggleIcons');
         fixture.debugElement.query(By.css('a')).nativeElement.click();
         expect(contextHelpService.toggleIcons).toHaveBeenCalled();
         done();
@@ -54,6 +56,7 @@ describe('ContextHelpToggleComponent', () => {
   describe('if there are no elements on the page with a tooltip', () => {
     it('clicking the button does not toggle context help icon visibility', () => {
       fixture.whenStable().then((done) => {
+        spyOn(contextHelpService, 'toggleIcons');
         fixture.debugElement.query(By.css('a')).nativeElement.click();
         expect(contextHelpService.toggleIcons).toHaveBeenCalledTimes(0);
         done();
