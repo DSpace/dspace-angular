@@ -24,4 +24,8 @@
 ::ng-deep .tooltip-inner {
     width: var(--ds-context-help-tooltip-width);
     max-width: var(--ds-context-help-tooltip-width);
+    a {
+      color: var(--ds-context-help-tooltip-link-color);
+      text-decoration: underline;
+    }
 }
