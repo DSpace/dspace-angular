@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ContextHelpToggleComponent } from './context-help-toggle.component';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { ContextHelpService } from '../../shared/context-help.service';
-import { of as observableOf, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { By } from '@angular/platform-browser';
 
 describe('ContextHelpToggleComponent', () => {
   let component: ContextHelpToggleComponent;
   let fixture: ComponentFixture<ContextHelpToggleComponent>;
   let contextHelpService;
-  let contextHelpEmpty$ = new BehaviorSubject(true);
+  const contextHelpEmpty$ = new BehaviorSubject(true);
 
   beforeEach(async () => {
     contextHelpService = jasmine.createSpyObj('contextHelpService',

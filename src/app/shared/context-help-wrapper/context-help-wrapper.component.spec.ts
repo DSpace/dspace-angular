@@ -5,7 +5,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { ContextHelpService } from '../context-help.service';
 import { ContextHelp } from '../context-help.model';
-import { Component, Input, ViewChild, DebugElement } from '@angular/core';
+import { Component, Input, DebugElement } from '@angular/core';
 import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 import { PlacementDir } from './placement-dir.model';
 import { By } from '@angular/platform-browser';
@@ -53,9 +53,9 @@ describe('ContextHelpWrapperComponent', () => {
   let shouldShowIcons$: BehaviorSubject<boolean>;
 
   function makeWrappedElement(): HTMLElement {
-    let el: HTMLElement = document.createElement('div')
-    el.innerHTML = 'example element';
-    return el;
+    const wrapped: HTMLElement = document.createElement('div');
+    wrapped.innerHTML = 'example element';
+    return wrapped;
   }
 
   beforeEach(waitForAsync( () => {
@@ -96,8 +96,8 @@ describe('ContextHelpWrapperComponent', () => {
     fixture = TestBed.createComponent(TemplateComponent);
     el = fixture.debugElement;
     templateComponent = fixture.componentInstance;
-    templateComponent.content = 'lorem'
-    templateComponent.id = 'test-tooltip'
+    templateComponent.content = 'lorem';
+    templateComponent.id = 'test-tooltip';
     templateComponent.tooltipPlacement = ['bottom'];
     templateComponent.iconPlacement = 'left';
     wrapperComponent = el.query(By.css('ds-context-help-wrapper')).componentInstance;
@@ -111,7 +111,7 @@ describe('ContextHelpWrapperComponent', () => {
 
   it('should not show the context help icon while icon visibility is not turned on', (done) => {
     fixture.whenStable().then(() => {
-      let wrapper = el.query(By.css('ds-context-help-wrapper')).nativeElement;
+      const wrapper = el.query(By.css('ds-context-help-wrapper')).nativeElement;
       expect(wrapper.children.length).toBe(0);
       done();
     });
@@ -127,9 +127,9 @@ describe('ContextHelpWrapperComponent', () => {
 
     it('should show the context help button', (done) => {
       fixture.whenStable().then(() => {
-        let wrapper = el.query(By.css('ds-context-help-wrapper')).nativeElement;
+        const wrapper = el.query(By.css('ds-context-help-wrapper')).nativeElement;
         expect(wrapper.children.length).toBe(1);
-        let [i] = wrapper.children;
+        const [i] = wrapper.children;
         expect(i.tagName).toBe('I');
         done();
       });
@@ -160,7 +160,7 @@ describe('ContextHelpWrapperComponent', () => {
         const nodeList: NodeList = fixture.debugElement.query(By.css('.ds-context-help-content'))
           .nativeElement
           .childNodes;
-        const relevantNodes = Array.from(nodeList).filter(node => node.nodeType != Node.COMMENT_NODE);
+        const relevantNodes = Array.from(nodeList).filter(node => node.nodeType !== Node.COMMENT_NODE);
         expect(relevantNodes.length).toBe(4);
 
         const [text1, link1, text2, link2] = relevantNodes;
@@ -190,7 +190,7 @@ describe('ContextHelpWrapperComponent', () => {
         const nodeList: NodeList = fixture.debugElement.query(By.css('.ds-context-help-content'))
           .nativeElement
           .childNodes;
-        const relevantNodes = Array.from(nodeList).filter(node => node.nodeType != Node.COMMENT_NODE);
+        const relevantNodes = Array.from(nodeList).filter(node => node.nodeType !== Node.COMMENT_NODE);
         expect(relevantNodes.length).toBe(1);
 
         const [text] = relevantNodes;

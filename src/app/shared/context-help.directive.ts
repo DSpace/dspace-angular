@@ -2,10 +2,8 @@ import {
   ComponentFactoryResolver,
   ComponentRef,
   Directive,
-  ElementRef,
   Input,
   OnChanges,
-  OnInit,
   TemplateRef,
   ViewContainerRef,
   OnDestroy
@@ -47,7 +45,7 @@ export class ContextHelpDirective implements OnChanges, OnDestroy {
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
     private contextHelpService: ContextHelpService
-  ){}
+  ) {}
 
   ngOnChanges() {
     this.clearMostRecentId();

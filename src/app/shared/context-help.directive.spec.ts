@@ -1,14 +1,12 @@
-import { Component, DebugElement, Input } from '@angular/core';
-import { ComponentFixture, TestBed, getTestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf, Observable, BehaviorSubject } from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { of as observableOf, BehaviorSubject } from 'rxjs';
 import { ContextHelpDirective, ContextHelpDirectiveInput } from './context-help.directive';
 import { TranslateService } from '@ngx-translate/core';
 import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { ContextHelpService } from './context-help.service';
 import { ContextHelp } from './context-help.model';
-import { before } from 'lodash';
-import { By } from '@angular/platform-browser';
 
 @Component({
   template: `<div *dsContextHelp="contextHelpParams()">some text</div>`
@@ -62,7 +60,7 @@ describe('ContextHelpDirective', () => {
         { provide: ContextHelpService, useValue: contextHelpService }
       ],
       declarations: [TestComponent, ContextHelpWrapperComponent, ContextHelpDirective]
-    }).compileComponents()
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -85,10 +83,10 @@ describe('ContextHelpDirective', () => {
   it('should generate the context help wrapper component', (done) => {
     fixture.whenStable().then(() => {
       expect(fixture.nativeElement.children.length).toBe(1);
-      let [wrapper] = fixture.nativeElement.children;
+      const [wrapper] = fixture.nativeElement.children;
       expect(component).toBeDefined();
       expect(wrapper.tagName).toBe('DS-CONTEXT-HELP-WRAPPER');
-      expect(contextHelpService.add).toHaveBeenCalledWith(exampleContextHelp)
+      expect(contextHelpService.add).toHaveBeenCalledWith(exampleContextHelp);
       done();
     });
   });
