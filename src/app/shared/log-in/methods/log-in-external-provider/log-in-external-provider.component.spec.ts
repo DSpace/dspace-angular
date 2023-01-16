@@ -14,18 +14,17 @@ import { AuthServiceStub } from '../../../testing/auth-service.stub';
 import { storeModuleConfig } from '../../../../app.reducer';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
-import { LogInOrcidComponent } from './log-in-orcid.component';
+import { LogInExternalProviderComponent } from './log-in-external-provider.component';
 import { NativeWindowService } from '../../../../core/services/window.service';
 import { RouterStub } from '../../../testing/router.stub';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 
+describe('LogInExternalProviderComponent', () => {
 
-describe('LogInOrcidComponent', () => {
-
-  let component: LogInOrcidComponent;
-  let fixture: ComponentFixture<LogInOrcidComponent>;
+  let component: LogInExternalProviderComponent;
+  let fixture: ComponentFixture<LogInExternalProviderComponent>;
   let page: Page;
   let user: EPerson;
   let componentAsAny: any;
@@ -66,7 +65,7 @@ describe('LogInOrcidComponent', () => {
         TranslateModule.forRoot()
       ],
       declarations: [
-        LogInOrcidComponent
+        LogInExternalProviderComponent
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
@@ -88,7 +87,7 @@ describe('LogInOrcidComponent', () => {
 
   beforeEach(() => {
     // create component and test fixture
-    fixture = TestBed.createComponent(LogInOrcidComponent);
+    fixture = TestBed.createComponent(LogInExternalProviderComponent);
 
     // get test component from the fixture
     component = fixture.componentInstance;
@@ -109,7 +108,7 @@ describe('LogInOrcidComponent', () => {
     expect(componentAsAny.injectedAuthMethodModel.location).toBe(location);
     expect(componentAsAny._window.nativeWindow.location.href).toBe(currentUrl);
 
-    component.redirectToOrcid();
+    component.redirectToExternalProvider();
 
     expect(setHrefSpy).toHaveBeenCalledWith(currentUrl);
 
@@ -124,7 +123,7 @@ describe('LogInOrcidComponent', () => {
     expect(componentAsAny.injectedAuthMethodModel.location).toBe(location);
     expect(componentAsAny._window.nativeWindow.location.href).toBe(currentUrl);
 
-    component.redirectToOrcid();
+    component.redirectToExternalProvider();
 
     expect(setHrefSpy).toHaveBeenCalledWith(currentUrl);
 
@@ -143,7 +142,7 @@ class Page {
   public navigateSpy: jasmine.Spy;
   public passwordInput: HTMLInputElement;
 
-  constructor(private component: LogInOrcidComponent, private fixture: ComponentFixture<LogInOrcidComponent>) {
+  constructor(private component: LogInExternalProviderComponent, private fixture: ComponentFixture<LogInExternalProviderComponent>) {
     // use injector to get services
     const injector = fixture.debugElement.injector;
     const store = injector.get(Store);
