@@ -3,9 +3,8 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { ContextHelpToggleComponent } from './context-help-toggle.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContextHelpService } from '../../shared/context-help.service';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
-import { tap } from 'rxjs/operators';
 
 describe('ContextHelpToggleComponent', () => {
   let component: ContextHelpToggleComponent;
