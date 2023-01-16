@@ -1,22 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { ContextHelpToggleComponent } from './context-help-toggle.component';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { ContextHelpService } from '../../shared/context-help.service';
-import { of as observableOf, BehaviorSubject } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 
 describe('ContextHelpToggleComponent', () => {
   let component: ContextHelpToggleComponent;
   let fixture: ComponentFixture<ContextHelpToggleComponent>;
   let contextHelpService;
-  const contextHelpEmpty$ = new BehaviorSubject(true);
 
   beforeEach(async () => {
     contextHelpService = jasmine.createSpyObj('contextHelpService', [
       'contextHelpEmpty$', 'toggleIcons'
     ]);
-    contextHelpService.contextHelpEmpty$.and.returnValue(contextHelpEmpty$);
+    contextHelpService.contextHelpEmpty$.and.returnValue(observableOf(true));
     await TestBed.configureTestingModule({
       declarations: [ ContextHelpToggleComponent ],
       providers: [
@@ -24,43 +23,43 @@ describe('ContextHelpToggleComponent', () => {
       ],
       imports: [ TranslateModule.forRoot() ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ContextHelpToggleComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
+  });
+
+  describe('if there are no elements on the page with a tooltip', () => {
+    it('clicking the button does not toggle context help icon visibility', fakeAsync(() => {
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        fixture.debugElement.query(By.css('a')).nativeElement.click();
+        tick();
+        expect(contextHelpService.toggleIcons).toHaveBeenCalledTimes(0);
+      });
+    }));
   });
 
   describe('if there are elements on the page with a tooltip', () => {
     beforeEach(() => {
-      contextHelpEmpty$.next(false);
+      contextHelpService.contextHelpEmpty$.and.returnValue(observableOf(false));
       fixture.detectChanges();
     });
 
-    it('clicking the button should toggle context help icon visibility', () => {
-      fixture.whenStable().then((done) => {
-        spyOn(contextHelpService, 'toggleIcons');
+    it('clicking the button should toggle context help icon visibility', fakeAsync(() => {
+      fixture.whenStable().then(() => {
         fixture.debugElement.query(By.css('a')).nativeElement.click();
+        tick();
         expect(contextHelpService.toggleIcons).toHaveBeenCalled();
-        done();
       });
-    });
+    }));
   });
 
-  describe('if there are no elements on the page with a tooltip', () => {
-    it('clicking the button does not toggle context help icon visibility', () => {
-      fixture.whenStable().then((done) => {
-        spyOn(contextHelpService, 'toggleIcons');
-        fixture.debugElement.query(By.css('a')).nativeElement.click();
-        expect(contextHelpService.toggleIcons).toHaveBeenCalledTimes(0);
-        done();
-      });
-    });
-  });
 });
