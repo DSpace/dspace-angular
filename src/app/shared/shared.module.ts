@@ -244,6 +244,9 @@ import {
 import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
 import { LogInExternalProviderComponent } from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
+import {
+  DsoPageSubscriptionButtonComponent
+} from './dso-page/dso-page-subscription-button/dso-page-subscription-button.component';
 
 const MODULES = [
   CommonModule,
@@ -344,6 +347,7 @@ const COMPONENTS = [
   ThemedSearchNavbarComponent,
   ListableNotificationObjectComponent,
   DsoPageEditButtonComponent,
+  DsoPageSubscriptionButtonComponent,
   MetadataFieldWrapperComponent,
 ];
 
