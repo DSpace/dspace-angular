@@ -4,6 +4,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { ListMetricPropsPipe } from '../pipes/list-metric-props/list-metric-props.pipe';
 import { By } from '@angular/platform-browser';
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
 
 describe('MetricDimensionsComponent', () => {
   let component: MetricDimensionsComponent;
@@ -31,7 +33,8 @@ describe('MetricDimensionsComponent', () => {
           useClass: TranslateLoaderMock
         }
       })],
-      declarations: [ MetricDimensionsComponent, ListMetricPropsPipe ]
+      declarations: [MetricDimensionsComponent, ListMetricPropsPipe],
+      providers: [{ provide: APP_CONFIG, useValue: environment }],
     })
     .compileComponents();
   }));
