@@ -55,8 +55,8 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
 
   tooltip: NgbTooltip;
 
-  @Input() set content(content : string) {
-    this.content$.next(content);
+  @Input() set content(translateKey: string) {
+    this.content$.next(translateKey);
   }
   private content$: BehaviorSubject<string | undefined> = new BehaviorSubject(undefined);
 
@@ -72,11 +72,11 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.parsedContent$ = combineLatest([
-      this.content$.pipe(distinctUntilChanged(), mergeMap(content => this.translateService.get(content))),
+      this.content$.pipe(distinctUntilChanged(), mergeMap(translateKey => this.translateService.get(translateKey))),
       this.dontParseLinks$.pipe(distinctUntilChanged())
     ]).pipe(
-      map(([content, dontParseLinks]) =>
-        dontParseLinks ? [content] : this.parseLinks(content))
+      map(([text, dontParseLinks]) =>
+        dontParseLinks ? [text] : this.parseLinks(text))
     );
     this.shouldShowIcon$ = this.contextHelpService.shouldShowIcons$();
     this.subs.always = [this.parsedContent$.subscribe(), this.shouldShowIcon$.subscribe()];
@@ -136,7 +136,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
    *   {href: "https://youtube.com", text: "so is this"}
    * ]
    */
-  private parseLinks(content: string): ParsedContent {
+  private parseLinks(text: string): ParsedContent {
     // Implementation note: due to `matchAll` method on strings not being available for all versions,
     // separate "split" and "parse" steps are needed.
 
@@ -152,7 +152,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
     // {href: string, text: string} objects.
     const parseRegexp = /^\[([^\]]*)\]\(([^\)]*)\)$/;
 
-    return content.match(splitRegexp).map((substring: string) => {
+    return text.match(splitRegexp).map((substring: string) => {
       const match = substring.match(parseRegexp);
       return match === null
         ? substring

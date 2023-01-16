@@ -11,6 +11,8 @@ export const ContextHelpActionTypes = {
   'CONTEXT_HELP_HIDE_TOOLTIP' : type('dspace/context-help/CONTEXT_HELP_HIDE_TOOLTIP'),
 };
 
+/* tslint:disable:max-classes-per-file */
+
 /**
  * Toggles the visibility of all context help icons.
  */
