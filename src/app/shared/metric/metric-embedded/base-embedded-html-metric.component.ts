@@ -1,7 +1,10 @@
 import { BaseMetricComponent } from '../metric-loader/base-metric.component';
-import { OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { hasValue } from '../../empty.util';
 
+@Component({
+  template: ''
+})
 export abstract class BaseEmbeddedHtmlMetricComponent extends BaseMetricComponent implements OnInit {
 
   href = '';
