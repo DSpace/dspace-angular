@@ -2,10 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MetricEmbeddedDownloadComponent } from './metric-embedded-download.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import {
   metricEmbeddedDownload
-} from '../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
+} from '../../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
 
 describe('MetricEmbeddedDownloadComponent', () => {
   let component: MetricEmbeddedDownloadComponent;

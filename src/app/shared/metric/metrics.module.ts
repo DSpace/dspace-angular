@@ -5,8 +5,10 @@ import { CommonModule } from '@angular/common';
 import { MetricAltmetricComponent } from './metric-altmetric/metric-altmetric.component';
 import { MetricDimensionsComponent } from './metric-dimensions/metric-dimensions.component';
 import { MetricDefaultComponent } from './metric-default/metric-default.component';
-import { MetricEmbeddedDownloadComponent } from './metric-embedded-download/metric-embedded-download.component';
-import { MetricEmbeddedViewComponent } from './metric-embedded-view/metric-embedded-view.component';
+import {
+  MetricEmbeddedDownloadComponent
+} from './metric-embedded/metric-embedded-download/metric-embedded-download.component';
+import { MetricEmbeddedViewComponent } from './metric-embedded/metric-embedded-view/metric-embedded-view.component';
 import { MetricGooglescholarComponent } from './metric-googlescholar/metric-googlescholar.component';
 import { MetricPlumxComponent } from './metric-plumx/metric-plumx.component';
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';

@@ -66,7 +66,10 @@ export class RedirectService implements CanActivate {
       // Redirects to external link
       this.redirect(url, extras) :
       // Navigates with the router otherwise
-      this.router.navigateByUrl(url, extras);
+      this.router.navigateByUrl(
+        url.replace(this.appConfig.ui.baseUrl, ''),
+        extras
+      );
   }
 
   /**

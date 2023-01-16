@@ -7,8 +7,6 @@ import {
   metric1Mock
 } from '../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { APP_CONFIG } from '../../../../config/app-config.interface';
-import { environment } from '../../../../environments/environment';
 
 describe('MetricDspacecrisComponent', () => {
   let component: MetricDefaultComponent;
@@ -25,8 +23,7 @@ describe('MetricDspacecrisComponent', () => {
         }),
       ],
       declarations: [MetricDefaultComponent],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: [{ provide: APP_CONFIG, useValue: environment }],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
