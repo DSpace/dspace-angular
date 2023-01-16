@@ -1,6 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BaseMetricComponent } from '../metric-loader/base-metric.component';
-import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 import { hasValue } from '../../empty.util';
 
 @Component({
@@ -12,7 +11,7 @@ export class MetricGooglescholarComponent extends BaseMetricComponent implements
 
   url: string;
 
-  constructor(@Inject(APP_CONFIG) readonly appConfig: AppConfig) {
+  constructor() {
     super();
   }
 

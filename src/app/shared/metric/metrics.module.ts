@@ -30,11 +30,6 @@ const MODULES = [
   NgbTooltipModule,
 ];
 
-const ENTRY_COMPONENTS = [
-  MetricLoaderComponent,
-  MetricDefaultComponent
-];
-
 const COMPONENTS = [
   MetricAltmetricComponent,
   MetricDimensionsComponent,
@@ -44,13 +39,14 @@ const COMPONENTS = [
   MetricPlumxComponent,
   MetricBadgesComponent,
   MetricDonutsComponent,
+  MetricLoaderComponent,
+  MetricDefaultComponent
 ];
 
 @NgModule({
   declarations: [
     ...PIPES,
     ...COMPONENTS,
-    ...ENTRY_COMPONENTS
   ],
   imports: [
     ...MODULES,
@@ -61,18 +57,7 @@ const COMPONENTS = [
   ],
   exports: [
     ...COMPONENTS,
-    ...ENTRY_COMPONENTS
   ]
 })
 export class MetricsModule {
-  /**
-   * NOTE: this method allows to resolve issue with components that using a custom decorator
-   * which are not loaded during SSR otherwise
-   */
-  static withEntryComponents() {
-    return {
-      ngModule: MetricsModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component }))
-    };
-  }
 }

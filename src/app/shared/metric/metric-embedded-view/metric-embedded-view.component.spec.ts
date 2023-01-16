@@ -6,8 +6,6 @@ import {
 import { MetricEmbeddedViewComponent } from './metric-embedded-view.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { APP_CONFIG } from '../../../../config/app-config.interface';
-import { environment } from '../../../../environments/environment';
 
 describe('MetricEmbeddedViewComponent', () => {
   let component: MetricEmbeddedViewComponent;
@@ -21,7 +19,6 @@ describe('MetricEmbeddedViewComponent', () => {
         }
       })],
       declarations: [MetricEmbeddedViewComponent],
-      providers: [{ provide: APP_CONFIG, useValue: environment }],
     })
     .compileComponents();
   });

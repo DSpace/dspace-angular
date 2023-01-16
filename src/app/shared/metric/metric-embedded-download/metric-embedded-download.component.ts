@@ -1,6 +1,5 @@
-import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { BaseMetricComponent } from '../metric-loader/base-metric.component';
-import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 import { hasValue } from '../../empty.util';
 
 @Component({
@@ -11,10 +10,7 @@ import { hasValue } from '../../empty.util';
 export class MetricEmbeddedDownloadComponent extends BaseMetricComponent implements OnInit {
   href = '';
 
-  constructor(
-    @Inject(APP_CONFIG) readonly appConfig: AppConfig,
-    private render: Renderer2
-  ) {
+  constructor(private render: Renderer2) {
     super();
   }
 
