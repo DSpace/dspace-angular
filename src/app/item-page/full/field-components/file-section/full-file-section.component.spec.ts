@@ -7,7 +7,7 @@ import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.m
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
-import { MetadataFieldWrapperComponent } from '../../../field-components/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Bitstream } from '../../../../core/shared/bitstream.model';

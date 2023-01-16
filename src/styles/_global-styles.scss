@@ -204,3 +204,27 @@ ds-dynamic-form-control-container.d-none {
 }
 
 
+
+.badge-validation {
+  background-color: #{map-get($theme-colors, warning)};
+}
+
+.badge-waiting-controller {
+  background-color: #{map-get($theme-colors, info)};
+}
+
+.badge-workspace {
+  background-color: #{map-get($theme-colors, primary)};
+}
+
+.badge-archived {
+  background-color: #{map-get($theme-colors, success)};
+}
+
+.badge-workflow {
+  background-color: #{map-get($theme-colors, info)};
+}
+
+.badge-item-type {
+  background-color: #{map-get($theme-colors, info)};
+}
