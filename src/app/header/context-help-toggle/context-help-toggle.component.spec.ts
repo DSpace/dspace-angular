@@ -10,7 +10,7 @@ describe('ContextHelpToggleComponent', () => {
   let component: ContextHelpToggleComponent;
   let fixture: ComponentFixture<ContextHelpToggleComponent>;
   let contextHelpService;
-  let contextHelpEmpty$ = new BehaviorSubject(true);
+  const contextHelpEmpty$ = new BehaviorSubject(true);
 
   beforeEach(async () => {
     contextHelpService = jasmine.createSpyObj('contextHelpService',

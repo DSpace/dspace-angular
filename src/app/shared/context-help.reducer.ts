@@ -1,9 +1,9 @@
 import { ContextHelp } from './context-help.model';
 import { ContextHelpAction, ContextHelpActionTypes } from './context-help.actions';
 
-export type ContextHelpModels = {
+export interface ContextHelpModels {
   [id: string]: ContextHelp;
-};
+}
 
 export interface ContextHelpState {
   allIconsVisible: boolean;

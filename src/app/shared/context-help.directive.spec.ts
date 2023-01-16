@@ -62,7 +62,7 @@ describe('ContextHelpDirective', () => {
         { provide: ContextHelpService, useValue: contextHelpService }
       ],
       declarations: [TestComponent, ContextHelpWrapperComponent, ContextHelpDirective]
-    }).compileComponents()
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -85,10 +85,10 @@ describe('ContextHelpDirective', () => {
   it('should generate the context help wrapper component', (done) => {
     fixture.whenStable().then(() => {
       expect(fixture.nativeElement.children.length).toBe(1);
-      let [wrapper] = fixture.nativeElement.children;
+      const [wrapper] = fixture.nativeElement.children;
       expect(component).toBeDefined();
       expect(wrapper.tagName).toBe('DS-CONTEXT-HELP-WRAPPER');
-      expect(contextHelpService.add).toHaveBeenCalledWith(exampleContextHelp)
+      expect(contextHelpService.add).toHaveBeenCalledWith(exampleContextHelp);
       done();
     });
   });
