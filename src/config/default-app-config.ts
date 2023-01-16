@@ -394,7 +394,7 @@ export class DefaultAppConfig implements AppConfig {
     {
       filter: 'subject',
       vocabulary: 'srsc',
-      enabled: true
+      enabled: false
     }
     ];
 }
