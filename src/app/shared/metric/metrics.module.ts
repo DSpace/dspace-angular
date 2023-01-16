@@ -16,6 +16,7 @@ import { ListMetricPropsPipe } from './pipes/list-metric-props/list-metric-props
 import { MetricBadgesComponent } from '../object-list/metric-badges/metric-badges.component';
 import { MetricDonutsComponent } from '../object-list/metric-donuts/metric-donuts.component';
 import { FormsModule } from '@angular/forms';
+import { DirectivesModule } from '../../directives/directives.module';
 
 const PIPES = [
   MetricStyleConfigPipe,
@@ -24,27 +25,32 @@ const PIPES = [
 
 const MODULES = [
   CommonModule,
+  DirectivesModule,
   FormsModule,
   NgbTooltipModule,
 ];
 
-const COMPONENTS = [
+const ENTRY_COMPONENTS = [
   MetricLoaderComponent,
+  MetricDefaultComponent
+];
+
+const COMPONENTS = [
   MetricAltmetricComponent,
   MetricDimensionsComponent,
-  MetricDefaultComponent,
   MetricGooglescholarComponent,
   MetricEmbeddedViewComponent,
   MetricEmbeddedDownloadComponent,
   MetricPlumxComponent,
   MetricBadgesComponent,
-  MetricDonutsComponent
+  MetricDonutsComponent,
 ];
 
 @NgModule({
   declarations: [
     ...PIPES,
     ...COMPONENTS,
+    ...ENTRY_COMPONENTS
   ],
   imports: [
     ...MODULES,
@@ -53,8 +59,20 @@ const COMPONENTS = [
       useDefaultLang: true
     }),
   ],
-  exports:[
-    ...COMPONENTS
+  exports: [
+    ...COMPONENTS,
+    ...ENTRY_COMPONENTS
   ]
 })
-export class MetricsModule { }
+export class MetricsModule {
+  /**
+   * NOTE: this method allows to resolve issue with components that using a custom decorator
+   * which are not loaded during SSR otherwise
+   */
+  static withEntryComponents() {
+    return {
+      ngModule: MetricsModule,
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component }))
+    };
+  }
+}
