@@ -2,9 +2,11 @@
   <a href="javascript:void(0);"
      role="button"
      (click)="onClick()"
-     [attr.aria-label]="'nav.context-help-toggle' | translate"
-     [title]="'nav.context-help-toggle' | translate"
+     [attr.aria-label]="((buttonDisabled$ | async) ? 'nav.context-help-toggle-disabled' : 'nav.context-help-toggle') | translate"
+     [title]="((buttonDisabled$ | async) ? 'nav.context-help-toggle-disabled' : 'nav.context-help-toggle') | translate"
   >
-    <i class="fas fa-lg fa-fw fa-question-circle ds-context-help-toggle"></i>
+    <i class="fas fa-lg fa-fw fa-question-circle"
+       [class]="(buttonDisabled$ | async) ? 'ds-context-help-toggle-disabled' : 'ds-context-help-toggle-enabled'"
+    ></i>
   </a>
 </div>

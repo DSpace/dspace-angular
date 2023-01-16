@@ -54,9 +54,11 @@ export class ContextHelpDirective implements OnChanges, OnDestroy {
     this.mostRecentId = this.dsContextHelp.id;
     this.contextHelpService.add({id: this.dsContextHelp.id, isTooltipVisible: false});
 
-    const factory
-      = this.componentFactoryResolver.resolveComponentFactory(ContextHelpWrapperComponent);
-    this.wrapper = this.viewContainerRef.createComponent(factory);
+    if (this.wrapper === undefined) {
+      const factory
+        = this.componentFactoryResolver.resolveComponentFactory(ContextHelpWrapperComponent);
+      this.wrapper = this.viewContainerRef.createComponent(factory);
+    }
     this.wrapper.instance.templateRef = this.templateRef;
     this.wrapper.instance.content = this.dsContextHelp.content;
     this.wrapper.instance.id = this.dsContextHelp.id;

@@ -1,65 +1,95 @@
-// import { Component, DebugElement, Input } from '@angular/core';
-// import { ComponentFixture, TestBed } from '@angular/core/testing';
-// import { By } from '@angular/platform-browser';
-// import { of as observableOf, Observable } from 'rxjs';
-// import { ContextHelpDirective, ContextHelpDirectiveInput } from './context-help.directive';
-// import { TranslateService } from '@ngx-translate/core';
-// import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
-// import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-//
-// @Component({
-//   template: `<div *dsContextHelp="contextHelpParams()">some text</div>`
-// })
-// class TestComponent {
-//   @Input() content = '';
-//   contextHelpParams(): ContextHelpDirectiveInput {
-//     return {
-//       content: this.content
-//     };
-//   }
-// }
-//
-// // tslint:disable-next-line:max-classes-per-file
-// class MockTranslateService {
-//   messages: {[index: string]: string} = {
-//     lorem: 'lorem ipsum dolor sit amet',
-//     linkTest: 'This is text, [this](https://dspace.lyrasis.org) is a link, and [so is this](https://google.com)'
-//   };
-//
-//   get(key: string): Observable<string> {
-//     return observableOf(this.messages[key]);
-//   }
-// }
-//
-// describe('ContextHelpDirective', () => {
-//   let component: TestComponent;
-//   let fixture: ComponentFixture<TestComponent>;
-//   // let el: DebugElement;
-//   // let translateService: TranslateService;
-//
-//   beforeEach(() => {
-//     console.log('Anyone hear that?');
-//     fixture = TestBed.configureTestingModule({
-//       imports: [NgbTooltipModule],
-//       providers: [
-//         { provide: TranslateService, useClass: MockTranslateService }
-//       ],
-//       declarations: [TestComponent, ContextHelpWrapperComponent, ContextHelpDirective]
-//     }).createComponent(TestComponent);
-//     component = fixture.componentInstance;
-//   });
-//
-//   it('should add the tooltip icon', () => {
-//     component.content = 'lorem';
-//     fixture.detectChanges();
-//
-//     expect(component).toBeDefined();
-//     const [wrapper] = fixture.nativeElement.children;
-//     const [i, div] = wrapper.children;
-//     expect(wrapper.tagName).toBe('DS-CONTEXT-HELP-WRAPPER');
-//     expect(i.tagName).toBe('I');
-//     expect(div.tagName).toBe('DIV');
-//     expect(div.innerHTML).toBe('some text');
-//     i.click(); // TODO: triggers a type error
-//   });
-// });
+import { Component, DebugElement, Input } from '@angular/core';
+import { ComponentFixture, TestBed, getTestBed, waitForAsync } from '@angular/core/testing';
+import { of as observableOf, Observable, BehaviorSubject } from 'rxjs';
+import { ContextHelpDirective, ContextHelpDirectiveInput } from './context-help.directive';
+import { TranslateService } from '@ngx-translate/core';
+import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { ContextHelpService } from './context-help.service';
+import { ContextHelp } from './context-help.model';
+import { before } from 'lodash';
+import { By } from '@angular/platform-browser';
+
+@Component({
+  template: `<div *dsContextHelp="contextHelpParams()">some text</div>`
+})
+class TestComponent {
+  @Input() content = '';
+  @Input() id = '';
+  contextHelpParams(): ContextHelpDirectiveInput {
+    return {
+      content: this.content,
+      id: this.id,
+      iconPlacement: 'left',
+      tooltipPlacement: ['bottom']
+    };
+  }
+}
+
+const messages = {
+  lorem: 'lorem ipsum dolor sit amet',
+  linkTest: 'This is text, [this](https://dspace.lyrasis.org) is a link, and [so is this](https://google.com)'
+};
+const exampleContextHelp: ContextHelp = {
+  id: 'test-tooltip',
+  isTooltipVisible: false
+};
+describe('ContextHelpDirective', () => {
+  let component: TestComponent;
+  let fixture: ComponentFixture<TestComponent>;
+  let translateService: any;
+  let contextHelpService: any;
+  let getContextHelp$: BehaviorSubject<ContextHelp>;
+  let shouldShowIcons$: BehaviorSubject<boolean>;
+
+  beforeEach(waitForAsync(() => {
+    translateService = jasmine.createSpyObj('translateService', ['get']);
+    contextHelpService = jasmine.createSpyObj('contextHelpService', [
+      'shouldShowIcons$',
+      'getContextHelp$',
+      'add',
+      'remove',
+      'toggleIcons',
+      'toggleTooltip',
+      'showTooltip',
+      'hideTooltip'
+    ]);
+
+    TestBed.configureTestingModule({
+      imports: [NgbTooltipModule],
+      providers: [
+        { provide: TranslateService, useValue: translateService },
+        { provide: ContextHelpService, useValue: contextHelpService }
+      ],
+      declarations: [TestComponent, ContextHelpWrapperComponent, ContextHelpDirective]
+    }).compileComponents()
+  }));
+
+  beforeEach(() => {
+    // Set up service behavior.
+    getContextHelp$ = new BehaviorSubject<ContextHelp>(exampleContextHelp);
+    shouldShowIcons$ = new BehaviorSubject<boolean>(false);
+    contextHelpService.getContextHelp$.and.returnValue(getContextHelp$);
+    contextHelpService.shouldShowIcons$.and.returnValue(shouldShowIcons$);
+    translateService.get.and.callFake((content) => observableOf(messages[content]));
+
+    // Set up fixture and component.
+    fixture = TestBed.createComponent(TestComponent);
+    component = fixture.componentInstance;
+    component.id = 'test-tooltip';
+    component.content = 'lorem';
+
+    fixture.detectChanges();
+  });
+
+  it('should generate the context help wrapper component', (done) => {
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement.children.length).toBe(1);
+      let [wrapper] = fixture.nativeElement.children;
+      expect(component).toBeDefined();
+      expect(wrapper.tagName).toBe('DS-CONTEXT-HELP-WRAPPER');
+      expect(contextHelpService.add).toHaveBeenCalledWith(exampleContextHelp)
+      done();
+    });
+  });
+});

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ContextHelp } from './context-help.model';
 import { Store, createFeatureSelector, createSelector, select, MemoizedSelector } from '@ngrx/store';
-import { ContextHelpState } from './context-help.reducer';
+import { ContextHelpState, ContextHelpModels } from './context-help.reducer';
 import {
   ContextHelpToggleIconsAction,
   ContextHelpAddAction,
@@ -11,6 +11,7 @@ import {
   ContextHelpToggleTooltipAction
 } from './context-help.actions';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 const contextHelpStateSelector =
   createFeatureSelector<ContextHelpState>('contextHelp');
@@ -23,6 +24,10 @@ const contextHelpSelector =
     contextHelpStateSelector,
     (state: ContextHelpState) => state.models[id]
   );
+const allContextHelpSelector = createSelector(
+  contextHelpStateSelector,
+  ((state: ContextHelpState) => state.models)
+);
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +49,14 @@ export class ContextHelpService {
    */
   getContextHelp$(id: string): Observable<ContextHelp> {
     return this.store.pipe(select(contextHelpSelector(id)));
+  }
+
+  /**
+   * Observable that yields true iff there are currently no context help entries in the store.
+   */
+  contextHelpEmpty$(): Observable<boolean> {
+    return this.store.pipe(select(allContextHelpSelector))
+      .pipe(map((models: ContextHelpModels) => Object.keys(models).length === 0));
   }
 
   /**
