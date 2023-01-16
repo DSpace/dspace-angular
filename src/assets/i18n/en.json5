@@ -2885,6 +2885,8 @@
 
   "nav.context-help-toggle": "Toggle context help",
 
+  "nav.context-help-toggle-disabled": "No context help available on this page",
+
   "nav.language": "Language switch",
 
   "nav.login": "Log In",

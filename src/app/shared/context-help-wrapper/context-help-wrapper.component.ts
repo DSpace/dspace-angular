@@ -1,14 +1,16 @@
 import { Component, Input, OnInit, TemplateRef, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
 import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of as observableOf, Subscription, BehaviorSubject, combineLatest } from 'rxjs';
+import { map, distinctUntilChanged, mergeMap } from 'rxjs/operators';
 import { PlacementDir } from './placement-dir.model';
 import content from '*.scss';
 import { ContextHelpService } from '../context-help.service';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { hasValueOperator } from '../empty.util';
 import { ContextHelp } from '../context-help.model';
+
+type ParsedContent = (string | {href: string, text: string})[];
 
 /**
  * This component renders an info icon next to the wrapped element which
@@ -33,32 +35,32 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
   /**
    * Indicate where the tooltip should show up, relative to the info icon.
    */
-  @Input() tooltipPlacement?: PlacementArray;
+  @Input() tooltipPlacement?: PlacementArray = [];
 
   /**
    * Indicate whether the info icon should appear to the left or to
    * the right of the wrapped element.
    */
-  @Input() iconPlacement?: PlacementDir;
+  @Input() iconPlacement?: PlacementDir = 'left';
 
   /**
    * If true, don't process text to render links.
    */
-  @Input() dontParseLinks?: boolean;
+  @Input() set dontParseLinks(dont: boolean) {
+    this.dontParseLinks$.next(dont);
+  }
+  private dontParseLinks$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   shouldShowIcon$: Observable<boolean>;
 
   tooltip: NgbTooltip;
 
-  // TODO: dependent on evaluation order of input setters?
-  parsedContent$: Observable<(string | {href: string, text: string})[]> = observableOf([]);
   @Input() set content(content : string) {
-    this.parsedContent$ = this.translateService.get(content).pipe(
-      map(this.dontParseLinks
-        ? ((text: string) => [text])
-        : this.parseLinks)
-    );
+    this.content$.next(content);
   }
+  private content$: BehaviorSubject<string | undefined> = new BehaviorSubject(undefined);
+
+  parsedContent$: Observable<ParsedContent>;
 
   private subs: {always: Subscription[], tooltipBound: Subscription[]}
     = {always: [], tooltipBound: []};
@@ -69,8 +71,15 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.parsedContent$ = combineLatest([
+      this.content$.pipe(distinctUntilChanged(), mergeMap(content => this.translateService.get(content))),
+      this.dontParseLinks$.pipe(distinctUntilChanged())
+    ]).pipe(
+      map(([content, dontParseLinks]) =>
+        dontParseLinks ? [content] : this.parseLinks(content))
+    );
     this.shouldShowIcon$ = this.contextHelpService.shouldShowIcons$();
-    this.subs.always = [this.shouldShowIcon$.subscribe()];
+    this.subs.always = [this.parsedContent$.subscribe(), this.shouldShowIcon$.subscribe()];
   }
 
   @ViewChild('tooltip', { static: false }) set setTooltip(tooltip: NgbTooltip) {
@@ -81,6 +90,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
         this.contextHelpService.getContextHelp$(this.id)
           .pipe(hasValueOperator())
           .subscribe((ch: ContextHelp) => {
+
             if (ch.isTooltipVisible && !this.tooltip.isOpen()) {
               this.tooltip.open();
             } else if (!ch.isTooltipVisible && this.tooltip.isOpen()) {
@@ -126,8 +136,8 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
    *   {href: "https://youtube.com", text: "so is this"}
    * ]
    */
-  private parseLinks(content: string): (string | {href: string, text: string})[] {
-    // Implementation note: due to unavailability of `matchAll` method on strings,
+  private parseLinks(content: string): ParsedContent {
+    // Implementation note: due to `matchAll` method on strings not being available for all versions,
     // separate "split" and "parse" steps are needed.
 
     // We use splitRegexp (the outer `match` call) to split the text
