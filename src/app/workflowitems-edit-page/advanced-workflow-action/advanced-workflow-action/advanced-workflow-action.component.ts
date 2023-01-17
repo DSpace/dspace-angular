@@ -13,6 +13,12 @@ import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.se
 import { map } from 'rxjs/operators';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 
+/**
+ * Abstract component for rendering an advanced claimed task's workflow page
+ * To create a child-component for a new option:
+ * - Set the "getType()" of the component
+ * - Implement the createBody, should always contain at least the ADVANCED_WORKFLOW_TASK_OPTION
+ */
 @Component({
   selector: 'ds-advanced-workflow-action',
   template: '',
@@ -62,7 +68,7 @@ export abstract class AdvancedWorkflowActionComponent extends WorkflowItemAction
   /**
    * Submits the task with the given {@link createBody}.
    *
-   * @param id
+   * @param id The task id
    */
   sendRequest(id: string): Observable<boolean> {
     return this.claimedTaskDataService.submitTask(id, this.createBody()).pipe(

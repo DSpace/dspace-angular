@@ -5,17 +5,20 @@ import {
 import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import {
-  SelectReviewerActionAdvancedInfo
-} from '../../../core/tasks/models/select-reviewer-action-advanced-info.model';
+  SelectReviewerAdvancedWorkflowInfo
+} from '../../../core/tasks/models/select-reviewer-advanced-workflow-info.model';
 import {
   EPersonListActionConfig
 } from '../../../access-control/group-registry/group-form/members-list/members-list.component';
 import { Subscription } from 'rxjs';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 
-export const WORKFLOW_ADVANCED_TASK_OPTION_SELECT_REVIEWER = 'submit_select_reviewer';
+export const ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER = 'submit_select_reviewer';
 export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
 
+/**
+ * The page on which Review Managers can assign Reviewers to review an item.
+ */
 @rendersAdvancedWorkflowTaskOption(ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER)
 @Component({
   selector: 'ds-advanced-workflow-action-select-reviewer',
@@ -75,7 +78,7 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
     }
     this.subs.push(this.workflowAction$.subscribe((workflowAction: WorkflowAction) => {
       if (workflowAction) {
-        this.groupId = (workflowAction.advancedInfo as SelectReviewerActionAdvancedInfo[])[0].group;
+        this.groupId = (workflowAction.advancedInfo as SelectReviewerAdvancedWorkflowInfo[])[0].group;
       } else {
         this.groupId = null;
       }
@@ -86,18 +89,23 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
     return ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER;
   }
 
+  /**
+   * Only performs the action when some reviewers have been selected.
+   */
   performAction(): void {
     if (this.selectedReviewers.length > 0) {
       super.performAction();
     } else {
       this.displayError = true;
     }
-    console.log(this.displayError);
   }
 
+  /**
+   * Returns the task option and the selected {@link EPerson} id(s)
+   */
   createBody(): any {
     return {
-      [WORKFLOW_ADVANCED_TASK_OPTION_SELECT_REVIEWER]: true,
+      [ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER]: true,
       eperson: this.selectedReviewers.map((ePerson: EPerson) => ePerson.id),
     };
   }

@@ -2,7 +2,7 @@ import { inheritSerialization, autoserialize } from 'cerialize';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { WORKFLOW_ACTION } from './workflow-action-object.resource-type';
-import { ReviewerActionAdvancedInfo } from './reviewer-action-advanced-info.model';
+import { AdvancedWorkflowInfo } from './advanced-workflow-info.model';
 
 /**
  * A model class for a WorkflowAction
@@ -40,6 +40,6 @@ export class WorkflowAction extends DSpaceObject {
    * The advanced info required by the advanced options
    */
   @autoserialize
-  advancedInfo: ReviewerActionAdvancedInfo[];
+  advancedInfo: AdvancedWorkflowInfo[];
 
 }

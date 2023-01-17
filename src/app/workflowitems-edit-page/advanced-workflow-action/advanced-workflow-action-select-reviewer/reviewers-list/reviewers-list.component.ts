@@ -14,7 +14,8 @@ import { Observable, of as observableOf } from 'rxjs';
 import { hasValue } from '../../../../shared/empty.util';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import {
-  MembersListComponent, EPersonListActionConfig
+  MembersListComponent,
+  EPersonListActionConfig,
 } from '../../../../access-control/group-registry/group-form/members-list/members-list.component';
 
 /**
@@ -26,6 +27,9 @@ enum SubKey {
   SearchResultsDTO,
 }
 
+/**
+ * A custom {@link MembersListComponent} for the advanced SelectReviewer workflow.
+ */
 @Component({
   selector: 'ds-reviewers-list',
   // templateUrl: './reviewers-list.component.html',
@@ -83,6 +87,12 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
     }
   }
 
+  /**
+   * Sets the list of currently selected members, when no group is defined the list of {@link selectedReviewers}
+   * will be set.
+   *
+   *  @param page The number of the page to retrieve
+   */
   retrieveMembers(page: number): void {
     this.config.currentPage = page;
     if (this.groupId === null) {
@@ -95,19 +105,35 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
     }
   }
 
+  /**
+   * Checks whether the given {@link possibleMember} is part of the {@link selectedReviewers}.
+   *
+   * @param possibleMember The {@link EPerson} that needs to be checked
+   */
   isMemberOfGroup(possibleMember: EPerson): Observable<boolean> {
     return observableOf(hasValue(this.selectedReviewers.find((reviewer: EpersonDtoModel) => reviewer.eperson.id === possibleMember.id)));
   }
 
+  /**
+   * Removes the {@link ePerson} from the {@link selectedReviewers}
+   *
+   * @param ePerson The {@link EpersonDtoModel} containg the {@link EPerson} to remove
+   */
   deleteMemberFromGroup(ePerson: EpersonDtoModel) {
     ePerson.memberOfGroup = false;
     const index = this.selectedReviewers.indexOf(ePerson);
     if (index !== -1) {
       this.selectedReviewers.splice(index, 1);
     }
-    this.selectedReviewersUpdated.emit(this.selectedReviewers.map((epersonDtoModel: EpersonDtoModel) => epersonDtoModel.eperson));
+    this.selectedReviewersUpdated.emit(this.selectedReviewers.map((ePersonDtoModel: EpersonDtoModel) => ePersonDtoModel.eperson));
   }
 
+  /**
+   * Adds the {@link ePerson} to the {@link selectedReviewers} (or replaces it when {@link multipleReviewers} is
+   * `false`). Afterwards it will emit the list.
+   *
+   * @param ePerson The {@link EPerson} to add to the list
+   */
   addMemberToGroup(ePerson: EpersonDtoModel) {
     ePerson.memberOfGroup = true;
     if (!this.multipleReviewers) {

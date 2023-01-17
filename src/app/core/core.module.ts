@@ -162,9 +162,9 @@ import { SearchConfig } from './shared/search/search-filters/search-config.model
 import { SequenceService } from './shared/sequence.service';
 import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
-import { RatingReviewerActionAdvancedInfo } from './tasks/models/rating-reviewer-action-advanced-info.model';
-import { ReviewerActionAdvancedInfo } from './tasks/models/reviewer-action-advanced-info.model';
-import { SelectReviewerActionAdvancedInfo } from './tasks/models/select-reviewer-action-advanced-info.model';
+import { RatingAdvancedWorkflowInfo } from './tasks/models/rating-advanced-workflow-info.model';
+import { AdvancedWorkflowInfo } from './tasks/models/advanced-workflow-info.model';
+import { SelectReviewerAdvancedWorkflowInfo } from './tasks/models/select-reviewer-advanced-workflow-info.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -335,9 +335,9 @@ export const models =
     Version,
     VersionHistory,
     WorkflowAction,
-    ReviewerActionAdvancedInfo,
-    RatingReviewerActionAdvancedInfo,
-    SelectReviewerActionAdvancedInfo,
+    AdvancedWorkflowInfo,
+    RatingAdvancedWorkflowInfo,
+    SelectReviewerAdvancedWorkflowInfo,
     TemplateItem,
     Feature,
     Authorization,

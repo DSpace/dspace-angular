@@ -108,7 +108,8 @@ describe('AdvancedWorkflowActionComponent', () => {
 });
 
 @Component({
-  selector: 'ds-test-cmp',
+  // tslint:disable-next-line:component-selector
+  selector: '',
   template: ''
 })
 class TestComponent extends AdvancedWorkflowActionComponent {
