@@ -1,0 +1,60 @@
+// Add any global css for the theme here
+
+// imports the base global style
+@import '../../../styles/_global-styles.scss';
+
+:root{
+  --mofp-orange: #dbb01a;
+}
+
+.facet-filter, .setting-option {
+  background-color: var(--bs-light);
+  border-radius: var(--bs-border-radius);
+
+  &.p-3 {
+    // Needs !important because the original bootstrap class uses it
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  .badge-secondary {
+    background-color: var(--bs-primary);
+  }
+
+  h5 {
+    font-size: 1.1rem
+  }
+}
+header.main-header {
+  background: #545454 url("/assets/mofp/images/mofp_header.jpg");
+  background-size: 50% 100%;
+  background-repeat: no-repeat;
+  border-bottom: 5px solid var(--mofp-orange);
+  min-height: 80px;
+}
+nav.navbar {
+  border-bottom: none !important;
+  border-top: none !important;
+}
+.navbar-nav .nav-item .dropdown-toggle {
+  color: white !important;
+}
+
+.background-image-container{
+  background: url("/assets/mofp/images/mofp_banner.jpg");
+  background-size: 100% 100%;
+  min-height: 128px;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #04518F;
+  border-color: #045185;
+}
+@media screen and (min-width: 768px){
+  .header {
+    background-color: #545454 !important;
+  }
+  nav.navbar {
+    display: inline-block !important;
+  }
+}
