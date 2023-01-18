@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+/**
+ * The Advanced Workflow page containing the correct {@link AdvancedWorkflowActionComponent}
+ * based on the route parameters.
+ */
 @Component({
   selector: 'ds-advanced-workflow-action-page',
   templateUrl: './advanced-workflow-action-page.component.html',

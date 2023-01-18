@@ -9,11 +9,14 @@ import {
 } from '../abstract/advanced-claimed-task-actions-abstract.component';
 import {
   ADVANCED_WORKFLOW_ACTION_RATING,
-  WORKFLOW_ADVANCED_TASK_OPTION_RATING,
+  ADVANCED_WORKFLOW_TASK_OPTION_RATING,
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
-@rendersWorkflowTaskOption(WORKFLOW_ADVANCED_TASK_OPTION_RATING)
+/**
+ * Advanced Workflow button that redirect to the {@link AdvancedWorkflowActionRatingComponent}
+ */
+@rendersWorkflowTaskOption(ADVANCED_WORKFLOW_TASK_OPTION_RATING)
 @Component({
   selector: 'ds-advanced-claimed-task-action-rating-reviewer',
   templateUrl: './advanced-claimed-task-action-rating.component.html',
@@ -24,7 +27,7 @@ export class AdvancedClaimedTaskActionRatingComponent extends AdvancedClaimedTas
   /**
    * This component represents the advanced select option
    */
-  option = WORKFLOW_ADVANCED_TASK_OPTION_RATING;
+  option = ADVANCED_WORKFLOW_TASK_OPTION_RATING;
 
   workflowType = ADVANCED_WORKFLOW_ACTION_RATING;
 

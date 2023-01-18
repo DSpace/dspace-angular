@@ -5,7 +5,7 @@ import { MockComponent } from 'ng-mocks';
 import { DSOSelectorComponent } from '../../../shared/dso-selector/dso-selector/dso-selector.component';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -54,9 +54,9 @@ describe('AdvancedWorkflowActionComponent', () => {
               id: workflowId,
             }),
             snapshot: {
-              queryParams: convertToParamMap({
+              queryParams: {
                 workflow: 'testaction',
-              }),
+              },
             },
           },
         },
@@ -108,7 +108,8 @@ describe('AdvancedWorkflowActionComponent', () => {
 });
 
 @Component({
-  selector: 'ds-test-cmp',
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: '',
   template: ''
 })
 class TestComponent extends AdvancedWorkflowActionComponent {

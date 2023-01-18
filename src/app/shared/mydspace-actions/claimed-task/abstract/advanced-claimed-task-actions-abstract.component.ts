@@ -7,9 +7,8 @@ import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/wo
 /**
  * Abstract component for rendering an advanced claimed task's action
  * To create a child-component for a new option:
- * - Set the "option" of the component
+ * - Set the "option" and "workflowType" of the component
  * - Add a @rendersWorkflowTaskOption annotation to your component providing the same enum value
- * - Optionally overwrite createBody if the request body requires more than just the option
  */
 @Component({
   selector: 'ds-advanced-claimed-task-action-abstract',
@@ -17,7 +16,10 @@ import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/wo
 })
 export abstract class AdvancedClaimedTaskActionsAbstractComponent extends ClaimedTaskActionsAbstractComponent implements OnInit {
 
-  workflowType: string;
+  /**
+   * The {@link WorkflowAction} id of the advanced workflow that needs to be opened.
+   */
+  abstract workflowType: string;
 
   /**
    * Route to the workflow's task page
@@ -40,6 +42,9 @@ export abstract class AdvancedClaimedTaskActionsAbstractComponent extends Claime
     }));
   }
 
+  /**
+   * Navigates to the advanced workflow page based on the {@link workflow}.
+   */
   openAdvancedClaimedTaskTab(): void {
     void this.router.navigate([this.workflowTaskPageRoute], {
       queryParams: {

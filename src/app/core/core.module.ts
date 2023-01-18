@@ -157,6 +157,9 @@ import { SequenceService } from './shared/sequence.service';
 import { CoreState } from './core-state.model';
 import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
+import { RatingAdvancedWorkflowInfo } from './tasks/models/rating-advanced-workflow-info.model';
+import { AdvancedWorkflowInfo } from './tasks/models/advanced-workflow-info.model';
+import { SelectReviewerAdvancedWorkflowInfo } from './tasks/models/select-reviewer-advanced-workflow-info.model';
 import { AccessStatusObject } from '../shared/object-list/access-status-badge/access-status.model';
 import { AccessStatusDataService } from './data/access-status-data.service';
 import { LinkHeadService } from './services/link-head.service';
@@ -170,9 +173,6 @@ import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { OrcidAuthService } from './orcid/orcid-auth.service';
 import { VocabularyDataService } from './submission/vocabularies/vocabulary.data.service';
 import { VocabularyEntryDetailsDataService } from './submission/vocabularies/vocabulary-entry-details.data.service';
-import { RatingReviewerActionAdvancedInfo } from './tasks/models/rating-reviewer-action-advanced-info.model';
-import { ReviewerActionAdvancedInfo } from './tasks/models/reviewer-action-advanced-info.model';
-import { SelectReviewerActionAdvancedInfo } from './tasks/models/select-reviewer-action-advanced-info.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -341,9 +341,9 @@ export const models =
     Version,
     VersionHistory,
     WorkflowAction,
-    ReviewerActionAdvancedInfo,
-    RatingReviewerActionAdvancedInfo,
-    SelectReviewerActionAdvancedInfo,
+    AdvancedWorkflowInfo,
+    RatingAdvancedWorkflowInfo,
+    SelectReviewerAdvancedWorkflowInfo,
     TemplateItem,
     Feature,
     Authorization,

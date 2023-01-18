@@ -3,10 +3,13 @@ import { hasValue } from '../../../shared/empty.util';
 import {
   getAdvancedComponentByWorkflowTaskOption
 } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
-import { AdvancedClaimedTaskActionsDirective } from './advanced-claimed-task-actions.directive';
+import { AdvancedWorkflowActionsDirective } from './advanced-workflow-actions.directive';
 import { Router } from '@angular/router';
 import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';
 
+/**
+ * Component for loading a {@link AdvancedWorkflowActionComponent} depending on the "{@link type}" input
+ */
 @Component({
   selector: 'ds-advanced-workflow-actions-loader',
   templateUrl: './advanced-workflow-actions-loader.component.html',
@@ -23,7 +26,7 @@ export class AdvancedWorkflowActionsLoaderComponent implements OnInit {
   /**
    * Directive to determine where the dynamic child component is located
    */
-  @ViewChild(AdvancedClaimedTaskActionsDirective, { static: true }) claimedTaskActionsDirective: AdvancedClaimedTaskActionsDirective;
+  @ViewChild(AdvancedWorkflowActionsDirective, { static: true }) claimedTaskActionsDirective: AdvancedWorkflowActionsDirective;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -47,8 +50,8 @@ export class AdvancedWorkflowActionsLoaderComponent implements OnInit {
     }
   }
 
-  getComponentByWorkflowTaskOption(option: string) {
-    return getAdvancedComponentByWorkflowTaskOption(option);
+  getComponentByWorkflowTaskOption(type: string): any {
+    return getAdvancedComponentByWorkflowTaskOption(type);
   }
 
 }

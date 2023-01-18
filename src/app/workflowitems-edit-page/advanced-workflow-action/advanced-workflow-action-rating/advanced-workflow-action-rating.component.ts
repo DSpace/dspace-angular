@@ -6,12 +6,15 @@ import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/adv
 import { FormGroup, FormControl } from '@angular/forms';
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import {
-  RatingReviewerActionAdvancedInfo
-} from '../../../core/tasks/models/rating-reviewer-action-advanced-info.model';
+  RatingAdvancedWorkflowInfo
+} from '../../../core/tasks/models/rating-advanced-workflow-info.model';
 
-export const WORKFLOW_ADVANCED_TASK_OPTION_RATING = 'submit_score';
+export const ADVANCED_WORKFLOW_TASK_OPTION_RATING = 'submit_score';
 export const ADVANCED_WORKFLOW_ACTION_RATING = 'scorereviewaction';
 
+/**
+ * The page on which reviewers can rate submitted items.
+ */
 @rendersAdvancedWorkflowTaskOption(ADVANCED_WORKFLOW_ACTION_RATING)
 @Component({
   selector: 'ds-advanced-workflow-action-rating-reviewer',
@@ -23,7 +26,7 @@ export class AdvancedWorkflowActionRatingComponent extends AdvancedWorkflowActio
 
   ratingForm: FormGroup;
 
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
     this.ratingForm = new FormGroup({
       review: new FormControl(''),
@@ -43,9 +46,12 @@ export class AdvancedWorkflowActionRatingComponent extends AdvancedWorkflowActio
     }
   }
 
+  /**
+   * Returns the task option, the score and the review if one was provided
+   */
   createBody(): any {
     const body = {
-      [WORKFLOW_ADVANCED_TASK_OPTION_RATING]: true,
+      [ADVANCED_WORKFLOW_TASK_OPTION_RATING]: true,
       score: this.ratingForm.get('rating').value,
     };
     if (this.ratingForm.get('review').value !== '') {
@@ -59,8 +65,8 @@ export class AdvancedWorkflowActionRatingComponent extends AdvancedWorkflowActio
     return ADVANCED_WORKFLOW_ACTION_RATING;
   }
 
-  getAdvancedInfo(workflowAction: WorkflowAction | null): RatingReviewerActionAdvancedInfo | null {
-    return workflowAction ? (workflowAction.advancedInfo[0] as RatingReviewerActionAdvancedInfo) : null;
+  getAdvancedInfo(workflowAction: WorkflowAction | null): RatingAdvancedWorkflowInfo | null {
+    return workflowAction ? (workflowAction.advancedInfo[0] as RatingAdvancedWorkflowInfo) : null;
   }
 
 }

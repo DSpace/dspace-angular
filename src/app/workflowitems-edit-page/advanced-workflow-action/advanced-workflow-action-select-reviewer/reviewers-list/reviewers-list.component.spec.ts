@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA, SimpleChange, DebugElement } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -31,6 +31,7 @@ import { NotificationsServiceStub } from '../../../../shared/testing/notificatio
 import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
 
 describe('ReviewersListComponent', () => {
   let component: ReviewersListComponent;
@@ -45,6 +46,8 @@ describe('ReviewersListComponent', () => {
   let epersonMembers;
   let subgroupMembers;
   let paginationService;
+  let ePersonDtoModel1: EpersonDtoModel;
+  let ePersonDtoModel2: EpersonDtoModel;
 
   beforeEach(waitForAsync(() => {
     activeGroup = GroupMock;
@@ -119,7 +122,6 @@ describe('ReviewersListComponent', () => {
       findById(id: string) {
         for (const group of allGroups) {
           if (group.id === id) {
-            console.log('found', group);
             return createSuccessfulRemoteDataObject$(group);
           }
         }
@@ -167,9 +169,12 @@ describe('ReviewersListComponent', () => {
     fixture.debugElement.nativeElement.remove();
   }));
 
-  it('should create ReviewersListComponent', inject([ReviewersListComponent], (comp: ReviewersListComponent) => {
-    expect(comp).toBeDefined();
-  }));
+  beforeEach(() => {
+    ePersonDtoModel1 = new EpersonDtoModel();
+    ePersonDtoModel1.eperson = EPersonMock;
+    ePersonDtoModel2 = new EpersonDtoModel();
+    ePersonDtoModel2.eperson = EPersonMock2;
+  });
 
   describe('when no group is selected', () => {
     beforeEach(() => {
@@ -179,18 +184,18 @@ describe('ReviewersListComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should show no epersons because no group is selected', () => {
-      const epersonIdsFound = fixture.debugElement.queryAll(By.css('#ePeopleMembersOfGroup tr td:first-child'));
-      expect(epersonIdsFound.length).toEqual(0);
-      epersonMembers.map((eperson: EPerson) => {
-        expect(epersonIdsFound.find((foundEl) => {
-          return (foundEl.nativeElement.textContent.trim() === eperson.uuid);
+    it('should show no ePersons because no group is selected', () => {
+      const ePersonIdsFound = fixture.debugElement.queryAll(By.css('#ePeopleMembersOfGroup tr td:first-child'));
+      expect(ePersonIdsFound.length).toEqual(0);
+      epersonMembers.map((ePerson: EPerson) => {
+        expect(ePersonIdsFound.find((foundEl) => {
+          return (foundEl.nativeElement.textContent.trim() === ePerson.uuid);
         })).not.toBeTruthy();
       });
     });
   });
 
-  describe('when group is selected', () => {
+  describe('when a group is selected', () => {
     beforeEach(() => {
       component.ngOnChanges({
         groupId: new SimpleChange(undefined, GroupMock.id, true)
@@ -198,15 +203,50 @@ describe('ReviewersListComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should show all eperson members of group', () => {
-      const epersonIdsFound = fixture.debugElement.queryAll(By.css('#ePeopleMembersOfGroup tr td:first-child'));
-      expect(epersonIdsFound.length).toEqual(1);
-      epersonMembers.map((eperson: EPerson) => {
-        expect(epersonIdsFound.find((foundEl) => {
-          return (foundEl.nativeElement.textContent.trim() === eperson.uuid);
+    it('should show all ePerson members of group', () => {
+      const ePersonIdsFound = fixture.debugElement.queryAll(By.css('#ePeopleMembersOfGroup tr td:first-child'));
+      expect(ePersonIdsFound.length).toEqual(1);
+      epersonMembers.map((ePerson: EPerson) => {
+        expect(ePersonIdsFound.find((foundEl: DebugElement) => {
+          return (foundEl.nativeElement.textContent.trim() === ePerson.uuid);
         })).toBeTruthy();
       });
     });
+  });
+
+
+  it('should replace the value when a new member is added when multipleReviewers is false', () => {
+    spyOn(component.selectedReviewersUpdated, 'emit');
+    component.multipleReviewers = false;
+    component.selectedReviewers = [ePersonDtoModel1];
+
+    component.addMemberToGroup(ePersonDtoModel2);
+
+    expect(component.selectedReviewers).toEqual([ePersonDtoModel2]);
+    expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([ePersonDtoModel2.eperson]);
+  });
+
+  it('should add the value when a new member is added when multipleReviewers is true', () => {
+    spyOn(component.selectedReviewersUpdated, 'emit');
+    component.multipleReviewers = true;
+    component.selectedReviewers = [ePersonDtoModel1];
+
+    component.addMemberToGroup(ePersonDtoModel2);
+
+    expect(component.selectedReviewers).toEqual([ePersonDtoModel1, ePersonDtoModel2]);
+    expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([ePersonDtoModel1.eperson, ePersonDtoModel2.eperson]);
+  });
+
+  it('should delete the member when present', () => {
+    spyOn(component.selectedReviewersUpdated, 'emit');
+    ePersonDtoModel1.memberOfGroup = true;
+    component.selectedReviewers = [ePersonDtoModel1];
+
+    component.deleteMemberFromGroup(ePersonDtoModel1);
+
+    expect(component.selectedReviewers).toEqual([]);
+    expect(ePersonDtoModel1.memberOfGroup).toBeFalse();
+    expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([]);
   });
 
 });

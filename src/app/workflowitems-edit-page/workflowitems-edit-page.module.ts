@@ -24,8 +24,8 @@ import {
   AdvancedWorkflowActionPageComponent
 } from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
 import {
-  AdvancedClaimedTaskActionsDirective
-} from './advanced-workflow-action/advanced-workflow-actions-loader/advanced-claimed-task-actions.directive';
+  AdvancedWorkflowActionsDirective
+} from './advanced-workflow-action/advanced-workflow-actions-loader/advanced-workflow-actions.directive';
 import { AccessControlModule } from '../access-control/access-control.module';
 import {
   ReviewersListComponent
@@ -54,7 +54,7 @@ import { RatingModule } from 'ngx-bootstrap/rating';
     AdvancedWorkflowActionRatingComponent,
     AdvancedWorkflowActionSelectReviewerComponent,
     AdvancedWorkflowActionPageComponent,
-    AdvancedClaimedTaskActionsDirective,
+    AdvancedWorkflowActionsDirective,
     ReviewersListComponent,
   ]
 })
