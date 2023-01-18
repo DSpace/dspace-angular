@@ -12,6 +12,13 @@ import {
 } from '../../../access-control/group-registry/group-form/members-list/members-list.component';
 import { Subscription } from 'rxjs';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
+import { RouteService } from '../../../core/services/route.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
+import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 
 export const ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER = 'submit_select_reviewer';
 export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
@@ -42,6 +49,19 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
   subs: Subscription[] = [];
 
   displayError = false;
+
+  constructor(
+    protected route: ActivatedRoute,
+    protected workflowItemService: WorkflowItemDataService,
+    protected router: Router,
+    protected routeService: RouteService,
+    protected notificationsService: NotificationsService,
+    protected translationService: TranslateService,
+    protected workflowActionService: WorkflowActionDataService,
+    protected claimedTaskDataService: ClaimedTaskDataService,
+  ) {
+    super(route, workflowItemService, router, routeService, notificationsService, translationService, workflowActionService, claimedTaskDataService);
+  }
 
   ngOnDestroy(): void {
     this.subs.forEach((subscription: Subscription) => subscription.unsubscribe());

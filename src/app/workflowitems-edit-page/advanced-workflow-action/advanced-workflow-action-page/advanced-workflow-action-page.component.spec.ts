@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action-page.component';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 describe('AdvancedWorkflowActionPageComponent', () => {
@@ -20,9 +20,9 @@ describe('AdvancedWorkflowActionPageComponent', () => {
           provide: ActivatedRoute,
           useValue: {
             snapshot: {
-              queryParams: convertToParamMap({
+              queryParams: {
                 workflow: 'testaction',
-              }),
+              },
             },
           },
         },
