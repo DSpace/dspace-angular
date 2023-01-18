@@ -10,32 +10,35 @@ $font-family-sans-serif: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI"
 $navbar-dark-color: #FFFFFF;
 
 /* Reassign color vars to semantic color scheme */
-$blue: #2b4e72 !default;
-$green: #92C642 !default;
-$cyan: #207698 !default;
-$yellow: #ec9433 !default;
-$red: #CF4444 !default;
-$dark: #43515f !default;
+$ds-blue: #2b4e72 !default;
+$ds-green: #92C642 !default;
+$ds-cyan: #207698 !default;
+$ds-yellow: #ec9433 !default;
+$ds-red: #CF4444 !default;
+$ds-dark: #43515f !default;
 
-$gray-800: #343a40 !default;
-$gray-700: #495057 !default;
-$gray-400: #ced4da !default;
-$gray-100: #f8f9fa !default;
+$ds-gray-800: #343a40 !default;
+$ds-gray-700: #495057 !default;
+$ds-gray-400: #ced4da !default;
+$ds-gray-300: #dee2e6 !default;
+$ds-gray-200: #e9ecef !default;
+$ds-gray-100: #f8f9fa !default;
+$ds-white:    #fff !default;
 
-$body-color: $gray-800 !default;                    // Bootstrap $gray-800
+$body-color: $ds-gray-800 !default;
 
-$table-accent-bg: $gray-100 !default;   // Bootstrap $gray-100
-$table-hover-bg: $gray-400 !default;   // Bootstrap $gray-400
+$table-accent-bg: $ds-gray-100 !default;
+$table-hover-bg: $ds-gray-400 !default;
 
 $yiq-contrasted-threshold:  170 !default;
 
 $theme-colors: (
-        primary: $dark,
-        secondary: $gray-700,
-        success: $green,
-        info: $cyan,
-        warning: $yellow,
-        danger: $red,
-        light: $gray-100,
-        dark: $dark
+        primary: $ds-dark,
+        secondary: $ds-gray-700,
+        success: $ds-green,
+        info: $ds-cyan,
+        warning: $ds-yellow,
+        danger: $ds-red,
+        light: $ds-gray-100,
+        dark: $ds-dark
 ) !default;

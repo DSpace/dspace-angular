@@ -19,15 +19,15 @@
   --ds-footer-z-index: 0;
   --ds-sidebar-z-index: 20;
 
-  --ds-header-bg: #{$white};
+  --ds-header-bg: #{$ds-white};
   --ds-header-logo-height: 50px;
   --ds-header-logo-height-xs: 50px;
-  --ds-header-icon-color: #{$cyan};
-  --ds-header-icon-color-hover: #{darken($white, 15%)};
-  --ds-header-navbar-border-top-color: #{$white};
-  --ds-header-navbar-border-bottom-color: #{$gray-400};
-  --ds-navbar-link-color: #{$cyan};
-  --ds-navbar-link-color-hover: #{darken($cyan, 15%)};
+  --ds-header-icon-color: #{$ds-cyan};
+  --ds-header-icon-color-hover: #{darken($ds-white, 15%)};
+  --ds-header-navbar-border-top-color: #{$ds-white};
+  --ds-header-navbar-border-bottom-color: #{$ds-gray-400};
+  --ds-navbar-link-color: #{$ds-cyan};
+  --ds-navbar-link-color-hover: #{darken($ds-cyan, 15%)};
 
   $admin-sidebar-bg: darken(#2B4E72, 17%);
   $admin-sidebar-active-bg: darken($admin-sidebar-bg, 3%);
@@ -46,9 +46,9 @@
   --ds-edit-item-language-field-width: 43px;
 
   --ds-thumbnail-max-width: 125px;
-  --ds-thumbnail-placeholder-background: #{$gray-100};
-  --ds-thumbnail-placeholder-border: 1px solid #{$gray-300};
-  --ds-thumbnail-placeholder-color: #{lighten($gray-800, 7%)};
+  --ds-thumbnail-placeholder-background: #{$ds-gray-100};
+  --ds-thumbnail-placeholder-border: 1px solid #{$ds-gray-300};
+  --ds-thumbnail-placeholder-color: #{lighten($ds-gray-800, 7%)};
 
   --ds-dso-selector-list-max-height: 475px;
   --ds-dso-selector-current-background-color: #eeeeee;
@@ -64,24 +64,24 @@
   --ds-sidebar-items-width: #{$sidebar-items-width};
   --ds-total-sidebar-width: #{$total-sidebar-width};
 
-  --ds-top-footer-bg: #{$gray-200};
+  --ds-top-footer-bg: #{$ds-gray-200};
   --ds-footer-bg: #{theme-color('primary')};
   --ds-footer-border: 1px solid var(--bs-gray-400);
   --ds-footer-padding: 0;
   --ds-footer-padding-bottom: 0;
   --ds-footer-logo-height: 50px;
 
-  $home-news-link-color: $cyan;
+  $home-news-link-color: $ds-cyan;
   --ds-home-news-link-color: #{$home-news-link-color};
   --ds-home-news-link-hover-color: #{darken($home-news-link-color, 15%)};
-  --ds-home-news-background-color: #{$gray-200};
+  --ds-home-news-background-color: #{$ds-gray-200};
 
-  --ds-breadcrumb-bg: #{$gray-200} !important;
-  --ds-breadcrumb-link-color: #{$cyan};
-  --ds-breadcrumb-link-active-color: #{darken($cyan, 30%)};
+  --ds-breadcrumb-bg: #{$ds-gray-200} !important;
+  --ds-breadcrumb-link-color: #{$ds-cyan};
+  --ds-breadcrumb-link-active-color: #{darken($ds-cyan, 30%)};
   --ds-breadcrumb-max-length: 200px;
 
-  --ds-slider-color: #{$green};
+  --ds-slider-color: #{$ds-green};
   --ds-slider-handle-width: 18px;
 
   --ds-search-form-scope-max-width: 150px;

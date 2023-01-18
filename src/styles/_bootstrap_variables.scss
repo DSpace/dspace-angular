@@ -17,26 +17,31 @@ $enable-responsive-font-sizes: true;
 
 /** Bootstrap Variables **/
 /* Colors */
-$gray-700: #495057 !default;  // Bootstrap $gray-700
-$gray-100: #f8f9fa !default;  //           $gray-100
+$ds-gray-800: #343a40 !default;
+$ds-gray-700: #495057 !default;
+$ds-gray-400: #ced4da !default;
+$ds-gray-300: #dee2e6 !default;
+$ds-gray-200: #e9ecef !default;
+$ds-gray-100: #f8f9fa !default;
+$ds-white:    #fff !default;
 
 /* Reassign color vars to semantic color scheme */
-$blue:   #2B4E72 !default;
-$green:  #94BA65 !default;
-$cyan:   #006666 !default;
-$yellow: #ec9433 !default;
-$red:    #CF4444 !default;
-$dark:   darken($blue, 17%) !default;
+$ds-blue:   #2B4E72 !default;
+$ds-green:  #94BA65 !default;
+$ds-cyan:   #006666 !default;
+$ds-yellow: #ec9433 !default;
+$ds-red:    #CF4444 !default;
+$ds-dark:   darken($ds-blue, 17%) !default;
 
 $theme-colors: (
-        primary: $blue,
-        secondary: $gray-700,
-        success: $green,
-        info: $cyan,
-        warning: $yellow,
-        danger: $red,
-        light: $gray-100,
-        dark: $dark
+        primary: $ds-blue,
+        secondary: $ds-gray-700,
+        success: $ds-green,
+        info: $ds-cyan,
+        warning: $ds-yellow,
+        danger: $ds-red,
+        light: $ds-gray-100,
+        dark: $ds-dark
 ) !default;
 /* Fonts */
 $link-color: map-get($theme-colors, info) !default;
