@@ -68,7 +68,12 @@ import {
   MetadataInformationComponent
 } from './sections/sherpa-policies/metadata-information/metadata-information.component';
 import { SectionFormOperationsService } from './sections/form/section-form-operations.service';
-
+import { MyDspaceSearchModule } from '../my-dspace-page/my-dspace-search.module';
+/*
+import {
+  ThemedItemListPreviewComponent
+} from '../shared/object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
+*/
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
   SubmissionSectionUploadComponent,
@@ -114,6 +119,7 @@ const DECLARATIONS = [
     CommonModule,
     CoreModule.forRoot(),
     SharedModule,
+    MyDspaceSearchModule,
     StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
     EffectsModule.forFeature(submissionEffects),
     JournalEntitiesModule.withEntryComponents(),
@@ -135,7 +141,7 @@ const DECLARATIONS = [
     SubmissionUploadsConfigDataService,
     SubmissionAccessesConfigDataService,
     SectionAccessesService,
-    DetectDuplicateService
+    DetectDuplicateService,
     SectionFormOperationsService,
   ]
 })

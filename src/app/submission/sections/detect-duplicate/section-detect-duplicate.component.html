@@ -16,8 +16,7 @@
     [retainScrollPosition]="true">
 
     <ul class="list-unstyled" *ngVar="(config$ | async) as config">
-      <li *ngFor="let item of (sectionData$ | async)?.matches | dsObjNgFor
-    | paginate: {id: config.id, itemsPerPage: config.pageSize, currentPage: config.currentPage}; let i = index; let l = last"
+      <li *ngFor="let item of (sectionData$ | async)?.matches | dsObjNgFor; let i = index; let l = last"
           class="mt-4 mb-4"
           [class.border-bottom]="!l">
         <ds-duplicate-match

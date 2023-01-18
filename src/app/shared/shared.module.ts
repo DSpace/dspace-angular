@@ -244,6 +244,15 @@ import {
 import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
 import { LogInExternalProviderComponent } from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
+import {
+  ThemedItemListPreviewComponent
+} from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
+import {
+  ItemListPreviewComponent
+} from './object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
+import {
+  MyDSpaceItemStatusComponent
+} from './object-collection/shared/mydspace-item-status/my-dspace-item-status.component';
 
 
 const MODULES = [
@@ -346,6 +355,9 @@ const COMPONENTS = [
   ListableNotificationObjectComponent,
   DsoPageEditButtonComponent,
   MetadataFieldWrapperComponent,
+//  ItemListPreviewComponent,
+//  ThemedItemListPreviewComponent,
+  //MyDSpaceItemStatusComponent,
 ];
 
 const ENTRY_COMPONENTS = [
