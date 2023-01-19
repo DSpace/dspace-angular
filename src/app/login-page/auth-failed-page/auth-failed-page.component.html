@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-info alert-dismissible fade show">
+        <span>{{'clarin.auth-failed.warning.no-email.message.0' | translate}}</span>
+        <span>{{'clarin.auth-failed.warning.no-email.message.1' | translate}}</span>
+        <a [href]="'mailto:'+(helpDesk$ | async)?.payload?.values[0]">
+          {{'clarin.auth-failed.warning.no-email.message.2' | translate}}
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div>
+        {{'clarin.auth-failed.email' | translate}}
+      </div>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+               [(ngModel)]="email"
+               aria-describedby="basic-addon1">
+      </div>
+      <div class="alert alert-info alert-dismissible fade show">
+        <i class="fas fa-info-circle"></i>
+        <span>{{'clarin.auth-failed.warning.email-info' | translate}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <button (click)="sendEmail()"
+              class="btn btn-success">{{'clarin.auth-failed.button.submit' | translate}}
+      </button>
+    </div>
+  </div>
+</div>

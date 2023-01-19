@@ -163,10 +163,11 @@ import { ClarinLicenseDataService } from './data/clarin/clarin-license-data.serv
 import { ClarinLicenseLabelDataService } from './data/clarin/clarin-license-label-data.service';
 import { HandleDataService } from './data/handle-data.service';
 import { Handle } from './handle/handle.model';
-import {ClruaDataService} from './data/clarin/clrua-data.service';
-import {ClarinUserRegistrationDataService} from './data/clarin/clarin-user-registration.service';
-import {ClarinUserMetadataDataService} from './data/clarin/clarin-user-metadata.service';
-import {ClarinLicenseResourceMappingService} from './data/clarin/clarin-license-resource-mapping-data.service';
+import { ClarinUserRegistrationDataService } from './data/clarin/clarin-user-registration.service';
+import { ClarinUserMetadataDataService } from './data/clarin/clarin-user-metadata.service';
+import { ClarinLicenseResourceMappingService } from './data/clarin/clarin-license-resource-mapping-data.service';
+import { ClarinVerificationTokenDataService } from './data/clarin/clarin-verification-token-data.service';
+import { ClruaDataService } from './data/clarin/clrua-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -202,6 +203,7 @@ const PROVIDERS = [
   ClarinUserRegistrationDataService,
   ClarinUserMetadataDataService,
   ClarinLicenseResourceMappingService,
+  ClarinVerificationTokenDataService,
   DSOResponseParsingService,
   { provide: MOCK_RESPONSE_MAP, useValue: mockResponseMap },
   { provide: DspaceRestService, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient] },

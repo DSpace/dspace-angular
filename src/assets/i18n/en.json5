@@ -2923,6 +2923,64 @@
 
   "logout.title": "Logout",
 
+
+  "clarin.help-desk.name": "Help Desk",
+
+  "clarin.auth-failed.error.message": "Authentication Failed",
+
+  "clarin.auth-failed.warning.reason.message": "Reason!",
+
+  "clarin.auth-failed.warning.important.message": "Important!",
+
+  "clarin.auth-failed.warning.no-email.message": ["Your IDP (home organization) has not provided your email address. Please fill and verify your email in order to submit new items to the repository, to download restricted items and optionally to subscribe to advanced statistics and/or collection updates.", "If you have any question contact the ","Help Desk."],
+
+  "clarin.auth-failed.warning.email-info": "This address will be verified and remembered until your IDP provides a different one. You will still sign in through your IDP.",
+
+  "clarin.auth-failed.warning.has-email.message": ["Your IDP (home organization) has not provided your email address.", "You are registered by the e-mail: ", ". Try to login with that e-mail.", " If you have any login issues contact the ", "Help Desk."],
+
+  "clarin.auth-failed.netid": "netid",
+
+  "clarin.auth-failed.fname": "First Name",
+
+  "clarin.auth-failed.lname": "Last Name",
+
+  "clarin.auth-failed.email": "Email",
+
+  "clarin.auth-failed.button.submit": "Submit",
+
+  "clarin.auth-failed.button.login": "Redirect to login",
+
+  "clarin.auth-failed.send-email.successful.message": "Verification email was sent successfully",
+
+  "clarin.auth-failed.send-email.error.message": "Error: cannot sent verification email.",
+
+
+  "clarin.missing-headers.error.message": "Your IDP (home organization) has not provided required headers, we cannot allow you to login to our repository without required information.",
+
+  "clarin.missing-headers.contact-us.message": "If you have any questions you can contact the ",
+
+
+  "clarin.autoregistration.successful.message": "You have been successfully registered.",
+
+  "clarin.autoregistration.error.message": "Error: registration failed.",
+
+  "clarin.autoregistration.welcome.message": "Welcome to",
+
+  "clarin.autoregistration.privacy.statement": "Privacy statement",
+
+  "clarin.autoregistration.information.released.by.idp.message": "The information released by your IdP (home organisation) is shown below.",
+
+  "clarin.autoregistration.table.header": "Header",
+
+  "clarin.autoregistration.table.value": "Value",
+
+  "clarin.autoregistration.repository.policy.message": ["We use only the required attributes as stated in","However we may log the attributes and keep them for a time period."],
+
+  "clarin.autoregistration.button.continue.to.login": "Continue to login",
+
+  "clarin.autoregistration.token.not.valid.message": "Verification token is not valid.",
+
+
   "menu.header.admin": "Management",
 
   "menu.header.image.logo": "Repository logo",
@@ -5151,5 +5209,7 @@
 
   "language.english": "English",
 
-  "language.czech": "Czech"
+  "language.czech": "Czech",
+
+  "repository.policy.page": "Change me: policy page"
 }
