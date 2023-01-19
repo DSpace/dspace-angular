@@ -2301,6 +2301,22 @@
   "item.preview.oaire.fundingStream": "Funding Stream:",
 
 
+  "item.refbox.modal.copy.instruction": ["Press", "ctrl + c", "to copy"],
+
+  "item.refbox.modal.submit": "Ok",
+
+  "item.refbox.citation.featured-service.message": "Please use the following text to cite this item or export to a predefined format:",
+
+  "item.refbox.citation.bibtex.button": "bibtex",
+
+  "item.refbox.citation.cmdi.button": "cmdi",
+
+  "item.refbox.featured-service.heading": "This resource is also integrated in following services:",
+
+  "item.refbox.featured-service.share.message": "Share",
+
+
+
 
   "item.select.confirm": "Confirm selected",
 
