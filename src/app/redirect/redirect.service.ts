@@ -43,7 +43,11 @@ export class RedirectService implements CanActivate {
 
   /** Returns true if the given url looks external */
   public external(url: string): boolean {
-    return !(url.startsWith('/') || url.startsWith(this.appConfig.ui.baseUrl) || url.startsWith(LOCAL_PROTOCOL));
+    return !(
+      !this.REGEX_URL.test(url) ||
+      url.startsWith(this.appConfig.ui.baseUrl) ||
+      url.startsWith(LOCAL_PROTOCOL)
+    );
   }
 
   /** Redirects to the specified external link with the mediation of the router */
