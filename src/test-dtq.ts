@@ -18,7 +18,7 @@ getTestBed().initTestEnvironment(
 const context = require.context('./', true, /\.spec\.ts$/);
 
 // Find just one test for testing.
-// const context = require.context('./', true, /define-license-form.component.spec\.ts$/);
+// const context = require.context('./', true, /clarin-navbar-top.component.spec\.ts$/);
 
 // And load the modules.
 context.keys().map(context);
