@@ -20,6 +20,11 @@ import { map } from 'rxjs/operators';
 import {ConfigurationProperty} from '../shared/configuration-property.model';
 import {ConfigurationDataService} from './configuration-data.service';
 
+/**
+ * The service handling all REST requests to get item identifiers like handles and DOIs
+ * from the /identifiers endpoint, as well as the backend configuration that controls whether a 'Register DOI'
+ * button appears for admins in the item status page
+ */
 @Injectable()
 @dataService(IDENTIFIERS)
 export class IdentifierDataService extends BaseDataService<IdentifierData> {
@@ -50,7 +55,7 @@ export class IdentifierDataService extends BaseDataService<IdentifierData> {
    * Should we allow registration of new DOIs via the item status page?
    */
   public getIdentifierRegistrationConfiguration(): Observable<string[]> {
-    return this.configurationService.findByPropertyName('identifiers.item-status.register').pipe(
+    return this.configurationService.findByPropertyName('identifiers.item-status.registerDOI').pipe(
       getFirstCompletedRemoteData(),
       map((propertyRD: RemoteData<ConfigurationProperty>) => propertyRD.hasSucceeded ? propertyRD.payload.values : [])
     );

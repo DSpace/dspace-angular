@@ -3,7 +3,7 @@ import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { ItemOperation } from '../item-operation/itemOperation.model';
-import {distinctUntilChanged, first, map, mergeMap, startWith, switchMap, toArray} from 'rxjs/operators';
+import {distinctUntilChanged, first, map, mergeMap, toArray} from 'rxjs/operators';
 import {BehaviorSubject, Observable, from as observableFrom, Subscription, combineLatest, of} from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
@@ -12,11 +12,8 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { hasValue } from '../../../shared/empty.util';
 import {
   getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData, getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload
 } from '../../../core/shared/operators';
 import {IdentifierDataService} from '../../../core/data/identifier-data.service';
-import {IdentifierData} from '../../../shared/object-list/identifier-data/identifier-data.model';
 import {Identifier} from '../../../shared/object-list/identifier-data/identifier.model';
 import {ConfigurationProperty} from '../../../core/shared/configuration-property.model';
 import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
@@ -111,7 +108,7 @@ export class ItemStatusComponent implements OnInit {
       );
 
       // Observable for configuration determining whether the Register DOI feature is enabled
-      let registerConfigEnabled$: Observable<boolean> = this.configurationService.findByPropertyName('identifiers.item-status.register').pipe(
+      let registerConfigEnabled$: Observable<boolean> = this.configurationService.findByPropertyName('identifiers.item-status.registerDOI').pipe(
         map((enabled: RemoteData<ConfigurationProperty>) => {
           let show = false;
           if (enabled.hasSucceeded) {
@@ -161,7 +158,7 @@ export class ItemStatusComponent implements OnInit {
               if (hasValue(identifier) && identifier.identifierType === 'doi') {
                 // The item has some kind of DOI
                 no_doi = false;
-                if (identifier.identifierStatus === '10' || identifier.identifierStatus === '11'
+                if (identifier.identifierStatus === 'PENDING' || identifier.identifierStatus === 'MINTED'
                   || identifier.identifierStatus == null) {
                   // The item's DOI is pending, minted or null.
                   // It isn't registered, reserved, queued for registration or reservation or update, deleted
