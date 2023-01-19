@@ -11,9 +11,9 @@ import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../../
 import { first, map } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { Observable } from 'rxjs';
-import {getItemEditRoute, getItemPageRoute} from '../../item-page-routing-paths';
+import { getItemPageRoute } from '../../item-page-routing-paths';
 import { IdentifierDataService } from '../../../core/data/identifier-data.service';
-import {Identifier} from '../../../shared/object-list/identifier-data/identifier.model';
+import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
 
 @Component({
   selector: 'ds-item-registerdoi',

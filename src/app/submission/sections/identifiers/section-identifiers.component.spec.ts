@@ -7,7 +7,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { cold } from 'jasmine-marbles';
-import {Observable, of as observableOf} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -25,7 +25,7 @@ import { FormService } from '../../../shared/form/form.service';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsType } from '../sections-type';
-import {mockSectionsData, mockSubmissionCollectionId, mockSubmissionId} from '../../../shared/mocks/submission.mock';
+import { mockSubmissionCollectionId, mockSubmissionId } from '../../../shared/mocks/submission.mock';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionSectionIdentifiersComponent } from './section-identifiers.component';
 import { CollectionDataService } from '../../../core/data/collection-data.service';

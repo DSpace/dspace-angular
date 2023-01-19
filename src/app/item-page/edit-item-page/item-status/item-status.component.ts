@@ -4,7 +4,7 @@ import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { ItemOperation } from '../item-operation/itemOperation.model';
 import {distinctUntilChanged, first, map, mergeMap, toArray} from 'rxjs/operators';
-import {BehaviorSubject, Observable, from as observableFrom, Subscription, combineLatest, of} from 'rxjs';
+import { BehaviorSubject, Observable, from as observableFrom, Subscription, combineLatest } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -13,10 +13,10 @@ import { hasValue } from '../../../shared/empty.util';
 import {
   getAllSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
-import {IdentifierDataService} from '../../../core/data/identifier-data.service';
-import {Identifier} from '../../../shared/object-list/identifier-data/identifier.model';
-import {ConfigurationProperty} from '../../../core/shared/configuration-property.model';
-import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
+import { IdentifierDataService } from '../../../core/data/identifier-data.service';
+import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 
 @Component({
   selector: 'ds-item-status',

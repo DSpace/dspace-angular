@@ -257,7 +257,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
       headers = headers.append('Content-Type', 'application/json');
       options.headers = headers;
       // Pass identifier type as a simple parameter, no need for full JSON data
-      let hrefWithParams: string = this.buildHrefWithParams(href, [new RequestParam("type", "doi")]);
+      let hrefWithParams: string = this.buildHrefWithParams(href, [new RequestParam('type', 'doi')]);
       const request = new PostRequest(requestId, hrefWithParams, JSON.stringify({}), options);
       this.requestService.send(request);
     });
