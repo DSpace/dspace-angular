@@ -5,4 +5,5 @@ export interface WorkspaceitemSectionIdentifiersObject {
   doi?: string
   handle?: string
   otherIdentifiers?: string[]
+  displayTypes?: string[]
 }

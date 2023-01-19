@@ -3,8 +3,8 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { hasValue } from '../../empty.util';
 import { Item } from 'src/app/core/shared/item.model';
-import {IdentifierData} from './identifier-data.model';
-import {IdentifierDataService} from '../../../core/data/identifier-data.service';
+import { IdentifierData } from './identifier-data.model';
+import { IdentifierDataService } from '../../../core/data/identifier-data.service';
 
 @Component({
   selector: 'ds-identifier-data',

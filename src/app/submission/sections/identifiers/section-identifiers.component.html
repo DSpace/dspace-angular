@@ -9,26 +9,34 @@ Template for the identifiers submission section component
   <span>{{'submission.sections.identifiers.info' | translate}}</span>
   <ul>
     <!-- Handles -->
-    <ng-container *ngIf="!(identifierData && identifierData.handle)">
-      <li>{{'submission.sections.identifiers.no_handle' | translate}}</li>
+    <ng-container *ngIf="(!identifierData || identifierData.displayTypes.includes('handle'))">
+      <ng-container *ngIf="!(identifierData && identifierData.handle)">
+        <li>{{'submission.sections.identifiers.no_handle' | translate}}</li>
+      </ng-container>
+      <ng-container *ngIf="(identifierData && identifierData.handle)">
+        <li>{{'submission.sections.identifiers.handle_label' | translate}}{{identifierData.handle}}</li>
+      </ng-container>
     </ng-container>
-    <ng-container *ngIf="(identifierData && identifierData.handle)">
-      <li>{{'submission.sections.identifiers.handle_label' | translate}}{{identifierData.handle}}</li>
-    </ng-container>
+
     <!-- DOIs -->
-    <ng-container *ngIf="!(identifierData && identifierData.doi)">
-      <li>{{'submission.sections.identifiers.no_doi' | translate}}</li>
+    <ng-container *ngIf="(!identifierData || identifierData.displayTypes.includes('doi'))">
+      <ng-container *ngIf="!(identifierData && identifierData.doi)">
+        <li>{{'submission.sections.identifiers.no_doi' | translate}}</li>
+      </ng-container>
+      <ng-container *ngIf="(identifierData && identifierData.doi)">
+        <li>{{'submission.sections.identifiers.doi_label' | translate}}
+          {{identifierData.doi}}
+        </li>
+      </ng-container>
     </ng-container>
-    <ng-container *ngIf="(identifierData && identifierData.doi)">
-      <li>{{'submission.sections.identifiers.doi_label' | translate}}
-        {{identifierData.doi}}
-      </li>
-    </ng-container>
+
     <!-- Other identifiers -->
-    <ng-container *ngIf="(identifierData && identifierData.otherIdentifiers && identifierData.otherIdentifiers.length > 0)">
-      <li>{{'submission.sections.identifiers.otherIdentifiers_label' | translate}}
-        {{identifierData.otherIdentifiers.join(',')}}
-      </li>
+    <ng-container *ngIf="(!identifierData || identifierData.displayTypes.includes('other'))">
+      <ng-container *ngIf="(identifierData && identifierData.otherIdentifiers && identifierData.otherIdentifiers.length > 0)">
+        <li>{{'submission.sections.identifiers.otherIdentifiers_label' | translate}}
+          {{identifierData.otherIdentifiers.join(',')}}
+        </li>
+      </ng-container>
     </ng-container>
   </ul>
  </div>
