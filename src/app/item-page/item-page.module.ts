@@ -34,6 +34,9 @@ import { MiradorViewerComponent } from './mirador-viewer/mirador-viewer.componen
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 import { VersionedItemComponent } from './simple/item-types/versioned-item/versioned-item.component';
 import { ThemedFileSectionComponent } from './simple/field-components/file-section/themed-file-section.component';
+import {
+  ThemedFullFileSectionComponent
+} from './full/field-components/file-section/themed-full-file-section.component';
 
 
 const ENTRY_COMPONENTS = [
@@ -57,6 +60,7 @@ const DECLARATIONS = [
   ItemPageFieldComponent,
   CollectionsComponent,
   FullFileSectionComponent,
+  ThemedFullFileSectionComponent,
   PublicationComponent,
   UntypedItemComponent,
   ItemComponent,
