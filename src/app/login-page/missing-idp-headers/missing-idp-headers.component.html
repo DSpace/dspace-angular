@@ -1,0 +1,7 @@
+<div class="container">
+  <div class="alert alert-danger alert-dismissible fade show">
+    <span>{{'clarin.missing-headers.error.message' | translate}}</span>
+    <span>{{'clarin.missing-headers.contact-us.message' | translate}}</span>
+    <a [href]="'mailto:'+(helpDesk$ | async)?.payload?.values[0]">{{'clarin.help-desk.name' | translate}}</a>
+  </div>
+</div>

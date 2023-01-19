@@ -15,7 +15,7 @@ jQuery(document).ready(
                 instance.repoPath = instance.repoPath + '/';
             }
             instance.target = instance.host + instance.port + instance.repoPath;
-            console.log('target is,', instance.target);
+
             //In order to use the discojuice store (improve score of used IDPs)
             //Works only with "verified" SPs - ie. ufal-point, displays error on ufal-point-dev
             instance.responseUrl =

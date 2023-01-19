@@ -1,5 +1,5 @@
 import { Inject, Injectable, Optional } from '@angular/core';
-import { Router } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
@@ -51,6 +51,7 @@ import { RemoteData } from '../data/remote-data';
 import { environment } from '../../../environments/environment';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { MISSING_HEADERS_FROM_IDP_EXCEPTION, USER_WITHOUT_EMAIL_EXCEPTION } from '../shared/clarin/constants';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -111,6 +112,16 @@ export class AuthService {
       map((rd: RemoteData<AuthStatus>) => {
         if (hasValue(rd.payload) && rd.payload.authenticated) {
           return rd.payload;
+        } else if (hasValue(rd.payload.error) && rd.payload.error.message.startsWith(USER_WITHOUT_EMAIL_EXCEPTION)) {
+          // ShibbolethAuthentication error - USER_WITHOUT_EMAIL_EXCEPTION
+          const queryParams = this.retrieveParamsFromErrorMessage(rd.payload.error.message);
+          // Redirect to the auth-failed.component
+          this.router.navigate(['/login/','auth-failed'], { queryParams: queryParams });
+        } else if (hasValue(rd.payload.error) &&
+            rd.payload.error.message.startsWith(MISSING_HEADERS_FROM_IDP_EXCEPTION)) {
+          // ShibbolethAuthentication error - MISSING_HEADERS_FROM_IDP_EXCEPTION
+          // Redirect to the missing-idp-headers.component
+          this.router.navigate(['/login/','missing-headers']);
         } else {
           throw(new Error('Invalid email or password'));
         }
@@ -590,6 +601,23 @@ export class AuthService {
     } else {
       this.store.dispatch(new UnsetUserAsIdleAction());
     }
+  }
+
+  /**
+   * From the authentication retrieve the `netid` from the error message
+   * @param errorMessage from the authentication request
+   * @private
+   */
+  private retrieveParamsFromErrorMessage(errorMessage) {
+    const separator = ',';
+    const paramsArray = errorMessage.split(separator);
+
+    const paramObject: Params = {};
+    // USER_WITHOUT_EMAIL_EXCEPTION is in the 0 - it is ignored
+    // netid param is in the position 1
+    paramObject.netid = paramsArray[1];
+
+    return paramObject;
   }
 
 }
