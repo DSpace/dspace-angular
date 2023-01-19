@@ -3,6 +3,8 @@ import { DOCUMENT } from '@angular/common';
 import { ActivatedRouteSnapshot, CanActivate, NavigationExtras, Router } from '@angular/router';
 import { APP_CONFIG, AppConfig } from '../../config/app-config.interface';
 
+export const LOCAL_PROTOCOL = 'local://';
+
 export interface RedirectionExtras extends NavigationExtras {
   target?: string;
 }
@@ -11,6 +13,8 @@ export interface RedirectionExtras extends NavigationExtras {
   providedIn: 'root'
 })
 export class RedirectService implements CanActivate {
+
+  private REGEX_URL = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
 
   constructor(
     readonly router: Router,
@@ -39,8 +43,7 @@ export class RedirectService implements CanActivate {
 
   /** Returns true if the given url looks external */
   public external(url: string): boolean {
-    return /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/.test(url) &&
-      !url.startsWith(this.appConfig.ui.baseUrl);
+    return !(url.startsWith('/') || url.startsWith(this.appConfig.ui.baseUrl) || url.startsWith(LOCAL_PROTOCOL));
   }
 
   /** Redirects to the specified external link with the mediation of the router */
@@ -67,9 +70,13 @@ export class RedirectService implements CanActivate {
       this.redirect(url, extras) :
       // Navigates with the router otherwise
       this.router.navigateByUrl(
-        url.replace(this.appConfig.ui.baseUrl, ''),
+        this.sanitizeLocalUrl(url),
         extras
       );
+  }
+
+  private sanitizeLocalUrl(url: string) {
+    return url.replace(LOCAL_PROTOCOL, '').replace(this.appConfig.ui.baseUrl, '');
   }
 
   /**
