@@ -36,6 +36,18 @@ export const copyWebpackOptions = {
     {
       from: path.join(__dirname, '..', 'src', 'robots.txt'),
       to: 'robots.txt'
+    },
+    {
+      from: path.join(__dirname, '..', 'src', 'aai', 'aai.js'),
+      to: 'aai.js'
+    },
+    {
+      from: path.join(__dirname, '..', 'src', 'aai', 'aai_config.js'),
+      to: 'aai_config.js'
+    },
+    {
+      from: path.join(__dirname, '..', 'src', 'aai', 'discojuice', 'discojuice.js'),
+      to: 'discojuice.js'
     }
   ]
 };

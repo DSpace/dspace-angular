@@ -48,6 +48,7 @@
             ],
             "styles": [
               "src/styles/startup.scss",
+              "src/aai/discojuice/discojuice.css",
               {
                 "input": "src/styles/base-theme.scss",
                 "inject": false,

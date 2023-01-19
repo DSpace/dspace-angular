@@ -9,15 +9,26 @@ import { AuthService } from '../core/auth/auth.service';
 import { of } from 'rxjs';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { EPersonMock } from '../shared/testing/eperson.mock';
+import { HALEndpointService } from '../core/shared/hal-endpoint.service';
+import { ScriptLoaderService } from './script-loader-service';
 
 describe('ClarinNavbarTopComponent', () => {
   let component: ClarinNavbarTopComponent;
   let fixture: ComponentFixture<ClarinNavbarTopComponent>;
 
   let authService: AuthService;
+  let scriptLoader: ScriptLoaderService;
+  let halService: HALEndpointService;
+
   authService = jasmine.createSpyObj('authService', {
     isAuthenticated: of(true),
     getAuthenticatedUserFromStore: createSuccessfulRemoteDataObject$(EPersonMock)
+  });
+  scriptLoader = jasmine.createSpyObj('scriptLoaderService', {
+    load: new Promise((res, rej) => {/****/}),
+  });
+  halService = jasmine.createSpyObj('authService', {
+    getRootHref: 'root url',
   });
 
   beforeEach(async () => {
@@ -27,7 +38,9 @@ describe('ClarinNavbarTopComponent', () => {
       ],
       declarations: [ClarinNavbarTopComponent],
       providers: [
-        { provide: AuthService, useValue: authService }
+        { provide: AuthService, useValue: authService },
+        { provide: HALEndpointService, useValue: halService },
+        { provide: ScriptLoaderService, useValue: scriptLoader }
       ]
     })
     .compileComponents();

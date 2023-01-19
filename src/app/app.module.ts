@@ -60,6 +60,7 @@ import { DtqTestExampleComponent } from './dtq-test-example/dtq-test-example.com
 
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 import { ClarinNavbarTopComponent } from './clarin-navbar-top/clarin-navbar-top.component';
+import {ScriptLoaderService} from './clarin-navbar-top/script-loader-service';
 
 export function getConfig() {
   return environment;
@@ -124,6 +125,7 @@ const PROVIDERS = [
     useClass: DSpaceRouterStateSerializer
   },
   ClientCookieService,
+  ScriptLoaderService,
   // Check the authentication token when the app initializes
   {
     provide: APP_INITIALIZER,
