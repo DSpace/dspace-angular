@@ -54,7 +54,11 @@ export class MetricPlumxComponent extends BaseMetricComponent implements OnInit,
   }
 
   ngOnDestroy() {
-    this.unlistenerEmpty();
-    this.unlistenerError();
+    if (this.unlistenerEmpty) {
+      this.unlistenerEmpty();
+    }
+    if (this.unlistenerError) {
+      this.unlistenerError();
+    }
   }
 }
