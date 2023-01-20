@@ -1,9 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ContextHelpService } from '../../shared/context-help.service';
-import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { combineLatest } from 'rxjs';
 
+/**
+ * Renders a "context help toggle" button that toggles the visibility of tooltip buttons on the page.
+ * If there are no tooltip buttons available on the current page, the toggle is unclickable.
+ */
 @Component({
   selector: 'ds-context-help-toggle',
   templateUrl: './context-help-toggle.component.html',
@@ -14,7 +17,6 @@ export class ContextHelpToggleComponent implements OnInit, OnDestroy {
 
   constructor(
     private contextHelpService: ContextHelpService,
-    private translateService: TranslateService
   ) { }
 
   private clickEvents: BehaviorSubject<null> = new BehaviorSubject(null);
