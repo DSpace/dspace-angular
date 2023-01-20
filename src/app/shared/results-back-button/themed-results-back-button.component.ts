@@ -11,10 +11,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ThemedResultsBackButtonComponent extends ThemedComponent<ResultsBackButtonComponent> {
 
-  @Input() previousPage$?: BehaviorSubject<string>;
-
-  @Input() paginationConfig?: PaginationComponentOptions;
-
   protected getComponentName(): string {
     return 'ResultsBackButtonComponent';
   }

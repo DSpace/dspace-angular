@@ -30,9 +30,17 @@ export class ResultsBackButtonComponent {
   @Input() paginationConfig?: PaginationComponentOptions;
 
   /**
-   * Used to configure search in mirador.
+   * Tells component to always show the back button.
+   * When not true the button is displayed based on
+   * the previous route.
    */
-  showBackButton: Observable<boolean>;
+  @Input() alwaysShowButton?: boolean;
+
+  /**
+   * Always show back button when true regardless of
+   * previous route.
+   */
+  showBackButton: boolean;
 
   /**
    * The button text
@@ -52,12 +60,21 @@ export class ResultsBackButtonComponent {
     } else {
       this.buttonLabel = this.translateService.get('search.browse.item-back');
     }
-    // Show the back to results button when the previous context was a search or browse list.
-    this.showBackButton = this.routeService.getPreviousUrl().pipe(
-      filter(url => /^(\/search|\/browse|\/collections|\/admin\/search|\/mydspace)/.test(url)),
-      take(1),
-      map(() => true)
-    );
+
+    if(this.alwaysShowButton) {
+      this.showBackButton = true;
+    }
+    else {
+      // Show the back button when the previous route was a search or browse list.
+      // Include the button for admin search results and MyDspace.
+      this.routeService.getPreviousUrl().pipe(
+        filter(url => /^(\/search|\/browse|\/collections|\/admin\/search|\/mydspace)/.test(url)),
+        take(1),
+        map(() => true)
+      ).subscribe(showButton => {
+        this.showBackButton = showButton;
+      });
+    }
   }
 
   /**
@@ -72,7 +89,9 @@ export class ResultsBackButtonComponent {
       this.routeService.getPreviousUrl().pipe(
         take(1)
       ).subscribe(
-        (url => this.router.navigateByUrl(url))
+        (url => {
+          this.router.navigateByUrl(url)
+        })
       );
     }
   }
