@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { filter, map, take } from 'rxjs/operators';
 import { RouteService } from '../../core/services/route.service';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { isNotEmpty } from '../empty.util';
 /**
  * Component to add back to result list button to item.
  */
-export class ResultsBackButtonComponent {
+export class ResultsBackButtonComponent implements OnInit {
 
   /**
    * Page number of the previous page
@@ -61,10 +61,9 @@ export class ResultsBackButtonComponent {
       this.buttonLabel = this.translateService.get('search.browse.item-back');
     }
 
-    if(this.alwaysShowButton) {
+    if (this.alwaysShowButton) {
       this.showBackButton = true;
-    }
-    else {
+    } else {
       // Show the back button when the previous route was a search or browse list.
       // Include the button for admin search results and MyDspace.
       this.routeService.getPreviousUrl().pipe(
@@ -90,7 +89,7 @@ export class ResultsBackButtonComponent {
         take(1)
       ).subscribe(
         (url => {
-          this.router.navigateByUrl(url)
+          this.router.navigateByUrl(url);
         })
       );
     }
