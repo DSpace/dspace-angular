@@ -399,7 +399,12 @@ function saveToCache(req, data: any) {
   // NOTE: It's not safe to save page data to the cache when a user is authenticated. In that situation,
   // the page may include sensitive or user-specific materials. As the cache is shared across all users, it can only contain public info.
   if (cacheEnabled() && !isUserAuthenticated(req)) {
-    cache.set(getCacheKey(req), data);
+    const key = getCacheKey(req);
+    // Make sure this key is not already in our cache. If "has()" returns true,
+    // then it's in the cache already and *not* expired.
+    if (!cache.has(key)) {
+      cache.set(key, data);
+    }
   }
 }
 
