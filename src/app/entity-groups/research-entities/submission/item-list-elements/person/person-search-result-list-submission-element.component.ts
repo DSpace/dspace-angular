@@ -55,7 +55,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
 
   ngOnInit() {
     super.ngOnInit();
-    const defaultValue = this.dsoTitle;
+    const defaultValue = this.dso ? this.dsoNameService.getName(this.dso) : undefined;
     const alternatives = this.allMetadataValues(this.alternativeField);
     this.allSuggestions = [defaultValue, ...alternatives];
 
