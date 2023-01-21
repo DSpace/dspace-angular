@@ -37,7 +37,7 @@ export class VersionedItemComponent extends ItemComponent {
     private itemService: ItemDataService,
     protected routeService: RouteService,
   ) {
-    super(routeService);
+    super(routeService, router);
   }
 
   /**

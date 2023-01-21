@@ -6,6 +6,7 @@ import { RouteService } from '../../../../core/services/route.service';
 import { Observable } from 'rxjs';
 import { getDSpaceQuery, isIiifEnabled, isIiifSearchEnabled } from './item-iiif-utils';
 import { filter, map, take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-item',
@@ -44,17 +45,33 @@ export class ItemComponent implements OnInit {
 
   mediaViewer;
 
-  constructor(protected routeService: RouteService) {
+  constructor(protected routeService: RouteService,
+              protected router: Router) {
     this.mediaViewer = environment.mediaViewer;
   }
+
+  /**
+   * The function used to return to list from the item.
+   */
+  back = () => {
+    this.routeService.getPreviousUrl().pipe(
+          take(1)
+        ).subscribe(
+          (url => {
+            this.router.navigateByUrl(url);
+          })
+        );
+  };
+
   ngOnInit(): void {
 
+    this.itemPageRoute = getItemPageRoute(this.object);
+    // hide/show the back button
     this.showBackButton = this.routeService.getPreviousUrl().pipe(
       filter(url => /^(\/search|\/browse|\/collections|\/admin\/search|\/mydspace)/.test(url)),
       take(1),
       map(() => true)
     );
-    this.itemPageRoute = getItemPageRoute(this.object);
     // check to see if iiif viewer is required.
     this.iiifEnabled = isIiifEnabled(this.object);
     this.iiifSearchEnabled = isIiifSearchEnabled(this.object);

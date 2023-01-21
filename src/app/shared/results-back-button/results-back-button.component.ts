@@ -1,12 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { take } from 'rxjs/operators';
-import { RouteService } from '../../core/services/route.service';
-import { Router } from '@angular/router';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import { isNotEmpty } from '../empty.util';
 
 @Component({
   selector: 'ds-results-back-button',
@@ -20,51 +14,30 @@ import { isNotEmpty } from '../empty.util';
 export class ResultsBackButtonComponent implements OnInit {
 
   /**
-   * Page number of the previous page
+   * The button type determines the button label.
    */
-  @Input() previousPage$?: BehaviorSubject<string>;
+  @Input() buttonType?: string;
 
   /**
-   * The pagination configuration used for the list
+   * The function used for back navigation.
    */
-  @Input() paginationConfig?: PaginationComponentOptions;
+  @Input() back: () => void;
 
   /**
-   * The button text
+   * The button label translation.
    */
   buttonLabel: Observable<string>;
 
-  constructor(protected routeService: RouteService,
-              protected paginationService: PaginationService,
-              protected router: Router,
-              private translateService: TranslateService) {
+  constructor(private translateService: TranslateService) {
 
   }
 
   ngOnInit(): void {
-    if (this.paginationConfig) {
+    // Set labels for metadata browse and item back buttons.
+    if (this.buttonType === 'metadata-browse') {
       this.buttonLabel = this.translateService.get('browse.back.all-results');
     } else {
       this.buttonLabel = this.translateService.get('search.browse.item-back');
-    }
-  }
-
-  /**
-   * Navigate back from the item to the previous pagination list.
-   */
-  public back() {
-    if (isNotEmpty(this.paginationConfig) && isNotEmpty(this.previousPage$)) {
-      // if pagination configuration is provided use it to update the route to the previous browse page.
-      const page = +this.previousPage$.value > 1 ? +this.previousPage$.value : 1;
-      this.paginationService.updateRoute(this.paginationConfig.id, {page: page}, {[this.paginationConfig.id + '.return']: null, value: null, startsWith: null});
-    } else {
-      this.routeService.getPreviousUrl().pipe(
-        take(1)
-      ).subscribe(
-        (url => {
-          this.router.navigateByUrl(url);
-        })
-      );
     }
   }
 

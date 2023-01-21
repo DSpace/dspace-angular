@@ -130,6 +130,19 @@ export class BrowseByComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Used to set the back button label for metadata browsing.
+   */
+  backButtonType = 'metadata-browse';
+
+  /**
+   * Used for back navigation in metadata browse.
+   */
+  back = () => {
+    const page = +this.previousPage$.value > 1 ? +this.previousPage$.value : 1;
+    this.paginationService.updateRoute(this.paginationConfig.id, {page: page}, {[this.paginationConfig.id + '.return']: null, value: null, startsWith: null});
+  };
+
+  /**
    * Go to the previous page
    */
   goPrev() {
