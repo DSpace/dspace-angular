@@ -77,7 +77,6 @@ const DECLARATIONS = [
   EditCollectionSelectorComponent,
   EditCommunitySelectorComponent,
   EditItemSelectorComponent,
-  ResultsBackButtonComponent
 ];
 
 @NgModule({

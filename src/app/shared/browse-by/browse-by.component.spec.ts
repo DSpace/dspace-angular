@@ -116,7 +116,6 @@ describe('BrowseByComponent', () => {
     themeService = getMockThemeService('dspace');
     TestBed.configureTestingModule({
       imports: [
-        ResultsBackButtonModule,
         BrowseByRoutingModule,
         AccessControlRoutingModule,
         CommonModule,
