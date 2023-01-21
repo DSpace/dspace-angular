@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { ResultsBackButtonComponent } from './results-back-button.component';
+import { BehaviorSubject } from 'rxjs';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-themed-results-back-button',
