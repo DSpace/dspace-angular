@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { filter, map, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { RouteService } from '../../core/services/route.service';
 import { Router } from '@angular/router';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -30,19 +30,6 @@ export class ResultsBackButtonComponent implements OnInit {
   @Input() paginationConfig?: PaginationComponentOptions;
 
   /**
-   * Tells component to always show the back button.
-   * When not true the button is displayed based on
-   * the previous route.
-   */
-  @Input() alwaysShowButton?: boolean;
-
-  /**
-   * Always show back button when true regardless of
-   * previous route.
-   */
-  showBackButton: boolean;
-
-  /**
    * The button text
    */
   buttonLabel: Observable<string>;
@@ -59,20 +46,6 @@ export class ResultsBackButtonComponent implements OnInit {
       this.buttonLabel = this.translateService.get('browse.back.all-results');
     } else {
       this.buttonLabel = this.translateService.get('search.browse.item-back');
-    }
-
-    if (this.alwaysShowButton) {
-      this.showBackButton = true;
-    } else {
-      // Show the back button when the previous route was a search or browse list.
-      // Include the button for admin search results and MyDspace.
-      this.routeService.getPreviousUrl().pipe(
-        filter(url => /^(\/search|\/browse|\/collections|\/admin\/search|\/mydspace)/.test(url)),
-        take(1),
-        map(() => true)
-      ).subscribe(showButton => {
-        this.showBackButton = showButton;
-      });
     }
   }
 

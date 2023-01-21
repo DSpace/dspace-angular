@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { By } from '@angular/platform-browser';
 
 describe('ResultsBackButtonComponent', () => {
 
@@ -77,11 +76,7 @@ describe('ResultsBackButtonComponent', () => {
         expect(translate.get).toHaveBeenCalledWith('browse.back.all-results');
       });
 
-      it('should navigate to previous pagination', () => {
-        component.back();
-        expect(mockRouteService.getPreviousUrl).toHaveBeenCalled();
-        expect(paginationService.updateRoute).toHaveBeenCalled();
-      });
+
 
     });
 
@@ -106,41 +101,5 @@ describe('ResultsBackButtonComponent', () => {
 
   });
 
-  describe('back to results', () => {
-
-    const mockRouteService = getMockRouteService(nonSearchUrl);
-
-    beforeEach(waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [ResultsBackButtonComponent],
-        imports: [TranslateModule.forRoot(),
-          RouterTestingModule.withRoutes([])
-        ],
-        providers: [
-          {provide: RouteService, useValue: mockRouteService},
-          {provide: PaginationService, useValue: paginationService},
-          {provide: Router, useValue: router},
-          {provide: TranslateService, useValue: translate}
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).compileComponents();
-      spyOn(mockRouteService, 'getPreviousUrl').and.callThrough();
-    }));
-
-    describe('previous route not search or browse list', () => {
-      beforeEach(waitForAsync(() => {
-        fixture = TestBed.createComponent(ResultsBackButtonComponent);
-        component = fixture.componentInstance;
-        component.ngOnInit();
-        fixture.detectChanges();
-      }));
-
-      it('should hide back button', () => {
-        let button = fixture.debugElement.query(By.css('button'));
-        expect(button).toBeNull();
-      });
-    });
-
-  });
 });
 

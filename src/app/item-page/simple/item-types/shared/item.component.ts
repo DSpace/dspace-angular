@@ -5,6 +5,7 @@ import { getItemPageRoute } from '../../../item-page-routing-paths';
 import { RouteService } from '../../../../core/services/route.service';
 import { Observable } from 'rxjs';
 import { getDSpaceQuery, isIiifEnabled, isIiifSearchEnabled } from './item-iiif-utils';
+import { filter, map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-item',
@@ -15,6 +16,11 @@ import { getDSpaceQuery, isIiifEnabled, isIiifSearchEnabled } from './item-iiif-
  */
 export class ItemComponent implements OnInit {
   @Input() object: Item;
+
+  /**
+   * Used to show or hide the back to results button.
+   */
+  showBackButton: Observable<boolean>;
 
   /**
    * Route to the item page
@@ -42,6 +48,12 @@ export class ItemComponent implements OnInit {
     this.mediaViewer = environment.mediaViewer;
   }
   ngOnInit(): void {
+
+    this.showBackButton = this.routeService.getPreviousUrl().pipe(
+      filter(url => /^(\/search|\/browse|\/collections|\/admin\/search|\/mydspace)/.test(url)),
+      take(1),
+      map(() => true)
+    );
     this.itemPageRoute = getItemPageRoute(this.object);
     // check to see if iiif viewer is required.
     this.iiifEnabled = isIiifEnabled(this.object);
