@@ -14,7 +14,6 @@ import { ThemedResultsBackButtonComponent } from './themed-results-back-button.c
     TranslateModule
   ],
   exports: [
-    ResultsBackButtonComponent,
     ThemedResultsBackButtonComponent
   ]
 })
