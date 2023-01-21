@@ -121,6 +121,7 @@ import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-b
 import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
 import { ItemSharedModule } from '../../app/item-page/item-shared.module';
+import { ResultsBackButtonComponent } from './app/shared/results-back-button/results-back-button.component';
 
 
 const DECLARATIONS = [
@@ -177,7 +178,7 @@ const DECLARATIONS = [
   BrowseByDatePageComponent,
   BrowseByTitlePageComponent,
   ExternalSourceEntryImportModalComponent,
-
+  ResultsBackButtonComponent
 
 ];
 
