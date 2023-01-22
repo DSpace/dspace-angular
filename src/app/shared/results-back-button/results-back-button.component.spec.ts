@@ -3,22 +3,16 @@ import { ResultsBackButtonComponent } from './results-back-button.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { of } from 'rxjs';
 
 describe('ResultsBackButtonComponent', () => {
 
   let component: ResultsBackButtonComponent;
   let fixture: ComponentFixture<ResultsBackButtonComponent>;
-  let router;
 
-
-  router = jasmine.createSpyObj('router', {
-    navigateByUrl: jasmine.createSpy('navigateByUrl')
-  });
-
-  const translate = jasmine.createSpyObj('TranslateService', ['get']);
-
-  const paginationService = new PaginationServiceStub();
+  const translate = {
+    get: jasmine.createSpy('get').and.returnValue(of('item button')),
+  };
 
   describe('back to results', () => {
 
@@ -39,14 +33,18 @@ describe('ResultsBackButtonComponent', () => {
     describe('from a metadata browse list', () => {
 
       beforeEach(waitForAsync(() => {
+        translate.get.calls.reset();
         fixture = TestBed.createComponent(ResultsBackButtonComponent);
         component = fixture.componentInstance;
-        component.buttonType = 'metadata-browse';
+        component.buttonLabel = of('browse button');
+        component.ngOnInit();
         fixture.detectChanges();
       }));
 
       it('should have back from browse label', () => {
-        expect(translate.get).toHaveBeenCalledWith('browse.back.all-results');
+        expect(translate.get).not.toHaveBeenCalled();
+        const el = fixture.debugElement.nativeElement;
+        expect(el.innerHTML).toContain('browse button');
       });
 
     });
@@ -54,13 +52,17 @@ describe('ResultsBackButtonComponent', () => {
     describe('from an item', () => {
 
       beforeEach(waitForAsync(() => {
+        translate.get.calls.reset();
         fixture = TestBed.createComponent(ResultsBackButtonComponent);
         component = fixture.componentInstance;
+        component.ngOnInit();
         fixture.detectChanges();
       }));
 
-      it('should have item label', () => {
+      it('should set item label by default', () => {
         expect(translate.get).toHaveBeenCalledWith('search.browse.item-back');
+        const el = fixture.debugElement.nativeElement;
+        expect(el.innerHTML).toContain('item button');
       });
 
     });

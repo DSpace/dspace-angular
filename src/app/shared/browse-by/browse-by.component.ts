@@ -12,6 +12,7 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { RouteService } from '../../core/services/route.service';
 import { map } from 'rxjs/operators';
 import { hasValue } from '../empty.util';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-browse-by',
@@ -124,18 +125,19 @@ export class BrowseByComponent implements OnInit, OnDestroy {
 
   public constructor(private injector: Injector,
                      protected paginationService: PaginationService,
+                     protected translateService: TranslateService,
                      private routeService: RouteService,
   ) {
 
   }
 
   /**
-   * Used to set the back button label for metadata browsing.
+   * The label used by the back button.
    */
-  backButtonType = 'metadata-browse';
+  buttonLabel = this.translateService.get('browse.back.all-results');
 
   /**
-   * Used for back navigation in metadata browse.
+   * The function used for back navigation in metadata browse.
    */
   back = () => {
     const page = +this.previousPage$.value > 1 ? +this.previousPage$.value : 1;

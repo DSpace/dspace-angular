@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { ResultsBackButtonComponent } from './results-back-button.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-themed-results-back-button',
@@ -9,11 +10,11 @@ import { ResultsBackButtonComponent } from './results-back-button.component';
 })
 export class ThemedResultsBackButtonComponent extends ThemedComponent<ResultsBackButtonComponent> {
 
-  @Input() buttonType?: string;
+  @Input() buttonLabel?: Observable<any>;
 
   @Input() back: () => void;
 
-  protected inAndOutputNames: (keyof ResultsBackButtonComponent & keyof this)[] = ['back', 'buttonType'];
+  protected inAndOutputNames: (keyof ResultsBackButtonComponent & keyof this)[] = ['back', 'buttonLabel'];
 
   protected getComponentName(): string {
     return 'ResultsBackButtonComponent';

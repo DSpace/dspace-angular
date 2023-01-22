@@ -14,11 +14,6 @@ import { TranslateService } from '@ngx-translate/core';
 export class ResultsBackButtonComponent implements OnInit {
 
   /**
-   * The button type determines the button label.
-   */
-  @Input() buttonType?: string;
-
-  /**
    * The function used for back navigation.
    */
   @Input() back: () => void;
@@ -26,17 +21,15 @@ export class ResultsBackButtonComponent implements OnInit {
   /**
    * The button label translation.
    */
-  buttonLabel: Observable<string>;
+  @Input() buttonLabel?: Observable<any>;
 
   constructor(private translateService: TranslateService) {
 
   }
 
   ngOnInit(): void {
-    // Set labels for metadata browse and item back buttons.
-    if (this.buttonType === 'metadata-browse') {
-      this.buttonLabel = this.translateService.get('browse.back.all-results');
-    } else {
+    if (!this.buttonLabel) {
+      // Use the 'Back to Results' label as default.
       this.buttonLabel = this.translateService.get('search.browse.item-back');
     }
   }
