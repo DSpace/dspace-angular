@@ -205,7 +205,7 @@ import {
   DsoInputSuggestionsComponent
 } from './input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { ItemGridElementComponent } from './object-grid/item-grid-element/item-types/item/item-grid-element.component';
-import { TypeBadgeComponent } from './object-list/type-badge/type-badge.component';
+import { TypeBadgeComponent } from './object-list/badges/type-badge/type-badge.component';
 import { AccessStatusBadgeComponent } from './object-list/access-status-badge/access-status-badge.component';
 import {
   MetadataRepresentationLoaderComponent
@@ -325,6 +325,11 @@ import {
 import { MarkdownPipe } from './utils/markdown.pipe';
 import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
 import { ThemedListableObjectComponentLoaderComponent } from './object-collection/shared/listable-object/themed-listable-object-component-loader.component';
+import { StatusBadgeComponent } from './object-list/badges/status-badge/status-badge.component';
+import { BadgesComponent } from './object-list/badges/badges.component';
+import { ThemedBadgesComponent } from './object-list/badges/themed-badges.component';
+import { ThemedStatusBadgeComponent } from './object-list/badges/status-badge/themed-status-badge.component';
+import { ThemedTypeBadgeComponent } from './object-list/badges/type-badge/themed-type-badge.component';
 
 const MODULES = [
   CommonModule,
@@ -460,6 +465,11 @@ const COMPONENTS = [
   ComcolMetadataComponent,
   TypeBadgeComponent,
   AccessStatusBadgeComponent,
+  ThemedTypeBadgeComponent,
+  StatusBadgeComponent,
+  ThemedStatusBadgeComponent,
+  BadgesComponent,
+  ThemedBadgesComponent,
   BrowseByComponent,
   AbstractTrackableComponent,
 
@@ -634,6 +644,7 @@ const DIRECTIVES = [
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ItemVersionsSummaryModalComponent,
     ItemVersionsDeleteModalComponent,
+    BadgesComponent,
   ],
   providers: [
     ...PROVIDERS

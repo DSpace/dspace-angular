@@ -1,14 +1,14 @@
-import { Item } from '../../../core/shared/item.model';
+import { Item } from '../../../../core/shared/item.model';
 import { of as observableOf } from 'rxjs';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { TruncatePipe } from '../../utils/truncate.pipe';
+import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { TypeBadgeComponent } from './type-badge.component';
+import { StatusBadgeComponent } from './status-badge.component';
 
-let comp: TypeBadgeComponent;
-let fixture: ComponentFixture<TypeBadgeComponent>;
+let comp: StatusBadgeComponent;
+let fixture: ComponentFixture<StatusBadgeComponent>;
 
 const type = 'authorOfPublication';
 
@@ -40,15 +40,15 @@ describe('ItemTypeBadgeComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [TypeBadgeComponent, TruncatePipe],
+      declarations: [StatusBadgeComponent, TruncatePipe],
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(TypeBadgeComponent, {
+    }).overrideComponent(StatusBadgeComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {
-    fixture = TestBed.createComponent(TypeBadgeComponent);
+    fixture = TestBed.createComponent(StatusBadgeComponent);
     comp = fixture.componentInstance;
   }));
 
