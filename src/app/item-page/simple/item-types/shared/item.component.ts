@@ -19,7 +19,13 @@ export class ItemComponent implements OnInit {
   @Input() object: Item;
 
   /**
-   * Used to show or hide the back to results button.
+   * This regex matches previous routes. The button is shown
+   * for matching paths and hidden in other cases.
+   */
+  previousRoute = /^(\/search|\/browse|\/collections|\/admin\/search|\/mydspace)/;
+
+  /**
+   * Used to show or hide the back to results button in the view.
    */
   showBackButton: Observable<boolean>;
 
@@ -68,7 +74,7 @@ export class ItemComponent implements OnInit {
     this.itemPageRoute = getItemPageRoute(this.object);
     // hide/show the back button
     this.showBackButton = this.routeService.getPreviousUrl().pipe(
-      filter(url => /^(\/search|\/browse|\/collections|\/admin\/search|\/mydspace)/.test(url)),
+      filter(url => this.previousRoute.test(url)),
       take(1),
       map(() => true)
     );
