@@ -4,5 +4,10 @@
   "repository.title.prefixDSpace": "Cornell eCommons ::",
   "footer.copyright": "© {{ year }}",
   "login.form.header": "Please log in to eCommons.",
-
+  "info.feedback.breadcrumbs": "Contact us",
+  "info.feedback.head": "Contact us",
+  "info.feedback.title": "Feedback",
+  "info.feedback.info": "Thanks for contacting us. Your comments are appreciated!",
+  "info.feedback.send": "Submit",
+  "info.feedback.comments": "Questions or comments",
 }
