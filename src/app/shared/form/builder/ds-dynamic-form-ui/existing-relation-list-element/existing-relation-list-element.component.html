@@ -4,7 +4,7 @@
             <ds-loading [showMessage]="false"></ds-loading>
         </ng-container>
         <ng-container *ngIf="(relatedItem$ | async)">
-            <ds-listable-object-component-loader [showLabel]="false" [viewMode]="viewType" [object]="(relatedItem$ | async)"></ds-listable-object-component-loader>
+            <ds-themed-listable-object-component-loader [showLabel]="false" [viewMode]="viewType" [object]="(relatedItem$ | async)"></ds-themed-listable-object-component-loader>
         </ng-container>
     </span>
     <button type="button" class="btn btn-secondary"

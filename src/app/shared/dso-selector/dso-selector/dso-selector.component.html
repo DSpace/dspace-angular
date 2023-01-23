@@ -25,8 +25,8 @@
               title="{{ getName(listEntry) }}"
               dsHoverClass="ds-hover"
               (click)="onSelect.emit(listEntry.indexableObject)" #listEntryElement>
-        <ds-listable-object-component-loader [object]="listEntry" [viewMode]="viewMode"
-                                             [linkType]=linkTypes.None [context]="getContext(listEntry.indexableObject.id)"></ds-listable-object-component-loader>
+        <ds-themed-listable-object-component-loader [object]="listEntry" [viewMode]="viewMode"
+                                             [linkType]=linkTypes.None [context]="getContext(listEntry.indexableObject.id)"></ds-themed-listable-object-component-loader>
       </button>
     </ng-container>
     <button *ngIf="loading"
