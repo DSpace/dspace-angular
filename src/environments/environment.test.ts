@@ -283,4 +283,12 @@ export const environment: BuildConfig = {
     enabled: false,
     mathjax: false,
   },
+
+  vocabularies: [
+    {
+      filter: 'subject',
+      vocabulary: 'srsc',
+      enabled: true
+    }
+  ]
 };

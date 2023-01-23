@@ -1,155 +1,155 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { DebugElement, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
+import { of as observableOf, BehaviorSubject } from 'rxjs';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterStub } from '../../../../testing/router.stub';
+import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
+import { PageInfo } from '../../../../../core/shared/page-info.model';
+import { CommonModule } from '@angular/common';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
-  REFRESH_FILTER,
-  SearchFilterService
+  SearchFilterService,
+  REFRESH_FILTER
 } from '../../../../../core/shared/search/search-filter.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { SearchFiltersComponent } from '../../search-filters.component';
 import { Router } from '@angular/router';
-import { RouterStub } from '../../../../testing/router.stub';
-import { SearchServiceStub } from '../../../../testing/search-service.stub';
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
+import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { FacetValue} from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { TranslateModule } from '@ngx-translate/core';
-import {
-  FilterInputSuggestionsComponent
-} from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
-import { FormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
-import { FacetValue } from '../../../models/facet-value.model';
-import { FilterType } from '../../../models/filter-type.model';
-import { createPaginatedList } from '../../../../testing/utils.test';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 
 describe('SearchHierarchyFilterComponent', () => {
-  let comp: SearchHierarchyFilterComponent;
+
   let fixture: ComponentFixture<SearchHierarchyFilterComponent>;
-  let searchService: SearchService;
-  let router;
+  let showVocabularyTreeLink: DebugElement;
 
-  const value1 = 'testvalue1';
-  const value2 = 'test2';
-  const value3 = 'another value3';
-  const values: FacetValue[] = [
-    {
-      label: value1,
-      value: value1,
-      count: 52,
-      _links: {
-        self: {
-          href: ''
-        },
-        search: {
-          href: ''
-        }
-      }
-    }, {
-      label: value2,
-      value: value2,
-      count: 20,
-      _links: {
-        self: {
-          href: ''
-        },
-        search: {
-          href: ''
-        }
-      }
-    }, {
-      label: value3,
-      value: value3,
-      count: 5,
-      _links: {
-        self: {
-          href: ''
-        },
-        search: {
-          href: ''
-        }
-      }
-    }
-  ];
-  const mockValues = createSuccessfulRemoteDataObject$(createPaginatedList(values));
-
-  const searchFilterServiceStub = {
-    getSelectedValuesForFilter(_filterConfig: SearchFilterConfig): Observable<string[]> {
-      return observableOf(values.map((value: FacetValue) => value.value));
-    },
-    getPage(_paramName: string): Observable<number> {
-      return observableOf(0);
-    },
-    resetPage(_filterName: string): void {
-      // empty
-    }
+  const testSearchLink = 'test-search';
+  const testSearchFilter = 'test-search-filter';
+  const VocabularyTreeViewComponent = {
+    select: new EventEmitter<VocabularyEntryDetail>(),
   };
 
-  const remoteDataBuildServiceStub = {
-    aggregate(_input: Observable<RemoteData<FacetValue>>[]): Observable<RemoteData<PaginatedList<FacetValue>[]>> {
-      return createSuccessfulRemoteDataObject$([createPaginatedList(values)]);
+  const searchService = {
+    getSearchLink: () => testSearchLink,
+    getFacetValuesFor: () => observableOf([]),
+  };
+  const searchFilterService = {
+    getPage: () => observableOf(0),
+  };
+  const router = new RouterStub();
+  const ngbModal = jasmine.createSpyObj('modal', {
+    open: {
+      componentInstance: VocabularyTreeViewComponent,
     }
+  });
+  const vocabularyService = {
+    searchTopEntries: () => undefined,
   };
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        CommonModule,
+        NgbModule,
+        TranslateModule.forRoot(),
+      ],
       declarations: [
         SearchHierarchyFilterComponent,
-        SearchFiltersComponent,
-        FilterInputSuggestionsComponent
       ],
       providers: [
-        { provide: SearchService, useValue: new SearchServiceStub() },
-        { provide: SearchFilterService, useValue: searchFilterServiceStub },
-        { provide: RemoteDataBuildService, useValue: remoteDataBuildServiceStub },
-        { provide: Router, useValue: new RouterStub() },
+        { provide: SearchService, useValue: searchService },
+        { provide: SearchFilterService, useValue: searchFilterService },
+        { provide: RemoteDataBuildService, useValue: {} },
+        { provide: Router, useValue: router },
+        { provide: NgbModal, useValue: ngbModal },
+        { provide: VocabularyService, useValue: vocabularyService },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
-        { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
-        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) }
+        { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
+        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false)}
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(SearchHierarchyFilterComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
-  })
-  ;
-  const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
-    name: 'filterName1',
-    filterType: FilterType.text,
-    hasFacets: false,
-    isOpenByDefault: false,
-    pageSize: 2
   });
 
-  beforeEach(async () => {
+  function init() {
     fixture = TestBed.createComponent(SearchHierarchyFilterComponent);
-    comp = fixture.componentInstance; // SearchHierarchyFilterComponent test instance
-    comp.filterConfig = mockFilterConfig;
-    searchService = (comp as any).searchService;
-    // @ts-ignore
-    spyOn(searchService, 'getFacetValuesFor').and.returnValue(mockValues);
-    router = (comp as any).router;
     fixture.detectChanges();
+    showVocabularyTreeLink = fixture.debugElement.query(By.css('a#show-test-search-filter-tree'));
+  }
+
+  describe('if the vocabulary doesn\'t exist', () => {
+
+    beforeEach(() => {
+      spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
+        undefined, 0, 0, RequestEntryState.Error, undefined, undefined, 404
+      )));
+      init();
+    });
+
+    it('should not show the vocabulary tree link', () => {
+      expect(showVocabularyTreeLink).toBeNull();
+    });
   });
 
-  it('should navigate to the correct filter with the query operator', () => {
-    expect((comp as any).searchService.getFacetValuesFor).toHaveBeenCalledWith(comp.filterConfig, 0, {}, null, true);
+  describe('if the vocabulary exists', () => {
 
-    const searchQuery = 'MARVEL';
-    comp.onSubmit(searchQuery);
+    beforeEach(() => {
+      spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
+        undefined, 0, 0, RequestEntryState.Success, undefined, buildPaginatedList(new PageInfo(), []), 200
+      )));
+      init();
+    });
 
-    expect(router.navigate).toHaveBeenCalledWith(['', 'search'], Object({
-      queryParams: Object({ [mockFilterConfig.paramName]: [...values.map((value: FacetValue) => `${value.value},equals`), `${searchQuery},query`] }),
-      queryParamsHandling: 'merge'
-    }));
+    it('should show the vocabulary tree link', () => {
+      expect(showVocabularyTreeLink).toBeTruthy();
+    });
+
+    describe('when clicking the vocabulary tree link', () => {
+
+      const alreadySelectedValues = [
+        'already-selected-value-1',
+        'already-selected-value-2',
+      ];
+      const newSelectedValue = 'new-selected-value';
+
+      beforeEach(async () => {
+        showVocabularyTreeLink.nativeElement.click();
+        fixture.componentInstance.selectedValues$ = observableOf(
+          alreadySelectedValues.map(value => Object.assign(new FacetValue(), { value }))
+        );
+        VocabularyTreeViewComponent.select.emit(Object.assign(new VocabularyEntryDetail(), {
+          value: newSelectedValue,
+        }));
+      });
+
+      it('should open the vocabulary tree modal', () => {
+        expect(ngbModal.open).toHaveBeenCalled();
+      });
+
+      describe('when selecting a value from the vocabulary tree', () => {
+
+        it('should add a new search filter to the existing search filters', () => {
+          waitForAsync(() => expect(router.navigate).toHaveBeenCalledWith([testSearchLink], {
+            queryParams: {
+              [`f.${testSearchFilter}`]: [
+                ...alreadySelectedValues,
+                newSelectedValue,
+              ].map((value => `${value},equals`)),
+            },
+            queryParamsHandling: 'merge',
+          }));
+        });
+      });
+    });
   });
 });
