@@ -69,7 +69,7 @@
     </div>
 
 
-    <div>
+    <div *ngIf="formMessage.value">
         <div class="row">
             <div class="col">
                 <label>{{ 'system-wide-alert.form.label.preview' | translate }}</label>
