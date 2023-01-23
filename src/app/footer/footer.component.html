@@ -67,11 +67,11 @@
           <a class="text-white" href="javascript:void(0);"
              (click)="showCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
         </li>
-        <li>
+        <li *ngIf="showPrivacyPolicy">
           <a class="text-white"
              routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
         </li>
-        <li>
+        <li *ngIf="showEndUserAgreement">
           <a class="text-white"
              routerLink="info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate}}</a>
         </li>

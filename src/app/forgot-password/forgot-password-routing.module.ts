@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ItemPageResolver } from '../item-page/item-page.resolver';
-import { RegistrationResolver } from '../register-email-form/registration.resolver';
 import { ThemedForgotPasswordFormComponent } from './forgot-password-form/themed-forgot-password-form.component';
 import { ThemedForgotEmailComponent } from './forgot-password-email/themed-forgot-email.component';
+import { RegistrationGuard } from '../register-page/registration.guard';
 
 @NgModule({
   imports: [
@@ -16,12 +16,11 @@ import { ThemedForgotEmailComponent } from './forgot-password-email/themed-forgo
       {
         path: ':token',
         component: ThemedForgotPasswordFormComponent,
-        resolve: {registration: RegistrationResolver}
+        canActivate: [ RegistrationGuard ],
       }
     ])
   ],
   providers: [
-    RegistrationResolver,
     ItemPageResolver,
   ]
 })

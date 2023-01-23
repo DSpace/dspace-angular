@@ -1,0 +1,6 @@
+<a *ngIf="isAuthorized | async"
+   [ngbTooltip]="'item.page.orcid.tooltip' | translate"
+   [routerLink]="[pageRoute, 'orcid']"
+   class="btn btn-dark btn-sm"
+   role="button" ><i class="fab fa-orcid fa-lg"></i>
+</a>

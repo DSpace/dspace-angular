@@ -70,20 +70,24 @@ export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
    */
   setStartsWith(startsWith: string) {
     this.startsWith = startsWith;
-    this.setStartsWithParam();
+    this.setStartsWithParam(false);
   }
 
   /**
    * Add/Change the url query parameter startsWith using the local variable
    */
-  setStartsWithParam() {
+  setStartsWithParam(resetPage = true) {
     if (this.startsWith === '-1') {
       this.startsWith = undefined;
     }
-    this.router.navigate([], {
-      queryParams: Object.assign({ startsWith: this.startsWith }),
-      queryParamsHandling: 'merge'
-    });
+    if (resetPage) {
+      this.paginationService.updateRoute(this.paginationId, {page: 1}, { startsWith: this.startsWith });
+    } else {
+      this.router.navigate([], {
+        queryParams: Object.assign({ startsWith: this.startsWith }),
+        queryParamsHandling: 'merge'
+      });
+    }
   }
 
   /**
