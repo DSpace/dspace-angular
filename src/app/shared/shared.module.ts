@@ -111,7 +111,7 @@ import { CollectionSelectComponent } from './object-select/collection-select/col
 import { FilterInputSuggestionsComponent } from './input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { DsoInputSuggestionsComponent } from './input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { ItemGridElementComponent } from './object-grid/item-grid-element/item-types/item/item-grid-element.component';
-import { TypeBadgeComponent } from './object-list/type-badge/type-badge.component';
+import { TypeBadgeComponent } from './object-list/badges/type-badge/type-badge.component';
 import { MetadataRepresentationLoaderComponent } from './metadata-representation/metadata-representation-loader.component';
 import { MetadataRepresentationDirective } from './metadata-representation/metadata-representation.directive';
 import { ListableObjectComponentLoaderComponent } from './object-collection/shared/listable-object/listable-object-component-loader.component';
@@ -174,6 +174,11 @@ import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { ThemedListableObjectComponentLoaderComponent } from './object-collection/shared/listable-object/themed-listable-object-component-loader.component';
+import { StatusBadgeComponent } from './object-list/badges/status-badge/status-badge.component';
+import { BadgesComponent } from './object-list/badges/badges.component';
+import { ThemedBadgesComponent } from './object-list/badges/themed-badges.component';
+import { ThemedStatusBadgeComponent } from './object-list/badges/status-badge/themed-status-badge.component';
+import { ThemedTypeBadgeComponent } from './object-list/badges/type-badge/themed-type-badge.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -296,6 +301,11 @@ const COMPONENTS = [
   AbstractTrackableComponent,
   ComcolMetadataComponent,
   TypeBadgeComponent,
+  ThemedTypeBadgeComponent,
+  StatusBadgeComponent,
+  ThemedStatusBadgeComponent,
+  BadgesComponent,
+  ThemedBadgesComponent,
   BrowseByComponent,
   AbstractTrackableComponent,
 
@@ -453,6 +463,7 @@ const DIRECTIVES = [
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ItemVersionsSummaryModalComponent,
     ItemVersionsDeleteModalComponent,
+    BadgesComponent,
   ],
   providers: [
     ...PROVIDERS

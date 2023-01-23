@@ -96,16 +96,6 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   @Output() contentChange = new EventEmitter<ListableObject>();
 
   /**
-   * Whether or not the "Private" badge should be displayed for this listable object
-   */
-  privateBadge = false;
-
-  /**
-   * Whether or not the "Withdrawn" badge should be displayed for this listable object
-   */
-  withdrawnBadge = false;
-
-  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
@@ -160,8 +150,6 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
 
   private instantiateComponent(object) {
 
-    this.initBadges();
-
     const component = this.getComponent(object.getRenderTypes(), this.viewMode, this.context);
 
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
@@ -189,19 +177,6 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
         }
       });
     }
-  }
-
-  /**
-   * Initialize which badges should be visible in the listable component
-   */
-  initBadges() {
-    let objectAsAny = this.object as any;
-    if (hasValue(objectAsAny.indexableObject)) {
-      objectAsAny = objectAsAny.indexableObject;
-    }
-    const objectExistsAndValidViewMode = hasValue(objectAsAny) && this.viewMode !== ViewMode.StandalonePage;
-    this.privateBadge = objectExistsAndValidViewMode && hasValue(objectAsAny.isDiscoverable) && !objectAsAny.isDiscoverable;
-    this.withdrawnBadge = objectExistsAndValidViewMode && hasValue(objectAsAny.isWithdrawn) && objectAsAny.isWithdrawn;
   }
 
   /**
