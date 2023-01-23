@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
- * Component to add back to result list button to item.
+ * Component for creating a back to result list button.
  */
 export class ResultsBackButtonComponent implements OnInit {
 
