@@ -10,7 +10,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { ItemDataService } from './item-data.service';
-import { DeleteRequest, PostRequest } from './request.models';
+import { DeleteRequest, PostRequest, GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { CoreState } from '../core-state.model';
@@ -187,6 +187,20 @@ describe('ItemDataService', () => {
     it('should send a POST request', (done) => {
       result.subscribe(() => {
         expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PostRequest));
+        done();
+      });
+    });
+  });
+
+  describe('findItemsWithEdit', () => {
+    beforeEach(() => {
+      service = initTestService();
+    });
+
+    it('should send a GET request', (done) => {
+      const result = service.findItemsWithEdit('', {});
+      result.subscribe(() => {
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.any(GetRequest), true);
         done();
       });
     });

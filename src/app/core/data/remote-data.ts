@@ -114,5 +114,4 @@ export class RemoteData<T> {
   get hasNoContent(): boolean {
     return this.statusCode === 204;
   }
-
 }

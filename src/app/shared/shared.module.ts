@@ -237,6 +237,7 @@ import {
 } from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 import { MarkdownPipe } from './utils/markdown.pipe';
 import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
+import { EditableItemSelectorComponent } from './dso-selector/dso-selector/editable-item-selector/editable-item-selector.component';
 import { MenuModule } from './menu/menu.module';
 import {
   ListableNotificationObjectComponent
@@ -244,7 +245,6 @@ import {
 import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
 import { LogInExternalProviderComponent } from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
-
 
 const MODULES = [
   CommonModule,
@@ -340,6 +340,7 @@ const COMPONENTS = [
   ExportBatchSelectorComponent,
   ConfirmationModalComponent,
   AuthorizedCollectionSelectorComponent,
+  EditableItemSelectorComponent,
   SearchNavbarComponent,
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,

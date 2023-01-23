@@ -54,6 +54,15 @@ export const getFirstSucceededRemoteWithNotEmptyData = <T>() =>
   (source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded && isNotEmpty(rd.payload)));
 
+export const mapRemoteDataPayload = <T,U>(fn: (payload: T) => U) =>
+  (source: Observable<RemoteData<T>>): Observable<RemoteData<U>> =>
+  source.pipe(map((rd: RemoteData<T>) => {
+    let {payload, ...rest} = rd;
+    return Object.assign(new RemoteData(null,null,null,null),
+                         {...rest, payload: fn(payload)});
+  }
+));
+
 /**
  * Get the first successful remotely retrieved object
  *

@@ -100,6 +100,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         }
       }
     });
+    this.menuVisible = this.menuService.isMenuVisibleWithVisibleSections(this.menuID);
   }
 
   @HostListener('focusin')
