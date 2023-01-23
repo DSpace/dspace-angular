@@ -7,12 +7,12 @@ import { Context } from '../../../../core/shared/context.model';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 
 /**
- * Themed wrapper for SearchComponent
+ * Themed wrapper for ListableObjectComponentLoaderComponent
  */
 @Component({
   selector: 'ds-themed-listable-object-component-loader',
   styleUrls: [],
-  templateUrl: '../theme-support/themed.component.html',
+  templateUrl: '../../../theme-support/themed.component.html',
 })
 export class ThemedListableObjectComponentLoaderComponent extends ThemedComponent<ListableObjectComponentLoaderComponent> {
   protected inAndOutputNames: (keyof ListableObjectComponentLoaderComponent & keyof this)[] = [
@@ -34,7 +34,7 @@ export class ThemedListableObjectComponentLoaderComponent extends ThemedComponen
   }
 
   protected importThemedComponent(themeName: string): Promise<any> {
-    return import(`../../../themes/${themeName}/app/shared/object-collection/shared/listable-object/listable-object-component-loader.component`);
+    return import(`../../../../../themes/${themeName}/app/shared/object-collection/shared/listable-object/listable-object-component-loader.component`);
   }
 
   protected importUnthemedComponent(): Promise<any> {
