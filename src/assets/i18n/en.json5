@@ -715,6 +715,8 @@
 
   "browse.metadata.title": "Title",
 
+  "browse.metadata.type": "Type",
+
   "browse.metadata.author.breadcrumbs": "Browse by Author",
 
   "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
@@ -722,6 +724,8 @@
   "browse.metadata.subject.breadcrumbs": "Browse by Subject",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
+
+  "browse.metadata.type.breadcrumbs": "Browse by Type",
 
   "pagination.next.button": "Next",
 
@@ -2638,6 +2642,8 @@
   "menu.section.browse_global_by_subject": "By Subject",
 
   "menu.section.browse_global_by_title": "By Title",
+
+  "menu.section.browse_global_by_type": "By Type",
 
   "menu.section.browse_global_communities_and_collections": "Communities & Collections",
 
