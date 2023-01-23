@@ -10,7 +10,8 @@ import { AuthService } from '../../core/auth/auth.service';
 import { CookieService } from '../../core/services/cookie.service';
 import { getTestScheduler } from 'jasmine-marbles';
 import { MetadataValue } from '../../core/shared/metadata.models';
-import { clone, cloneDeep } from 'lodash';
+import clone from 'lodash/clone';
+import cloneDeep from 'lodash/cloneDeep';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
@@ -100,7 +101,7 @@ describe('BrowserKlaroService', () => {
 
     mockConfig = {
       translations: {
-        en: {
+        zz: {
           purposes: {},
           test: {
             testeritis: testKey
@@ -158,8 +159,8 @@ describe('BrowserKlaroService', () => {
 
   it('addAppMessages', () => {
     service.addAppMessages();
-    expect(mockConfig.translations.en[appName]).toBeDefined();
-    expect(mockConfig.translations.en.purposes[purpose]).toBeDefined();
+    expect(mockConfig.translations.zz[appName]).toBeDefined();
+    expect(mockConfig.translations.zz.purposes[purpose]).toBeDefined();
   });
 
   it('translateConfiguration', () => {

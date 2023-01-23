@@ -1,6 +1,6 @@
 nav.navbar {
   border-top: 1px var(--ds-header-navbar-border-top-color) solid;
-  border-bottom: 5px var(--bs-green) solid;
+  border-bottom: 5px var(--ds-header-navbar-border-bottom-color) solid;
   align-items: baseline;
   color: var(--ds-header-icon-color);
 }
@@ -29,7 +29,7 @@ nav.navbar {
 /* TODO remove when https://github.com/twbs/bootstrap/issues/24726 is fixed */
 .navbar-expand-md.navbar-container {
   @media screen and (max-width: map-get($grid-breakpoints, md)-0.02) {
-    > .container {
+    > .navbar-inner-container {
       padding: 0 var(--bs-spacer);
       a.navbar-brand {
         display: none;

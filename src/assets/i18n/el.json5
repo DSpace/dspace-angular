@@ -76,7 +76,7 @@
 	"admin.access-control.groups.form.delete-group.modal.info": "Είστε βέβαιοι ότι θέλετε να διαγράψετε την ομάδα \"{{ dsoName }}\"",
 	"admin.access-control.groups.form.groupCommunity": "Κοινότητα ή Συλλογή",
 	"admin.access-control.groups.form.groupDescription": "Περιγραφή",
-	"admin.access-control.groups.form.groupName": "Ονομα ομάδας",
+	"admin.access-control.groups.form.groupName": "Όνομα ομάδας",
 	"admin.access-control.groups.form.head.create": "Δημιουργία ομάδας",
 	"admin.access-control.groups.form.head.edit": "Επεξεργασία ομάδας",
 	"admin.access-control.groups.form.members-list.button.see-all": "Περιήγηση σε όλα",
@@ -202,6 +202,8 @@
 	"admin.registries.bitstream-formats.table.internal": "εσωτερικός",
 	"admin.registries.bitstream-formats.table.mimetype": "mimetype",
 	"admin.registries.bitstream-formats.table.name": "Ονομα",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.id" : "ID",
 	"admin.registries.bitstream-formats.table.return": "Επιστροφή",
 	"admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Γνωστός",
 	"admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Υποστηρίζεται",
@@ -227,6 +229,8 @@
 	"admin.registries.schema.fields.no-items": "Δεν υπάρχουν πεδία μεταδεδομένων για εμφάνιση.",
 	"admin.registries.schema.fields.table.delete": "Διαγραφή επιλεγμένων",
 	"admin.registries.schema.fields.table.field": "Πεδίο",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.id" : "ID",
 	"admin.registries.schema.fields.table.scopenote": "Πεδίο εφαρμογής",
 	"admin.registries.schema.form.create": "Δημιουργία πεδίου μεταδεδομένων",
 	"admin.registries.schema.form.edit": "Επεξεργασία πεδίου μεταδεδομένων",

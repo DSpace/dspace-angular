@@ -2,11 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { EditableItemSelectorComponent } from './editable-item-selector.component';
 import { FindListOptions } from '../../../../core/data/find-list-options.model';
-import { Observable, of as observableOf } from 'rxjs';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { Item } from '../../../../core/shared/item.model';
-import { RequestEntryState } from '../../../../core/data/request-entry-state.model';
 import { createSuccessfulRemoteDataObject$, createFailedRemoteDataObject$ } from '../../../remote-data.utils';
 import { createPaginatedList } from '../../../testing/utils.test';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
@@ -100,7 +96,7 @@ describe('EditableItemSelectorComponent', () => {
 
     it('should contain a combination of the current DSO and first page results', (done) => {
       component.listEntries$.subscribe((listEntries) => {
-        expect(listEntries.map(entry => entry.indexableObject))
+        expect(listEntries.map(entry => (entry as ItemSearchResult).indexableObject))
           .toEqual([currentResult, ...pages[0]]);
         done();
       });
@@ -113,7 +109,7 @@ describe('EditableItemSelectorComponent', () => {
 
       it('should contain a combination of the current DSO, as well as first and second page results', (done) => {
         component.listEntries$.subscribe((listEntries) => {
-          expect(listEntries.map(entry => entry.indexableObject))
+          expect(listEntries.map(entry => (entry as ItemSearchResult).indexableObject))
             .toEqual([currentResult, ...pages[0], ...pages[1]]);
           done();
         });

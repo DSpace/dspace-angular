@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { map, Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
 import { ItemDataService } from 'src/app/core/data/item-data.service';
 import { buildPaginatedList, PaginatedList } from 'src/app/core/data/paginated-list.model';

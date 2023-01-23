@@ -5,7 +5,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { slideSidebar } from '../../shared/animations/slide';
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { MenuService } from '../../shared/menu/menu.service';
-import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
+import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
 import { ActivatedRoute } from '@angular/router';
@@ -69,7 +69,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    */
   ngOnInit(): void {
     super.ngOnInit();
-    this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
+    this.sidebarWidth = this.variableService.getVariable('--ds-sidebar-items-width');
     this.authService.isAuthenticated()
       .subscribe((loggedIn: boolean) => {
         if (loggedIn) {
