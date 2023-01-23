@@ -5,7 +5,7 @@ import { filter, map } from 'rxjs/operators';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { SystemWideAlert } from '../system-wide-alert.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
@@ -50,6 +50,26 @@ export class SystemWideAlertFormComponent implements OnInit {
    * Object to store the countdown time part
    */
   time;
+
+  /**
+   * Behaviour subject to track whether the counter is enabled
+   */
+  counterEnabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
+   * The amount of minutes to be used in the banner preview
+   */
+  previewMinutes: number;
+
+  /**
+   * The amount of hours to be used in the banner preview
+   */
+  previewHours: number;
+
+  /**
+   * The amount of days to be used in the banner preview
+   */
+  previewDays: number;
 
 
   constructor(
@@ -99,16 +119,54 @@ export class SystemWideAlertFormComponent implements OnInit {
     this.formActive.patchValue(alert.active);
     const countDownTo = zonedTimeToUtc(alert.countdownTo, 'UTC');
     if (countDownTo.getTime() - new Date().getTime() > 0) {
+      this.counterEnabled$.next(true);
       this.setDateTime(countDownTo);
     }
 
   }
 
+  /**
+   * Set whether the countdown timer is enabled or disabled. This will also update the counter in the preview
+   * @param enabled   - Whether the countdown timer is enabled or disabled.
+   */
+  setCounterEnabled(enabled: boolean) {
+    this.counterEnabled$.next(enabled);
+    if (!enabled) {
+      this.previewMinutes = 0;
+      this.previewHours = 0;
+      this.previewDays = 0;
+    } else {
+      this.updatePreviewTime();
+    }
+  }
+
+
   private setDateTime(dateToSet) {
     this.time = {hour: dateToSet.getHours(), minute: dateToSet.getMinutes()};
     this.date = {year: dateToSet.getFullYear(), month: dateToSet.getMonth() + 1, day: dateToSet.getDate()};
 
+    this.updatePreviewTime();
   }
+
+  /**
+   * Update the preview time based on the configured countdown date and the current time
+   */
+  updatePreviewTime() {
+    const countDownTo = new Date(this.date.year, this.date.month - 1, this.date.day, this.time.hour, this.time.minute);
+    const timeDifference = countDownTo.getTime() - new Date().getTime();
+    this.allocateTimeUnits(timeDifference);
+  }
+
+  /**
+   * Helper method to push how many days, hours and minutes are left in the countdown to their respective behaviour subject
+   * @param timeDifference  - The time difference to calculate and push the time units for
+   */
+  private allocateTimeUnits(timeDifference) {
+    this.previewMinutes = Math.floor((timeDifference) / (1000 * 60) % 60);
+    this.previewHours = Math.floor((timeDifference) / (1000 * 60 * 60) % 24);
+    this.previewDays = Math.floor((timeDifference) / (1000 * 60 * 60 * 24));
+  }
+
 
   get formMessage() {
     return this.alertForm.get('formMessage');
@@ -127,9 +185,12 @@ export class SystemWideAlertFormComponent implements OnInit {
     const alert = new SystemWideAlert();
     alert.message = this.formMessage.value;
     alert.active = this.formActive.value;
-    const countDownTo = new Date(this.date.year, this.date.month - 1, this.date.day, this.time.hour, this.time.minute);
-    alert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
-
+    if (this.counterEnabled$.getValue()) {
+      const countDownTo = new Date(this.date.year, this.date.month - 1, this.date.day, this.time.hour, this.time.minute);
+      alert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
+    } else {
+      alert.countdownTo = null;
+    }
     if (hasValue(this.currentAlert)) {
       const updatedAlert = Object.assign(new SystemWideAlert(), this.currentAlert, alert);
       this.handleResponse(this.systemWideAlertDataService.put(updatedAlert), 'system-wide-alert.form.update');

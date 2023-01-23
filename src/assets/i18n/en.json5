@@ -4851,9 +4851,9 @@
 
 
 
-  "menu.section.system-wide-alert": "System-wide Alerts",
+  "menu.section.system-wide-alert": "System-wide Alert",
 
-  "system-wide-alert.form.header": "System-wide Alerts",
+  "system-wide-alert.form.header": "System-wide Alert",
 
   "system-wide-alert.form.cancel": "Cancel",
 
@@ -4867,9 +4867,11 @@
 
   "system-wide-alert.form.label.message": "Alert message",
 
-  "system-wide-alert.form.label.countdownTo": "Count down",
+  "system-wide-alert.form.label.countdownTo.enable": "Enable a countdown timer",
 
-  "system-wide-alert.form.label.countdownTo.hint": "Hint: When a date in the future is set, the system wide alert banner will perform a countdown to the set date. Setting the date to the current time or in the past will disable the countdown.",
+  "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
+
+  "system-wide-alert.form.label.preview": "System-wide alert preview",
 
   "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
 

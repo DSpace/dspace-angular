@@ -111,6 +111,44 @@ describe('SystemWideAlertFormComponent', () => {
       });
     });
   });
+  describe('setCounterEnabled', () => {
+    it('should set the preview time on enable and update the behaviour subject', () => {
+      spyOn(comp, 'updatePreviewTime');
+      comp.setCounterEnabled(true);
+
+      expect(comp.updatePreviewTime).toHaveBeenCalled();
+      expect(comp.counterEnabled$.value).toBeTrue();
+    });
+    it('should reset the preview time on disable and update the behaviour subject', () => {
+      spyOn(comp, 'updatePreviewTime');
+      comp.setCounterEnabled(false);
+
+      expect(comp.updatePreviewTime).not.toHaveBeenCalled();
+      expect(comp.previewDays).toEqual(0);
+      expect(comp.previewHours).toEqual(0);
+      expect(comp.previewMinutes).toEqual(0);
+      expect(comp.counterEnabled$.value).toBeFalse();
+    });
+  });
+
+  describe('updatePreviewTime', () => {
+    it('should calculate the difference between the current date and the date configured in the form', () => {
+      const countDownDate = new Date();
+      countDownDate.setDate(countDownDate.getDate() + 1);
+      countDownDate.setHours(countDownDate.getHours() + 1);
+      countDownDate.setMinutes(countDownDate.getMinutes() + 1);
+
+      comp.time = {hour: countDownDate.getHours(), minute: countDownDate.getMinutes()};
+      comp.date = {year: countDownDate.getFullYear(), month: countDownDate.getMonth() + 1, day: countDownDate.getDate()};
+
+      comp.updatePreviewTime();
+
+      expect(comp.previewDays).toEqual(1);
+      expect(comp.previewHours).toEqual(1);
+      expect(comp.previewDays).toEqual(1);
+    });
+  });
+
   describe('save', () => {
     it('should update the exising alert with the form values and show a success notification on success', () => {
       spyOn(comp, 'back');
@@ -127,6 +165,29 @@ describe('SystemWideAlertFormComponent', () => {
       expectedAlert.active = true;
       const countDownTo = new Date(2023, 0, 25, 4, 26);
       expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
+
+      comp.save();
+
+      expect(systemWideAlertDataService.put).toHaveBeenCalledWith(expectedAlert);
+      expect(notificationsService.success).toHaveBeenCalled();
+      expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('systemwidealerts');
+      expect(comp.back).toHaveBeenCalled();
+    });
+    it('should update the exising alert with the form values but add an empty countdown date when disabled and show a success notification on success', () => {
+      spyOn(comp, 'back');
+      comp.currentAlert = systemWideAlert;
+
+      comp.formMessage.patchValue('New message');
+      comp.formActive.patchValue(true);
+      comp.time = {hour: 4, minute: 26};
+      comp.date = {year: 2023, month: 1, day: 25};
+      comp.counterEnabled$.next(false);
+
+      const expectedAlert = new SystemWideAlert();
+      expectedAlert.alertId = systemWideAlert.alertId;
+      expectedAlert.message = 'New message';
+      expectedAlert.active = true;
+      expectedAlert.countdownTo = null;
 
       comp.save();
 
