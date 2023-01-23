@@ -120,6 +120,8 @@ import {
 import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
 import { ItemSharedModule } from '../../app/item-page/item-shared.module';
 import { SearchFiltersComponent } from './app/shared/search/search-filters/search-filters.component';
+import { SearchSidebarComponent } from './app/shared/search/search-sidebar/search-sidebar.component';
+import { ListableObjectComponentLoaderComponent } from './app/shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -176,6 +178,8 @@ const DECLARATIONS = [
   BrowseByTitlePageComponent,
   ExternalSourceEntryImportModalComponent,
   SearchFiltersComponent,
+  SearchSidebarComponent,
+  ListableObjectComponentLoaderComponent
 ];
 
 @NgModule({

@@ -25,9 +25,9 @@
           <ds-importable-list-item-control *ngIf="importable" [object]="object"
                                            [importConfig]="importConfig"
                                            (importObject)="importObject.emit($event)"></ds-importable-list-item-control>
-          <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode" [index]="i" [context]="context" [linkType]="linkType"
+          <ds-themed-listable-object-component-loader [object]="object" [viewMode]="viewMode" [index]="i" [context]="context" [linkType]="linkType"
                                                [listID]="selectionConfig?.listId"
-                                               (contentChange)="contentChange.emit($event)"></ds-listable-object-component-loader>
+                                               (contentChange)="contentChange.emit($event)"></ds-themed-listable-object-component-loader>
         </li>
     </ul>
 </ds-pagination>

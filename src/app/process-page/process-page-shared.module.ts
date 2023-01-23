@@ -17,20 +17,33 @@ import { ProcessDetailFieldComponent } from './detail/process-detail-field/proce
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
 import { ProcessBreadcrumbResolver } from './process-breadcrumb.resolver';
 import { ProcessFormComponent } from './form/process-form.component';
-import { ProcessPageSharedModule } from './process-page-shared.module';
 
 @NgModule({
   imports: [
-    ProcessPageRoutingModule,
     SharedModule,
-    ProcessPageSharedModule,
   ],
   declarations: [
+    NewProcessComponent,
+    ScriptsSelectComponent,
+    ScriptHelpComponent,
+    ParameterSelectComponent,
+    ProcessParametersComponent,
+    StringValueInputComponent,
+    ParameterValueInputComponent,
+    FileValueInputComponent,
+    BooleanValueInputComponent,
+    DateValueInputComponent,
+    ProcessOverviewComponent,
+    ProcessDetailComponent,
+    ProcessDetailFieldComponent,
+    ProcessFormComponent
   ],
   providers: [
+    ProcessBreadcrumbResolver,
+    ProcessBreadcrumbsService
   ]
 })
 
-export class ProcessPageModule {
+export class ProcessPageSharedModule {
 
 }

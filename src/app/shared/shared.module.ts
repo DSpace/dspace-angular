@@ -245,6 +245,7 @@ import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
 import { LogInExternalProviderComponent } from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
 
+import { ThemedListableObjectComponentLoaderComponent } from './object-collection/shared/listable-object/themed-listable-object-component-loader.component';
 
 const MODULES = [
   CommonModule,
@@ -322,6 +323,7 @@ const COMPONENTS = [
   SearchExportCsvComponent,
   PageSizeSelectorComponent,
   ListableObjectComponentLoaderComponent,
+  ThemedListableObjectComponentLoaderComponent,
   AbstractTrackableComponent,
   ComcolMetadataComponent,
   TypeBadgeComponent,
