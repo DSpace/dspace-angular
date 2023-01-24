@@ -77,20 +77,9 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   @Input() value: string;
 
   /**
-   * Whether or not informational badges (e.g. Private, Withdrawn) should be hidden
-   */
-  @Input() hideBadges = false;
-
-  /**
    * Directive hook used to place the dynamic child component
    */
   @ViewChild(ListableObjectDirective, { static: true }) listableObjectDirective: ListableObjectDirective;
-
-  /**
-   * View on the badges template, to be passed on to the loaded component (which will place the badges in the desired
-   * location, or on top if not specified)
-   */
-  @ViewChild('badges', { static: true }) badges: ElementRef;
 
   /**
    * Emit when the listable object has been reloaded.
@@ -159,10 +148,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
     this.compRef = viewContainerRef.createComponent(
       component, {
         index: 0,
-        injector: undefined,
-        projectableNodes: [
-          [this.badges.nativeElement],
-        ]
+        injector: undefined
       }
     );
 

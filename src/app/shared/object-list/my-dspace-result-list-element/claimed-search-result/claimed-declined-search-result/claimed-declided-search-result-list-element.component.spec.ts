@@ -14,7 +14,7 @@ import { getMockLinkService } from '../../../../mocks/link-service.mock';
 import { VarDirective } from '../../../../utils/var.directive';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { MyDspaceItemStatusType } from '../../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { MyDspaceItemStatusType } from '../../../../object-collection/shared/badges/my-dspace-status-badge/my-dspace-item-status-type';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';

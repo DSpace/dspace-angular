@@ -6,9 +6,7 @@ import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../../../core/shared/item.model';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import {
-  MyDspaceItemStatusType
-} from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { MyDspaceItemStatusType } from '../../../object-collection/shared/badges/my-dspace-status-badge/my-dspace-item-status-type';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { PoolSearchResultDetailElementComponent } from './pool-search-result-detail-element.component';

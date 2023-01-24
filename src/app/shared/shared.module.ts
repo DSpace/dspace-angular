@@ -87,9 +87,7 @@ import { ObjectDetailComponent } from './object-detail/object-detail.component';
 import {
   ItemDetailPreviewComponent
 } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview.component';
-import {
-  MyDSpaceItemStatusComponent
-} from './object-collection/shared/mydspace-item-status/my-dspace-item-status.component';
+import { MyDSpaceStatusBadgeComponent } from './object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
 import { WorkspaceitemActionsComponent } from './mydspace-actions/workspaceitem/workspaceitem-actions.component';
 import { WorkflowitemActionsComponent } from './mydspace-actions/workflowitem/workflowitem-actions.component';
 import { ItemSubmitterComponent } from './object-collection/shared/mydspace-item-submitter/item-submitter.component';
@@ -205,7 +203,7 @@ import {
   DsoInputSuggestionsComponent
 } from './input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { ItemGridElementComponent } from './object-grid/item-grid-element/item-types/item/item-grid-element.component';
-import { TypeBadgeComponent } from './object-list/badges/type-badge/type-badge.component';
+import { TypeBadgeComponent } from './object-collection/shared/badges/type-badge/type-badge.component';
 import { AccessStatusBadgeComponent } from './object-list/access-status-badge/access-status-badge.component';
 import {
   MetadataRepresentationLoaderComponent
@@ -324,12 +322,12 @@ import {
 } from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 import { MarkdownPipe } from './utils/markdown.pipe';
 import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
-import { ThemedListableObjectComponentLoaderComponent } from './object-collection/shared/listable-object/themed-listable-object-component-loader.component';
-import { StatusBadgeComponent } from './object-list/badges/status-badge/status-badge.component';
-import { BadgesComponent } from './object-list/badges/badges.component';
-import { ThemedBadgesComponent } from './object-list/badges/themed-badges.component';
-import { ThemedStatusBadgeComponent } from './object-list/badges/status-badge/themed-status-badge.component';
-import { ThemedTypeBadgeComponent } from './object-list/badges/type-badge/themed-type-badge.component';
+import { StatusBadgeComponent } from './object-collection/shared/badges/status-badge/status-badge.component';
+import { BadgesComponent } from './object-collection/shared/badges/badges.component';
+import { ThemedBadgesComponent } from './object-collection/shared/badges/themed-badges.component';
+import { ThemedStatusBadgeComponent } from './object-collection/shared/badges/status-badge/themed-status-badge.component';
+import { ThemedTypeBadgeComponent } from './object-collection/shared/badges/type-badge/themed-type-badge.component';
+import { ThemedMyDSpaceStatusBadgeComponent } from './object-collection/shared/badges/my-dspace-status-badge/themed-my-dspace-status-badge.component';
 
 const MODULES = [
   CommonModule,
@@ -411,7 +409,8 @@ const COMPONENTS = [
   FileDropzoneNoUploaderComponent,
   ItemListPreviewComponent,
   ThemedItemListPreviewComponent,
-  MyDSpaceItemStatusComponent,
+  MyDSpaceStatusBadgeComponent,
+  ThemedMyDSpaceStatusBadgeComponent,
   ItemSubmitterComponent,
   ItemDetailPreviewComponent,
   ItemDetailPreviewFieldComponent,
@@ -455,7 +454,6 @@ const COMPONENTS = [
   SearchExportCsvComponent,
   PageSizeSelectorComponent,
   ListableObjectComponentLoaderComponent,
-  ThemedListableObjectComponentLoaderComponent,
   CollectionListElementComponent,
   CommunityListElementComponent,
   CollectionGridElementComponent,

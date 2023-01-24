@@ -10,7 +10,7 @@ import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { MyDspaceItemStatusType } from '../../../object-collection/shared/badges/my-dspace-status-badge/my-dspace-item-status-type';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { TruncatableService } from '../../../truncatable/truncatable.service';

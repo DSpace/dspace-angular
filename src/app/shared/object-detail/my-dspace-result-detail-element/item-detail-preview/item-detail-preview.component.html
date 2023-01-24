@@ -1,7 +1,5 @@
 <div *ngIf="item" class="item-page" @fadeInOut>
-  <ng-container *ngIf="status">
-    <ds-mydspace-item-status [status]="status"></ds-mydspace-item-status>
-  </ng-container>
+  <ds-themed-badges [object]="object" [myDSpaceStatus]="status"></ds-themed-badges>
   <div *ngIf="item">
     <ds-item-page-title-field [item]="item">
     </ds-item-page-title-field>

@@ -5,7 +5,7 @@ import { ClaimedDeclinedTaskSearchResult } from '../../../../object-collection/s
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
-import { MyDspaceItemStatusType } from '../../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { MyDspaceItemStatusType } from '../../../../object-collection/shared/badges/my-dspace-status-badge/my-dspace-item-status-type';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';

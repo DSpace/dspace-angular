@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../../../core/shared/item.model';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { MyDspaceItemStatusType } from '../../../object-collection/shared/badges/my-dspace-status-badge/my-dspace-item-status-type';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { ItemSearchResultListElementSubmissionComponent } from './item-search-result-list-element-submission.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
