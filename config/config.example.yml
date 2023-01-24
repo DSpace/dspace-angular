@@ -310,3 +310,11 @@ info:
 markdown:
   enabled: false
   mathjax: false
+
+# Which vocabularies should be used for which search filters
+# and whether to show the filter in the search sidebar
+# Take a look at the filter-vocabulary-config.ts file for documentation on how the options are obtained
+vocabularies:
+  - filter: 'subject'
+    vocabulary: 'srsc'
+    enabled: true

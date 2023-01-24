@@ -20,7 +20,7 @@ export class ViewTrackerComponent implements OnInit {
 
   ngOnInit(): void {
     this.angulartics2.eventTrack.next({
-      action: 'pageView',
+      action: 'page_view',
       properties: {object: this.object},
     });
   }
