@@ -3,7 +3,7 @@
      [ngClass]="{ 'ds-warning': mdValue.reordered || mdValue.change === DsoEditMetadataChangeTypeEnum.UPDATE, 'ds-danger': mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE, 'ds-success': mdValue.change === DsoEditMetadataChangeTypeEnum.ADD, 'h-100': isOnlyValue }">
   <div class="flex-grow-1 ds-flex-cell ds-value-cell d-flex align-items-center" *ngVar="(mdRepresentation$ | async) as mdRepresentation">
     <div class="dont-break-out preserve-line-breaks" *ngIf="!mdValue.editing && !mdRepresentation">{{ mdValue.newValue.value }}</div>
-    <textarea class="form-control" rows="2" *ngIf="mdValue.editing && !mdRepresentation" [(ngModel)]="mdValue.newValue.value"
+    <textarea class="form-control" rows="5" *ngIf="mdValue.editing && !mdRepresentation" [(ngModel)]="mdValue.newValue.value"
               [dsDebounce]="300" (onDebounce)="confirm.emit(false)"></textarea>
     <div class="d-flex" *ngIf="mdRepresentation">
       <a class="mr-2" target="_blank" [routerLink]="mdRepresentationItemRoute$ | async">{{ mdRepresentationName$ | async }}</a>
@@ -35,8 +35,8 @@
           <i class="fas fa-undo-alt fa-fw"></i>
         </button>
       </div>
-      <button class="btn btn-outline-secondary ds-drag-handle btn-sm" id="metadata-drag-btn" cdkDragHandle
-              [ngClass]="{'disabled': isOnlyValue || (saving$ | async)}" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.drag' | translate }}" [disabled]="isOnlyValue || (saving$ | async)">
+      <button class="btn btn-outline-secondary ds-drag-handle btn-sm" id="metadata-drag-btn" *ngVar="(isOnlyValue || (saving$ | async)) as disabled" cdkDragHandle [cdkDragHandleDisabled]="disabled"
+              [ngClass]="{'disabled': disabled}" ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.drag' | translate }}" [disabled]="disabled">
         <i class="fas fa-grip-vertical fa-fw"></i>
       </button>
     </div>
