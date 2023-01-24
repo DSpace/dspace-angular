@@ -21,8 +21,8 @@ import { Version } from './version.model';
 import { VERSION } from './version.resource-type';
 import { BITSTREAM } from './bitstream.resource-type';
 import { Bitstream } from './bitstream.model';
-import { ACCESS_STATUS } from 'src/app/shared/object-list/access-status-badge/access-status.resource-type';
-import { AccessStatusObject } from 'src/app/shared/object-list/access-status-badge/access-status.model';
+import { ACCESS_STATUS } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
+import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { HandleObject } from './handle-object.model';
 
 /**

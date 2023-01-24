@@ -74,64 +74,6 @@ describe('ListableObjectComponentLoaderComponent', () => {
     });
   });
 
-  describe('when the object is an item and viewMode is a list', () => {
-    beforeEach(() => {
-      comp.object = Object.assign(new Item());
-      comp.viewMode = ViewMode.ListElement;
-    });
-
-    describe('when the item is not withdrawn', () => {
-      beforeEach(() => {
-        (comp.object as any).isWithdrawn = false;
-        comp.initBadges();
-        fixture.detectChanges();
-      });
-
-      it('should not show the withdrawn badge', () => {
-        const badge = fixture.debugElement.query(By.css('div.withdrawn-badge'));
-        expect(badge).toBeNull();
-      });
-    });
-
-    describe('when the item is withdrawn', () => {
-      beforeEach(() => {
-        (comp.object as any).isWithdrawn = true;
-        comp.initBadges();
-        fixture.detectChanges();
-      });
-
-      it('should show the withdrawn badge', () => {
-        const badge = fixture.debugElement.query(By.css('div.withdrawn-badge'));
-        expect(badge).not.toBeNull();
-      });
-    });
-
-    describe('when the item is not private', () => {
-      beforeEach(() => {
-        (comp.object as any).isDiscoverable = true;
-        comp.initBadges();
-        fixture.detectChanges();
-      });
-      it('should not show the private badge', () => {
-        const badge = fixture.debugElement.query(By.css('div.private-badge'));
-        expect(badge).toBeNull();
-      });
-    });
-
-    describe('when the item is private', () => {
-      beforeEach(() => {
-        (comp.object as any).isDiscoverable = false;
-        comp.initBadges();
-        fixture.detectChanges();
-      });
-
-      it('should show the private badge', () => {
-        const badge = fixture.debugElement.query(By.css('div.private-badge'));
-        expect(badge).not.toBeNull();
-      });
-    });
-  });
-
   describe('When a reloadedObject is emitted', () => {
     let listableComponent;
     let reloadedObject: any;

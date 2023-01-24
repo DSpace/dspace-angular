@@ -157,7 +157,7 @@ import { SequenceService } from './shared/sequence.service';
 import { CoreState } from './core-state.model';
 import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
-import { AccessStatusObject } from '../shared/object-list/access-status-badge/access-status.model';
+import { AccessStatusObject } from '../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { AccessStatusDataService } from './data/access-status-data.service';
 import { LinkHeadService } from './services/link-head.service';
 import { ResearcherProfileDataService } from './profile/researcher-profile-data.service';

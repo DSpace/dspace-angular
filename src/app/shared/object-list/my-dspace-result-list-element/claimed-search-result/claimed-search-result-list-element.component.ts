@@ -5,9 +5,6 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import {
-  MyDspaceItemStatusType
-} from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
@@ -23,6 +20,7 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { Item } from '../../../../core/shared/item.model';
 import { mergeMap, tap } from 'rxjs/operators';
 import { isNotEmpty } from '../../../empty.util';
+import { Context } from '../../../../core/shared/context.model';
 
 @Component({
   selector: 'ds-claimed-search-result-list-element',
@@ -38,9 +36,9 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
   public showSubmitter = true;
 
   /**
-   * Represent item's status
+   * Represent child context
    */
-  public status = MyDspaceItemStatusType.VALIDATION;
+  public childContext = Context.MyDSpaceValidation;
 
   /**
    * The item object that belonging to the result object

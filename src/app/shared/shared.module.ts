@@ -161,8 +161,8 @@ import {
   DsoInputSuggestionsComponent
 } from './input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { ItemGridElementComponent } from './object-grid/item-grid-element/item-types/item/item-grid-element.component';
-import { TypeBadgeComponent } from './object-list/type-badge/type-badge.component';
-import { AccessStatusBadgeComponent } from './object-list/access-status-badge/access-status-badge.component';
+import { TypeBadgeComponent } from './object-collection/shared/badges/type-badge/type-badge.component';
+import { AccessStatusBadgeComponent } from './object-collection/shared/badges/access-status-badge/access-status-badge.component';
 import {
   MetadataRepresentationLoaderComponent
 } from './metadata-representation/metadata-representation-loader.component';
@@ -245,7 +245,14 @@ import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
 import { LogInExternalProviderComponent } from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
 
-import { ThemedListableObjectComponentLoaderComponent } from './object-collection/shared/listable-object/themed-listable-object-component-loader.component';
+import { StatusBadgeComponent } from './object-collection/shared/badges/status-badge/status-badge.component';
+import { BadgesComponent } from './object-collection/shared/badges/badges.component';
+import { ThemedBadgesComponent } from './object-collection/shared/badges/themed-badges.component';
+import { ThemedStatusBadgeComponent } from './object-collection/shared/badges/status-badge/themed-status-badge.component';
+import { ThemedTypeBadgeComponent } from './object-collection/shared/badges/type-badge/themed-type-badge.component';
+import { ThemedMyDSpaceStatusBadgeComponent } from './object-collection/shared/badges/my-dspace-status-badge/themed-my-dspace-status-badge.component';
+import { ThemedAccessStatusBadgeComponent } from './object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
+import { MyDSpaceStatusBadgeComponent } from './object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
 
 const MODULES = [
   CommonModule,
@@ -311,6 +318,8 @@ const COMPONENTS = [
   PageWithSidebarComponent,
   SidebarDropdownComponent,
   ThumbnailComponent,
+  MyDSpaceStatusBadgeComponent,
+  ThemedMyDSpaceStatusBadgeComponent,
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
@@ -323,11 +332,17 @@ const COMPONENTS = [
   SearchExportCsvComponent,
   PageSizeSelectorComponent,
   ListableObjectComponentLoaderComponent,
-  ThemedListableObjectComponentLoaderComponent,
   AbstractTrackableComponent,
   ComcolMetadataComponent,
   TypeBadgeComponent,
   AccessStatusBadgeComponent,
+  ThemedAccessStatusBadgeComponent,
+  ThemedTypeBadgeComponent,
+  StatusBadgeComponent,
+  ThemedStatusBadgeComponent,
+  BadgesComponent,
+  ThemedBadgesComponent,
+
   ItemSelectComponent,
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,

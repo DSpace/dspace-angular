@@ -121,7 +121,11 @@ import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.m
 import { ItemSharedModule } from '../../app/item-page/item-shared.module';
 import { SearchFiltersComponent } from './app/shared/search/search-filters/search-filters.component';
 import { SearchSidebarComponent } from './app/shared/search/search-sidebar/search-sidebar.component';
-import { ListableObjectComponentLoaderComponent } from './app/shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { MyDSpaceStatusBadgeComponent } from './app/shared/object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
+import { TypeBadgeComponent } from './app/shared/object-collection/shared/badges/type-badge/type-badge.component';
+import { StatusBadgeComponent } from './app/shared/object-collection/shared/badges/status-badge/status-badge.component';
+import { BadgesComponent } from './app/shared/object-collection/shared/badges/badges.component';
+import { AccessStatusBadgeComponent } from './app/shared/object-collection/shared/badges/access-status-badge/access-status-badge.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -179,7 +183,11 @@ const DECLARATIONS = [
   ExternalSourceEntryImportModalComponent,
   SearchFiltersComponent,
   SearchSidebarComponent,
-  ListableObjectComponentLoaderComponent
+  BadgesComponent,
+  StatusBadgeComponent,
+  TypeBadgeComponent,
+  MyDSpaceStatusBadgeComponent,
+  AccessStatusBadgeComponent,
 ];
 
 @NgModule({
