@@ -16,7 +16,7 @@ import { CollectionElementLinkType } from '../../collection-element-link.type';
 })
 export class ThemedListableObjectComponentLoaderComponent extends ThemedComponent<ListableObjectComponentLoaderComponent> {
   protected inAndOutputNames: (keyof ListableObjectComponentLoaderComponent & keyof this)[] = [
-    'object', 'index', 'viewMode', 'context', 'linkType', 'listID', 'linkType', 'showLabel', 'value', 'hideBadges', 'contentChange'];
+    'object', 'index', 'viewMode', 'context', 'linkType', 'listID', 'linkType', 'showLabel', 'value', 'contentChange'];
 
   @Input() object: ListableObject;
   @Input() index: number;
@@ -26,7 +26,6 @@ export class ThemedListableObjectComponentLoaderComponent extends ThemedComponen
   @Input() listID: string;
   @Input() showLabel = true;
   @Input() value: string;
-  @Input() hideBadges = false;
   @Output() contentChange = new EventEmitter<ListableObject>();
 
   protected getComponentName(): string {
