@@ -65,7 +65,8 @@ export class ItemExportListComponent implements OnInit {
 
   constructor(
     private paginationService: PaginationService,
-    private searchManager: SearchManager) {
+    private searchManager: SearchManager
+  ) {
   }
 
   ngOnInit(): void {

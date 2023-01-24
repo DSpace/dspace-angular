@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { map, switchMap, take } from 'rxjs/operators';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { SearchOptions } from '../../models/search-options.model';
@@ -19,6 +19,10 @@ import { of } from 'rxjs/internal/observable/of';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SearchResult } from '../../models/search-result.model';
 import { MYDSPACE_ROUTE } from '../../../../my-dspace-page/my-dspace-page.component';
+import { SearchManager } from '../../../../core/browse/search-manager';
+import { PaginatedSearchOptions } from '../../models/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 
 export enum ExportSelectionMode {
   All = 'all',
@@ -84,7 +88,8 @@ export class ItemExportComponent implements OnInit, OnDestroy {
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
     public activeModal: NgbActiveModal,
-    private selectableListService: SelectableListService,) {
+    private selectableListService: SelectableListService,
+    private searchManager: SearchManager,) {
   }
 
   ngOnInit() {
@@ -191,12 +196,38 @@ export class ItemExportComponent implements OnInit, OnDestroy {
           });
         }
 
-        const list$: Observable<string[]> = (this.showListSelection || this.exportForm?.value?.selectionMode !== ExportSelectionMode.OnlySelection) ?
-          of([]) :
-          this.selectableListService.getSelectableList(this.listId).pipe(
-            take(1),
-            map((list: SelectableListState) => (list?.selection || []).map((entry: SearchResult<any>) => entry?.indexableObject?.id))
-          );
+        let list$: Observable<string[]> =
+          this.searchManager.search(
+            Object.assign(new PaginatedSearchOptions({}), this.searchOptions, {
+              fixedFilter: `f.entityType=${this.itemType.label},equals`,
+              pagination: Object.assign(new PaginationComponentOptions(), {
+                id: 'ex',
+                pageSize: 1
+              })
+            })
+          )
+            .pipe(
+              getFirstCompletedRemoteData(),
+              tap(rd => {
+                if (rd?.payload?.totalElements === 0) {
+                  const title = this.translate.get('search.results.empty');
+                  this.notificationsService.warning(title);
+                }
+              }),
+              filter(rd => rd?.payload?.totalElements > 0),
+              map(() => [])
+            );
+        if (!!this.showListSelection && this.exportForm?.value?.selectionMode === ExportSelectionMode.OnlySelection) {
+          list$ =
+            this.selectableListService.getSelectableList(this.listId)
+              .pipe(
+                take(1),
+                map(
+                  (list: SelectableListState) =>
+                    (list?.selection || []).map((entry: SearchResult<any>) => entry.indexableObject.id)
+                )
+              );
+        }
         list$.pipe(
           switchMap((list: string[]) => this.itemExportService.submitForm(
             this.molteplicity,
@@ -205,8 +236,9 @@ export class ItemExportComponent implements OnInit, OnDestroy {
             this.itemType ? this.exportForm.controls.entityType.value : this.exportForm.value.entityType,
             this.exportForm.value.format,
             list
-          ))
-        ).pipe(take(1)).subscribe((processId) => {
+          )),
+          take(1)
+        ).subscribe((processId) => {
           const title = this.translate.get('item-export.process.title');
           this.notificationsService.process(processId.toString(), 5000, title);
 
