@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { ItemListPreviewComponent } from './item-list-preview.component';
 import { Item } from '../../../../core/shared/item.model';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/badges/my-dspace-status-badge/my-dspace-item-status-type';
 import { SearchResult } from '../../../search/models/search-result.model';
+import { Context } from 'src/app/core/shared/context.model';
 
 /**
  * Themed wrapper for ItemListPreviewComponent
@@ -14,13 +14,13 @@ import { SearchResult } from '../../../search/models/search-result.model';
   templateUrl: '../../../theme-support/themed.component.html',
 })
 export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPreviewComponent> {
-  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'status', 'showSubmitter'];
+  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'context', 'showSubmitter'];
 
   @Input() item: Item;
 
   @Input() object: SearchResult<any>;
 
-  @Input() status: MyDspaceItemStatusType;
+  @Input() context: Context;
 
   @Input() showSubmitter = false;
 

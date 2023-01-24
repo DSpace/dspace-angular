@@ -120,6 +120,7 @@ import { MyDSpaceStatusBadgeComponent } from './app/shared/object-collection/sha
 import { TypeBadgeComponent } from './app/shared/object-collection/shared/badges/type-badge/type-badge.component';
 import { StatusBadgeComponent } from './app/shared/object-collection/shared/badges/status-badge/status-badge.component';
 import { BadgesComponent } from './app/shared/object-collection/shared/badges/badges.component';
+import { AccessStatusBadgeComponent } from './app/shared/object-collection/shared/badges/access-status-badge/access-status-badge.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -180,6 +181,7 @@ const DECLARATIONS = [
   StatusBadgeComponent,
   TypeBadgeComponent,
   MyDSpaceStatusBadgeComponent,
+  AccessStatusBadgeComponent,
 ];
 
 @NgModule({

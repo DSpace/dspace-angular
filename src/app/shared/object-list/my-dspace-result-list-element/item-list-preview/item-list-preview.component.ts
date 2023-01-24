@@ -2,10 +2,10 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 
 import { Item } from '../../../../core/shared/item.model';
 import { fadeInOut } from '../../../animations/fade';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/badges/my-dspace-status-badge/my-dspace-item-status-type';
 import { SearchResult } from '../../../search/models/search-result.model';
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { Context } from 'src/app/core/shared/context.model';
 
 /**
  * This component show metadata for the given item object in the list view.
@@ -29,9 +29,9 @@ export class ItemListPreviewComponent implements OnInit {
   @Input() object: SearchResult<any>;
 
   /**
-   * Represent item's status
+   * Represent context
    */
-  @Input() status: MyDspaceItemStatusType;
+  @Input() context: Context;
 
   /**
    * A boolean representing if to show submitter information

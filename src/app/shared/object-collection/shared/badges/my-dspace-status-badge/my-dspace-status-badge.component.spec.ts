@@ -12,6 +12,7 @@ import { MyDspaceItemStatusType } from './my-dspace-item-status-type';
 import { TranslateLoaderMock } from '../../../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
 import { createSuccessfulRemoteDataObject } from '../../../../remote-data.utils';
+import { Context } from '../../../../../core/shared/context.model';
 
 let component: MyDSpaceStatusBadgeComponent;
 let fixture: ComponentFixture<MyDSpaceStatusBadgeComponent>;
@@ -52,37 +53,37 @@ describe('MyDSpaceItemStatusComponent', () => {
   });
 
   it('should init badge content and class', () => {
-    component.status = MyDspaceItemStatusType.VALIDATION;
+    component.context = Context.MyDSpaceValidation;
     fixture.detectChanges();
-    expect(component.badgeContent).toBe(MyDspaceItemStatusType.VALIDATION);
+    expect(component.badgeContent).toBe(Context.MyDSpaceValidation);
     expect(component.badgeClass).toBe('text-light badge badge-warning');
   });
 
   it('should init badge content and class', () => {
-    component.status = MyDspaceItemStatusType.WAITING_CONTROLLER;
+    component.context = Context.MyDSpaceWaitingController;
     fixture.detectChanges();
-    expect(component.badgeContent).toBe(MyDspaceItemStatusType.WAITING_CONTROLLER);
+    expect(component.badgeContent).toBe(Context.MyDSpaceWaitingController);
     expect(component.badgeClass).toBe('text-light badge badge-info');
   });
 
   it('should init badge content and class', () => {
-    component.status = MyDspaceItemStatusType.WORKSPACE;
+    component.context = Context.MyDSpaceWorkspace;
     fixture.detectChanges();
-    expect(component.badgeContent).toBe(MyDspaceItemStatusType.WORKSPACE);
+    expect(component.badgeContent).toBe(Context.MyDSpaceWorkspace);
     expect(component.badgeClass).toBe('text-light badge badge-primary');
   });
 
   it('should init badge content and class', () => {
-    component.status = MyDspaceItemStatusType.ARCHIVED;
+    component.context = Context.MyDSpaceArchived;
     fixture.detectChanges();
-    expect(component.badgeContent).toBe(MyDspaceItemStatusType.ARCHIVED);
+    expect(component.badgeContent).toBe(Context.MyDSpaceArchived);
     expect(component.badgeClass).toBe('text-light badge badge-success');
   });
 
   it('should init badge content and class', () => {
-    component.status = MyDspaceItemStatusType.WORKFLOW;
+    component.context = Context.MyDSpaceWorkflow;
     fixture.detectChanges();
-    expect(component.badgeContent).toBe(MyDspaceItemStatusType.WORKFLOW);
+    expect(component.badgeContent).toBe(Context.MyDSpaceWorkflow);
     expect(component.badgeClass).toBe('text-light badge badge-info');
   });
 });

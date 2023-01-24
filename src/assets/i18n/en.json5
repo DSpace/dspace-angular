@@ -2830,15 +2830,15 @@
 
   "mydspace.show.workspace": "Your Submissions",
 
-  "mydspace.status.archived": "Archived",
+  "mydspace.status.mydspaceArchived": "Archived",
 
-  "mydspace.status.validation": "Validation",
+  "mydspace.status.mydspaceValidation": "Validation",
 
-  "mydspace.status.waiting-for-controller": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Waiting for controller",
 
-  "mydspace.status.workflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Workflow",
 
-  "mydspace.status.workspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Workspace",
 
   "mydspace.title": "MyDSpace",
 

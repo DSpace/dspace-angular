@@ -8,7 +8,7 @@
     </ds-thumbnail>
   </span>
   <div class="card-body">
-    <ds-themed-badges *ngIf="showLabel" [object]="dso"></ds-themed-badges>
+    <ds-themed-badges *ngIf="showLabel" [object]="dso" [context]="context"></ds-themed-badges>
     <h4 class="card-title">{{dso.name}}</h4>
     <p *ngIf="dso.shortDescription" class="card-text">{{dso.shortDescription}}</p>
     <div *ngIf="linkType != linkTypes.None" class="text-center">

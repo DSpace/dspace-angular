@@ -15,4 +15,11 @@ export enum Context {
   AdminWorkflowSearch = 'adminWorkflowSearch',
   SideBarSearchModal = 'sideBarSearchModal',
   SideBarSearchModalCurrent = 'sideBarSearchModalCurrent',
+  MyDSpaceArchived = 'mydspaceArchived',
+  MyDSpaceWorkspace = 'mydspaceWorkspace',
+  MyDSpaceWorkflow = 'mydspaceWorkflow',
+  MyDSpaceDeclined = 'mydspaceDeclined',
+  MyDSpaceApproved = 'mydspaceApproved',
+  MyDSpaceWaitingController = 'mydspaceWaitingController',
+  MyDSpaceValidation = 'mydspaceValidation',
 }

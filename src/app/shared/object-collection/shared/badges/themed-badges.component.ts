@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { BadgesComponent } from './badges.component';
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { MyDspaceItemStatusType } from './my-dspace-status-badge/my-dspace-item-status-type';
+import { Context } from 'src/app/core/shared/context.model';
 
 /**
  * Themed wrapper for BadgesComponent
@@ -14,9 +14,10 @@ import { MyDspaceItemStatusType } from './my-dspace-status-badge/my-dspace-item-
 })
 export class ThemedBadgesComponent extends ThemedComponent<BadgesComponent> {
   @Input() object: DSpaceObject;
-  @Input() myDSpaceStatus: MyDspaceItemStatusType;
+  @Input() context: Context;
+  @Input() showAccessStatus = false;
 
-  protected inAndOutputNames: (keyof BadgesComponent & keyof this)[] = ['object', 'myDSpaceStatus'];
+  protected inAndOutputNames: (keyof BadgesComponent & keyof this)[] = ['object', 'context', 'showAccessStatus'];
 
   protected getComponentName(): string {
     return 'BadgesComponent';
