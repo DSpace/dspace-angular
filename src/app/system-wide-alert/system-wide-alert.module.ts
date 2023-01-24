@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { SystemWideAlertDataService } from '../core/data/system-wide-alert-data.service';
 import { SystemWideAlertRoutingModule } from './system-wide-alert-routing.module';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -13,6 +14,8 @@ import { UiSwitchModule } from 'ngx-ui-switch';
     SharedModule,
     UiSwitchModule,
     SystemWideAlertRoutingModule,
+    NgbTimepickerModule,
+    NgbDatepickerModule,
   ],
   exports: [
     SystemWideAlertBannerComponent
