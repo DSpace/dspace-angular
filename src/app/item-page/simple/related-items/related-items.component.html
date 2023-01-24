@@ -1,9 +1,9 @@
 <ds-metadata-field-wrapper [label]="label">
   <ng-container *ngFor="let objectPage of objects; let i = index">
     <ng-container *ngVar="(objectPage | async) as itemsRD">
-      <ds-themed-listable-object-component-loader *ngFor="let item of itemsRD?.payload?.page"
+      <ds-listable-object-component-loader *ngFor="let item of itemsRD?.payload?.page"
                                            [object]="item" [viewMode]="viewMode">
-      </ds-themed-listable-object-component-loader>
+      </ds-listable-object-component-loader>
       <ds-loading *ngIf="(i + 1) === objects.length && (itemsRD || i > 0) && !(itemsRD?.hasSucceeded && itemsRD?.payload && itemsRD?.payload?.page?.length > 0)" message="{{'loading.default' | translate}}"></ds-loading>
       <div class="d-inline-block w-100 mt-2" *ngIf="(i + 1) === objects.length && itemsRD?.payload?.page?.length > 0">
         <div *ngIf="itemsRD?.payload?.totalPages > objects.length" class="float-left" id="view-more">

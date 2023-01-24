@@ -62,7 +62,7 @@ describe('RelatedItemsComponent', () => {
   }));
 
   it(`should load ${mockItems.length} item-type-switcher components`, () => {
-    const fields = fixture.debugElement.queryAll(By.css('ds-themed-listable-object-component-loader'));
+    const fields = fixture.debugElement.queryAll(By.css('ds-listable-object-component-loader'));
     expect(fields.length).toBe(mockItems.length);
   });
 

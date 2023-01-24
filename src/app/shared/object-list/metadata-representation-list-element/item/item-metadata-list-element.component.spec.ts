@@ -28,7 +28,7 @@ describe('ItemMetadataListElementComponent', () => {
   }));
 
   it('should call a listable-object-component-loader component and pass the item-metadata-representation', () => {
-    const objectLoader = fixture.debugElement.query(By.css('ds-themed-listable-object-component-loader')).nativeElement;
+    const objectLoader = fixture.debugElement.query(By.css('ds-listable-object-component-loader')).nativeElement;
     expect(objectLoader.object).toBe(mockItemMetadataRepresentation);
   });
 

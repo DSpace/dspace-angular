@@ -173,7 +173,6 @@ import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-p
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
-import { ThemedListableObjectComponentLoaderComponent } from './object-collection/shared/listable-object/themed-listable-object-component-loader.component';
 import { StatusBadgeComponent } from './object-list/badges/status-badge/status-badge.component';
 import { BadgesComponent } from './object-list/badges/badges.component';
 import { ThemedBadgesComponent } from './object-list/badges/themed-badges.component';
@@ -292,7 +291,6 @@ const COMPONENTS = [
   CommunitySearchResultGridElementComponent,
   PageSizeSelectorComponent,
   ListableObjectComponentLoaderComponent,
-  ThemedListableObjectComponentLoaderComponent,
   CollectionListElementComponent,
   CommunityListElementComponent,
   CollectionGridElementComponent,
