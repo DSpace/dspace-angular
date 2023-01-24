@@ -40,8 +40,10 @@ import {
 } from './app/shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
-import { CollectionListElementComponent } from './app/shared/object-list/collection-list-element/collection-list-element.component';
+import { CollectionListElementComponent} from './app/shared/object-list/collection-list-element/collection-list-element.component';
 import { CollectionDropdownComponent } from './app/shared/collection-dropdown/collection-dropdown.component';
+import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
+import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 
 
 /**
@@ -77,18 +79,20 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    RootModule,
-    NavbarModule,
-    ItemPageModule,
-    ItemSharedModule,
-  ],
-  declarations: DECLARATIONS,
-  providers: [
-    ...ENTRY_COMPONENTS.map((component) => ({ provide: component }))
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        RootModule,
+        NavbarModule,
+        SharedBrowseByModule,
+        ResultsBackButtonModule,
+        ItemPageModule,
+        ItemSharedModule,
+    ],
+    declarations: DECLARATIONS,
+    providers: [
+        ...ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    ],
 })
 /**
  * This module is included in the main bundle that gets downloaded at first page load. So it should

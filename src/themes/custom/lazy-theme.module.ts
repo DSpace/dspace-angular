@@ -116,8 +116,11 @@ import { BrowseByTitlePageComponent } from './app/browse-by/browse-by-title-page
 import {
   ExternalSourceEntryImportModalComponent
 } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
+import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
 import { ItemSharedModule } from '../../app/item-page/item-shared.module';
+import { ResultsBackButtonComponent } from './app/shared/results-back-button/results-back-button.component';
 import { DsoEditMetadataComponent } from './app/dso-shared/dso-edit-metadata/dso-edit-metadata.component';
 import { DsoSharedModule } from '../../app/dso-shared/dso-shared.module';
 
@@ -174,6 +177,7 @@ const DECLARATIONS = [
   BrowseByDatePageComponent,
   BrowseByTitlePageComponent,
   ExternalSourceEntryImportModalComponent,
+  ResultsBackButtonComponent,
   DsoEditMetadataComponent,
 ];
 
@@ -215,6 +219,8 @@ const DECLARATIONS = [
     ScrollToModule,
     SearchPageModule,
     SharedModule,
+    SharedBrowseByModule,
+    ResultsBackButtonModule,
     StatisticsModule,
     StatisticsPageModule,
     StoreModule,
