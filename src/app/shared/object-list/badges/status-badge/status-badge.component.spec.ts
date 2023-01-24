@@ -6,37 +6,17 @@ import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { StatusBadgeComponent } from './status-badge.component';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 
 let comp: StatusBadgeComponent;
 let fixture: ComponentFixture<StatusBadgeComponent>;
 
-const type = 'authorOfPublication';
+let withdrawnItem = Object.assign(new Item(), { isWithdrawn: true });
+let notWithdrawnItem = Object.assign(new Item(), { isWithdrawn: false });
+let privateItem = Object.assign(new Item(), { isDiscoverable: false });
+let notPrivateItem = Object.assign(new Item(), { isDiscoverable: true });
 
-const mockItemWithEntityType = Object.assign(new Item(), {
-  bundles: observableOf({}),
-  metadata: {
-    'dspace.entity.type': [
-      {
-        language: 'en_US',
-        value: type
-      }
-    ]
-  }
-});
-
-const mockItemWithoutEntityType = Object.assign(new Item(), {
-  bundles: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
-  }
-});
-
-describe('ItemTypeBadgeComponent', () => {
+describe('ItemStatusBadgeComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
@@ -45,34 +25,69 @@ describe('ItemTypeBadgeComponent', () => {
     }).overrideComponent(StatusBadgeComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
+    init();
   }));
 
+  function init() {
+    withdrawnItem = Object.assign(new Item(), { isWithdrawn: true });
+    notWithdrawnItem = Object.assign(new Item(), { isWithdrawn: false });
+    privateItem = Object.assign(new Item(), { isDiscoverable: false });
+    notPrivateItem = Object.assign(new Item(), { isDiscoverable: true });
+  }
   beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(StatusBadgeComponent);
     comp = fixture.componentInstance;
   }));
 
-  describe('When the item has an entity type', () => {
+
+  describe('when the item is not withdrawn', () => {
     beforeEach(() => {
-      comp.object = mockItemWithEntityType;
+      comp.object = notWithdrawnItem;
+      comp.ngOnInit();
       fixture.detectChanges();
     });
 
-    it('should show the entity type badge', () => {
-      const badge = fixture.debugElement.query(By.css('span.badge'));
-      expect(badge.nativeElement.textContent).toContain(type.toLowerCase());
+    it('should not show the withdrawn badge', () => {
+      const badge = fixture.debugElement.query(By.css('div.withdrawn-badge'));
+      expect(badge).toBeNull();
     });
   });
 
-  describe('When the item has no entity type', () => {
+  describe('when the item is withdrawn', () => {
     beforeEach(() => {
-      comp.object = mockItemWithoutEntityType;
+      comp.object = withdrawnItem;
+      comp.ngOnInit();
       fixture.detectChanges();
     });
 
-    it('should show an item badge', () => {
-      const badge = fixture.debugElement.query(By.css('span.badge'));
-      expect(badge.nativeElement.textContent).toContain('item');
+    it('should show the withdrawn badge', () => {
+      const badge = fixture.debugElement.query(By.css('div.withdrawn-badge'));
+      expect(badge).not.toBeNull();
+    });
+  });
+
+  describe('when the item is not private', () => {
+    beforeEach(() => {
+      comp.object = notPrivateItem;
+      comp.ngOnInit();
+      fixture.detectChanges();
+    });
+    it('should not show the private badge', () => {
+      const badge = fixture.debugElement.query(By.css('div.private-badge'));
+      expect(badge).toBeNull();
+    });
+  });
+
+  describe('when the item is private', () => {
+    beforeEach(() => {
+      comp.object = privateItem;
+      comp.ngOnInit();
+      fixture.detectChanges();
+    });
+
+    it('should show the private badge', () => {
+      const badge = fixture.debugElement.query(By.css('div.private-badge'));
+      expect(badge).not.toBeNull();
     });
   });
 });

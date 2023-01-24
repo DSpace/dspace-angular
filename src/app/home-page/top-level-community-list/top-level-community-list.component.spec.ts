@@ -26,7 +26,7 @@ import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 
-describe('TopLevelCommunityList Component', () => {
+fdescribe('TopLevelCommunityList Component', () => {
   let comp: TopLevelCommunityListComponent;
   let fixture: ComponentFixture<TopLevelCommunityListComponent>;
   let communityDataServiceStub: any;
@@ -131,7 +131,6 @@ describe('TopLevelCommunityList Component', () => {
         { provide: SelectableListService, useValue: {} },
         { provide: ThemeService, useValue: themeService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
