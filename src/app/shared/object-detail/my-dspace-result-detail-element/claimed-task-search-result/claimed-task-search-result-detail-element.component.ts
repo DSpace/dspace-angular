@@ -7,7 +7,7 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { MyDspaceItemStatusType } from '../../../object-collection/shared/badges/my-dspace-status-badge/my-dspace-item-status-type';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { followLink } from '../../../utils/follow-link-config.model';

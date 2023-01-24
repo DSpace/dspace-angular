@@ -6,7 +6,7 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { MyDspaceItemStatusType } from '../../../object-collection/shared/badges/my-dspace-status-badge/my-dspace-item-status-type';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';

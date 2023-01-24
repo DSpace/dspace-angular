@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { hasValue } from '../../../empty.util';
+import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
+import { hasValue } from '../../../../empty.util';
 
 @Component({
   selector: 'ds-status-badge',

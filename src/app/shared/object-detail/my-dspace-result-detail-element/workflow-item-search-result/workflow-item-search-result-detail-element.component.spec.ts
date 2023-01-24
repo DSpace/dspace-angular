@@ -7,7 +7,7 @@ import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItemSearchResultDetailElementComponent } from './workflow-item-search-result-detail-element.component';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { MyDspaceItemStatusType } from '../../../object-collection/shared/badges/my-dspace-status-badge/my-dspace-item-status-type';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { getMockLinkService } from '../../../mocks/link-service.mock';

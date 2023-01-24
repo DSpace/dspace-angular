@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { MyDspaceItemStatusType } from '../../../object-collection/shared/badges/my-dspace-status-badge/my-dspace-item-status-type';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';

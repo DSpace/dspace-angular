@@ -79,6 +79,7 @@ describe('BrowseByComponent', () => {
     themeService = jasmine.createSpyObj('themeService', {
       getThemeName: 'dspace',
       getThemeName$: observableOf('dspace'),
+      getThemeConfigFor: undefined,
     });
     TestBed.configureTestingModule({
       imports: [

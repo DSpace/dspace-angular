@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { ItemListPreviewComponent } from './item-list-preview.component';
 import { Item } from '../../../../core/shared/item.model';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { MyDspaceItemStatusType } from '../../../object-collection/shared/badges/my-dspace-status-badge/my-dspace-item-status-type';
 import { SearchResult } from '../../../search/models/search-result.model';
 
 /**

@@ -86,9 +86,10 @@ import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { SearchFiltersComponent } from './app/shared/search/search-filters/search-filters.component';
 import { SearchSidebarComponent } from './app/shared/search/search-sidebar/search-sidebar.component';
-import { BadgesComponent } from './app/shared/object-list/badges/badges.component';
-import { StatusBadgeComponent } from './app/shared/object-list/badges/status-badge/status-badge.component';
-import { TypeBadgeComponent } from './app/shared/object-list/badges/type-badge/type-badge.component';
+import { MyDSpaceStatusBadgeComponent } from './app/shared/object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
+import { TypeBadgeComponent } from './app/shared/object-collection/shared/badges/type-badge/type-badge.component';
+import { StatusBadgeComponent } from './app/shared/object-collection/shared/badges/status-badge/status-badge.component';
+import { BadgesComponent } from './app/shared/object-collection/shared/badges/badges.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -137,6 +138,7 @@ const DECLARATIONS = [
   BadgesComponent,
   StatusBadgeComponent,
   TypeBadgeComponent,
+  MyDSpaceStatusBadgeComponent,
 ];
 
 @NgModule({

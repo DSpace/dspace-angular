@@ -10,7 +10,7 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { isNotUndefined } from '../../../empty.util';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { MyDspaceItemStatusType } from '../../../object-collection/shared/badges/my-dspace-status-badge/my-dspace-item-status-type';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';

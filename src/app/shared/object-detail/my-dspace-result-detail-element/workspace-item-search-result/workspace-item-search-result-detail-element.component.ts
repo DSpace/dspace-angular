@@ -8,7 +8,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { isNotUndefined } from '../../../empty.util';
 import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { MyDspaceItemStatusType } from '../../../object-collection/shared/badges/my-dspace-status-badge/my-dspace-item-status-type';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { WorkspaceItemSearchResult } from '../../../object-collection/shared/workspace-item-search-result.model';

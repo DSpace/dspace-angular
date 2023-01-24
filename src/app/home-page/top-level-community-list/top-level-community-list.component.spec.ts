@@ -18,15 +18,12 @@ import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
-import { of as observableOf } from 'rxjs';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 
-fdescribe('TopLevelCommunityList Component', () => {
+describe('TopLevelCommunityList Component', () => {
   let comp: TopLevelCommunityListComponent;
   let fixture: ComponentFixture<TopLevelCommunityListComponent>;
   let communityDataServiceStub: any;
@@ -131,6 +128,7 @@ fdescribe('TopLevelCommunityList Component', () => {
         { provide: SelectableListService, useValue: {} },
         { provide: ThemeService, useValue: themeService },
       ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 

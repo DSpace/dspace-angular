@@ -4,17 +4,17 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import { EPersonMock } from '../../../testing/eperson.mock';
-import { MyDSpaceItemStatusComponent } from './my-dspace-item-status.component';
+import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import { PoolTask } from '../../../../../core/tasks/models/pool-task-object.model';
+import { EPersonMock } from '../../../../testing/eperson.mock';
+import { MyDSpaceStatusBadgeComponent } from './my-dspace-status-badge.component';
 import { MyDspaceItemStatusType } from './my-dspace-item-status-type';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../../../remote-data.utils';
 
-let component: MyDSpaceItemStatusComponent;
-let fixture: ComponentFixture<MyDSpaceItemStatusComponent>;
+let component: MyDSpaceStatusBadgeComponent;
+let fixture: ComponentFixture<MyDSpaceStatusBadgeComponent>;
 
 let mockResultObject: PoolTask;
 
@@ -34,15 +34,15 @@ describe('MyDSpaceItemStatusComponent', () => {
           }
         })
       ],
-      declarations: [MyDSpaceItemStatusComponent],
+      declarations: [MyDSpaceStatusBadgeComponent],
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(MyDSpaceItemStatusComponent, {
+    }).overrideComponent(MyDSpaceStatusBadgeComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MyDSpaceItemStatusComponent);
+    fixture = TestBed.createComponent(MyDSpaceStatusBadgeComponent);
     component = fixture.componentInstance;
   });
 

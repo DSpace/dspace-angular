@@ -6,7 +6,7 @@ import { BitstreamDataService } from '../../../../core/data/bitstream-data.servi
 
 import { Item } from '../../../../core/shared/item.model';
 import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/operators';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { MyDspaceItemStatusType } from '../../../object-collection/shared/badges/my-dspace-status-badge/my-dspace-item-status-type';
 import { fadeInOut } from '../../../animations/fade';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { FileService } from '../../../../core/shared/file.service';

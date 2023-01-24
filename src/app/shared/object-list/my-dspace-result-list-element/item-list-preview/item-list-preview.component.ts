@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import { Item } from '../../../../core/shared/item.model';
 import { fadeInOut } from '../../../animations/fade';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { MyDspaceItemStatusType } from '../../../object-collection/shared/badges/my-dspace-status-badge/my-dspace-item-status-type';
 import { SearchResult } from '../../../search/models/search-result.model';
 
 /**

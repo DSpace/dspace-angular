@@ -5,11 +5,11 @@ import { MyDspaceItemStatusType } from './my-dspace-item-status-type';
  * This component represents a badge with mydspace item status
  */
 @Component({
-  selector: 'ds-mydspace-item-status',
-  styleUrls: ['./my-dspace-item-status.component.scss'],
-  templateUrl: './my-dspace-item-status.component.html'
+  selector: 'ds-my-dspace-status-badge',
+  styleUrls: ['./my-dspace-status-badge.component.scss'],
+  templateUrl: './my-dspace-status-badge.component.html'
 })
-export class MyDSpaceItemStatusComponent implements OnInit {
+export class MyDSpaceStatusBadgeComponent implements OnInit {
 
   /**
    * This mydspace item status

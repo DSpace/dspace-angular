@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BadgesComponent } from './badges.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ThemeService } from '../../../theme-support/theme.service';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
 
 describe('BadgesComponent', () => {
   let component: BadgesComponent;
@@ -8,7 +11,9 @@ describe('BadgesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BadgesComponent ]
+      declarations: [ BadgesComponent ],
+      providers: [{provide: ThemeService, useValue: getMockThemeService()}],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   });
