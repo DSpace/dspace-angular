@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { ProcessPageRoutingModule } from './process-page-routing.module';
 import { NewProcessComponent } from './new/new-process.component';
 import { ScriptsSelectComponent } from './form/scripts-select/scripts-select.component';
 import { ScriptHelpComponent } from './form/script-help/script-help.component';

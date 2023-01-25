@@ -8,7 +8,6 @@ import { WorkflowItem } from '../../../../../core/submission/models/workflowitem
 import { PoolTask } from '../../../../../core/tasks/models/pool-task-object.model';
 import { EPersonMock } from '../../../../testing/eperson.mock';
 import { MyDSpaceStatusBadgeComponent } from './my-dspace-status-badge.component';
-import { MyDspaceItemStatusType } from './my-dspace-item-status-type';
 import { TranslateLoaderMock } from '../../../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
 import { createSuccessfulRemoteDataObject } from '../../../../remote-data.utils';

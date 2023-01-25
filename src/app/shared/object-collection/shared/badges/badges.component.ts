@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Context } from 'src/app/core/shared/context.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { calcPossibleSecurityContexts } from '@angular/compiler/src/template_parser/binding_parser';
 
 const MY_DSPACE_STATUS_CONTEXTS = [
   Context.MyDSpaceArchived,

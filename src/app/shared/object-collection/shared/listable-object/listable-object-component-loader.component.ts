@@ -2,7 +2,6 @@ import {
   ChangeDetectorRef,
   Component,
   ComponentRef,
-  ElementRef,
   EventEmitter,
   Input,
   OnChanges,

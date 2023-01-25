@@ -11,7 +11,6 @@ import {
 import { ListableObjectDirective } from './listable-object.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
-import { Item } from '../../../../core/shared/item.model';
 import { provideMockStore } from '@ngrx/store/testing';
 import { ThemeService } from '../../../theme-support/theme.service';
 

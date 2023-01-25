@@ -6,7 +6,6 @@ import { hasValue } from '../../../../empty.util';
 import { environment } from 'src/environments/environment';
 import { AccessStatusDataService } from 'src/app/core/data/access-status-data.service';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
-import { ITEM_TYPE } from '../../../../../core/shared/item-relationships/item-type.resource-type';
 import { Item } from '../../../../../core/shared/item.model';
 import { ITEM } from '../../../../../core/shared/item.resource-type';
 
