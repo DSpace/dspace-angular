@@ -72,9 +72,20 @@ const mockItem = Object.assign(new Item(), {
 
 // Mock identifier data to use with tests
 const identifierData: WorkspaceitemSectionIdentifiersObject = {
-  doi: 'https://doi.org/10.33515/dspace/1',
-  handle: '123456789/999',
-  otherIdentifiers: ['123-123-123', 'ANBX-159']
+  identifiers: [{
+    value: 'https://doi.org/10.33515/dspace-61',
+    identifierType: 'doi',
+    identifierStatus: 'TO_BE_REGISTERED',
+    type: 'identifier'
+  },
+  {
+    value: '123456789/418',
+    identifierType: 'handle',
+    identifierStatus: null,
+    type: 'identifier'
+  }
+  ],
+  displayTypes: ["doi", "handle"]
 };
 
 // Mock section object to use with tests
