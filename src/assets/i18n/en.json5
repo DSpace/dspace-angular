@@ -1918,27 +1918,29 @@
 
   "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
 
-  "item.edit.identifiers.doi.status.1": "Queued for registration",
+  "item.edit.identifiers.doi.status.UNKNOWN": "Unknown",
 
-  "item.edit.identifiers.doi.status.2": "Queued for reservation",
+  "item.edit.identifiers.doi.status.TO_BE_REGISTERED": "Queued for registration",
 
-  "item.edit.identifiers.doi.status.3": "Registered",
+  "item.edit.identifiers.doi.status.TO_BE_RESERVED": "Queued for reservation",
 
-  "item.edit.identifiers.doi.status.4": "Reserved",
+  "item.edit.identifiers.doi.status.IS_REGISTERED": "Registered",
 
-  "item.edit.identifiers.doi.status.5": "Reserved",
+  "item.edit.identifiers.doi.status.IS_RESERVED": "Reserved",
 
-  "item.edit.identifiers.doi.status.6": "Registered",
+  "item.edit.identifiers.doi.status.UPDATE_RESERVED": "Reserved (update queued)",
 
-  "item.edit.identifiers.doi.status.7": "Queued for registration",
+  "item.edit.identifiers.doi.status.UPDATE_REGISTERED": "Registered (update queued)",
 
-  "item.edit.identifiers.doi.status.8": "Queued for deletion",
+  "item.edit.identifiers.doi.status.UPDATE_BEFORE_REGISTRATION": "Queued for update and registration",
 
-  "item.edit.identifiers.doi.status.9": "Deleted",
+  "item.edit.identifiers.doi.status.TO_BE_DELETED": "Queued for deletion",
 
-  "item.edit.identifiers.doi.status.10": "Pending approval",
+  "item.edit.identifiers.doi.status.DELETED": "Deleted",
 
-  "item.edit.identifiers.doi.status.11": "Minted, not registered",
+  "item.edit.identifiers.doi.status.PENDING": "Pending (not registered)",
+
+  "item.edit.identifiers.doi.status.MINTED": "Minted (not registered)",
 
   "item.edit.tabs.status.buttons.registerDOI.label": "Register a new or pending identifier",
 
