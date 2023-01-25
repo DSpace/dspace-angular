@@ -72,7 +72,8 @@ export class EpersonRegistrationService {
     options.headers = headers;
 
     if (hasValue(type)) {
-      options.params = type ? new HttpParams({ fromString: 'type=' + type }) : new HttpParams();
+      options.params = type ?
+        new HttpParams({ fromString: 'accountRequestType=' + type }) : new HttpParams();
     }
 
     href$.pipe(
