@@ -19,9 +19,9 @@ import {
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
-import { BrowseDefinitionDataService } from './browse-definition-data.service';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { BrowseDefinitionDataService } from './browse-definition-data.service';
 
 
 export const BROWSE_LINKS_TO_FOLLOW: FollowLinkConfig<BrowseEntry | Item>[] = [

@@ -16,7 +16,6 @@ import { dataService } from '../data/base/data-service.decorator';
 import { getPaginatedListPayload, getRemoteDataPayload } from '../shared/operators';
 import { RequestParam } from '../cache/models/request-param.model';
 import { SearchData, SearchDataImpl } from '../data/base/search-data';
-import { BrowseService } from './browse.service';
 import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 
@@ -30,6 +29,19 @@ import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseDefinition> implements FindAllData<BrowseDefinition>, SearchData<BrowseDefinition> {
   private findAllData: FindAllDataImpl<BrowseDefinition>;
   private searchData: SearchDataImpl<BrowseDefinition>;
+
+  public static toSearchKeyArray(metadataKey: string): string[] {
+    const keyParts = metadataKey.split('.');
+    const searchFor = [];
+    searchFor.push('*');
+    for (let i = 0; i < keyParts.length - 1; i++) {
+      const prevParts = keyParts.slice(0, i + 1);
+      const nextPart = [...prevParts, '*'].join('.');
+      searchFor.push(nextPart);
+    }
+    searchFor.push(metadataKey);
+    return searchFor;
+  }
 
   constructor(
     protected requestService: RequestService,
@@ -122,7 +134,7 @@ export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseD
   findByFields(metadataKeys: string[]): Observable<BrowseDefinition> {
     let searchKeyArray: string[] = [];
     metadataKeys.forEach((metadataKey) => {
-      searchKeyArray = searchKeyArray.concat(BrowseService.toSearchKeyArray(metadataKey));
+      searchKeyArray = searchKeyArray.concat(BrowseDefinitionDataService.toSearchKeyArray(metadataKey));
     });
     return this.findAll().pipe(
       getRemoteDataPayload(),
