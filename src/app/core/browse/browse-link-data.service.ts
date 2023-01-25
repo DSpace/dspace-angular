@@ -36,6 +36,7 @@ export class BrowseLinkDataService extends IdentifiableDataService<BrowseDefinit
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
+
   /**
    * Get all BrowseDefinitions
    */

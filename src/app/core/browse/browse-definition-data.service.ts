@@ -13,6 +13,12 @@ import { FindListOptions } from '../data/find-list-options.model';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { FindAllData, FindAllDataImpl } from '../data/base/find-all-data';
 import { dataService } from '../data/base/data-service.decorator';
+import { getPaginatedListPayload, getRemoteDataPayload } from '../shared/operators';
+import { RequestParam } from '../cache/models/request-param.model';
+import { SearchData, SearchDataImpl } from '../data/base/search-data';
+import { BrowseService } from './browse.service';
+import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 
 /**
  * Data service responsible for retrieving browse definitions from the REST server
@@ -21,8 +27,9 @@ import { dataService } from '../data/base/data-service.decorator';
   providedIn: 'root',
 })
 @dataService(BROWSE_DEFINITION)
-export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseDefinition> implements FindAllData<BrowseDefinition> {
+export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseDefinition> implements FindAllData<BrowseDefinition>, SearchData<BrowseDefinition> {
   private findAllData: FindAllDataImpl<BrowseDefinition>;
+  private searchData: SearchDataImpl<BrowseDefinition>;
 
   constructor(
     protected requestService: RequestService,
@@ -52,5 +59,91 @@ export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseD
   findAll(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<BrowseDefinition>[]): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
     return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
+
+  /**
+   * Make a new FindListRequest with given search method
+   *
+   * @param searchMethod                The search method for the object
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
+  public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<BrowseDefinition>[]): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Create the HREF for a specific object's search method with given options object
+   *
+   * @param searchMethod The search method for the object
+   * @param options The [[FindListOptions]] object
+   * @return {Observable<string>}
+   *    Return an observable that emits created HREF
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  public getSearchByHref(searchMethod: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<BrowseDefinition>[]): Observable<string> {
+    return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
+  }
+
+  findByField(
+    field: string,
+    useCachedVersionIfAvailable = true,
+    reRequestOnStale = true,
+    ...linksToFollow: FollowLinkConfig<BrowseDefinition>[]
+  ): Observable<RemoteData<BrowseDefinition>> {
+    const searchParams = [];
+    searchParams.push(new RequestParam('field', field));
+
+    const hrefObs = this.getSearchByHref(
+      'byField',
+      { searchParams },
+      ...linksToFollow
+    );
+
+    return this.findByHref(
+      hrefObs,
+      useCachedVersionIfAvailable,
+      reRequestOnStale,
+      ...linksToFollow,
+    );
+  }
+
+  /**
+   * Get the browse URL by providing a list of metadata keys
+   * @param metadatumKey
+   * @param linkPath
+   */
+  findByFields(metadataKeys: string[]): Observable<BrowseDefinition> {
+    let searchKeyArray: string[] = [];
+    metadataKeys.forEach((metadataKey) => {
+      searchKeyArray = searchKeyArray.concat(BrowseService.toSearchKeyArray(metadataKey));
+    });
+    return this.findAll().pipe(
+      getRemoteDataPayload(),
+      getPaginatedListPayload(),
+      map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
+        .find((def: BrowseDefinition) => {
+          const matchingKeys = def.metadataKeys.find((key: string) => searchKeyArray.indexOf(key) >= 0);
+          return isNotEmpty(matchingKeys);
+        })
+      ),
+      map((def: BrowseDefinition) => {
+        if (isEmpty(def) || isEmpty(def.id)) {
+          //throw new Error(`A browse definition for field ${metadataKey} isn't configured`);
+        } else {
+          return def;
+        }
+      }),
+      startWith(undefined),
+      distinctUntilChanged()
+    );
+  }
+
 }
 
