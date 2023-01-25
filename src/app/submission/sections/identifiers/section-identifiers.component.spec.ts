@@ -85,7 +85,7 @@ const identifierData: WorkspaceitemSectionIdentifiersObject = {
     type: 'identifier'
   }
   ],
-  displayTypes: ["doi", "handle"]
+  displayTypes: ['doi', 'handle']
 };
 
 // Mock section object to use with tests
