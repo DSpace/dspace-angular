@@ -1,5 +1,5 @@
 <div *ngIf="item" class="item-page" @fadeInOut>
-  <ds-themed-badges [object]="object" [myDSpaceStatus]="status"></ds-themed-badges>
+  <ds-themed-badges [object]="item" [myDSpaceStatus]="status"></ds-themed-badges>
   <div *ngIf="item">
     <h2 class="item-page-title-field">
       <ds-metadata-values *ngIf="item.hasMetadata('dc.title')" [mdValues]="item?.allMetadata('dc.title')"></ds-metadata-values>
