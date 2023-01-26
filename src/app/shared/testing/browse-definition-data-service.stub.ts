@@ -11,6 +11,8 @@ import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
 import { isEmpty, isNotEmpty } from '../empty.util';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { FollowLinkConfig } from '../utils/follow-link-config.model';
+import { RequestParam } from '../../core/cache/models/request-param.model';
 
 // This data is in post-serialized form (metadata -> metadataKeys)
 export const mockData: BrowseDefinition[] = [
@@ -63,29 +65,13 @@ export const BrowseDefinitionDataServiceStub: any = {
    * @param metadatumKey
    * @param linkPath
    */
-  findByFields(metadataKeys: string[]): Observable<BrowseDefinition> {
+  findByFields(metadataKeys: string[]): Observable<RemoteData<BrowseDefinition>> {
     let searchKeyArray: string[] = [];
     metadataKeys.forEach((metadataKey) => {
       searchKeyArray = searchKeyArray.concat(BrowseService.toSearchKeyArray(metadataKey));
     });
-    return this.findAllLinked().pipe(
-      getRemoteDataPayload(),
-      getPaginatedListPayload(),
-      map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
-        .find((def: BrowseDefinition) => {
-          const matchingKeys = def.metadataKeys.find((key: string) => searchKeyArray.indexOf(key) >= 0);
-          return isNotEmpty(matchingKeys);
-        })
-      ),
-      map((def: BrowseDefinition) => {
-        if (isEmpty(def) || isEmpty(def.id)) {
-          //throw new Error(`A browse definition for field ${metadataKey} isn't configured`);
-        } else {
-          return def;
-        }
-      }),
-      startWith(undefined),
-      distinctUntilChanged()
-    );
+    // Return just the first, as a pretend match
+    return observableOf(createSuccessfulRemoteDataObject(mockData[0]));
   }
+
 };
