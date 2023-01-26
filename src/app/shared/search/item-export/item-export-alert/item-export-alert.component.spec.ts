@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { ItemExportAlertComponent } from './item-export-alert.component';
-import { Component, Input } from '@angular/core';
+import { Component, Input, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
@@ -19,7 +19,10 @@ describe('ItemExportAlertComponent', () => {
         TranslateModule.forRoot({ loader: { provide: TranslateLoader,  useClass: TranslateLoaderMock }})
       ],
       providers: [ DSONameService ],
-      declarations: [ItemExportAlertComponent]
+      declarations: [ItemExportAlertComponent],
+      schemas: [
+        NO_ERRORS_SCHEMA
+      ]
     })
       .compileComponents();
   }));
