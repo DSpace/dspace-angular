@@ -17,6 +17,9 @@ import {AlertType} from '../shared/alert/aletr-type';
 import {KlaroService} from '../shared/cookies/klaro.service';
 import {CookieService} from '../core/services/cookie.service';
 
+export const TYPE_REQUEST_FORGOT = 'forgot';
+export const TYPE_REQUEST_REGISTER = 'register';
+
 @Component({
   selector: 'ds-register-email-form',
   templateUrl: './register-email-form.component.html'
@@ -58,7 +61,7 @@ export class RegisterEmailFormComponent implements OnInit {
   disableUntilChecked = true;
 
   validMailDomains: string[];
-
+  TYPE_REQUEST_REGISTER = TYPE_REQUEST_REGISTER;
 
   captchaVersion(): Observable<string> {
     return this.googleRecaptchaService.captchaVersion();
@@ -86,6 +89,7 @@ export class RegisterEmailFormComponent implements OnInit {
   ngOnInit(): void {
     const validators: ValidatorFn[] = [
       Validators.required,
+      Validators.email,
       // Regex pattern borrowed from HTML5 specs for a valid email address:
       // https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
       Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$')
@@ -102,10 +106,10 @@ export class RegisterEmailFormComponent implements OnInit {
         if (remoteData.payload) {
           for (const remoteValue of remoteData.payload.values) {
             this.validMailDomains.push(remoteValue);
-            if (this.validMailDomains.length !== 0 && this.MESSAGE_PREFIX === 'register-page.registration') {
+            if (this.validMailDomains.length !== 0 && this.typeRequest === TYPE_REQUEST_REGISTER) {
               this.form.get('email').setValidators([
                 ...validators,
-                Validators.pattern(this.validMailDomains.map((domain: string) => '(^.*@' + domain.replace(new RegExp('\\.', 'g'), '\\.') + '$)').join('|')),
+                Validators.pattern(this.validMailDomains.map((domain: string) => '(^.*' + domain.replace(new RegExp('\\.', 'g'), '\\.') + '$)').join('|')),
               ]);
               this.form.updateValueAndValidity();
             }

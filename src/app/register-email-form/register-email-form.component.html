@@ -18,8 +18,11 @@
                     <span *ngIf="email.errors && email.errors.required">
                         {{ MESSAGE_PREFIX + '.email.error.required' | translate }}
                     </span>
-                    <span *ngIf="email.errors && email.errors.pattern">
-                        {{ MESSAGE_PREFIX + '.email.error.pattern' | translate }}
+                    <span *ngIf="email.errors && ((email.errors.pattern && this.typeRequest === TYPE_REQUEST_REGISTER) || email.errors.email)">
+                        {{ MESSAGE_PREFIX + '.email.error.not-email-form' | translate }}
+                    </span>
+                    <span *ngIf="email.errors && email.errors.pattern && this.typeRequest === TYPE_REQUEST_REGISTER">
+                        {{ MESSAGE_PREFIX + '.email.error.not-valid-domain' | translate: { domains: validMailDomains } }}
                     </span>
                     </div>
                 </div>
