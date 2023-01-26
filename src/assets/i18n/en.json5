@@ -1406,7 +1406,7 @@
 
   "forgot-email.form.email.error.required": "Please fill in an email address",
 
-  "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
+  "forgot-email.form.email.error.not-email-form": "Please fill in a valid email address",
 
   "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
 
@@ -3013,7 +3013,9 @@
 
   "register-page.registration.email.error.required": "Please fill in an email address",
 
-  "register-page.registration.email.error.pattern": "Please fill in a valid email address",
+  "register-page.registration.email.error.not-email-form": "Please fill in a valid email address. ",
+
+  "register-page.registration.email.error.not-valid-domain": "Use email with allowed domains: {{ domains }}",
 
   "register-page.registration.email.hint": "This address will be verified and used as your login name.",
 
