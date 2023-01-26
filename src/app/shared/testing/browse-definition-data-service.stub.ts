@@ -2,17 +2,9 @@ import { EMPTY, Observable, of as observableOf } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import {
-  getPaginatedListPayload,
-  getRemoteDataPayload
-} from '../../core/shared/operators';
 import { BrowseService } from '../../core/browse/browse.service';
-import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
-import { isEmpty, isNotEmpty } from '../empty.util';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { FollowLinkConfig } from '../utils/follow-link-config.model';
-import { RequestParam } from '../../core/cache/models/request-param.model';
 
 // This data is in post-serialized form (metadata -> metadataKeys)
 export const mockData: BrowseDefinition[] = [
