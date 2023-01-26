@@ -80,12 +80,6 @@ export const mockRouteService = {
   }
 };
 
-export const mockBrowseService = {
-  getBrowseDefinitions(): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
-    return observableOf(createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), [])));
-  },
-}
-
 /**
  * Create a generic test for an item-page-fields component using a mockItem and the type of component
  * @param {Item} mockItem     The item to use for testing. The item needs to contain just the metadata necessary to

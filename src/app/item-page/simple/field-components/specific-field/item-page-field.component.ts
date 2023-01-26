@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import { getPaginatedListPayload, getRemoteDataPayload } from '../../../../core/shared/operators';
+import { getRemoteDataPayload } from '../../../../core/shared/operators';
 
 /**
  * This component can be used to represent metadata on a simple item page.

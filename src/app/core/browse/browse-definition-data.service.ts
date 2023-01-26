@@ -13,11 +13,8 @@ import { FindListOptions } from '../data/find-list-options.model';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { FindAllData, FindAllDataImpl } from '../data/base/find-all-data';
 import { dataService } from '../data/base/data-service.decorator';
-import { getPaginatedListPayload, getRemoteDataPayload } from '../shared/operators';
 import { RequestParam } from '../cache/models/request-param.model';
 import { SearchData, SearchDataImpl } from '../data/base/search-data';
-import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 
 /**
  * Data service responsible for retrieving browse definitions from the REST server
