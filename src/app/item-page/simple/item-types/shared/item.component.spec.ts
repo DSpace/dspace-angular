@@ -40,11 +40,9 @@ import { VersionHistoryDataService } from '../../../../core/data/version-history
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { ResearcherProfileDataService } from '../../../../core/profile/researcher-profile-data.service';
-import { BrowseService } from '../../../../core/browse/browse.service';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import {
-  BrowseDefinitionDataServiceStub,
-  browseServiceStub,
+  BrowseDefinitionDataServiceStub
 } from '../../../../shared/testing/browse-definition-data-service.stub';
 
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
@@ -135,7 +133,6 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           { provide: AuthorizationDataService, useValue: authorizationService },
           { provide: ResearcherProfileDataService, useValue: {} },
           { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
-          { provide: BrowseService, useValue: browseServiceStub }
         ],
 
         schemas: [NO_ERRORS_SCHEMA]
@@ -455,7 +452,6 @@ describe('ItemComponent', () => {
           { provide: RouteService, useValue: mockRouteService },
           { provide: AuthorizationDataService, useValue: {} },
           { provide: ResearcherProfileDataService, useValue: {} },
-          { provide: BrowseService, useValue: browseServiceStub }
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).overrideComponent(ItemComponent, {

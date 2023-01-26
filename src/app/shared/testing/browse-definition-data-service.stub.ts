@@ -38,12 +38,6 @@ export const mockData: BrowseDefinition[] = [
     })
 ];
 
-export const browseServiceStub = {
-  getBrowseDefinitions(): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
-    return observableOf(createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), mockData)));
-  },
-};
-
 export const BrowseDefinitionDataServiceStub: any = {
 
   /**

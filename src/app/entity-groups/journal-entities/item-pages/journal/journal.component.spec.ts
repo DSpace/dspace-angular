@@ -36,10 +36,8 @@ import { WorkspaceitemDataService } from '../../../../core/submission/workspacei
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { mockRouteService } from '../../../../item-page/simple/item-types/shared/item.component.spec';
 import {
-  BrowseDefinitionDataServiceStub,
-  browseServiceStub,
+  BrowseDefinitionDataServiceStub
 } from '../../../../shared/testing/browse-definition-data-service.stub';
-import { BrowseService } from '../../../../core/browse/browse.service';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 
 let comp: JournalComponent;
@@ -107,7 +105,6 @@ describe('JournalComponent', () => {
         { provide: WorkspaceitemDataService, useValue: {} },
         { provide: SearchService, useValue: {} },
         { provide: RouteService, useValue: mockRouteService },
-        { provide: BrowseService, useValue: browseServiceStub },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
       ],
 

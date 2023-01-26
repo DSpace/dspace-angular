@@ -38,10 +38,8 @@ import { WorkspaceitemDataService } from '../../../../core/submission/workspacei
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import {
-  BrowseDefinitionDataServiceStub,
-  browseServiceStub,
+  BrowseDefinitionDataServiceStub
 } from '../../../../shared/testing/browse-definition-data-service.stub';
-import { BrowseService } from '../../../../core/browse/browse.service';
 
 const noMetadata = new MetadataMap();
 
@@ -95,7 +93,6 @@ describe('PublicationComponent', () => {
         { provide: SearchService, useValue: {} },
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
-        { provide: BrowseService, useValue: browseServiceStub },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

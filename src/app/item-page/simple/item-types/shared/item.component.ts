@@ -4,11 +4,9 @@ import { Item } from '../../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
 import { RouteService } from '../../../../core/services/route.service';
 import { Observable } from 'rxjs';
-import { BrowseService } from '../../../../core/browse/browse.service';
 import { getDSpaceQuery, isIiifEnabled, isIiifSearchEnabled } from './item-iiif-utils';
 import { filter, map, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 
 @Component({
   selector: 'ds-item',
@@ -51,14 +49,10 @@ export class ItemComponent implements OnInit {
    */
   iiifQuery$: Observable<string>;
 
-  browseDefinitions: BrowseDefinition[];
-  browseDefinitions$: Observable<BrowseDefinition[]>;
-
   mediaViewer;
 
   constructor(protected routeService: RouteService,
-              protected router: Router,
-              protected browseService: BrowseService) {
+              protected router: Router) {
     this.mediaViewer = environment.mediaViewer;
   }
 
@@ -90,9 +84,5 @@ export class ItemComponent implements OnInit {
     if (this.iiifSearchEnabled) {
       this.iiifQuery$ = getDSpaceQuery(this.object, this.routeService);
     }
-    // get browse definitions
-    this.browseDefinitions$ = this.browseService.getBrowseDefinitions().pipe(
-      map((data) => data.payload.page as BrowseDefinition[])
-    );
   }
 }
