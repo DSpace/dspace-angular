@@ -3,7 +3,7 @@ import {EpersonRegistrationService} from '../core/data/eperson-registration.serv
 import {NotificationsService} from '../shared/notifications/notifications.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Router} from '@angular/router';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, ValidatorFn } from '@angular/forms';
 import {Registration} from '../core/shared/registration.model';
 import {RemoteData} from '../core/data/remote-data';
 import {ConfigurationDataService} from '../core/data/configuration-data.service';
@@ -84,24 +84,34 @@ export class RegisterEmailFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const validators: ValidatorFn[] = [
+      Validators.required,
+      // Regex pattern borrowed from HTML5 specs for a valid email address:
+      // https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
+      Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$')
+    ];
     this.form = this.formBuilder.group({
       email: new FormControl('', {
-        validators: [Validators.required,
-          // Regex pattern borrowed from HTML5 specs for a valid email address:
-          // https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
-          Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$')
-        ],
+        validators: validators,
       })
     });
     this.validMailDomains = [];
     this.configService.findByPropertyName('authentication-password.domain.valid')
       .pipe(getAllCompletedRemoteData())
-      .subscribe((remoteData) => {
+      .subscribe((remoteData: RemoteData<ConfigurationProperty>) => {
+        if (remoteData.payload) {
           for (const remoteValue of remoteData.payload.values) {
             this.validMailDomains.push(remoteValue);
+            if (this.validMailDomains.length !== 0 && this.MESSAGE_PREFIX === 'register-page.registration') {
+              this.form.get('email').setValidators([
+                ...validators,
+                Validators.pattern(this.validMailDomains.map((domain: string) => '(^.*@' + domain.replace(new RegExp('\\.', 'g'), '\\.') + '$)').join('|')),
+              ]);
+              this.form.updateValueAndValidity();
+            }
           }
         }
-      );
+      });
     this.configService.findByPropertyName('registration.verification.enabled').pipe(
       getFirstSucceededRemoteDataPayload(),
       map((res: ConfigurationProperty) => res?.values[0].toLowerCase() === 'true')

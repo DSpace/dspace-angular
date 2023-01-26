@@ -3284,7 +3284,7 @@
   "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
 
   "register-page.registration.google-recaptcha.must-accept-cookies": "In order to register you must accept the <b>Registration and Password recovery</b> (Google reCaptcha) cookies.",
-  "register-page.registration.error.maildomain": "this email address is not on the list of domains who can register. Allowed domains are {{ domains }}",
+  "register-page.registration.error.maildomain": "This email address is not on the list of domains who can register. Allowed domains are {{ domains }}",
 
 
   "register-page.registration.google-recaptcha.open-cookie-settings": "Open cookie settings",
