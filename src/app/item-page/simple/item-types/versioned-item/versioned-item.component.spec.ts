@@ -21,6 +21,10 @@ import { Version } from '../../../../core/shared/version.model';
 import { RouteService } from '../../../../core/services/route.service';
 import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
 import { ItemSharedModule } from '../../../item-shared.module';
+import {
+  browseServiceStub,
+} from '../../../../shared/testing/browse-definition-data-service.stub';
+import { BrowseService } from '../../../../core/browse/browse.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
@@ -77,7 +81,8 @@ describe('VersionedItemComponent', () => {
         { provide: WorkspaceitemDataService, useValue: {} },
         { provide: SearchService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
-        { provide: RouteService, useValue: mockRouteService }
+        { provide: RouteService, useValue: mockRouteService },
+        { provide: BrowseService, useValue: browseServiceStub },
       ]
     }).compileComponents();
     versionService = TestBed.inject(VersionDataService);

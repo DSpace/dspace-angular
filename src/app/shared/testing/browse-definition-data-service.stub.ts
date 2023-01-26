@@ -36,25 +36,39 @@ export const mockData: BrowseDefinition[] = [
     })
 ];
 
+export const browseServiceStub = {
+  getBrowseDefinitions(): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
+    return observableOf(createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), mockData)));
+  },
+}
 
-export const browseLinkDataServiceStub: any = {
+export const BrowseDefinitionDataServiceStub: any = {
+
   /**
    * Get all BrowseDefinitions
    */
-  getBrowseLinks(): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
+  findAll(): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
     return observableOf(createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), mockData)));
   },
+
+  /**
+   * Get all BrowseDefinitions with any link configuration
+   */
+  findAllLinked(): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
+    return observableOf(createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), mockData)));
+  },
+
   /**
    * Get the browse URL by providing a list of metadata keys
    * @param metadatumKey
    * @param linkPath
    */
-  getBrowseLinkFor(metadataKeys: string[]): Observable<BrowseDefinition> {
+  findByFields(metadataKeys: string[]): Observable<BrowseDefinition> {
     let searchKeyArray: string[] = [];
     metadataKeys.forEach((metadataKey) => {
       searchKeyArray = searchKeyArray.concat(BrowseService.toSearchKeyArray(metadataKey));
     });
-    return this.getBrowseLinks().pipe(
+    return this.findAllLinked().pipe(
       getRemoteDataPayload(),
       getPaginatedListPayload(),
       map((browseDefinitions: BrowseDefinition[]) => browseDefinitions

@@ -23,7 +23,10 @@ import { UUIDService } from '../../../../core/shared/uuid.service';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../../shared/remote-data.utils';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
@@ -38,13 +41,18 @@ import { VersionHistoryDataService } from '../../../../core/data/version-history
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { ResearcherProfileDataService } from '../../../../core/profile/researcher-profile-data.service';
-import { BrowseLinkDataService } from '../../../../core/browse/browse-link-data.service';
-import { browseLinkDataServiceStub } from '../../../../shared/testing/browse-link-data-service.stub';
+import { BrowseService } from '../../../../core/browse/browse.service';
+import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
+import {
+  BrowseDefinitionDataServiceStub,
+  browseServiceStub,
+} from '../../../../shared/testing/browse-definition-data-service.stub';
 
-import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { Router } from '@angular/router';
 import { ItemComponent } from './item.component';
+import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 
 export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
   return Object.assign(new MetadataValue(), {
@@ -71,6 +79,12 @@ export const mockRouteService = {
     return observableOf('');
   }
 };
+
+export const mockBrowseService = {
+  getBrowseDefinitions(): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
+    return observableOf(createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), [])));
+  },
+}
 
 /**
  * Create a generic test for an item-page-fields component using a mockItem and the type of component
@@ -128,7 +142,8 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           { provide: RouteService, useValue: mockRouteService },
           { provide: AuthorizationDataService, useValue: authorizationService },
           { provide: ResearcherProfileDataService, useValue: {} },
-          { provide: BrowseLinkDataService, useValue: browseLinkDataServiceStub }
+          { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+          { provide: BrowseService, useValue: browseServiceStub }
         ],
 
         schemas: [NO_ERRORS_SCHEMA]
@@ -447,7 +462,8 @@ describe('ItemComponent', () => {
           { provide: SearchService, useValue: {} },
           { provide: RouteService, useValue: mockRouteService },
           { provide: AuthorizationDataService, useValue: {} },
-          { provide: ResearcherProfileDataService, useValue: {} }
+          { provide: ResearcherProfileDataService, useValue: {} },
+          { provide: BrowseService, useValue: browseServiceStub }
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).overrideComponent(ItemComponent, {

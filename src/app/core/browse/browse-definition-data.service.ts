@@ -50,7 +50,7 @@ export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseD
     protected halService: HALEndpointService,
   ) {
     super('browses', requestService, rdbService, objectCache, halService);
-
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
@@ -126,34 +126,52 @@ export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseD
     );
   }
 
+  findAllLinked(
+    useCachedVersionIfAvailable = true,
+    reRequestOnStale = true,
+    ...linksToFollow: FollowLinkConfig<BrowseDefinition>[]
+  ): Observable<RemoteData<BrowseDefinition>> {
+    const searchParams = [];
+
+    const hrefObs = this.getSearchByHref(
+      'allLinked',
+      { searchParams },
+      ...linksToFollow
+    );
+
+    return this.findByHref(
+      hrefObs,
+      useCachedVersionIfAvailable,
+      reRequestOnStale,
+      ...linksToFollow,
+    );
+  }
+
   /**
    * Get the browse URL by providing a list of metadata keys
    * @param metadatumKey
    * @param linkPath
    */
-  findByFields(metadataKeys: string[]): Observable<BrowseDefinition> {
-    let searchKeyArray: string[] = [];
-    metadataKeys.forEach((metadataKey) => {
-      searchKeyArray = searchKeyArray.concat(BrowseDefinitionDataService.toSearchKeyArray(metadataKey));
-    });
-    return this.findAll().pipe(
-      getRemoteDataPayload(),
-      getPaginatedListPayload(),
-      map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
-        .find((def: BrowseDefinition) => {
-          const matchingKeys = def.metadataKeys.find((key: string) => searchKeyArray.indexOf(key) >= 0);
-          return isNotEmpty(matchingKeys);
-        })
-      ),
-      map((def: BrowseDefinition) => {
-        if (isEmpty(def) || isEmpty(def.id)) {
-          //throw new Error(`A browse definition for field ${metadataKey} isn't configured`);
-        } else {
-          return def;
-        }
-      }),
-      startWith(undefined),
-      distinctUntilChanged()
+  findByFields(
+    fields: string[],
+    useCachedVersionIfAvailable = true,
+    reRequestOnStale = true,
+    ...linksToFollow: FollowLinkConfig<BrowseDefinition>[]
+  ): Observable<RemoteData<BrowseDefinition>> {
+    const searchParams = [];
+    searchParams.push(new RequestParam('fields', fields));
+
+    const hrefObs = this.getSearchByHref(
+      'byFields',
+      { searchParams },
+      ...linksToFollow
+    );
+
+    return this.findByHref(
+      hrefObs,
+      useCachedVersionIfAvailable,
+      reRequestOnStale,
+      ...linksToFollow,
     );
   }
 

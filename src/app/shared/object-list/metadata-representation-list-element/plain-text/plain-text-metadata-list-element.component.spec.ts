@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { PlainTextMetadataListElementComponent } from './plain-text-metadata-list-element.component';
 import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { By } from '@angular/platform-browser';
-import { mockData } from '../../../testing/browse-link-data-service.stub';
+import { mockData } from '../../../testing/browse-definition-data-service.stub';
 
 // Render the mock representation with the default mock author browse definition so it is also rendered as a link
 // without affecting other tests

@@ -24,7 +24,6 @@ import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { AuthenticatedGuard } from './auth/authenticated.guard';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { BrowseService } from './browse/browse.service';
-import { BrowseLinkDataService } from './browse/browse-link-data.service';
 import { RemoteDataBuildService } from './cache/builders/remote-data-build.service';
 import { ObjectCacheService } from './cache/object-cache.service';
 import { SubmissionDefinitionsModel } from './config/models/config-submission-definitions.model';
@@ -222,7 +221,6 @@ const PROVIDERS = [
   MyDSpaceResponseParsingService,
   ServerResponseService,
   BrowseService,
-  BrowseLinkDataService,
   AccessStatusDataService,
   SubmissionCcLicenseDataService,
   SubmissionCcLicenseUrlDataService,

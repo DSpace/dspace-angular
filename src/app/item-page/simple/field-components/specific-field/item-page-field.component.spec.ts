@@ -12,9 +12,9 @@ import { environment } from '../../../../../environments/environment';
 import { MarkdownPipe } from '../../../../shared/utils/markdown.pipe';
 import { SharedModule } from '../../../../shared/shared.module';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { BrowseLinkDataService } from '../../../../core/browse/browse-link-data.service';
-import { browseLinkDataServiceStub } from '../../../../shared/testing/browse-link-data-service.stub';
 import { By } from '@angular/platform-browser';
+import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
+import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
 
 let comp: ItemPageFieldComponent;
 let fixture: ComponentFixture<ItemPageFieldComponent>;
@@ -49,7 +49,7 @@ describe('ItemPageFieldComponent', () => {
       ],
       providers: [
         { provide: APP_CONFIG, useValue: appConfig },
-        { provide: BrowseLinkDataService, useValue: browseLinkDataServiceStub }
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
       ],
       declarations: [ItemPageFieldComponent, MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA]

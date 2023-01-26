@@ -3,7 +3,8 @@ import { Item } from '../../../../core/shared/item.model';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
-import { BrowseLinkDataService } from '../../../../core/browse/browse-link-data.service';
+import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
+import { getPaginatedListPayload, getRemoteDataPayload } from '../../../../core/shared/operators';
 
 /**
  * This component can be used to represent metadata on a simple item page.
@@ -16,7 +17,7 @@ import { BrowseLinkDataService } from '../../../../core/browse/browse-link-data.
 })
 export class ItemPageFieldComponent {
 
-    constructor(protected browseLinkDataService: BrowseLinkDataService) {
+    constructor(protected browseDefinitionDataService: BrowseDefinitionDataService) {
     }
 
     /**
@@ -55,7 +56,9 @@ export class ItemPageFieldComponent {
      * link in dspace.cfg (webui.browse.link.<n>)
      */
     get browseDefinition(): Observable<BrowseDefinition> {
-        return this.browseLinkDataService.getBrowseLinkFor(this.fields).pipe(
-          map((def) => def));
+      return this.browseDefinitionDataService.findByFields(this.fields).pipe(
+        getRemoteDataPayload(),
+        map((def) => def)
+      );
     }
 }
