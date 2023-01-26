@@ -24,7 +24,6 @@ import { isNotEmpty } from '../../../../shared/empty.util';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import {
-  createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../../../shared/remote-data.utils';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
@@ -48,11 +47,10 @@ import {
   browseServiceStub,
 } from '../../../../shared/testing/browse-definition-data-service.stub';
 
-import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
+import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { Router } from '@angular/router';
 import { ItemComponent } from './item.component';
-import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 
 export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
   return Object.assign(new MetadataValue(), {
