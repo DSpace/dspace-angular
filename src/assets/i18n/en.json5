@@ -3216,11 +3216,15 @@
 
   "item-export.modal-launcher.multiple.btn": "Export",
 
-  "item-export.alert.single": "Export item ",
+  "item-export.alert.single": "Export item <b>{{title}}</b>",
 
   "item-export.alert.multiple": "Export all items of a particular entity type belonging to the current search.",
 
+  "item-export.alert.multiple-with-type": "Export all items with type <b>{{type}}</b> belonging to the current search.",
+
   "item-export.alert.export.limit": "This export will be limited to a maximum of {{limit}} items.",
+
+  "item-export.cannot-msg": "There are no items to export with the selected configuration",
 
   "item-export.form.entityType": "Entity Type",
 
@@ -3233,6 +3237,14 @@
   "item-export.form.btn.submit": "Export",
 
   "item-export.form.btn.cancel": "Cancel",
+
+  "item-export.form.selection": "Export mode",
+
+  "item-export.form.selection.all": "Export all",
+
+  "item-export.form.selection.only-selected": "Export only selected",
+
+  "item-export.modal.title": "Item Export Process Launcher",
 
   "item-export.process.title": "Bulk export item",
 
