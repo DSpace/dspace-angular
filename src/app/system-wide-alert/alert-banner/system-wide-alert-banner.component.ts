@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
 import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { filter, map, switchMap } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { SystemWideAlert } from '../system-wide-alert.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { BehaviorSubject, EMPTY, interval, Subscription } from 'rxjs';
 import { zonedTimeToUtc } from 'date-fns-tz';
+import { isPlatformBrowser } from '@angular/common';
 
 /**
  * Component responsible for rendering a banner and the countdown for an active system-wide alert
@@ -44,6 +45,7 @@ export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(
+    @Inject(PLATFORM_ID) protected platformId: Object,
     protected systemWideAlertDataService: SystemWideAlertDataService
   ) {
   }
@@ -65,7 +67,12 @@ export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
           const timeDifference = date.getTime() - new Date().getTime();
           if (timeDifference > 0) {
             this.allocateTimeUnits(timeDifference);
-            return interval(1000);
+            if (isPlatformBrowser(this.platformId)) {
+              return interval(1000);
+            } else {
+              return EMPTY;
+            }
+
           }
         }
         // Reset the countDown times to 0 and return EMPTY to prevent unnecessary countdown calculations

@@ -7,7 +7,7 @@
                     <ui-switch [checkedLabel]="'system-wide-alert.form.label.active' | translate"
                                [uncheckedLabel]="'system-wide-alert.form.label.inactive' | translate"
                                [checked]="formActive.value"
-                               (change)="formActive.patchValue(!formActive.value)"></ui-switch>
+                               (change)="setActive($event)"></ui-switch>
                 </div>
             </div>
             <div class="row">
@@ -44,6 +44,7 @@
                             placeholder="yyyy-mm-dd"
                             name="dp"
                             [(ngModel)]="date"
+                            [minDate]="minDate"
                             ngbDatepicker
                             #d="ngbDatepicker"
                             (ngModelChange)="updatePreviewTime()"

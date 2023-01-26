@@ -47,6 +47,11 @@ export class SystemWideAlertFormComponent implements OnInit {
   date: NgbDateStruct;
 
   /**
+   * The minimum date for the countdown timer
+   */
+  minDate: NgbDateStruct;
+
+  /**
    * Object to store the countdown time part
    */
   time;
@@ -90,6 +95,10 @@ export class SystemWideAlertFormComponent implements OnInit {
     );
     this.createForm();
 
+    const currentDate = new Date();
+    this.minDate = {year: currentDate.getFullYear(), month: currentDate.getMonth() + 1, day: currentDate.getDate()};
+
+
     this.systemWideAlert$.subscribe((alert) => {
       this.currentAlert = alert;
       this.initFormValues(alert);
@@ -123,6 +132,16 @@ export class SystemWideAlertFormComponent implements OnInit {
       this.setDateTime(countDownTo);
     }
 
+  }
+
+  /**
+   * Set whether the system-wide alert is active
+   * Will also save the info in the current system-wide alert
+   * @param active
+   */
+  setActive(active: boolean) {
+    this.formActive.patchValue(active);
+    this.save(false);
   }
 
   /**
@@ -180,8 +199,10 @@ export class SystemWideAlertFormComponent implements OnInit {
    * Save the system-wide alert present in the form
    * When no alert is present yet on the server, a new one will be created
    * When one already exists, the existing one will be updated
+   *
+   * @param navigateToHomePage  - Whether the user should be navigated back on successful save or not
    */
-  save() {
+  save(navigateToHomePage  = true) {
     const alert = new SystemWideAlert();
     alert.message = this.formMessage.value;
     alert.active = this.formActive.value;
@@ -193,20 +214,22 @@ export class SystemWideAlertFormComponent implements OnInit {
     }
     if (hasValue(this.currentAlert)) {
       const updatedAlert = Object.assign(new SystemWideAlert(), this.currentAlert, alert);
-      this.handleResponse(this.systemWideAlertDataService.put(updatedAlert), 'system-wide-alert.form.update');
+      this.handleResponse(this.systemWideAlertDataService.put(updatedAlert), 'system-wide-alert.form.update', navigateToHomePage);
     } else {
-      this.handleResponse(this.systemWideAlertDataService.create(alert), 'system-wide-alert.form.create');
+      this.handleResponse(this.systemWideAlertDataService.create(alert), 'system-wide-alert.form.create', navigateToHomePage);
     }
   }
 
-  private handleResponse(response$: Observable<RemoteData<SystemWideAlert>>, messagePrefix) {
+  private handleResponse(response$: Observable<RemoteData<SystemWideAlert>>, messagePrefix, navigateToHomePage: boolean) {
     response$.pipe(
       getFirstCompletedRemoteData()
     ).subscribe((response: RemoteData<SystemWideAlert>) => {
       if (response.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(`${messagePrefix}.success`));
         this.requestService.setStaleByHrefSubstring('systemwidealerts');
-        this.back();
+        if (navigateToHomePage) {
+          this.back();
+        }
       } else {
         this.notificationsService.error(this.translateService.get(`${messagePrefix}.error`, response.errorMessage));
       }

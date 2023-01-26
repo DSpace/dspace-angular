@@ -149,8 +149,19 @@ describe('SystemWideAlertFormComponent', () => {
     });
   });
 
+  describe('setActive', () => {
+    it('should set whether the alert is active and save the current alert', () => {
+      spyOn(comp, 'save');
+      spyOn(comp.formActive, 'patchValue');
+      comp.setActive(true);
+
+      expect(comp.formActive.patchValue).toHaveBeenCalledWith(true);
+      expect(comp.save).toHaveBeenCalledWith(false);
+    });
+  });
+
   describe('save', () => {
-    it('should update the exising alert with the form values and show a success notification on success', () => {
+    it('should update the exising alert with the form values and show a success notification on success and navigate back', () => {
       spyOn(comp, 'back');
       comp.currentAlert = systemWideAlert;
 
@@ -172,6 +183,29 @@ describe('SystemWideAlertFormComponent', () => {
       expect(notificationsService.success).toHaveBeenCalled();
       expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('systemwidealerts');
       expect(comp.back).toHaveBeenCalled();
+    });
+    it('should update the exising alert with the form values and show a success notification on success and not navigate back when false is provided to the save method', () => {
+      spyOn(comp, 'back');
+      comp.currentAlert = systemWideAlert;
+
+      comp.formMessage.patchValue('New message');
+      comp.formActive.patchValue(true);
+      comp.time = {hour: 4, minute: 26};
+      comp.date = {year: 2023, month: 1, day: 25};
+
+      const expectedAlert = new SystemWideAlert();
+      expectedAlert.alertId = systemWideAlert.alertId;
+      expectedAlert.message = 'New message';
+      expectedAlert.active = true;
+      const countDownTo = new Date(2023, 0, 25, 4, 26);
+      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
+
+      comp.save(false);
+
+      expect(systemWideAlertDataService.put).toHaveBeenCalledWith(expectedAlert);
+      expect(notificationsService.success).toHaveBeenCalled();
+      expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('systemwidealerts');
+      expect(comp.back).not.toHaveBeenCalled();
     });
     it('should update the exising alert with the form values but add an empty countdown date when disabled and show a success notification on success', () => {
       spyOn(comp, 'back');
