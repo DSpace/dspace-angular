@@ -42,14 +42,6 @@ export class RegisterEmailFormComponent implements OnInit {
   validMailDomains: string[];
   TYPE_REQUEST_REGISTER = TYPE_REQUEST_REGISTER;
 
-  captchaVersion(): Observable<string> {
-    return this.googleRecaptchaService.captchaVersion();
-  }
-
-  captchaMode(): Observable<string> {
-    return this.googleRecaptchaService.captchaMode();
-  }
-
   constructor(
     private epersonRegistrationService: EpersonRegistrationService,
     private notificationService: NotificationsService,
