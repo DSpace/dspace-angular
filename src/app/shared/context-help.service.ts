@@ -54,9 +54,9 @@ export class ContextHelpService {
   /**
    * Observable that yields true iff there are currently no context help entries in the store.
    */
-  contextHelpEmpty$(): Observable<boolean> {
+  tooltipCount$(): Observable<number> {
     return this.store.pipe(select(allContextHelpSelector))
-      .pipe(map((models: ContextHelpModels) => Object.keys(models).length === 0));
+      .pipe(map((models: ContextHelpModels) => Object.keys(models).length));
   }
 
   /**
