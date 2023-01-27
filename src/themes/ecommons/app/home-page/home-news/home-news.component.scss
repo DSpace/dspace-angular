@@ -6,7 +6,7 @@
     color: white;
     background-color: var(--cul-gray);
     position: relative;
-    background-image: url('/assets/ecommons/images/banner.jpg');
+    background: url('/assets/ecommons/images/banner.jpg') 0;
     background-size: cover;
 
     .container {
