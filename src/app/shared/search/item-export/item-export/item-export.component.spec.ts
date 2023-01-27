@@ -154,7 +154,7 @@ describe('ItemExportComponent', () => {
       component.itemType = itemType;
       component.item = undefined;
       // spies
-      itemExportService.initialItemExportFormConfiguration.and.returnValue(observableOf(configuration));
+      itemExportService.initialItemExportFormConfiguration.calls.reset();
       mockSearchManager.search.and.returnValue(createSuccessfulRemoteDataObject$(mockEmptySearchResults));
       fixture.detectChanges();
     });
