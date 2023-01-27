@@ -13,9 +13,9 @@ describe('ContextHelpToggleComponent', () => {
 
   beforeEach(async () => {
     contextHelpService = jasmine.createSpyObj('contextHelpService', [
-      'contextHelpEmpty$', 'toggleIcons'
+      'tooltipCount$', 'toggleIcons'
     ]);
-    contextHelpService.contextHelpEmpty$.and.returnValue(observableOf(true));
+    contextHelpService.tooltipCount$.and.returnValue(observableOf(0));
     await TestBed.configureTestingModule({
       declarations: [ ContextHelpToggleComponent ],
       providers: [
@@ -37,19 +37,17 @@ describe('ContextHelpToggleComponent', () => {
   });
 
   describe('if there are no elements on the page with a tooltip', () => {
-    it('clicking the button does not toggle context help icon visibility', fakeAsync(() => {
+    it('the toggle should not be visible', fakeAsync(() => {
       fixture.detectChanges();
       fixture.whenStable().then(() => {
-        fixture.debugElement.query(By.css('a')).nativeElement.click();
-        tick();
-        expect(contextHelpService.toggleIcons).toHaveBeenCalledTimes(0);
+        expect(fixture.debugElement.query(By.css('div'))).toBeNull();
       });
     }));
   });
 
   describe('if there are elements on the page with a tooltip', () => {
     beforeEach(() => {
-      contextHelpService.contextHelpEmpty$.and.returnValue(observableOf(false));
+      contextHelpService.tooltipCount$.and.returnValue(observableOf(1));
       fixture.detectChanges();
     });
 
