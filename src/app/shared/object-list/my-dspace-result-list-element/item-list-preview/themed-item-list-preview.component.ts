@@ -39,13 +39,13 @@ export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPrev
     protected cdr: ChangeDetectorRef,
     protected themeService: ThemeService,
     protected collectionDataService: CollectionDataService
-  ){
-    super(resolver, cdr, themeService)
+  ) {
+    super(resolver, cdr, themeService);
   }
 
   ngOnInit() {
-    super.ngOnInit()
-    this.getCollectionName()
+    super.ngOnInit();
+    this.getCollectionName();
   }
 
   protected getCollectionName(): void {
@@ -62,7 +62,6 @@ export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPrev
 
     this.collectionDataService.findByHref(`${environment.rest.baseUrl}/api/core/collections/${collectionId}`).subscribe(collection => {
       this.collection = collection?.payload;
-      console.log("collection", this.collection)
     });
   }
 
