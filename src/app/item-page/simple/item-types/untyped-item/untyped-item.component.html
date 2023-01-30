@@ -29,12 +29,21 @@
     </ng-container>
     <ds-themed-item-page-file-section [item]="object"></ds-themed-item-page-file-section>
     <ds-item-page-date-field [item]="object"></ds-item-page-date-field>
+    <ds-generic-item-page-field [item]="object"
+                                [fields]="['dc.title.alternative']"
+                                [label]="'Other Titles'">
     <ds-metadata-representation-list class="ds-item-page-mixed-author-field"
       [parentItem]="object"
       [itemType]="'Person'"
-      [metadataFields]="['dc.contributor.author', 'dc.creator']"
+      [metadataFields]="['dc.contributor.author', 'dc.creator', 'dc.contributor.editor', dc.contributor.illustrator', 'dc.contributor.judge', 'dc.contributor.other']"
       [label]="'relationships.isAuthorOf' | translate">
     </ds-metadata-representation-list>
+
+
+      <ds-generic-item-page-field [item]="object"
+                                  [fields]="['dc.description.abstract']"
+                                  [label]="'item.page.abstract'">
+
     <ds-generic-item-page-field [item]="object"
       [fields]="['journal.title']"
       [label]="'item.page.journal-title'">
