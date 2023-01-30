@@ -2892,8 +2892,8 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Manaids cruinneachaidhean mapaichte",
 
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
-  "item.edit.tabs.status.buttons.move.button": "Gluais...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  "item.edit.tabs.status.buttons.move.button": "Helyezze át ezt az elemet egy másik gyűjteménybe",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
   "item.edit.tabs.status.buttons.move.label": "Gluais nì gu cruinneachadh eile",
@@ -2919,8 +2919,8 @@
   // "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
   "item.edit.tabs.status.buttons.unauthorized": "Chan eil cead agad an gnìomh seo a dhèanamh",
 
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  "item.edit.tabs.status.buttons.withdraw.button": "Thoir air falbh...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
+  "item.edit.tabs.status.buttons.withdraw.button": "Thoir air falbh",
 
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
     "item.edit.tabs.status.buttons.withdraw.label": "Thoir nì air falbh bhon ionad-tasgaidh",
