@@ -71,7 +71,19 @@
   padding: 1.25rem 0;
   font-size: 2.25rem;
   img {
-    width: 200px;
+    max-width: 200px;
     float: right;
+  }
+  @media screen and (max-width: map-get($grid-breakpoints, xs)) {
+    img {
+      float: none;
+      margin-top: 1rem;
+    }
+  }
+  @media screen and (max-width: map-get($grid-breakpoints, md)) {
+    img {
+      float: none;
+      margin-top: 1rem;
+    }
   }
 }
