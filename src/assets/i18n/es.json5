@@ -4238,7 +4238,7 @@
   "pagination.showing.detail": "{{ range }} de {{ total }}",
 
   // "pagination.showing.label": "Now showing ",
-  "pagination.showing.label": "Mostrando",
+  "pagination.showing.label": "Mostrando ",
 
   // "pagination.sort-direction": "Sort Options",
   "pagination.sort-direction": "Opciones de clasificación",
