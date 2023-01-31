@@ -2288,8 +2288,6 @@
 
   "itemtemplate.edit.metadata.edit.buttons.unedit": "Stop editing",
 
-  "itemtemplate.edit.metadata.edit.buttons.virtual": "This is a virtual metadata value, i.e. a value inherited from a related entity. It can’t be modified directly. Add or remove the corresponding relationship in the \"Relationships\" tab",
-
   "itemtemplate.edit.metadata.empty": "The item template currently doesn't contain any metadata. Click Add to start adding a metadata value.",
 
   "itemtemplate.edit.metadata.headers.edit": "Edit",
