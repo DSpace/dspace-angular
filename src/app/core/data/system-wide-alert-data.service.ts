@@ -17,16 +17,18 @@ import { SYSTEMWIDEALERT } from '../../system-wide-alert/system-wide-alert.resou
 import { SystemWideAlert } from '../../system-wide-alert/system-wide-alert.model';
 import { PutData, PutDataImpl } from './base/put-data';
 import { RequestParam } from '../cache/models/request-param.model';
+import { SearchData, SearchDataImpl } from './base/search-data';
 
 /**
  * Dataservice representing a system-wide alert
  */
 @Injectable()
 @dataService(SYSTEMWIDEALERT)
-export class SystemWideAlertDataService extends IdentifiableDataService<SystemWideAlert> implements FindAllData<SystemWideAlert>, CreateData<SystemWideAlert>, PutData<SystemWideAlert> {
+export class SystemWideAlertDataService extends IdentifiableDataService<SystemWideAlert> implements FindAllData<SystemWideAlert>, CreateData<SystemWideAlert>, PutData<SystemWideAlert>, SearchData<SystemWideAlert> {
   private findAllData: FindAllDataImpl<SystemWideAlert>;
   private createData: CreateDataImpl<SystemWideAlert>;
   private putData: PutDataImpl<SystemWideAlert>;
+  private searchData: SearchData<SystemWideAlert>;
 
   constructor(
     protected requestService: RequestService,
@@ -40,6 +42,7 @@ export class SystemWideAlertDataService extends IdentifiableDataService<SystemWi
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
     this.putData = new PutDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
@@ -77,6 +80,24 @@ export class SystemWideAlertDataService extends IdentifiableDataService<SystemWi
    */
   put(object: SystemWideAlert): Observable<RemoteData<SystemWideAlert>> {
     return this.putData.put(object);
+  }
+
+  /**
+   * Make a new FindListRequest with given search method
+   *
+   * @param searchMethod                The search method for the object
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
+  searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<SystemWideAlert>[]): Observable<RemoteData<PaginatedList<SystemWideAlert>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
 

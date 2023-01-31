@@ -4844,6 +4844,8 @@
   "listable-notification-object.default-message": "This object couldn't be retrieved",
 
 
+  "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
+
   "system-wide-alert-banner.countdown.prefix": "In",
 
   "system-wide-alert-banner.countdown.days": "{{days}} day(s),",

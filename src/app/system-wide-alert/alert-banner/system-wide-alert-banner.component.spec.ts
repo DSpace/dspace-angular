@@ -9,6 +9,8 @@ import { TestScheduler } from 'rxjs/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 
 
 describe('SystemWideAlertBannerComponent', () => {
@@ -35,7 +37,7 @@ describe('SystemWideAlertBannerComponent', () => {
     });
 
     systemWideAlertDataService = jasmine.createSpyObj('systemWideAlertDataService', {
-      findAll: createSuccessfulRemoteDataObject$(createPaginatedList([systemWideAlert])),
+      searchBy: createSuccessfulRemoteDataObject$(createPaginatedList([systemWideAlert])),
     });
 
     TestBed.configureTestingModule({
@@ -43,6 +45,7 @@ describe('SystemWideAlertBannerComponent', () => {
       declarations: [SystemWideAlertBannerComponent],
       providers: [
         {provide: SystemWideAlertDataService, useValue: systemWideAlertDataService},
+        {provide: NotificationsService, useValue: new NotificationsServiceStub()},
       ]
     }).compileComponents();
   }));

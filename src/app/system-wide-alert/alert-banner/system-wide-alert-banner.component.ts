@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
-import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { getAllCompletedRemoteData } from '../../core/shared/operators';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { SystemWideAlert } from '../system-wide-alert.model';
@@ -8,6 +8,7 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { BehaviorSubject, EMPTY, interval, Subscription } from 'rxjs';
 import { zonedTimeToUtc } from 'date-fns-tz';
 import { isPlatformBrowser } from '@angular/common';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**
  * Component responsible for rendering a banner and the countdown for an active system-wide alert
@@ -46,13 +47,21 @@ export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(PLATFORM_ID) protected platformId: Object,
-    protected systemWideAlertDataService: SystemWideAlertDataService
+    protected systemWideAlertDataService: SystemWideAlertDataService,
+    protected notificationsService: NotificationsService,
   ) {
   }
 
   ngOnInit() {
-    this.subscriptions.push(this.systemWideAlertDataService.findAll().pipe(
-      getAllSucceededRemoteDataPayload(),
+    this.subscriptions.push(this.systemWideAlertDataService.searchBy('active').pipe(
+      getAllCompletedRemoteData(),
+      map((rd) => {
+        if (rd.hasSucceeded) {
+          return rd.payload;
+        } else {
+          this.notificationsService.error('system-wide-alert-banner.retrieval.error');
+        }
+      }),
       map((payload: PaginatedList<SystemWideAlert>) => payload.page),
       filter((page) => isNotEmpty(page)),
       map((page) => page[0])
