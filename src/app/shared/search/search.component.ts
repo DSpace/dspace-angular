@@ -135,6 +135,11 @@ export class SearchComponent implements OnInit {
   @Input() viewModeList: ViewMode[];
 
   /**
+   * The search query
+   */
+  @Input() query: string;
+
+  /**
    * The current configuration used during the search
    */
   currentConfiguration$: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -275,6 +280,9 @@ export class SearchComponent implements OnInit {
           configuration: searchOptions.configuration || configuration,
           sort: sortOption || searchOptions.sort
         });
+      if (combinedOptions.query === '') {
+        combinedOptions.query = this.query;
+      }
       const newSearchOptions = new PaginatedSearchOptions(combinedOptions);
       // check if search options are changed
       // if so retrieve new related results otherwise skip it
