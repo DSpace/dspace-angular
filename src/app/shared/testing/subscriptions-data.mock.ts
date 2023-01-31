@@ -87,7 +87,7 @@ export const findByEPersonAndDsoResEmpty = {
   },
   '_links': {
     'self': {
-      'href': 'https://dspacecris7.4science.cloud/server/api/core/subscriptions/search/findByEPersonAndDso?dspace_object_id=092b59e8-8159-4e70-98b5-93ec60bd3431&eperson_id=335647b6-8a52-4ecb-a8c1-7ebabb199bda'
+      'href': 'https://dspacecris7.4science.cloud/server/api/core/subscriptions/search/findByEPersonAndDso?resource=092b59e8-8159-4e70-98b5-93ec60bd3431&eperson_id=335647b6-8a52-4ecb-a8c1-7ebabb199bda'
     },
     'page': [
       {

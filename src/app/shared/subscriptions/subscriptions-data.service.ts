@@ -74,7 +74,7 @@ export class SubscriptionsDataService extends IdentifiableDataService<Subscripti
 
     const optionsWithObject = Object.assign(new FindListOptions(), {
       searchParams: [
-        new RequestParam('dspace_object_id', uuid),
+        new RequestParam('resource', uuid),
         new RequestParam('eperson_id', eperson)
       ]
     });
@@ -94,7 +94,7 @@ export class SubscriptionsDataService extends IdentifiableDataService<Subscripti
     return this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
       take(1),
-      map((endpointUrl: string) => `${endpointUrl}?dspace_object_id=${uuid}&eperson_id=${ePerson}`),
+      map((endpointUrl: string) => `${endpointUrl}?resource=${uuid}&eperson_id=${ePerson}`),
       map((endpointURL: string) => new CreateRequest(this.requestService.generateRequestId(), endpointURL, JSON.stringify(subscription))),
       sendRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
@@ -114,7 +114,7 @@ export class SubscriptionsDataService extends IdentifiableDataService<Subscripti
     return this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
       take(1),
-      map((endpointUrl: string) => `${endpointUrl}/${subscription.id}?dspace_object_id=${uuid}&eperson_id=${ePerson}`),
+      map((endpointUrl: string) => `${endpointUrl}/${subscription.id}?resource=${uuid}&eperson_id=${ePerson}`),
       map((endpointURL: string) => new PutRequest(this.requestService.generateRequestId(), endpointURL, JSON.stringify(subscription))),
       sendRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
