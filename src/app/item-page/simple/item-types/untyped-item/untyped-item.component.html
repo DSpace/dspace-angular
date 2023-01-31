@@ -91,4 +91,42 @@
             </a>
         </div>
     </div>
+    <div class="col-xs-12 col-md-6">
+        <ds-generic-item-page-field [item]="object"
+                                [fields]="['cla.location']"
+                                [label]="'Location'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['cla.date.effective']"
+                                    [label]="'Effective Date'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['cla.date.expiration']"
+                                    [label]="'Expiration Date'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['cla.sector']"
+                                    [label]="'Sector'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['cla.employer']"
+                                    [label]="'Employer'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['cla.union']"
+                                    [label]="'Union'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['cla.union.local']"
+                                    [label]="'Union Local'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['cla.naics']"
+                                    [label]="'NAICS'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['cla.numberOfWorkers']"
+                                    [label]="'Number of Workers'">
+        </ds-generic-item-page-field>
+    </div>
 </div>
