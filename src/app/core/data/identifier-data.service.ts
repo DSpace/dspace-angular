@@ -55,7 +55,7 @@ export class IdentifierDataService extends BaseDataService<IdentifierData> {
    * Should we allow registration of new DOIs via the item status page?
    */
   public getIdentifierRegistrationConfiguration(): Observable<string[]> {
-    return this.configurationService.findByPropertyName('identifiers.item-status.registerDOI').pipe(
+    return this.configurationService.findByPropertyName('identifiers.item-status.register-doi').pipe(
       getFirstCompletedRemoteData(),
       map((propertyRD: RemoteData<ConfigurationProperty>) => propertyRD.hasSucceeded ? propertyRD.payload.values : [])
     );

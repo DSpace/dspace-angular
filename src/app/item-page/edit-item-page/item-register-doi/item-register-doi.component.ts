@@ -16,8 +16,8 @@ import { IdentifierDataService } from '../../../core/data/identifier-data.servic
 import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
 
 @Component({
-  selector: 'ds-item-registerdoi',
-  templateUrl: './item-registerdoi-component.html'
+  selector: 'ds-item-register-doi',
+  templateUrl: './item-register-doi-component.html'
 })
 /**
  * Component responsible for rendering the Item Registe DOI page

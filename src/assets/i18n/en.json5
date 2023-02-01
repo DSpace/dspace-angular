@@ -1327,7 +1327,7 @@
 
   "curation-task.task.vscan.label": "Virus Scan",
 
-  "curation-task.task.registerdoi.label": "Register DOI",
+  "curation-task.task.register-doi.label": "Register DOI",
 
 
 
@@ -1942,23 +1942,23 @@
 
   "item.edit.identifiers.doi.status.MINTED": "Minted (not registered)",
 
-  "item.edit.tabs.status.buttons.registerDOI.label": "Register a new or pending identifier",
+  "item.edit.tabs.status.buttons.register-doi.label": "Register a new or pending identifier",
 
-  "item.edit.tabs.status.buttons.registerDOI.button": "Register DOI...",
+  "item.edit.tabs.status.buttons.register-doi.button": "Register DOI...",
 
-  "item.edit.registerdoi.header": "Register a new or pending DOI",
+  "item.edit.register-doi.header": "Register a new or pending DOI",
 
-  "item.edit.registerdoi.description": "Review any pending identifiers and item metadata below and click Confirm to proceed with DOI registration, or Cancel to back out",
+  "item.edit.register-doi.description": "Review any pending identifiers and item metadata below and click Confirm to proceed with DOI registration, or Cancel to back out",
 
-  "item.edit.registerdoi.confirm": "Confirm",
+  "item.edit.register-doi.confirm": "Confirm",
 
-  "item.edit.registerdoi.cancel": "Cancel",
+  "item.edit.register-doi.cancel": "Cancel",
 
-  "item.edit.registerdoi.success": "DOI registered successfully. Refresh Item Status page to see new DOI details.",
+  "item.edit.register-doi.success": "DOI registered successfully. Refresh Item Status page to see new DOI details.",
 
-  "item.edit.registerdoi.error": "Error registering DOI",
+  "item.edit.register-doi.error": "Error registering DOI",
 
-  "item.edit.registerdoi.to-update": "The following DOI has already been minted and will be queued for registration online",
+  "item.edit.register-doi.to-update": "The following DOI has already been minted and will be queued for registration online",
 
   "item.edit.item-mapper.buttons.add": "Map item to selected collections",
 

@@ -41,7 +41,7 @@ describe('ItemStatusComponent', () => {
 
   mockConfigurationDataService = jasmine.createSpyObj('configurationDataService', {
     findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
-      name: 'identifiers.item-status.registerDOI',
+      name: 'identifiers.item-status.register-doi',
       values: [
         'true'
       ]

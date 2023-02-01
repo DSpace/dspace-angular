@@ -13,7 +13,7 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ItemRegisterDoiComponent } from './item-registerdoi.component';
+import { ItemRegisterDoiComponent } from './item-register-doi.component';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { IdentifierDataService } from '../../../core/data/identifier-data.service';
 
@@ -83,15 +83,15 @@ describe('ItemRegisterDoiComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should render a page with messages based on the \'registerdoi\' messageKey', () => {
+  it('should render a page with messages based on the \'register-doi\' messageKey', () => {
     const header = fixture.debugElement.query(By.css('h2')).nativeElement;
-    expect(header.innerHTML).toContain('item.edit.registerdoi.header');
+    expect(header.innerHTML).toContain('item.edit.register-doi.header');
     const description = fixture.debugElement.query(By.css('p')).nativeElement;
-    expect(description.innerHTML).toContain('item.edit.registerdoi.description');
+    expect(description.innerHTML).toContain('item.edit.register-doi.description');
     const confirmButton = fixture.debugElement.query(By.css('button.perform-action')).nativeElement;
-    expect(confirmButton.innerHTML).toContain('item.edit.registerdoi.confirm');
+    expect(confirmButton.innerHTML).toContain('item.edit.register-doi.confirm');
     const cancelButton = fixture.debugElement.query(By.css('button.cancel')).nativeElement;
-    expect(cancelButton.innerHTML).toContain('item.edit.registerdoi.cancel');
+    expect(cancelButton.innerHTML).toContain('item.edit.register-doi.cancel');
   });
 
   describe('performAction', () => {

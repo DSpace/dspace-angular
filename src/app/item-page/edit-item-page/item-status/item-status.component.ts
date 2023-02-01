@@ -108,7 +108,7 @@ export class ItemStatusComponent implements OnInit {
       );
 
       // Observable for configuration determining whether the Register DOI feature is enabled
-      let registerConfigEnabled$: Observable<boolean> = this.configurationService.findByPropertyName('identifiers.item-status.registerDOI').pipe(
+      let registerConfigEnabled$: Observable<boolean> = this.configurationService.findByPropertyName('identifiers.item-status.register-doi').pipe(
         map((enabled: RemoteData<ConfigurationProperty>) => {
           let show = false;
           if (enabled.hasSucceeded) {
