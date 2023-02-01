@@ -243,32 +243,6 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   }
 
   /**
-   * Register a DOI for a given item
-   * @param itemId
-   */
-  public registerDOI(itemId: string): Observable<RemoteData<any>> {
-    const requestId = this.requestService.generateRequestId();
-    const hrefObs = this.getIdentifiersEndpoint(itemId);
-    hrefObs.pipe(
-      take(1)
-    ).subscribe((href) => {
-      const options: HttpOptions = Object.create({});
-      let headers = new HttpHeaders();
-      headers = headers.append('Content-Type', 'application/json');
-      options.headers = headers;
-      // Pass identifier type as a simple parameter, no need for full JSON data
-      let hrefWithParams: string = this.buildHrefWithParams(href, [new RequestParam('type', 'doi')]);
-      const request = new PostRequest(requestId, hrefWithParams, JSON.stringify({}), options);
-      this.requestService.send(request);
-    });
-    return this.rdbService.buildFromRequestUUID(requestId);
-  }
-
-
-
-
-
-  /**
    * Get the endpoint to move the item
    * @param itemId
    */
