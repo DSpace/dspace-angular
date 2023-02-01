@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -16,9 +16,18 @@ import { Item } from '../shared/item.model';
 import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';
 import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
-import { map } from 'rxjs/operators';
+import { find, map, switchMap } from 'rxjs/operators';
 import {ConfigurationProperty} from '../shared/configuration-property.model';
 import {ConfigurationDataService} from './configuration-data.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { hasValue } from '../../shared/empty.util';
+import { PostRequest } from './request.models';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { ResponseParsingService } from './parsing.service';
+import { StatusCodeOnlyResponseParsingService } from './status-code-only-response-parsing.service';
+import { sendRequest } from '../shared/request.operators';
+import { RestRequest } from './rest-request.model';
+import { OrcidHistory } from '../orcid/model/orcid-history.model';
 
 /**
  * The service handling all REST requests to get item identifiers like handles and DOIs
@@ -59,5 +68,36 @@ export class IdentifierDataService extends BaseDataService<IdentifierData> {
       getFirstCompletedRemoteData(),
       map((propertyRD: RemoteData<ConfigurationProperty>) => propertyRD.hasSucceeded ? propertyRD.payload.values : [])
     );
+  }
+
+  public registerIdentifier(item: Item, type: string): Observable<RemoteData<any>> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+    let params = new HttpParams();
+    params = params.append('type', 'doi');
+    options.params = params;
+
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getEndpoint();
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+
+        const request = new PostRequest(requestId, href, item._links.self.href, options);
+        Object.assign(request, {
+          getResponseParser(): GenericConstructor<ResponseParsingService> {
+            return StatusCodeOnlyResponseParsingService;
+          }
+        });
+        return request;
+      })
+    ).subscribe((request) => {
+      this.requestService.send(request);
+    });
+
+    return this.rdbService.buildFromRequestUUID(requestId);
   }
 }

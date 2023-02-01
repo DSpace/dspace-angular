@@ -82,13 +82,13 @@ export class ItemRegisterDoiComponent extends AbstractSimpleItemActionComponent 
    */
   registerDoi() {
     this.processing = true;
-    this.itemDataService.registerDOI(this.item.id).pipe(getFirstCompletedRemoteData()).subscribe(
+    this.identifierDataService.registerIdentifier(this.item, 'doi').subscribe(
       (response: RemoteData<Item>) => {
         this.processing = false;
         //this.router.navigateByUrl(getItemEditRoute(this.item));
         this.processRestResponse(response);
       }
-    );
+    )
   }
 
 }

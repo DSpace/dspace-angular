@@ -233,7 +233,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   }
 
   /**
-   * Get the endpoint for an item's bundles
+   * Get the endpoint for an item's identifiers
    * @param itemId
    */
   public getIdentifiersEndpoint(itemId: string): Observable<string> {
@@ -263,6 +263,10 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     });
     return this.rdbService.buildFromRequestUUID(requestId);
   }
+
+
+
+
 
   /**
    * Get the endpoint to move the item
