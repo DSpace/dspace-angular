@@ -2,7 +2,7 @@
 
 if [[ "x$ENVFILE" == "x" ]]; then
     export ENVFILE=$(pwd)/envs/.default
-fi 
+fi
 
 source $ENVFILE
 
@@ -17,6 +17,7 @@ popd
 # Create admin user
 # set DOCKER_OWNER to match our image (see cli.yml)
 pushd ../..
+docker-compose --env-file $ENVFILE -p dq-d7 -f docker/matomo-w-db.yml up
 docker-compose --env-file $ENVFILE -p dq-d7 -f docker/cli.yml run --rm dspace-cli create-administrator -e test@test.edu -f admin -l user -p admin -c en
 docker-compose --env-file $ENVFILE -p dq-d7 -f docker/cli.yml run --rm dspace-cli user --add -m user@test.edu -g meno -s priezvisko -l en -p user -o dataquest
 docker-compose --env-file $ENVFILE -p dq-d7 -f docker/cli.yml run --rm dspace-cli version
