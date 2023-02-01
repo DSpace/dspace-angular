@@ -7,7 +7,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { first, map } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { Observable } from 'rxjs';
@@ -20,11 +20,11 @@ import { Identifier } from '../../../shared/object-list/identifier-data/identifi
   templateUrl: './item-register-doi-component.html'
 })
 /**
- * Component responsible for rendering the Item Registe DOI page
+ * Component responsible for rendering the Item Register DOI page
  */
 export class ItemRegisterDoiComponent extends AbstractSimpleItemActionComponent {
 
-  protected messageKey = 'registerdoi';
+  protected messageKey = 'register-doi';
   doiToUpdateMessage = 'item.edit.' + this.messageKey + '.to-update';
   identifiers$: Observable<Identifier[]>;
   processing = false;
@@ -84,9 +84,10 @@ export class ItemRegisterDoiComponent extends AbstractSimpleItemActionComponent 
     this.processing = true;
     this.identifierDataService.registerIdentifier(this.item, 'doi').subscribe(
       (response: RemoteData<Item>) => {
-        this.processing = false;
-        //this.router.navigateByUrl(getItemEditRoute(this.item));
-        this.processRestResponse(response);
+        if (response.hasCompleted) {
+          this.processing = false;
+          this.processRestResponse(response);
+        }
       }
     )
   }

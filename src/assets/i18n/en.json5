@@ -1942,7 +1942,7 @@
 
   "item.edit.identifiers.doi.status.MINTED": "Minted (not registered)",
 
-  "item.edit.tabs.status.buttons.register-doi.label": "Register a new or pending identifier",
+  "item.edit.tabs.status.buttons.register-doi.label": "Register a new or pending DOI",
 
   "item.edit.tabs.status.buttons.register-doi.button": "Register DOI...",
 
@@ -1954,7 +1954,7 @@
 
   "item.edit.register-doi.cancel": "Cancel",
 
-  "item.edit.register-doi.success": "DOI registered successfully. Refresh Item Status page to see new DOI details.",
+  "item.edit.register-doi.success": "DOI queued for registration successfully.",
 
   "item.edit.register-doi.error": "Error registering DOI",
 

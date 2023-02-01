@@ -179,7 +179,7 @@ export class ItemStatusComponent implements OnInit {
         let tmp_operations = [...operations];
         if (show) {
           // Push the new Register DOI item operation
-          tmp_operations.push(new ItemOperation('registerDOI', this.getCurrentUrl(item) + '/registerdoi', FeatureID.CanRegisterDOI));
+          tmp_operations.push(new ItemOperation('register-doi', this.getCurrentUrl(item) + '/register-doi', FeatureID.CanRegisterDOI));
         }
         // Check authorisations and merge into new operations list
         observableFrom(tmp_operations).pipe(
