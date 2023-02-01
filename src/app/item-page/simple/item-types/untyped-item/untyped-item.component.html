@@ -31,18 +31,6 @@
         <ds-themed-item-page-file-section [item]="object"></ds-themed-item-page-file-section>
         <ds-item-page-date-field [item]="object"></ds-item-page-date-field>
         <ds-generic-item-page-field [item]="object"
-                                    [fields]="['dc.title.alternative']"
-                                    [label]="'Other Titles'">
-        </ds-generic-item-page-field>
-        <ds-metadata-representation-list class="ds-item-page-mixed-author-field"
-                                         [parentItem]="object"
-                                         [itemType]="'Person'"
-                                         [metadataFields]="['dc.contributor.author', 'dc.creator', 'dc.contributor.editor', 'dc.contributor.illustrator', 'dc.contributor.judge', 'dc.contributor.other']"
-                                         [label]="'relationships.isAuthorOf' | translate">
-        </ds-metadata-representation-list>
-
-
-        <ds-generic-item-page-field [item]="object"
                                     [fields]="['journal.title']"
                                     [label]="'item.page.journal-title'">
         </ds-generic-item-page-field>
@@ -54,16 +42,59 @@
                                     [fields]="['journalvolume.identifier.name']"
                                     [label]="'item.page.volume-title'">
         </ds-generic-item-page-field>
-        <ds-generic-item-page-field [item]="object"
-                                    [fields]="['dc.publisher']"
-                                    [label]="'item.page.publisher'">
-        </ds-generic-item-page-field>
     </div>
     <div class="col-xs-12 col-md-6">
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.title.alternative']"
+                                    [label]="'Other Titles'">
+        </ds-generic-item-page-field>
+        <ds-metadata-representation-list class="ds-item-page-mixed-author-field"
+                                         [parentItem]="object"
+                                         [itemType]="'Person'"
+                                         [metadataFields]="['dc.contributor.author', 'dc.creator', 'dc.contributor.editor', 'dc.contributor.illustrator', 'dc.contributor.judge', 'dc.contributor.other']"
+                                         [label]="'relationships.isAuthorOf' | translate">
+        </ds-metadata-representation-list>
+
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.description.audio']"
+                                    [label]="''">
+        </ds-generic-item-page-field>
+
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.description.viewer']"
+                                    [label]="''">
+        </ds-generic-item-page-field>
+
         <ds-item-page-abstract-field [item]="object"></ds-item-page-abstract-field>
+
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.relation.ispartofseries']"
+                                    [label]="'Journal / Series'">
+        </ds-generic-item-page-field>
+
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['schema.issueNumber']"
+                                    [label]="'Volume & Issue'">
+        </ds-generic-item-page-field>
+
         <ds-generic-item-page-field [item]="object"
                                     [fields]="['dc.description']"
                                     [label]="'item.page.description'">
+        </ds-generic-item-page-field>
+
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.description.sponsorship']"
+                                    [label]="'Sponsorship'">
+        </ds-generic-item-page-field>
+
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.date.issued']"
+                                    [label]="'Date Issued'">
+        </ds-generic-item-page-field>
+
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.publisher']"
+                                    [label]="'item.page.publisher'">
         </ds-generic-item-page-field>
 
         <ds-generic-item-page-field [item]="object"
@@ -126,106 +157,134 @@
                                     [label]="'Number of Workers'">
         </ds-generic-item-page-field>
 
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.contributor.chair']"
-                                [label]="'Committee Chair'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.contributor.coChair']"
-                                [label]="'Committee Co-Chair'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.contributor.committeeMember']"
-                                [label]="'Committee Member'">
-        </ds-item-page-uri-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.contributor.chair']"
+                                    [label]="'Committee Chair'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.contributor.coChair']"
+                                    [label]="'Committee Co-Chair'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.contributor.committeeMember']"
+                                    [label]="'Committee Member'">
+        </ds-generic-item-page-field>
 
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['thesis.degree.discipline']"
-                                [label]="'Thesis Discipline'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['thesis.degree.name']"
-                                [label]="'Degree Name'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['thesis.degree.level']"
-                                [label]="'Degree Level'">
-        </ds-item-page-uri-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['thesis.degree.discipline']"
+                                    [label]="'Thesis Discipline'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['thesis.degree.name']"
+                                    [label]="'Degree Name'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['thesis.degree.level']"
+                                    [label]="'Degree Level'">
+        </ds-generic-item-page-field>
 
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.relation.hasversion']"
+                                    [label]="'Related Version'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.relation.doi']"
+                                    [label]="'Related DOI'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.relation']"
+                                    [label]="'Related To'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.relation.haspart']"
+                                    [label]="'Related Part'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.relation.isbasedon']"
+                                    [label]="'Based on Related Item'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.relation.isformatof']"
+                                    [label]="'Has Other Format(s)'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.relation.ispartof']"
+                                    [label]="'Part of Related Item'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.relation.uri']"
+                                    [label]="'Related To'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.relation.isreferencedby']"
+                                    [label]="'Related Publication(s)'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.relation.isreferencedbyuri']"
+                                    [label]="'Link(s) to Related Publication(s)'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.relation.references']"
+                                    [label]="'References'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.relation.referencesuri']"
+                                    [label]="'Link(s) to Reference(s)'">
+        </ds-generic-item-page-field>
 
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.relation.hasversion']"
-                                [label]="'Related Version'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.relation.doi']"
-                                [label]="'Related DOI'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.relation']"
-                                [label]="'Related To'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.relation.haspart']"
-                                [label]="'Related Part'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.relation.isbasedon']"
-                                [label]="'Based on Related Item'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.relation.isformatof']"
-                                [label]="'Has Other Format(s)'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.relation.ispartof']"
-                                [label]="'Part of Related Item'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.relation.uri']"
-                                [label]="'Related To'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.relation.isreferencedby']"
-                                [label]="'Related Publication(s)'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.relation.isreferencedbyuri']"
-                                [label]="'Link(s) to Related Publication(s)'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.relation.references']"
-                                [label]="'References'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.relation.referencesuri']"
-                                [label]="'Link(s) to Reference(s)'">
-        </ds-item-page-uri-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.identifier.citation']"
+                                    [label]="'Previously Published As'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.identifier.govdoc']"
+                                    [label]="'Government Document'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.identifier.isbn']"
+                                    [label]="'ISBN'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.identifier.ismn']"
+                                    [label]="'ISMN'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.identifier.issn']"
+                                    [label]="'ISSN'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.identifier']"
+                                    [label]="'Other Identifiers'">
+        </ds-generic-item-page-field>
 
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.identifier.citation']"
-                                [label]="'Previously Published As'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.identifier.govdoc']"
-                                [label]="'Government Document'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.identifier.isbn']"
-                                [label]="'ISBN'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.identifier.ismn']"
-                                [label]="'ISMN'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.identifier.issn']"
-                                [label]="'ISSN'">
-        </ds-item-page-uri-field>
-        <ds-item-page-uri-field [item]="object"
-                                [fields]="['dc.identifier']"
-                                [label]="'Other Identifiers'">
-        </ds-item-page-uri-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.rights']"
+                                    [label]="'Rights'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.rights.uri']"
+                                    [label]="'Rights URI'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.type']"
+                                    [label]="'Types'">
+        </ds-generic-item-page-field>
 
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['schema.accessibilityFeature']"
+                                    [label]="'Accessibility Feature'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['schema.accessibilityHazard']"
+                                    [label]="'Accessibility Hazard'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['schema.accessibilitySummary']"
+                                    [label]="'Accessibility Summary'">
+        </ds-generic-item-page-field>
+        <ds-generic-item-page-field [item]="object"
+                                    [fields]="['dc.relation.localuri']"
+                                    [label]="'Link(s) to Catalog Record'">
+        </ds-generic-item-page-field>
     </div>
 </div>
