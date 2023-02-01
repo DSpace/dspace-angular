@@ -43,6 +43,7 @@ import {
 
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent} from './app/shared/object-list/collection-list-element/collection-list-element.component';
+import { FileDownloadLinkComponent } from './app/shared/file-download-link/file-download-link.component';
 
 
 /**
@@ -58,6 +59,7 @@ const ENTRY_COMPONENTS = [
 
   CommunityListElementComponent,
   CollectionListElementComponent,
+  FileDownloadLinkComponent,
 ];
 
 const DECLARATIONS = [
