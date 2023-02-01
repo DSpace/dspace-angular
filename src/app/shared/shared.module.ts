@@ -256,6 +256,7 @@ import {
 import { ImpersonateNavbarComponent } from './impersonate-navbar/impersonate-navbar.component';
 import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
 import { FileDownloadLinkComponent } from './file-download-link/file-download-link.component';
+import { ThemedFileDownloadLinkComponent } from './file-download-link/themed-file-download-link.component';
 import { CollectionDropdownComponent } from './collection-dropdown/collection-dropdown.component';
 import { EntityDropdownComponent } from './entity-dropdown/entity-dropdown.component';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
@@ -479,6 +480,7 @@ const COMPONENTS = [
   ModifyItemOverviewComponent,
   ImpersonateNavbarComponent,
   FileDownloadLinkComponent,
+  ThemedFileDownloadLinkComponent,
   BitstreamDownloadPageComponent,
   BitstreamRequestACopyPageComponent,
   CollectionDropdownComponent,
@@ -561,6 +563,7 @@ const ENTRY_COMPONENTS = [
   ClaimedTaskActionsEditMetadataComponent,
   CollectionDropdownComponent,
   FileDownloadLinkComponent,
+  ThemedFileDownloadLinkComponent,
   BitstreamDownloadPageComponent,
   BitstreamRequestACopyPageComponent,
   CurationFormComponent,

@@ -109,7 +109,7 @@ describe('FileSectionComponent', () => {
     it('one bitstream should be on the page', () => {
       const viewMore = fixture.debugElement.query(By.css('.bitstream-view-more'));
       viewMore.triggerEventHandler('click', null);
-      const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-file-download-link'));
+      const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-themed-file-download-link'));
       expect(fileDownloadLink.length).toEqual(1);
     });
 
@@ -122,7 +122,7 @@ describe('FileSectionComponent', () => {
 
       });
       it('should contain another bitstream', () => {
-        const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-file-download-link'));
+        const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-themed-file-download-link'));
         expect(fileDownloadLink.length).toEqual(2);
       });
     });
