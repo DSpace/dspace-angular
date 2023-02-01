@@ -55,6 +55,11 @@ import {
 } from '../../app/shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { RootModule } from '../../app/root.module';
+import { BrowseByPageModule } from '../../app/browse-by/browse-by-page.module';
+import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
+import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
+import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
+import { ItemSharedModule } from 'src/app/item-page/item-shared.module';
 
 const DECLARATIONS = [
 ];
@@ -68,6 +73,8 @@ const DECLARATIONS = [
     RootModule,
     BitstreamFormatsModule,
     BrowseByModule,
+    BrowseByPageModule,
+    ResultsBackButtonModule,
     CollectionFormModule,
     CollectionPageModule,
     CommonModule,
@@ -76,8 +83,10 @@ const DECLARATIONS = [
     CommunityPageModule,
     CoreModule,
     DragDropModule,
+    ItemSharedModule,
     ItemPageModule,
     EditItemPageModule,
+    ItemVersionsModule,
     FormsModule,
     HomePageModule,
     HttpClientModule,
@@ -95,6 +104,7 @@ const DECLARATIONS = [
     ScrollToModule,
     SearchPageModule,
     SharedModule,
+    SharedBrowseByModule,
     StatisticsModule,
     StatisticsPageModule,
     StoreModule,

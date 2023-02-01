@@ -37,6 +37,9 @@ import { FormBuilderService } from './builder/form-builder.service';
 import { DsDynamicTypeBindRelationService } from './builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { FormService } from './form.service';
 import { NgxMaskModule } from 'ngx-mask';
+import { ThemedExternalSourceEntryImportModalComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
+import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { CdkTreeModule } from '@angular/cdk/tree';
 
 const COMPONENTS = [
   CustomSwitchComponent,
@@ -64,6 +67,7 @@ const COMPONENTS = [
   ChipsComponent,
   NumberPickerComponent,
   VocabularyTreeviewComponent,
+  ThemedExternalSourceEntryImportModalComponent
 ];
 
 const DIRECTIVES = [
@@ -84,6 +88,9 @@ const DIRECTIVES = [
     TranslateModule,
     SortablejsModule,
     NgxMaskModule.forRoot(),
+    NgbDatepickerModule,
+    NgbTimepickerModule,
+    CdkTreeModule,
   ],
   exports: [
     ...COMPONENTS,

@@ -29,6 +29,7 @@ import { OrgUnitSidebarSearchListElementComponent } from './item-list-elements/s
 import { PersonSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/person/person-sidebar-search-list-element.component';
 import { ProjectSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/project/project-sidebar-search-list-element.component';
 import { ItemSharedModule } from '../../item-page/item-shared.module';
+import { ResultsBackButtonModule } from '../../shared/results-back-button/results-back-button.module';
 
 const ENTRY_COMPONENTS = [
 // put only entry components that use custom decorator
@@ -69,7 +70,8 @@ const COMPONENTS = [
     CommonModule,
     ItemSharedModule,
     SharedModule,
-    NgbTooltipModule
+    NgbTooltipModule,
+    ResultsBackButtonModule
   ],
   declarations: [
     ...COMPONENTS,

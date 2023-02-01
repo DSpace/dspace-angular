@@ -78,6 +78,7 @@ export const environment: BuildConfig = {
 
   // Form settings
   form: {
+    spellCheck: true,
     // NOTE: Map server-side validators to comparative Angular form validators
     validatorMap: {
       required: 'required',
@@ -296,4 +297,12 @@ export const environment: BuildConfig = {
     enabled: false,
     mathjax: false,
   },
+
+  vocabularies: [
+    {
+      filter: 'subject',
+      vocabulary: 'srsc',
+      enabled: true
+    }
+  ]
 };

@@ -21,6 +21,7 @@ import { CommunityListConfig } from './community-list-config.interface';
 import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { AccessControlConfig } from './access-control-config.interface';
+import { FilterVocabularyConfig } from './filter-vocabulary-config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -94,6 +95,7 @@ export class DefaultAppConfig implements AppConfig {
 
   // Form settings
   form: FormConfig = {
+    spellCheck: true,
     // NOTE: Map server-side validators to comparative Angular form validators
     validatorMap: {
       required: 'required',
@@ -197,6 +199,7 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'lv', label: 'Latviešu', active: true },
     { code: 'hu', label: 'Magyar', active: true },
     { code: 'nl', label: 'Nederlands', active: true },
+    { code: 'pl', label: 'Polski', active: true },
     { code: 'pt-PT', label: 'Português', active: true },
     { code: 'pt-BR', label: 'Português do Brasil', active: true },
     { code: 'fi', label: 'Suomi', active: true },
@@ -399,4 +402,15 @@ export class DefaultAppConfig implements AppConfig {
     enabled: false,
     mathjax: false,
   };
+
+  // Which vocabularies should be used for which search filters
+  // and whether to show the filter in the search sidebar
+  // Take a look at the filter-vocabulary-config.ts file for documentation on how the options are obtained
+  vocabularies: FilterVocabularyConfig[] = [
+    {
+      filter: 'subject',
+      vocabulary: 'srsc',
+      enabled: false
+    }
+    ];
 }

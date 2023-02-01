@@ -780,6 +780,9 @@
   "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
 
 
+  "search.browse.item-back": "Back to Results",
+
+
   "chips.remove": "Remove chip",
 
 
@@ -3640,6 +3643,7 @@
 
   "search.filters.filter.submitter.label": "Search submitter",
 
+  "search.filters.filter.show-tree": "Browse {{ name }} tree",
 
 
   "search.filters.entityType.JournalIssue": "Journal Issue",
@@ -3835,6 +3839,8 @@
   "submission.import-external.source.cinii": "CiNii",
 
   "submission.import-external.source.crossref": "CrossRef",
+
+  "submission.import-external.source.datacite": "DataCite",
 
   "submission.import-external.source.scielo": "SciELO",
 
@@ -4512,7 +4518,7 @@
 
   "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
 
-
+  "vocabulary-treeview.info": "Select a subject to add as search filter",
 
   "uploader.browse": "browse",
 

@@ -144,12 +144,19 @@ describe('BrowseByMetadataPageComponent', () => {
 
       route.params = observableOf(paramsWithValue);
       comp.ngOnInit();
+      comp.updateParent('fake-scope');
+      comp.updateLogo();
+      fixture.detectChanges();
     });
 
     it('should fetch items', () => {
       comp.items$.subscribe((result) => {
         expect(result.payload.page).toEqual(mockItems);
       });
+    });
+
+    it('should fetch the logo', () => {
+      expect(comp.logo$).toBeTruthy();
     });
   });
 
