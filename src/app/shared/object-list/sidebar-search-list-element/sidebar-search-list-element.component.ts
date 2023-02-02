@@ -73,7 +73,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
     let title = await this.getTitle(dsoObservable).toPromise();
 
     if (!title) {
-      return ""
+      return '';
     }
 
     const dso = await dsoObservable.toPromise();
@@ -86,7 +86,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
     const parent = await parentObserver.toPromise();
 
     if (parent && parent.payload != null && parentObserver) {
-      await new Promise((resolve) => setTimeout(resolve, 1))
+      await new Promise((resolve) => setTimeout(resolve, 1));
       return (await this.getFullHierarchyTitles(parentObserver)) + ' • ' + title;
     }
 
@@ -114,7 +114,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
    * Get the parent of the object
    */
   getParent(dso: any): Observable<RemoteData<DSpaceObject>> {
-    if (typeof (dso).getParentLinkKey != 'function') {
+    if (typeof (dso).getParentLinkKey !== 'function') {
       return observableOf(undefined);
     }
 
@@ -124,7 +124,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
       return observableOf(undefined);
     }
 
-    const pipe = this.linkService.resolveLink(dso, followLink(propertyName))[propertyName]
+    const pipe = this.linkService.resolveLink(dso, followLink(propertyName))[propertyName];
 
     if (!pipe) {
       return observableOf(undefined);
