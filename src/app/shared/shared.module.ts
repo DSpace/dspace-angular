@@ -100,19 +100,19 @@ import {
   CreateCommunityParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
 import {
-    ThemedCreateCommunityParentSelectorComponent
+  ThemedCreateCommunityParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
 import {
   CreateItemParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import {
-    ThemedCreateItemParentSelectorComponent
+  ThemedCreateItemParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import {
   CreateCollectionParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import {
-    ThemedCreateCollectionParentSelectorComponent
+  ThemedCreateCollectionParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import {
   CommunitySearchResultListElementComponent
@@ -124,19 +124,19 @@ import {
   EditItemSelectorComponent
 } from './dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import {
-    ThemedEditItemSelectorComponent
+  ThemedEditItemSelectorComponent
 } from './dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
 import {
   EditCommunitySelectorComponent
 } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import {
-    ThemedEditCommunitySelectorComponent
+  ThemedEditCommunitySelectorComponent
 } from './dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
 import {
   EditCollectionSelectorComponent
 } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 import {
-    ThemedEditCollectionSelectorComponent
+  ThemedEditCollectionSelectorComponent
 } from './dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
 import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
@@ -242,9 +242,10 @@ import {
 } from './object-list/listable-notification-object/listable-notification-object.component';
 import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
-import { LogInExternalProviderComponent } from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
-
-
+import {
+  LogInExternalProviderComponent
+} from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
+import { ShortNumberPipe } from './utils/short-number.pipe';
 
 const MODULES = [
   CommonModule,
@@ -283,6 +284,7 @@ const PIPES = [
   ObjNgFor,
   BrowserOnlyPipe,
   MarkdownPipe,
+  ShortNumberPipe
 ];
 
 const COMPONENTS = [
