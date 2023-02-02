@@ -7,7 +7,7 @@
   cursor: grab;
 }
 
-::ng-deep .tooltip-inner {
+::ng-deep .edit-field>ngb-tooltip-window .tooltip-inner {
   min-width: var(--ds-dso-edit-virtual-tooltip-min-width);
 }
 
