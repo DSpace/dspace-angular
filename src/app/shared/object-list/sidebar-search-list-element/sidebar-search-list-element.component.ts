@@ -12,6 +12,7 @@ import { followLink } from '../../utils/follow-link-config.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Context } from '../../../core/shared/context.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'ds-sidebar-search-list-element',
@@ -52,7 +53,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
 
       this.description = this.getDescription();
 
-      this.fullHierarchy$ = this.getFullHierarchyTitles(parent);
+      this.fullHierarchy$ = from(this.getFullHierarchyTitles(parent));
     }
   }
 
@@ -67,9 +68,13 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
    * gets the full hiearchy titles for the given `dso`.
    * for example: "faculty of english > faculty of maths > journals"
    */
-  async getFullHierarchyTitles(dsoObservable: any) {
+  async getFullHierarchyTitles(dsoObservable: any): Promise<string> {
 
     let title = await this.getTitle(dsoObservable).toPromise();
+
+    if (!title) {
+      return ""
+    }
 
     const dso = await dsoObservable.toPromise();
 
@@ -77,11 +82,12 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
       return title;
     }
 
-    const parentPromise = this.getParent(dso.payload);
-    const parent = await this.getParent(dso.payload).toPromise();
+    const parentObserver = this.getParent(dso.payload);
+    const parent = await parentObserver.toPromise();
 
-    if (parent?.payload) {
-      return (await this.getFullHierarchyTitles(parentPromise)) + ' • ' + title;
+    if (parent && parent.payload != null && parentObserver) {
+      await new Promise((resolve) => setTimeout(resolve, 1))
+      return (await this.getFullHierarchyTitles(parentObserver)) + ' • ' + title;
     }
 
     return title;
@@ -108,14 +114,25 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
    * Get the parent of the object
    */
   getParent(dso: any): Observable<RemoteData<DSpaceObject>> {
-    if (typeof (dso).getParentLinkKey === 'function') {
-      const propertyName = (dso).getParentLinkKey();
-
-      return this.linkService.resolveLink(dso, followLink(propertyName))[propertyName].pipe(
-        find((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => parentRD.hasSucceeded || parentRD.statusCode === 204)
-      );
+    if (typeof (dso).getParentLinkKey != 'function') {
+      return observableOf(undefined);
     }
-    return observableOf(undefined);
+
+    const propertyName = (dso).getParentLinkKey();
+
+    if (!propertyName) {
+      return observableOf(undefined);
+    }
+
+    const pipe = this.linkService.resolveLink(dso, followLink(propertyName))[propertyName]
+
+    if (!pipe) {
+      return observableOf(undefined);
+    }
+
+    return pipe.pipe(
+      find((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => parentRD.hasSucceeded || parentRD.statusCode === 204)
+    );
   }
 
   /**

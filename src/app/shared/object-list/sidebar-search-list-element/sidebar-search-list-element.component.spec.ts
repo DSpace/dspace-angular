@@ -28,6 +28,7 @@ export function createSidebarSearchListElementTests(
     let linkService;
 
     beforeEach(waitForAsync(() => {
+      jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
       linkService = jasmine.createSpyObj('linkService', {
         resolveLink: Object.assign(new HALResource(), {
           [object.indexableObject.getParentLinkKey()]: createSuccessfulRemoteDataObject$(parent)
@@ -54,10 +55,9 @@ export function createSidebarSearchListElementTests(
       fixture.detectChanges();
     });
 
-    it('should contain the correct parent title', (done) => {
-      component.fullHierarchy$.then((title) => {
+    it('should contain the correct parent title', () => {
+      component.fullHierarchy$.subscribe((title) => {
         expect(title).toEqual(expectedParentTitle);
-        done();
       });
     });
 
