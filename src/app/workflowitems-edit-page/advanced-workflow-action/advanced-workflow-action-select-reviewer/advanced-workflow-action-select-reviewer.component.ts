@@ -19,6 +19,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { TranslateService } from '@ngx-translate/core';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
+import { ReviewersListComponent } from './reviewers-list/reviewers-list.component';
 
 export const ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER = 'submit_select_reviewer';
 export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
@@ -128,6 +129,14 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
       [ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER]: true,
       eperson: this.selectedReviewers.map((ePerson: EPerson) => ePerson.id),
     };
+  }
+
+  /**
+   * Hardcoded the previous page url because the {@link ReviewersListComponent} changes the previous route when
+   * switching between the different pages
+   */
+  previousPage(): void {
+    void this.router.navigate(['/mydspace'], { queryParams: { configuration: 'workflow' } });
   }
 
 }

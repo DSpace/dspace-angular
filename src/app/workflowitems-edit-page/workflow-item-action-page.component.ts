@@ -4,7 +4,7 @@ import { map, switchMap, take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { WorkflowItem } from '../core/submission/models/workflowitem.model';
 import { Item } from '../core/shared/item.model';
-import { ActivatedRoute, Data, Router } from '@angular/router';
+import { ActivatedRoute, Data, Router, Params } from '@angular/router';
 import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
 import { RouteService } from '../core/services/route.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
@@ -72,7 +72,13 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
           if (isEmpty(url)) {
             url = '/mydspace';
           }
-          this.router.navigateByUrl(url);
+          const params: Params = {};
+          if (url.split('?').length > 1) {
+            for (const param of url.split('?')[1].split('&')) {
+              params[param.split('=')[0]] = param.split('=')[1];
+            }
+          }
+          void this.router.navigate([url.split('?')[0]], { queryParams: params });
         }
       );
   }
