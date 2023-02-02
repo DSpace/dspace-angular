@@ -71,7 +71,6 @@ import {
 } from './object-detail/my-dspace-result-detail-element/search-result-detail-element.component';
 import { ObjectDetailComponent } from './object-detail/object-detail.component';
 import { ObjNgFor } from './utils/object-ngfor.pipe';
-import { BrowseByComponent } from './browse-by/browse-by.component';
 import {
   BrowseEntryListElementComponent
 } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
@@ -254,6 +253,7 @@ import { ThemedMyDSpaceStatusBadgeComponent } from './object-collection/shared/b
 import { ThemedAccessStatusBadgeComponent } from './object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
 import { MyDSpaceStatusBadgeComponent } from './object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
 
+
 const MODULES = [
   CommonModule,
   FormsModule,
@@ -267,7 +267,7 @@ const MODULES = [
   RouterModule,
   DragDropModule,
   GoogleRecaptchaModule,
-  MenuModule,
+  MenuModule
 ];
 
 const ROOT_MODULES = [
@@ -323,7 +323,6 @@ const COMPONENTS = [
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
-  BrowseByComponent,
   InputSuggestionsComponent,
   FilterInputSuggestionsComponent,
   ValidationSuggestionsComponent,

@@ -8,7 +8,12 @@ import { Observable, of as observableOf, of } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { Item } from '../shared/item.model';
 
-import { ItemMock, MockBitstream1, MockBitstream3 } from '../../shared/mocks/item.mock';
+import {
+  ItemMock,
+  MockBitstream1,
+  MockBitstream3,
+  MockBitstream2
+} from '../../shared/mocks/item.mock';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PaginatedList } from '../data/paginated-list.model';
 import { Bitstream } from '../shared/bitstream.model';
@@ -24,6 +29,7 @@ import { HardRedirectService } from '../services/hard-redirect.service';
 import { getMockStore } from '@ngrx/store/testing';
 import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { AppConfig } from '../../../config/app-config.interface';
 
 describe('MetadataService', () => {
   let metadataService: MetadataService;
@@ -43,6 +49,8 @@ describe('MetadataService', () => {
 
   let router: Router;
   let store;
+
+  let appConfig: AppConfig;
 
   const initialState = { 'core': { metaTag: { tagsInUse: ['title', 'description'] }}};
 
@@ -86,6 +94,14 @@ describe('MetadataService', () => {
     store = getMockStore({ initialState });
     spyOn(store, 'dispatch');
 
+    appConfig = {
+      item: {
+        bitstream: {
+          pageSize: 5
+        }
+      }
+    } as any;
+
     metadataService = new MetadataService(
       router,
       translateService,
@@ -98,6 +114,7 @@ describe('MetadataService', () => {
       rootService,
       store,
       hardRedirectService,
+      appConfig,
       authorizationService
     );
   });
@@ -358,28 +375,65 @@ describe('MetadataService', () => {
         });
       }));
 
-      it('should link to first Bitstream with allowed format', fakeAsync(() => {
-        const bitstreams = [MockBitstream3, MockBitstream3, MockBitstream1];
-        (bundleDataService.findByItemAndName as jasmine.Spy).and.returnValue(mockBundleRD$(bitstreams));
-        (bitstreamDataService.findListByHref as jasmine.Spy).and.returnValues(
-          ...mockBitstreamPages$(bitstreams).map(bp => createSuccessfulRemoteDataObject$(bp)),
-        );
+      describe(`when there's a bitstream with an allowed format on the first page`, () => {
+        let bitstreams;
 
-        (metadataService as any).processRouteChange({
-          data: {
-            value: {
-              dso: createSuccessfulRemoteDataObject(ItemMock),
+        beforeEach(() => {
+          bitstreams = [MockBitstream2, MockBitstream3, MockBitstream1];
+          (bundleDataService.findByItemAndName as jasmine.Spy).and.returnValue(mockBundleRD$(bitstreams));
+          (bitstreamDataService.findListByHref as jasmine.Spy).and.returnValues(
+            ...mockBitstreamPages$(bitstreams).map(bp => createSuccessfulRemoteDataObject$(bp)),
+          );
+        });
+
+        it('should link to first Bitstream with allowed format', fakeAsync(() => {
+          (metadataService as any).processRouteChange({
+            data: {
+              value: {
+                dso: createSuccessfulRemoteDataObject(ItemMock),
+              }
             }
-          }
-        });
-        tick();
-        expect(meta.addTag).toHaveBeenCalledWith({
-          name: 'citation_pdf_url',
-          content: 'https://request.org/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/download'
-        });
-      }));
+          });
+          tick();
+          expect(meta.addTag).toHaveBeenCalledWith({
+            name: 'citation_pdf_url',
+            content: 'https://request.org/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/download'
+          });
+        }));
+
+      });
+
     });
   });
+
+  describe(`when there's no bitstream with an allowed format on the first page`, () => {
+    let bitstreams;
+
+    beforeEach(() => {
+      bitstreams = [MockBitstream1, MockBitstream3, MockBitstream2];
+      (bundleDataService.findByItemAndName as jasmine.Spy).and.returnValue(mockBundleRD$(bitstreams));
+      (bitstreamDataService.findListByHref as jasmine.Spy).and.returnValues(
+        ...mockBitstreamPages$(bitstreams).map(bp => createSuccessfulRemoteDataObject$(bp)),
+      );
+    });
+
+    it(`shouldn't add a citation_pdf_url meta tag`, fakeAsync(() => {
+      (metadataService as any).processRouteChange({
+        data: {
+          value: {
+            dso: createSuccessfulRemoteDataObject(ItemMock),
+          }
+        }
+      });
+      tick();
+      expect(meta.addTag).not.toHaveBeenCalledWith({
+        name: 'citation_pdf_url',
+        content: 'https://request.org/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/download'
+      });
+    }));
+
+  });
+
 
   describe('tagstore', () => {
     beforeEach(fakeAsync(() => {

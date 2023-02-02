@@ -117,6 +117,8 @@ import { BrowseByTitlePageComponent } from './app/browse-by/browse-by-title-page
 import {
   ExternalSourceEntryImportModalComponent
 } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
+import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
 import { ItemSharedModule } from '../../app/item-page/item-shared.module';
 import { SearchFiltersComponent } from './app/shared/search/search-filters/search-filters.component';
@@ -126,6 +128,8 @@ import { TypeBadgeComponent } from './app/shared/object-collection/shared/badges
 import { StatusBadgeComponent } from './app/shared/object-collection/shared/badges/status-badge/status-badge.component';
 import { BadgesComponent } from './app/shared/object-collection/shared/badges/badges.component';
 import { AccessStatusBadgeComponent } from './app/shared/object-collection/shared/badges/access-status-badge/access-status-badge.component';
+import { ResultsBackButtonComponent } from './app/shared/results-back-button/results-back-button.component';
+
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -188,6 +192,8 @@ const DECLARATIONS = [
   TypeBadgeComponent,
   MyDSpaceStatusBadgeComponent,
   AccessStatusBadgeComponent,
+  ResultsBackButtonComponent,
+
 ];
 
 @NgModule({
@@ -228,6 +234,8 @@ const DECLARATIONS = [
     ScrollToModule,
     SearchPageModule,
     SharedModule,
+    SharedBrowseByModule,
+    ResultsBackButtonModule,
     StatisticsModule,
     StatisticsPageModule,
     StoreModule,
