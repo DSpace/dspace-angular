@@ -31,13 +31,13 @@ export class VersionedItemComponent extends ItemComponent {
     private translateService: TranslateService,
     private versionService: VersionDataService,
     private itemVersionShared: ItemVersionsSharedService,
-    private router: Router,
+    protected router: Router,
     private workspaceItemDataService: WorkspaceitemDataService,
     private searchService: SearchService,
     private itemService: ItemDataService,
-    protected routeService: RouteService
+    protected routeService: RouteService,
   ) {
-    super(routeService);
+    super(routeService, router);
   }
 
   /**
