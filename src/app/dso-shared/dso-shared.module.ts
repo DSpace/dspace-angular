@@ -28,6 +28,7 @@ import { ThemedDsoEditMetadataComponent } from './dso-edit-metadata/themed-dso-e
     DsoEditMetadataFieldValuesComponent,
     DsoEditMetadataValueComponent,
     DsoEditMetadataHeadersComponent,
+    DsoEditMetadataValueHeadersComponent,
   ],
 })
 export class DsoSharedModule {
