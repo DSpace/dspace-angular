@@ -55,7 +55,7 @@ export function createSidebarSearchListElementTests(
     });
 
     it('should contain the correct parent title', (done) => {
-      component.parentTitle$.subscribe((title) => {
+      component.fullHierarchy$.then((title) => {
         expect(title).toEqual(expectedParentTitle);
         done();
       });
