@@ -45,12 +45,6 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
   public actionRD$: Observable<RemoteData<WorkflowAction>>;
 
   /**
-   * The option used to render the "return to pool" component
-   * Every claimed task contains this option
-   */
-  public returnToPoolOption = WORKFLOW_TASK_OPTION_RETURN_TO_POOL;
-
-  /**
    * Initialize instance variables
    *
    * @param {Injector} injector

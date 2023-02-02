@@ -13,10 +13,5 @@
         <i class="fa fa-info-circle"></i> {{"submission.workflow.generic.view" | translate}}
       </button>
     </ng-container>
-
-    <ds-claimed-task-actions-loader [option]="returnToPoolOption"
-                                    [object]="object"
-                                    (processCompleted)="this.processCompleted.emit($event)">
-    </ds-claimed-task-actions-loader>
   </div>
 </ng-container>
