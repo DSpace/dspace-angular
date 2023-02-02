@@ -6,6 +6,7 @@ import { hasNoValue } from '../app/shared/empty.util';
 
 import { AppConfig } from './app-config.interface';
 import { ThemeConfig } from './theme.model';
+import { ServerConfig } from './server-config.interface';
 
 /**
  * Extend Angular environment with app config.
@@ -47,8 +48,23 @@ const getDefaultThemeConfig = (): ThemeConfig => {
   );
 };
 
+/**
+ * Builds and returns the root URL.
+ *
+ * @param config app server config
+ * @returns built root url
+ */
+const buildRootUrl = (config: ServerConfig): string => {
+  return [
+    config.ssl ? 'https://' : 'http://',
+    config.host,
+    config.port && config.port !== 80 && config.port !== 443 ? `:${config.port}` : ''
+  ].join('');
+};
+
 export {
   extendEnvironmentWithAppConfig,
   mergeConfig,
-  getDefaultThemeConfig
+  getDefaultThemeConfig,
+  buildRootUrl
 };

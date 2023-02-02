@@ -25,6 +25,9 @@ import { FilterVocabularyConfig } from './filter-vocabulary-config';
 interface AppConfig extends Config {
   ui: UIServerConfig;
   rest: ServerConfig;
+  ssr: {
+    rest: ServerConfig
+  };
   production: boolean;
   cache: CacheConfig;
   auth?: AuthConfig;
