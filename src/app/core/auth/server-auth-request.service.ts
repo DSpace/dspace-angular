@@ -4,6 +4,8 @@ import { GetRequest } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { HttpHeaders, HttpXsrfTokenExtractor } from '@angular/common/http';
+import { XSRF_REQUEST_HEADER } from '../xsrf/xsrf.interceptor';
 
 /**
  * Server side version of the service to send authentication requests
@@ -14,7 +16,8 @@ export class ServerAuthRequestService extends AuthRequestService {
   constructor(
     halService: HALEndpointService,
     requestService: RequestService,
-    rdbService: RemoteDataBuildService
+    rdbService: RemoteDataBuildService,
+    protected tokenExtractor: HttpXsrfTokenExtractor,
   ) {
     super(halService, requestService, rdbService);
   }
@@ -28,7 +31,13 @@ export class ServerAuthRequestService extends AuthRequestService {
    * @protected
    */
   protected createShortLivedTokenRequest(href: string): GetRequest {
-    return Object.assign(new GetRequest(this.requestService.generateRequestId(), href), {
+    let options = new HttpHeaders();
+    options = options.set('Content-Type', 'application/json; charset=utf-8');
+    options = options.set(XSRF_REQUEST_HEADER, this.tokenExtractor.getToken());
+    let requestOptions = {
+      headers: options,
+    };
+    return Object.assign(new GetRequest(this.requestService.generateRequestId(), href, {}, requestOptions), {
       responseMsToLive: 2 * 1000 // A short lived token is only valid for 2 seconds.
     });
   }
