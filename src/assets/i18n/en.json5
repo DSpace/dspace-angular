@@ -4860,6 +4860,8 @@
 
   "system-wide-alert.form.header": "System-wide Alert",
 
+  "system-wide-alert-form.retrieval.error": "Something went wrong retrieving the system-wide alert",
+
   "system-wide-alert.form.cancel": "Cancel",
 
   "system-wide-alert.form.save": "Save",

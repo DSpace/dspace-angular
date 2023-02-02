@@ -1,6 +1,8 @@
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
-import { getAllCompletedRemoteData } from '../../core/shared/operators';
+import {
+  getAllSucceededRemoteDataPayload
+} from '../../core/shared/operators';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { SystemWideAlert } from '../system-wide-alert.model';
@@ -54,14 +56,7 @@ export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.push(this.systemWideAlertDataService.searchBy('active').pipe(
-      getAllCompletedRemoteData(),
-      map((rd) => {
-        if (rd.hasSucceeded) {
-          return rd.payload;
-        } else {
-          this.notificationsService.error('system-wide-alert-banner.retrieval.error');
-        }
-      }),
+      getAllSucceededRemoteDataPayload(),
       map((payload: PaginatedList<SystemWideAlert>) => payload.page),
       filter((page) => isNotEmpty(page)),
       map((page) => page[0])

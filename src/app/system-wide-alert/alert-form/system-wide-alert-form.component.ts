@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { filter, map } from 'rxjs/operators';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { SystemWideAlert } from '../system-wide-alert.model';
@@ -88,7 +88,14 @@ export class SystemWideAlertFormComponent implements OnInit {
 
   ngOnInit() {
     this.systemWideAlert$ = this.systemWideAlertDataService.findAll().pipe(
-      getFirstSucceededRemoteDataPayload(),
+      getFirstCompletedRemoteData(),
+      map((rd) => {
+        if (rd.hasSucceeded) {
+          return rd.payload;
+        } else {
+          this.notificationsService.error('system-wide-alert-form.retrieval.error');
+        }
+      }),
       map((payload: PaginatedList<SystemWideAlert>) => payload.page),
       filter((page) => isNotEmpty(page)),
       map((page) => page[0])
