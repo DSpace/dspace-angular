@@ -2676,8 +2676,8 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Gerenciar coleções mapeadas",
   
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
-  "item.edit.tabs.status.buttons.move.button": "Mover...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  "item.edit.tabs.status.buttons.move.button": "Mova este item para uma coleção diferente",
   
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
   "item.edit.tabs.status.buttons.move.label": "Mover item para outra coleção",
@@ -2700,8 +2700,8 @@
   // "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
   "item.edit.tabs.status.buttons.reinstate.label": "Restabelecer item no repositório",
   
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  "item.edit.tabs.status.buttons.withdraw.button": "Retirar...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
+  "item.edit.tabs.status.buttons.withdraw.button": "retirar este item",
   
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
   "item.edit.tabs.status.buttons.withdraw.label": "Retirar item do repositório",

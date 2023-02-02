@@ -2590,8 +2590,8 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Керувати прив'язаними зібраннями",
 
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
-  "item.edit.tabs.status.buttons.move.button": "Перемістити...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  "item.edit.tabs.status.buttons.move.button": "Перемістити цей елемент до іншої колекції",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
   "item.edit.tabs.status.buttons.move.label": "Перемістити документ до іншого зібрання",
@@ -2614,8 +2614,8 @@
   // "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
   "item.edit.tabs.status.buttons.reinstate.label": "Відновити документ в репозиторій",
 
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  "item.edit.tabs.status.buttons.withdraw.button": "Вилучити...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
+  "item.edit.tabs.status.buttons.withdraw.button": "вилучити цей предмет",
 
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
   "item.edit.tabs.status.buttons.withdraw.label": "Вилучити документ з репозиторію",
