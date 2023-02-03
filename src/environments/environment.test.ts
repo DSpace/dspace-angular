@@ -58,8 +58,14 @@ export const environment: BuildConfig = {
     },
     // In-memory cache of server-side rendered pages. Disabled in test environment (max=0)
     serverSide: {
-      max: 0,
-      timeToLive: 15 * 60 * 1000, // 15 minutes
+      botCache: {
+        max: 0,
+        timeToLive: 24 * 60 * 60 * 1000, // 1 day
+      },
+      anonymousCache: {
+        max: 0,
+        timeToLive: 10 * 1000, // 10 seconds
+      }
     }
   },
 
