@@ -7,7 +7,12 @@ import { VersionResolver } from './version-page/version.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
-import {ITEM_EDIT_PATH, TOMBSTONE_ITEM_PATH, UPLOAD_BITSTREAM_PATH} from './item-page-routing-paths';
+import {
+  ITEM_EDIT_PATH,
+  MATOMO_STATISTICS_PATH,
+  TOMBSTONE_ITEM_PATH,
+  UPLOAD_BITSTREAM_PATH
+} from './item-page-routing-paths';
 import { ItemPageAdministratorGuard } from './item-page-administrator.guard';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
@@ -17,6 +22,7 @@ import { VersionPageComponent } from './version-page/version-page/version-page.c
 import { BitstreamRequestACopyPageComponent } from '../shared/bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import {REQUEST_COPY_MODULE_PATH} from '../app-routing-paths';
 import {TombstoneComponent} from './tombstone/tombstone.component';
+import {ClarinMatomoStatisticsComponent} from './clarin-matomo-statistics/clarin-matomo-statistics.component';
 
 @NgModule({
   imports: [
@@ -56,8 +62,14 @@ import {TombstoneComponent} from './tombstone/tombstone.component';
           {
             path: TOMBSTONE_ITEM_PATH,
             component: TombstoneComponent
-          }
-
+          },
+          {
+            path: MATOMO_STATISTICS_PATH,
+            component: ClarinMatomoStatisticsComponent,
+            resolve: {
+              dso: ItemPageResolver,
+            }
+          },
         ],
         data: {
           menu: {

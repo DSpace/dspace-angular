@@ -2531,6 +2531,8 @@
 
   "item.page.edit": "Edit this item",
 
+  "item.page.statistics": "Show item statistics",
+
   "item.page.files": "Files",
 
   "item.page.filesection.description": "Description:",
@@ -2586,6 +2588,10 @@
   "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
 
   "item.page.license.message": ['This item is', 'and licensed under:'],
+
+  "item.page.matomo-statistics.views.button": "Views",
+
+  "item.page.matomo-statistics.downloads.button": "Downloads",
 
   "item.preview.dc.identifier.uri": "Identifier:",
 
@@ -2653,6 +2659,8 @@
   "item.refbox.featured-service.heading": "This resource is also integrated in following services:",
 
   "item.refbox.featured-service.share.message": "Share",
+
+  "item.matomo-statistics.info.message": "Click on a data point to summarize by year / month.",
 
 
 

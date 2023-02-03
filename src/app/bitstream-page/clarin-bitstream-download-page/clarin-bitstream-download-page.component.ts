@@ -58,8 +58,6 @@ export class ClarinBitstreamDownloadPageComponent implements OnInit {
     // Get dtoken
     this.dtoken = isUndefined(this.route.snapshot.queryParams.dtoken) ? null : this.route.snapshot.queryParams.dtoken;
 
-    console.log('dtoken', this.dtoken);
-
     this.bitstreamRD$ = this.route.data.pipe(
       map((data) => data.bitstream));
 
