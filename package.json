@@ -78,6 +78,8 @@
     "bootstrap": "4.3.1",
     "caniuse-lite": "^1.0.30001165",
     "cerialize": "0.1.18",
+    "ng2-charts": "2.4.3",
+    "chart.js": "2.9.4",
     "cli-progress": "^3.8.0",
     "compression": "^1.7.4",
     "cookie-parser": "1.4.5",

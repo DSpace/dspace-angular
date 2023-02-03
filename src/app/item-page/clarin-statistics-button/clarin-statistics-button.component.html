@@ -1,0 +1,8 @@
+<a *ngIf="isAuthorized$ | async"
+   [routerLink]="[pageRoute, 'matomo-statistics']"
+   class="edit-button btn btn-dark btn-sm"
+   [ngbTooltip]="tooltipMsg | translate"
+   role="button" [title]="tooltipMsg |translate" [attr.aria-label]="tooltipMsg |translate">
+  <i class="fas fa-chart-area fa-fw"></i>
+</a>
+

@@ -1,6 +1,7 @@
 import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { Item } from '../core/shared/item.model';
 import { isNotEmpty } from '../shared/empty.util';
+import {HANDLE_TABLE_MODULE_PATH} from '../app-routing-paths';
 
 export const ITEM_MODULE_PATH = 'items';
 
@@ -56,3 +57,8 @@ export const ITEM_EDIT_PATH = 'edit';
 export const ITEM_EDIT_VERSIONHISTORY_PATH = 'versionhistory';
 export const ITEM_VERSION_PATH = 'version';
 export const UPLOAD_BITSTREAM_PATH = 'bitstreams/new';
+
+export const MATOMO_STATISTICS_PATH = 'matomo-statistics';
+export function getMatomoStatisticsPath() {
+  return `/${HANDLE_TABLE_MODULE_PATH}`;
+}
