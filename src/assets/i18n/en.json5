@@ -3013,7 +3013,7 @@
 
   "register-page.registration.email.error.required": "Please fill in an email address",
 
-  "register-page.registration.email.error.not-email-form": "Please fill in a valid email address. ",
+  "register-page.registration.email.error.not-email-form": "Please fill in a valid email address.",
 
   "register-page.registration.email.error.not-valid-domain": "Use email with allowed domains: {{ domains }}",
 

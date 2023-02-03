@@ -20,9 +20,9 @@
                     </span>
                     <span *ngIf="email.errors && ((email.errors.pattern && this.typeRequest === TYPE_REQUEST_REGISTER) || email.errors.email)">
                         {{ MESSAGE_PREFIX + '.email.error.not-email-form' | translate }}
-                    </span>
-                    <span *ngIf="email.errors && email.errors.pattern && this.typeRequest === TYPE_REQUEST_REGISTER">
-                        {{ MESSAGE_PREFIX + '.email.error.not-valid-domain' | translate: { domains: validMailDomains } }}
+                        <ng-container *ngIf="validMailDomains.length > 0">
+                          {{ MESSAGE_PREFIX + '.email.error.not-valid-domain' | translate: { domains: validMailDomains.join(', ') } }}
+                        </ng-container>
                     </span>
                     </div>
                 </div>

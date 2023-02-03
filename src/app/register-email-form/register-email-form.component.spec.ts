@@ -12,8 +12,12 @@ import { EpersonRegistrationService } from '../core/data/eperson-registration.se
 import { By } from '@angular/platform-browser';
 import { RouterStub } from '../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
-import { RegisterEmailFormComponent } from './register-email-form.component';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import {
+  RegisterEmailFormComponent,
+  TYPE_REQUEST_REGISTER,
+  TYPE_REQUEST_FORGOT
+} from './register-email-form.component';
+import { createSuccessfulRemoteDataObject$, createFailedRemoteDataObject$ } from '../shared/remote-data.utils';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 
@@ -44,6 +48,7 @@ describe('RegisterEmailFormComponent', () => {
         ]
       }))
     });
+    jasmine.getEnv().allowRespy(true);
 
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
@@ -68,6 +73,15 @@ describe('RegisterEmailFormComponent', () => {
     it('should initialise the form', () => {
       const elem = fixture.debugElement.queryAll(By.css('input#email'))[0].nativeElement;
       expect(elem).toBeDefined();
+    });
+
+    it('should not retrieve the validDomains for TYPE_REQUEST_FORGOT', () => {
+      spyOn(configurationDataService, 'findByPropertyName');
+      comp.typeRequest = TYPE_REQUEST_FORGOT;
+
+      comp.ngOnInit();
+
+      expect(configurationDataService.findByPropertyName).not.toHaveBeenCalled();
     });
   });
   describe('email validation', () => {
