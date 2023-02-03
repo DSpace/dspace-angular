@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthRequestService } from './auth-request.service';
-import { GetRequest } from '../data/request.models';
+import { PostRequest } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -30,14 +30,14 @@ export class ServerAuthRequestService extends AuthRequestService {
    * @param href The href to send the request to
    * @protected
    */
-  protected createShortLivedTokenRequest(href: string): GetRequest {
+  protected createShortLivedTokenRequest(href: string): PostRequest {
     let options = new HttpHeaders();
     options = options.set('Content-Type', 'application/json; charset=utf-8');
     options = options.set(XSRF_REQUEST_HEADER, this.tokenExtractor.getToken());
     let requestOptions = {
       headers: options,
     };
-    return Object.assign(new GetRequest(this.requestService.generateRequestId(), href, {}, requestOptions), {
+    return Object.assign(new PostRequest(this.requestService.generateRequestId(), href, {}, requestOptions), {
       responseMsToLive: 2 * 1000 // A short lived token is only valid for 2 seconds.
     });
   }
