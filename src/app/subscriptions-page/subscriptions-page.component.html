@@ -24,8 +24,8 @@
                   </thead>
                   <tbody>
                     <tr ds-subscription-view *ngFor="let subscription of subscriptions?.page"
-                                             [dso]="(subscription?.dSpaceObject | async)?.payload"
-                                             [eperson]="(subscription?.ePerson | async)?.payload?.id"
+                                             [dso]="(subscription?.resource | async)?.payload"
+                                             [eperson]="(subscription?.eperson | async)?.payload?.id"
                                              [subscription]="subscription"
                                              (reload)="refresh()">
                     </tr>

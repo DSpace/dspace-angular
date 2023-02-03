@@ -143,7 +143,7 @@ export class SubscriptionsDataService extends IdentifiableDataService<Subscripti
    * @param options                     options for the find all request
    */
   findAllSubscriptions(options?): Observable<RemoteData<PaginatedList<Subscription>>> {
-    return this.findAllData.findAll(options, true, true, followLink('dSpaceObject'), followLink('ePerson'));
+    return this.findAllData.findAll(options, true, true, followLink('resource'), followLink('eperson'));
   }
 
 
@@ -164,7 +164,7 @@ export class SubscriptionsDataService extends IdentifiableDataService<Subscripti
 
     return this.getEndpoint().pipe(
       map(href => `${href}/search/${this.findByEpersonLinkPath}`),
-      switchMap(href => this.findListByHref(href, optionsWithObject, true, true, followLink('dSpaceObject'), followLink('ePerson')))
+      switchMap(href => this.findListByHref(href, optionsWithObject, false, true, followLink('resource'), followLink('eperson')))
     );
 
 

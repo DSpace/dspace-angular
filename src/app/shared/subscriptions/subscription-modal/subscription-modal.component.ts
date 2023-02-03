@@ -67,6 +67,10 @@ export class SubscriptionModalComponent implements OnInit {
   private frequencyDefaultValues = ['D', 'M', 'W'];
 
   /**
+   * True if form status has changed and at least one frequency is checked
+   */
+  isValid = false;
+  /**
    * Event emitted when a given subscription has been updated
    */
   @Output() updateSubscription: EventEmitter<Subscription> = new EventEmitter<Subscription>();
@@ -97,6 +101,14 @@ export class SubscriptionModalComponent implements OnInit {
       } else {
         this.initFormByAllSubscriptions();
       }
+    });
+
+    this.subscriptionForm.valueChanges.subscribe((newValue) => {
+      let anyFrequencySelected = false;
+      for (let f of this.frequencyDefaultValues) {
+        anyFrequencySelected = anyFrequencySelected || newValue.content.frequencies[f];
+      }
+      this.isValid = anyFrequencySelected;
     });
   }
 
