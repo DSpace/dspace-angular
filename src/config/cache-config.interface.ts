@@ -8,11 +8,22 @@ export interface CacheConfig extends Config {
   // Cache-Control HTTP Header
   control: string;
   autoSync: AutoSyncConfig;
-  // In-memory cache of server-side rendered content
+  // In-memory caches of server-side rendered (SSR) content. These caches can be used to limit the frequency
+  // of re-generating SSR pages to improve performance.
   serverSide: {
-    // Maximum number of pages (rendered via SSR) to cache.
-    max: number;
-    // Amount of time after which cached pages are considered stale (in ms)
-    timeToLive: number;
+    // Cache specific to known bots.  Allows you to serve cached contents to bots only.
+    botCache: {
+      // Maximum number of pages (rendered via SSR) to cache. Setting max=0 disables the cache.
+      max: number;
+      // Amount of time after which cached pages are considered stale (in ms)
+      timeToLive: number;
+    },
+    // Cache specific to anonymous users. Allows you to serve cached content to non-authenticated users.
+    anonymousCache: {
+      // Maximum number of pages (rendered via SSR) to cache. Setting max=0 disables the cache.
+      max: number;
+      // Amount of time after which cached pages are considered stale (in ms)
+      timeToLive: number;
+    }
   }
 }

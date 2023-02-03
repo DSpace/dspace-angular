@@ -29,6 +29,7 @@ import * as expressStaticGzip from 'express-static-gzip';
 
 import axios from 'axios';
 import LRU from 'lru-cache';
+import isbot from 'isbot';
 import { createCertificate } from 'pem';
 import { createServer } from 'https';
 import { json } from 'body-parser';
@@ -70,8 +71,11 @@ const cookieParser = require('cookie-parser');
 
 const appConfig: AppConfig = buildAppConfig(join(DIST_FOLDER, 'assets/config.json'));
 
-// cache of SSR pages, only enabled in production mode
-let cache: LRU<string, any>;
+// cache of SSR pages for known bots, only enabled in production mode
+let botCache: LRU<string, any>;
+
+// cache of SSR pages for anonymous users. Disabled by default, and only available in production mode
+let anonymousCache: LRU<string, any>;
 
 // extend environment with app config for server
 extendEnvironmentWithAppConfig(environment, appConfig);
@@ -257,10 +261,10 @@ function serverSideRender(req, res, sendToUser: boolean = true) {
     providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }]
   }, (err, data) => {
     if (hasNoValue(err) && hasValue(data)) {
-      res.locals.ssr = true;  // mark response as SSR (enables text compression)
-      // save server side rendered data to cache
+      // save server side rendered page to cache (if any are enabled)
       saveToCache(req, data);
       if (sendToUser) {
+        res.locals.ssr = true;  // mark response as SSR (enables text compression)
         // send rendered page to user
         res.send(data);
       }
@@ -313,24 +317,45 @@ function addCacheControl(req, res, next) {
  * Initialize server-side caching of pages rendered via SSR.
  */
 function initCache() {
-  if (cacheEnabled()) {
-    // Initialize a new "least-recently-used" item cache (where least recently used items are removed first)
+  if (botCacheEnabled()) {
+    // Initialize a new "least-recently-used" item cache (where least recently used pages are removed first)
     // See https://www.npmjs.com/package/lru-cache
-    cache = new LRU( {
-      max: environment.cache.serverSide.max || 100,            // 100 items in cache maximum
-      ttl: environment.cache.serverSide.timeToLive || 15 * 60 * 1000, // 15 minute cache
+    // When enabled, each page defaults to expiring after 1 day
+    botCache = new LRU( {
+      max: environment.cache.serverSide.botCache.max,
+      ttl: environment.cache.serverSide.botCache.timeToLive || 24 * 60 * 60 * 1000, // 1 day
+      allowStale: true // If object is found to be stale, return stale value before deleting
+    });
+  }
+
+  if (anonymousCacheEnabled()) {
+    // NOTE: While caches may share SSR pages, this cache must be kept separately because the timeToLive
+    // may expire pages more frequently.
+    // When enabled, each page defaults to expiring after 10 seconds (to minimize anonymous users seeing out-of-date content)
+    anonymousCache = new LRU( {
+      max: environment.cache.serverSide.anonymousCache.max,
+      ttl: environment.cache.serverSide.anonymousCache.timeToLive || 10 * 1000, // 10 seconds
       allowStale: true // If object is found to be stale, return stale value before deleting
     });
   }
 }
 
 /**
- * Return whether server side caching is enabled in configuration.
+ * Return whether bot-specific server side caching is enabled in configuration.
  */
-function cacheEnabled(): boolean {
-  // Caching is only enabled is SSR is enabled AND
-  // "serverSide.max" setting is greater than zero
-  return environment.universal.preboot && environment.cache.serverSide.max && (environment.cache.serverSide.max > 0);
+function botCacheEnabled(): boolean {
+  // Caching is only enabled if SSR is enabled AND
+  // "max" pages to cache is greater than zero
+  return environment.universal.preboot && environment.cache.serverSide.botCache.max && (environment.cache.serverSide.botCache.max > 0);
+}
+
+/**
+ * Return whether anonymous user server side caching is enabled in configuration.
+ */
+function anonymousCacheEnabled(): boolean {
+  // Caching is only enabled if SSR is enabled AND
+  // "max" pages to cache is greater than zero
+  return environment.universal.preboot && environment.cache.serverSide.anonymousCache.max && (environment.cache.serverSide.anonymousCache.max > 0);
 }
 
 /**
@@ -338,43 +363,64 @@ function cacheEnabled(): boolean {
  * Caching is ONLY done for SSR requests. Pages are cached base on their path (e.g. /home or /search?query=test)
  */
 function cacheCheck(req, res, next) {
-  let cacheHit = false;
-  let debug = false; // Enable to see cache hits & re-rendering logs
+  // Cached copy of page (if found)
+  let cachedCopy;
 
-  // Only check cache if cache enabled & NOT authenticated.
-  // NOTE: Authenticated users cannot use the SSR cache. Cached pages only show data available to anonymous users.
-  // Only public pages can currently be cached, as the cached data is not user-specific.
-  if (cacheEnabled() && !isUserAuthenticated(req)) {
-    const key = getCacheKey(req);
+  // If the bot cache is enabled and this request looks like a bot, check the bot cache for a cached page.
+  if (botCacheEnabled() && isbot(req.get('user-agent'))) {
+    cachedCopy = checkCacheForRequest('bot', botCache, req, res);
+  } else if (anonymousCacheEnabled() && !isUserAuthenticated(req)) {
+    cachedCopy = checkCacheForRequest('anonymous', anonymousCache, req, res);
+  }
 
-    // Check if this page is in our cache
-    let cachedCopy = cache.get(key);
-    if (cachedCopy) {
-      cacheHit = true;
-      res.locals.ssr = true;  // mark response as SSR (enables text compression)
-      if (debug) { console.log(`CACHE HIT FOR ${key}`); }
-      // return page from cache to user
-      res.send(cachedCopy);
+  // If cached copy exists, return it to the user.
+  if (cachedCopy) {
+    res.locals.ssr = true;  // mark response as SSR-generated (enables text compression)
+    res.send(cachedCopy);
 
-      // Check if cached copy is expired (in this sitution key will now be gone from cache)
-      if (!cache.has(key)) {
-        if (debug) { console.log(`CACHE EXPIRED FOR ${key} Re-rendering...`); }
-        // Update cached copy by rerendering server-side
-        // NOTE: Cached copy was already returned to user above. So, this re-render is just to prepare for next user.
-        serverSideRender(req, res, false);
-      }
+    // Tell Express to skip all other handlers for this path
+    // This ensures we don't try to re-render the page since we've already returned the cached copy
+    next('router');
+  } else {
+    // If nothing found in cache, just continue with next handler
+    // (This should send the request on to the handler that rerenders the page via SSR
+    next();
+  }
+}
 
-      // Tell Express to skip all other handlers for this path
-      // This ensures we don't try to re-render the page since we've already returned the cached copy
-      next('router');
+/**
+ * Checks if the current request (i.e. page) is found in the given cache. If it is found,
+ * the cached copy is returned. When found, this method also triggers a re-render via
+ * SSR if the cached copy is now expired (i.e. timeToLive has passed for this cached copy).
+ * @param cacheName name of cache (just useful for debug logging)
+ * @param cache LRU cache to check
+ * @param req current request to look for in the cache
+ * @param res current response
+ * @returns cached copy (if found) or undefined (if not found)
+ */
+function checkCacheForRequest(cacheName: string, cache: LRU<string, any>, req, res): any {
+  let debug = false; // Enable to see cache hits & re-rendering in logs
+
+  // Get the cache key for this request
+  const key = getCacheKey(req);
+
+  // Check if this page is in our cache
+  let cachedCopy = cache.get(key);
+  if (cachedCopy) {
+    if (debug) { console.log(`CACHE HIT FOR ${key} in ${cacheName} cache`); }
+
+    // Check if cached copy is expired (If expired, the key will now be gone from cache)
+    if (!cache.has(key)) {
+      if (debug) { console.log(`CACHE EXPIRED FOR ${key} in ${cacheName} cache. Re-rendering...`); }
+      // Update cached copy by rerendering server-side
+      // NOTE: In this scenario the currently cached copy will be returned to the current user.
+      // This re-render is peformed behind the scenes to update cached copy for next user.
+      serverSideRender(req, res, false);
     }
   }
 
-  // If nothing found in cache, just continue with next handler
-  // (This should send the request on to the handler that rerenders the page via SSR)
-  if (!cacheHit) {
-    next();
-  }
+  // return page from cache
+  return cachedCopy;
 }
 
 /**
@@ -390,20 +436,30 @@ function getCacheKey(req): string {
 }
 
 /**
- * Save data to server side cache, if enabled. If caching is not enabled or user is authenticated, this is a noop
+ * Save page to server side cache(s), if enabled. If caching is not enabled or a user is authenticated, this is a noop
+ * If multiple caches are enabled, the page will be saved to any caches where it does not yet exist (or is expired).
+ * (This minimizes the number of times we need to run SSR on the same page.)
  * @param req current page request
- * @param data page data to save to cache
+ * @param page page data to save to cache
  */
-function saveToCache(req, data: any) {
-  // Only cache if caching is enabled and no one is currently authenticated. This means ONLY public pages can be cached.
+function saveToCache(req, page: any) {
+  // Only cache if no one is currently authenticated. This means ONLY public pages can be cached.
   // NOTE: It's not safe to save page data to the cache when a user is authenticated. In that situation,
   // the page may include sensitive or user-specific materials. As the cache is shared across all users, it can only contain public info.
-  if (cacheEnabled() && !isUserAuthenticated(req)) {
+  if (!isUserAuthenticated(req)) {
     const key = getCacheKey(req);
-    // Make sure this key is not already in our cache. If "has()" returns true,
-    // then it's in the cache already and *not* expired.
-    if (!cache.has(key)) {
-      cache.set(key, data);
+    // Avoid caching "/reload/[random]" paths (these are hard refreshes after logout)
+    if (key.startsWith('/reload')) { return; }
+
+    // If bot cache is enabled, save it to that cache if it doesn't exist or is expired
+    // (NOTE: has() will return false if page is expired in cache)
+    if (botCacheEnabled() && !botCache.has(key)) {
+      botCache.set(key, page);
+    }
+
+    // If anonymous cache is enabled, save it to that cache if it doesn't exist or is expired
+    if (anonymousCacheEnabled() && !anonymousCache.has(key)) {
+      anonymousCache.set(key, page);
     }
   }
 }
@@ -412,7 +468,7 @@ function saveToCache(req, data: any) {
  * Whether a user is authenticated or not
  */
 function isUserAuthenticated(req): boolean {
-  // Check whether our authentication Cookie exists or not
+  // Check whether our DSpace authentication Cookie exists or not
   return req.cookies[TOKENITEM];
 }
 
