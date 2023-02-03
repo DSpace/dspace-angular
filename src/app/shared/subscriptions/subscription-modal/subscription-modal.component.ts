@@ -64,7 +64,7 @@ export class SubscriptionModalComponent implements OnInit {
   /**
    * Frequencies to be shown as checkboxes
    */
-  private frequencyDefaultValues = ['D', 'M', 'W'];
+  private frequencyDefaultValues = ['D', 'W', 'M'];
 
   /**
    * True if form status has changed and at least one frequency is checked

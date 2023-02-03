@@ -2313,11 +2313,11 @@
 
   "item.page.subscriptions.modal.new-subscription-form.type.content": "Content",
 
-  "item.page.subscriptions.modal.new-subscription-form.frequency.D": "daily",
+  "item.page.subscriptions.modal.new-subscription-form.frequency.D": "Daily",
 
-  "item.page.subscriptions.modal.new-subscription-form.frequency.M": "monthly",
+  "item.page.subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
 
-  "item.page.subscriptions.modal.new-subscription-form.frequency.W": "weekly",
+  "item.page.subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
 
   "item.page.subscriptions.modal.new-subscription-form.submit": "Submit",
 
