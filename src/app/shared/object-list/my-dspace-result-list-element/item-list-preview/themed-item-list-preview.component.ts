@@ -6,8 +6,6 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
 import { SearchResult } from '../../../search/models/search-result.model';
 import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
-import { CollectionDataService } from 'src/app/core/data/collection-data.service';
-import { environment } from '../../../../../../src/environments/environment';
 
 /**
  * Themed wrapper for ItemListPreviewComponent
@@ -15,10 +13,10 @@ import { environment } from '../../../../../../src/environments/environment';
 @Component({
   selector: 'ds-themed-item-list-preview',
   styleUrls: [],
-  templateUrl: 'themed-item-list-preview.component.html'
+  templateUrl: '../../../theme-support/themed.component.html'
 })
 export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPreviewComponent> {
-  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'status', 'showSubmitter'];
+  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'status', 'showSubmitter', 'workflowItem'];
 
   @Input() item: Item;
 
@@ -30,39 +28,16 @@ export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPrev
 
   @Input() workflowItem: WorkflowItem;
 
-  collection: any = null;
-
-  uiBaseUrl: string = environment.ui.baseUrl;
-
   constructor(
     protected resolver: ComponentFactoryResolver,
     protected cdr: ChangeDetectorRef,
     protected themeService: ThemeService,
-    protected collectionDataService: CollectionDataService
   ) {
     super(resolver, cdr, themeService);
   }
 
   ngOnInit() {
     super.ngOnInit();
-    this.getCollectionName();
-  }
-
-  protected getCollectionName(): void {
-
-    if (!this.item) {
-      return;
-    }
-
-    const collectionId = this.workflowItem?.sections.collection;
-
-    if (!collectionId) {
-      return;
-    }
-
-    this.collectionDataService.findByHref(`${environment.rest.baseUrl}/api/core/collections/${collectionId}`).subscribe(collection => {
-      this.collection = collection?.payload;
-    });
   }
 
   protected getComponentName(): string {
