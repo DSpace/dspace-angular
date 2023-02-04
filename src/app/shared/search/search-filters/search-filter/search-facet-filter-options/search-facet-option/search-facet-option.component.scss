@@ -1,6 +1,6 @@
 a {
     color: var(--bs-body-color);
-    &:hover, &focus {
+    &:hover, &:focus {
         text-decoration: none;
     }
     span.badge {
