@@ -3,7 +3,7 @@ import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { ItemOperation } from '../item-operation/itemOperation.model';
-import {distinctUntilChanged, first, map, mergeMap, toArray} from 'rxjs/operators';
+import { distinctUntilChanged, first, map, mergeMap, switchMap, take, toArray } from 'rxjs/operators';
 import { BehaviorSubject, Observable, from as observableFrom, Subscription, combineLatest } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
@@ -174,27 +174,36 @@ export class ItemStatusComponent implements OnInit {
       );
 
       // Subscribe to changes from the showRegister check and rebuild operations list accordingly
-      this.subs.push(showRegister$.subscribe((show) => {
-        // Copy the static array first so we don't keep appending to it
-        let tmp_operations = [...operations];
-        if (show) {
-          // Push the new Register DOI item operation
-          tmp_operations.push(new ItemOperation('register-doi', this.getCurrentUrl(item) + '/register-doi', FeatureID.CanRegisterDOI));
-        }
+      this.subs.push(showRegister$.pipe(
+        switchMap((show: boolean) => {
+          console.dir('show? ' + show);
+          // Copy the static array first so we don't keep appending to it
+          let tmp_operations = [...operations];
+          if (show) {
+            // Push the new Register DOI item operation
+            tmp_operations.push(new ItemOperation('register-doi', this.getCurrentUrl(item) + '/register-doi', FeatureID.CanRegisterDOI));
+          }
+          // emit the operations one at a time
+          return tmp_operations
+        }),
         // Check authorisations and merge into new operations list
-        observableFrom(tmp_operations).pipe(
-          mergeMap((operation) => {
-            if (hasValue(operation.featureID)) {
-              return this.authorizationService.isAuthorized(operation.featureID, item.self).pipe(
-                distinctUntilChanged(),
-                map((authorized) => new ItemOperation(operation.operationKey, operation.operationUrl, operation.featureID, !authorized, authorized))
-              );
-            } else {
-              return [operation];
-            }
-          }),
-          toArray()
-        ).subscribe((ops) => this.operations$.next(ops));
+        mergeMap((operation: ItemOperation) => {
+          console.dir("operation! " + (operation.featureID));
+          if (hasValue(operation.featureID)) {
+            return this.authorizationService.isAuthorized(operation.featureID, item.self).pipe(
+              //distinctUntilChanged(),
+              map((authorized) => new ItemOperation(operation.operationKey, operation.operationUrl, operation.featureID, !authorized, authorized))
+            );
+          } else {
+            return [operation];
+          }
+        }),
+        //take(operations.length + 1),
+        // wait until all observables have completed and emit them all as a single array
+        toArray(),
+      ).subscribe((ops: ItemOperation[]) => {
+        console.dir('next!');
+        this.operations$.next(ops);
       }));
 
     });
