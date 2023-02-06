@@ -66,6 +66,10 @@ export class MenuServiceStub {
     return observableOf(true);
   }
 
+  isMenuVisibleWithVisibleSections(id: MenuID): Observable<boolean> {
+    return observableOf(true);
+  }
+
   isMenuCollapsed(id: MenuID): Observable<boolean> {
     return observableOf(false);
   }

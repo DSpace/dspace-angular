@@ -71,7 +71,6 @@ import {
 } from './object-detail/my-dspace-result-detail-element/search-result-detail-element.component';
 import { ObjectDetailComponent } from './object-detail/object-detail.component';
 import { ObjNgFor } from './utils/object-ngfor.pipe';
-import { BrowseByComponent } from './browse-by/browse-by.component';
 import {
   BrowseEntryListElementComponent
 } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
@@ -228,6 +227,8 @@ import { SearchNavbarComponent } from '../search-navbar/search-navbar.component'
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
+import { ContextHelpDirective } from './context-help.directive';
+import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 import { RSSComponent } from './rss-feed/rss.component';
 import { BrowserOnlyPipe } from './utils/browser-only.pipe';
 import { ThemedLoadingComponent } from './loading/themed-loading.component';
@@ -248,6 +249,7 @@ import {
   DsoPageSubscriptionButtonComponent
 } from './dso-page/dso-page-subscription-button/dso-page-subscription-button.component';
 
+
 const MODULES = [
   CommonModule,
   FormsModule,
@@ -261,7 +263,7 @@ const MODULES = [
   RouterModule,
   DragDropModule,
   GoogleRecaptchaModule,
-  MenuModule,
+  MenuModule
 ];
 
 const ROOT_MODULES = [
@@ -315,7 +317,6 @@ const COMPONENTS = [
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
-  BrowseByComponent,
   InputSuggestionsComponent,
   FilterInputSuggestionsComponent,
   ValidationSuggestionsComponent,
@@ -349,6 +350,7 @@ const COMPONENTS = [
   DsoPageEditButtonComponent,
   DsoPageSubscriptionButtonComponent,
   MetadataFieldWrapperComponent,
+  ContextHelpWrapperComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -427,7 +429,8 @@ const DIRECTIVES = [
   ClaimedTaskActionsDirective,
   NgForTrackByIdDirective,
   MetadataFieldValidator,
-  HoverClassDirective
+  HoverClassDirective,
+  ContextHelpDirective,
 ];
 
 @NgModule({

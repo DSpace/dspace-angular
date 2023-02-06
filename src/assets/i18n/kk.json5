@@ -3094,7 +3094,7 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Салыстырмалы коллекцияларды басқару",
 
-  // "item.edit.tabs.status.buttons.move.button": "Move...",
+  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
   "item.edit.tabs.status.buttons.move.button": "Ысыру...",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
@@ -3121,11 +3121,11 @@
   // "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
   "item.edit.tabs.status.buttons.unauthorized": "Сіз бұл әрекетті орындауға құқығыңыз жоқ",
 
-  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  "item.edit.tabs.status.buttons.withdraw.button": "Шегінуге...",
+  // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
+  "item.edit.tabs.status.buttons.withdraw.button": "бұл тармақты алып тастаңыз",
 
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
-  "item.edit.tabs.status.buttons.withdraw.label": "Қоймадан тауарды алып қою",
+  "item.edit.tabs.status.buttons.withdraw.label": "Бұл элементті алып тастаңыз",
 
   // "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
   "item.edit.tabs.status.description": "Тауарларды басқару бетіне қош келдіңіз. Осы жерден элементті алып тастауға, қалпына келтіруге, жылжытуға немесе жоюға болады. Басқа қойындыларда жаңа метадеректерді / бит ағындарын жаңартуға немесе қосуға болады.",

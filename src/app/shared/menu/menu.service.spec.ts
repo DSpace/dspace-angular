@@ -243,6 +243,84 @@ describe('MenuService', () => {
     });
   });
 
+  describe('isMenuVisibleWithVisibleSections', () => {
+    it('should return false when the menu is empty', () => {
+      const testMenu = {
+        id: MenuID.ADMIN,
+        collapsed: false,
+        visible: true,
+        sections: {},
+        previewCollapsed: false,
+        sectionToSubsectionIndex: {}
+      } as any;
+      spyOn(service, 'getMenu').and.returnValue(observableOf(testMenu));
+
+      const result = service.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
+      const expected = cold('(b|)', {
+        b: false
+      });
+
+      expect(result).toBeObservable(expected);
+    });
+    it('should return false when no top-level sections are visible', () => {
+      const noTopLevelVisibleSections = {
+        section: {id: 's1', visible: false},
+        section_2: {id: 's2', visible: false},
+        section_3: {id: 's3', visible: false},
+        section_4: {id: 's1_1', visible: true, parentID: 's1'},
+        section_5: {id: 's2_1', visible: true, parentID: 's2'},
+      };
+      const testMenu = {
+        id: MenuID.ADMIN,
+        collapsed: false,
+        visible: true,
+        sections: noTopLevelVisibleSections,
+        previewCollapsed: false,
+        sectionToSubsectionIndex: {
+          'section': ['section_4'],
+          'section_2': ['section_5'],
+        }
+      } as any;
+      spyOn(service, 'getMenu').and.returnValue(observableOf(testMenu));
+
+      const result = service.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
+      const expected = cold('(b|)', {
+        b: false
+      });
+
+      expect(result).toBeObservable(expected);
+    });
+
+    it('should return true when any top-level section is visible', () => {
+      const noTopLevelVisibleSections = {
+        section: {id: 's1', visible: false},
+        section_2: {id: 's2', visible: true},
+        section_3: {id: 's3', visible: false},
+        section_4: {id: 's1_1', visible: true, parentID: 's1'},
+        section_5: {id: 's2_1', visible: true, parentID: 's2'},
+      };
+      const testMenu = {
+        id: MenuID.ADMIN,
+        collapsed: false,
+        visible: true,
+        sections: noTopLevelVisibleSections,
+        previewCollapsed: false,
+        sectionToSubsectionIndex: {
+          'section': ['section_4'],
+          'section_2': ['section_5'],
+        }
+      } as any;
+      spyOn(service, 'getMenu').and.returnValue(observableOf(testMenu));
+
+      const result = service.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
+      const expected = cold('(b|)', {
+        b: true
+      });
+
+      expect(result).toBeObservable(expected);
+    });
+  });
+
   describe('isMenuVisible', () => {
     beforeEach(() => {
       spyOn(service, 'getMenu').and.returnValue(observableOf(fakeMenu));
