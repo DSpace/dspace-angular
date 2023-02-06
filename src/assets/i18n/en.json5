@@ -2322,24 +2322,6 @@
 
   "item.page.claim.tooltip": "Claim this item as profile",
 
-  "item.page.subscriptions.tooltip": "Subscribe",
-
-  "item.page.subscriptions.modal.title": "Subscriptions",
-
-  "item.page.subscriptions.modal.type-frequency": "Type and frequency",
-
-  "item.page.subscriptions.modal.close": "Close",
-
-  "item.page.subscriptions.modal.new-subscription-form.type.content": "Content",
-
-  "item.page.subscriptions.modal.new-subscription-form.frequency.D": "Daily",
-
-  "item.page.subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
-
-  "item.page.subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
-
-  "item.page.subscriptions.modal.new-subscription-form.submit": "Submit",
-
   "item.preview.dc.identifier.uri": "Identifier:",
 
   "item.preview.dc.contributor.author": "Authors:",
@@ -4599,7 +4581,23 @@
 
   "subscriptions.frequency.W": "Weekly",
 
+  "subscriptions.tooltip": "Subscribe",
 
+  "subscriptions.modal.title": "Subscriptions",
+
+  "subscriptions.modal.type-frequency": "Type and frequency",
+
+  "subscriptions.modal.close": "Close",
+
+  "subscriptions.modal.new-subscription-form.type.content": "Content",
+
+  "subscriptions.modal.new-subscription-form.frequency.D": "Daily",
+
+  "subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
+
+  "subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
+
+  "subscriptions.modal.new-subscription-form.submit": "Submit",
 
   "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
 
