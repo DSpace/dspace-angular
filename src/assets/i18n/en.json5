@@ -792,6 +792,12 @@
   "chips.remove": "Remove chip",
 
 
+  "claimed-approved-search-result-list-element.title": "Approved",
+
+  "claimed-declined-search-result-list-element.title": "Rejected, sent back to submitter",
+
+  "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
+
 
   "collection.create.head": "Create a Collection",
 

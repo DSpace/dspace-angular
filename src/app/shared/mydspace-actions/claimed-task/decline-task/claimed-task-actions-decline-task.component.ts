@@ -6,6 +6,12 @@ import { NotificationsService } from '../../../notifications/notifications.servi
 import { TranslateService } from '@ngx-translate/core';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import {
+  ClaimedDeclinedTaskTaskSearchResult
+} from '../../../object-collection/shared/claimed-declined-task-task-search-result.model';
+import { Observable, of as observableOf } from 'rxjs';
+import { RemoteData } from 'src/app/core/data/remote-data';
 
 export const WORKFLOW_TASK_OPTION_DECLINE_TASK = 'submit_decline_task';
 
@@ -29,6 +35,16 @@ export class ClaimedTaskActionsDeclineTaskComponent extends ClaimedTaskActionsAb
               protected searchService: SearchService,
               protected requestService: RequestService) {
     super(injector, router, notificationsService, translate, searchService, requestService);
+  }
+
+  reloadObjectExecution(): Observable<RemoteData<DSpaceObject> | DSpaceObject> {
+    return observableOf(this.object);
+  }
+
+  convertReloadedObject(dso: DSpaceObject): DSpaceObject {
+    return Object.assign(new ClaimedDeclinedTaskTaskSearchResult(), dso, {
+      indexableObject: dso
+    });
   }
 
 }

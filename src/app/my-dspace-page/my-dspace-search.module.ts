@@ -16,6 +16,7 @@ import { WorkflowItemSearchResultListElementComponent } from '../shared/object-l
 import { PoolSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/pool-search-result/pool-search-result-detail-element.component';
 import { ClaimedApprovedSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-search-result/claimed-approved-search-result/claimed-approved-search-result-list-element.component';
 import { ClaimedDeclinedSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-search-result/claimed-declined-search-result/claimed-declined-search-result-list-element.component';
+import { ClaimedDeclinedTaskSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-search-result/claimed-declined-task-search-result/claimed-declined-task-search-result-list-element.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -24,6 +25,7 @@ const ENTRY_COMPONENTS = [
   ClaimedSearchResultListElementComponent,
   ClaimedApprovedSearchResultListElementComponent,
   ClaimedDeclinedSearchResultListElementComponent,
+  ClaimedDeclinedTaskSearchResultListElementComponent,
   PoolSearchResultListElementComponent,
   ItemSearchResultDetailElementComponent,
   WorkspaceItemSearchResultDetailElementComponent,
