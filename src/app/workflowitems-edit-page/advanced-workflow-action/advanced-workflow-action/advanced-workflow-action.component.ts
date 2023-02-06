@@ -12,6 +12,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operato
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { map } from 'rxjs/operators';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
+import { RequestService } from '../../../core/data/request.service';
 
 /**
  * Abstract component for rendering an advanced claimed task's workflow page
@@ -36,8 +37,9 @@ export abstract class AdvancedWorkflowActionComponent extends WorkflowItemAction
     protected translationService: TranslateService,
     protected workflowActionService: WorkflowActionDataService,
     protected claimedTaskDataService: ClaimedTaskDataService,
+    protected requestService: RequestService,
   ) {
-    super(route, workflowItemService, router, routeService, notificationsService, translationService);
+    super(route, workflowItemService, router, routeService, notificationsService, translationService, requestService);
   }
 
   ngOnInit(): void {

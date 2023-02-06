@@ -18,6 +18,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { WorkflowActionDataServiceStub } from '../../../shared/testing/workflow-action-data-service.stub';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';
+import { RequestService } from '../../../core/data/request.service';
+import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
 
 const workflowId = '1';
 
@@ -65,6 +67,7 @@ describe('AdvancedWorkflowActionComponent', () => {
         { provide: RouteService, useValue: routeServiceStub },
         { provide: WorkflowActionDataService, useValue: workflowActionDataService },
         { provide: WorkflowItemDataService, useValue: workflowItemDataService },
+        { provide: RequestService, useClass: RequestServiceStub },
       ],
     }).compileComponents();
   });

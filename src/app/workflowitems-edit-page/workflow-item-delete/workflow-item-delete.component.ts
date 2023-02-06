@@ -27,7 +27,7 @@ export class WorkflowItemDeleteComponent extends WorkflowItemActionPageComponent
               protected notificationsService: NotificationsService,
               protected translationService: TranslateService,
               protected requestService: RequestService) {
-    super(route, workflowItemService, router, routeService, notificationsService, translationService);
+    super(route, workflowItemService, router, routeService, notificationsService, translationService, requestService);
   }
 
   /**
@@ -42,7 +42,6 @@ export class WorkflowItemDeleteComponent extends WorkflowItemActionPageComponent
    * @param id The id of the WorkflowItem
    */
   sendRequest(id: string): Observable<boolean> {
-    this.requestService.removeByHrefSubstring('/discover');
     return this.workflowItemService.delete(id).pipe(
       getFirstCompletedRemoteData(),
       map((response: RemoteData<NoContent>) => response.hasSucceeded)

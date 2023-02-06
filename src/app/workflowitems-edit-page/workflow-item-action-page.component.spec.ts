@@ -16,6 +16,8 @@ import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { RouterStub } from '../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
+import { RequestService } from '../core/data/request.service';
+import { RequestServiceStub } from '../shared/testing/request-service.stub';
 
 const type = 'testType';
 describe('WorkflowItemActionPageComponent', () => {
@@ -52,6 +54,7 @@ describe('WorkflowItemActionPageComponent', () => {
         { provide: RouteService, useValue: {} },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: WorkflowItemDataService, useValue: wfiService },
+        { provide: RequestService, useClass: RequestServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -110,8 +113,10 @@ class TestComponent extends WorkflowItemActionPageComponent {
               protected router: Router,
               protected routeService: RouteService,
               protected notificationsService: NotificationsService,
-              protected translationService: TranslateService) {
-    super(route, workflowItemService, router, routeService, notificationsService, translationService);
+              protected translationService: TranslateService,
+              protected requestService: RequestService,
+  ) {
+    super(route, workflowItemService, router, routeService, notificationsService, translationService, requestService);
   }
 
   getType(): string {

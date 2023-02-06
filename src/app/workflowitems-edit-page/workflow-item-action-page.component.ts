@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { WorkflowItem } from '../core/submission/models/workflowitem.model';
@@ -11,6 +11,7 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { RemoteData } from '../core/data/remote-data';
 import { getAllSucceededRemoteData, getRemoteDataPayload } from '../core/shared/operators';
 import { isEmpty } from '../shared/empty.util';
+import { RequestService } from '../core/data/request.service';
 
 /**
  * Abstract component representing a page to perform an action on a workflow item
@@ -29,7 +30,9 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
               protected router: Router,
               protected routeService: RouteService,
               protected notificationsService: NotificationsService,
-              protected translationService: TranslateService) {
+              protected translationService: TranslateService,
+              protected requestService: RequestService,
+  ) {
   }
 
   /**
@@ -45,9 +48,9 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
    * Performs the action and shows a notification based on the outcome of the action
    */
   performAction() {
-    this.wfi$.pipe(
+    forkJoin([this.wfi$, this.requestService.removeByHrefSubstring('/discover')]).pipe(
       take(1),
-      switchMap((wfi: WorkflowItem) => this.sendRequest(wfi.id))
+      switchMap(([wfi]) => this.sendRequest(wfi.id))
     ).subscribe((successful: boolean) => {
       if (successful) {
         const title = this.translationService.get('workflow-item.' + this.type + '.notification.success.title');
