@@ -48,8 +48,8 @@ export const BrowseDefinitionDataServiceStub: any = {
 
   /**
    * Get the browse URL by providing a list of metadata keys
-   * @param metadatumKey
-   * @param linkPath
+   *
+   * @param metadataKeys  a list of fields eg. ['dc.contributor.author', 'dc.creator']
    */
   findByFields(metadataKeys: string[]): Observable<RemoteData<BrowseDefinition>> {
     let searchKeyArray: string[] = [];

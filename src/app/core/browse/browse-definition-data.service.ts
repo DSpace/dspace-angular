@@ -27,19 +27,6 @@ export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseD
   private findAllData: FindAllDataImpl<BrowseDefinition>;
   private searchData: SearchDataImpl<BrowseDefinition>;
 
-  public static toSearchKeyArray(metadataKey: string): string[] {
-    const keyParts = metadataKey.split('.');
-    const searchFor = [];
-    searchFor.push('*');
-    for (let i = 0; i < keyParts.length - 1; i++) {
-      const prevParts = keyParts.slice(0, i + 1);
-      const nextPart = [...prevParts, '*'].join('.');
-      searchFor.push(nextPart);
-    }
-    searchFor.push(metadataKey);
-    return searchFor;
-  }
-
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
@@ -100,54 +87,16 @@ export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseD
     return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
   }
 
-  findByField(
-    field: string,
-    useCachedVersionIfAvailable = true,
-    reRequestOnStale = true,
-    ...linksToFollow: FollowLinkConfig<BrowseDefinition>[]
-  ): Observable<RemoteData<BrowseDefinition>> {
-    const searchParams = [];
-    searchParams.push(new RequestParam('field', field));
-
-    const hrefObs = this.getSearchByHref(
-      'byField',
-      { searchParams },
-      ...linksToFollow
-    );
-
-    return this.findByHref(
-      hrefObs,
-      useCachedVersionIfAvailable,
-      reRequestOnStale,
-      ...linksToFollow,
-    );
-  }
-
-  findAllLinked(
-    useCachedVersionIfAvailable = true,
-    reRequestOnStale = true,
-    ...linksToFollow: FollowLinkConfig<BrowseDefinition>[]
-  ): Observable<RemoteData<BrowseDefinition>> {
-    const searchParams = [];
-
-    const hrefObs = this.getSearchByHref(
-      'allLinked',
-      { searchParams },
-      ...linksToFollow
-    );
-
-    return this.findByHref(
-      hrefObs,
-      useCachedVersionIfAvailable,
-      reRequestOnStale,
-      ...linksToFollow,
-    );
-  }
-
   /**
-   * Get the browse URL by providing a list of metadata keys
-   * @param metadatumKey
-   * @param linkPath
+   * Get the browse URL by providing a list of metadata keys. The first matching browse index definition
+   * for any of the fields is returned. This is used in eg. item page field component, which can be configured
+   * with several fields for a component like 'Author', and needs to know if and how to link the values
+   * to configured browse indices.
+   *
+   * @param fields  an array of field strings, eg. ['dc.contributor.author', 'dc.creator']
+   * @param useCachedVersionIfAvailable Override the data service useCachedVersionIfAvailable parameter (default: true)
+   * @param reRequestOnStale Override the data service reRequestOnStale parameter (default: true)
+   * @param linksToFollow Override the data service linksToFollow parameter (default: empty array)
    */
   findByFields(
     fields: string[],

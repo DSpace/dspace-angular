@@ -43,7 +43,7 @@ export class GenericItemPageFieldComponent extends ItemPageFieldComponent {
   /**
    * Whether any valid HTTP(S) URL should be rendered as a link
    */
-  @Input() urlRegex?;
+  @Input() urlRegex?: string;
 
 
 }

@@ -8,6 +8,11 @@ const mockMetadataRepresentation = Object.assign(new MetadatumRepresentation('ty
   value: 'Test Author'
 });
 
+const mockMetadataRepresentationWithUrl = Object.assign(new MetadatumRepresentation('type'), {
+  key: 'dc.subject',
+  value: 'http://purl.org/test/subject'
+});
+
 describe('BrowseLinkMetadataListElementComponent', () => {
   let comp: BrowseLinkMetadataListElementComponent;
   let fixture: ComponentFixture<BrowseLinkMetadataListElementComponent>;
@@ -33,6 +38,25 @@ describe('BrowseLinkMetadataListElementComponent', () => {
     it('should contain the value as a browse link', () => {
       expect(fixture.debugElement.nativeElement.textContent).toContain(mockMetadataRepresentation.value);
     });
+    it('should NOT match isLink', () => {
+      expect(comp.isLink).toBe(false);
+    })
+  });
+
+  beforeEach(waitForAsync(() => {
+    fixture = TestBed.createComponent(BrowseLinkMetadataListElementComponent);
+    comp = fixture.componentInstance;
+    comp.metadataRepresentation = mockMetadataRepresentationWithUrl;
+    fixture.detectChanges();
+  }));
+
+  waitForAsync(() => {
+    it('should contain the value expected', () => {
+      expect(fixture.debugElement.nativeElement.textContent).toContain(mockMetadataRepresentationWithUrl.value);
+    });
+    it('should match isLink', () => {
+      expect(comp.isLink).toBe(true);
+    })
   });
 
 });

@@ -67,9 +67,9 @@ export class MetadataValuesComponent implements OnChanges {
 
   /**
    * Does this metadata value have a valid URL that should be rendered as a link?
-   * @param value
+   * @param value A MetadataValue being displayed
    */
-  hasLink(value): boolean {
+  hasLink(value: MetadataValue): boolean {
     if (hasValue(this.urlRegex)) {
       const pattern = new RegExp(this.urlRegex);
       return pattern.test(value.value);
