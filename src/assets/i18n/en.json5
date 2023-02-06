@@ -130,6 +130,7 @@
   "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
 
   "admin.registries.bitstream-formats.table.name": "Name",
+  "admin.registries.bitstream-formats.table.id" : "ID",
 
   "admin.registries.bitstream-formats.table.return": "Back",
 
@@ -184,6 +185,7 @@
   "admin.registries.schema.fields.table.delete": "Delete selected",
 
   "admin.registries.schema.fields.table.field": "Field",
+  "admin.registries.schema.fields.table.id" : "ID",
 
   "admin.registries.schema.fields.table.scopenote": "Scope Note",
 
@@ -499,7 +501,11 @@
 
   "admin.access-control.groups.form.return": "Back",
 
+  "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
 
+  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
 
   "admin.search.breadcrumbs": "Administrative Search",
 
@@ -776,6 +782,9 @@
   "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
 
   "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
+
+
+  "search.browse.item-back": "Back to Results",
 
 
   "chips.remove": "Remove chip",
@@ -1234,11 +1243,21 @@
 
   "cookies.consent.app.required.title": "(always required)",
 
+  "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
+
+  "cookies.consent.app.disable-all.title": "Enable or disable all services",
+
   "cookies.consent.update": "There were changes since your last visit, please update your consent.",
 
   "cookies.consent.close": "Close",
 
   "cookies.consent.decline": "Decline",
+
+  "cookies.consent.ok": "That's ok",
+
+  "cookies.consent.save": "Save",
+
+  "cookies.consent.content-notice.title": "Cookie Consent",
 
   "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
 
@@ -1254,7 +1273,9 @@
 
   "cookies.consent.content-modal.title": "Information that we collect",
 
+  "cookies.consent.content-modal.services": "services",
 
+  "cookies.consent.content-modal.service": "service",
 
   "cookies.consent.app.title.authentication": "Authentication",
 
@@ -1284,7 +1305,6 @@
   "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
 
 
-
   "cookies.consent.purpose.functional": "Functional",
 
   "cookies.consent.purpose.statistical": "Statistical",
@@ -1306,6 +1326,8 @@
   "curation-task.task.translate.label": "Microsoft Translator",
 
   "curation-task.task.vscan.label": "Virus Scan",
+
+  "curation-task.task.registerdoi.label": "Register DOI",
 
 
 
@@ -1353,6 +1375,8 @@
 
   "dso-selector.create.community.head": "New community",
 
+  "dso-selector.create.community.or-divider": "or",
+
   "dso-selector.create.community.sub-level": "Create a new community in",
 
   "dso-selector.create.community.top-level": "Create a new top-level community",
@@ -1387,6 +1411,8 @@
 
   "dso-selector.set-scope.community.button": "Search all of DSpace",
 
+  "dso-selector.set-scope.community.or-divider": "or",
+
   "dso-selector.set-scope.community.input-header": "Search for a community or collection",
 
   "dso-selector.claim.item.head": "Profile tips",
@@ -1396,6 +1422,8 @@
   "dso-selector.claim.item.not-mine-label": "None of these are mine",
 
   "dso-selector.claim.item.create-from-scratch": "Create a new one",
+
+  "dso-selector.results-could-not-be-retrieved": "Something went wrong, please refresh again ↻",
 
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
 
@@ -1674,13 +1702,13 @@
 
   "health-page.section.geoIp.title": "GeoIp",
 
-  "health-page.section.solrAuthorityCore.title": "Sor: authority core",
+  "health-page.section.solrAuthorityCore.title": "Solr: authority core",
 
-  "health-page.section.solrOaiCore.title": "Sor: oai core",
+  "health-page.section.solrOaiCore.title": "Solr: oai core",
 
-  "health-page.section.solrSearchCore.title": "Sor: search core",
+  "health-page.section.solrSearchCore.title": "Solr: search core",
 
-  "health-page.section.solrStatisticsCore.title": "Sor: statistics core",
+  "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
 
   "health-page.section-info.app.title": "Application Backend",
 
@@ -1932,6 +1960,10 @@
 
   "item.edit.metadata.discard-button": "Discard",
 
+  "item.edit.metadata.edit.buttons.confirm": "Confirm",
+
+  "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
+
   "item.edit.metadata.edit.buttons.edit": "Edit",
 
   "item.edit.metadata.edit.buttons.remove": "Remove",
@@ -1939,6 +1971,8 @@
   "item.edit.metadata.edit.buttons.undo": "Undo changes",
 
   "item.edit.metadata.edit.buttons.unedit": "Stop editing",
+
+  "item.edit.metadata.edit.buttons.virtual": "This is a virtual metadata value, i.e. a value inherited from a related entity. It can’t be modified directly. Add or remove the corresponding relationship in the \"Relationships\" tab",
 
   "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
 
@@ -1949,6 +1983,8 @@
   "item.edit.metadata.headers.language": "Lang",
 
   "item.edit.metadata.headers.value": "Value",
+
+  "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
 
   "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
 
@@ -1971,6 +2007,8 @@
   "item.edit.metadata.notifications.saved.title": "Metadata saved",
 
   "item.edit.metadata.reinstate-button": "Undo",
+
+  "item.edit.metadata.reset-order-button": "Undo reorder",
 
   "item.edit.metadata.save-button": "Save",
 
@@ -2116,7 +2154,7 @@
 
   "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
 
-  "item.edit.tabs.status.buttons.move.button": "Move...",
+  "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
 
   "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
 
@@ -2134,7 +2172,7 @@
 
   "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
 
-  "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
+  "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
 
   "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
 
@@ -2433,6 +2471,62 @@
   "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
 
   "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
+
+
+
+  "itemtemplate.edit.metadata.add-button": "Add",
+
+  "itemtemplate.edit.metadata.discard-button": "Discard",
+
+  "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
+
+  "itemtemplate.edit.metadata.edit.buttons.drag": "Drag to reorder",
+
+  "itemtemplate.edit.metadata.edit.buttons.edit": "Edit",
+
+  "itemtemplate.edit.metadata.edit.buttons.remove": "Remove",
+
+  "itemtemplate.edit.metadata.edit.buttons.undo": "Undo changes",
+
+  "itemtemplate.edit.metadata.edit.buttons.unedit": "Stop editing",
+
+  "itemtemplate.edit.metadata.empty": "The item template currently doesn't contain any metadata. Click Add to start adding a metadata value.",
+
+  "itemtemplate.edit.metadata.headers.edit": "Edit",
+
+  "itemtemplate.edit.metadata.headers.field": "Field",
+
+  "itemtemplate.edit.metadata.headers.language": "Lang",
+
+  "itemtemplate.edit.metadata.headers.value": "Value",
+
+  "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
+
+  "itemtemplate.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
+
+  "itemtemplate.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+
+  "itemtemplate.edit.metadata.notifications.discarded.title": "Changed discarded",
+
+  "itemtemplate.edit.metadata.notifications.error.title": "An error occurred",
+
+  "itemtemplate.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
+
+  "itemtemplate.edit.metadata.notifications.invalid.title": "Metadata invalid",
+
+  "itemtemplate.edit.metadata.notifications.outdated.content": "The item template you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
+
+  "itemtemplate.edit.metadata.notifications.outdated.title": "Changed outdated",
+
+  "itemtemplate.edit.metadata.notifications.saved.content": "Your changes to this item template's metadata were saved.",
+
+  "itemtemplate.edit.metadata.notifications.saved.title": "Metadata saved",
+
+  "itemtemplate.edit.metadata.reinstate-button": "Undo",
+
+  "itemtemplate.edit.metadata.reset-order-button": "Undo reorder",
+
+  "itemtemplate.edit.metadata.save-button": "Save",
 
 
 
@@ -2858,11 +2952,15 @@
 
   "nav.community-browse.header": "By Community",
 
+  "nav.context-help-toggle": "Toggle context help",
+
   "nav.language": "Language switch",
 
   "nav.login": "Log In",
 
-  "nav.logout": "User profile menu and Log Out",
+  "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+
+  "nav.logout": "Log Out",
 
   "nav.main.description": "Main navigation bar",
 
@@ -3617,6 +3715,7 @@
 
   "search.filters.filter.submitter.label": "Search submitter",
 
+  "search.filters.filter.show-tree": "Browse {{ name }} tree",
 
 
   "search.filters.entityType.JournalIssue": "Journal Issue",
@@ -3812,6 +3911,8 @@
   "submission.import-external.source.cinii": "CiNii",
 
   "submission.import-external.source.crossref": "CrossRef",
+
+  "submission.import-external.source.datacite": "DataCite",
 
   "submission.import-external.source.scielo": "SciELO",
 
@@ -4022,6 +4123,8 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publication of the Author",
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
@@ -4065,6 +4168,8 @@
   "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
 
   "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
+
+  "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Publication",
 
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
 
@@ -4485,7 +4590,7 @@
 
   "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
 
-
+  "vocabulary-treeview.info": "Select a subject to add as search filter",
 
   "uploader.browse": "browse",
 
@@ -4811,4 +4916,5 @@
   "person.orcid.registry.auth": "ORCID Authorizations",
   "home.recent-submissions.head": "Recent Submissions",
 
+  "listable-notification-object.default-message": "This object couldn't be retrieved",
 }

@@ -1,18 +1,19 @@
 nav.navbar {
-    border-bottom: 1px var(--bs-gray-400) solid;
+    border-bottom: 1px var(--ds-header-navbar-border-bottom-color) solid;
     align-items: baseline;
 }
 
 /** Mobile menu styling **/
 @media screen and (max-width: map-get($grid-breakpoints, md)-0.02) {
     .navbar {
-        width: 100vw;
+        width: 100%;
         background-color: var(--bs-white);
         position: absolute;
         overflow: hidden;
         height: 0;
         &.open {
-            height: 100vh; //doesn't matter because wrapper is sticky
+          height: auto;
+          min-height: 100vh; //doesn't matter because wrapper is sticky
         }
     }
 }
@@ -27,7 +28,7 @@ nav.navbar {
 /* TODO remove when https://github.com/twbs/bootstrap/issues/24726 is fixed */
 .navbar-expand-md.navbar-container {
     @media screen and (max-width: map-get($grid-breakpoints, md)-0.02) {
-        > .container {
+        > .navbar-inner-container {
             padding: 0 var(--bs-spacer);
         }
         padding: 0;

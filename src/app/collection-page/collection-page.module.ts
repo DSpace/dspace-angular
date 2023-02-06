@@ -16,6 +16,7 @@ import { StatisticsModule } from '../statistics/statistics.module';
 import { CollectionFormModule } from './collection-form/collection-form.module';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 import { ComcolModule } from '../shared/comcol/comcol.module';
+import { DsoSharedModule } from '../dso-shared/dso-shared.module';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { ComcolModule } from '../shared/comcol/comcol.module';
     StatisticsModule.forRoot(),
     EditItemPageModule,
     CollectionFormModule,
-    ComcolModule
+    ComcolModule,
+    DsoSharedModule,
   ],
   declarations: [
     CollectionPageComponent,
@@ -38,7 +40,7 @@ import { ComcolModule } from '../shared/comcol/comcol.module';
   ],
   providers: [
     SearchService,
-  ]
+  ],
 })
 export class CollectionPageModule {
 

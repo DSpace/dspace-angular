@@ -2,7 +2,7 @@ import { Component, EventEmitter, Injector, Input, OnDestroy, OnInit, Output } f
 
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';

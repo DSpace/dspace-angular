@@ -55,6 +55,8 @@ auth:
 
 # Form settings
 form:
+  # Sets the spellcheck textarea attribute value
+  spellCheck: true
   # NOTE: Map server-side validators to comparative Angular form validators
   validatorMap:
     required: required
@@ -119,6 +121,9 @@ languages:
   - code: en
     label: English
     active: true
+  - code: ca
+    label: Català
+    active: true
   - code: cs
     label: Čeština
     active: true
@@ -142,6 +147,9 @@ languages:
     active: true
   - code: nl
     label: Nederlands
+    active: true
+  - code: pl
+    label: Polski
     active: true
   - code: pt-PT
     label: Português
@@ -170,6 +178,10 @@ languages:
   - code: el
     label: Ελληνικά
     active: true
+  - code: uk
+    label: Yкраї́нська
+    active: true
+
 
 # Browse-By Pages
 browseBy:
@@ -207,6 +219,11 @@ item:
     undoTimeout: 10000 # 10 seconds
   # Show the item access status label in items lists
   showAccessStatuses: false
+  bitstream:
+    # Number of entries in the bitstream list in the item view page.
+    # Rounded to the nearest size in the list of selectable sizes on the
+    # settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
+    pageSize: 5
 
 # Collection Page Config
 collection:
@@ -296,3 +313,11 @@ info:
 markdown:
   enabled: false
   mathjax: false
+
+# Which vocabularies should be used for which search filters
+# and whether to show the filter in the search sidebar
+# Take a look at the filter-vocabulary-config.ts file for documentation on how the options are obtained
+vocabularies:
+  - filter: 'subject'
+    vocabulary: 'srsc'
+    enabled: true

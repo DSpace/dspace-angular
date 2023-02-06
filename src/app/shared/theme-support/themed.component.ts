@@ -9,13 +9,15 @@ import {
   ComponentFactoryResolver,
   ChangeDetectorRef,
   OnChanges,
-  ElementRef
+  HostBinding,
+  ElementRef,
 } from '@angular/core';
 import { hasValue, isNotEmpty } from '../empty.util';
-import { from as fromPromise, Observable, of as observableOf, Subscription } from 'rxjs';
+import { from as fromPromise, Observable, of as observableOf, Subscription, BehaviorSubject } from 'rxjs';
 import { ThemeService } from './theme.service';
-import { catchError, switchMap, map } from 'rxjs/operators';
+import { catchError, switchMap, map, tap } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { BASE_THEME_NAME } from './theme.constants';
 
 @Component({
   selector: 'ds-themed',
@@ -27,10 +29,21 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
   @ViewChild('content') themedElementContent: ElementRef;
   protected compRef: ComponentRef<T>;
 
+  /**
+   * A reference to the themed component. Will start as undefined and emit every time the themed
+   * component is rendered
+   */
+  public compRef$: BehaviorSubject<ComponentRef<T>> = new BehaviorSubject(undefined);
+
   protected lazyLoadSub: Subscription;
   protected themeSub: Subscription;
 
   protected inAndOutputNames: (keyof T & keyof this)[] = [];
+
+  /**
+   * A data attribute on the ThemedComponent to indicate which theme the rendered component came from.
+   */
+  @HostBinding('attr.data-used-theme') usedTheme: string;
 
   constructor(
     protected resolver: ComponentFactoryResolver,
@@ -82,6 +95,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
         } else {
           // otherwise import and return the default component
           return fromPromise(this.importUnthemedComponent()).pipe(
+            tap(() => this.usedTheme = BASE_THEME_NAME),
             map((unthemedFile: any) => {
               return unthemedFile[this.getComponentName()];
             })
@@ -90,9 +104,9 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
       }),
     ).subscribe((constructor: GenericConstructor<T>) => {
       const factory = this.resolver.resolveComponentFactory(constructor);
-
       this.compRef = this.vcr.createComponent(factory, undefined, undefined, [this.themedElementContent.nativeElement.children]);
       this.connectInputsAndOutputs();
+      this.compRef$.next(this.compRef);
       this.cdr.markForCheck();
       this.themedElementContent.nativeElement.remove();
     });
@@ -127,6 +141,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
   private resolveThemedComponent(themeName?: string, checkedThemeNames: string[] = []): Observable<any> {
     if (isNotEmpty(themeName)) {
       return fromPromise(this.importThemedComponent(themeName)).pipe(
+        tap(() => this.usedTheme = themeName),
         catchError(() => {
           // Try the next ancestor theme instead
           const nextTheme = this.themeService.getThemeConfigFor(themeName)?.extends;

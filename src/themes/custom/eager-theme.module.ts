@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../app/shared/shared.module';
 import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { SearchNavbarComponent } from './app/search-navbar/search-navbar.component';
 import { HeaderComponent } from './app/header/header.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
-import { SearchModule } from '../../app/shared/search/search.module';
 import { RootModule } from '../../app/root.module';
 import { NavbarModule } from '../../app/navbar/navbar.module';
 import { PublicationComponent } from './app/item-page/simple/item-types/publication/publication.component';
@@ -43,6 +41,9 @@ import {
 
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent} from './app/shared/object-list/collection-list-element/collection-list-element.component';
+import { CollectionDropdownComponent } from './app/shared/collection-dropdown/collection-dropdown.component';
+import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
+import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 import { FileDownloadLinkComponent } from './app/shared/file-download-link/file-download-link.component';
 
 
@@ -59,6 +60,7 @@ const ENTRY_COMPONENTS = [
 
   CommunityListElementComponent,
   CollectionListElementComponent,
+  CollectionDropdownComponent,
   FileDownloadLinkComponent,
 ];
 
@@ -82,16 +84,16 @@ const DECLARATIONS = [
   imports: [
     CommonModule,
     SharedModule,
-    SearchModule,
-    FormsModule,
     RootModule,
     NavbarModule,
+    SharedBrowseByModule,
+    ResultsBackButtonModule,
     ItemPageModule,
     ItemSharedModule,
   ],
   declarations: DECLARATIONS,
   providers: [
-    ...ENTRY_COMPONENTS.map((component) => ({ provide: component }))
+    ...ENTRY_COMPONENTS.map((component) => ({provide: component}))
   ],
 })
 /**
