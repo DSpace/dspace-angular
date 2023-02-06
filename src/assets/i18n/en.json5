@@ -6647,6 +6647,8 @@
 
   "curation-task.task.pushocr.label": "Send OCR to the Annotation Server",
 
+  "curation-task.task.pushocr.force.label": "Clean OCR from the Annotation Server and send again",
+
   "curation-task.task.ocrclean.label": "Remove all metadata bundles and uploaded ocr created by a previous upload to the ocr server",
 
   "curation-task.task.iiifuploader.label": "Upload images to the IIIF Image Server (photo gallery)",
