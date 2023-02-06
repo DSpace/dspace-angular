@@ -23,6 +23,8 @@ import { Item } from '../../../core/shared/item.model';
 import { EPersonMock, EPersonMock2 } from '../../../shared/testing/eperson.mock';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { RequestService } from '../../../core/data/request.service';
+import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
 
 const claimedTaskId = '2';
 const workflowId = '1';
@@ -73,6 +75,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
         { provide: RouteService, useValue: routeServiceStub },
         { provide: WorkflowActionDataService, useValue: workflowActionDataService },
         { provide: WorkflowItemDataService, useValue: workflowItemDataService },
+        { provide: RequestService, useClass: RequestServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

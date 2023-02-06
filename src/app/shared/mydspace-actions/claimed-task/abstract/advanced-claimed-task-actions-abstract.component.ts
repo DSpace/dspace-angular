@@ -7,8 +7,8 @@ import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/wo
 /**
  * Abstract component for rendering an advanced claimed task's action
  * To create a child-component for a new option:
- * - Set the "option" and "workflowType" of the component
- * - Add a @rendersWorkflowTaskOption annotation to your component providing the same enum value
+ * - Set the "{@link option}" and "{@link workflowType}" of the component
+ * - Add a @{@link rendersWorkflowTaskOption} annotation to your component providing the same enum value
  */
 @Component({
   selector: 'ds-advanced-claimed-task-action-abstract',

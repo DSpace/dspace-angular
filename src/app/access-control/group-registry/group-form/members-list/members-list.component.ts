@@ -37,12 +37,30 @@ enum SubKey {
   SearchResultsDTO,
 }
 
+/**
+ * The layout config of the buttons in the last column
+ */
 export interface EPersonActionConfig {
+  /**
+   * The css classes that should be added to the button
+   */
   css?: string;
+  /**
+   * Whether the button should be disabled
+   */
   disabled: boolean;
+  /**
+   * The Font Awesome icon that should be used
+   */
   icon: string;
 }
 
+/**
+ * The {@link EPersonActionConfig} that should be used to display the button. The remove config will be used when the
+ * {@link EPerson} is already a member of the {@link Group} and the remove config will be used otherwise.
+ *
+ * *See {@link actionConfig} for an example*
+ */
 export interface EPersonListActionConfig {
   add: EPersonActionConfig;
   remove: EPersonActionConfig;

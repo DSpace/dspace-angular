@@ -7,15 +7,15 @@
   </p>
 
   <form (ngSubmit)="performAction()" *ngIf="ratingForm" [formGroup]="ratingForm">
-    <div *ngVar="ratingForm.get('review').touched && !ratingForm.get('review').valid as invalid" class="form-group">
+    <div class="form-group">
       <label class="control-label">
         <span>{{ 'advanced-workflow-action.rating.form.review.label' | translate }}</span>
         <span *ngIf="advancedInfo?.descriptionRequired">*</span>
       </label>
-      <textarea [ngClass]="invalid ? 'is-invalid' : ''" [required]="advancedInfo?.descriptionRequired"
-                class="form-control" formControlName="review">
+      <textarea [ngClass]="{ 'is-invalid' : isInvalid('review') }"
+                [required]="advancedInfo?.descriptionRequired" class="form-control" formControlName="review">
       </textarea>
-      <small *ngIf="invalid" class="invalid-feedback d-block">
+      <small *ngIf="isInvalid('review')" class="invalid-feedback d-block">
         {{ 'advanced-workflow-action.rating.form.review.error' | translate }}
       </small>
     </div>
@@ -24,8 +24,12 @@
       <label class="control-label">
         {{ 'advanced-workflow-action.rating.form.rating.label' | translate }}*
       </label>
-      <rating [max]="advancedInfo?.maxValue" class="d-block" formControlName="rating">
+      <rating [max]="advancedInfo?.maxValue" [ngClass]="{ 'text-danger': isInvalid('rating') }"
+              class="d-block" formControlName="rating">
       </rating>
+      <small *ngIf="isInvalid('rating')" class="invalid-feedback d-block">
+        {{ 'advanced-workflow-action.rating.form.rating.error' | translate }}
+      </small>
     </div>
   </form>
 

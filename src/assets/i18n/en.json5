@@ -582,6 +582,8 @@
 
   "advanced-workflow-action.rating.form.rating.label": "Rating",
 
+  "advanced-workflow-action.rating.form.rating.error": "You must rate the item",
+
   "advanced-workflow-action.rating.form.review.label": "Review",
 
   "advanced-workflow-action.rating.form.review.error": "You must enter a review to submit this rating",
@@ -844,6 +846,12 @@
 
   "chips.remove": "Remove chip",
 
+
+  "claimed-approved-search-result-list-element.title": "Approved",
+
+  "claimed-declined-search-result-list-element.title": "Rejected, sent back to submitter",
+
+  "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
 
 
   "collection.create.head": "Create a Collection",

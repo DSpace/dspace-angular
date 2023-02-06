@@ -23,7 +23,7 @@ export class WorkflowItemSendBackComponent extends WorkflowItemActionPageCompone
               protected notificationsService: NotificationsService,
               protected translationService: TranslateService,
               protected requestService: RequestService) {
-    super(route, workflowItemService, router, routeService, notificationsService, translationService);
+    super(route, workflowItemService, router, routeService, notificationsService, translationService, requestService);
   }
 
   /**
@@ -38,7 +38,6 @@ export class WorkflowItemSendBackComponent extends WorkflowItemActionPageCompone
    * @param id The id of the WorkflowItem
    */
   sendRequest(id: string): Observable<boolean> {
-    this.requestService.removeByHrefSubstring('/discover');
     return this.workflowItemService.sendBack(id);
   }
 }

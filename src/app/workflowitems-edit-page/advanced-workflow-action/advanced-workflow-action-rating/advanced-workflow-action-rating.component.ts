@@ -3,11 +3,9 @@ import {
   rendersAdvancedWorkflowTaskOption
 } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
-import {
-  RatingAdvancedWorkflowInfo
-} from '../../../core/tasks/models/rating-advanced-workflow-info.model';
+import { RatingAdvancedWorkflowInfo } from '../../../core/tasks/models/rating-advanced-workflow-info.model';
 
 export const ADVANCED_WORKFLOW_TASK_OPTION_RATING = 'submit_score';
 export const ADVANCED_WORKFLOW_ACTION_RATING = 'scorereviewaction';
@@ -30,7 +28,7 @@ export class AdvancedWorkflowActionRatingComponent extends AdvancedWorkflowActio
     super.ngOnInit();
     this.ratingForm = new FormGroup({
       review: new FormControl(''),
-      rating: new FormControl(0),
+      rating: new FormControl(0, Validators.min(1)),
     });
   }
 
@@ -67,6 +65,15 @@ export class AdvancedWorkflowActionRatingComponent extends AdvancedWorkflowActio
 
   getAdvancedInfo(workflowAction: WorkflowAction | null): RatingAdvancedWorkflowInfo | null {
     return workflowAction ? (workflowAction.advancedInfo[0] as RatingAdvancedWorkflowInfo) : null;
+  }
+
+  /**
+   * Returns whether the field is valid or not.
+   *
+   * @param formControlName The input field
+   */
+  isInvalid(formControlName: string): boolean {
+    return this.ratingForm.get(formControlName).touched && !this.ratingForm.get(formControlName).valid;
   }
 
 }

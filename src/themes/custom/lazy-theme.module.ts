@@ -231,7 +231,6 @@ const DECLARATIONS = [
   ],
   declarations: DECLARATIONS,
   exports: [
-    FullItemPageComponent,
     CommunityPageSubCollectionListComponent
   ]
 })

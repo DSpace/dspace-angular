@@ -26,6 +26,8 @@ import { Item } from '../../../core/shared/item.model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { RatingAdvancedWorkflowInfo } from '../../../core/tasks/models/rating-advanced-workflow-info.model';
+import { RequestService } from '../../../core/data/request.service';
+import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
 
 const claimedTaskId = '2';
 const workflowId = '1';
@@ -80,6 +82,7 @@ describe('AdvancedWorkflowActionRatingComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: WorkflowActionDataService, useValue: workflowActionDataService },
         { provide: WorkflowItemDataService, useValue: workflowItemDataService },
+        { provide: RequestService, useClass: RequestServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
