@@ -86,7 +86,7 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
         .map((metadatum: any) => Object.assign(new MetadataValue(), metadatum))
         .map((metadatum: MetadataValue) => {
           if (metadatum.isVirtual) {
-            return this.relationshipService.resolveMetadataRepresentation(metadatum, this.parentItem, this.itemType)
+            return this.relationshipService.resolveMetadataRepresentation(metadatum, this.parentItem, this.itemType);
           } else {
             // Check for a configured browse link and return a standard metadata representation
             let searchKeyArray: string[] = [];

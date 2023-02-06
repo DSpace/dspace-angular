@@ -40,7 +40,7 @@ describe('BrowseLinkMetadataListElementComponent', () => {
     });
     it('should NOT match isLink', () => {
       expect(comp.isLink).toBe(false);
-    })
+    });
   });
 
   beforeEach(waitForAsync(() => {
@@ -56,7 +56,7 @@ describe('BrowseLinkMetadataListElementComponent', () => {
     });
     it('should match isLink', () => {
       expect(comp.isLink).toBe(true);
-    })
+    });
   });
 
 });

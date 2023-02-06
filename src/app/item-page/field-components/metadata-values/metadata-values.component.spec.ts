@@ -69,7 +69,7 @@ describe('MetadataValuesComponent', () => {
   });
 
   it('should correctly detect a pattern on string containing "test"', () => {
-    const mdValue = {value: "This is a test value"} as MetadataValue;
+    const mdValue = {value: 'This is a test value'} as MetadataValue;
     expect(comp.hasLink(mdValue)).toBe(true);
   });
 
