@@ -2309,6 +2309,8 @@
 
   "item.page.subscriptions.modal.title": "Subscriptions",
 
+  "item.page.subscriptions.modal.type-frequency": "Type and frequency",
+
   "item.page.subscriptions.modal.close": "Close",
 
   "item.page.subscriptions.modal.new-subscription-form.type.content": "Content",
