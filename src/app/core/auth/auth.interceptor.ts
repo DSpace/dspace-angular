@@ -196,7 +196,24 @@ export class AuthInterceptor implements HttpInterceptor {
       authStatus.token = new AuthTokenInfo(accessToken);
     } else {
       authStatus.authenticated = false;
-      authStatus.error = isNotEmpty(error) ? ((typeof error === 'string') ? JSON.parse(error) : error) : null;
+      if (isNotEmpty(error)) {
+        if (typeof error === 'string') {
+          try {
+            authStatus.error = JSON.parse(error);
+          } catch (e) {
+            console.error('Unknown auth error "', error, '" caused ', e);
+            authStatus.error = {
+              error: 'Unknown',
+              message: 'Unknown auth error',
+              status: 500,
+              timestamp: Date.now(),
+              path: ''
+              };
+          }
+        } else {
+          authStatus.error = error;
+        }
+      }
     }
     return authStatus;
   }
