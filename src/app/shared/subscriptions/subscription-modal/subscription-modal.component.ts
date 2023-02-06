@@ -23,6 +23,9 @@ import { isNotEmpty } from '../../empty.util';
   templateUrl: './subscription-modal.component.html',
   styleUrls: ['./subscription-modal.component.scss']
 })
+/**
+ * Modal that allows to manage the subscriptions for the selected item
+ */
 export class SubscriptionModalComponent implements OnInit {
 
   /**

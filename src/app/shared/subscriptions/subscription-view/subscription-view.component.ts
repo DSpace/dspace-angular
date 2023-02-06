@@ -19,6 +19,9 @@ import { SubscriptionModalComponent } from '../subscription-modal/subscription-m
   templateUrl: './subscription-view.component.html',
   styleUrls: ['./subscription-view.component.scss']
 })
+/**
+ * Table row representing a subscription that displays all information and action buttons to manage it
+ */
 export class SubscriptionViewComponent {
 
   /**

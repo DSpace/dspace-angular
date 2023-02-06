@@ -20,6 +20,9 @@ import { hasValue } from '../shared/empty.util';
   templateUrl: './subscriptions-page.component.html',
   styleUrls: ['./subscriptions-page.component.scss']
 })
+/**
+ * List and allow to manage all the active subscription for the current user
+ */
 export class SubscriptionsPageComponent implements OnInit, OnDestroy {
 
   /**
