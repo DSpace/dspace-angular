@@ -2,14 +2,13 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { filter, find, startWith } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { hasValue, isEmpty, isNotEmpty } from '../../empty.util';
-import { isAuthenticated } from '../../../core/auth/selectors';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import { LOAD_MORE, LOAD_MORE_ROOT, TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
@@ -18,6 +17,7 @@ import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vo
 import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
 import { CoreState } from '../../../core/core-state.model';
+import { lowerCase } from 'lodash/string';
 
 /**
  * Component that show a hierarchical vocabulary in a tree view
@@ -203,23 +203,15 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
       })
     );
 
-    const descriptionLabel = 'vocabulary-treeview.tree.description.' + this.vocabularyOptions.name;
-    this.description = this.translate.get(descriptionLabel).pipe(
-      filter((msg) => msg !== descriptionLabel),
-      startWith('')
+    this.translate.get(`search.filters.filter.${this.vocabularyOptions.name}.head`).pipe(
+      map((type) => lowerCase(type)),
+    ).subscribe(
+      (type) => this.description = this.translate.get('vocabulary-treeview.info', { type })
     );
-
-    // set isAuthenticated
-    this.isAuthenticated = this.store.pipe(select(isAuthenticated));
 
     this.loading = this.vocabularyTreeviewService.isLoading();
 
-    this.isAuthenticated.pipe(
-      find((isAuth) => isAuth)
-    ).subscribe(() => {
-      const entryId: string = (this.selectedItem) ? this.getEntryId(this.selectedItem) : null;
-      this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), entryId);
-    });
+    this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), null);
   }
 
   /**

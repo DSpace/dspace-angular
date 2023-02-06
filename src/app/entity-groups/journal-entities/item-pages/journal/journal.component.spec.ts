@@ -34,6 +34,7 @@ import { VersionHistoryDataService } from '../../../../core/data/version-history
 import { VersionDataService } from '../../../../core/data/version-data.service';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { mockRouteService } from '../../../../item-page/simple/item-types/shared/item.component.spec';
 
 let comp: JournalComponent;
 let fixture: ComponentFixture<JournalComponent>;
@@ -99,7 +100,7 @@ describe('JournalComponent', () => {
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         { provide: WorkspaceitemDataService, useValue: {} },
         { provide: SearchService, useValue: {} },
-        { provide: RouteService, useValue: {} }
+        { provide: RouteService, useValue: mockRouteService }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

@@ -71,7 +71,6 @@ import {
 } from './object-detail/my-dspace-result-detail-element/search-result-detail-element.component';
 import { ObjectDetailComponent } from './object-detail/object-detail.component';
 import { ObjNgFor } from './utils/object-ngfor.pipe';
-import { BrowseByComponent } from './browse-by/browse-by.component';
 import {
   BrowseEntryListElementComponent
 } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
@@ -186,7 +185,6 @@ import {
   ImportableListItemControlComponent
 } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
 import { LogInContainerComponent } from './log-in/container/log-in-container.component';
-import { LogInShibbolethComponent } from './log-in/methods/shibboleth/log-in-shibboleth.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
@@ -228,9 +226,9 @@ import { SearchNavbarComponent } from '../search-navbar/search-navbar.component'
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
-import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
+import { ContextHelpDirective } from './context-help.directive';
+import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 import { RSSComponent } from './rss-feed/rss.component';
-import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 import { BrowserOnlyPipe } from './utils/browser-only.pipe';
 import { ThemedLoadingComponent } from './loading/themed-loading.component';
 import { SearchExportCsvComponent } from './search/search-export-csv/search-export-csv.component';
@@ -245,6 +243,9 @@ import {
 } from './object-list/listable-notification-object/listable-notification-object.component';
 import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
+import { LogInExternalProviderComponent } from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
+
+
 
 const MODULES = [
   CommonModule,
@@ -259,7 +260,7 @@ const MODULES = [
   RouterModule,
   DragDropModule,
   GoogleRecaptchaModule,
-  MenuModule,
+  MenuModule
 ];
 
 const ROOT_MODULES = [
@@ -313,7 +314,6 @@ const COMPONENTS = [
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
-  BrowseByComponent,
   InputSuggestionsComponent,
   FilterInputSuggestionsComponent,
   ValidationSuggestionsComponent,
@@ -345,6 +345,7 @@ const COMPONENTS = [
   ThemedSearchNavbarComponent,
   ListableNotificationObjectComponent,
   MetadataFieldWrapperComponent,
+  ContextHelpWrapperComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -384,9 +385,7 @@ const ENTRY_COMPONENTS = [
   MetadataRepresentationListElementComponent,
   ItemMetadataRepresentationListElementComponent,
   LogInPasswordComponent,
-  LogInShibbolethComponent,
-  LogInOidcComponent,
-  LogInOrcidComponent,
+  LogInExternalProviderComponent,
   CollectionDropdownComponent,
   ThemedCollectionDropdownComponent,
   FileDownloadLinkComponent,
@@ -425,7 +424,8 @@ const DIRECTIVES = [
   ClaimedTaskActionsDirective,
   NgForTrackByIdDirective,
   MetadataFieldValidator,
-  HoverClassDirective
+  HoverClassDirective,
+  ContextHelpDirective,
 ];
 
 @NgModule({
