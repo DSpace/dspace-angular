@@ -5,6 +5,11 @@
         <!-- Parent Name -->
         <ds-comcol-page-header [name]="parentContext.name">
         </ds-comcol-page-header>
+      <!-- Collection logo -->
+        <ds-comcol-page-logo *ngIf="logo$"
+                             [logo]="(logo$ | async)?.payload"
+                             [alternateText]="'Community or Collection Logo'">
+        </ds-comcol-page-logo>
         <!-- Handle -->
         <ds-themed-comcol-page-handle
             [content]="parentContext.handle"

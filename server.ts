@@ -22,6 +22,7 @@ import 'rxjs';
 /* eslint-disable import/no-namespace */
 import * as morgan from 'morgan';
 import * as express from 'express';
+import * as ejs from 'ejs';
 import * as compression from 'compression';
 import * as expressStaticGzip from 'express-static-gzip';
 /* eslint-enable import/no-namespace */
@@ -136,10 +137,23 @@ export function app() {
     })(_, (options as any), callback)
   );
 
+  server.engine('ejs', ejs.renderFile);
+
   /*
    * Register the view engines for html and ejs
    */
   server.set('view engine', 'html');
+  server.set('view engine', 'ejs');
+
+  /**
+   * Serve the robots.txt ejs template, filling in the origin variable
+   */
+  server.get('/robots.txt', (req, res) => {
+    res.setHeader('content-type', 'text/plain');
+    res.render('assets/robots.txt.ejs', {
+      'origin': req.protocol + '://' + req.headers.host
+    });
+  });
 
   /*
    * Set views folder path to directory where template files are stored
