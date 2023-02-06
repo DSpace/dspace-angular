@@ -14,6 +14,7 @@ import { RouterStub } from '../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import {
   RegisterEmailFormComponent,
+  TYPE_REQUEST_REGISTER,
   TYPE_REQUEST_FORGOT
 } from './register-email-form.component';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
@@ -21,6 +22,7 @@ import { ConfigurationDataService } from '../core/data/configuration-data.servic
 import { GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptcha.service';
 import { CookieService } from '../core/services/cookie.service';
 import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
+import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 
 describe('RegisterEmailFormComponent', () => {
 
@@ -111,6 +113,30 @@ describe('RegisterEmailFormComponent', () => {
     });
     it('should be valid when uppercase letters are used', () => {
       comp.form.patchValue({email: 'VALID@email.org'});
+      expect(comp.form.invalid).toBeFalse();
+    });
+    it('should not accept email with other domain names', () => {
+      spyOn(configurationDataService, 'findByPropertyName').and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'authentication-password.domain.valid',
+        values: ['marvel.com'],
+      })));
+      comp.typeRequest = TYPE_REQUEST_REGISTER;
+
+      comp.ngOnInit();
+
+      comp.form.patchValue({ email: 'valid@email.org' });
+      expect(comp.form.invalid).toBeTrue();
+    });
+    it('should accept email with the given domain name', () => {
+      spyOn(configurationDataService, 'findByPropertyName').and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'authentication-password.domain.valid',
+        values: ['marvel.com'],
+      })));
+      comp.typeRequest = TYPE_REQUEST_REGISTER;
+
+      comp.ngOnInit();
+
+      comp.form.patchValue({ email: 'thor.odinson@marvel.com' });
       expect(comp.form.invalid).toBeFalse();
     });
   });
