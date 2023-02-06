@@ -18,8 +18,8 @@ export class MetadataRepresentationListElementComponent {
    * Returns true if this component's value matches a basic regex "Is this an HTTP URL" test
    */
   isLink(): boolean {
-    // Match any http:// or https://
-    const linkPattern = /^https?\/\//;
+    // Match any string that begins with http:// or https://
+    const linkPattern = new RegExp(/^https?\/\/.*/);
     return linkPattern.test(this.metadataRepresentation.getValue());
   }
 

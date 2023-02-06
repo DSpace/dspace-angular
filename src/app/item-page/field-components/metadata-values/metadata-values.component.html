@@ -31,7 +31,8 @@
 <!-- Render value as a link to browse index -->
 <ng-template #browselink let-value="value">
   <a class="dont-break-out preserve-line-breaks ds-browse-link"
-     href="/browse/{{browseDefinition.id}}?{{(browseDefinition.metadataBrowse?'value':'startsWith')}}={{value}}&bbm.page=1">
+     [routerLink]="['/browse', browseDefinition.id]"
+     [queryParams]="getQueryParams(value)">
     {{value}}
   </a>
 </ng-template>

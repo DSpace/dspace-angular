@@ -251,37 +251,4 @@ export class BrowseService {
     );
   }
 
-  /**
-   * Get the browse URL by providing a metadatum key and linkPath
-   * @param metadatumKey
-   * @param linkPath
-   */
-  getBrowseDefinitionFor(metadataKeys: string[]): Observable<BrowseDefinition> {
-    let searchKeyArray: string[] = [];
-    metadataKeys.forEach((metadataKey) => {
-      searchKeyArray = searchKeyArray.concat(BrowseService.toSearchKeyArray(metadataKey));
-    });
-    return this.getBrowseDefinitions().pipe(
-      getRemoteDataPayload(),
-      getPaginatedListPayload(),
-      map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
-        .find((def: BrowseDefinition) => {
-          //console.dir(def.metadataKeys);
-          const matchingKeys = def.metadataKeys.find((key: string) => searchKeyArray.indexOf(key) >= 0);
-          //console.dir(matchingKeys);
-          return isNotEmpty(matchingKeys);
-        })
-      ),
-      map((def: BrowseDefinition) => {
-        if (isEmpty(def) || isEmpty(def.id)) {
-          //throw new Error(`A browse definition for field ${metadataKey} isn't configured`);
-        } else {
-          return def;
-        }
-      }),
-      startWith(undefined),
-      distinctUntilChanged()
-    );
-  }
-
 }

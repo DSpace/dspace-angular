@@ -76,4 +76,17 @@ export class MetadataValuesComponent implements OnChanges {
     }
     return false;
   }
+
+  /**
+   * Return a queryparams object for use in a link, with the key dependent on whether this browse
+   * definition is metadata browse, or item browse
+   * @param value the specific metadata value being linked
+   */
+  getQueryParams(value) {
+    let queryParams = {startsWith: value};
+    if (this.browseDefinition.metadataBrowse) {
+      return {value: value};
+    }
+    return queryParams;
+  }
 }
