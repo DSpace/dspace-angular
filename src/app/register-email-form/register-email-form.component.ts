@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, OnInit, Optional} from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import {EpersonRegistrationService} from '../core/data/eperson-registration.service';
 import {NotificationsService} from '../shared/notifications/notifications.service';
 import {TranslateService} from '@ngx-translate/core';
@@ -7,7 +7,7 @@ import { FormBuilder, FormControl, FormGroup, Validators, ValidatorFn } from '@a
 import {Registration} from '../core/shared/registration.model';
 import {RemoteData} from '../core/data/remote-data';
 import {ConfigurationDataService} from '../core/data/configuration-data.service';
-import {getAllCompletedRemoteData, getFirstSucceededRemoteDataPayload} from '../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import {ConfigurationProperty} from '../core/shared/configuration-property.model';
 import {isNotEmpty} from '../shared/empty.util';
 import {BehaviorSubject, combineLatest, Observable, of, switchMap} from 'rxjs';
@@ -16,6 +16,7 @@ import {CAPTCHA_NAME, GoogleRecaptchaService} from '../core/google-recaptcha/goo
 import {AlertType} from '../shared/alert/aletr-type';
 import {KlaroService} from '../shared/cookies/klaro.service';
 import {CookieService} from '../core/services/cookie.service';
+import { Subscription } from 'rxjs';
 
 export const TYPE_REQUEST_FORGOT = 'forgot';
 export const TYPE_REQUEST_REGISTER = 'register';
@@ -27,7 +28,7 @@ export const TYPE_REQUEST_REGISTER = 'register';
 /**
  * Component responsible to render an email registration form.
  */
-export class RegisterEmailFormComponent implements OnInit {
+export class RegisterEmailFormComponent implements OnDestroy, OnInit {
 
   /**
    * The form containing the mail address
@@ -63,6 +64,8 @@ export class RegisterEmailFormComponent implements OnInit {
   validMailDomains: string[];
   TYPE_REQUEST_REGISTER = TYPE_REQUEST_REGISTER;
 
+  subscriptions: Subscription[] = [];
+
   captchaVersion(): Observable<string> {
     return this.googleRecaptchaService.captchaVersion();
   }
@@ -86,6 +89,10 @@ export class RegisterEmailFormComponent implements OnInit {
   ) {
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+  }
+
   ngOnInit(): void {
     const validators: ValidatorFn[] = [
       Validators.required,
@@ -100,13 +107,13 @@ export class RegisterEmailFormComponent implements OnInit {
       })
     });
     this.validMailDomains = [];
-    this.configService.findByPropertyName('authentication-password.domain.valid')
-      .pipe(getAllCompletedRemoteData())
-      .subscribe((remoteData: RemoteData<ConfigurationProperty>) => {
-        if (remoteData.payload) {
-          for (const remoteValue of remoteData.payload.values) {
-            this.validMailDomains.push(remoteValue);
-            if (this.validMailDomains.length !== 0 && this.typeRequest === TYPE_REQUEST_REGISTER) {
+    if (this.typeRequest === TYPE_REQUEST_REGISTER) {
+      this.subscriptions.push(this.configService.findByPropertyName('authentication-password.domain.valid')
+        .pipe(getAllSucceededRemoteDataPayload())
+        .subscribe((remoteData: ConfigurationProperty) => {
+          this.validMailDomains = remoteData.values;
+          for (const remoteValue of remoteData.values) {
+            if (this.validMailDomains.length !== 0) {
               this.form.get('email').setValidators([
                 ...validators,
                 Validators.pattern(this.validMailDomains.map((domain: string) => '(^.*' + domain.replace(new RegExp('\\.', 'g'), '\\.') + '$)').join('|')),
@@ -114,19 +121,20 @@ export class RegisterEmailFormComponent implements OnInit {
               this.form.updateValueAndValidity();
             }
           }
-        }
-      });
-    this.configService.findByPropertyName('registration.verification.enabled').pipe(
+          this.changeDetectorRef.detectChanges();
+        }));
+    }
+    this.subscriptions.push(this.configService.findByPropertyName('registration.verification.enabled').pipe(
       getFirstSucceededRemoteDataPayload(),
       map((res: ConfigurationProperty) => res?.values[0].toLowerCase() === 'true')
     ).subscribe((res: boolean) => {
       this.registrationVerification = res;
-    });
+    }));
 
-    this.disableUntilCheckedFcn().subscribe((res) => {
+    this.subscriptions.push(this.disableUntilCheckedFcn().subscribe((res) => {
       this.disableUntilChecked = res;
       this.changeDetectorRef.detectChanges();
-    });
+    }));
   }
 
   /**
@@ -142,7 +150,7 @@ export class RegisterEmailFormComponent implements OnInit {
   register(tokenV2?) {
     if (!this.form.invalid) {
       if (this.registrationVerification) {
-        combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
+        this.subscriptions.push(combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
           switchMap(([captchaVersion, captchaMode])  => {
             if (captchaVersion === 'v3') {
               return this.googleRecaptchaService.getRecaptchaToken('register_email');
@@ -164,7 +172,7 @@ export class RegisterEmailFormComponent implements OnInit {
               this.showNotification('error');
             }
           }
-        );
+        ));
       } else {
         this.registration();
       }
@@ -178,7 +186,7 @@ export class RegisterEmailFormComponent implements OnInit {
     let registerEmail$ = captchaToken ?
       this.epersonRegistrationService.registerEmail(this.email.value, captchaToken, this.typeRequest) :
       this.epersonRegistrationService.registerEmail(this.email.value, null, this.typeRequest);
-    registerEmail$.subscribe((response: RemoteData<Registration>) => {
+    this.subscriptions.push(registerEmail$.subscribe((response: RemoteData<Registration>) => {
       if (response.hasSucceeded) {
         this.notificationService.success(this.translateService.get(`${this.MESSAGE_PREFIX}.success.head`),
           this.translateService.get(`${this.MESSAGE_PREFIX}.success.content`, {email: this.email.value}));
@@ -189,7 +197,7 @@ export class RegisterEmailFormComponent implements OnInit {
         this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`),
           this.translateService.get(`${this.MESSAGE_PREFIX}.error.content`, {email: this.email.value}));
       }
-    });
+    }));
   }
 
   /**
