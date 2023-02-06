@@ -17,8 +17,8 @@ import { RequestService } from '../../../core/data/request.service';
 /**
  * Abstract component for rendering an advanced claimed task's workflow page
  * To create a child-component for a new option:
- * - Set the "getType()" of the component
- * - Implement the createBody, should always contain at least the ADVANCED_WORKFLOW_TASK_OPTION
+ * - Set the "{@link getType}()" of the component
+ * - Implement the {@link createBody}, should always contain at least the ADVANCED_WORKFLOW_TASK_OPTION_*
  */
 @Component({
   selector: 'ds-advanced-workflow-action',
