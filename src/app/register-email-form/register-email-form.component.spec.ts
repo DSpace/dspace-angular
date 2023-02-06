@@ -96,6 +96,30 @@ describe('RegisterEmailFormComponent', () => {
       comp.form.patchValue({email: 'valid@email.org'});
       expect(comp.form.invalid).toBeFalse();
     });
+    it('should not accept email with other domain names', () => {
+      spyOn(configurationDataService, 'findByPropertyName').and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'authentication-password.domain.valid',
+        values: ['marvel.com'],
+      })));
+      comp.typeRequest = TYPE_REQUEST_REGISTER;
+
+      comp.ngOnInit();
+
+      comp.form.patchValue({ email: 'valid@email.org' });
+      expect(comp.form.invalid).toBeTrue();
+    });
+    it('should accept email with the given domain name', () => {
+      spyOn(configurationDataService, 'findByPropertyName').and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'authentication-password.domain.valid',
+        values: ['marvel.com'],
+      })));
+      comp.typeRequest = TYPE_REQUEST_REGISTER;
+
+      comp.ngOnInit();
+
+      comp.form.patchValue({ email: 'thor.odinson@marvel.com' });
+      expect(comp.form.invalid).toBeFalse();
+    });
   });
   describe('register', () => {
     it('should send a registration to the service and on success display a message and return to home', () => {
