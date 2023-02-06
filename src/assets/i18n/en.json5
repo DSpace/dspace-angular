@@ -2968,7 +2968,7 @@
 
   "mydspace.show.workspace": "Your Submissions",
 
-  "mydspace.show.otherworkspace": "Supervised items",
+  "mydspace.show.supervisedWorkspace": "Supervised items",
 
   "mydspace.status.archived": "Archived",
 
@@ -4665,7 +4665,7 @@
 
 
 
-  "otherworkspace.search.results.head": "Supervised Items",
+  "supervisedWorkspace.search.results.head": "Supervised Items",
 
   "workspace.search.results.head": "Your submissions",
 

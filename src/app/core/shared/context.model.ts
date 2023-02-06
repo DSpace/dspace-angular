@@ -8,7 +8,7 @@ export enum Context {
   Search = 'search',
   Workflow = 'workflow',
   Workspace = 'workspace',
-  SupervisedItems = 'otherworkspace',
+  SupervisedItems = 'supervisedWorkspace',
   AdminMenu = 'adminMenu',
   EntitySearchModalWithNameVariants = 'EntitySearchModalWithNameVariants',
   EntitySearchModal = 'EntitySearchModal',
