@@ -91,11 +91,10 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
     ).subscribe((constructor: GenericConstructor<T>) => {
       const factory = this.resolver.resolveComponentFactory(constructor);
 
-      const contentNodes = [[...this.themedElementContent.nativeElement.children].map(node => node)] || undefined;
-
-      this.compRef = this.vcr.createComponent(factory, undefined, undefined, contentNodes);
+      this.compRef = this.vcr.createComponent(factory, undefined, undefined, [this.themedElementContent.nativeElement.children]);
       this.connectInputsAndOutputs();
       this.cdr.markForCheck();
+      this.themedElementContent.nativeElement.remove();
     });
   }
 
