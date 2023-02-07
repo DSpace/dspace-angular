@@ -58,7 +58,6 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   // The SSR REST API server settings, defaulting to rest.
-  // NOTE: these must be include in rest.cors.allowed.origins in your backend's local.cfg.
   ssr = {
     rest: {
       ssl: undefined,
