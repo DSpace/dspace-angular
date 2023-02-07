@@ -3,20 +3,21 @@ import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { ItemOperation } from '../item-operation/itemOperation.model';
-import { distinctUntilChanged, first, map, mergeMap, switchMap, take, toArray } from 'rxjs/operators';
-import { BehaviorSubject, Observable, from as observableFrom, Subscription, combineLatest } from 'rxjs';
+import { distinctUntilChanged, first, map, mergeMap, switchMap, toArray } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { hasValue } from '../../../shared/empty.util';
 import {
-  getAllSucceededRemoteDataPayload,
+  getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData, getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { IdentifierDataService } from '../../../core/data/identifier-data.service';
 import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { IdentifierData } from '../../../shared/object-list/identifier-data/identifier-data.model';
 
 @Component({
   selector: 'ds-item-status',
@@ -51,11 +52,6 @@ export class ItemStatusComponent implements OnInit {
    *  key: id   value: url to action's component
    */
   operations$: BehaviorSubject<ItemOperation[]> = new BehaviorSubject<ItemOperation[]>([]);
-
-  /**
-   * The keys of the actions (to loop over)
-   */
-  actionsKeys;
 
   /**
    * Identifiers (handles, DOIs)
@@ -109,27 +105,23 @@ export class ItemStatusComponent implements OnInit {
 
       // Observable for configuration determining whether the Register DOI feature is enabled
       let registerConfigEnabled$: Observable<boolean> = this.configurationService.findByPropertyName('identifiers.item-status.register-doi').pipe(
-        map((enabled: RemoteData<ConfigurationProperty>) => {
-          let show = false;
-          if (enabled.hasSucceeded) {
-            if (enabled.payload !== undefined && enabled.payload !== null) {
-              if (enabled.payload.values !== undefined) {
-                enabled.payload.values.forEach((value) => {
-                  show = true;
-                });
-              }
-            }
+        getFirstSucceededRemoteData(),
+        getRemoteDataPayload(),
+        map((enabled: ConfigurationProperty) => {
+          if (enabled !== undefined && enabled.values) {
+            return true;
           }
-          return show;
+          return false;
         })
       );
 
       /*
+      Construct a base list of operations.
         The key is used to build messages
           i18n example: 'item.edit.tabs.status.buttons.<key>.label'
         The value is supposed to be a href for the button
       */
-      const operations = [];
+      const operations: ItemOperation[] = [];
       operations.push(new ItemOperation('authorizations', this.getCurrentUrl(item) + '/authorizations', FeatureID.CanManagePolicies, true));
       operations.push(new ItemOperation('mappedCollections', this.getCurrentUrl(item) + '/mapper', FeatureID.CanManageMappings, true));
       if (item.isWithdrawn) {
@@ -146,11 +138,16 @@ export class ItemStatusComponent implements OnInit {
       operations.push(new ItemOperation('move', this.getCurrentUrl(item) + '/move', FeatureID.CanMove, true));
       this.operations$.next(operations);
 
-      // Observable that reads identifiers and their status and, and config properties, and decides
-      // if we're allowed to show a Register DOI feature
-      let showRegister$: Observable<boolean> = combineLatest([this.identifiers$, registerConfigEnabled$]).pipe(
-        distinctUntilChanged(),
-        map(([identifiers, enabled]) => {
+      /*
+       When the identifier data stream changes, determine whether the register DOI button should be shown or not.
+       This is based on whether the DOI is in the right state (minted or pending, not already queued for registration
+       or registered) and whether the configuration property identifiers.item-status.register-doi is true
+       */
+      this.identifierDataService.getIdentifierDataFor(item).pipe(
+        getFirstSucceededRemoteData(),
+        getRemoteDataPayload(),
+        mergeMap((data: IdentifierData) => {
+          let identifiers = data.identifiers;
           let no_doi = true;
           let pending = false;
           if (identifiers !== undefined && identifiers !== null) {
@@ -169,43 +166,37 @@ export class ItemStatusComponent implements OnInit {
             });
           }
           // If there is no DOI, or a pending/minted/null DOI, and the config is enabled, return true
-          return ((pending || no_doi) && enabled);
-        })
-      );
-
-      // Subscribe to changes from the showRegister check and rebuild operations list accordingly
-      this.subs.push(showRegister$.pipe(
-        switchMap((show: boolean) => {
-          console.dir('show? ' + show);
-          // Copy the static array first so we don't keep appending to it
-          let tmp_operations = [...operations];
-          if (show) {
-            // Push the new Register DOI item operation
-            tmp_operations.push(new ItemOperation('register-doi', this.getCurrentUrl(item) + '/register-doi', FeatureID.CanRegisterDOI));
-          }
-          // emit the operations one at a time
-          return tmp_operations
+          return registerConfigEnabled$.pipe(
+            map((enabled: boolean) => {
+              return enabled && (pending || no_doi);
+            }
+          ));
         }),
-        // Check authorisations and merge into new operations list
-        mergeMap((operation: ItemOperation) => {
-          console.dir("operation! " + (operation.featureID));
-          if (hasValue(operation.featureID)) {
-            return this.authorizationService.isAuthorized(operation.featureID, item.self).pipe(
-              //distinctUntilChanged(),
-              map((authorized) => new ItemOperation(operation.operationKey, operation.operationUrl, operation.featureID, !authorized, authorized))
+        // Switch map pushes the register DOI operation onto a copy of the base array then returns to the pipe
+        switchMap((showDoi: boolean) => {
+          let ops = [...operations];
+          if (showDoi) {
+            ops.push(new ItemOperation('register-doi', this.getCurrentUrl(item) + '/register-doi', FeatureID.CanRegisterDOI, true));
+          }
+          return ops;
+        }),
+        // Merge map checks and transforms each operation in the array based on whether it is authorized or not (disabled)
+        mergeMap((op: ItemOperation) => {
+          if (hasValue(op.featureID)) {
+            return this.authorizationService.isAuthorized(op.featureID, item.self).pipe(
+              distinctUntilChanged(),
+              map((authorized) => new ItemOperation(op.operationKey, op.operationUrl, op.featureID, !authorized, authorized))
             );
           } else {
-            return [operation];
+            return [op];
           }
         }),
-        //take(operations.length + 1),
-        // wait until all observables have completed and emit them all as a single array
+        // Wait for all operations to be emitted and return as an array
         toArray(),
-      ).subscribe((ops: ItemOperation[]) => {
-        console.dir('next!');
-        this.operations$.next(ops);
-      }));
-
+      ).subscribe((data) => {
+        // Update the operations$ subject that draws the administrative buttons on the status page
+        this.operations$.next(data);
+      });
     });
 
     this.itemPageRoute$ = this.itemRD$.pipe(
