@@ -36,7 +36,7 @@ import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-
 import { ItemVersionsModule } from '../versions/item-versions.module';
 import { IdentifierDataService } from '../../core/data/identifier-data.service';
 import { IdentifierDataComponent } from '../../shared/object-list/identifier-data/identifier-data.component';
-import { ItemRegisterDoiComponent } from './item-register-doi/item-registerdoi.component';
+import { ItemRegisterDoiComponent } from './item-register-doi/item-register-doi.component';
 import { DsoSharedModule } from '../../dso-shared/dso-shared.module';
 
 
