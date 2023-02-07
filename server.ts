@@ -31,7 +31,6 @@ import * as expressStaticGzip from 'express-static-gzip';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
-import { APP_BASE_HREF } from '@angular/common';
 import { enableProdMode } from '@angular/core';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
@@ -57,7 +56,7 @@ const DIST_FOLDER = join(process.cwd(), 'dist/browser');
 // Set path fir IIIF viewer.
 const IIIF_VIEWER = join(process.cwd(), 'dist/iiif');
 
-const indexHtml = existsSync(join(DIST_FOLDER, 'index.html')) ? 'index.html' : 'index';
+const indexHtml = join(DIST_FOLDER, 'index.html');
 
 const cookieParser = require('cookie-parser');
 
@@ -207,7 +206,6 @@ function ngApp(req, res) {
       baseUrl: environment.ui.nameSpace,
       originUrl: environment.ui.baseUrl,
       requestUrl: req.originalUrl,
-      providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }]
     }, (err, data) => {
       if (hasNoValue(err) && hasValue(data)) {
         res.locals.ssr = true;  // mark response as SSR
@@ -222,25 +220,15 @@ function ngApp(req, res) {
         if (hasValue(err)) {
           console.warn('Error details : ', err);
         }
-        res.render(indexHtml, {
-          req,
-          providers: [{
-            provide: APP_BASE_HREF,
-            useValue: req.baseUrl
-          }]
-        });
+
+        res.sendFile(indexHtml);
       }
     });
   } else {
     // If preboot is disabled, just serve the client
     console.log('Universal off, serving for direct CSR');
-    res.render(indexHtml, {
-      req,
-      providers: [{
-        provide: APP_BASE_HREF,
-        useValue: req.baseUrl
-      }]
-    });
+
+    res.sendFile(indexHtml);
   }
 }
 
