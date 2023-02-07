@@ -76,6 +76,7 @@ export class DefaultAppConfig implements AppConfig {
     },
     // In-memory cache of server-side rendered content
     serverSide: {
+      debug: false,
       // Cache specific to known bots.  Allows you to serve cached contents to bots only.
       // Defaults to caching 1,000 pages. Each page expires after 1 day
       botCache: {
@@ -83,6 +84,7 @@ export class DefaultAppConfig implements AppConfig {
         max: 1000,
         // Amount of time after which cached pages are considered stale (in ms)
         timeToLive: 24 * 60 * 60 * 1000, // 1 day
+        allowStale: true,
       },
       // Cache specific to anonymous users. Allows you to serve cached content to non-authenticated users.
       // Defaults to caching 0 pages. But, when enabled, each page expires after 10 seconds (to minimize anonymous users seeing out-of-date content)
@@ -91,6 +93,7 @@ export class DefaultAppConfig implements AppConfig {
         max: 0, // disabled by default
         // Amount of time after which cached pages are considered stale (in ms)
         timeToLive: 10 * 1000, // 10 seconds
+        allowStale: true,
       }
     }
   };

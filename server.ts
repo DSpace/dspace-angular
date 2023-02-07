@@ -324,7 +324,7 @@ function initCache() {
     botCache = new LRU( {
       max: environment.cache.serverSide.botCache.max,
       ttl: environment.cache.serverSide.botCache.timeToLive || 24 * 60 * 60 * 1000, // 1 day
-      allowStale: true // If object is found to be stale, return stale value before deleting
+      allowStale: environment.cache.serverSide.botCache.allowStale || true // if object is stale, return stale value before deleting
     });
   }
 
@@ -335,7 +335,7 @@ function initCache() {
     anonymousCache = new LRU( {
       max: environment.cache.serverSide.anonymousCache.max,
       ttl: environment.cache.serverSide.anonymousCache.timeToLive || 10 * 1000, // 10 seconds
-      allowStale: true // If object is found to be stale, return stale value before deleting
+      allowStale: environment.cache.serverSide.anonymousCache.allowStale || true // if object is stale, return stale value before deleting
     });
   }
 }
@@ -399,24 +399,25 @@ function cacheCheck(req, res, next) {
  * @returns cached copy (if found) or undefined (if not found)
  */
 function checkCacheForRequest(cacheName: string, cache: LRU<string, any>, req, res): any {
-  let debug = false; // Enable to see cache hits & re-rendering in logs
-
   // Get the cache key for this request
   const key = getCacheKey(req);
 
   // Check if this page is in our cache
   let cachedCopy = cache.get(key);
   if (cachedCopy) {
-    if (debug) { console.log(`CACHE HIT FOR ${key} in ${cacheName} cache`); }
+    if (environment.cache.serverSide.debug) { console.log(`CACHE HIT FOR ${key} in ${cacheName} cache`); }
 
     // Check if cached copy is expired (If expired, the key will now be gone from cache)
+    // NOTE: This will only occur when "allowStale=true", as it means the "get(key)" above returned a stale value.
     if (!cache.has(key)) {
-      if (debug) { console.log(`CACHE EXPIRED FOR ${key} in ${cacheName} cache. Re-rendering...`); }
+      if (environment.cache.serverSide.debug) { console.log(`CACHE EXPIRED FOR ${key} in ${cacheName} cache. Re-rendering...`); }
       // Update cached copy by rerendering server-side
       // NOTE: In this scenario the currently cached copy will be returned to the current user.
       // This re-render is peformed behind the scenes to update cached copy for next user.
       serverSideRender(req, res, false);
     }
+  } else {
+    if (environment.cache.serverSide.debug) { console.log(`CACHE MISS FOR ${key} in ${cacheName} cache.`); }
   }
 
   // return page from cache
@@ -455,11 +456,13 @@ function saveToCache(req, page: any) {
     // (NOTE: has() will return false if page is expired in cache)
     if (botCacheEnabled() && !botCache.has(key)) {
       botCache.set(key, page);
+      if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in bot cache.`); }
     }
 
     // If anonymous cache is enabled, save it to that cache if it doesn't exist or is expired
     if (anonymousCacheEnabled() && !anonymousCache.has(key)) {
       anonymousCache.set(key, page);
+      if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in anonymous cache.`); }
     }
   }
 }
