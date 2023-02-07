@@ -1,6 +1,5 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { Observable } from 'rxjs';
 import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 import { buildRootUrl } from '../../../config/config.util';
@@ -14,10 +13,7 @@ export class SsrRestUrlInterceptor implements HttpInterceptor {
   private from: string;
   private to: string;
 
-  constructor(
-    @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    @Inject(REQUEST) protected req: any
-  ) {
+  constructor(@Inject(APP_CONFIG) protected appConfig: AppConfig) {
     this.from = buildRootUrl(this.appConfig.rest);
     this.to = buildRootUrl(this.appConfig.ssr.rest);
   }
