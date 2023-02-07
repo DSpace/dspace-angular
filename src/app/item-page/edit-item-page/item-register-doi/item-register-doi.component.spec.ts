@@ -45,7 +45,8 @@ describe('ItemRegisterDoiComponent', () => {
 
     mockIdentifierDataService = jasmine.createSpyObj('mockIdentifierDataService', {
       getIdentifierDataFor: createSuccessfulRemoteDataObject$({'identifiers': []}),
-      getIdentifierRegistrationConfiguration: createSuccessfulRemoteDataObject$('true')
+      getIdentifierRegistrationConfiguration: createSuccessfulRemoteDataObject$('true'),
+      registerIdentifier: createSuccessfulRemoteDataObject$({'identifiers': []}),
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
@@ -98,7 +99,7 @@ describe('ItemRegisterDoiComponent', () => {
     it('should call registerDOI function from the ItemDataService', () => {
       spyOn(comp, 'processRestResponse');
       comp.performAction();
-      expect(mockItemDataService.registerDOI).toHaveBeenCalledWith(comp.item.id);
+      expect(mockIdentifierDataService.registerIdentifier).toHaveBeenCalledWith(comp.item, 'doi');
       expect(comp.processRestResponse).toHaveBeenCalled();
     });
   });
