@@ -11,6 +11,8 @@ import { MetadataValue } from '../../../core/shared/metadata.models';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { BrowseDefinitionDataService } from '../../../core/browse/browse-definition-data.service';
+import { BrowseDefinitionDataServiceStub } from '../../../shared/testing/browse-definition-data-service.stub';
 
 const itemType = 'Person';
 const metadataFields = ['dc.contributor.author', 'dc.creator'];
@@ -104,7 +106,8 @@ describe('MetadataRepresentationListComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [MetadataRepresentationListComponent, VarDirective],
       providers: [
-        { provide: RelationshipDataService, useValue: relationshipService }
+        { provide: RelationshipDataService, useValue: relationshipService },
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MetadataRepresentationListComponent, {

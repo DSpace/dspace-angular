@@ -84,6 +84,8 @@ import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import {
   PlainTextMetadataListElementComponent
 } from './object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
+import { BrowseLinkMetadataListElementComponent }
+  from './object-list/metadata-representation-list-element/browse-link/browse-link-metadata-list-element.component';
 import {
   ItemMetadataListElementComponent
 } from './object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
@@ -383,6 +385,7 @@ const ENTRY_COMPONENTS = [
   EditItemSelectorComponent,
   ThemedEditItemSelectorComponent,
   PlainTextMetadataListElementComponent,
+  BrowseLinkMetadataListElementComponent,
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
   ItemMetadataRepresentationListElementComponent,
