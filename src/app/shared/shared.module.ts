@@ -227,6 +227,8 @@ import { SearchNavbarComponent } from '../search-navbar/search-navbar.component'
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
+import { ContextHelpDirective } from './context-help.directive';
+import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 import { RSSComponent } from './rss-feed/rss.component';
 import { BrowserOnlyPipe } from './utils/browser-only.pipe';
 import { ThemedLoadingComponent } from './loading/themed-loading.component';
@@ -345,6 +347,7 @@ const COMPONENTS = [
   ListableNotificationObjectComponent,
   DsoPageEditButtonComponent,
   MetadataFieldWrapperComponent,
+  ContextHelpWrapperComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -423,7 +426,8 @@ const DIRECTIVES = [
   ClaimedTaskActionsDirective,
   NgForTrackByIdDirective,
   MetadataFieldValidator,
-  HoverClassDirective
+  HoverClassDirective,
+  ContextHelpDirective,
 ];
 
 @NgModule({
