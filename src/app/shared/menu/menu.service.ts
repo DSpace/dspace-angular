@@ -182,6 +182,18 @@ export class MenuService {
   }
 
   /**
+   * Check if a given menu is visible and has visible top-level (!) sections
+   * @param {MenuID} menuID The ID of the menu that is to be checked
+   * @returns {Observable<boolean>} Emits true if the given menu is
+   *   visible and has visible sections, emits false when it's hidden
+   */
+  isMenuVisibleWithVisibleSections(menuID: MenuID): Observable<boolean> {
+    return observableCombineLatest([this.isMenuVisible(menuID), this.menuHasVisibleSections(menuID)]).pipe(
+      map(([menuVisible, visibleSections]) => menuVisible && visibleSections)
+    );
+  }
+
+  /**
    * Check if a given menu is visible
    * @param {MenuID} menuID The ID of the menu that is to be checked
    * @returns {Observable<boolean>} Emits true if the given menu is visible, emits falls when it's hidden
@@ -189,6 +201,20 @@ export class MenuService {
   isMenuVisible(menuID: MenuID): Observable<boolean> {
     return this.getMenu(menuID).pipe(
       map((state: MenuState) => hasValue(state) ? state.visible : undefined)
+    );
+  }
+
+  /**
+   * Check if a menu has at least one top-level (!) section that is visible.
+   * @param {MenuID} menuID The ID of the menu that is to be checked
+   * @returns {Observable<boolean>} Emits true if the given menu has visible sections, emits false otherwise
+   */
+  menuHasVisibleSections(menuID: MenuID): Observable<boolean> {
+    return this.getMenu(menuID).pipe(
+      map((state: MenuState) => hasValue(state)
+        ? Object.values(state.sections)
+          .some(section => section.visible && section.parentID === undefined)
+        : undefined)
     );
   }
 
