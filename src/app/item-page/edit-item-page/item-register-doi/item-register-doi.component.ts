@@ -89,7 +89,7 @@ export class ItemRegisterDoiComponent extends AbstractSimpleItemActionComponent 
           this.processRestResponse(response);
         }
       }
-    )
+    );
   }
 
 }
