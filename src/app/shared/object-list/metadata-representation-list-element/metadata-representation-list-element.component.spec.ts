@@ -43,7 +43,7 @@ describe('MetadataRepresentationListElementComponent', () => {
         expect(comp.isLink()).toBe(false);
       });
     });
-  })
+  });
 
   describe('when the value is a URL', () => {
     beforeEach(() => {
@@ -54,6 +54,6 @@ describe('MetadataRepresentationListElementComponent', () => {
         expect(comp.isLink()).toBe(true);
       });
     });
-  })
+  });
 
 });
