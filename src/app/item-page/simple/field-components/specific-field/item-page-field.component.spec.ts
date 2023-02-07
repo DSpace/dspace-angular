@@ -15,6 +15,7 @@ import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { By } from '@angular/platform-browser';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
+import { RouterTestingModule } from '@angular/router/testing';
 
 let comp: ItemPageFieldComponent;
 let fixture: ComponentFixture<ItemPageFieldComponent>;
@@ -39,6 +40,7 @@ describe('ItemPageFieldComponent', () => {
   const buildTestEnvironment = async () => {
     await TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
