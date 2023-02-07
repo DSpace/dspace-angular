@@ -27,6 +27,15 @@ rest:
   # NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
   nameSpace: /server
 
+# The SSR REST API server settings, defaulting same as rest. Used for direct API calls during SSR.
+# ssr:
+#   rest:
+#     ssl: true
+#     host: api7.dspace.org
+#     port: 443
+#     # NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
+#     nameSpace: /server
+
 # Caching settings
 cache:
   # NOTE: how long should objects be cached for by default

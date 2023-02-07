@@ -39,6 +39,18 @@ export const environment: BuildConfig = {
     baseUrl: 'https://rest.com/api'
   },
 
+  // The SSR REST API server settings.
+  ssr: {
+    rest: {
+      ssl: true,
+      host: 'rest.com',
+      port: 443,
+      // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
+      nameSpace: '/api',
+      baseUrl: 'https://rest.com/api'
+    }
+  },
+
   actuators: {
     endpointPath: '/actuator/health'
   },

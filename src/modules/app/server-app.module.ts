@@ -33,6 +33,7 @@ import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mo
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { ServerAuthRequestService } from '../../app/core/auth/server-auth-request.service';
 import { ServerInitService } from './server-init.service';
+import { SsrRestUrlInterceptor } from '../../app/core/ssr-rest-url/ssr-rest-url.interceptor';
 
 export function createTranslateLoader(transferState: TransferState) {
   return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json');
@@ -103,6 +104,11 @@ export function createTranslateLoader(transferState: TransferState) {
     {
       provide: HardRedirectService,
       useClass: ServerHardRedirectService,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SsrRestUrlInterceptor,
+      multi: true
     },
   ]
 })

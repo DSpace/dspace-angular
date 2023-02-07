@@ -7,7 +7,7 @@ import { AppConfig } from './app-config.interface';
 import { Config } from './config.interface';
 import { DefaultAppConfig } from './default-app-config';
 import { ServerConfig } from './server-config.interface';
-import { mergeConfig } from './config.util';
+import { buildRootUrl, mergeConfig } from './config.util';
 import { isNotEmpty } from '../app/shared/empty.util';
 
 const CONFIG_PATH = join(process.cwd(), 'config');
@@ -152,9 +152,7 @@ const overrideWithEnvironment = (config: Config, key: string = '') => {
 
 const buildBaseUrl = (config: ServerConfig): void => {
   config.baseUrl = [
-    config.ssl ? 'https://' : 'http://',
-    config.host,
-    config.port && config.port !== 80 && config.port !== 443 ? `:${config.port}` : '',
+    buildRootUrl(config),
     config.nameSpace && config.nameSpace.startsWith('/') ? config.nameSpace : `/${config.nameSpace}`
   ].join('');
 };
@@ -227,6 +225,27 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   appConfig.rest.port = isNotEmpty(ENV('REST_PORT', true)) ? getNumberFromString(ENV('REST_PORT', true)) : appConfig.rest.port;
   appConfig.rest.nameSpace = isNotEmpty(ENV('REST_NAMESPACE', true)) ? ENV('REST_NAMESPACE', true) : appConfig.rest.nameSpace;
   appConfig.rest.ssl = isNotEmpty(ENV('REST_SSL', true)) ? getBooleanFromString(ENV('REST_SSL', true)) : appConfig.rest.ssl;
+
+  appConfig.ssr.rest.host = isNotEmpty(ENV('SSR_REST_HOST', true))
+    ? ENV('SSR_REST_HOST', true)
+    : isNotEmpty(appConfig.ssr.rest.host)
+      ? appConfig.ssr.rest.host
+      : appConfig.rest.host;
+  appConfig.ssr.rest.port = isNotEmpty(ENV('SSR_REST_PORT', true))
+    ? getNumberFromString(ENV('SSR_REST_PORT', true))
+    : isNotEmpty(appConfig.ssr.rest.port)
+      ? appConfig.ssr.rest.port
+      : appConfig.rest.port;
+  appConfig.ssr.rest.nameSpace = isNotEmpty(ENV('SSR_REST_NAMESPACE', true))
+    ? ENV('SSR_REST_NAMESPACE', true)
+    : isNotEmpty(appConfig.ssr.rest.nameSpace)
+      ? appConfig.ssr.rest.nameSpace
+      : appConfig.rest.nameSpace;
+  appConfig.ssr.rest.ssl = isNotEmpty(ENV('SSR_REST_SSL', true))
+    ? getBooleanFromString(ENV('SSR_REST_SSL', true))
+    : isNotEmpty(appConfig.ssr.rest.ssl)
+      ? appConfig.ssr.rest.ssl
+      : appConfig.rest.ssl;
 
   // apply build defined production
   appConfig.production = env === 'production';
