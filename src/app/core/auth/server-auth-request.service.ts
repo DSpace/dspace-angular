@@ -52,14 +52,14 @@ export class ServerAuthRequestService extends AuthRequestService {
           .set('Cookie', `${DSPACE_XSRF_COOKIE}=${xsrfToken}`)),
       map((headers: HttpHeaders) =>
         // Create a new PostRequest using those headers and the given href
-        Object.assign(new PostRequest(
+        new PostRequest(
           this.requestService.generateRequestId(),
           href,
           {},
           {
             headers: headers,
           },
-        ),{})
+        )
       )
     );
   }

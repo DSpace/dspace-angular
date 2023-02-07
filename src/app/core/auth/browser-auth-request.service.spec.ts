@@ -18,17 +18,19 @@ describe(`BrowserAuthRequestService`, () => {
   });
 
   describe(`createShortLivedTokenRequest`, () => {
-    it(`should return a PostRequest`, () => {
+    it(`should return a PostRequest`, (done) => {
       const obs = (service as any).createShortLivedTokenRequest(href) as Observable<PostRequest>;
       obs.subscribe((result: PostRequest) => {
         expect(result.constructor.name).toBe('PostRequest');
+        done();
       });
     });
 
-    it(`should return a request with the given href`, () => {
+    it(`should return a request with the given href`, (done) => {
       const obs = (service as any).createShortLivedTokenRequest(href) as Observable<PostRequest>;
       obs.subscribe((result: PostRequest) => {
         expect(result.href).toBe(href);
+        done();
       });
     });
   });
