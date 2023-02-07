@@ -6,7 +6,6 @@ import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import {
   HttpHeaders,
-  HttpXsrfTokenExtractor,
   HttpClient,
   HttpResponse
 } from '@angular/common/http';
@@ -53,15 +52,16 @@ export class ServerAuthRequestService extends AuthRequestService {
           .set('Cookie', `${DSPACE_XSRF_COOKIE}=${xsrfToken}`)),
       map((headers: HttpHeaders) =>
         // Create a new PostRequest using those headers and the given href
-        new PostRequest(
+        Object.assign(new PostRequest(
           this.requestService.generateRequestId(),
           href,
           {},
           {
             headers: headers,
-          }
-        ))
-    )
+          },
+        ),{})
+      )
+    );
   }
 
 }

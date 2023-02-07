@@ -1,6 +1,8 @@
 import { AuthRequestService } from './auth-request.service';
 import { RequestService } from '../data/request.service';
 import { BrowserAuthRequestService } from './browser-auth-request.service';
+import { Observable } from 'rxjs';
+import { PostRequest } from '../data/request.models';
 
 describe(`BrowserAuthRequestService`, () => {
   let href: string;
@@ -17,13 +19,17 @@ describe(`BrowserAuthRequestService`, () => {
 
   describe(`createShortLivedTokenRequest`, () => {
     it(`should return a PostRequest`, () => {
-      const result = (service as any).createShortLivedTokenRequest(href);
-      expect(result.constructor.name).toBe('PostRequest');
+      const obs = (service as any).createShortLivedTokenRequest(href) as Observable<PostRequest>;
+      obs.subscribe((result: PostRequest) => {
+        expect(result.constructor.name).toBe('PostRequest');
+      });
     });
 
     it(`should return a request with the given href`, () => {
-      const result = (service as any).createShortLivedTokenRequest(href);
-      expect(result.href).toBe(href) ;
+      const obs = (service as any).createShortLivedTokenRequest(href) as Observable<PostRequest>;
+      obs.subscribe((result: PostRequest) => {
+        expect(result.href).toBe(href);
+      });
     });
   });
 });
