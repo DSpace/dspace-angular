@@ -2,7 +2,10 @@
 name: Deploy DSpace
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Docker images"]
+    types:
+      - completed
     branches:
       - dtq-dev
       - dtq-dev-present
