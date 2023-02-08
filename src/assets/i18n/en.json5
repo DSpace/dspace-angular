@@ -4589,6 +4589,8 @@
 
   "subscriptions.modal.close": "Close",
 
+  "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
+
   "subscriptions.modal.new-subscription-form.type.content": "Content",
 
   "subscriptions.modal.new-subscription-form.frequency.D": "Daily",
@@ -4619,8 +4621,7 @@
 
   "subscriptions.table.action": "Action",
 
-  "subscriptions.table.empty.message": "You have not subscribed any notification yet. To subscribe notification about an object please use the contextual menu in the object detail view",
-
+  "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
 
 
   "thumbnail.default.alt": "Thumbnail Image",
