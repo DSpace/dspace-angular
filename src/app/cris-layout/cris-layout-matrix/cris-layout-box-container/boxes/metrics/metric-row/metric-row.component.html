@@ -1,7 +1,7 @@
 <ng-container *ngFor="let metric of metricRow.metrics">
   <ng-container *ngIf="metric">
-    <div class="col-3 mb-2">
-      <ds-metric-loader [metric]="metric"></ds-metric-loader>
-    </div>
+     <ds-metric-loader [metric]="metric" class="col-3 mb-2"
+                       [class.d-none]="(isHidden(metric.id) | async)"
+                       (hide)="toggleVisibility(metric.id, $event)"></ds-metric-loader>
   </ng-container>
 </ng-container>

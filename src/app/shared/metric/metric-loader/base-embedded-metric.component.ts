@@ -1,11 +1,13 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { BaseMetricComponent } from './base-metric.component';
 import { DomSanitizer } from '@angular/platform-browser';
-import { take, takeUntil, tap } from 'rxjs/operators';
+
 import { interval, Subject } from 'rxjs';
+import { take, takeUntil, tap } from 'rxjs/operators';
+
+import { BaseMetricComponent } from './base-metric.component';
 
 export const METRIC_SCRIPT_TIMEOUT_MS = 500;
-export const METRIC_SCRIPT_MAX_RETRY = 3;
+export const METRIC_SCRIPT_MAX_RETRY = 1;
 
 /**
  * The BaseEmbeddedMetricComponent enhance the basic metric component taking care to run the script required
@@ -27,6 +29,8 @@ export abstract class BaseEmbeddedMetricComponent extends BaseMetricComponent im
   sanitizedInnerHtml;
 
   success = false;
+
+  failed = false;
 
   protected constructor(protected sr: DomSanitizer) {
     super();
@@ -60,6 +64,8 @@ export abstract class BaseEmbeddedMetricComponent extends BaseMetricComponent im
       ).subscribe({
         complete: () => {
           if (!this.success) {
+            this.failed = true;
+            this.hide.emit(true);
             console.error('The script of type ' + this.metric.metricType + ' hasn\'t been initialized successfully');
           }
         }
