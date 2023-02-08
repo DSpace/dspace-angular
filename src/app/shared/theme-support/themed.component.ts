@@ -110,7 +110,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
 
   protected connectInputsAndOutputs(): void {
     if (isNotEmpty(this.inAndOutputNames) && hasValue(this.compRef) && hasValue(this.compRef.instance)) {
-      this.inAndOutputNames.forEach((name: any) => {
+      this.inAndOutputNames.filter((name: any) => this[name] !== undefined).forEach((name: any) => {
         this.compRef.instance[name] = this[name];
       });
     }
