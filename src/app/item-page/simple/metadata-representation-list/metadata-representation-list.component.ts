@@ -8,6 +8,13 @@ import { RelationshipDataService } from '../../../core/data/relationship-data.se
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { Item } from '../../../core/shared/item.model';
 import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
+import { map } from 'rxjs/operators';
+import { getRemoteDataPayload } from '../../../core/shared/operators';
+import {
+  MetadatumRepresentation
+} from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { BrowseService } from '../../../core/browse/browse.service';
+import { BrowseDefinitionDataService } from '../../../core/browse/browse-definition-data.service';
 
 @Component({
   selector: 'ds-metadata-representation-list',
@@ -52,7 +59,8 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
    */
   total: number;
 
-  constructor(public relationshipService: RelationshipDataService) {
+  constructor(public relationshipService: RelationshipDataService,
+              private browseDefinitionDataService: BrowseDefinitionDataService) {
     super();
   }
 
@@ -76,7 +84,21 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
       ...metadata
         .slice((this.objects.length * this.incrementBy), (this.objects.length * this.incrementBy) + this.incrementBy)
         .map((metadatum: any) => Object.assign(new MetadataValue(), metadatum))
-        .map((metadatum: MetadataValue) => this.relationshipService.resolveMetadataRepresentation(metadatum, this.parentItem, this.itemType)),
+        .map((metadatum: MetadataValue) => {
+          if (metadatum.isVirtual) {
+            return this.relationshipService.resolveMetadataRepresentation(metadatum, this.parentItem, this.itemType);
+          } else {
+            // Check for a configured browse link and return a standard metadata representation
+            let searchKeyArray: string[] = [];
+            this.metadataFields.forEach((field: string) => {
+              searchKeyArray = searchKeyArray.concat(BrowseService.toSearchKeyArray(field));
+            });
+            return this.browseDefinitionDataService.findByFields(this.metadataFields).pipe(
+              getRemoteDataPayload(),
+              map((def) => Object.assign(new MetadatumRepresentation(this.itemType, def), metadatum))
+            );
+          }
+        }),
     );
   }
 }
