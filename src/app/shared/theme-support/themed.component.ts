@@ -104,7 +104,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
       }),
     ).subscribe((constructor: GenericConstructor<T>) => {
       const factory = this.resolver.resolveComponentFactory(constructor);
-      this.compRef = this.vcr.createComponent(factory, undefined, undefined, [this.themedElementContent.nativeElement.children]);
+      this.compRef = this.vcr.createComponent(factory, undefined, undefined, [this.themedElementContent.nativeElement.childNodes]);
       this.connectInputsAndOutputs();
       this.compRef$.next(this.compRef);
       this.cdr.markForCheck();
@@ -124,7 +124,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
 
   protected connectInputsAndOutputs(): void {
     if (isNotEmpty(this.inAndOutputNames) && hasValue(this.compRef) && hasValue(this.compRef.instance)) {
-      this.inAndOutputNames.forEach((name: any) => {
+      this.inAndOutputNames.filter((name: any) => this[name] !== undefined).forEach((name: any) => {
         this.compRef.instance[name] = this[name];
       });
     }
