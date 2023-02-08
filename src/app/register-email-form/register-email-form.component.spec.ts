@@ -89,15 +89,6 @@ describe('RegisterEmailFormComponent', () => {
       const elem = fixture.debugElement.queryAll(By.css('input#email'))[0].nativeElement;
       expect(elem).toBeDefined();
     });
-
-    it('should not retrieve the validDomains for TYPE_REQUEST_FORGOT', () => {
-      spyOn(configurationDataService, 'findByPropertyName');
-      comp.typeRequest = TYPE_REQUEST_FORGOT;
-
-      comp.ngOnInit();
-
-      expect(configurationDataService.findByPropertyName).not.toHaveBeenCalledWith('authentication-password.domain.valid');
-    });
   });
   describe('email validation', () => {
     it('should be invalid when no email is present', () => {
@@ -109,6 +100,18 @@ describe('RegisterEmailFormComponent', () => {
     });
     it('should be valid when a valid email is present', () => {
       comp.form.patchValue({email: 'valid@email.org'});
+      expect(comp.form.invalid).toBeFalse();
+    });
+    it('should accept email with other domain names on TYPE_REQUEST_FORGOT form', () => {
+      spyOn(configurationDataService, 'findByPropertyName').and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'authentication-password.domain.valid',
+        values: ['marvel.com'],
+      })));
+      comp.typeRequest = TYPE_REQUEST_FORGOT;
+
+      comp.ngOnInit();
+
+      comp.form.patchValue({ email: 'valid@email.org' });
       expect(comp.form.invalid).toBeFalse();
     });
     it('should be valid when uppercase letters are used', () => {
