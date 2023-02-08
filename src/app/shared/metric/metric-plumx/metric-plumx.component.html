@@ -1,10 +1,9 @@
-<div class="justify-content-center" *ngIf="remark">
+<div class="row d-flex align-items-center justify-content-center" *ngIf="remark && !(isHidden$ | async)">
   <div *ngIf="(remark | dsListMetricProps: 'type':isListElement) == 'Person'; else publication" [ngClass]="{'person-type-plumX': isListElement}">
-    <a
+    <a *ngIf="remark && (remark | dsListMetricProps: 'data-person-badge-enabled':isListElement == true)"
       [href]="remark | dsListMetricProps: 'href':isListElement"
       class="plumx-person"
       data-site="plum"
-      [attr.data-lang]="remark | dsListMetricProps: 'data-lang':isListElement"
       [attr.data-no-name]="remark | dsListMetricProps: 'data-no-name':isListElement"
       [attr.data-num-artifacts]="remark | dsListMetricProps: 'data-num-artifacts':isListElement"
       [attr.data-width]="remark | dsListMetricProps: 'data-width':isListElement"
@@ -17,8 +16,15 @@
     </a>
   </div>
   <ng-template #publication>
-    <a
-      [attr.data-hide-when-empty]="isListElement"
+    <a *ngIf="remark && (remark | dsListMetricProps: 'data-publication-badge-enabled':isListElement == true)"
+      [attr.data-popup]="remark | dsListMetricProps: 'data-popup':isListElement"
+      [attr.data-hide-when-empty]="remark | dsListMetricProps: 'data-hide-when-empty':isListElement"
+      [attr.data-hide-usage]="remark | dsListMetricProps: 'data-hide-usage':isListElement"
+      [attr.data-hide-captures]="remark | dsListMetricProps: 'data-hide-captures':isListElement"
+      [attr.data-hide-mentions]="remark | dsListMetricProps: 'data-hide-mentions':isListElement"
+      [attr.data-hide-citations]="remark | dsListMetricProps: 'data-hide-citations':isListElement"
+      [attr.data-pass-hidden-categories]="remark | dsListMetricProps: 'data-pass-hidden-categories':isListElement"
+      [attr.data-detail-same-page]="remark | dsListMetricProps: 'data-detail-same-page':isListElement"
       [href]="remark | dsListMetricProps: 'href':isListElement"
       class="plumx-plum-print-popup"
     >

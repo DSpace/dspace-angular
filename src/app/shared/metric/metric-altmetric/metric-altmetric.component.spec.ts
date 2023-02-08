@@ -19,7 +19,7 @@ describe('MetricAltmetricComponent', () => {
     metricCount: 333,
     metricType: 'altmetric',
     rank: null,
-    remark: '{"popover":"bottom","doiAttr":"10.1056/Test","pmidAttr":"1234567890"}',
+    remark: '{"popover":"bottom","doiAttr":"10.1056/Test","pmidAttr":"1234567890","list-data-badge-enabled":"true","data-badge-enabled":"true"}',
     startDate: null,
     type: null,
     _links: null
