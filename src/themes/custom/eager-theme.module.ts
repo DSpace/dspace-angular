@@ -38,13 +38,13 @@ import {
 import {
     EditItemSelectorComponent
 } from './app/shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
-
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent} from './app/shared/object-list/collection-list-element/collection-list-element.component';
 import { CollectionDropdownComponent } from './app/shared/collection-dropdown/collection-dropdown.component';
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
 import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
-
+import { StartsWithDateComponent } from './app/shared/starts-with/date/starts-with-date.component';
+import { StartsWithTextComponent } from './app/shared/starts-with/text/starts-with-text.component';
 
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
@@ -56,10 +56,11 @@ const ENTRY_COMPONENTS = [
   JournalVolumeComponent,
   PublicationComponent,
   UntypedItemComponent,
-
   CommunityListElementComponent,
   CollectionListElementComponent,
   CollectionDropdownComponent,
+  StartsWithDateComponent,
+  StartsWithTextComponent,
 ];
 
 const DECLARATIONS = [
