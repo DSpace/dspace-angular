@@ -123,6 +123,7 @@ import { ItemSharedModule } from '../../app/item-page/item-shared.module';
 import { ResultsBackButtonComponent } from './app/shared/results-back-button/results-back-button.component';
 import { DsoEditMetadataComponent } from './app/dso-shared/dso-edit-metadata/dso-edit-metadata.component';
 import { DsoSharedModule } from '../../app/dso-shared/dso-shared.module';
+import { ItemAlertsComponent } from './app/item-page/alerts/item-alerts.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -179,6 +180,7 @@ const DECLARATIONS = [
   ExternalSourceEntryImportModalComponent,
   ResultsBackButtonComponent,
   DsoEditMetadataComponent,
+  ItemAlertsComponent,
 ];
 
 @NgModule({

@@ -248,8 +248,6 @@ import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
 import { LogInExternalProviderComponent } from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
 
-
-
 const MODULES = [
   CommonModule,
   FormsModule,
