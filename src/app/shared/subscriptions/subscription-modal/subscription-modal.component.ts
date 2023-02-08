@@ -62,12 +62,12 @@ export class SubscriptionModalComponent implements OnInit {
   /**
    * Types of subscription to be shown on select
    */
-  private subscriptionDefaultTypes = ['content'];
+  subscriptionDefaultTypes = ['content'];
 
   /**
    * Frequencies to be shown as checkboxes
    */
-  private frequencyDefaultValues = ['D', 'W', 'M'];
+  frequencyDefaultValues = ['D', 'W', 'M'];
 
   /**
    * True if form status has changed and at least one frequency is checked
@@ -115,7 +115,7 @@ export class SubscriptionModalComponent implements OnInit {
     });
   }
 
-  private initFormByAllSubscriptions(): void {
+  initFormByAllSubscriptions(): void {
     this.subscriptionForm = new FormGroup({});
     for (let t of this.subscriptionDefaultTypes) {
       const formGroup = new FormGroup({});

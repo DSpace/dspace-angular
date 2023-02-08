@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgbActiveModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -24,11 +24,11 @@ describe('SubscriptionModalComponent', () => {
   let de: DebugElement;
 
   let subscriptionServiceStub;
-  const notificationServiceStub = {
-    notificationWithAnchor() {
-      return true;
-    }
-  };
+
+  const notificationServiceStub = jasmine.createSpyObj('authService', {
+    notificationWithAnchor: true,
+    success: undefined,
+  });
 
   const emptyPageInfo = Object.assign(new PageInfo(), {
     'elementsPerPage': 0,
@@ -100,6 +100,72 @@ describe('SubscriptionModalComponent', () => {
     }).compileComponents();
 
   }));
+
+  describe('when submitting subscriptions', () => {
+
+    const testSubscriptionId = 'test-subscription-id';
+    const testTypes = ['test1', 'test2'];
+    const testFrequencies = ['f', 'g'];
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(SubscriptionModalComponent);
+      component = fixture.componentInstance;
+      component.dso = mockItem;
+      (component as any).subscriptionDefaultTypes = testTypes;
+      (component as any).frequencyDefaultValues = testFrequencies;
+      de = fixture.debugElement;
+      subscriptionServiceStub.createSubscription.calls.reset();
+      subscriptionServiceStub.updateSubscription.calls.reset();
+      fixture.detectChanges();
+    });
+
+    it('should edit an existing subscription', () => {
+      component.subscriptionForm = new FormGroup({});
+      for (let t of testTypes) {
+        const formGroup = new FormGroup({
+          subscriptionId: new FormControl(testSubscriptionId),
+          frequencies: new FormGroup({
+            f: new FormControl(false),
+            g: new FormControl(true),
+          })
+        });
+        component.subscriptionForm.addControl(t, formGroup);
+        component.subscriptionForm.get('test1').markAsDirty();
+        component.subscriptionForm.get('test1').markAsTouched();
+      }
+
+      fixture.detectChanges();
+      component.submit();
+
+      expect(subscriptionServiceStub.createSubscription).not.toHaveBeenCalled();
+      expect(subscriptionServiceStub.updateSubscription).toHaveBeenCalled();
+      expect(component.subscriptionForm.controls).toBeTruthy();
+    });
+
+    it('should create a new subscription', () => {
+      component.subscriptionForm = new FormGroup({});
+      for (let t of testTypes) {
+        const formGroup = new FormGroup({
+          subscriptionId: new FormControl(undefined),
+          frequencies: new FormGroup({
+            f: new FormControl(false),
+            g: new FormControl(true),
+          })
+        });
+        component.subscriptionForm.addControl(t, formGroup);
+        component.subscriptionForm.get('test1').markAsDirty();
+        component.subscriptionForm.get('test1').markAsTouched();
+      }
+
+      fixture.detectChanges();
+      component.submit();
+
+      expect(subscriptionServiceStub.createSubscription).toHaveBeenCalled();
+      expect(subscriptionServiceStub.updateSubscription).not.toHaveBeenCalled();
+      expect(component.subscriptionForm.controls).toBeTruthy();
+    });
+
+  });
 
   describe('when no subscription is given', () => {
     beforeEach(() => {
