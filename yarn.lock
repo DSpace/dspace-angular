@@ -7981,13 +7981,6 @@ ng2-nouislider@^1.8.3:
   resolved "https://registry.yarnpkg.com/ng2-nouislider/-/ng2-nouislider-1.8.3.tgz#c9c1ec77b6b5a909f87368ba799914208baa13a6"
   integrity sha512-Vl8tHCcJ/ioJLAs2t6FBC35sZq1P/O5ZdqdFwYxOCOMVbILGWNg+2gWZIjFstvv9pqb/mVvVUYe6qGG/mA/RBQ==
 
-ngx-bootstrap@7.1.2:
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-7.1.2.tgz#cf06a05cc22a74b882b45882a1f64f72ddece23d"
-  integrity sha512-VsZwlGVM+qYOAdvEzzH3wqCjvj3yHec4n82Tho0ve6mhN1GTRu9WPrPmvxp3cFjIu8VQbREUeKPfK0ooO8U5eg==
-  dependencies:
-    tslib "^2.0.0"
-
 ngx-infinite-scroll@^10.0.1:
   version "10.0.1"
   resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-10.0.1.tgz#6f51f2f8775a7c50d1dd8bad125d4e748abbe880"

@@ -18,7 +18,7 @@ import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-it
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { RatingModule } from 'ngx-bootstrap/rating';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { createSuccessfulRemoteDataObject$, createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
@@ -52,7 +52,7 @@ describe('AdvancedWorkflowActionRatingComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         FormsModule,
-        RatingModule,
+        NgbModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
       ],
