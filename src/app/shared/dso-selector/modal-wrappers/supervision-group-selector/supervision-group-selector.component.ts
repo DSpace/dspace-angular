@@ -83,7 +83,7 @@ export class SupervisionGroupSelectorComponent {
         } else {
           this.notificationsService.error(
             this.translateService.get('supervision-group-selector.notification.create.failure.title'),
-            rd.statusCode == 422 ? this.translateService.get('supervision-group-selector.notification.create.already-existing') : rd.errorMessage);
+            rd.statusCode === 422 ? this.translateService.get('supervision-group-selector.notification.create.already-existing') : rd.errorMessage);
         }
       });
     }
