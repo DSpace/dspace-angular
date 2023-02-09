@@ -79,13 +79,13 @@ export class SupervisionGroupSelectorComponent {
         if (rd.state === 'Success') {
           this.supervisionOrderDataService.searchByItem(this.itemUUID, null, null, followLink('group'));
           this.notificationsService.success(this.translateService.get('supervision-group-selector.notification.create.success.title', { name: this.selectedGroup.name }));
+          this.close();
         } else {
           this.notificationsService.error(
-          this.translateService.get('supervision-group-selector.notification.create.failure.title'),
-          rd.errorMessage);
+            this.translateService.get('supervision-group-selector.notification.create.failure.title'),
+            rd.statusCode == 422 ? this.translateService.get('supervision-group-selector.notification.create.already-existing') : rd.errorMessage);
         }
       });
-      this.close();
     }
   }
 

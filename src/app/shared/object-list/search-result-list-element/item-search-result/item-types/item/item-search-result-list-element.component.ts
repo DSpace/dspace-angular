@@ -100,7 +100,7 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
       ).pipe(
         getAllSucceededRemoteData(),
       ).subscribe((result) => {
-        this.supervisionOrder$ = this.supervisionOrderDataService.searchByItem(this.dso.uuid, null, null, followLink('group')).pipe(
+        this.supervisionOrder$ = this.supervisionOrderDataService.searchByItem(this.dso.uuid, false, true, followLink('group')).pipe(
           getAllSucceededRemoteListPayload(),
           switchMap((supervisionOrders: SupervisionOrder[]) => {
             const supervisionOrdersArray = supervisionOrders.map((supervisionOrder: SupervisionOrder) => {

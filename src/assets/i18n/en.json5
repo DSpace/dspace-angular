@@ -1443,6 +1443,8 @@
 
   "supervision-group-selector.select.group.label": "Select a Group",
 
+  "supervision-group-selector.button.cancel": "Cancel",
+
   "supervision-group-selector.button.save": "Save",
 
   "supervision-group-selector.select.type-of-order.error": "Please select a type of order",
@@ -1452,6 +1454,8 @@
   "supervision-group-selector.notification.create.success.title": "Successfully created supervision order for group {{ name }}",
 
   "supervision-group-selector.notification.create.failure.title": "Error",
+
+  "supervision-group-selector.notification.create.already-existing" : "A supervision order already exists on this item for selected group",
 
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
 
