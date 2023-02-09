@@ -10,13 +10,19 @@ import { DeleteRequest } from './request.models';
 import { RelationshipDataService } from './relationship-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/remote-data.utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RequestEntry } from './request-entry.model';
 import { FindListOptions } from './find-list-options.model';
 import { testSearchDataImplementation } from './base/search-data.spec';
+import { MetadataValue } from '../shared/metadata.models';
+import { MetadataRepresentationType } from '../shared/metadata-representation/metadata-representation.model';
 
 describe('RelationshipDataService', () => {
   let service: RelationshipDataService;
@@ -230,6 +236,154 @@ describe('RelationshipDataService', () => {
       ).subscribe((result) => {
         expect((service as any).paginatedRelationsToItems).toHaveBeenCalledWith(mockItem.uuid);
         done();
+      });
+    });
+  });
+
+  describe('resolveMetadataRepresentation', () => {
+    const parentItem: Item = Object.assign(new Item(), {
+      id: 'parent-item',
+      metadata: {
+        'dc.contributor.author': [
+          Object.assign(new MetadataValue(), {
+            language: null,
+            value: 'Related Author with authority',
+            authority: 'virtual::related-author',
+            place: 2
+          }),
+          Object.assign(new MetadataValue(), {
+            language: null,
+            value: 'Author without authority',
+            place: 1
+          }),
+        ],
+        'dc.creator': [
+          Object.assign(new MetadataValue(), {
+            language: null,
+            value: 'Related Creator with authority',
+            authority: 'virtual::related-creator',
+            place: 3,
+          }),
+            Object.assign(new MetadataValue(), {
+            language: null,
+            value: 'Related Creator with authority - unauthorized',
+            authority: 'virtual::related-creator-unauthorized',
+            place: 4,
+          }),
+        ],
+        'dc.title': [
+          Object.assign(new MetadataValue(), {
+            language: null,
+            value: 'Parent Item'
+          }),
+        ]
+      }
+    });
+    const relatedAuthor: Item = Object.assign(new Item(), {
+      id: 'related-author',
+      metadata: {
+        'dc.title': [
+          Object.assign(new MetadataValue(), {
+            language: null,
+            value: 'Related Author'
+          }),
+        ]
+      }
+    });
+    const relatedCreator: Item = Object.assign(new Item(), {
+      id: 'related-creator',
+      metadata: {
+        'dc.title': [
+          Object.assign(new MetadataValue(), {
+            language: null,
+            value: 'Related Creator'
+          }),
+        ],
+        'dspace.entity.type': 'Person',
+      }
+    });
+    const authorRelation: Relationship = Object.assign(new Relationship(), {
+      leftItem: createSuccessfulRemoteDataObject$(parentItem),
+      rightItem: createSuccessfulRemoteDataObject$(relatedAuthor)
+    });
+    const creatorRelation: Relationship = Object.assign(new Relationship(), {
+      leftItem: createSuccessfulRemoteDataObject$(parentItem),
+      rightItem: createSuccessfulRemoteDataObject$(relatedCreator),
+    });
+    const creatorRelationUnauthorized: Relationship = Object.assign(new Relationship(), {
+      leftItem: createSuccessfulRemoteDataObject$(parentItem),
+      rightItem: createFailedRemoteDataObject$('Unauthorized', 401),
+    });
+
+    let metadatum: MetadataValue;
+
+    beforeEach(() => {
+      service.findById = (id: string) => {
+        if (id === 'related-author') {
+          return createSuccessfulRemoteDataObject$(authorRelation);
+        }
+        if (id === 'related-creator') {
+          return createSuccessfulRemoteDataObject$(creatorRelation);
+        }
+        if (id === 'related-creator-unauthorized') {
+          return createSuccessfulRemoteDataObject$(creatorRelationUnauthorized);
+        }
+      };
+    });
+
+    describe('when the metadata isn\'t virtual', () => {
+      beforeEach(() => {
+        metadatum = parentItem.metadata['dc.contributor.author'][1];
+      });
+
+      it('should return a plain text MetadatumRepresentation', (done) => {
+        service.resolveMetadataRepresentation(metadatum, parentItem, 'Person').subscribe((result) => {
+          expect(result.representationType).toEqual(MetadataRepresentationType.PlainText);
+          done();
+        });
+      });
+    });
+
+    describe('when the metadata is a virtual author', () => {
+      beforeEach(() => {
+        metadatum = parentItem.metadata['dc.contributor.author'][0];
+      });
+
+      it('should return a ItemMetadataRepresentation with the correct value', (done) => {
+        service.resolveMetadataRepresentation(metadatum, parentItem, 'Person').subscribe((result) => {
+          expect(result.representationType).toEqual(MetadataRepresentationType.Item);
+          expect(result.getValue()).toEqual(metadatum.value);
+          expect((result as any).id).toEqual(relatedAuthor.id);
+          done();
+        });
+      });
+    });
+
+    describe('when the metadata is a virtual creator', () => {
+      beforeEach(() => {
+        metadatum = parentItem.metadata['dc.creator'][0];
+      });
+
+      it('should return a ItemMetadataRepresentation with the correct value', (done) => {
+        service.resolveMetadataRepresentation(metadatum, parentItem, 'Person').subscribe((result) => {
+          expect(result.representationType).toEqual(MetadataRepresentationType.Item);
+          expect(result.getValue()).toEqual(metadatum.value);
+          expect((result as any).id).toEqual(relatedCreator.id);
+          done();
+        });
+      });
+    });
+
+    describe('when the metadata refers to a relationship leading to an error response', () => {
+      beforeEach(() => {
+        metadatum = parentItem.metadata['dc.creator'][1];
+      });
+
+      it('should return an authority controlled MetadatumRepresentation', (done) => {
+        service.resolveMetadataRepresentation(metadatum, parentItem, 'Person').subscribe((result) => {
+          expect(result.representationType).toEqual(MetadataRepresentationType.AuthorityControlled);
+          done();
+        });
       });
     });
   });

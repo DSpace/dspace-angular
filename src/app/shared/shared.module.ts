@@ -84,6 +84,8 @@ import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import {
   PlainTextMetadataListElementComponent
 } from './object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
+import { BrowseLinkMetadataListElementComponent }
+  from './object-list/metadata-representation-list-element/browse-link/browse-link-metadata-list-element.component';
 import {
   ItemMetadataListElementComponent
 } from './object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
@@ -227,6 +229,8 @@ import { SearchNavbarComponent } from '../search-navbar/search-navbar.component'
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
+import { ContextHelpDirective } from './context-help.directive';
+import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 import { RSSComponent } from './rss-feed/rss.component';
 import { BrowserOnlyPipe } from './utils/browser-only.pipe';
 import { ThemedLoadingComponent } from './loading/themed-loading.component';
@@ -345,6 +349,7 @@ const COMPONENTS = [
   ListableNotificationObjectComponent,
   DsoPageEditButtonComponent,
   MetadataFieldWrapperComponent,
+  ContextHelpWrapperComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -380,6 +385,7 @@ const ENTRY_COMPONENTS = [
   EditItemSelectorComponent,
   ThemedEditItemSelectorComponent,
   PlainTextMetadataListElementComponent,
+  BrowseLinkMetadataListElementComponent,
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
   ItemMetadataRepresentationListElementComponent,
@@ -423,7 +429,8 @@ const DIRECTIVES = [
   ClaimedTaskActionsDirective,
   NgForTrackByIdDirective,
   MetadataFieldValidator,
-  HoverClassDirective
+  HoverClassDirective,
+  ContextHelpDirective,
 ];
 
 @NgModule({
