@@ -94,7 +94,6 @@ import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.c
 import {
   ExpandableNavbarSectionComponent
 } from './app/navbar/expandable-navbar-section/expandable-navbar-section.component';
-import { ItemMetadataComponent } from './app/item-page/edit-item-page/item-metadata/item-metadata.component';
 import {
   EditItemTemplatePageComponent
 } from './app/collection-page/edit-item-template-page/edit-item-template-page.component';
@@ -129,7 +128,8 @@ import { StatusBadgeComponent } from './app/shared/object-collection/shared/badg
 import { BadgesComponent } from './app/shared/object-collection/shared/badges/badges.component';
 import { AccessStatusBadgeComponent } from './app/shared/object-collection/shared/badges/access-status-badge/access-status-badge.component';
 import { ResultsBackButtonComponent } from './app/shared/results-back-button/results-back-button.component';
-
+import { DsoEditMetadataComponent } from './app/dso-shared/dso-edit-metadata/dso-edit-metadata.component';
+import { DsoSharedModule } from '../../app/dso-shared/dso-shared.module';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -173,7 +173,6 @@ const DECLARATIONS = [
   ComcolPageHandleComponent,
   AuthNavMenuComponent,
   ExpandableNavbarSectionComponent,
-  ItemMetadataComponent,
   EditItemTemplatePageComponent,
   LoadingComponent,
   SearchResultsComponent,
@@ -193,7 +192,7 @@ const DECLARATIONS = [
   MyDSpaceStatusBadgeComponent,
   AccessStatusBadgeComponent,
   ResultsBackButtonComponent,
-
+  DsoEditMetadataComponent,
 ];
 
 @NgModule({
@@ -248,6 +247,7 @@ const DECLARATIONS = [
     FormsModule,
     ResourcePoliciesModule,
     ComcolModule,
+    DsoSharedModule,
   ],
   declarations: DECLARATIONS,
   exports: [
