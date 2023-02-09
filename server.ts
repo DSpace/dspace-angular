@@ -324,7 +324,7 @@ function initCache() {
     botCache = new LRU( {
       max: environment.cache.serverSide.botCache.max,
       ttl: environment.cache.serverSide.botCache.timeToLive || 24 * 60 * 60 * 1000, // 1 day
-      allowStale: environment.cache.serverSide.botCache.allowStale || true // if object is stale, return stale value before deleting
+      allowStale: environment.cache.serverSide.botCache.allowStale ?? true // if object is stale, return stale value before deleting
     });
   }
 
@@ -335,7 +335,7 @@ function initCache() {
     anonymousCache = new LRU( {
       max: environment.cache.serverSide.anonymousCache.max,
       ttl: environment.cache.serverSide.anonymousCache.timeToLive || 10 * 1000, // 10 seconds
-      allowStale: environment.cache.serverSide.anonymousCache.allowStale || true // if object is stale, return stale value before deleting
+      allowStale: environment.cache.serverSide.anonymousCache.allowStale ?? true // if object is stale, return stale value before deleting
     });
   }
 }
