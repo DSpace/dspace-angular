@@ -31,7 +31,7 @@ import {
   ReviewersListComponent
 } from './advanced-workflow-action/advanced-workflow-action-select-reviewer/reviewers-list/reviewers-list.component';
 import { FormModule } from '../shared/form/form.module';
-import { RatingModule } from 'ngx-bootstrap/rating';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -43,7 +43,7 @@ import { RatingModule } from 'ngx-bootstrap/rating';
     ItemPageModule,
     AccessControlModule,
     FormModule,
-    RatingModule,
+    NgbModule,
   ],
   declarations: [
     WorkflowItemDeleteComponent,
