@@ -69,6 +69,8 @@ export class SubscriptionModalComponent implements OnInit {
    */
   frequencyDefaultValues = ['D', 'W', 'M'];
 
+  showDeleteInfo: boolean;
+
   /**
    * True if form status has changed and at least one frequency is checked
    */
@@ -101,8 +103,10 @@ export class SubscriptionModalComponent implements OnInit {
       this.ePersonId = ePersonId;
       if (isNotEmpty(this.subscription)) {
         this.initFormByGivenSubscription();
+        this.showDeleteInfo = true;
       } else {
         this.initFormByAllSubscriptions();
+        this.showDeleteInfo = false;
       }
     });
 

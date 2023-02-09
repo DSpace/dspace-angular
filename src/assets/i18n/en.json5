@@ -4621,6 +4621,14 @@
 
   "subscriptions.table.action": "Action",
 
+  "subscriptions.table.edit": "Edit",
+
+  "subscriptions.table.delete": "Delete",
+
+  "subscriptions.table.not-available": "Not available",
+
+  "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
+
   "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
 
 
