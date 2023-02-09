@@ -77,7 +77,7 @@ describe('VersionedItemComponent', () => {
         { provide: WorkspaceitemDataService, useValue: {} },
         { provide: SearchService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
-        { provide: RouteService, useValue: mockRouteService }
+        { provide: RouteService, useValue: mockRouteService },
       ]
     }).compileComponents();
     versionService = TestBed.inject(VersionDataService);
